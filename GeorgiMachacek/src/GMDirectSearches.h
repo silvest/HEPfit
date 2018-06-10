@@ -975,107 +975,6 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_pp_H5_hh_bbbb_CMS8: public ThObservable {
-public:
-
-    Hobs_pp_H5_hh_bbbb_CMS8(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_pp_H5_hh_gagabb_CMS8: public ThObservable {
-public:
-
-    Hobs_pp_H5_hh_gagabb_CMS8(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_pp_H5_hh_bbtautau_CMS8: public ThObservable {
-public:
-
-    Hobs_pp_H5_hh_bbtautau_CMS8(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_pp_H5_hh_bbbb_ATLAS13: public ThObservable {
-public:
-
-    Hobs_pp_H5_hh_bbbb_ATLAS13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-/**
- * @class Hobs_pp_H5_hh_bbbb_CMS13
- * @ingroup GeorgiMachacek
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to H_5\to hh\to b\bar b b\bar b@f$.
- */
-class Hobs_pp_H5_hh_bbbb_CMS13: public ThObservable {
-public:
-
-    /**
-     * @brief Hobs_pp_H5_hh_bbbb_CMS13 constructor.
-     */
-    Hobs_pp_H5_hh_bbbb_CMS13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$[\sigma^{\text{THDM}}_{pp\to H_5}\cdot BR^{\text{GM}}(H_5\to hh\to b\bar b b\bar b)]_{\text{theo}} / [\sigma_{pp\to H_5}\cdot BR(H_5\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
-     */
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_pp_H5_hh_gagabb_ATLAS13: public ThObservable {
-public:
-
-    Hobs_pp_H5_hh_gagabb_ATLAS13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_pp_H5_hh_gagabb_CMS13: public ThObservable {
-public:
-
-    Hobs_pp_H5_hh_gagabb_CMS13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_pp_H5_hh_bbtautau_CMS13: public ThObservable {
-public:
-
-    Hobs_pp_H5_hh_bbtautau_CMS13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_pp_H5_hh_bblnulnu_CMS13: public ThObservable {
-public:
-
-    Hobs_pp_H5_hh_bblnulnu_CMS13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
 class Hobs_gg_H3_hZ_bbZ_ATLAS8: public ThObservable {
 public:
 
@@ -1629,16 +1528,6 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_gg_H1_Zga_llga_TH13: public ThObservable {
-public:
-
-    log10_gg_H1_Zga_llga_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
 class log10_gg_H1_Zga_TH13: public ThObservable {
 public:
 
@@ -1653,16 +1542,6 @@ class log10_pp_H3_Zga_llga_TH8: public ThObservable {
 public:
 
     log10_pp_H3_Zga_llga_TH8(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_gg_H3_Zga_llga_TH13: public ThObservable {
-public:
-
-    log10_gg_H3_Zga_llga_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1709,70 +1588,30 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_gg_H1_ZZ_llllnunu_TH13: public ThObservable {
+class log10_gg_H1_ZZ_TH13: public ThObservable {
 public:
 
-    log10_gg_H1_ZZ_llllnunu_TH13(const StandardModel& SM_i);
+    log10_gg_H1_ZZ_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_VV_H1_ZZ_llllnunu_TH13: public ThObservable {
+class log10_VV_H1_ZZ_TH13: public ThObservable {
 public:
 
-    log10_VV_H1_ZZ_llllnunu_TH13(const StandardModel& SM_i);
+    log10_VV_H1_ZZ_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_gg_H1_ZZ_qqllnunu_TH13: public ThObservable {
+class log10_pp_H1_ZZ_TH13: public ThObservable {
 public:
 
-    log10_gg_H1_ZZ_qqllnunu_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_VV_H1_ZZ_qqllnunu_TH13: public ThObservable {
-public:
-
-    log10_VV_H1_ZZ_qqllnunu_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H1_ZZ_llqqnunull_TH13: public ThObservable {
-public:
-
-    log10_pp_H1_ZZ_llqqnunull_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_VV_H1_ZZ_llqqnunull_TH13: public ThObservable {
-public:
-
-    log10_VV_H1_ZZ_llqqnunull_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H1_ZZ_qqnunu_TH13: public ThObservable {
-public:
-
-    log10_pp_H1_ZZ_qqnunu_TH13(const StandardModel& SM_i);
+    log10_pp_H1_ZZ_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1789,50 +1628,10 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_VV_H5_ZZ_llllnunu_TH13: public ThObservable {
+class log10_VV_H5_ZZ_TH13: public ThObservable {
 public:
 
-    log10_VV_H5_ZZ_llllnunu_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_VV_H5_ZZ_qqllnunu_TH13: public ThObservable {
-public:
-
-    log10_VV_H5_ZZ_qqllnunu_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_ZZ_llqqnunull_TH13: public ThObservable {
-public:
-
-    log10_pp_H5_ZZ_llqqnunull_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_VV_H5_ZZ_llqqnunull_TH13: public ThObservable {
-public:
-
-    log10_VV_H5_ZZ_llqqnunull_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_ZZ_qqnunu_TH13: public ThObservable {
-public:
-
-    log10_pp_H5_ZZ_qqnunu_TH13(const StandardModel& SM_i);
+    log10_VV_H5_ZZ_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1859,40 +1658,20 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_gg_H1_WW_enumunu_TH13: public ThObservable {
+class log10_gg_H1_WW_TH13: public ThObservable {
 public:
 
-    log10_gg_H1_WW_enumunu_TH13(const StandardModel& SM_i);
+    log10_gg_H1_WW_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_VV_H1_WW_enumunu_TH13: public ThObservable {
+class log10_VV_H1_WW_TH13: public ThObservable {
 public:
 
-    log10_VV_H1_WW_enumunu_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_gg_H1_WW_lnuqq_TH13: public ThObservable {
-public:
-
-    log10_gg_H1_WW_lnuqq_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_VV_H1_WW_lnuqq_TH13: public ThObservable {
-public:
-
-    log10_VV_H1_WW_lnuqq_TH13(const StandardModel& SM_i);
+    log10_VV_H1_WW_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1909,10 +1688,10 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_pp_H1_WW_lnuqq_TH13: public ThObservable {
+class log10_pp_H1_WW_TH13: public ThObservable {
 public:
 
-    log10_pp_H1_WW_lnuqq_TH13(const StandardModel& SM_i);
+    log10_pp_H1_WW_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1929,20 +1708,10 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_VV_H5_WW_enumunu_TH13: public ThObservable {
+class log10_VV_H5_WW_TH13: public ThObservable {
 public:
 
-    log10_VV_H5_WW_enumunu_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_VV_H5_WW_lnuqq_TH13: public ThObservable {
-public:
-
-    log10_VV_H5_WW_lnuqq_TH13(const StandardModel& SM_i);
+    log10_VV_H5_WW_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1959,10 +1728,10 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_pp_H5_WW_lnuqq_TH13: public ThObservable {
+class log10_pp_H5_WW_TH13: public ThObservable {
 public:
 
-    log10_pp_H5_WW_lnuqq_TH13(const StandardModel& SM_i);
+    log10_pp_H5_WW_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -2039,6 +1808,16 @@ private:
     const GeorgiMachacek& myGM;
 };
 
+class log10_pp_H1_hh_TH8: public ThObservable {
+public:
+
+    log10_pp_H1_hh_TH8(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
 class log10_pp_H1_hh_bbbb_TH8: public ThObservable {
 public:
 
@@ -2059,20 +1838,20 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_gg_H1_hh_bbtautau_TH8: public ThObservable {
+class log10_pp_H1_hh_TH13: public ThObservable {
 public:
 
-    log10_gg_H1_hh_bbtautau_TH8(const StandardModel& SM_i);
+    log10_pp_H1_hh_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_pp_H1_hh_bbtautau_TH8: public ThObservable {
+class log10_gg_H1_hh_TH13: public ThObservable {
 public:
 
-    log10_pp_H1_hh_bbtautau_TH8(const StandardModel& SM_i);
+    log10_gg_H1_hh_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -2134,86 +1913,6 @@ class log10_pp_H1_hh_bblnulnu_TH13: public ThObservable {
 public:
 
     log10_pp_H1_hh_bblnulnu_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_gg_H1_hh_gagaWW_TH13: public ThObservable {
-public:
-
-    log10_gg_H1_hh_gagaWW_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_hh_bbbb_TH8: public ThObservable {
-public:
-
-    log10_pp_H5_hh_bbbb_TH8(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_hh_gagabb_TH8: public ThObservable {
-public:
-
-    log10_pp_H5_hh_gagabb_TH8(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_hh_bbtautau_TH8: public ThObservable {
-public:
-
-    log10_pp_H5_hh_bbtautau_TH8(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_hh_bbbb_TH13: public ThObservable {
-public:
-
-    log10_pp_H5_hh_bbbb_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_hh_gagabb_TH13: public ThObservable {
-public:
-
-    log10_pp_H5_hh_gagabb_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_hh_bbtautau_TH13: public ThObservable {
-public:
-
-    log10_pp_H5_hh_bbtautau_TH13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class log10_pp_H5_hh_bblnulnu_TH13: public ThObservable {
-public:
-
-    log10_pp_H5_hh_bblnulnu_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:

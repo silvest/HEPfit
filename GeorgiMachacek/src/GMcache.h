@@ -120,7 +120,9 @@ public:
 
     gslpp::matrix<double> log_cs_ppH5ppH5mm_8, log_cs_ppH5ppH5mm_13, log_cs_VBFH5_8, log_cs_VBFH5_13;
     gslpp::matrix<double> log_cs_VBFH5m_8, log_cs_VBFH5m_13, log_cs_VBFH5mm_8, log_cs_VBFH5mm_13;
-    gslpp::matrix<double> log_cs_VBFH5p_8, log_cs_VBFH5p_13, log_cs_VBFH5pp_8, log_cs_VBFH5pp_13, log_cs_VHH5_8, log_cs_VHH5_13;
+    gslpp::matrix<double> log_cs_VBFH5p_8, log_cs_VBFH5p_13, log_cs_VBFH5pp_8, log_cs_VBFH5pp_13;
+    gslpp::matrix<double> log_cs_VHH5_8, log_cs_VHH5_13;
+    gslpp::matrix<double> log_cs_VHH5mm_8, log_cs_VHH5mm_13, log_cs_VHH5pp_8, log_cs_VHH5pp_13;
 
     /**
      * @brief Observed @f$95\%@f$ upper cross section limits, depending on the invariant mass.
@@ -847,6 +849,7 @@ public:
     double rHH_ff, rHH_VV, rHH_gg, rHH_gaga, rHH_Zga;
     double sumModBRs, Gamma_h, GM_Br_h_bb, GM_Br_h_gaga, GM_Br_h_tautau, GM_Br_h_WW, GM_Br_h_ZZ;
     double Br_Htohh, Br_H5tohh, Br_AtohZ, Br_AtoHZ, Br_AtoH5Z, Br_HtoAZ, Br_H5toAZ;
+    double BrRatioVV5;
     double Br_Hptotaunu, Br_Hptotb, Br_H5ptoWZ, Br_H5pptoWW;
     double THoEX_tt_H_tt_ATLAS13, THoEX_bb_H_tt_ATLAS13;
     double THoEX_tt_A_tt_ATLAS13, THoEX_bb_A_tt_ATLAS13;
@@ -919,8 +922,8 @@ public:
     double gg_H_gaga_TH8, pp_H_gaga_TH13, gg_H_gaga_TH13;
     double gg_A_gaga_TH8, pp_A_gaga_TH13, gg_A_gaga_TH13;
     double gg_H5_gaga_TH8, pp_H5_gaga_TH13, gg_H5_gaga_TH13;
-    double pp_H_Zga_llga_TH8, gg_H_Zga_TH13, gg_H_Zga_llga_TH13;
-    double pp_A_Zga_llga_TH8, gg_A_Zga_TH13, gg_A_Zga_llga_TH13;
+    double pp_H_Zga_llga_TH8, gg_H_Zga_TH13;
+    double pp_A_Zga_llga_TH8, gg_A_Zga_TH13;
     double pp_H5_Zga_llga_TH8, gg_H5_Zga_TH13, gg_H5_Zga_llga_TH13;
     double gg_H_ZZ_TH8, VV_H_ZZ_TH8, gg_H_ZZ_TH13, VV_H_ZZ_TH13, pp_H_ZZ_TH13;
     double gg_H5_ZZ_TH8, VV_H5_ZZ_TH8, gg_H5_ZZ_TH13, VV_H5_ZZ_TH13, pp_H5_ZZ_TH13;

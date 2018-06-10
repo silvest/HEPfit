@@ -54,6 +54,10 @@ GMcache::GMcache(const StandardModel& SM_i)
     log_cs_VBFH5pp_13(91, 2, 0.),
     log_cs_VHH5_8(18, 2, 0.),
     log_cs_VHH5_13(38, 2, 0.),
+    log_cs_VHH5mm_8(18, 2, 0.),
+    log_cs_VHH5mm_13(38, 2, 0.),
+    log_cs_VHH5pp_8(18, 2, 0.),
+    log_cs_VHH5pp_13(38, 2, 0.),
     /* Neutral searches */
     ATLAS13_tt_phi_tt(61,2,0.),
     ATLAS13_bb_phi_tt(61,2,0.),
@@ -206,7 +210,7 @@ void GMcache::read(){
     std::stringstream cs1,cs2,cs3,cs4,cs5,cs6,cs7,cs8,cs9;
     std::stringstream cs11,cs12,cs13,cs14,cs15,cs16,cs17,cs18,cs19;
     std::stringstream cs20,cs21,cs22,cs23,cs24,cs25,cs26,cs27,cs28,cs29;
-    std::stringstream cs30,cs31,cs32,cs33,cs34,cs35;
+    std::stringstream cs30,cs31,cs32,cs33,cs34,cs35,cs36,cs37,cs38,cs39;
     std::stringstream ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15;
     std::stringstream ex16,ex17,ex18,ex19,ex20,ex21,ex22,ex23,ex24,ex25,ex26,ex27,ex28,ex29,ex30;
     std::stringstream ex31,ex32,ex33,ex34,ex35,ex36,ex37,ex38,ex39,ex40,ex41,ex42,ex43,ex44,ex45;
@@ -304,6 +308,14 @@ void GMcache::read(){
     log_cs_VHH5_8 = readTable(cs34.str(),18,2);
     cs35 << tablepath << "log_cs_VHH5_13.dat";
     log_cs_VHH5_13 = readTable(cs35.str(),38,2);
+    cs36 << tablepath << "log_cs_VHH5mm_8.dat";
+    log_cs_VHH5mm_8 = readTable(cs36.str(),18,2);
+    cs37 << tablepath << "log_cs_VHH5mm_13.dat";
+    log_cs_VHH5mm_13 = readTable(cs37.str(),38,2);
+    cs38 << tablepath << "log_cs_VHH5pp_8.dat";
+    log_cs_VHH5pp_8 = readTable(cs38.str(),18,2);
+    cs39 << tablepath << "log_cs_VHH5pp_13.dat";
+    log_cs_VHH5pp_13 = readTable(cs39.str(),38,2);
     ex1 << tablepath << "ATLAS-CONF-2016-104_a.dat";
     ATLAS13_tt_phi_tt = readTable(ex1.str(),61,2);
     ex2 << tablepath << "ATLAS-CONF-2016-104_b.dat";
@@ -1245,7 +1257,7 @@ double GMcache::ip_cs_VHH5mm_8(double mass){
     } else {
         double newResult = 0.0;
         if (mass>=200. && mass <=1000.) {
-            newResult = 0.0;
+            newResult = pow(10.0,interpolate(log_cs_VHH5mm_8,mass));
         }
         CacheShiftReal(ip_cs_VHH5mm_8_cache, NumPar, params, newResult);
         return newResult;
@@ -1264,7 +1276,7 @@ double GMcache::ip_cs_VHH5mm_13(double mass){
     } else {
         double newResult = 0.0;
         if (mass>=200. && mass <=2000.) {
-            newResult = 0.0;
+            newResult = pow(10.0,interpolate(log_cs_VHH5mm_13,mass));
         }
         CacheShiftReal(ip_cs_VHH5mm_13_cache, NumPar, params, newResult);
         return newResult;
@@ -1283,7 +1295,7 @@ double GMcache::ip_cs_VHH5pp_8(double mass){
     } else {
         double newResult = 0.0;
         if (mass>=200. && mass <=1000.) {
-            newResult = 0.0;
+            newResult = pow(10.0,interpolate(log_cs_VHH5pp_8,mass));
         }
         CacheShiftReal(ip_cs_VHH5pp_8_cache, NumPar, params, newResult);
         return newResult;
@@ -1302,7 +1314,7 @@ double GMcache::ip_cs_VHH5pp_13(double mass){
     } else {
         double newResult = 0.0;
         if (mass>=200. && mass <=2000.) {
-            newResult = 0.0;
+            newResult = pow(10.0,interpolate(log_cs_VHH5pp_13,mass));
         }
         CacheShiftReal(ip_cs_VHH5pp_13_cache, NumPar, params, newResult);
         return newResult;
@@ -3070,11 +3082,7 @@ void GMcache::computeOtherHiggsProperties()
 
 //    /* rX_ii is the squared ratio between the GM vertex coupling of the neutral heavy Higgs X to
 //     * the particle i and the corresponding coupling of the SM Higgs boson.*/
-    double rHH_ff=0.0;
     double rA_ff=1.0/(tanb*tanb);
-    double rHH_VV=0.0;
-    double rH5_VV=cosb/sqrt(3.0);
-
     double gHH_H3=0., gHH_H5=0.;
 
     if(mH1sq>=mHl2)
@@ -3163,7 +3171,7 @@ void GMcache::computeOtherHiggsProperties()
             SigmaTotSM_H8=ip_cs_ggtoH_8(mHh)+ip_cs_VBFtoH_8(mHh)+ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh)+ip_cs_pptottH_8(mHh)+ip_cs_pptobbH_8(mHh);
     }
     if (mH5>=20. && mH5 <=2000.) {
-            SigmaTotSM_H58=ip_cs_VBFtoH_8(mH5)+ip_cs_WtoWH_8(mH5)+ip_cs_ZtoZH_8(mH5);
+            SigmaTotSM_H58=ip_cs_ggtoH_8(mH5)+ip_cs_VBFtoH_8(mH5)+ip_cs_WtoWH_8(mH5)+ip_cs_ZtoZH_8(mH5)+ip_cs_pptottH_8(mH5)+ip_cs_pptobbH_8(mH5);
     }
     SigmaSumH8 = SigmaggF_H8 + SigmaVBF_H8 + SigmaVH_H8 + SigmattF_H8 + SigmabbF_H8;
     SigmaSumA8 = SigmaggF_A8 + SigmattF_A8 + SigmabbF_A8;
@@ -3187,6 +3195,7 @@ void GMcache::computeOtherHiggsProperties()
     SigmaHp13=ip_cs_ggtoHp_13(mA,0.0)/(tanb*tanb);
     SigmaHp58=(ip_cs_VBFH5p_8(mH5)+ip_cs_VBFH5m_8(mH5))*cosb*cosb;
     SigmaHp513=(ip_cs_VBFH5p_13(mH5)+ip_cs_VBFH5m_13(mH5))*cosb*cosb;
+
     SigmaHppHmm58=ip_cs_ppH5ppH5mm_8(mH5)*cosb*cosb;
     SigmaHppHmm513=ip_cs_ppH5ppH5mm_13(mH5)*cosb*cosb;
     SigmaHpp58=(ip_cs_VBFH5pp_8(mH5)+ip_cs_VBFH5mm_8(mH5)+ip_cs_VHH5pp_8(mH5)+ip_cs_VHH5mm_8(mH5))*cosb*cosb;
@@ -3208,12 +3217,12 @@ void GMcache::computeOtherHiggsProperties()
     double BrSM_Atomumu=ip_Br_HPtomumu(mA);
 
     double BrSM_HtoWW =ip_Br_HPtoWW(mHh);
-    double BrSM_AtoWW =ip_Br_HPtoWW(mA);
+    double BrSM_H5toWW =ip_Br_HPtoWW(mH5);
 
     double BrSM_HtoZZ =ip_Br_HPtoZZ(mHh);
-    double BrSM_AtoZZ =ip_Br_HPtoZZ(mA);
+    double BrSM_H5toZZ =ip_Br_HPtoZZ(mH5);
 
-    double GammaHtotSM=ip_GammaHPtotSM(mHh);
+    GammaHtotSM=ip_GammaHPtotSM(mHh);
     double GammaAtotSM=ip_GammaHPtotSM(mA);
 
     //Following partial widths stem from the GMcalc manual 1412.7387
@@ -3345,8 +3354,6 @@ void GMcache::computeOtherHiggsProperties()
 
     double GammaHH5ppH5mm = 2.0*GammaHH5H5;
     
-    double GammaH5hh       = 0.0;
-
     double GammaH5HpHm    = HSTheta(mH5-2.0*mA)*fabs(gH5H3pH3m)*fabs(gH5H3pH3m)
                             *KaellenFunction(1.0,mAsq/mH5sq,mAsq/mH5sq)/(8.0*mH5*M_PI);
 
@@ -3444,7 +3451,8 @@ void GMcache::computeOtherHiggsProperties()
 
     Br_Htott=BrSM_Htott*rHH_ff*GammaHtotSM/GammaH1tot;
     Br_Atott=BrSM_Atott*rA_ff*GammaAtotSM/GammaH3tot;
-//    Br_Htobb=BrSM_Htobb*rHH_QdQd*GammaHtotSM/GammaHtot;
+    Br_Htobb=BrSM_Htobb*rHH_ff*GammaHtotSM/GammaH1tot;
+    Br_Atobb=BrSM_Atobb*rA_ff*GammaAtotSM/GammaH3tot;
     Br_Htotautau=BrSM_Htotautau*rHH_ff*GammaHtotSM/GammaH1tot;
     Br_Atotautau=BrSM_Atotautau*rA_ff*GammaAtotSM/GammaH3tot;
     Br_HtoWW=BrSM_HtoWW*rHH_VV*GammaHtotSM/GammaH1tot;
@@ -3458,15 +3466,16 @@ void GMcache::computeOtherHiggsProperties()
     Br_AtoZga=Gamma_AZga/GammaH3tot;
     Br_H5toZga=Gamma_H5Zga/GammaH5tot;
     Br_Htohh=GammaHhh/GammaH1tot;
-    Br_H5tohh=GammaH5hh/GammaH5tot;
+//    Br_H5tohh=GammaH5hh/GammaH5tot;
     Br_AtohZ=GammaAhZ/GammaH3tot;
+    Br_AtoHZ=GammaAHZ/GammaH3tot;
     Br_AtoH5Z=GammaAH5Z/GammaH3tot;
     Br_HtoAZ=GammaHAZ/GammaH1tot;
     Br_H5toAZ=GammaH5AZ/GammaH5tot;
 //    Br_HtoAA=GammaHAA/GammaHtot;
 //    Br_HtoHpHm=GammaHHpHm/GammaHtot;
-//    Br_HtoAZ=GammaHAZ/GammaHtot;
 //    Br_HtoHpW=GammaHHpW/GammaHtot;
+    BrRatioVV5=(GammaH5WW+GammaH5ZZ)/(GammaH5tot*(BrSM_H5toWW+BrSM_H5toZZ));
 
     Br_Hptotaunu=GammaH3ptaunu/GammaH3ptot;
     Br_Hptotb=GammaH3ptb/GammaH3ptot;
@@ -3519,10 +3528,8 @@ void GMcache::computeDirectSearchQuantities()
     pp_H5_gaga_TH13=SigmaSumH513*Br_H5togaga;
     pp_H_Zga_llga_TH8=SigmaSumH8*Br_HtoZga*(Br_Ztoee+Br_Ztomumu);
     gg_H_Zga_TH13=SigmaggF_H13*Br_HtoZga;
-    gg_H_Zga_llga_TH13=SigmaggF_H13*Br_HtoZga*(Br_Ztoee+Br_Ztomumu);
     pp_A_Zga_llga_TH8=SigmaSumA8*Br_AtoZga*(Br_Ztoee+Br_Ztomumu);
     gg_A_Zga_TH13=SigmaggF_A13*Br_AtoZga;
-    gg_A_Zga_llga_TH13=SigmaggF_A13*Br_AtoZga*(Br_Ztoee+Br_Ztomumu);
     pp_H5_Zga_llga_TH8=SigmaSumH58*Br_H5toZga*(Br_Ztoee+Br_Ztomumu);
     gg_H_ZZ_TH8=SigmaggF_H8*Br_HtoZZ;
     VV_H_ZZ_TH8=SigmaVBF_H8*Br_HtoZZ;
@@ -3546,15 +3553,15 @@ void GMcache::computeDirectSearchQuantities()
     mu_pp_H_VV_TH8=SigmaSumH8/SigmaTotSM_H8*rHH_VV*GammaHtotSM/GammaH1tot;
     pp_H_VV_TH13=SigmaSumH13*(Br_HtoZZ+Br_HtoWW);
     pp_H5_VV_TH8=SigmaSumH58*(Br_H5toZZ+Br_H5toWW);
-    mu_pp_H5_VV_TH8=SigmaSumH58*cosb*GammaH5totSM/(SigmaTotSM_H58*sqrt(3.0)*GammaH5tot);
+    mu_pp_H5_VV_TH8=SigmaSumH58/SigmaTotSM_H58*BrRatioVV5;
     pp_H5_VV_TH13=SigmaSumH513*(Br_H5toZZ+Br_H5toWW);
     gg_H_hh_TH8=SigmaggF_H8*Br_Htohh;
     pp_H_hh_bbbb_TH8=SigmaSumH8*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
     pp_H_hh_gagabb_TH8=SigmaSumH8*Br_Htohh*GM_Br_h_gaga*GM_Br_h_bb;
     pp_H_hh_TH8=SigmaSumH8*Br_Htohh;
-    pp_H5_hh_bbbb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
-    pp_H5_hh_gagabb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_gaga*GM_Br_h_bb;
-    pp_H5_hh_TH8=SigmaSumH58*Br_H5tohh;
+//    pp_H5_hh_bbbb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
+//    pp_H5_hh_gagabb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_gaga*GM_Br_h_bb;
+//    pp_H5_hh_TH8=SigmaSumH58*Br_H5tohh;
     pp_H_hh_bbbb_TH13=SigmaSumH13*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
     gg_H_hh_bbbb_TH13=SigmaggF_H13*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
     pp_H_hh_TH13=SigmaSumH13*Br_Htohh;
@@ -3562,11 +3569,11 @@ void GMcache::computeDirectSearchQuantities()
     pp_H_hh_bbtautau_TH13=SigmaSumH13*Br_Htohh*GM_Br_h_bb*GM_Br_h_tautau;
     pp_H_hh_bblnulnu_TH13=SigmaSumH13*Br_Htohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
     gg_H_hh_TH13=SigmaggF_H13*Br_Htohh;
-    pp_H5_hh_bbbb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
-    pp_H5_hh_TH13=SigmaSumH513*Br_H5tohh;
-    pp_H5_hh_gagabb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_gaga*GM_Br_h_bb;
-    pp_H5_hh_bbtautau_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_tautau;
-    pp_H5_hh_bblnulnu_TH13=SigmaSumH513*Br_H5tohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
+//    pp_H5_hh_bbbb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
+//    pp_H5_hh_TH13=SigmaSumH513*Br_H5tohh;
+//    pp_H5_hh_gagabb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_gaga*GM_Br_h_bb;
+//    pp_H5_hh_bbtautau_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_tautau;
+//    pp_H5_hh_bblnulnu_TH13=SigmaSumH513*Br_H5tohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
     gg_A_hZ_bbZ_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_bb;
     gg_A_hZ_bbll_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_bb*(Br_Ztoee+Br_Ztomumu);
     gg_A_hZ_tautauZ_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_tautau;
