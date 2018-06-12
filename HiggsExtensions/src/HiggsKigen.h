@@ -647,15 +647,6 @@ public:
      * @return @f$\mu_{ttH}@f$
      */
     virtual double muttH(const double sqrt_s) const;
-    /**
-     * @brief The ratio @f$\mu_{eettH}@f$ between the 
-     * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
-     * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively
-     * @return @f$\mu_{eettH}@f$
-     */
-    virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
      /**
      * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
      * production cross-section in the current model and in the Standard Model.
@@ -679,6 +670,15 @@ public:
      * @return @f$\mu_{eettH}@f$
      */
     virtual double mueettH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{eettH}@f$ between the 
+     * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
+     * @return @f$\mu_{eettH}@f$
+     */
+    virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
      * and in the Standard Model.

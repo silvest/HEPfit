@@ -302,6 +302,23 @@ public:
      */
     virtual double mueeWBF(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
+     * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
+     * @return @f$\mu_{eeWBF}@f$
+     */
+    virtual double mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    /**
+     * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
+     * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZBF}@f$
+     */
+    virtual double mueeZBF(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
      * cross-section in the current model and in the Standard Model. 
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -323,6 +340,15 @@ public:
      * @return @f$\mu_{eeZH}@f$
      */
     virtual double mueeZH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
+     * @f$ e^{+}e^{-}\to ZH @f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$\mu_{eeZH}@f$
+     */
+    virtual double mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
@@ -360,6 +386,15 @@ public:
      * @return @f$\mu_{eettH}@f$
      */
     virtual double mueettH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{eettH}@f$ between the 
+     * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
+     * @return @f$\mu_{eettH}@f$
+     */
+    virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The decay width @f$(H\to gg)@f$ in the current model.
      * @return @f$\Gamma(H\to gg)@f$
