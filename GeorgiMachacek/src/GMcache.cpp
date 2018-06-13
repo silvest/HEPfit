@@ -1256,7 +1256,7 @@ double GMcache::ip_cs_VHH5mm_8(double mass){
         return ( ip_cs_VHH5mm_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=200. && mass <=1000.) {
+        if (mass>=150. && mass <=1000.) {
             newResult = pow(10.0,interpolate(log_cs_VHH5mm_8,mass));
         }
         CacheShiftReal(ip_cs_VHH5mm_8_cache, NumPar, params, newResult);
@@ -1275,7 +1275,7 @@ double GMcache::ip_cs_VHH5mm_13(double mass){
         return ( ip_cs_VHH5mm_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=200. && mass <=2000.) {
+        if (mass>=150. && mass <=2000.) {
             newResult = pow(10.0,interpolate(log_cs_VHH5mm_13,mass));
         }
         CacheShiftReal(ip_cs_VHH5mm_13_cache, NumPar, params, newResult);
@@ -1294,7 +1294,7 @@ double GMcache::ip_cs_VHH5pp_8(double mass){
         return ( ip_cs_VHH5pp_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=200. && mass <=1000.) {
+        if (mass>=150. && mass <=1000.) {
             newResult = pow(10.0,interpolate(log_cs_VHH5pp_8,mass));
         }
         CacheShiftReal(ip_cs_VHH5pp_8_cache, NumPar, params, newResult);
@@ -1313,7 +1313,7 @@ double GMcache::ip_cs_VHH5pp_13(double mass){
         return ( ip_cs_VHH5pp_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=200. && mass <=2000.) {
+        if (mass>=150. && mass <=2000.) {
             newResult = pow(10.0,interpolate(log_cs_VHH5pp_13,mass));
         }
         CacheShiftReal(ip_cs_VHH5pp_13_cache, NumPar, params, newResult);
@@ -3260,7 +3260,7 @@ void GMcache::computeOtherHiggsProperties()
     double GammaH5pZW     = HSTheta(mH5-MZ-MW)*(M_PI*Ale*Ale*vev*vev*cosb*cosb)
                             *(1.0-2.0*MZ*MZ/mH5sq-2.0*MW*MW/mH5sq+10.0*MZ*MZ*MW*MW/(mH5sq*mH5sq)+MZ*MZ*MZ*MZ/(mH5sq*mH5sq)+MW*MW*MW*MW/(mH5sq*mH5sq))
                             *mH5sq*mH5*KaellenFunction(1.0,MZ*MZ/mH5sq,MW*MW/mH5sq)/(8.0*MZ*MZ*MW*MW*cW2*sW2*sW2);
-
+    
     double GammaH5ppWW    = /*On-shell part*/
                             HSTheta(mH5-2.0*MW)*(M_PI*Ale*Ale*vev*vev*cosb*cosb)
                             *(1.0-4.0*kW+12.0*kW*kW)
@@ -3380,16 +3380,16 @@ void GMcache::computeOtherHiggsProperties()
 
     GammaH3ptot=  GammaH3ptb+GammaH3ptaunu
                   +GammaHphW+GammaHpHW
-                  +GammaHpH5pZ+GammaHpH5W+GammaHpH5ppW;
+                  +GammaHpH5pZ+GammaHpH5W+GammaHpH5ppW+1.e-20;
 
     GammaH5tot=  GammaH5WW+GammaH5ZZ
                   +Gamma_H5gg+Gamma_H5gaga+Gamma_H5Zga
                   +GammaH5AZ+GammaH5HpW
-                  +GammaH5HpHm+GammaH5AA;
+                  +GammaH5HpHm+GammaH5AA+1.e-20;
 
-    GammaH5ptot=  GammaH5pZW+GammaH5pAW+GammaH5pHpZ+GammaH5pHpA;
+    GammaH5ptot=  GammaH5pZW+GammaH5pAW+GammaH5pHpZ+GammaH5pHpA+1.e-20;
 
-    GammaH5pptot= GammaH5ppWW+GammaH5ppHpW+GammaH5ppHpHp;
+    GammaH5pptot= GammaH5ppWW+GammaH5ppHpW+GammaH5ppHpHp+1.e-20;
 
 //    std::cout<<"Gamma_Hff = "<<rHH_ff*(BrSM_Htott+BrSM_Htocc+BrSM_Htobb+BrSM_Htotautau+BrSM_Htomumu)*GammaHtotSM<<std::endl;
 //    std::cout<<"Gamma_HVV = "<<rHH_VV*(BrSM_HtoWW+BrSM_HtoZZ)*GammaHtotSM<<std::endl;
@@ -3500,105 +3500,194 @@ void GMcache::computeDirectSearchQuantities()
 //    double Br_Wtotaunu=0.1138; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
 
     tt_H_tt_TH13=SigmattF_H13*Br_Htott;
+//    std::cout<<"tt_H_tt_TH13 = "<<tt_H_tt_TH13<<std::endl;
     bb_H_tt_TH13=SigmabbF_H13*Br_Htott;
+//    std::cout<<"bb_H_tt_TH13 = "<<bb_H_tt_TH13<<std::endl;
     tt_A_tt_TH13=SigmattF_A13*Br_Atott;
+//    std::cout<<"tt_A_tt_TH13 = "<<tt_A_tt_TH13<<std::endl;
     bb_A_tt_TH13=SigmabbF_A13*Br_Atott;
+//    std::cout<<"bb_A_tt_TH13 = "<<bb_A_tt_TH13<<std::endl;
     bb_H_bb_TH8=SigmabbF_H8*Br_Htobb;
+//    std::cout<<"bb_H_bb_TH8 = "<<bb_H_bb_TH8<<std::endl;
     gg_H_bb_TH8=SigmaggF_H8*Br_Htobb;
+//    std::cout<<"gg_H_bb_TH8 = "<<gg_H_bb_TH8<<std::endl;
     pp_H_bb_TH13=SigmaSumH13*Br_Htobb;
+//    std::cout<<"pp_H_bb_TH13 = "<<pp_H_bb_TH13<<std::endl;
     bb_H_bb_TH13=SigmabbF_H13*Br_Htobb;
+//    std::cout<<"bb_H_bb_TH13 = "<<bb_H_bb_TH13<<std::endl;
     bb_A_bb_TH8=SigmabbF_A8*Br_Atobb;
+//    std::cout<<"bb_A_bb_TH8 = "<<bb_A_bb_TH8<<std::endl;
     gg_A_bb_TH8=SigmaggF_A8*Br_Atobb;
+//    std::cout<<"gg_A_bb_TH8 = "<<gg_A_bb_TH8<<std::endl;
     pp_A_bb_TH13=SigmaSumA13*Br_Atobb;
+//    std::cout<<"pp_A_bb_TH13 = "<<pp_A_bb_TH13<<std::endl;
     bb_A_bb_TH13=SigmabbF_A13*Br_Atobb;
+//    std::cout<<"bb_A_bb_TH13 = "<<bb_A_bb_TH13<<std::endl;
     gg_H_tautau_TH8=SigmaggF_H8*Br_Htotautau;
+//    std::cout<<"gg_H_tautau_TH8 = "<<gg_H_tautau_TH8<<std::endl;
     bb_H_tautau_TH8=SigmabbF_H8*Br_Htotautau;
+//    std::cout<<"bb_H_tautau_TH8 = "<<bb_H_tautau_TH8<<std::endl;
     gg_H_tautau_TH13=SigmaggF_H13*Br_Htotautau;
+//    std::cout<<"gg_H_tautau_TH13 = "<<gg_H_tautau_TH13<<std::endl;
     bb_H_tautau_TH13=SigmabbF_H13*Br_Htotautau;
+//    std::cout<<"bb_H_tautau_TH13 = "<<bb_H_tautau_TH13<<std::endl;
     gg_A_tautau_TH8=SigmaggF_A8*Br_Atotautau;
+//    std::cout<<"gg_A_tautau_TH8 = "<<gg_A_tautau_TH8<<std::endl;
     bb_A_tautau_TH8=SigmabbF_A8*Br_Atotautau;
+//    std::cout<<"bb_A_tautau_TH8 = "<<bb_A_tautau_TH8<<std::endl;
     gg_A_tautau_TH13=SigmaggF_A13*Br_Atotautau;
+//    std::cout<<"gg_A_tautau_TH13 = "<<gg_A_tautau_TH13<<std::endl;
     bb_A_tautau_TH13=SigmabbF_A13*Br_Atotautau;
+//    std::cout<<"bb_A_tautau_TH13 = "<<bb_A_tautau_TH13<<std::endl;
     gg_H_gaga_TH8=SigmaggF_H8*Br_Htogaga;
+//    std::cout<<"gg_H_gaga_TH8 = "<<gg_H_gaga_TH8<<std::endl;
     pp_H_gaga_TH13=SigmaSumH13*Br_Atogaga;
+//    std::cout<<"pp_H_gaga_TH13 = "<<pp_H_gaga_TH13<<std::endl;
     gg_H_gaga_TH13=SigmaggF_H13*Br_Htogaga;
+//    std::cout<<"gg_H_gaga_TH13 = "<<gg_H_gaga_TH13<<std::endl;
     gg_A_gaga_TH8=SigmaggF_A8*Br_Atogaga;
+//    std::cout<<"gg_A_gaga_TH8 = "<<gg_A_gaga_TH8<<std::endl;
     pp_A_gaga_TH13=SigmaSumA13*Br_Atogaga;
+//    std::cout<<"pp_A_gaga_TH13 = "<<pp_A_gaga_TH13<<std::endl;
     gg_A_gaga_TH13=SigmaggF_A13*Br_Atogaga;
+//    std::cout<<"gg_A_gaga_TH13 = "<<gg_A_gaga_TH13<<std::endl;
     pp_H5_gaga_TH13=SigmaSumH513*Br_H5togaga;
+//    std::cout<<"pp_H5_gaga_TH13 = "<<pp_H5_gaga_TH13<<std::endl;
     pp_H_Zga_llga_TH8=SigmaSumH8*Br_HtoZga*(Br_Ztoee+Br_Ztomumu);
+//    std::cout<<"pp_H_Zga_llga_TH8 = "<<pp_H_Zga_llga_TH8<<std::endl;
     gg_H_Zga_TH13=SigmaggF_H13*Br_HtoZga;
+//    std::cout<<"gg_H_Zga_TH13 = "<<gg_H_Zga_TH13<<std::endl;
     pp_A_Zga_llga_TH8=SigmaSumA8*Br_AtoZga*(Br_Ztoee+Br_Ztomumu);
+//    std::cout<<"pp_A_Zga_llga_TH8 = "<<pp_A_Zga_llga_TH8<<std::endl;
     gg_A_Zga_TH13=SigmaggF_A13*Br_AtoZga;
+//    std::cout<<"gg_A_Zga_TH13 = "<<gg_A_Zga_TH13<<std::endl;
     pp_H5_Zga_llga_TH8=SigmaSumH58*Br_H5toZga*(Br_Ztoee+Br_Ztomumu);
+//    std::cout<<"pp_H5_Zga_llga_TH8 = "<<pp_H5_Zga_llga_TH8<<std::endl;
     gg_H_ZZ_TH8=SigmaggF_H8*Br_HtoZZ;
+//    std::cout<<"gg_H_ZZ_TH8 = "<<gg_H_ZZ_TH8<<std::endl;
     VV_H_ZZ_TH8=SigmaVBF_H8*Br_HtoZZ;
+//    std::cout<<"VV_H_ZZ_TH8 = "<<VV_H_ZZ_TH8<<std::endl;
     gg_H_ZZ_TH13=SigmaggF_H13*Br_HtoZZ;
+//    std::cout<<"gg_H_ZZ_TH13 = "<<gg_H_ZZ_TH13<<std::endl;
     VV_H_ZZ_TH13=SigmaVBF_H13*Br_HtoZZ;
+//    std::cout<<"VV_H_ZZ_TH13 = "<<VV_H_ZZ_TH13<<std::endl;
     pp_H_ZZ_TH13=SigmaSumH13*Br_HtoZZ;
+//    std::cout<<"pp_H_ZZ_TH13 = "<<pp_H_ZZ_TH13<<std::endl;
     VV_H5_ZZ_TH8=SigmaVBF_H58*Br_H5toZZ;
+//    std::cout<<"VV_H5_ZZ_TH8 = "<<VV_H5_ZZ_TH8<<std::endl;
     VV_H5_ZZ_TH13=SigmaVBF_H513*Br_H5toZZ;
+//    std::cout<<"VV_H5_ZZ_TH13 = "<<VV_H5_ZZ_TH13<<std::endl;
     pp_H5_ZZ_TH13=SigmaSumH513*Br_H5toZZ;
+//    std::cout<<"pp_H5_ZZ_TH13 = "<<pp_H5_ZZ_TH13<<std::endl;
     gg_H_WW_TH8=SigmaggF_H8*Br_HtoWW;
+//    std::cout<<"gg_H_WW_TH8 = "<<gg_H_WW_TH8<<std::endl;
     VV_H_WW_TH8=SigmaVBF_H8*Br_HtoWW;
+//    std::cout<<"VV_H_WW_TH8 = "<<VV_H_WW_TH8<<std::endl;
     gg_H_WW_TH13=SigmaggF_H13*Br_HtoWW;
+//    std::cout<<"gg_H_WW_TH13 = "<<gg_H_WW_TH13<<std::endl;
     VV_H_WW_TH13=SigmaVBF_H13*Br_HtoWW;
+//    std::cout<<"VV_H_WW_TH13 = "<<VV_H_WW_TH13<<std::endl;
     ggVV_H_WW_lnulnu_TH13=(SigmaggF_H13+SigmaVBF_H13)*Br_HtoWW*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu);
+//    std::cout<<"ggVV_H_WW_lnulnu_TH13 = "<<ggVV_H_WW_lnulnu_TH13<<std::endl;
     pp_H_WW_TH13=SigmaSumH13*Br_HtoWW;
+//    std::cout<<"pp_H_WW_TH13 = "<<pp_H_WW_TH13<<std::endl;
     VV_H5_WW_TH8=SigmaVBF_H58*Br_H5toWW;
+//    std::cout<<"VV_H5_WW_TH8 = "<<VV_H5_WW_TH8<<std::endl;
     VV_H5_WW_TH13=SigmaVBF_H513*Br_H5toWW;
+//    std::cout<<"VV_H5_WW_TH13 = "<<VV_H5_WW_TH13<<std::endl;
     ggVV_H5_WW_lnulnu_TH13=SigmaVBF_H513*Br_H5toWW*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu);
+//    std::cout<<"ggVV_H5_WW_lnulnu_TH13 = "<<ggVV_H5_WW_lnulnu_TH13<<std::endl;
     pp_H5_WW_TH13=SigmaSumH513*Br_H5toWW;
+//    std::cout<<"pp_H5_WW_TH13 = "<<pp_H5_WW_TH13<<std::endl;
     pp_H_VV_TH8=SigmaSumH8*(Br_HtoZZ+Br_HtoWW);
+//    std::cout<<"pp_H_VV_TH8 = "<<pp_H_VV_TH8<<std::endl;
     mu_pp_H_VV_TH8=SigmaSumH8/SigmaTotSM_H8*rHH_VV*GammaHtotSM/GammaH1tot;
+//    std::cout<<"mu_pp_H_VV_TH8 = "<<mu_pp_H_VV_TH8<<std::endl;
     pp_H_VV_TH13=SigmaSumH13*(Br_HtoZZ+Br_HtoWW);
+//    std::cout<<"pp_H_VV_TH13 = "<<pp_H_VV_TH13<<std::endl;
     pp_H5_VV_TH8=SigmaSumH58*(Br_H5toZZ+Br_H5toWW);
+//    std::cout<<"pp_H5_VV_TH8 = "<<pp_H5_VV_TH8<<std::endl;
     mu_pp_H5_VV_TH8=SigmaSumH58/SigmaTotSM_H58*BrRatioVV5;
+//    std::cout<<"mu_pp_H5_VV_TH8 = "<<mu_pp_H5_VV_TH8<<std::endl;
     pp_H5_VV_TH13=SigmaSumH513*(Br_H5toZZ+Br_H5toWW);
+//    std::cout<<"pp_H5_VV_TH13 = "<<pp_H5_VV_TH13<<std::endl;
     gg_H_hh_TH8=SigmaggF_H8*Br_Htohh;
+//    std::cout<<"gg_H_hh_TH8 = "<<gg_H_hh_TH8<<std::endl;
     pp_H_hh_bbbb_TH8=SigmaSumH8*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
+//    std::cout<<"pp_H_hh_bbbb_TH8 = "<<pp_H_hh_bbbb_TH8<<std::endl;
     pp_H_hh_gagabb_TH8=SigmaSumH8*Br_Htohh*GM_Br_h_gaga*GM_Br_h_bb;
+//    std::cout<<"pp_H_hh_gagabb_TH8 = "<<pp_H_hh_gagabb_TH8<<std::endl;
     pp_H_hh_TH8=SigmaSumH8*Br_Htohh;
+//    std::cout<<"pp_H_hh_TH8 = "<<pp_H_hh_TH8<<std::endl;
 //    pp_H5_hh_bbbb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
 //    pp_H5_hh_gagabb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_gaga*GM_Br_h_bb;
 //    pp_H5_hh_TH8=SigmaSumH58*Br_H5tohh;
     pp_H_hh_bbbb_TH13=SigmaSumH13*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
+//    std::cout<<"pp_H_hh_bbbb_TH13 = "<<pp_H_hh_bbbb_TH13<<std::endl;
     gg_H_hh_bbbb_TH13=SigmaggF_H13*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
+//    std::cout<<"gg_H_hh_bbbb_TH13 = "<<gg_H_hh_bbbb_TH13<<std::endl;
     pp_H_hh_TH13=SigmaSumH13*Br_Htohh;
+//    std::cout<<"pp_H_hh_TH13 = "<<pp_H_hh_TH13<<std::endl;
     pp_H_hh_gagabb_TH13=SigmaSumH13*Br_Htohh*GM_Br_h_gaga*GM_Br_h_bb;
+//    std::cout<<"pp_H_hh_gagabb_TH13 = "<<pp_H_hh_gagabb_TH13<<std::endl;
     pp_H_hh_bbtautau_TH13=SigmaSumH13*Br_Htohh*GM_Br_h_bb*GM_Br_h_tautau;
+//    std::cout<<"pp_H_hh_bbtautau_TH13 = "<<pp_H_hh_bbtautau_TH13<<std::endl;
     pp_H_hh_bblnulnu_TH13=SigmaSumH13*Br_Htohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
+//    std::cout<<"pp_H_hh_bblnulnu_TH13 = "<<pp_H_hh_bblnulnu_TH13<<std::endl;
     gg_H_hh_TH13=SigmaggF_H13*Br_Htohh;
+//    std::cout<<"gg_H_hh_TH13 = "<<gg_H_hh_TH13<<std::endl;
 //    pp_H5_hh_bbbb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
 //    pp_H5_hh_TH13=SigmaSumH513*Br_H5tohh;
 //    pp_H5_hh_gagabb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_gaga*GM_Br_h_bb;
 //    pp_H5_hh_bbtautau_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_tautau;
 //    pp_H5_hh_bblnulnu_TH13=SigmaSumH513*Br_H5tohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
     gg_A_hZ_bbZ_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_bb;
+//    std::cout<<"gg_A_hZ_bbZ_TH8 = "<<gg_A_hZ_bbZ_TH8<<std::endl;
     gg_A_hZ_bbll_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_bb*(Br_Ztoee+Br_Ztomumu);
+//    std::cout<<"gg_A_hZ_bbll_TH8 = "<<gg_A_hZ_bbll_TH8<<std::endl;
     gg_A_hZ_tautauZ_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_tautau;
+//    std::cout<<"gg_A_hZ_tautauZ_TH8 = "<<gg_A_hZ_tautauZ_TH8<<std::endl;
     gg_A_hZ_tautaull_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_tautau*(Br_Ztoee+Br_Ztomumu);
+//    std::cout<<"gg_A_hZ_tautaull_TH8 = "<<gg_A_hZ_tautaull_TH8<<std::endl;
     gg_A_hZ_bbZ_TH13=SigmaggF_A13*Br_AtohZ*GM_Br_h_bb;
+//    std::cout<<"gg_A_hZ_bbZ_TH13 = "<<gg_A_hZ_bbZ_TH13<<std::endl;
     bb_A_hZ_bbZ_TH13=SigmabbF_A13*Br_AtohZ*GM_Br_h_bb;
+//    std::cout<<"bb_A_hZ_bbZ_TH13 = "<<bb_A_hZ_bbZ_TH13<<std::endl;
     pp_A_HZ_bbll_TH8=SigmaSumA8*Br_AtoHZ*Br_Htobb*(Br_Ztoee+Br_Ztomumu);
+//    std::cout<<"pp_A_HZ_bbll_TH8 = "<<pp_A_HZ_bbll_TH8<<std::endl;
     pp_A_H5Z_bbll_TH8=0.0;
     pp_H_AZ_bbll_TH8=SigmaSumH8*Br_HtoAZ*Br_Atobb*(Br_Ztoee+Br_Ztomumu);
+//    std::cout<<"pp_H_AZ_bbll_TH8 = "<<pp_H_AZ_bbll_TH8<<std::endl;
     pp_H5_AZ_bbll_TH8=SigmaSumH58*Br_H5toAZ*Br_Atobb*(Br_Ztoee+Br_Ztomumu);
+//    std::cout<<"pp_H5_AZ_bbll_TH8 = "<<pp_H5_AZ_bbll_TH8<<std::endl;
 
     pp_Hpm_taunu_TH8=2.0*SigmaHp8*Br_Hptotaunu;
+//    std::cout<<"pp_Hpm_taunu_TH8 = "<<pp_Hpm_taunu_TH8<<std::endl;
     pp_Hp_taunu_TH8=SigmaHp8*Br_Hptotaunu;
+//    std::cout<<"pp_Hp_taunu_TH8 = "<<pp_Hp_taunu_TH8<<std::endl;
     pp_Hpm_taunu_TH13=2.0*SigmaHp8*Br_Hptotaunu;
+//    std::cout<<"pp_Hpm_taunu_TH13 = "<<pp_Hpm_taunu_TH13<<std::endl;
     pp_Hpm_tb_TH8=2.0*SigmaHp8*Br_Hptotb;
+//    std::cout<<"pp_Hpm_tb_TH8 = "<<pp_Hpm_tb_TH8<<std::endl;
     pp_Hp_tb_TH8=SigmaHp8*Br_Hptotb;
+//    std::cout<<"pp_Hp_tb_TH8 = "<<pp_Hp_tb_TH8<<std::endl;
     pp_Hp_tb_TH13=SigmaHp13*Br_Hptotb;
+//    std::cout<<"pp_Hp_tb_TH13 = "<<pp_Hp_tb_TH13<<std::endl;
     WZ_H5pm_WZ_TH8=SigmaHp58*Br_H5ptoWZ;
+//    std::cout<<"WZ_H5pm_WZ_TH8 = "<<WZ_H5pm_WZ_TH8<<std::endl;
     WZ_H5pm_WZ_TH13=SigmaHp513*Br_H5ptoWZ;
+//    std::cout<<"WZ_H5pm_WZ_TH13 = "<<WZ_H5pm_WZ_TH13<<std::endl;
 
     pp_H5ppmmH5mmpp_TH8=SigmaHppHmm58;
+//    std::cout<<"pp_H5ppmmH5mmpp_TH8 = "<<pp_H5ppmmH5mmpp_TH8<<std::endl;
     pp_H5ppmmH5mmpp_TH13=SigmaHppHmm513;
+//    std::cout<<"pp_H5ppmmH5mmpp_TH13 = "<<pp_H5ppmmH5mmpp_TH13<<std::endl;
     pp_H5ppmmH5mmpp_WWWW_TH13=SigmaHppHmm513*Br_H5pptoWW*Br_H5pptoWW;
+//    std::cout<<"pp_H5ppmmH5mmpp_WWWW_TH13 = "<<pp_H5ppmmH5mmpp_WWWW_TH13<<std::endl;
     pp_H5ppmm_WW_TH8=SigmaHpp58*Br_H5pptoWW;
+//    std::cout<<"pp_H5ppmm_WW_TH8 = "<<pp_H5ppmm_WW_TH8<<std::endl;
     pp_H5ppmm_WW_TH13=SigmaHpp513*Br_H5pptoWW;
+//    std::cout<<"pp_H5ppmm_WW_TH13 = "<<pp_H5ppmm_WW_TH13<<std::endl;
 
     THoEX_tt_H_tt_ATLAS13=0.0;
     THoEX_bb_H_tt_ATLAS13=0.0;
@@ -3962,16 +4051,16 @@ void GMcache::computeDirectSearchQuantities()
     if(mH5>= 250.0 && mH5< 900.0) THoEX_pp_H5_hh_bbtautau_CMS13=pp_H5_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_CMS13(mH5);
     if(mHh>= 260.0 && mHh< 900.0) THoEX_pp_H_hh_bblnulnu_CMS13=pp_H_hh_bblnulnu_TH13/ip_ex_pp_phi_hh_bblnulnu_CMS13(mHh);
     if(mH5>= 260.0 && mH5< 900.0) THoEX_pp_H5_hh_bblnulnu_CMS13=pp_H5_hh_bblnulnu_TH13/ip_ex_pp_phi_hh_bblnulnu_CMS13(mH5);
-    if(mHh>= 250.0 && mHh< 500.0) THoEX_gg_H_hh_gagaWW_ATLAS13=gg_H_hh_TH13/ip_ex_gg_phi_hh_gagaWW_ATLAS13(mHh);
+    if(mHh>= 260.0 && mHh< 500.0) THoEX_gg_H_hh_gagaWW_ATLAS13=gg_H_hh_TH13/ip_ex_gg_phi_hh_gagaWW_ATLAS13(mHh);
     if(mA >= 220.0 && mA <1000.0) THoEX_gg_A_hZ_bbZ_ATLAS8=gg_A_hZ_bbZ_TH8/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
     if(mA >= 225.0 && mA < 600.0) THoEX_gg_A_hZ_bbll_CMS8=gg_A_hZ_bbll_TH8/ip_ex_gg_A_hZ_bbll_CMS8(mA);
     if(mA >= 220.0 && mA <1000.0) THoEX_gg_A_hZ_tautauZ_ATLAS8=gg_A_hZ_tautauZ_TH8/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
     if(mA >= 220.0 && mA < 350.0) THoEX_gg_A_hZ_tautaull_CMS8=gg_A_hZ_tautaull_TH8/ip_ex_gg_A_hZ_tautaull_CMS8(mA);
     if(mA >= 200.0 && mA <2000.0) THoEX_gg_A_hZ_bbZ_ATLAS13=gg_A_hZ_bbZ_TH13/ip_ex_gg_A_hZ_bbZ_ATLAS13(mA);
     if(mA >= 200.0 && mA <2000.0) THoEX_bb_A_hZ_bbZ_ATLAS13=bb_A_hZ_bbZ_TH13/ip_ex_bb_A_hZ_bbZ_ATLAS13(mA);
-    if(mHh>= 130.0 && mHh<1000.0 && mA >=50.0 && mA <910.0) THoEX_pp_H_AZ_bbll_CMS8=pp_H_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mHh);
-    if(mH5>= 130.0 && mH5<1000.0 && mA >=50.0 && mA <910.0) THoEX_pp_H5_AZ_bbll_CMS8=pp_H5_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mH5);
-    if(mA >= 130.0 && mA <1000.0 && mHh>=50.0 && mHh<910.0) THoEX_pp_A_HZ_bbll_CMS8=pp_A_HZ_bbll_TH8/ip_ex_pp_A_phiZ_bbll_CMS8(mA,mHh);
+    if(mHh>= 175.0 && mHh<1000.0 && mA >=40.0 && mA <910.0) THoEX_pp_H_AZ_bbll_CMS8=pp_H_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mHh);
+    if(mH5>= 175.0 && mH5<1000.0 && mA >=40.0 && mA <910.0) THoEX_pp_H5_AZ_bbll_CMS8=pp_H5_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mH5);
+    if(mA >= 175.0 && mA <1000.0 && mHh>=50.0 && mHh<910.0) THoEX_pp_A_HZ_bbll_CMS8=pp_A_HZ_bbll_TH8/ip_ex_pp_A_phiZ_bbll_CMS8(mA,mHh);
     if(mA >= 180.0 && mA <1000.0) THoEX_pp_Hpm_taunu_ATLAS8=pp_Hpm_taunu_TH8/ip_ex_pp_Hpm_taunu_ATLAS8(mA);
     if(mA >= 180.0 && mA < 600.0) THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mA);
     if(mA >= 200.0 && mA <2000.0) THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mA);
@@ -3987,7 +4076,7 @@ void GMcache::computeDirectSearchQuantities()
     if(mH5>=  40.0 && mH5< 600.0) THoEX_pp_H5ppmmH5mmpp_emuemu_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8(mH5);
     if(mH5>=  40.0 && mH5< 600.0) THoEX_pp_H5ppmmH5mmpp_mumumumu_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8(mH5);
     if(mH5>= 250.0 && mH5<1200.0) THoEX_pp_H5ppmmH5mmpp_llll_ATLAS13=pp_H5ppmmH5mmpp_TH13/ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13(mH5);
-    if(mH5>= 200.0 && mH5< 800.0) THoEX_pp_H5ppmm_WW_jjll_CMS8=pp_H5ppmm_WW_TH8/ip_ex_pp_H5ppmm_WW_jjll_CMS8(mH5);
+    if(mH5>= 160.0 && mH5< 800.0) THoEX_pp_H5ppmm_WW_jjll_CMS8=pp_H5ppmm_WW_TH8/ip_ex_pp_H5ppmm_WW_jjll_CMS8(mH5);
     if(mH5>= 200.0 && mH5<1000.0) THoEX_pp_H5ppmm_WW_jjll_CMS13=pp_H5ppmm_WW_TH13/ip_ex_pp_H5ppmm_WW_jjll_CMS13(mH5);
 
 }    
@@ -4233,9 +4322,17 @@ double GMcache::updateCache()
     MZ=myGM->getMz();
     MW=myGM->Mw();
     cW2=cW2GM(myGM->c02()); /*This might have to be replaced by the GM corrected value.*/
-    tanb=myGM->gettanb();
-    sinb=myGM->getsinb();
-    cosb=myGM->getcosb();
+    vDelta=myGM->getvDelta();
+    cosb=sqrt(8.0)*vDelta/vev;
+    if(cosb<=1.0) {
+        sinb=sqrt(1.0-cosb*cosb);
+    }
+    else {
+        sinb=std::numeric_limits<double>::quiet_NaN();
+    }
+    tanb=sinb/cosb;
+//    logtb=log10(tanb);
+    vPhi=vev*sinb;
     sina=myGM->getsina();
     cosa=myGM->getcosa();
     mH1sq=myGM->getinputmHh2();
@@ -4246,8 +4343,6 @@ double GMcache::updateCache()
     M1sq=-vev*Mu1/(sqrt(2.0)*cosb);
     M2sq=-sqrt(18.0)*cosb*vev*Mu2;
 
-    vPhi=vev*sinb;
-    vDelta=vev*cosb/sqrt(8.0);
     double mHlsq, mHhsq;
     if(mH1sq>=mHl2)
     {

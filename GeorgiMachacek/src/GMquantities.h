@@ -201,22 +201,64 @@ public:
 
     const GeorgiMachacek& myGM;
 };
+//
+///**
+// * @class vDeltaGM
+// * @ingroup GeorgiMachacek 
+// * @brief The vacuum expectation values of the bi-triplet.
+// */
+//class vDeltaGM: public ThObservable {
+//public:
+//
+//    /**
+//     * @brief vDeltaGM constructor.
+//     */
+//    vDeltaGM(const StandardModel& SM_i);
+//
+//    /**
+//     * @return @f$v_\Delta@f$
+//     */
+//    double computeThValue();
+//
+//    const GeorgiMachacek& myGM;
+//};
 
 /**
- * @class vDeltaGM
+ * @class rh_gaga_GM
  * @ingroup GeorgiMachacek 
- * @brief The vacuum expectation values of the bi-triplet.
+ * @brief The ratio of the GM partial Higgs decay width to two photons and the corresponding SM decay width.
  */
-class vDeltaGM: public ThObservable {
+class rh_gaga_GM: public ThObservable {
 public:
 
     /**
-     * @brief vDeltaGM constructor.
+     * @brief rh_gaga_GM constructor.
      */
-    vDeltaGM(const StandardModel& SM_i);
+    rh_gaga_GM(const StandardModel& SM_i);
 
     /**
-     * @return @f$v_\Delta@f$
+     * @return @f$r^{(h)}_{\gamma\gamma}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class rh_Zga_GM
+ * @ingroup GeorgiMachacek 
+ * @brief The ratio of the GM partial Higgs decay width into a $Z$ boson and a photon and the corresponding SM decay width.
+ */
+class rh_Zga_GM: public ThObservable {
+public:
+
+    /**
+     * @brief rh_Zga_GM constructor.
+     */
+    rh_Zga_GM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$r^{(h)}_{Z\gamma}@f$
      */
     double computeThValue();
 
@@ -497,20 +539,20 @@ public:
 };
 
 /**
- * @class rh_gaga_GM
- * @ingroup GeorgiMachacek 
- * @brief The ratio of the GM partial Higgs decay width to two photons and the corresponding SM decay width.
+ * @class GMGammah
+ * @ingroup GeorgiMachacek
+ * @brief 
  */
-class rh_gaga_GM: public ThObservable {
+class GMGammah: public ThObservable {
 public:
 
     /**
-     * @brief rh_gaga_GM constructor.
+     * @brief GMGammah constructor.
      */
-    rh_gaga_GM(const StandardModel& SM_i);
+    GMGammah(const StandardModel& SM_i);
 
     /**
-     * @return @f$r^{(h)}_{\gamma\gamma}@f$
+     * @return @f$\Gamma_h@f$
      */
     double computeThValue();
 
@@ -518,20 +560,125 @@ public:
 };
 
 /**
- * @class rh_Zga_GM
- * @ingroup GeorgiMachacek 
- * @brief The ratio of the GM partial Higgs decay width into a $Z$ boson and a photon and the corresponding SM decay width.
+ * @class GMGammaH1
+ * @ingroup GeorgiMachacek
+ * @brief 
  */
-class rh_Zga_GM: public ThObservable {
+class GMGammaH1: public ThObservable {
 public:
 
     /**
-     * @brief rh_Zga_GM constructor.
+     * @brief GMGammaH1 constructor.
      */
-    rh_Zga_GM(const StandardModel& SM_i);
+    GMGammaH1(const StandardModel& SM_i);
 
     /**
-     * @return @f$r^{(h)}_{Z\gamma}@f$
+     * @return @f$\Gamma_1@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class GMGammaH3
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMGammaH3: public ThObservable {
+public:
+
+    /**
+     * @brief GMGammaH3 constructor.
+     */
+    GMGammaH3(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma_3@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class GMGammaH3p
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMGammaH3p: public ThObservable {
+public:
+
+    /**
+     * @brief GMGammaH3p constructor.
+     */
+    GMGammaH3p(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma_{3+}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class GMGammaH5
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMGammaH5: public ThObservable {
+public:
+
+    /**
+     * @brief GMGammaH5 constructor.
+     */
+    GMGammaH5(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma_5@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class GMGammaH5p
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMGammaH5p: public ThObservable {
+public:
+
+    /**
+     * @brief GMGammaH5p constructor.
+     */
+    GMGammaH5p(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma_{5+}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class GMGammaH5pp
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMGammaH5pp: public ThObservable {
+public:
+
+    /**
+     * @brief GMGammaH5pp constructor.
+     */
+    GMGammaH5pp(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma_{5++}@f$
      */
     double computeThValue();
 

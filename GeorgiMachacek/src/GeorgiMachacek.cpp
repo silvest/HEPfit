@@ -9,11 +9,11 @@
 #include "GeorgiMachacek.h"
 #include "GMcache.h"
 
-std::string GeorgiMachacek::GMvars[NGMvars] = {"logtb", "alpha", "mHh", "mA", "mH5", "Mu1", "Mu2", "Q_GM"};
+std::string GeorgiMachacek::GMvars[NGMvars] = {"vDelta", "alpha", "mHh", "mA", "mH5", "Mu1", "Mu2", "Q_GM"};
 
 GeorgiMachacek::GeorgiMachacek() : NPbase(), GMM(*this) {
     SMM.setObj((StandardModelMatching&) GMM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("vDelta", boost::cref(vDelta)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha", boost::cref(alpha)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh", boost::cref(mHh)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA", boost::cref(mA)));
@@ -79,20 +79,16 @@ bool GeorgiMachacek::PostUpdate()
 }
 
 void GeorgiMachacek::setParameter(const std::string name, const double& value){    
-    if(name.compare("logtb") == 0) {
-        logtb = value;
-        tanb = pow(10.,logtb);
-        if(tanb > 0.) {
-            sinb = tanb / sqrt(1. + tanb*tanb);
-            cosb = 1. / sqrt(1. + tanb*tanb);
+    if(name.compare("vDelta") == 0) {
+        if(vDelta >= 0.) {
+            vDelta = value;
         }
         else {
-            throw std::runtime_error("error in GeorgiMachacek::SetParameter, tanb < 0!"); 
+            throw std::runtime_error("error in GeorgiMachacek::SetParameter, vDelta < 0!"); 
           }
         }
     else if(name.compare("alpha") == 0) {
         alpha = value;
-        sin_ba = sinb*cos(alpha)-cosb*sin(alpha);
     }
     else if(name.compare("mHh") == 0 && !flag_use_sq_masses)
         mHh = value;

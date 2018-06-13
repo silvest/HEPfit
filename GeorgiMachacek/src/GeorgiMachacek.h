@@ -26,7 +26,7 @@ public:
 
     static const int NGMvars = 8;
     //The parameters of the Higgs potential for Georgi Machacek model according to 1511.00865v1
-    //We choose the physical basis: tanbeta, alpha, mHh=mH1, mA=mH3, mH5, Mu1, Mu2
+    //We choose the physical basis: vDelta, alpha, mHh=mH1, mA=mH3, mH5, Mu1, Mu2
     static std::string GMvars[NGMvars];
     
     /**
@@ -79,32 +79,8 @@ public:
      *
      * @return \f$\log(\tan \beta)$\f
      */
-    double getlogtb() const {
-        return logtb;
-    }
-
-    /**
-     *
-     * @return \f$\tan \beta$\f
-     */
-    double gettanb() const {
-        return tanb;
-    }
-
-    /**
-     *
-     * @return \f$\sin \beta$\f
-     */
-    double getsinb() const {
-        return sinb;
-    }
-
-    /**
-     *
-     * @return @f$\cos \beta@f$
-     */
-    double getcosb() const {
-        return cosb;
+    double getvDelta() const {
+        return vDelta;
     }
 
     /**
@@ -113,22 +89,6 @@ public:
      */
     double getalpha() const {
         return alpha;
-    }
-
-    /**
-     *
-     * @return @f$\beta-\alpha@f$
-     */
-    double getbma() const {
-        return atan(tanb)-alpha;
-    }
-
-    /**
-     *
-     * @return @f$\sin(\beta-\alpha)@f$
-     */
-    double getsin_ba() const {
-        return sin_ba;
     }
 
     /**
@@ -396,7 +356,7 @@ private:
 
     GMcache* myGMcache;
 
-    double logtb, tanb, sinb, cosb, alpha, sin_ba, mHh, mA, mH5, mHhsq, mAsq, mH5sq, Mu1, Mu2, Q_GM;
+    double vDelta, alpha, mHh, mA, mH5, mHhsq, mAsq, mH5sq, Mu1, Mu2, Q_GM;
     double mHl2;
     bool flag_use_sq_masses;
 //    double sign(const double x) const;

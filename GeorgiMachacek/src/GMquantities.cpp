@@ -13,7 +13,7 @@ tanbetaGM::tanbetaGM(const StandardModel& SM_i)
 
 double tanbetaGM::computeThValue()
 {
-    return myGM.gettanb();
+    return myGM.getMyGMCache()->tanb;
 }
 
 
@@ -25,7 +25,7 @@ m1sqGM::m1sqGM(const StandardModel& SM_i)
 double m1sqGM::computeThValue()
 {
     double vPhi = myGM.getMyGMCache()->vPhi;
-    double vDelta = myGM.getMyGMCache()->vDelta;
+    double vDelta = myGM.getvDelta();
     double lambda1 = myGM.getMyGMCache()->lambda1;
     double lambda4 = myGM.getMyGMCache()->lambda4;
     double lambda5 = myGM.getMyGMCache()->lambda5;
@@ -42,7 +42,7 @@ m2sqGM::m2sqGM(const StandardModel& SM_i)
 double m2sqGM::computeThValue()
 {
     double vPhi = myGM.getMyGMCache()->vPhi;
-    double vDelta = myGM.getMyGMCache()->vDelta;
+    double vDelta = myGM.getvDelta();
     double lambda2 = myGM.getMyGMCache()->lambda2;
     double lambda3 = myGM.getMyGMCache()->lambda3;
     double lambda4 = myGM.getMyGMCache()->lambda4;
@@ -120,14 +120,14 @@ double vPhiGM::computeThValue()
 
 
 
-vDeltaGM::vDeltaGM(const StandardModel& SM_i)
-: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
-{}
-
-double vDeltaGM::computeThValue()
-{
-    return myGM.getMyGMCache()->vDelta;
-}
+//vDeltaGM::vDeltaGM(const StandardModel& SM_i)
+//: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+//{}
+//
+//double vDeltaGM::computeThValue()
+//{
+//    return myGM.getMyGMCache()->vDelta;
+//}
 
 
 
@@ -292,4 +292,81 @@ GMmassdifference_mH5mmA::GMmassdifference_mH5mmA(const StandardModel& SM_i)
 double GMmassdifference_mH5mmA::computeThValue()
 {
     return myGM->getmH5() - myGM->getmA();
+}
+
+
+
+GMGammah::GMGammah(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double GMGammah::computeThValue()
+{
+    return myGM.getMyGMCache()->Gamma_h;
+}
+
+
+
+GMGammaH1::GMGammaH1(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double GMGammaH1::computeThValue()
+{
+    return myGM.getMyGMCache()->GammaH1tot;
+}
+
+
+
+GMGammaH3::GMGammaH3(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double GMGammaH3::computeThValue()
+{
+    return myGM.getMyGMCache()->GammaH3tot;
+}
+
+
+
+GMGammaH3p::GMGammaH3p(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double GMGammaH3p::computeThValue()
+{
+    return myGM.getMyGMCache()->GammaH3ptot;
+}
+
+
+
+GMGammaH5::GMGammaH5(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double GMGammaH5::computeThValue()
+{
+    return myGM.getMyGMCache()->GammaH5tot;
+}
+
+
+
+GMGammaH5p::GMGammaH5p(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double GMGammaH5p::computeThValue()
+{
+    return myGM.getMyGMCache()->GammaH5ptot;
+}
+
+
+
+GMGammaH5pp::GMGammaH5pp(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double GMGammaH5pp::computeThValue()
+{
+    return myGM.getMyGMCache()->GammaH5pptot;
 }

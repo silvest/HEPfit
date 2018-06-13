@@ -898,7 +898,8 @@ public:
     double THoEX_pp_H5ppmmH5mmpp_llll_ATLAS13, THoEX_pp_H5ppmm_WW_jjll_CMS8, THoEX_pp_H5ppmm_WW_jjll_CMS13;
 
     double lambda1, lambda2, lambda3, lambda4, lambda5;
-    double vPhi, vDelta;
+    double cosb, sinb, tanb;
+    double vPhi;
 
     double tt_H_tt_TH13, bb_H_tt_TH13;
     double tt_A_tt_TH13, bb_A_tt_TH13;
@@ -1301,10 +1302,7 @@ private:
     double vev;
     double mHl;
     double mHl2;
-    double logtb;
-    double tanb;
-    double sinb;
-    double cosb;
+    double vDelta;
     double sina;
     double cosa;
     double mH1sq;
