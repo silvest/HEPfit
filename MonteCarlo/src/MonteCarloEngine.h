@@ -363,12 +363,21 @@ public:
     };
     
     /**
-     * @brief A set method to set the number of bins for a 2D histograms
-     * @param[in] nbins the number of bins in the 2D histogram
+     * @brief A set method to set the number of significant digits in the output
+     * @param[in] significants_i the number of significant digits in the output
      */
     void setSignificants(unsigned int significants_i)
     {
         significants = significants_i;
+    };
+    
+    /**
+     * @brief A set method to set the size of the buffer used by the histograms
+     * @param[in] histogramBufferSize_i the size of the buffer used by the histograms
+     */
+    void setHistogramBufferSize(int histogramBufferSize_i)
+    {
+        histogramBufferSize = histogramBufferSize_i;
     };
     
 private:
@@ -422,8 +431,9 @@ private:
     unsigned int nBins1D; ///< The number of bins in a 1D histogram.
     unsigned int nBins2D; ///< The number of bins in a 2D histogram.
     unsigned int significants; /// < The number of significant digits in the Statistics File.
-    TColor * HEPfit_green;
-    TColor * HEPfit_red;
+    TColor * HEPfit_green; /// < The colour green for HEPfit.
+    TColor * HEPfit_red; /// < The colour red for HEPfit.
+    int histogramBufferSize; /// < The size of the buffer used for the histograms.
 };
 
 #endif

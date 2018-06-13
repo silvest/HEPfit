@@ -48,6 +48,7 @@ MonteCarloEngine::MonteCarloEngine(
     nBins1D = NBINS1D;
     nBins2D = NBINS2D;
     significants = 0;
+    histogramBufferSize = 0;
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
@@ -117,6 +118,8 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
 
 void MonteCarloEngine::CreateHistogramMaps() 
 {
+    if (histogramBufferSize != 0) TH1::SetDefaultBufferSize(histogramBufferSize);
+    
     TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood", nBins1D, 1., -1.);
     lhisto->GetXaxis()->SetTitle("LogLikelihood");
     BCH1D bclhisto = BCH1D(lhisto);

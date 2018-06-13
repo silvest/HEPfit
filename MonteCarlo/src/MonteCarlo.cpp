@@ -227,7 +227,7 @@ void MonteCarlo::Run(const int rank) {
                     break;
                 else {
                     std::cout << "recvbuff = " << recvbuff[0] << " rank " << rank << std::endl;
-                    throw "MonteCarlo::Run(): error in MPI message!\n";
+                    throw std::runtime_error("MonteCarlo::Run(): error in MPI message!\n");
                 }
             }
             delete sendbuff[0];
@@ -572,6 +572,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             int significants = atoi((*beg).c_str());
             if (significants >= 0) MCEngine.setSignificants(significants);
             else throw std::runtime_error("\nERROR: SignificantDigits in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
+        } else if (beg->compare("HistogramBufferSize") == 0) {
+            ++beg;
+            int histogramBufferSize = atoi((*beg).c_str());
+            if (histogramBufferSize >= 0) MCEngine.setHistogramBufferSize(histogramBufferSize);
+            else throw std::runtime_error("\nERROR: HistogramBufferSize in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
     } while (!IsEOF);
