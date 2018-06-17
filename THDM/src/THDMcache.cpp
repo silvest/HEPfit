@@ -1835,13 +1835,13 @@ void THDMcache::read(){
     ATLAS13_tt_phi_tt = readTable(ex25.str(),61,2);
     ex25e << tablepath << "ATLAS-CONF-2016-104_a_e.dat";
     ATLAS13_tt_phi_tt_e = readTable(ex25e.str(),61,2);
-    ex26 << tablepath << "ATLAS-CONF-2017-050_a.dat";
+    ex26 << tablepath << "170907242_a.dat";
     ATLAS13_gg_phi_tautau = readTable(ex26.str(),206,2);
-    ex26e << tablepath << "ATLAS-CONF-2017-050_a_e.dat";
+    ex26e << tablepath << "170907242_a_e.dat";
     ATLAS13_gg_phi_tautau_e = readTable(ex26e.str(),206,2);
-    ex27 << tablepath << "ATLAS-CONF-2017-050_b.dat";
+    ex27 << tablepath << "170907242_b.dat";
     ATLAS13_bb_phi_tautau = readTable(ex27.str(),206,2);
-    ex27e << tablepath << "ATLAS-CONF-2017-050_b_e.dat";
+    ex27e << tablepath << "170907242_b_e.dat";
     ATLAS13_bb_phi_tautau_e = readTable(ex27e.str(),206,2);
     ex28 << tablepath << "170704147.dat";
     ATLAS13_pp_phi_gaga = readTable(ex28.str(),251,2);

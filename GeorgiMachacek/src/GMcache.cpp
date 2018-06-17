@@ -336,11 +336,11 @@ void GMcache::read(){
     ATLAS8_bb_phi_tautau = readTable(ex9.str(),92,2);
     ex10 << tablepath << "CMS-PAS-HIG-14-029_b.dat";
     CMS8_bb_phi_tautau = readTable(ex10.str(),92,2);
-    ex11 << tablepath << "ATLAS-CONF-2017-050_a.dat";
+    ex11 << tablepath << "170907242_a.dat";
     ATLAS13_gg_phi_tautau = readTable(ex11.str(),206,2);
     ex12 << tablepath << "180306553_a.dat";
     CMS13_gg_phi_tautau = readTable(ex12.str(),312,2);
-    ex13 << tablepath << "ATLAS-CONF-2017-050_b.dat";
+    ex13 << tablepath << "170907242_b.dat";
     ATLAS13_bb_phi_tautau = readTable(ex13.str(),206,2);
     ex14 << tablepath << "180306553_b.dat";
     CMS13_bb_phi_tautau = readTable(ex14.str(),312,2);
@@ -3055,8 +3055,11 @@ double GMcache::OffShellFunction(const double k) const{
         return ( OffShellFunction_cache[NumPar][i] );
     }
     else {
-        double newResult = (((1.0-8.0*k+20.0*k*k)/sqrt(abs(4.0*k-1.0)))*acos(HSTheta(k-0.25)*(3.0*k-1.0)/(2.0*k*sqrt(k)))
+        double newResult=0.0;
+        if(k>0.25) {
+        newResult = (((1.0-8.0*k+20.0*k*k)/sqrt(abs(4.0*k-1.0)))*acos(HSTheta(k-0.25)*(3.0*k-1.0)/(2.0*k*sqrt(k)))
                               -(1.0-k)/(6.0*k)*(2.0-13.0*k+47.0*k*k) - 0.5*(1.0-6.0*k+4.0*k*k)*log(k));
+        }
         CacheShiftReal(OffShellFunction_cache, NumPar, params, newResult);
         return newResult;
     }
