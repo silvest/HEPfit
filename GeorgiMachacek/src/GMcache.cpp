@@ -339,11 +339,11 @@ void GMcache::read(){
     readTable(ATLAS8_bb_phi_tautau, ex9.str(),92,2);
     ex10 << tablepath << "CMS-PAS-HIG-14-029_b.dat";
     readTable(CMS8_bb_phi_tautau, ex10.str(),92,2);
-    ex11 << tablepath << "ATLAS-CONF-2017-050_a.dat";
+    ex11 << tablepath << "170907242_a.dat";
     readTable(ATLAS13_gg_phi_tautau, ex11.str(),206,2);
     ex12 << tablepath << "180306553_a.dat";
     readTable(CMS13_gg_phi_tautau, ex12.str(),312,2);
-    ex13 << tablepath << "ATLAS-CONF-2017-050_b.dat";
+    ex13 << tablepath << "170907242_b.dat";
     readTable(ATLAS13_bb_phi_tautau, ex13.str(),206,2);
     ex14 << tablepath << "180306553_b.dat";
     readTable(CMS13_bb_phi_tautau, ex14.str(),312,2);
