@@ -10,6 +10,87 @@
 
 
 
+BR_H1_tt_GM::BR_H1_tt_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_tt_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Htott;
+}
+
+BR_H1_bb_GM::BR_H1_bb_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_bb_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Htobb;
+}
+
+BR_H1_tautau_GM::BR_H1_tautau_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_tautau_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Htotautau;
+}
+
+BR_H1_WW_GM::BR_H1_WW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_WW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoWW;
+}
+
+BR_H1_ZZ_GM::BR_H1_ZZ_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_ZZ_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoZZ;
+}
+
+BR_H1_gaga_GM::BR_H1_gaga_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_gaga_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Htogaga;
+}
+
+BR_H1_Zga_GM::BR_H1_Zga_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_Zga_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoZga;
+}
+
+BR_H1_H3Z_GM::BR_H1_H3Z_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_H3Z_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoAZ;
+}
+
+BR_H1_H3pW_GM::BR_H1_H3pW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_H3pW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoHpW;
+}
+
 BR_H1_hh_GM::BR_H1_hh_GM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
 {}
@@ -17,6 +98,330 @@ BR_H1_hh_GM::BR_H1_hh_GM(const StandardModel& SM_i)
 double BR_H1_hh_GM::computeThValue()
 {
     return myGM.getMyGMCache()->Br_Htohh;
+}
+
+BR_H1_H3H3_GM::BR_H1_H3H3_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_H3H3_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoAA;
+}
+
+BR_H1_H3pH3m_GM::BR_H1_H3pH3m_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_H3pH3m_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoHpHm;
+}
+
+BR_H1_H5H5_GM::BR_H1_H5H5_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_H5H5_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoH5H5;
+}
+
+BR_H1_H5pH5m_GM::BR_H1_H5pH5m_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_H5pH5m_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoH5pH5m;
+}
+
+BR_H1_H5ppH5mm_GM::BR_H1_H5ppH5mm_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H1_H5ppH5mm_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HtoH5ppH5mm;
+}
+
+BR_H3_tt_GM::BR_H3_tt_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_tt_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Atott;
+}
+
+BR_H3_bb_GM::BR_H3_bb_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_bb_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Atobb;
+}
+
+BR_H3_tautau_GM::BR_H3_tautau_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_tautau_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Atotautau;
+}
+
+BR_H3_gaga_GM::BR_H3_gaga_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_gaga_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Atogaga;
+}
+
+BR_H3_Zga_GM::BR_H3_Zga_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_Zga_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_AtoZga;
+}
+
+BR_H3_hZ_GM::BR_H3_hZ_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_hZ_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_AtohZ;
+}
+
+BR_H3_H1Z_GM::BR_H3_H1Z_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_H1Z_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_AtoHZ;
+}
+
+BR_H3_H5Z_GM::BR_H3_H5Z_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_H5Z_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_AtoH5Z;
+}
+
+BR_H3_H5pW_GM::BR_H3_H5pW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3_H5pW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_AtoH5pW;
+}
+
+BR_H3p_taunu_GM::BR_H3p_taunu_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3p_taunu_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Hptotaunu;
+}
+
+BR_H3p_tb_GM::BR_H3p_tb_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3p_tb_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_Hptotb;
+}
+
+BR_H3p_hW_GM::BR_H3p_hW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3p_hW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HptohW;
+}
+
+BR_H3p_H1W_GM::BR_H3p_H1W_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3p_H1W_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HptoHW;
+}
+
+BR_H3p_H5pZ_GM::BR_H3p_H5pZ_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3p_H5pZ_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HptoH5pZ;
+}
+
+BR_H3p_H5W_GM::BR_H3p_H5W_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3p_H5W_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HptoH5W;
+}
+
+BR_H3p_H5ppW_GM::BR_H3p_H5ppW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H3p_H5ppW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_HptoH5ppW;
+}
+
+BR_H5_WW_GM::BR_H5_WW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5_WW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5toWW;
+}
+
+BR_H5_ZZ_GM::BR_H5_ZZ_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5_ZZ_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5toZZ;
+}
+
+BR_H5_gaga_GM::BR_H5_gaga_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5_gaga_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5togaga;
+}
+
+BR_H5_Zga_GM::BR_H5_Zga_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5_Zga_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5toZga;
+}
+
+BR_H5_H3Z_GM::BR_H5_H3Z_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5_H3Z_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5toAZ;
+}
+
+BR_H5_H3pW_GM::BR_H5_H3pW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5_H3pW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5toHpW;
+}
+
+BR_H5_H3pH3m_GM::BR_H5_H3pH3m_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5_H3pH3m_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5toHpHm;
+}
+
+BR_H5_H3H3_GM::BR_H5_H3H3_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5_H3H3_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5toAA;
+}
+
+BR_H5p_WZ_GM::BR_H5p_WZ_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5p_WZ_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5ptoWZ;
+}
+
+BR_H5p_H3W_GM::BR_H5p_H3W_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5p_H3W_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5ptoAW;
+}
+
+BR_H5p_H3pZ_GM::BR_H5p_H3pZ_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5p_H3pZ_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5ptoHpZ;
+}
+
+BR_H5p_H3pH3_GM::BR_H5p_H3pH3_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5p_H3pH3_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5ptoHpA;
+}
+
+BR_H5pp_WW_GM::BR_H5pp_WW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5pp_WW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5pptoWW;
+}
+
+BR_H5pp_H3pW_GM::BR_H5pp_H3pW_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5pp_H3pW_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5pptoHpW;
+}
+
+BR_H5pp_H3pH3p_GM::BR_H5pp_H3pH3p_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double BR_H5pp_H3pH3p_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->Br_H5pptoHpHp;
 }
 
 

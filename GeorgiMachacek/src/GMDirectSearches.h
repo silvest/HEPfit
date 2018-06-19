@@ -22,6 +22,186 @@
  */
 
 /**
+ * @class BR_H1_tt_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_tt_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_tt_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_bb_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_bb_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_bb_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_tautau_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_tautau_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_tautau_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_WW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_WW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_WW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_ZZ_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_ZZ_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_ZZ_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_gaga_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_gaga_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_gaga_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_Zga_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_Zga_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_Zga_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_H3Z_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_H3Z_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_H3Z_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_H3pW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_H3pW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_H3pW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
  * @class BR_H1_hh_GM
  * @ingroup GeorgiMachacek
  * @brief Branching ratio of @f$H_1@f$ to two @f$h@f$ in the GeorgiMachacek model.
@@ -36,6 +216,726 @@ public:
     
     /**
      * @return @f$BR(H_1\to hh)@f$
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_H3H3_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_H3H3_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_H3H3_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_H3pH3m_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_H3pH3m_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_H3pH3m_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_H5H5_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_H5H5_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_H5H5_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_H5pH5m_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_H5pH5m_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_H5pH5m_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H1_H5ppH5mm_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H1_H5ppH5mm_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H1_H5ppH5mm_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_tt_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_tt_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_tt_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_bb_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_bb_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_bb_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_tautau_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_tautau_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_tautau_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_gaga_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_gaga_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_gaga_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_Zga_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_Zga_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_Zga_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_hZ_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_hZ_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_hZ_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_H1Z_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_H1Z_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_H1Z_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_H5Z_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_H5Z_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_H5Z_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3_H5pW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3_H5pW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3_H5pW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3p_taunu_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3p_taunu_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3p_taunu_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3p_tb_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3p_tb_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3p_tb_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3p_hW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3p_hW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3p_hW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3p_H1W_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3p_H1W_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3p_H1W_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3p_H5pZ_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3p_H5pZ_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3p_H5pZ_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3p_H5W_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3p_H5W_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3p_H5W_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H3p_H5ppW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H3p_H5ppW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H3p_H5ppW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5_WW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5_WW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5_WW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5_ZZ_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5_ZZ_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5_ZZ_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5_gaga_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5_gaga_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5_gaga_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5_Zga_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5_Zga_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5_Zga_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5_H3Z_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5_H3Z_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5_H3Z_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5_H3pW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5_H3pW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5_H3pW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5_H3pH3m_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5_H3pH3m_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5_H3pH3m_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5_H3H3_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5_H3H3_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5_H3H3_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5p_WZ_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5p_WZ_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5p_WZ_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5p_H3W_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5p_H3W_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5p_H3W_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5p_H3pZ_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5p_H3pZ_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5p_H3pZ_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5p_H3pH3_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5p_H3pH3_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5p_H3pH3_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5pp_WW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5pp_WW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5pp_WW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5pp_H3pW_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5pp_H3pW_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5pp_H3pW_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class BR_H5pp_H3pH3p_GM
+ * @ingroup GeorgiMachacek
+ */
+class BR_H5pp_H3pH3p_GM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    BR_H5pp_H3pH3p_GM(const StandardModel& SM_i);
+    
+    /**
+     * @return 
      */
     double computeThValue ();
 private:

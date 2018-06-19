@@ -3236,11 +3236,11 @@ void GMcache::computeOtherHiggsProperties()
 
     // H3p -> f f' decays (assuming Vtb=1)
 
-    double GammaH3ptb     = HSTheta(mA-MtPole-Mb)*3.0*cosb*cosb/(4.0*M_PI*mA*vev*vev*sinb*sinb)
+    double GammaHptb     = HSTheta(mA-MtPole-Mb)*3.0*cosb*cosb/(4.0*M_PI*mA*vev*vev*sinb*sinb)
                               *(mAsq*(MtPole*MtPole+Mb*Mb) - (MtPole*MtPole-Mb*Mb)*(MtPole*MtPole-Mb*Mb))
                               *KaellenFunction(1.0,MtPole*MtPole/mAsq,Mb*Mb/mAsq);
 
-    double GammaH3ptaunu  = HSTheta(mA-Mtau)*cosb*cosb/(4.0*M_PI*mA*vev*vev*sinb*sinb)*
+    double GammaHptaunu  = HSTheta(mA-Mtau)*cosb*cosb/(4.0*M_PI*mA*vev*vev*sinb*sinb)*
                               (mAsq-Mtau*Mtau)*Mtau*Mtau*KaellenFunction(1.0,Mtau*Mtau/mAsq,0.0);
 
     // H5 -> V V decays
@@ -3356,7 +3356,7 @@ void GMcache::computeOtherHiggsProperties()
     double GammaHH5H5     = HSTheta(mHh-2.0*mH5)*fabs(gHH5H5)*fabs(gHH5H5)
                             *KaellenFunction(1.0,mH5sq/mH1sq,mH5sq/mH1sq)/(16.0*mHh*M_PI);
 
-    double GammaHHp5H5m   = 2.0*GammaHH5H5;
+    double GammaHH5pH5m   = 2.0*GammaHH5H5;
 
     double GammaHH5ppH5mm = 2.0*GammaHH5H5;
     
@@ -3377,14 +3377,14 @@ void GMcache::computeOtherHiggsProperties()
                   +Gamma_Hgg+Gamma_Hgaga+Gamma_HZga
                   +GammaHAZ+GammaHHpW
                   +GammaHhh+GammaHHpHm+GammaHAA
-                  +GammaHH5H5+GammaHHp5H5m+GammaHH5ppH5mm;
+                  +GammaHH5H5+GammaHH5pH5m+GammaHH5ppH5mm;
 
     GammaH3tot=  rA_ff*(BrSM_Atott/(1.0-4.0*MtPole*MtPole/mAsq)+BrSM_Atocc+BrSM_Atobb+BrSM_Atotautau+BrSM_Atomumu)*GammaAtotSM
                   +Gamma_Agg+Gamma_Agaga+Gamma_AZga
                   +GammaAhZ+GammaAHZ
                   +GammaAH5Z+GammaAH5pW;
 
-    GammaH3ptot=  GammaH3ptb+GammaH3ptaunu
+    GammaH3ptot=  GammaHptb+GammaHptaunu
                   +GammaHphW+GammaHpHW
                   +GammaHpH5pZ+GammaHpH5W+GammaHpH5ppW+1.e-20;
 
@@ -3408,7 +3408,7 @@ void GMcache::computeOtherHiggsProperties()
 //    std::cout<<"GammaHAA = "<<GammaHAA<<std::endl;
 //    std::cout<<"GammaHHpHm = "<<GammaHHpHm<<std::endl;
 //    std::cout<<"GammaHH5H5 = "<<GammaHH5H5<<std::endl;
-//    std::cout<<"GammaHHp5H5m = "<<GammaHHp5H5m<<std::endl;
+//    std::cout<<"GammaHH5pH5m = "<<GammaHH5pH5m<<std::endl;
 //    std::cout<<"GammaHH5ppH5mm = "<<GammaHH5ppH5mm<<std::endl;
 //    std::cout<<"GammaH1tot = "<<GammaH1tot<<std::endl;
 //    std::cout<<"------------------------"<<std::endl;
@@ -3422,8 +3422,8 @@ void GMcache::computeOtherHiggsProperties()
 //    std::cout<<"GammaAH5pW = "<<GammaAH5pW<<std::endl;
 //    std::cout<<"GammaH3tot = "<<GammaH3tot<<std::endl;
 //    std::cout<<"------------------------"<<std::endl;
-//    std::cout<<"GammaH3ptb = "<<GammaH3ptb<<std::endl;
-//    std::cout<<"GammaH3ptaunu = "<<GammaH3ptaunu<<std::endl;
+//    std::cout<<"GammaHptb = "<<GammaHptb<<std::endl;
+//    std::cout<<"GammaHptaunu = "<<GammaHptaunu<<std::endl;
 //    std::cout<<"GammaHphW = "<<GammaHphW<<std::endl;
 //    std::cout<<"GammaHpHW = "<<GammaHpHW<<std::endl;
 //    std::cout<<"GammaHpH5pZ = "<<GammaHpH5pZ<<std::endl;
@@ -3453,41 +3453,58 @@ void GMcache::computeOtherHiggsProperties()
 //    std::cout<<"GammaH5ppHpHp = "<<GammaH5ppHpHp<<std::endl;
 //    std::cout<<"GammaH5pptot = "<<GammaH5pptot<<std::endl;
 
-    
-
     Br_Htott=BrSM_Htott*rHH_ff*GammaHtotSM/GammaH1tot;
-    Br_Atott=BrSM_Atott*rA_ff*GammaAtotSM/GammaH3tot;
     Br_Htobb=BrSM_Htobb*rHH_ff*GammaHtotSM/GammaH1tot;
-    Br_Atobb=BrSM_Atobb*rA_ff*GammaAtotSM/GammaH3tot;
     Br_Htotautau=BrSM_Htotautau*rHH_ff*GammaHtotSM/GammaH1tot;
-    Br_Atotautau=BrSM_Atotautau*rA_ff*GammaAtotSM/GammaH3tot;
     Br_HtoWW=BrSM_HtoWW*rHH_VV*GammaHtotSM/GammaH1tot;
-    Br_H5toWW=GammaH5WW/GammaH5tot;
     Br_HtoZZ=BrSM_HtoZZ*rHH_VV*GammaHtotSM/GammaH1tot;
-    Br_H5toZZ=GammaH5ZZ/GammaH5tot;
     Br_Htogaga=Gamma_Hgaga/GammaH1tot;
-    Br_Atogaga=Gamma_Agaga/GammaH3tot;
-    Br_H5togaga=Gamma_H5gaga/GammaH5tot;
     Br_HtoZga=Gamma_HZga/GammaH1tot;
-    Br_AtoZga=Gamma_AZga/GammaH3tot;
-    Br_H5toZga=Gamma_H5Zga/GammaH5tot;
+    Br_HtoAZ=GammaHAZ/GammaH1tot;
+    Br_HtoHpW=GammaHHpW/GammaH1tot;
     Br_Htohh=GammaHhh/GammaH1tot;
-//    Br_H5tohh=GammaH5hh/GammaH5tot;
+    Br_HtoAA=GammaHAA/GammaH1tot;
+    Br_HtoHpHm=GammaHHpHm/GammaH1tot;
+    Br_HtoH5H5=GammaHH5H5/GammaH1tot;
+    Br_HtoH5pH5m=GammaHH5pH5m/GammaH1tot;
+    Br_HtoH5ppH5mm=GammaHH5ppH5mm/GammaH1tot;
+
+    Br_Atott=BrSM_Atott*rA_ff*GammaAtotSM/GammaH3tot;
+    Br_Atobb=BrSM_Atobb*rA_ff*GammaAtotSM/GammaH3tot;
+    Br_Atotautau=BrSM_Atotautau*rA_ff*GammaAtotSM/GammaH3tot;
+    Br_Atogaga=Gamma_Agaga/GammaH3tot;
+    Br_AtoZga=Gamma_AZga/GammaH3tot;
     Br_AtohZ=GammaAhZ/GammaH3tot;
     Br_AtoHZ=GammaAHZ/GammaH3tot;
     Br_AtoH5Z=GammaAH5Z/GammaH3tot;
-    Br_HtoAZ=GammaHAZ/GammaH1tot;
+    Br_AtoH5pW=GammaAH5pW/GammaH3tot;
+
+    Br_Hptotaunu=GammaHptaunu/GammaH3ptot;
+    Br_Hptotb=GammaHptb/GammaH3ptot;
+    Br_HptohW=GammaHphW/GammaH3ptot;
+    Br_HptoHW=GammaHpHW/GammaH3ptot;
+    Br_HptoH5pZ=GammaHpH5pZ/GammaH3ptot;
+    Br_HptoH5W=GammaHpH5W/GammaH3ptot;
+    Br_HptoH5ppW=GammaHpH5ppW/GammaH3ptot;
+
+    Br_H5toWW=GammaH5WW/GammaH5tot;
+    Br_H5toZZ=GammaH5ZZ/GammaH5tot;
+    Br_H5togaga=Gamma_H5gaga/GammaH5tot;
+    Br_H5toZga=Gamma_H5Zga/GammaH5tot;
     Br_H5toAZ=GammaH5AZ/GammaH5tot;
-//    Br_HtoAA=GammaHAA/GammaHtot;
-//    Br_HtoHpHm=GammaHHpHm/GammaHtot;
-//    Br_HtoHpW=GammaHHpW/GammaHtot;
+    Br_H5toHpW=GammaH5HpW/GammaH5tot;
+    Br_H5toHpHm=GammaH5HpHm/GammaH5tot;
+    Br_H5toAA=GammaH5AA/GammaH5tot;
     BrRatioVV5=(GammaH5WW+GammaH5ZZ)/(GammaH5tot*(BrSM_H5toWW+BrSM_H5toZZ));
 
-    Br_Hptotaunu=GammaH3ptaunu/GammaH3ptot;
-    Br_Hptotb=GammaH3ptb/GammaH3ptot;
     Br_H5ptoWZ=GammaH5pZW/GammaH5ptot;
+    Br_H5ptoAW=GammaH5pAW/GammaH5ptot;
+    Br_H5ptoHpZ=GammaH5pHpZ/GammaH5ptot;
+    Br_H5ptoHpA=GammaH5pHpA/GammaH5ptot;
 
     Br_H5pptoWW=GammaH5ppWW/GammaH5pptot;
+    Br_H5pptoHpW=GammaH5ppHpW/GammaH5pptot;
+    Br_H5pptoHpHp=GammaH5ppHpHp/GammaH5pptot;
 
 }
 
