@@ -12,8 +12,8 @@
 #include <string>
 
 GMcache::GMcache(const StandardModel& SM_i)
-    : br_tt(19961, 2, 0.),
-    br_tt2(19961, 2, 0.),
+    : br_aa(19961, 2, 0.),
+    br_tt(19961, 2, 0.),
     br_bb(19961, 2, 0.),
     br_tautau(19961, 2, 0.),
     br_cc(19961, 2, 0.),
@@ -225,254 +225,254 @@ void GMcache::read(){
     path << getenv("HEPFITTABS") << "/THDM/tabs/";
     std::string tablepath=path.str();
 
-    br1 << tablepath << "br1.dat";
-    br_tt = readTable(br1.str(),19961,2);
+    br1 << tablepath << "br1.dat"; /*This first matrix dummy will be deleted on Scientific Linux.*/
+    readTable(br_aa, br1.str(),19961,2);
     br1a << tablepath << "br1.dat";
-    br_tt2 = readTable(br1a.str(),19961,2);
+    readTable(br_tt, br1a.str(),19961,2);
     br2 << tablepath << "br2.dat";
-    br_bb = readTable(br2.str(),19961,2);
+    readTable(br_bb, br2.str(),19961,2);
     br3 << tablepath << "br3.dat";
-    br_tautau = readTable(br3.str(),19961,2); 
+    readTable(br_tautau, br3.str(),19961,2); 
     br4 << tablepath << "br4.dat";
-    br_cc = readTable(br4.str(),19961,2);
+    readTable(br_cc, br4.str(),19961,2);
     br5 << tablepath << "br5.dat";
-    br_mumu = readTable(br5.str(),19961,2);
+    readTable(br_mumu, br5.str(),19961,2);
     br6 << tablepath << "br6.dat";
-    br_ZZ = readTable(br6.str(),19961,2);
+    readTable(br_ZZ, br6.str(),19961,2);
     br7 << tablepath << "br7.dat";
-    br_WW = readTable(br7.str(),19961,2);
+    readTable(br_WW, br7.str(),19961,2);
     dw1 << tablepath << "dw1.dat";
-    GammaHtot_SM = readTable(dw1.str(),19961,2);
+    readTable(GammaHtot_SM, dw1.str(),19961,2);
     cs1 << tablepath << "log_cs_ggH_8.dat";
-    log_cs_ggH_8 = readTable(cs1.str(),199,2);
+    readTable(log_cs_ggH_8, cs1.str(),199,2);
     cs11 << tablepath << "log_cs_ggH_13.dat";
-    log_cs_ggH_13 = readTable(cs11.str(),199,2);
+    readTable(log_cs_ggH_13, cs11.str(),199,2);
     cs2 << tablepath << "log_cs_VBF_8.dat";
-    log_cs_VBF_8 = readTable(cs2.str(),199,2);
+    readTable(log_cs_VBF_8, cs2.str(),199,2);
     cs12 << tablepath << "log_cs_VBF_13.dat";
-    log_cs_VBF_13 = readTable(cs12.str(),199,2);
+    readTable(log_cs_VBF_13, cs12.str(),199,2);
     cs3 << tablepath << "log_cs_WH_8.dat";
-    log_cs_WH_8 = readTable(cs3.str(),199,2);
+    readTable(log_cs_WH_8, cs3.str(),199,2);
     cs13 << tablepath << "log_cs_WH_13.dat";
-    log_cs_WH_13 = readTable(cs13.str(),199,2);
+    readTable(log_cs_WH_13, cs13.str(),199,2);
     cs4 << tablepath << "log_cs_ZH_8.dat";
-    log_cs_ZH_8 = readTable(cs4.str(),199,2);
+    readTable(log_cs_ZH_8, cs4.str(),199,2);
     cs14 << tablepath << "log_cs_ZH_13.dat";
-    log_cs_ZH_13 = readTable(cs14.str(),199,2);
+    readTable(log_cs_ZH_13, cs14.str(),199,2);
     cs5 << tablepath << "log_cs_ttH_8.dat";
-    log_cs_ttH_8 = readTable(cs5.str(),199,2);
+    readTable(log_cs_ttH_8, cs5.str(),199,2);
     cs15 << tablepath << "log_cs_ttH_13.dat";
-    log_cs_ttH_13 = readTable(cs15.str(),199,2);
+    readTable(log_cs_ttH_13, cs15.str(),199,2);
     cs6 << tablepath << "log_cs_bbH_8.dat";
-    log_cs_bbH_8 = readTable(cs6.str(),199,2);
+    readTable(log_cs_bbH_8, cs6.str(),199,2);
     cs16 << tablepath << "log_cs_bbH_13.dat";
-    log_cs_bbH_13 = readTable(cs16.str(),199,2);
+    readTable(log_cs_bbH_13, cs16.str(),199,2);
     cs7 << tablepath << "log_cs_ggA_8.dat";
-    log_cs_ggA_8 = readTable(cs7.str(),199,2);
+    readTable(log_cs_ggA_8, cs7.str(),199,2);
     cs17 << tablepath << "log_cs_ggA_13.dat";
-    log_cs_ggA_13 = readTable(cs17.str(),199,2);
+    readTable(log_cs_ggA_13, cs17.str(),199,2);
     cs8 << tablepath << "log_cs_ttA_8.dat";
-    log_cs_ttA_8 = readTable(cs8.str(),199,2);
+    readTable(log_cs_ttA_8, cs8.str(),199,2);
     cs18 << tablepath << "log_cs_ttA_13.dat";
-    log_cs_ttA_13 = readTable(cs18.str(),199,2);
+    readTable(log_cs_ttA_13, cs18.str(),199,2);
     cs9 << tablepath << "log_cs_bbA_8.dat";
-    log_cs_bbA_8 = readTable(cs9.str(),199,2);
+    readTable(log_cs_bbA_8, cs9.str(),199,2);
     cs19 << tablepath << "log_cs_bbA_13.dat";
-    log_cs_bbA_13 = readTable(cs19.str(),199,2);
+    readTable(log_cs_bbA_13, cs19.str(),199,2);
     cs20 << tablepath << "log_cs_ggHp_8.dat";
-    log_cs_ggHp_8 = readTable(cs20.str(),744,3);
+    readTable(log_cs_ggHp_8, cs20.str(),744,3);
     cs21 << tablepath << "log_cs_ggHp_13.dat";
-    log_cs_ggHp_13 = readTable(cs21.str(),1104,3);
+    readTable(log_cs_ggHp_13, cs21.str(),1104,3);
     cs22 << tablepath << "log_cs_ppH5ppH5mm_8.dat";
-    log_cs_ppH5ppH5mm_8 = readTable(cs22.str(),18,2);
+    readTable(log_cs_ppH5ppH5mm_8, cs22.str(),18,2);
     cs23 << tablepath << "log_cs_ppH5ppH5mm_13.dat";
-    log_cs_ppH5ppH5mm_13 = readTable(cs23.str(),38,2);
+    readTable(log_cs_ppH5ppH5mm_13, cs23.str(),38,2);
     cs24 << tablepath << "log_cs_VBFH5_8.dat";
-    log_cs_VBFH5_8 = readTable(cs24.str(),41,2);
+    readTable(log_cs_VBFH5_8, cs24.str(),41,2);
     cs25 << tablepath << "log_cs_VBFH5_13.dat";
-    log_cs_VBFH5_13 = readTable(cs25.str(),91,2);
+    readTable(log_cs_VBFH5_13, cs25.str(),91,2);
     cs26 << tablepath << "log_cs_VBFH5m_8.dat";
-    log_cs_VBFH5m_8 = readTable(cs26.str(),41,2);
+    readTable(log_cs_VBFH5m_8, cs26.str(),41,2);
     cs27 << tablepath << "log_cs_VBFH5m_13.dat";
-    log_cs_VBFH5m_13 = readTable(cs27.str(),91,2);
+    readTable(log_cs_VBFH5m_13, cs27.str(),91,2);
     cs28 << tablepath << "log_cs_VBFH5mm_8.dat";
-    log_cs_VBFH5mm_8 = readTable(cs28.str(),41,2);
+    readTable(log_cs_VBFH5mm_8, cs28.str(),41,2);
     cs29 << tablepath << "log_cs_VBFH5mm_13.dat";
-    log_cs_VBFH5mm_13 = readTable(cs29.str(),91,2);
+    readTable(log_cs_VBFH5mm_13, cs29.str(),91,2);
     cs30 << tablepath << "log_cs_VBFH5p_8.dat";
-    log_cs_VBFH5p_8 = readTable(cs30.str(),41,2);
+    readTable(log_cs_VBFH5p_8, cs30.str(),41,2);
     cs31 << tablepath << "log_cs_VBFH5p_13.dat";
-    log_cs_VBFH5p_13 = readTable(cs31.str(),91,2);
+    readTable(log_cs_VBFH5p_13, cs31.str(),91,2);
     cs32 << tablepath << "log_cs_VBFH5pp_8.dat";
-    log_cs_VBFH5pp_8 = readTable(cs32.str(),41,2);
+    readTable(log_cs_VBFH5pp_8, cs32.str(),41,2);
     cs33 << tablepath << "log_cs_VBFH5pp_13.dat";
-    log_cs_VBFH5pp_13 = readTable(cs33.str(),91,2);
+    readTable(log_cs_VBFH5pp_13, cs33.str(),91,2);
     cs34 << tablepath << "log_cs_VHH5_8.dat";
-    log_cs_VHH5_8 = readTable(cs34.str(),18,2);
+    readTable(log_cs_VHH5_8, cs34.str(),18,2);
     cs35 << tablepath << "log_cs_VHH5_13.dat";
-    log_cs_VHH5_13 = readTable(cs35.str(),38,2);
+    readTable(log_cs_VHH5_13, cs35.str(),38,2);
     cs36 << tablepath << "log_cs_VHH5mm_8.dat";
-    log_cs_VHH5mm_8 = readTable(cs36.str(),18,2);
+    readTable(log_cs_VHH5mm_8, cs36.str(),18,2);
     cs37 << tablepath << "log_cs_VHH5mm_13.dat";
-    log_cs_VHH5mm_13 = readTable(cs37.str(),38,2);
+    readTable(log_cs_VHH5mm_13, cs37.str(),38,2);
     cs38 << tablepath << "log_cs_VHH5pp_8.dat";
-    log_cs_VHH5pp_8 = readTable(cs38.str(),18,2);
+    readTable(log_cs_VHH5pp_8, cs38.str(),18,2);
     cs39 << tablepath << "log_cs_VHH5pp_13.dat";
-    log_cs_VHH5pp_13 = readTable(cs39.str(),38,2);
+    readTable(log_cs_VHH5pp_13, cs39.str(),38,2);
     ex1 << tablepath << "ATLAS-CONF-2016-104_a.dat";
-    ATLAS13_tt_phi_tt = readTable(ex1.str(),61,2);
+    readTable(ATLAS13_tt_phi_tt, ex1.str(),61,2);
     ex2 << tablepath << "ATLAS-CONF-2016-104_b.dat";
-    ATLAS13_bb_phi_tt = readTable(ex2.str(),61,2);
+    readTable(ATLAS13_bb_phi_tt, ex2.str(),61,2);
     ex3 << tablepath << "150608329.dat";
-    CMS8_bb_phi_bb = readTable(ex3.str(),81,2);
+    readTable(CMS8_bb_phi_bb, ex3.str(),81,2);
     ex4 << tablepath << "180206149.dat";
-    CMS8_gg_phi_bb = readTable(ex4.str(),88,2);
+    readTable(CMS8_gg_phi_bb, ex4.str(),88,2);
     ex5 << tablepath << "CMS-PAS-HIG-16-025.dat";
-    CMS13_pp_phi_bb = readTable(ex5.str(),66,2);
+    readTable(CMS13_pp_phi_bb, ex5.str(),66,2);
     ex6 << tablepath << "CMS-PAS-HIG-16-018.dat";
-    CMS13_bb_phi_bb = readTable(ex6.str(),101,2);
+    readTable(CMS13_bb_phi_bb, ex6.str(),101,2);
     ex7 << tablepath << "14096064_a.dat";
-    ATLAS8_gg_phi_tautau = readTable(ex7.str(),92,2);
+    readTable(ATLAS8_gg_phi_tautau, ex7.str(),92,2);
     ex8 << tablepath << "CMS-PAS-HIG-14-029_a.dat";
-    CMS8_gg_phi_tautau = readTable(ex8.str(),92,2);
+    readTable(CMS8_gg_phi_tautau, ex8.str(),92,2);
     ex9 << tablepath << "14096064_b.dat";
-    ATLAS8_bb_phi_tautau = readTable(ex9.str(),92,2);
+    readTable(ATLAS8_bb_phi_tautau, ex9.str(),92,2);
     ex10 << tablepath << "CMS-PAS-HIG-14-029_b.dat";
-    CMS8_bb_phi_tautau = readTable(ex10.str(),92,2);
-    ex11 << tablepath << "170907242_a.dat";
-    ATLAS13_gg_phi_tautau = readTable(ex11.str(),206,2);
+    readTable(CMS8_bb_phi_tautau, ex10.str(),92,2);
+    ex11 << tablepath << "ATLAS-CONF-2017-050_a.dat";
+    readTable(ATLAS13_gg_phi_tautau, ex11.str(),206,2);
     ex12 << tablepath << "180306553_a.dat";
-    CMS13_gg_phi_tautau = readTable(ex12.str(),312,2);
-    ex13 << tablepath << "170907242_b.dat";
-    ATLAS13_bb_phi_tautau = readTable(ex13.str(),206,2);
+    readTable(CMS13_gg_phi_tautau, ex12.str(),312,2);
+    ex13 << tablepath << "ATLAS-CONF-2017-050_b.dat";
+    readTable(ATLAS13_bb_phi_tautau, ex13.str(),206,2);
     ex14 << tablepath << "180306553_b.dat";
-    CMS13_bb_phi_tautau = readTable(ex14.str(),312,2);
+    readTable(CMS13_bb_phi_tautau, ex14.str(),312,2);
     ex15 << tablepath << "14076583.dat";
-    ATLAS8_gg_phi_gaga = readTable(ex15.str(),108,2);
+    readTable(ATLAS8_gg_phi_gaga, ex15.str(),108,2);
     ex16 << tablepath << "170704147.dat";
-    ATLAS13_pp_phi_gaga = readTable(ex16.str(),251,2);
+    readTable(ATLAS13_pp_phi_gaga, ex16.str(),251,2);
     ex17 << tablepath << "160902507.dat";
-    CMS13_gg_phi_gaga = readTable(ex17.str(),351,2);
+    readTable(CMS13_gg_phi_gaga, ex17.str(),351,2);
     ex18 << tablepath << "14078150.dat";
-    ATLAS8_pp_phi_Zga_llga = readTable(ex18.str(),141,2);
+    readTable(ATLAS8_pp_phi_Zga_llga, ex18.str(),141,2);
     ex19 << tablepath << "CMS-PAS-HIG-16-014.dat";
-    CMS8_pp_phi_Zga_llga = readTable(ex19.str(),101,2);
+    readTable(CMS8_pp_phi_Zga_llga, ex19.str(),101,2);
     ex20 << tablepath << "170800212.dat";
-    ATLAS13_gg_phi_Zga_llga = readTable(ex20.str(),216,2);
+    readTable(ATLAS13_gg_phi_Zga_llga, ex20.str(),216,2);
     ex21 << tablepath << "171203143.dat";
-    CMS13_gg_phi_Zga = readTable(ex21.str(),366,2);
+    readTable(CMS13_gg_phi_Zga, ex21.str(),366,2);
     ex22 << tablepath << "150705930_a.dat";
-    ATLAS8_gg_phi_ZZ = readTable(ex22.str(),173,2);
+    readTable(ATLAS8_gg_phi_ZZ, ex22.str(),173,2);
     ex23 << tablepath << "150705930_b.dat";
-    ATLAS8_VV_phi_ZZ = readTable(ex23.str(),173,2);
+    readTable(ATLAS8_VV_phi_ZZ, ex23.str(),173,2);
     ex24 << tablepath << "171206386_a.dat";
-    ATLAS13_gg_phi_ZZ_llllnunu = readTable(ex24.str(),101,2);
+    readTable(ATLAS13_gg_phi_ZZ_llllnunu, ex24.str(),101,2);
     ex25 << tablepath << "171206386_b.dat";
-    ATLAS13_VV_phi_ZZ_llllnunu = readTable(ex25.str(),101,2);
+    readTable(ATLAS13_VV_phi_ZZ_llllnunu, ex25.str(),101,2);
     ex26 << tablepath << "170809638_a.dat";
-    ATLAS13_gg_phi_ZZ_qqllnunu = readTable(ex26.str(),271,2);
+    readTable(ATLAS13_gg_phi_ZZ_qqllnunu, ex26.str(),271,2);
     ex27 << tablepath << "170809638_b.dat";
-    ATLAS13_VV_phi_ZZ_qqllnunu = readTable(ex27.str(),271,2);
+    readTable(ATLAS13_VV_phi_ZZ_qqllnunu, ex27.str(),271,2);
     ex28 << tablepath << "180401939_a.dat";
-    CMS13_pp_phi_ZZ_llqqnunull = readTable(ex28.str(),288,2);
+    readTable(CMS13_pp_phi_ZZ_llqqnunull, ex28.str(),288,2);
     ex28a << tablepath << "180401939_b.dat";
-    CMS13_VV_phi_ZZ_llqqnunull = readTable(ex28a.str(),288,2);
+    readTable(CMS13_VV_phi_ZZ_llqqnunull, ex28a.str(),288,2);
     ex29 << tablepath << "180303838.dat";
-    CMS13_pp_phi_ZZ_qqnunu = readTable(ex29.str(),301,2);
+    readTable(CMS13_pp_phi_ZZ_qqnunu, ex29.str(),301,2);
     ex30 << tablepath << "150900389_a.dat";
-    ATLAS8_gg_phi_WW = readTable(ex30.str(),13,2);
+    readTable(ATLAS8_gg_phi_WW, ex30.str(),13,2);
     ex31 << tablepath << "150900389_b.dat";
-    ATLAS8_VV_phi_WW = readTable(ex31.str(),13,2);
+    readTable(ATLAS8_VV_phi_WW, ex31.str(),13,2);
     ex32 << tablepath << "171001123_a.dat";
-    ATLAS13_gg_phi_WW_enumunu = readTable(ex32.str(),381,2);
+    readTable(ATLAS13_gg_phi_WW_enumunu, ex32.str(),381,2);
     ex33 << tablepath << "171001123_b.dat";
-    ATLAS13_VV_phi_WW_enumunu = readTable(ex33.str(),281,2);
+    readTable(ATLAS13_VV_phi_WW_enumunu, ex33.str(),281,2);
     ex34 << tablepath << "171007235_a.dat";
-    ATLAS13_gg_phi_WW_lnuqq = readTable(ex34.str(),271,2);
+    readTable(ATLAS13_gg_phi_WW_lnuqq, ex34.str(),271,2);
     ex35 << tablepath << "171007235_b.dat";
-    ATLAS13_VV_phi_WW_lnuqq = readTable(ex35.str(),271,2);
+    readTable(ATLAS13_VV_phi_WW_lnuqq, ex35.str(),271,2);
     ex36 << tablepath << "CMS-PAS-HIG-16-023.dat";
-    CMS13_ggVV_phi_WW_lnulnu = readTable(ex36.str(),81,2);
+    readTable(CMS13_ggVV_phi_WW_lnulnu, ex36.str(),81,2);
     ex37 << tablepath << "180209407.dat";
-    CMS13_pp_phi_WW_lnuqq = readTable(ex37.str(),341,2);
+    readTable(CMS13_pp_phi_WW_lnuqq, ex37.str(),341,2);
     ex38 << tablepath << "150400936.dat";
-    CMS8_mu_pp_phi_VV = readTable(ex38.str(),172,2);
+    readTable(CMS8_mu_pp_phi_VV, ex38.str(),172,2);
     ex39 << tablepath << "170804445.dat";
-    ATLAS13_pp_phi_VV_qqqq = readTable(ex39.str(),181,2);
+    readTable(ATLAS13_pp_phi_VV_qqqq, ex39.str(),181,2);
     ex40 << tablepath << "150904670.dat";
-    ATLAS8_gg_phi_hh = readTable(ex40.str(),75,2);
+    readTable(ATLAS8_gg_phi_hh, ex40.str(),75,2);
     ex41 << tablepath << "150304114.dat";
-    CMS8_pp_phi_hh_bbbb = readTable(ex41.str(),167,2);
+    readTable(CMS8_pp_phi_hh_bbbb, ex41.str(),167,2);
     ex42 << tablepath << "160306896.dat";
-    CMS8_pp_phi_hh_gagabb = readTable(ex42.str(),85,2);
+    readTable(CMS8_pp_phi_hh_gagabb, ex42.str(),85,2);
     ex43 << tablepath << "151001181_a.dat";
-    CMS8_gg_phi_hh_bbtautau = readTable(ex43.str(),10,2);
+    readTable(CMS8_gg_phi_hh_bbtautau, ex43.str(),10,2);
     ex43a << tablepath << "170700350.dat";
-    CMS8_pp_phi_hh_bbtautau = readTable(ex43a.str(),71,2);
+    readTable(CMS8_pp_phi_hh_bbtautau, ex43a.str(),71,2);
     ex44 << tablepath << "ATLAS-CONF-2016-049.dat";
-    ATLAS13_pp_phi_hh_bbbb = readTable(ex44.str(),271,2);
+    readTable(ATLAS13_pp_phi_hh_bbbb, ex44.str(),271,2);
     ex45 << tablepath << "CMS-PAS-HIG-17-009.dat";
-    CMS13_pp_phi_hh_bbbb = readTable(ex45.str(),95,2);
+    readTable(CMS13_pp_phi_hh_bbbb, ex45.str(),95,2);
     ex46 << tablepath << "171004960.dat";
-    CMS13_gg_phi_hh_bbbb = readTable(ex46.str(),226,2);
+    readTable(CMS13_gg_phi_hh_bbbb, ex46.str(),226,2);
     ex47 << tablepath << "ATLAS-CONF-2016-004.dat";
-    ATLAS13_pp_phi_hh_gagabb = readTable(ex47.str(),26,2);
+    readTable(ATLAS13_pp_phi_hh_gagabb, ex47.str(),26,2);
     ex48 << tablepath << "CMS-PAS-HIG-17-008.dat";
-    CMS13_pp_phi_hh_gagabb = readTable(ex48.str(),66,2);
+    readTable(CMS13_pp_phi_hh_gagabb, ex48.str(),66,2);
     ex49 << tablepath << "170702909.dat";
-    CMS13_pp_phi_hh_bbtautau = readTable(ex49.str(),66,2);
+    readTable(CMS13_pp_phi_hh_bbtautau, ex49.str(),66,2);
     ex50 << tablepath << "170804188.dat";
-    CMS13_pp_phi_hh_bblnulnu = readTable(ex50.str(),65,2);
+    readTable(CMS13_pp_phi_hh_bblnulnu, ex50.str(),65,2);
     ex51 << tablepath << "ATLAS-CONF-2016-071.dat";
-    ATLAS13_gg_phi_hh_gagaWW = readTable(ex51.str(),25,2);
+    readTable(ATLAS13_gg_phi_hh_gagaWW, ex51.str(),25,2);
     ex52 << tablepath << "150204478_b.dat";
-    ATLAS8_gg_A_hZ_bbZ = readTable(ex52.str(),79,2);
+    readTable(ATLAS8_gg_A_hZ_bbZ, ex52.str(),79,2);
     ex53 << tablepath << "150404710.dat";
-    CMS8_gg_A_hZ_bbll = readTable(ex53.str(),16,2);
+    readTable(CMS8_gg_A_hZ_bbll, ex53.str(),16,2);
     ex54 << tablepath << "150204478_a.dat";
-    ATLAS8_gg_A_hZ_tautauZ = readTable(ex54.str(),79,2);
+    readTable(ATLAS8_gg_A_hZ_tautauZ, ex54.str(),79,2);
     ex55 << tablepath << "151001181_b.dat";
-    CMS8_gg_A_hZ_tautaull = readTable(ex55.str(),14,2);
+    readTable(CMS8_gg_A_hZ_tautaull, ex55.str(),14,2);
     ex56 << tablepath << "171206518_a.dat";
-    ATLAS13_gg_A_Zh_Zbb = readTable(ex56.str(),181,2);
+    readTable(ATLAS13_gg_A_Zh_Zbb, ex56.str(),181,2);
     ex57 << tablepath << "171206518_b.dat";
-    ATLAS13_bb_A_Zh_Zbb = readTable(ex57.str(),181,2);
+    readTable(ATLAS13_bb_A_Zh_Zbb, ex57.str(),181,2);
     ex58 << tablepath << "160302991_a.dat";
-    CMS8_pp_A_phiZ_bbll = readTable(ex58.str(),28718,3);
+    readTable(CMS8_pp_A_phiZ_bbll, ex58.str(),28718,3);
     ex59 << tablepath << "160302991_b.dat";
-    CMS8_pp_phi_AZ_bbll = readTable(ex59.str(),29050,3);
+    readTable(CMS8_pp_phi_AZ_bbll, ex59.str(),29050,3);
     ex60 << tablepath << "14126663.dat";
-    ATLAS8_pp_Hpm_taunu = readTable(ex60.str(),83,2);
+    readTable(ATLAS8_pp_Hpm_taunu, ex60.str(),83,2);
     ex61 << tablepath << "150807774_a.dat";
-    CMS8_pp_Hp_taunu = readTable(ex61.str(),43,2);
+    readTable(CMS8_pp_Hp_taunu, ex61.str(),43,2);
     ex62 << tablepath << "ATLAS-CONF-2016-088.dat";
-    ATLAS13_pp_Hpm_taunu = readTable(ex62.str(),181,2);
+    readTable(ATLAS13_pp_Hpm_taunu, ex62.str(),181,2);
     ex63 << tablepath << "CMS-PAS-HIG-16-031.dat";
-    CMS13_pp_Hpm_taunu = readTable(ex63.str(),283,2);
+    readTable(CMS13_pp_Hpm_taunu, ex63.str(),283,2);
     ex64 << tablepath << "151203704.dat";
-    ATLAS8_pp_Hpm_tb = readTable(ex64.str(),41,2);
+    readTable(ATLAS8_pp_Hpm_tb, ex64.str(),41,2);
     ex65 << tablepath << "150807774_b.dat";
-    CMS8_pp_Hp_tb = readTable(ex65.str(),43,2);
+    readTable(CMS8_pp_Hp_tb, ex65.str(),43,2);
     ex66 << tablepath << "ATLAS-CONF-2016-089.dat";
-    ATLAS13_pp_Hp_tb1 = readTable(ex66.str(),71,2);
+    readTable(ATLAS13_pp_Hp_tb1, ex66.str(),71,2);
     ex67 << tablepath << "ATLAS-CONF-2016-104_c.dat";
-    ATLAS13_pp_Hp_tb2 = readTable(ex67.str(),181,2);
+    readTable(ATLAS13_pp_Hp_tb2, ex67.str(),181,2);
     ex68 << tablepath << "150304233.dat";
-    ATLAS8_WZ_H5pm_WZ_qqll = readTable(ex68.str(),81,2);
+    readTable(ATLAS8_WZ_H5pm_WZ_qqll, ex68.str(),81,2);
     ex69 << tablepath << "170502942.dat";
-    CMS13_WZ_H5pm_WZ_lnull = readTable(ex69.str(),181,2);
+    readTable(CMS13_WZ_H5pm_WZ_lnull, ex69.str(),181,2);
     ex70 << tablepath << "14120237_a.dat";
-    ATLAS8_pp_H5ppmmH5mmpp_eeee = readTable(ex70.str(),50,2);
+    readTable(ATLAS8_pp_H5ppmmH5mmpp_eeee, ex70.str(),50,2);
     ex70a << tablepath << "14120237_b.dat";
-    ATLAS8_pp_H5ppmmH5mmpp_emuemu = readTable(ex70a.str(),57,2);
+    readTable(ATLAS8_pp_H5ppmmH5mmpp_emuemu, ex70a.str(),57,2);
     ex70b << tablepath << "14120237_c.dat";
-    ATLAS8_pp_H5ppmmH5mmpp_mumumumu = readTable(ex70b.str(),57,2);
+    readTable(ATLAS8_pp_H5ppmmH5mmpp_mumumumu, ex70b.str(),57,2);
     ex71 << tablepath << "171009748.dat";
-    ATLAS13_pp_H5ppmmH5mmpp_llll = readTable(ex71.str(),96,2);
+    readTable(ATLAS13_pp_H5ppmmH5mmpp_llll, ex71.str(),96,2);
     ex72 << tablepath << "14106315.dat";
-    CMS8_pp_H5ppmm_WW_jjll = readTable(ex72.str(),65,2);
+    readTable(CMS8_pp_H5ppmm_WW_jjll, ex72.str(),65,2);
     ex73 << tablepath << "170905822.dat";
-    CMS13_pp_H5ppmm_WW_jjll = readTable(ex73.str(),81,2);
+    readTable(CMS13_pp_H5ppmm_WW_jjll, ex73.str(),81,2);
 }
 
 
@@ -485,7 +485,7 @@ double GMcache::ip_Br_HPtott(double mass){
     if (i>=0) {
         return ( ip_Br_HPtott_cache[NumPar][i] );
     } else {
-        double newResult = pow(10.0,interpolate(br_tt2,mass));
+        double newResult = pow(10.0,interpolate(br_tt,mass));
         CacheShiftReal(ip_Br_HPtott_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -2407,8 +2407,7 @@ double GMcache::ip_ex_pp_H5ppmm_WW_jjll_CMS13(double mH5){
 
 
 
-
-gslpp::matrix<double> GMcache::readTable(std::string filename, int rowN, int colN){
+void GMcache::readTable(gslpp::matrix<double>& arrayTab, std::string filename, int rowN, int colN){
 
     std::ifstream INfile;
     std::string lineTab;
@@ -2417,8 +2416,7 @@ gslpp::matrix<double> GMcache::readTable(std::string filename, int rowN, int col
         std::cout<<"error: in GMcache, table doesn't exist!"<<std::endl;
     }
 
-    gslpp::matrix<double> arrayTab(rowN, colN, 0.);
-    int a =0;
+    int a=0;
     int b=0;
     double v;
 
@@ -2438,13 +2436,11 @@ gslpp::matrix<double> GMcache::readTable(std::string filename, int rowN, int col
     }
 
     INfile.close();
-    
-    return arrayTab;
 }
 
 //1D interpolation
 
-double GMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
+double GMcache::interpolate(gslpp::matrix<double>& arrayTab, double x){
 
     int rowN=arrayTab.size_i();
     
@@ -2471,7 +2467,7 @@ double GMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
 
 //2D interpolation
 
-double GMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x, double y){
+double GMcache::interpolate2D(gslpp::matrix<double>& arrayTab, double x, double y){
 
     int rowN=arrayTab.size_i();
 

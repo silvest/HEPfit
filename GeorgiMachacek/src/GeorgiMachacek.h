@@ -37,7 +37,7 @@ public:
     /**
      * @brief GeorgiMachacek destructor
      */
-    ~GeorgiMachacek();
+//    ~GeorgiMachacek();
     
     virtual bool InitializeModel();
     

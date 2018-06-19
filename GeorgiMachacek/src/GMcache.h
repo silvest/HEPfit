@@ -39,19 +39,19 @@ public:
      * @brief This function reads values from a table and returns them as an array.
      * @return the tabled values
      */
-    gslpp::matrix<double> readTable(std::string filename, int rowN, int colN);
+    void readTable(gslpp::matrix<double>& arrayTab, std::string filename, int rowN, int colN);
 
     /**
      * @brief Linearly interpolates a table with one parameter dimension.
      * @return the interpolated value
      */
-    double interpolate (gslpp::matrix<double> arrayTab, double x);
+    double interpolate (gslpp::matrix<double>& arrayTab, double x);
 
     /**
      * @brief Linearly interpolates a table with two parameter dimensions.
      * @return the interpolated value
      */
-    double interpolate2D (gslpp::matrix<double> arrayTab, double x, double y);
+    double interpolate2D (gslpp::matrix<double>& arrayTab, double x, double y);
 
     /**
      * @brief Fills all required arrays with the values read from the tables.
@@ -61,7 +61,7 @@ public:
     /**
      * @brief SM Higgs branching ratio tables (obtained with HDECAY 6.10), depending on the Higgs mass.
      */
-    gslpp::matrix<double> br_tt, br_tt2, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW;
+    gslpp::matrix<double> br_aa, br_tt, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW;
 
     /**
      * @brief Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass.
