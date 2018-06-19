@@ -100,32 +100,30 @@ public:
      */
     virtual  std::vector<WilsonCoefficient>& CMbtaunu();
     
-     /**
-     * @return GeneralTHDM Wilson coefficients for \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
-     */
-    virtual  std::vector<WilsonCoefficient>& CMBll();
+    virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
     
     
     /**
      * @return C10 Wilson coefficient of  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
-    virtual double C10Bll(double xt, double xHp);
+    virtual double C10Bll(double xt, double xHp, gslpp::complex su);
     
     /**
      * @return Box CS Wilson coefficient of  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
-    virtual  gslpp::complex CSboxBll(double xt, double xHp);
+    virtual  gslpp::complex CSboxBll(double xt, double xHp, gslpp::complex su, gslpp::complex sd, gslpp::complex sl);
     
        /**
      * @return Box CP Wilson coefficient of  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
-    virtual  gslpp::complex CPboxBll(double xt, double xHp);
+    virtual  gslpp::complex CPboxBll(double xt, double xHp, gslpp::complex su, gslpp::complex sd, gslpp::complex sl);
     
           /**
      * @return Z-penguin in the unitary gauge CP Wilson coefficient of  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
-    virtual  gslpp::complex CPZUBll(double xt, double xHp, double sW2);
+    virtual  gslpp::complex CPZUBll(double xt, double xHp, double sW2, gslpp::complex su, gslpp::complex sd);
     
+   
     /**
      * @return f1 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
@@ -189,27 +187,27 @@ public:
      /**
      * @return g0 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
-    virtual gslpp::complex  g0(double xHp, double xt);
+    virtual gslpp::complex  g0(double xHp, double xt, gslpp::complex su, gslpp::complex sd);
     
       /**
      * @return g1a needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
-    virtual gslpp::complex  g1a(double xHp, double xt);
+    virtual gslpp::complex  g1a(double xHp, double xt, gslpp::complex su, gslpp::complex sd);
     
       /**
      * @return g2a needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
-    virtual gslpp::complex  g2a(double xHp, double xt);
+    virtual gslpp::complex  g2a(double xHp, double xt, gslpp::complex su, gslpp::complex sd);
     
       /**
      * @return g3a needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
-    virtual gslpp::complex  g3a(double xHp, double xt);
+    virtual gslpp::complex  g3a(double xHp, double xt, gslpp::complex su, gslpp::complex sd);
     
     
     virtual gslpp::complex lambdaHHphi(double lambda3, double Relambda7,double Imlambda7, double Ri1, double Ri2, double Ri3 );
     
-    virtual gslpp::complex CphiU(double xHp, double xt, double vev, double xphi, double mu, double Ri1, double Ri2, double Ri3, double mHi_2, double lambda3, double Relambda7,double Imlambda7);
+    virtual gslpp::complex CphiU(double xHp, double xt, double vev, double xphi, double mu, double Ri1, double Ri2, double Ri3, double mHi_2, double lambda3, double Relambda7,double Imlambda7, gslpp::complex su, gslpp::complex sd);
     
     /** 
      * 
@@ -243,7 +241,7 @@ private:
     const GeneralTHDM & myGTHDM;
 
     gslpp::matrix<gslpp::complex> myCKM;
-    WilsonCoefficient mcdbs2, mcbtaunu, mcbsg, mcgminus2mu, mcbsmm;
+    WilsonCoefficient mcdbs2, mcbtaunu, mcBMll, mcbsg, mcgminus2mu, mcbsmm;
 
     double GF, mMU;
     gslpp::complex CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];

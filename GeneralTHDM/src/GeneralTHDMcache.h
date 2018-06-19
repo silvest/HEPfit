@@ -1884,6 +1884,44 @@ public:
      */
     double rh_ggE;
     
+       /**
+     * @brief Squared relative coupling of @f$h@f$ to two gluons.
+     * @return @f$r^{(h)}_{gg}@f$
+     */
+    double rh_gg;
+    
+      
+       /**
+     * @brief Squared relative coupling of @f$h@f$ to a Z boson and a photon.
+     * @return @f$r^{(h)}_{Zga}@f$
+     */
+    double rh_Zga;
+    
+         /**
+     * @brief Squared relative coupling of @f$h@f$ to two photons
+     * @return @f$r^{(h)}_{gaga}@f$
+     */
+    double rh_gaga;
+    
+    
+      /**
+     * @brief beta function evalauated at Mb and m1_2 
+     * @return @f$beta(Mb, m1_2)@f$
+     */
+    double beta_h_b;
+    
+      /**
+     * @brief beta function evalauated at Mtau and m1_2 
+     * @return @f$beta(Mb, m1_2)@f$
+     */
+    double beta_h_tau;
+    
+      /**
+     * @brief beta function evalauated at Mc and m1_2 
+     * @return @f$beta(Mc, m1_2)@f$
+     */
+    double beta_h_c;
+    
      /**
      * @brief Ratio of GTHDM and SM cross sections for ggF and tth production of h at 8 TeV.
      * @return @f$\sigma^{\text GTHDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$
@@ -3231,6 +3269,7 @@ public:
     double mH1sq;
     double mH2sq;
     double mH3sq;
+    double mHp2;
     double mHlight_2;
     double mHmedium_2;
     double mHheavy_2;
@@ -3250,21 +3289,7 @@ public:
     
     double M2; 
     
-    double maa_2_GTHDM;
-    double mbb_2_GTHDM;
-    double Remab_2_GTHDM;
-    double Immab_2_GTHDM;
-    double lambdaa_GTHDM;
-    double lambdab_GTHDM;
-    double lambdac_GTHDM;
-    double lambdad_GTHDM;
-    double Relambdae_GTHDM;
-    double Relambdaf_GTHDM; 
-    double Relambdag_GTHDM; 
-    double Imlambdae_GTHDM;
-    double Imlambdaf_GTHDM; 
-    double Imlambdag_GTHDM; 
-    
+   
     double R11_GTHDM, R12_GTHDM, R13_GTHDM;
     double R21_GTHDM, R22_GTHDM, R23_GTHDM;
     double R31_GTHDM, R32_GTHDM, R33_GTHDM;

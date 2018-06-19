@@ -10,6 +10,7 @@
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_sf_dilog.h>
 #include "GeneralTHDMcache.h"
+#include <stdexcept>
 
 GeneralTHDMMatching::GeneralTHDMMatching(const GeneralTHDM & GeneralTHDM_i) :
 
@@ -20,10 +21,11 @@ GeneralTHDMMatching::GeneralTHDMMatching(const GeneralTHDM & GeneralTHDM_i) :
     mcbtaunu(3, NDR, LO),
     mcbsg(8, NDR, NNLO),
     mcgminus2mu(2, NDR, NLO),
-    mcbsmm(8, NDR, NNLO, NLO_QED22)
+    mcbsmm(8, NDR, NNLO, NLO_QED22),
+    mcBMll(13, NDR, NLO)
 
-{}
-
+{
+}
 void GeneralTHDMMatching::updateGTHDMParameters()
 {
     GF=myGTHDM.getGF();
@@ -51,20 +53,14 @@ double GeneralTHDMMatching::gminus2muLO() {
     gslpp::complex sl = myGTHDM.getNl_11();
  
     
-    /*Mass of the physical scalars. THIS HAS TO BE CHANGED*/
+    /*Mass of the physical scalars*/
+   
    
     
-        
-    double mH2_2 = 500.;
-    double mH3_2 = 670.;
-    
-  double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq;
-   //double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2_2;
-   //double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3_2;
+    double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq;
+    double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2sq;
+    double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3sq;
 
-
-
-   
     /*eta is the deviation from the SM limit*/
     double alpha1 = myGTHDM.getalpha1();
     double beta = atan(myGTHDM.gettanb());
@@ -76,11 +72,7 @@ double GeneralTHDMMatching::gminus2muLO() {
     
  
     double yl_h = 1.0 + eta*sl.real();
-    
- 
     double yl_H = -sl.real() + eta;
-    
-   
     double yl_A = - sl.real();
     
     double rmu_hSM, rmu_h, rmu_H, rmu_A, rmu_Hp;
@@ -91,7 +83,19 @@ double GeneralTHDMMatching::gminus2muLO() {
         throw std::runtime_error("The implemented approximation for g-2_\\mu only works for Higgs masses above 1 GeV.");
     }
     
-    rmu_hSM=mMU*mMU/15647.5081;
+    if (!myGTHDM.getATHDMflag())
+    {
+        throw std::runtime_error("(g-2) is only aviable in the A2HDM.");
+    }
+    
+     if (!myGTHDM.getCPconservationflag())
+    {
+        throw std::runtime_error("(g-2) is only aviable in the CP-conserving limit.");
+    }
+    
+    
+    
+    rmu_hSM=mMU*mMU/mH1_2;
     rmu_h=mMU*mMU/mH1_2;
     rmu_H=mMU*mMU/mH2_2;
     rmu_A=mMU*mMU/mH3_2;
@@ -105,7 +109,7 @@ double GeneralTHDMMatching::gminus2muLO() {
     
    
    gminus2muLO=GF*mMU*mMU/(4.0*pi*pi*sqrt(2.0)) * (-part_hSM+part_h+part_H+part_A+part_Hp);
-
+   
        return(gminus2muLO);
 }
 
@@ -293,8 +297,6 @@ double GeneralTHDMMatching::gminus2muNLOF() {
     double SW4 = sW2*sW2;
     
     double mHp2=myGTHDM.getmHp2();
-    double mHl=myGTHDM.getMHl();
-    double mH1_2=mHl*mHl;
     
     gslpp::complex su = myGTHDM.getNu_11();
     gslpp::complex sd = myGTHDM.getNd_11();
@@ -304,17 +306,12 @@ double GeneralTHDMMatching::gminus2muNLOF() {
     
     /*Mass of the physical scalars*/
    
-        
-    double mH2_2 = 500.;
-    double mH3_2 = 670.;
     
- // double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1_2;
-   //double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2_2;
-   //double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3_2;
-
+    double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq;
+    double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2sq;
+    double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3sq;
 
     
-    //This has to be solved to consider the CP-conserving limtit
    
     /*eta is the deviation from the SM limit*/
     double alpha1 = myGTHDM.getalpha1();
@@ -488,13 +485,7 @@ double GeneralTHDMMatching::gminus2muNLOF() {
       MW2*(mHp2 - MW2)*pi*pi*SW4)) ;
    
    gminus2muNLOF = aFNphoton + aFNZ +aFC;
-       
-   // std::cout << "aFNphoton " << aFNphoton << std::endl;
-    //std::cout << "aFNZ " << aFNZ << std::endl;
-    //std::cout << "aFC " << aFC << std::endl;
-
-
-   
+        
     return(gminus2muNLOF.real());
 }
 
@@ -503,7 +494,7 @@ double GeneralTHDMMatching::gminus2muNLOF() {
 
 double GeneralTHDMMatching::gminus2muNLOB() {
 
-     updateGTHDMParameters();
+    updateGTHDMParameters();
     gslpp::complex aEWadd, aNonYuk, aYuk, gminus2muNLOB;
     
     double pi=M_PI;
@@ -522,26 +513,17 @@ double GeneralTHDMMatching::gminus2muNLOB() {
     double M2 = myGTHDM.getMyGTHDMCache()->M2;
     double tanb = myGTHDM.gettanb();
 
+ 
     
-    
-    
-  //if mH2_2 = mH3_2 = mHSM we have infinities, so until I fixed that, just to implement the formulas
-    
-    double mH2_2 = 500.;
-    double mH3_2 = 670.;
-    
-    double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq;
-   //double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2_2;
-   //double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3_2;
+    //double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq*myGTHDM.getMyGTHDMCache()->mH1sq;
+    double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2sq;
+    double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3sq;
 
-    
     //Lambda5 defined as in 1607.06292, Eq. (14)
     
     
     double Lambda5 = (2.0*M2)/(vev*vev);
-    
    
-  
     double sl = (myGTHDM.getNl_11()).real();
     
      //This has to be solved to consider the CP-conserving limtit
@@ -1724,11 +1706,8 @@ gslpp::complex aYuk5 = Lambda5*(-(aem*mMU*mMU)/(8.0*MH2*pi*pi*pi) + (aem*mMU*
  
     aYuk = aYuk2+aYuk3+aYuk4+aYuk5;
 
-   
-
-
     gminus2muNLOB = aEWadd + aNonYuk  + aYuk;
-  
+      
      return(gminus2muNLOB.real());
 }
 
@@ -1761,17 +1740,6 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMgminus2mu() {
     double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambda7;
     double sinalpha2=myGTHDM.getsinalpha2();
     double sinalpha3=myGTHDM.getsinalpha3();
-    
-    if(su.imag() != 0. || sd.imag() !=0. || sl.imag() != 0 )
-    {
-         throw std::runtime_error("Error: g-2 is only implemented in the CP-conserving limit. Alignment parameters should be real");
-    }
-    
-    if(Imlambda5 != 0. || Imlambda6!=0. || Imlambda7 != 0 ||  sinalpha2 != 0 || sinalpha3 != 0)
-    {
-         throw std::runtime_error("Error: g-2 is only implemented in the CP-conserving limit");
-    }
-    
     
     vmcgminus2mu = StandardModelMatching::CMgminus2mu();
 
@@ -1833,13 +1801,13 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
     return(vmcds);
 }
 
-double GeneralTHDMMatching::C10Bll(double xt, double xHp) {
+double GeneralTHDMMatching::C10Bll(double xt, double xHp, gslpp::complex su) {
     
     double C10 = su.abs2()*xt*xt/8*(1/(xHp-xt) + xHp/((xHp-xt)*(xHp-xt))*(log(xt)- log(xHp)));
     return C10;
     }
 
- gslpp::complex  GeneralTHDMMatching::CSboxBll(double xt, double xHp) {
+ gslpp::complex  GeneralTHDMMatching::CSboxBll(double xt, double xHp, gslpp::complex su, gslpp::complex sd, gslpp::complex sl) {
    
       gslpp::complex  CSboxU = xt/(8*(xHp-xt))*(sl*su.conjugate()*(xt/(xt-1)*log(xt)
              - xHp/(xHp-1)*log(xHp)) 
@@ -1850,7 +1818,7 @@ double GeneralTHDMMatching::C10Bll(double xt, double xHp) {
     }
 
 
- gslpp::complex  GeneralTHDMMatching::CPboxBll(double xt, double xHp) {
+ gslpp::complex  GeneralTHDMMatching::CPboxBll(double xt, double xHp, gslpp::complex su, gslpp::complex sd, gslpp::complex sl)  {
 
     
         gslpp::complex  CPboxU = -xt/(8*(xHp-xt))*(-sl*su.conjugate()*(xt/(xt-1)*log(xt) - xHp/(xHp-1)*log(xHp)) 
@@ -1861,7 +1829,7 @@ double GeneralTHDMMatching::C10Bll(double xt, double xHp) {
     }
 
  
-  gslpp::complex  GeneralTHDMMatching:: CPZUBll(double xt, double xHp, double sW2) {
+  gslpp::complex  GeneralTHDMMatching:: CPZUBll(double xt, double xHp, double sW2, gslpp::complex su, gslpp::complex sd) {
 
     
          // CPZF. Z-penguins diagrms. Eq. (52)
@@ -1941,7 +1909,7 @@ double GeneralTHDMMatching::f6(double xHp, double xt){
     ((xt*(xt*xt - 3.0*xHp*xt + 9*xHp - 5*xt - 2.0))/(4*(xt - 1.0)*(xt - 1.0)) + 
      ((xHp*(xHp*xt - 3.0*xHp + 2.0*xt))/(2.0*(xHp - 1.0)*(xHp - xt)))*
       log(xHp) + ((xHp*xHp*(-2.0*xt*xt*xt + 6*xt*xt - 9*xt + 2.0) + 
-        3.0*xHp*xt*xt*(xt*xt - 2.0*xt + 3.0) - xt*xt*(2.0*xt*xt - 3.0*xt*xt + 
+        3.0*xHp*xt*xt*(xt*xt - 2.0*xt + 3.0) - xt*xt*(2.0*xt*xt*xt - 3.0*xt*xt + 
           3.0*xt + 1.0))/(2.0*(xt - 1.0)*(xt - 1.0)*(xt - 1.0)*(xHp - xt)))*log(xt)); 
  
       return f6;
@@ -1990,7 +1958,7 @@ double f10 = (1.0/(8*(xHp - xt)))*
   }
   
   
-gslpp::complex  GeneralTHDMMatching::g0(double xHp, double xt){
+gslpp::complex  GeneralTHDMMatching::g0(double xHp, double xt, gslpp::complex su, gslpp::complex sd){
 
     gslpp::complex  g0 = (1.0/(4.0*(xHp-xt)))*((sd*su.conjugate()*(xt/(xHp-xt)*(log(xHp)-log(xt))-1.0))
             + su.abs2()*(xt*xt/(2.0*(xHp-xt)*(xHp-xt))*(log(xHp)-log(xt)) + (xHp-3.0*xt)/(4.0*(xHp-xt))));
@@ -1998,7 +1966,7 @@ gslpp::complex  GeneralTHDMMatching::g0(double xHp, double xt){
     return g0;
 }
 
-gslpp::complex  GeneralTHDMMatching::g1a(double xHp, double xt){
+gslpp::complex  GeneralTHDMMatching::g1a(double xHp, double xt, gslpp::complex su, gslpp::complex sd){
     
      gslpp::complex  g1a = -(3.0/4.0) + sd*su.conjugate()*(xt/(xHp - xt))*(1.0 - (xHp/(xHp - xt))*(log(xHp) - log(xt))) 
     + su.abs2()*(xt/(2.0*(xHp - xt)*(xHp - xt)))*((xHp + xt)/2.0 - ((xHp*xt)/(xHp - xt))*(log(xHp) - log(xt)));
@@ -2007,7 +1975,7 @@ gslpp::complex  GeneralTHDMMatching::g1a(double xHp, double xt){
     
 }
 
-gslpp::complex  GeneralTHDMMatching::g2a(double xHp, double xt){
+gslpp::complex  GeneralTHDMMatching::g2a(double xHp, double xt, gslpp::complex su, gslpp::complex sd){
     
      gslpp::complex  g2a = sd*sd*su.conjugate()*f1(xHp, xt) + sd*su.conjugate()*su.conjugate()*f2(xHp, xt)+sd*su.abs2()*f3(xHp, xt) 
     + su*su.abs2()*f4(xHp, xt) - su.conjugate()*su.abs2()*f5(xHp, xt) + su*f6(xHp, xt) - su.conjugate()*f7(xHp, xt) +sd*f1(xHp, xt); 
@@ -2016,7 +1984,7 @@ gslpp::complex  GeneralTHDMMatching::g2a(double xHp, double xt){
     
 }
 
-gslpp::complex  GeneralTHDMMatching::g3a(double xHp, double xt){
+gslpp::complex  GeneralTHDMMatching::g3a(double xHp, double xt, gslpp::complex su, gslpp::complex sd){
     
     gslpp::complex g3a =sd*sd*su.conjugate()*f1(xHp, xt) - sd*su.conjugate()*su.conjugate()*f2(xHp, xt) 
     + sd*su.abs2()*f3(xHp, xt) + su*su.abs2()*f4(xHp, xt) + su.conjugate()*su.abs2()*f5(xHp, xt) 
@@ -2034,29 +2002,42 @@ gslpp::complex  GeneralTHDMMatching::g3a(double xHp, double xt){
             
 
 
-gslpp::complex  GeneralTHDMMatching::CphiU(double xHp, double xt, double vev, double xphi, double mu, double Ri1, double Ri2, double Ri3, double mHi_2, double lambda3, double Relambda7,double Imlambda7){
+gslpp::complex  GeneralTHDMMatching::CphiU(double xHp, double xt, double vev, double xphi, double mu, double Ri1, double Ri2, double Ri3, double mHi_2, double lambda3, double Relambda7,double Imlambda7, gslpp::complex su, gslpp::complex sd){
      gslpp::complex i = gslpp::complex::i();
      gslpp::complex CphiU = xt*((1/(2*xphi))*(su-sd)*(1 + su.conjugate()*sd)*
-      (Ri2 + i*Ri3)*mu + (vev*vev/mHi_2)*lambdaHHphi(lambda3, Relambda7, Imlambda7, Ri1, Ri2, Ri3)*g0(xHp, xt) + Ri1*((1/(2.0*xphi))*g1a(xHp, xt)) + Ri2*(1/(2.0*xphi)*g2a(xHp, xt)) + i*Ri3*(1/(2.0*xphi))*g3a(xHp, xt));
+      (Ri2 + i*Ri3)*mu + (vev*vev/mHi_2)*lambdaHHphi(lambda3, Relambda7, Imlambda7, Ri1, Ri2, Ri3)*g0(xHp, xt, su, sd) + Ri1*((1/(2.0*xphi))*g1a(xHp, xt, su, sd)) + Ri2*(1/(2.0*xphi)*g2a(xHp, xt, su, sd)) + i*Ri3*(1/(2.0*xphi))*g3a(xHp, xt, su, sd));
     
      return CphiU;
 }
 
- 
-std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBll() {
-    
-    //From 1404.5865
+
+std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
+{    
+    updateGTHDMParameters();
+
+            
+     //From 1404.5865
         
-     /*complex i */
+     //complex i 
     gslpp::complex i = gslpp::complex::i();
        
-    
-    double mHp2=myGTHDM.getmHp2();
-     double MW = myGTHDM.Mw();
-    double mt = myGTHDM.Mrun(MW, myGTHDM.getQuarks(QCD::TOP).getMass_scale(), 
+
+    double Muw = myGTHDM.getMuw();
+    double Mut = myGTHDM.getMut();
+    double mHp2 = myGTHDM.getmHp2();
+    double MW = myGTHDM.Mw();
+    double Mt_muw = myGTHDM.Mrun(Muw, myGTHDM.getQuarks(QCD::TOP).getMass_scale(), 
                         myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    double mt_mt = myGTHDM.Mrun(Mut, myGTHDM.getQuarks(QCD::TOP).getMass_scale(), 
+                        myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+   double mb=myGTHDM.getQuarks(QCD::BOTTOM).getMass();
+   
+   double ml=myGTHDM.getLeptons(lepton).getMass();
+
+  //  mlep = SM.getLeptons(lep).getMass();
+
     
-    double xt = (mt*mt)/(MW*MW);
+    double xt = (Mt_muw*Mt_muw)/(MW*MW);
     double xHp = (mHp2)/(MW*MW);
     double vev = myGTHDM.v();
     double sW2 = myGTHDM.sW2();
@@ -2064,16 +2045,14 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBll() {
     double mH1_2=mHl*mHl;
    
     
-       /*mu contains the missalignemtn dependece. It should be mu -> CR(mu0) - log(mu/mu0). Eq (22)
-     Change depending which parameter is defined*/
-    double mu = 10;
+     //mu contains the missalignemtn dependece. It should be mu -> CR(mu0) - log(mu/mu0). Eq (22)
 
+    double mu = log(MW/myGTHDM.getQ_GTHDM());
 
-    //To be modified if the basis is modified
-    //Here lambdag, lambdac...are in the Higgs basis. Basis transformation at 106.0034, Eq. (119)-(129)
-    double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambdag_GTHDM;
-    double Relambda7=myGTHDM.getMyGTHDMCache()->Relambdag_GTHDM;
-    double lambda3=myGTHDM.getMyGTHDMCache()->lambdac_GTHDM;
+  
+    double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambda7H;
+    double Relambda7=myGTHDM.getMyGTHDMCache()->Relambda7H;
+    double lambda3=myGTHDM.getMyGTHDMCache()->lambda3H;
     
     double  R11 = myGTHDM.getMyGTHDMCache()->R11_GTHDM;
     double  R12 = myGTHDM.getMyGTHDMCache()->R12_GTHDM;
@@ -2085,73 +2064,77 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBll() {
     double  R32 = myGTHDM.getMyGTHDMCache()->R32_GTHDM;
     double  R33 = myGTHDM.getMyGTHDMCache()->R33_GTHDM;
 
+   gslpp::complex sl = myGTHDM.getNl_11();
+   gslpp::complex su = myGTHDM.getNu_11();
+   gslpp::complex sd = myGTHDM.getNd_11();
+
+
     
-    /*Mass of the physical scalars*/
+    //Mass of the physical scalars
 
    double mH2_2 = myGTHDM.getmH2sq();
    double mH3_2 = myGTHDM.getmH3sq();
-
-   
     
    
     double xphi1 = mH1_2/(MW*MW);
     double xphi2 = mH2_2/(MW*MW);
     double xphi3 = mH3_2/(MW*MW);
-   
+       
     //Yukawa couplings. Eq. (19)
     
     gslpp::complex yl1 = R11  + (R12 + i*R13)*sl;
     gslpp::complex yl2 = R21  + (R22 + i*R23)*sl;
     gslpp::complex yl3 = R31  + (R32 + i*R33)*sl;
     
-    
-     vmcbsmm = StandardModelMatching::CMbsmm();
-     mcbsmm.setMu(MW);
-    
-      
-    double C10 = C10Bll(xt, xHp);
-    
+        
    
-    gslpp::complex CSboxU = CSboxBll(xt,  xHp);
-    gslpp::complex CPboxU = CPboxBll(xt,  xHp);
-    gslpp::complex CPZU = CPZUBll(xt,  xHp,  sW2);
+    gslpp::complex CSboxU = CSboxBll(xt,  xHp, su, sd, sl);
+    gslpp::complex CPboxU = CPboxBll(xt,  xHp, su, sd, sl);
+    gslpp::complex CPZU = CPZUBll(xt,  xHp,  sW2, su, sd);
     
-    gslpp::complex CSphi1U = yl1.real()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7);
-    gslpp::complex CSphi2U = yl2.real()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7);
-    gslpp::complex CSphi3U = yl3.real()*CphiU(xHp,  xt,  vev,  xphi3,  mu,  R31,  R32,  R33,  mH3_2,  lambda3,  Relambda7, Imlambda7);
+    gslpp::complex CSphi1U = yl1.real()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    gslpp::complex CSphi2U = yl2.real()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    gslpp::complex CSphi3U = yl3.real()*CphiU(xHp,  xt,  vev,  xphi3,  mu,  R31,  R32,  R33,  mH3_2,  lambda3,  Relambda7, Imlambda7, su, sd);
 
-    gslpp::complex CPphi1U = i*yl1.imag()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7);
-    gslpp::complex CPphi2U = i*yl2.imag()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7);
-    gslpp::complex CPphi3U = i*yl3.imag()*CphiU(xHp,  xt,  vev,  xphi3,  mu,  R31,  R32,  R33,  mH3_2,  lambda3,  Relambda7, Imlambda7);
-
-
-    /*Total 2HDM Wilson coefficients CS and CP PART. Eq. (31)-(33) without SM part*/
+    gslpp::complex CPphi1U = i*yl1.imag()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    gslpp::complex CPphi2U = i*yl2.imag()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    gslpp::complex CPphi3U = i*yl3.imag()*CphiU(xHp,  xt,  vev,  xphi3,  mu,  R31,  R32,  R33,  mH3_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    
+    //Total 2HDM Wilson coefficients CS and CP PART. Eq. (31)-(33) without SM part
    
-    //C10
     gslpp::complex CSphiU =  CSboxU + CSphi1U + CSphi2U + CSphi3U;
     gslpp::complex CPphiU =  CPboxU + CPZU + CPphi1U + CPphi2U + CPphi3U;
 
     
-    /*
-      switch (mcdbs2.getOrder()) {
+    vmcBMll = StandardModelMatching::CMBMll(lepton);
+      switch (mcbsg.getScheme()) {
+        case NDR:
+
+            break;
+        default:
+        std::stringstream out;
+       out << mcBMll.getScheme();
+     throw std::runtime_error("GeneralTHDMMatching::CMBMll(): scheme " + out.str() + "not implemented");
+    }
+    mcBMll.setMu(Muw);
+    
+     switch (mcBMll.getOrder()) {
         case NNLO:
-        case NLO:
-        case LO:
-            mcdbs2.setCoeff(0, co * co * xt * (SWH+SHH), LO);
+        case NLO:           
+        case LO:           
+            mcBMll.setCoeff(9 , C10Bll(xt, xHp, su)/(sW2), LO);
+            mcBMll.setCoeff(10 , (CSphiU*mb*ml)/(MW*MW*sW2), LO);
+            mcBMll.setCoeff(11 , (CPphiU*mb*ml)/(MW*MW*sW2), LO);
             break;
         default:
             std::stringstream out;
-            out << mcdbs2.getOrder();
-            throw std::runtime_error("THDMMatching::CMdbs2(): order " + out.str() + "not implemented");
-    }
-
-    vmcds.push_back(mcdbs2);
-    return(vmcds);
-    */
-    /*vmcbsmm.setCoeff(0, C10, LO); */ 
-
-    
+            out << mcBMll.getOrder();
+            throw std::runtime_error("GeneralTHDMMatching::CMBMll(): order " + out.str() + "not implemeted"); 
+            }
+    vmcBMll.push_back(mcBMll);
+    return (vmcBMll);
 }
+
 
 std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu() {
 
@@ -2447,17 +2430,17 @@ gslpp::complex GeneralTHDMMatching::setWCbsg(int i, gslpp::complex sigmau, gslpp
             throw std::runtime_error("order" + out.str() + "not implemeted"); 
             }
     
-    std::cout << "CWbsgArrayLO[6] = " << CWbsgArrayLO[6] << std::endl;
-    /*std::cout << "CWbsgArrayLO[7] = " << CWbsgArrayLO[7] << std::endl << std::endl;
+    /*std::cout << "CWbsgArrayLO[6] = " << CWbsgArrayLO[6] << std::endl;
+    std::cout << "CWbsgArrayLO[7] = " << CWbsgArrayLO[7] << std::endl;
     std::cout << "CWbsgArrayNLO[3] = " << CWbsgArrayNLO[3] << std::endl;
     std::cout << "CWbsgArrayNLO[6] = " << CWbsgArrayNLO[6] << std::endl;
-    std::cout << "CWbsgArrayNLO[7] = " << CWbsgArrayNLO[7] << std::endl << std::endl;
+    std::cout << "CWbsgArrayNLO[7] = " << CWbsgArrayNLO[7] << std::endl;
     std::cout << "CWbsgArrayNNLO[2] = " << CWbsgArrayNNLO[2] << std::endl;
     std::cout << "CWbsgArrayNNLO[3] = " << CWbsgArrayNNLO[3] << std::endl;
     std::cout << "CWbsgArrayNNLO[4] = " << CWbsgArrayNNLO[4] << std::endl;
     std::cout << "CWbsgArrayNNLO[5] = " << CWbsgArrayNNLO[5] << std::endl;
     std::cout << "CWbsgArrayNNLO[6] = " << CWbsgArrayNNLO[6] << std::endl;
-    std::cout << "CWbsgArrayNNLO[7] = " << CWbsgArrayNNLO[7] << std::endl << std::endl;*/
+    std::cout << "CWbsgArrayNNLO[7] = " << CWbsgArrayNNLO[7] << std::endl;*/
     
     
     switch (order){

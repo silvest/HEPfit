@@ -59,6 +59,17 @@ public:
     virtual bool PostUpdate();
     
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    
+     /**
+     * @brief A get method to retrieve the matching scale @f$\mu_W@f$ around
+     * the weak scale.
+     * @return @f$\mu_W@f$ in GeV
+     */
+    double getMuw() const
+    {
+        return muw;
+    }
+
 
     /**
      * @brief A get method to access the member reference of type StandardModelMatching.

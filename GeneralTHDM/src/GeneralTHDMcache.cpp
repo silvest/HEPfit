@@ -5852,15 +5852,15 @@ gslpp::complex GeneralTHDMcache::I_H_W(const double mH, const double MW) const {
     }
 }
 
-gslpp::complex GeneralTHDMcache::I_H_Hp(const double mHpsq, const double mH) const {
+gslpp::complex GeneralTHDMcache::I_H_Hp(const double mHp2, const double mH) const {
     int NumPar = 2;
-    double params[] = {mHpsq, mH};
+    double params[] = {mHp2, mH};
 
     int i = CacheCheck(I_H_Hp_cache, NumPar, params);
     if (i>=0) {
         return ( I_H_Hp_cache[NumPar][i] );
     } else {
-        double TAUhp=4.0*mHpsq/(mH*mH);
+        double TAUhp=4.0*mHp2/(mH*mH);
         gslpp::complex newResult = -TAUhp*(1.0-TAUhp*f_func(TAUhp));
         CacheShift(I_H_Hp_cache, NumPar, params, newResult);
         return newResult;
@@ -6076,16 +6076,16 @@ gslpp::complex GeneralTHDMcache::A_H_W(const double mH, const double cW2, const 
     }
 }
 
-gslpp::complex GeneralTHDMcache::A_H_Hp(const double mHpsq, const double mH, const double cW2, const double MZ) const {
+gslpp::complex GeneralTHDMcache::A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const {
     int NumPar = 4;
-    double params[] = {mHpsq, mH, cW2, MZ};
+    double params[] = {mHp2, mH, cW2, MZ};
 
     int i = CacheCheck(A_H_Hp_cache, NumPar, params);
     if (i>=0) {
         return ( A_H_Hp_cache[NumPar][i] );
     } else {
-        double TAUhp=4.0*mHpsq/(mH*mH);
-        double LAMhp=4.0*mHpsq/(MZ*MZ);
+        double TAUhp=4.0*mHp2/(mH*mH);
+        double LAMhp=4.0*mHp2/(MZ*MZ);
 	double sW2=1.0-cW2;
         gslpp::complex newResult = (1.0-2.0*sW2)/sqrt(cW2*sW2)*Int1(TAUhp,LAMhp);
         CacheShift(A_H_Hp_cache, NumPar, params, newResult);
@@ -6136,15 +6136,15 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
     
     double GeneralTHDMcache::lambdaijk(const double Ri1,const double Ri2,const double Ri3,const double Rj1,const double Rj2,const double Rj3, const double Rk1,const double Rk2,const double Rk3) const
     {
-        return (1.0/2.0)*(Imlambdag_GTHDM*(-Ri3*Rj3*Rk3 - Ri2*Rj2*Rk3) - 3.0*Imlambdaf_GTHDM*Ri1*Rj1*Rk3 
-                + 2.0*lambdaa_GTHDM*Ri1*Rj1*Rk1 + Relambdag_GTHDM*Ri2*Rj2*Rk2 + 3.0*Relambdaf_GTHDM*Ri1*Rj1*Rk2
-                +(2.0*Relambdae_GTHDM + lambdac_GTHDM + lambdad_GTHDM)*Ri1*Rj1*Rk2 - (2.0*Relambdae_GTHDM - lambdac_GTHDM - lambdad_GTHDM)*Ri1*Rj3*Rk3
-                + Relambdag_GTHDM*Ri2*Rj3*Rk3 - Imlambdae_GTHDM*Ri1*Rj2*Rk3);
+        return (1.0/2.0)*(Imlambda7H*(-Ri3*Rj3*Rk3 - Ri2*Rj2*Rk3) - 3.0*Imlambda6H*Ri1*Rj1*Rk3 
+                + 2.0*lambda1H*Ri1*Rj1*Rk1 + Relambda7H*Ri2*Rj2*Rk2 + 3.0*Relambda6H*Ri1*Rj1*Rk2
+                +(2.0*Relambda5H + lambda3H + lambda4H)*Ri1*Rj1*Rk2 - (2.0*Relambda5H - lambda3H - lambda4H)*Ri1*Rj3*Rk3
+                + Relambda7H*Ri2*Rj3*Rk3 - Imlambda5H*Ri1*Rj2*Rk3);
     }
     
-    double GeneralTHDMcache::lambdaipm(const double Ri1,const double Ri2,const double Ri3) const
+    double GeneralTHDMcache::lambdaipm(const double Ri1,const double Ri2, const double Ri3) const
     {
-        return vev*(lambdac_GTHDM*Ri1 + Relambdag_GTHDM*Ri2 - Imlambdag_GTHDM*Ri3);
+        return vev*(lambda3H*Ri1 + Relambda7H*Ri2 - Imlambda7H*Ri3);
     }
     
 
@@ -6168,138 +6168,62 @@ void GeneralTHDMcache::computeSignalStrengths()
      gslpp::complex i = gslpp::complex::i();
      
    
-    
-    
-    /*up, down and leptonic couplings */
-    gslpp::complex su = myGTHDM->getNu_33();
-    gslpp::complex sd = myGTHDM->getNd_33();
-    gslpp::complex sl = myGTHDM->getNl_33();
+      /*up, down and leptonic couplings */
+    gslpp::complex su = myGTHDM->getNu_11();
+    gslpp::complex sd = myGTHDM->getNd_11();
+    gslpp::complex sl = myGTHDM->getNl_11();
 
     
-    double m1_2 = 0.0;
-    double m2_2 = 0.0;
-    double m3_2 = 0.0;
-    double R11 = 0.0;
-    double R12 = 0.0;
-    double R13 = 0.0;
-    double R21 = 0.0;
-    double R22 = 0.0;
-    double R23 = 0.0;
-    double R31 = 0.0;
-    double R32 = 0.0;
-    double R33 = 0.0;
+    Mt=myGTHDM->getQuarks(QCD::TOP).getMass();
+    Mb=myGTHDM->getQuarks(QCD::BOTTOM).getMass(); 
+    Mtau=myGTHDM->getLeptons(StandardModel::TAU).getMass();
+    Mc=myGTHDM->getQuarks(QCD::CHARM).getMass();
+    Ms=myGTHDM->getQuarks(QCD::STRANGE).getMass();
+    Mmu=myGTHDM->getLeptons(StandardModel::MU).getMass();
+    Mu=myGTHDM->getQuarks(QCD::UP).getMass();
+    Md=myGTHDM->getQuarks(QCD::DOWN).getMass();
+    Me=myGTHDM->getLeptons(StandardModel::ELECTRON).getMass();
+    MW=MWGTHDM(myGTHDM->Mw_tree());
+    cW2=cW2GTHDM(myGTHDM->c02());
+    MZ=myGTHDM->getMz();
+
+   
+
+
     
-
-        
-    //If to always set 1 as the SM Higgs and 3 as the heaviest
-    if(mH1sq == mHl*mHl )
-    {
-         m1_2 = mH1sq;
-          
-         R11 = R11_GTHDM;
-         R12 = R12_GTHDM;
-         R13 = R13_GTHDM;
-         
-        if(mH2sq<mH3sq)
-        {   
-            m2_2 = mH2sq;
-            m3_2 = mH3sq;
-            R21 = R21_GTHDM;
-            R22 = R22_GTHDM;
-            R23 = R23_GTHDM;
-            R31 = R31_GTHDM;
-            R32 = R32_GTHDM;
-            R33 = R33_GTHDM;
-        }
-         else if(mH3sq<mH2sq)
-        {   
-            m2_2 = mH3sq;
-            m3_2 = mH2sq;
-            R21 = R31_GTHDM;
-            R22 = R32_GTHDM;
-            R23 = R33_GTHDM;
-            R31 = R21_GTHDM;
-            R32 = R22_GTHDM;
-            R33 = R23_GTHDM;
-        }
-    }
-    else if(mH2sq == mHl*mHl )
-    {
-         m1_2 = mH2sq;
-         R11 = R21_GTHDM;
-         R12 = R22_GTHDM;
-         R13 = R23_GTHDM;
-         
-         if(mH1sq<mH3sq)
-        {   
-            m2_2 = mH1sq;
-            m3_2 = mH3sq;
-            R21 = R11_GTHDM;
-            R22 = R12_GTHDM;
-            R23 = R13_GTHDM;
-            R31 = R31_GTHDM;
-            R32 = R32_GTHDM;
-            R33 = R33_GTHDM;
-
-        }
-         else if(mH3sq<mH1sq)
-        {   
-            m2_2 = mH3sq;
-            m3_2 = mH1sq;
-            R21 = R31_GTHDM;
-            R22 = R32_GTHDM;
-            R23 = R33_GTHDM;
-            R31 = R11_GTHDM;
-            R32 = R12_GTHDM;
-            R33 = R13_GTHDM;
-        }
-  
-    }
-    else if(mH3sq == mHl*mHl )
-    {
-         m1_2 = mH3sq;
-
-         R11 = R31_GTHDM;
-         R12 = R32_GTHDM;
-         R13 = R33_GTHDM;
-         
-          if(mH1sq<mH2sq)
-        {   
-            m2_2 = mH1sq;
-            m3_2 = mH2sq;
-            R21 = R11_GTHDM;
-            R22 = R12_GTHDM;
-            R23 = R13_GTHDM;
-            R31 = R21_GTHDM;
-            R32 = R22_GTHDM;
-            R33 = R23_GTHDM;
-
-        }
-         else if(mH2sq<mH1sq)
-        {   
-            m2_2 = mH2sq;
-            m3_2 = mH1sq;
-            R21 = R21_GTHDM;
-            R22 = R22_GTHDM;
-            R23 = R23_GTHDM;
-            R31 = R11_GTHDM;
-            R32 = R12_GTHDM;
-            R33 = R13_GTHDM;
-        }
-         
-    }
+    double m1_2 = mH1sq;
+    double m2_2 = mH2sq;
+    double m3_2 = mH3sq;
     
-    double m1 = sqrt(m1_2);
+     double m1 = sqrt(m1_2);
     double m2 = sqrt(m2_2);
     double m3 = sqrt(m3_2);
     
+    double cosalpha1 = myGTHDM->getcosalpha1();
+    double cosalpha2 =  myGTHDM->getcosalpha2();
+    double cosalpha3 =  myGTHDM->getcosalpha3();
+    double sinalpha1 =  myGTHDM->getsinalpha1();
+    double sinalpha2 = myGTHDM->getsinalpha2();
+    double sinalpha3 =  myGTHDM->getsinalpha3();
+
+    R11_GTHDM = cosalpha1*cosalpha2;
+    R12_GTHDM = sinalpha1*cosalpha2;
+    R13_GTHDM = -sinalpha2;
+    R21_GTHDM = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+    R22_GTHDM = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3;
+    R23_GTHDM = cosalpha2*sinalpha3;
+    R31_GTHDM = cosalpha1*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
+    R32_GTHDM = sinalpha1*sinalpha2*cosalpha3 - cosalpha1*sinalpha3;
+    R33_GTHDM = cosalpha2*cosalpha3;
+ 
+     
     
       //fermionic couplings for phi1
     
-    gslpp::complex yu1 = R11 + (R12 - i*R13)*su.conjugate();
-    gslpp::complex yd1 = R11 + (R12 + i*R13)*sd;
-    gslpp::complex yl1 = R11 + (R12 + i*R13)*sl;
-    
+    gslpp::complex yu1 = R11_GTHDM + (R12_GTHDM - i*R13_GTHDM)*su.conjugate();
+    gslpp::complex yd1 = R11_GTHDM + (R12_GTHDM + i*R13_GTHDM)*sd;
+    gslpp::complex yl1 = R11_GTHDM + (R12_GTHDM + i*R13_GTHDM)*sl;
+       
      //The Standard Model h branching ratios
 
     BrSM_htobb = 5.77e-1;
@@ -6345,23 +6269,19 @@ void GeneralTHDMcache::computeSignalStrengths()
     //gg -> A (phiodd) production cross section at 8 TeV, total
     double SigmagghO_8 = ip_cs_ggtoA_8(m1);
     
+     
+    //gg -> A (phiodd) production cross section at 13 TeV, total
+    double SigmagghO_13 = ip_cs_ggtoA_13(m1);
     
-    
-    
-    
-    /* rh_ii is the ratio of the squared 2HDM vertex coupling of h to
-     * the particle i and the respective squared SM coupling.*/
-    
-    /*
-     double rh_QtQt= (yu1.real())*(yu1.real()) + (yu1.imag()*yu1.imag()*1/(beta(Mt, m1_2)*beta(Mt, m1_2))); 
-     double rh_QcQc= (yu1.real())*(yu1.real()) + (yu1.imag()*yu1.imag()*1/(beta(Mc, m1_2)*beta(Mc, m1_2))); 
-     double rh_VV=R11*R11;
-     double rh_QbQb = (yd1.real())*(yd1.real()) + (yd1.imag()*yd1.imag()*1/(beta(Mb, m1_2)*beta(Mb, m1_2))); 
-     double rh_tautau = (yl1.real())*(yl1.real()) + (yl1.imag()*yl1.imag()*1/(beta(Mtau, m1_2)*beta(Mtau, m1_2))); 
-     double rh_mumu = (yl1.real())*(yl1.real()) + (yl1.imag()*yl1.imag()*1/(beta(Mmu, m1_2)*beta(Mmu, m1_2))); 
-    double rh_gg=yu1.real()*yd1.real() + (yu1.real()*yu1.real() - yu1.real()*yd1.real())*(Sigmaggh_tt8/SigmaggF8)  + (yd1.real()*yd1.real() - yu1.real()*yd1.real())*(Sigmaggh_bb8/SigmaggF8) + (yu1.imag()*yu1.imag()+ (yu1.imag()*yu1.imag() - yu1.imag()*yd1.imag())*rSigmagghO_t8 + (yd1.imag()*yd1.imag() - yu1.imag()*yd1.imag())*rSigmagghO_b8)*(SigmagghO_8/SigmaggF8);
-     */
-    
+     beta_h_b = beta(Mb, m1_2);
+     beta_h_tau = beta(Mtau, m1_2);
+      beta_h_c = beta(Mc, m1_2);
+     
+      /* r_ii is the ratio of the squared 2HDM vertex coupling of h to
+     * the particle i and the respective squared SM coupling. Where separated
+       E means the even part (coming from the CP-even scalar) and O
+       the odd part (coming from the CP-odd scalar) */
+                 
      rh_QuQuE= yu1.real()*yu1.real(); 
      rh_QuQuO= yu1.imag()*yu1.imag(); 
      rh_QdQdE= yd1.real()*yd1.real(); 
@@ -6370,29 +6290,27 @@ void GeneralTHDMcache::computeSignalStrengths()
      rh_QlQlO= yl1.imag()*yl1.imag(); 
      rh_ggE = yu1.real()*yd1.real() + (yu1.real()*yu1.real() - yu1.real()*yd1.real())*(Sigmaggh_tt8/SigmaggF8)  + (yd1.real()*yd1.real() - yu1.real()*yd1.real())*(Sigmaggh_bb8/SigmaggF8);
      rh_ggO = yu1.imag()*yu1.imag() + (yu1.imag()*yu1.imag() - yu1.imag()*yd1.imag())*rSigmagghO_b8  + (yd1.imag()*yd1.imag() - yu1.imag()*yd1.imag())*rSigmagghO_b8;
-     rh_VV=R11*R11;
+     rh_gg = rh_ggE+rh_ggO*(SigmagghO_8/SigmaggF8);
+     rh_VV=R11_GTHDM*R11_GTHDM;
+          
+     /*Loop functions needed to rh_gaga and rh_Zga ...*/
     
-     /*Gamma_hgaga and Gamma_hZga expressions ...*/
-    
-    /*Decay to photons. The fermionic contribution has a CP-even part (HH) and a CP-odd (A)*/
-    /*CP EVEN*/
-    
-   
     
     gslpp::complex fermU=I_h_U(m1_2,Mu,Mc,Mt);
     gslpp::complex fermD=I_h_D(m1_2,Md,Ms,Mb);
-    gslpp::complex fermL=I_h_L(m1_2,Me, Mmu,Mtau);
-    gslpp::complex I_hSM_W=I_H_W(mHl*mHl,MW);
-    gslpp::complex I_h_W=R11*I_hSM_W;
+    gslpp::complex fermL=I_h_L(m1_2,Me,Mmu,Mtau);
+    gslpp::complex I_hSM_W=I_H_W(mHl,MW);
+    gslpp::complex I_h_W=R11_GTHDM*I_hSM_W;
 
     
     gslpp::complex I_hSM_F= fermU+ fermD+fermL;
     gslpp::complex I_hE_F= yu1.real()*fermU+ yd1.real()*fermD+yl1.real()*fermL;
                                                                                
-
-                                     
-    double lambdahHpHm =  lambdaipm(R11, R12, R13);
-    gslpp::complex I_h_Hp=(vev*vev)/(2.0*mHpsq)*I_H_Hp(mHpsq,m1)*(lambdahHpHm);
+    /*Coupling between h and two charged Higgs*/
+    
+    double lambdahHpHm =  lambdaipm(R11_GTHDM, R12_GTHDM, R13_GTHDM);
+    
+    gslpp::complex I_h_Hp=(vev*vev)/(2.0*mHp2)*I_H_Hp(mHp2,m1)*(lambdahHpHm);
     
     
     /*CP ODD */
@@ -6404,26 +6322,27 @@ void GeneralTHDMcache::computeSignalStrengths()
     gslpp::complex I_hO_F = yu1.imag()*I_h_Ux + yd1.imag()*I_h_Dx + yl1.imag()*I_h_Lx;
     
 
+    
     double Gamma_hgaga=(GF*Ale*Ale*m1*m1*m1/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI))*((I_hE_F+I_h_W+I_h_Hp).abs2()+ (I_hO_F).abs2());
-    double rh_gaga = ((I_hE_F+I_h_W+I_h_Hp).abs2()+ (I_hO_F).abs2())/(I_hSM_F +I_hSM_W ).abs2();
-                                                                               
+    rh_gaga = ((I_hE_F+I_h_W+I_h_Hp).abs2()+ (I_hO_F).abs2())/(I_hSM_F +I_hSM_W).abs2();
+                     
+   
+    
     /*Decay to Z gamma
     CP-EVEN PART*/
 
     gslpp::complex A_hE_Ux = A_h_U(m1_2,cW2,Mu,Mc,Mt,MZ);
     gslpp::complex A_hE_Dx = A_h_D(m1_2,cW2,Md,Ms,Mb,MZ);
     gslpp::complex A_hE_Lx  = A_h_L(m1_2,cW2,Me,Mmu,Mtau,MZ);
-    gslpp::complex A_hSM_W = A_H_W(m1_2,cW2,MW,MZ);
-    gslpp::complex A_h_W = R11*A_hSM_W;
+    gslpp::complex A_hSM_W = A_H_W(m1,cW2,MW,MZ);
+    gslpp::complex A_h_W = R11_GTHDM*A_hSM_W;
     
-    
+  
     gslpp::complex A_hSM_F = (A_hE_Ux+ A_hE_Dx+ A_hE_Lx)/sqrt(sW2*cW2);                                                       
     gslpp::complex A_hE_F = (yu1.real()*A_hE_Ux+ yd1.real()*A_hE_Dx+ yl1.real()*A_hE_Lx)/sqrt(sW2*cW2);
-  
-        /*  REVISAR AIXO.  DEPEN DE LA BASE DEL POTENCIAL!!! 
-     double lambdaphi3Hpg =  (lambda3*R31 + lambda7.real()*R32 - lambda7.imag()*R33)*/
-
-    gslpp::complex A_h_Hp =(vev*vev)/(2.0*mHpsq)*A_H_Hp(mHpsq,m1,cW2,MZ)*(lambdahHpHm);
+    
+   
+    gslpp::complex A_h_Hp =(vev*vev)/(2.0*mHp2)*A_H_Hp(mHp2,m1,cW2,MZ)*(lambdahHpHm);
 
     /*CP-ODD PART*/
                                                                                
@@ -6433,51 +6352,52 @@ void GeneralTHDMcache::computeSignalStrengths()
                                                                                
     gslpp::complex A_hO_F=yu1.imag()*A_hO_Ux + yd1.imag()*A_hO_Dx + yl1.imag()*A_hO_Lx;
     
-                                                                             
-                                                                               
+                                                                                                                                                       
     double Gamma_hZga=HSTheta(m1-MZ)*GF*Ale*Ale*m1*m1*m1/(sqrt(2.0)*64.0*M_PI*M_PI*M_PI)*(1.0-MZ*MZ/(m1*m1))*(1.0-MZ*MZ/(m1*m1))*(1.0-MZ*MZ/(m1*m1))*((A_hE_F+A_h_W+A_h_Hp).abs2()+ A_hO_F.abs2());
-    double rh_Zga = ((A_hE_F+A_h_W+A_h_Hp).abs2()+ A_hO_F.abs2())/(A_hSM_F +A_hSM_W ).abs2();
+    rh_Zga = ((A_hE_F+A_h_W+A_h_Hp).abs2()+ A_hO_F.abs2())/(A_hSM_F +A_hSM_W ).abs2();
 
-       
+     
     /*Decay to gluons*/
                         
     double Gamma_hggSM=GF*Als*Als*m3*m3*m3/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2();
      
-    double Gamma_hgg=(rh_ggE)*GF*Als*Als*m3*m3*m3/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2()
-                        +rh_ggO*GF*Als*Als*m3*m3*m3/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(I_h_Ux/4.0+I_h_Dx).abs2();
+    double Gamma_hgg=(rh_gg)*GF*Als*Als*m3*m3*m3/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2();
      
     
-   
+  
+  //  /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF or tth production at 8 TeV*/
+  //  ggF_tth8 = (SigmaggF8*rh_ggE + SigmagghO_8*rh_ggO + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF8 + Sigmatth8);
+  //  /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF or tth production at 13 TeV */
+  //  ggF_tth13 = (SigmaggF13*rh_ggE + SigmagghO_13*rh_ggO + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF13 + Sigmatth13);
+  //  /* pph13 is the ratio of the THDM and SM cross sections for an h production at 13 TeV */
+  //  pph13 = (SigmaggF13*rh_ggE + SigmagghO_13*rh_ggO+ SigmaVBFVh13*rh_VV + Sigmatth13*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))) + Sigmabbh13*(rh_QdQdE + rh_QdQdE/(beta(Mb, m1_2)*beta(Mb, m1_2))))/(SigmaggF13 + SigmaVBFVh13 + Sigmatth13 + Sigmabbh13);
+  //  /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
+  //  VBF_Vh = rh_VV;
+    
+
+    
     /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF or tth production at 8 TeV*/
-   // ggF_tth8 = (SigmaggF8*rh_gg + Sigmatth8*rh_QtQt)/(SigmaggF8 + Sigmatth8);
+    ggF_tth8 = (SigmaggF8*rh_gg + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF8 + Sigmatth8);
     /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF or tth production at 13 TeV */
-   // ggF_tth13 = (SigmaggF13*rh_gg + Sigmatth13*rh_QtQt)/(SigmaggF13 + Sigmatth13);
+    ggF_tth13 = (SigmaggF13*rh_gg + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF13 + Sigmatth13);
     /* pph13 is the ratio of the THDM and SM cross sections for an h production at 13 TeV */
-    //pph13 = (SigmaggF13*rh_gg + SigmaVBFVh13*rh_VV + Sigmatth13*rh_QtQt + Sigmabbh13*rh_QbQb)/(SigmaggF13 + SigmaVBFVh13 + Sigmatth13 + Sigmabbh13);
+    pph13 = (SigmaggF13*rh_gg+ SigmaVBFVh13*rh_VV + Sigmatth13*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))) + Sigmabbh13*(rh_QdQdE + rh_QdQdE/(beta(Mb, m1_2)*beta(Mb, m1_2))))/(SigmaggF13 + SigmaVBFVh13 + Sigmatth13 + Sigmabbh13);
     /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
-    //VBF_Vh = rh_VV;
+     VBF_Vh = rh_VV;
     
-    
-    
+ 
     sumModBRs = BrSM_htobb*(rh_QdQdE + rh_QdQdO/(beta(Mb, m1_2)*beta(Mb, m1_2))) 
             + rh_VV*(BrSM_htoWW+BrSM_htoZZ) 
             + BrSM_htotautau*(rh_QlQlE + rh_QlQlO/(beta(Mtau, m1_2)*beta(Mtau, m1_2))) 
             + rh_gaga*BrSM_htogaga 
-            +BrSM_htogg*(Gamma_hgg/Gamma_hggSM)
-            + rh_Zga*BrSM_htoZga;
+            + BrSM_htogg*(rh_gg)
+            + rh_Zga*BrSM_htoZga
             + BrSM_htocc*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))) ;  
-                
+  
 
+     
+         
     Gamma_h = sumModBRs*myGTHDM->computeGammaHTotal();
-    
-    
-    /*GTHDM_BR_h_bb = rh_QbQb*BrSM_htobb/sumModBRs;
-    GTHDM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
-    GTHDM_BR_h_tautau = rh_tautau*BrSM_htotautau/sumModBRs;
-    GTHDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
-    GTHDM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
-    GTHDM_BR_h_gg = rh_gg*BrSM_htogg/sumModBRs;
-    GTHDM_BR_h_cc = rh_QcQc*BrSM_htocc/sumModBRs;*/
     
     GTHDM_BR_h_bb=(rh_QdQdE + rh_QdQdE/(beta(Mb, m1_2)*beta(Mb, m1_2)))*BrSM_htobb/sumModBRs;
     GTHDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
@@ -6704,11 +6624,11 @@ double GeneralTHDMcache::computephi2quantities()
     gslpp::complex I_HH2_Lx=I_HH_L(m2_2,Mmu,Mtau);
     gslpp::complex I_phi2E_F= yu2.real()*I_HH2_Ux+ yd2.real()*I_HH2_Dx+yl2.real()*I_HH2_Lx;
                                                                                
-    gslpp::complex I_phi2_W=R21*I_H_W(m2_2,MW);
+    gslpp::complex I_phi2_W=R21*I_H_W(m2,MW);
 
     
     double lambdaphi2HpHm = lambdaipm(R21, R22, R23);                                 
-    gslpp::complex I_phi2_Hp=(vev*vev)/(2.0*mHpsq)*I_H_Hp(mHpsq,m2)*(lambdaphi2HpHm);
+    gslpp::complex I_phi2_Hp=(vev*vev)/(2.0*mHp2)*I_H_Hp(mHp2,m2)*(lambdaphi2HpHm);
     
     
     /*CP ODD */
@@ -6737,7 +6657,7 @@ double GeneralTHDMcache::computephi2quantities()
         /*  REVISAR AIXO.  DEPEN DE LA BASE DEL POTENCIAL!!! 
      double lambdaphi3Hpg =  (lambda3*R31 + lambda7.real()*R32 - lambda7.imag()*R33)*/
     
-    gslpp::complex A_phi2_Hp = (vev*vev)/(2.0*mHpsq)*A_H_Hp(mHpsq,m3,cW2,MZ)*(lambdaphi2HpHm);
+    gslpp::complex A_phi2_Hp = (vev*vev)/(2.0*mHp2)*A_H_Hp(mHp2,m3,cW2,MZ)*(lambdaphi2HpHm);
 
     /*CP-ODD PART*/
                                                                                
@@ -6831,11 +6751,11 @@ if (m3>=20. && m3 <=2000.) {
 //phi2 -> phi1phi1
 double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*lambda112*lambda112/(32.0*m2*M_PI);
 //phi2 ->H+H-
-double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHpsq))*sqrt(std::fabs(1.0 - (4.0*mHpsq)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(32.0*m2*M_PI);
+double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(32.0*m2*M_PI);
 //phi2 -> phi1 Z
 double Gammaphi2_phi1Z=HSTheta(m2-(m1+MZ))*pow(KaellenFunction(m2_2,MZ*MZ,m1_2),3)*(R23*R12 + R22*R13)*(R23*R12 + R22*R13)/(2.0*M_PI*vev*vev);
 /* phi2 -> H+W- */
-double Gammaphi2_HpW=HSTheta(m2-sqrt(mHpsq)-MW)*pow(KaellenFunction(m2_2,MW*MW,mHpsq),3)*(R23-i*R22).abs2()/(M_PI*vev*vev);
+double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mHp2),3)*(R23-i*R22).abs2()/(M_PI*vev*vev);
 
 /*
  Gammaphi2tot= ((BrSM_phi2tott*rphi2_QtQt+BrSM_phi2tocc*rphi2_QcQc)+BrSM_phi2tobb*rphi2_QbQb+(BrSM_phi2totautau*rphi2_tautau+BrSM_phi2tomumu*rphi2_mumu)+(BrSM_phi2toWW+BrSM_phi2toZZ)*rphi2_VV)*Gammaphi2totSM+Gamma_phi2gaga+Gamma_phi2Zga+Gamma_phi2gg + Gammaphi2_phi1phi1+Gammaphi2_HpHm+Gammaphi2_phi1Z+Gammaphi2_HpW;
@@ -7083,16 +7003,16 @@ double GeneralTHDMcache::computephi3quantities()
     gslpp::complex I_HH_Lx=I_HH_L(m3_2,Mmu,Mtau);
     gslpp::complex I_phi3E_F= yu3.real()*I_HH_Ux+ yd3.real()*I_HH_Dx+yl3.real()*I_HH_Lx;
                                                                                
-    gslpp::complex I_phi3_W=R31*I_H_W(m3_2,MW);
+    gslpp::complex I_phi3_W=R31*I_H_W(m3,MW);
 
 
                           
     double lambdaphi3HpHm =  lambdaipm(R31, R32, R33);
-    gslpp::complex I_phi3_Hp=(vev*vev)/(2.0*mHpsq)*I_H_Hp(mHpsq,m3)*(lambdaphi3HpHm);
+    gslpp::complex I_phi3_Hp=(vev*vev)/(2.0*mHp2)*I_H_Hp(mHp2,m3)*(lambdaphi3HpHm);
     
    /* 
-    std::cout << "I_H_Hp(mHpsq,m3)  = " <<  I_H_Hp(mHpsq,m3) << std::endl;
-     std::cout << "mHpsq  = " <<  mHpsq << std::endl;
+    std::cout << "I_H_Hp(mHp2,m3)  = " <<  I_H_Hp(mHp2,m3) << std::endl;
+     std::cout << "mHp2  = " <<  mHp2 << std::endl;
         std::cout << "m3 = " << m3 << std::endl;
     std::cout << "lambdaphi3HpHm = " <<  lambdaphi3HpHm << std::endl;
       std::cout << "I_phi3_Hp first  = " <<  I_phi3_Hp << std::endl;
@@ -7130,7 +7050,7 @@ double GeneralTHDMcache::computephi3quantities()
         /*  REVISAR AIXO.  DEPEN DE LA BASE DEL POTENCIAL!!! 
      double lambdaphi3Hpg =  (lambda3*R31 + lambda7.real()*R32 - lambda7.imag()*R33)*/
 
-    gslpp::complex A_phi3_Hp = (vev*vev)/(2.0*mHpsq)*A_H_Hp(mHpsq,m3,cW2,MZ)*(lambdaphi3HpHm);
+    gslpp::complex A_phi3_Hp = (vev*vev)/(2.0*mHp2)*A_H_Hp(mHp2,m3,cW2,MZ)*(lambdaphi3HpHm);
 
     /*CP-ODD PART*/
                                                                                
@@ -7211,13 +7131,13 @@ double Gammaphi3_phi2phi2=HSTheta(m3 - 2.0*m2)*sqrt(std::fabs(1.0 - (4.0*m2_2)/m
 //phi3 -> phi1phi1
 double Gammaphi3_phi1phi1=HSTheta(m3 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m3_2))*lambda113*lambda113/(32.0*m3*M_PI);
 //phi3 ->H+H-
-double Gammaphi3_HpHm=HSTheta(m3 - 2.0*sqrt(mHpsq))*sqrt(std::fabs(1.0 - (4.0*mHpsq)/m3_2))*lambdaphi3HpHm*lambdaphi3HpHm/(32.0*m3*M_PI);
+double Gammaphi3_HpHm=HSTheta(m3 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m3_2))*lambdaphi3HpHm*lambdaphi3HpHm/(32.0*m3*M_PI);
 //phi3 -> phi1 Z
 double Gammaphi3_phi1Z=HSTheta(m3-(m1+MZ))*pow(KaellenFunction(m3_2,MZ*MZ,m1_2),3)*(R33*R12 + R32*R13)*(R33*R12 + R32*R13)/(2.0*M_PI*vev*vev);
 //phi3 -> phi2 Z
 double Gammaphi3_phi2Z=HSTheta(m3-(m2+MZ))*pow(KaellenFunction(m3_2,MZ*MZ,m2_2),3)*(R33*R22 + R32*R23)*(R33*R22 + R32*R23)/(2.0*M_PI*vev*vev);
 /* phi3 -> H+W- */
-double Gammaphi3_HpW=HSTheta(m3-sqrt(mHpsq)-MW)*pow(KaellenFunction(m3_2,MW*MW,mHpsq),3)*(R33-i*R32).abs2()/(M_PI*vev*vev);
+double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mHp2),3)*(R33-i*R32).abs2()/(M_PI*vev*vev);
                                                                               
  /*Gammaphi3tot= ((BrSM_phi3tott*rphi3_QtQt+BrSM_phi3tocc*rphi3_QcQc)+BrSM_phi3tobb*rphi3_QbQb+(BrSM_phi3totautau*rphi3_tautau+BrSM_phi3tomumu*rphi3_mumu)+(BrSM_phi3toWW+BrSM_phi3toZZ)*rphi3_VV)*Gammaphi3totSM+Gamma_phi3gaga+Gamma_phi3Zga+Gamma_phi3gg + Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2+Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z+Gammaphi3_HpW;*/
 
@@ -14090,6 +14010,7 @@ double GeneralTHDMcache::updateCache()
     mH1sq=mHl*mHl;
     mH2sq=myGTHDM->getmH2sq();
     mH3sq=myGTHDM->getmH3sq();
+    mHp2=myGTHDM->getmHp2();
     vev=myGTHDM->v();
     tanb=myGTHDM->gettanb();
     cosb=myGTHDM->getcosb();
@@ -14102,7 +14023,6 @@ double GeneralTHDMcache::updateCache()
     sina3=myGTHDM->getsinalpha3();
     Relambda5=myGTHDM->getRelambda5();
     Imlambda5=myGTHDM->getImlambda5();
-    mHpsq=myGTHDM->getmH2sq();
     Relambda6=myGTHDM->getRelambda6();
     Relambda7=myGTHDM->getRelambda7();
 
@@ -14147,11 +14067,11 @@ double GeneralTHDMcache::updateCache()
                  - (2.0*M22_2-2.0*M33_2+Relambda5*vev*vev)/(sinb*sinb)
                  - (4.0*M12_2+2.0*Relambda7*vev*vev)/tanb)/(vev*vev);
 
-    lambda3   = -(2.0*(M11_2-M22_2-M33_2-mHpsq) + Relambda5*vev*vev
+    lambda3   = -(2.0*(M11_2-M22_2-M33_2-mHp2) + Relambda5*vev*vev
                   + (2.0*M12_2+Relambda6*vev*vev)/tanb
                   - (2.0*M12_2-Relambda7*vev*vev)*tanb)/(vev*vev);
 
-    lambda4   = Relambda5 - (2.0*mHpsq+4.0*M33_2)/(vev*vev);
+    lambda4   = Relambda5 - (2.0*mHp2+4.0*M33_2)/(vev*vev);
 
     Imlambda6 = (2.0*M13_2-(2.0*M23_2+0.5*Imlambda5*vev*vev)*tanb)/(vev*vev);
 
@@ -14170,10 +14090,10 @@ double GeneralTHDMcache::updateCache()
                        +M11_2-4.0*M22_2+4.0*M33_2-2.0*Relambda5*vev*vev
                        +(M22_2-M33_2+0.5*Relambda5*vev*vev)/(sinb*sinb*cosb*cosb)
                        -2.0*M12_2*tanb+Relambda6*vev*vev*tanb)/(vev*vev);
-    lambda3H   = -((2.0*(M11_2-2.0*M33_2-mHpsq+Relambda5*vev*vev)
+    lambda3H   = -((2.0*(M11_2-2.0*M33_2-mHp2+Relambda5*vev*vev)
                     +(2.0*M12_2+Relambda6*vev*vev)/tanb
                     -(2.0*M12_2-Relambda7*vev*vev)*tanb)/(vev*vev));
-    lambda4H   = -2.0*(M22_2+M33_2+mHpsq)/(vev*vev);
+    lambda4H   = -2.0*(M22_2+M33_2+mHp2)/(vev*vev);
     Relambda5H = -2.0*(M22_2-M33_2)/(vev*vev);
     Imlambda5H = 4.0*M23_2/(vev*vev);
     Relambda6H = -2.0*M12_2/(vev*vev);
@@ -14185,8 +14105,7 @@ double GeneralTHDMcache::updateCache()
 
     M2 = Rem12sq/(sinb*cosb);
 
-
-
+   
 //    R11_GTHDM = cosalpha1*cosalpha2;
 //    R12_GTHDM = sinalpha1*cosalpha2;
 //    R13_GTHDM = -sinalpha2;
@@ -14271,12 +14190,11 @@ double GeneralTHDMcache::updateCache()
 //    Imm12_2_GTHDM = 0.5*(cosb*sinb*Imlambda5 + cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7)*vev*vev;
 //    lambda1_GTHDM = (M11_2 + tanb*tanb*(M22_2-M2_GTHDM) - 2.0*tanb*M12_2)/(vev*vev) + tanb*(tanb*tanb*Relambda7 - 3.0*Relambda6)/2.0;
 //    lambda2_GTHDM = (M11_2 + (M22_2-M2_GTHDM)/(tanb*tanb) + 2.0*M12_2/tanb)/(vev*vev) + (0.5*Relambda6/(tanb*tanb) - 1.5*Relambda7)/tanb;
-//    lambda3_GTHDM = (M11_2 - M22_2 - M2_GTHDM + (1.0/tanb - tanb)*M12_2 + 2.0*mHpsq)/(vev*vev) - (Relambda6/tanb + tanb*Relambda7)/2.0;
-//    lambda4_GTHDM = (M2_GTHDM + M33_2 - 2.0*mHpsq)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
+//    lambda3_GTHDM = (M11_2 - M22_2 - M2_GTHDM + (1.0/tanb - tanb)*M12_2 + 2.0*mHp2)/(vev*vev) - (Relambda6/tanb + tanb*Relambda7)/2.0;
+//    lambda4_GTHDM = (M2_GTHDM + M33_2 - 2.0*mHp2)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
 //    Relambda5_GTHDM = (M2_GTHDM - M33_2)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
 //    
     
-    //Parameters in the potential in the Higgs basis, as defined in 1106.0034, Eq. (119)-(129)
 
     Mu_GTHDM.assign(0,0, myGTHDM->getQuarks(QCD::UP).getMass());
     Mu_GTHDM.assign(1,1, myGTHDM->getQuarks(QCD::CHARM).getMass());

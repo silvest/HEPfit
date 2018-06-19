@@ -16,14 +16,12 @@
 /*Rb as defined in arXiv:hep-ph/9909335,  arXiv:hep-ph/9801355 and arXiv:1006.0470 */
 
 
-
+#include "GeneralTHDMcache.h"
 #include "GeneralTHDMEWPO.h"
 #include "StandardModel.h"
 #include <gsl/gsl_sf_dilog.h>
 #include <math.h>
 #include "GeneralTHDM.h"
-
-
 
 
 
@@ -36,6 +34,11 @@ Rb0GTHDM::Rb0GTHDM(const StandardModel& SM_i)
 
 double Rb0GTHDM::computeThValue()
 {
+    
+    if (!myGTHDM.getATHDMflag())
+    {
+        throw std::runtime_error("Rb only aviable in the A2HDM.");
+    }
     
     double GF = myGTHDM.getGF();
     double as = myGTHDM.getAlsMz();
@@ -75,49 +78,43 @@ double Rb0GTHDM::computeThValue()
     double Qb = myGTHDM.getQuarks(QCD::BOTTOM).getCharge();
     double Qt = myGTHDM.getQuarks(QCD::TOP).getCharge();
     
-    gslpp::complex gVB = myGTHDM.gV_f(myGTHDM.getQuarks(QCD::BOTTOM));
-    gslpp::complex gAB = myGTHDM.gA_f(myGTHDM.getQuarks(QCD::BOTTOM));
+
+       
+    double gAb = SM.getQuarks(QCD::BOTTOM).getIsospin();
+    double gVb = SM.getQuarks(QCD::BOTTOM).getIsospin()-2.0*SM.getQuarks(QCD::BOTTOM).getCharge()*SM.sW2();
+    double gbRSM = (gVb - gAb)/2.;
+    double gbLSM = (gVb + gAb)/2.;
+
+    double gVU = SM.getQuarks(QCD::UP).getIsospin();
+    double gAU = SM.getQuarks(QCD::UP).getIsospin()-2.0*SM.getQuarks(QCD::UP).getCharge()*SM.sW2();
+    double gbLSMU = (1.0/2.0)*(gVU+gAU);
+    double gbRSMU = (1.0/2.0)*(gVU-gAU);
+    
+    double gVD = SM.getQuarks(QCD::DOWN).getIsospin();
+    double gAD = SM.getQuarks(QCD::DOWN).getIsospin()-2.0*SM.getQuarks(QCD::DOWN).getCharge()*SM.sW2();
+    double gbLSMD = (1.0/2.0)*(gVD+gAD);
+    double gbRSMD = (1.0/2.0)*(gVD-gAD);
+    
+    double gVC = SM.getQuarks(QCD::CHARM).getIsospin();
+    double gAC = SM.getQuarks(QCD::CHARM).getIsospin()-2.0*SM.getQuarks(QCD::CHARM).getCharge()*SM.sW2();
+    double gbLSMC = (1.0/2.0)*(gVC+gAC);
+    double gbRSMC = (1.0/2.0)*(gVC-gAC);
+    
+    double gVS = SM.getQuarks(QCD::STRANGE).getIsospin();
+    double gAS = SM.getQuarks(QCD::STRANGE).getIsospin()-2.0*SM.getQuarks(QCD::STRANGE).getCharge()*SM.sW2();
+    double gbLSMS = (1.0/2.0)*(gVS+gAS);
+    double gbRSMS = (1.0/2.0)*(gVS-gAS);
     
 
-    gslpp::complex gbLSM = (1.0/2.0)*(gVB+gAB);
-    gslpp::complex gbRSM = (1.0/2.0)*(gVB-gAB);
     
-    
-    gslpp::complex gVU = myGTHDM.gV_f(myGTHDM.getQuarks(QCD::UP));
-    gslpp::complex gAU = myGTHDM.gA_f(myGTHDM.getQuarks(QCD::UP));
-    gslpp::complex gbLSMU = (1.0/2.0)*(gVU+gAU);
-    gslpp::complex gbRSMU = (1.0/2.0)*(gVU-gAU);
-    
-    gslpp::complex gVD = myGTHDM.gV_f(myGTHDM.getQuarks(QCD::DOWN));
-    gslpp::complex gAD = myGTHDM.gA_f(myGTHDM.getQuarks(QCD::DOWN));
-    gslpp::complex gbLSMD = (1.0/2.0)*(gVD+gAD);
-    gslpp::complex gbRSMD = (1.0/2.0)*(gVD-gAD);
-    
-    gslpp::complex gVC = myGTHDM.gV_f(myGTHDM.getQuarks(QCD::CHARM));
-    gslpp::complex gAC = myGTHDM.gA_f(myGTHDM.getQuarks(QCD::CHARM));
-    gslpp::complex gbLSMC = (1.0/2.0)*(gVC+gAC);
-    gslpp::complex gbRSMC = (1.0/2.0)*(gVC-gAC);
-    
-    gslpp::complex gVS = myGTHDM.gV_f(myGTHDM.getQuarks(QCD::STRANGE));
-    gslpp::complex gAS = myGTHDM.gA_f(myGTHDM.getQuarks(QCD::STRANGE));
-    gslpp::complex gbLSMS = (1.0/2.0)*(gVS+gAS);
-    gslpp::complex gbRSMS = (1.0/2.0)*(gVS-gAS);
-    
-    double su = ((gbLSMU - gbRSMU).abs2()+ (gbLSMU+ gbRSMU).abs2())*(1.0 + 3.0*a*Qt*Qt/(4*pi));
-    double sd = ((gbLSMD- gbRSMD).abs2()+ (gbLSMD+ gbRSMD).abs2())*(1.0 + 3.0*a*Qb*Qb/(4*pi));
-    double sc = ((gbLSMC- gbRSMC).abs2()+ (gbLSMC+ gbRSMC).abs2())*(1.0 + 3.0*a*Qt*Qt/(4*pi));
-    double ss = ((gbLSMS- gbRSMS).abs2()+ (gbLSMS+ gbRSMS).abs2())*(1.0 + 3.0*a*Qb*Qb/(4*pi));
+    double su = ((gbLSMU - gbRSMU)*(gbLSMU - gbRSMU)+ (gbLSMU+ gbRSMU)*(gbLSMU+ gbRSMU))*(1.0 + 3.0*a*Qt*Qt/(4*pi));
+    double sd = ((gbLSMD- gbRSMD)*(gbLSMD- gbRSMD)+ (gbLSMD+ gbRSMD)*(gbLSMD+ gbRSMD))*(1.0 + 3.0*a*Qb*Qb/(4*pi));
+    double sc = ((gbLSMC- gbRSMC)*(gbLSMC- gbRSMC)+ (gbLSMC+ gbRSMC)* (gbLSMC+ gbRSMC))*(1.0 + 3.0*a*Qt*Qt/(4*pi));
+    double ss = ((gbLSMS- gbRSMS)*(gbLSMS- gbRSMS)+ (gbLSMS+ gbRSMS)* (gbLSMS+ gbRSMS))*(1.0 + 3.0*a*Qb*Qb/(4*pi));
     
     double Sb = su+sd+sc+ss;
-
     
-    if (!myGTHDM.getATHDMflag())
-    {
-        std::cout << "Rb is only available in the ATHDM at the moment.";
-        double Rb0GGTHDM = 0.0;
-        return Rb0GGTHDM;
-    }
-    else{
+  
         
         /** Loop functions **/
         
@@ -127,9 +124,9 @@ double Rb0GTHDM::computeThValue()
         
         /*Couplings*/
         
-        double gbL =  gbLSM.real() + (sqrt(2)*GF*mtMZ*mtMZ*(u*u).abs())/(16*pi*pi)*(f1 + (as/(3*pi))*f2);
+        double gbL= gbLSM + (sqrt(2)*GF*mtMZ*mtMZ*(u).abs2())/(16*pi*pi)*(f1 + (as/(3*pi))*f2);
         
-        double gbR = gbRSM.real() - (sqrt(2)*GF*mbMZ*mbMZ*(d*d).abs())/(16*pi*pi)*(f1+ (as/(3*pi))*f2);
+        double gbR = gbRSM - (sqrt(2)*GF*mbMZ*mbMZ*(d).abs2())/(16*pi*pi)*(f1+ (as/(3*pi))*f2);
         double sb = ((gbL- gbR)*(gbL- gbR)+ (gbL+ gbR)*(gbL+ gbR))*(1.0 + 3.0*a*Qb*Qb/(4*pi));
         
         /*Rb*/
@@ -137,7 +134,7 @@ double Rb0GTHDM::computeThValue()
         double Rb0GGTHDM = 1.0/(1.0 + (Sb*Cb)/sb);
         return Rb0GGTHDM;
 
-        }
+       
        /* double DeltaRb0=1.0;
         double Rb0SM=myGTHDM.R0_f(SM.getQuarks(SM.BOTTOM));
         return Rb0SM+DeltaRb0;*/

@@ -1824,6 +1824,39 @@ ThObsFactory::ThObsFactory()
 
     obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
 
+    obsThFactory["GTHDM_mu_ggF_tth_htobb8"] = boost::factory<GTHDM_ggF_tth_htobb8*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htoWW8"] = boost::factory<GTHDM_ggF_tth_htoWW8*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htotautau8"] = boost::factory<GTHDM_ggF_tth_htotautau8*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htoZZ8"] = boost::factory<GTHDM_ggF_tth_htoZZ8*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htogaga8"] = boost::factory<GTHDM_ggF_tth_htogaga8*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htobb13"] = boost::factory<GTHDM_ggF_tth_htobb13*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htoWW13"] = boost::factory<GTHDM_ggF_tth_htoWW13*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htotautau13"] = boost::factory<GTHDM_ggF_tth_htotautau13*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htoZZ13"] = boost::factory<GTHDM_ggF_tth_htoZZ13*>();
+    obsThFactory["GTHDM_mu_ggF_tth_htogaga13"] = boost::factory<GTHDM_ggF_tth_htogaga13*>();
+    obsThFactory["GTHDM_mu_VBF_Vh_htobb"] = boost::factory<GTHDM_VBF_Vh_htobb*>();
+    obsThFactory["GTHDM_mu_VBF_Vh_htoWW"] = boost::factory<GTHDM_VBF_Vh_htoWW*>();
+    obsThFactory["GTHDM_mu_VBF_Vh_htotautau"] = boost::factory<GTHDM_VBF_Vh_htotautau*>();
+    obsThFactory["GTHDM_mu_VBF_Vh_htoZZ"] = boost::factory<GTHDM_VBF_Vh_htoZZ*>();
+    obsThFactory["GTHDM_mu_VBF_Vh_htogaga"] = boost::factory<GTHDM_VBF_Vh_htogaga*>();
+    obsThFactory["GTHDM_mu_VBF_Vh_htogg"] = boost::factory<GTHDM_VBF_Vh_htogg*>();
+    obsThFactory["GTHDM_mu_VBF_Vh_htocc"] = boost::factory<GTHDM_VBF_Vh_htocc*>(); 
+    obsThFactory["GTHDM_mu_ggF_htobb"] = boost::factory<GTHDM_ggF_htobb*>();
+    obsThFactory["GTHDM_mu_ggF_htoWW"] = boost::factory<GTHDM_ggF_htoWW*>();
+    obsThFactory["GTHDM_mu_ggF_htotautau"] = boost::factory<GTHDM_ggF_htotautau*>();
+    obsThFactory["GTHDM_mu_ggF_htoZZ"] = boost::factory<GTHDM_ggF_htoZZ*>();
+    obsThFactory["GTHDM_mu_ggF_htogaga"] = boost::factory<GTHDM_ggF_htogaga*>();   
+    obsThFactory["GTHDM_mu_tth_htobb"] = boost::factory<GTHDM_tth_htobb*>();
+    obsThFactory["GTHDM_mu_tth_htoWW"] = boost::factory<GTHDM_tth_htoWW*>();
+    obsThFactory["GTHDM_mu_tth_htotautau"] = boost::factory<GTHDM_tth_htotautau*>();
+    obsThFactory["GTHDM_mu_tth_htoZZ"] = boost::factory<GTHDM_tth_htoZZ*>();
+    obsThFactory["GTHDM_mu_tth_htogaga"] = boost::factory<GTHDM_tth_htogaga*>();   
+    obsThFactory["GTHDM_mu_htobb"] = boost::factory<GTHDM_mu_htobb*>();
+    obsThFactory["GTHDM_mu_htoWW"] = boost::factory<GTHDM_mu_htoWW*>();
+    obsThFactory["GTHDM_mu_htotautau"] = boost::factory<GTHDM_mu_htotautau*>();
+    obsThFactory["GTHDM_mu_htoZga"] = boost::factory<GTHDM_mu_htoZga*>();
+ 
+    
     
     obsThFactory["Hobs_ggF_phi3_tautau_ATLAS8"] = boost::factory<Hobs_ggF_phi3_tautau_ATLAS8*>(); 
     obsThFactory["Hobs_ggF_phi3_tautau_CMS8"] = boost::factory<Hobs_ggF_phi3_tautau_CMS8*>();

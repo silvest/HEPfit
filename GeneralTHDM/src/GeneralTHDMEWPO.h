@@ -11,6 +11,8 @@
 #include "ThObservable.h"
 #include "GeneralTHDM.h"
 #include "GeneralTHDMcache.h"
+#include "StandardModel.h"
+//#include "gslpp.h"
 
 /**
  * @class GeneralTHDMEWPO
