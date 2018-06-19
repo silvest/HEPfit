@@ -61,7 +61,7 @@ public:
     /**
      * @brief SM Higgs branching ratio tables (obtained with HDECAY 6.10), depending on the Higgs mass.
      */
-    gslpp::matrix<double> br_tt, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW;
+    gslpp::matrix<double> br_tt, br_tt2, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW;
 
     /**
      * @brief Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass.

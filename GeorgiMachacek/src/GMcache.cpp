@@ -12,7 +12,8 @@
 #include <string>
 
 GMcache::GMcache(const StandardModel& SM_i)
-    :br_tt(19961, 2, 0.),
+    : br_tt(19961, 2, 0.),
+    br_tt2(19961, 2, 0.),
     br_bb(19961, 2, 0.),
     br_tautau(19961, 2, 0.),
     br_cc(19961, 2, 0.),
@@ -205,7 +206,7 @@ void GMcache::CacheShiftReal(double cache[][CacheSize], const int NumPar,
 
 void GMcache::read(){
 
-    std::stringstream br1,br2,br3,br4,br5,br6,br7;
+    std::stringstream br1,br1a,br2,br3,br4,br5,br6,br7;
     std::stringstream dw1;
     std::stringstream cs1,cs2,cs3,cs4,cs5,cs6,cs7,cs8,cs9;
     std::stringstream cs11,cs12,cs13,cs14,cs15,cs16,cs17,cs18,cs19;
@@ -226,6 +227,8 @@ void GMcache::read(){
 
     br1 << tablepath << "br1.dat";
     br_tt = readTable(br1.str(),19961,2);
+    br1a << tablepath << "br1.dat";
+    br_tt2 = readTable(br1a.str(),19961,2);
     br2 << tablepath << "br2.dat";
     br_bb = readTable(br2.str(),19961,2);
     br3 << tablepath << "br3.dat";
@@ -482,7 +485,7 @@ double GMcache::ip_Br_HPtott(double mass){
     if (i>=0) {
         return ( ip_Br_HPtott_cache[NumPar][i] );
     } else {
-        double newResult = pow(10.0,interpolate(br_tt,mass));
+        double newResult = pow(10.0,interpolate(br_tt2,mass));
         CacheShiftReal(ip_Br_HPtott_cache, NumPar, params, newResult);
         return newResult;
     }
