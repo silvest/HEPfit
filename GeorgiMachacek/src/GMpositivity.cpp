@@ -47,7 +47,7 @@ double GMpositivity3::computeThValue()
     double lambda3 = myGM.getMyGMCache()->lambda3;
     double lambda4 = myGM.getMyGMCache()->lambda4;
     double pos3 = -1.0;
-    if(lambda1>0)
+    if(lambda1>0 && lambda2+lambda3>0)
     {
         pos3 = -fabs(lambda4)+2.0*sqrt(lambda1*(lambda2+lambda3));
     }
@@ -68,7 +68,7 @@ double GMpositivity4::computeThValue()
     double lambda4 = myGM.getMyGMCache()->lambda4;
     double lambda5 = myGM.getMyGMCache()->lambda5;
     double pos4 = -1.0;
-    if(lambda1>0)
+    if(lambda1>0 && 2.0*lambda2+lambda3>0)
     {
         pos4 = lambda4-0.25*fabs(lambda5)+sqrt(2.0*lambda1*(2.0*lambda2+lambda3));
     }

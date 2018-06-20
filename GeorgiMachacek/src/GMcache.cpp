@@ -3146,6 +3146,8 @@ void GMcache::computeOtherHiggsProperties()
     double Gamma_Agg=rA_ff*GF*Als*Als*mA*mAsq/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)
                      *(9.0/4.0)*(I_A_U(mAsq,Mc,Mt)/4.0+I_A_D(mAsq,Ms,Mb)).abs2();
 
+    double Gamma_Att=HSTheta(mA-2.0*MtPole)*rA_ff*3.0*Mt*Mt*sqrt(fabs(mAsq-4.0*MtPole*MtPole))/(8.0*M_PI*vev*vev);
+
     gslpp::complex A_H5_W = cosb/sqrt(3.0)*A_H_W(mH5,cW2,MW,MZ);
     gslpp::complex A_H5_Hp = -0.5*vev*(gH5H3pH3m*A_H_Hp(mAsq,mH5,cW2,MZ)/mAsq + 5.0*gH5H5pH5m*A_H_Hp(mH5sq,mH5,cW2,MZ)/mH5sq);
     double Gamma_H5gaga=Ale*Ale*mH5sq*mH5/(256.0*M_PI*M_PI*M_PI*vev*vev)*(
@@ -3204,7 +3206,7 @@ void GMcache::computeOtherHiggsProperties()
     SigmaHpp513=(ip_cs_VBFH5pp_13(mH5)+ip_cs_VBFH5mm_13(mH5)+ip_cs_VHH5pp_13(mH5)+ip_cs_VHH5mm_13(mH5))*cosb*cosb;
 
     double BrSM_Htott=ip_Br_HPtott(mHh);
-    double BrSM_Atott=ip_Br_HPtott(mA);
+//    double BrSM_Atott=ip_Br_HPtott(mA);
 
     double BrSM_Htocc=ip_Br_HPtocc(mHh);
     double BrSM_Atocc=ip_Br_HPtocc(mA);
@@ -3375,10 +3377,10 @@ void GMcache::computeOtherHiggsProperties()
                   +GammaHhh+GammaHHpHm+GammaHAA
                   +GammaHH5H5+GammaHH5pH5m+GammaHH5ppH5mm;
 
-    GammaH3tot=  rA_ff*(BrSM_Atott/(1.0-4.0*MtPole*MtPole/mAsq)+BrSM_Atocc+BrSM_Atobb+BrSM_Atotautau+BrSM_Atomumu)*GammaAtotSM
-                  +Gamma_Agg+Gamma_Agaga+Gamma_AZga
-                  +GammaAhZ+GammaAHZ
-                  +GammaAH5Z+GammaAH5pW;
+    GammaH3tot=  rA_ff*(BrSM_Atocc+BrSM_Atobb+BrSM_Atotautau+BrSM_Atomumu)*GammaAtotSM
+                 +Gamma_Att+Gamma_Agg+Gamma_Agaga+Gamma_AZga
+                 +GammaAhZ+GammaAHZ
+                 +GammaAH5Z+GammaAH5pW;
 
     GammaH3ptot=  GammaHptb+GammaHptaunu
                   +GammaHphW+GammaHpHW
@@ -3408,7 +3410,7 @@ void GMcache::computeOtherHiggsProperties()
 //    std::cout<<"GammaHH5ppH5mm = "<<GammaHH5ppH5mm<<std::endl;
 //    std::cout<<"GammaH1tot = "<<GammaH1tot<<std::endl;
 //    std::cout<<"------------------------"<<std::endl;
-//    std::cout<<"Gamma_Aff = "<<rA_ff*(BrSM_Atott/(1.0-4.0*MtPole*MtPole/mAsq)+BrSM_Atocc+BrSM_Atobb+BrSM_Atotautau+BrSM_Atomumu)*GammaAtotSM<<std::endl;
+//    std::cout<<"Gamma_Aff = "<<Gamma_Att+rA_ff*(BrSM_Atocc+BrSM_Atobb+BrSM_Atotautau+BrSM_Atomumu)*GammaAtotSM<<std::endl;
 //    std::cout<<"Gamma_Agg = "<<Gamma_Agg<<std::endl;
 //    std::cout<<"Gamma_Agaga = "<<Gamma_Agaga<<std::endl;
 //    std::cout<<"Gamma_AZga = "<<Gamma_AZga<<std::endl;
@@ -3465,7 +3467,7 @@ void GMcache::computeOtherHiggsProperties()
     Br_HtoH5pH5m=GammaHH5pH5m/GammaH1tot;
     Br_HtoH5ppH5mm=GammaHH5ppH5mm/GammaH1tot;
 
-    Br_Atott=BrSM_Atott*rA_ff*GammaAtotSM/GammaH3tot;
+    Br_Atott=Gamma_Att/GammaH3tot;
     Br_Atobb=BrSM_Atobb*rA_ff*GammaAtotSM/GammaH3tot;
     Br_Atotautau=BrSM_Atotautau*rA_ff*GammaAtotSM/GammaH3tot;
     Br_Atogaga=Gamma_Agaga/GammaH3tot;
