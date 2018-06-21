@@ -474,6 +474,28 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muVBFHbb"] = boost::bind(boost::factory<muVBFHbb*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVHbb"] = boost::bind(boost::factory<muVHbb*>(), _1, sqrt_s_LHC13);
     obsThFactory["muttHbb"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_LHC13);
+    // Indicating the energy explicit in the observable name
+    obsThFactory["muggHgaga13"] = boost::bind(boost::factory<muggHgaga*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVBFHgaga13"] = boost::bind(boost::factory<muVBFHgaga*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVHgaga13"] = boost::bind(boost::factory<muVHgaga*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muttHgaga13"] = boost::bind(boost::factory<muttHgaga*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muggHZZ13"] = boost::bind(boost::factory<muggHZZ*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVBFHZZ13"] = boost::bind(boost::factory<muVBFHZZ*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVHZZ13"] = boost::bind(boost::factory<muVHZZ*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muttHZZ13"] = boost::bind(boost::factory<muttHZZ*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muggHWW13"] = boost::bind(boost::factory<muggHWW*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVBFHWW13"] = boost::bind(boost::factory<muVBFHWW*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVHWW13"] = boost::bind(boost::factory<muVHWW*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muttHWW13"] = boost::bind(boost::factory<muttHWW*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muggHtautau13"] = boost::bind(boost::factory<muggHtautau*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVBFHtautau13"] = boost::bind(boost::factory<muVBFHtautau*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVHtautau13"] = boost::bind(boost::factory<muVHtautau*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muttHtautau13"] = boost::bind(boost::factory<muttHtautau*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muggHbb13"] = boost::bind(boost::factory<muggHbb*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVBFHbb13"] = boost::bind(boost::factory<muVBFHbb*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVHbb13"] = boost::bind(boost::factory<muVHbb*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muttHbb13"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_LHC13);    
+    //
     obsThFactory["muttHbb100"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_FCC100);
     obsThFactory["muppHmumu8"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC8);
     obsThFactory["muppHmumu13"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC13);
