@@ -33,7 +33,7 @@ void GeneralTHDMMatching::updateGTHDMParameters()
 }
 
 double GeneralTHDMMatching::gminus2muLO() {
-
+  
     updateGTHDMParameters();
     double gminus2muLO;
     
@@ -91,6 +91,10 @@ double GeneralTHDMMatching::gminus2muLO() {
      if (!myGTHDM.getCPconservationflag())
     {
         throw std::runtime_error("(g-2) is only aviable in the CP-conserving limit.");
+    }
+     if( mH1_2 == mH2_2 || mH1_2==mH3_2 || mH1_2== mHp2 || mH2_2==mH3_2 || mH2_2== mHp2 || mH3_2== mHp2)
+    {
+        throw std::runtime_error(" Masses are equal. Not valid point.");
     }
     
     
@@ -272,7 +276,7 @@ gslpp::complex GeneralTHDMMatching::negsquareroot(double x){
 
 
 double GeneralTHDMMatching::gminus2muNLOF() {
-
+    
     updateGTHDMParameters();
     double  aFNphoton, aFNZ;
     gslpp::complex aFC, gminus2muNLOF; 
@@ -493,7 +497,7 @@ double GeneralTHDMMatching::gminus2muNLOF() {
 
 
 double GeneralTHDMMatching::gminus2muNLOB() {
-
+    
     updateGTHDMParameters();
     gslpp::complex aEWadd, aNonYuk, aYuk, gminus2muNLOB;
     
@@ -991,6 +995,132 @@ aNonYuk = (aem*aem*mMU*
      TF(mH2, mHp, CW*MZ))/(64.0*CW8*(-1.0 + CW2)*(-1.0 + CW2)*
      MZ8*(mH2_4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
        2.0*mH2_2*(mHp2 + CW2*MZ2))*pi*pi);
+
+
+/*std::cout << "exp  = " << (aem*aem*mMU*
+     mMU*((-7.0 + 14.0*CW2 - 4.0*CW4 + 5.0*CW6 - 16.0*CW8 + 8.0*CW10)*
+        mH3_10 + 
+       mH3_8*((7.0 - 14.0*CW2 + 4.0*CW4 - 20.0*CW6 + 64.0*CW8 - 
+             32.0*CW10)*
+           mH2_2 + (28.0 - 56.0*CW2 + 16.0*CW4 - 5.0*CW6 + 
+             16.0*CW8 - 8.0*CW10)*mHp2 - 
+          3.0*CW2*(-19.0 + 26.0*CW2 + CW4 - 16.0*CW6 + 8.0*CW8)*MZ2) +
+        mH3_6*(-14.0*mHp2*(2.0*mH2_2 + 3.0*mHp2) + 
+          CW2*(84.0*mHp4 - 93.0*mHp2*MZ2 + 
+             mH2_2*(56.0*mHp2 - 57*MZ2)) + 
+          8.0*CW10*(6.0*mH2_4 + 3.0*MZ2*(mHp2 + MZ2) + 
+             mH2_2*(4.0*mHp2 + 3.0*MZ2)) - 
+          4.0*CW8*(24.0*mH2_4 + 4.0*mH2_2*(4.0*mHp2 + 3.0*MZ2) + 
+             3.0*MZ2*(4.0*mHp2 + 5.0*MZ2)) + 
+    CW6*(30.0*mH2_4 + mH2_2*(20.0*mHp2 + 3.0*MZ2) + 
+             3.0*MZ2*(mHp2 + 13.0*MZ2)) + 
+          CW4*(mH2_2*(-16.0*mHp2 + 78.0*MZ2) - 
+             3.0*(8.0*mHp4 - 38*mHp2*MZ2 + MZ4))) + 
+       mH3_2*mH3_2*(42*mH2_2*mHp4 + 28.0*mHp6 - 
+          4.0*CW10*(8.0*mH2_6 + 6.0*mH2_2*mHp2*MZ2 + 
+             6.0*mHp2*MZ4 - MZ6 + 6.0*mH2_4*(2.0*mHp2 - MZ2)) - 
+          CW6*(20.0*mH2_6 + 12*mHp4*MZ2 + 69.0*mHp2*MZ4 + 
+             2.0*MZ6 + 3.0*mH2_2*MZ2*(mHp2 - 10.0*MZ2) + 
+             15.0*mH2_4*(2.0*mHp2 - MZ2)) + 
+          CW2*(-56.0*mHp6 + 15.0*mHp4*MZ2 + 
+             mH2_2*(-84.0*mHp4 + 93.0*mHp2*MZ2)) + 
+          2.0*CW8*(32.0*mH2_6 + 36*mHp2*MZ4 - MZ6 + 
+             24.0*mH2_4*(2.0*mHp2 - MZ2) + 
+             6.0*mH2_2*(4.0*mHp2*MZ2 - MZ4)) + 
+          CW4*(3.0*mH2_2*(8.0*mHp4 - 38*mHp2*MZ2 - 3.0*MZ4) + 
+             2.0*mHp2*(8.0*mHp4 + 3.0*mHp2*MZ2 + 6.0*MZ4))) + 
+       mH3_2*(-7.0*(4.0*mH2_2*mHp6 + mHp8) - 
+          2.0*CW8*(8.0*mH2_8 + 6.0*mHp4*MZ4 - mH2_2*MZ6 - 
+             mHp2*MZ6 + 8*mH2_6*(4.0*mHp2 - 3.0*MZ2) + 
+             24.0*mH2_4*MZ2*(-mHp2 + MZ2)) - 
+          CW4*mHp4*(4.0*mHp4 + 42*mHp2*MZ2 + 21.0*MZ4 + 
+             2.0*mH2_2*(8.0*mHp2 + 3.0*MZ2)) + 
+          CW2*(7.0*mHp6*(2.0*mHp2 + 3.0*MZ2) + 
+             mH2_2*(56.0*mHp6 - 15.0*mHp4*MZ2)) + 
+          4.0*CW10*(2.0*mH2_8 - mH2_2*MZ6 - mHp2*MZ6 + 
+             mH2_6*(8.0*mHp2 - 6.0*MZ2) + 
+             mH2_4*(-6.0*mHp2*MZ2 + 6.0*MZ4)) + 
+          CW6*(5.0*mH2_8 + 5.0*mH2_6*(4.0*mHp2 - 3.0*MZ2) + 
+             15.0*mH2_4*MZ2*(-mHp2 + MZ2) + 
+             2.0*mHp2*MZ2*(6.0*mHp4 + 21.0*mHp2*MZ2 + MZ4) + 
+             2.0*mH2_2*(6.0*mHp4*MZ2 + MZ6))) + 
+       mH2_2*mHp2*(7.0*mHp6 - 7.0*CW2*(2.0*mHp6 + 3.0*mHp4*MZ2) + 
+          CW4*(4.0*mHp6 + 42*mHp4*MZ2 + 21.0*mHp2*MZ4) - 
+          4.0*CW10*(2.0*mH2_6 - 6.0*mH2_4*MZ2 + 6.0*mH2_2*MZ4 - 
+             MZ6) + 2.0*
+           CW8*(8.0*mH2_6 - 24.0*mH2_4*MZ2 + 24.0*mH2_2*MZ4 + 
+             6.0*mHp2*MZ4 - MZ6) - 
+          CW6*(5.0*mH2_6 - 15.0*mH2_4*MZ2 + 15.0*mH2_2*MZ4 + 
+             2.0*(6.0*mHp4*MZ2 + 21.0*mHp2*MZ4 + MZ6))))*
+     log(mH3_2/MZ2))/(2304.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*(mH3_2 - 
+       mH2_2)*(mH3_2 - mHp2)*MZ8*pi*pi) << std::endl;
+
+std::cout << "num = " << (aem*aem*mMU*
+     mMU*((-7.0 + 14.0*CW2 - 4.0*CW4 + 5.0*CW6 - 16.0*CW8 + 8.0*CW10)*
+        mH3_10 + 
+       mH3_8*((7.0 - 14.0*CW2 + 4.0*CW4 - 20.0*CW6 + 64.0*CW8 - 
+             32.0*CW10)*
+           mH2_2 + (28.0 - 56.0*CW2 + 16.0*CW4 - 5.0*CW6 + 
+             16.0*CW8 - 8.0*CW10)*mHp2 - 
+          3.0*CW2*(-19.0 + 26.0*CW2 + CW4 - 16.0*CW6 + 8.0*CW8)*MZ2) +
+        mH3_6*(-14.0*mHp2*(2.0*mH2_2 + 3.0*mHp2) + 
+          CW2*(84.0*mHp4 - 93.0*mHp2*MZ2 + 
+             mH2_2*(56.0*mHp2 - 57*MZ2)) + 
+          8.0*CW10*(6.0*mH2_4 + 3.0*MZ2*(mHp2 + MZ2) + 
+             mH2_2*(4.0*mHp2 + 3.0*MZ2)) - 
+          4.0*CW8*(24.0*mH2_4 + 4.0*mH2_2*(4.0*mHp2 + 3.0*MZ2) + 
+             3.0*MZ2*(4.0*mHp2 + 5.0*MZ2)) + 
+    CW6*(30.0*mH2_4 + mH2_2*(20.0*mHp2 + 3.0*MZ2) + 
+             3.0*MZ2*(mHp2 + 13.0*MZ2)) + 
+          CW4*(mH2_2*(-16.0*mHp2 + 78.0*MZ2) - 
+             3.0*(8.0*mHp4 - 38*mHp2*MZ2 + MZ4))) + 
+       mH3_2*mH3_2*(42*mH2_2*mHp4 + 28.0*mHp6 - 
+          4.0*CW10*(8.0*mH2_6 + 6.0*mH2_2*mHp2*MZ2 + 
+             6.0*mHp2*MZ4 - MZ6 + 6.0*mH2_4*(2.0*mHp2 - MZ2)) - 
+          CW6*(20.0*mH2_6 + 12*mHp4*MZ2 + 69.0*mHp2*MZ4 + 
+             2.0*MZ6 + 3.0*mH2_2*MZ2*(mHp2 - 10.0*MZ2) + 
+             15.0*mH2_4*(2.0*mHp2 - MZ2)) + 
+          CW2*(-56.0*mHp6 + 15.0*mHp4*MZ2 + 
+             mH2_2*(-84.0*mHp4 + 93.0*mHp2*MZ2)) + 
+          2.0*CW8*(32.0*mH2_6 + 36*mHp2*MZ4 - MZ6 + 
+             24.0*mH2_4*(2.0*mHp2 - MZ2) + 
+             6.0*mH2_2*(4.0*mHp2*MZ2 - MZ4)) + 
+          CW4*(3.0*mH2_2*(8.0*mHp4 - 38*mHp2*MZ2 - 3.0*MZ4) + 
+             2.0*mHp2*(8.0*mHp4 + 3.0*mHp2*MZ2 + 6.0*MZ4))) + 
+       mH3_2*(-7.0*(4.0*mH2_2*mHp6 + mHp8) - 
+          2.0*CW8*(8.0*mH2_8 + 6.0*mHp4*MZ4 - mH2_2*MZ6 - 
+             mHp2*MZ6 + 8*mH2_6*(4.0*mHp2 - 3.0*MZ2) + 
+             24.0*mH2_4*MZ2*(-mHp2 + MZ2)) - 
+          CW4*mHp4*(4.0*mHp4 + 42*mHp2*MZ2 + 21.0*MZ4 + 
+             2.0*mH2_2*(8.0*mHp2 + 3.0*MZ2)) + 
+          CW2*(7.0*mHp6*(2.0*mHp2 + 3.0*MZ2) + 
+             mH2_2*(56.0*mHp6 - 15.0*mHp4*MZ2)) + 
+          4.0*CW10*(2.0*mH2_8 - mH2_2*MZ6 - mHp2*MZ6 + 
+             mH2_6*(8.0*mHp2 - 6.0*MZ2) + 
+             mH2_4*(-6.0*mHp2*MZ2 + 6.0*MZ4)) + 
+          CW6*(5.0*mH2_8 + 5.0*mH2_6*(4.0*mHp2 - 3.0*MZ2) + 
+             15.0*mH2_4*MZ2*(-mHp2 + MZ2) + 
+             2.0*mHp2*MZ2*(6.0*mHp4 + 21.0*mHp2*MZ2 + MZ4) + 
+             2.0*mH2_2*(6.0*mHp4*MZ2 + MZ6))) + 
+       mH2_2*mHp2*(7.0*mHp6 - 7.0*CW2*(2.0*mHp6 + 3.0*mHp4*MZ2) + 
+          CW4*(4.0*mHp6 + 42*mHp4*MZ2 + 21.0*mHp2*MZ4) - 
+          4.0*CW10*(2.0*mH2_6 - 6.0*mH2_4*MZ2 + 6.0*mH2_2*MZ4 - 
+             MZ6) + 2.0*
+           CW8*(8.0*mH2_6 - 24.0*mH2_4*MZ2 + 24.0*mH2_2*MZ4 + 
+             6.0*mHp2*MZ4 - MZ6) - 
+          CW6*(5.0*mH2_6 - 15.0*mH2_4*MZ2 + 15.0*mH2_2*MZ4 + 
+             2.0*(6.0*mHp4*MZ2 + 21.0*mHp2*MZ4 + MZ6))))*
+     log(mH3_2/MZ2)) << std::endl; 
+
+
+std::cout << "den = " << (2304.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*(mH3_2 - 
+       mH2_2)*(mH3_2 - mHp2)*MZ8*pi*pi)<< std::endl; */
+
+
+
+
 
 
 gslpp::complex aYuk2 =  -(aem*aem*(MH2 + 2.0*mHp2)*mMU*mMU)/(8.0*CW2*(-1.0 + CW2)*MH2*MZ2*pi*
@@ -1708,17 +1838,25 @@ gslpp::complex aYuk5 = Lambda5*(-(aem*mMU*mMU)/(8.0*MH2*pi*pi*pi) + (aem*mMU*
 
     gminus2muNLOB = aEWadd + aNonYuk  + aYuk;
       
+    /*std::cout << " aEWadd = " << aEWadd << std::endl;
+    std::cout << " aNonYuk = " << aNonYuk << std::endl;
+    std::cout << " aYuk = " << aYuk << std::endl;*/
+
+    
      return(gminus2muNLOB.real());
 }
 
 
 double GeneralTHDMMatching::gminus2muNLO() {
-
+    
     updateGTHDMParameters();
      
   //  double gminus2muLOvalue=gminus2muLO();
     double gminus2muNLOFvalue=gminus2muNLOF();
     double gminus2muNLOBvalue = gminus2muNLOB();
+    
+   /* std::cout << "gminus2muNLOFvalue =" << gminus2muNLOFvalue << std::endl;
+    std::cout << "gminus2muNLOBvalue =" << gminus2muNLOBvalue << std::endl;*/
     
    double gminus2muNLO = gminus2muNLOFvalue + gminus2muNLOBvalue;
    
@@ -1731,20 +1869,24 @@ double GeneralTHDMMatching::gminus2muNLO() {
 
 std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMgminus2mu() {
     
-    gslpp::complex su = myGTHDM.getNu_11();
+   /* gslpp::complex su = myGTHDM.getNu_11();
     gslpp::complex sd = myGTHDM.getNd_11();
-    gslpp::complex sl = myGTHDM.getNl_11();
+    gslpp::complex sl = myGTHDM.getNl_11();*/
     
-    double Imlambda5=myGTHDM.getImlambda5();
+  /*  double Imlambda5=myGTHDM.getImlambda5();
     double Imlambda6=myGTHDM.getMyGTHDMCache()->Imlambda6;
     double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambda7;
     double sinalpha2=myGTHDM.getsinalpha2();
-    double sinalpha3=myGTHDM.getsinalpha3();
+    double sinalpha3=myGTHDM.getsinalpha3();*/
     
     vmcgminus2mu = StandardModelMatching::CMgminus2mu();
 
     double gminus2muLOvalue=gminus2muLO();
     double gminus2muNLOvalue=gminus2muNLO();
+
+   /* std::cout << " gminus2muLOvalue =  " << gminus2muLOvalue << std::endl;
+    std::cout << " gminus2muNLOvalue =  " << gminus2muNLOvalue << std::endl;*/
+    
 
     
     switch (mcgminus2mu.getOrder()) {
