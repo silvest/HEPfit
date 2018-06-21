@@ -21,5 +21,6 @@ double GMunitarityLO::computeThValue()
     if( index > 16 ) {
         throw std::runtime_error("Index out of range in GMunitarityLO");
     }
+//    std::cout<<(myGM.getMyGMCache()->unitarityeigenvalues(index)).real()<<std::endl;
     return (myGM.getMyGMCache()->unitarityeigenvalues(index)).real();
 }

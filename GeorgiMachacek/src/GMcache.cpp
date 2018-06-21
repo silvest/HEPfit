@@ -3056,7 +3056,7 @@ double GMcache::OffShellFunction(const double k) const{
     else {
         double newResult=0.0;
         if(k>0.25) {
-        newResult = (((1.0-8.0*k+20.0*k*k)/sqrt(abs(4.0*k-1.0)))*acos(HSTheta(k-0.25)*(3.0*k-1.0)/(2.0*k*sqrt(k)))
+        newResult = (((1.0-8.0*k+20.0*k*k)/sqrt(fabs(4.0*k-1.0)))*acos(HSTheta(k-0.25)*(3.0*k-1.0)/(2.0*k*sqrt(k)))
                               -(1.0-k)/(6.0*k)*(2.0-13.0*k+47.0*k*k) - 0.5*(1.0-6.0*k+4.0*k*k)*log(k));
         }
         CacheShiftReal(OffShellFunction_cache, NumPar, params, newResult);

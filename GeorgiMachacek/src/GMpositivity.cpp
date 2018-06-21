@@ -16,7 +16,7 @@ double GMpositivity1::computeThValue()
 {
     double lambda2 = myGM.getMyGMCache()->lambda2;
     double lambda3 = myGM.getMyGMCache()->lambda3;
-
+//    std::cout<<"p1="<<lambda2+lambda3<<std::endl;
     return lambda2+lambda3;
 }
 
@@ -31,6 +31,7 @@ double GMpositivity2::computeThValue()
     double lambda2 = myGM.getMyGMCache()->lambda2;
     double lambda3 = myGM.getMyGMCache()->lambda3;
 
+//    std::cout<<"p2="<<2.0*lambda2+lambda3<<std::endl;
     return 2.0*lambda2+lambda3;
 }
 
@@ -51,6 +52,11 @@ double GMpositivity3::computeThValue()
     {
         pos3 = -fabs(lambda4)+2.0*sqrt(lambda1*(lambda2+lambda3));
     }
+    else
+    {
+        pos3 = -fabs(lambda1*(lambda2+lambda3));
+    }
+//    std::cout<<"p3="<<pos3<<std::endl;
     return pos3;
 }
 
@@ -72,5 +78,10 @@ double GMpositivity4::computeThValue()
     {
         pos4 = lambda4-0.25*fabs(lambda5)+sqrt(2.0*lambda1*(2.0*lambda2+lambda3));
     }
+    else
+    {
+        pos4 = -fabs(lambda1*(2.0*lambda2+lambda3));
+    }
+//    std::cout<<"p4="<<pos4<<std::endl;
     return pos4;
 }
