@@ -630,6 +630,7 @@ public:
         K_0, /**< @f$K^0@f$ meson */
         K_P, /**< @f$K^\pm@f$ meson */
         D_0, /**< @f$D^0@f$ meson */
+        D_P, /**< @f$D^\pm@f$ meson */
         B_D, /**< @f$B_d@f$ meson */
         B_P, /**< @f$B^\pm@f$ meson */
         B_S, /**< @f$B_s@f$ meson */

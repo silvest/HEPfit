@@ -119,31 +119,36 @@ private:
     double CV_SM; /**<Wilson coeffients @f$C_{V}@f$*/
     double CA_SM; /**<Wilson coeffients @f$C_{A}@f$*/
     
-    gslpp::complex CS; /**<Wilson coeffients @f$C_{S}@f$*/
-    gslpp::complex CP; /**<Wilson coeffients @f$C_{P}@f$*/
-    gslpp::complex CSp; /**<Wilson coeffients @f$C_{S}'@f$*/
-    gslpp::complex CPp; /**<Wilson coeffients @f$C_{P}'@f$*/
-    gslpp::complex CV; /**<Wilson coeffients @f$C_{V}@f$*/
-    gslpp::complex CA; /**<Wilson coeffients @f$C_{A}@f$*/
-    gslpp::complex CVp; /**<Wilson coeffients @f$C_{V}'@f$*/
-    gslpp::complex CAp; /**<Wilson coeffients @f$C_{A}'@f$*/
-    gslpp::complex C7; /**<Wilson coeffients @f$C_{7}@f$*/
-    gslpp::complex C7p; /**<Wilson coeffients @f$C_{7}'@f$*/
-    gslpp::complex CT; /**<Wilson coeffients @f$C_{T}@f$*/
-    gslpp::complex CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
+    double CS; /**<Wilson coeffients @f$C_{S}@f$*/
+    double CP; /**<Wilson coeffients @f$C_{P}@f$*/
+    double CSp; /**<Wilson coeffients @f$C_{S}'@f$*/
+    double CPp; /**<Wilson coeffients @f$C_{P}'@f$*/
+    double CV; /**<Wilson coeffients @f$C_{V}@f$*/
+    double CA; /**<Wilson coeffients @f$C_{A}@f$*/
+    double CVp; /**<Wilson coeffients @f$C_{V}'@f$*/
+    double CAp; /**<Wilson coeffients @f$C_{A}'@f$*/
+    double C7; /**<Wilson coeffients @f$C_{7}@f$*/
+    double C7p; /**<Wilson coeffients @f$C_{7}'@f$*/
+    double CT; /**<Wilson coeffients @f$C_{T}@f$*/
+    double CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
     
     double hA1w1,rho2,R1w1,R2w1; /**<CLN form factor parameters*/
     double af0,af1,af2,ag0,ag1,ag2,aF11,aF12; /**<BGL form factor parameters*/
     double mBcstV1,mBcstV2,mBcstV3,mBcstV4,mBcstA1,mBcstA2,mBcstA3,mBcstA4,chiTV,chiTA,nI; /**<BGL form factor parameters*/
     double zV1,zV2,zV3,zV4,zA1,zA2,zA3,zA4;
-    double cached_intJ1s_mu,cached_intJ1c_mu,cached_intJ2s_mu,cached_intJ2c_mu,cached_intJ3_mu,cached_intJ6s_mu,cached_intJ6c_mu,cached_intJ9_mu,
-           cached_intJ1s_el,cached_intJ1c_el,cached_intJ2s_el,cached_intJ2c_el,cached_intJ3_el,cached_intJ6s_el,cached_intJ6c_el,cached_intJ9_el; /**< caching J1 integral btw q2min and q2mx*/
-    bool hA1w1_cache,rho2_cache,R1w1_cache,R2w1_cache;
-    bool af0_cache,af1_cache,af2_cache,ag0_cache,ag1_cache,ag2_cache,aF11_cache,aF12_cache;
-    bool checkcache_int_mu, checkcache_int_el;
+    double cached_intJ1s_tau,cached_intJ1c_tau,cached_intJ2s_tau,cached_intJ2c_tau,cached_intJ3_tau,cached_intJ4_tau,
+            cached_intJ5_tau,cached_intJ6s_tau,cached_intJ6c_tau,cached_intJ7_tau,cached_intJ8_tau,cached_intJ9_tau,
+           cached_intJ1s_mu,cached_intJ1c_mu,cached_intJ2s_mu,cached_intJ2c_mu,cached_intJ3_mu,
+           cached_intJ4_mu,cached_intJ5_mu,cached_intJ6s_mu,cached_intJ6c_mu,cached_intJ7_mu,cached_intJ8_mu,cached_intJ9_mu,
+           cached_intJ1s_el,cached_intJ1c_el,cached_intJ2s_el,cached_intJ2c_el,cached_intJ3_el,cached_intJ4_el,
+           cached_intJ5_el,cached_intJ6s_el,cached_intJ6c_el,cached_intJ7_el,cached_intJ8_el,cached_intJ9_el; /**< caching Js integral btw q2min and q2mx*/
+    double hA1w1_cache,rho2_cache,R1w1_cache,R2w1_cache;
+    double af0_cache,af1_cache,af2_cache,ag0_cache,ag1_cache,ag2_cache,aF11_cache,aF12_cache;
+    double CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
+    bool checkcache_int_tau, checkcache_int_mu, checkcache_int_el;
     
     /**
-     * @brief The update parameter method for MVll.
+     * @brief The update parameter method for MVlnu.
      */
     void updateParameters();
 
@@ -600,4 +605,3 @@ private:
 };
 
 #endif /* MVLNU_H */
-

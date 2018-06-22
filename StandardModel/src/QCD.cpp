@@ -240,6 +240,7 @@ void QCD::initializeMeson(const QCD::meson meson_i) const
     else if (meson_i == QCD::K_0) mesonsMap.at(meson_i).setName("K_0");
     else if (meson_i == QCD::K_P) mesonsMap.at(meson_i).setName("K_P");
     else if (meson_i == QCD::D_0) mesonsMap.at(meson_i).setName("D_0");
+    else if (meson_i == QCD::D_P) mesonsMap.at(meson_i).setName("D_P");
     else if (meson_i == QCD::B_D) mesonsMap.at(meson_i).setName("B_D");
     else if (meson_i == QCD::B_P) mesonsMap.at(meson_i).setName("B_P");
     else if (meson_i == QCD::B_S) mesonsMap.at(meson_i).setName("B_S");

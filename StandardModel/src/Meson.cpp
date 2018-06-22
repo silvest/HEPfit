@@ -67,6 +67,12 @@ void Meson::ModelParameterMapInsert(std::map< std::string, boost::reference_wrap
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FD", boost::cref(decayconst)));
         return;
     }
+    if (name.compare("D_P") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MDP", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tDP", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FDP", boost::cref(decayconst)));
+        return;
+    }
     if (name.compare("B_D") == 0) {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBd", boost::cref(mass)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBd", boost::cref(lifetime)));
@@ -132,6 +138,7 @@ std::vector<std::string> Meson::parameterList(std::string name_i)
     if (name_i.compare("K_0") == 0) return make_vector<std::string>() << "MK0" << "tKl" << "FK";
     if (name_i.compare("K_P") == 0) return make_vector<std::string>() << "MKp" << "tKp" << "FK" << "alpha1kp" << "alpha2kp";
     if (name_i.compare("D_0") == 0) return make_vector<std::string>() << "MD"  << "tD"  << "FD";
+    if (name_i.compare("D_P") == 0) return make_vector<std::string>() << "MDP"  << "tDP"  << "FDP";
     if (name_i.compare("B_D") == 0) return make_vector<std::string>() << "MBd" << "tBd" << "FBsoFBd" << "lambdaB";
     if (name_i.compare("B_P") == 0) return make_vector<std::string>() << "MBp" << "tBp" << "FBsoFBd" << "lambdaB";
     if (name_i.compare("B_S") == 0) return make_vector<std::string>() << "MBs" << "tBs" << "FBs" << "lambdaB" << "DGs_Gs";
@@ -218,6 +225,20 @@ bool Meson::setParameter(std::string name_i, double value)
             return true;
         }
         if (name_i.compare("FD") == 0) {
+            decayconst = value;
+            return true;
+        }
+    }
+    if (name.compare("D_P") == 0) {
+        if (name_i.compare("MDP") == 0) {
+            mass = value;
+            return true;
+        }
+        if (name_i.compare("tDP") == 0) {
+            lifetime = value;
+            return true;
+        }
+        if (name_i.compare("FDP") == 0) {
             decayconst = value;
             return true;
         }
