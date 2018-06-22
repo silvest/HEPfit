@@ -2241,10 +2241,10 @@ double NPSMEFTd6::Mw() const
             + 2.0 * sW2_tree * DeltaGF()));
 }
 
-double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const
+double NPSMEFTd6::deltaGamma_Wff(const Particle fi, const Particle fj) const
 {
     double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
-    double Gamma_Wij = trueSM.GammaW(fi, fj);
+    double deltaGamma_Wij;
     double GammaW_tree;
     double CHF3ij;
     
@@ -2259,27 +2259,38 @@ double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const
         GammaW_tree = G0;        
     }
     
-    Gamma_Wij = Gamma_Wij - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
+    deltaGamma_Wij = - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
             *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
             + cW2_tree * CHD * v2_over_LambdaNP2
             + 2.0 * (1.0 + cW2_tree) / 3.0 * DeltaGF());
+    
+    deltaGamma_Wij = deltaGamma_Wij + 2.0 * GammaW_tree * CHF3ij * v2_over_LambdaNP2;
 
-    return (Gamma_Wij
-            + 2.0 * GammaW_tree * CHF3ij * v2_over_LambdaNP2);          
+    return deltaGamma_Wij;    
 }
 
-double NPSMEFTd6::GammaW() const
+
+double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const
+{
+    return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) );          
+}
+
+double NPSMEFTd6::deltaGamma_W() const
 {
     double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
     double GammaW_tree = (3.0 + 2.0 * Nc) * G0;
 
-    return (trueSM.GammaW()
-            - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
+    return (- 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
             *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
             + cW2_tree * CHD * v2_over_LambdaNP2
             + 2.0 * (1.0 + cW2_tree) / 3.0 * DeltaGF())
             + 2.0 * G0 * (CHL3_11 + CHL3_22 + CHL3_33 + Nc*(CHQ3_11 + CHQ3_22)) * v2_over_LambdaNP2);          
-//            + 2.0 * GammaW_tree / 3.0 * (CHL3_11 + CHQ3_11 + CHQ3_22) * v2_over_LambdaNP2);
+//            + 2.0 * GammaW_tree / 3.0 * (CHL3_11 + CHQ3_11 + CHQ3_22) * v2_over_LambdaNP2);    
+}
+
+double NPSMEFTd6::GammaW() const
+{
+    return ( trueSM.GammaW() + deltaGamma_W() );
 }
 
 double NPSMEFTd6::deltaGV_f(const Particle p) const
@@ -6065,6 +6076,28 @@ double NPSMEFTd6::BrHWWRatio() const
 
 }
 
+double NPSMEFTd6::BrHWlvRatio() const
+{
+    //  Temporaty definition
+    return BrHWWRatio();
+}
+    
+double NPSMEFTd6::BrHWW2l2vRatio() const
+{
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]) 
+            + deltaGamma_Wff(leptons[NEUTRINO_2], leptons[MU]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaW(leptons[NEUTRINO_1], leptons[ELECTRON]) 
+            + trueSM.GammaW(leptons[NEUTRINO_2], leptons[MU]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_W() / trueSM.GammaW();
+    
+    return ( BrHWlvRatio() + deltaBRratio );
+}
+
 double NPSMEFTd6::BrHZZRatio() const
 {
     double Br = 1.0;
@@ -6082,6 +6115,27 @@ double NPSMEFTd6::BrHZZRatio() const
     
     return Br;
 
+}
+
+double NPSMEFTd6::BrHZllRatio() const
+{
+    //  Temporaty definition
+    return BrHZZRatio();
+}
+
+double NPSMEFTd6::BrHZZ4lRatio() const
+{
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Zf(leptons[ELECTRON]) 
+            + deltaGamma_Zf(leptons[MU]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaZ(leptons[ELECTRON]) + trueSM.GammaZ(leptons[MU]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+    
+    return ( BrHZllRatio() + deltaBRratio );
 }
 
 double NPSMEFTd6::BrHZgaRatio() const

@@ -163,6 +163,17 @@ public:
     virtual double Mw() const;
     
     /**
+     * @brief The new physics contribution to the decay width of the @f$W@f$ boson into a given fermion pair, @f$\delta \Gamma_Z^{f}@f$.
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\delta \Gamma_W^{ff}@f$ in GeV
+     */
+    virtual double deltaGamma_Wff(const Particle fi, const Particle fj) const
+    {
+        return 0.0;
+    };
+    
+    /**
      * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
      * @details
      * The partial @f$W@f$-boson widths receives the new physics
@@ -183,6 +194,15 @@ public:
      * @attention Fermion masses are neglected.
      */
     virtual double GammaW(const Particle fi, const Particle fj) const;
+    
+    /**
+     * @brief The new physics contribution to the total decay width of the @f$W@f$ boson, @f$\delta \Gamma_W@f$.
+     * @return @f$\delta \Gamma_W@f$ in GeV
+     */
+    virtual double deltaGamma_W() const
+    {
+        return 0.0;
+    };
 
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
@@ -809,6 +829,26 @@ public:
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to W l\nu)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to Wl\nu)@f$/Br@f$(H\to Wl\nu)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHWlvRatio() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to WW^*\to l\nu l\nu)@f$/Br@f$(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHWW2l2vRatio() const
+    {
+        return 1.0;
+    }
 
     /**
      * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
@@ -816,6 +856,26 @@ public:
      * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
      */
     virtual double BrHZZRatio() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to Zll)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to Zll)@f$/Br@f$(H\to Zll)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZllRatio() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to ZZ* \to 4l)@f$/Br@f$(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZZ4lRatio() const
     {
         return 1.0;
     }
