@@ -259,6 +259,8 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagQuadraticTerms = false;
     FlagRotateCHWCHB = false;
     FlagPartialQFU = false;
+    FlagFlavU3OfX = false;
+    FlagLoopHd6 = false;
     setModelLinearized();
     
     w_WW = gsl_integration_cquad_workspace_alloc(100);
@@ -790,6 +792,16 @@ bool NPSMEFTd6::PostUpdate()
     cW2_tree = cW_tree * cW_tree;
     sW2_tree = 1.0 - cW2_tree;
     sW_tree = sqrt(sW2_tree);
+
+    Yuke = sqrt(2.) * (leptons[ELECTRON].getMass()) / v();
+    Yukmu = sqrt(2.) * (leptons[MU].getMass()) / v();
+    Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
+    Yuku = sqrt(2.) * (quarks[UP].getMass()) / v();
+    Yukc = sqrt(2.) * (quarks[CHARM].getMass()) / v();
+    Yukt = sqrt(2.) * mtpole / v();
+    Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
+    Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
+    Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
       
     if (FlagRotateCHWCHB) {
         CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
@@ -797,6 +809,39 @@ bool NPSMEFTd6::PostUpdate()
     } else {
         CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
         CHWHB_gagaorth = - cW2_tree * CHW + sW2_tree * CHB;
+    }
+    
+    if (FlagFlavU3OfX) {
+
+        CeH_11r = Yuke * CeH_11r;
+        CeH_22r = Yukmu * CeH_22r;        
+        CeH_33r = Yuktau * CeH_33r;
+                
+        CuH_11r = Yuku * CuH_11r;            
+        CuH_22r = Yukc * CuH_22r;     
+        CuH_33r = Yukt * CuH_33r;
+        
+        CdH_11r = Yukd * CdH_11r;
+        CdH_22r = Yuks * CdH_22r;            
+        CdH_33r = Yukb * CdH_33r;
+        
+        CuG_11r = Yuku * CuG_11r;  
+        CuG_22r = Yukc * CuG_22r;
+        CuG_33r = Yukt * CuG_33r;
+
+        CuW_11r = Yuku * CuW_11r;
+        CuW_22r = Yukc * CuW_22r;
+        CuW_33r = Yukt * CuW_33r;
+
+        CuB_11r = Yuku * CuB_11r;
+        CuB_22r = Yukc * CuB_22r;                   
+        CuB_33r = Yukt * CuB_33r;
+    }
+    
+    if (!FlagLoopHd6) {
+        cLHd6 = 0.;
+    } else {
+        cLHd6 = 1.;
     }
 
     delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB + sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
@@ -1102,19 +1147,27 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CHud_22i = value;
         CHud_23i = 0.0;
         CHud_33i = value;
-    } else if (name.compare("CeH_11r") == 0)
-        CeH_11r = value;
-    else if (name.compare("CeH_12r") == 0)
+    } else if (name.compare("CeH_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CeH_11r = value;
+        }
+    } else if (name.compare("CeH_12r") == 0)
         CeH_12r = value;
     else if (name.compare("CeH_13r") == 0)
         CeH_13r = value;
-    else if (name.compare("CeH_22r") == 0)
-        CeH_22r = value;
-    else if (name.compare("CeH_23r") == 0)
+    else if (name.compare("CeH_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CeH_22r = value;
+        }
+    } else if (name.compare("CeH_23r") == 0)
         CeH_23r = value;
-    else if (name.compare("CeH_33r") == 0)
+    else if (name.compare("CeH_33r") == 0){
         CeH_33r = value;
-    else if (name.compare("CeH_11i") == 0)
+        if (FlagFlavU3OfX){
+            CeH_11r = value;
+            CeH_22r = value;
+        }
+    } else if (name.compare("CeH_11i") == 0)
         CeH_11i = value;
     else if (name.compare("CeH_12i") == 0)
         CeH_12i = value;
@@ -1126,19 +1179,27 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CeH_23i = value;
     else if (name.compare("CeH_33i") == 0)
         CeH_33i = value;
-    else if (name.compare("CuH_11r") == 0)
-        CuH_11r = value;
-    else if (name.compare("CuH_12r") == 0)
+    else if (name.compare("CuH_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CuH_11r = value;
+        }
+    } else if (name.compare("CuH_12r") == 0)
         CuH_12r = value;
     else if (name.compare("CuH_13r") == 0)
         CuH_13r = value;
-    else if (name.compare("CuH_22r") == 0)
-        CuH_22r = value;
-    else if (name.compare("CuH_23r") == 0)
+    else if (name.compare("CuH_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CuH_22r = value;
+        }
+    } else if (name.compare("CuH_23r") == 0)
         CuH_23r = value;
-    else if (name.compare("CuH_33r") == 0)
+    else if (name.compare("CuH_33r") == 0){
         CuH_33r = value;
-    else if (name.compare("CuH_11i") == 0)
+        if (FlagFlavU3OfX){
+            CuH_11r = value;            
+            CuH_22r = value;            
+        }
+    } else if (name.compare("CuH_11i") == 0)
         CuH_11i = value;
     else if (name.compare("CuH_12i") == 0)
         CuH_12i = value;
@@ -1150,19 +1211,27 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CuH_23i = value;
     else if (name.compare("CuH_33i") == 0)
         CuH_33i = value;
-    else if (name.compare("CdH_11r") == 0)
-        CdH_11r = value;
-    else if (name.compare("CdH_12r") == 0)
+    else if (name.compare("CdH_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CdH_11r = value;
+        }
+    } else if (name.compare("CdH_12r") == 0)
         CdH_12r = value;
     else if (name.compare("CdH_13r") == 0)
         CdH_13r = value;
-    else if (name.compare("CdH_22r") == 0)
-        CdH_22r = value;
-    else if (name.compare("CdH_23r") == 0)
+    else if (name.compare("CdH_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CdH_22r = value;
+        }
+    } else if (name.compare("CdH_23r") == 0)
         CdH_23r = value;
-    else if (name.compare("CdH_33r") == 0)
+    else if (name.compare("CdH_33r") == 0){
         CdH_33r = value;
-    else if (name.compare("CdH_11i") == 0)
+        if (FlagFlavU3OfX){
+            CdH_11r = value;
+            CdH_22r = value;            
+        }
+    } else if (name.compare("CdH_11i") == 0)
         CdH_11i = value;
     else if (name.compare("CdH_12i") == 0)
         CdH_12i = value;
@@ -1174,19 +1243,27 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CdH_23i = value;
     else if (name.compare("CdH_33i") == 0)
         CdH_33i = value;
-    else if (name.compare("CuG_11r") == 0)
-        CuG_11r = value;
-    else if (name.compare("CuG_12r") == 0)
+    else if (name.compare("CuG_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CuG_11r = value;
+        }
+    } else if (name.compare("CuG_12r") == 0)
         CuG_12r = value;
     else if (name.compare("CuG_13r") == 0)
         CuG_13r = value;
-    else if (name.compare("CuG_22r") == 0)
-        CuG_22r = value;
-    else if (name.compare("CuG_23r") == 0)
+    else if (name.compare("CuG_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CuG_22r = value;
+        }
+    } else if (name.compare("CuG_23r") == 0)
         CuG_23r = value;
-    else if (name.compare("CuG_33r") == 0)
+    else if (name.compare("CuG_33r") == 0){
         CuG_33r = value;
-    else if (name.compare("CuG_r") == 0) {
+        if (FlagFlavU3OfX){
+            CuG_11r = value;  
+            CuG_22r = value;
+        }
+    } else if (name.compare("CuG_r") == 0) {
         CuG_11r = value;
         CuG_12r = 0.0;
         CuG_13r = 0.0;
@@ -1212,19 +1289,27 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CuG_22i = value;
         CuG_23i = 0.0;
         CuG_33i = value;
-    } else if (name.compare("CuW_11r") == 0)
-        CuW_11r = value;
-    else if (name.compare("CuW_12r") == 0)
+    } else if (name.compare("CuW_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CuW_11r = value;
+        }
+    } else if (name.compare("CuW_12r") == 0)
         CuW_12r = value;
     else if (name.compare("CuW_13r") == 0)
         CuW_13r = value;
-    else if (name.compare("CuW_22r") == 0)
-        CuW_22r = value;
-    else if (name.compare("CuW_23r") == 0)
+    else if (name.compare("CuW_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CuW_22r = value;
+        }
+    } else if (name.compare("CuW_23r") == 0)
         CuW_23r = value;
-    else if (name.compare("CuW_33r") == 0)
+    else if (name.compare("CuW_33r") == 0){
         CuW_33r = value;
-    else if (name.compare("CuW_r") == 0) {
+        if (FlagFlavU3OfX){
+            CuW_11r = value;
+            CuW_22r = value;
+        }
+    } else if (name.compare("CuW_r") == 0) {
         CuW_11r = value;
         CuW_12r = 0.0;
         CuW_13r = 0.0;
@@ -1250,19 +1335,27 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CuW_22i = value;
         CuW_23i = 0.0;
         CuW_33i = value;
-    } else if (name.compare("CuB_11r") == 0)
-        CuB_11r = value;
-    else if (name.compare("CuB_12r") == 0)
+    } else if (name.compare("CuB_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CuB_11r = value;
+        }
+    } else if (name.compare("CuB_12r") == 0)
         CuB_12r = value;
     else if (name.compare("CuB_13r") == 0)
         CuB_13r = value;
-    else if (name.compare("CuB_22r") == 0)
-        CuB_22r = value;
-    else if (name.compare("CuB_23r") == 0)
+    else if (name.compare("CuB_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CuB_22r = value;
+        }
+    } else if (name.compare("CuB_23r") == 0)
         CuB_23r = value;
-    else if (name.compare("CuB_33r") == 0)
+    else if (name.compare("CuB_33r") == 0){
         CuB_33r = value;
-    else if (name.compare("CuB_r") == 0) {
+        if (FlagFlavU3OfX){
+            CuB_11r = value;
+            CuB_22r = value;            
+        }
+    } else if (name.compare("CuB_r") == 0) {
         CuB_11r = value;
         CuB_12r = 0.0;
         CuB_13r = 0.0;
@@ -1915,6 +2008,12 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("PartialQFU") == 0) {        
         FlagPartialQFU = value;
+        res = true; 
+    } else if (name.compare("FlavU3OfX") == 0) {        
+        FlagFlavU3OfX = value;
+        res = true; 
+    } else if (name.compare("LoopHd6") == 0) {        
+        FlagLoopHd6 = value;
         res = true;
     } else
         res = NPbase::setFlag(name, value);
