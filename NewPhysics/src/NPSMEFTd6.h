@@ -673,6 +673,24 @@
  *   Only applies in the Non QFU case. In that case only the (1,1) component is taken into account.
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%FlavU3OfX</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if using @f$U(3)^5@f$ flavour symmetry relations
+ *   in the coefficients of the operators @f$O_{fH}@f$ and @f$O_{fV}@f$. If TRUE, the operator coefficient is proportional
+ *   to the corresponding Yukawa matrix (diagonal), with the proportionality coefficient given by 
+ *   the Model parameter corresponding to the coefficient of third family.
+ *   (Implemented only for the real and diagonal elements of the @f$O_{fH}@f$ and @f$O_{fV}@f$ operators.)
+ *   The default value is FALSE.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%LoopHd6</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
+ *   The default value is FALSE.</td>
+ * </tr>
+ * 
+ * 
  * </table>
  *
  *
@@ -1004,6 +1022,14 @@ public:
      * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
+    
+    /**
+     * @brief The new physics contribution to the decay width of the @f$W@f$ boson into a given fermion pair, @f$\delta \Gamma_Z^{f}@f$.
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\delta \Gamma_W^{ff}@f$ in GeV
+     */
+    virtual double deltaGamma_Wff(const Particle fi, const Particle fj) const;
 
     /**
      * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
@@ -1012,6 +1038,12 @@ public:
      * @return @f$\Gamma^W_{ij}@f$
      */
     virtual double GammaW(const Particle fi, const Particle fj) const;
+    
+    /**
+     * @brief The new physics contribution to the total decay width of the @f$W@f$ boson, @f$\delta \Gamma_W@f$.
+     * @return @f$\delta \Gamma_W@f$ in GeV
+     */
+    virtual double deltaGamma_W() const;
     
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
@@ -1496,11 +1528,35 @@ public:
      */
     virtual double BrHWWRatio() const;
     /**
+     * @brief The ratio of the Br@f$(H\to W l\nu)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to Wl\nu)@f$/Br@f$(H\to Wl\nu)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHWlvRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to WW^*\to l\nu l\nu)@f$/Br@f$(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHWW2l2vRatio() const;
+    /**
      * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
      */
     virtual double BrHZZRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to Zll)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to Zll)@f$/Br@f$(H\to Zll)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZllRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to ZZ* \to 4l)@f$/Br@f$(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZZ4lRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma)@f$ in the current model
      * and in the Standard Model.
@@ -2415,7 +2471,13 @@ protected:
     double delta_AA;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.
     double delta_AZ;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.
     double delta_h;///< Combinations of dimension 6 coefficients modifying the \f$H\f$ canonical field definition.
+    
+    double cLHd6;///< Parameter to control the includion of modifications of SM loops in Higgs processes due to dim 6 interactions.
 
+    double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
+    double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
+    double Yukd,Yuks,Yukb;///< SM d-quark Yukawas
+    
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(1)}\f$ corresponding to particle F.
      * @param[in] F a lepton or quark
@@ -2479,6 +2541,8 @@ private:
     bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
     bool FlagRotateCHWCHB; ///< A boolean flag that is true if we use as parameters CHWHB_gaga and CHWHB_gagaorth instead of CHW and CHB.
     bool FlagPartialQFU; ///< A boolean flag that is true if assuming partial quark flavour universality between the 1st and 2nd family in the CHF operators.
+    bool FlagFlavU3OfX; ///< A boolean flag that is true if assuming U(3)^5 symmetry in the CfH and CfV operator coefficients.
+    bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
 
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour
