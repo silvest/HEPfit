@@ -2478,6 +2478,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda5GM"] = boost::factory<lambda5GM*>();
     obsThFactory["vPhiGM"] = boost::factory<vPhiGM*>();
     obsThFactory["GMmHh"] = boost::factory<GMmass_mHh*>();
+    obsThFactory["GMmA"] = boost::factory<GMmass_mA*>();
+    obsThFactory["GMmH5"] = boost::factory<GMmass_mH5*>();
     obsThFactory["GMmHlmmHh"] = boost::factory<GMmassdifference_mHlmmHh*>();
     obsThFactory["GMmHhmmHl"] = boost::factory<GMmassdifference_mHhmmHl*>();
     obsThFactory["GMmHlmmA"] = boost::factory<GMmassdifference_mHlmmA*>();
