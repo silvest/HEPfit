@@ -855,31 +855,34 @@ void MVll::checkCache()
         Ycache(1) = Mc;
     }
 
-    if (h_0[0] == h0Ccache[0] && h_1[0] == h0Ccache[1] && h_2[0] == h0Ccache[2]) {
+    if (h_0[0] == h0Ccache[0] && h_1[0] == h0Ccache[1] && h_2[0] == h0Ccache[2] && SU3_breaking == h0Ccache[3]) {
         h0_updated = 1;
     } else {
         h0_updated = 0;
         h0Ccache[0] = h_0[0];
         h0Ccache[1] = h_1[0];
         h0Ccache[2] = h_2[0];
+        h0Ccache[3] = SU3_breaking;
     }
 
-    if (h_0[1] == h1Ccache[0] && h_1[1] == h1Ccache[1] && h_2[1] == h1Ccache[2]) {
+    if (h_0[1] == h1Ccache[0] && h_1[1] == h1Ccache[1] && h_2[1] == h1Ccache[2] && SU3_breaking == h1Ccache[3]) {
         h1_updated = 1;
     } else {
         h1_updated = 0;
         h1Ccache[0] = h_0[1];
         h1Ccache[1] = h_1[1];
         h1Ccache[2] = h_2[1];
+        h1Ccache[3] = SU3_breaking;
     }
 
-    if (h_0[2] == h2Ccache[0] && h_1[2] == h2Ccache[1] && h_2[2] == h2Ccache[2]) {
+    if (h_0[2] == h2Ccache[0] && h_1[2] == h2Ccache[1] && h_2[2] == h2Ccache[2] && SU3_breaking == h2Ccache[3]) {
         h2_updated = 1;
     } else {
         h2_updated = 0;
         h2Ccache[0] = h_0[2];
         h2Ccache[1] = h_1[2];
         h2Ccache[2] = h_2[2];
+        h2Ccache[3] = SU3_breaking;
     }
 
     if (MM == H_V0cache(0) && Mb == H_V0cache(1)) {
