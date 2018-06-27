@@ -186,6 +186,18 @@ public:
      */
     virtual ~MPll();
     
+    gslpp::complex funct_g(double q2);
+    
+    gslpp::complex DeltaC9_KD(double q2);
+    
+    /**
+     * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+     * @param hel helicity
+     * @param q2 \f$q^2\f$
+     * @return \f$h_{hel}(q^2)\f$
+     */
+    gslpp::complex h_lambda(double q2);
+    
     /**
     * @brief The helicity amplitude \f$ H_V^{\lambda} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
@@ -268,6 +280,8 @@ private:
     std::vector<std::string> mpllParameters;/**< The string of mandatory MPll parameters */
     std::unique_ptr<F_1> myF_1;
     std::unique_ptr<F_2> myF_2;
+    bool fullKD;
+    double mJ2;
     
     double GF;            /**<Fermi constant */
     double ale;           /**<alpha electromagnetic */
@@ -291,7 +305,10 @@ private:
     gslpp::complex lambda_t;     /**<Vckm factor */
     gslpp::complex h_0;          /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_1;        /**<parameter that contains the contribution from the hadronic hamiltonian */
-//    double q2;            /**<\f$q^2\f$ of the decay */
+    gslpp::complex r_1;
+    gslpp::complex r_2;
+    gslpp::complex Delta_C9;
+    gslpp::complex exp_Phase;
     
     /*LCSR fit parameters*/
     double r_1_fplus;/**<LCSR fit parameter */
@@ -555,6 +572,7 @@ private:
     unsigned int H_V0updated;/**< Cache variable */
     gslpp::vector<double> H_V0cache;/**< Cache variable */
     gslpp::complex H_V0Ccache[2];/**< Cache variable */
+    gslpp::complex H_V0Ccache_fullKD[4];/**< Cache variable */
     
     unsigned int H_A0updated;/**< Cache variable */
     
