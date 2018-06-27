@@ -19,6 +19,8 @@ RD_MPlnu::RD_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pse
     pseudoscalarM = pseudoscalar_i;
     
     setParametersForObservable(SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).initializeMPlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep2).initializeMPlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep3).initializeMPlnuParameters());
 }
 
 double RD_MPlnu::computeThValue() 

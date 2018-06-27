@@ -18,6 +18,7 @@ Gammaw_MVlnu::Gammaw_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::m
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep1).initializeMVlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep2).initializeMVlnuParameters());
 }
 
 double Gammaw_MVlnu::computeThValue() 
@@ -40,6 +41,8 @@ RDstar_MVlnu::RDstar_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::m
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep1).initializeMVlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep2).initializeMVlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep3).initializeMVlnuParameters());
 }
 
 double RDstar_MVlnu::computeThValue() 
@@ -70,6 +73,7 @@ Gammacl_MVlnu::Gammacl_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD:
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep1).initializeMVlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep2).initializeMVlnuParameters());
 }
 
 double Gammacl_MVlnu::computeThValue() 
@@ -92,6 +96,7 @@ GammacV_MVlnu::GammacV_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD:
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep1).initializeMVlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep2).initializeMVlnuParameters());
 }
 
 double GammacV_MVlnu::computeThValue() 
@@ -113,6 +118,7 @@ Gammachi_MVlnu::Gammachi_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QC
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep1).initializeMVlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep2).initializeMVlnuParameters());
 }
 
 double Gammachi_MVlnu::computeThValue() 

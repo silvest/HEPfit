@@ -68,7 +68,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
 void MPlnu::updateParameters() 
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalarM, lep)) return;
-  
+    
     GF = mySM.getGF();
     Mlep = mySM.getLeptons(lep).getMass();
     Mnu = 0.; // neutrinos assumed to be massless
@@ -230,7 +230,7 @@ void MPlnu::updateParameters()
     CTp_cache = CTp;
     
     mySM.getFlavour().setUpdateFlag(meson, pseudoscalarM, lep, false);
-     
+    
     return;
     
 }
@@ -284,7 +284,7 @@ double MPlnu::f0(double q2)
     double w = w0-q2/(2.*MM*MP);
     double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
     if(CLNflag){
-        double prefac = fplus(q2)*2.*sqrt(MP/MM)/(1.+MP/MM)*2.*sqrt(MP/MM)/(1.+MP/MM)*(1.+w)/.2;
+        double prefac = fplus(q2)*2.*sqrt(MP/MM)/(1.+MP/MM)*2.*sqrt(MP/MM)/(1.+MP/MM)*(1.+w)/2.;
         return prefac*1.0036*(1.-0.0068*(w-1.)+0.0017*(w-1.)*(w-1.)-0.0013*(w-1.)*(w-1.)*(w-1.));
     }
     else{ 
