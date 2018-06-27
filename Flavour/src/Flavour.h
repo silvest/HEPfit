@@ -210,7 +210,7 @@ public:
      * @param[in] meson_i specifies the meson in the initial state
      * @param[in] pseudoscalar_i specifies the vector in the final state
      * @param[in] lepton_i specifies the lepton in the final state
-     * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell^+ \ell^- \f$
+     * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell \nu \f$
      * 
      */
     MPlnu& getMPlnu(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const;

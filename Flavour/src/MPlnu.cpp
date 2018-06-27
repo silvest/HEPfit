@@ -37,7 +37,7 @@ MPlnu::~MPlnu() {
 std::vector<std::string> MPlnu::initializeMPlnuParameters()
 {
     CLNflag = mySM.getFlavour().getFlagCLN();
-    
+
     if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
         << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2" << "AbsVcb"
         << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
@@ -106,7 +106,7 @@ void MPlnu::updateParameters()
     CTp = mySM.getOptionalParameter("CTp_NP");
     
     switch (pseudoscalarM) {
-        case StandardModel::D_star_P:
+        case StandardModel::D_P:
             if (CLNflag){
                 fplusz0 = mySM.getOptionalParameter("fplusz0");
                 rho1to2 = mySM.getOptionalParameter("rho1to2");
@@ -155,8 +155,9 @@ void MPlnu::updateParameters()
     z1m_2 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_2*mBc1m_2)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
     z1m_3 = sqrt((MM+MP)*(MM+MP)-mBc1m_3*mBc1m_3)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
     z1m_3 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_3*mBc1m_3)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
-    z1m_4 = sqrt((MM+MP)*(MM+MP)-mBc1m_4*mBc1m_4)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
-    z1m_4 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_4*mBc1m_4)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
+    /* complex value! */
+    // z1m_4 = sqrt((MM+MP)*(MM+MP)-mBc1m_4*mBc1m_4)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
+    // z1m_4 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_4*mBc1m_4)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
 
     z0p_1 = sqrt((MM+MP)*(MM+MP)-mBc0p_1*mBc0p_1)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
     z0p_1 /= (sqrt((MM+MP)*(MM+MP)-mBc0p_1*mBc0p_1)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
@@ -181,8 +182,8 @@ void MPlnu::updateParameters()
         if(lep == StandardModel::TAU){
             cached_intJ1_tau = integrateJ(1,q2min,q2max);
             cached_intJ3_tau = integrateJ(3,q2min,q2max);
-            // cached_intJ2_tau = integrateJ(2,q2min,q2max);
             cached_intJ2_tau = 0.;
+            // cached_intJ2_tau = integrateJ(2,q2min,q2max);
             checkcache_int_tau = 1;
         }
         if(lep == StandardModel::MU){
@@ -217,7 +218,6 @@ void MPlnu::updateParameters()
         af0_0 -= (af0_1*z0+af0_2*z0*z0)/phi_f0(z0)/((z0-z0p_1)/(1.-z0*z0p_1)*(z0-z0p_2)/(1.-z0*z0p_2));
         af0_0 *= phi_f0(z0)*((z0-z0p_1)/(1.-z0*z0p_1)*(z0-z0p_2)/(1.-z0*z0p_2));
     }
-
     CS_cache = CS;
     CSp_cache = CSp;
     CP_cache = CP;
@@ -260,7 +260,7 @@ double MPlnu::phi_fplus(double z){
 double MPlnu::phi_f0(double z){
     // chiL dimensionless
     double prefac = (MP/MM)*(1.-(MP/MM)*(MP/MM))*sqrt(8.*nI/(M_PI*chiL));
-    double num = (1.+z)*sqrt((1.-z)*(1.-z)*(1.-z));
+    double num = (1.-z*z)*sqrt((1.-z));
     double den = (1.+MP/MM)*(1.-z)+2.*sqrt(MP/MM)*(1.+z);
     double den4 = den*den*den*den;
     return prefac*num/den4;
@@ -274,7 +274,7 @@ double MPlnu::fplus(double q2)
         return fplusz0*(1.-8.*rho1to2*z +(51.*rho1to2-10.)*z*z-(252.*rho1to2-84.)*z*z*z);
     }
     else{ 
-        double P_fplus = (z-z1m_1)/(1.-z*z1m_1)*(z-z1m_2)/(1.-z*z1m_2)*(z-z1m_3)/(1.-z*z1m_3)*(z-z1m_4)/(1.-z*z1m_4);
+        double P_fplus = (z-z1m_1)/(1.-z*z1m_1)*(z-z1m_2)/(1.-z*z1m_2)*(z-z1m_3)/(1.-z*z1m_3);
         return (afplus_0+afplus_1*z+afplus_2*z*z)/phi_fplus(z)/P_fplus; 
     }
 }
@@ -324,7 +324,7 @@ gslpp::complex MPlnu::HS(double q2)
 
 gslpp::complex MPlnu::HT(double q2) 
 {
-    return -gslpp::complex::i()*lambda_half(MM*MM,MP*MP,q2)/2./(MM+MP)*(CT-CTp)*fT(q2);  
+    return -gslpp::complex::i()*lambda_half(MM*MM,MP*MP,q2)/sqrt(2.)/(MM+MP)*(CT-CTp)*fT(q2);  
 }
 
 gslpp::complex MPlnu::HTt(double q2) 
@@ -346,11 +346,11 @@ gslpp::complex MPlnu::G0(double q2)
     double Gprefactor = lambda_MM*lambda_lep/q2;
 
     return Gprefactor*((4.*(Elep*Enu+Mlep*Mnu)+lambda_lep2/(3.*q2))*HV(q2).abs2()+ 
-            (4.*(Elep*Enu-Mlep*Mnu)+lambda_lep*lambda_lep/(3.*q2))*HA(q2).abs2()+
-            (4.*(Elep*Enu-Mlep*Mnu)+lambda_lep*lambda_lep/q2)*HS(q2).abs2()+ 
-            (4.*(Elep*Enu+Mlep*Mnu)+lambda_lep*lambda_lep/q2)*HP(q2).abs2()+ 
-            (8.*(Elep*Enu-Mlep*Mnu)-lambda_lep*lambda_lep/q2)*HT(q2).abs2()+
-            (16.*(Elep*Enu+Mlep*Mnu)-lambda_lep*lambda_lep/q2)*HTt(q2).abs2()+
+            (4.*(Elep*Enu-Mlep*Mnu)+lambda_lep2/(3.*q2))*HA(q2).abs2()+
+            (4.*(Elep*Enu-Mlep*Mnu)+lambda_lep2/q2)*HS(q2).abs2()+ 
+            (4.*(Elep*Enu+Mlep*Mnu)+lambda_lep2/q2)*HP(q2).abs2()+ 
+            (8.*(Elep*Enu-Mlep*Mnu)-lambda_lep2/(12.*q2))*HT(q2).abs2()+
+            (16.*(Elep*Enu+Mlep*Mnu)-lambda_lep2/(12.*q2))*HTt(q2).abs2()+
             8.*sqrt(2.)*(Enu*Mlep-Elep*Mnu)*(HA(q2)*HT(q2).conjugate()).imag()+
             16.*(Enu*Mlep+Elep*Mnu)*(HV(q2)*HTt(q2).conjugate()).imag());
 }
@@ -408,7 +408,7 @@ double MPlnu::integrateJ(int i, double q2_min, double q2_max)
     
     switch (i) {
         case 1:
-                if (lep == StandardModel::MU) if((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_tau;
+                if (lep == StandardModel::TAU) if((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_tau;
                 if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_mu;
                 if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_el;
                 FJ = convertToGslFunction(boost::bind(&MPlnu::J1, &(*this), _1));

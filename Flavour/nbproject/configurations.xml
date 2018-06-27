@@ -50,6 +50,7 @@
       <itemPath>src/MPll.h</itemPath>
       <itemPath>src/MPllObservables.h</itemPath>
       <itemPath>src/MPlnu.h</itemPath>
+      <itemPath>src/MPlnuObservables.h</itemPath>
       <itemPath>src/MVgamma.h</itemPath>
       <itemPath>src/MVll.h</itemPath>
       <itemPath>src/MVllObservables.h</itemPath>
@@ -115,6 +116,7 @@
       <itemPath>src/MPll.cpp</itemPath>
       <itemPath>src/MPllObservables.cpp</itemPath>
       <itemPath>src/MPlnu.cpp</itemPath>
+      <itemPath>src/MPlnuObservables.cpp</itemPath>
       <itemPath>src/MVgamma.cpp</itemPath>
       <itemPath>src/MVll.cpp</itemPath>
       <itemPath>src/MVllObservables.cpp</itemPath>
@@ -358,6 +360,10 @@
       <item path="src/MPlnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/MPlnu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/MPlnuObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MPlnuObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MVgamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -633,6 +639,10 @@
       </item>
       <item path="src/MPlnu.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/MPlnuObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MPlnuObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/MVgamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/MVgamma.h" ex="false" tool="3" flavor2="0">
@@ -891,6 +901,10 @@
       <item path="src/MPlnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/MPlnu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/MPlnuObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MPlnuObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MVgamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
