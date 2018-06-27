@@ -186,6 +186,15 @@ public:
     gslpp::complex lambda_t;     /**<Vckm factor lambds_t*/
     gslpp::complex lambda_u;     /**<Vckm factor lambda_u*/
     gslpp::complex h[2];         /**<parameter that contains the contribution from the hadronic hamiltonian */
+    double r1_1;
+    double r1_2;
+    double r2_1;
+    double r2_2;
+    double deltaC9_1;
+    double deltaC9_2;
+    gslpp::complex exp_Phase_1;
+    gslpp::complex exp_Phase_2;
+    gslpp::complex SU3_breaking;
     double lambda;        /**<kinematic parameter */
     double spectator_charge; /**<charge of the spectator quark. */
     double alpha_s_mub; /**<@f\aplha_s(\mu_b)$@f$ */
@@ -193,9 +202,8 @@ public:
     gslpp::complex DC7_QCDF_bar;
     
     double a_0T1;/**<LCSR fit parameter */
-    double a_1T1;/**<LCSR fit parameter */
-    double a_2T1;/**<LCSR fit parameter */
-    double MRT1_2;/**<LCSR fit parameter */
+    double a_0A1;/**<LCSR fit parameter */
+    double a_0V;/**<LCSR fit parameter */
     
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients at mub*/
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients at mub*/
@@ -215,6 +223,13 @@ public:
     * @return @f$ T_1 @f$ 
     */
     double T_1();
+    
+    /**
+     * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+     * @param hel helicity
+     * @return \f$h_{hel}(q^2)\f$
+     */
+    gslpp::complex h_lambda(int hel);
 
     /**
     * @brief The helicity amplitude @f$ H_V^+ @f$.
@@ -359,6 +374,7 @@ private:
     QCD::meson meson;
     QCD::meson vectorM;
     bool fullKD;
+    double mJ2;
     
     const StandardModel& SM;
     std::unique_ptr<F_1> myF_1;
