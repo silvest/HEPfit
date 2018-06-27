@@ -757,6 +757,7 @@ private:
     gslpp::complex h_0[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_1[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_2[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex SU3_breaking;
     
     double t_p;/**< Cache variable */
     double t_m;/**< Cache variable */

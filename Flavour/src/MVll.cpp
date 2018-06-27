@@ -156,7 +156,7 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
             << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
             << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi";
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg";
     else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
             << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
             << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -181,7 +181,7 @@ std::vector<std::string> MVll::initializeMVllParameters()
         << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
         << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
         << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
-        << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2" << "xs_phi";
+        << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2" << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg";
     else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
         << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
         << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -214,7 +214,7 @@ std::vector<std::string> MVll::initializeMVllParameters()
                 << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
                 << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
                 << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
-                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi";
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg";
         else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
                 << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
                 << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -307,6 +307,9 @@ void MVll::updateParameters()
             angmomV = 1.;
 
             b = 1;
+            
+            SU3_breaking = 1.;
+            
             break;
         case StandardModel::K_star_P:
             a_0V = mySM.getOptionalParameter("a_0V");
@@ -350,6 +353,9 @@ void MVll::updateParameters()
             angmomV = 1.;
 
             b = 1;
+            
+            SU3_breaking = 1.;
+            
             break;
         case StandardModel::PHI:
             a_0V = mySM.getOptionalParameter("a_0Vphi");
@@ -396,6 +402,10 @@ void MVll::updateParameters()
             angmomV = 1.;
             
             b = 0.489;
+            
+            SU3_breaking = gslpp::complex(1. + mySM.getOptionalParameter("SU3_breaking_abs"),
+                    mySM.getOptionalParameter("SU3_breaking_arg"), true);
+            
             break;
         default:
             std::stringstream out;
@@ -1617,23 +1627,23 @@ gslpp::complex MVll::DeltaC9_KD(double q2, int com)
 gslpp::complex MVll::h_lambda(int hel, double q2) 
 {
     if(!fullKD) {
-        if (h_pole == true) return (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
-        else if(hel == 1) return (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2))/sixteenM_PI2);
-        else if(hel == 2) return (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2))/sixteenM_PI2 + h_2[2] * q2 * q2;
-        else return (h_0[hel] + h_1[hel] * q2) * sqrt(q2) + (twoMboMM * h_0[2] * T_0t(q2)  + h_1[2] * q2 * V_0t(q2) / MM2)/sixteenM_PI2;
+        if (h_pole == true) return SU3_breaking * (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
+        else if(hel == 1) return SU3_breaking * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2))/sixteenM_PI2);
+        else if(hel == 2) return SU3_breaking * (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2))/sixteenM_PI2 + h_2[2] * q2 * q2;
+        else return SU3_breaking * ((h_0[hel] + h_1[hel] * q2) * sqrt(q2) + (twoMboMM * h_0[2] * T_0t(q2)  + h_1[2] * q2 * V_0t(q2) / MM2)/sixteenM_PI2);
     } else {
-        if (hel == 0) return -sqrt(q2)/(MM2*16.*M_PI*M_PI) * ((MMpMV2*(MM2mMV2-q2)*A_1(q2)*DeltaC9_KD(q2,1) - lambda(q2)*A_2(q2)*DeltaC9_KD(q2,2)) / (4.*MV*MM*MMpMV));
+        if (hel == 0) return SU3_breaking * ( -sqrt(q2)/(MM2*16.*M_PI*M_PI) * ((MMpMV2*(MM2mMV2-q2)*A_1(q2)*DeltaC9_KD(q2,1) - lambda(q2)*A_2(q2)*DeltaC9_KD(q2,2)) / (4.*MV*MM*MMpMV)) );
         else if (hel == 1) {
-            if (q2 == 0.) return -1./(MM2*16.*M_PI*M_PI) * (
+            if (q2 == 0.) return SU3_breaking * ( -1./(MM2*16.*M_PI*M_PI) * (
                     (MMpMV*A_1(0.)) / (2.*MM) * ((- h_0[1] + h_2[1]) / (1. + h_1[1] / mJ2) )*exp_Phase[1]
-                    - sqrt(lambda(0.)) / (2.*MM*MMpMV)*V(0.) * ((- h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2) )*exp_Phase[1] );
-            else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+                    - sqrt(lambda(0.)) / (2.*MM*MMpMV)*V(0.) * ((- h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2) )*exp_Phase[1] ) );
+            else return SU3_breaking * (-q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0)) );
         }
         else {
-            if (q2 == 0.) return -1./(MM2*16.*M_PI*M_PI) *
+            if (q2 == 0.) return SU3_breaking * (-1./(MM2*16.*M_PI*M_PI) *
                     ((MMpMV*A_1(0.)) / (2.*MM) * ((- h_0[1] + h_2[1]) / (1. + h_1[1] / mJ2) )*exp_Phase[1]
-                    + sqrt(lambda(0.)) / (2.*MM*MMpMV)*V(0.) * ((- h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2) )*exp_Phase[1] );
-            else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+                    + sqrt(lambda(0.)) / (2.*MM*MMpMV)*V(0.) * ((- h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2) )*exp_Phase[1] ) );
+            else return SU3_breaking * (-q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0)) );
         }
     }
 }
