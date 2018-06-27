@@ -1544,16 +1544,6 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_VV_H5_ZZ_llqqnunull_CMS13: public ThObservable {
-public:
-
-    Hobs_VV_H5_ZZ_llqqnunull_CMS13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
 class Hobs_pp_H5_ZZ_qqnunu_CMS13: public ThObservable {
 public:
 
@@ -2532,6 +2522,16 @@ class log10_VV_H5_ZZ_TH13: public ThObservable {
 public:
 
     log10_VV_H5_ZZ_TH13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class log10_pp_H5_ZZ_TH13: public ThObservable {
+public:
+
+    log10_pp_H5_ZZ_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
