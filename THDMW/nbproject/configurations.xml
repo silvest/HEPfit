@@ -122,6 +122,14 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <standard>8</standard>
+          <incDir>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
