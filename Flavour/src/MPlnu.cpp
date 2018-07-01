@@ -42,9 +42,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
         << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2" << "AbsVcb"
         << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
         << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI"
-        << "CS_NP" << "CSp_NP" << "CP_NP" << "CPp_NP" 
-        << "CV_NP" << "CVp_NP" << "CA_NP" << "CAp_NP" 
-        << "CT_NP" << "CTp_NP";
+        << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
     else {
         std::stringstream out;
         out << pseudoscalarM;
@@ -55,9 +53,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
         mplnuParameters.clear();
         if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
                 << "fplusz0" << "rho1to2" << "AbsVcb"
-                << "CS_NP" << "CSp_NP" << "CP_NP" << "CPp_NP" 
-                << "CV_NP" << "CVp_NP" << "CA_NP" << "CAp_NP" 
-                << "CT_NP" << "CTp_NP";
+                << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
     }    
 
     mySM.initializeMeson(meson);
@@ -89,21 +85,31 @@ void MPlnu::updateParameters()
     
     /* SM Wilson coefficients */
     CV_SM = 1./2.*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b));
-    CA_SM = -CV_SM;
-
-    /* SM + NP Wilson coefficients */
-    CV = CV_SM+mySM.getOptionalParameter("CV_NP");
-    CVp = mySM.getOptionalParameter("CVp_NP");
-    CA = CA_SM+mySM.getOptionalParameter("CA_NP");
-    CAp = mySM.getOptionalParameter("CAp_NP");
-    CS = mySM.getOptionalParameter("CS_NP");
-    CSp = mySM.getOptionalParameter("CSp_NP");
-    CP = mySM.getOptionalParameter("CP_NP");
-    CPp = mySM.getOptionalParameter("CPp_NP");
+    CV = CV_SM;
+    CA = -CV_SM;
+    CVp = 0.;
+    CAp = 0.;
+    CS = 0.;
+    CSp = 0.;
+    CP = 0.;
+    CPp = 0.;
     C7 = 0.;
     C7p = 0.;
-    CT = mySM.getOptionalParameter("CT_NP");
-    CTp = mySM.getOptionalParameter("CTp_NP");
+    CT = 0.;
+    CTp = 0.;
+
+    /* SM + NP Wilson coefficients */
+    if(lep == StandardModel::TAU){
+        CV += mySM.getOptionalParameter("CVL_NP")/2.;
+        CVp = mySM.getOptionalParameter("CVR_NP")/2.;
+        CA -= mySM.getOptionalParameter("CVL_NP")/2.;
+        CAp = -mySM.getOptionalParameter("CVR_NP")/2.;
+        CS = mySM.getOptionalParameter("CSL_NP")/2.;
+        CSp = mySM.getOptionalParameter("CSR_NP")/2.;
+        CP = -mySM.getOptionalParameter("CSL_NP")/2.;
+        CPp = -mySM.getOptionalParameter("CSR_NP");
+        CTp = mySM.getOptionalParameter("CT_NP");
+    }
     
     switch (pseudoscalarM) {
         case StandardModel::D_P:
@@ -155,9 +161,6 @@ void MPlnu::updateParameters()
     z1m_2 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_2*mBc1m_2)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
     z1m_3 = sqrt((MM+MP)*(MM+MP)-mBc1m_3*mBc1m_3)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
     z1m_3 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_3*mBc1m_3)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
-    /* complex value! */
-    // z1m_4 = sqrt((MM+MP)*(MM+MP)-mBc1m_4*mBc1m_4)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
-    // z1m_4 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_4*mBc1m_4)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
 
     z0p_1 = sqrt((MM+MP)*(MM+MP)-mBc0p_1*mBc0p_1)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
     z0p_1 /= (sqrt((MM+MP)*(MM+MP)-mBc0p_1*mBc0p_1)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));

@@ -106,7 +106,6 @@ private:
     double q2min, q2max; /**< min and max lepton-neutrino invariant mass squared*/
     
     double CV_SM; /**<Wilson coeffients @f$C_{V}@f$*/
-    double CA_SM; /**<Wilson coeffients @f$C_{A}@f$*/
     
     double CS; /**<Wilson coeffients @f$C_{S}@f$*/
     double CP; /**<Wilson coeffients @f$C_{P}@f$*/
