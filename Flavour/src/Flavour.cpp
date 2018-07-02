@@ -246,15 +246,15 @@ void Flavour::setUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned
         return;
     }
     if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::TAU) {
-        update_BdDstartaunu = updated_i;
+        update_BdDtaunu = updated_i;
         return;
     }
     if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::MU) {
-        update_BdDstarmunu = updated_i;
+        update_BdDmunu = updated_i;
         return;
     }
     if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::ELECTRON) {
-        update_BdDstarelnu = updated_i;
+        update_BdDelnu = updated_i;
         return;
     }
     else throw std::runtime_error("Flavour: Wrong update flag requested.");
