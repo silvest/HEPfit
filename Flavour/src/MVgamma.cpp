@@ -7,7 +7,6 @@
 
 #include "Flavour.h"
 #include "MVgamma.h"
-#include "MVll.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
@@ -24,7 +23,8 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
 {
     meson = meson_i;
     vectorM = vector_i;
-    dispersion = false;
+    fullKD = false;
+    mJ2 = 3.096*3.096;
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -37,12 +37,16 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
     dispersion = SM.getFlavour().getFlagUseDispersionRelation();
     
 #if NFPOLARBASIS_MVGAMMA
-    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
-    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
+    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
+            "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
+    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
+        mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
         
 #else
-    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "reh_p" << "reh_m" << "imh_p" << "imh_m";
-    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "reh_p" << "reh_m" << "imh_p" << "imh_m";
+    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
+            "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
+    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
+        mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << "reh_p" << "reh_m" << "imh_p" << "imh_m";
 #endif
     else {
         std::stringstream out;
@@ -52,8 +56,11 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 
     if (dispersion) {
         mVgammaParameters.clear();
-        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
-        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
+        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
+                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2" << "SU3_breaking_abs" << "SU3_breaking_arg";
+        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
+            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" <<
+                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2";
         else {
             std::stringstream out;
             out << vectorM;
@@ -92,15 +99,25 @@ void MVgamma::updateParameters()
     switch (vectorM) {
         case StandardModel::K_star:
             a_0T1 = SM.getOptionalParameter("a_0T1");
+            a_0A1 = SM.getOptionalParameter("a_0A1");
+            a_0V = SM.getOptionalParameter("a_0V");
             spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
+            SU3_breaking = 1.;
             break;
         case StandardModel::K_star_P:
             a_0T1 = SM.getOptionalParameter("a_0T1");
+            a_0A1 = SM.getOptionalParameter("a_0A1");
+            a_0V = SM.getOptionalParameter("a_0V");
             spectator_charge = SM.getQuarks(QCD::UP).getCharge();
+            SU3_breaking = 1.;
             break;
         case StandardModel::PHI:
             a_0T1 = SM.getOptionalParameter("a_0T1phi");
+            a_0A1 = SM.getOptionalParameter("a_0A1phi");
+            a_0V = SM.getOptionalParameter("a_0Vphi");
             spectator_charge = SM.getQuarks(QCD::STRANGE).getCharge();
+            SU3_breaking = gslpp::complex(1. + SM.getOptionalParameter("SU3_breaking_abs"),
+                    SM.getOptionalParameter("SU3_breaking_arg"), true);
             break;
         default:
             std::stringstream out;
@@ -122,19 +139,46 @@ void MVgamma::updateParameters()
         h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
         h[1] *= 2. * (Mb / MM) / (16. * M_PI * M_PI) * (T_1() * lambda / MM2) ;
         h[0] += ms_over_mb * h[1] ;
+        
+        r1_1 = 0.;
+        r1_2 = 0.;
+        r2_1 = 0.;
+        r2_2 = 0.;
+        deltaC9_1 = 0.;
+        deltaC9_2 = 0.;
+        exp_Phase_1 = 0.;
+        exp_Phase_2 = 0.;
 #else
         h[0] = gslpp::complex(SM.getOptionalParameter("reh_p"), SM.getOptionalParameter("imh_p"), false); //h_plus
         h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
         h[1] *= 2. * (Mb / MM) / (16. * M_PI * M_PI) * (T_1() * lambda / MM2) ;
         h[0] += ms_over_mb * h[1] ;
+        
+        r1_1 = 0.;
+        r1_2 = 0.;
+        r2_1 = 0.;
+        r2_2 = 0.;
+        deltaC9_1 = 0.;
+        deltaC9_2 = 0.;
+        exp_Phase_1 = 0.;
+        exp_Phase_2 = 0.;
 #endif
     } else {
         //gslpp::complex DC7_1 = SM.getOptionalParameter("deltaC7_1")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_1"));
         //gslpp::complex DC7_2 = SM.getOptionalParameter("deltaC7_2")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_2"));
         //h[0] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 - DC7_1)).abs();
         //h[1] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 + DC7_1)).abs();
-        h[0] = SM.getFlavour().getMVll(meson,vectorM,StandardModel::MU).geth_p_0();
-        h[1] = SM.getFlavour().getMVll(meson,vectorM,StandardModel::MU).geth_m_0();
+        r1_1 = SM.getOptionalParameter("r1_1");
+        r1_2 = SM.getOptionalParameter("r1_2");
+        r2_1 = SM.getOptionalParameter("r2_1");
+        r2_2 = SM.getOptionalParameter("r2_2");
+        deltaC9_1 = SM.getOptionalParameter("deltaC9_1");
+        deltaC9_2 = SM.getOptionalParameter("deltaC9_2");
+        exp_Phase_1 = exp(gslpp::complex::i()*SM.getOptionalParameter("phDC9_1"));
+        exp_Phase_2 = exp(gslpp::complex::i()*SM.getOptionalParameter("phDC9_2"));
+        
+        h[0] = h_lambda(0);
+        h[1] = h_lambda(1);
     }
     
     allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu_b);
@@ -314,6 +358,26 @@ gslpp::complex MVgamma::T_QCDF_minus(bool conjugate)
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
+
+gslpp::complex MVgamma::h_lambda(int hel) 
+{
+    if (hel == 0) {
+        return SU3_breaking * ( -1./(MM2*16.*M_PI*M_PI) * (
+                ((MM+MV)*a_0A1) / (2.*MM) * ((- r1_2 + deltaC9_2) / (1. + r2_2 / mJ2) )*exp_Phase_2
+                - lambda / (2.*MM*(MM+MV))*a_0V * ((- r1_1 + deltaC9_1) / (1. + r2_1 / mJ2) )*exp_Phase_1 ) );
+    }
+    else if (hel == 1) {
+        return SU3_breaking * (-1./(MM2*16.*M_PI*M_PI) *
+                (((MM+MV)*a_0A1) / (2.*MM) * ((- r1_2 + deltaC9_2) / (1. + r2_2 / mJ2) )*exp_Phase_2
+                + lambda / (2.*MM*(MM+MV))*a_0V * ((- r1_1 + deltaC9_1) / (1. + r2_1 / mJ2) )*exp_Phase_1 ) );
+    }
+    else {
+        std::stringstream out;
+        out << hel;
+        throw std::runtime_error("MVgamma: hel " + out.str() + " not implemented, can only be 1 (+) or 2 (-)");
+    }
+}
+
 gslpp::complex MVgamma::H_V_m()
 {
     return lambda_t * (((C_7 + DC7_QCDF) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(false)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);

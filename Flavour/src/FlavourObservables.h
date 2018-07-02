@@ -32,6 +32,7 @@
 #include "WilsonCoefficientObservables.h"
 #include "BXqllObservables.h"
 #include "MVlnuObservables.h"
+#include "MPlnuObservables.h"
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

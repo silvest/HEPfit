@@ -287,6 +287,48 @@ public:
 };
 
 /**
+ * @class GMmass_mA
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmass_mA: public ThObservable {
+public:
+
+    /**
+     * @brief GMmass_mA constructor.
+     */
+    GMmass_mA(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_A@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmass_mH5
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmass_mH5: public ThObservable {
+public:
+
+    /**
+     * @brief GMmass_mH5 constructor.
+     */
+    GMmass_mH5(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{H_5}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
  * @class GMmassdifference_mHlmmHh
  * @ingroup GeorgiMachacek
  * @brief 

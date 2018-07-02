@@ -1164,13 +1164,21 @@ ThObsFactory::ThObsFactory()
 
     //----- B to D*lnu -----
     obsThFactory["Gammaw_MVlnu"] = boost::bind(boost::factory<Gammaw_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON);
+    obsThFactory["RDstar_MVlnu"] = boost::bind(boost::factory<RDstar_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::TAU, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["Gammacl_MVlnu"] = boost::bind(boost::factory<Gammacl_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["GammacV_MVlnu"] = boost::bind(boost::factory<GammacV_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["Gammachi_MVlnu"] = boost::bind(boost::factory<Gammachi_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON);
-    obsThFactory["UnitarityV_MVlnu"] = boost::bind(boost::factory<UnitarityV_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
-    obsThFactory["UnitarityA_MVlnu"] = boost::bind(boost::factory<UnitarityA_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
+    obsThFactory["UnitarityV_MVlnu"] = boost::bind(boost::factory<UnitarityV_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::ELECTRON);
+    obsThFactory["UnitarityA_MVlnu"] = boost::bind(boost::factory<UnitarityA_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::ELECTRON);
     obsThFactory["hA1_at_w1"] = boost::bind(boost::factory<FF_hA1atw1*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
-
+    //----- B to Dlnu -----
+    obsThFactory["Gammaw_MPlnu"] = boost::bind(boost::factory<Gammaw_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::MU, StandardModel::ELECTRON);
+    obsThFactory["RD_MPlnu"] = boost::bind(boost::factory<RD_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::TAU, StandardModel::MU, StandardModel::ELECTRON);
+    obsThFactory["UnitarityV_MPlnu"] = boost::bind(boost::factory<UnitarityV_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
+    obsThFactory["UnitarityA_MPlnu"] = boost::bind(boost::factory<UnitarityA_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
+    obsThFactory["FF0_MPlnu"] = boost::bind(boost::factory<FF0_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
+    obsThFactory["FFplus_MPlnu"] = boost::bind(boost::factory<FFplus_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
+    
     //----- B to tau nu  -----
     obsThFactory["btaunu"] = boost::factory<Btaunu*>();
     
@@ -2475,6 +2483,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda5GM"] = boost::factory<lambda5GM*>();
     obsThFactory["vPhiGM"] = boost::factory<vPhiGM*>();
     obsThFactory["GMmHh"] = boost::factory<GMmass_mHh*>();
+    obsThFactory["GMmA"] = boost::factory<GMmass_mA*>();
+    obsThFactory["GMmH5"] = boost::factory<GMmass_mH5*>();
     obsThFactory["GMmHlmmHh"] = boost::factory<GMmassdifference_mHlmmHh*>();
     obsThFactory["GMmHhmmHl"] = boost::factory<GMmassdifference_mHhmmHl*>();
     obsThFactory["GMmHlmmA"] = boost::factory<GMmassdifference_mHlmmA*>();
@@ -2625,7 +2635,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_VV_H5_ZZ_llllnunu_ATLAS13"] = boost::factory<Hobs_VV_H5_ZZ_llllnunu_ATLAS13*>();
     obsThFactory["Hobs_VV_H5_ZZ_qqllnunu_ATLAS13"] = boost::factory<Hobs_VV_H5_ZZ_qqllnunu_ATLAS13*>();
     obsThFactory["Hobs_pp_H5_ZZ_llqqnunull_CMS13"] = boost::factory<Hobs_pp_H5_ZZ_llqqnunull_CMS13*>();
-    obsThFactory["Hobs_VV_H5_ZZ_llqqnunull_CMS13"] = boost::factory<Hobs_VV_H5_ZZ_llqqnunull_CMS13*>();
     obsThFactory["Hobs_pp_H5_ZZ_qqnunu_CMS13"] = boost::factory<Hobs_pp_H5_ZZ_qqnunu_CMS13*>();
     obsThFactory["Hobs_gg_H1_WW_ATLAS8"] = boost::factory<Hobs_gg_H1_WW_ATLAS8*>();
     obsThFactory["Hobs_VV_H1_WW_ATLAS8"] = boost::factory<Hobs_VV_H1_WW_ATLAS8*>();
@@ -2722,6 +2731,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_H1_ZZ_TH13"] = boost::factory<log10_pp_H1_ZZ_TH13*>();
     obsThFactory["log10_VV_H5_ZZ_TH8"] = boost::factory<log10_VV_H5_ZZ_TH8*>();
     obsThFactory["log10_VV_H5_ZZ_TH13"] = boost::factory<log10_VV_H5_ZZ_TH13*>();
+    obsThFactory["log10_pp_H5_ZZ_TH13"] = boost::factory<log10_pp_H5_ZZ_TH13*>();
     obsThFactory["log10_gg_H1_WW_TH8"] = boost::factory<log10_gg_H1_WW_TH8*>();
     obsThFactory["log10_VV_H1_WW_TH8"] = boost::factory<log10_VV_H1_WW_TH8*>();
     obsThFactory["log10_gg_H1_WW_TH13"] = boost::factory<log10_gg_H1_WW_TH13*>();

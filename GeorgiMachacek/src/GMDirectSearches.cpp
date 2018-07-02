@@ -1064,17 +1064,6 @@ double Hobs_pp_H5_ZZ_llqqnunull_CMS13::computeThValue()
 
 
 
-Hobs_VV_H5_ZZ_llqqnunull_CMS13::Hobs_VV_H5_ZZ_llqqnunull_CMS13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
-{}
-
-double Hobs_VV_H5_ZZ_llqqnunull_CMS13::computeThValue()
-{
-    return myGM.getMyGMCache()->THoEX_VV_H5_ZZ_llqqnunull_CMS13;
-}
-
-
-
 Hobs_pp_H5_ZZ_qqnunu_CMS13::Hobs_pp_H5_ZZ_qqnunu_CMS13(const StandardModel& SM_i)
 : ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
 {}
@@ -2127,6 +2116,17 @@ log10_VV_H5_ZZ_TH13::log10_VV_H5_ZZ_TH13(const StandardModel& SM_i)
 double log10_VV_H5_ZZ_TH13::computeThValue()
 {
     return log10(myGM.getMyGMCache()->VV_H5_ZZ_TH13);
+}
+
+
+
+log10_pp_H5_ZZ_TH13::log10_pp_H5_ZZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double log10_pp_H5_ZZ_TH13::computeThValue()
+{
+    return log10(myGM.getMyGMCache()->pp_H5_ZZ_TH13);
 }
 
 

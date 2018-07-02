@@ -35,6 +35,8 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
+    fullKD = true;
+    mJ2 = 3.096*3.096;
     
     I0_updated = 0;
     I2_updated = 0;
@@ -68,6 +70,8 @@ MPll::~MPll()
 
 std::vector<std::string> MPll::initializeMPllParameters()
 {    
+    fullKD = mySM.getFlavour().getFlagFullKD();
+    
 #if NFPOLARBASIS_MPLL
     if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
             << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
@@ -88,6 +92,17 @@ std::vector<std::string> MPll::initializeMPllParameters()
         out << pseudoscalar;
         throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
+    
+    if (fullKD) {
+        mpllParameters.clear();
+        if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
+                << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+                << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+                << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+                << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+                << "r1_BK" << "r2_BK" << "deltaC9_BK" << "phDC9_BK";
+    }
+    
     mySM.initializeMeson(meson);
     mySM.initializeMeson(pseudoscalar);
     return mpllParameters;
@@ -152,13 +167,33 @@ void MPll::updateParameters()
             throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
     
+    if (!fullKD) {
 #if NFPOLARBASIS_MPLL
         h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"), mySM.getOptionalParameter("argh_0_MP"), true);
         h_1 = gslpp::complex(mySM.getOptionalParameter("absh_1_MP"), mySM.getOptionalParameter("argh_1_MP"), true);
+        
+        r_1 = 0.;
+        r_2 = 0.;
+        Delta_C9 = 0.;
+        exp_Phase = 0.;
 #else
         h_0 = gslpp::complex(mySM.getOptionalParameter("reh_0_MP"), mySM.getOptionalParameter("imh_0_MP"), false);
         h_1 = gslpp::complex(mySM.getOptionalParameter("reh_1_MP"), mySM.getOptionalParameter("imh_1_MP"), false);
+        
+        r_1 = 0.;
+        r_2 = 0.;
+        Delta_C9 = 0.;
+        exp_Phase = 0.;
 #endif
+    } else {
+        h_0 = 0.;
+        h_1 = 0.;
+        
+        r_1 = mySM.getOptionalParameter("r1_BK");
+        r_2 = mySM.getOptionalParameter("r2_BK");
+        Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
+        exp_Phase = exp(gslpp::complex::i()*mySM.getOptionalParameter("phDC9_BK"));
+    } 
     
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep);   //check the mass scale, scheme fixed to NDR
@@ -529,14 +564,28 @@ void MPll::checkCache()
         Ycache(1) = Mc;
     }
     
-    if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1]) {
-        H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated  * C_7_updated * TL_updated * C_7p_updated;
+    if(!fullKD) {
+        if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1]) {
+            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated  * C_7_updated * TL_updated * C_7p_updated;
+        } else {
+            H_V0updated = 0;
+            H_V0cache(0) = MM;
+            H_V0cache(1) = Mb;
+            H_V0Ccache[0] = h_0;
+            H_V0Ccache[1] = h_1;
+        }
     } else {
-        H_V0updated = 0;
-        H_V0cache(0) = MM;
-        H_V0cache(1) = Mb;
-        H_V0Ccache[0] = h_0;
-        H_V0Ccache[1] = h_1;
+        if (MM == H_V0cache(0) && Mb == H_V0cache(1) && r_1 == H_V0Ccache_fullKD[0] && r_2 == H_V0Ccache_fullKD[1] && Delta_C9 == H_V0Ccache_fullKD[2] && exp_Phase == H_V0Ccache_fullKD[3]) {
+            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated  * C_7_updated * TL_updated * C_7p_updated;
+        } else {
+            H_V0updated = 0;
+            H_V0cache(0) = MM;
+            H_V0cache(1) = Mb;
+            H_V0Ccache_fullKD[0] = r_1;
+            H_V0Ccache_fullKD[1] = r_2;
+            H_V0Ccache_fullKD[2] = Delta_C9;
+            H_V0Ccache_fullKD[3] = exp_Phase;
+        } 
     }
     
     H_A0updated = N_updated * C_10_updated * VL_updated * C_10p_updated ;
@@ -994,9 +1043,32 @@ gslpp::complex MPll::Y(double q2)
     return -half * H_0(q2) * H_0_WC + H_c(q2,mu_b2) * H_c_WC - half * H_b(q2,mu_b2) * H_b_WC;
 }
 
+gslpp::complex MPll::funct_g(double q2)
+{
+    if (q2 < 4.*Mc*Mc)
+        return -8./9.*log(Mc/Mb) + 8./27. + 16./9.*Mc*Mc/q2 - 4./9.*(2. + 4.*Mc*Mc/q2) * (sqrt(4.*Mc*Mc/q2 - 1.) * atan(1./sqrt(4.*Mc*Mc/q2 - 1.)));
+    else
+        return -8./9.*log(Mc/Mb) + 8./27. + 16./9.*Mc*Mc/q2 - 4./9.*(2. + 4.*Mc*Mc/q2) * (sqrt(1. - 4.*Mc*Mc/q2) * (log(1. + sqrt(1. - 4.*Mc*Mc/q2)/sqrt(4.*Mc*Mc/q2)) - gslpp::complex::i()*M_PI_2));
+}
+
+gslpp::complex MPll::DeltaC9_KD(double q2)
+{
+    return ((Delta_C9 + r_1 * q2 / mJ2) / (1. - r_2 * q2 / mJ2) - (3. * (-0.267) + 1.117) * funct_g(q2))*exp_Phase;
+    /* C_1 = -0.267 and C_2 = 1.117 in KMPW */
+}
+
+gslpp::complex MPll::h_lambda(double q2) 
+{
+    if(!fullKD) {
+        return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2))/sixteenM_PI2;
+    } else {
+        return -q2/(MM2*sixteenM_PI2) * V_L(q2) * DeltaC9_KD(q2);
+    }
+}
+
 gslpp::complex MPll::H_V(double q2) 
 {
-    return -( (C_9 + deltaC9_QCDF(q2, SPLINE)  + Y(q2) /*+ fDeltaC9(q2)*/ - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 + deltaC7_QCDF(q2, SPLINE) - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
+    return -( (C_9 + deltaC9_QCDF(q2, SPLINE)  + Y(q2) /*+ fDeltaC9(q2)*/ - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 + deltaC7_QCDF(q2, SPLINE) - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*h_lambda(q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2) 

@@ -37,14 +37,12 @@ MPlnu::~MPlnu() {
 std::vector<std::string> MPlnu::initializeMPlnuParameters()
 {
     CLNflag = mySM.getFlavour().getFlagCLN();
-    
+
     if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
         << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2" << "AbsVcb"
         << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
         << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI"
-        << "CS_NP" << "CSp_NP" << "CP_NP" << "CPp_NP" 
-        << "CV_NP" << "CVp_NP" << "CA_NP" << "CAp_NP" 
-        << "CT_NP" << "CTp_NP";
+        << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
     else {
         std::stringstream out;
         out << pseudoscalarM;
@@ -55,9 +53,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
         mplnuParameters.clear();
         if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
                 << "fplusz0" << "rho1to2" << "AbsVcb"
-                << "CS_NP" << "CSp_NP" << "CP_NP" << "CPp_NP" 
-                << "CV_NP" << "CVp_NP" << "CA_NP" << "CAp_NP" 
-                << "CT_NP" << "CTp_NP";
+                << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
     }    
 
     mySM.initializeMeson(meson);
@@ -68,7 +64,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
 void MPlnu::updateParameters() 
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalarM, lep)) return;
-  
+    
     GF = mySM.getGF();
     Mlep = mySM.getLeptons(lep).getMass();
     Mnu = 0.; // neutrinos assumed to be massless
@@ -89,24 +85,34 @@ void MPlnu::updateParameters()
     
     /* SM Wilson coefficients */
     CV_SM = 1./2.*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b));
-    CA_SM = -CV_SM;
-
-    /* SM + NP Wilson coefficients */
-    CV = CV_SM+mySM.getOptionalParameter("CV_NP");
-    CVp = mySM.getOptionalParameter("CVp_NP");
-    CA = CA_SM+mySM.getOptionalParameter("CA_NP");
-    CAp = mySM.getOptionalParameter("CAp_NP");
-    CS = mySM.getOptionalParameter("CS_NP");
-    CSp = mySM.getOptionalParameter("CSp_NP");
-    CP = mySM.getOptionalParameter("CP_NP");
-    CPp = mySM.getOptionalParameter("CPp_NP");
+    CV = CV_SM;
+    CA = -CV_SM;
+    CVp = 0.;
+    CAp = 0.;
+    CS = 0.;
+    CSp = 0.;
+    CP = 0.;
+    CPp = 0.;
     C7 = 0.;
     C7p = 0.;
-    CT = mySM.getOptionalParameter("CT_NP");
-    CTp = mySM.getOptionalParameter("CTp_NP");
+    CT = 0.;
+    CTp = 0.;
+
+    /* SM + NP Wilson coefficients */
+    if(lep == StandardModel::TAU){
+        CV += mySM.getOptionalParameter("CVL_NP")/2.;
+        CVp = mySM.getOptionalParameter("CVR_NP")/2.;
+        CA -= mySM.getOptionalParameter("CVL_NP")/2.;
+        CAp = -mySM.getOptionalParameter("CVR_NP")/2.;
+        CS = mySM.getOptionalParameter("CSL_NP")/2.;
+        CSp = mySM.getOptionalParameter("CSR_NP")/2.;
+        CP = -mySM.getOptionalParameter("CSL_NP")/2.;
+        CPp = -mySM.getOptionalParameter("CSR_NP");
+        CTp = mySM.getOptionalParameter("CT_NP");
+    }
     
     switch (pseudoscalarM) {
-        case StandardModel::D_star_P:
+        case StandardModel::D_P:
             if (CLNflag){
                 fplusz0 = mySM.getOptionalParameter("fplusz0");
                 rho1to2 = mySM.getOptionalParameter("rho1to2");
@@ -155,8 +161,6 @@ void MPlnu::updateParameters()
     z1m_2 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_2*mBc1m_2)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
     z1m_3 = sqrt((MM+MP)*(MM+MP)-mBc1m_3*mBc1m_3)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
     z1m_3 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_3*mBc1m_3)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
-    z1m_4 = sqrt((MM+MP)*(MM+MP)-mBc1m_4*mBc1m_4)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
-    z1m_4 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_4*mBc1m_4)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
 
     z0p_1 = sqrt((MM+MP)*(MM+MP)-mBc0p_1*mBc0p_1)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
     z0p_1 /= (sqrt((MM+MP)*(MM+MP)-mBc0p_1*mBc0p_1)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
@@ -181,8 +185,8 @@ void MPlnu::updateParameters()
         if(lep == StandardModel::TAU){
             cached_intJ1_tau = integrateJ(1,q2min,q2max);
             cached_intJ3_tau = integrateJ(3,q2min,q2max);
-            // cached_intJ2_tau = integrateJ(2,q2min,q2max);
             cached_intJ2_tau = 0.;
+            // cached_intJ2_tau = integrateJ(2,q2min,q2max);
             checkcache_int_tau = 1;
         }
         if(lep == StandardModel::MU){
@@ -217,7 +221,6 @@ void MPlnu::updateParameters()
         af0_0 -= (af0_1*z0+af0_2*z0*z0)/phi_f0(z0)/((z0-z0p_1)/(1.-z0*z0p_1)*(z0-z0p_2)/(1.-z0*z0p_2));
         af0_0 *= phi_f0(z0)*((z0-z0p_1)/(1.-z0*z0p_1)*(z0-z0p_2)/(1.-z0*z0p_2));
     }
-
     CS_cache = CS;
     CSp_cache = CSp;
     CP_cache = CP;
@@ -230,7 +233,7 @@ void MPlnu::updateParameters()
     CTp_cache = CTp;
     
     mySM.getFlavour().setUpdateFlag(meson, pseudoscalarM, lep, false);
-     
+    
     return;
     
 }
@@ -260,7 +263,7 @@ double MPlnu::phi_fplus(double z){
 double MPlnu::phi_f0(double z){
     // chiL dimensionless
     double prefac = (MP/MM)*(1.-(MP/MM)*(MP/MM))*sqrt(8.*nI/(M_PI*chiL));
-    double num = (1.+z)*sqrt((1.-z)*(1.-z)*(1.-z));
+    double num = (1.-z*z)*sqrt((1.-z));
     double den = (1.+MP/MM)*(1.-z)+2.*sqrt(MP/MM)*(1.+z);
     double den4 = den*den*den*den;
     return prefac*num/den4;
@@ -274,7 +277,7 @@ double MPlnu::fplus(double q2)
         return fplusz0*(1.-8.*rho1to2*z +(51.*rho1to2-10.)*z*z-(252.*rho1to2-84.)*z*z*z);
     }
     else{ 
-        double P_fplus = (z-z1m_1)/(1.-z*z1m_1)*(z-z1m_2)/(1.-z*z1m_2)*(z-z1m_3)/(1.-z*z1m_3)*(z-z1m_4)/(1.-z*z1m_4);
+        double P_fplus = (z-z1m_1)/(1.-z*z1m_1)*(z-z1m_2)/(1.-z*z1m_2)*(z-z1m_3)/(1.-z*z1m_3);
         return (afplus_0+afplus_1*z+afplus_2*z*z)/phi_fplus(z)/P_fplus; 
     }
 }
@@ -284,7 +287,7 @@ double MPlnu::f0(double q2)
     double w = w0-q2/(2.*MM*MP);
     double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
     if(CLNflag){
-        double prefac = fplus(q2)*2.*sqrt(MP/MM)/(1.+MP/MM)*2.*sqrt(MP/MM)/(1.+MP/MM)*(1.+w)/.2;
+        double prefac = fplus(q2)*2.*sqrt(MP/MM)/(1.+MP/MM)*2.*sqrt(MP/MM)/(1.+MP/MM)*(1.+w)/2.;
         return prefac*1.0036*(1.-0.0068*(w-1.)+0.0017*(w-1.)*(w-1.)-0.0013*(w-1.)*(w-1.)*(w-1.));
     }
     else{ 
@@ -324,7 +327,7 @@ gslpp::complex MPlnu::HS(double q2)
 
 gslpp::complex MPlnu::HT(double q2) 
 {
-    return -gslpp::complex::i()*lambda_half(MM*MM,MP*MP,q2)/2./(MM+MP)*(CT-CTp)*fT(q2);  
+    return -gslpp::complex::i()*lambda_half(MM*MM,MP*MP,q2)/sqrt(2.)/(MM+MP)*(CT-CTp)*fT(q2);  
 }
 
 gslpp::complex MPlnu::HTt(double q2) 
@@ -346,11 +349,11 @@ gslpp::complex MPlnu::G0(double q2)
     double Gprefactor = lambda_MM*lambda_lep/q2;
 
     return Gprefactor*((4.*(Elep*Enu+Mlep*Mnu)+lambda_lep2/(3.*q2))*HV(q2).abs2()+ 
-            (4.*(Elep*Enu-Mlep*Mnu)+lambda_lep*lambda_lep/(3.*q2))*HA(q2).abs2()+
-            (4.*(Elep*Enu-Mlep*Mnu)+lambda_lep*lambda_lep/q2)*HS(q2).abs2()+ 
-            (4.*(Elep*Enu+Mlep*Mnu)+lambda_lep*lambda_lep/q2)*HP(q2).abs2()+ 
-            (8.*(Elep*Enu-Mlep*Mnu)-lambda_lep*lambda_lep/q2)*HT(q2).abs2()+
-            (16.*(Elep*Enu+Mlep*Mnu)-lambda_lep*lambda_lep/q2)*HTt(q2).abs2()+
+            (4.*(Elep*Enu-Mlep*Mnu)+lambda_lep2/(3.*q2))*HA(q2).abs2()+
+            (4.*(Elep*Enu-Mlep*Mnu)+lambda_lep2/q2)*HS(q2).abs2()+ 
+            (4.*(Elep*Enu+Mlep*Mnu)+lambda_lep2/q2)*HP(q2).abs2()+ 
+            (8.*(Elep*Enu-Mlep*Mnu)-lambda_lep2/(12.*q2))*HT(q2).abs2()+
+            (16.*(Elep*Enu+Mlep*Mnu)-lambda_lep2/(12.*q2))*HTt(q2).abs2()+
             8.*sqrt(2.)*(Enu*Mlep-Elep*Mnu)*(HA(q2)*HT(q2).conjugate()).imag()+
             16.*(Enu*Mlep+Elep*Mnu)*(HV(q2)*HTt(q2).conjugate()).imag());
 }
@@ -408,7 +411,7 @@ double MPlnu::integrateJ(int i, double q2_min, double q2_max)
     
     switch (i) {
         case 1:
-                if (lep == StandardModel::MU) if((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_tau;
+                if (lep == StandardModel::TAU) if((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_tau;
                 if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_mu;
                 if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_el;
                 FJ = convertToGslFunction(boost::bind(&MPlnu::J1, &(*this), _1));

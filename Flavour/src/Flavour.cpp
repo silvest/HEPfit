@@ -14,6 +14,7 @@
 #include "HeffDB1.h"
 #include "MVgamma.h"
 #include "MVlnu.h"
+#include "MPlnu.h"
 
 Flavour::Flavour(const StandardModel& SM_i)
 : HDF2(new HeffDF2(SM_i)),
@@ -32,7 +33,10 @@ MVgamma_BpKstgamma(new MVgamma(SM_i, StandardModel::B_P, StandardModel::K_star_P
 MVgamma_Bsphigamma(new MVgamma(SM_i, StandardModel::B_S, StandardModel::PHI)),
 MVlnu_BdbarDstartaunu(new MVlnu(SM_i, StandardModel::B_D, StandardModel::D_star_P, StandardModel::TAU)),
 MVlnu_BdbarDstarmunu(new MVlnu(SM_i, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU)),
-MVlnu_BdbarDstarelnu(new MVlnu(SM_i, StandardModel::B_D, StandardModel::D_star_P, StandardModel::ELECTRON))
+MVlnu_BdbarDstarelnu(new MVlnu(SM_i, StandardModel::B_D, StandardModel::D_star_P, StandardModel::ELECTRON)),
+MPlnu_BdbarDtaunu(new MPlnu(SM_i, StandardModel::B_D, StandardModel::D_P, StandardModel::TAU)),
+MPlnu_BdbarDmunu(new MPlnu(SM_i, StandardModel::B_D, StandardModel::D_P, StandardModel::MU)),
+MPlnu_BdbarDelnu(new MPlnu(SM_i, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON))
 {
     update_BdKstarmu = true;
     update_BdKstarel = true;
@@ -48,6 +52,9 @@ MVlnu_BdbarDstarelnu(new MVlnu(SM_i, StandardModel::B_D, StandardModel::D_star_P
     update_BdDstartaunu = true;
     update_BdDstarmunu = true;
     update_BdDstarelnu = true;
+    update_BdDtaunu = true;
+    update_BdDmunu = true;
+    update_BdDelnu = true;
     
     dispersion = false;
     CLNflag = false;
@@ -165,6 +172,14 @@ MVlnu& Flavour::getMVlnu(unsigned int meson_i, unsigned int vector_i, unsigned i
     else throw std::runtime_error("Flavour: Decay channel not implemented.");
 }
 
+MPlnu& Flavour::getMPlnu(unsigned int meson_i, unsigned int vector_i, unsigned int lep_i) const
+{
+    if (meson_i == StandardModel::B_D && vector_i == StandardModel::D_P && lep_i == StandardModel::TAU) return *MPlnu_BdbarDtaunu;
+    if (meson_i == StandardModel::B_D && vector_i == StandardModel::D_P && lep_i == StandardModel::MU) return *MPlnu_BdbarDmunu;
+    if (meson_i == StandardModel::B_D && vector_i == StandardModel::D_P && lep_i == StandardModel::ELECTRON) return *MPlnu_BdbarDelnu;
+    else throw std::runtime_error("Flavour: Decay channel not implemented.");
+}
+
 MPll& Flavour::getMPll(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const
 {
     if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::MU) return *MPll_BpKmu;
@@ -230,6 +245,18 @@ void Flavour::setUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned
         update_BdDstarelnu = updated_i;
         return;
     }
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::TAU) {
+        update_BdDtaunu = updated_i;
+        return;
+    }
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::MU) {
+        update_BdDmunu = updated_i;
+        return;
+    }
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::ELECTRON) {
+        update_BdDelnu = updated_i;
+        return;
+    }
     else throw std::runtime_error("Flavour: Wrong update flag requested.");
 }
 
@@ -249,6 +276,9 @@ bool Flavour::getUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned
     if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::TAU) return update_BdDstartaunu;
     if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::MU) return update_BdDstarmunu;
     if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::ELECTRON) return update_BdDstarelnu;
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::TAU) return update_BdDtaunu;
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::MU) return update_BdDmunu;
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::ELECTRON) return update_BdDelnu;
     else throw std::runtime_error("Flavour: Wrong update flags requested.");
 }
 
@@ -268,4 +298,7 @@ void Flavour::setSMupdated() const
     update_BdDstartaunu = true;
     update_BdDstarmunu = true;
     update_BdDstarelnu = true;
+    update_BdDtaunu = true;
+    update_BdDmunu = true;
+    update_BdDelnu = true;
 }
