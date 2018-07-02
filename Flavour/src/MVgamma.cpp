@@ -24,7 +24,7 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
 {
     meson = meson_i;
     vectorM = vector_i;
-    fullKD = false;
+    dispersion = false;
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -34,7 +34,7 @@ MVgamma::~MVgamma()
 
 std::vector<std::string> MVgamma::initializeMVgammaParameters()
 {
-    fullKD = SM.getFlavour().getFlagFullKD();
+    dispersion = SM.getFlavour().getFlagUseDispersionRelation();
     
 #if NFPOLARBASIS_MVGAMMA
     if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
@@ -50,7 +50,7 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
         throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
     }
 
-    if (fullKD) {
+    if (dispersion) {
         mVgammaParameters.clear();
         if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
@@ -116,7 +116,7 @@ void MVgamma::updateParameters()
                        /SM.Mrun(mu_b, SM.getQuarks(QCD::BOTTOM).getMass_scale(), 
                         SM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
     
-    if (!fullKD) {
+    if (!dispersion) {
 #if NFPOLARBASIS_MVGAMMA
         h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
         h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus

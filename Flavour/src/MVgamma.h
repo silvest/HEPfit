@@ -358,7 +358,7 @@ public:
 private:
     QCD::meson meson;
     QCD::meson vectorM;
-    bool fullKD;
+    bool dispersion;
     
     const StandardModel& SM;
     std::unique_ptr<F_1> myF_1;

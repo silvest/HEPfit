@@ -41,7 +41,7 @@ T_cache(5, 0.)
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    fullKD = false;
+    dispersion = false;
     mJ2 = 3.096*3.096;
     
     I0_updated = 0;
@@ -146,7 +146,7 @@ MVll::~MVll()
 
 std::vector<std::string> MVll::initializeMVllParameters()
 {
-    fullKD = mySM.getFlavour().getFlagFullKD();
+    dispersion = mySM.getFlavour().getFlagUseDispersionRelation();
     
 #if NFPOLARBASIS_MVLL
     if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
@@ -205,7 +205,7 @@ std::vector<std::string> MVll::initializeMVllParameters()
         throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
     }
 
-    if (fullKD) {
+    if (dispersion) {
         mvllParameters.clear();
         if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
                 << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
@@ -403,7 +403,7 @@ void MVll::updateParameters()
             throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
     }
 
-    if (!fullKD) {
+    if (!dispersion) {
 #if NFPOLARBASIS_MVLL
         h_0[0] = gslpp::complex(mySM.getOptionalParameter("absh_0"), mySM.getOptionalParameter("argh_0"), true);
         h_0[1] = gslpp::complex(mySM.getOptionalParameter("absh_p"), mySM.getOptionalParameter("argh_p"), true);
@@ -1616,7 +1616,7 @@ gslpp::complex MVll::DeltaC9_KD(double q2, int com)
 
 gslpp::complex MVll::h_lambda(int hel, double q2) 
 {
-    if(!fullKD) {
+    if(!dispersion) {
         if (h_pole == true) return (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
         else if(hel == 1) return (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2))/sixteenM_PI2);
         else if(hel == 2) return (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2))/sixteenM_PI2 + h_2[2] * q2 * q2;

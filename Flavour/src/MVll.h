@@ -723,7 +723,7 @@ private:
     std::vector<std::string> mvllParameters;/**< The string of mandatory MVll parameters */
     std::unique_ptr<F_1> myF_1;
     std::unique_ptr<F_2> myF_2;
-    bool fullKD;
+    bool dispersion;
     double mJ2;
     gslpp::complex exp_Phase[3];
     

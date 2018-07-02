@@ -228,9 +228,9 @@ public:
      */
     void setSMupdated() const;
     
-    bool setFlagFullKD(bool fullKD)
+    bool setFlagUseDispersionRelation(bool dispersion)
     {
-        return (this->fullKD = fullKD);
+        return (this->dispersion = dispersion);
     }
     
     bool setFlagCLN(bool CLNflag)
@@ -238,9 +238,9 @@ public:
         return (this->CLNflag = CLNflag);
     }
     
-    bool getFlagFullKD() const
+    bool getFlagUseDispersionRelation() const
     {
-        return fullKD;
+        return dispersion;
     }
     
     bool getFlagCLN() const
@@ -281,7 +281,7 @@ private:
     mutable bool update_BdDstartaunu;
     mutable bool update_BdDstarmunu;  
     mutable bool update_BdDstarelnu;
-    mutable bool fullKD;
+    mutable bool dispersion;
     mutable bool CLNflag;
 };
 

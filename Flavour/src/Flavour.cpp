@@ -49,7 +49,7 @@ MVlnu_BdbarDstarelnu(new MVlnu(SM_i, StandardModel::B_D, StandardModel::D_star_P
     update_BdDstarmunu = true;
     update_BdDstarelnu = true;
     
-    fullKD = false;
+    dispersion = false;
     CLNflag = false;
 };
 
