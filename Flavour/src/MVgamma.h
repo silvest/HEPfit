@@ -373,7 +373,7 @@ public:
 private:
     QCD::meson meson;
     QCD::meson vectorM;
-    bool fullKD;
+    bool dispersion;
     double mJ2;
     
     const StandardModel& SM;

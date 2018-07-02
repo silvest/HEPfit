@@ -23,7 +23,7 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
 {
     meson = meson_i;
     vectorM = vector_i;
-    fullKD = false;
+    dispersion = false;
     mJ2 = 3.096*3.096;
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);

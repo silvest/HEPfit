@@ -1629,7 +1629,7 @@ gslpp::complex MVll::DeltaC9_KD(double q2, int com)
 
 gslpp::complex MVll::h_lambda(int hel, double q2) 
 {
-    if(!fullKD) {
+    if(!dispersion) {
         if (h_pole == true) return SU3_breaking * (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
         else if(hel == 1) return SU3_breaking * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2))/sixteenM_PI2);
         else if(hel == 2) return SU3_breaking * (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2))/sixteenM_PI2 + h_2[2] * q2 * q2;

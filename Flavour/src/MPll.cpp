@@ -35,7 +35,7 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
-    fullKD = true;
+    dispersion = true;
     mJ2 = 3.096*3.096;
     
     I0_updated = 0;
@@ -70,7 +70,7 @@ MPll::~MPll()
 
 std::vector<std::string> MPll::initializeMPllParameters()
 {    
-    fullKD = mySM.getFlavour().getFlagFullKD();
+    dispersion = mySM.getFlavour().getFlagUseDispersionRelation();
     
 #if NFPOLARBASIS_MPLL
     if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
@@ -93,7 +93,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
         throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
     
-    if (fullKD) {
+    if (dispersion) {
         mpllParameters.clear();
         if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
                 << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
@@ -167,7 +167,7 @@ void MPll::updateParameters()
             throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
     
-    if (!fullKD) {
+    if (!dispersion) {
 #if NFPOLARBASIS_MPLL
         h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"), mySM.getOptionalParameter("argh_0_MP"), true);
         h_1 = gslpp::complex(mySM.getOptionalParameter("absh_1_MP"), mySM.getOptionalParameter("argh_1_MP"), true);
@@ -564,7 +564,7 @@ void MPll::checkCache()
         Ycache(1) = Mc;
     }
     
-    if(!fullKD) {
+    if(!dispersion) {
         if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1]) {
             H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated  * C_7_updated * TL_updated * C_7p_updated;
         } else {
@@ -575,16 +575,16 @@ void MPll::checkCache()
             H_V0Ccache[1] = h_1;
         }
     } else {
-        if (MM == H_V0cache(0) && Mb == H_V0cache(1) && r_1 == H_V0Ccache_fullKD[0] && r_2 == H_V0Ccache_fullKD[1] && Delta_C9 == H_V0Ccache_fullKD[2] && exp_Phase == H_V0Ccache_fullKD[3]) {
+        if (MM == H_V0cache(0) && Mb == H_V0cache(1) && r_1 == H_V0Ccache_dispersion[0] && r_2 == H_V0Ccache_dispersion[1] && Delta_C9 == H_V0Ccache_dispersion[2] && exp_Phase == H_V0Ccache_dispersion[3]) {
             H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated  * C_7_updated * TL_updated * C_7p_updated;
         } else {
             H_V0updated = 0;
             H_V0cache(0) = MM;
             H_V0cache(1) = Mb;
-            H_V0Ccache_fullKD[0] = r_1;
-            H_V0Ccache_fullKD[1] = r_2;
-            H_V0Ccache_fullKD[2] = Delta_C9;
-            H_V0Ccache_fullKD[3] = exp_Phase;
+            H_V0Ccache_dispersion[0] = r_1;
+            H_V0Ccache_dispersion[1] = r_2;
+            H_V0Ccache_dispersion[2] = Delta_C9;
+            H_V0Ccache_dispersion[3] = exp_Phase;
         } 
     }
     
@@ -1059,7 +1059,7 @@ gslpp::complex MPll::DeltaC9_KD(double q2)
 
 gslpp::complex MPll::h_lambda(double q2) 
 {
-    if(!fullKD) {
+    if(!dispersion) {
         return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2))/sixteenM_PI2;
     } else {
         return -q2/(MM2*sixteenM_PI2) * V_L(q2) * DeltaC9_KD(q2);

@@ -298,7 +298,7 @@ private:
     mutable bool update_BdDtaunu;
     mutable bool update_BdDmunu;  
     mutable bool update_BdDelnu;
-    mutable bool fullKD;
+    mutable bool dispersion;
     mutable bool CLNflag;
 };
 

@@ -280,7 +280,7 @@ private:
     std::vector<std::string> mpllParameters;/**< The string of mandatory MPll parameters */
     std::unique_ptr<F_1> myF_1;
     std::unique_ptr<F_2> myF_2;
-    bool fullKD;
+    bool dispersion;
     double mJ2;
     
     double GF;            /**<Fermi constant */
@@ -572,7 +572,7 @@ private:
     unsigned int H_V0updated;/**< Cache variable */
     gslpp::vector<double> H_V0cache;/**< Cache variable */
     gslpp::complex H_V0Ccache[2];/**< Cache variable */
-    gslpp::complex H_V0Ccache_fullKD[4];/**< Cache variable */
+    gslpp::complex H_V0Ccache_dispersion[4];/**< Cache variable */
     
     unsigned int H_A0updated;/**< Cache variable */
     
