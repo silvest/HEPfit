@@ -28,7 +28,7 @@ double Gammaw_MPlnu::computeThValue()
     double deltaGammadeltaw_lep1 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).getDeltaGammaDeltaw(w_min,w_max);
     double deltaGammadeltaw_lep2 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep2).getDeltaGammaDeltaw(w_min,w_max);
     
-    return (deltaGammadeltaw_lep1+deltaGammadeltaw_lep2)/2.;
+    return (deltaGammadeltaw_lep1+deltaGammadeltaw_lep2)/2./(w_max-w_min);
 }
 
 RD_MPlnu::RD_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2, QCD::lepton lep_3)
@@ -106,8 +106,12 @@ FFplus_MPlnu::FFplus_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::m
 
 double FFplus_MPlnu::computeThValue() 
 {
-    double q2_max = getBinMax();
-    double res_fplus = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).get_fplus(q2_max);
+    double MM = SM.getMesons(meson).getMass();
+    double MP = SM.getMesons(pseudoscalarM).getMass();
+    double w0 = (MM*MM+MP*MP)/2./MM/MP;
+    double w_val = getBinMax();
+    double q2_val = 2.*MM*MP*(w0-w_val);
+    double res_fplus = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).get_fplus(q2_val);
     
     return res_fplus;
 }
@@ -124,8 +128,12 @@ FF0_MPlnu::FF0_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson p
 
 double FF0_MPlnu::computeThValue() 
 {
-    double q2_max = getBinMax();
-    double res_f0 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).get_f0(q2_max);
+    double MM = SM.getMesons(meson).getMass();
+    double MP = SM.getMesons(pseudoscalarM).getMass();
+    double w0 = (MM*MM+MP*MP)/2./MM/MP; 
+    double w_val = getBinMax();
+    double q2_val = 2.*MM*MP*(w0-w_val);
+    double res_f0 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).get_f0(q2_val);
     
     return res_f0;
 }
