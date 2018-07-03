@@ -748,7 +748,7 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
     
     switch (i) {
         case 1:
-                if (lep == StandardModel::MU) if((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_tau;
+                if (lep == StandardModel::TAU) if((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_tau;
                 if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_mu;
                 if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J1s, &(*this), _1));
