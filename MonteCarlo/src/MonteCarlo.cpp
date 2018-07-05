@@ -128,26 +128,29 @@ void MonteCarlo::Run(const int rank) {
         /* set model parameters */
         ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
         int buffsize = 0;
+        std::vector<std::string> unknownParameters = myInputParser.getModel()->getUnknownParameters();
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-            if (it->geterrg() > 0. || it->geterrf() > 0.)
-                buffsize++;
-            if (it->IsCorrelated()) {
-                for (unsigned int i = 0; i < CGP.size(); i++) {
-                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
-                        std::string index = it->getname().substr(CGP[i].getName().size());
-                        long int lindex = strtol(index.c_str(), NULL, 10);
-                        if (lindex > 0)
-                            DP[CGP[i].getPar(lindex - 1).getname()] = CGP[i].getPar(lindex - 1).getave();
-                        else {
-                            std::stringstream out;
-                            out << it->getname();
-                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+            if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) == unknownParameters.end()) {
+                if (it->geterrg() > 0. || it->geterrf() > 0.)
+                    buffsize++;
+                if (it->IsCorrelated()) {
+                    for (unsigned int i = 0; i < CGP.size(); i++) {
+                        if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                            std::string index = it->getname().substr(CGP[i].getName().size());
+                            long int lindex = strtol(index.c_str(), NULL, 10);
+                            if (lindex > 0)
+                                DP[CGP[i].getPar(lindex - 1).getname()] = CGP[i].getPar(lindex - 1).getave();
+                            else {
+                                std::stringstream out;
+                                out << it->getname();
+                                throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                            }
                         }
                     }
-                }
-            } else
-                DP[it->getname()] = it->getave();
+                } else
+                    DP[it->getname()] = it->getave();
+            }
         }
         if (buffsize == 0){
             if (rank == 0) throw std::runtime_error("No parameters being varied. Aborting MCMC run.\n");
