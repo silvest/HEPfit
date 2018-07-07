@@ -204,7 +204,8 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
     return (s0 + d1 * L_H + d2 * L_H * L_H + d3 * pow(L_H, 4.0)
             + d4 * (Delta_H * Delta_H - 1.0) + d5 * Delta_ale + d6 * Delta_t
             + d7 * Delta_t * Delta_t + d8 * Delta_t * (Delta_H - 1.0)
-            + d9 * Delta_alphas + d10 * Delta_Z);
+            + d9 * Delta_alphas + d10 * Delta_Z
+            + mycache.getSM().getDelSin2th_q());
 }
 
 double EWSMApproximateFormulae::sin2thetaEff_b() const
@@ -239,7 +240,8 @@ double EWSMApproximateFormulae::sin2thetaEff_b() const
             + d3 * Delta_ale
             + d4 * Delta_t + d5 * Delta_t * Delta_t + d6 * Delta_t * L_H
             + d7 * Delta_alphas + d8 * Delta_t * Delta_alphas
-            + d9 * Delta_Z);
+            + d9 * Delta_Z
+            + mycache.getSM().getDelSin2th_b());
 }
 
 double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double Mw_i) const
@@ -879,6 +881,7 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a13 = 84.0;
         a14 = 9.5;
         a15 = -86152.0;
+        ThError = mycache.getSM().getDelSigma0H();
     } else if (observable.compare("R0_lepton") == 0) {
         X0 = 20750.9;
         a1 = -10.00;
@@ -926,6 +929,7 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a13 = -1.2;
         a14 = 0.014;
         a15 = 37.0;
+        ThError = mycache.getSM().getDelR0c();
     } else if (observable.compare("R0_bottom") == 0) {
         X0 = 215.80;
         a1 = 0.036;

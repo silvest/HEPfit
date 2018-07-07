@@ -33,7 +33,8 @@
 /** END: REMOVE FROM THE PACKAGE **/
   
 std::string StandardModel::SMvars[NSMvars] = {
-    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0l", "delR0b",
+    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", 
+    "delMw", "delSin2th_l", "delSin2th_q", "delSin2th_b", "delGammaZ", "delsigma0H", "delR0l", "delR0c", "delR0b",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
 };
 
@@ -114,8 +115,12 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHl", boost::cref(mHl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delMw", boost::cref(delMw)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delSin2th_l", boost::cref(delSin2th_l)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delSin2th_q", boost::cref(delSin2th_q)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delSin2th_b", boost::cref(delSin2th_b)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delGammaZ", boost::cref(delGammaZ)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delsigma0H", boost::cref(delsigma0H)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0l", boost::cref(delR0l)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0c", boost::cref(delR0c)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0b", boost::cref(delR0b)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_1", boost::cref(leptons[NEUTRINO_1].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_2", boost::cref(leptons[NEUTRINO_2].getMass())));
@@ -270,10 +275,18 @@ void StandardModel::setParameter(const std::string name, const double& value)
         delMw = value;
     else if (name.compare("delSin2th_l") == 0)
         delSin2th_l = value;
+    else if (name.compare("delSin2th_q") == 0)
+        delSin2th_q = value;
+    else if (name.compare("delSin2th_b") == 0)
+        delSin2th_b = value;
     else if (name.compare("delGammaZ") == 0)
         delGammaZ = value;
+    else if (name.compare("delsigma0H") == 0)
+        delsigma0H = value;
     else if (name.compare("delR0l") == 0)
         delR0l = value;
+    else if (name.compare("delR0c") == 0)
+        delR0c = value;
     else if (name.compare("delR0b") == 0)
         delR0b = value;
     else if (name.compare("mneutrino_1") == 0) {
@@ -469,10 +482,10 @@ bool StandardModel::checkSMparamsForEWPO()
     // 11 parameters in QCD:
     // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
     // mut, mub, muc
-    // 13 parameters in StandardModel
+    // 19 parameters in StandardModel
     // GF, ale, dAle5Mz, mHl,
     // mneutrino_1, mneutrino_2, mneutrino_3, melectron, mmu, mtau,
-    // delMw, delSin2th_l, delGammaZ, delR0l, delR0b,
+    // delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b,
     // 3 flags in StandardModel
     // FlagMw_cache, FlagRhoZ_cache, FlagKappaZ_cache
 
@@ -493,7 +506,7 @@ bool StandardModel::checkSMparamsForEWPO()
         quarks[STRANGE].getMass(),
         quarks[BOTTOM].getMass(),
         mut, mub, muc,
-        delMw, delSin2th_l, delGammaZ, delR0l, delR0b,
+        delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b,
         SchemeToDouble(FlagMw),
         SchemeToDouble(FlagRhoZ),
         SchemeToDouble(FlagKappaZ)

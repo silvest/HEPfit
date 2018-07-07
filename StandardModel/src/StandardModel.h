@@ -112,6 +112,22 @@ class EWSMTwoFermionsLEP2;
  *   See also the model flag @ref StandardModelFlags "KappaZ".</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%delSin2th_q</td>
+ *   <td class="mod_symb">@f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{q\not = b,t}@f$,
+ *   which is applicable only when EWSMApproximateFormulae::sin2thetaEff_q()
+ *   is employed for @f$\sin^2\theta_{\rm eff}^{q\not = b,t}@f$.
+ *   See also the model flag @ref StandardModelFlags "KappaZ".</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%delSin2th_b</td>
+ *   <td class="mod_symb">@f$\delta\sin^2\theta_{\rm eff}^{b}@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{b}@f$,
+ *   which is applicable only when EWSMApproximateFormulae::sin2thetaEff_b()
+ *   is employed for @f$\sin^2\theta_{\rm eff}^{b}@f$.
+ *   See also the model flag @ref StandardModelFlags "KappaZ".</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%delGammaZ</td>
  *   <td class="mod_symb">@f$\delta\,\Gamma_Z@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$\Gamma_Z@f$ in GeV,
@@ -120,11 +136,25 @@ class EWSMTwoFermionsLEP2;
  *   @ref StandardModelFlags "NoApproximateGammaZ".</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%delsigma0H</td>
+ *   <td class="mod_symb">@f$\delta\,\sigma_{Hadron}^0@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$\sigma_{Hadron}^0@f$,
+ *   which is applicable only when EWSMApproximateFormulae::X_extended() is employed
+ *   for @f$\sigma_{Hadron}^0@f$.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%delR0l</td>
  *   <td class="mod_symb">@f$\delta\,R_l^0@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$R_l^0@f$,
  *   which is applicable only when EWSMApproximateFormulae::X_extended() is employed
  *   for @f$R_l^0@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%delR0c</td>
+ *   <td class="mod_symb">@f$\delta\,R_c^0@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$R_c^0@f$,
+ *   which is applicable only when EWSMApproximateFormulae::X_extended() is employed
+ *   for @f$R_c^0@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%delR0b</td>
@@ -496,8 +526,8 @@ public:
 
 
     
-//    static const int NSMvars = 34; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
-    static const int NSMvars = 22; ///< The number of the model parameters in %StandardModel.
+//    static const int NSMvars = 38; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
+    static const int NSMvars = 26; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
@@ -782,6 +812,28 @@ public:
     {
         return delSin2th_l;
     }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$\sin^2\theta_{\rm eff}^{q\not = b,t}@f$, denoted as
+     * @f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$.
+     * @return @f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$
+     */
+    double getDelSin2th_q() const
+    {
+        return delSin2th_q;
+    }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$\sin^2\theta_{\rm eff}^{b}@f$, denoted as
+     * @f$\delta\sin^2\theta_{\rm eff}^{b}@f$.
+     * @return @f$\delta\sin^2\theta_{\rm eff}^{b}@f$
+     */
+    double getDelSin2th_b() const
+    {
+        return delSin2th_b;
+    }
 
     /**
      * @brief A get method to retrieve the theoretical uncertainty in
@@ -795,12 +847,32 @@ public:
     
     /**
      * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$\sigma_{Hadron}^0@f$, denoted as @f$\delta\,\sigma_{Hadron}^0@f$.
+     * @return @f$\delta\,\sigma_{Hadron}^0@f$ in nb 
+     */
+    double getDelSigma0H() const
+    {
+        return delsigma0H;
+    }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
      * @f$R_l^0@f$, denoted as @f$\delta\,R_l^0@f$.
      * @return @f$\delta\,R_l^0@f$ 
      */
     double getDelR0l() const
     {
         return delR0l;
+    }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$R_c^0@f$, denoted as @f$\delta\,R_c^0@f$.
+     * @return @f$\delta\,R_c^0@f$ 
+     */
+    double getDelR0c() const
+    {
+        return delR0c;
     }
     
     /**
@@ -1774,7 +1846,7 @@ public:
      *
      * @sa checkSMparamsForEWPO()
      */
-    static const int NumSMParamsForEWPO = 29;
+    static const int NumSMParamsForEWPO = 33;
 
     /**
      * @brief A method to check whether the parameters relevant to the EWPO
@@ -2440,8 +2512,12 @@ protected:
     double mHl; ///< The Higgs mass @f$m_h@f$ in GeV. 
     double delMw; ///< The theoretical uncertainty in @f$M_W@f$, denoted as @f$\delta\,M_W@f$, in GeV.
     double delSin2th_l; ///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$.
+    double delSin2th_q; ///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{q\not = b,t}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$.
+    double delSin2th_b; ///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{b}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{b}@f$.
     double delGammaZ; ///< The theoretical uncertainty in @f$\Gamma_Z@f$, denoted as @f$\delta\,\Gamma_Z@f$, in GeV.
+    double delsigma0H; ///< The theoretical uncertainty in @f$\sigma_{Hadron}^0@f$, denoted as @f$\delta\,\sigma_{Hadron}^0@f$ in nb.
     double delR0l; ///< The theoretical uncertainty in @f$R_l^0@f$, denoted as @f$\delta\,R_l^0@f$.
+    double delR0c; ///< The theoretical uncertainty in @f$R_c^0@f$, denoted as @f$\delta\,R_c^0@f$.
     double delR0b; ///< The theoretical uncertainty in @f$R_b^0@f$, denoted as @f$\delta\,R_b^0@f$.
     double lambda; ///< The %CKM parameter @f$\lambda@f$ in the Wolfenstein parameterization.
     double A; ///< The %CKM parameter @f$A@f$ in the Wolfenstein parameterization.
