@@ -965,6 +965,15 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
 
 double EWSMApproximateFormulae::X_full_2_loop(const std::string observable) const
 {
+        
+//  For MH not in [85,165] GeV there are significant differences with some predicions
+//  of X_extended, which go well beyond the expected size of the bosonic corrections (>~2x).
+//  Use EWSMApproximateFormulae::X_extended in that case
+    if (mycache.getSM().getMHl() < 85.0 || mycache.getSM().getMHl() > 165.0) {
+        return X_extended(observable);
+    } 
+    
+//  Otherwise proceed with the full 2-loop code
     double LH = log(mycache.getSM().getMHl() / 125.7);
     double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
     double Das = mycache.getSM().getAlsMz() / 0.1184 - 1.0;

@@ -297,10 +297,27 @@ double NPbase::deltaSin2thetaEff_e() const
     return sin2_theta_eff;
 }
 
+double NPbase::deltaSin2thetaEff_mu() const
+{
+    double sin2_theta_eff = 0.;
+    double delGVf = deltaGV_f(leptons[MU]);
+    double delGAf = deltaGA_f(leptons[MU]);
+    if (delGVf != 0.0 || delGAf != 0.0) {
+        double gVf = trueSM.gV_f(leptons[MU]).real();
+        double gAf = trueSM.gA_f(leptons[MU]).real();
+        double delGVfOverGAf = (gAf * delGVf - gVf * delGAf) / gAf / gAf;
+
+        sin2_theta_eff = -delGVfOverGAf / 4.0;
+    }
+    return sin2_theta_eff;
+}
+
 double NPbase::sin2thetaEff(const Particle f) const
 {
     if (f.is("ELECTRON"))
         return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e());
+    else if (f.is("MU"))
+        return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_mu());
     else
         return (trueSM.sin2thetaEff(f));
 }

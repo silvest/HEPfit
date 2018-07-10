@@ -13,3 +13,15 @@ double sin2thetaEff::computeThValue()
     return SM.sin2thetaEff(SM.getLeptons(SM.ELECTRON));
 }
 
+
+
+double sin2thetaEffel::computeThValue()
+{
+    return SM.sin2thetaEff(SM.getLeptons(SM.ELECTRON));
+}
+
+
+double sin2thetaEffmu::computeThValue()
+{
+    return SM.sin2thetaEff(SM.getLeptons(SM.MU));
+}

@@ -353,11 +353,18 @@ public:
     virtual double sigma0_had() const;
 
     /**
-     * @brief The new physics contribution to the effective leptonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\rm lept}@f$
+     * @brief The new physics contribution to the effective electron/leptonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\rm lept}@f$
      * at the @f$Z@f$ pole.
      * @return @f$\delta \sin^2\theta_{\rm eff}^{\rm lept}@f$
      */
     virtual double deltaSin2thetaEff_e() const;
+    
+    /**
+     * @brief The new physics contribution to the effective muonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\mu\mu}@f$
+     * at the @f$Z@f$ pole.
+     * @return @f$\delta \sin^2\theta_{\rm eff}^{\mu\mu}@f$
+     */
+    virtual double deltaSin2thetaEff_mu() const;
 
     /**
      * @brief @copybrief sin2thetaEff::computeThValue()

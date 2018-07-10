@@ -274,6 +274,9 @@ public:
      * @f$M_Z = 91.1876\pm 0.0042@f$ GeV,
      * @f$169.2 < m_t < 177.2@f$ GeV and
      * @f$120.1 < m_h < 130.1@f$ GeV.
+     * For @f$m_h@f$ beyond [85,165] GeV there are significant differences with some predicions
+     * of X_extended, which go well beyond the expected size of the bosonic corrections (>~2x).
+     * The function redirects to X_extended in that case.
      * @param[in] observable name of the observable to be computed:
      * "Gamma_nu", "Gamma_e_mu", "Gamma_tau", "Gamma_u", "Gamma_c", "Gamma_d_s",
      * "Gamma_b", "GammaZ", "sigmaHadron", "R0_lepton", "R0_charm", "R0_bottom"
