@@ -140,6 +140,8 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
     }
 
     double s0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+    double ThError = 0.0; // Theoretical uncertainty
+    
     switch (q) {
         case QCD::UP:
         case QCD::CHARM:
@@ -154,6 +156,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             d8 = -9.73 * 0.000001;
             d9 = 3.98 * 0.0001;
             d10 = -6.55 * 0.1;
+            ThError = mycache.getSM().getDelSin2th_q();
             break;
         case QCD::DOWN:
         case QCD::STRANGE:
@@ -168,6 +171,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             d8 = -9.73 * 0.000001;
             d9 = 3.97 * 0.0001;
             d10 = -6.55 * 0.1;
+            ThError = mycache.getSM().getDelSin2th_q();
             break;
         case QCD::BOTTOM:
             
@@ -183,6 +187,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
                 d8 = -7.61 * 0.000001;
                 d9 = 4.03 * 0.0001;
                 d10 = 6.61 * 0.1;
+                ThError = mycache.getSM().getDelSin2th_b();
                 break;
 
             } else {
@@ -205,7 +210,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             + d4 * (Delta_H * Delta_H - 1.0) + d5 * Delta_ale + d6 * Delta_t
             + d7 * Delta_t * Delta_t + d8 * Delta_t * (Delta_H - 1.0)
             + d9 * Delta_alphas + d10 * Delta_Z
-            + mycache.getSM().getDelSin2th_q());
+            + ThError);
 }
 
 double EWSMApproximateFormulae::sin2thetaEff_b() const
@@ -1041,7 +1046,7 @@ double EWSMApproximateFormulae::X_full_2_loop(const std::string observable) cons
     } else if (observable.compare("Gamma_had") == 0) {
 
 //  Summing all hadronic contributions        
-        X0 = 1741.45;
+        X0 = 1741.454;
         c1 = -1.9;
         c2 = 13.68;
         c3 = 59.47;

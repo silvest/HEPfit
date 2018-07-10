@@ -1206,19 +1206,19 @@ double StandardModel::GammaZ(const Particle f) const
     if (!IsFlagNoApproximateGammaZ()) {
         /* SM contribution with the approximate formula */
         if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_nu");
+            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_nu");
         else if (f.is("ELECTRON") || f.is("MU"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_e_mu");
+            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_e_mu");
         else if (f.is("TAU"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_tau");
+            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_tau");
         else if (f.is("UP"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_u");
+            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_u");
         else if (f.is("CHARM"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_c");
+            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_c");
         else if (f.is("DOWN") || f.is("STRANGE"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_d_s");
+            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_d_s");
         else if (f.is("BOTTOM"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_b");
+            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_b");
         else
             throw std::runtime_error("Error in StandardModel::GammaZ()");
     } else {
@@ -1266,7 +1266,7 @@ double StandardModel::Gamma_Z() const
 {
     if (!IsFlagNoApproximateGammaZ())
         /* SM contribution with the approximate formula */
-        return myApproximateFormulae->X_extended("GammaZ");
+        return myApproximateFormulae->X_full_2_loop("GammaZ");
     else
         return ( GammaZ(leptons[ELECTRON]) + GammaZ(leptons[MU]) + GammaZ(leptons[TAU])
             + Gamma_inv() + Gamma_had());
@@ -1276,7 +1276,7 @@ double StandardModel::sigma0_had() const
 {
     if (!IsFlagNoApproximateGammaZ())
         /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->X_extended("sigmaHadron")
+        return (myApproximateFormulae->X_full_2_loop("sigmaHadron")
             / GeVminus2_to_nb);
     else
         return (12.0 * M_PI * GammaZ(leptons[ELECTRON]) * Gamma_had()
@@ -1288,32 +1288,32 @@ double StandardModel::R0_f(const Particle f) const
     if (f.is("ELECTRON")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_electron"));
+            return (myApproximateFormulae->X_full_2_loop("R0_electron"));
         else
             return (Gamma_had() / GammaZ(leptons[ELECTRON]));
     }  else if (f.is("MU")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_muon"));
+            return (myApproximateFormulae->X_full_2_loop("R0_muon"));
         else
             return (Gamma_had() / GammaZ(leptons[MU]));
     }  else if (f.is("TAU")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_tau"));
+            return (myApproximateFormulae->X_full_2_loop("R0_tau"));
         else
             return (Gamma_had() / GammaZ(leptons[TAU]));
     }  else if (f.is("CHARM")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_charm"));
+            return (myApproximateFormulae->X_full_2_loop("R0_charm"));
         else
             return (GammaZ(quarks[CHARM]) / Gamma_had());
 
     } else if (f.is("BOTTOM")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_bottom"));
+            return (myApproximateFormulae->X_full_2_loop("R0_bottom"));
         else
             return (GammaZ(quarks[BOTTOM]) / Gamma_had());
 
