@@ -112,25 +112,55 @@ class EWSMTwoFermionsLEP2;
  *   See also the model flag @ref StandardModelFlags "KappaZ".</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%delSin2th_q</td>
+ *   <td class="mod_symb">@f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{q\not = b,t}@f$,
+ *   which is applicable only when EWSMApproximateFormulae::sin2thetaEff_q()
+ *   is employed for @f$\sin^2\theta_{\rm eff}^{q\not = b,t}@f$.
+ *   See also the model flag @ref StandardModelFlags "KappaZ".</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%delSin2th_b</td>
+ *   <td class="mod_symb">@f$\delta\sin^2\theta_{\rm eff}^{b}@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{b}@f$,
+ *   which is applicable only when EWSMApproximateFormulae::sin2thetaEff_b()
+ *   is employed for @f$\sin^2\theta_{\rm eff}^{b}@f$.
+ *   See also the model flag @ref StandardModelFlags "KappaZ".</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%delGammaZ</td>
  *   <td class="mod_symb">@f$\delta\,\Gamma_Z@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$\Gamma_Z@f$ in GeV,
- *   which is applicable only when EWSMApproximateFormulae::X_extended() is 
+ *   which is applicable only when EWSMApproximateFormulae::X_full_2_loop() is 
  *   employed for @f$\Gamma_Z@f$. See also the model flag 
  *   @ref StandardModelFlags "NoApproximateGammaZ".</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%delsigma0H</td>
+ *   <td class="mod_symb">@f$\delta\,\sigma_{Hadron}^0@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$\sigma_{Hadron}^0@f$,
+ *   which is applicable only when EWSMApproximateFormulae::X_full_2_loop() is employed
+ *   for @f$\sigma_{Hadron}^0@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%delR0l</td>
  *   <td class="mod_symb">@f$\delta\,R_l^0@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$R_l^0@f$,
- *   which is applicable only when EWSMApproximateFormulae::X_extended() is employed
+ *   which is applicable only when EWSMApproximateFormulae::X_full_2_loop() is employed
  *   for @f$R_l^0@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%delR0c</td>
+ *   <td class="mod_symb">@f$\delta\,R_c^0@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$R_c^0@f$,
+ *   which is applicable only when EWSMApproximateFormulae::X_full_2_loop() is employed
+ *   for @f$R_c^0@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%delR0b</td>
  *   <td class="mod_symb">@f$\delta\,R_b^0@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$R_b^0@f$,
- *   which is applicable only when EWSMApproximateFormulae::X_extended() is employed
+ *   which is applicable only when EWSMApproximateFormulae::X_full_2_loop() is employed
  *   for @f$R_b^0@f$.</td>
  * </tr>
  * <tr>
@@ -234,14 +264,20 @@ class EWSMTwoFermionsLEP2;
  * individual model parameter is assigned with the protected member function
  * setParameter(). 
  *
- * The parameters delMw, delSin2th_l, delGammaZ, delR0l, delR0b represent theoretical uncertainties 
- * in the @f$W@f$-boson mass, the leptonic effective weak mixing angle at the 
- * @f$Z@f$-boson mass scale, the total decay width of the @f$Z@f$ boson, and 
- * the ratios @f$R_l^0@f$ and @f$R_b^0@f$, respectively, originating from missing higher-order corrections. 
+ * The parameters delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H,
+ * delR0l, delR0c, delR0b represent theoretical uncertainties 
+ * in the @f$W@f$-boson mass, the leptonic and quark effective weak mixing angles at the 
+ * @f$Z@f$-boson mass scale, the total decay width of the @f$Z@f$ boson, the hadronic
+ * cross section at the peak, and 
+ * the ratios @f$R_l^0@f$, @f$R_c^0@f$ and @f$R_b^0@f$, respectively, originating 
+ * from missing higher-order corrections. 
  * The contributions
  * from these parameters are incorporated into their two-loop approximate formulae:
  * EWSMApproximateFormulae::Mw(), EWSMApproximateFormulae::sin2thetaEff_l(),
- * EWSMApproximateFormulae::X_extended("GammaZ") and EWSMApproximateFormulae::X_extended("R0_bottom").
+ * EWSMApproximateFormulae::sin2thetaEff_q(), EWSMApproximateFormulae::sin2thetaEff_b(),
+ * EWSMApproximateFormulae::X_full_2_loop("GammaZ"), EWSMApproximateFormulae::X_full_2_loop("sigmaHadron"),
+ * EWSMApproximateFormulae::X_full_2_loop("R0_lepton"), EWSMApproximateFormulae::X_full_2_loop("R0_charm")
+ * and EWSMApproximateFormulae::X_full_2_loop("R0_bottom").
  * Therefore, the parameters are
  * applicable only when the corresponding approximate formulae are employed.
  * See also the model flags below. 
@@ -294,7 +330,7 @@ class EWSMTwoFermionsLEP2;
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to true if the two-loop approximate
  *   formulae of the partial and total decay widths of the @f$Z@f$ boson 
- *   defined with the function EWSMApproximateFormulae::X_extended() are NOT
+ *   defined with the function EWSMApproximateFormulae::X_full_2_loop() are NOT
  *   employed. The default value is FALSE.</td>
  * </tr>
  * <tr>
@@ -496,8 +532,8 @@ public:
 
 
     
-//    static const int NSMvars = 34; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
-    static const int NSMvars = 22; ///< The number of the model parameters in %StandardModel.
+//    static const int NSMvars = 38; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
+    static const int NSMvars = 26; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
@@ -633,7 +669,7 @@ public:
      * @details See @ref StandardModelFlags for detail.
      * @return a boolean that is true if the two-loop approximate
      * formulae of the partial and total decay widths of the @f$Z@f$ boson
-     * defined with the function EWSMApproximateFormulae::X_extended() is NOT
+     * defined with the function EWSMApproximateFormulae::X_full_2_loop() is NOT
      * employed
      */
     bool IsFlagNoApproximateGammaZ() const
@@ -782,6 +818,28 @@ public:
     {
         return delSin2th_l;
     }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$\sin^2\theta_{\rm eff}^{q\not = b,t}@f$, denoted as
+     * @f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$.
+     * @return @f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$
+     */
+    double getDelSin2th_q() const
+    {
+        return delSin2th_q;
+    }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$\sin^2\theta_{\rm eff}^{b}@f$, denoted as
+     * @f$\delta\sin^2\theta_{\rm eff}^{b}@f$.
+     * @return @f$\delta\sin^2\theta_{\rm eff}^{b}@f$
+     */
+    double getDelSin2th_b() const
+    {
+        return delSin2th_b;
+    }
 
     /**
      * @brief A get method to retrieve the theoretical uncertainty in
@@ -795,12 +853,32 @@ public:
     
     /**
      * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$\sigma_{Hadron}^0@f$, denoted as @f$\delta\,\sigma_{Hadron}^0@f$.
+     * @return @f$\delta\,\sigma_{Hadron}^0@f$ in nb 
+     */
+    double getDelSigma0H() const
+    {
+        return delsigma0H;
+    }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
      * @f$R_l^0@f$, denoted as @f$\delta\,R_l^0@f$.
      * @return @f$\delta\,R_l^0@f$ 
      */
     double getDelR0l() const
     {
         return delR0l;
+    }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$R_c^0@f$, denoted as @f$\delta\,R_c^0@f$.
+     * @return @f$\delta\,R_c^0@f$ 
+     */
+    double getDelR0c() const
+    {
+        return delR0c;
     }
     
     /**
@@ -1460,7 +1538,7 @@ public:
      * When checkNPZff_linearized() returns true and the model flag
      * @ref StandardModelFlags "NoApproximateGammaZ" of StandardModel is set
      * to false, this function uses the two-loop approximate formula of
-     * @f$\Gamma_\ell@f$ via EWSMApproximateFormulae::X_extended().
+     * @f$\Gamma_\ell@f$ via EWSMApproximateFormulae::X_full_2_loop().
      * Otherwise, the partial width is calculated with
      * @f$\rho_Z^\ell@f$ and @f$g_{V}^\ell/g_{A}^\ell@f$ @cite Bardin:1999ak :
      * @f[
@@ -1514,7 +1592,7 @@ public:
      * @details When checkNPZff_linearized() returns true and the model flag
      * @ref StandardModelFlags "NoApproximateGammaZ" of StandardModel is set
      * to false, this function uses the two-loop approximate formula of
-     * @f$\Gamma_Z@f$ via EWSMApproximateFormulae::X_extended().
+     * @f$\Gamma_Z@f$ via EWSMApproximateFormulae::X_full_2_loop().
      * Otherwise, the total decay width is calculated with
      * @f[
      * \Gamma_Z = \Gamma_{e} + \Gamma_{\mu} + \Gamma_{\tau} 
@@ -1530,7 +1608,7 @@ public:
      * @details When checkNPZff_linearized() returns true and the model flag
      * @ref StandardModelFlags "NoApproximateGammaZ" of StandardModel is set
      * to false, this function uses the two-loop approximate formula of
-     * @f$\sigma_h^0@f$ via EWSMApproximateFormulae::X_extended().
+     * @f$\sigma_h^0@f$ via EWSMApproximateFormulae::X_full_2_loop().
      * Otherwise, the hadronic cross section is calculated with
      * @f[
      * \sigma_h^0 = \frac{12\pi}{M_Z^2}\frac{\Gamma_e\Gamma_h}{\Gamma_Z^2}\,.
@@ -1544,7 +1622,7 @@ public:
      * @details When checkNPZff_linearized() returns true and the model flag
      * @ref StandardModelFlags "NoApproximateGammaZ" of StandardModel is set
      * to false, this function uses the two-loop approximate formula of
-     * @f$R_\ell^0@f$ via EWSMApproximateFormulae::X_extended().
+     * @f$R_\ell^0@f$ via EWSMApproximateFormulae::X_full_2_loop().
      * Otherwise, @f$R_\ell^0@f$ is calculated with
      * @f[
      * R_\ell^0 = \frac{\Gamma_h}{\Gamma_\ell}\,.
@@ -1774,7 +1852,7 @@ public:
      *
      * @sa checkSMparamsForEWPO()
      */
-    static const int NumSMParamsForEWPO = 29;
+    static const int NumSMParamsForEWPO = 33;
 
     /**
      * @brief A method to check whether the parameters relevant to the EWPO
@@ -2440,8 +2518,12 @@ protected:
     double mHl; ///< The Higgs mass @f$m_h@f$ in GeV. 
     double delMw; ///< The theoretical uncertainty in @f$M_W@f$, denoted as @f$\delta\,M_W@f$, in GeV.
     double delSin2th_l; ///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$.
+    double delSin2th_q; ///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{q\not = b,t}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$.
+    double delSin2th_b; ///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{b}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{b}@f$.
     double delGammaZ; ///< The theoretical uncertainty in @f$\Gamma_Z@f$, denoted as @f$\delta\,\Gamma_Z@f$, in GeV.
+    double delsigma0H; ///< The theoretical uncertainty in @f$\sigma_{Hadron}^0@f$, denoted as @f$\delta\,\sigma_{Hadron}^0@f$ in nb.
     double delR0l; ///< The theoretical uncertainty in @f$R_l^0@f$, denoted as @f$\delta\,R_l^0@f$.
+    double delR0c; ///< The theoretical uncertainty in @f$R_c^0@f$, denoted as @f$\delta\,R_c^0@f$.
     double delR0b; ///< The theoretical uncertainty in @f$R_b^0@f$, denoted as @f$\delta\,R_b^0@f$.
     double lambda; ///< The %CKM parameter @f$\lambda@f$ in the Wolfenstein parameterization.
     double A; ///< The %CKM parameter @f$A@f$ in the Wolfenstein parameterization.

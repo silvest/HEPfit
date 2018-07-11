@@ -140,6 +140,8 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
     }
 
     double s0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+    double ThError = 0.0; // Theoretical uncertainty
+    
     switch (q) {
         case QCD::UP:
         case QCD::CHARM:
@@ -154,6 +156,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             d8 = -9.73 * 0.000001;
             d9 = 3.98 * 0.0001;
             d10 = -6.55 * 0.1;
+            ThError = mycache.getSM().getDelSin2th_q();
             break;
         case QCD::DOWN:
         case QCD::STRANGE:
@@ -168,6 +171,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             d8 = -9.73 * 0.000001;
             d9 = 3.97 * 0.0001;
             d10 = -6.55 * 0.1;
+            ThError = mycache.getSM().getDelSin2th_q();
             break;
         case QCD::BOTTOM:
             
@@ -183,6 +187,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
                 d8 = -7.61 * 0.000001;
                 d9 = 4.03 * 0.0001;
                 d10 = 6.61 * 0.1;
+                ThError = mycache.getSM().getDelSin2th_b();
                 break;
 
             } else {
@@ -204,7 +209,8 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
     return (s0 + d1 * L_H + d2 * L_H * L_H + d3 * pow(L_H, 4.0)
             + d4 * (Delta_H * Delta_H - 1.0) + d5 * Delta_ale + d6 * Delta_t
             + d7 * Delta_t * Delta_t + d8 * Delta_t * (Delta_H - 1.0)
-            + d9 * Delta_alphas + d10 * Delta_Z);
+            + d9 * Delta_alphas + d10 * Delta_Z
+            + ThError);
 }
 
 double EWSMApproximateFormulae::sin2thetaEff_b() const
@@ -239,7 +245,8 @@ double EWSMApproximateFormulae::sin2thetaEff_b() const
             + d3 * Delta_ale
             + d4 * Delta_t + d5 * Delta_t * Delta_t + d6 * Delta_t * L_H
             + d7 * Delta_alphas + d8 * Delta_t * Delta_alphas
-            + d9 * Delta_Z);
+            + d9 * Delta_Z
+            + mycache.getSM().getDelSin2th_b());
 }
 
 double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double Mw_i) const
@@ -879,6 +886,7 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a13 = 84.0;
         a14 = 9.5;
         a15 = -86152.0;
+        ThError = mycache.getSM().getDelSigma0H();
     } else if (observable.compare("R0_lepton") == 0) {
         X0 = 20750.9;
         a1 = -10.00;
@@ -926,6 +934,7 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a13 = -1.2;
         a14 = 0.014;
         a15 = 37.0;
+        ThError = mycache.getSM().getDelR0c();
     } else if (observable.compare("R0_bottom") == 0) {
         X0 = 215.80;
         a1 = 0.036;
@@ -951,4 +960,182 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
             * (X0 + a1 * LH + a2 * LH * LH + a3 * DH + a4 * DH * DH + a5 * Dt + a6 * Dt * Dt
             + a7 * Dt * LH + a8 * Dt * LH * LH + a9 * Das + a10 * Das * Das + a11 * Das * LH
             + a12 * Das * Dt + a13 * Dal + a14 * Dal * LH + a15 * DZ) + ThError);
+}
+
+
+double EWSMApproximateFormulae::X_full_2_loop(const std::string observable) const
+{
+        
+//  For MH not in [85,165] GeV there are significant differences with some predicions
+//  of X_extended, which go well beyond the expected size of the bosonic corrections (>~2x).
+//  Use EWSMApproximateFormulae::X_extended in that case
+    if (mycache.getSM().getMHl() < 85.0 || mycache.getSM().getMHl() > 165.0) {
+        return X_extended(observable);
+    } 
+    
+//  Otherwise proceed with the full 2-loop code
+    double LH = log(mycache.getSM().getMHl() / 125.7);
+    double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.1184 - 1.0;
+    double Dal = mycache.getSM().DeltaAlphaL5q() / 0.059 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1876 - 1.0;
+
+    double X0, c1, c2, c3, c4, c5, c6, c7;
+    double ThError = 0.0; // Theoretical uncertainty
+    if (observable.compare("Gamma_nu") == 0) {
+        X0 = 167.176;
+        c1 = -0.071;
+        c2 = 1.26;
+        c3 = -0.19;
+        c4 = -0.02;
+        c5 = 0.36;
+        c6 = -0.1;
+        c7 = 504.0;
+
+    } else if (observable.compare("Gamma_e_mu") == 0) {
+        X0 = 83.983;
+        c1 = -0.061;
+        c2 = 0.810;
+        c3 = -0.096;
+        c4 = -0.01;
+        c5 = 0.25;
+        c6 = -1.1;
+        c7 = 286.0;
+
+    } else if (observable.compare("Gamma_tau") == 0) {
+        X0 = 83.793;
+        c1 = -0.060;
+        c2 = 0.810;
+        c3 = -0.095;
+        c4 = -0.01;
+        c5 = 0.25;
+        c6 = -1.1;
+        c7 = 285.0;
+
+    } else if (observable.compare("Gamma_u") == 0) {
+        X0 = 299.993;
+        c1 = -0.38;
+        c2 = 4.08;
+        c3 = 14.27;
+        c4 = 1.6;
+        c5 = 1.8;
+        c6 = -11.1;
+        c7 = 1253.0;
+
+    } else if (observable.compare("Gamma_c") == 0) {
+        X0 = 299.916;
+        c1 = -0.38;
+        c2 = 4.08;
+        c3 = 14.27;
+        c4 = 1.6;
+        c5 = 1.8;
+        c6 = -11.1;
+        c7 = 1253.0;
+
+    } else if (observable.compare("Gamma_d_s") == 0) {
+        X0 = 382.828;
+        c1 = -0.39;
+        c2 = 3.83;
+        c3 = 10.20;
+        c4 = -2.4;
+        c5 = 0.67;
+        c6 = -10.1;
+        c7 = 1470.0;
+
+    } else if (observable.compare("Gamma_b") == 0) {
+        X0 = 375.889;
+        c1 = -0.36;
+        c2 = -2.14;
+        c3 = 10.53;
+        c4 = -2.4;
+        c5 = 1.2;
+        c6 = -10.1;
+        c7 = 1459.0;
+
+    } else if (observable.compare("Gamma_had") == 0) {
+
+//  Summing all hadronic contributions        
+        X0 = 1741.454;
+        c1 = -1.9;
+        c2 = 13.68;
+        c3 = 59.47;
+        c4 = -4.0;
+        c5 = 6.14;
+        c6 = -52.5;
+        c7 = 6905.0;       
+        
+    } else if (observable.compare("GammaZ") == 0) {
+        X0 = 2494.74;
+        c1 = -2.3;
+        c2 = 19.9;
+        c3 = 58.61;
+        c4 = -4.0;
+        c5 = 8.0;
+        c6 = -56.0;
+        c7 = 9273.0;
+
+        ThError = mycache.getSM().getDelGammaZ();
+    } else if (observable.compare("sigmaHadron") == 0) {
+        X0 = 41489.6;
+        c1 = 1.6;
+        c2 = 60.0;
+        c3 = -579.6;
+        c4 = 38.0;
+        c5 = 7.3;
+        c6 = 85.0;
+        c7 = -86011.0;
+
+        ThError = mycache.getSM().getDelSigma0H();
+    } else if (observable.compare("R0_lepton") == 0) {
+        X0 = 20751.6;
+        c1 = -7.8;
+        c2 = -37.0;
+        c3 = 732.3;
+        c4 = -44.0;
+        c5 = 5.5;
+        c6 = -358.0;
+        c7 = 11696.0;
+
+        ThError = mycache.getSM().getDelR0l();
+    } else if (observable.compare("R0_electron") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_extended("Gamma_had")/X_extended("Gamma_e_mu") + ThError;
+
+    } else if (observable.compare("R0_muon") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_extended("Gamma_had")/X_extended("Gamma_e_mu") + ThError;
+
+    } else if (observable.compare("R0_tau") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_extended("Gamma_had")/X_extended("Gamma_tau") + ThError;
+
+    } else if (observable.compare("R0_charm") == 0) {
+        X0 = 172.22;
+        c1 = -0.031;
+        c2 = 1.0;
+        c3 = 2.3;
+        c4 = 1.3;
+        c5 = 0.38;
+        c6 = -1.2;
+        c7 = 37.0;
+
+        ThError = mycache.getSM().getDelR0c();
+    } else if (observable.compare("R0_bottom") == 0) {
+        X0 = 215.85;
+        c1 = 0.029;
+        c2 = -2.92;
+        c3 = -1.32;
+        c4 = -0.84;
+        c5 = 0.032;
+        c6 = 0.72;
+        c7 = -18.0;
+
+        ThError = mycache.getSM().getDelR0b();
+    } else
+        throw std::runtime_error("ApproximateFormulae::X_full_2_loop(): " + observable + " is not defined");
+
+    return ( 0.001
+            * (X0 + c1 * LH + c2 * Dt 
+            + c3 * Das + c4 * Das * Das
+            + c5 * Das * Dt + c6 * Dal + c7 * DZ) + ThError);
 }

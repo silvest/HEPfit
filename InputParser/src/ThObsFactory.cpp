@@ -112,6 +112,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GammaZ"] = boost::factory<GammaZ*>();
     obsThFactory["sigmaHadron"] = boost::factory<sigmaHadron*>();
     obsThFactory["sin2thetaEff"] = boost::factory<sin2thetaEff*>();
+    obsThFactory["sin2thetaEffelectron"] = boost::factory<sin2thetaEffel*>();
+    obsThFactory["sin2thetaEffmuon"] = boost::factory<sin2thetaEffmu*>();
     obsThFactory["PtauPol"] = boost::factory<PtauPol*>();
     obsThFactory["Alepton"] = boost::factory<Alepton*>();
     obsThFactory["Aelectron"] = boost::factory<Aelectron*>();

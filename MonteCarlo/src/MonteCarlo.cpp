@@ -128,10 +128,8 @@ void MonteCarlo::Run(const int rank) {
         /* set model parameters */
         ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
         int buffsize = 0;
-        std::vector<std::string> unknownParameters = myInputParser.getModel()->getUnknownParameters();
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-            if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) == unknownParameters.end()) {
                 if (it->geterrg() > 0. || it->geterrf() > 0.)
                     buffsize++;
                 if (it->IsCorrelated()) {
@@ -151,7 +149,6 @@ void MonteCarlo::Run(const int rank) {
                 } else
                     DP[it->getname()] = it->getave();
             }
-        }
         if (buffsize == 0){
             if (rank == 0) throw std::runtime_error("No parameters being varied. Aborting MCMC run.\n");
             else sleep(2);
@@ -161,7 +158,21 @@ void MonteCarlo::Run(const int rank) {
             if (rank == 0) throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized.\n");
             else sleep(2);
         }
-
+        int discardbuffer = 0;
+        std::vector<std::string> unknownParameters = myInputParser.getModel()->getUnknownParameters();
+        for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
+            if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) != unknownParameters.end()) {
+                if (it->geterrg() > 0. || it->geterrf() > 0.) {
+                    discardbuffer++;
+                    if (rank == 0) std::cout << "\nWARNING: " << it->getname() << " has a flat or Gaussian error in the configuration file even though it is an unknown parameter!!!\n";
+                }
+            }
+        }
+        buffsize = buffsize - discardbuffer;
+        if (buffsize == 1){
+            if (rank == 0) throw std::runtime_error("No relevant parameters being varied. Aborting MCMC run.\n");
+            else sleep(2);
+        }
         if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
 
         /* create a directory for outputs */
@@ -240,7 +251,7 @@ void MonteCarlo::Run(const int rank) {
 
             std::cout << std::endl;
             std::cout << std::endl;
-            if (ModPars.size() > 0) std::cout << ModPars.size() << " parameters defined." << std::endl;
+            if (ModPars.size() > 0) std::cout << ModPars.size() - unknownParameters.size() << " parameters defined." << std::endl;
             if (Obs.size() > 0) std::cout << Obs.size() << " observables defined." << std::endl;
             if (Obs2D.size() > 0) std::cout << Obs2D.size() << " 2D observables defined." << std::endl;
             if (CGO.size() > 0) std::cout << CGO.size() << " correlated gaussian observables defined:" << std::endl;
