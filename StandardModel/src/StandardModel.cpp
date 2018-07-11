@@ -9,10 +9,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdexcept>
-//#include <cstring>
-#include <TF1.h>
-#include <Math/WrappedTF1.h>
-#include <Math/BrentRootFinder.h>
 #include <gsl/gsl_sf_zeta.h>
 #include <algorithm>
 #include "StandardModel.h"
@@ -412,7 +408,7 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("NoApproximateGammaZ") == 0) {
         FlagNoApproximateGammaZ = value;
         res = true;
-    } else if (name.compare("fullKD") == 0) {
+    } else if (name.compare("UseDispersionRelation") == 0) {
         SMFlavour.setFlagUseDispersionRelation(value);
         res = true;
     } else if (name.compare("CLNflag") == 0) {

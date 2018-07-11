@@ -85,7 +85,7 @@ ModelFactory::ModelFactory()
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
     modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
