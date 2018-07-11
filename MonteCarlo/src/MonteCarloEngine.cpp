@@ -1013,7 +1013,7 @@ std::string MonteCarloEngine::computeStatistics() {
                     double interval_relative_mass = v[i].intervals[j].relative_mass;
                     StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
                             << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
-                            << std::setprecision(getPrecision(interval_heignt, rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, rms)) << interval_relative_mass << ")"
+                            << std::setprecision(getPrecision(interval_heignt, ss_prec)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, ss_prec)) << interval_relative_mass << ")"
                             << std::endl;
                     StatsLog << std::endl;
                 }
@@ -1025,12 +1025,11 @@ std::string MonteCarloEngine::computeStatistics() {
     
     if (CGO.size() > 0) StatsLog << "\nCorrelated (Gaussian) Observables:\n" << std::endl;
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
-        std::cout.precision(ss_prec); /* resets precision*/
         StatsLog << "\n" << it1->getName() << ":\n" << std::endl;
         i = 0;
         std::vector<Observable> CGObs(it1->getObs());
         for (std::vector<Observable>::iterator it2 = CGObs.begin(); it2 < CGObs.end(); it2++) {
-
+            std::cout.precision(ss_prec); /* resets precision*/
             if (it2->getObsType().compare("BinnedObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Binned Observable \"";
                 StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]" << "\":";
@@ -1072,7 +1071,7 @@ std::string MonteCarloEngine::computeStatistics() {
                         double interval_relative_mass = v[0].intervals[j].relative_mass;
                         StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
                                 << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
-                                << std::setprecision(getPrecision(interval_heignt, rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, rms)) << interval_relative_mass << ")"
+                                << std::setprecision(getPrecision(interval_heignt, ss_prec)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, ss_prec)) << interval_relative_mass << ")"
                                 << std::endl;
                         StatsLog << std::endl;
                     }
