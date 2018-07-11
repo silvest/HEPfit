@@ -9,10 +9,8 @@
 #include "MVlnu.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
-#include <gsl/gsl_sf_zeta.h>
 #include <boost/bind.hpp>
 #include <limits>
-#include <TFitResult.h>
 #include <gsl/gsl_sf_gegenbauer.h>
 #include <gsl/gsl_sf_expint.h>
 
@@ -297,6 +295,9 @@ void MVlnu::updateParameters()
     CT_cache = CT;
     CTp_cache = CTp;
     
+    MV_o_MM = MV/MM;
+    sqrtMV_o_MM = sqrt(MV_o_MM); 
+    
     mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
     
     return;
@@ -317,9 +318,9 @@ double MVlnu::lambda_half(double a, double b, double c)
  * ****************************************************************************/
 
 double MVlnu::phi_f(double z){
-    double prefac = 4.*(MV/MM)/MM/MM*sqrt(nI/(3.*M_PI*chiTA));
+    double prefac = 4.*(MV_o_MM)/MM/MM*sqrt(nI/(3.*M_PI*chiTA));
     double num = (1.+z)*sqrt((1.-z)*(1.-z)*(1.-z));
-    double den = (1.+MV/MM)*(1.-z)+2.*sqrt(MV/MM)*(1.+z);
+    double den = (1.+MV_o_MM)*(1.-z)+2.*sqrtMV_o_MM*(1.+z);
     double den4 = den*den*den*den;
     return prefac*num/den4;
 } 
@@ -327,7 +328,7 @@ double MVlnu::phi_f(double z){
 double MVlnu::f_BGL(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
+    double z = (sqrt(w+1.)-M_SQRT2)/(sqrt(w+1.)+M_SQRT2);
     double Pfacf = (z-zA1)/(1.-z*zA1)*(z-zA2)/(1.-z*zA2)*(z-zA3)/(1.-z*zA3)*(z-zA4)/(1.-z*zA4);
     double phif = phi_f(z);
     return (af0+af1*z+af2*z*z)/phif/Pfacf;
@@ -335,8 +336,8 @@ double MVlnu::f_BGL(double q2)
 
 double MVlnu::phi_g(double z){
     double prefac = sqrt(nI/(3.*M_PI*chiTV));
-    double num = 16.*(MV/MM)*(MV/MM)*(1.+z)*(1.+z)/sqrt(1.-z);
-    double den = (1.+MV/MM)*(1.-z)+2.*sqrt(MV/MM)*(1.+z);
+    double num = 16.*(MV_o_MM)*(MV_o_MM)*(1.+z)*(1.+z)/sqrt(1.-z);
+    double den = (1.+MV_o_MM)*(1.-z)+2.*sqrtMV_o_MM*(1.+z);
     double den4 = den*den*den*den;
     return prefac*num/den4;
 } 
@@ -344,16 +345,16 @@ double MVlnu::phi_g(double z){
 double MVlnu::g_BGL(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
+    double z = (sqrt(w+1.)-M_SQRT2)/(sqrt(w+1.)+M_SQRT2);
     double Pfacg = (z-zV1)/(1.-z*zV1)*(z-zV2)/(1.-z*zV2)*(z-zV3)/(1.-z*zV3)*(z-zV4)/(1.-z*zV4);
     double phig = phi_g(z);
     return (ag0+ag1*z+ag2*z*z)/phig/Pfacg;
 }
 
 double MVlnu::phi_F1(double z){
-    double prefac = 4.*(MV/MM)/MM/MM/MM*sqrt(nI/(6.*M_PI*chiTA));
+    double prefac = 4.*(MV_o_MM)/MM/MM/MM*sqrt(nI/(6.*M_PI*chiTA));
     double num = (1.+z)*sqrt((1.-z)*(1.-z)*(1.-z)*(1.-z)*(1.-z));
-    double den = (1.+MV/MM)*(1.-z)+2.*sqrt(MV/MM)*(1.+z);
+    double den = (1.+MV_o_MM)*(1.-z)+2.*sqrtMV_o_MM*(1.+z);
     double den5 = den*den*den*den*den;
     return prefac*num/den5;
 } 
@@ -361,7 +362,7 @@ double MVlnu::phi_F1(double z){
 double MVlnu::F1_BGL(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
+    double z = (sqrt(w+1.)-M_SQRT2)/(sqrt(w+1.)+M_SQRT2);
     double PfacF1 = (z-zA1)/(1.-z*zA1)*(z-zA2)/(1.-z*zA2)*(z-zA3)/(1.-z*zA3)*(z-zA4)/(1.-z*zA4);
     double phiF1 = phi_F1(z);
     double aF10 = (MM-MV)*(phi_F1(0.)/phi_f(0.))*af0; // F1(z=0) = (MM-MV)*f(z=0)
@@ -371,7 +372,7 @@ double MVlnu::F1_BGL(double q2)
 double MVlnu::hA1(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
+    double z = (sqrt(w+1.)-M_SQRT2)/(sqrt(w+1.)+M_SQRT2);
     if(CLNflag) return hA1w1*(1.-8.*rho2*z+(53.*rho2-15.)*z*z-(231.*rho2-91.)*z*z*z);
     else return f_BGL(q2)/sqrt(MM*MV)/(1.+w);   
 }
@@ -395,7 +396,7 @@ double MVlnu::R0(double q2)
     double R2q2at0 = 0.;
     if(CLNflag) R2q2at0 = R2(0.);
     else{
-        R2q2at0 = (w0-MV/MM)/(w0-1.);
+        R2q2at0 = (w0-MV_o_MM)/(w0-1.);
         if(f_BGL(0.) != 0) R2q2at0 -= F1_BGL(0.)/f_BGL(0.)/MM/(w0-1.);
         else return 0.; // 1.14-0.11*(w-1.)+0.01*(w-1.)*(w-1.); approx result using lattice
     }
@@ -427,7 +428,7 @@ double MVlnu::A2(double q2)
 {
     double w = w0-q2/(2.*MM*MV);
     if(CLNflag) return R2(q2)/RV*hA1(q2);
-    else return (MM+MV)/2./(w*w-1.)/MM/MV*((w-MV/MM)*f_BGL(q2)-F1_BGL(q2)/MM);
+    else return (MM+MV)/2./(w*w-1.)/MM/MV*((w-MV_o_MM)*f_BGL(q2)-F1_BGL(q2)/MM);
 }
 
 double MVlnu::T1(double q2) 
@@ -504,7 +505,7 @@ gslpp::complex MVlnu::HS(double q2)
 
 gslpp::complex MVlnu::HT0(double q2) 
 {
-    return 2.*sqrt(2.)*(MM*MV)/(MM+MV)*(CT+CTp)*T23(q2);   
+    return 2.*M_SQRT2*(MM*MV)/(MM+MV)*(CT+CTp)*T23(q2);   
 }
 
 gslpp::complex MVlnu::HT0t(double q2) 
@@ -551,7 +552,7 @@ gslpp::complex MVlnu::G000(double q2)
             16./9.*(3.*(Elep*Enu+Mlep*Mnu)-lambda_lep2/(4.*q2))*(HTpt(q2).abs2()+HTmt(q2).abs2()+HT0t(q2).abs2())+ 
             8./9.*(3*(Elep*Enu-Mlep*Mnu)-lambda_lep2/(4.*q2))*(HTpt(q2).abs2()+HTmt(q2).abs2()+HT0t(q2).abs2())+ 
             16./3.*(Mlep*Enu+Mnu*Elep)*(HVp(q2)*HTpt(q2).conjugate()+HVm(q2)*HTmt(q2).conjugate()+HV0(q2)*HT0t(q2).conjugate()).imag()+
-            8.*sqrt(2.)/3.*(Mlep*Enu-Mnu*Elep)*(HAp(q2)*HTp(q2).conjugate()+HAm(q2)*HTm(q2).conjugate()+HA0(q2)*HT0(q2).conjugate()).imag());
+            8.*M_SQRT2/3.*(Mlep*Enu-Mnu*Elep)*(HAp(q2)*HTp(q2).conjugate()+HAm(q2)*HTm(q2).conjugate()+HA0(q2)*HT0(q2).conjugate()).imag());
 }
 
 gslpp::complex MVlnu::G010(double q2) 
@@ -561,11 +562,11 @@ gslpp::complex MVlnu::G010(double q2)
     double Gprefactor = lambda_MM*lambda_lep/q2;
     
     return Gprefactor*4./3.*lambda_lep*((HVp(q2)*HAp(q2).conjugate()-HVm(q2)*HAm(q2).conjugate()).real()+
-            (2.*sqrt(2.))/q2*(Mlep*Mlep-Mnu*Mnu)*(HTp(q2)*HTpt(q2).conjugate()-HTm(q2)*HTmt(q2).conjugate()).real()+
+            (2.*M_SQRT2)/q2*(Mlep*Mlep-Mnu*Mnu)*(HTp(q2)*HTpt(q2).conjugate()-HTm(q2)*HTmt(q2).conjugate()).real()+
             2.*(Mlep+Mnu)/sqrt(q2)*(HAp(q2)*HTpt(q2).conjugate()-HAm(q2)*HTmt(q2).conjugate()).imag()+
-            sqrt(2.)*(Mlep-Mnu)/sqrt(q2)*(HVp(q2)*HTp(q2).conjugate()-HVm(q2)*HTm(q2).conjugate()).imag()-
+            M_SQRT2*(Mlep-Mnu)/sqrt(q2)*(HVp(q2)*HTp(q2).conjugate()-HVm(q2)*HTm(q2).conjugate()).imag()-
             (Mlep-Mnu)/sqrt(q2)*(HA0(q2)*HP(q2).conjugate()).real()-(Mlep+Mnu)/sqrt(q2)*(HV0(q2)*HS(q2).conjugate()).real()+
-            (sqrt(2.)*HT0(q2)*HP(q2).conjugate()+2.*HT0t(q2)*HS(q2).conjugate()).imag());
+            (M_SQRT2*HT0(q2)*HP(q2).conjugate()+2.*HT0t(q2)*HS(q2).conjugate()).imag());
     
 }
 
@@ -594,7 +595,7 @@ gslpp::complex MVlnu::G200(double q2)
             8./3.*(Elep*Enu-Mlep*Mnu+lambda_lep2/(4.*q2))*HS(q2).abs2()+8./3.*(Elep*Enu+Mlep*Mnu+lambda_lep2/(4.*q2))*HP(q2).abs2()-
             16./9.*(3.*(Elep*Enu+Mlep*Mnu)-lambda_lep2/(4.*q2))*(HTpt(q2).abs2()+HTmt(q2).abs2()-2.*HT0t(q2).abs2())-8./9.*(3.*(Elep*Enu-Mlep*Mnu)-lambda_lep2/(4.*q2))*
             (HTp(q2).abs2()+HTm(q2).abs2()-2*HT0(q2).abs2())-16./3.*(Mlep*Enu+Mnu*Elep)*(HVp(q2)*HTpt(q2).conjugate()+HVm(q2)*HTmt(q2).conjugate()-2.*HV0(q2)*HT0t(q2).conjugate()).imag()-
-            8.*sqrt(2.)/3.*(Mlep*Enu-Mnu*Elep)*(HAp(q2)*HTp(q2).conjugate()+HAm(q2)*HTm(q2).conjugate()-2.*HA0(q2)*HT0(q2).conjugate()).imag());
+            8.*M_SQRT2/3.*(Mlep*Enu-Mnu*Elep)*(HAp(q2)*HTp(q2).conjugate()+HAm(q2)*HTm(q2).conjugate()-2.*HA0(q2)*HT0(q2).conjugate()).imag());
 }
 
 gslpp::complex MVlnu::G210(double q2) 
@@ -604,11 +605,11 @@ gslpp::complex MVlnu::G210(double q2)
     double Gprefactor = lambda_MM*lambda_lep/q2;
     
     return -Gprefactor*4.*lambda_lep/3.*((HVp(q2)*HAp(q2).conjugate()-HVm(q2)*HAm(q2).conjugate()).real()+ 
-            2.*sqrt(2.)*(Mlep*Mlep-Mnu*Mnu)/q2*(HTp(q2)*HTpt(q2).conjugate()-HTm(q2)*HTmt(q2).conjugate()).real()+ 
+            2.*M_SQRT2*(Mlep*Mlep-Mnu*Mnu)/q2*(HTp(q2)*HTpt(q2).conjugate()-HTm(q2)*HTmt(q2).conjugate()).real()+ 
             2.*(Mlep+Mnu)/sqrt(q2)*(HAp(q2)*HTpt(q2).conjugate()-HAm(q2)*HTmt(q2).conjugate()).imag()+ 
-            sqrt(2.)*(Mlep-Mnu)/sqrt(q2)*(HVp(q2)*HTp(q2).conjugate()-HVm(q2)*HTm(q2).conjugate()).imag()+ 
+            M_SQRT2*(Mlep-Mnu)/sqrt(q2)*(HVp(q2)*HTp(q2).conjugate()-HVm(q2)*HTm(q2).conjugate()).imag()+ 
             2.*(Mlep-Mnu)/sqrt(q2)*(HA0(q2)*HP(q2).conjugate()).real()+2.*(Mlep+Mnu)/sqrt(q2)*(HV0(q2)*HS(q2).conjugate()).real()- 
-            2.*(sqrt(2.)*HT0(q2)*HP(q2).conjugate()+2.*HT0t(q2)*HS(q2).conjugate()).imag());
+            2.*(M_SQRT2*HT0(q2)*HP(q2).conjugate()+2.*HT0t(q2)*HS(q2).conjugate()).imag());
 }
 
 gslpp::complex MVlnu::G220(double q2) 
@@ -631,11 +632,11 @@ gslpp::complex MVlnu::G211(double q2)
     
     return Gprefactor*4./sqrt(3.)*lambda_lep*(HVp(q2)*HA0(q2).conjugate()+HAp(q2)*HV0(q2).conjugate()- 
             HV0(q2)*HAm(q2).conjugate()-HA0(q2)*HVm(q2).conjugate()+(Mlep+Mnu)/sqrt(q2)*(HVp(q2)*HS(q2).conjugate()+HS(q2)*HVm(q2).conjugate())- 
-            gslpp::complex::i()*sqrt(2.)*(HP(q2)*HTm(q2).conjugate()-HTp(q2)*HP(q2).conjugate()+sqrt(2.)*(HS(q2)*HTmt(q2).conjugate()-HTpt(q2)*HS(q2).conjugate()))+ 
+            gslpp::complex::i()*M_SQRT2*(HP(q2)*HTm(q2).conjugate()-HTp(q2)*HP(q2).conjugate()+M_SQRT2*(HS(q2)*HTmt(q2).conjugate()-HTpt(q2)*HS(q2).conjugate()))+ 
             (Mlep-Mnu)/sqrt(q2)*(HAp(q2)*HP(q2).conjugate()+HP(q2)*HAm(q2).conjugate())- 
             gslpp::complex::i()*2.*(Mlep+Mnu)/sqrt(q2)*(HAp(q2)*HT0t(q2).conjugate()+HT0t(q2)*HAm(q2).conjugate()-HTpt(q2)*HA0(q2).conjugate()-HA0(q2)*HTmt(q2).conjugate())-
-            gslpp::complex::i()*sqrt(2.)*(Mlep-Mnu)/sqrt(q2)*(HVp(q2)*HT0(q2).conjugate()+HT0(q2)*HVm(q2).conjugate()-HTp(q2)*HV0(q2).conjugate()-HV0(q2)*HTm(q2).conjugate())+
-            2.*sqrt(2.)*(Mlep*Mlep-Mnu*Mnu)/q2*(HTp(q2)*HT0t(q2).conjugate()+HTpt(q2)*HT0(q2).conjugate()-HT0(q2)*HTmt(q2).conjugate()-HT0t(q2)*HTm(q2).conjugate()));
+            gslpp::complex::i()*M_SQRT2*(Mlep-Mnu)/sqrt(q2)*(HVp(q2)*HT0(q2).conjugate()+HT0(q2)*HVm(q2).conjugate()-HTp(q2)*HV0(q2).conjugate()-HV0(q2)*HTm(q2).conjugate())+
+            2.*M_SQRT2*(Mlep*Mlep-Mnu*Mnu)/q2*(HTp(q2)*HT0t(q2).conjugate()+HTpt(q2)*HT0(q2).conjugate()-HT0(q2)*HTmt(q2).conjugate()-HT0t(q2)*HTm(q2).conjugate()));
 }
 
 gslpp::complex MVlnu::G221(double q2) 

@@ -10,9 +10,6 @@
 
 class StandardModel;
 #include <gsl/gsl_integration.h>
-#include <TF1.h>
-#include <TGraph.h>
-#include <TFitResultPtr.h>
 #include <gsl/gsl_spline.h>
 #include <memory>
 
@@ -99,6 +96,9 @@ private:
     QCD::meson vectorM;/**< Final vector meson type */
     std::vector<std::string> mvlnuParameters;/**< The string of mandatory MVlnu parameters */
     bool CLNflag;
+    
+    double MV_o_MM;
+    double sqrtMV_o_MM;
     
     double GF;            /**<Fermi constant */
     double Mlep;          /**<Lepton mass */

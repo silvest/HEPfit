@@ -28,6 +28,8 @@ MVll_Bsphimu(new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardMode
 MVll_Bsphiel(new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON)),
 MPll_BpKmu(new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::MU)),
 MPll_BpKel(new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON)),
+MPll_B0Kmu(new MPll(SM_i, StandardModel::B_D, StandardModel::K_0, StandardModel::MU)),
+MPll_B0Kel(new MPll(SM_i, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON)),
 MVgamma_BdKstgamma(new MVgamma(SM_i, StandardModel::B_D, StandardModel::K_star)),
 MVgamma_BpKstgamma(new MVgamma(SM_i, StandardModel::B_P, StandardModel::K_star_P)),
 MVgamma_Bsphigamma(new MVgamma(SM_i, StandardModel::B_S, StandardModel::PHI)),
@@ -46,6 +48,8 @@ MPlnu_BdbarDelnu(new MPlnu(SM_i, StandardModel::B_D, StandardModel::D_P, Standar
     update_Bsphiel = true;
     update_BpKmu = true;
     update_BpKel = true;
+    update_B0Kmu = true;
+    update_B0Kel = true;
     update_BdKstgamma = true;
     update_BpKstgamma = true;
     update_Bsphigamma = true;
@@ -184,79 +188,32 @@ MPll& Flavour::getMPll(unsigned int meson_i, unsigned int pseudoscalar_i, unsign
 {
     if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::MU) return *MPll_BpKmu;
     if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return *MPll_BpKel;
+    if (meson_i == StandardModel::B_D && pseudoscalar_i == StandardModel::K_0 && lep_i == StandardModel::MU) return *MPll_B0Kmu;
+    if (meson_i == StandardModel::B_D && pseudoscalar_i == StandardModel::K_0 && lep_i == StandardModel::ELECTRON) return *MPll_B0Kel;
     else throw std::runtime_error("Flavour: Decay channel not implemented.");
 }
 
 void Flavour::setUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned int lep_i, bool updated_i) const
 {
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) {
-        update_BdKstarmu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) {
-        update_BdKstarel = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::MU) {
-        update_BpKstarmu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) {
-        update_BpKstarel = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::MU) {
-        update_Bsphimu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) {
-        update_Bsphiel = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) {
-        update_BpKmu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::ELECTRON) {
-        update_BpKel = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::NOLEPTON) {
-        update_BdKstgamma = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::NOLEPTON) {
-        update_BpKstgamma = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::NOLEPTON) {
-        update_Bsphigamma = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::TAU) {
-        update_BdDstartaunu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::MU) {
-        update_BdDstarmunu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::ELECTRON) {
-        update_BdDstarelnu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::TAU) {
-        update_BdDtaunu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::MU) {
-        update_BdDmunu = updated_i;
-        return;
-    }
-    if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::ELECTRON) {
-        update_BdDelnu = updated_i;
-        return;
-    }
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU)  update_BdKstarmu = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) update_BdKstarel = updated_i;
+    else if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::MU) update_BpKstarmu = updated_i;
+    else if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) update_BpKstarel = updated_i;
+    else if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::MU) update_Bsphimu = updated_i;
+    else if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) update_Bsphiel = updated_i;
+    else if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) update_BpKmu = updated_i;
+    else if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::ELECTRON) update_BpKel = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_0 && lep_i == StandardModel::MU) update_B0Kmu = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_0 && lep_i == StandardModel::ELECTRON) update_B0Kel = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::NOLEPTON) update_BdKstgamma = updated_i;
+    else if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::NOLEPTON) update_BpKstgamma = updated_i;
+    else if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::NOLEPTON) update_Bsphigamma = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::TAU) update_BdDstartaunu = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::MU) update_BdDstarmunu = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_star_P && lep_i == StandardModel::ELECTRON) update_BdDstarelnu = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::TAU) update_BdDtaunu = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::MU) update_BdDmunu = updated_i;
+    else if (meson_i == StandardModel::B_D && meson_j == StandardModel::D_P && lep_i == StandardModel::ELECTRON) update_BdDelnu = updated_i;
     else throw std::runtime_error("Flavour: Wrong update flag requested.");
 }
 
@@ -270,6 +227,8 @@ bool Flavour::getUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned
     if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return update_Bsphiel;
     if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) return update_BpKmu;
     if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return update_BpKel;
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_0 && lep_i == StandardModel::MU) return update_B0Kmu;
+    if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_0 && lep_i == StandardModel::ELECTRON) return update_B0Kel;
     if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::NOLEPTON) return update_BdKstgamma;
     if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::NOLEPTON) return update_BpKstgamma;
     if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::NOLEPTON) return update_Bsphigamma;
@@ -292,6 +251,8 @@ void Flavour::setSMupdated() const
     update_Bsphiel = true;
     update_BpKmu = true;
     update_BpKel = true;
+    update_B0Kmu = true;
+    update_B0Kel = true;
     update_BdKstgamma = true;
     update_BpKstgamma = true;
     update_Bsphigamma = true;

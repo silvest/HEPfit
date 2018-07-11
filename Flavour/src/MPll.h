@@ -11,7 +11,6 @@
 class StandardModel;
 class F_1;
 class F_2;
-#include "ThObservable.h"
 #include <gsl/gsl_integration.h>
 #include <TF1.h>
 #include <TGraph.h>
@@ -308,20 +307,10 @@ private:
     gslpp::complex r_1;
     gslpp::complex r_2;
     gslpp::complex Delta_C9;
-    gslpp::complex exp_Phase;
-    
-    /*LCSR fit parameters*/
-    double r_1_fplus;/**<LCSR fit parameter */
-    double r_2_fplus;/**<LCSR fit parameter */
-    double m_fit2_fplus;/**<LCSR fit parameter */
-    double r_1_fT;/**<LCSR fit parameter */
-    double r_2_fT;/**<LCSR fit parameter */
-    double m_fit2_fT;/**<LCSR fit parameter */
-    double r_2_f0;/**<LCSR fit parameter */
-    double m_fit2_f0;/**<LCSR fit parameter */
-    
+    gslpp::complex exp_Phase;    
     
     /*LATTICE fit parameters*/
+#if LATTICE    
     double b_0_fplus;/**<LATTICE fit parameter */
     double b_1_fplus;/**<LATTICE fit parameter */
     double b_2_fplus;/**<LATTICE fit parameter */
@@ -334,6 +323,17 @@ private:
     double b_1_f0;/**<LATTICE fit parameter */
     double b_2_f0;/**<LATTICE fit parameter */
     double m_fit2_f0_lat;/**<LATTICE fit parameter */
+#else
+    /*LCSR fit parameters*/
+    double r_1_fplus;/**<LCSR fit parameter */
+    double r_2_fplus;/**<LCSR fit parameter */
+    double m_fit2_fplus;/**<LCSR fit parameter */
+    double r_1_fT;/**<LCSR fit parameter */
+    double r_2_fT;/**<LCSR fit parameter */
+    double m_fit2_fT;/**<LCSR fit parameter */
+    double r_2_f0;/**<LCSR fit parameter */
+    double m_fit2_f0;/**<LCSR fit parameter */
+#endif    
     
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
@@ -473,15 +473,7 @@ private:
     double F89_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     double Ee;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     
-    unsigned int fplus_updated;/**< Cache variable */
-    gslpp::vector<double> fplus_cache;/**< Cache variable */
-    
-    unsigned int fT_updated;/**< Cache variable */
-    gslpp::vector<double> fT_cache;/**< Cache variable */
-    
-    unsigned int f0_updated;/**< Cache variable */
-    double f0_cache;/**< Cache variable */
-    
+#if LATTICE    
     unsigned int fplus_lat_updated;/**< Cache variable */
     gslpp::vector<double> fplus_lat_cache;/**< Cache variable */
     
@@ -490,6 +482,16 @@ private:
     
     unsigned int f0_lat_updated;/**< Cache variable */
     gslpp::vector<double> f0_lat_cache;/**< Cache variable */
+#else    
+    unsigned int fplus_updated;/**< Cache variable */
+    gslpp::vector<double> fplus_cache;/**< Cache variable */
+    
+    unsigned int fT_updated;/**< Cache variable */
+    gslpp::vector<double> fT_cache;/**< Cache variable */
+    
+    unsigned int f0_updated;/**< Cache variable */
+    double f0_cache;/**< Cache variable */
+#endif
     
     unsigned int k2_updated;/**< Cache variable */
     gslpp::vector<double> k2_cache;/**< Cache variable */

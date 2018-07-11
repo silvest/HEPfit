@@ -272,6 +272,8 @@ private:
     std::shared_ptr<MVll> MVll_Bsphiel; ///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
     std::shared_ptr<MPll> MPll_BpKmu; ///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
     std::shared_ptr<MPll> MPll_BpKel; ///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    std::shared_ptr<MPll> MPll_B0Kmu; ///< An object for the process \f$ B^0 \to K^0 \mu^+ \mu^- \f$.
+    std::shared_ptr<MPll> MPll_B0Kel; ///< An object for the process \f$ B^0 \to K^0 \e^+ \e^- \f$.
     std::shared_ptr<MVgamma> MVgamma_BdKstgamma;
     std::shared_ptr<MVgamma> MVgamma_BpKstgamma;
     std::shared_ptr<MVgamma> MVgamma_Bsphigamma;
@@ -289,6 +291,8 @@ private:
     mutable bool update_Bsphiel; ///< A flag used for caching of \f$ B_s \to \phi \e^+ \e^- \f$.
     mutable bool update_BpKmu; ///< A flag used for caching of \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
     mutable bool update_BpKel; ///< A flag used for caching of \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    mutable bool update_B0Kmu; ///< A flag used for caching of \f$ B^0 \to K^0 \mu^+ \mu^- \f$.
+    mutable bool update_B0Kel; ///< A flag used for caching of \f$ B^0 \to K^0 \e^+ \e^- \f$.
     mutable bool update_BdKstgamma;
     mutable bool update_BpKstgamma;
     mutable bool update_Bsphigamma;
