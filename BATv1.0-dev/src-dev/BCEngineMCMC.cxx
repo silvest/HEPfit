@@ -2328,7 +2328,7 @@ void BCEngineMCMC::MCMCInitialize()
     /* set initial position */
 
     // this can be extended to user-settable member
-    unsigned max_tries = 1000;
+    unsigned max_tries = 1000000;
 
     // initialize markov chain positions
     switch (fInitialPositionScheme) {
