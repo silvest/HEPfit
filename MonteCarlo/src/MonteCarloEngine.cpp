@@ -18,7 +18,6 @@
 #include <TMath.h>
 #include <TTree.h>
 #include <TROOT.h>
-#include <TBox.h>
 #include <TPaveText.h>
 #include <TStyle.h>
 #include <TCanvas.h>
@@ -965,7 +964,7 @@ std::string MonteCarloEngine::computeStatistics() {
     
     std::vector<double> mode(GetBestFitParameters());
     if (mode.size() == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
-
+    std::streamsize ss_prec = std::cout.precision();
     unsigned int rmsPrecision = 2;
     if (significants > 0) rmsPrecision = significants;
     std::ostringstream StatsLog;
@@ -973,7 +972,7 @@ std::string MonteCarloEngine::computeStatistics() {
     StatsLog << "Statistics file for Observables, Binned Observables and Correlated Gaussian Observables.\n" << std::endl;
     if (Obs_ALL.size() > 0) StatsLog << "Observables:\n" << std::endl;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
-
+        std::cout.precision(ss_prec); /* resets precision*/
         if (it->getObsType().compare("BinnedObservable") == 0) {
             StatsLog << "  (" << ++i << ") Binned Observable \"";
             StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << ", " << it->getTho()->getBinMax() << "]" << "\":";
@@ -1025,8 +1024,8 @@ std::string MonteCarloEngine::computeStatistics() {
     }
     
     if (CGO.size() > 0) StatsLog << "\nCorrelated (Gaussian) Observables:\n" << std::endl;
-    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-            it1 < CGO.end(); it1++) {
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
+        std::cout.precision(ss_prec); /* resets precision*/
         StatsLog << "\n" << it1->getName() << ":\n" << std::endl;
         i = 0;
         std::vector<Observable> CGObs(it1->getObs());

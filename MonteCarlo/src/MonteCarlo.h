@@ -10,8 +10,6 @@
 
 #include "InputParser.h"
 #include "MonteCarloEngine.h"
-#include <BAT/BCH1D.h>
-#include <BAT/BCH2D.h>
 
 #define NBINSMODELPARS 100
 

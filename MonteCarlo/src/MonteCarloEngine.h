@@ -18,7 +18,6 @@
 #include <BAT/BCH1D.h>
 #include <BAT/BCH2D.h>
 #include <TFile.h>
-#include <TRandom3.h>
 #include <TPrincipal.h>
 #include <TColor.h>
 #include <map>
