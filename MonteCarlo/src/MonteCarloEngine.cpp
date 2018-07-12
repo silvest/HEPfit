@@ -972,7 +972,7 @@ std::string MonteCarloEngine::computeStatistics() {
     StatsLog << "Statistics file for Observables, Binned Observables and Correlated Gaussian Observables.\n" << std::endl;
     if (Obs_ALL.size() > 0) StatsLog << "Observables:\n" << std::endl;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
-        std::cout.precision(ss_prec); /* resets precision*/
+        StatsLog.precision(ss_prec); /* resets precision*/
         if (it->getObsType().compare("BinnedObservable") == 0) {
             StatsLog << "  (" << ++i << ") Binned Observable \"";
             StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << ", " << it->getTho()->getBinMax() << "]" << "\":";
@@ -1003,7 +1003,7 @@ std::string MonteCarloEngine::computeStatistics() {
             intervals.push_back(0.997300203937);
             std::vector<BCH1D::BCH1DSmallestInterval> v = bch1d.GetSmallestIntervals(intervals);
             for (unsigned int i = 0; i < v.size(); i++) {
-                StatsLog << "      Smallest interval(s) containing at least " << v[i].total_mass * 100 << "% and local mode(s):"
+                StatsLog << "      Smallest interval(s) containing at least " << std::setprecision(ss_prec) << v[i].total_mass * 100 << "% and local mode(s):"
                         << std::endl;
                 for (unsigned j = 0; j < v[i].intervals.size(); j++) {
                     double interval_xmin = v[i].intervals[j].xmin;
@@ -1029,7 +1029,7 @@ std::string MonteCarloEngine::computeStatistics() {
         i = 0;
         std::vector<Observable> CGObs(it1->getObs());
         for (std::vector<Observable>::iterator it2 = CGObs.begin(); it2 < CGObs.end(); it2++) {
-            std::cout.precision(ss_prec); /* resets precision*/
+            StatsLog.precision(ss_prec); /* resets precision*/
             if (it2->getObsType().compare("BinnedObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Binned Observable \"";
                 StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]" << "\":";
@@ -1061,7 +1061,7 @@ std::string MonteCarloEngine::computeStatistics() {
 
                 std::vector<BCH1D::BCH1DSmallestInterval> v = bch1d.GetSmallestIntervals(intervals);
                 for (unsigned int i = 0; i < v.size(); i++) {
-                    StatsLog << "      Smallest interval(s) containing at least " << v[0].total_mass * 100 << "% and local mode(s):"
+                    StatsLog << "      Smallest interval(s) containing at least " << std::setprecision(ss_prec) << v[0].total_mass * 100 << "% and local mode(s):"
                             << std::endl;
                     for (unsigned j = 0; j < v[0].intervals.size(); j++) {
                         double interval_xmin = v[0].intervals[j].xmin;
