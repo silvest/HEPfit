@@ -1061,14 +1061,13 @@ std::string MonteCarloEngine::computeStatistics() {
 
                 std::vector<BCH1D::BCH1DSmallestInterval> v = bch1d.GetSmallestIntervals(intervals);
                 for (unsigned int i = 0; i < v.size(); i++) {
-                    StatsLog << "      Smallest interval(s) containing at least " << std::setprecision(ss_prec) << v[0].total_mass * 100 << "% and local mode(s):"
-                            << std::endl;
-                    for (unsigned j = 0; j < v[0].intervals.size(); j++) {
-                        double interval_xmin = v[0].intervals[j].xmin;
-                        double interval_xmax = v[0].intervals[j].xmax;
-                        double interval_mode = v[0].intervals[j].mode;
-                        double interval_heignt = v[0].intervals[j].relative_height;
-                        double interval_relative_mass = v[0].intervals[j].relative_mass;
+                    StatsLog << "      Smallest interval(s) containing at least " << std::setprecision(ss_prec) << v[i].total_mass * 100 << "% and local mode(s):" << std::endl;
+                    for (unsigned j = 0; j < v[i].intervals.size(); j++) {
+                        double interval_xmin = v[i].intervals[j].xmin;
+                        double interval_xmax = v[i].intervals[j].xmax;
+                        double interval_mode = v[i].intervals[j].mode;
+                        double interval_heignt = v[i].intervals[j].relative_height;
+                        double interval_relative_mass = v[i].intervals[j].relative_mass;
                         StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
                                 << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
                                 << std::setprecision(getPrecision(interval_heignt, ss_prec)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, ss_prec)) << interval_relative_mass << ")"
