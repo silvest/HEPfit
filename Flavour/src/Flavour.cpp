@@ -62,6 +62,7 @@ MPlnu_BdbarDelnu(new MPlnu(SM_i, StandardModel::B_D, StandardModel::D_P, Standar
     
     dispersion = false;
     CLNflag = false;
+    btocNPpmflag = false;
 };
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme) const

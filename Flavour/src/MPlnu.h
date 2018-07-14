@@ -87,6 +87,7 @@ private:
     QCD::meson pseudoscalarM;/**< Final vector meson type */
     std::vector<std::string> mplnuParameters;/**< The string of mandatory MPlnu parameters */
     bool CLNflag;
+    bool btocNPpmflag;
     
     double GF;            /**<Fermi constant */
     double Mlep;          /**<Lepton mass */
