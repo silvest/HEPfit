@@ -21,6 +21,7 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     meson = meson_i;
     vectorM = vector_i;
     CLNflag = false;
+    btocNPpmflag = false;
     
     w_J = gsl_integration_cquad_workspace_alloc (100); 
     
@@ -35,24 +36,47 @@ MVlnu::~MVlnu() {
 std::vector<std::string> MVlnu::initializeMVlnuParameters()
 {
     CLNflag = mySM.getFlavour().getFlagCLN();
+    btocNPpmflag = mySM.getFlavour().getbtocNPpmflag();
     
-    if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
-        << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2" << "aF11" << "aF12"  << "AbsVcb"
-        << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
-        << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
-        << "chiTV" << "chiTA" << "nI"
-        << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
-    else {
-        std::stringstream out;
-        out << vectorM;
-        throw std::runtime_error("MVlnu: vector " + out.str() + " not implemented");
-    }
-
-    if (CLNflag) {
-        mvlnuParameters.clear();
+    if ( btocNPpmflag == 0 ){
         if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
-                << "hA1w1" << "rho2" << "R1w1" << "R2w1" << "AbsVcb"
-                << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
+            << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2" << "aF11" << "aF12"  << "AbsVcb"
+            << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
+            << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
+            << "chiTV" << "chiTA" << "nI"
+            << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
+        else {
+            std::stringstream out;
+            out << vectorM;
+            throw std::runtime_error("MVlnu: vector " + out.str() + " not implemented");
+        }
+
+        if (CLNflag) {
+            mvlnuParameters.clear();
+            if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
+                    << "hA1w1" << "rho2" << "R1w1" << "R2w1" << "AbsVcb"
+                    << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
+        }
+    }
+    else{
+         if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
+            << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2" << "aF11" << "aF12"  << "AbsVcb"
+            << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
+            << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
+            << "chiTV" << "chiTA" << "nI"
+            << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
+        else {
+            std::stringstream out;
+            out << vectorM;
+            throw std::runtime_error("MVlnu: vector " + out.str() + " not implemented");
+        }
+
+        if (CLNflag) {
+            mvlnuParameters.clear();
+            if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
+                    << "hA1w1" << "rho2" << "R1w1" << "R2w1" << "AbsVcb"
+                    << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
+        }       
     }    
 
     mySM.initializeMeson(meson);
@@ -99,15 +123,28 @@ void MVlnu::updateParameters()
 
     /* SM + NP Wilson coefficients */
     if(lep == StandardModel::TAU){
-        CV += mySM.getOptionalParameter("CVL_NP")/2.;
-        CVp = mySM.getOptionalParameter("CVR_NP")/2.;
-        CA -= mySM.getOptionalParameter("CVL_NP")/2.;
-        CAp = -mySM.getOptionalParameter("CVR_NP")/2.;
-        CS = mySM.getOptionalParameter("CSL_NP")/2.;
-        CSp = mySM.getOptionalParameter("CSR_NP")/2.;
-        CP = -mySM.getOptionalParameter("CSL_NP")/2.;
-        CPp = -mySM.getOptionalParameter("CSR_NP");
-        CTp = mySM.getOptionalParameter("CT_NP");
+        if ( btocNPpmflag == 0 ){
+            CV += mySM.getOptionalParameter("CVL_NP")/2.;
+            CVp = mySM.getOptionalParameter("CVR_NP")/2.;
+            CA -= mySM.getOptionalParameter("CVL_NP")/2.;
+            CAp = -mySM.getOptionalParameter("CVR_NP")/2.;
+            CS = mySM.getOptionalParameter("CSL_NP")/2.;
+            CSp = mySM.getOptionalParameter("CSR_NP")/2.;
+            CP = -mySM.getOptionalParameter("CSL_NP")/2.;
+            CPp = -mySM.getOptionalParameter("CSR_NP");
+            CTp = mySM.getOptionalParameter("CT_NP");
+        }
+        else{
+            CV += (mySM.getOptionalParameter("CV_NP")-mySM.getOptionalParameter("CA_NP"))/4.;
+            CVp = (mySM.getOptionalParameter("CV_NP")+mySM.getOptionalParameter("CA_NP"))/4.;
+            CA -= (mySM.getOptionalParameter("CV_NP")-mySM.getOptionalParameter("CA_NP"))/4.;
+            CAp = -(mySM.getOptionalParameter("CV_NP")+mySM.getOptionalParameter("CA_NP"))/4.;
+            CS = (mySM.getOptionalParameter("CS_NP")-mySM.getOptionalParameter("CP_NP"))/4.;
+            CSp = (mySM.getOptionalParameter("CS_NP")+mySM.getOptionalParameter("CP_NP"))/4.;
+            CP = -(mySM.getOptionalParameter("CS_NP")-mySM.getOptionalParameter("CP_NP"))/4.;
+            CPp = -(mySM.getOptionalParameter("CS_NP")+mySM.getOptionalParameter("CP_NP"))/4.;
+            CTp = mySM.getOptionalParameter("CT_NP");           
+        }
     }
     
     switch (vectorM) {

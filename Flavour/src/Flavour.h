@@ -249,6 +249,11 @@ public:
         return (this->CLNflag = CLNflag);
     }
     
+    bool setFlagbtocNPpm(bool btocNPpmflag)
+    {
+        return (this->btocNPpmflag = btocNPpmflag);
+    }
+    
     bool getFlagUseDispersionRelation() const
     {
         return dispersion;
@@ -257,6 +262,11 @@ public:
     bool getFlagCLN() const
     {
         return CLNflag;
+    }
+    
+    bool getbtocNPpmflag() const
+    {
+        return btocNPpmflag;
     }
 
 private:
@@ -304,6 +314,7 @@ private:
     mutable bool update_BdDelnu;
     mutable bool dispersion;
     mutable bool CLNflag;
+    mutable bool btocNPpmflag;
 };
 
 /**

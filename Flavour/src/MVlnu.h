@@ -96,6 +96,7 @@ private:
     QCD::meson vectorM;/**< Final vector meson type */
     std::vector<std::string> mvlnuParameters;/**< The string of mandatory MVlnu parameters */
     bool CLNflag;
+    bool btocNPpmflag;
     
     double MV_o_MM;
     double sqrtMV_o_MM;
