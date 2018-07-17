@@ -379,6 +379,15 @@ public:
         histogramBufferSize = histogramBufferSize_i;
     };
     
+    /**
+     * @brief A get method to get the number of MPI world size.
+     * @return the size of the MPI world
+     */    
+    int getMPIWorldSize() 
+    {
+        return procnum;
+    }
+    
 private:
     
     /**

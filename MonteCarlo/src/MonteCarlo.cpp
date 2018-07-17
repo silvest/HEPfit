@@ -421,8 +421,9 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         if (beg->compare("NChains") == 0) {
             ++beg;
             if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.setNChains(atoi((*beg).c_str()));
+            else if (isdigit(beg->at(0)) && atoi((*beg).c_str()) == 0) MCEngine.setNChains(MCEngine.getMPIWorldSize());
             else
-                throw std::runtime_error("\nERROR: NChains in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
+                throw std::runtime_error("\nERROR: NChains in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer >= 0.\n");
         } else if (beg->compare("PrerunMaxIter") == 0) {
             ++beg;
             if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.SetNIterationsPreRunMax(atoi((*beg).c_str()));
