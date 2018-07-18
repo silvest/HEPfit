@@ -675,12 +675,10 @@ double StandardModelMatching::B1u(double x, double mu) const
 double StandardModelMatching::B1u_tilde(double x, double mu) const
 {
     double xmo = x - 1.;
-    double dilog1mx = gslpp_special_functions::dilog(1.-x);
-    double xmuw = mu*mu/Mw/Mw;
+    double logx = log(x);
+    double dilogomx = gslpp_special_functions::dilog(1. - x);
     
-    return ((-8.-23.*x)/8./xmo - (8.-5.*x)/8./xmo/xmo*log(x) + (3.*x+2.*x*x)/8./xmo/xmo*log(x)*log(x) +
-            (2.-3.*x+3.*x*x+x*x*x)/2./x/xmo/xmo*dilog1mx - (2.+x)/12./x*M_PI*M_PI + 5./2.*B0b(x) +
-            3.*B0b(x)*log(xmuw));
+    return (-6.*x/xmo - 3.*x*logx*logx/2./xmo/xmo - 6.*x*dilogomx - B0b(x)*(10. + 12.*L));
 }
 
 double StandardModelMatching::C1ew(double x) const
@@ -700,7 +698,7 @@ double StandardModelMatching::Zew(double xt, double xz) const
     double z0ew, z1ew;
 #ifdef ZEW_NUMERIC
     z0ew = 5.1795 + 0.038*(Mt_muw-166.) + 0.015*(Mw-80.394);
-    z1ew = 2.1095 + 0.0067*(Mt_muw-166.) + 0.026*(Mw-80.394);
+    z1ew = -2.1095 + 0.0067*(Mt_muw-166.) + 0.026*(Mw-80.394);
 #else    
     double xt2 = xt*xt;
     double xt3 = xt2*xt;
@@ -718,7 +716,7 @@ double StandardModelMatching::Zew(double xt, double xz) const
             (12.-3.*xt3-3.*xt2*(4.-xz)+4.*xt*(3.-xz)+4.*xz-xz2)/8./xtmo/xtmo)*log(xt)*log(xz) -
             ((8.+12.*xt+xt2)/2./xz - 5.*xtmo*xtmo*(2.+xt)/8./xz2 - 3.*(4.+8.*xt+2.*xt2-xt3)/4./xtmo/xtmo)*dilog1mxt +
             xzmo*xzmo*(5.-6.*xz-5.*xz2)/4./xz2*dilog1mxz - (5.-16.*xz+12.*xz2+2*xz3*xz)/24./xz2*M_PI*M_PI +
-            xt*(4.-xz)(88.-30.*xz-25.*xz2-2.*xt*(44.-5.*xz-6.*xz2))/32./xtmo/xtmo/xz*phi_z(xz/4.) +
+            xt*(4.-xz)*(88.-30.*xz-25.*xz2-2.*xt*(44.-5.*xz-6.*xz2))/32./xtmo/xtmo/xz*phi_z(xz/4.) +
             (16.*xt3*xt-xt*(20.-xz)*xz2+8.*xz3-8.*xt3*(14.+5.*xz)+8.*xt2*(12.-7.*xz+xz2))/32./xtmo/xtmo/xz*phi_z(xz/4./xt) -
             ((22.+33.*xt-xt2)/16./xtmo/xz - 5.*xtmo*(2.+xt)/16./xz2 +
             (2.+5.*xt2+10.*xz+xt*(15.+xz))/16./xtmo/xtmo)*phi_xy(xt,xz);
@@ -2830,16 +2828,32 @@ WilsonCoefficient& StandardModelMatching::mc_P()
         case NLO_QED12:
         case NLO_QED02:            
         case NLO_QED21:
-            mcP.setCoeff(0, aletilde * alstilde * (1. / sW2 * (4. / 9. * B1d(xt, Muw) + 4. / 27. * B1d_tilde(xt, Muw) + 2. / 9. * B1u(xt, Muw) +
-                    2. / 27. * B1u_tilde(xt, Muw) - 2. / 9. * C1ew(xt) + 320. / 27. * B0b(xt) +
-                    160. / 27. * C0b(xt))), NLO_QED21);
-            mcP.setCoeff(1, aletilde * alstilde * (16. / 27. * C0b(xt) + 1. / sW2 * (8. / 9. * B1d_tilde(xt, Muw) + 4. / 9. * B1u_tilde(xt, Muw) -
-                    2. / 9. * Gew(xt, xz, Muw) - 88. / 9. * B0b(xt) - 184. / 27. * C0b(xt))), NLO_QED21);
-            mcP.setCoeff(2, aletilde * alstilde * (1. / sW2 * (-1. / 9. * B1d(xt, Muw) - 1. / 27. * B1d_tilde(xt, Muw) - 1. / 18. * B1u(xt, Muw) -
-                    1. / 54. * B1u_tilde(xt, Muw) + 1. / 18. * C1ew(xt) - 32. / 27. * B0b(xt) -
-                    16. / 27. * C0b(xt))), NLO_QED21);
-            mcP.setCoeff(3, aletilde * alstilde * (1. / sW2 * (-2. / 9. * B1d_tilde(xt, Muw) - 1. / 9. * B1u_tilde(xt, Muw) + 1. / 18. * Gew(xt, xz, Muw) +
-                    4. / 3. * B0b(xt) + 2. / 3. * C0b(xt))), NLO_QED21);
+//            mcP.setCoeff(0, aletilde * alstilde * (1. / sW2 * (4. / 9. * B1d(xt, Muw) + 4. / 27. * B1d_tilde(xt, Muw) + 2. / 9. * B1u(xt, Muw) +
+//                    2. / 27. * B1u_tilde(xt, Muw) - 2. / 9. * C1ew(xt) + 320. / 27. * B0b(xt) +
+//                    160. / 27. * C0b(xt))), NLO_QED21);
+//            mcP.setCoeff(1, aletilde * alstilde * (16. / 27. * C0b(xt) + 1. / sW2 * (8. / 9. * B1d_tilde(xt, Muw) + 4. / 9. * B1u_tilde(xt, Muw) -
+//                    2. / 9. * Gew(xt, xz, Muw) - 88. / 9. * B0b(xt) - 184. / 27. * C0b(xt))), NLO_QED21);
+//            mcP.setCoeff(2, aletilde * alstilde * (1. / sW2 * (-1. / 9. * B1d(xt, Muw) - 1. / 27. * B1d_tilde(xt, Muw) - 1. / 18. * B1u(xt, Muw) -
+//                    1. / 54. * B1u_tilde(xt, Muw) + 1. / 18. * C1ew(xt) - 32. / 27. * B0b(xt) -
+//                    16. / 27. * C0b(xt))), NLO_QED21);
+//            mcP.setCoeff(3, aletilde * alstilde * (1. / sW2 * (-2. / 9. * B1d_tilde(xt, Muw) - 1. / 9. * B1u_tilde(xt, Muw) + 1. / 18. * Gew(xt, xz, Muw) +
+//                    4. / 3. * B0b(xt) + 2. / 3. * C0b(xt))), NLO_QED21);
+            
+            // Expressions obtained from Haisch, Misiak notes (with corrected factors on Buras basis)
+            mcP.setCoeff(0, aletilde * alstilde * (1./sW2 * (
+                    4./9. * B1d(xt, Muw) + 4./27. * B1d_tilde(xt, Muw) +
+                    2./9. * B1u(xt, Muw) + 2./27. * B1u_tilde(xt, Muw) - 
+                    2./9. * C1ew(xt) + 320./27. * B0b(xt) + 160./27. * C0b(xt))), NLO_QED21);
+            mcP.setCoeff(1, aletilde * alstilde * (1./sW2 * (
+                    8./9. * B1d_tilde(xt, Muw) + 4./9. * B1u_tilde(xt, Muw) -
+                    2./9. * Gew(xt, xz, Muw) - 88./9. * B0b(xt) - 56./27. * C0b(xt))), NLO_QED21);
+            mcP.setCoeff(2, aletilde * alstilde * (1./sW2 * (
+                    -1./9. * B1d(xt, Muw) - 1./27. * B1d_tilde(xt, Muw) -
+                    1./18. * B1u(xt, Muw) - 1./54. * B1u_tilde(xt, Muw) +
+                    1./18. * C1ew(xt) - 32./27. * B0b(xt) - 16./27. * C0b(xt))), NLO_QED21);
+            mcP.setCoeff(3, aletilde * alstilde * (1./sW2 * (
+                    -2./9. * B1d_tilde(xt, Muw) - 1./9. * B1u_tilde(xt, Muw) +
+                    1./18. * Gew(xt, xz, Muw) + 4./3. * B0b(xt) + 2./3. * C0b(xt))), NLO_QED21);
         case NLO_QED11:
             mcP.setCoeff(0, aletilde * (-2. / 9. / sW2 * (2. * B0b(xt) + C0b(xt))), NLO_QED11);
 //            mcP.setCoeff(0, aletilde*(-2./9./sW2*(2.*Y0(xt) - X0t(xt))), NLO_QED11);
@@ -3029,20 +3043,35 @@ WilsonCoefficient& StandardModelMatching::mc_Q()
         case NLO_QED12:
         case NLO_QED02:            
         case NLO_QED21:
-            mcQ.setCoeff(0, aletilde*alstilde*(4.*C1ew(xt) + 4.*D1t(xt,Muw) + 320./9.*C0b(xt) +
-                                                1./sW2*(-2./3.*B1d(xt,Muw) - 2./9.*B1d_tilde(xt,Muw) +
-                                                        2./3.*B1u(xt,Muw) + 2./9.*B1u_tilde(xt,Muw) +
-                                                        4./3.*C1ew(xt) + 800./9.*B0b(xt) - 640./9.*C0b(xt))), NLO_QED21);
-            mcQ.setCoeff(1, aletilde*alstilde*(-4./3.*Gew(xt,xz,Muw) - 16./3.*Hew(xt,xz,Muw) - 32.*C0b(xt) +
-                                                1./sW2*(-4./3.*B1d_tilde(xt,Muw) + 4./3.*B1u_tilde(xt,Muw) +
-                                                        4./3.*Gew(xt,xz,Muw) - 80.*B0b(xt) + 112./3.*C0b(xt))), NLO_QED21);
-            mcQ.setCoeff(2, aletilde*alstilde*(-32./9.*C0b(xt) +
-                                                1./sW2*(1./6.*B1d(xt,Muw) + 1./18.*B1d_tilde(xt,Muw) -
-                                                        1./6.*B1u(xt,Muw) - 1./18.*B1u_tilde(xt,Muw) -
-                                                        1./3.*C1ew(xt) - 80./9.*B0b(xt) + 64./9.*C0b(xt))), NLO_QED21);
-            mcQ.setCoeff(3, aletilde*alstilde*(1./3.*Gew(xt,xz,Muw) + 1./3.*Hew(xt,xz,Muw) + 4.*C0b(xt) +
-                                                1./sW2*(1./3.*B1d_tilde(xt,Muw) - 1./3.*B1u_tilde(xt,Muw) -
-                                                        1./3.*Gew(xt,xz,Muw) +10.*B0b(xt) - 16./3.*C0b(xt))), NLO_QED21);
+//            mcQ.setCoeff(0, aletilde*alstilde*(4.*C1ew(xt) + D1t(xt,Muw) + 320./9.*C0b(xt) +
+//                                                1./sW2*(-2./3.*B1d(xt,Muw) - 2./9.*B1d_tilde(xt,Muw) +
+//                                                        2./3.*B1u(xt,Muw) + 2./9.*B1u_tilde(xt,Muw) +
+//                                                        4./3.*C1ew(xt) + 800./9.*B0b(xt) - 640./9.*C0b(xt))), NLO_QED21);
+//            mcQ.setCoeff(1, aletilde*alstilde*(-4./3.*Gew(xt,xz,Muw) - 16./3.*Hew(xt,xz,Muw) - 32.*C0b(xt) +
+//                                                1./sW2*(-4./3.*B1d_tilde(xt,Muw) + 4./3.*B1u_tilde(xt,Muw) +
+//                                                        4./3.*Gew(xt,xz,Muw) - 80.*B0b(xt) + 112./3.*C0b(xt))), NLO_QED21);
+//            mcQ.setCoeff(2, aletilde*alstilde*(-32./9.*C0b(xt) +
+//                                                1./sW2*(1./6.*B1d(xt,Muw) + 1./18.*B1d_tilde(xt,Muw) -
+//                                                        1./6.*B1u(xt,Muw) - 1./18.*B1u_tilde(xt,Muw) -
+//                                                        1./3.*C1ew(xt) - 80./9.*B0b(xt) + 64./9.*C0b(xt))), NLO_QED21);
+//            mcQ.setCoeff(3, aletilde*alstilde*(1./3.*Gew(xt,xz,Muw) + 1./3.*Hew(xt,xz,Muw) + 4.*C0b(xt) +
+//                                                1./sW2*(1./3.*B1d_tilde(xt,Muw) - 1./3.*B1u_tilde(xt,Muw) -
+//                                                        1./3.*Gew(xt,xz,Muw) +10.*B0b(xt) - 16./3.*C0b(xt))), NLO_QED21);
+
+            // Expressions obtained from Haisch, Misiak notes (with corrected factors on Buras basis)
+            mcQ.setCoeff(0, aletilde * alstilde * (4. * C1ew(xt) + D1t(xt,Muw) + 1./sW2 * (
+                    -2./3. * B1d(xt,Muw) - 2./9. * B1d_tilde(xt,Muw) +
+                    2./3. * B1u(xt,Muw) + 2./9. * B1u_tilde(xt,Muw) +
+                    4./3. * C1ew(xt) + 800./9. * B0b(xt) - 320./9. * C0b(xt))), NLO_QED21);
+            mcQ.setCoeff(1, aletilde * alstilde * (-4./3. * Gew(xt,xz,Muw) - 16./3. * Hew(xt,xz,Muw) -
+                    80./3. * C0b(xt) + 1./sW2 * (-4./3. * B1d_tilde(xt,Muw) + 4./3. * B1u_tilde(xt,Muw) +
+                    4./3. * Gew(xt,xz,Muw) - 80. * B0b(xt) + 32. * C0b(xt))), NLO_QED21);
+            mcQ.setCoeff(2, aletilde * alstilde * (1./sW2 * (1./6. * B1d(xt,Muw) + 1./18. * B1d_tilde(xt,Muw) -
+                    1./6. * B1u(xt,Muw) - 1./18.*B1u_tilde(xt,Muw) -
+                    1./3. * C1ew(xt) - 80./9. * B0b(xt) + 32./9. * C0b(xt))), NLO_QED21);
+            mcQ.setCoeff(3, aletilde * alstilde * (1./3. * Gew(xt,xz,Muw) + 1./3. * Hew(xt,xz,Muw) +
+                    8./3. * C0b(xt) + 1./sW2 * (1./3. * B1d_tilde(xt,Muw) - 1./3. * B1u_tilde(xt,Muw) -
+                    1./3. * Gew(xt,xz,Muw) + 10. * B0b(xt) - 4. * C0b(xt))), NLO_QED21);        
         case NLO_QED11:
             mcQ.setCoeff(0, aletilde*(4.*C0b(xt) + D0b_tilde(xt) + 4./9.*L - 1./sW2*(10./3.*B0b(xt)-4./3.*C0b(xt))), NLO_QED11); // log from Misiak's notes
             mcQ.setCoeff(2, aletilde*(1./sW2*(5./6.*B0b(xt)-1./3.*C0b(xt))), NLO_QED11);

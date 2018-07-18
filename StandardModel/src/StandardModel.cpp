@@ -696,6 +696,12 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
                         b00e * (logve - ve + 1.) + b01s * Beta_s(10, nf) / b00s / b00s * rho * logv +
                         b01s00e * Beta_e(01, nf) / b00s * (rho * ve * (logv - logve) - logv));
                 break;
+            case FULLNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, true) + AlsWithInit(mu, alsi, mu_i, NLO, true));
+            case FULLNNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, true) + AlsWithInit(mu, alsi, mu_i, NLO, true)+ AlsWithInit(mu, alsi, mu_i, NNLO, true));
+            case FULLNNNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, true) + AlsWithInit(mu, alsi, mu_i, NLO, true)+ AlsWithInit(mu, alsi, mu_i, NNLO, true) + AlsWithInit(mu, alsi, mu_i, NNNLO, true));
             default:
                 throw std::runtime_error("StandardModel::AlsWithInit(): " + orderToString(order) + " is not implemented.");
         }
@@ -867,7 +873,7 @@ double StandardModel::DeltaAlpha() const
 double StandardModel::alphaMz() const
 {
     return (ale / (1.0 - DeltaAlpha()));
-//    return(1./127.918);
+//    return(1./127.918); // FOR HEFFDF1 TEST
 }
 
 double StandardModel::Alstilde5(const double mu) const
@@ -980,7 +986,7 @@ double StandardModel::Mw() const
         }
     }
 
-//    Mw = 80.426;
+//    Mw = 80.426; // FOR HEFFDF1 TEST
     Mw_cache = Mw;
     useMw_cache = true;
     return Mw;
@@ -994,6 +1000,7 @@ double StandardModel::cW2(double Mw_i) const
 double StandardModel::cW2() const
 {
     return ( cW2(Mw()));
+//    return (1.0 - 0.2312); // FOR HEFFDF1 TEST
 }
 
 double StandardModel::sW2(double Mw_i) const
