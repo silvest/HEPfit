@@ -802,6 +802,8 @@ bool NPSMEFTd6::PostUpdate()
     Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
     Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
     Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
+    
+    dZH = -(9.0/16.0)*( GF*mHl*mHl/sqrt(2.0)/M_PI/M_PI )*( 2.0*M_PI/3.0/sqrt(3.0) - 1.0 );
       
     if (FlagRotateCHWCHB) {
         CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
@@ -2752,6 +2754,9 @@ gslpp::complex NPSMEFTd6::AHZga_W(const double tau, const double lambda) const
 
 double NPSMEFTd6::muggH(const double sqrt_s) const
 {
+    
+    double C1 = 0.0066; //It seems to be independent of energy 
+    
     double m_t = mtpole;
     //doulbe m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
@@ -2782,11 +2787,17 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     
     double mu = (1.0 + 2.0 * ( tmpt.real() + tmpb.real() + tmpc.real() + tmpHG.real() ) );
     
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
         gslpp::complex tmp2 = tmpt +tmpb +tmpc + tmpHG;
         
         mu += tmp2.abs2();
+        
+//  Quadratic contribution from Higgs self-coupling
+    mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         
     }
       
@@ -2876,7 +2887,12 @@ double NPSMEFTd6::muggHH(const double sqrt_s) const
 double NPSMEFTd6::muVBF(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double C1 = 0.0; 
+    
     if (sqrt_s == 1.96) {
+        
+        C1 = 0.0; // N.A.
 
         mu += 
                 +106687. * (1. + eVBF_2_Hbox ) * CHbox / LambdaNP2
@@ -2994,6 +3010,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 7.0) {
+        
+        C1 = 0.0065;
 
         mu += 
                 +108269. * (1. + eVBF_78_Hbox ) * CHbox / LambdaNP2
@@ -3111,6 +3129,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 8.0) {
+        
+        C1 = 0.0065;
 
         mu += 
                 +108661. * (1. + eVBF_78_Hbox ) * CHbox / LambdaNP2
@@ -3227,6 +3247,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
 
         }
     } else if (sqrt_s == 13.0) {
+        
+        C1 = 0.0064;
 
         mu += 
                 +107703. * (1. + eVBF_1314_Hbox ) * CHbox / LambdaNP2
@@ -3342,6 +3364,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 14.0) {
+        
+        C1 = 0.0064;
 
         mu += 
                 +107633. * (1. + eVBF_1314_Hbox ) * CHbox / LambdaNP2
@@ -3458,6 +3482,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         }
 
     } else if (sqrt_s == 100.0) {
+        
+        C1 = 0.0; // N.A.
 
         mu += 
                 +104969. * CHbox / LambdaNP2
@@ -3578,6 +3604,14 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eVBFint + eVBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -3587,7 +3621,12 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
 double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double C1 = 0.0;
+    
     if (sqrt_s == 0.24) {
+        
+        C1 = 0.0064;
 
         mu += 
                 +121115. * CHbox / LambdaNP2
@@ -3605,6 +3644,8 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 //        }
           
     } else if (sqrt_s == 0.25) {
+        
+        C1 = 0.0064;
 
         mu += 
                 +121115. * CHbox / LambdaNP2
@@ -3622,6 +3663,8 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 //        }
         
     } else if ( sqrt_s == 0.35 ) {
+        
+        C1 = 0.0062;
 
         mu += 
                 +121119. * CHbox / LambdaNP2
@@ -3640,6 +3683,8 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 //      
         
     } else if ( sqrt_s == 0.365 ) {
+        
+        C1 = 0.0062; // Use the same as 350 GeV
 
         mu += 
                 +121086. * CHbox / LambdaNP2
@@ -3650,8 +3695,16 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 -30114. * CDHW / LambdaNP2
                 -285813. *DeltaGF ()/v ()/v ()
                 ;
+        
+    } else if ( sqrt_s == 0.380 ) {
+        
+        C1 = 0.0062; // Use the same as 350 GeV
+
+        mu += 0;
 
     } else if (sqrt_s == 0.500) {
+        
+        C1 = 0.0061;
         
         mu += 
                 +121067. * CHbox / LambdaNP2
@@ -3663,13 +3716,15 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 -285824. *DeltaGF ()/v ()/v ()
                 ;
         
-//    } else if (sqrt_s == 1.0) {
-//        
-//        if (FlagQuadraticTerms) {
-//            //Add contributions that are quadratic in the effective coefficients
-//        }
-//   
+    } else if ( sqrt_s == 1.0 ) {
+        
+        C1 = 0.0059;
+
+        mu += 0;
+  
     } else if ( sqrt_s == 1.4 ) {
+        
+        C1 = 0.0058;
 
         mu += 
                 +121104. * CHbox / LambdaNP2
@@ -3683,6 +3738,8 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 
         
     } else if ( sqrt_s == 3.0 ) {
+        
+        C1 = 0.0057;
         
         mu += 
                 +121323. * CHbox / LambdaNP2
@@ -3700,6 +3757,14 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeeWBFint + eeeWBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -3719,7 +3784,20 @@ double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const dou
 double NPSMEFTd6::mueeZBF(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double C1 = 0.0;
+    
+//    C1 = 0.0070; // 240 GeV
+//    C1 = 0.0070; // 250 GeV
+//    C1 = 0.0069; // 350 GeV
+//    C1 = 0.0069; // 365 GeV: use same as 350 GeV
+//    C1 = 0.0069; // 380 GeV: use same as 350 GeV
+//    C1 = 0.0067; // 500 GeV
+//    C1 = 0.0065; // 1000 GeV
+    
     if ( sqrt_s == 1.4 ) {
+        
+    C1 = 0.0065;
 
         mu += 
                 +120710. * CHbox / LambdaNP2
@@ -3736,6 +3814,8 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 ;
         
     } else if ( sqrt_s == 3.0 ) {
+        
+    C1 = 0.0063;
         
         mu += 
                 +120571. * CHbox / LambdaNP2
@@ -3757,6 +3837,14 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     //(Assume similar to WBF.)
     mu += eeeWBFint + eeeWBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -3875,7 +3963,12 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
 double NPSMEFTd6::muWH(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double C1 = 0.0;
+    
     if (sqrt_s == 1.96) {
+        
+        C1 = 0.0; // N.A.
 
         mu += 
                 +121384. * (1. + eWH_2_Hbox ) * CHbox / LambdaNP2
@@ -3923,6 +4016,8 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 7.0) {
+        
+        C1 = 0.0106;
 
         mu += 
                 +121106. * (1. + eWH_78_Hbox ) * CHbox / LambdaNP2
@@ -3970,6 +4065,8 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 8.0) {
+        
+        C1 = 0.0105;
 
         mu += 
                 +121149. * (1. + eWH_78_Hbox ) * CHbox / LambdaNP2
@@ -4017,6 +4114,8 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         }
 
     } else if (sqrt_s == 13.0) {
+        
+        C1 = 0.0103;
 
         mu += 
                 +121024. * (1. + eWH_1314_Hbox ) * CHbox / LambdaNP2
@@ -4064,6 +4163,8 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         }
       
     } else if (sqrt_s == 14.0) {
+        
+        C1 = 0.0103;
 
         mu += 
                 +121073. * (1. + eWH_1314_Hbox ) * CHbox / LambdaNP2
@@ -4111,6 +4212,8 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         }
           
     } else if (sqrt_s == 100.0) {
+        
+        C1 = 0.0; // N.A. 
 
         mu += 
                 +121131. * CHbox / LambdaNP2
@@ -4162,6 +4265,14 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eWHint + eWHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -4171,7 +4282,12 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
 double NPSMEFTd6::muZH(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double C1 = 0.0;
+    
     if (sqrt_s == 1.96) {
+        
+        C1 = 0.0; // N.A.
 
         mu += 
                 +121306. * (1. + eZH_2_Hbox ) * CHbox / LambdaNP2
@@ -4274,6 +4390,8 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 7.0) {
+        
+        C1 = 0.0123;
 
         mu += 
                 +121146. * (1. + eZH_78_Hbox ) * CHbox / LambdaNP2
@@ -4376,6 +4494,8 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 8.0) {
+        
+        C1 = 0.0122;
 
         mu += 
                 +121330. * (1. + eZH_78_Hbox ) * CHbox / LambdaNP2
@@ -4478,6 +4598,8 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         }
 
     } else if (sqrt_s == 13.0) {
+        
+        C1 = 0.0119;
 
         mu += 
                 +121156. * (1. + eZH_1314_Hbox ) * CHbox / LambdaNP2
@@ -4580,6 +4702,8 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 14.0) {
+        
+        C1 = 0.0118;
 
         mu += 
                 +120925. * (1. + eZH_1314_Hbox ) * CHbox / LambdaNP2
@@ -4682,6 +4806,8 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         }
           
     } else if (sqrt_s == 100.0) {
+        
+        C1 = 0.0; // N.A.
  
         mu += 
                 +121366. * CHbox / LambdaNP2
@@ -4787,6 +4913,14 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eZHint + eZHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -4796,8 +4930,12 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
 double NPSMEFTd6::mueeZH(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double C1 = 0.0;
 
     if (sqrt_s == 0.24) {
+        
+        C1 = 0.017;
 
         mu += 
                 +121274. * CHbox / LambdaNP2
@@ -4886,6 +5024,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
             }
 
     } else if (sqrt_s == 0.25) {
+        
+        C1 = 0.015;
 
         mu += 
                 +121285. * CHbox / LambdaNP2
@@ -4974,6 +5114,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
         }
         
     } else if ( sqrt_s == 0.35 ) {
+        
+        C1 = 0.0057;
 
         mu += 
                 +121274. * CHbox / LambdaNP2
@@ -5062,6 +5204,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
         }
         
     } else if ( sqrt_s == 0.365 ) {
+        
+        C1 = 0.0057; // Use same as 350 GeV
 
         mu += 
                 +121329. * CHbox / LambdaNP2
@@ -5078,6 +5222,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 ;
         
     } else if ( sqrt_s == 0.38 ) {
+        
+        C1 = 0.0057; // Use same as 350 GeV
 
         mu += 
                 +121269. * CHbox / LambdaNP2
@@ -5094,6 +5240,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 ;        
         
     } else if (sqrt_s == 0.500) {
+        
+        C1 = 0.00099;
 
         mu += 
                 +121276. * CHbox / LambdaNP2
@@ -5182,6 +5330,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 1.0) {
+        
+        C1 = -0.0012;
 
         mu += 
                 +121352. * CHbox / LambdaNP2
@@ -5270,6 +5420,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
         }
         
     } else if ( sqrt_s == 1.4 ) {
+        
+        C1 = -0.0011;
 
         mu += 
                 +121265. * CHbox / LambdaNP2
@@ -5286,6 +5438,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 ;
         
     } else if ( sqrt_s == 3.0 ) {
+        
+        C1 = -0.00054;
         
         mu += 
                 +121279. * CHbox / LambdaNP2
@@ -5307,6 +5461,14 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeeZHint + eeeZHpar;
     
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
+    
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -5315,7 +5477,12 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
 double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
-    if (sqrt_s == 0.24 || sqrt_s == 0.25) {
+    
+    double C1 = 0.0;
+
+    if ( sqrt_s == 0.24 ) {
+        
+        C1 = 0.017;
         
         if (Pol_em == 80. && Pol_ep == -30.){
             mu += 
@@ -5349,11 +5516,63 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
             throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
         }
         
-    } else if ( (sqrt_s == 0.35)  || (sqrt_s == 0.365) ) {
+    } else if ( sqrt_s == 0.25 ) {
+        
+        C1 = 0.015;
+        
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                +121280. * CHbox / LambdaNP2
+                +127185. * CHL1_11 / LambdaNP2
+                -1825179. * CHe_11 / LambdaNP2
+                +127224. * CHL3_11 / LambdaNP2
+                -18772.7 * CHD / LambdaNP2
+                +560562. * CHB / LambdaNP2
+                +136181. * CHW / LambdaNP2
+                +902460. * CHWB / LambdaNP2
+                +154367. * CDHB / LambdaNP2
+                -13649.3 * CDHW / LambdaNP2
+                -158864. *DeltaGF ()/v ()/v ()
+                ;            
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                +121265. * CHbox / LambdaNP2
+                +1622206. * CHL1_11 / LambdaNP2
+                -83330.8 * CHe_11 / LambdaNP2
+                +1622294. * CHL3_11 / LambdaNP2
+                -71840. * CHD / LambdaNP2
+                -201403. * CHB / LambdaNP2
+                +898254. * CHW / LambdaNP2
+                -258409. * CHWB / LambdaNP2
+                -82913. * CDHB / LambdaNP2
+                +116401. * CDHW / LambdaNP2
+                -264975. *DeltaGF ()/v ()/v ()
+                ; 
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
+        }
+        
+    } else if ( sqrt_s == 0.35 ) {
+        
+        C1 = 0.0057;
+
+        mu = 1.0; 
+    
+    } else if ( sqrt_s == 0.365 ) {
+        
+        C1 = 0.0057; // Use same as 350 GeV
+
+        mu = 1.0; 
+    
+    } else if ( sqrt_s == 0.380 ) {
+        
+        C1 = 0.0057; // Use same as 350 GeV
 
         mu = 1.0; 
     
     } else if ( sqrt_s == 0.500 ) {
+        
+        C1 = 0.00099;
 
         if (Pol_em == 80. && Pol_ep == -30.){
             mu += 
@@ -5387,11 +5606,37 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
             throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
         } 
     
+    } else if ( sqrt_s == 1.0 ) {
+        
+        C1 = -0.0012;
+
+        mu = 1.0; 
+    
+    } else if ( sqrt_s == 1.4 ) {
+        
+        C1 = -0.0011;
+
+        mu = 1.0; 
+    
+    } else if ( sqrt_s == 3.0 ) {
+        
+        C1 = -0.00054;
+
+        mu = 1.0; 
+    
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeeZHint + eeeZHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -5429,7 +5674,12 @@ double NPSMEFTd6::muVBFpVH(const double sqrt_s) const
 double NPSMEFTd6::muttH(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+     double C1 = 0.0;
+    
     if (sqrt_s == 1.96) {
+        
+        C1 = 0.0; // N.A.
 
         mu += 
                 +418178. * (1. + ettH_2_HG ) * CHG / LambdaNP2
@@ -5456,6 +5706,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 7.0) {
+        
+        C1 = 0.0387;
 
         mu += 
                 +526637. * (1. + ettH_78_HG ) * CHG / LambdaNP2
@@ -5482,6 +5734,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 8.0) {
+        
+        C1 = 0.0378;
 
         mu += 
                 +532535. * (1. + ettH_78_HG ) * CHG / LambdaNP2
@@ -5508,6 +5762,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 13.0) {
+        
+        C1 = 0.0351;
 
         mu += 
                 +544404. * (1. + ettH_1314_HG ) * CHG / LambdaNP2
@@ -5534,6 +5790,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 14.0) {
+        
+        C1 = 0.0347;
 
         mu += 
                 +544972. * (1. + ettH_1314_HG ) * CHG / LambdaNP2
@@ -5560,6 +5818,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 100.0) {
+        
+        C1 = 0.0; // N.A.
 
         mu += 
                 +536172. * CHG / LambdaNP2
@@ -5590,6 +5850,14 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += ettHint + ettHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -5613,7 +5881,12 @@ double NPSMEFTd6::muggHpttH(const double sqrt_s) const
 double NPSMEFTd6::mueettH(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double C1 = 0.0;
+    
     if (sqrt_s == 0.500) {
+        
+        C1 = 0.086;
 
         mu += 
                 +121314. * CHbox / LambdaNP2
@@ -5777,6 +6050,8 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 1.0) {
+        
+        C1 = 0.017;
 
         mu += 
                 +121235. * CHbox / LambdaNP2
@@ -5940,6 +6215,8 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
         }
         
     } else if ( sqrt_s == 1.4 ) {
+        
+        C1 = 0.0094;
        
         mu += 
                 +121967. * CHbox / LambdaNP2
@@ -5961,6 +6238,8 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 ;
         
     } else if ( sqrt_s == 3.0 ) {
+        
+        C1 = 0.0037;
         
         mu += 
                 +121764. * CHbox / LambdaNP2
@@ -5986,6 +6265,14 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeettHint + eeettHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -5995,15 +6282,30 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
 double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
-    if (sqrt_s == 0.24) {
+    
+    double C1 = 0.0; 
+    
+    if ( sqrt_s == 0.500 ) {
+        
+        C1 = 0.086;
 
         mu = 1.0; 
           
-    } else if (sqrt_s == 0.25) {
+    } else if ( sqrt_s == 1.0 ) {
+        
+        C1 = 0.017;
 
         mu = 1.0; 
         
-    } else if (sqrt_s == 0.35) {
+    } else if ( sqrt_s == 1.4 ) {
+        
+        C1 = 0.0094;
+
+        mu = 1.0; 
+             
+    } else if ( sqrt_s == 3.0 ) {
+        
+        C1 = 0.0037;
 
         mu = 1.0; 
     
@@ -6012,6 +6314,14 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeettHint + eeettHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -6314,12 +6624,20 @@ double NPSMEFTd6::GammaHggRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
+    
+    double C1 = 0.0066;
 
     width += deltaGammaHggRatio1();
     
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHggRatio2();            
+            width += deltaGammaHggRatio2();  
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
@@ -6390,12 +6708,20 @@ double NPSMEFTd6::GammaHWWRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
+    
+    double C1 = 0.0073;
 
     width += deltaGammaHWWRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHWWRatio2();
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
@@ -6451,12 +6777,20 @@ double NPSMEFTd6::GammaHZZRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
+    
+    double C1 = 0.0083;
 
     width += deltaGammaHZZRatio1();
     
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHZZRatio2();            
+            width += deltaGammaHZZRatio2();   
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         }
     
     return width;
@@ -6529,12 +6863,20 @@ double NPSMEFTd6::GammaHZgaRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
+    
+    double C1 = 0.0;
 
     width += deltaGammaHZgaRatio1();
     
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHZgaRatio2();            
+            width += deltaGammaHZgaRatio2();      
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         }
     
     return width;
@@ -6665,12 +7007,20 @@ double NPSMEFTd6::GammaHgagaRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
+    
+    double C1 = 0.0049;
 
     width += deltaGammaHgagaRatio1();
     
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHgagaRatio2();            
+            width += deltaGammaHgagaRatio2();  
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
@@ -6774,12 +7124,20 @@ double NPSMEFTd6::GammaHmumuRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
+    
+    double C1 = 0.0;
 
     width += deltaGammaHmumuRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHmumuRatio2();
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
@@ -6826,12 +7184,20 @@ double NPSMEFTd6::GammaHtautauRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
+    
+    double C1 = 0.0;
 
     width += deltaGammaHtautauRatio1();
     
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHtautauRatio2();            
+            width += deltaGammaHtautauRatio2();    
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         }
     
     return width;
@@ -6878,12 +7244,20 @@ double NPSMEFTd6::GammaHccRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
+    
+    double C1 = 0.0;
 
     width += deltaGammaHccRatio1();
     
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHccRatio2();            
+            width += deltaGammaHccRatio2();   
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         }
     
     return width;
@@ -6937,11 +7311,19 @@ double NPSMEFTd6::GammaHbbRatio() const
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
     
+    double C1 = 0.0;
+    
     width += deltaGammaHbbRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHbbRatio2();        
+            width += deltaGammaHbbRatio2();    
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
