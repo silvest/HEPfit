@@ -2375,9 +2375,9 @@ double NPSMEFTd6::deltaG_hggRatio() const
     double tau_c = 4.0 * m_c * m_c / mHl / mHl;
     double aSPiv = AlsMz / 16.0 / M_PI / v();
     gslpp::complex gSM, dg;
-    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
-    gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
-    gslpp::complex dKappa_c = deltaG_hff(quarks[CHARM]) / (-m_c / v());
+    gslpp::complex dKappa_t = cLHd6 * deltaG_hff(quarks[TOP]) / (-m_t / v());
+    gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
     double deltaloc = deltaG_hgg();
     
     gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c));
@@ -2464,12 +2464,12 @@ double NPSMEFTd6::deltaG1_hZARatio() const
     
 //  mod. of Higgs couplings
     gslpp::complex gSM, dg;
-    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
-    gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
-    gslpp::complex dKappa_c = deltaG_hff(quarks[CHARM]) / (-m_c / v());
-    gslpp::complex dKappa_tau = deltaG_hff(leptons[TAU]) / (-m_tau / v());
-    gslpp::complex dKappa_mu = deltaG_hff(leptons[MU]) / (-m_mu / v());
-    double dKappa_W = (0.5 * v() / M_w_2)*deltaG3_hWW();
+    gslpp::complex dKappa_t = cLHd6 * deltaG_hff(quarks[TOP]) / (-m_t / v());
+    gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
+    gslpp::complex dKappa_tau = cLHd6 * deltaG_hff(leptons[TAU]) / (-m_tau / v());
+    gslpp::complex dKappa_mu = cLHd6 * deltaG_hff(leptons[MU]) / (-m_mu / v());
+    double dKappa_W = cLHd6 * (0.5 * v() / M_w_2)*deltaG3_hWW();
     
 //  mod of EW vector couplings vf =2 gvf    
     double vSMt = 2.0*(quarks[TOP].getIsospin()) - 4.0 * Qt * sW2_tree;
@@ -2478,11 +2478,11 @@ double NPSMEFTd6::deltaG1_hZARatio() const
     double vSMtau = 2.0*(leptons[TAU].getIsospin()) - 4.0 * Qtau * sW2_tree;
     double vSMmu = 2.0*(leptons[MU].getIsospin()) - 4.0 * Qmu * sW2_tree;
     
-    double dvSMt = 2.0*deltaGV_f(quarks[TOP]);
-    double dvSMb = 2.0*deltaGV_f(quarks[BOTTOM]);
-    double dvSMc = 2.0*deltaGV_f(quarks[CHARM]);
-    double dvSMtau = 2.0*deltaGV_f(leptons[TAU]);
-    double dvSMmu = 2.0*deltaGV_f(leptons[MU]);
+    double dvSMt = cLHd6 * 2.0*deltaGV_f(quarks[TOP]);
+    double dvSMb = cLHd6 * 2.0*deltaGV_f(quarks[BOTTOM]);
+    double dvSMc = cLHd6 * 2.0*deltaGV_f(quarks[CHARM]);
+    double dvSMtau = cLHd6 * 2.0*deltaGV_f(leptons[TAU]);
+    double dvSMmu = cLHd6 * 2.0*deltaGV_f(leptons[MU]);
     
     double deltaloc = deltaG1_hZA();
     
@@ -2545,12 +2545,12 @@ double NPSMEFTd6::deltaG_hAARatio() const
 
     double aPiv = ale / 8.0 / M_PI / v();
     gslpp::complex gSM, dg;
-    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
-    gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
-    gslpp::complex dKappa_c = deltaG_hff(quarks[CHARM]) / (-m_c / v());
-    gslpp::complex dKappa_tau = deltaG_hff(leptons[TAU]) / (-m_tau / v());
-    gslpp::complex dKappa_mu = deltaG_hff(leptons[MU]) / (-m_mu / v());
-    double dKappa_W = (0.5 * v() / M_w_2)*deltaG3_hWW();
+    gslpp::complex dKappa_t = cLHd6 * deltaG_hff(quarks[TOP]) / (-m_t / v());
+    gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
+    gslpp::complex dKappa_tau = cLHd6 * deltaG_hff(leptons[TAU]) / (-m_tau / v());
+    gslpp::complex dKappa_mu = cLHd6 * deltaG_hff(leptons[MU]) / (-m_mu / v());
+    double dKappa_W = cLHd6 * (0.5 * v() / M_w_2)*deltaG3_hWW();
     
     double deltaloc = deltaG_hAA();
     
@@ -2776,9 +2776,9 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     //        + (dKappa_t + dKappa_b) * sigma_tb_SM)
     //        / (sigma_tt_SM + sigma_bb_SM + sigma_tb_SM);
     
-    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
-    gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
-    gslpp::complex dKappa_c = deltaG_hff(quarks[CHARM]) / (-m_c / v());
+    gslpp::complex dKappa_t = cLHd6 * deltaG_hff(quarks[TOP]) / (-m_t / v());
+    gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
 
     gslpp::complex tmpHG = CHG / v() * v2_over_LambdaNP2 / G_eff_SM;
     gslpp::complex tmpt = G_eff_t_SM * dKappa_t / G_eff_SM;
@@ -2788,7 +2788,7 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     double mu = (1.0 + 2.0 * ( tmpt.real() + tmpb.real() + tmpc.real() + tmpHG.real() ) );
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -2797,7 +2797,7 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
         mu += tmp2.abs2();
         
 //  Quadratic contribution from Higgs self-coupling
-    mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         
     }
       
@@ -3606,11 +3606,11 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
     mu += eVBFint + eVBFpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -3624,7 +3624,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
     
     double C1 = 0.0;
     
-    if (sqrt_s == 0.24) {
+    if (sqrt_s == 0.240) {
         
         C1 = 0.0064;
 
@@ -3643,7 +3643,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 //
 //        }
           
-    } else if (sqrt_s == 0.25) {
+    } else if (sqrt_s == 0.250) {
         
         C1 = 0.0064;
 
@@ -3662,7 +3662,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 //
 //        }
         
-    } else if ( sqrt_s == 0.35 ) {
+    } else if (sqrt_s == 0.350) {
         
         C1 = 0.0062;
 
@@ -3682,7 +3682,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 //        }
 //      
         
-    } else if ( sqrt_s == 0.365 ) {
+    } else if (sqrt_s == 0.365) {
         
         C1 = 0.0062; // Use the same as 350 GeV
 
@@ -3696,7 +3696,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 -285813. *DeltaGF ()/v ()/v ()
                 ;
         
-    } else if ( sqrt_s == 0.380 ) {
+    } else if (sqrt_s == 0.380) {
         
         C1 = 0.0062; // Use the same as 350 GeV
 
@@ -3716,13 +3716,13 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 -285824. *DeltaGF ()/v ()/v ()
                 ;
         
-    } else if ( sqrt_s == 1.0 ) {
+    } else if (sqrt_s == 1.0) {
         
         C1 = 0.0059;
 
         mu += 0;
   
-    } else if ( sqrt_s == 1.4 ) {
+    } else if (sqrt_s == 1.4) {
         
         C1 = 0.0058;
 
@@ -3737,7 +3737,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 ;
 
         
-    } else if ( sqrt_s == 3.0 ) {
+    } else if (sqrt_s == 3.0) {
         
         C1 = 0.0057;
         
@@ -3759,11 +3759,11 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
     mu += eeeWBFint + eeeWBFpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -3795,7 +3795,7 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
 //    C1 = 0.0067; // 500 GeV
 //    C1 = 0.0065; // 1000 GeV
     
-    if ( sqrt_s == 1.4 ) {
+    if (sqrt_s == 1.4) {
         
     C1 = 0.0065;
 
@@ -3813,7 +3813,7 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 -377768. *DeltaGF ()/v ()/v ()
                 ;
         
-    } else if ( sqrt_s == 3.0 ) {
+    } else if (sqrt_s == 3.0) {
         
     C1 = 0.0063;
         
@@ -3839,11 +3839,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
     mu += eeeWBFint + eeeWBFpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -4267,11 +4267,11 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
     mu += eWHint + eWHpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -4915,11 +4915,11 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
     mu += eZHint + eZHpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -4933,7 +4933,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
     
     double C1 = 0.0;
 
-    if (sqrt_s == 0.24) {
+    if (sqrt_s == 0.240) {
         
         C1 = 0.017;
 
@@ -5023,7 +5023,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 ;
             }
 
-    } else if (sqrt_s == 0.25) {
+    } else if (sqrt_s == 0.250) {
         
         C1 = 0.015;
 
@@ -5113,7 +5113,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 ;
         }
         
-    } else if ( sqrt_s == 0.35 ) {
+    } else if (sqrt_s == 0.350) {
         
         C1 = 0.0057;
 
@@ -5203,7 +5203,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 ;
         }
         
-    } else if ( sqrt_s == 0.365 ) {
+    } else if (sqrt_s == 0.365) {
         
         C1 = 0.0057; // Use same as 350 GeV
 
@@ -5221,7 +5221,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -219131. *DeltaGF ()/v ()/v ()
                 ;
         
-    } else if ( sqrt_s == 0.38 ) {
+    } else if (sqrt_s == 0.380) {
         
         C1 = 0.0057; // Use same as 350 GeV
 
@@ -5419,7 +5419,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 ;
         }
         
-    } else if ( sqrt_s == 1.4 ) {
+    } else if (sqrt_s == 1.4) {
         
         C1 = -0.0011;
 
@@ -5437,7 +5437,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -219193. *DeltaGF ()/v ()/v ()
                 ;
         
-    } else if ( sqrt_s == 3.0 ) {
+    } else if (sqrt_s == 3.0) {
         
         C1 = -0.00054;
         
@@ -5462,11 +5462,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
     mu += eeeZHint + eeeZHpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
     
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -5480,7 +5480,7 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
     
     double C1 = 0.0;
 
-    if ( sqrt_s == 0.24 ) {
+    if (sqrt_s == 0.240) {
         
         C1 = 0.017;
         
@@ -5516,7 +5516,7 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
             throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
         }
         
-    } else if ( sqrt_s == 0.25 ) {
+    } else if (sqrt_s == 0.250) {
         
         C1 = 0.015;
         
@@ -5552,25 +5552,25 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
             throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
         }
         
-    } else if ( sqrt_s == 0.35 ) {
+    } else if (sqrt_s == 0.350) {
         
         C1 = 0.0057;
 
         mu = 1.0; 
     
-    } else if ( sqrt_s == 0.365 ) {
+    } else if (sqrt_s == 0.365) {
         
         C1 = 0.0057; // Use same as 350 GeV
 
         mu = 1.0; 
     
-    } else if ( sqrt_s == 0.380 ) {
+    } else if (sqrt_s == 0.380) {
         
         C1 = 0.0057; // Use same as 350 GeV
 
         mu = 1.0; 
     
-    } else if ( sqrt_s == 0.500 ) {
+    } else if (sqrt_s == 0.500) {
         
         C1 = 0.00099;
 
@@ -5606,19 +5606,19 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
             throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
         } 
     
-    } else if ( sqrt_s == 1.0 ) {
+    } else if (sqrt_s == 1.0) {
         
         C1 = -0.0012;
 
         mu = 1.0; 
     
-    } else if ( sqrt_s == 1.4 ) {
+    } else if (sqrt_s == 1.4) {
         
         C1 = -0.0011;
 
         mu = 1.0; 
     
-    } else if ( sqrt_s == 3.0 ) {
+    } else if (sqrt_s == 3.0) {
         
         C1 = -0.00054;
 
@@ -5631,11 +5631,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
     mu += eeeZHint + eeeZHpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -5852,11 +5852,11 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
     mu += ettHint + ettHpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -6214,7 +6214,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 ;
         }
         
-    } else if ( sqrt_s == 1.4 ) {
+    } else if (sqrt_s == 1.4) {
         
         C1 = 0.0094;
        
@@ -6237,7 +6237,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 +3.202 * -0.5 * (CHQ1_33 - CHQ3_33) * v2_over_LambdaNP2
                 ;
         
-    } else if ( sqrt_s == 3.0 ) {
+    } else if (sqrt_s == 3.0) {
         
         C1 = 0.0037;
         
@@ -6267,11 +6267,11 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
     mu += eeettHint + eeettHpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -6285,25 +6285,25 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
     
     double C1 = 0.0; 
     
-    if ( sqrt_s == 0.500 ) {
+    if (sqrt_s == 0.500) {
         
         C1 = 0.086;
 
         mu = 1.0; 
           
-    } else if ( sqrt_s == 1.0 ) {
+    } else if (sqrt_s == 1.0) {
         
         C1 = 0.017;
 
         mu = 1.0; 
         
-    } else if ( sqrt_s == 1.4 ) {
+    } else if (sqrt_s == 1.4) {
         
         C1 = 0.0094;
 
         mu = 1.0; 
              
-    } else if ( sqrt_s == 3.0 ) {
+    } else if (sqrt_s == 3.0) {
         
         C1 = 0.0037;
 
@@ -6316,11 +6316,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
     mu += eeettHint + eeettHpar;
     
 //  Linear contribution from Higgs self-coupling
-    mu = mu + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
 //  Quadratic contribution from Higgs self-coupling
-        mu = mu + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
     }
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -6630,14 +6630,14 @@ double NPSMEFTd6::GammaHggRatio() const
     width += deltaGammaHggRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHggRatio2();  
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
@@ -6714,14 +6714,14 @@ double NPSMEFTd6::GammaHWWRatio() const
     width += deltaGammaHWWRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHWWRatio2();
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
@@ -6783,14 +6783,14 @@ double NPSMEFTd6::GammaHZZRatio() const
     width += deltaGammaHZZRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHZZRatio2();   
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         }
     
     return width;
@@ -6869,14 +6869,14 @@ double NPSMEFTd6::GammaHZgaRatio() const
     width += deltaGammaHZgaRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHZgaRatio2();      
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         }
     
     return width;
@@ -7013,14 +7013,14 @@ double NPSMEFTd6::GammaHgagaRatio() const
     width += deltaGammaHgagaRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHgagaRatio2();  
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
@@ -7130,14 +7130,14 @@ double NPSMEFTd6::GammaHmumuRatio() const
     width += deltaGammaHmumuRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHmumuRatio2();
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
@@ -7190,14 +7190,14 @@ double NPSMEFTd6::GammaHtautauRatio() const
     width += deltaGammaHtautauRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHtautauRatio2();    
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         }
     
     return width;
@@ -7250,14 +7250,14 @@ double NPSMEFTd6::GammaHccRatio() const
     width += deltaGammaHccRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHccRatio2();   
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         }
     
     return width;
@@ -7316,14 +7316,14 @@ double NPSMEFTd6::GammaHbbRatio() const
     width += deltaGammaHbbRatio1();
     
 //  Linear contribution from Higgs self-coupling
-    width = width + (C1 + 2.0*dZH)*deltaG_hhhRatio();
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             width += deltaGammaHbbRatio2();    
             
 //  Quadratic contribution from Higgs self-coupling
-            width = width + dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
         }
     
     return width;
