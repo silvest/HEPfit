@@ -385,7 +385,11 @@ public:
      */    
     int getMPIWorldSize() 
     {
+#ifdef _MPI
         return procnum;
+#else
+        return 1;
+#endif
     }
     
 private:
