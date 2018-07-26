@@ -124,10 +124,10 @@ double Rb0GTHDM::computeThValue()
         
         /*Couplings*/
         
-        double gbL= gbLSM + (sqrt(2)*GF*mtMZ*mtMZ*(u).abs2())/(16*pi*pi)*(f1 + (as/(3*pi))*f2);
+        double gbL= gbLSM + (sqrt(2.0)*GF*mtMZ*mtMZ*(u).abs2())/(16.0*pi*pi)*(f1 + (as/(3.0*pi))*f2);
         
-        double gbR = gbRSM - (sqrt(2)*GF*mbMZ*mbMZ*(d).abs2())/(16*pi*pi)*(f1+ (as/(3*pi))*f2);
-        double sb = ((gbL- gbR)*(gbL- gbR)+ (gbL+ gbR)*(gbL+ gbR))*(1.0 + 3.0*a*Qb*Qb/(4*pi));
+        double gbR = gbRSM - (sqrt(2.0)*GF*mbMZ*mbMZ*(d).abs2())/(16.*pi*pi)*(f1+ (as/(3.0*pi))*f2);
+        double sb = ((gbL- gbR)*(gbL- gbR)+ (gbL+ gbR)*(gbL+ gbR))*(1.0 + 3.0*a*Qb*Qb/(4.0*pi));
         
         /*Rb*/
         

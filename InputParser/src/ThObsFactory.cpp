@@ -1837,6 +1837,24 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda4_GTHDM"] = boost::factory<lambda4_GTHDM*>();
     obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();
     obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>();
+    
+    
+   obsThFactory["mH1mmH2"] = boost::factory<massdifference_mH1mmH2*>();
+   obsThFactory["mH1mmH3"] = boost::factory<massdifference_mH1mmH3*>();
+  obsThFactory["mH2mmH3"] = boost::factory<massdifference_mH2mmH3*>();
+   
+   obsThFactory["R11"]= boost::factory<R11_GTHDM*>();
+   obsThFactory["R12"]= boost::factory<R12_GTHDM*>();
+    obsThFactory["R13"]= boost::factory<R13_GTHDM*>();
+   obsThFactory["R21"]= boost::factory<R21_GTHDM*>();
+   obsThFactory["R22"]= boost::factory<R22_GTHDM*>();
+   obsThFactory["R23"]= boost::factory<R23_GTHDM*>();
+   obsThFactory["R31"]= boost::factory<R31_GTHDM*>();
+   obsThFactory["R32"]= boost::factory<R32_GTHDM*>();
+    obsThFactory["R33"]= boost::factory<R33_GTHDM*>();
+
+
+  
 
     obsThFactory["unitarity1_GTHDM"] = boost::factory<unitarity1_GTHDM*>();
     obsThFactory["unitarity2_GTHDM"] = boost::factory<unitarity2_GTHDM*>();
