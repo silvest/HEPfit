@@ -44,6 +44,7 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
             << "aF11" << "aF12" << "aF21" << "aF22" << "AbsVcb"
             << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
             << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
+            << "mBcstP1" << "mBcstP2" << "mBcstP3"
             << "chiTV" << "chiTA" << "chiTP" << "nI"
             << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
         else {
@@ -65,6 +66,7 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
             << "aF11" << "aF12" << "aF21" << "aF22" << "AbsVcb"
             << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
             << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
+            << "mBcstP1" << "mBcstP2" << "mBcstP3"
             << "chiTV" << "chiTA" << "chiTP" << "nI"
             << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
         else {
@@ -174,6 +176,9 @@ void MVlnu::updateParameters()
                 mBcstA2 = 0.;
                 mBcstA3 = 0.;
                 mBcstA4 = 0.;
+                mBcstP1 = 0.;
+                mBcstP2 = 0.;
+                mBcstP3 = 0.;
                 chiTV = 0.;
                 chiTA = 0.;
                 chiTP = 0.;
@@ -202,6 +207,9 @@ void MVlnu::updateParameters()
                 mBcstA2 = mySM.getOptionalParameter("mBcstA2");
                 mBcstA3 = mySM.getOptionalParameter("mBcstA3");
                 mBcstA4 = mySM.getOptionalParameter("mBcstA4");
+                mBcstP1 = mySM.getOptionalParameter("mBcstP1");
+                mBcstP2 = mySM.getOptionalParameter("mBcstP2");
+                mBcstP3 = mySM.getOptionalParameter("mBcstP3");
                 chiTV = mySM.getOptionalParameter("chiTV");
                 chiTA = mySM.getOptionalParameter("chiTA");
                 chiTP = mySM.getOptionalParameter("chiTP");
@@ -231,12 +239,13 @@ void MVlnu::updateParameters()
     zA3 /= (sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
     zA4 = sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
     zA4 /= (sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zP1 = sqrt((MM+MV)*(MM+MV)-mBcstA1*mBcstA1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zP1 /= (sqrt((MM+MV)*(MM+MV)-mBcstA1*mBcstA1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zP2 = sqrt((MM+MV)*(MM+MV)-mBcstA2*mBcstA2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zP2 /= (sqrt((MM+MV)*(MM+MV)-mBcstA2*mBcstA2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zP3 = sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zP3 /= (sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    
+    zP1 = sqrt((MM+MV)*(MM+MV)-mBcstP1*mBcstP1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zP1 /= (sqrt((MM+MV)*(MM+MV)-mBcstP1*mBcstP1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    zP2 = sqrt((MM+MV)*(MM+MV)-mBcstP2*mBcstP2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zP2 /= (sqrt((MM+MV)*(MM+MV)-mBcstP2*mBcstP2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    zP3 = sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zP3 /= (sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
 
     if((hA1w1 != hA1w1_cache) || (rho2 != rho2_cache) || (R1w1 != R1w1_cache) || (R2w1 != R2w1_cache) 
             || (af0 != af0_cache) || (af1 != af1_cache) || (af2 != af2_cache)

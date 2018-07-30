@@ -140,7 +140,8 @@ private:
     
     double hA1w1,rho2,R1w1,R2w1; /**<CLN form factor parameters*/
     double af0,af1,af2,ag0,ag1,ag2,aF11,aF12,aF21,aF22; /**<BGL form factor parameters*/
-    double mBcstV1,mBcstV2,mBcstV3,mBcstV4,mBcstA1,mBcstA2,mBcstA3,mBcstA4,chiTV,chiTA,chiTP,nI; /**<BGL form factor parameters*/
+    double mBcstV1,mBcstV2,mBcstV3,mBcstV4,mBcstA1,mBcstA2,mBcstA3,mBcstA4,
+        mBcstP1,mBcstP2,mBcstP3,chiTV,chiTA,chiTP,nI; /**<BGL form factor parameters*/
     double zV1,zV2,zV3,zV4,zA1,zA2,zA3,zA4,zP1,zP2,zP3;
     double cached_intJ1s_tau,cached_intJ1c_tau,cached_intJ2s_tau,cached_intJ2c_tau,cached_intJ3_tau,cached_intJ4_tau,
             cached_intJ5_tau,cached_intJ6s_tau,cached_intJ6c_tau,cached_intJ7_tau,cached_intJ8_tau,cached_intJ9_tau,
