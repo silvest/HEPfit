@@ -7,6 +7,7 @@
 
 #include "MVlnuObservables.h"
 #include "MVlnu.h"
+#include "MPlnu.h"
 #include "StandardModel.h"
 
 Gammaw_MVlnu::Gammaw_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
@@ -161,6 +162,21 @@ double UnitarityA_MVlnu::computeThValue()
     return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_unitarity_A_BGL();
 }
 
+UnitarityP_MVlnu::UnitarityP_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep).initializeMVlnuParameters());
+}
+
+double UnitarityP_MVlnu::computeThValue() 
+{
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_unitarity_P_BGL();
+}
+
 FF_hA1atw1::FF_hA1atw1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
 : ThObservable(SM_i) 
 {  
@@ -174,4 +190,21 @@ FF_hA1atw1::FF_hA1atw1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson
 double FF_hA1atw1::computeThValue()  
 {
     return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA1w1();
+}
+
+UnitarityV_D_Dst::UnitarityV_D_Dst(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::meson pseudoscalar_i,  QCD::lepton lep_i)
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    pseudoscalarM = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep).initializeMVlnuParameters());
+    setParametersForObservable(SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).initializeMPlnuParameters());
+}
+
+double UnitarityV_D_Dst::computeThValue() 
+{
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_unitarity_V_BGL() + SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).get_unitarity_1min_BGL();
 }
