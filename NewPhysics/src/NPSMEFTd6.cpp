@@ -6369,27 +6369,27 @@ double NPSMEFTd6::BrHggRatio() const
 
 double NPSMEFTd6::BrHWWRatio() const
 {
+    
+    return BrHWW4fRatio();
+
+}
+
+double NPSMEFTd6::BrHWlvRatio() const
+{
     double Br = 1.0;
     
-    Br += deltaGammaHWWRatio1() - deltaGammaTotalRatio1();
+    Br += deltaGammaHWlvRatio1() - deltaGammaTotalRatio1();
     
     if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHWWRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHWWRatio2() - deltaGammaTotalRatio2()
+        Br += - deltaGammaHWlvRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHWlvRatio2() - deltaGammaTotalRatio2()
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
-
-}
-
-double NPSMEFTd6::BrHWlvRatio() const
-{
-    //  Temporaty definition
-    return BrHWWRatio();
 }
     
 double NPSMEFTd6::BrHWW2l2vRatio() const
@@ -6408,29 +6408,85 @@ double NPSMEFTd6::BrHWW2l2vRatio() const
     return ( BrHWlvRatio() + deltaBRratio );
 }
 
-double NPSMEFTd6::BrHZZRatio() const
+double NPSMEFTd6::BrHWjjRatio() const
 {
     double Br = 1.0;
     
-    Br += deltaGammaHZZRatio1() - deltaGammaTotalRatio1();
+    Br += deltaGammaHWjjRatio1() - deltaGammaTotalRatio1();
     
     if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZZRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZZRatio2() - deltaGammaTotalRatio2()
+        Br += - deltaGammaHWjjRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHWjjRatio2() - deltaGammaTotalRatio2()
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
+}
 
+double NPSMEFTd6::BrHWW4jRatio() const
+{
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Wff(quarks[UP], quarks[DOWN]) 
+            + deltaGamma_Wff(quarks[CHARM], quarks[STRANGE]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaW(quarks[UP], quarks[DOWN]) 
+            + trueSM.GammaW(quarks[CHARM], quarks[STRANGE]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_W() / trueSM.GammaW();
+    
+    return ( BrHWjjRatio() + deltaBRratio );
+}
+
+double NPSMEFTd6::BrHWffRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHWffRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHWffRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHWffRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+
+double NPSMEFTd6::BrHWW4fRatio() const
+{    
+    return BrHWffRatio();
+}
+
+double NPSMEFTd6::BrHZZRatio() const
+{    
+    return BrHZZ4fRatio();
 }
 
 double NPSMEFTd6::BrHZllRatio() const
 {
-    //  Temporaty definition
-    return BrHZZRatio();
+    double Br = 1.0;
+    
+    Br += deltaGammaHZllRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHZllRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZllRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
 }
 
 double NPSMEFTd6::BrHZZ4lRatio() const
@@ -6446,6 +6502,134 @@ double NPSMEFTd6::BrHZZ4lRatio() const
     deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
     
     return ( BrHZllRatio() + deltaBRratio );
+}
+
+double NPSMEFTd6::BrHZvvRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHZvvRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHZvvRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZvvRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::BrHZZ4vRatio() const
+{
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Zf(leptons[NEUTRINO_1]) 
+            + deltaGamma_Zf(leptons[NEUTRINO_2])
+            + deltaGamma_Zf(leptons[NEUTRINO_3]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaZ(leptons[NEUTRINO_1]) 
+            + trueSM.GammaZ(leptons[NEUTRINO_2]) 
+            + trueSM.GammaZ(leptons[NEUTRINO_3]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+    
+    return ( BrHZvvRatio() + deltaBRratio );
+}
+
+double NPSMEFTd6::BrHZuuRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHZuuRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHZuuRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZuuRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::BrHZZ4uRatio() const
+{
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Zf(quarks[UP]) 
+            + deltaGamma_Zf(quarks[CHARM]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaZ(quarks[UP]) + trueSM.GammaZ(quarks[CHARM]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+    
+    return ( BrHZuuRatio() + deltaBRratio );
+}
+
+double NPSMEFTd6::BrHZddRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHZddRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHZddRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZddRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::BrHZZ4dRatio() const
+{
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Zf(quarks[DOWN]) 
+            + deltaGamma_Zf(quarks[STRANGE]) 
+            + deltaGamma_Zf(quarks[BOTTOM]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaZ(quarks[DOWN]) 
+            + trueSM.GammaZ(quarks[STRANGE]) 
+            + trueSM.GammaZ(quarks[BOTTOM]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+    
+    return ( BrHZddRatio() + deltaBRratio );
+}
+
+double NPSMEFTd6::BrHZffRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHZffRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHZffRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZffRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::BrHZZ4fRatio() const
+{    
+    return BrHZffRatio();
 }
 
 double NPSMEFTd6::BrHZgaRatio() const
@@ -6646,15 +6830,18 @@ double NPSMEFTd6::GammaHggRatio() const
 
 double NPSMEFTd6::deltaGammaHggRatio1() const
 {
-    double dwidth;
+    double dwidth = 0.0;
     
-    dwidth = ( +121249. * CHbox / LambdaNP2
-            +173400. * CuH_22r / LambdaNP2
-            -128860. * CuH_33r / LambdaNP2
-            +248587. * CdH_33r / LambdaNP2
+    dwidth = ( +37523820. * CHG / LambdaNP2
+            + cLHd6 * (
+            +121249. * CHbox / LambdaNP2
+            -121249. * CHL3_11 / LambdaNP2
+            +173342. * CuH_22r / LambdaNP2
+            -129305. * CuH_33r / LambdaNP2
+            +248515. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            +37390592. * CHG / LambdaNP2
-            -60624.6 * DeltaGF() / v() / v() );
+            -60624.6 * DeltaGF() / v() / v() ) 
+            );
 
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHggint + eHggpar;
@@ -6665,42 +6852,7 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
 double NPSMEFTd6::deltaGammaHggRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return ( +3675338322. * CHbox / LambdaNP2 * CHbox / LambdaNP2
-            -7350676644. * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-            +10512328996. * CHbox / LambdaNP2 * CuH_22r / LambdaNP2
-            -7812106277. * CHbox / LambdaNP2 * CuH_33r / LambdaNP2
-            +15070455306. * CHbox / LambdaNP2 * CdH_33r / LambdaNP2
-            -1837669161. * CHbox / LambdaNP2 * CHD / LambdaNP2
-            +2266788502923. * CHbox / LambdaNP2 * CHG / LambdaNP2
-            +3675338322. * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-            +3675338322. * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-            -10512328996. * CHL3_11 / LambdaNP2 * CuH_22r / LambdaNP2
-            +7812106277. * CHL3_11 / LambdaNP2 * CuH_33r / LambdaNP2
-            -15070455306. * CHL3_11 / LambdaNP2 * CdH_33r / LambdaNP2
-            +1837669161. * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-            -2266788502922. * CHL3_11 / LambdaNP2 * CHG / LambdaNP2
-            -3675338322. * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-            +14576143481. * CuH_22r / LambdaNP2 * CuH_22r / LambdaNP2
-            -12069614762. * CuH_22r / LambdaNP2 * CuH_33r / LambdaNP2
-            +54515542771. * CuH_22r / LambdaNP2 * CdH_33r / LambdaNP2
-            -2628082249. * CuH_22r / LambdaNP2 * CHD / LambdaNP2
-            +3502162286037. * CuH_22r / LambdaNP2 * CHG / LambdaNP2
-            +5256164498. * CuH_22r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +4179770404. * CuH_33r / LambdaNP2 * CuH_33r / LambdaNP2
-            -18111661684. * CuH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            +1953026569. * CuH_33r / LambdaNP2 * CHD / LambdaNP2
-            -2425634050957. * CuH_33r / LambdaNP2 * CHG / LambdaNP2
-            -3906053138. * CuH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +53929075760. * CdH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            -3767613827. * CdH_33r / LambdaNP2 * CHD / LambdaNP2
-            +5255344080213. * CdH_33r / LambdaNP2 * CHG / LambdaNP2
-            +7535227653. * CdH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +229708645. * CHD / LambdaNP2 * CHD / LambdaNP2
-            -566697125731. * CHD / LambdaNP2 * CHG / LambdaNP2
-            -918834581. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-            +228376225497250. * CHG / LambdaNP2 * CHG / LambdaNP2
-            +1133394251461. * CHG / LambdaNP2 * CLL_1221 / LambdaNP2
-            +918834581. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );
+    return ( 0.0 );
     
 }
 
@@ -6730,14 +6882,9 @@ double NPSMEFTd6::GammaHWWRatio() const
 
 double NPSMEFTd6::deltaGammaHWWRatio1() const
 {    
-    double dwidth;
+    double dwidth = 0.0;
 
-    dwidth = ( +121100. * CHbox / LambdaNP2
-                -117075. * CHD / LambdaNP2
-                -91657.4 * CHW / LambdaNP2
-                -190618. * CHWB / LambdaNP2
-                +38345.4 * CDHW / LambdaNP2
-                -1.849 * DeltaGF() );
+    dwidth = deltaGammaHWffRatio1();
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHWWint + eHWWpar;
@@ -6749,27 +6896,164 @@ double NPSMEFTd6::deltaGammaHWWRatio1() const
 double NPSMEFTd6::deltaGammaHWWRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return ( +3675070317.  * CHbox / LambdaNP2 * CHbox / LambdaNP2
-                -7091873661.  * CHbox / LambdaNP2 * CHD / LambdaNP2
-                -5530926638.  * CHbox / LambdaNP2 * CHW / LambdaNP2
-                -11515676206.  * CHbox / LambdaNP2 * CHWB / LambdaNP2
-                +2241942559.  * CHbox / LambdaNP2 * CDHW / LambdaNP2
-                -112676.  * CHbox / LambdaNP2 * DeltaGF()
-                +3421412536.  * CHD / LambdaNP2 * CHD / LambdaNP2
-                +5327587542.  * CHD / LambdaNP2 * CHW / LambdaNP2
-                +11099269734.  * CHD / LambdaNP2 * CHWB / LambdaNP2
-                -2166464532.  * CHD / LambdaNP2 * CDHW / LambdaNP2
-                +108782.  * CHD / LambdaNP2 * DeltaGF()
-                +2929837690.  * CHW / LambdaNP2 * CHW / LambdaNP2
-                +8664103424.  * CHW / LambdaNP2 * CHWB / LambdaNP2
-                -2001161200.  * CHW / LambdaNP2 * CDHW / LambdaNP2
-                +84850.3  * CHW / LambdaNP2 * DeltaGF()
-                +9020462932.  * CHWB / LambdaNP2 * CHWB / LambdaNP2
-                -3515805228.  * CHWB / LambdaNP2 * CDHW / LambdaNP2
-                +176601.  * CHWB / LambdaNP2 * DeltaGF()
-                +372822749.  * CDHW / LambdaNP2 * CDHW / LambdaNP2
-                -34333.3  * CDHW / LambdaNP2 * DeltaGF()
-                +0.865  * DeltaGF() * DeltaGF() );
+    return deltaGammaHWffRatio2();
+    
+}
+
+double NPSMEFTd6::GammaHWlvRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+    
+    double C1 = 0.0073;
+
+    width += deltaGammaHWlvRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHWlvRatio2();
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHWlvRatio1() const
+{    
+    double dwidth = 0.0;
+
+    dwidth = ( +121875. * CHbox / LambdaNP2
+                -380801. * CHL3_11 / LambdaNP2
+                -159873. * CHD / LambdaNP2
+                -91288.7 * CHW / LambdaNP2
+                -284689. * CHWB / LambdaNP2
+                +37703.7 * CDHW / LambdaNP2
+                +199576. * CLL_1221 / LambdaNP2
+                -15.14 * deltaMw()
+                +115.287 * deltaMw2()  );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHWWint + eHWWpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHWlvRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    return ( 0.0 );
+    
+}
+
+double NPSMEFTd6::GammaHWjjRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+    
+    double C1 = 0.0073;
+
+    width += deltaGammaHWjjRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHWjjRatio2();
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHWjjRatio1() const
+{    
+    double dwidth = 0.0;
+
+    dwidth = ( +121611. * CHbox / LambdaNP2
+                +17701.4 * CHQ3_11 / LambdaNP2
+                -159273. * CHD / LambdaNP2
+                -91021.6 * CHW / LambdaNP2
+                -282574. * CHWB / LambdaNP2
+                +37917.5 * CDHW / LambdaNP2
+                -3.259 * DeltaGF()
+                -15.198 * deltaMw()
+                +121.807 * deltaMw2()  );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHWWint + eHWWpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHWjjRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    return ( 0.0 );
+    
+}
+
+double NPSMEFTd6::GammaHWffRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+    
+    double C1 = 0.0073;
+
+    width += deltaGammaHWffRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHWffRatio2();
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHWffRatio1() const
+{    
+    double dwidth = 0.0;
+
+    dwidth = ( +121288. * CHbox / LambdaNP2
+                -389765. * CHL3_11 / LambdaNP2
+                +11680.9 * CHQ3_11 / LambdaNP2
+                -159787. * CHD / LambdaNP2
+                -91509.1 * CHW / LambdaNP2
+                -283092. * CHWB / LambdaNP2
+                +37845.1 * CDHW / LambdaNP2
+                +197580. * CLL_1221 / LambdaNP2
+                -15.196 * deltaMw()
+                +106.857 * deltaMw2()  );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHWWint + eHWWpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHWffRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    return ( 0.0 );
     
 }
 
@@ -6799,16 +7083,9 @@ double NPSMEFTd6::GammaHZZRatio() const
 
 double NPSMEFTd6::deltaGammaHZZRatio1() const
 {
-    double dwidth;
+    double dwidth = 0.0;
 
-    dwidth = ( +120032. * CHbox / LambdaNP2
-                +29732.2 * CHD / LambdaNP2
-                -13963.3 * CHB / LambdaNP2
-                -46223.3 * CHW / LambdaNP2
-                -25579.3 * CHWB / LambdaNP2
-                +15260.6 * CDHB / LambdaNP2
-                +28274.3 * CDHW / LambdaNP2
-                -0.992 * DeltaGF() );
+    dwidth = deltaGammaHZffRatio1();
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -6820,42 +7097,280 @@ double NPSMEFTd6::deltaGammaHZZRatio1() const
 double NPSMEFTd6::deltaGammaHZZRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return ( +3675794964.  * CHbox / LambdaNP2 * CHbox / LambdaNP2
-                +1836272445.  * CHbox / LambdaNP2 * CHD / LambdaNP2
-                -837280012.  * CHbox / LambdaNP2 * CHB / LambdaNP2
-                -2787840082.  * CHbox / LambdaNP2 * CHW / LambdaNP2
-                -1528719029.  * CHbox / LambdaNP2 * CHWB / LambdaNP2
-                +948225722.  * CHbox / LambdaNP2 * CDHB / LambdaNP2
-                +1730083258.  * CHbox / LambdaNP2 * CDHW / LambdaNP2
-                -60644.3  * CHbox / LambdaNP2 * DeltaGF()
-                +229531548.  * CHD / LambdaNP2 * CHD / LambdaNP2
-                -209044482.  * CHD / LambdaNP2 * CHB / LambdaNP2
-                -696216048.  * CHD / LambdaNP2 * CHW / LambdaNP2
-                -381621025.  * CHD / LambdaNP2 * CHWB / LambdaNP2
-                +237582729.  * CHD / LambdaNP2 * CDHB / LambdaNP2
-                +433363427.  * CHD / LambdaNP2 * CDHW / LambdaNP2
-                -15151.7  * CHD / LambdaNP2 * DeltaGF()
-                +67092431.  * CHB / LambdaNP2 * CHB / LambdaNP2
-                +447244235.  * CHB / LambdaNP2 * CHW / LambdaNP2
-                +245015102.  * CHB / LambdaNP2 * CHWB / LambdaNP2
-                -124762787.  * CHB / LambdaNP2 * CDHB / LambdaNP2
-                -227788589.  * CHB / LambdaNP2 * CDHW / LambdaNP2
-                +6903.17  * CHB / LambdaNP2 * DeltaGF()
-                +744004191.  * CHW / LambdaNP2 * CHW / LambdaNP2
-                +815851361.  * CHW / LambdaNP2 * CHWB / LambdaNP2
-                -415479542.  * CHW / LambdaNP2 * CDHB / LambdaNP2
-                -758148037.  * CHW / LambdaNP2 * CDHW / LambdaNP2
-                +22981.7  * CHW / LambdaNP2 * DeltaGF()
-                +223472766.  * CHWB / LambdaNP2 * CHWB / LambdaNP2
-                -227707672.  * CHWB / LambdaNP2 * CDHB / LambdaNP2
-                -415590330.  * CHWB / LambdaNP2 * CDHW / LambdaNP2
-                +12595.7  * CHWB / LambdaNP2 * DeltaGF()
-                +65918124.  * CDHB / LambdaNP2 * CDHB / LambdaNP2
-                +240411498.  * CDHB / LambdaNP2 * CDHW / LambdaNP2
-                -7829.46  * CDHB / LambdaNP2 * DeltaGF()
-                +219560638.  * CDHW / LambdaNP2 * CDHW / LambdaNP2
-                -14272.5  * CDHW / LambdaNP2 * DeltaGF()
-                +0.25  * DeltaGF() * DeltaGF() );
+    return deltaGammaHZffRatio2();
+    
+}
+
+double NPSMEFTd6::GammaHZllRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+    
+    double C1 = 0.0083;
+
+    width += deltaGammaHZllRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZllRatio2();   
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZllRatio1() const
+{
+    double dwidth = 0.0;
+
+    dwidth = ( +121715. * CHbox / LambdaNP2
+                +8726.9 * CHL1_11 / LambdaNP2
+                -7315.2 * CHe_11 / LambdaNP2
+                -257923. * CHL3_11 / LambdaNP2
+                -5544.15 * CHD / LambdaNP2
+                -13560.9 * CHB / LambdaNP2
+                -45585.2 * CHW / LambdaNP2
+                -53507.9 * CHWB / LambdaNP2
+                +16829.2 * CDHB / LambdaNP2
+                +30766.6 * CDHW / LambdaNP2
+                +133624. * CLL_1221 / LambdaNP2  );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZllRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    return ( 0.0 );
+    
+}
+
+double NPSMEFTd6::GammaHZvvRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+    
+    double C1 = 0.0083;
+
+    width += deltaGammaHZvvRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZvvRatio2();   
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZvvRatio1() const
+{
+    double dwidth = 0.0;
+
+    dwidth = ( +121530. * CHbox / LambdaNP2
+                -7943.34 * CHL1_11 / LambdaNP2
+                -234630. * CHL3_11 / LambdaNP2
+                -229.41 * CHD / LambdaNP2
+                -13535.2 * CHB / LambdaNP2
+                -45480.6 * CHW / LambdaNP2
+                -24891. * CHWB / LambdaNP2
+                +16833. * CDHB / LambdaNP2
+                +30597.6 * CDHW / LambdaNP2
+                +121243. * CLL_1221 / LambdaNP2  );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZvvRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    return ( 0.0 );
+    
+}
+
+double NPSMEFTd6::GammaHZuuRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+    
+    double C1 = 0.0083;
+
+    width += deltaGammaHZuuRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZuuRatio2();   
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZuuRatio1() const
+{
+    double dwidth = 0.0;
+
+    dwidth = ( +121512. * CHbox / LambdaNP2
+                -9648.28 * CHQ1_11 / LambdaNP2
+                +4218.6 * CHu_11 / LambdaNP2
+                +9628.1 * CHQ3_11 / LambdaNP2
+                -17762.5 * CHD / LambdaNP2
+                -13473.3 * CHB / LambdaNP2
+                -45667.9 * CHW / LambdaNP2
+                -110057. * CHWB / LambdaNP2
+                +16854.2 * CDHB / LambdaNP2
+                +30781.7 * CDHW / LambdaNP2
+                -2.6 * DeltaGF()  );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZuuRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    return ( 0.0 );
+    
+}
+
+double NPSMEFTd6::GammaHZddRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+    
+    double C1 = 0.0083;
+
+    width += deltaGammaHZddRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZddRatio2();   
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZddRatio1() const
+{
+    double dwidth = 0.0;
+
+    dwidth = ( +121756. * CHbox / LambdaNP2
+                +9252.73 * CHQ1_11 / LambdaNP2
+                -1471.03 * CHd_11 / LambdaNP2
+                +9241.79 * CHQ3_11 / LambdaNP2
+                -12714.3 * CHD / LambdaNP2
+                -13589.3 * CHB / LambdaNP2
+                -45689.4 * CHW / LambdaNP2
+                -85582.3 * CHWB / LambdaNP2
+                +17007.1 * CDHB / LambdaNP2
+                +30733.1 * CDHW / LambdaNP2
+                -2.427 * DeltaGF()  );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZddRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    return ( 0.0 );
+    
+}
+
+double NPSMEFTd6::GammaHZffRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+    
+    double C1 = 0.0083;
+
+    width += deltaGammaHZffRatio1();
+    
+//  Linear contribution from Higgs self-coupling
+    width = width + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZffRatio2();   
+            
+//  Quadratic contribution from Higgs self-coupling
+            width = width + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZffRatio1() const
+{
+    double dwidth = 0.0;
+
+    dwidth = ( +121551. * CHbox / LambdaNP2
+                -824.482 * CHL1_11 / LambdaNP2
+                +1840.54 * CHQ1_11 / LambdaNP2
+                -795.383 * CHe_11 / LambdaNP2
+                +1069.4 * CHu_11 / LambdaNP2
+                -579.563 * CHd_11 / LambdaNP2
+                -282543. * CHL3_11 / LambdaNP2
+                +6413.99 * CHQ3_11 / LambdaNP2
+                -10839.5 * CHD / LambdaNP2
+                -14222.3 * CHB / LambdaNP2
+                -45455.6 * CHW / LambdaNP2
+                -75343.1 * CHWB / LambdaNP2
+                +16804.9 * CDHB / LambdaNP2
+                +30421. * CDHW / LambdaNP2
+                +142854. * CLL_1221 / LambdaNP2  );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZffRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    return ( 0.0 );
     
 }
 
@@ -6885,20 +7400,24 @@ double NPSMEFTd6::GammaHZgaRatio() const
 
 double NPSMEFTd6::deltaGammaHZgaRatio1() const
 {
-    double dwidth;
+    double dwidth = 0.0;
 
-    dwidth = ( +119538. * CHbox / LambdaNP2
-            -321.71 * CeH_33r / LambdaNP2
-            -2910.68 * CuH_22r / LambdaNP2
-            +6522.67 * CuH_33r / LambdaNP2
-            -6118.03 * CdH_33r / LambdaNP2
-            -120435. * CHD / LambdaNP2
-            +14997549. * CHB / LambdaNP2
-            -14997549. * CHW / LambdaNP2
-            +9237644. * CHWB / LambdaNP2
-            -2872389. * CDHB / LambdaNP2
-            +1586252. * CDHW / LambdaNP2
-            -115000. * DeltaGF() / v() / v() );
+//  It does not include modifications of Zff vertices or MW
+    dwidth = ( +14894896. * CHB / LambdaNP2
+            -14894896. * CHW / LambdaNP2
+            +9508500. * CHWB / LambdaNP2
+            -2869606. * CDHB / LambdaNP2
+            +1572591. * CDHW / LambdaNP2
+            + cLHd6 * (
+            +120004. * CHbox / LambdaNP2
+            -374.02 * CeH_33r / LambdaNP2
+            -2953.25 * CuH_22r / LambdaNP2
+            +6645.39 * CuH_33r / LambdaNP2
+            -6121.81 * CdH_33r / LambdaNP2
+            -120353. * CHD / LambdaNP2
+            -198058. * CHWB / LambdaNP2
+            -114271. * DeltaGF() / v() / v() )
+             );
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZgaint + eHZgapar;
@@ -6909,97 +7428,7 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
 double NPSMEFTd6::deltaGammaHZgaRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return ( +3572354374. * CHbox / LambdaNP2 * CHbox / LambdaNP2
-            -13746871780. * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-            -19228428. * CHbox / LambdaNP2 * CeH_33r / LambdaNP2
-            -173969500. * CHbox / LambdaNP2 * CuH_22r / LambdaNP2
-            +389854519. * CHbox / LambdaNP2 * CuH_33r / LambdaNP2
-            -365671769. * CHbox / LambdaNP2 * CdH_33r / LambdaNP2
-            -7198310278. * CHbox / LambdaNP2 * CHD / LambdaNP2
-            +896391115001. * CHbox / LambdaNP2 * CHB / LambdaNP2
-            -896391115001. * CHbox / LambdaNP2 * CHW / LambdaNP2
-            +552126360087. * CHbox / LambdaNP2 * CHWB / LambdaNP2
-            -171680296875. * CHbox / LambdaNP2 * CDHB / LambdaNP2
-            +94808952497. * CHbox / LambdaNP2 * CDHW / LambdaNP2
-            +6873435890. * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-            +13224927460. * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-            +36990810. * CHL3_11 / LambdaNP2 * CeH_33r / LambdaNP2
-            +334679379. * CHL3_11 / LambdaNP2 * CuH_22r / LambdaNP2
-            -750104982. * CHL3_11 / LambdaNP2 * CuH_33r / LambdaNP2
-            +703428859. * CHL3_11 / LambdaNP2 * CdH_33r / LambdaNP2
-            +13850007508. * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-            -1724713728406. * CHL3_11 / LambdaNP2 * CHB / LambdaNP2
-            +1724713728406. * CHL3_11 / LambdaNP2 * CHW / LambdaNP2
-            -1062326363035. * CHL3_11 / LambdaNP2 * CHWB / LambdaNP2
-            +330323850787. * CHL3_11 / LambdaNP2 * CDHB / LambdaNP2
-            -182418476948. * CHL3_11 / LambdaNP2 * CDHW / LambdaNP2
-            -13224927460. * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-            +30650.9 * CeH_33r / LambdaNP2 * CeH_33r / LambdaNP2
-            +547410. * CeH_33r / LambdaNP2 * CuH_22r / LambdaNP2
-            -1048860. * CeH_33r / LambdaNP2 * CuH_33r / LambdaNP2
-            +1221618. * CeH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            +19367846. * CeH_33r / LambdaNP2 * CHD / LambdaNP2
-            -2411640054. * CeH_33r / LambdaNP2 * CHB / LambdaNP2
-            +2411640054. * CeH_33r / LambdaNP2 * CHW / LambdaNP2
-            -1485434229. * CeH_33r / LambdaNP2 * CHWB / LambdaNP2
-            +461886640. * CeH_33r / LambdaNP2 * CDHB / LambdaNP2
-            -255072885. * CeH_33r / LambdaNP2 * CDHW / LambdaNP2
-            -18495405. * CeH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +2446415. * CuH_22r / LambdaNP2 * CuH_22r / LambdaNP2
-            -9489840. * CuH_22r / LambdaNP2 * CuH_33r / LambdaNP2
-            +10873108. * CuH_22r / LambdaNP2 * CdH_33r / LambdaNP2
-            +175234540. * CuH_22r / LambdaNP2 * CHD / LambdaNP2
-            -21819956015. * CuH_22r / LambdaNP2 * CHB / LambdaNP2
-            +21819956015. * CuH_22r / LambdaNP2 * CHW / LambdaNP2
-            -13439862009. * CuH_22r / LambdaNP2 * CHWB / LambdaNP2
-            +4179042456. * CuH_22r / LambdaNP2 * CDHB / LambdaNP2
-            -2307839891. * CuH_22r / LambdaNP2 * CDHW / LambdaNP2
-            -167339689. * CuH_22r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +10636307. * CuH_33r / LambdaNP2 * CuH_33r / LambdaNP2
-            -19944392. * CuH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            -392779489. * CuH_33r / LambdaNP2 * CHD / LambdaNP2
-            +48912047811. * CuH_33r / LambdaNP2 * CHB / LambdaNP2
-            -48912047811. * CuH_33r / LambdaNP2 * CHW / LambdaNP2
-            +30127062251. * CuH_33r / LambdaNP2 * CHWB / LambdaNP2
-            -9367824768. * CuH_33r / LambdaNP2 * CDHB / LambdaNP2
-            +5173299846. * CuH_33r / LambdaNP2 * CDHW / LambdaNP2
-            +375052491. * CuH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +12309844. * CdH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            +368294826. * CdH_33r / LambdaNP2 * CHD / LambdaNP2
-            -45858069994. * CdH_33r / LambdaNP2 * CHB / LambdaNP2
-            +45858069994. * CdH_33r / LambdaNP2 * CHW / LambdaNP2
-            -28245984194. * CdH_33r / LambdaNP2 * CHWB / LambdaNP2
-            +8782915113. * CdH_33r / LambdaNP2 * CDHB / LambdaNP2
-            -4850288570. * CdH_33r / LambdaNP2 * CDHW / LambdaNP2
-            -351714430. * CdH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +3626158197. * CHD / LambdaNP2 * CHD / LambdaNP2
-            -903116488795. * CHD / LambdaNP2 * CHB / LambdaNP2
-            +903116488795. * CHD / LambdaNP2 * CHW / LambdaNP2
-            -556268810955. * CHD / LambdaNP2 * CHWB / LambdaNP2
-            +172968366503. * CHD / LambdaNP2 * CDHB / LambdaNP2
-            -95520277759. * CHD / LambdaNP2 * CDHW / LambdaNP2
-            -6925003754. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-            +56231649181760. * CHB / LambdaNP2 * CHB / LambdaNP2
-            -112463298363521. * CHB / LambdaNP2 * CHW / LambdaNP2
-            +69271047570247. * CHB / LambdaNP2 * CHWB / LambdaNP2
-            -21539406323346. * CHB / LambdaNP2 * CDHB / LambdaNP2
-            +11894950021056. * CHB / LambdaNP2 * CDHW / LambdaNP2
-            +862356864203. * CHB / LambdaNP2 * CLL_1221 / LambdaNP2
-            +56231649181760. * CHW / LambdaNP2 * CHW / LambdaNP2
-            -69271047570247. * CHW / LambdaNP2 * CHWB / LambdaNP2
-            +21539406323346. * CHW / LambdaNP2 * CDHB / LambdaNP2
-            -11894950021056. * CHW / LambdaNP2 * CDHW / LambdaNP2
-            -862356864203. * CHW / LambdaNP2 * CLL_1221 / LambdaNP2
-            +21333528810302. * CHWB / LambdaNP2 * CHWB / LambdaNP2
-            -13267059225282. * CHWB / LambdaNP2 * CDHB / LambdaNP2
-            +7326618201175. * CHWB / LambdaNP2 * CDHW / LambdaNP2
-            +531163181518. * CHWB / LambdaNP2 * CLL_1221 / LambdaNP2
-            +2062655246259. * CDHB / LambdaNP2 * CDHB / LambdaNP2
-            -2278166881352. * CDHB / LambdaNP2 * CDHW / LambdaNP2
-            -165161925393. * CDHB / LambdaNP2 * CLL_1221 / LambdaNP2
-            +629048934463. * CDHW / LambdaNP2 * CDHW / LambdaNP2
-            +91209238474. * CDHW / LambdaNP2 * CLL_1221 / LambdaNP2
-            +3306231865. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );
+    return ( 0.0 );
     
 }
 
@@ -7029,18 +7458,22 @@ double NPSMEFTd6::GammaHgagaRatio() const
 
 double NPSMEFTd6::deltaGammaHgagaRatio1() const
 {
-    double dwidth;
+    double dwidth = 0.0;
 
-    dwidth = ( +119212. * CHbox / LambdaNP2
-            -42570.4 * CeH_33r / LambdaNP2
-            -48874.1 * CuH_22r / LambdaNP2
-            +31992.9 * CuH_33r / LambdaNP2
-            -18430.1 * CdH_33r / LambdaNP2
-            -137624. * CHD / LambdaNP2
-            -48142626. * CHB / LambdaNP2
-            -14682079. * CHW / LambdaNP2
-            +26348174. * CHWB / LambdaNP2
-            -125370. * DeltaGF() / v() / v() );
+//  It does not include modifications of MW
+    dwidth = ( -48316360. * CHB / LambdaNP2
+            -14510470. * CHW / LambdaNP2
+            +26478163. * CHWB / LambdaNP2 
+            + cLHd6 * (
+            +119767. * CHbox / LambdaNP2
+            -42566.9 * CeH_33r / LambdaNP2
+            -48869.9 * CuH_22r / LambdaNP2
+            +32119.8 * CuH_33r / LambdaNP2
+            -18429. * CdH_33r / LambdaNP2
+            -137455. * CHD / LambdaNP2
+            -235675. * CHWB / LambdaNP2
+            -124461. * DeltaGF() / v() / v() )
+            );
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHgagaint + eHgagapar;
@@ -7051,72 +7484,7 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
 double NPSMEFTd6::deltaGammaHgagaRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return ( +3552878939. * CHbox / LambdaNP2 * CHbox / LambdaNP2
-            -14945652252. * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-            -2537854461. * CHbox / LambdaNP2 * CeH_33r / LambdaNP2
-            -2913607301. * CHbox / LambdaNP2 * CuH_22r / LambdaNP2
-            +1906965841. * CHbox / LambdaNP2 * CuH_33r / LambdaNP2
-            -1098797271. * CHbox / LambdaNP2 * CdH_33r / LambdaNP2
-            -8203204692. * CHbox / LambdaNP2 * CHD / LambdaNP2
-            -2869585490784. * CHbox / LambdaNP2 * CHB / LambdaNP2
-            -875138828266. * CHbox / LambdaNP2 * CHW / LambdaNP2
-            +1570507157057. * CHbox / LambdaNP2 * CHWB / LambdaNP2
-            +7472826126. * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-            +15718197048. * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-            +5311406908. * CHL3_11 / LambdaNP2 * CeH_33r / LambdaNP2
-            +6100926530. * CHL3_11 / LambdaNP2 * CuH_22r / LambdaNP2
-            -4011186872. * CHL3_11 / LambdaNP2 * CuH_33r / LambdaNP2
-            +2294519933. * CHL3_11 / LambdaNP2 * CdH_33r / LambdaNP2
-            +17254723530. * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-            +6035998863335. * CHL3_11 / LambdaNP2 * CHB / LambdaNP2
-            +1840801394360. * CHL3_11 / LambdaNP2 * CHW / LambdaNP2
-            -3303466457194. * CHL3_11 / LambdaNP2 * CHWB / LambdaNP2
-            -15718197048. * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-            +815713130. * CeH_33r / LambdaNP2 * CeH_33r / LambdaNP2
-            +1787711513. * CeH_33r / LambdaNP2 * CuH_22r / LambdaNP2
-            -674635336. * CeH_33r / LambdaNP2 * CuH_33r / LambdaNP2
-            +846500334. * CeH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            +2908087411. * CeH_33r / LambdaNP2 * CHD / LambdaNP2
-            +1015185343169. * CeH_33r / LambdaNP2 * CHB / LambdaNP2
-            +309601548568. * CeH_33r / LambdaNP2 * CHW / LambdaNP2
-            -555604930506. * CeH_33r / LambdaNP2 * CHWB / LambdaNP2
-            -2655703454. * CeH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +982269617. * CuH_22r / LambdaNP2 * CuH_22r / LambdaNP2
-            -775279437. * CuH_22r / LambdaNP2 * CuH_33r / LambdaNP2
-            +918435000. * CuH_22r / LambdaNP2 * CdH_33r / LambdaNP2
-            +3341211565. * CuH_22r / LambdaNP2 * CHD / LambdaNP2
-            +1166633704511. * CuH_22r / LambdaNP2 * CHB / LambdaNP2
-            +355788826107. * CuH_22r / LambdaNP2 * CHW / LambdaNP2
-            -638491722405. * CuH_22r / LambdaNP2 * CHWB / LambdaNP2
-            -3050463265. * CuH_22r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +255914011. * CuH_33r / LambdaNP2 * CuH_33r / LambdaNP2
-            -290846045. * CuH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            -2201679820. * CuH_33r / LambdaNP2 * CHD / LambdaNP2
-            -770194323138. * CuH_33r / LambdaNP2 * CHB / LambdaNP2
-            -234886522689. * CuH_33r / LambdaNP2 * CHW / LambdaNP2
-            +421522795086. * CuH_33r / LambdaNP2 * CHWB / LambdaNP2
-            +2005593436. * CuH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +227138666. * CdH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            +1254894771. * CdH_33r / LambdaNP2 * CHD / LambdaNP2
-            +437662580431. * CdH_33r / LambdaNP2 * CHB / LambdaNP2
-            +133474161702. * CdH_33r / LambdaNP2 * CHW / LambdaNP2
-            -239530140207. * CdH_33r / LambdaNP2 * CHWB / LambdaNP2
-            -1147259967. * CdH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +4735398687. * CHD / LambdaNP2 * CHD / LambdaNP2
-            +3313068504426. * CHD / LambdaNP2 * CHB / LambdaNP2
-            +1010388050204. * CHD / LambdaNP2 * CHW / LambdaNP2
-            -1813222785915. * CHD / LambdaNP2 * CHWB / LambdaNP2
-            -8627361765. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-            +579490834877631. * CHB / LambdaNP2 * CHB / LambdaNP2
-            +353455181491632. * CHB / LambdaNP2 * CHW / LambdaNP2
-            -634303809067317. * CHB / LambdaNP2 * CHWB / LambdaNP2
-            -3017999431667. * CHB / LambdaNP2 * CLL_1221 / LambdaNP2
-            +53896695945874. * CHW / LambdaNP2 * CHW / LambdaNP2
-            -193443929102058. * CHW / LambdaNP2 * CHWB / LambdaNP2
-            -920400697180. * CHW / LambdaNP2 * CLL_1221 / LambdaNP2
-            +173575360463754. * CHWB / LambdaNP2 * CHWB / LambdaNP2
-            +1651733228597. * CHWB / LambdaNP2 * CLL_1221 / LambdaNP2
-            +3929549262. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );
+    return ( 0.0 );
     
 }
       
@@ -7146,12 +7514,12 @@ double NPSMEFTd6::GammaHmumuRatio() const
 
 double NPSMEFTd6::deltaGammaHmumuRatio1() const
 {
-    double dwidth;
+    double dwidth = 0.0;
     
     dwidth = ( +121249. * CHbox / LambdaNP2
             -199794752. * CeH_22r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            -60624.6 * DeltaGF() / v() / v() );
+            -60624.6 * DeltaGF() / v() / v() ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHmumuint + eHmumupar;
@@ -7162,21 +7530,7 @@ double NPSMEFTd6::deltaGammaHmumuRatio1() const
 double NPSMEFTd6::deltaGammaHmumuRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return (  +3675338322. * CHbox / LambdaNP2 * CHbox / LambdaNP2
-            -7350676644. * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-            -12112470680846. * CHbox / LambdaNP2 * CeH_22r / LambdaNP2
-            -1837669161. * CHbox / LambdaNP2 * CHD / LambdaNP2
-            +3675338322. * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-            +3675338322. * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-            +12112470680846. * CHL3_11 / LambdaNP2 * CeH_22r / LambdaNP2
-            +1837669161. * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-            -3675338322. * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-            +9979485773431880. * CeH_22r / LambdaNP2 * CeH_22r / LambdaNP2
-            +3028117670211. * CeH_22r / LambdaNP2 * CHD / LambdaNP2
-            -6056235340423. * CeH_22r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +229708645. * CHD / LambdaNP2 * CHD / LambdaNP2
-            -918834581. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-            +918834581. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );
+    return ( 0.0 );
     
 }
 
@@ -7206,7 +7560,7 @@ double NPSMEFTd6::GammaHtautauRatio() const
 
 double NPSMEFTd6::deltaGammaHtautauRatio1() const
 {
-    double dwidth;
+    double dwidth = 0.0;
 
     dwidth = ( +121249. * CHbox / LambdaNP2
             -11880769. * CeH_33r / LambdaNP2
@@ -7222,21 +7576,7 @@ double NPSMEFTd6::deltaGammaHtautauRatio1() const
 double NPSMEFTd6::deltaGammaHtautauRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return ( +3675338322. * CHbox / LambdaNP2 * CHbox / LambdaNP2
-            -7350676644. * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-            -720266502504. * CHbox / LambdaNP2 * CeH_33r / LambdaNP2
-            -1837669161. * CHbox / LambdaNP2 * CHD / LambdaNP2
-            +3675338322. * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-            +3675338322. * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-            +720266502504. * CHL3_11 / LambdaNP2 * CeH_33r / LambdaNP2
-            +1837669161. * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-            -3675338322. * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-            +35288168676963. * CeH_33r / LambdaNP2 * CeH_33r / LambdaNP2
-            +180066625626. * CeH_33r / LambdaNP2 * CHD / LambdaNP2
-            -360133251252. * CeH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +229708645. * CHD / LambdaNP2 * CHD / LambdaNP2
-            -918834581. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-            +918834581. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );
+    return ( 0.0 );
     
 }
 
@@ -7266,13 +7606,23 @@ double NPSMEFTd6::GammaHccRatio() const
 
 double NPSMEFTd6::deltaGammaHccRatio1() const
 {
-    double dwidth;
+    double dwidth = 0.0;
     
-    dwidth = ( +121249. * CHbox / LambdaNP2
-            -16420490. * CuH_22r / LambdaNP2
-            -1001.52 * CuH_33r / LambdaNP2
+    if (FlagLoopHd6) {
+        
+        dwidth = ( +121249. * CHbox / LambdaNP2
+            -16422087. * CuH_22r / LambdaNP2
+            -993.221 * CuH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
+        
+    } else {
+        
+        dwidth = ( +121249. * CHbox / LambdaNP2
+            -16556853. * CuH_22r / LambdaNP2
+            -30312.3 * CHD / LambdaNP2
+            -60624.6 * DeltaGF() / v() / v() );  
+    }
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHccint + eHccpar;
@@ -7283,26 +7633,7 @@ double NPSMEFTd6::deltaGammaHccRatio1() const
 double NPSMEFTd6::deltaGammaHccRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return ( +3675338322. * CHbox / LambdaNP2 * CHbox / LambdaNP2
-            -7350676644. * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-            -995485129059. * CHbox / LambdaNP2 * CuH_22r / LambdaNP2
-            -60716517. * CHbox / LambdaNP2 * CuH_33r / LambdaNP2
-            -1837669161. * CHbox / LambdaNP2 * CHD / LambdaNP2
-            +3675338322. * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-            +3675338322. * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-            +995485129059. * CHL3_11 / LambdaNP2 * CuH_22r / LambdaNP2
-            +60716517. * CHL3_11 / LambdaNP2 * CuH_33r / LambdaNP2
-            +1837669161. * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-            -3675338322. * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-            +67403475035188. * CuH_22r / LambdaNP2 * CuH_22r / LambdaNP2
-            +8290982561. * CuH_22r / LambdaNP2 * CuH_33r / LambdaNP2
-            +248871282265. * CuH_22r / LambdaNP2 * CHD / LambdaNP2
-            -497742564529. * CuH_22r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +15179129. * CuH_33r / LambdaNP2 * CHD / LambdaNP2
-            -30358259. * CuH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +229708645. * CHD / LambdaNP2 * CHD / LambdaNP2
-            -918834581. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-            +918834581. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );
+    return ( 0.0 );
     
 }
 
@@ -7331,13 +7662,24 @@ double NPSMEFTd6::GammaHbbRatio() const
 
 double NPSMEFTd6::deltaGammaHbbRatio1() const
 {
-    double dwidth;
+    double dwidth = 0.0;
     
-    dwidth = ( +121249. * CHbox / LambdaNP2
-            -562.029 * CuH_33r / LambdaNP2
-            -5026895. * CdH_33r / LambdaNP2
+    
+    if (FlagLoopHd6) {
+        
+        dwidth = ( +121249. * CHbox / LambdaNP2
+            -558.741 * CuH_33r / LambdaNP2
+            -5027111. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
+        
+    } else {
+        
+        dwidth = ( +121249. * CHbox / LambdaNP2
+            -5050236. * CdH_33r / LambdaNP2
+            -30312.3 * CHD / LambdaNP2
+            -60624.6 * DeltaGF() / v() / v() );  
+    }
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHbbint + eHbbpar;
@@ -7348,26 +7690,7 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
 double NPSMEFTd6::deltaGammaHbbRatio2() const
 {
     //Contributions that are quadratic in the effective coefficients
-    return ( +3675338322. * CHbox / LambdaNP2 * CHbox / LambdaNP2
-            -7350676644. * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-            -34072751. * CHbox / LambdaNP2 * CuH_33r / LambdaNP2
-            -304753324752. * CHbox / LambdaNP2 * CdH_33r / LambdaNP2
-            -1837669161. * CHbox / LambdaNP2 * CHD / LambdaNP2
-            +3675338322. * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-            +3675338322. * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-            +34072751. * CHL3_11 / LambdaNP2 * CuH_33r / LambdaNP2
-            +304753324752. * CHL3_11 / LambdaNP2 * CdH_33r / LambdaNP2
-            +1837669161. * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-            -3675338322. * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-            +1419189033. * CuH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            +8518188. * CuH_33r / LambdaNP2 * CHD / LambdaNP2
-            -17036375. * CuH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +6317281455355. * CdH_33r / LambdaNP2 * CdH_33r / LambdaNP2
-            +76188331188. * CdH_33r / LambdaNP2 * CHD / LambdaNP2
-            -152376662376. * CdH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
-            +229708645. * CHD / LambdaNP2 * CHD / LambdaNP2
-            -918834581. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-            +918834581. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );        
+    return ( 0.0 );        
     
 }
 
