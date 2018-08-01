@@ -6,6 +6,3 @@ copy files in BATv1.0_parallel-dev/src-dev to BAT-1.0.0-RC1/src
 ./configure --prefix=path CXX=mpic++
 make
 make install
-
-FOR GCC 5+
-./configure --prefix=path CXX=mpic++
