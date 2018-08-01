@@ -830,10 +830,10 @@ private:
 /**
  * @class BrHtoWWRatio
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the Br@f$(H\to WW)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to WW\to 4f)@f$ with @f$f@f$ any fermion.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to WW)@f$.
+ * @details A class for computing the ratio of the Br@f$(H\to WW\to 4f)@f$.
  * in the current model and in the Standard Model
  */
 class BrHtoWWRatio : public ThObservable {
@@ -851,9 +851,9 @@ public:
     }
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to WW)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to WW\to 4f)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to WW)@f$
+     * @return Br@f$(H\to WW\to 4f)@f$
      */
     double computeThValue()
     {
@@ -864,13 +864,51 @@ private:
     const NPbase* myNPbase;
 };
 
+
+/**
+ * @class BrHtoWW2l2vRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to WW\to 2l2\nu)@f$ with @f$l=e,\mu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to WW\to 2l2\nu)@f$.
+ * in the current model and in the Standard Model
+ */
+class BrHtoWW2l2vRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoWW2l2vRatio(const StandardModel& SM_i)
+    : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoWW2l2vRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to WW\to 2l2\nu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to WW\to 2l2\nu)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHWW2l2vRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
 /**
  * @class BrHtoZZRatio
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the Br@f$(H\to ZZ)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to ZZ \to 4f)@f$ with @f$f@f$ any fermion.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to ZZ)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to ZZ\to 4f)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtoZZRatio : public ThObservable {
@@ -888,13 +926,50 @@ public:
     }
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to ZZ)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to ZZ\to 4f)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to ZZ)@f$
+     * @return Br@f$(H\to ZZ\to 4f)@f$
      */
     double computeThValue()
     {
         return myNPbase->BrHZZRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtoZZ4lRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to ZZ\to 4l)@f$ with @f$l=e,\mu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to ZZ\to 4l)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoZZ4lRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtoZZ4lRatio(const StandardModel& SM_i)
+    : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoZZ4lRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to ZZ\to 4l)@f$ with @f$l=e,\mu@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to ZZ\to 4l)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHZZ4lRatio();
     }
 
 private:
@@ -931,6 +1006,42 @@ public:
     double computeThValue()
     {
         return myNPbase->BrHZgaRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtoZgallRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$ with @f$l=e,\mu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoZgallRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoZgallRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoZgallRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma\to ll\gamma)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHZgallRatio();
     }
 
 private:
@@ -1188,9 +1299,9 @@ public:
     double computeThValue()
     {
         if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHZZRatio()) );
+            return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHZZ4lRatio()) );
         } else {
-            return (myNPbase->BrHgagaRatio())/(myNPbase->BrHZZRatio());
+            return (myNPbase->BrHgagaRatio())/(myNPbase->BrHZZ4lRatio());
         }
     }
 
@@ -1230,9 +1341,9 @@ public:
     double computeThValue()
     {
         if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrHZZRatio()) );
+            return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrHZZ4lRatio()) );
         } else {
-            return (myNPbase->BrHZgaRatio())/(myNPbase->BrHZZRatio());
+            return (myNPbase->BrHZgaRatio())/(myNPbase->BrHZZ4lRatio());
         }
     }
 
@@ -1272,9 +1383,9 @@ public:
     double computeThValue()
     {
         if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrHZZRatio()) );
+            return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrHZZ4lRatio()) );
         } else {
-            return (myNPbase->BrHmumuRatio())/(myNPbase->BrHZZRatio());
+            return (myNPbase->BrHmumuRatio())/(myNPbase->BrHZZ4lRatio());
         }
     }
 
@@ -1312,9 +1423,9 @@ public:
     double computeThValue()
     {
         if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHZZRatio()) - (myNPbase->BrHgagaRatio()) );
+            return (1.0 + (myNPbase->BrHZZ4lRatio()) - (myNPbase->BrHgagaRatio()) );
         } else {
-            return (myNPbase->BrHZZRatio())/(myNPbase->BrHgagaRatio());
+            return (myNPbase->BrHZZ4lRatio())/(myNPbase->BrHgagaRatio());
         }
     }
 

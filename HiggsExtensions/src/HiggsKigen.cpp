@@ -293,14 +293,29 @@ double HiggsKigen::BrHWWRatio() const
     return (computeKW() * computeKW() / computeGammaTotalRatio());
 }
 
+double HiggsKigen::BrHWW2l2vRatio() const
+{
+    return BrHWWRatio();
+}
+
 double HiggsKigen::BrHZZRatio() const
 {
     return (computeKZ() * computeKZ() / computeGammaTotalRatio());
 }
 
+double HiggsKigen::BrHZZ4lRatio() const
+{
+    return BrHZZRatio();
+}
+
 double HiggsKigen::BrHZgaRatio() const
 {
     return (computeKZga() * computeKZga() / computeGammaTotalRatio());
+}
+
+double HiggsKigen::BrHZgallRatio() const
+{
+    return BrHZgaRatio();
 }
 
 double HiggsKigen::BrHgagaRatio() const

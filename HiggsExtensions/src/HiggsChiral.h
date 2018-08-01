@@ -458,17 +458,35 @@ public:
      */
     virtual double BrHWWRatio() const;
     /**
+     * @brief The ratio of the Br@f$(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to WW^*\to l\nu l\nu)@f$/Br@f$(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHWW2l2vRatio() const;
+    /**
      * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
      */
     virtual double BrHZZRatio() const;
     /**
+     * @brief The ratio of the Br@f$(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to ZZ* \to 4l)@f$/Br@f$(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZZ4lRatio() const;
+    /**
      * @brief The ratio of the Br@f$(H\to Z\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma)@f$/Br@f$(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
     virtual double BrHZgaRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma\to ll\gamma)@f$/Br@f$(H\to Z\gamma\to ll\gamma)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZgallRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to \gamma\gamma)@f$ in the current model
      * and in the Standard Model.

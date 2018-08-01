@@ -896,6 +896,16 @@ public:
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$ (@f$l=e,\mu @f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma\to ll\gamma)@f$/Br@f$(H\to Z\gamma\to ll\gamma)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZgallRatio() const
+    {
+        return 1.0;
+    }
 
     /**
      * @brief The ratio of the Br@f$(H\to \gamma\gamma)@f$ in the current model
