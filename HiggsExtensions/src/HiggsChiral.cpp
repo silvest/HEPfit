@@ -128,6 +128,11 @@ double HiggsChiral::muVBF(const double sqrt_s) const
     return computecV() * computecV();
 }
 
+double HiggsChiral::muVBFgamma(const double sqrt_s) const
+{
+    return computecV() * computecV();
+}
+
 double HiggsChiral::mueeWBF(const double sqrt_s) const
 {
     return computecV() * computecV();

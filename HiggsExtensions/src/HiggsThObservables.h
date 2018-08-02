@@ -89,6 +89,46 @@ private:
 };
 
 /**
+ * @class muVBFgamma
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{VBF+\gamma}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{VBF+\gamma}@f$ between the vector-boson
+ * fusion Higgs production cross-section in association with a hard photon
+ * in the current model and in the Standard Model.
+ */
+class muVBFgamma : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVBFgamma(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muVBFgamma called with a class whose parent is not NPbase");
+
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{VBF+\gamma}@f$ in the current model.
+     * @return @f$\mu_{VBF+\gamma}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->muVBFgamma(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
  * @class mueeWBF
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{eeWBF}@f$.

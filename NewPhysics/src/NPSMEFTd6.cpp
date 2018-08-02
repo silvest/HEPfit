@@ -3078,6 +3078,58 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
     return mu;
 }
 
+
+
+
+double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
+{
+    double mu = 1.0;
+    
+    double C1 = 0.0; //Use same values as VBF
+    
+    if (sqrt_s == 13.0) {
+        
+        C1 = 0.0064;
+
+        mu += 
+                +119630. * CHbox / LambdaNP2
+                -501300. * CHQ3_11 / LambdaNP2
+                -200890. * CHD / LambdaNP2
+                +11852.5 * CHB / LambdaNP2
+                -131586. * CHW / LambdaNP2
+                -361991. * CHWB / LambdaNP2
+                -18894.5 * CDHB / LambdaNP2
+                -69025.4 * CDHW / LambdaNP2
+                +23773.1 * CW / LambdaNP2
+                -4.629 * DeltaGF()
+                -5.637 * deltaMw()
+                +20.854 * deltaMw2()
+                ;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::muVBFgamma()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy. Use same as VBF.)
+    mu += eVBFint + eVBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 {
     double mu = 1.0;

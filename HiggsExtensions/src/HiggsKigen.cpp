@@ -182,6 +182,13 @@ double HiggsKigen::muVBF(const double sqrt_s) const
             / (sigmaWF_SM + sigmaZF_SM + sigmaZWF_SM);
 }
 
+double HiggsKigen::muVBFgamma(const double sqrt_s) const
+{
+    // Assume photon comes from the internal W lines -> no ZBF
+    
+    return (computeKW() * computeKW());
+}
+
 double HiggsKigen::mueeWBF(const double sqrt_s) const
 {
     return (computeKW() * computeKW());

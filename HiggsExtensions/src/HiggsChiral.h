@@ -294,6 +294,14 @@ public:
      */
     virtual double muVBF(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{VBF+\gamma}@f$ between the vector-boson fusion Higgs
+     * production cross-section in association with a hard photon in the current model
+     * and in the Standard Model. 
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VBF+\gamma}@f$
+     */
+    virtual double muVBFgamma(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
      * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
      * cross-section in the current model and in the Standard Model.
