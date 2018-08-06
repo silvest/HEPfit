@@ -143,12 +143,12 @@ private:
     double mBcstV1,mBcstV2,mBcstV3,mBcstV4,mBcstA1,mBcstA2,mBcstA3,mBcstA4,
         mBcstP1,mBcstP2,mBcstP3,chiTV,chiTA,chiTP,nI; /**<BGL form factor parameters*/
     double zV1,zV2,zV3,zV4,zA1,zA2,zA3,zA4,zP1,zP2,zP3;
-    double cached_intJ1s_tau,cached_intJ1c_tau,cached_intJ2s_tau,cached_intJ2c_tau,cached_intJ3_tau,cached_intJ4_tau,
-            cached_intJ5_tau,cached_intJ6s_tau,cached_intJ6c_tau,cached_intJ7_tau,cached_intJ8_tau,cached_intJ9_tau,
-           cached_intJ1s_mu,cached_intJ1c_mu,cached_intJ2s_mu,cached_intJ2c_mu,cached_intJ3_mu,
-           cached_intJ4_mu,cached_intJ5_mu,cached_intJ6s_mu,cached_intJ6c_mu,cached_intJ7_mu,cached_intJ8_mu,cached_intJ9_mu,
-           cached_intJ1s_el,cached_intJ1c_el,cached_intJ2s_el,cached_intJ2c_el,cached_intJ3_el,cached_intJ4_el,
-           cached_intJ5_el,cached_intJ6s_el,cached_intJ6c_el,cached_intJ7_el,cached_intJ8_el,cached_intJ9_el; /**< caching Js integral btw q2min and q2mx*/
+    double cached_intJ1s_tau, cached_intJ1c_tau, cached_intJ2s_tau, cached_intJ2c_tau, cached_intJ3_tau, cached_intJ4_tau,
+                cached_intJ5_tau, cached_intJ6s_tau, cached_intJ6c_tau, cached_intJ7_tau, cached_intJ8_tau, cached_intJ9_tau,
+                cached_intJ1s_mu, cached_intJ1c_mu, cached_intJ2s_mu, cached_intJ2c_mu, cached_intJ3_mu,
+                cached_intJ4_mu, cached_intJ5_mu, cached_intJ6s_mu, cached_intJ6c_mu, cached_intJ7_mu, cached_intJ8_mu, cached_intJ9_mu,
+                cached_intJ1s_el, cached_intJ1c_el, cached_intJ2s_el, cached_intJ2c_el, cached_intJ3_el, cached_intJ4_el,
+                cached_intJ5_el, cached_intJ6s_el, cached_intJ6c_el, cached_intJ7_el, cached_intJ8_el, cached_intJ9_el; /**< caching Js integral btw q2min and q2mx*/
     double hA1w1_cache,rho2_cache,R1w1_cache,R2w1_cache;
     double af0_cache,af1_cache,af2_cache,ag0_cache,ag1_cache,ag2_cache,aF11_cache,aF12_cache,aF21_cache,aF22_cache;
     double CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;

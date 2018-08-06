@@ -75,7 +75,8 @@ public:
     * @brief The width of the meson M
     * @return \f$ \Gamma_M \f$ 
     */
-    double getMwidth(){
+    double getMwidth()
+    {
         updateParameters();
         return width;
     }
@@ -126,9 +127,9 @@ private:
     double mBc1m_1,mBc1m_2,mBc1m_3,mBc1m_4,mBc0p_1,mBc0p_2,chitildeT,chiL,nI; /**<BGL form factor parameters*/
     double z1m_1,z1m_2,z1m_3,z0p_1,z0p_2;
     gslpp::complex z1m_4;
-    double cached_intJ1_tau,cached_intJ2_tau,cached_intJ3_tau,
-            cached_intJ1_mu,cached_intJ2_mu,cached_intJ3_mu,
-            cached_intJ1_el,cached_intJ2_el,cached_intJ3_el; /**< caching Js integral btw q2min and q2mx*/
+    double cached_intJ1_tau, cached_intJ2_tau, cached_intJ3_tau,
+                cached_intJ1_mu, cached_intJ2_mu, cached_intJ3_mu,
+                cached_intJ1_el, cached_intJ2_el, cached_intJ3_el; /**< caching Js integral btw q2min and q2mx*/
     double fplusz0_cache,rho1to2_cache;
     double af0_1_cache,af0_2_cache,afplus_0_cache,afplus_1_cache,afplus_2_cache;
     double CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
