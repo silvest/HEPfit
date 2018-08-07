@@ -166,18 +166,18 @@ int RGEsMW(double t, const double y[], double beta[], void *flags)
     //I have no idea whether this is correct, it's just taken from the custodial THDMW!
     beta[0] = (12.0*la1*la1 + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 8.0*nu2*nu2)/(16.0*pi*pi);
     //beta_nu1
-    beta[1] = (2.0*nu1*nu1 + nu2*nu2 + 4.0*nu3*nu3 + 4.0*la1*(3.0*nu1+nu2)
+    beta[1] = (2.0*nu1*nu1 + nu2*nu2 + 4.0*nu3*nu3 + 2.0*la1*(3.0*nu1+nu2)
                + (7.0*nu4*nu4 - 4.0*nu4*nu5 + 7.0*nu5*nu5)/3.0
                + nu1*(8.0*mu1 + 8.0*mu2 + 17.0*mu3 + 10.0*mu4 + 3.0*mu5 + 5.0*mu6)
                + nu2*(8.0*mu1 + 8.0*mu2 + 24.0*mu3 + 3.0*mu4
                       + 3.0*mu5 + 8.0*mu6)/3.0)/(16.0*pi*pi);
     //beta_nu2
-    beta[2] = (2.0*nu2*nu2 + 4.0*nu1*nu2 + 16.0*nu3*nu3 + 4.0*la1*nu2
+    beta[2] = (2.0*nu2*nu2 + 4.0*nu1*nu2 + 16.0*nu3*nu3 + 2.0*la1*nu2
                + (4.0*nu4*nu4 + 17.0*nu4*nu5 + 4.0*nu5*nu5)/3.0
                + nu2*(8.0*mu1 + 8.0*mu2 + 3.0*mu3 + 24.0*mu4
                       + 3.0*mu5 - mu6)/3.0)/(16.0*pi*pi);
     //beta_nu3
-    beta[3] = (2.0*nu3*(2.0*la1 + 2.0*nu1 + 3.0*nu2)
+    beta[3] = (2.0*nu3*(la1 + 2.0*nu1 + 3.0*nu2)
                + (17.0*nu4*nu4 + 16.0*nu4*nu5 + 17.0*nu5*nu5)/12.0
                + nu3*(-mu1 - mu2 + 3.0*mu3 + 3.0*mu4
                       + 24.0*mu5 + 8.0*mu6)/3.0)/(16.0*pi*pi);
@@ -252,6 +252,75 @@ int RGEsMW(double t, const double y[], double beta[], void *flags)
             beta[10] += 0.0;
             //beta_mu6
             beta[11] += 0.0;
+        }
+
+    return 0;
+}
+
+int RGEscustodialMW(double t, const double y[], double beta[], void *flags)
+{
+    (void)(t); /* avoid unused parameter warning */
+    int ord = *(int *)flags;
+//    int type = flag-ord;
+//    double Yb1=0;
+//    double Yb2=0;
+//    double Ytau1=0;
+//    double Ytau2=0;
+    double la1=y[0];
+    double nu1=y[1];
+    double nu2=y[2];
+    double nu4=y[3];
+    double mu1=y[4];
+    double mu3=y[5];
+    double mu4=y[6];
+
+    double pi=M_PI;
+
+    //RGE taken from 1303.4848
+
+    //beta_la1
+    //This was taken from the custodial THDMW!
+    beta[0] = (12.0*la1*la1 + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 8.0*nu2*nu2)/(16.0*pi*pi);
+    //beta_nu1
+    beta[1] = (2.0*nu1*nu1 + 2.0*nu2*nu2 + 2.0*la1*(3.0*nu1+nu2)
+               + 10.0*nu4*nu4/3.0
+               + nu1*(26.0*mu1 + 17.0*mu3 + 13.0*mu4)
+               + nu2*(32.0*mu1 + 24.0*mu3 + 6.0*mu4)/3.0)/(16.0*pi*pi);
+    //beta_nu2
+    beta[2] = (4.0*nu1*nu2 + 6.0*nu2*nu2 + 2.0*la1*nu2 + 25.0*nu4*nu4/3.0
+               + nu2*(14.0*mu1 + 3.0*mu3 + 27.0*mu4)/3.0)/(16.0*pi*pi);
+    //beta_nu4
+    beta[3] = (3.0*nu1*nu4 + 9.0*nu2*nu4
+               + nu4*(11.0*mu1 + 3.0*mu3 + 9.0*mu4))/(16.0*pi*pi);
+    //beta_mu1
+    beta[4] = (3.0*nu4*nu4 + 13.0*mu1*mu1
+               + 6.0*mu1*(mu3+mu4))/(16.0*pi*pi);
+    //beta_mu3
+    beta[5] = (20.0*mu3*mu3
+               + mu3*(52.0*mu1 + 26.0*mu4)
+               + 2.0*nu1*nu1 + 2.0*nu1*nu2 - 10.0*nu4*nu4/3.0
+               + 268.0*mu1*mu1/9.0 + 88.0*mu1*mu4/3.0 + 6.0*mu4*mu4)/(16.0*pi*pi);
+    //beta_mu4
+    //This was taken from the custodial THDMW, because I think the formula from 1303.4848 is incorrect
+    beta[6] = (nu2*nu2 + 2.0*nu4*nu4/3.0 + 16.0*mu4*mu4
+               + 52.0*mu1*mu4/3.0 + 6.0*mu3*mu4
+               + 4.0/9.0*mu1*mu1)/(16.0*pi*pi);
+
+        if(ord==1){
+            //beta_la1
+            beta[0] += 0.0;
+            //beta_nu1
+            beta[1] += 0.0;
+            //beta_nu2
+            beta[2] += 0.0;
+            //beta_nu4
+            beta[3] += 0.0;
+            //beta_mu1
+            beta[4] += 0.0;
+            //beta_mu3
+            beta[5] += 0.0;
+            //beta_mu4
+            beta[6] += 0.0;
         }
 
     return 0;
@@ -512,6 +581,132 @@ int RGEcheckMW(const double InitialValues[], const double t1, const double Rpeps
     if(sqrt(la1Q*muAtimes2)+nu1Q+nu2Q-2.0*fabs(nu3Q)<0.0) check=1;
     if(la1Q+0.25*muAtimes2+nu1Q+nu2Q+2.0*nu3Q-fabs(nu4Q+nu5Q)/sqrt(3.0)<0.0) check=1;
 
+    //unitarity checks
+
+    //...need to be implemented
+
+    return check;
+}
+
+int RGEcheckcustodialMW(const double InitialValues[], const double t1, const double Rpeps, const double tNLOuni)
+{
+    int check=0;
+
+    //perturbativity of the quartic Higgs couplings
+    for(int i=0;i<7;i++)
+    {
+        if(fabs(InitialValues[i])>4.0*M_PI) check=1;
+    }
+
+    double la1Q = InitialValues[0];
+    double nu1Q = InitialValues[1];
+    double nu2Q = InitialValues[2];
+    double nu4Q = InitialValues[3];
+    double mu1Q = InitialValues[4];
+    double mu3Q = InitialValues[5];
+    double mu4Q = InitialValues[6];
+
+    //positivity checks
+    double muAtimes2=4.0*mu1Q+2.0*mu3Q+4.0*mu4Q;
+    if(la1Q<0.0) check=1;
+    if(muAtimes2<0.0) check=1;
+    if(5.0*mu1Q+3.0*mu3Q+3.0*mu4Q-fabs(mu1Q)<0.0) check=1;
+    if(sqrt(la1Q*muAtimes2)+nu1Q+nu2Q-fabs(nu2Q)<0.0) check=1;
+    if(la1Q+0.25*muAtimes2+nu1Q+2.0*nu2Q-2.0*fabs(nu4Q)/sqrt(3.0)<0.0) check=1;
+
+    //unitarity checks
+
+    double pi=M_PI;
+    gslpp::matrix<gslpp::complex> Smatrix1(2,2,0.), Smatrix2(2,2,0.);
+    gslpp::matrix<gslpp::complex> Seigenvectors1(2,2,0.), Seigenvectors2(2,2,0.);
+    gslpp::vector<double> Seigenvalues1(2,0.), Seigenvalues2(2,0.);
+    gslpp::vector<gslpp::complex> unitarityeigenvalues(5,0.);
+
+    if(t1>tNLOuni)
+    {
+
+    //LO part
+    Smatrix1.assign(0,0, 3.0*la1Q/(16.0*pi));
+    Smatrix1.assign(0,1, (2.0*nu1Q+nu2Q)/(8.0*sqrt(2.0)*pi));
+    Smatrix1.assign(1,0, Smatrix1(0,1));
+    Smatrix1.assign(1,1, (26.0*mu1Q+17.0*mu3Q+13.0*mu4Q)/(32.0*pi));
+
+    Smatrix2.assign(0,0, la1Q/(16.0*pi));
+    Smatrix2.assign(0,1, nu2Q/(8.0*sqrt(2.0)*pi));
+    Smatrix2.assign(1,0, Smatrix2(0,1));
+    Smatrix2.assign(1,1, (14.0*mu1Q+3.0*mu3Q+27.0*mu4Q)/(96.0*pi));
+
+    Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
+    Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
+
+    for (int i=0; i < 2; i++) {
+        unitarityeigenvalues.assign(i, Seigenvalues1(i));
+        unitarityeigenvalues.assign(2+i, Seigenvalues2(i));
+    }
+    unitarityeigenvalues.assign(4, sqrt(15.0)*nu4Q/(16.0*pi));
+
+    //beta_la1*16pi^2
+    double betala1 = 12.0*la1Q*la1Q + 8.0*nu1Q*nu1Q + 8.0*nu1Q*nu2Q + 8.0*nu2Q*nu2Q;
+    //beta_mu1*16pi^2
+    double betamu1 = 13.0*mu1Q*mu1Q + 6.0*mu1Q*mu3Q + 6.0*mu1Q*mu4Q + 3.0*nu4Q*nu4Q;
+    //beta_mu3*16pi^2
+    double betamu3 = (134.0*mu1Q*mu1Q + 6.0*mu1Q*(39.0*mu3Q + 22.0*mu4Q)
+                      + 3.0*(30.0*mu3Q*mu3Q + 39.0*mu3Q*mu4Q + 9.0*mu4Q*mu4Q
+                             + 3.0*nu1Q*nu1Q + 3.0*nu1Q*nu2Q - 5.0*nu4Q*nu4Q))/4.5;
+    //beta_mu4*16pi^2
+    double betamu4 = (4.0*mu1Q*mu1Q + 156.0*mu1Q*mu4Q + 54.0*mu3Q*mu4Q + 144.0*mu4Q*mu4Q
+                      + 9.0*nu2Q*nu2Q + 6.0*nu4Q*nu4Q)/9.0;
+    //beta_nu1*16pi^2
+    double betanu1 = (18.0*la1Q*nu1Q
+                      + 78.0*mu1Q*nu1Q + 51.0*mu3Q*nu1Q + 39.0*mu4Q*nu1Q + 6.0*nu1Q*nu1Q
+                      + 6.0*la1Q*nu2Q + 32.0*mu1Q*nu2Q + 24.0*mu3Q*nu2Q + 6.0*mu4Q*nu2Q
+                      + 6.0*nu2Q*nu2Q + 10.0*nu4Q*nu4Q)/3.0;
+    //beta_nu2*16pi^2
+    double betanu2 = 2.0*la1Q*nu2Q + ((14.0*mu1Q)/3.0 + mu3Q + 9.0*mu4Q)*nu2Q
+                     + 4.0*nu1Q*nu2Q + 6.0*nu2Q*nu2Q + (25.0*nu4Q*nu4Q)/3.0;
+    //beta_nu4*16pi^2
+    double betanu4 = 11.0*mu1Q*nu4Q + 3.0*mu3Q*nu4Q + 9.0*mu4Q*nu4Q + 3.0*nu1Q*nu4Q + 9.0*nu2Q*nu4Q;
+
+//    diagonalization
+    gslpp::matrix<gslpp::complex> Sbmatrix1(2,2,0.), Sbmatrix2(2,2,0.);
+    gslpp::matrix<gslpp::complex> Seigenvectors1T(2,2,0.), Seigenvectors2T(2,2,0.);
+    gslpp::vector<gslpp::complex> Sbeigenvalues1(2,0.), Sbeigenvalues2(2,0.);
+    gslpp::vector<gslpp::complex> betaeigenvalues(5,0.);
+    gslpp::vector<gslpp::complex> NLOunitarityeigenvalues(5,0.);
+
+    Sbmatrix1.assign(0,0, 3.0*betala1/(16.0*pi));
+    Sbmatrix1.assign(0,1, (2.0*betanu1+betanu2)/(8.0*sqrt(2.0)*pi));
+    Sbmatrix1.assign(1,0, Sbmatrix1(0,1));
+    Sbmatrix1.assign(1,1, (26.0*betamu1+17.0*betamu3+13.0*betamu4)/(32.0*pi));
+
+    Sbmatrix2.assign(0,0, betala1/(16.0*pi));
+    Sbmatrix2.assign(0,1, betanu2/(8.0*sqrt(2.0)*pi));
+    Sbmatrix2.assign(1,0, Sbmatrix2(0,1));
+    Sbmatrix2.assign(1,1, (14.0*betamu1+3.0*betamu3+27.0*betamu4)/(96.0*pi));
+
+    Seigenvectors1T=Seigenvectors1.hconjugate();
+    Seigenvectors2T=Seigenvectors2.hconjugate();
+
+    for (int i=0; i < 2; i++) {
+        for (int k=0; k < 2; k++) {
+            for (int l=0; l < 2; l++) {
+                Sbeigenvalues1.assign(i, Sbeigenvalues1(i) + Seigenvectors1T(i,k) * Sbmatrix1(k,l) * Seigenvectors1(l,i) );
+                Sbeigenvalues2.assign(i, Sbeigenvalues2(i) + Seigenvectors2T(i,k) * Sbmatrix2(k,l) * Seigenvectors2(l,i) );
+            }                
+        }
+        betaeigenvalues.assign(i, -1.5 * Sbeigenvalues1(i));
+        betaeigenvalues.assign(i+2, -1.5 * Sbeigenvalues2(i));
+    }
+
+    betaeigenvalues.assign(4, -1.5 * sqrt(15.0)*betanu4/(16.0*pi));
+
+    for (int i=0; i < 5; i++) {
+        NLOunitarityeigenvalues.assign(i, -(gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
+        if( ( unitarityeigenvalues(i) + NLOunitarityeigenvalues(i).real() ).abs() > 0.5) check=1;
+        if( (unitarityeigenvalues(i)).abs() > Rpeps && (NLOunitarityeigenvalues(i)/unitarityeigenvalues(i)).abs() > 1.0) check=1;
+    }
+
+    } //end of the if(t1>tNLOuni)
     return check;
 }
 
@@ -595,6 +790,51 @@ double RunnerTHDMW::RGERunnerMW(double InitialValues[], unsigned long int Number
 
         //intermediate checks if appropriate
         if(RGEcheckMW(InitialValues,t1,Rpeps,tNLOuni) != 0) break;
+    }
+
+    gsl_odeiv2_evolve_free (e);
+    gsl_odeiv2_control_free (c);
+    gsl_odeiv2_step_free (s);
+
+    //Return the decadic log scale at which the evolution stopped
+    return t1/log(10.0);
+}
+
+double RunnerTHDMW::RGERunnercustodialMW(double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order, double Rpeps, double NLOuniscale)
+{
+    //Define which stepping function should be used
+    const gsl_odeiv2_step_type * T = gsl_odeiv2_step_rk4;
+
+    //Allocate space for the stepping function
+    gsl_odeiv2_step * s = gsl_odeiv2_step_alloc(T, NumberOfRGEs);
+
+    //Define the absolute (A) and relative (R) error on y at each step.
+    //The real error will be compared to the following error estimate:
+    //  A + R * |y_i|
+    gsl_odeiv2_control * c = gsl_odeiv2_control_y_new(1e-6, 0.0);
+
+    //Allocate space for the evolutor
+    gsl_odeiv2_evolve * e = gsl_odeiv2_evolve_alloc(NumberOfRGEs);
+
+    //Definition of the RGE system (the Jacobian is not necessary for the RK4 method; it's an empty function here)
+    gsl_odeiv2_system RGEsystem = {RGEscustodialMW, JacobianTHDMW, NumberOfRGEs, &order};
+
+    //Set starting and end point as natural logarithmic scales (conversion from decadic log scale)
+    double t1 = Q1*log(10.0);
+    double t2 = Q2*log(10.0);
+    double tNLOuni = NLOuniscale*log(10.0);
+
+    //Set initial step size
+    double InitialStepSize = 1e-6;
+
+    //Run!
+    while (t1 < t2)
+    {
+        int status = gsl_odeiv2_evolve_apply (e, c, s, &RGEsystem, &t1, t2, &InitialStepSize, InitialValues);
+        if(status != GSL_SUCCESS) break;
+
+        //intermediate checks if appropriate
+        if(RGEcheckcustodialMW(InitialValues,t1,Rpeps,tNLOuni) != 0) break;
     }
 
     gsl_odeiv2_evolve_free (e);

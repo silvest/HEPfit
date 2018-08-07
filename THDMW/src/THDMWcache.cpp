@@ -6,12 +6,48 @@
  */
 
 #include "THDMWcache.h"
+#include <fstream>
+#include "gslpp.h"
+#include <sstream>
+#include <string>
 
 THDMWcache::THDMWcache(const StandardModel& SM_i)
-        : unitarityeigenvalues(11, 0.), NLOunitarityeigenvalues(11, 0.),
-        myTHDMW(static_cast<const THDMW*> (&SM_i)), betaeigenvalues(11, 0.)
+        :ATLAS8_gg_phi_tt(53, 2, 0.),
+        ATLAS8_gg_phi_tt_e(53, 2, 0.),
+        CMS8_pp_H_hh_bbbb(167, 2, 0.),
+        CMS8_bb_phi_bb(81, 2, 0.),
+        CMS8_pp_H_hh_bbbb_e(167, 2, 0.),
+        CMS8_bb_phi_bb_e(81, 2, 0.),
+        ATLAS13_bb_phi_tt(61,2,0.),
+        ATLAS13_tt_phi_tt(61,2,0.),
+        ATLAS13_pp_H_hh_bbbb(271,2,0.),
+        ATLAS13_bb_phi_tt_e(61,2,0.),
+        ATLAS13_tt_phi_tt_e(61,2,0.),
+        ATLAS13_pp_H_hh_bbbb_e(271,2,0.),
+        CMS13_pp_phi_bb(66,2,0.),
+        CMS13_pp_H_hh_bbbb(95,2,0.),
+        CMS13_ggF_H_hh_bbbb(226,2,0.),
+        CMS13_pp_phi_bb_e(66,2,0.),
+        CMS13_pp_H_hh_bbbb_e(95,2,0.),
+        CMS13_ggF_H_hh_bbbb_e(226,2,0.),
+        
+        ATLAS8_pp_Hpm_tb(41,2,0.),
+        ATLAS8_pp_Hpm_tb_e(41,2,0.),
+        CMS8_pp_Hp_tb(43,2,0.),
+        CMS8_pp_Hp_tb_e(43,2,0.),
+        ATLAS13_pp_Hp_tb1(71,2,0.),
+        ATLAS13_pp_Hp_tb2(181,2,0.),
+        ATLAS13_pp_Hp_tb1_e(71,2,0.),
+        ATLAS13_pp_Hp_tb2_e(181,2,0.),
+        arraybsgamma(1111, 3, 0.),
+        unitarityeigenvalues(11, 0.), NLOunitarityeigenvalues(11, 0.),
+        myTHDMW(static_cast<const THDMW*> (&SM_i)),betaeigenvalues(11, 0.)
+        //myTHDMW(static_cast<const THDMW*> (&SM_i))
+
+
 {
     myRunnerTHDMW=new RunnerTHDMW(SM_i);
+    read();  
 }
 
 THDMWcache::~THDMWcache()
@@ -32,18 +68,18 @@ int THDMWcache::CacheCheck(const gslpp::complex cache[][CacheSize],
     }
     return -1;
 }
-//
-//int THDMcache::CacheCheckReal(const double cache[][CacheSize], 
-//                          const int NumPar, const double params[]) const {
-//    bool bCache;
-//    for(int i=0; i<CacheSize; i++) {
-//        bCache = true;
-//        for(int j=0; j<NumPar; j++)
-//            bCache &= (params[j] == cache[j][i]);
-//        if (bCache) return i;
-//    }
-//    return -1;
-//}
+
+int THDMWcache::CacheCheckReal(const double cache[][CacheSize], 
+                          const int NumPar, const double params[]) const {
+    bool bCache;
+    for(int i=0; i<CacheSize; i++) {
+        bCache = true;
+        for(int j=0; j<NumPar; j++)
+            bCache &= (params[j] == cache[j][i]);
+        if (bCache) return i;
+    }
+    return -1;
+}
 
 void THDMWcache::CacheShift(gslpp::complex cache[][CacheSize], const int NumPar, 
                            const double params[], const gslpp::complex newResult) const {
@@ -59,19 +95,19 @@ void THDMWcache::CacheShift(gslpp::complex cache[][CacheSize], const int NumPar,
     }
 }
 
-//void THDMcache::CacheShiftReal(double cache[][CacheSize], const int NumPar,
-//                           const double params[], const double newResult) const {
-//    // shift old parameters and result
-//    for(int i=CacheSize-1; i>0; i--)
-//        for(int j=0; j<NumPar+1; j++)
-//            cache[j][i] = cache[j][i-1];
-//
-//    // store new parameters and result
-//    for(int j=0; j<NumPar; j++) {
-//        cache[j][0] = params[j];
-//        cache[NumPar][0] = newResult;
-//    }
-//}
+void THDMWcache::CacheShiftReal(double cache[][CacheSize], const int NumPar,
+                           const double params[], const double newResult) const {
+    // shift old parameters and result
+    for(int i=CacheSize-1; i>0; i--)
+        for(int j=0; j<NumPar+1; j++)
+            cache[j][i] = cache[j][i-1];
+
+    // store new parameters and result
+    for(int j=0; j<NumPar; j++) {
+        cache[j][0] = params[j];
+        cache[NumPar][0] = newResult;
+    }
+}
 
 //double THDMWcache::ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const {
 //    int NumPar = 6;
@@ -564,7 +600,7 @@ void THDMWcache::computeSignalStrengthQuantities()
     double BrSM_htoZga = 1.54e-3;
     double BrSM_htocc = 2.91e-2;
 
-    if( THDMWmodel == "ManoharWise" ) {
+    if( THDMWmodel == "ManoharWise" || THDMWmodel == "custodialMW" ) {
         rh_QuQu = 1.0;
         rh_VV = 1.0;
         rh_QdQd = 1.0;
@@ -582,7 +618,8 @@ void THDMWcache::computeSignalStrengthQuantities()
         double ABSggMW=(-9.0/16.0*(fermU+4.0*fermD)+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/16 and 4 to normalize Higgs Hunters Guide to 1606.01298
         double ABSggSM=(-9.0/16.0*(fermU+4.0*fermD)).abs2();   //Factor 9/16 and 4 to normalize Higgs Hunters Guide to 1606.01298
         rh_gg=ABSggMW/ABSggSM;
-
+        //std::cout<<"I_h_Sp*2.0 = "<<I_h_Sp*2.0<<std::endl;
+        //std::cout<<"-9.0/16.0*fermU = "<<-9.0/16.0*fermU<<std::endl;
         //photon coupling
         gslpp::complex fermL = I_h_L(mhsq,Me,Mmu,Mtau);
         gslpp::complex I_hSM_W = I_H_W(sqrt(mhsq),MW);
@@ -648,7 +685,7 @@ void THDMWcache::computeSignalStrengthQuantities()
 
     }
     else {
-        throw std::runtime_error("THDMWmodel can only be \"ManoharWise\" or \"custodial1\".");
+        throw std::runtime_error("THDMWmodel can only be \"ManoharWise\", \"custodialMW\" or \"custodial1\".");
     }
 
     sumModBRs = rh_QdQd*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ll*BrSM_htotautau +
@@ -754,7 +791,7 @@ void THDMWcache::runTHDMWparameters()
             omega4_at_Q = InitVals[14];
         }
     }//End custodial1 case
-    if( THDMWmodel == "ManoharWise")
+    else if( THDMWmodel == "ManoharWise")
     {
         double lambda1_at_MZ=lambda1;
         double nu1_at_MZ=nu1;
@@ -819,6 +856,51 @@ void THDMWcache::runTHDMWparameters()
             mu6_at_Q=InitVals[11];
         }
     }//End ManoharWise case
+    else if( THDMWmodel == "custodialMW")
+    {
+        double lambda1_at_MZ=lambda1;
+        double nu1_at_MZ=nu1;
+        double nu2_at_MZ=nu2;
+        double nu4_at_MZ=nu4;
+        double mu1_at_MZ=mu1;
+        double mu3_at_MZ=mu3;
+        double mu4_at_MZ=mu4;
+        double NLOuniscale=myTHDMW->getNLOuniscaleTHDMW();
+
+        if(fabs(Q_THDMW-log10(MZ))<0.005)   //at MZ scale
+        {
+            Q_cutoff=log10(MZ);
+
+            lambda1_at_Q = lambda1_at_MZ;
+            nu1_at_Q = nu1_at_MZ;
+            nu2_at_Q = nu2_at_MZ;
+            nu4_at_Q = nu4_at_MZ;
+            mu1_at_Q = mu1_at_MZ;
+            mu3_at_Q = mu3_at_MZ;
+            mu4_at_Q = mu4_at_MZ;
+        }
+        else   //at some other scale
+        {
+            double InitVals[12];
+            InitVals[0]=lambda1_at_MZ;
+            InitVals[1]=nu1_at_MZ;
+            InitVals[2]=nu2_at_MZ;
+            InitVals[3]=nu4_at_MZ;
+            InitVals[4]=mu1_at_MZ;
+            InitVals[5]=mu3_at_MZ;
+            InitVals[6]=mu4_at_MZ;
+
+            Q_cutoff=myRunnerTHDMW->RGERunnercustodialMW(InitVals, 7, log10(MZ), Q_THDMW, flag, RpepsTHDMW, NLOuniscale);  //Running up to Q_cutoff<=Q_THDM
+
+            lambda1_at_Q = InitVals[0];
+            nu1_at_Q = InitVals[1];
+            nu2_at_Q = InitVals[2];
+            nu4_at_Q = InitVals[3];
+            mu1_at_Q=InitVals[4];
+            mu3_at_Q=InitVals[5];
+            mu4_at_Q = InitVals[6];
+        }
+    }//End custodialMW case
 }
 
 void THDMWcache::computeUnitarity()
@@ -1011,7 +1093,728 @@ void THDMWcache::computeUnitarity()
         unitarityeigenvalues.assign(9, sqrt(15.0)*(nu4+nu5)/(64.0*pi)); //non-custodial limit from 1606.01298
 //        unitarityeigenvalues.assign(10, sqrt(15.0)*omega4/(16.0*pi));
     }//End of the ManoharWise case
+    if( THDMWmodel == "custodialMW")
+    {
+        double pi=M_PI;
+        gslpp::matrix<gslpp::complex> Smatrix1(2,2,0.), Smatrix2(2,2,0.);
+        gslpp::matrix<gslpp::complex> Seigenvectors1(2,2,0.), Seigenvectors2(2,2,0.);
+        gslpp::vector<double> Seigenvalues1(2,0.), Seigenvalues2(2,0.);
+
+        /*
+        *******   LO part   *************
+        */
+
+        // Definition of the blocks of the S-matrix, taken from 1303.4848
+        Smatrix1.assign(0,0, 3.0*lambda1/(16.0*pi));
+        Smatrix1.assign(0,1, (2.0*nu1+nu2)/(8.0*sqrt(2.0)*pi));
+        Smatrix1.assign(1,0, Smatrix1(0,1));
+        Smatrix1.assign(1,1, (26.0*mu1+17.0*mu3+13.0*mu4)/(32.0*pi));
+
+        Smatrix2.assign(0,0, lambda1/(16.0*pi));
+        Smatrix2.assign(0,1, nu2/(8.0*sqrt(2.0)*pi));
+        Smatrix2.assign(1,0, Smatrix2(0,1));
+        Smatrix2.assign(1,1, (14.0*mu1+3.0*mu3+27.0*mu4)/(96.0*pi));
+
+        Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
+        Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
+
+        for (int i=0; i < 2; i++) {
+            unitarityeigenvalues.assign(i, Seigenvalues1(i));
+            unitarityeigenvalues.assign(2+i, Seigenvalues2(i));
+        }
+        unitarityeigenvalues.assign(4, sqrt(15.0)*nu4/(16.0*pi)); //non-custodial limit from 1606.01298
+    }//End of the custodialMW case
 }
+
+// Direct Searches
+
+
+
+gslpp::matrix<double> THDMWcache::readTable(std::string filename, int rowN, int colN){
+
+    std::ifstream INfile;
+    std::string lineTab;
+    INfile.open( filename.c_str() );
+    if(INfile.fail()){
+        std::cout<<"error: in THDMWcache, table doesn't exist!"<< filename <<std::endl;
+    }
+
+    gslpp::matrix<double> arrayTab(rowN, colN, 0.);
+    int a =0;
+    int b=0;
+    double v;
+
+    while(INfile.good()){
+        while(getline(INfile, lineTab)){
+            if( lineTab[0]=='#' )continue;
+            else{
+            std::istringstream streamTab(lineTab);
+            b=0;
+            while(streamTab >>v){
+                arrayTab.assign(a,b,v);
+                b++;
+            }
+            a++;
+            }
+        }
+    }
+
+    INfile.close();
+    
+    return arrayTab;
+}
+
+//1D interpolation
+
+double THDMWcache::interpolate(gslpp::matrix<double> arrayTab, double x){
+
+    int rowN=arrayTab.size_i();
+    
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double interval = arrayTab(1,0)-arrayTab(0,0);
+    int Nintervals = (x-xmin)/interval;
+    double y = 0.0;
+       
+    if(x<xmin){
+//        std::cout<<"warning: your table parameter value is smaller than the minimum allowed value"<<std::endl;
+        return 0.;
+    }
+    else if(x>xmax){
+//        std::cout<<"warning: your table parameter value is greater than the maximum allowed value"<<std::endl;
+        return 0.;
+    }
+    else{
+        y =(arrayTab(Nintervals+1,1)-arrayTab(Nintervals,1))/(arrayTab(Nintervals+1,0)
+                   -arrayTab(Nintervals,0))*(x-arrayTab(Nintervals,0))+arrayTab(Nintervals,1);
+        return y;
+    }
+}
+
+
+
+
+
+
+
+
+
+//4D interpolation
+
+double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, double y, double z, double v){
+
+    int rowN=arrayTab.size_i();
+
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double ymin = arrayTab(0,1);
+    double ymax = arrayTab(rowN-1,1);
+    double zmin = arrayTab(0,2);
+    double zmax = arrayTab(rowN-1,2);
+    double vmin = arrayTab(0,3);
+    double vmax = arrayTab(rowN-1,3);
+    double intervalx = arrayTab(1,0)-arrayTab(0,0);
+    int iy=1;
+    do iy++;
+    while(arrayTab(iy,1)-arrayTab(iy-1,1)==0&&iy<30000);
+    double intervaly = arrayTab(iy,1)-arrayTab(iy-1,1);
+    int iz=1;
+    do iz++;
+    while(arrayTab(iz,2)-arrayTab(iz-1,2)==0&&iz<30000);
+    double intervalz = arrayTab(iz,2)-arrayTab(iz-1,2);
+    int iv=1;
+    do iv++;
+    while(arrayTab(iv,3)-arrayTab(iv-1,3)==0&&iv<30000);
+    double intervalv = arrayTab(iv,3)-arrayTab(iv-1,3);
+    int Nintervalsx = (x-xmin)/intervalx;
+    int Nintervalsy = (y-ymin)/intervaly;
+    int Nintervalsz = (z-zmin)/intervalz;
+    int Nintervalsv = (v-vmin)/intervalv;
+    if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax||v<vmin||v>vmax){
+//        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        return 0.;
+    }
+    else{
+    double x1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,0);
+    double x2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,0);
+    double y1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,1);
+    double y2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,1);
+    double z1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,2);
+    double z2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,2);
+    double v1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,3);
+    double v2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,3);
+    return (arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z2-z) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v2-v))
+            +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z-z1) * (v2-v)
+            +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z2-z) * (v-v1)
+            +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z2-z) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z-z1) * (v2-v)
+            +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v-v1)
+            +arrayTab(iv*Nintervalsv+1+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v2-v)
+            +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z-z1) * (v-v1)
+            +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v2-v)
+            +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z2-z) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z-z1) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v-v1)
+           /((x2-x1)*(y2-y1)*(z2-z1)*(v2-v1));
+    }
+}
+
+// Why EtaU and EtaD are not defined in the THDMW.cpp ???
+
+/*
+double THDMWcache::ip_cs_ppto2Sto4t_13(double etaD, double etaU, double THDMW_nu4, double mSR){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, THDMW_nu4, mSR};
+
+    int i = CacheCheck(ip_cs_ppto2Sto4t_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ppto2Sto4t_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mSR>=500. && mSR <=1500.) {
+            newResult = interpolate4D(log_cs_ggHp_8, etaD, etaU, THDMW_nu4, mSR);
+        }
+        CacheShift(ip_cs_ppto2Sto4t_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}*/
+
+
+
+//double THDMWcache::ip_cs_ppto2Sto4t_13(double THDMW_nu1, double THDMW_nu2, double THDMW_nu4, double THDMW_mS2){
+//    int NumPar = 4;
+//    double params[] = {THDMW_nu1, THDMW_nu2, THDMW_nu4, THDMW_mS2};
+
+////    int i = CacheCheck(ip_cs_ppto2Sto4t_13_cache, NumPar, params);
+////    if (i>=0) {
+////        return ( ip_cs_ppto2Sto4t_13_cache[NumPar][i] );
+////    } else {
+//        double newResult = 0.0;
+//        if (THDMW_mS2>=250000. && THDMW_mS2 <=1000000.) {
+//            newResult = interpolate4D(log_cs_ggH_13, THDMW_nu1, THDMW_nu2, THDMW_nu4, sqrt(THDMW_mS2));
+//        }
+////        CacheShift(ip_cs_ppto2Sto4t_13_cache, NumPar, params, newResult);
+//        return newResult;
+//   }
+
+void THDMWcache::read(){
+
+
+
+    std::stringstream ex1,ex2,ex3;
+    std::stringstream ex1e,ex2e,ex3e;
+//    std::stringstream ex14ep2,ex14em2;
+    std::stringstream ex4,ex5,ex6,ex7,ex8;
+    std::stringstream ex4e,ex5e,ex6e,ex7e,ex8e;
+    std::stringstream ex9,ex10,ex11,ex12,ex13;
+    std::stringstream ex9e,ex10e,ex11e,ex12e,ex13e;
+
+    std::stringstream bsg1;
+
+    std::cout<<"reading tables"<<std::endl;
+
+//    std::cout << "HEPFITTABS = " << getenv("HEPFITPATH") << std::endl;
+    std::stringstream path;
+    path << getenv("HEPFITTABS") << "/THDM/tabs/";
+//    path << "/Users/victormirallesaznar/tabs/";
+//    std::cout << path.str() << std::endl;
+    std::string tablepath=path.str();
+//    std::cout << tablepath << std::endl;
+
+
+
+//// THIS IS FOR THE FUTURE IMPLEMENTATION INTO HEADERS:
+//    std::cout<<"br_tt="<<br_tt<<std::endl;
+//    double brtt1[4][2];
+//    brtt1[0][1]=1;
+//        gslpp::matrix<double> brtt1(19861,2,0.);
+//    std::stringstream br1x;
+//    br1x << "log_cs_ggH_13.h";
+//      //brtt1(2)=(3.,4.);
+//      brtt1=readTable(br1x.str(),20,2);
+//    std::cout<<"brtt1="<<bla1<<std::endl;
+
+
+
+
+    ex1 << tablepath << "150304114.dat";              
+    CMS8_pp_H_hh_bbbb = readTable(ex1.str(),167,2);   
+    ex1e << tablepath << "150304114_e.dat";          
+    CMS8_pp_H_hh_bbbb_e = readTable(ex1e.str(),167,2); 
+    ex2 << tablepath << "150608329.dat";        
+    CMS8_bb_phi_bb = readTable(ex2.str(),81,2); 
+    ex2e << tablepath << "150608329_e.dat";      
+    CMS8_bb_phi_bb_e = readTable(ex2e.str(),81,2);
+    ex3 << tablepath << "150507018.dat";         
+    ATLAS8_gg_phi_tt = readTable(ex3.str(),53,2); 
+    ex3e << tablepath << "150507018_e.dat";       
+    ATLAS8_gg_phi_tt_e = readTable(ex3e.str(),53,2);
+
+//    ex14ep1 << tablepath << "150602301_ep1.dat";
+//    CMS_ggF_phi_gaga_ep1 = readTable(ex14ep1.str(),141,2);
+    //CHANGE THIS DEFINITION!
+//    ex14ep2 << tablepath << "150602301_e.dat";
+//    CMS_ggF_phi_gaga_ep2 = readTable(ex14ep2.str(),141,2);
+//    ex14em1 << tablepath << "150602301_em1.dat";
+//    CMS_ggF_phi_gaga_em1 = readTable(ex14em1.str(),141,2);
+    //CHANGE THIS DEFINITION!
+//    ex14em2 << tablepath << "150602301_e.dat";
+//    CMS_ggF_phi_gaga_em2 = readTable(ex14em2.str(),141,2);
+
+
+    
+    ex4 << tablepath << "ATLAS-CONF-2016-104_b.dat";    
+    ATLAS13_bb_phi_tt = readTable(ex4.str(),61,2);      
+    ex4e << tablepath << "ATLAS-CONF-2016-104_b_e.dat"; 
+    ATLAS13_bb_phi_tt_e = readTable(ex4e.str(),61,2);   
+    ex5 << tablepath << "ATLAS-CONF-2016-104_a.dat";    
+    ATLAS13_tt_phi_tt = readTable(ex5.str(),61,2);      
+    ex5e << tablepath << "ATLAS-CONF-2016-104_a_e.dat";
+    ATLAS13_tt_phi_tt_e = readTable(ex5e.str(),61,2);  
+    ex6 << tablepath << "ATLAS-CONF-2016-049.dat";     
+    ATLAS13_pp_H_hh_bbbb = readTable(ex6.str(),271,2); 
+    ex6e << tablepath << "ATLAS-CONF-2016-049_e.dat";  
+    ATLAS13_pp_H_hh_bbbb_e = readTable(ex6e.str(),271,2); 
+    ex7 << tablepath << "CMS-PAS-HIG-16-025.dat";
+    CMS13_pp_phi_bb = readTable(ex7.str(),66,2); 
+    ex7e << tablepath << "CMS-PAS-HIG-16-025_e.dat"; 
+    CMS13_pp_phi_bb_e = readTable(ex7e.str(),66,2);  
+    ex8 << tablepath << "180603548.dat";
+    CMS13_pp_H_hh_bbbb = readTable(ex8.str(),95,2);
+    ex8e << tablepath << "180603548_e.dat";
+    CMS13_pp_H_hh_bbbb_e = readTable(ex8e.str(),95,2);
+
+
+
+    ex9 << tablepath << "151203704.dat";
+    ATLAS8_pp_Hpm_tb = readTable(ex9.str(),41,2); 
+    ex9e << tablepath << "151203704_e.dat";       
+    ATLAS8_pp_Hpm_tb_e = readTable(ex9e.str(),41,2);
+    ex10 << tablepath << "150807774_b.dat";
+    CMS8_pp_Hp_tb = readTable(ex10.str(),43,2);  
+    ex10e << tablepath << "150807774_b_e.dat";   
+    CMS8_pp_Hp_tb_e = readTable(ex10e.str(),43,2);
+    ex11 << tablepath << "ATLAS-CONF-2016-089.dat";
+    ATLAS13_pp_Hp_tb1 = readTable(ex11.str(),71,2);        
+    ex11e << tablepath << "ATLAS-CONF-2016-089_e.dat";     
+    ATLAS13_pp_Hp_tb1_e = readTable(ex11e.str(),71,2);     
+    ex12 << tablepath << "ATLAS-CONF-2016-104_c.dat"; 
+    ATLAS13_pp_Hp_tb2 = readTable(ex12.str(),181,2);  
+    ex12e << tablepath << "ATLAS-CONF-2016-104_c_e.dat"; 
+    ATLAS13_pp_Hp_tb2_e = readTable(ex12e.str(),181,2);  
+    ex13 << tablepath << "171004960.dat";
+    CMS13_ggF_H_hh_bbbb = readTable(ex13.str(),226,2);
+    ex13e << tablepath << "171004960_e.dat";
+    CMS13_ggF_H_hh_bbbb_e = readTable(ex13e.str(),226,2);
+
+
+
+    bsg1 << tablepath << "bsgammatable.dat";
+    arraybsgamma = readTable(bsg1.str(),1111,3);
+}    
+
+double THDMWcache::ip_ex_pp_phi_hh_bbbb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbbb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_H_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double THDMWcache::ip_ex_pp_phi_hh_bbbb_CMS8_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache_e, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbbb_CMS8_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_H_hh_bbbb_e,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+        
+double THDMWcache::ip_ex_bb_phi_bb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_bb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_bb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_bb_phi_bb,mass);
+        CacheShiftReal(ip_ex_bb_phi_bb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_bb_phi_bb_CMS8_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_bb_CMS8_cache_e, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_bb_CMS8_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_bb_phi_bb_e,mass);
+        CacheShiftReal(ip_ex_bb_phi_bb_CMS8_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}   
+
+double THDMWcache::ip_ex_gg_phi_tt_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_tt_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_tt_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS8_gg_phi_tt,mass);
+        CacheShiftReal(ip_ex_gg_phi_tt_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_gg_phi_tt_ATLAS8_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_tt_ATLAS8_cache_e, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_tt_ATLAS8_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS8_gg_phi_tt_e,mass);
+        CacheShiftReal(ip_ex_gg_phi_tt_ATLAS8_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double THDMWcache::ip_ex_bb_phi_tt_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tt_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_tt_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_bb_phi_tt,mass);
+        CacheShiftReal(ip_ex_bb_phi_tt_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_bb_phi_tt_ATLAS13_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tt_ATLAS13_cache_e, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_tt_ATLAS13_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_bb_phi_tt_e,mass);
+        CacheShiftReal(ip_ex_bb_phi_tt_ATLAS13_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_tt_phi_tt_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_tt_phi_tt_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_tt_phi_tt_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_tt_phi_tt,mass);
+        CacheShiftReal(ip_ex_tt_phi_tt_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_tt_phi_tt_ATLAS13_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_tt_phi_tt_ATLAS13_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_tt_phi_tt_ATLAS13_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_tt_phi_tt_e,mass);
+        CacheShiftReal(ip_ex_tt_phi_tt_ATLAS13_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double THDMWcache::ip_ex_pp_H_hh_bbbb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbbb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbbb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_H_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbbb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_H_hh_bbbb_ATLAS13_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbbb_ATLAS13_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbbb_ATLAS13_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_H_hh_bbbb_e,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbbb_ATLAS13_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double THDMWcache::ip_ex_pp_phi_bb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_bb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_bb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_phi_bb,mass);
+        CacheShiftReal(ip_ex_pp_phi_bb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_phi_bb_CMS13_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_bb_CMS13_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_bb_CMS13_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_phi_bb_e,mass);
+        CacheShiftReal(ip_ex_pp_phi_bb_CMS13_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double THDMWcache::ip_ex_pp_H_hh_bbbb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbbb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbbb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbbb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_H_hh_bbbb_CMS13_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbbb_CMS13_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbbb_CMS13_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_hh_bbbb_e,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbbb_CMS13_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double THDMWcache::ip_ex_pp_Hpm_tb_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Hpm_tb_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Hpm_tb_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS8_pp_Hpm_tb,mass);
+        CacheShiftReal(ip_ex_pp_Hpm_tb_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_Hpm_tb_ATLAS8_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Hpm_tb_ATLAS8_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Hpm_tb_ATLAS8_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS8_pp_Hpm_tb_e,mass);
+        CacheShiftReal(ip_ex_pp_Hpm_tb_ATLAS8_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_Hp_tb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Hp_tb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_Hp_tb,mass);
+        CacheShiftReal(ip_ex_pp_Hp_tb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_Hp_tb_CMS8_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb_CMS8_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Hp_tb_CMS8_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_Hp_tb_e,mass);
+        CacheShiftReal(ip_ex_pp_Hp_tb_CMS8_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13_1(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_1_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Hp_tb_ATLAS13_1_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_Hp_tb1,mass);
+        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_1_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13_1_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_1_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Hp_tb_ATLAS13_1_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_Hp_tb1_e,mass);
+        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_1_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13_2(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_2_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Hp_tb_ATLAS13_2_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_Hp_tb2,mass);
+        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_2_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13_2_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_2_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Hp_tb_ATLAS13_2_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_Hp_tb2_e,mass);
+        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_2_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double THDMWcache::ip_ex_ggF_H_hh_bbbb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_ggF_H_hh_bbbb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_ggF_H_hh_bbbb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_ggF_H_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_ggF_H_hh_bbbb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_ex_ggF_H_hh_bbbb_CMS13_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_ggF_H_hh_bbbb_CMS13_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_ggF_H_hh_bbbb_CMS13_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_ggF_H_hh_bbbb_e,mass);
+        CacheShiftReal(ip_ex_ggF_H_hh_bbbb_CMS13_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 
 double THDMWcache::setOtherParameters()
 {
@@ -1058,9 +1861,15 @@ double THDMWcache::setOtherParameters()
     }
     else if( THDMWmodel == "ManoharWise" ) {
         mhsq = vev*vev*lambda1;
-        mSpsq = mSsq + vev*vev*nu1/4.0;
         mSRsq = mSsq + vev*vev*(nu1+nu2+2.0*nu3)/4.0;
         mSIsq = mSsq + vev*vev*(nu1+nu2-2.0*nu3)/4.0;
+        mSpsq = mSsq + vev*vev*nu1/4.0;
+    }
+    else if( THDMWmodel == "custodialMW" ) {
+        mhsq = vev*vev*lambda1;
+        mSRsq = mSsq + vev*vev*(nu1+2.0*nu2)/4.0;
+        mSIsq = mSsq + vev*vev*nu1/4.0;
+        mSpsq = mSIsq;
     }
     else {
         mHpsq = vev*vev*(lambda345 + tan2a*(-lambda1*cosb/sinb + lambda2*tanb + (lambda4+lambda5)*cot2b))/(1.0 - 2.0*cot2b*tan2a);
