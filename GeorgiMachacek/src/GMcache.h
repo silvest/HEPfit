@@ -370,7 +370,7 @@ public:
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
-     * @details Taken from CMS-PAS-HIG-16-018.
+     * @details Taken from arXiv:1805.12191.
      */
     double ip_ex_bb_phi_bb_CMS13(double mass);
 
@@ -619,7 +619,7 @@ public:
     /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to four b quarks.
      * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
-     * @details Taken from CMS-PAS-HIG-17-009.
+     * @details Taken from arXiv:1806.03548.
      */
     double ip_ex_pp_phi_hh_bbbb_CMS13(double mass);
 

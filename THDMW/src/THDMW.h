@@ -184,7 +184,7 @@ public:
      * @return @f$\lambda_2@f$
      */
     double getTHDMW_lambda2() const {
-        if (flag_modelTHDMW == "ManoharWise") {
+        if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -197,7 +197,7 @@ public:
      * @return @f$\lambda_3@f$
      */
     double getTHDMW_lambda3() const {
-        if (flag_modelTHDMW == "ManoharWise") {
+        if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -210,7 +210,7 @@ public:
      * @return @f$\lambda_4@f$
      */
     double getTHDMW_lambda4() const {
-        if (flag_modelTHDMW == "ManoharWise") {
+        if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -226,7 +226,7 @@ public:
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_lambda4;
         }
-        else if (flag_modelTHDMW == "ManoharWise") {
+        else if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -255,7 +255,7 @@ public:
      * @return @f$\mu_2@f$
      */
     double getTHDMW_mu2() const {
-        if (flag_modelTHDMW == "custodial1") {
+        if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return THDMW_mu1;
         }
         else {
@@ -283,7 +283,7 @@ public:
      * @return @f$\mu_5@f$
      */
     double getTHDMW_mu5() const {
-        if (flag_modelTHDMW == "custodial1") {
+        if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return THDMW_mu4;
         }
         else {
@@ -296,7 +296,7 @@ public:
      * @return @f$\mu_6@f$
      */
     double getTHDMW_mu6() const {
-        if (flag_modelTHDMW == "custodial1") {
+        if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return 2.0*THDMW_mu1;
         }
         else {
@@ -325,7 +325,7 @@ public:
      * @return @f$\nu_3@f$
      */
     double getTHDMW_nu3() const {
-        if (flag_modelTHDMW == "custodial1") {
+        if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return 0.5*THDMW_nu2;
         }
         else {
@@ -345,7 +345,7 @@ public:
      * @return @f$\nu_5@f$
      */
     double getTHDMW_nu5() const {
-        if (flag_modelTHDMW == "custodial1") {
+        if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return THDMW_nu4;
         }
         else {
@@ -358,7 +358,7 @@ public:
      * @return @f$\omega_1@f$
      */
     double getTHDMW_omega1() const {
-        if (flag_modelTHDMW == "ManoharWise") {
+        if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -371,7 +371,7 @@ public:
      * @return @f$\omega_2@f$
      */
     double getTHDMW_omega2() const {
-        if (flag_modelTHDMW == "ManoharWise") {
+        if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -387,7 +387,7 @@ public:
         if (flag_modelTHDMW == "custodial1") {
             return 0.5*THDMW_omega2;
         }
-        else if (flag_modelTHDMW == "ManoharWise") {
+        else if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -400,7 +400,7 @@ public:
      * @return @f$\omega_4@f$
      */
     double getTHDMW_omega4() const {
-        if (flag_modelTHDMW == "ManoharWise") {
+        if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -416,7 +416,7 @@ public:
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_omega4;
         }
-        else if (flag_modelTHDMW == "ManoharWise") {
+        else if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -429,7 +429,7 @@ public:
      * @return @f$\kappa_1@f$
      */
     double getTHDMW_kappa1() const {
-        if (flag_modelTHDMW == "ManoharWise") {
+        if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -442,7 +442,7 @@ public:
      * @return @f$\kappa_2@f$
      */
     double getTHDMW_kappa2() const {
-        if (flag_modelTHDMW == "ManoharWise") {
+        if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -458,7 +458,7 @@ public:
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_kappa2;
         }
-        else if (flag_modelTHDMW == "ManoharWise") {
+        else if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
         else {
@@ -551,7 +551,9 @@ protected:
     {
         if (modeltype.compare("custodial1") == 0)
             return true;
-        if (modeltype.compare("ManoharWise") == 0)
+        else if (modeltype.compare("ManoharWise") == 0)
+            return true;
+        else if (modeltype.compare("custodialMW") == 0)
             return true;
         else if (modeltype.compare("custodial2") == 0)
             return true;

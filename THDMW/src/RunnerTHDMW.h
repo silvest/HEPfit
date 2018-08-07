@@ -33,6 +33,7 @@ public:
 
     virtual double RGERunnerTHDMW(/*int RGEs, const*/ double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order, double Rpeps, double tNLOuni);
     virtual double RGERunnerMW(/*int RGEs, const*/ double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order, double Rpeps, double tNLOuni);
+    virtual double RGERunnercustodialMW(/*int RGEs, const*/ double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order, double Rpeps, double tNLOuni);
 
     const THDMW * myTHDMW;
 };

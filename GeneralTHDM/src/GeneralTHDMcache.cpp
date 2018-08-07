@@ -731,13 +731,13 @@ void GeneralTHDMcache::read(){
     CMS13_ggFVBF_H_WW_lnulnu = readTable(ex52.str(),81,2);
     ex52e << tablepath << "CMS-PAS-HIG-16-023_e.dat";
     CMS13_ggFVBF_H_WW_lnulnu_e = readTable(ex52e.str(),81,2);
-    ex53 << tablepath << "CMS-PAS-HIG-17-009.dat";
+    ex53 << tablepath << "180603548.dat";
     CMS13_pp_H_hh_bbbb = readTable(ex53.str(),95,2);
-    ex53e << tablepath << "CMS-PAS-HIG-17-009_e.dat";
+    ex53e << tablepath << "180603548_e.dat";
     CMS13_pp_H_hh_bbbb_e = readTable(ex53e.str(),95,2);
-    ex54 << tablepath << "CMS-PAS-HIG-17-008.dat";
+    ex54 << tablepath << "180600408.dat";
     CMS13_pp_H_hh_gagabb = readTable(ex54.str(),66,2);
-    ex54e << tablepath << "CMS-PAS-HIG-17-008_e.dat";
+    ex54e << tablepath << "180600408_e.dat";
     CMS13_pp_H_hh_gagabb_e = readTable(ex54e.str(),66,2);
     ex55 << tablepath << "CMS-PAS-HIG-16-029.dat";
     CMS13_pp_H_hh_bbtautau = readTable(ex55.str(),66,2);

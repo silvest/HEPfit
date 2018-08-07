@@ -329,7 +329,7 @@ void GMcache::read(){
     readTable(CMS8_gg_phi_bb, ex4.str(),88,2);
     ex5 << tablepath << "CMS-PAS-HIG-16-025.dat";
     readTable(CMS13_pp_phi_bb, ex5.str(),66,2);
-    ex6 << tablepath << "CMS-PAS-HIG-16-018.dat";
+    ex6 << tablepath << "180512191.dat";
     readTable(CMS13_bb_phi_bb, ex6.str(),101,2);
     ex7 << tablepath << "14096064_a.dat";
     readTable(ATLAS8_gg_phi_tautau, ex7.str(),92,2);
@@ -411,13 +411,13 @@ void GMcache::read(){
     readTable(CMS8_pp_phi_hh_bbtautau, ex43a.str(),71,2);
     ex44 << tablepath << "ATLAS-CONF-2016-049.dat";
     readTable(ATLAS13_pp_phi_hh_bbbb, ex44.str(),271,2);
-    ex45 << tablepath << "CMS-PAS-HIG-17-009.dat";
+    ex45 << tablepath << "180603548.dat";
     readTable(CMS13_pp_phi_hh_bbbb, ex45.str(),95,2);
     ex46 << tablepath << "171004960.dat";
     readTable(CMS13_gg_phi_hh_bbbb, ex46.str(),226,2);
     ex47 << tablepath << "ATLAS-CONF-2016-004.dat";
     readTable(ATLAS13_pp_phi_hh_gagabb, ex47.str(),26,2);
-    ex48 << tablepath << "CMS-PAS-HIG-17-008.dat";
+    ex48 << tablepath << "180600408.dat";
     readTable(CMS13_pp_phi_hh_gagabb, ex48.str(),66,2);
     ex49 << tablepath << "170702909.dat";
     readTable(CMS13_pp_phi_hh_bbtautau, ex49.str(),66,2);
