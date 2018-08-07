@@ -147,7 +147,7 @@ void MVlnu::updateParameters()
             CS = mySM.getOptionalParameter("CSL_NP") / 2.;
             CSp = mySM.getOptionalParameter("CSR_NP") / 2.;
             CP = -mySM.getOptionalParameter("CSL_NP") / 2.;
-            CPp = -mySM.getOptionalParameter("CSR_NP");
+            CPp = -mySM.getOptionalParameter("CSR_NP") / 2.;
             CTp = mySM.getOptionalParameter("CT_NP");
         }
     }
