@@ -41,7 +41,7 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
     if (btocNPpmflag) {
         if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
             << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2"
-            << "aF11" << "aF12" << "aF21" << "aF22" << "AbsVcb"
+            << "aF11" << "aF12" << "aF21" << "aF22" 
             << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
             << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
             << "mBcstP1" << "mBcstP2" << "mBcstP3"
@@ -56,13 +56,13 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
         if (CLNflag) {
             mvlnuParameters.clear();
             if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
-                << "hA1w1" << "rho2" << "R1w1" << "R2w1" << "AbsVcb"
+                << "hA1w1" << "rho2" << "R1w1" << "R2w1" 
                 << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
         }
     } else {
         if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
             << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2"
-            << "aF11" << "aF12" << "aF21" << "aF22" << "AbsVcb"
+            << "aF11" << "aF12" << "aF21" << "aF22" 
             << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
             << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
             << "mBcstP1" << "mBcstP2" << "mBcstP3"
@@ -77,7 +77,7 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
         if (CLNflag) {
             mvlnuParameters.clear();
             if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
-                << "hA1w1" << "rho2" << "R1w1" << "R2w1" << "AbsVcb"
+                << "hA1w1" << "rho2" << "R1w1" << "R2w1" 
                 << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
         }
     }    
@@ -90,7 +90,7 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
 void MVlnu::updateParameters() 
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) return;
-  
+
     GF = mySM.getGF();
     Mlep = mySM.getLeptons(lep).getMass();
     Mnu = 0.; // neutrinos assumed to be massless
@@ -102,12 +102,15 @@ void MVlnu::updateParameters()
     mu_b = mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
-    Vcb = mySM.getOptionalParameter("AbsVcb"); // mySM.getCKM().getV_cb();
+    Vcb = mySM.getCKM().getV_cb(); // mySM.getOptionalParameter("AbsVcb");
     ale_mub = mySM.Ale(mu_b,FULLNLO);
     /* Amplitude propto 4*GF*Vij/sqrt(2) & kinematics requires 1/(2^9 pi^3 MB^3) */
     amplsq_factor = GF*GF*Vcb.abs2()/(64.*M_PI*M_PI*M_PI*MM*MM*MM);
     q2min = Mlep*Mlep;
     q2max = (MM-MV)*(MM-MV);
+    
+    MV_o_MM = MV / MM;
+    sqrtMV_o_MM = sqrt(MV_o_MM);
     
     /* SM Wilson coefficients */
     CV_SM = 1./2.*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b));
@@ -148,24 +151,24 @@ void MVlnu::updateParameters()
             CTp = mySM.getOptionalParameter("CT_NP");
         }
     }
-    
+
     switch (vectorM) {
         case StandardModel::D_star_P:
-            if (CLNflag){
+            if (CLNflag) {
                 hA1w1 = mySM.getOptionalParameter("hA1w1");
                 rho2 = mySM.getOptionalParameter("rho2");
                 R1w1 = mySM.getOptionalParameter("R1w1");
-                R2w1 = mySM.getOptionalParameter("R2w1"); 
+                R2w1 = mySM.getOptionalParameter("R2w1");
                 af0 = 0.;
                 af1 = 0.;
-                af2 = 0.; 
+                af2 = 0.;
                 ag0 = 0.;
                 ag1 = 0.;
                 ag2 = 0.;
                 aF11 = 0.;
-                aF12 = 0.; 
+                aF12 = 0.;
                 aF21 = 0.;
-                aF22 = 0.; 
+                aF22 = 0.;
                 mBcstV1 = 0.;
                 mBcstV2 = 0.;
                 mBcstV3 = 0.;
@@ -181,8 +184,7 @@ void MVlnu::updateParameters()
                 chiTA = 0.;
                 chiTP = 0.;
                 nI = 0.;
-            }
-            else{
+            } else {
                 hA1w1 = 0.;
                 rho2 = 0.;
                 R1w1 = 0.;
@@ -194,9 +196,9 @@ void MVlnu::updateParameters()
                 ag1 = mySM.getOptionalParameter("ag1");
                 ag2 = mySM.getOptionalParameter("ag2");
                 aF11 = mySM.getOptionalParameter("aF11");
-                aF12 = mySM.getOptionalParameter("aF12"); 
+                aF12 = mySM.getOptionalParameter("aF12");
                 aF21 = mySM.getOptionalParameter("aF21");
-                aF22 = mySM.getOptionalParameter("aF22"); 
+                aF22 = mySM.getOptionalParameter("aF22");
                 mBcstV1 = mySM.getOptionalParameter("mBcstV1");
                 mBcstV2 = mySM.getOptionalParameter("mBcstV2");
                 mBcstV3 = mySM.getOptionalParameter("mBcstV3");
@@ -245,11 +247,11 @@ void MVlnu::updateParameters()
     zP3 = sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
     zP3 /= (sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
 
-    if((hA1w1 != hA1w1_cache) || (rho2 != rho2_cache) || (R1w1 != R1w1_cache) || (R2w1 != R2w1_cache) 
+    if ((hA1w1 != hA1w1_cache) || (rho2 != rho2_cache) || (R1w1 != R1w1_cache) || (R2w1 != R2w1_cache)
             || (af0 != af0_cache) || (af1 != af1_cache) || (af2 != af2_cache)
             || (ag0 != ag0_cache) || (ag1 != af1_cache) || (ag2 != af2_cache)
-            || (aF11 != aF11_cache) || (aF12 != aF12_cache) 
-            || (aF21 != aF21_cache) || (aF22 != aF22_cache) 
+            || (aF11 != aF11_cache) || (aF12 != aF12_cache)
+            || (aF21 != aF21_cache) || (aF22 != aF22_cache)
             || (CS != CS_cache) || (CSp != CSp_cache)
             || (CP != CP_cache) || (CPp != CPp_cache)
             || (CV != CV_cache) || (CVp != CVp_cache)
@@ -260,16 +262,16 @@ void MVlnu::updateParameters()
         checkcache_int_el = 0;
     }
     
-    if((checkcache_int_tau == 0) || (checkcache_int_mu == 0) || (checkcache_int_el == 0)){
-        if(lep == StandardModel::TAU){
-            cached_intJ1s_tau = integrateJ(1,q2min,q2max);
-            cached_intJ1c_tau = integrateJ(2,q2min,q2max);
-            cached_intJ2s_tau = integrateJ(3,q2min,q2max);
-            cached_intJ2c_tau = integrateJ(4,q2min,q2max);
-            cached_intJ3_tau = integrateJ(5,q2min,q2max);
-            cached_intJ6s_tau = integrateJ(8,q2min,q2max);
-            cached_intJ6c_tau = integrateJ(9,q2min,q2max);
-            cached_intJ9_tau = integrateJ(12,q2min,q2max);
+    if ((checkcache_int_tau == 0) || (checkcache_int_mu == 0) || (checkcache_int_el == 0)) {
+        if (lep == StandardModel::TAU) {
+            cached_intJ1s_tau = integrateJ(1, q2min, q2max);
+            cached_intJ1c_tau = integrateJ(2, q2min, q2max);
+            cached_intJ2s_tau = integrateJ(3, q2min, q2max);
+            cached_intJ2c_tau = integrateJ(4, q2min, q2max);
+            cached_intJ3_tau = integrateJ(5, q2min, q2max);
+            cached_intJ6s_tau = integrateJ(8, q2min, q2max);
+            cached_intJ6c_tau = integrateJ(9, q2min, q2max);
+            cached_intJ9_tau = integrateJ(12, q2min, q2max);
             cached_intJ4_tau = 0.;
             cached_intJ5_tau = 0.;
             cached_intJ7_tau = 0.;
@@ -280,18 +282,18 @@ void MVlnu::updateParameters()
             cached_intJ5_tau = integrateJ(7,q2min,q2max);
             cached_intJ7_tau = integrateJ(10,q2min,q2max);
             cached_intJ8_tau = integrateJ(11,q2min,q2max);
-            */ 
+             */
             checkcache_int_tau = 1;
         }
-        if(lep == StandardModel::MU){
-            cached_intJ1s_mu = integrateJ(1,q2min,q2max);
-            cached_intJ1c_mu = integrateJ(2,q2min,q2max);
-            cached_intJ2s_mu = integrateJ(3,q2min,q2max);
-            cached_intJ2c_mu = integrateJ(4,q2min,q2max);
-            cached_intJ3_mu = integrateJ(5,q2min,q2max);
-            cached_intJ6s_mu = integrateJ(8,q2min,q2max);
-            cached_intJ6c_mu = integrateJ(9,q2min,q2max);
-            cached_intJ9_mu = integrateJ(12,q2min,q2max);
+        if (lep == StandardModel::MU) {
+            cached_intJ1s_mu = integrateJ(1, q2min, q2max);
+            cached_intJ1c_mu = integrateJ(2, q2min, q2max);
+            cached_intJ2s_mu = integrateJ(3, q2min, q2max);
+            cached_intJ2c_mu = integrateJ(4, q2min, q2max);
+            cached_intJ3_mu = integrateJ(5, q2min, q2max);
+            cached_intJ6s_mu = integrateJ(8, q2min, q2max);
+            cached_intJ6c_mu = integrateJ(9, q2min, q2max);
+            cached_intJ9_mu = integrateJ(12, q2min, q2max);
             cached_intJ4_mu = 0.;
             cached_intJ5_mu = 0.;
             cached_intJ7_mu = 0.;
@@ -302,18 +304,18 @@ void MVlnu::updateParameters()
             cached_intJ5_mu = integrateJ(7,q2min,q2max);
             cached_intJ7_mu = integrateJ(10,q2min,q2max);
             cached_intJ8_mu = integrateJ(11,q2min,q2max);
-            */ 
+             */
             checkcache_int_mu = 1;
         }
-        if(lep == StandardModel::ELECTRON){
-            cached_intJ1s_el = integrateJ(1,q2min,q2max);
-            cached_intJ1c_el = integrateJ(2,q2min,q2max);
-            cached_intJ2s_el = integrateJ(3,q2min,q2max);
-            cached_intJ2c_el = integrateJ(4,q2min,q2max);
-            cached_intJ3_el = integrateJ(5,q2min,q2max);
-            cached_intJ6s_el = integrateJ(8,q2min,q2max);
-            cached_intJ6c_el = integrateJ(9,q2min,q2max);
-            cached_intJ9_el = integrateJ(12,q2min,q2max);
+        if (lep == StandardModel::ELECTRON) {
+            cached_intJ1s_el = integrateJ(1, q2min, q2max);
+            cached_intJ1c_el = integrateJ(2, q2min, q2max);
+            cached_intJ2s_el = integrateJ(3, q2min, q2max);
+            cached_intJ2c_el = integrateJ(4, q2min, q2max);
+            cached_intJ3_el = integrateJ(5, q2min, q2max);
+            cached_intJ6s_el = integrateJ(8, q2min, q2max);
+            cached_intJ6c_el = integrateJ(9, q2min, q2max);
+            cached_intJ9_el = integrateJ(12, q2min, q2max);
             cached_intJ4_el = 0.;
             cached_intJ5_el = 0.;
             cached_intJ7_el = 0.;
@@ -324,7 +326,7 @@ void MVlnu::updateParameters()
             cached_intJ5_el = integrateJ(7,q2min,q2max);
             cached_intJ7_el = integrateJ(10,q2min,q2max);
             cached_intJ8_el = integrateJ(11,q2min,q2max);
-            */ 
+             */
             checkcache_int_el = 1;
         }
     }
@@ -333,7 +335,7 @@ void MVlnu::updateParameters()
     rho2_cache = rho2;
     R1w1_cache = R1w1;
     R2w1_cache = R2w1;
-    
+
     af0_cache = af0;
     af1_cache = af1;
     af2_cache = af2;
@@ -344,7 +346,7 @@ void MVlnu::updateParameters()
     aF12_cache = aF12;
     aF21_cache = aF21;
     aF22_cache = aF22;
-    
+
     CS_cache = CS;
     CSp_cache = CSp;
     CP_cache = CP;
@@ -355,12 +357,9 @@ void MVlnu::updateParameters()
     CAp_cache = CAp;
     CT_cache = CT;
     CTp_cache = CTp;
-    
-    MV_o_MM = MV/MM;
-    sqrtMV_o_MM = sqrt(MV_o_MM); 
-    
+
     mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
-    
+
     return;
     
 }
@@ -625,11 +624,11 @@ gslpp::complex MVlnu::G000(double q2)
     double Enu = sqrt(Mnu * Mnu + lambda_lep2 / (4. * q2));
     double Gprefactor = lambda_MM * lambda_lep / q2;
 
-    return Gprefactor * (4. / 9. * (3 * Elep * Enu + lambda_lep2 / (4. * q2))*(HVp(q2).abs2() + HVm(q2).abs2() + HV0(q2).abs2() + HAp(q2).abs2() + HAm(q2).abs2() + HA0(q2).abs2()) +
+    return Gprefactor * (4. / 9. * (3. * Elep * Enu + lambda_lep2 / (4. * q2))*(HVp(q2).abs2() + HVm(q2).abs2() + HV0(q2).abs2() + HAp(q2).abs2() + HAm(q2).abs2() + HA0(q2).abs2()) +
             4. * Mlep * Mnu / 3. * (HVp(q2).abs2() + HVm(q2).abs2() + HV0(q2).abs2() - HAp(q2).abs2() - HAm(q2).abs2() - HA0(q2).abs2()) +
             4. / 3. * ((Elep * Enu - Mlep * Mnu + lambda_lep2 / (4. * q2)) * HS(q2).abs2()+(Elep * Enu + Mlep * Mnu + lambda_lep2 / (4. * q2)) * HP(q2).abs2()) +
             16. / 9. * (3. * (Elep * Enu + Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTpt(q2).abs2() + HTmt(q2).abs2() + HT0t(q2).abs2()) +
-            8. / 9. * (3 * (Elep * Enu - Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTpt(q2).abs2() + HTmt(q2).abs2() + HT0t(q2).abs2()) +
+            8. / 9. * (3. * (Elep * Enu - Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTpt(q2).abs2() + HTmt(q2).abs2() + HT0t(q2).abs2()) +
             16. / 3. * (Mlep * Enu + Mnu * Elep)*(HVp(q2) * HTpt(q2).conjugate() + HVm(q2) * HTmt(q2).conjugate() + HV0(q2) * HT0t(q2).conjugate()).imag() +
             8. * M_SQRT2 / 3. * (Mlep * Enu - Mnu * Elep)*(HAp(q2) * HTp(q2).conjugate() + HAm(q2) * HTm(q2).conjugate() + HA0(q2) * HT0(q2).conjugate()).imag());
 }

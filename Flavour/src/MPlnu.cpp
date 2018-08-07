@@ -42,7 +42,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
 
     if (btocNPpmflag) {
         if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
-            << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2" << "AbsVcb"
+            << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2"
             << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
             << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI"
             << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
@@ -55,12 +55,12 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
         if (CLNflag) {
             mplnuParameters.clear();
             if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
-                << "fplusz0" << "rho1to2" << "AbsVcb"
+                << "fplusz0" << "rho1to2"
                 << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
         }
     } else {
         if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
-            << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2" << "AbsVcb"
+            << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2"
             << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
             << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI"
             << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
@@ -73,7 +73,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
         if (CLNflag) {
             mplnuParameters.clear();
             if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
-                << "fplusz0" << "rho1to2" << "AbsVcb"
+                << "fplusz0" << "rho1to2" 
                 << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
         }
     }
@@ -98,7 +98,7 @@ void MPlnu::updateParameters()
     mu_b = mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
-    Vcb = mySM.getOptionalParameter("AbsVcb"); // mySM.getCKM().getV_cb();
+    Vcb = mySM.getCKM().getV_cb(); // mySM.getOptionalParameter("AbsVcb");
     ale_mub = mySM.Ale(mu_b,FULLNLO);
     /* Amplitude propto 4*GF*Vij/sqrt(2) & kinematics requires 1/(2^9 pi^3 MB^3) */
     amplsq_factor = GF*GF*Vcb.abs2()/(64.*M_PI*M_PI*M_PI*MM*MM*MM);

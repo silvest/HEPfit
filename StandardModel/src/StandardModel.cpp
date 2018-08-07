@@ -315,13 +315,13 @@ void StandardModel::setParameter(const std::string name, const double& value)
     } else if (name.compare("etab") == 0 && FlagWolfenstein) {
         etab = value;
         requireCKM = true;
-    } else if (name.compare("Vus") == 0 && !FlagWolfenstein) {
+    } else if (name.compare("V_us") == 0 && !FlagWolfenstein) {
         Vus = value;
         requireCKM = true;
-    } else if (name.compare("Vcb") == 0 && !FlagWolfenstein) {
+    } else if (name.compare("V_cb") == 0 && !FlagWolfenstein) {
         Vcb = value;
         requireCKM = true;
-    } else if (name.compare("Vub") == 0 && !FlagWolfenstein) {
+    } else if (name.compare("V_ub") == 0 && !FlagWolfenstein) {
         Vub = value;
         requireCKM = true;
     } else if (name.compare("gamma") == 0 && !FlagWolfenstein) {
@@ -409,9 +409,9 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("Wolfenstein") == 0) {
         FlagWolfenstein = value;
         if(!FlagWolfenstein) {
-            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"lambda"))] = "Vus";
-            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"A"))] = "Vcb";
-            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"rhob"))] = "Vub";
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"lambda"))] = "V_us";
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"A"))] = "V_cb";
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"rhob"))] = "V_ub";
             SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"etab"))] = "gamma";
         }
         res = true;
