@@ -137,7 +137,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ b \to s \gamma \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR) const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma(double mu, bool noSM = false, schemes scheme = NDR) const;
 
     /**
      * @brief Computes the chirality flipped Wilson coefficient for the process \f$ b \to s \gamma \f$.
@@ -155,7 +155,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B \to V/P \ell^+ \ell^- \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, schemes scheme = NDR) const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM = false, schemes scheme = NDR) const;
 
     /**
      * @brief Computes the chirality flipped Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
@@ -254,6 +254,11 @@ public:
         return (this->btocNPpmflag = btocNPpmflag);
     }
     
+    bool setFlagFixedWCbtos(bool FixedWCbtosflag)
+    {
+        return (this->FixedWCbtosflag = FixedWCbtosflag);
+    }
+    
     bool getFlagUseDispersionRelation() const
     {
         return dispersion;
@@ -267,6 +272,11 @@ public:
     bool getbtocNPpmflag() const
     {
         return btocNPpmflag;
+    }
+    
+    bool getFlagFixedWCbtos() const
+    {
+        return FixedWCbtosflag;
     }
 
 private:
@@ -315,6 +325,7 @@ private:
     mutable bool dispersion;
     mutable bool CLNflag;
     mutable bool btocNPpmflag;
+    mutable bool FixedWCbtosflag;
 };
 
 /**

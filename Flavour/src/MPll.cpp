@@ -40,6 +40,7 @@ T_cache(5, 0.)
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
     dispersion = true;
+    FixedWCbtos = false;
     mJ2 = 3.096 * 3.096;
 
     I0_updated = 0;
@@ -75,6 +76,7 @@ MPll::~MPll()
 std::vector<std::string> MPll::initializeMPllParameters()
 {
     dispersion = mySM.getFlavour().getFlagUseDispersionRelation();
+    FixedWCbtos = mySM.getFlavour().getFlagFixedWCbtos();
 
 #if NFPOLARBASIS_MPLL
     if (pseudoscalar == StandardModel::K_P || pseudoscalar == StandardModel::K_0) mpllParameters = make_vector<std::string>()
@@ -116,6 +118,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
             << "r1_BK" << "r2_BK" << "deltaC9_BK" << "phDC9_BK";
     }
 
+    if (FixedWCbtos) mpllParameters.insert(mpllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
     mySM.initializeMeson(meson);
     mySM.initializeMeson(pseudoscalar);
     return mpllParameters;
@@ -174,174 +177,182 @@ void MPll::updateParameters()
             if (pseudoscalar == StandardModel::K_P) spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
             else spectator_charge = mySM.getQuarks(QCD::DOWN).getCharge();
 
-    etaP = -1;
-    angmomP = 0.;
+            etaP = -1;
+            angmomP = 0.;
 
-    break;
-    default:
-    std::stringstream out;
-    out << pseudoscalar;
-    throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
-}
+            break;
+        default:
+            std::stringstream out;
+            out << pseudoscalar;
+            throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
+    }
 
-if (!dispersion) {
+    if (!dispersion) {
 #if NFPOLARBASIS_MPLL
-    h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"), mySM.getOptionalParameter("argh_0_MP"), true);
-    h_1 = gslpp::complex(mySM.getOptionalParameter("absh_1_MP"), mySM.getOptionalParameter("argh_1_MP"), true);
+        h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"), mySM.getOptionalParameter("argh_0_MP"), true);
+        h_1 = gslpp::complex(mySM.getOptionalParameter("absh_1_MP"), mySM.getOptionalParameter("argh_1_MP"), true);
 
-    r_1 = 0.;
-    r_2 = 0.;
-    Delta_C9 = 0.;
-    exp_Phase = 0.;
+        r_1 = 0.;
+        r_2 = 0.;
+        Delta_C9 = 0.;
+        exp_Phase = 0.;
 #else
-    h_0 = gslpp::complex(mySM.getOptionalParameter("reh_0_MP"), mySM.getOptionalParameter("imh_0_MP"), false);
-    h_1 = gslpp::complex(mySM.getOptionalParameter("reh_1_MP"), mySM.getOptionalParameter("imh_1_MP"), false);
+        h_0 = gslpp::complex(mySM.getOptionalParameter("reh_0_MP"), mySM.getOptionalParameter("imh_0_MP"), false);
+        h_1 = gslpp::complex(mySM.getOptionalParameter("reh_1_MP"), mySM.getOptionalParameter("imh_1_MP"), false);
 
-    r_1 = 0.;
-    r_2 = 0.;
-    Delta_C9 = 0.;
-    exp_Phase = 0.;
+        r_1 = 0.;
+        r_2 = 0.;
+        Delta_C9 = 0.;
+        exp_Phase = 0.;
 #endif
-} else {
-    h_0 = 0.;
-    h_1 = 0.;
+    } else {
+        h_0 = 0.;
+        h_1 = 0.;
 
-    r_1 = mySM.getOptionalParameter("r1_BK");
-    r_2 = mySM.getOptionalParameter("r2_BK");
-    Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
-    exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
-}
+        r_1 = mySM.getOptionalParameter("r1_BK");
+        r_2 = mySM.getOptionalParameter("r2_BK");
+        Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
+        exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
+    }
 
-allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
-allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
 
-C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
-C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
-C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
-C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
-C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
-C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
-C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
-C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
-C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
-C_8L = (*(allcoeff[LO]))(7);
-C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8);
-C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9);
-C_S = MW / Mb*((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
-C_P = MW / Mb*((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11));
+    if (FixedWCbtos) allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
 
-C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-C_7p += MsoMb*((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
-C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
-C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-C_Sp = MW / Mb*((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
-C_Pp = MW / Mb*((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
+    C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
+    C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
+    C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
+    C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+    C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
+    C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
+    C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
+    C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
+    C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
+    C_8L = (*(allcoeff[LO]))(7);
+    C_S = MW / Mb * ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
+    C_P = MW / Mb * ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11));
+    if (FixedWCbtos) {
+        C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
+        C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
+        C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
+        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    } else {
+        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+        C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
+        C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    }
+    C_7p += MsoMb * C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6;
+    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+    C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
+    C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
 
-allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
+    allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
-C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
-C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
-C_8Lh = (*(allcoeffh[LO]))(7);
+    C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
+    C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+    C_8Lh = (*(allcoeffh[LO]))(7);
 
-checkCache();
+    checkCache();
 
-H_0_pre = 8. / 27. + 4. / 9. * gslpp::complex::i() * M_PI;
-H_0_WC = (C_3 + 4. / 3. * C_4 + 16. * C_5 + 64. / 3. * C_6);
-H_c_WC = (4. / 3. * C_1 + C_2 + 6. * C_3 + 60. * C_5);
-H_b_WC = (7. * C_3 + 4. / 3. * C_4 + 76. * C_5 + 64. / 3. * C_6);
-fournineth = 4. / 9.;
-half = 1. / 2.;
-twothird = 2. / 3.;
-ihalfMPI = gslpp::complex::i() * M_PI / 2.;
-Mc2 = Mc*Mc;
-Mb2 = Mb*Mb;
-logMc = log(Mc2 / mu_b2);
-logMb = log(Mb2 / mu_b2);
-mu_b2 = mu_b*mu_b;
-fourMc2 = 4. * Mc2;
-fourMb2 = 4. * Mb2;
-Mlep2 = Mlep*Mlep;
-NN = ((4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI)).abs2();
-MM2 = MM*MM;
-MM4 = MM2*MM2;
-MP2 = MP*MP;
-MP4 = MP2*MP2;
-MM2mMP2 = MM2 - MP2;
-twoMP2 = 2. * MP2;
-twoMM = 2. * MM;
-twoMM2 = 2. * MM2;
-twoMM2_MMpMP = twoMM2 * (MM + MP);
-twoMM_MbpMs = twoMM * (Mb + Ms);
-S_L_pre = -(MM2mMP2 / twoMM_MbpMs) * (1 + MsoMb) / (1 - MsoMb);
-fourMM2 = 4. * MM2;
-twoMboMM = 2 * Mb / MM;
-sixteenM_PI2 = 16. * M_PI*M_PI;
-ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
-MboMW = Mb / MW;
-MboMM = Mb / MM;
-MsoMb = Ms / Mb;
-twoMlepMb = 2. * Mlep*Mb;
-threeGegen0 = mySM.getMesons(pseudoscalar).getGegenalpha(0)*3.;
-threeGegen1otwo = mySM.getMesons(pseudoscalar).getGegenalpha(1)*3. / 2.;
-M_PI2osix = M_PI * M_PI / 6.;
-twoMc2 = 2. * Mc2;
-sixMMoMb = 6. * MM / Mb;
-CF = 4. / 3.;
-deltaT_0 = alpha_s_mub * MboMM / 4. / M_PI;
-deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-mySM.getMesons(pseudoscalar).getDecayconst() / MM * MboMM;
+    H_0_pre = 8. / 27. + 4. / 9. * gslpp::complex::i() * M_PI;
+    H_0_WC = (C_3 + 4. / 3. * C_4 + 16. * C_5 + 64. / 3. * C_6);
+    H_c_WC = (4. / 3. * C_1 + C_2 + 6. * C_3 + 60. * C_5);
+    H_b_WC = (7. * C_3 + 4. / 3. * C_4 + 76. * C_5 + 64. / 3. * C_6);
+    fournineth = 4. / 9.;
+    half = 1. / 2.;
+    twothird = 2. / 3.;
+    ihalfMPI = gslpp::complex::i() * M_PI / 2.;
+    Mc2 = Mc*Mc;
+    Mb2 = Mb*Mb;
+    logMc = log(Mc2 / mu_b2);
+    logMb = log(Mb2 / mu_b2);
+    mu_b2 = mu_b*mu_b;
+    fourMc2 = 4. * Mc2;
+    fourMb2 = 4. * Mb2;
+    Mlep2 = Mlep*Mlep;
+    NN = ((4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI)).abs2();
+    MM2 = MM*MM;
+    MM4 = MM2*MM2;
+    MP2 = MP*MP;
+    MP4 = MP2*MP2;
+    MM2mMP2 = MM2 - MP2;
+    twoMP2 = 2. * MP2;
+    twoMM = 2. * MM;
+    twoMM2 = 2. * MM2;
+    twoMM2_MMpMP = twoMM2 * (MM + MP);
+    twoMM_MbpMs = twoMM * (Mb + Ms);
+    S_L_pre = -(MM2mMP2 / twoMM_MbpMs) * (1 + MsoMb) / (1 - MsoMb);
+    fourMM2 = 4. * MM2;
+    twoMboMM = 2 * Mb / MM;
+    sixteenM_PI2 = 16. * M_PI*M_PI;
+    ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
+    MboMW = Mb / MW;
+    MboMM = Mb / MM;
+    MsoMb = Ms / Mb;
+    twoMlepMb = 2. * Mlep*Mb;
+    threeGegen0 = mySM.getMesons(pseudoscalar).getGegenalpha(0)*3.;
+    threeGegen1otwo = mySM.getMesons(pseudoscalar).getGegenalpha(1)*3. / 2.;
+    M_PI2osix = M_PI * M_PI / 6.;
+    twoMc2 = 2. * Mc2;
+    sixMMoMb = 6. * MM / Mb;
+    CF = 4. / 3.;
+    deltaT_0 = alpha_s_mub * MboMM / 4. / M_PI;
+    deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+            mySM.getMesons(pseudoscalar).getDecayconst() / MM * MboMM;
 
-F87_0 = -32. / 9. * log(mu_b / Mb) + 8. / 27. * M_PI * M_PI - 44. / 9. - 8. / 9. * gslpp::complex::i() * M_PI;
-F87_1 = (4. / 3. * M_PI * M_PI - 40. / 3.);
-F87_2 = (32. / 9. * M_PI * M_PI - 316. / 9.);
-F87_3 = (200. / 27. * M_PI * M_PI - 658. / 9.);
+    F87_0 = -32. / 9. * log(mu_b / Mb) + 8. / 27. * M_PI * M_PI - 44. / 9. - 8. / 9. * gslpp::complex::i() * M_PI;
+    F87_1 = (4. / 3. * M_PI * M_PI - 40. / 3.);
+    F87_2 = (32. / 9. * M_PI * M_PI - 316. / 9.);
+    F87_3 = (200. / 27. * M_PI * M_PI - 658. / 9.);
 
-F89_0 = 104. / 9. - 32. / 27. * M_PI * M_PI;
-F89_1 = 1184. / 27. - 40. / 9. * M_PI * M_PI;
-F89_2 = (-32. / 3. * M_PI * M_PI + 14212. / 135.);
-F89_3 = (-560. / 27. * M_PI * M_PI + 193444. / 945.);
+    F89_0 = 104. / 9. - 32. / 27. * M_PI * M_PI;
+    F89_1 = 1184. / 27. - 40. / 9. * M_PI * M_PI;
+    F89_2 = (-32. / 3. * M_PI * M_PI + 14212. / 135.);
+    F89_3 = (-560. / 27. * M_PI * M_PI + 193444. / 945.);
 
-F29_0 = (256. / 243. - 32. / 81. * gslpp::complex::i() * M_PI - 128. / 9. * log(Mc / Mb)) * log(mu_b / Mb) + 512. / 81. * log(mu_b / Mb) * log(mu_b / Mb) + 5.4082 - 1.0934 * gslpp::complex::i();
-F29_L1 = 32. / 81. * log(mu_b / Mb) + (0.48576 + 0.31119 * gslpp::complex::i());
-F29_1 = (-32. / 405. + 64. / 45. / Mc2*Mb2) * log(mu_b / Mb) + (1.9061 + 0.80843 * gslpp::complex::i());
-F29_2 = (-8. / 945. + 16. / 105. / Mc2*Mb2 / Mc2*Mb2) * log(mu_b / Mb) + (-1.8286 + 2.8428 * gslpp::complex::i());
-F29_3 = (-32. / 25515. + 64. / 2835. / Mc2*Mb2 / Mc2*Mb2 / Mc2*Mb2) * log(mu_b / Mb) + (-12.113 + 8.1251 * gslpp::complex::i());
-F29_L1_1 = (0.21951 - 0.14852 * gslpp::complex::i());
-F29_L1_2 = (0.13015 - 0.22155 * gslpp::complex::i());
-F29_L1_3 = (-0.079692 - 0.31214 * gslpp::complex::i());
+    F29_0 = (256. / 243. - 32. / 81. * gslpp::complex::i() * M_PI - 128. / 9. * log(Mc / Mb)) * log(mu_b / Mb) + 512. / 81. * log(mu_b / Mb) * log(mu_b / Mb) + 5.4082 - 1.0934 * gslpp::complex::i();
+    F29_L1 = 32. / 81. * log(mu_b / Mb) + (0.48576 + 0.31119 * gslpp::complex::i());
+    F29_1 = (-32. / 405. + 64. / 45. / Mc2 * Mb2) * log(mu_b / Mb) + (1.9061 + 0.80843 * gslpp::complex::i());
+    F29_2 = (-8. / 945. + 16. / 105. / Mc2 * Mb2 / Mc2 * Mb2) * log(mu_b / Mb) + (-1.8286 + 2.8428 * gslpp::complex::i());
+    F29_3 = (-32. / 25515. + 64. / 2835. / Mc2 * Mb2 / Mc2 * Mb2 / Mc2 * Mb2) * log(mu_b / Mb) + (-12.113 + 8.1251 * gslpp::complex::i());
+    F29_L1_1 = (0.21951 - 0.14852 * gslpp::complex::i());
+    F29_L1_2 = (0.13015 - 0.22155 * gslpp::complex::i());
+    F29_L1_3 = (-0.079692 - 0.31214 * gslpp::complex::i());
 
-F27_0 = 416. / 81. * log(mu_b / Mb) + 3.8367 + 0.3531 * gslpp::complex::i();
-F27_1 = (1.3098 + 0.60185 * gslpp::complex::i());
-F27_2 = (0.13507 + 0.89014 * gslpp::complex::i());
-F27_3 = (-1.0271 + 0.77168 * gslpp::complex::i());
-F27_L1_1 = (-0.031936 - 0.10981 * gslpp::complex::i());
-F27_L1_2 = (-0.14169 - 0.035553 * gslpp::complex::i());
-F27_L1_3 = (-0.13592 + 0.093 * gslpp::complex::i());
+    F27_0 = 416. / 81. * log(mu_b / Mb) + 3.8367 + 0.3531 * gslpp::complex::i();
+    F27_1 = (1.3098 + 0.60185 * gslpp::complex::i());
+    F27_2 = (0.13507 + 0.89014 * gslpp::complex::i());
+    F27_3 = (-1.0271 + 0.77168 * gslpp::complex::i());
+    F27_L1_1 = (-0.031936 - 0.10981 * gslpp::complex::i());
+    F27_L1_2 = (-0.14169 - 0.035553 * gslpp::complex::i());
+    F27_L1_3 = (-0.13592 + 0.093 * gslpp::complex::i());
 
-std::map<std::pair<double, double>, unsigned int >::iterator it;
+    std::map<std::pair<double, double>, unsigned int >::iterator it;
 
-if (I0_updated == 0) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
-if (I2_updated == 0) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
+    if (I0_updated == 0) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
 
-if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
-if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
+    if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
 
-std::map<double, unsigned int >::iterator iti;
-if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
-if (deltaTparmupdated == 0) for (iti = deltaTparmCached.begin(); iti != deltaTparmCached.end(); ++iti) iti->second = 0;
+    std::map<double, unsigned int >::iterator iti;
+    if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
+    if (deltaTparmupdated == 0) for (iti = deltaTparmCached.begin(); iti != deltaTparmCached.end(); ++iti) iti->second = 0;
 
-if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
+    if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
 #if SPLINE    
-if (mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) spline_QCDF_func();
+    if (mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) spline_QCDF_func();
 #else
-fit_DeltaC9_mumu();
+    fit_DeltaC9_mumu();
 #endif
 
-mySM.getFlavour().setUpdateFlag(meson, pseudoscalar, lep, false);
+    mySM.getFlavour().setUpdateFlag(meson, pseudoscalar, lep, false);
 
-return;
+    return;
 
 }
 

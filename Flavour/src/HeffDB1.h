@@ -113,7 +113,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return short distance contribution to the rare decay \f$ b \rightarrow s \gamma \f$
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma(double mu, bool noSM = false, schemes scheme = NDR);
     
     /**
      * 
@@ -129,7 +129,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM = false, schemes scheme = NDR);
     
     /**
      * 

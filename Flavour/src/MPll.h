@@ -280,6 +280,7 @@ private:
     std::unique_ptr<F_1> myF_1;
     std::unique_ptr<F_2> myF_2;
     bool dispersion;
+    bool FixedWCbtos;
     double mJ2;
     
     double GF;            /**<Fermi constant */
@@ -339,6 +340,8 @@ private:
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
+    
+    gslpp::vector<gslpp::complex> ** allcoeff_noSM;/**<vector that contains the Wilson coeffients without the SM contributions.*/
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1L_bar;/**<Wilson coeffients @f$C_1@f$*/

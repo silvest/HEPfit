@@ -17,6 +17,7 @@ class AmpDB2;
 #include <memory>
 
 #define NFPOLARBASIS_MVGAMMA true
+#define UNIFIEDBTOS true
 
 /**
  * @class MVgamma
@@ -208,6 +209,8 @@ public:
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients at mub*/
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients at mub*/
     
+    gslpp::vector<gslpp::complex> ** allcoeff_noSM;/**<vector that contains the Wilson coeffients at mub without the SM contributions.*/
+    
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_2;/**<Wilson coeffients @f$C_2@f$*/
     gslpp::complex C_3;/**<Wilson coeffients @f$C_3@f$*/
@@ -374,6 +377,7 @@ private:
     QCD::meson meson;
     QCD::meson vectorM;
     bool dispersion;
+    bool FixedWCbtos;
     double mJ2;
     
     const StandardModel& SM;

@@ -72,6 +72,7 @@ private:
     gslpp::complex C_Sp;
     gslpp::complex C_P;
     gslpp::complex C_Pp;
+    bool FixedWCbtos;
 
 };
 

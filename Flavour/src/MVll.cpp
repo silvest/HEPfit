@@ -42,6 +42,7 @@ T_cache(5, 0.)
     meson = meson_i;
     vectorM = vector_i;
     dispersion = false;
+    FixedWCbtos = false;
     mJ2 = 3.096 * 3.096;
 
     I0_updated = 0;
@@ -148,7 +149,8 @@ MVll::~MVll()
 std::vector<std::string> MVll::initializeMVllParameters()
 {
     dispersion = mySM.getFlavour().getFlagUseDispersionRelation();
-
+    FixedWCbtos = mySM.getFlavour().getFlagFixedWCbtos();
+    
 #if NFPOLARBASIS_MVLL
     if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
         << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
@@ -210,6 +212,8 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
     }
 
+    if (FixedWCbtos) mvllParameters.insert(mvllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
+    
     mySM.initializeMeson(meson);
     mySM.initializeMeson(vectorM);
     return mvllParameters;
@@ -283,251 +287,259 @@ void MVll::updateParameters()
             if (vectorM == StandardModel::K_star) spectator_charge = mySM.getQuarks(QCD::DOWN).getCharge();
             else spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
 
-    etaV = -1;
-    angmomV = 1.;
+            etaV = -1;
+            angmomV = 1.;
 
-    b = 1;
+            b = 1;
 
-    SU3_breaking = 1.;
+            SU3_breaking = 1.;
 
-    break;
-    case StandardModel::PHI:
-    a_0V = mySM.getOptionalParameter("a_0Vphi");
-    a_1V = mySM.getOptionalParameter("a_1Vphi");
-    a_2V = mySM.getOptionalParameter("a_2Vphi");
-    MRV_2 = mySM.getOptionalParameter("MRV") * mySM.getOptionalParameter("MRV");
+            break;
+        case StandardModel::PHI:
+            a_0V = mySM.getOptionalParameter("a_0Vphi");
+            a_1V = mySM.getOptionalParameter("a_1Vphi");
+            a_2V = mySM.getOptionalParameter("a_2Vphi");
+            MRV_2 = mySM.getOptionalParameter("MRV") * mySM.getOptionalParameter("MRV");
 
-    a_0A0 = mySM.getOptionalParameter("a_0A0phi");
-    a_1A0 = mySM.getOptionalParameter("a_1A0phi");
-    a_2A0 = mySM.getOptionalParameter("a_2A0phi");
-    MRA0_2 = mySM.getOptionalParameter("MRA0") * mySM.getOptionalParameter("MRA0");
+            a_0A0 = mySM.getOptionalParameter("a_0A0phi");
+            a_1A0 = mySM.getOptionalParameter("a_1A0phi");
+            a_2A0 = mySM.getOptionalParameter("a_2A0phi");
+            MRA0_2 = mySM.getOptionalParameter("MRA0") * mySM.getOptionalParameter("MRA0");
 
-    a_0A1 = mySM.getOptionalParameter("a_0A1phi");
-    a_1A1 = mySM.getOptionalParameter("a_1A1phi");
-    a_2A1 = mySM.getOptionalParameter("a_2A1phi");
-    MRA1_2 = mySM.getOptionalParameter("MRA1") * mySM.getOptionalParameter("MRA1");
+            a_0A1 = mySM.getOptionalParameter("a_0A1phi");
+            a_1A1 = mySM.getOptionalParameter("a_1A1phi");
+            a_2A1 = mySM.getOptionalParameter("a_2A1phi");
+            MRA1_2 = mySM.getOptionalParameter("MRA1") * mySM.getOptionalParameter("MRA1");
 
-    a_0A12 = a_0A0 * (MM * MM - MV * MV) / (8. * MM * MV);
-    a_1A12 = mySM.getOptionalParameter("a_1A12phi");
-    a_2A12 = mySM.getOptionalParameter("a_2A12phi");
-    MRA12_2 = mySM.getOptionalParameter("MRA12") * mySM.getOptionalParameter("MRA12");
+            a_0A12 = a_0A0 * (MM * MM - MV * MV) / (8. * MM * MV);
+            a_1A12 = mySM.getOptionalParameter("a_1A12phi");
+            a_2A12 = mySM.getOptionalParameter("a_2A12phi");
+            MRA12_2 = mySM.getOptionalParameter("MRA12") * mySM.getOptionalParameter("MRA12");
 
-    a_0T1 = mySM.getOptionalParameter("a_0T1phi");
-    a_1T1 = mySM.getOptionalParameter("a_1T1phi");
-    a_2T1 = mySM.getOptionalParameter("a_2T1phi");
-    MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
+            a_0T1 = mySM.getOptionalParameter("a_0T1phi");
+            a_1T1 = mySM.getOptionalParameter("a_1T1phi");
+            a_2T1 = mySM.getOptionalParameter("a_2T1phi");
+            MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
 
-    a_0T2 = a_0T1;
-    a_1T2 = mySM.getOptionalParameter("a_1T2phi");
-    a_2T2 = mySM.getOptionalParameter("a_2T2phi");
-    MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
+            a_0T2 = a_0T1;
+            a_1T2 = mySM.getOptionalParameter("a_1T2phi");
+            a_2T2 = mySM.getOptionalParameter("a_2T2phi");
+            MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
 
-    a_0T23 = mySM.getOptionalParameter("a_0T23phi");
-    a_1T23 = mySM.getOptionalParameter("a_1T23phi");
-    a_2T23 = mySM.getOptionalParameter("a_2T23phi");
-    MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
+            a_0T23 = mySM.getOptionalParameter("a_0T23phi");
+            a_1T23 = mySM.getOptionalParameter("a_1T23phi");
+            a_2T23 = mySM.getOptionalParameter("a_2T23phi");
+            MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
 
-    spectator_charge = mySM.getQuarks(QCD::STRANGE).getCharge();
+            spectator_charge = mySM.getQuarks(QCD::STRANGE).getCharge();
 
-    ys = mySM.getMesons(QCD::B_S).getDgamma_gamma() / 2.;
-    xs = mySM.getOptionalParameter("xs_phi");
+            ys = mySM.getMesons(QCD::B_S).getDgamma_gamma() / 2.;
+            xs = mySM.getOptionalParameter("xs_phi");
 
-    etaV = -1;
-    angmomV = 1.;
+            etaV = -1;
+            angmomV = 1.;
 
-    b = 0.489;
+            b = 0.489;
 
-    SU3_breaking = 1. + gslpp::complex(mySM.getOptionalParameter("SU3_breaking_abs"),
-            mySM.getOptionalParameter("SU3_breaking_arg"), true);
+            SU3_breaking = 1. + gslpp::complex(mySM.getOptionalParameter("SU3_breaking_abs"),
+                    mySM.getOptionalParameter("SU3_breaking_arg"), true);
 
-    break;
-    default:
-    std::stringstream out;
-    out << vectorM;
-    throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
-}
+            break;
+        default:
+            std::stringstream out;
+            out << vectorM;
+            throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
+    }
 
-if (!dispersion) {
+    if (!dispersion) {
 #if NFPOLARBASIS_MVLL
-    h_0[0] = gslpp::complex(mySM.getOptionalParameter("absh_0"), mySM.getOptionalParameter("argh_0"), true);
-    h_0[1] = gslpp::complex(mySM.getOptionalParameter("absh_p"), mySM.getOptionalParameter("argh_p"), true);
-    h_0[2] = gslpp::complex(mySM.getOptionalParameter("absh_m"), mySM.getOptionalParameter("argh_m"), true);
+        h_0[0] = gslpp::complex(mySM.getOptionalParameter("absh_0"), mySM.getOptionalParameter("argh_0"), true);
+        h_0[1] = gslpp::complex(mySM.getOptionalParameter("absh_p"), mySM.getOptionalParameter("argh_p"), true);
+        h_0[2] = gslpp::complex(mySM.getOptionalParameter("absh_m"), mySM.getOptionalParameter("argh_m"), true);
 
-    h_1[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_1"), mySM.getOptionalParameter("argh_0_1"), true);
-    h_1[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_1"), mySM.getOptionalParameter("argh_p_1"), true);
-    h_1[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_1"), mySM.getOptionalParameter("argh_m_1"), true);
+        h_1[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_1"), mySM.getOptionalParameter("argh_0_1"), true);
+        h_1[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_1"), mySM.getOptionalParameter("argh_p_1"), true);
+        h_1[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_1"), mySM.getOptionalParameter("argh_m_1"), true);
 
-    h_2[0] = 0.;
-    h_2[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_2"), mySM.getOptionalParameter("argh_p_2"), true);
-    h_2[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_2"), mySM.getOptionalParameter("argh_m_2"), true);
+        h_2[0] = 0.;
+        h_2[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_2"), mySM.getOptionalParameter("argh_p_2"), true);
+        h_2[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_2"), mySM.getOptionalParameter("argh_m_2"), true);
 #else
-    h_0[0] = gslpp::complex(mySM.getOptionalParameter("reh_0"), mySM.getOptionalParameter("imh_0"), false);
-    h_0[1] = gslpp::complex(mySM.getOptionalParameter("reh_p"), mySM.getOptionalParameter("imh_p"), false);
-    h_0[2] = gslpp::complex(mySM.getOptionalParameter("reh_m"), mySM.getOptionalParameter("imh_m"), false);
+        h_0[0] = gslpp::complex(mySM.getOptionalParameter("reh_0"), mySM.getOptionalParameter("imh_0"), false);
+        h_0[1] = gslpp::complex(mySM.getOptionalParameter("reh_p"), mySM.getOptionalParameter("imh_p"), false);
+        h_0[2] = gslpp::complex(mySM.getOptionalParameter("reh_m"), mySM.getOptionalParameter("imh_m"), false);
 
-    h_1[0] = gslpp::complex(mySM.getOptionalParameter("reh_0_1"), mySM.getOptionalParameter("imh_0_1"), false);
-    h_1[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_1"), mySM.getOptionalParameter("imh_p_1"), false);
-    h_1[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_1"), mySM.getOptionalParameter("imh_m_1"), false);
+        h_1[0] = gslpp::complex(mySM.getOptionalParameter("reh_0_1"), mySM.getOptionalParameter("imh_0_1"), false);
+        h_1[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_1"), mySM.getOptionalParameter("imh_p_1"), false);
+        h_1[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_1"), mySM.getOptionalParameter("imh_m_1"), false);
 
-    h_2[0] = 0.;
-    h_2[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_2"), mySM.getOptionalParameter("imh_p_2"), false);
-    h_2[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_2"), mySM.getOptionalParameter("imh_m_2"), false);
+        h_2[0] = 0.;
+        h_2[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_2"), mySM.getOptionalParameter("imh_p_2"), false);
+        h_2[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_2"), mySM.getOptionalParameter("imh_m_2"), false);
 #endif
-} else {
-    h_0[0] = gslpp::complex(mySM.getOptionalParameter("r1_1"));
-    h_0[1] = gslpp::complex(mySM.getOptionalParameter("r1_2"));
-    h_0[2] = gslpp::complex(mySM.getOptionalParameter("r1_3"));
+    } else {
+        h_0[0] = gslpp::complex(mySM.getOptionalParameter("r1_1"));
+        h_0[1] = gslpp::complex(mySM.getOptionalParameter("r1_2"));
+        h_0[2] = gslpp::complex(mySM.getOptionalParameter("r1_3"));
 
-    h_1[0] = gslpp::complex(mySM.getOptionalParameter("r2_1"));
-    h_1[1] = gslpp::complex(mySM.getOptionalParameter("r2_2"));
-    h_1[2] = gslpp::complex(mySM.getOptionalParameter("r2_3"));
+        h_1[0] = gslpp::complex(mySM.getOptionalParameter("r2_1"));
+        h_1[1] = gslpp::complex(mySM.getOptionalParameter("r2_2"));
+        h_1[2] = gslpp::complex(mySM.getOptionalParameter("r2_3"));
 
-    h_2[0] = gslpp::complex(mySM.getOptionalParameter("deltaC9_1"));
-    h_2[1] = gslpp::complex(mySM.getOptionalParameter("deltaC9_2"));
-    h_2[2] = gslpp::complex(mySM.getOptionalParameter("deltaC9_3"));
-    exp_Phase[0] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_1"));
-    exp_Phase[1] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_2"));
-    exp_Phase[2] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_3"));
-}
+        h_2[0] = gslpp::complex(mySM.getOptionalParameter("deltaC9_1"));
+        h_2[1] = gslpp::complex(mySM.getOptionalParameter("deltaC9_2"));
+        h_2[2] = gslpp::complex(mySM.getOptionalParameter("deltaC9_3"));
+        exp_Phase[0] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_1"));
+        exp_Phase[1] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_2"));
+        exp_Phase[2] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_3"));
+    }
 
-allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
-allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
 
-C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
-C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
-C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
-C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
-C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
-C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
-C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
-C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
-C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
-C_8L = (*(allcoeff[LO]))(7);
-C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
-C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
-C_S = MW / Mb*(((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10)));
-C_P = MW / Mb*(((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11)));
+    if (FixedWCbtos) allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
 
-C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-C_7p += MsoMb*((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
-C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
-C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-C_Sp = MW / Mb*((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
-C_Pp = MW / Mb*((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
+    C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+    C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
+    C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
+    C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+    C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
+    C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
+    C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
+    C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
+    C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
+    C_8L = (*(allcoeff[LO]))(7);
+    C_S = MW / Mb * (((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10)));
+    C_P = MW / Mb * (((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11)));
+    if (FixedWCbtos) {
+        C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
+        C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
+        C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
+        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    } else {
+        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+        C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
+        C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6); 
+    }
+    C_7p += MsoMb * C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6;
+    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+    C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
+    C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
 
-allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
+    allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
-C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
-C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
-C_8Lh = (*(allcoeffh[LO]))(7);
+    C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
+    C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+    C_8Lh = (*(allcoeffh[LO]))(7);
 
-checkCache();
+    checkCache();
 
-t_p = pow(MM + MV, 2.);
-t_m = pow(MM - MV, 2.);
-t_0 = t_p * (1. - sqrt(1. - t_m / t_p)); /*Modify it for Lattice*/
-z_0 = (sqrt(t_p) - sqrt(t_p - t_0)) / (sqrt(t_p) + sqrt(t_p - t_0));
-MMpMV = MM + MV;
-MMpMV2 = MMpMV * MMpMV;
-MMmMV = MM - MV;
-MMmMV2 = MMmMV * MMmMV;
-MM2 = MM*MM;
-MM4 = MM2*MM2;
-MV2 = MV*MV;
-MV4 = MV2*MV2;
-MMMV = MM*MV;
-MM2mMV2 = MM2 - MV2;
-MM2pMV2 = MM2 + MV2;
-fourMV = 4. * MV;
-twoMM2 = 2. * MM2;
-twoMV2 = 2. * MV2;
-onepMMoMV = (1. + MV / MM);
-MM_MMpMV = MM * MMpMV;
-twoMM_mbpms = 2. * MM * (Mb + Ms);
-fourMM2 = 4. * MM2;
-Mlep2 = Mlep*Mlep;
-twoMlepMb = 2. * Mlep*Mb;
-MboMW = Mb / MW;
-MsoMb = Ms / Mb;
-ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
-sixteenM_PI2 = 16. * M_PI2;
-sixteenM_PI2MM2 = sixteenM_PI2 * MM*MM;
-twoMboMM = 2 * Mb / MM;
-H_0_pre = 8. / 27. + 4. / 9. * gslpp::complex::i() * M_PI;
-H_0_WC = (C_3 + 4. / 3. * C_4 + 16. * C_5 + 64. / 3. * C_6);
-H_c_WC = (4. / 3. * C_1 + C_2 + 6. * C_3 + 60. * C_5);
-H_b_WC = (7. * C_3 + 4. / 3. * C_4 + 76. * C_5 + 64. / 3. * C_6);
-mu_b2 = mu_b*mu_b;
-Mc2 = Mc*Mc;
-Mb2 = Mb*Mb;
-fourMc2 = 4. * Mc2;
-fourMb2 = 4. * Mb2;
-logMc = log(Mc2 / mu_b2);
-logMb = log(Mb2 / mu_b2);
-fournineth = 4. / 9.;
-half = 1. / 2.;
-twothird = 2. / 3.;
-ihalfMPI = gslpp::complex::i() * M_PI / 2.;
-twoMM3 = 2. * MM2 * MM;
-C2_inv = 1. / (2. * C_2.real());
-gtilde_1_pre = -16. * pow(MM, 3.)*(MM + MV) * pow(M_PI, 2.);
-gtilde_2_pre = -16. * pow(MM, 3.) * pow(M_PI, 2.) / MMpMV;
-gtilde_3_pre = 64. * pow(MM, 3.) * pow(M_PI, 2.) * MV*MMpMV;
-S_L_pre = (-2. * MM * (Mb + Ms));
+    t_p = pow(MM + MV, 2.);
+    t_m = pow(MM - MV, 2.);
+    t_0 = t_p * (1. - sqrt(1. - t_m / t_p)); /*Modify it for Lattice*/
+    z_0 = (sqrt(t_p) - sqrt(t_p - t_0)) / (sqrt(t_p) + sqrt(t_p - t_0));
+    MMpMV = MM + MV;
+    MMpMV2 = MMpMV * MMpMV;
+    MMmMV = MM - MV;
+    MMmMV2 = MMmMV * MMmMV;
+    MM2 = MM*MM;
+    MM4 = MM2*MM2;
+    MV2 = MV*MV;
+    MV4 = MV2*MV2;
+    MMMV = MM*MV;
+    MM2mMV2 = MM2 - MV2;
+    MM2pMV2 = MM2 + MV2;
+    fourMV = 4. * MV;
+    twoMM2 = 2. * MM2;
+    twoMV2 = 2. * MV2;
+    onepMMoMV = (1. + MV / MM);
+    MM_MMpMV = MM * MMpMV;
+    twoMM_mbpms = 2. * MM * (Mb + Ms);
+    fourMM2 = 4. * MM2;
+    Mlep2 = Mlep*Mlep;
+    twoMlepMb = 2. * Mlep*Mb;
+    MboMW = Mb / MW;
+    MsoMb = Ms / Mb;
+    ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
+    sixteenM_PI2 = 16. * M_PI2;
+    sixteenM_PI2MM2 = sixteenM_PI2 * MM*MM;
+    twoMboMM = 2 * Mb / MM;
+    H_0_pre = 8. / 27. + 4. / 9. * gslpp::complex::i() * M_PI;
+    H_0_WC = (C_3 + 4. / 3. * C_4 + 16. * C_5 + 64. / 3. * C_6);
+    H_c_WC = (4. / 3. * C_1 + C_2 + 6. * C_3 + 60. * C_5);
+    H_b_WC = (7. * C_3 + 4. / 3. * C_4 + 76. * C_5 + 64. / 3. * C_6);
+    mu_b2 = mu_b*mu_b;
+    Mc2 = Mc*Mc;
+    Mb2 = Mb*Mb;
+    fourMc2 = 4. * Mc2;
+    fourMb2 = 4. * Mb2;
+    logMc = log(Mc2 / mu_b2);
+    logMb = log(Mb2 / mu_b2);
+    fournineth = 4. / 9.;
+    half = 1. / 2.;
+    twothird = 2. / 3.;
+    ihalfMPI = gslpp::complex::i() * M_PI / 2.;
+    twoMM3 = 2. * MM2 * MM;
+    C2_inv = 1. / (2. * C_2.real());
+    gtilde_1_pre = -16. * pow(MM, 3.)*(MM + MV) * pow(M_PI, 2.);
+    gtilde_2_pre = -16. * pow(MM, 3.) * pow(M_PI, 2.) / MMpMV;
+    gtilde_3_pre = 64. * pow(MM, 3.) * pow(M_PI, 2.) * MV*MMpMV;
+    S_L_pre = (-2. * MM * (Mb + Ms));
 
-M_PI2osix = M_PI2 / 6.;
-twoMM = 2. * MM;
+    M_PI2osix = M_PI2 / 6.;
+    twoMM = 2. * MM;
 
-N_QCDF = M_PI2 / 3. * fB*fperp / MM;
+    N_QCDF = M_PI2 / 3. * fB * fperp / MM;
 
-deltaT_0 = alpha_s_mub * CF / 4. / M_PI;
-deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-mySM.getMesons(vectorM).getDecayconst() / MM;
-deltaT_1perp = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-mySM.getMesons(vectorM).getDecayconst_p() / MM;
+    deltaT_0 = alpha_s_mub * CF / 4. / M_PI;
+    deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+            mySM.getMesons(vectorM).getDecayconst() / MM;
+    deltaT_1perp = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+            mySM.getMesons(vectorM).getDecayconst_p() / MM;
 
-F87_0 = -32. / 9. * log(mu_b / Mb) + 8. / 27. * M_PI2 - 44. / 9. - 8. / 9. * gslpp::complex::i() * M_PI;
+    F87_0 = -32. / 9. * log(mu_b / Mb) + 8. / 27. * M_PI2 - 44. / 9. - 8. / 9. * gslpp::complex::i() * M_PI;
 
-NN = -(4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI);
-NN_conjugate = -(4. * GF * MM * ale * lambda_t.conjugate()) / (sqrt(2.)*4. * M_PI);
+    NN = -(4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI);
+    NN_conjugate = -(4. * GF * MM * ale * lambda_t.conjugate()) / (sqrt(2.)*4. * M_PI);
 
-std::map<std::pair<double, double>, unsigned int >::iterator it;
+    std::map<std::pair<double, double>, unsigned int >::iterator it;
 
-if (I0_updated == 0) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
-if (I1_updated == 0) for (it = sigma1Cached.begin(); it != sigma1Cached.end(); ++it) it->second = 0;
-if (I2_updated == 0) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
-if (I3_updated == 0) for (it = sigma3Cached.begin(); it != sigma3Cached.end(); ++it) it->second = 0;
-if (I4_updated == 0) for (it = sigma4Cached.begin(); it != sigma4Cached.end(); ++it) it->second = 0;
-if (I5_updated == 0) for (it = sigma5Cached.begin(); it != sigma5Cached.end(); ++it) it->second = 0;
-if (I6_updated == 0) for (it = sigma6Cached.begin(); it != sigma6Cached.end(); ++it) it->second = 0;
-if (I7_updated == 0) for (it = sigma7Cached.begin(); it != sigma7Cached.end(); ++it) it->second = 0;
-if (I9_updated == 0) for (it = sigma9Cached.begin(); it != sigma9Cached.end(); ++it) it->second = 0;
-if (I10_updated == 0) for (it = sigma10Cached.begin(); it != sigma10Cached.end(); ++it) it->second = 0;
-if (I11_updated == 0) for (it = sigma11Cached.begin(); it != sigma11Cached.end(); ++it) it->second = 0;
+    if (I0_updated == 0) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
+    if (I1_updated == 0) for (it = sigma1Cached.begin(); it != sigma1Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
+    if (I3_updated == 0) for (it = sigma3Cached.begin(); it != sigma3Cached.end(); ++it) it->second = 0;
+    if (I4_updated == 0) for (it = sigma4Cached.begin(); it != sigma4Cached.end(); ++it) it->second = 0;
+    if (I5_updated == 0) for (it = sigma5Cached.begin(); it != sigma5Cached.end(); ++it) it->second = 0;
+    if (I6_updated == 0) for (it = sigma6Cached.begin(); it != sigma6Cached.end(); ++it) it->second = 0;
+    if (I7_updated == 0) for (it = sigma7Cached.begin(); it != sigma7Cached.end(); ++it) it->second = 0;
+    if (I9_updated == 0) for (it = sigma9Cached.begin(); it != sigma9Cached.end(); ++it) it->second = 0;
+    if (I10_updated == 0) for (it = sigma10Cached.begin(); it != sigma10Cached.end(); ++it) it->second = 0;
+    if (I11_updated == 0) for (it = sigma11Cached.begin(); it != sigma11Cached.end(); ++it) it->second = 0;
 
-if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
-if (I1_updated == 0) for (it = delta1Cached.begin(); it != delta1Cached.end(); ++it) it->second = 0;
-if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
-if (I3_updated == 0) for (it = delta3Cached.begin(); it != delta3Cached.end(); ++it) it->second = 0;
-if (I11_updated == 0) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
+    if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
+    if (I1_updated == 0) for (it = delta1Cached.begin(); it != delta1Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
+    if (I3_updated == 0) for (it = delta3Cached.begin(); it != delta3Cached.end(); ++it) it->second = 0;
+    if (I11_updated == 0) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
 
-std::map<double, unsigned int >::iterator iti;
-if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
-if (deltaTparmupdated == 0) for (iti = deltaTparmCached.begin(); iti != deltaTparmCached.end(); ++iti) iti->second = 0;
-if (deltaTperpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
+    std::map<double, unsigned int >::iterator iti;
+    if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
+    if (deltaTparmupdated == 0) for (iti = deltaTparmCached.begin(); iti != deltaTparmCached.end(); ++iti) iti->second = 0;
+    if (deltaTperpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
 
-if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
+    if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
 #if SPLINE    
-if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) spline_QCDF_func();
+    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) spline_QCDF_func();
 #else
-if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) fit_QCDF_func();
+    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) fit_QCDF_func();
 #endif
 
-mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
+    mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
 
-return;
+    return;
 }
 
 void MVll::checkCache()

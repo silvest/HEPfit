@@ -130,9 +130,9 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdnunu() const
     return HDB1->ComputeCoeffdnunu();
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsgamma(double mu, schemes scheme) const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsgamma(double mu, bool noSM, schemes scheme) const
 {
-    return HDB1->ComputeCoeffsgamma(mu, scheme);
+    return HDB1->ComputeCoeffsgamma(mu, noSM, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimesgamma(double mu, schemes scheme) const
@@ -140,9 +140,9 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimesgamma(double mu, sche
     return HDB1->ComputeCoeffprimesgamma(mu, scheme);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll(double mu, QCD::lepton lepton, schemes scheme) const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM, schemes scheme) const
 {
-    return HDB1->ComputeCoeffBMll(mu, lepton, scheme);
+    return HDB1->ComputeCoeffBMll(mu, lepton, noSM, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme) const

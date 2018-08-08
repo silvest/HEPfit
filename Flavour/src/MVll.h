@@ -724,6 +724,7 @@ private:
     std::unique_ptr<F_1> myF_1;
     std::unique_ptr<F_2> myF_2;
     bool dispersion;
+    bool FixedWCbtos;
     double mJ2;
     gslpp::complex exp_Phase[3];
     
@@ -876,6 +877,8 @@ private:
     gslpp::vector<gslpp::complex> ** allcoeff;/**<Vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<Vector that contains the primed Wilson coeffients */
+    
+    gslpp::vector<gslpp::complex> ** allcoeff_noSM;/**<Vector that contains the Wilson coeffients without the SM contribution.*/
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1L_bar;/**<Wilson coeffients @f$C_1@f$*/

@@ -24,6 +24,7 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     meson = meson_i;
     vectorM = vector_i;
     dispersion = false;
+    FixedWCbtos = false;
     mJ2 = 3.096*3.096;
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);
@@ -35,6 +36,7 @@ MVgamma::~MVgamma()
 std::vector<std::string> MVgamma::initializeMVgammaParameters()
 {
     dispersion = SM.getFlavour().getFlagUseDispersionRelation();
+    FixedWCbtos = SM.getFlavour().getFlagFixedWCbtos();
     
 #if NFPOLARBASIS_MVGAMMA
     if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
@@ -67,6 +69,8 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
             throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
         }
     }
+    
+    if (FixedWCbtos) mVgammaParameters.push_back("C7_SM" );
     
     SM.initializeMeson(meson);
     SM.initializeMeson(vectorM);
@@ -180,40 +184,54 @@ void MVgamma::updateParameters()
         h[0] = h_lambda(0);
         h[1] = h_lambda(1);
     }
-    
-    allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu_b);
-    allcoeffprime = SM.getFlavour().ComputeCoeffprimesgamma(mu_b);
-    
+
+#if UNIFIEDBTOS       
+    allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
+    allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
+
+    if (FixedWCbtos) allcoeff_noSM = SM.getFlavour().ComputeCoeffBMll(mu_b, StandardModel::NOLEPTON, true); //check the mass scale, scheme fixed to NDR
+
     C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
     C_2 = (*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1);
     C_3 = (*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2);
     C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
     C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
     C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
-    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6) + (*(allcoeff[NNLO]))(6);
+    if (FixedWCbtos) {
+        C_7 = SM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
+        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    } else {
+        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    }
+    C_7p -= ms_over_mb * C_7;
+    /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
+    C_7p += -ms_over_mb * C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6;
     C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
-    /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
-    C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
-    
-//    allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
-//    allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
-    
-//    double ms_over_mb = SM.Mrun(mu_b, SM.getQuarks(QCD::STRANGE).getMass_scale(), 
-//                        SM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO)
-//                       /SM.Mrun(mu_b, SM.getQuarks(QCD::BOTTOM).getMass_scale(), 
-//                        SM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+    //    C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
+#else   
+    allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu_b);
+    allcoeffprime = SM.getFlavour().ComputeCoeffprimesgamma(mu_b);
+    if (FixedWCbtos) allcoeff_noSM = SM.getFlavour().ComputeCoeffsgamma(mu_b, true); //check the mass scale, scheme fixed to NDR
 
-//    C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
-//    C_2 = (*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1);
-//    C_3 = (*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2);
-//    C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
-//    C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
-//    C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
-//    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
+    C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
+    C_2 = (*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1);
+    C_3 = (*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2);
+    C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
+    C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
+    C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
+    if (FixedWCbtos) {
+        C_7 = SM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
+        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    } else {
+        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    }
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
-//    C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
-//    C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
-    
+    C_7p += -ms_over_mb * C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6;
+    C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
+    //    C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
+#endif    
     DC7_QCDF = deltaC7_QCDF(false);
     DC7_QCDF_bar = deltaC7_QCDF(true);
     
