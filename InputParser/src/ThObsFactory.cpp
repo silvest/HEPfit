@@ -1949,6 +1949,11 @@ ThObsFactory::ThObsFactory()
     
     obsThFactory["EffectivePotMin1_GTHDM"] = boost::factory<EffectivePotMin1_GTHDM*>();
     obsThFactory["EffectivePotMin2_GTHDM"] = boost::factory<EffectivePotMin2_GTHDM*>();
+    
+    
+    obsThFactory["DeltaS_GTHDM"] = boost::factory<GTHDMDeltaS*>();
+    obsThFactory["DeltaT_GTHDM"] = boost::factory<GTHDMDeltaT*>();
+    obsThFactory["DeltaU_GTHDM"] = boost::factory<GTHDMDeltaU*>();
 
     obsThFactory["Rb0_GTHDM"] = boost::factory<Rb0GTHDM*>();
 
