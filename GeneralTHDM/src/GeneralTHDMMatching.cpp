@@ -2942,13 +2942,15 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
     double xHp = (mHp2)/(MW*MW);
     double vev = myGTHDM.v();
     double sW2 = myGTHDM.sW2();
-    double mHl=myGTHDM.getMHl();
+    double mHl = myGTHDM.getMHl();
     double mH1_2=mHl*mHl;
    
     
      //mu contains the missalignemtn dependece. It should be mu -> CR(mu0) - log(mu/mu0). Eq (22)
 
-    double mu = log(MW/myGTHDM.getQ_GTHDM());
+   
+
+     double mu = log(myGTHDM.getQ_GTHDM()/MW);
 
   
     double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambda7H;
