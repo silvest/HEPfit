@@ -123,14 +123,14 @@ void MPlnu::updateParameters()
     /* SM + NP Wilson coefficients */
     if (lep == StandardModel::TAU) {
         if (btocNPpmflag) {
-            CV += (mySM.getOptionalParameter("CV_NP") - mySM.getOptionalParameter("CA_NP")) / 4.;
-            CVp = (mySM.getOptionalParameter("CV_NP") + mySM.getOptionalParameter("CA_NP")) / 4.;
-            CA -= (mySM.getOptionalParameter("CV_NP") - mySM.getOptionalParameter("CA_NP")) / 4.;
-            CAp = -(mySM.getOptionalParameter("CV_NP") + mySM.getOptionalParameter("CA_NP")) / 4.;
-            CS = (mySM.getOptionalParameter("CS_NP") - mySM.getOptionalParameter("CP_NP")) / 4.;
-            CSp = (mySM.getOptionalParameter("CS_NP") + mySM.getOptionalParameter("CP_NP")) / 4.;
-            CP = -(mySM.getOptionalParameter("CS_NP") - mySM.getOptionalParameter("CP_NP")) / 4.;
-            CPp = -(mySM.getOptionalParameter("CS_NP") + mySM.getOptionalParameter("CP_NP")) / 4.;
+            CV += (mySM.getOptionalParameter("CV_NP") - mySM.getOptionalParameter("CA_NP")) / 2. / M_SQRT2;
+            CVp = (mySM.getOptionalParameter("CV_NP") + mySM.getOptionalParameter("CA_NP")) / 2. / M_SQRT2;
+            CA -= (mySM.getOptionalParameter("CV_NP") - mySM.getOptionalParameter("CA_NP")) / 2. / M_SQRT2;
+            CAp = -(mySM.getOptionalParameter("CV_NP") + mySM.getOptionalParameter("CA_NP")) / 2. / M_SQRT2;
+            CS = (mySM.getOptionalParameter("CS_NP") - mySM.getOptionalParameter("CP_NP")) / 2. / M_SQRT2;
+            CSp = (mySM.getOptionalParameter("CS_NP") + mySM.getOptionalParameter("CP_NP")) / 2. / M_SQRT2;
+            CP = -(mySM.getOptionalParameter("CS_NP") - mySM.getOptionalParameter("CP_NP")) / 2. / M_SQRT2;
+            CPp = -(mySM.getOptionalParameter("CS_NP") + mySM.getOptionalParameter("CP_NP")) / 2. / M_SQRT2;
             CTp = mySM.getOptionalParameter("CT_NP");
         } else {
             CV += mySM.getOptionalParameter("CVL_NP") / 2.;
