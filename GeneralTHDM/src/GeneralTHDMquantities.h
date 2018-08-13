@@ -13,6 +13,27 @@
 #include "GeneralTHDM.h"
 #include "GeneralTHDMcache.h"
 
+/**
+ * @class tanbeta_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The tangent of beta.
+ */
+class tanbeta_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief tanbeta constructor.
+     */
+    tanbeta_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\tan \beta@f$
+     */
+    double computeThValue();
+
+    const GeneralTHDM * myGTHDM;
+};
+
 
 /**
  * @class mH1_2

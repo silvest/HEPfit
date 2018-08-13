@@ -1936,6 +1936,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda4_GTHDM"] = boost::factory<lambda4_GTHDM*>();
     obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();
     obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>();
+    obsThFactory["tanbeta"] = boost::factory<tanbeta_GTHDM*>();
+
     
     
    obsThFactory["mH1mmH2"] = boost::factory<massdifference_mH1mmH2*>();

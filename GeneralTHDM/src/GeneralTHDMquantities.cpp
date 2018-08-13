@@ -7,6 +7,14 @@
 
 #include "GeneralTHDMquantities.h"
 
+tanbeta_GTHDM::tanbeta_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
+{}
+
+double tanbeta_GTHDM::computeThValue()
+{
+    return myGTHDM->gettanb();
+}
 
 mH1_2::mH1_2(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
