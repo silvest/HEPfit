@@ -905,9 +905,9 @@ void THDMWcache::runTHDMWparameters()
 
 void THDMWcache::computeUnitarity()
 {
-    if( THDMWmodel != "custodial1" && THDMWmodel != "ManoharWise" )
+    if( THDMWmodel != "custodial1" && THDMWmodel != "ManoharWise" && THDMWmodel != "custodialMW")
     {
-        throw std::runtime_error("THDMW unitarity constraints are only implemented for the \"custodial1\" and the \"ManoharWise\" model.");
+        throw std::runtime_error("THDMW unitarity constraints are only implemented for the \"custodial1\", the \"ManoharWise\" and the \"custodialMW\" model.");
     }
 
     if( THDMWmodel == "custodial1")

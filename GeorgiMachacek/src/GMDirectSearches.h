@@ -1344,6 +1344,16 @@ private:
     const GeorgiMachacek& myGM;
 };
 
+class Hobs_gg_H1_Zga_qqga_ATLAS13: public ThObservable {
+public:
+
+    Hobs_gg_H1_Zga_qqga_ATLAS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
 class Hobs_gg_H1_Zga_CMS13: public ThObservable {
 public:
 
@@ -1378,6 +1388,16 @@ class Hobs_gg_H3_Zga_llga_ATLAS13: public ThObservable {
 public:
 
     Hobs_gg_H3_Zga_llga_ATLAS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_gg_H3_Zga_qqga_ATLAS13: public ThObservable {
+public:
+
+    Hobs_gg_H3_Zga_qqga_ATLAS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1478,16 +1498,6 @@ class Hobs_pp_H1_ZZ_llqqnunull_CMS13: public ThObservable {
 public:
 
     Hobs_pp_H1_ZZ_llqqnunull_CMS13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_VV_H1_ZZ_llqqnunull_CMS13: public ThObservable {
-public:
-
-    Hobs_VV_H1_ZZ_llqqnunull_CMS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1785,17 +1795,38 @@ private:
 };
 
 /**
- * @class Hobs_pp_H1_hh_bbbb_CMS13
+ * @class Hobs_pp_H1_hh_bbbb_1_CMS13
  * @ingroup GeorgiMachacek
  * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to H_1\to hh\to b\bar b b\bar b@f$.
  */
-class Hobs_pp_H1_hh_bbbb_CMS13: public ThObservable {
+class Hobs_pp_H1_hh_bbbb_1_CMS13: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_pp_H1_hh_bbbb_CMS13 constructor.
+     * @brief Hobs_pp_H1_hh_bbbb_1_CMS13 constructor.
      */
-    Hobs_pp_H1_hh_bbbb_CMS13(const StandardModel& SM_i);
+    Hobs_pp_H1_hh_bbbb_1_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{pp\to H_1}\cdot BR^{\text{GM}}(H_1\to hh\to b\bar b b\bar b)]_{\text{theo}} / [\sigma_{pp\to H_1}\cdot BR(H_1\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class Hobs_pp_H1_hh_bbbb_2_CMS13
+ * @ingroup GeorgiMachacek
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to H_1\to hh\to b\bar b b\bar b@f$.
+ */
+class Hobs_pp_H1_hh_bbbb_2_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_H1_hh_bbbb_2_CMS13 constructor.
+     */
+    Hobs_pp_H1_hh_bbbb_2_CMS13(const StandardModel& SM_i);
 
     /**
      * @return @f$[\sigma^{\text{THDM}}_{pp\to H_1}\cdot BR^{\text{GM}}(H_1\to hh\to b\bar b b\bar b)]_{\text{theo}} / [\sigma_{pp\to H_1}\cdot BR(H_1\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
@@ -1835,10 +1866,30 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_pp_H1_hh_bbtautau_CMS13: public ThObservable {
+class Hobs_pp_H1_hh_bbtautau_ATLAS13: public ThObservable {
 public:
 
-    Hobs_pp_H1_hh_bbtautau_CMS13(const StandardModel& SM_i);
+    Hobs_pp_H1_hh_bbtautau_ATLAS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_pp_H1_hh_bbtautau_1_CMS13: public ThObservable {
+public:
+
+    Hobs_pp_H1_hh_bbtautau_1_CMS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_pp_H1_hh_bbtautau_2_CMS13: public ThObservable {
+public:
+
+    Hobs_pp_H1_hh_bbtautau_2_CMS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -1925,20 +1976,50 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_pp_H3_H1Z_bbll_CMS8: public ThObservable {
+class Hobs_gg_H3_hZ_bbZ_1_CMS13: public ThObservable {
 public:
 
-    Hobs_pp_H3_H1Z_bbll_CMS8(const StandardModel& SM_i);
+    Hobs_gg_H3_hZ_bbZ_1_CMS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_pp_H3_H5Z_bbll_CMS8: public ThObservable {
+class Hobs_bb_H3_hZ_bbZ_1_CMS13: public ThObservable {
 public:
 
-    Hobs_pp_H3_H5Z_bbll_CMS8(const StandardModel& SM_i);
+    Hobs_bb_H3_hZ_bbZ_1_CMS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_gg_H3_hZ_bbZ_2_CMS13: public ThObservable {
+public:
+
+    Hobs_gg_H3_hZ_bbZ_2_CMS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_bb_H3_hZ_bbZ_2_CMS13: public ThObservable {
+public:
+
+    Hobs_bb_H3_hZ_bbZ_2_CMS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_pp_H3_H1Z_bbll_CMS8: public ThObservable {
+public:
+
+    Hobs_pp_H3_H1Z_bbll_CMS8(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -2025,20 +2106,10 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_pp_H3p_tb1_ATLAS13: public ThObservable {
+class Hobs_pp_H3pm_tb_ATLAS13: public ThObservable {
 public:
 
-    Hobs_pp_H3p_tb1_ATLAS13(const StandardModel& SM_i);
-
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-class Hobs_pp_H3p_tb2_ATLAS13: public ThObservable {
-public:
-
-    Hobs_pp_H3p_tb2_ATLAS13(const StandardModel& SM_i);
+    Hobs_pp_H3pm_tb_ATLAS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -2055,10 +2126,30 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_WZ_H5pm_WZ_lnull_CMS13: public ThObservable {
+class Hobs_WZ_H5pm_WZ_lnull_ATLAS13: public ThObservable {
 public:
 
-    Hobs_WZ_H5pm_WZ_lnull_CMS13(const StandardModel& SM_i);
+    Hobs_WZ_H5pm_WZ_lnull_ATLAS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_WZ_H5pm_WZ_lnull_1_CMS13: public ThObservable {
+public:
+
+    Hobs_WZ_H5pm_WZ_lnull_1_CMS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_WZ_H5pm_WZ_lnull_2_CMS13: public ThObservable {
+public:
+
+    Hobs_WZ_H5pm_WZ_lnull_2_CMS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -2105,20 +2196,30 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_pp_H5ppmm_WW_jjll_CMS8: public ThObservable {
+class Hobs_pp_H5ppmmH5mmpp_WWWW_ATLAS13: public ThObservable {
 public:
 
-    Hobs_pp_H5ppmm_WW_jjll_CMS8(const StandardModel& SM_i);
+    Hobs_pp_H5ppmmH5mmpp_WWWW_ATLAS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_pp_H5ppmm_WW_jjll_CMS13: public ThObservable {
+class Hobs_VV_H5ppmm_WW_jjll_CMS8: public ThObservable {
 public:
 
-    Hobs_pp_H5ppmm_WW_jjll_CMS13(const StandardModel& SM_i);
+    Hobs_VV_H5ppmm_WW_jjll_CMS8(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_VV_H5ppmm_WW_jjll_CMS13: public ThObservable {
+public:
+
+    Hobs_VV_H5ppmm_WW_jjll_CMS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -2738,6 +2839,16 @@ private:
     const GeorgiMachacek& myGM;
 };
 
+class log10_gg_H1_hh_bbtautau_TH8: public ThObservable {
+public:
+
+    log10_gg_H1_hh_bbtautau_TH8(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
 class log10_pp_H1_hh_TH13: public ThObservable {
 public:
 
@@ -2813,6 +2924,16 @@ class log10_pp_H1_hh_bblnulnu_TH13: public ThObservable {
 public:
 
     log10_pp_H1_hh_bblnulnu_TH13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class log10_gg_H1_hh_gagaWW_TH13: public ThObservable {
+public:
+
+    log10_gg_H1_hh_gagaWW_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -2969,10 +3090,10 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_pp_H3p_tb_TH13: public ThObservable {
+class log10_pp_H3pm_tb_TH13: public ThObservable {
 public:
 
-    log10_pp_H3p_tb_TH13(const StandardModel& SM_i);
+    log10_pp_H3pm_tb_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
@@ -3029,20 +3150,20 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_pp_H5ppmm_WW_TH8: public ThObservable {
+class log10_VV_H5ppmm_WW_TH8: public ThObservable {
 public:
 
-    log10_pp_H5ppmm_WW_TH8(const StandardModel& SM_i);
+    log10_VV_H5ppmm_WW_TH8(const StandardModel& SM_i);
 
     double computeThValue();
 private:
     const GeorgiMachacek& myGM;
 };
 
-class log10_pp_H5ppmm_WW_TH13: public ThObservable {
+class log10_VV_H5ppmm_WW_TH13: public ThObservable {
 public:
 
-    log10_pp_H5ppmm_WW_TH13(const StandardModel& SM_i);
+    log10_VV_H5ppmm_WW_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:

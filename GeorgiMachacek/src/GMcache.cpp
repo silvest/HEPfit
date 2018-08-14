@@ -80,6 +80,7 @@ GMcache::GMcache(const StandardModel& SM_i)
     ATLAS8_pp_phi_Zga_llga(141, 2, 0.),
     CMS8_pp_phi_Zga_llga(101,2,0.),
     ATLAS13_gg_phi_Zga_llga(216,2,0.),
+    ATLAS13_gg_phi_Zga_qqga(581,2,0.),
     CMS13_gg_phi_Zga(366,2,0.),
     ATLAS8_gg_phi_ZZ(173,2,0.),
     ATLAS8_VV_phi_ZZ(173,2,0.),
@@ -105,12 +106,15 @@ GMcache::GMcache(const StandardModel& SM_i)
     CMS8_pp_phi_hh_gagabb(85, 2, 0.),
     CMS8_gg_phi_hh_bbtautau(10,2,0.),
     CMS8_pp_phi_hh_bbtautau(71,2,0.),
-    ATLAS13_pp_phi_hh_bbbb(271,2,0.),
-    CMS13_pp_phi_hh_bbbb(95,2,0.),
+    ATLAS13_pp_phi_hh_bbbb(275,2,0.),
+    CMS13_pp_phi_hh_bbbb_1(95,2,0.),
+    CMS13_pp_phi_hh_bbbb_2(181,2,0.),
     CMS13_gg_phi_hh_bbbb(226,2,0.),
-    ATLAS13_pp_phi_hh_gagabb(26,2,0.),
+    ATLAS13_pp_phi_hh_gagabb(75,2,0.),
     CMS13_pp_phi_hh_gagabb(66,2,0.),
-    CMS13_pp_phi_hh_bbtautau(66,2,0.),
+    ATLAS13_pp_phi_hh_bbtautau(75,2,0.),
+    CMS13_pp_phi_hh_bbtautau_1(66,2,0.),
+    CMS13_pp_phi_hh_bbtautau_2(311,2,0.),
     CMS13_pp_phi_hh_bblnulnu(65,2,0.),
     ATLAS13_gg_phi_hh_gagaWW(25,2,0.),
     ATLAS8_gg_A_hZ_bbZ(79, 2, 0.),
@@ -119,25 +123,31 @@ GMcache::GMcache(const StandardModel& SM_i)
     CMS8_gg_A_hZ_tautaull(14,2,0.),
     ATLAS13_gg_A_Zh_Zbb(181,2,0.),
     ATLAS13_bb_A_Zh_Zbb(181,2,0.),
+    CMS13_gg_A_Zh_Zbb_1(79,2,0.),
+    CMS13_bb_A_Zh_Zbb_1(79,2,0.),
+    CMS13_gg_A_Zh_Zbb_2(121,2,0.),
+    CMS13_bb_A_Zh_Zbb_2(121,2,0.),
     CMS8_pp_A_phiZ_bbll(28718, 3, 0.),
     CMS8_pp_phi_AZ_bbll(29050, 3, 0.),
     /* Charged searches */
     ATLAS8_pp_Hpm_taunu(83,2,0.),
     CMS8_pp_Hp_taunu(43,2,0.),
-    ATLAS13_pp_Hpm_taunu(181,2,0.),
+    ATLAS13_pp_Hpm_taunu(192,2,0.),
     CMS13_pp_Hpm_taunu(283,2,0.),
     ATLAS8_pp_Hpm_tb(41,2,0.),
     CMS8_pp_Hp_tb(43,2,0.),
-    ATLAS13_pp_Hp_tb1(71,2,0.),
-    ATLAS13_pp_Hp_tb2(181,2,0.),
+    ATLAS13_pp_Hpm_tb(181,2,0.),
     ATLAS8_WZ_H5pm_WZ_qqll(81,2,0.),
-    CMS13_WZ_H5pm_WZ_lnull(181,2,0.),
+    ATLAS13_WZ_H5pm_WZ_lnull(71,2,0.),
+    CMS13_WZ_H5pm_WZ_lnull_1(11,2,0.),
+    CMS13_WZ_H5pm_WZ_lnull_2(171,2,0.),
     ATLAS8_pp_H5ppmmH5mmpp_eeee(50,2,0.),
     ATLAS8_pp_H5ppmmH5mmpp_emuemu(57,2,0.),
     ATLAS8_pp_H5ppmmH5mmpp_mumumumu(57,2,0.),
     ATLAS13_pp_H5ppmmH5mmpp_llll(96,2,0.),
-    CMS8_pp_H5ppmm_WW_jjll(65,2,0.),
-    CMS13_pp_H5ppmm_WW_jjll(81,2,0.),
+    ATLAS13_pp_H5ppmmH5mmpp_WWWW(51,2,0.),
+    CMS8_VV_H5ppmm_WW_jjll(65,2,0.),
+    CMS13_VV_H5ppmm_WW_jjll(81,2,0.),
     unitarityeigenvalues(17, 0.),
     myGM(static_cast<const GeorgiMachacek*> (&SM_i))
 {
@@ -217,6 +227,7 @@ void GMcache::read(){
     std::stringstream ex31,ex32,ex33,ex34,ex35,ex36,ex37,ex38,ex39,ex40,ex41,ex42,ex43,ex44,ex45;
     std::stringstream ex46,ex47,ex48,ex49,ex50,ex51,ex52,ex53,ex54,ex55,ex56,ex57,ex58,ex59,ex60;
     std::stringstream ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex68,ex69,ex70,ex71,ex72,ex73;
+    std::stringstream ex74,ex75,ex76,ex77,ex78,ex79,ex80,ex81,ex82,ex83;
     std::stringstream ex28a,ex43a,ex70a,ex70b;
 
     std::cout<<"reading tables"<<std::endl;
@@ -319,7 +330,7 @@ void GMcache::read(){
     readTable(log_cs_VHH5pp_8, cs38.str(),18,2);
     cs39 << tablepath << "log_cs_VHH5pp_13.dat";
     readTable(log_cs_VHH5pp_13, cs39.str(),38,2);
-    ex1 << tablepath << "ATLAS-CONF-2016-104_a.dat";
+    ex1 << tablepath << "180711883.dat";
     readTable(ATLAS13_tt_phi_tt, ex1.str(),61,2);
     ex2 << tablepath << "ATLAS-CONF-2016-104_b.dat";
     readTable(ATLAS13_bb_phi_tt, ex2.str(),61,2);
@@ -409,21 +420,21 @@ void GMcache::read(){
     readTable(CMS8_gg_phi_hh_bbtautau, ex43.str(),10,2);
     ex43a << tablepath << "170700350.dat";
     readTable(CMS8_pp_phi_hh_bbtautau, ex43a.str(),71,2);
-    ex44 << tablepath << "ATLAS-CONF-2016-049.dat";
-    readTable(ATLAS13_pp_phi_hh_bbbb, ex44.str(),271,2);
+    ex44 << tablepath << "180406174.dat";
+    readTable(ATLAS13_pp_phi_hh_bbbb, ex44.str(),275,2);
     ex45 << tablepath << "180603548.dat";
-    readTable(CMS13_pp_phi_hh_bbbb, ex45.str(),95,2);
+    readTable(CMS13_pp_phi_hh_bbbb_1, ex45.str(),95,2);
     ex46 << tablepath << "171004960.dat";
     readTable(CMS13_gg_phi_hh_bbbb, ex46.str(),226,2);
-    ex47 << tablepath << "ATLAS-CONF-2016-004.dat";
-    readTable(ATLAS13_pp_phi_hh_gagabb, ex47.str(),26,2);
+    ex47 << tablepath << "180704873.dat";
+    readTable(ATLAS13_pp_phi_hh_gagabb, ex47.str(),75,2);
     ex48 << tablepath << "180600408.dat";
     readTable(CMS13_pp_phi_hh_gagabb, ex48.str(),66,2);
     ex49 << tablepath << "170702909.dat";
-    readTable(CMS13_pp_phi_hh_bbtautau, ex49.str(),66,2);
+    readTable(CMS13_pp_phi_hh_bbtautau_1, ex49.str(),66,2);
     ex50 << tablepath << "170804188.dat";
     readTable(CMS13_pp_phi_hh_bblnulnu, ex50.str(),65,2);
-    ex51 << tablepath << "ATLAS-CONF-2016-071.dat";
+    ex51 << tablepath << "180708567.dat";
     readTable(ATLAS13_gg_phi_hh_gagaWW, ex51.str(),25,2);
     ex52 << tablepath << "150204478_b.dat";
     readTable(ATLAS8_gg_A_hZ_bbZ, ex52.str(),79,2);
@@ -445,22 +456,22 @@ void GMcache::read(){
     readTable(ATLAS8_pp_Hpm_taunu, ex60.str(),83,2);
     ex61 << tablepath << "150807774_a.dat";
     readTable(CMS8_pp_Hp_taunu, ex61.str(),43,2);
-    ex62 << tablepath << "ATLAS-CONF-2016-088.dat";
-    readTable(ATLAS13_pp_Hpm_taunu, ex62.str(),181,2);
+    ex62 << tablepath << "180707915.dat";
+    readTable(ATLAS13_pp_Hpm_taunu, ex62.str(),192,2);
     ex63 << tablepath << "CMS-PAS-HIG-16-031.dat";
     readTable(CMS13_pp_Hpm_taunu, ex63.str(),283,2);
     ex64 << tablepath << "151203704.dat";
     readTable(ATLAS8_pp_Hpm_tb, ex64.str(),41,2);
     ex65 << tablepath << "150807774_b.dat";
     readTable(CMS8_pp_Hp_tb, ex65.str(),43,2);
-    ex66 << tablepath << "ATLAS-CONF-2016-089.dat";
-    readTable(ATLAS13_pp_Hp_tb1, ex66.str(),71,2);
-    ex67 << tablepath << "ATLAS-CONF-2016-104_c.dat";
-    readTable(ATLAS13_pp_Hp_tb2, ex67.str(),181,2);
-    ex68 << tablepath << "150304233.dat";
-    readTable(ATLAS8_WZ_H5pm_WZ_qqll, ex68.str(),81,2);
+    ex66 << tablepath << "180803599.dat";
+    readTable(ATLAS13_pp_Hpm_tb, ex66.str(),181,2);
+    ex67 << tablepath << "150304233.dat";
+    readTable(ATLAS8_WZ_H5pm_WZ_qqll, ex67.str(),81,2);
+    ex68 << tablepath << "180601532.dat";
+    readTable(ATLAS13_WZ_H5pm_WZ_lnull, ex68.str(),71,2);
     ex69 << tablepath << "170502942.dat";
-    readTable(CMS13_WZ_H5pm_WZ_lnull, ex69.str(),181,2);
+    readTable(CMS13_WZ_H5pm_WZ_lnull_1, ex69.str(),11,2);
     ex70 << tablepath << "14120237_a.dat";
     readTable(ATLAS8_pp_H5ppmmH5mmpp_eeee, ex70.str(),50,2);
     ex70a << tablepath << "14120237_b.dat";
@@ -470,9 +481,29 @@ void GMcache::read(){
     ex71 << tablepath << "171009748.dat";
     readTable(ATLAS13_pp_H5ppmmH5mmpp_llll, ex71.str(),96,2);
     ex72 << tablepath << "14106315.dat";
-    readTable(CMS8_pp_H5ppmm_WW_jjll, ex72.str(),65,2);
+    readTable(CMS8_VV_H5ppmm_WW_jjll, ex72.str(),65,2);
     ex73 << tablepath << "170905822.dat";
-    readTable(CMS13_pp_H5ppmm_WW_jjll, ex73.str(),81,2);
+    readTable(CMS13_VV_H5ppmm_WW_jjll, ex73.str(),81,2);
+    ex74 << tablepath << "180501908.dat";
+    readTable(ATLAS13_gg_phi_Zga_qqga, ex74.str(),581,2);
+    ex75 << tablepath << "180801473.dat";
+    readTable(CMS13_pp_phi_hh_bbbb_2, ex75.str(),181,2);
+    ex76 << tablepath << "180800336.dat";
+    readTable(ATLAS13_pp_phi_hh_bbtautau, ex76.str(),75,2);
+    ex77 << tablepath << "180801365.dat";
+    readTable(CMS13_pp_phi_hh_bbtautau_2, ex77.str(),311,2);
+    ex78 << tablepath << "CMS-PAS-HIG-18-005_a.dat";
+    readTable(CMS13_gg_A_Zh_Zbb_1, ex78.str(),79,2);
+    ex79 << tablepath << "CMS-PAS-HIG-18-005_b.dat";
+    readTable(CMS13_bb_A_Zh_Zbb_1, ex79.str(),79,2);
+    ex80 << tablepath << "180702826_a.dat";
+    readTable(CMS13_gg_A_Zh_Zbb_2, ex80.str(),121,2);
+    ex81 << tablepath << "1807.02826_b.dat";
+    readTable(CMS13_bb_A_Zh_Zbb_2, ex81.str(),121,2);
+    ex82 << tablepath << "CMS-PAS-SMP-18-001.dat";
+    readTable(CMS13_WZ_H5pm_WZ_lnull_2, ex82.str(),171,2);
+    ex83 << tablepath << "180801899.dat";
+    readTable(ATLAS13_pp_H5ppmmH5mmpp_WWWW, ex83.str(),51,2);
 }
 
 
@@ -1606,6 +1637,20 @@ double GMcache::ip_ex_gg_phi_Zga_llga_ATLAS13(double mass){
     }
 }
 
+double GMcache::ip_ex_gg_phi_Zga_qqga_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_Zga_qqga_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_Zga_qqga_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_phi_Zga_qqga,mass);
+        CacheShiftReal(ip_ex_gg_phi_Zga_qqga_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 double GMcache::ip_ex_gg_phi_Zga_CMS13(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -1970,16 +2015,30 @@ double GMcache::ip_ex_pp_phi_hh_bbbb_ATLAS13(double mass){
     }
 }
 
-double GMcache::ip_ex_pp_phi_hh_bbbb_CMS13(double mass){
+double GMcache::ip_ex_pp_phi_hh_bbbb_1_CMS13(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS13_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_1_CMS13_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_phi_hh_bbbb_CMS13_cache[NumPar][i] );
+        return ( ip_ex_pp_phi_hh_bbbb_1_CMS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS13_pp_phi_hh_bbbb,mass);
-        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS13_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS13_pp_phi_hh_bbbb_1,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_1_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_bbbb_2_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_2_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbbb_2_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_hh_bbbb_2,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_2_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -2026,16 +2085,44 @@ double GMcache::ip_ex_pp_phi_hh_gagabb_CMS13(double mass){
     }
 }
 
-double GMcache::ip_ex_pp_phi_hh_bbtautau_CMS13(double mass){
+double GMcache::ip_ex_pp_phi_hh_bbtautau_ATLAS13(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbtautau_CMS13_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbtautau_ATLAS13_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_phi_hh_bbtautau_CMS13_cache[NumPar][i] );
+        return ( ip_ex_pp_phi_hh_bbtautau_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS13_pp_phi_hh_bbtautau,mass);
-        CacheShiftReal(ip_ex_pp_phi_hh_bbtautau_CMS13_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS13_pp_phi_hh_bbtautau,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbtautau_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_bbtautau_1_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbtautau_1_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbtautau_1_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_hh_bbtautau_1,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbtautau_1_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_bbtautau_2_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbtautau_2_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbtautau_2_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_hh_bbtautau_2,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbtautau_2_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -2152,6 +2239,62 @@ double GMcache::ip_ex_bb_A_hZ_bbZ_ATLAS13(double mass){
     }
 }
 
+double GMcache::ip_ex_gg_A_hZ_bbZ_1_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbZ_1_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_A_hZ_bbZ_1_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_gg_A_Zh_Zbb_1,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbZ_1_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_A_hZ_bbZ_1_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_A_hZ_bbZ_1_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_A_hZ_bbZ_1_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_bb_A_Zh_Zbb_1,mass);
+        CacheShiftReal(ip_ex_bb_A_hZ_bbZ_1_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_A_hZ_bbZ_2_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbZ_2_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_A_hZ_bbZ_2_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_gg_A_Zh_Zbb_2,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbZ_2_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_A_hZ_bbZ_2_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_A_hZ_bbZ_2_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_A_hZ_bbZ_2_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_bb_A_Zh_Zbb_2,mass);
+        CacheShiftReal(ip_ex_bb_A_hZ_bbZ_2_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 double GMcache::ip_ex_pp_A_phiZ_bbll_CMS8(double mA, double mH){
     int NumPar = 2;
     double params[] = {mA,mH};
@@ -2264,30 +2407,30 @@ double GMcache::ip_ex_pp_Hp_tb_CMS8(double mHp){
     }
 }
 
-double GMcache::ip_ex_pp_Hp_tb1_ATLAS13(double mHp){
+double GMcache::ip_ex_pp_Hpm_tb_ATLAS13(double mHp){
     int NumPar = 1;
     double params[] = {mHp};
 
-    int i = CacheCheckReal(ip_ex_pp_Hp_tb1_ATLAS13_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_Hpm_tb_ATLAS13_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_Hp_tb1_ATLAS13_cache[NumPar][i] );
+        return ( ip_ex_pp_Hpm_tb_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS13_pp_Hp_tb1,mHp);
-        CacheShiftReal(ip_ex_pp_Hp_tb1_ATLAS13_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS13_pp_Hpm_tb,mHp);
+        CacheShiftReal(ip_ex_pp_Hpm_tb_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double GMcache::ip_ex_pp_Hp_tb2_ATLAS13(double mHp){
+double GMcache::ip_ex_WZ_H5pm_WZ_lnull_ATLAS13(double mH5){
     int NumPar = 1;
-    double params[] = {mHp};
+    double params[] = {mH5};
 
-    int i = CacheCheckReal(ip_ex_pp_Hp_tb2_ATLAS13_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_Hp_tb2_ATLAS13_cache[NumPar][i] );
+        return ( ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS13_pp_Hp_tb2,mHp);
-        CacheShiftReal(ip_ex_pp_Hp_tb2_ATLAS13_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS13_WZ_H5pm_WZ_lnull,mH5);
+        CacheShiftReal(ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -2306,16 +2449,30 @@ double GMcache::ip_ex_WZ_H5pm_WZ_qqll_ATLAS8(double mH5){
     }
 }
 
-double GMcache::ip_ex_WZ_H5pm_WZ_lnull_CMS13(double mH5){
+double GMcache::ip_ex_WZ_H5pm_WZ_lnull_1_CMS13(double mH5){
     int NumPar = 1;
     double params[] = {mH5};
 
-    int i = CacheCheckReal(ip_ex_WZ_H5pm_WZ_lnull_CMS13_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_WZ_H5pm_WZ_lnull_1_CMS13_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_WZ_H5pm_WZ_lnull_CMS13_cache[NumPar][i] );
+        return ( ip_ex_WZ_H5pm_WZ_lnull_1_CMS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS13_WZ_H5pm_WZ_lnull,mH5);
-        CacheShiftReal(ip_ex_WZ_H5pm_WZ_lnull_CMS13_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS13_WZ_H5pm_WZ_lnull_1,mH5);
+        CacheShiftReal(ip_ex_WZ_H5pm_WZ_lnull_1_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_WZ_H5pm_WZ_lnull_2_CMS13(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_WZ_H5pm_WZ_lnull_2_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_WZ_H5pm_WZ_lnull_2_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_WZ_H5pm_WZ_lnull_2,mH5);
+        CacheShiftReal(ip_ex_WZ_H5pm_WZ_lnull_2_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -2376,30 +2533,44 @@ double GMcache::ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13(double mH5){
     }
 }
 
-double GMcache::ip_ex_pp_H5ppmm_WW_jjll_CMS8(double mH5){
+double GMcache::ip_ex_pp_H5ppmmH5mmpp_WWWW_ATLAS13(double mH5){
     int NumPar = 1;
     double params[] = {mH5};
 
-    int i = CacheCheckReal(ip_ex_pp_H5ppmm_WW_jjll_CMS8_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_H5ppmmH5mmpp_WWWW_ATLAS13_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_H5ppmm_WW_jjll_CMS8_cache[NumPar][i] );
+        return ( ip_ex_pp_H5ppmmH5mmpp_WWWW_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS8_pp_H5ppmm_WW_jjll,mH5);
-        CacheShiftReal(ip_ex_pp_H5ppmm_WW_jjll_CMS8_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS13_pp_H5ppmmH5mmpp_WWWW,mH5);
+        CacheShiftReal(ip_ex_pp_H5ppmmH5mmpp_WWWW_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double GMcache::ip_ex_pp_H5ppmm_WW_jjll_CMS13(double mH5){
+double GMcache::ip_ex_VV_H5ppmm_WW_jjll_CMS8(double mH5){
     int NumPar = 1;
     double params[] = {mH5};
 
-    int i = CacheCheckReal(ip_ex_pp_H5ppmm_WW_jjll_CMS13_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_VV_H5ppmm_WW_jjll_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_H5ppmm_WW_jjll_CMS13_cache[NumPar][i] );
+        return ( ip_ex_VV_H5ppmm_WW_jjll_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS13_pp_H5ppmm_WW_jjll,mH5);
-        CacheShiftReal(ip_ex_pp_H5ppmm_WW_jjll_CMS13_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_VV_H5ppmm_WW_jjll,mH5);
+        CacheShiftReal(ip_ex_VV_H5ppmm_WW_jjll_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_VV_H5ppmm_WW_jjll_CMS13(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_VV_H5ppmm_WW_jjll_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_VV_H5ppmm_WW_jjll_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_VV_H5ppmm_WW_jjll,mH5);
+        CacheShiftReal(ip_ex_VV_H5ppmm_WW_jjll_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -2447,20 +2618,20 @@ double GMcache::interpolate(gslpp::matrix<double>& arrayTab, double x){
     double xmin = arrayTab(0,0);
     double xmax = arrayTab(rowN-1,0);
     double interval = arrayTab(1,0)-arrayTab(0,0);
-    int Nintervals = (x-xmin)/interval;
+    int Nintervals = (x-xmin)/interval; //floor!
     double y = 0.0;
        
     if(x<xmin){
 //        std::cout<<"warning: your table parameter value is smaller than the minimum allowed value"<<std::endl;
         return 0.;
     }
-    else if(x>xmax){
+    else if(x>=xmax){
 //        std::cout<<"warning: your table parameter value is greater than the maximum allowed value"<<std::endl;
         return 0.;
     }
     else{
-        y =(arrayTab(Nintervals+1,1)-arrayTab(Nintervals,1))/(arrayTab(Nintervals+1,0)
-                   -arrayTab(Nintervals,0))*(x-arrayTab(Nintervals,0))+arrayTab(Nintervals,1);
+        y =(arrayTab(Nintervals+1,1)-arrayTab(Nintervals,1))/interval*(x-arrayTab(Nintervals,0))
+           +arrayTab(Nintervals,1);
         return y;
     }
 }
@@ -2960,46 +3131,58 @@ void GMcache::computeSignalStrengthQuantities()
 
 //    depending on which Higgs is heavier
 
-    double gh_H3=0., gh_H5=0.;
+    double sqrtrh_ff=0., sqrtrh_VV=0., gh_H3=0., gh_H5=0.;
 
     if(mH1sq>=mHl2)
     {
-        rh_ff = cosa*cosa/(sinb*sinb);
-        rh_VV = cosa*cosa*sinb*sinb - sqrt(32.0/3.0)*cosa*sina*cosb*sinb + 8.0/3.0*sina*sina*cosb*cosb;
+        sqrtrh_ff = cosa/sinb;
+        sqrtrh_VV = cosa*sinb - sqrt(8.0/3.0)*sina*cosb;
         gh_H3 = ghH3pH3m;
         gh_H5 = ghH5pH5m;
     }
     else
     {
-        rh_ff = sina*sina/(sinb*sinb);
-        rh_VV = sina*sina*sinb*sinb + sqrt(32.0/3.0)*sina*cosa*cosb*sinb + 8.0/3.0*cosa*cosa*cosb*cosb;
+        sqrtrh_ff = sina/sinb;
+        sqrtrh_VV = sina*sinb + sqrt(8.0/3.0)*cosa*cosb;
         gh_H3 = gHH3pH3m;
         gh_H5 = gHH5pH5m;
     }
+    rh_ff = sqrtrh_ff*sqrtrh_ff;
+    rh_VV = sqrtrh_VV*sqrtrh_VV;
 
     //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
 
     gslpp::complex I_hSM_F = I_h_U(mHl2,Mu,Mc,Mt)+I_h_D(mHl2,Md,Ms,Mb)+I_h_L(mHl2,Me,Mmu,Mtau);
     gslpp::complex I_hSM_W = I_H_W(mHl,MW);
-    gslpp::complex I_h_F = sqrt(rh_ff)*I_hSM_F;
-    gslpp::complex I_h_W = sqrt(rh_VV)*I_hSM_W;
+    gslpp::complex I_h_F = sqrtrh_ff*I_hSM_F;
+    gslpp::complex I_h_W = sqrtrh_VV*I_hSM_W;
     gslpp::complex I_h_Hp = 0.5*vev*( gh_H3*I_H_Hp(mAsq,mHl)/mAsq + 5.0*gh_H5*I_H_Hp(mH5sq,mHl)/mH5sq );
 
     double ABSgagaGM=(I_h_F+I_h_W+I_h_Hp).abs2();
     double ABSgagaSM=(I_hSM_F+I_hSM_W).abs2();
     rh_gaga=ABSgagaGM/ABSgagaSM;
 
+//        std::cout<<"I_h_F = "<<I_h_F<<std::endl;
+//        std::cout<<"I_h_W = "<<I_h_W<<std::endl;
+//        std::cout<<"I_h_Hp3 = "<<0.5*vev*( gh_H3*I_H_Hp(mAsq,mHl)/mAsq )<<std::endl;
+//        std::cout<<"I_h_Hp5 = "<<0.5*vev*( 5.0*gh_H5*I_H_Hp(mH5sq,mHl)/mH5sq )<<std::endl;
+
     //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
 
     gslpp::complex A_hSM_F = A_h_U(mHl2,cW2,Mu,Mc,Mt,MZ)+A_h_D(mHl2,cW2,Md,Ms,Mb,MZ)+A_h_L(mHl2,cW2,Me,Mmu,Mtau,MZ);
     gslpp::complex A_hSM_W = A_H_W(mHl,cW2,MW,MZ);
-    gslpp::complex A_h_F = sqrt(rh_ff)*A_hSM_F/sqrt(sW2*cW2);
-    gslpp::complex A_h_W = sqrt(rh_VV)*A_hSM_W;
+    gslpp::complex A_h_F = sqrtrh_ff*A_hSM_F/sqrt(sW2*cW2);
+    gslpp::complex A_h_W = sqrtrh_VV*A_hSM_W;
     gslpp::complex A_h_Hp = -0.5*vev*(gh_H3*A_H_Hp(mAsq,mHl,cW2,MZ)/mAsq + 5.0*gh_H5*A_H_Hp(mH5sq,mHl,cW2,MZ)/mH5sq);
 
     double ABSZgaGM=(A_h_F+A_h_W+A_h_Hp).abs2();
     double ABSZgaSM=(A_hSM_F+A_hSM_W).abs2();
     rh_Zga=ABSZgaGM/ABSZgaSM;
+
+//        std::cout<<"A_h_F = "<<A_h_F<<std::endl;
+//        std::cout<<"A_h_W = "<<A_h_W<<std::endl;
+//        std::cout<<"A_h_Hp3 = "<<-0.5*vev*(gh_H3*A_H_Hp(mAsq,mHl,cW2,MZ)/mAsq)<<std::endl;
+//        std::cout<<"A_h_Hp5 = "<<-0.5*vev*(5.0*gh_H5*A_H_Hp(mH5sq,mHl,cW2,MZ)/mH5sq)<<std::endl;
 
     rh_gg=rh_ff;
 
@@ -3085,28 +3268,31 @@ void GMcache::computeOtherHiggsProperties()
 //    /* rX_ii is the squared ratio between the GM vertex coupling of the neutral heavy Higgs X to
 //     * the particle i and the corresponding coupling of the SM Higgs boson.*/
     double rA_ff=1.0/(tanb*tanb);
-    double gHH_H3=0., gHH_H5=0.;
+
+    double sqrtrHH_ff=0., sqrtrHH_VV=0., gHH_H3=0., gHH_H5=0.;
 
     if(mH1sq>=mHl2)
     {
-        rHH_ff = sina*sina/(sinb*sinb);
-        rHH_VV = sina*sina*sinb*sinb + sqrt(32.0/3.0)*sina*cosa*cosb*sinb + 8.0/3.0*cosa*cosa*cosb*cosb;
+        sqrtrHH_ff = sina/sinb;
+        sqrtrHH_VV = sina*sinb + sqrt(8.0/3.0)*cosa*cosb;
         gHH_H3 = gHH3pH3m;
         gHH_H5 = gHH5pH5m;
     }
     else
     {
-        rHH_ff = cosa*cosa/(sinb*sinb);
-        rHH_VV = cosa*cosa*sinb*sinb - sqrt(32.0/3.0)*cosa*sina*cosb*sinb + 8.0/3.0*sina*sina*cosb*cosb;
+        sqrtrHH_ff = cosa/sinb;
+        sqrtrHH_VV = cosa*sinb - sqrt(8.0/3.0)*sina*cosb;
         gHH_H3 = ghH3pH3m;
         gHH_H5 = ghH5pH5m;
     }
+    rHH_ff = sqrtrHH_ff*sqrtrHH_ff;
+    rHH_VV = sqrtrHH_VV*sqrtrHH_VV;
 
     gslpp::complex I_HH_F=0.0;//It depends on the modelType
     gslpp::complex I_HH_Ux=I_HH_U(mH1sq,Mc,Mt);
     gslpp::complex I_HH_Dx=I_HH_D(mH1sq,Ms,Mb);
     gslpp::complex I_HH_Lx=I_HH_L(mH1sq,Mmu,Mtau);
-    gslpp::complex I_HH_W=sqrt(rHH_VV)*I_H_W(mHh,MW);
+    gslpp::complex I_HH_W=sqrtrHH_VV*I_H_W(mHh,MW);
     gslpp::complex I_HH_Hp = 0.5*vev*( gHH_H3*I_H_Hp(mAsq,mHh)/mAsq + 5.0*gHH_H5*I_H_Hp(mH5sq,mHh)/mH5sq );
 
     //    /*A_HH_F, A_HH_W and A_HH_Hp are needed for Gamma_HZga;
@@ -3116,20 +3302,28 @@ void GMcache::computeOtherHiggsProperties()
     gslpp::complex A_HH_Dx = A_HH_D(mH1sq,cW2,Ms,Mb,MZ);
     gslpp::complex A_HH_Lx = A_HH_L(mH1sq,cW2,Mmu,Mtau,MZ);
 //    /*A_HH_W expression can be found in "The Higgs Hunter's Guide", Appendix C, C.13*/
-    gslpp::complex A_HH_W = sqrt(rHH_VV)*A_H_W(mHh,cW2,MW,MZ);
+    gslpp::complex A_HH_W = sqrtrHH_VV*A_H_W(mHh,cW2,MW,MZ);
 //    /*A_HH_Hp expression can be found in "The Higgs Hunter's Guide", Appendix C, C.14*/
     gslpp::complex A_HH_Hp = -0.5*vev*(gHH_H3*A_H_Hp(mAsq,mHh,cW2,MZ)/mAsq + 5.0*gHH_H5*A_H_Hp(mH5sq,mHh,cW2,MZ)/mH5sq);
 
-    I_HH_F=sqrt(rHH_ff)*(I_HH_Ux+I_HH_Dx+I_HH_Lx);
-    A_HH_F=sqrt(rHH_ff)*(A_HH_Ux+A_HH_Dx+A_HH_Lx)/sqrt(sW2*cW2);
+    I_HH_F=sqrtrHH_ff*(I_HH_Ux+I_HH_Dx+I_HH_Lx);
+    A_HH_F=sqrtrHH_ff*(A_HH_Ux+A_HH_Dx+A_HH_Lx)/sqrt(sW2*cW2);
     /*Gamma_Hgaga expression can be found in arXiv:1412.7387, eq. (65)*/
     double Gamma_Hgaga=Ale*Ale*mH1sq*mHh/(256.0*M_PI*M_PI*M_PI*vev*vev)
                 *(I_HH_F+I_HH_W+I_HH_Hp).abs2();
+//        std::cout<<"I_HH_F = "<<I_HH_F<<std::endl;
+//        std::cout<<"I_HH_W = "<<I_HH_W<<std::endl;
+//        std::cout<<"I_HH_Hp3 = "<<0.5*vev*( gHH_H3*I_H_Hp(mAsq,mHh)/mAsq)<<std::endl;
+//        std::cout<<"I_HH_Hp5 = "<<0.5*vev*(5.0*gHH_H5*I_H_Hp(mH5sq,mHh)/mH5sq )<<std::endl;
 
 //    /*Gamma_HZga expression can be found in arXiv:1412.7387, eq. (76)*/
     double Gamma_HZga=HSTheta(mHh-MZ)*Ale*Ale*mH1sq*mHh/(128.0*M_PI*M_PI*M_PI*vev*vev)
                *(1.0-MZ*MZ/mH1sq)*(1.0-MZ*MZ/mH1sq)*(1.0-MZ*MZ/mH1sq)
                *(A_HH_F+A_HH_W+A_HH_Hp).abs2();
+//        std::cout<<"A_HH_F = "<<A_HH_F<<std::endl;
+//        std::cout<<"A_HH_W = "<<A_HH_W<<std::endl;
+//        std::cout<<"A_HH_Hp3 = "<<-0.5*vev*(gHH_H3*A_H_Hp(mAsq,mHh,cW2,MZ)/mAsq)<<std::endl;
+//        std::cout<<"A_HH_Hp5 = "<<-0.5*vev*( 5.0*gHH_H5*A_H_Hp(mH5sq,mHh,cW2,MZ)/mH5sq)<<std::endl;
 
     rHH_gg=rHH_ff;
     /*Gamma_Hgg expression can be found in arXiv:0902.4665v3, Appendix A, A.10 or in the Higgs Hunter's Guide (2.30); relative coupling see above*/
@@ -3140,9 +3334,11 @@ void GMcache::computeOtherHiggsProperties()
     gslpp::complex A_A_F=sqrt(rA_ff)*(A_A_U(mAsq,cW2,Mc,Mt,MZ)+A_A_D(mAsq,cW2,Ms,Mb,MZ)+A_A_L(mAsq,cW2,Mmu,Mtau,MZ));///sqrt(sW2*cW2)
     double Gamma_Agaga=Ale*Ale*mAsq*mA/(256.0*M_PI*M_PI*M_PI*vev*vev)
                 *(I_A_F).abs2();
+//        std::cout<<"I_A_F = "<<I_A_F<<std::endl;
     double Gamma_AZga=HSTheta(mA-MZ)*Ale*Ale*mAsq*mA/(128.0*M_PI*M_PI*M_PI*vev*vev)
                *(1.0-MZ*MZ/(mA*mA))*(1.0-MZ*MZ/(mA*mA))*(1.0-MZ*MZ/(mA*mA))
                *(A_A_F).abs2();
+//        std::cout<<"A_A_F = "<<A_A_F<<std::endl;
     double Gamma_Agg=rA_ff*GF*Als*Als*mA*mAsq/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)
                      *(9.0/4.0)*(I_A_U(mAsq,Mc,Mt)/4.0+I_A_D(mAsq,Ms,Mb)).abs2();
 
@@ -3153,7 +3349,11 @@ void GMcache::computeOtherHiggsProperties()
     double Gamma_H5gaga=Ale*Ale*mH5sq*mH5/(256.0*M_PI*M_PI*M_PI*vev*vev)*(
                                 cosb/sqrt(3.0)*I_H_W(mH5,MW)
                                 +0.5*(gH5H3pH3m*vev/mAsq)*I_H_Hp(mAsq,mH5)
-                                +10.0*(M_PI*M_PI/9.0-1.0)*(gH5H5pH5m*vev/mH5sq)).abs2();
+                                +14.0*(M_PI*M_PI/9.0-1.0)*(gH5H5pH5m*vev/mH5sq)).abs2();
+//        std::cout<<"I_H5_W = "<<cosb/sqrt(3.0)*I_H_W(mH5,MW)<<std::endl;
+//        std::cout<<"I_H5_Hp3 = "<<0.5*(gH5H3pH3m*vev/mAsq)*I_H_Hp(mAsq,mH5)<<std::endl;
+//        std::cout<<"I_H5_Hp5 = "<<14.0*(M_PI*M_PI/9.0-1.0)*(gH5H5pH5m*vev/mH5sq)<<std::endl;
+//        std::cout<<"g55p5m = "<<gH5H5pH5m<<std::endl;
     double Gamma_H5gg=0.0;
     double Gamma_H5Zga=HSTheta(mH5-MZ)*Ale*Ale*mH5sq*mH5/(128.0*M_PI*M_PI*M_PI*vev*vev)
                *(1.0-MZ*MZ/mH5sq)*(1.0-MZ*MZ/mH5sq)*(1.0-MZ*MZ/mH5sq)
@@ -3202,8 +3402,10 @@ void GMcache::computeOtherHiggsProperties()
 
     SigmaHppHmm58=ip_cs_ppH5ppH5mm_8(mH5)*cosb*cosb;
     SigmaHppHmm513=ip_cs_ppH5ppH5mm_13(mH5)*cosb*cosb;
-    SigmaHpp58=(ip_cs_VBFH5pp_8(mH5)+ip_cs_VBFH5mm_8(mH5)+ip_cs_VHH5pp_8(mH5)+ip_cs_VHH5mm_8(mH5))*cosb*cosb;
-    SigmaHpp513=(ip_cs_VBFH5pp_13(mH5)+ip_cs_VBFH5mm_13(mH5)+ip_cs_VHH5pp_13(mH5)+ip_cs_VHH5mm_13(mH5))*cosb*cosb;
+//    SigmaHpp58=(ip_cs_VBFH5pp_8(mH5)+ip_cs_VBFH5mm_8(mH5)+ip_cs_VHH5pp_8(mH5)+ip_cs_VHH5mm_8(mH5))*cosb*cosb;
+//    SigmaHpp513=(ip_cs_VBFH5pp_13(mH5)+ip_cs_VBFH5mm_13(mH5)+ip_cs_VHH5pp_13(mH5)+ip_cs_VHH5mm_13(mH5))*cosb*cosb;
+    SigmaHpp58=(ip_cs_VBFH5pp_8(mH5)+ip_cs_VBFH5mm_8(mH5))*cosb*cosb;
+    SigmaHpp513=(ip_cs_VBFH5pp_13(mH5)+ip_cs_VBFH5mm_13(mH5))*cosb*cosb;
 
     double BrSM_Htott=ip_Br_HPtott(mHh);
 //    double BrSM_Atott=ip_Br_HPtott(mA);
@@ -3638,6 +3840,8 @@ void GMcache::computeDirectSearchQuantities()
 //    std::cout<<"pp_H_hh_bbbb_TH8 = "<<pp_H_hh_bbbb_TH8<<std::endl;
     pp_H_hh_gagabb_TH8=SigmaSumH8*Br_Htohh*GM_Br_h_gaga*GM_Br_h_bb;
 //    std::cout<<"pp_H_hh_gagabb_TH8 = "<<pp_H_hh_gagabb_TH8<<std::endl;
+    gg_H_hh_bbtautau_TH8=SigmaggF_H8*Br_Htohh*GM_Br_h_bb*GM_Br_h_tautau;
+//    std::cout<<"gg_H_hh_bbtautau_TH8 = "<<gg_H_hh_bbtautau_TH8<<std::endl;
     pp_H_hh_TH8=SigmaSumH8*Br_Htohh;
 //    std::cout<<"pp_H_hh_TH8 = "<<pp_H_hh_TH8<<std::endl;
 //    pp_H5_hh_bbbb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
@@ -3655,6 +3859,7 @@ void GMcache::computeDirectSearchQuantities()
 //    std::cout<<"pp_H_hh_bbtautau_TH13 = "<<pp_H_hh_bbtautau_TH13<<std::endl;
     pp_H_hh_bblnulnu_TH13=SigmaSumH13*Br_Htohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
 //    std::cout<<"pp_H_hh_bblnulnu_TH13 = "<<pp_H_hh_bblnulnu_TH13<<std::endl;
+    gg_H_hh_gagaWW_TH13=SigmaggF_H13*Br_Htohh*GM_Br_h_gaga*GM_Br_h_WW;
     gg_H_hh_TH13=SigmaggF_H13*Br_Htohh;
 //    std::cout<<"gg_H_hh_TH13 = "<<gg_H_hh_TH13<<std::endl;
 //    pp_H5_hh_bbbb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
@@ -3692,8 +3897,8 @@ void GMcache::computeDirectSearchQuantities()
 //    std::cout<<"pp_Hpm_tb_TH8 = "<<pp_Hpm_tb_TH8<<std::endl;
     pp_Hp_tb_TH8=SigmaHp8*Br_Hptotb;
 //    std::cout<<"pp_Hp_tb_TH8 = "<<pp_Hp_tb_TH8<<std::endl;
-    pp_Hp_tb_TH13=SigmaHp13*Br_Hptotb;
-//    std::cout<<"pp_Hp_tb_TH13 = "<<pp_Hp_tb_TH13<<std::endl;
+    pp_Hpm_tb_TH13=2.0*SigmaHp13*Br_Hptotb;
+//    std::cout<<"pp_Hpm_tb_TH13 = "<<pp_Hpm_tb_TH13<<std::endl;
     WZ_H5pm_WZ_TH8=SigmaHp58*Br_H5ptoWZ;
 //    std::cout<<"WZ_H5pm_WZ_TH8 = "<<WZ_H5pm_WZ_TH8<<std::endl;
     WZ_H5pm_WZ_TH13=SigmaHp513*Br_H5ptoWZ;
@@ -3705,10 +3910,10 @@ void GMcache::computeDirectSearchQuantities()
 //    std::cout<<"pp_H5ppmmH5mmpp_TH13 = "<<pp_H5ppmmH5mmpp_TH13<<std::endl;
     pp_H5ppmmH5mmpp_WWWW_TH13=SigmaHppHmm513*Br_H5pptoWW*Br_H5pptoWW;
 //    std::cout<<"pp_H5ppmmH5mmpp_WWWW_TH13 = "<<pp_H5ppmmH5mmpp_WWWW_TH13<<std::endl;
-    pp_H5ppmm_WW_TH8=SigmaHpp58*Br_H5pptoWW;
-//    std::cout<<"pp_H5ppmm_WW_TH8 = "<<pp_H5ppmm_WW_TH8<<std::endl;
-    pp_H5ppmm_WW_TH13=SigmaHpp513*Br_H5pptoWW;
-//    std::cout<<"pp_H5ppmm_WW_TH13 = "<<pp_H5ppmm_WW_TH13<<std::endl;
+    VV_H5ppmm_WW_TH8=SigmaHpp58*Br_H5pptoWW;
+//    std::cout<<"VV_H5ppmm_WW_TH8 = "<<VV_H5ppmm_WW_TH8<<std::endl;
+    VV_H5ppmm_WW_TH13=SigmaHpp513*Br_H5pptoWW;
+//    std::cout<<"VV_H5ppmm_WW_TH13 = "<<VV_H5ppmm_WW_TH13<<std::endl;
 
     THoEX_tt_H_tt_ATLAS13=0.0;
     THoEX_bb_H_tt_ATLAS13=0.0;
@@ -3748,10 +3953,12 @@ void GMcache::computeDirectSearchQuantities()
     THoEX_pp_H_Zga_llga_ATLAS8=0.0;
     THoEX_pp_H_Zga_llga_CMS8=0.0;
     THoEX_gg_H_Zga_llga_ATLAS13=0.0;
+    THoEX_gg_H_Zga_qqga_ATLAS13=0.0;
     THoEX_gg_H_Zga_CMS13=0.0;
     THoEX_pp_A_Zga_llga_ATLAS8=0.0;
     THoEX_pp_A_Zga_llga_CMS8=0.0;
     THoEX_gg_A_Zga_llga_ATLAS13=0.0;
+    THoEX_gg_A_Zga_qqga_ATLAS13=0.0;
     THoEX_gg_A_Zga_CMS13=0.0;
     THoEX_pp_H5_Zga_llga_ATLAS8=0.0;
     THoEX_pp_H5_Zga_llga_CMS8=0.0;
@@ -3793,11 +4000,14 @@ void GMcache::computeDirectSearchQuantities()
     THoEX_gg_H_hh_bbtautau_CMS8=0.0;
     THoEX_pp_H_hh_bbtautau_CMS8=0.0;
     THoEX_pp_H_hh_bbbb_ATLAS13=0.0;
-    THoEX_pp_H_hh_bbbb_CMS13=0.0;
+    THoEX_pp_H_hh_bbbb_1_CMS13=0.0;
+    THoEX_pp_H_hh_bbbb_2_CMS13=0.0;
     THoEX_gg_H_hh_bbbb_CMS13=0.0;
     THoEX_pp_H_hh_gagabb_ATLAS13=0.0;
     THoEX_pp_H_hh_gagabb_CMS13=0.0;
-    THoEX_pp_H_hh_bbtautau_CMS13=0.0;
+    THoEX_pp_H_hh_bbtautau_ATLAS13=0.0;
+    THoEX_pp_H_hh_bbtautau_1_CMS13=0.0;
+    THoEX_pp_H_hh_bbtautau_2_CMS13=0.0;
     THoEX_pp_H_hh_bblnulnu_CMS13=0.0;
     THoEX_gg_H_hh_gagaWW_ATLAS13=0.0;
     THoEX_pp_H5_hh_bbbb_CMS8=0.0;
@@ -3815,6 +4025,10 @@ void GMcache::computeDirectSearchQuantities()
     THoEX_gg_A_hZ_tautaull_CMS8=0.0;
     THoEX_gg_A_hZ_bbZ_ATLAS13=0.0;
     THoEX_bb_A_hZ_bbZ_ATLAS13=0.0;
+    THoEX_gg_A_hZ_bbZ_1_CMS13=0.0;
+    THoEX_bb_A_hZ_bbZ_1_CMS13=0.0;
+    THoEX_gg_A_hZ_bbZ_2_CMS13=0.0;
+    THoEX_bb_A_hZ_bbZ_2_CMS13=0.0;
     THoEX_pp_A_HZ_bbll_CMS8=0.0;
     THoEX_pp_A_H5Z_bbll_CMS8=0.0;
     THoEX_pp_H_AZ_bbll_CMS8=0.0;
@@ -3825,16 +4039,18 @@ void GMcache::computeDirectSearchQuantities()
     THoEX_pp_Hpm_taunu_CMS13=0.0;
     THoEX_pp_Hpm_tb_ATLAS8=0.0;
     THoEX_pp_Hp_tb_CMS8=0.0;
-    THoEX_pp_Hp_tb1_ATLAS13=0.0;
-    THoEX_pp_Hp_tb2_ATLAS13=0.0;
+    THoEX_pp_Hpm_tb_ATLAS13=0.0;
     THoEX_WZ_H5pm_WZ_qqll_ATLAS8=0.0;
-    THoEX_WZ_H5pm_WZ_lnull_CMS13=0.0;
+    THoEX_WZ_H5pm_WZ_lnull_ATLAS13=0.0;
+    THoEX_WZ_H5pm_WZ_lnull_1_CMS13=0.0;
+    THoEX_WZ_H5pm_WZ_lnull_2_CMS13=0.0;
     THoEX_pp_H5ppmmH5mmpp_eeee_ATLAS8=0.0;
     THoEX_pp_H5ppmmH5mmpp_emuemu_ATLAS8=0.0;
     THoEX_pp_H5ppmmH5mmpp_mumumumu_ATLAS8=0.0;
     THoEX_pp_H5ppmmH5mmpp_llll_ATLAS13=0.0;
-    THoEX_pp_H5ppmm_WW_jjll_CMS8=0.0;
-    THoEX_pp_H5ppmm_WW_jjll_CMS13=0.0;
+    THoEX_pp_H5ppmmH5mmpp_WWWW_ATLAS13=0.0;
+    THoEX_VV_H5ppmm_WW_jjll_CMS8=0.0;
+    THoEX_VV_H5ppmm_WW_jjll_CMS13=0.0;
 
 //    if(mHh>=65.0 && mHh<90.0)
 //    {
@@ -3893,87 +4109,87 @@ void GMcache::computeDirectSearchQuantities()
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=270.0 && mHh<275.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=275.0 && mHh<300.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
 //    }
 //    else if(mHh>=300.0 && mHh<350.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=350.0 && mHh<400.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=400.0 && mHh<500.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=500.0 && mHh<550.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=550.0 && mHh<600.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=600.0 && mHh<650.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=650.0 && mHh<760.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=760.0 && mHh<850.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=850.0 && mHh<900.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=900.0 && mHh<1000.0)
 //    {
 //        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
 //        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=1000.0 && mHh<1100.0)
 //    {
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 //    else if(mHh>=1100.0 && mHh<1200.0)
 //    {
-//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 
     if(mHh>= 400.0 && mHh<1000.0) THoEX_tt_H_tt_ATLAS13=tt_H_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(mHh);
@@ -4019,6 +4235,8 @@ void GMcache::computeDirectSearchQuantities()
     if(mH5>= 200.0 && mH5<1200.0) THoEX_pp_H5_Zga_llga_CMS8=pp_H5_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(mH5);
     if(mHh>= 250.0 && mHh<2400.0) THoEX_gg_H_Zga_llga_ATLAS13=gg_H_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(mHh);
     if(mA >= 250.0 && mA <2400.0) THoEX_gg_A_Zga_llga_ATLAS13=gg_A_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(mA);
+    if(mHh>=1000.0 && mHh<6800.0) THoEX_gg_H_Zga_qqga_ATLAS13=gg_H_Zga_TH13/ip_ex_gg_phi_Zga_qqga_ATLAS13(mHh);
+    if(mA >=1000.0 && mA <6800.0) THoEX_gg_A_Zga_qqga_ATLAS13=gg_A_Zga_TH13/ip_ex_gg_phi_Zga_qqga_ATLAS13(mA);
     if(mHh>= 350.0 && mHh<4000.0) THoEX_gg_H_Zga_CMS13=gg_H_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(mHh);
     if(mA >= 350.0 && mA <4000.0) THoEX_gg_A_Zga_CMS13=gg_A_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(mA);
     if(mHh>= 140.0 && mHh<1000.0) THoEX_gg_H_ZZ_ATLAS8=gg_H_ZZ_TH8/ip_ex_gg_phi_ZZ_ATLAS8(mHh);
@@ -4053,52 +4271,51 @@ void GMcache::computeDirectSearchQuantities()
     if(mH5>=1200.0 && mH5<3000.0) THoEX_pp_H5_VV_qqqq_ATLAS13=pp_H5_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(mH5);
     if(mHh>= 260.0 && mHh<1000.0) THoEX_gg_H_hh_ATLAS8=gg_H_hh_TH8/ip_ex_gg_phi_hh_ATLAS8(mHh);
     if(mHh>= 270.0 && mHh<1100.0) THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH8/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
-    if(mH5>= 270.0 && mH5<1100.0) THoEX_pp_H5_hh_bbbb_CMS8=pp_H5_hh_bbbb_TH8/ip_ex_pp_phi_hh_bbbb_CMS8(mH5);
     if(mHh>= 260.0 && mHh<1100.0) THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH8/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
-    if(mH5>= 260.0 && mH5<1100.0) THoEX_pp_H5_hh_gagabb_CMS8=pp_H5_hh_gagabb_TH8/ip_ex_pp_phi_hh_gagabb_CMS8(mH5);
-    if(mHh>= 260.0 && mHh< 350.0) THoEX_gg_H_hh_bbtautau_CMS8=gg_H_hh_TH8/ip_ex_gg_phi_hh_bbtautau_CMS8(mHh);
+    if(mHh>= 260.0 && mHh< 350.0) THoEX_gg_H_hh_bbtautau_CMS8=gg_H_hh_bbtautau_TH8/ip_ex_gg_phi_hh_bbtautau_CMS8(mHh);
     if(mHh>= 350.0 && mHh<1000.0) THoEX_pp_H_hh_bbtautau_CMS8=pp_H_hh_TH8/ip_ex_pp_phi_hh_bbtautau_CMS8(mHh);
-    if(mH5>= 300.0 && mH5<1000.0) THoEX_pp_H5_hh_bbtautau_CMS8=pp_H5_hh_TH8/ip_ex_pp_phi_hh_bbtautau_CMS8(mH5);
-    if(mHh>= 300.0 && mHh<3000.0) THoEX_pp_H_hh_bbbb_ATLAS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_ATLAS13(mHh);
-    if(mH5>= 300.0 && mH5<3000.0) THoEX_pp_H5_hh_bbbb_ATLAS13=pp_H5_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_ATLAS13(mH5);
-    if(mHh>= 260.0 && mHh<1200.0) THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    if(mH5>= 260.0 && mH5<1200.0) THoEX_pp_H5_hh_bbbb_CMS13=pp_H5_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mH5);
+    if(mHh>= 260.0 && mHh<3000.0) THoEX_pp_H_hh_bbbb_ATLAS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_ATLAS13(mHh);
+    if(mHh>= 260.0 && mHh<1200.0) THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
+    if(mHh>=1200.0 && mHh<3000.0) THoEX_pp_H_hh_bbbb_2_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_2_CMS13(mHh);
     if(mHh>=1200.0 && mHh<3000.0) THoEX_gg_H_hh_bbbb_CMS13=gg_H_hh_bbbb_TH13/ip_ex_gg_phi_hh_bbbb_CMS13(mHh);
-    if(mHh>= 275.0 && mHh< 400.0) THoEX_pp_H_hh_gagabb_ATLAS13=pp_H_hh_TH13/ip_ex_pp_phi_hh_gagabb_ATLAS13(mHh);
-    if(mH5>= 275.0 && mH5< 400.0) THoEX_pp_H5_hh_gagabb_ATLAS13=pp_H5_hh_TH13/ip_ex_pp_phi_hh_gagabb_ATLAS13(mH5);
+    if(mHh>= 260.0 && mHh<1000.0) THoEX_pp_H_hh_gagabb_ATLAS13=pp_H_hh_gagabb_TH13/(ip_ex_pp_phi_hh_gagabb_ATLAS13(mHh)*0.5809*0.00227);
     if(mHh>= 250.0 && mHh< 900.0) THoEX_pp_H_hh_gagabb_CMS13=pp_H_hh_gagabb_TH13/ip_ex_pp_phi_hh_gagabb_CMS13(mHh);
-    if(mH5>= 250.0 && mH5< 900.0) THoEX_pp_H5_hh_gagabb_CMS13=pp_H5_hh_gagabb_TH13/ip_ex_pp_phi_hh_gagabb_CMS13(mH5);
-    if(mHh>= 250.0 && mHh< 900.0) THoEX_pp_H_hh_bbtautau_CMS13=pp_H_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_CMS13(mHh);
-    if(mH5>= 250.0 && mH5< 900.0) THoEX_pp_H5_hh_bbtautau_CMS13=pp_H5_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_CMS13(mH5);
+    if(mHh>= 250.0 && mHh< 900.0) THoEX_pp_H_hh_bbtautau_ATLAS13=pp_H_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_ATLAS13(mHh);
+    if(mHh>= 250.0 && mHh< 900.0) THoEX_pp_H_hh_bbtautau_1_CMS13=pp_H_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_1_CMS13(mHh);
+    if(mHh>= 900.0 && mHh<4000.0) THoEX_pp_H_hh_bbtautau_2_CMS13=pp_H_hh_bbtautau_TH13/(ip_ex_pp_phi_hh_bbtautau_2_CMS13(mHh)*0.5807*0.06256);
     if(mHh>= 260.0 && mHh< 900.0) THoEX_pp_H_hh_bblnulnu_CMS13=pp_H_hh_bblnulnu_TH13/ip_ex_pp_phi_hh_bblnulnu_CMS13(mHh);
-    if(mH5>= 260.0 && mH5< 900.0) THoEX_pp_H5_hh_bblnulnu_CMS13=pp_H5_hh_bblnulnu_TH13/ip_ex_pp_phi_hh_bblnulnu_CMS13(mH5);
-    if(mHh>= 260.0 && mHh< 500.0) THoEX_gg_H_hh_gagaWW_ATLAS13=gg_H_hh_TH13/ip_ex_gg_phi_hh_gagaWW_ATLAS13(mHh);
+    if(mHh>= 260.0 && mHh< 500.0) THoEX_gg_H_hh_gagaWW_ATLAS13=gg_H_hh_gagaWW_TH13/ip_ex_gg_phi_hh_gagaWW_ATLAS13(mHh);
     if(mA >= 220.0 && mA <1000.0) THoEX_gg_A_hZ_bbZ_ATLAS8=gg_A_hZ_bbZ_TH8/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
     if(mA >= 225.0 && mA < 600.0) THoEX_gg_A_hZ_bbll_CMS8=gg_A_hZ_bbll_TH8/ip_ex_gg_A_hZ_bbll_CMS8(mA);
     if(mA >= 220.0 && mA <1000.0) THoEX_gg_A_hZ_tautauZ_ATLAS8=gg_A_hZ_tautauZ_TH8/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
     if(mA >= 220.0 && mA < 350.0) THoEX_gg_A_hZ_tautaull_CMS8=gg_A_hZ_tautaull_TH8/ip_ex_gg_A_hZ_tautaull_CMS8(mA);
     if(mA >= 200.0 && mA <2000.0) THoEX_gg_A_hZ_bbZ_ATLAS13=gg_A_hZ_bbZ_TH13/ip_ex_gg_A_hZ_bbZ_ATLAS13(mA);
     if(mA >= 200.0 && mA <2000.0) THoEX_bb_A_hZ_bbZ_ATLAS13=bb_A_hZ_bbZ_TH13/ip_ex_bb_A_hZ_bbZ_ATLAS13(mA);
+    if(mA >= 220.0 && mA < 800.0) THoEX_gg_A_hZ_bbZ_1_CMS13=gg_A_hZ_bbZ_TH13/ip_ex_gg_A_hZ_bbZ_1_CMS13(mA);
+    if(mA >= 220.0 && mA < 800.0) THoEX_bb_A_hZ_bbZ_1_CMS13=bb_A_hZ_bbZ_TH13/ip_ex_bb_A_hZ_bbZ_1_CMS13(mA);
+    if(mA >= 800.0 && mA <2000.0) THoEX_gg_A_hZ_bbZ_2_CMS13=gg_A_hZ_bbZ_TH13/ip_ex_gg_A_hZ_bbZ_2_CMS13(mA);
+    if(mA >= 800.0 && mA <2000.0) THoEX_bb_A_hZ_bbZ_2_CMS13=bb_A_hZ_bbZ_TH13/ip_ex_bb_A_hZ_bbZ_2_CMS13(mA);
     if(mHh>= 175.0 && mHh<1000.0 && mA >=40.0 && mA <910.0) THoEX_pp_H_AZ_bbll_CMS8=pp_H_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mHh);
     if(mH5>= 175.0 && mH5<1000.0 && mA >=40.0 && mA <910.0) THoEX_pp_H5_AZ_bbll_CMS8=pp_H5_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mH5);
     if(mA >= 175.0 && mA <1000.0 && mHh>=50.0 && mHh<910.0) THoEX_pp_A_HZ_bbll_CMS8=pp_A_HZ_bbll_TH8/ip_ex_pp_A_phiZ_bbll_CMS8(mA,mHh);
     if(mA >= 180.0 && mA <1000.0) THoEX_pp_Hpm_taunu_ATLAS8=pp_Hpm_taunu_TH8/ip_ex_pp_Hpm_taunu_ATLAS8(mA);
     if(mA >= 180.0 && mA < 600.0) THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mA);
-    if(mA >= 200.0 && mA <2000.0) THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mA);
+    if(mA >=  90.0 && mA <2000.0) THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mA);
     if(mA >= 180.0 && mA <3000.0) THoEX_pp_Hpm_taunu_CMS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_CMS13(mA);
     if(mA >= 200.0 && mA < 600.0) THoEX_pp_Hpm_tb_ATLAS8=pp_Hpm_tb_TH8/ip_ex_pp_Hpm_tb_ATLAS8(mA);
     if(mA >= 180.0 && mA < 600.0) THoEX_pp_Hp_tb_CMS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_CMS8(mA);
-    if(mA >= 200.0 && mA < 300.0) THoEX_pp_Hp_tb2_ATLAS13=pp_Hp_tb_TH13/ip_ex_pp_Hp_tb2_ATLAS13(mA);
-    if(mA >= 300.0 && mA <1000.0) THoEX_pp_Hp_tb1_ATLAS13=pp_Hp_tb_TH13/ip_ex_pp_Hp_tb1_ATLAS13(mA);
-    if(mA >=1000.0 && mA <2000.0) THoEX_pp_Hp_tb2_ATLAS13=pp_Hp_tb_TH13/ip_ex_pp_Hp_tb2_ATLAS13(mA);
+    if(mA >= 200.0 && mA <2000.0) THoEX_pp_Hpm_tb_ATLAS13=pp_Hpm_tb_TH13/ip_ex_pp_Hpm_tb_ATLAS13(mA);
     if(mH5>= 200.0 && mH5<1000.0) THoEX_WZ_H5pm_WZ_qqll_ATLAS8=WZ_H5pm_WZ_TH8/ip_ex_WZ_H5pm_WZ_qqll_ATLAS8(mH5);
-    if(mH5>= 200.0 && mH5<2000.0) THoEX_WZ_H5pm_WZ_lnull_CMS13=WZ_H5pm_WZ_TH13/ip_ex_WZ_H5pm_WZ_lnull_CMS13(mH5);
+    if(mH5>= 200.0 && mH5< 900.0) THoEX_WZ_H5pm_WZ_lnull_ATLAS13=WZ_H5pm_WZ_TH13/ip_ex_WZ_H5pm_WZ_lnull_ATLAS13(mH5);
+    if(mH5>= 200.0 && mH5< 300.0) THoEX_WZ_H5pm_WZ_lnull_1_CMS13=WZ_H5pm_WZ_TH13/ip_ex_WZ_H5pm_WZ_lnull_1_CMS13(mH5);
+    if(mH5>= 300.0 && mH5<2000.0) THoEX_WZ_H5pm_WZ_lnull_2_CMS13=WZ_H5pm_WZ_TH13/ip_ex_WZ_H5pm_WZ_lnull_2_CMS13(mH5);
     if(mH5>= 110.0 && mH5< 600.0) THoEX_pp_H5ppmmH5mmpp_eeee_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8(mH5);
     if(mH5>=  40.0 && mH5< 600.0) THoEX_pp_H5ppmmH5mmpp_emuemu_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8(mH5);
     if(mH5>=  40.0 && mH5< 600.0) THoEX_pp_H5ppmmH5mmpp_mumumumu_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8(mH5);
     if(mH5>= 250.0 && mH5<1200.0) THoEX_pp_H5ppmmH5mmpp_llll_ATLAS13=pp_H5ppmmH5mmpp_TH13/ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13(mH5);
-    if(mH5>= 160.0 && mH5< 800.0) THoEX_pp_H5ppmm_WW_jjll_CMS8=pp_H5ppmm_WW_TH8/ip_ex_pp_H5ppmm_WW_jjll_CMS8(mH5);
-    if(mH5>= 200.0 && mH5<1000.0) THoEX_pp_H5ppmm_WW_jjll_CMS13=pp_H5ppmm_WW_TH13/ip_ex_pp_H5ppmm_WW_jjll_CMS13(mH5);
+    if(mH5>= 200.0 && mH5< 700.0) THoEX_pp_H5ppmmH5mmpp_WWWW_ATLAS13=pp_H5ppmmH5mmpp_WWWW_TH13/ip_ex_pp_H5ppmmH5mmpp_WWWW_ATLAS13(mH5);
+    if(mH5>= 160.0 && mH5< 800.0) THoEX_VV_H5ppmm_WW_jjll_CMS8=VV_H5ppmm_WW_TH8/ip_ex_VV_H5ppmm_WW_jjll_CMS8(mH5);
+    if(mH5>= 200.0 && mH5<1000.0) THoEX_VV_H5ppmm_WW_jjll_CMS13=VV_H5ppmm_WW_TH13/ip_ex_VV_H5ppmm_WW_jjll_CMS13(mH5);
 
 }    
 
@@ -4418,11 +4635,25 @@ double GMcache::updateCache()
     gH3H3H5 = -2.0*((mH5sq-2.0*mAsq)*cosb-(2.0*M1sq-3.0*mAsq+mH5sq)/cosb)/(sqrt(3.0)*vev);
     gH5H5H5 = 2.0*((3.0*mH5sq-4.0*M2sq)/cosb+(6.0*M1sq-9.0*mAsq)*sinb*tanb)/(sqrt(3.0)*vev);
     gH3H3pH5m = gslpp::complex::i()*(4.0*M1sq-4.0*mAsq+mH5sq+(2.0*mAsq-mH5sq)*(cosb*cosb-sinb*sinb))/(2.0*vev*cosb);
-    gH5H3pH3m = 0.5*gH3H3H5;
-    gH5H5pH5m = gH5H5H5;
-    gH5H5ppH5mm = gH5H5H5;
+    gH5H3pH3m = -0.5*gH3H3H5;
+    gH5H5pH5m = 0.5*gH5H5H5;
+    gH5H5ppH5mm = -gH5H5H5;
     gH5ppH3mH3m = sqrt(6.0)*gH5H3pH3m;
     gH5ppH5mH5m = -sqrt(2.0)*(4.0*M2sq-3.0*mH5sq-(6.0*M1sq-9.0*mAsq)*sinb*sinb)/(vev*cosb);
+//    std::cout<<"ghhh = "<<ghhh<<std::endl;
+//    std::cout<<"ghhH = "<<ghhH<<std::endl;
+//    std::cout<<"ghHH = "<<ghHH<<std::endl;
+//    std::cout<<"gHHH = "<<gHHH<<std::endl;
+//    std::cout<<"ghH3H3 = "<<ghH3H3<<std::endl;
+//    std::cout<<"gHH3H3 = "<<gHH3H3<<std::endl;
+//    std::cout<<"ghH5H5 = "<<ghH5H5<<std::endl;
+//    std::cout<<"gHH5H5 = "<<gHH5H5<<std::endl;
+//    std::cout<<"gH3H3H5 = "<<gH3H3H5<<std::endl;
+//    std::cout<<"gH5H5H5 = "<<gH5H5H5<<std::endl;
+//    std::cout<<"gH3H3pH5m = "<<gH3H3pH5m<<std::endl;
+//    std::cout<<"gH5H3pH3m = "<<gH5H3pH3m<<std::endl;
+//    std::cout<<"gH5ppH3mH3m = "<<gH5ppH3mH3m<<std::endl;
+//    std::cout<<"gH5ppH5mH5m = "<<gH5ppH5mH5m<<std::endl;
 
     //    runGMparameters();
     computeUnitarity();
