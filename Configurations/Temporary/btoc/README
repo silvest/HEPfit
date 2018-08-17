@@ -1,0 +1,11 @@
+LR-Basis: Initial analysis done in this basis but multimodal solutions are not always distinguishable.
+PM-Basis: Final analysis done in this basis so that all modes can be separated.
+SM: Contains the SM analysis including separate analysis for RD and RD*
+
+All analysis is done both in the CLN and BGL parameterization.
+All multimodal solutions are separated in the PM-Basis by predefined priors.
+
+running the runscript file in the CLN/BGL folder creates all the necessary configuration files for the PM-Basis.
+The LR-Basis config will not be updated with final numbers. It is kept only for testing purposes.
+
+config files created by Mauro Valli and Ayan Paul
