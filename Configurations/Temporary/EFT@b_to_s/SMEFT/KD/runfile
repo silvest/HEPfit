@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXEPATH=/Users/ayanpaul/NetBeansProjects/HEPfit/Analysis/dist/Debug_MPI/CLang-MacOSX/analysis
+EXEPATH=<PATH TO ANALYSIS>
 
 ## SM
 
