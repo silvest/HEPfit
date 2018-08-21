@@ -228,6 +228,7 @@ private :
     //StandardModelMatching& standardmodelmatching;
     
     double Bsgamma_mu_cache;
+    unsigned int Bsgamma_order_ini_cache;
     schemes Bsgamma_scheme_cache;
     std::vector<double> Bsgamma_Mu_cache;
     std::vector<double> Bpsgamma_Mu_cache;
@@ -235,6 +236,7 @@ private :
     std::vector<WilsonCoefficient> Bpsgamma_WC_cache;
     
     double BMll_mu_cache;
+    unsigned int BMll_order_ini_cache;
     schemes BMll_scheme_cache;
     std::vector<double> BMll_Mu_cache;
     std::vector<WilsonCoefficient> BMll_WC_cache;

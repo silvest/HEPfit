@@ -39,6 +39,7 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         BMll_Mu_cache.push_back(0.);
     }
     BMll_mu_cache = 0.;
+    BMll_order_ini_cache = 0;
     
     for (unsigned int i = 0; i < 6; i++) {
         BMllprime_WC_cache.push_back(coeffprimeBMll);
@@ -51,6 +52,7 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         Bsgamma_Mu_cache.push_back(0.);
     }
     Bsgamma_mu_cache = 0.;
+    Bsgamma_order_ini_cache = 0;
     
     for (unsigned int i = 0; i < 6; i++) {
         Bpsgamma_WC_cache.push_back(coeffsgamma);
@@ -909,13 +911,13 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, bool noSM
     coeffsgamma.setScheme(scheme);
     orders ordDF1 = coeffsgamma.getOrder();
 
-    double order_ini;
+    unsigned int order_ini;
     if (noSM) order_ini = 1;
     else order_ini = 0;
 
     const std::vector<WilsonCoefficient>& mcbsg = model.getMatching().CMbsg();
 
-    if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
+    if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache && order_ini == BMll_order_ini_cache) {
         int check = 1;
         for (unsigned int i = order_ini; i < mcbsg.size(); i++) {
             if (mcbsg[i].getMu() == Bsgamma_Mu_cache[i]) {
@@ -932,6 +934,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, bool noSM
     }
 
     Bsgamma_mu_cache = mu;
+    Bsgamma_order_ini_cache = order_ini;
     Bsgamma_scheme_cache = scheme;
     Bsgamma_WC_cache.clear();
     Bsgamma_WC_cache = mcbsg;
@@ -1005,11 +1008,11 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, QCD::lepton
     
     const std::vector<WilsonCoefficient>& mc = model.getMatching().CMBMll(lepton);
 
-    double order_ini;
+    unsigned int order_ini;
     if (noSM) order_ini = 1;
     else order_ini = 0;
     
-    if (mu == BMll_mu_cache && scheme == BMll_scheme_cache) {
+    if (mu == BMll_mu_cache && scheme == BMll_scheme_cache && order_ini == BMll_order_ini_cache) {
         int check = 1;
         for (unsigned int i = order_ini; i < mc.size(); i++) {
             if (mc[i].getMu() == BMll_Mu_cache[i]) {
@@ -1026,6 +1029,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, QCD::lepton
     }
 
     BMll_mu_cache = mu;
+    BMll_order_ini_cache = order_ini;
     BMll_scheme_cache = scheme;
     BMll_WC_cache.clear();
     BMll_WC_cache = mc;

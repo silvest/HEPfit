@@ -415,19 +415,18 @@ void MVll::updateParameters()
         C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
         C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
         C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
-        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     } else {
         C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
         C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
         C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
-        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6); 
     }
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     C_7p += MsoMb * C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6;
     C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
     C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
     C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
     C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
-
+    
     allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
     C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
@@ -538,7 +537,7 @@ void MVll::updateParameters()
 #endif
 
     mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
-
+    
     return;
 }
 
