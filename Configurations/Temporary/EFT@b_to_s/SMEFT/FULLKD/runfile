@@ -1,0 +1,107 @@
+#!/bin/bash
+
+EXEPATH=/Users/ayanpaul/NetBeansProjects/HEPfit/Analysis/dist/Debug_MPI/CLang-MacOSX/analysis
+
+## SM
+
+rm -rf SM
+mkdir SM && cd SM
+cp -r ../config .
+rm config/NPSMEFTd6.conf config/Observables_NP.conf config/*_EW.conf
+rm -rf *.out *.err *.txt *.root Observables *.tex
+ln -s ${EXEPATH} .
+# cp ../../sbatch.sh .
+# sbatch sbatch.sh
+cd ..
+
+## BSM
+
+for i in CLQ1_1123 CLQ1_2223 CLd_1123 CLd_2223 CQe_2311 CQe_2322 Ced_1123 Ced_2223
+do
+	rm -rf ${i}
+	mkdir ${i} && cd ${i}
+	cp -r ../config .
+	rm config/*_EW.conf
+	sed -i.bak -e "s/RANGE_RGE/0./" -e "s/EW_RANGE/0./" -e "/${i}/s/RANGE_F/10./" -e "s/RANGE_F/0./" -e "s/SCALE/30000./" config/NPSMEFTd6.conf
+	sed -i.bak -e "/${i}/s/^# //" config/Observables_NP.conf
+	sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
+	rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
+ 	ln -s ${EXEPATH} . 
+# 	cp ../../sbatch.sh .
+# 	sbatch sbatch.sh
+	cd ..
+done
+
+rm -rf C_all
+mkdir C_all && cd C_all
+cp -r ../config .
+rm config/*_EW.conf
+sed -i.bak -e "s/RANGE_RGE/0./" -e "s/EW_RANGE/0./" -e "s/RANGE_F/10./" -e "s/SCALE/30000./" config/NPSMEFTd6.conf
+sed -i.bak -e "24,36s/^# //" config/Observables_NP.conf
+sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
+rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
+ln -s ${EXEPATH} .
+# cp ../../sbatch.sh .
+# sbatch sbatch.sh
+cd ..
+
+for i in 11 22
+do
+	rm -rf C_all_${i}
+	mkdir C_all_${i} && cd C_all_${i}
+	cp -r ../config .
+	rm config/*_EW.conf
+	sed -i.bak -e "s/RANGE_RGE/0./" -e "s/EW_RANGE/0./" -e "/${i}/s/RANGE_F/10./" -e "s/SCALE/30000./" config/NPSMEFTd6.conf
+	sed -i.bak -e "/${i}/s/# /#AAA#/" -e "24,36s/^#AAA#//" -e "s/#AAA#/# /" config/Observables_NP.conf
+	sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
+	rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
+	ln -s ${EXEPATH} .
+# 	cp ../../sbatch.sh .
+# 	sbatch sbatch.sh
+	cd ..
+done
+
+
+rm -rf C_all_RGE
+mkdir C_all_RGE && cd C_all_RGE
+cp -r ../config .
+rm config/*_EW.conf
+sed -i.bak -e "s/RANGE_RGE/10./" -e "s/EW_RANGE/0./" -e "s/RANGE_F/0./" -e "s/SCALE/1000./" config/NPSMEFTd6.conf
+sed -i.bak -e "38,42s/^# //" config/Observables_NP.conf
+sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
+rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
+ln -s ${EXEPATH} .
+# cp ../../sbatch.sh .
+# sbatch sbatch.sh
+cd ..
+
+
+for i in 11 22
+do
+	rm -rf C_all_RGE_${i}
+	mkdir C_all_RGE_${i} && cd C_all_RGE_${i}
+	cp -r ../config .
+	rm config/*_EW.conf
+	sed -i.bak -e "/${i}/s/RANGE_RGE/0./" -e "s/EW_RANGE/0./" -e "s/RANGE_F/0./" -e "s/SCALE/1000./" config/NPSMEFTd6.conf
+	sed -i.bak -e "/${i}/s/# /#AAA#/" -e "38,42s/^#AAA#//" -e "s/#AAA#/# /" config/Observables_NP.conf
+	sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
+	rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
+	ln -s ${EXEPATH} .
+# 	cp ../../sbatch.sh .
+# 	sbatch sbatch.sh
+	cd ..
+done
+
+
+
+rm -rf C_all_EW
+mkdir C_all_EW && cd C_all_EW
+cp -r ../config .
+mv config/btos_EW.conf config/StandardModel.conf
+sed -i.bak -e "s/RANGE_RGE/0./" -e "s/EW_RANGE/10./" -e "s/RANGE_F/10./" -e "s/SCALE/1000./" config/NPSMEFTd6.conf
+sed -i.bak -e "24,70s/^# //" config/Observables_NP.conf
+rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
+ln -s ${EXEPATH} .
+# cp ../../sbatch.sh .
+# sbatch sbatch.sh
+cd ..
