@@ -1954,6 +1954,7 @@ ThObsFactory::ThObsFactory()
    obsThFactory["R32"]= boost::factory<R32_GTHDM*>();
     obsThFactory["R33"]= boost::factory<R33_GTHDM*>();
 
+   obsThFactory["cosalpha1"]= boost::factory<cosalpha1_GTHDM*>();
 
   
 

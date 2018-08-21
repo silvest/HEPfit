@@ -537,3 +537,11 @@ double massdifference_mH2mmH3::computeThValue()
 {
     return  sqrt(myGTHDM->getMyGTHDMCache()->mH2sq) - sqrt(myGTHDM->getMyGTHDMCache()->mH3sq);
 }
+
+cosalpha1_GTHDM::cosalpha1_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
+{}
+double cosalpha1_GTHDM::computeThValue()
+{
+    return   myGTHDM->getcosalpha1();
+}

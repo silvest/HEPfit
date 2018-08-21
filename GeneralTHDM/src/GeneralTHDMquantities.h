@@ -1102,6 +1102,25 @@ public:
 };
 
 
+/**
+ * @class cosalpha1_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief cosalpha1_GTHDM
+ */
+class cosalpha1_GTHDM: public ThObservable {
+public:
 
+    /**
+     * @brief cosalpha1 constructor.
+     */
+    cosalpha1_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$cosalpha1_GTHDM@f$
+     */
+    double computeThValue();
+
+   const GeneralTHDM * myGTHDM;
+};
 
 #endif	/* GENERALTHDMQUANTITIES_H */
