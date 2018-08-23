@@ -376,7 +376,6 @@ void GMcache::read(){
     readTable(ATLAS8_gg_phi_ZZ, ex22.str(),173,2);
     ex23 << tablepath << "150705930_b.dat";
     readTable(ATLAS8_VV_phi_ZZ, ex23.str(),173,2);
-    std::cout<<"1"<<std::endl;
     ex24 << tablepath << "171206386_a.dat";
     readTable(ATLAS13_gg_phi_ZZ_llllnunu, ex24.str(),101,2);
     ex25 << tablepath << "171206386_b.dat";
@@ -4281,7 +4280,7 @@ void GMcache::computeDirectSearchQuantities()
     if(mHh>=1200.0 && mHh<3000.0) THoEX_gg_H_hh_bbbb_CMS13=gg_H_hh_bbbb_TH13/ip_ex_gg_phi_hh_bbbb_CMS13(mHh);
     if(mHh>= 260.0 && mHh<1000.0) THoEX_pp_H_hh_gagabb_ATLAS13=pp_H_hh_gagabb_TH13/(ip_ex_pp_phi_hh_gagabb_ATLAS13(mHh)*0.5809*0.00227);
     if(mHh>= 250.0 && mHh< 900.0) THoEX_pp_H_hh_gagabb_CMS13=pp_H_hh_gagabb_TH13/ip_ex_pp_phi_hh_gagabb_CMS13(mHh);
-    if(mHh>= 250.0 && mHh< 900.0) THoEX_pp_H_hh_bbtautau_ATLAS13=pp_H_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_ATLAS13(mHh);
+    if(mHh>= 260.0 && mHh<1000.0) THoEX_pp_H_hh_bbtautau_ATLAS13=pp_H_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_ATLAS13(mHh);
     if(mHh>= 250.0 && mHh< 900.0) THoEX_pp_H_hh_bbtautau_1_CMS13=pp_H_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_1_CMS13(mHh);
     if(mHh>= 900.0 && mHh<4000.0) THoEX_pp_H_hh_bbtautau_2_CMS13=pp_H_hh_bbtautau_TH13/(ip_ex_pp_phi_hh_bbtautau_2_CMS13(mHh)*0.5807*0.06256);
     if(mHh>= 260.0 && mHh< 900.0) THoEX_pp_H_hh_bblnulnu_CMS13=pp_H_hh_bblnulnu_TH13/ip_ex_pp_phi_hh_bblnulnu_CMS13(mHh);
