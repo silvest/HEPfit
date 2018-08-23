@@ -1937,6 +1937,19 @@ ThObsFactory::ThObsFactory()
     obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();
     obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>();
     obsThFactory["tanbeta"] = boost::factory<tanbeta_GTHDM*>();
+    
+    obsThFactory["lambda1H_GTHDM"] = boost::factory<lambda1H_GTHDM*>();
+    obsThFactory["lambda2H_GTHDM"] = boost::factory<lambda2H_GTHDM*>();
+    obsThFactory["lambda3H_GTHDM"] = boost::factory<lambda3H_GTHDM*>();
+    obsThFactory["lambda4H_GTHDM"] = boost::factory<lambda4H_GTHDM*>();
+    obsThFactory["Relambda5H_GTHDM"] = boost::factory<Relambda5H_GTHDM*>();
+    obsThFactory["Imlambda5H_GTHDM"] = boost::factory<Imlambda5H_GTHDM*>();
+    obsThFactory["Relambda6H_GTHDM"] = boost::factory<Relambda6H_GTHDM*>();
+    obsThFactory["Imlambda6H_GTHDM"] = boost::factory<Imlambda6H_GTHDM*>();
+    obsThFactory["Relambda7H_GTHDM"] = boost::factory<Relambda7H_GTHDM*>();
+    obsThFactory["Imlambda7H_GTHDM"] = boost::factory<Imlambda7H_GTHDM*>();
+
+
 
     
     
