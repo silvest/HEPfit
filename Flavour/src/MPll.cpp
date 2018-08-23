@@ -218,8 +218,6 @@ void MPll::updateParameters()
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
 
-    if (FixedWCbtos) allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
-
     C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
     C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
     C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
@@ -232,22 +230,23 @@ void MPll::updateParameters()
     C_8L = (*(allcoeff[LO]))(7);
     C_S = MW / Mb * ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
     C_P = MW / Mb * ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11));
-    if (FixedWCbtos) {
-        C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
-        C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
-        C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
-        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    } else {
-        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
-        C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
-        C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
-        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    }
-    C_7p += MsoMb * C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6;
     C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
     C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
     C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
     C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
+    
+    if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
+        allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
+        C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
+        C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
+        C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
+    } else {
+        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+        C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
+        C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+    }
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    C_7p += MsoMb * C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6;
 
     allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 

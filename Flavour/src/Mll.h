@@ -73,6 +73,10 @@ private:
     gslpp::complex C_P;
     gslpp::complex C_Pp;
     bool FixedWCbtos;
+    
+    gslpp::vector<gslpp::complex> ** allcoeff;
+    gslpp::vector<gslpp::complex> ** allcoeffprime;
+    gslpp::vector<gslpp::complex> ** allcoeff_noSM;
 
 };
 

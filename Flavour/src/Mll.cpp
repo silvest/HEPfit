@@ -17,6 +17,7 @@ Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
     SM.initializeMeson(meson);
+    FixedWCbtos = SM.getFlavour().getFlagFixedWCbtos();
     if (FixedWCbtos) setParametersForObservable({ "C10_SM" });
 };
 
@@ -90,23 +91,25 @@ void Mll::computeAmpSq(orders order, orders_qed order_qed, double mu)
 //    if (meson == QCD::B_S) allcoeffmumu = SM.getFlavour().ComputeCoeffsmumu(mu, NDR); /* Double GF for including EW corrections*/
 //    if (meson == QCD::B_D) allcoeffmumu = SM.getFlavour().ComputeCoeffdmumu(mu, NDR); /* Double GF for including EW corrections*/
     
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffBMll(mu, lep); /* Single GF for excluding EW corrections*/
-    gslpp::vector<gslpp::complex> ** allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu, lep); /* Single GF for excluding EW corrections*/
-    gslpp::vector<gslpp::complex> ** allcoeff_noSM;
+    allcoeff = SM.getFlavour().ComputeCoeffBMll(mu, lep); /* Single GF for excluding EW corrections*/
+    allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu, lep); /* Single GF for excluding EW corrections*/
 
-   if (FixedWCbtos) allcoeff_noSM = SM.getFlavour().ComputeCoeffBMll(mu, lep, true); /* Single GF for excluding EW corrections*/
 //    double alsmu = SM.Als(mu, FULLNNLO, true)/4./M_PI; /* tilde */ /* Double GF for including EW corrections*/
 //    double alemu = SM.Ale(mu, FULLNNLO)/4./M_PI; /* tilde */ /* Double GF for including EW corrections*/
 
 //    double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ); /* Spurious sw */
 
-    if (FixedWCbtos) C_10 = SM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
-    else C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
     C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
     C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
     C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
     C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
     C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
+    
+    if (FixedWCbtos) {
+        allcoeff_noSM = SM.getFlavour().ComputeCoeffBMll(mu, lep, true); /* Single GF for excluding EW corrections*/
+        C_10 = SM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
+    }
+    else C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
 
     if ((order == FULLNLO) && (order_qed == FULLNLO_QED)) {
 

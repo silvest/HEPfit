@@ -189,30 +189,27 @@ void MVgamma::updateParameters()
     allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
     allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
 
-    if (FixedWCbtos) allcoeff_noSM = SM.getFlavour().ComputeCoeffBMll(mu_b, StandardModel::NOLEPTON, true); //check the mass scale, scheme fixed to NDR
-
     C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
     C_2 = (*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1);
     C_3 = (*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2);
     C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
     C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
     C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
-    if (FixedWCbtos) {
+    C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
+    //    C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
+    
+    if (FixedWCbtos) {/** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
+        allcoeff_noSM = SM.getFlavour().ComputeCoeffBMll(mu_b, StandardModel::NOLEPTON, true); //check the mass scale, scheme fixed to NDR
         C_7 = SM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
-        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    } else {
-        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
-        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     }
+    else C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     C_7p -= ms_over_mb * C_7;
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
     C_7p += -ms_over_mb * C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6;
-    C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
-    //    C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
 #else   
     allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu_b);
     allcoeffprime = SM.getFlavour().ComputeCoeffprimesgamma(mu_b);
-    if (FixedWCbtos) allcoeff_noSM = SM.getFlavour().ComputeCoeffsgamma(mu_b, true); //check the mass scale, scheme fixed to NDR
 
     C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
     C_2 = (*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1);
@@ -220,17 +217,16 @@ void MVgamma::updateParameters()
     C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
     C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
     C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
-    if (FixedWCbtos) {
-        C_7 = SM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
-        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    } else {
-        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
-        C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    }
-    /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
-    C_7p += -ms_over_mb * C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6;
     C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
     //    C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
+    if (FixedWCbtos) {/** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
+        allcoeff_noSM = SM.getFlavour().ComputeCoeffsgamma(mu_b, true); //check the mass scale, scheme fixed to NDR
+        C_7 = SM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
+    }
+    else C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6)););
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
+    C_7p += -ms_over_mb * C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6;
 #endif    
     DC7_QCDF = deltaC7_QCDF(false);
     DC7_QCDF_bar = deltaC7_QCDF(true);
