@@ -498,7 +498,7 @@ void GMcache::read(){
     readTable(CMS13_bb_A_Zh_Zbb_1, ex79.str(),79,2);
     ex80 << tablepath << "180702826_a.dat";
     readTable(CMS13_gg_A_Zh_Zbb_2, ex80.str(),121,2);
-    ex81 << tablepath << "1807.02826_b.dat";
+    ex81 << tablepath << "180702826_b.dat";
     readTable(CMS13_bb_A_Zh_Zbb_2, ex81.str(),121,2);
     ex82 << tablepath << "CMS-PAS-SMP-18-001.dat";
     readTable(CMS13_WZ_H5pm_WZ_lnull_2, ex82.str(),171,2);
