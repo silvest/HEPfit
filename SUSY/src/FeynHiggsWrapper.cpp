@@ -119,10 +119,10 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
             mySUSY.getMz(), 
             mySUSY.GammaW(), 
             mySUSY.Gamma_Z(),
-            mySUSY.getLambda(), 
-            mySUSY.getA(), 
-            mySUSY.getRhob(), 
-            mySUSY.getEtab());
+            mySUSY.getCKM().getLambda(), 
+            mySUSY.getCKM().getA(), 
+            mySUSY.getCKM().getRhoBar(), 
+            mySUSY.getCKM().getEtaBar());
 #elif FEYNHIGGS_VERSION>=210
     FHSetSMPara(&err,
             1.0 / mySUSY.alphaMz(),

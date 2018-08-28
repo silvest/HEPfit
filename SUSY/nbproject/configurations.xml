@@ -333,5 +333,92 @@
       <item path="src/ScalarPotential.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
+    <conf name="ArchLinux" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <preprocessorList>
+            <Elem>FHDEBUG</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="src/CCBbounds.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/CCBbounds.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EWSUSY.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWSUSY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FeynHiggsWrapper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FeynHiggsWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Metastability.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Metastability.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mslepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Msneutrino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mw_dRho.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/OutputSLHAfromFH.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SFermiondeltas.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SFermiondeltas.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SUSY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SUSYEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SUSYEDMcouplings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SUSYMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SUSYMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SUSYObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SUSYSpectrum.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SUSYSpectrum.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ScalarPotential.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ScalarPotential.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

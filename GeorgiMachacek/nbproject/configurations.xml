@@ -159,5 +159,58 @@
       <item path="src/GeorgiMachacekObservables.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
+    <conf name="ArchLinux" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../gslpp/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="src/GMDirectSearches.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMDirectSearches.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GMMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GMcache.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GMpositivity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMpositivity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GMquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GMunitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMunitarity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeorgiMachacek.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeorgiMachacek.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeorgiMachacekObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

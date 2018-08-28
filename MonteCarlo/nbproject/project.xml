@@ -36,6 +36,14 @@
                     <name>Debug_MPI</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>Copy_of_Debug_MPI</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
+                    <name>ArchLinux_MPI</name>
+                    <type>3</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

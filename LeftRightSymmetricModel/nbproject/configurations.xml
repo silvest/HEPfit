@@ -171,5 +171,47 @@
             flavor2="0">
       </item>
     </conf>
+    <conf name="ArchLinux" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="src/LRSMObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LRSMquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LRSMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModel.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModelMatching.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModelMatching.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

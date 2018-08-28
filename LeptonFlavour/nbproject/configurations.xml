@@ -230,5 +230,63 @@
       <item path="src/mueconversion.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
+    <conf name="ArchLinux" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="src/HeffDLi3j.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/HeffDLi3j.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HeffDLij.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/HeffDLij.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Heffgminus2.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/Heffgminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Heffmueconv.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/Heffmueconv.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LeptonFlavour.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LeptonFlavourObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gminus2.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/gminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/li_3lj.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/li_3lj.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/li_lj_gamma.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/li_lj_gamma.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/mueconversion.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/mueconversion.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

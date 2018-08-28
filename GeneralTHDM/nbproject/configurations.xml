@@ -321,5 +321,83 @@
       <item path="src/GeneralTHDMunitarity.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
+    <conf name="ArchLinux" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../Flavour/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="src/GeneralTHDM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEDMcouplings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEWPO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEffectivePot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEffectivePot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMHeavyHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMHeavyHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMLightHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMLightHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMSTU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMSTU.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMcache.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMgminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMstability.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMstability.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMunitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMunitarity.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

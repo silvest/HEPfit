@@ -23,6 +23,10 @@
                     <name>Cluster</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>ArchLinux</name>
+                    <type>3</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

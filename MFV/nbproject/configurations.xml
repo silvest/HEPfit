@@ -271,5 +271,77 @@
       <item path="tests/MFVtest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
+    <conf name="ArchLinux" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../Observables/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
+      <item path="src/MFV.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MFV.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Xmatrices.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Xmatrices.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/MFVtest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

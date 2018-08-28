@@ -182,5 +182,69 @@
       <item path="src/THDMWunitarity.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
+    <conf name="ArchLinux" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
+      <item path="src/RunnerTHDMW.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RunnerTHDMW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMW.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWSignalStrengths.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWSignalStrengths.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWcache.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWpositivity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWpositivity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWquantitiesatQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWquantitiesatQ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWunitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWunitarity.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>
