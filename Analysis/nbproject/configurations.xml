@@ -571,7 +571,6 @@
             <pElem>../LoopTools/lib</pElem>
             <pElem>../boost/lib</pElem>
             <pElem>../boost</pElem>
-            <pElem>/usr/local/gfortran/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>.</pElem>

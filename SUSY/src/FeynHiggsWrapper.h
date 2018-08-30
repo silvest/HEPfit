@@ -12,7 +12,7 @@
 #include <gslpp.h>
 #include "SUSY.h"
 
-#define FEYNHIGGS_VERSION 214 /* FeynHiggs Major Version. Must be an Integer (2.12.0 -> 212, 2.13.4 -> 213)*/
+#define FEYNHIGGS_VERSION 212 /* FeynHiggs Major Version. Must be an Integer (2.12.0 -> 212, 2.13.4 -> 213)*/
 
 /**
  * @class FeynHiggsWrapper
