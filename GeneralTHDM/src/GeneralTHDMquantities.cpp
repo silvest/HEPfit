@@ -630,6 +630,24 @@ double massdifference_mH2mmH3::computeThValue()
     return  sqrt(myGTHDM->getMyGTHDMCache()->mH2sq) - sqrt(myGTHDM->getMyGTHDMCache()->mH3sq);
 }
 
+massdifference_mH2mmHp::massdifference_mH2mmHp(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
+{}
+
+double massdifference_mH2mmHp::computeThValue()
+{
+    return  sqrt(myGTHDM->getMyGTHDMCache()->mH2sq) - sqrt(myGTHDM->getMyGTHDMCache()->mHp2_GTHDM);
+}
+
+
+massdifference_mH3mmHp::massdifference_mH3mmHp(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
+{}
+
+double massdifference_mH3mmHp::computeThValue()
+{
+    return  sqrt(myGTHDM->getMyGTHDMCache()->mH3sq) - sqrt(myGTHDM->getMyGTHDMCache()->mHp2_GTHDM);
+}
 cosalpha1_GTHDM::cosalpha1_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
 {}

@@ -1297,7 +1297,7 @@ public:
 /**
  * @class massdifference_mH2mmH3
  * @ingroup GeneralTHDM 
- * @brief The difference between the masses H1 and H2
+ * @brief The difference between the masses H2 and H3
  */
 class massdifference_mH2mmH3: public ThObservable {
 public:
@@ -1309,6 +1309,47 @@ public:
 
     /**
      * @return @f$mH2-mH3@f$
+     */
+    double computeThValue();
+
+   const GeneralTHDM * myGTHDM;
+};
+/**
+ * @class massdifference_mH2mmHp
+ * @ingroup GeneralTHDM 
+ * @brief The difference between the masses H2 and Hp
+ */
+class massdifference_mH2mmHp: public ThObservable {
+public:
+
+    /**
+     * @brief massdifference_mHhmHp constructor.
+     */
+    massdifference_mH2mmHp(const StandardModel& SM_i);
+
+    /**
+     * @return @f$mH2-mHp@f$
+     */
+    double computeThValue();
+
+   const GeneralTHDM * myGTHDM;
+};
+
+/**
+ * @class massdifference_mH3mmHp
+ * @ingroup GeneralTHDM 
+ * @brief The difference between the masses Hp and H3
+ */
+class massdifference_mH3mmHp: public ThObservable {
+public:
+
+    /**
+     * @brief massdifference_mHhmHp constructor.
+     */
+    massdifference_mH3mmHp(const StandardModel& SM_i);
+
+    /**
+     * @return @f$mH3-mHp@f$
      */
     double computeThValue();
 
