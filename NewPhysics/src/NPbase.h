@@ -1015,6 +1015,14 @@ public:
     {
         return 1.0;
     }
+    virtual double muZHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual double muVHgaga(const double sqrt_s) const
     {
         return 1.0;
@@ -1022,12 +1030,44 @@ public:
     virtual double muttHgaga(const double sqrt_s) const
     {
         return 1.0;
+    }   
+    virtual double muggHZga(const double sqrt_s) const
+    {
+        return 1.0;
     }
+    virtual double muVBFHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muWHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }  
     virtual double muggHZZ(const double sqrt_s) const
     {
         return 1.0;
     }
     virtual double muVBFHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muWHZZ(const double sqrt_s) const
     {
         return 1.0;
     }
@@ -1047,6 +1087,14 @@ public:
     {
         return 1.0;
     }
+    virtual double muZHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual double muVHWW(const double sqrt_s) const
     {
         return 1.0;
@@ -1055,11 +1103,43 @@ public:
     {
         return 1.0;
     }
+    virtual double muggHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual double muggHtautau(const double sqrt_s) const
     {
         return 1.0;
     }
     virtual double muVBFHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHtautau(const double sqrt_s) const
     {
         return 1.0;
     }
@@ -1076,6 +1156,14 @@ public:
         return 1.0;
     }
     virtual double muVBFHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHbb(const double sqrt_s) const
     {
         return 1.0;
     }

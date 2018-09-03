@@ -590,6 +590,16 @@ double HiggsChiral::muVBFHgaga(const double sqrt_s) const
     return computecV() * computecV() * computecgaga() * computecgaga() / computeGammaTotalRatio();
 }
 
+double HiggsChiral::muZHgaga(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecgaga() * computecgaga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHgaga(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecgaga() * computecgaga() / computeGammaTotalRatio();
+}
+
 double HiggsChiral::muVHgaga(const double sqrt_s) const
 {
     return computecV() * computecV() * computecgaga() * computecgaga() / computeGammaTotalRatio();
@@ -598,6 +608,36 @@ double HiggsChiral::muVHgaga(const double sqrt_s) const
 double HiggsChiral::muttHgaga(const double sqrt_s) const
 {
     return computect() * computect() * computecgaga() * computecgaga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muggHZga(const double sqrt_s) const
+{
+    return computecg() * computecg() * computecZga() * computecZga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHZga(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecZga() * computecZga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muZHZga(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecZga() * computecZga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHZga(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecZga() * computecZga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVHZga(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecZga() * computecZga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muttHZga(const double sqrt_s) const
+{
+    return computect() * computect() * computecZga() * computecZga() / computeGammaTotalRatio();
 }
 
 double HiggsChiral::muggHZZ(const double sqrt_s) const
@@ -610,6 +650,15 @@ double HiggsChiral::muVBFHZZ(const double sqrt_s) const
     return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
 }
 
+double HiggsChiral::muZHZZ(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHZZ(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
 
 double HiggsChiral::muVHZZ(const double sqrt_s) const
 {
@@ -632,6 +681,16 @@ double HiggsChiral::muVBFHWW(const double sqrt_s) const
     return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
 }
 
+double HiggsChiral::muZHWW(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHWW(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
 double HiggsChiral::muVHWW(const double sqrt_s) const
 {
     return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
@@ -642,12 +701,52 @@ double HiggsChiral::muttHWW(const double sqrt_s) const
     return computect() * computect() * computecV() * computecV() / computeGammaTotalRatio();
 }
 
+double HiggsChiral::muggHmumu(const double sqrt_s) const
+{
+    return computecg() * computecg() * computecmu() * computecmu() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHmumu(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecmu() * computecmu() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muZHmumu(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecmu() * computecmu() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHmumu(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecmu() * computecmu() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVHmumu(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecmu() * computecmu() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muttHmumu(const double sqrt_s) const
+{
+    return computect() * computect() * computecmu() * computecmu() / computeGammaTotalRatio();
+}
+
 double HiggsChiral::muggHtautau(const double sqrt_s) const
 {
     return computecg() * computecg() * computectau() * computectau() / computeGammaTotalRatio();
 }
 
 double HiggsChiral::muVBFHtautau(const double sqrt_s) const
+{
+    return computecV() * computecV() * computectau() * computectau() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muZHtautau(const double sqrt_s) const
+{
+    return computecV() * computecV() * computectau() * computectau() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHtautau(const double sqrt_s) const
 {
     return computecV() * computecV() * computectau() * computectau() / computeGammaTotalRatio();
 }
@@ -668,6 +767,16 @@ double HiggsChiral::muggHbb(const double sqrt_s) const
 }
 
 double HiggsChiral::muVBFHbb(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecb() * computecb() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muZHbb(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecb() * computecb() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHbb(const double sqrt_s) const
 {
     return computecV() * computecV() * computecb() * computecb() / computeGammaTotalRatio();
 }
