@@ -1022,7 +1022,82 @@ public:
      */
     virtual double obliqueU() const;
     
+    
+    /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
+    
+    /**
+     * @brief The relative correction to the mass of the @f$Z@f$ boson, @f$\delta M_Z/M_Z@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$\delta M_Z/M_Z@f$
+     */
+    virtual double deltaMz() const;
+    
+    /**
+     * @brief The relative correction to the mass of the @f$Z@f$ boson squared, @f$(\delta M_Z/M_Z)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$(\delta M_Z/M_Z)^2@f$
+     */
     virtual double deltaMz2() const;
+        
+    /**
+     * @brief The relative correction to the mass of the @f$H@f$ boson, @f$\delta M_H/M_H@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$\delta M_H/M_H@f$
+     */
+    virtual double deltaMh() const;
+    
+    /**
+     * @brief The relative correction to the mass of the @f$H@f$ boson squared, @f$(\delta M_H/M_H)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$(\delta M_H/M_H)^2@f$
+     */
+    virtual double deltaMh2() const;
+    
+    /**
+     * @brief The relative correction to the mass of the @f$t@f$ quark, @f$\delta m_t/m_t@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$\delta m_t/m_t@f$
+     */
+    virtual double deltamt() const;
+    
+    /**
+     * @brief The relative correction to the mass of the @f$t@f$ quark squared, @f$(\delta m_t/m_t)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$(\delta m_t/m_t)^2@f$
+     */
+    virtual double deltamt2() const;
+    
+    /**
+     * @brief The relative correction to the muon decay constant, @f$\delta G_\mu/G_\mu@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$\delta G_\mu/G_\mu@f$
+     */
+    virtual double deltaGmu() const;
+    
+    /**
+     * @brief The relative correction to the muon decay constant, @f$(\delta G_\mu/G_\mu)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$(\delta G_\mu/G_\mu)^2@f$
+     */
+    virtual double deltaGmu2() const;
+    
+    /**
+     * @brief The relative correction to the electromagnetic constant at the Z pole, @f$\delta \alpha(M_Z^2)/\alpha(M_Z^2)@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$\delta \alpha(M_Z^2)/\alpha(M_Z^2)@f$
+     */
+    virtual double deltaaMZ() const;
+    
+    /**
+     * @brief The relative correction to the electromagnetic constant at the Z pole, @f$(\delta \alpha(M_Z^2)/\alpha(M_Z^2))^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$(\delta \alpha(M_Z^2)/\alpha(M_Z^2))^2@f$
+     */
+    virtual double deltaaMZ2() const;
+    
+    /**
+     * @brief The relative correction to the strong coupling constant at the Z pole, @f$\delta \alpha_S(M_Z^2)/\alpha_S(M_Z^2)@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$\delta \alpha_S(M_Z^2)/\alpha_S(M_Z^2)@f$
+     */
+    virtual double deltaaSMZ() const;
+    
+    /**
+     * @brief The relative correction to the strong coupling constant at the Z pole, @f$(\delta \alpha_S(M_Z^2)/\alpha_S(M_Z^2))^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$(\delta \alpha_S(M_Z^2)/\alpha_S(M_Z^2))^2@f$
+     */
+    virtual double deltaaSMZ2() const;
+    
+    ////////////////////////////////////////////////////////////////////////
     
     /**
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
@@ -1031,14 +1106,14 @@ public:
     virtual double Mw() const;
     
     /**
-     * @brief The relative corrections to the mass of the @f$W@f$ boson, @f$\delta M_W/M_W@f$.
+     * @brief The relative NP corrections to the mass of the @f$W@f$ boson, @f$\delta M_W/M_W@f$.
      * @return @f$\delta M_W/M_W@f$
      */
     virtual double deltaMw() const;
     
     /**
-     * @brief The relative corrections to the mass of the @f$W@f$ boson squared, @f$(\delta M_W/M_W)^@f$.
-     * @return @f$(\delta M_W/M_W)^@f$
+     * @brief The relative NP corrections to the mass of the @f$W@f$ boson squared, @f$(\delta M_W/M_W)^2@f$.
+     * @return @f$(\delta M_W/M_W)^2@f$
      */
     virtual double deltaMw2() const;
     
