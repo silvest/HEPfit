@@ -260,6 +260,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagRotateCHWCHB = false;
     FlagPartialQFU = false;
     FlagFlavU3OfX = false;
+    FlagHiggsSM = false;
     FlagLoopHd6 = false;
     setModelLinearized();
     
@@ -840,10 +841,16 @@ bool NPSMEFTd6::PostUpdate()
         CuB_33r = Yukt * CuB_33r;
     }
     
-    if (!FlagLoopHd6) {
-        cLHd6 = 0.;
+    if (!FlagHiggsSM) {
+        cHSM = 0.0;
     } else {
-        cLHd6 = 1.;
+        cHSM = 1.0;
+    }
+    
+    if (!FlagLoopHd6) {
+        cLHd6 = 0.0;
+    } else {
+        cLHd6 = 1.0;
     }
 
     delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB + sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
@@ -2014,6 +2021,9 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
     } else if (name.compare("FlavU3OfX") == 0) {        
         FlagFlavU3OfX = value;
         res = true; 
+    } else if (name.compare("HiggsSM") == 0) {        
+        FlagHiggsSM = value;
+        res = true;
     } else if (name.compare("LoopHd6") == 0) {        
         FlagLoopHd6 = value;
         res = true;
@@ -3045,7 +3055,35 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         mu +=  0.0;
 
         }
+   
+    } else if (sqrt_s == 27.0) {
+        
+        C1 = 0.0; // N.A.
 
+        mu += 
+                +120777. * CHbox / LambdaNP2
+                +6664.27 * CHQ1_11 / LambdaNP2
+                -34230.7 * CHu_11 / LambdaNP2
+                +12917.3 * CHd_11 / LambdaNP2
+                -536216. * CHQ3_11 / LambdaNP2
+                -163493. * CHD / LambdaNP2
+                +58.33 * CHB / LambdaNP2
+                -81360.5 * CHW / LambdaNP2
+                -313026. * CHWB / LambdaNP2
+                -16430. * CHG / LambdaNP2
+                -1314.45 * CDHB / LambdaNP2
+                -75884.6 * CDHW / LambdaNP2
+                -4.475 * DeltaGF()
+                -2.99 * deltaMw()
+                -2.928 * deltaMw2()
+                ;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+        
     } else if (sqrt_s == 100.0) {
         
         C1 = 0.0; // N.A.
@@ -4550,7 +4588,29 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         mu +=  0.0;
 
         }
-          
+
+    } else if (sqrt_s == 27.0) {
+        
+        C1 = 0.0; // N.A.
+
+        mu += 
+                +120696. * CHbox / LambdaNP2
+                +2105646. * CHQ3_11 / LambdaNP2
+                -159695. * CHD / LambdaNP2
+                +900162. * CHW / LambdaNP2
+                -283257. * CHWB / LambdaNP2
+                +215592. * CDHW / LambdaNP2
+                -3.256 * DeltaGF()
+                -2.063 * deltaMw()
+                -14.333 * deltaMw2()
+                ;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+    
     } else if (sqrt_s == 100.0) {
         
         C1 = 0.0; // N.A. 
@@ -4722,7 +4782,32 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         mu +=  0.0;
 
         }
-          
+
+    } else if (sqrt_s == 27.0) {
+        
+        C1 = 0.0; // N.A.
+
+        mu += 
+                +121206. * CHbox / LambdaNP2
+                -101865. * CHQ1_11 / LambdaNP2
+                +468029. * CHu_11 / LambdaNP2
+                -173377. * CHd_11 / LambdaNP2
+                +2002478. * CHQ3_11 / LambdaNP2
+                -15486.3 * CHD / LambdaNP2
+                +89958. * CHB / LambdaNP2
+                +735013. * CHW / LambdaNP2
+                +211026. * CHWB / LambdaNP2
+                +25604. * CDHB / LambdaNP2
+                +196710. * CDHW / LambdaNP2
+                -2.505 * DeltaGF()
+                ;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+    
     } else if (sqrt_s == 100.0) {
         
         C1 = 0.0; // N.A.
@@ -5779,7 +5864,24 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         mu +=  0.0;
 
         }
+
+    } else if (sqrt_s == 27.0) {
         
+        C1 = 0.0; // N.A.
+
+        mu += 
+                +519682. * CHG / LambdaNP2
+                -68463.1 * CG / LambdaNP2
+                +884060. * CuG_33r / LambdaNP2
+                -2.849 * deltaG_hff(quarks[TOP]).real()
+                ;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+            
     } else if (sqrt_s == 100.0) {
         
         C1 = 0.0; // N.A.
@@ -6947,7 +7049,6 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
     dwidth = ( +37523820. * CHG / LambdaNP2
             + cLHd6 * (
             +121249. * CHbox / LambdaNP2
-            -121249. * CHL3_11 / LambdaNP2
             +173342. * CuH_22r / LambdaNP2
             -129305. * CuH_33r / LambdaNP2
             +248515. * CdH_33r / LambdaNP2

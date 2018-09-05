@@ -684,6 +684,13 @@
  *   The default value is FALSE.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%HiggsSM</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if including dependence on small variations of the SM parameters (dependence is linearized). 
+ *   Available only in selected Higgs observables.
+ *   The default value is FALSE.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%LoopHd6</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to TRUE if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
@@ -3127,6 +3134,8 @@ protected:
     
     double dZH;///< Higgs self-coupling contribution to the universal resummed Higgs wave function renormalization
     
+    double cHSM;///< Parameter to control the includion of modifications of SM parameters in selected Higgs processes.
+    
     double cLHd6;///< Parameter to control the includion of modifications of SM loops in Higgs processes due to dim 6 interactions.
 
     double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
@@ -3197,6 +3206,7 @@ private:
     bool FlagRotateCHWCHB; ///< A boolean flag that is true if we use as parameters CHWHB_gaga and CHWHB_gagaorth instead of CHW and CHB.
     bool FlagPartialQFU; ///< A boolean flag that is true if assuming partial quark flavour universality between the 1st and 2nd family in the CHF operators.
     bool FlagFlavU3OfX; ///< A boolean flag that is true if assuming U(3)^5 symmetry in the CfH and CfV operator coefficients.
+    bool FlagHiggsSM; ///< A boolean flag that is true if including dependence on small variations of the SM parameters (dependence is linearized). Available only in selected Higgs observables. 
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
 
     /**

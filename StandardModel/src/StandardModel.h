@@ -1879,6 +1879,8 @@ public:
      * For the 13 and 14 TeV values we use the official N3LO numbers a la CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
+     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
+     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -1895,7 +1897,9 @@ public:
         } else if (sqrt_s == 13.0) {
             return 48.51; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
-            return 54.60; // in pb for Mh=125.1 GeV            
+            return 54.60; // in pb for Mh=125.1 GeV     
+        } else if (sqrt_s == 27.0) {
+            return 151.6; // in pb
         } else if (sqrt_s == 100.0) {
             return 740.3; // in pb for Mh=125. GeV            
         } else if (sqrt_s == 1.96) {
@@ -1925,6 +1929,8 @@ public:
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
         } else if (sqrt_s == 14.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 27.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV
         } else if (sqrt_s == 100.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV
         } else
@@ -1952,6 +1958,8 @@ public:
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
         } else if (sqrt_s == 14.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 27.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV
         } else if (sqrt_s == 100.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV
         } else
@@ -1979,6 +1987,8 @@ public:
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
         } else if (sqrt_s == 14.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 27.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV
         } else if (sqrt_s == 100.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV
         } else
@@ -1991,6 +2001,8 @@ public:
      * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
+     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
+     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2008,6 +2020,8 @@ public:
             return 3.779; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
             return 4.275; // in pb for Mh=125.1 GeV            
+        } else if (sqrt_s == 27.0) {
+            return 12.41; // in pb
         } else if (sqrt_s == 100.0) {
             return 82.0; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2033,6 +2047,8 @@ public:
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
         } else if (sqrt_s == 14.0) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 27.0) {
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV
         } else if (sqrt_s == 100.0) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV 
         } else if (sqrt_s == 1.96) {
@@ -2058,6 +2074,8 @@ public:
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
         } else if (sqrt_s == 14.0) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 27.0) {
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV
         } else if (sqrt_s == 100.0) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV 
         } else if (sqrt_s == 1.96) {
@@ -2084,6 +2102,8 @@ public:
      * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
+     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
+     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2101,6 +2121,8 @@ public:
             return 1.369; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
             return 1.510; // in pb for Mh=125.1 GeV            
+        } else if (sqrt_s == 27.0) {
+            return 3.4; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 100.0) {
             return 15.9; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2115,6 +2137,8 @@ public:
      * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
+     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
+     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2131,7 +2155,9 @@ public:
         } else if (sqrt_s == 13.0) {
             return 0.8819; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
-            return 0.9835; // in pb for Mh=125.1 GeV            
+            return 0.9835; // in pb for Mh=125.1 GeV   
+        } else if (sqrt_s == 27.0) {
+            return 2.47; // in pb for Mh=125.09 GeV        
         } else if (sqrt_s == 100.0) {
             return 11.26; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2146,6 +2172,8 @@ public:
      * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
+     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
+     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2163,6 +2191,8 @@ public:
             return 0.5060; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
             return 0.6127; // in pb for Mh=125.1 GeV            
+        } else if (sqrt_s == 27.0) {
+            return 2.86; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 100.0) {
             return 37.9; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
