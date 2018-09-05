@@ -10,7 +10,7 @@ cp -r ../config .
 rm config/NPSMEFTd6.conf config/Observables_NP.conf config/*_EW.conf
 rm -rf *.out *.err *.txt *.root Observables *.tex
 ln -s ${EXEPATH} .
-# cp ../../sbatch.sh .
+# sed -e "s/NAME/FULLKD-SM/" ../../sbatch.sh > sbatch.sh
 # sbatch sbatch.sh
 cd ..
 
@@ -27,7 +27,7 @@ do
 	sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
 	rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
  	ln -s ${EXEPATH} . 
-# 	cp ../../sbatch.sh .
+# 	sed -e "s/NAME/FULLKD-${i}/" ../../sbatch.sh > sbatch.sh
 # 	sbatch sbatch.sh
 	cd ..
 done
@@ -41,7 +41,7 @@ sed -i.bak -e "24,36s/^# //" config/Observables_NP.conf
 sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
 rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
 ln -s ${EXEPATH} .
-# cp ../../sbatch.sh .
+# sed -e "s/NAME/FULLKD-C_all/" ../../sbatch.sh > sbatch.sh
 # sbatch sbatch.sh
 cd ..
 
@@ -51,12 +51,12 @@ do
 	mkdir C_all_${i} && cd C_all_${i}
 	cp -r ../config .
 	rm config/*_EW.conf
-	sed -i.bak -e "s/RANGE_RGE/0./" -e "s/EW_RANGE/0./" -e "/${i}/s/RANGE_F/10./" -e "s/SCALE/30000./" config/NPSMEFTd6.conf
+	sed -i.bak -e "s/RANGE_RGE/0./" -e "s/EW_RANGE/0./" -e "/${i}/s/RANGE_F/10./" -e "s/RANGE_F/0./" -e "s/SCALE/30000./" config/NPSMEFTd6.conf
 	sed -i.bak -e "/${i}/s/# /#AAA#/" -e "24,36s/^#AAA#//" -e "s/#AAA#/# /" config/Observables_NP.conf
 	sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
 	rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
 	ln -s ${EXEPATH} .
-# 	cp ../../sbatch.sh .
+# 	sed -e "s/NAME/FULLKD-C_all_${i}/" ../../sbatch.sh > sbatch.sh
 # 	sbatch sbatch.sh
 	cd ..
 done
@@ -71,7 +71,7 @@ sed -i.bak -e "38,42s/^# //" config/Observables_NP.conf
 sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
 rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
 ln -s ${EXEPATH} .
-# cp ../../sbatch.sh .
+# sed -e "s/NAME/FULLKD-C_all_RGE/" ../../sbatch.sh > sbatch.sh
 # sbatch sbatch.sh
 cd ..
 
@@ -82,12 +82,12 @@ do
 	mkdir C_all_RGE_${i} && cd C_all_RGE_${i}
 	cp -r ../config .
 	rm config/*_EW.conf
-	sed -i.bak -e "/${i}/s/RANGE_RGE/0./" -e "s/EW_RANGE/0./" -e "s/RANGE_F/0./" -e "s/SCALE/1000./" config/NPSMEFTd6.conf
+	sed -i.bak -e "/${i}/s/RANGE_RGE/0./" -e "s/RANGE_RGE/0./" -e "s/EW_RANGE/0./" -e "s/RANGE_F/0./" -e "s/SCALE/1000./" config/NPSMEFTd6.conf
 	sed -i.bak -e "/${i}/s/# /#AAA#/" -e "38,42s/^#AAA#//" -e "s/#AAA#/# /" config/Observables_NP.conf
 	sed -i.bak -e "s/StandardModel/# StandardModel/" -e "s/## NP ## //" config/StandardModel.conf
 	rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
 	ln -s ${EXEPATH} .
-# 	cp ../../sbatch.sh .
+#	sed -e "s/NAME/FULLKD-C_all_RGE_${i}/" ../../sbatch.sh > sbatch.sh
 # 	sbatch sbatch.sh
 	cd ..
 done
@@ -102,6 +102,6 @@ sed -i.bak -e "s/RANGE_RGE/0./" -e "s/EW_RANGE/10./" -e "s/RANGE_F/10./" -e "s/S
 sed -i.bak -e "24,70s/^# //" config/Observables_NP.conf
 rm -rf *.out *.err *.txt *.root Observables *.tex config/*.bak
 ln -s ${EXEPATH} .
-# cp ../../sbatch.sh .
+# sed -e "s/NAME/FULLKD-C_all_EW/" ../../sbatch.sh > sbatch.sh
 # sbatch sbatch.sh
 cd ..
