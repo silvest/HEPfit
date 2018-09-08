@@ -8560,7 +8560,12 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
             );
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * ( 0.0 );    
+    dwidth += cHSM * ( +1.003 * deltaGmu()
+                +2.31 * deltaaSMZ()
+                +3.277 * deltaMh()
+                -0.134 * deltamt()
+                -0.106 * deltamb()
+                -0.03 * deltamc() );    
 
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHggint + eHggpar;
@@ -9142,25 +9147,42 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
 {
     double dwidth = 0.0;
 
-//  It does not include modifications of Zff vertices or MW
+//  It includes modifications of Zff vertices and MW, but not on the pure VVV and VVVV vertices
     dwidth = ( +14894896. * CHB / LambdaNP2
             -14894896. * CHW / LambdaNP2
             +9508500. * CHWB / LambdaNP2
             -2869606. * CDHB / LambdaNP2
-            +1572591. * CDHW / LambdaNP2
+            +1572591. * CDHW / LambdaNP2            
             + cLHd6 * (
             +120004. * CHbox / LambdaNP2
+            +50.118 * CHL1_33 / LambdaNP2
+            +17403.5 * CHQ1_33 / LambdaNP2
+            +50.118 * CHe_33 / LambdaNP2
+            +17191.1 * CHu_33 / LambdaNP2
+            +212.377 * CHd_33 / LambdaNP2
+            +50.118 * CHL3_33 / LambdaNP2
+            -16978.8 * CHQ3_33 / LambdaNP2
             -374.02 * CeH_33r / LambdaNP2
             -2953.25 * CuH_22r / LambdaNP2
             +6645.39 * CuH_33r / LambdaNP2
             -6121.81 * CdH_33r / LambdaNP2
-            -120353. * CHD / LambdaNP2
-            -198058. * CHWB / LambdaNP2
-            -114271. * DeltaGF() / v() / v() )
+            -111254. * CHD / LambdaNP2
+            -162530. * CHWB / LambdaNP2
+            -96072.3 * DeltaGF() / v() / v() 
+            -0.123 * deltaMwd6() )
              );
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * ( 0.0 ); 
+    dwidth += cHSM * ( +1. * deltaa0()
+                -0.629 * deltaaMZ()
+                +2.629 * deltaGmu()
+                -4.926 * deltaMz()
+                +0.004 * deltaaSMZ()
+                +11.167 * deltaMh()
+                +0.013 * deltamt()
+                +0.004 * deltamb()
+                +0.001 * deltamc()
+                +0. * deltamtau() ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZgaint + eHZgapar;
@@ -9215,11 +9237,21 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
             -18429. * CdH_33r / LambdaNP2
             -137455. * CHD / LambdaNP2
             -235675. * CHWB / LambdaNP2
-            -124461. * DeltaGF() / v() / v() )
+            -124461. * DeltaGF() / v() / v() 
+            -1.257 * deltaMwd6() )
             );
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * ( 0.0 ); 
+    dwidth += cHSM * ( +2. * deltaa0()
+                +0.27 * deltaaMZ()
+                +0.736 * deltaGmu()
+                -1.797 * deltaMz()                
+                +0.02 * deltaaSMZ()
+                +4.195 * deltaMh()
+                +0.047 * deltamt()
+                +0.008 * deltamb()
+                +0.009 * deltamc()
+                +0.01 * deltamtau() ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHgagaint + eHgagapar;
@@ -9268,7 +9300,8 @@ double NPSMEFTd6::deltaGammaHmumuRatio1() const
             -60624.6 * DeltaGF() / v() / v() ); 
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * ( 0.0 ); 
+    dwidth += cHSM * ( +1. * deltaGmu()
+                +1. * deltaMh() ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHmumuint + eHmumupar;
@@ -9317,7 +9350,9 @@ double NPSMEFTd6::deltaGammaHtautauRatio1() const
             -60624.6 * DeltaGF() / v() / v() );
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * ( 0.0 ); 
+    dwidth += cHSM * ( +1. * deltaGmu()
+                +1.002 * deltaMh()
+                +1.998 * deltamtau() ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHtautauint + eHtautaupar;
@@ -9377,7 +9412,11 @@ double NPSMEFTd6::deltaGammaHccRatio1() const
     }
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * ( 0.0 ); 
+    dwidth += cHSM * ( +1. * deltaGmu()
+                -0.789 * deltaaSMZ()
+                +1.004 * deltaMh()
+                +0.001 * deltamt()
+                +1.995 * deltamc() ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHccint + eHccpar;
@@ -9436,7 +9475,11 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
     }
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * ( 0.0 ); 
+    dwidth += cHSM * ( +1. * deltaGmu()
+                -0.23 * deltaaSMZ()
+                +1.007 * deltaMh()
+                +0.001 * deltamt()
+                +1.992 * deltamb() ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHbbint + eHbbpar;
