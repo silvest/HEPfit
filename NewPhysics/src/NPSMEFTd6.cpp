@@ -2370,7 +2370,7 @@ double NPSMEFTd6::deltaMwd62() const
 
 double NPSMEFTd6::deltaGamma_Wff(const Particle fi, const Particle fj) const
 {
-    double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
+    double G0 = GF * pow(Mz*cW_tree, 3.0) / 6.0 / sqrt(2.0) / M_PI;
     double deltaGamma_Wij;
     double GammaW_tree;
     double CHF3ij;
@@ -2404,7 +2404,7 @@ double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const
 
 double NPSMEFTd6::deltaGamma_W() const
 {
-    double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
+    double G0 = GF * pow(Mz*cW_tree, 3.0) / 6.0 / sqrt(2.0) / M_PI;
     double GammaW_tree = (3.0 + 2.0 * Nc) * G0;
 
     return (- 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
