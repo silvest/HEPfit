@@ -2564,5 +2564,463 @@ private:
 
 // See aTGC in EW
 
+
+
+
+//-----  Basic interactions of the so-called Higgs basis  ----------
+
+/**
+ * @class deltaytHB
+ * @brief An observable class for the Higgs-basis coupling @f$\delta y_t@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$\delta y_t@f$.
+ *
+ */
+class deltaytHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltaytHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltaytHB class.
+     */
+    virtual ~deltaytHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_t@f$.
+     * @return @f$\delta y_t@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class deltaybHB
+ * @brief An observable class for the Higgs-basis coupling @f$\delta y_b@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$\delta y_b@f$.
+ *
+ */
+class deltaybHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltaybHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltaybHB class.
+     */
+    virtual ~deltaybHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_b@f$.
+     * @return @f$\delta y_b@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class deltaytauHB
+ * @brief An observable class for the Higgs-basis coupling @f$\delta y_\tau@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$\delta y_\tau@f$.
+ *
+ */
+class deltaytauHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltaytauHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltaytauHB class.
+     */
+    virtual ~deltaytauHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
+     * @return @f$\delta y_\tau@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class deltaycHB
+ * @brief An observable class for the Higgs-basis coupling @f$\delta y_c@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$\delta y_c@f$.
+ *
+ */
+class deltaycHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltaycHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltaycHB class.
+     */
+    virtual ~deltaycHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_c@f$.
+     * @return @f$\delta y_c@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class deltaymuHB
+ * @brief An observable class for the Higgs-basis coupling @f$\delta y_\mu@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$\delta y_\mu@f$.
+ *
+ */
+class deltaymuHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltaymuHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltaymuHB class.
+     */
+    virtual ~deltaymuHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
+     * @return @f$\delta y_\mu@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class deltacZHB
+ * @brief An observable class for the Higgs-basis coupling @f$\delta c_z@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$\delta c_z@f$.
+ *
+ */
+class deltacZHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltacZHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltacZHB class.
+     */
+    virtual ~deltacZHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$\delta c_z@f$.
+     * @return @f$\delta c_z@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class cZBoxHB
+ * @brief An observable class for the Higgs-basis coupling @f$c_{z\Box}@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$c_{z\Box}@f$.
+ *
+ */
+class cZBoxHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    cZBoxHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the cZBoxHB class.
+     */
+    virtual ~cZBoxHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
+     * @return @f$c_{z\Box}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class cZZHB
+ * @brief An observable class for the Higgs-basis coupling @f$c_{zz}@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$c_{zz}@f$.
+ *
+ */
+class cZZHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    cZZHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the cZZHB class.
+     */
+    virtual ~cZZHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$c_{zz}@f$.
+     * @return @f$c_{zz}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class cZgaHB
+ * @brief An observable class for the Higgs-basis coupling @f$c_{z\gamma}@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$c_{z\gamma}@f$.
+ *
+ */
+class cZgaHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    cZgaHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the cZgaHB class.
+     */
+    virtual ~cZgaHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
+     * @return @f$c_{z\gamma}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class cgagaHB
+ * @brief An observable class for the Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$c_{\gamma\gamma}@f$.
+ *
+ */
+class cgagaHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    cgagaHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the cgagaHB class.
+     */
+    virtual ~cgagaHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
+     * @return @f$c_{\gamma\gamma}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class cggHB
+ * @brief An observable class for the Higgs-basis coupling @f$c_{gg}@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$c_{gg}@f$.
+ *
+ */
+class cggHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    cggHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the cggHB class.
+     */
+    virtual ~cggHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$c_{gg}@f$.
+     * @return @f$c_{gg}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class lambzHB
+ * @brief An observable class for the Higgs-basis coupling @f$\lambda_{z}@f$.
+ * (See LHCHXSWG-INT-2015-001 document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$\lambda_{z}@f$.
+ *
+ */
+class lambzHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    lambzHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the lambzHB class.
+     */
+    virtual ~lambzHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
+     * @return @f$\lambda_{z}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
 #endif	/* NPCOUPLINGS_H */
 

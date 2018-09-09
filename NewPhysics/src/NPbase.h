@@ -1472,6 +1472,129 @@ public:
     {
         return 1.0;
     }
+    
+    /////////////Basic interactions of the so-called Higgs basis////////////////
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_t@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$\delta y_t@f$
+     */
+    virtual double deltayt_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_b@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$\delta y_b@f$
+     */
+    virtual double deltayb_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$\delta y_\tau@f$
+     */
+    virtual double deltaytau_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_c@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$\delta y_c@f$
+     */
+    virtual double deltayc_HB() const
+    {
+        return 0.0;
+    }
+    
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$\delta y_\mu@f$
+     */
+    virtual double deltaymu_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta c_z@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$\delta c_z@f$
+     */
+    virtual double deltacZ_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$c_{z\Box}@f$
+     */
+    virtual double cZBox_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{zz}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$c_{zz}@f$
+     */
+    virtual double cZZ_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$c_{z\gamma}@f$
+     */
+    virtual double cZga_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$c_{\gamma\gamma}@f$
+     */
+    virtual double cgaga_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{gg}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$c_{gg}@f$
+     */
+    virtual double cgg_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @return @f$\lambda_{z}@f$
+     */
+    virtual double lambz_HB() const
+    {
+        return 0.0;
+    }
       
     ////////////////////////////////////////////////////////////////////////
 protected:

@@ -334,6 +334,19 @@ ThObsFactory::ThObsFactory()
     obsThFactory["gHbWeff_Ratio"] = boost::factory<gHbWeff*>();
     obsThFactory["gHtaWeff_Ratio"] = boost::factory<gHtaWeff*>();
     //-----  VVV couplings observables  ----------
+    //-----  Basic interactions of the so-called Higgs basis  ----------
+    obsThFactory["deltayt_HB"] = boost::factory<deltaytHB*>();
+    obsThFactory["deltayb_HB"] = boost::factory<deltaybHB*>();
+    obsThFactory["deltaytau_HB"] = boost::factory<deltaytauHB*>();
+    obsThFactory["deltayc_HB"] = boost::factory<deltaycHB*>();
+    obsThFactory["deltaymu_HB"] = boost::factory<deltaymuHB*>();
+    obsThFactory["deltacZ_HB"] = boost::factory<deltacZHB*>();
+    obsThFactory["cZBox_HB"] = boost::factory<cZBoxHB*>();
+    obsThFactory["cZZ_HB"] = boost::factory<cZZHB*>();
+    obsThFactory["cZga_HB"] = boost::factory<cZgaHB*>();
+    obsThFactory["cgaga_HB"] = boost::factory<cgagaHB*>();
+    obsThFactory["cgg_HB"] = boost::factory<cggHB*>();
+    obsThFactory["lambz_HB"] = boost::factory<lambzHB*>();
 
     //-----  Higgs Extension observables  ----------
 

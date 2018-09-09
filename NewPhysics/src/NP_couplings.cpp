@@ -1514,3 +1514,247 @@ double deltalHHH::computeThValue()
 
 // See aTGC in EW
 
+//-----  Basic interactions of the so-called Higgs basis  ----------
+
+/* -------------------------------------*/
+
+deltaytHB::deltaytHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltaytHB::~deltaytHB()
+{}
+
+double deltaytHB::computeThValue()
+{
+    double HBcoup = myNPbase->deltayt_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+deltaybHB::deltaybHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltaybHB::~deltaybHB()
+{}
+
+double deltaybHB::computeThValue()
+{
+    double HBcoup = myNPbase->deltayb_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+deltaytauHB::deltaytauHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltaytauHB::~deltaytauHB()
+{}
+
+double deltaytauHB::computeThValue()
+{
+    double HBcoup = myNPbase->deltaytau_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+deltaycHB::deltaycHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltaycHB::~deltaycHB()
+{}
+
+double deltaycHB::computeThValue()
+{
+    double HBcoup = myNPbase->deltayc_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+deltaymuHB::deltaymuHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltaymuHB::~deltaymuHB()
+{}
+
+double deltaymuHB::computeThValue()
+{
+    double HBcoup = myNPbase->deltaymu_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+deltacZHB::deltacZHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltacZHB::~deltacZHB()
+{}
+
+double deltacZHB::computeThValue()
+{
+    double HBcoup = myNPbase->deltacZ_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+cZBoxHB::cZBoxHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+cZBoxHB::~cZBoxHB()
+{}
+
+double cZBoxHB::computeThValue()
+{
+    double HBcoup = myNPbase->cZBox_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+cZZHB::cZZHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+cZZHB::~cZZHB()
+{}
+
+double cZZHB::computeThValue()
+{
+    double HBcoup = myNPbase->cZZ_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+cZgaHB::cZgaHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+cZgaHB::~cZgaHB()
+{}
+
+double cZgaHB::computeThValue()
+{
+    double HBcoup = myNPbase->cZga_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+cgagaHB::cgagaHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+cgagaHB::~cgagaHB()
+{}
+
+double cgagaHB::computeThValue()
+{
+    double HBcoup = myNPbase->cgaga_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+cggHB::cggHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+cggHB::~cggHB()
+{}
+
+double cggHB::computeThValue()
+{
+    double HBcoup = myNPbase->cgg_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
+lambzHB::lambzHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+lambzHB::~lambzHB()
+{}
+
+double lambzHB::computeThValue()
+{
+    double HBcoup = myNPbase->lambz_HB();
+    
+    return HBcoup;
+}
+
+/* -------------------------------------*/
+
