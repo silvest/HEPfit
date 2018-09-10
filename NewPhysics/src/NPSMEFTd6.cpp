@@ -789,6 +789,8 @@ bool NPSMEFTd6::PostUpdate()
     LambdaNP2 = Lambda_NP * Lambda_NP;
     v2_over_LambdaNP2 = v() * v() / LambdaNP2;
     aleMz = alphaMz();
+    eeMz = sqrt( 4.0 * M_PI * aleMz );
+    eeMz2 = eeMz*eeMz;
     cW_tree = Mw_tree() / Mz;
     cW2_tree = cW_tree * cW_tree;
     sW2_tree = 1.0 - cW2_tree;
@@ -10667,6 +10669,140 @@ double NPSMEFTd6::kappaAeff() const
 double NPSMEFTd6::kappaZAeff() const
 {
       return sqrt(GammaHZgaRatio());
+}
+
+
+/////////////Basic interactions of the so-called Higgs basis////////////////
+    
+
+double NPSMEFTd6::deltayt_HB() const
+{
+    double mf= mtpole;
+    double ciHB;
+    
+    ciHB = - (v()/mf/sqrt(2.0))*CuH_33r*v2_over_LambdaNP2 + delta_h - 0.5*DeltaGF();
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::deltayb_HB() const
+{
+    double mf= (quarks[BOTTOM].getMass());
+    double ciHB;
+    
+    ciHB = - (v()/mf/sqrt(2.0))*CdH_33r*v2_over_LambdaNP2 + delta_h - 0.5*DeltaGF();
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::deltaytau_HB() const
+{
+    double mf= (leptons[TAU].getMass());
+    double ciHB;
+    
+    ciHB = - (v()/mf/sqrt(2.0))*CeH_33r*v2_over_LambdaNP2 + delta_h - 0.5*DeltaGF();
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::deltayc_HB() const
+{
+    double mf= (quarks[CHARM].getMass());
+    double ciHB;
+    
+    ciHB = - (v()/mf/sqrt(2.0))*CuH_22r*v2_over_LambdaNP2 + delta_h - 0.5*DeltaGF();
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::deltaymu_HB() const
+{
+    double mf= (leptons[MU].getMass());
+    double ciHB;
+    
+    ciHB = - (v()/mf/sqrt(2.0))*CeH_22r*v2_over_LambdaNP2 + delta_h - 0.5*DeltaGF();
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::deltacZ_HB() const
+{
+    double ciHB;
+    
+    ciHB = delta_h - (3.0/2.0)*DeltaGF();
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::cZBox_HB() const
+{
+    double ciHB;
+    
+    ciHB = (sW2_tree/eeMz2)*( DeltaGF() + 0.5*CHD*v2_over_LambdaNP2 );
+    
+    ciHB = ciHB + 0.5*(sW2_tree/eeMz)*(CDHB / cW_tree + CDHW / sW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::cZZ_HB() const
+{
+    double ciHB;
+    
+    ciHB = (4.0*sW2_tree*cW2_tree/eeMz2)*( cW2_tree*CHW + sW2_tree*CHB + sW_tree*cW_tree*CHWB )*v2_over_LambdaNP2;
+    
+    ciHB = ciHB - (sW2_tree*cW2_tree/eeMz)*(CDHB / cW_tree + CDHW / sW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::cZga_HB() const
+{
+    double ciHB;
+    
+    ciHB = (sW2_tree*cW2_tree/eeMz2)*( 4.0*CHW - 4.0*CHB - (2.0*(cW2_tree-sW2_tree)/sW_tree/cW_tree)*CHWB )*v2_over_LambdaNP2;
+    
+    ciHB = ciHB + 0.5*(sW_tree*cW_tree/eeMz)*(CDHB / sW_tree - CDHW / cW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::cgaga_HB() const
+{
+    double ciHB;
+    
+    ciHB = (4.0/eeMz2)*( sW2_tree*CHW + cW2_tree*CHB - sW_tree*cW_tree*CHWB )*v2_over_LambdaNP2;
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::cgg_HB() const
+{
+    double ciHB;
+    
+    ciHB = (1.0/(M_PI * AlsMz))*CHG*v2_over_LambdaNP2;
+    
+    return ciHB;
+}
+    
+
+double NPSMEFTd6::lambz_HB() const
+{
+    double ciHB;
+    
+    ciHB = -(3.0/2.0)*(eeMz/sW_tree)*CW*v2_over_LambdaNP2;
+    
+    return ciHB;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -2829,6 +2829,152 @@ public:
      */
     virtual double kappaZAeff() const;
     
+    /////////////Basic interactions of the so-called Higgs basis////////////////
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_t@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_t@f$
+     */
+    virtual double deltayt_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_b@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_b@f$
+     */
+    virtual double deltayb_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_\tau@f$
+     */
+    virtual double deltaytau_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_c@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_c@f$
+     */
+    virtual double deltayc_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
+     * (See LHCHXSWG-INT-2015-001 document.) 
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_\mu@f$
+     */
+    virtual double deltaymu_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta c_z@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta c_z@f$
+     */
+    virtual double deltacZ_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{z\Box}@f$
+     */
+    virtual double cZBox_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{zz}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{zz}@f$
+     */
+    virtual double cZZ_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{z\gamma}@f$
+     */
+    virtual double cZga_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{\gamma\gamma}@f$
+     */
+    virtual double cgaga_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{gg}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{gg}@f$
+     */
+    virtual double cgg_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\lambda_{z}@f$
+     */
+    virtual double lambz_HB() const;
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -3210,6 +3356,8 @@ protected:
     
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
     double aleMz;///< The em constant at Mz. 
+    double eeMz;///< The em coupling at Mz.
+    double eeMz2;///< The em coupling squared (at Mz).
     double cW_tree;///< The tree level values for the cosine of the weak angle.
     double sW_tree;///< The tree level values for the sine of the weak angle.
     double cW2_tree;///< The sqaure of the tree level values for the cosine of the weak angle.
