@@ -992,6 +992,144 @@ double HiggsChiral::computecb() const
 }
 
 
+////////////////////////////////////////////////////////////////////////
+
+double HiggsChiral::deltaG_hgg() const
+{
+    // Not needed/implemented yet
+    return 0.0;
+}
+
+double HiggsChiral::deltaG_hggRatio() const{
+    return (computecg() - 1.0);
+}
+
+double HiggsChiral::deltaG1_hWW() const{
+    return 0.0;
+}
+
+double HiggsChiral::deltaG2_hWW() const{
+    return 0.0;
+}
+
+double HiggsChiral::deltaG3_hWW() const{
+    
+    double gSM = 2.0 * (trueSM.Mw_tree())* (trueSM.Mw_tree()) / (trueSM.v());
+    
+    return ( gSM * (computecV() - 1.0 ) );
+}
+
+double HiggsChiral::deltaG1_hZZ() const{
+    return 0.0;
+}
+
+double HiggsChiral::deltaG2_hZZ() const{
+    return 0.0;
+}
+
+double HiggsChiral::deltaG3_hZZ() const{
+    
+    double gSM = (trueSM.getMz()) * (trueSM.getMz()) / (trueSM.v());
+    
+    return ( gSM * (computecV() - 1.0 ) );
+}
+
+double HiggsChiral::deltaG1_hZA() const{
+    // Not needed/implemented yet
+    return 0.0;
+}
+
+double HiggsChiral::deltaG1_hZARatio() const{
+    return (computecZga() - 1.0);
+}
+
+double HiggsChiral::deltaG2_hZA() const{
+    return 0.0;
+}
+
+double HiggsChiral::deltaG_hAA() const{
+    // Not needed/implemented yet
+    return 0.0;
+}
+
+double HiggsChiral::deltaG_hAARatio() const{
+    return (computecgaga() - 1.0);
+}
+
+gslpp::complex HiggsChiral::deltaG_hff(const Particle p) const{
+    
+    double gSM = -(p.getMass()) / (trueSM.v());
+    
+    if ( p.is("ELECTRON") ) {
+        return ( 0.0 );
+    } else if ( p.is("MU") ) {
+         return ( gSM * (computecmu() - 1.0 ) );       
+    } else if ( p.is("TAU") ) {
+        return ( gSM * (computectau() - 1.0 ) );        
+    } else if ( p.is("UP") ) {
+        return ( 0.0 );        
+    } else if ( p.is("CHARM") ) {
+        return ( gSM * (computecc() - 1.0 ) );        
+    } else if ( p.is("TOP") ) {
+        return ( gSM * (computect() - 1.0 ) );        
+    } else if ( p.is("DOWN") ) {
+        return ( 0.0 );        
+    } else if ( p.is("STRANGE") ) {
+        return ( 0.0 );        
+    } else if ( p.is("BOTTOM") ) {
+        return ( gSM * (computecb() - 1.0 ) );        
+    } else {
+        return 0.0;
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+double HiggsChiral::kappamueff() const
+{
+      return computecmu();
+}
+
+double HiggsChiral::kappataueff() const
+{
+      return computectau();
+}
+
+double HiggsChiral::kappaceff() const
+{
+      return computecc();
+}
+
+double HiggsChiral::kappabeff() const
+{
+      return computecb();
+}
+
+double HiggsChiral::kappaGeff() const
+{
+      return computecg();
+}
+
+double HiggsChiral::kappaZeff() const
+{
+      return computecV();
+}
+
+double HiggsChiral::kappaWeff() const
+{
+      return computecV();
+}
+
+double HiggsChiral::kappaAeff() const
+{
+      return computecgaga();
+}
+
+double HiggsChiral::kappaZAeff() const
+{
+      return computecZga();
+}
+
 //////////////////////////////////////////////////////////////////////
 
 gslpp::complex HiggsChiral::f_func(const double x) const{

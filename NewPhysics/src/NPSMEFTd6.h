@@ -1874,10 +1874,7 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to WW^*\to l\nu l\nu)@f$/@f$\Gamma(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
      */
-    double GammaHWW2l2vRatio() const
-    {
-        return 1.0;
-    };
+    double GammaHWW2l2vRatio() const;
     /**
      * @brief The ratio of the @f$\Gamma(H\to W j j)@f$ in the current model
      * and in the Standard Model.
@@ -1889,10 +1886,7 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to WW^*\to 4j)@f$/@f$\Gamma(H\to WW^*\to 4j)_{\mathrm{SM}}@f$
      */
-    double GammaHWW4jRatio() const
-    {
-        return 1.0;
-    };
+    double GammaHWW4jRatio() const;
     
     /**
      * @brief The ratio of the @f$\Gamma(H\to W f f)@f$, with @f$f@f$ any fermion, in the current model
@@ -1905,10 +1899,7 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to WW^*\to 4f)@f$/@f$\Gamma(H\to WW^*\to 4f)_{\mathrm{SM}}@f$
      */
-    double GammaHWW4fRatio() const
-    {
-        return 1.0;
-    };
+    double GammaHWW4fRatio() const;
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
@@ -1926,10 +1917,7 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 4l)@f$/@f$\Gamma(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ4lRatio() const
-    {
-        return 1.0;
-    };        
+    double GammaHZZ4lRatio() const;        
     /**
      * @brief The ratio of the @f$\Gamma(H\to Z\nu\nu)@f$ in the current model
      * and in the Standard Model.
@@ -1941,10 +1929,7 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 4\nu)@f$/@f$\Gamma(H\to ZZ* \to 4\nu)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ4vRatio() const
-    {
-        return 1.0;
-    };
+    double GammaHZZ4vRatio() const;
     /**
      * @brief The ratio of the @f$\Gamma(H\to Zu u)@f$ (@f$u=u,c @f$) in the current model
      * and in the Standard Model.
@@ -1986,10 +1971,7 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 4f)@f$/@f$\Gamma(H\to ZZ* \to 4f)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ4fRatio() const
-    {
-        return 1.0;
-    };
+    double GammaHZZ4fRatio() const;
     /**
      * @brief The ratio of the @f$\Gamma(H\to Z\gamma)@f$ in the current model
      * and in the Standard Model.
@@ -2053,10 +2035,7 @@ public:
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to l\nu l\nu)@f$/@f$\Gamma(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW2l2vRatio1() const
-    {
-        return 1.0;
-    };    
+    double deltaGammaHWW2l2vRatio1() const;    
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to W j j)@f$
      * in the current model and in the Standard Model. (Only terms that are
@@ -2070,10 +2049,7 @@ public:
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to 4j)@f$/@f$\Gamma(H\to WW^*\to 4j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW4jRatio1() const
-    {
-        return 1.0;
-    };
+    double deltaGammaHWW4jRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to W f f)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
@@ -2087,10 +2063,7 @@ public:
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to 4f)@f$/@f$\Gamma(H\to WW^*\to 4f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW4fRatio1() const
-    {
-        return 1.0;
-    };
+    double deltaGammaHWW4fRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
      * in the current model and in the Standard Model. (Only terms that are
@@ -2111,10 +2084,7 @@ public:
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4l)@f$/@f$\Gamma(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4lRatio1() const
-    {
-        return 1.0;
-    };   
+    double deltaGammaHZZ4lRatio1() const;   
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\nu\nu)@f$
      * in the current model and in the Standard Model. (Only terms that are
@@ -2128,10 +2098,7 @@ public:
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4\nu)@f$/@f$\Gamma(H\to ZZ* \to 4\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4vRatio1() const
-    {
-        return 1.0;
-    };
+    double deltaGammaHZZ4vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z u u)@f$ (@f$u=u,c @f$)
      * in the current model and in the Standard Model. (Only terms that are
@@ -2179,10 +2146,7 @@ public:
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4f)@f$/@f$\Gamma(H\to ZZ* \to 4f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4fRatio1() const
-    {
-        return 1.0;
-    };
+    double deltaGammaHZZ4fRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
@@ -2865,6 +2829,152 @@ public:
      */
     virtual double kappaZAeff() const;
     
+    /////////////Basic interactions of the so-called Higgs basis////////////////
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_t@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_t@f$
+     */
+    virtual double deltayt_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_b@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_b@f$
+     */
+    virtual double deltayb_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_\tau@f$
+     */
+    virtual double deltaytau_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_c@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_c@f$
+     */
+    virtual double deltayc_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
+     * (See LHCHXSWG-INT-2015-001 document.) 
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_\mu@f$
+     */
+    virtual double deltaymu_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\delta c_z@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta c_z@f$
+     */
+    virtual double deltacZ_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{z\Box}@f$
+     */
+    virtual double cZBox_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{zz}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{zz}@f$
+     */
+    virtual double cZZ_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{z\gamma}@f$
+     */
+    virtual double cZga_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{\gamma\gamma}@f$
+     */
+    virtual double cgaga_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$c_{gg}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{gg}@f$
+     */
+    virtual double cgg_HB() const;
+    
+    /**
+     * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\lambda_{z}@f$
+     */
+    virtual double lambz_HB() const;
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -3246,6 +3356,8 @@ protected:
     
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
     double aleMz;///< The em constant at Mz. 
+    double eeMz;///< The em coupling at Mz.
+    double eeMz2;///< The em coupling squared (at Mz).
     double cW_tree;///< The tree level values for the cosine of the weak angle.
     double sW_tree;///< The tree level values for the sine of the weak angle.
     double cW2_tree;///< The sqaure of the tree level values for the cosine of the weak angle.
