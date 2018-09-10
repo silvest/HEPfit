@@ -40,9 +40,9 @@ bool HiggsKigen::PostUpdate()
     if (!NPbase::PostUpdate()) return (false);
     
     if (!FlagKiLoop) {
-        Kg = 1.0;
-        Kga = 1.0;
-        Kzga = 1.0;
+        Kg = computeKgLoop();
+        Kga = computeKgagaLoop();
+        Kzga = computeKZgaLoop();
     }
 
     if (FlagCustodial) {
@@ -678,11 +678,7 @@ double HiggsKigen::BrHvisRatio() const
 
 double HiggsKigen::computeKg() const
 {
-    if (FlagKiLoop) {
-        return Kg;
-    } else {
-        return computeKgLoop();
-    }
+    return Kg;
 }
 
 double HiggsKigen::computeKW() const
@@ -697,20 +693,12 @@ double HiggsKigen::computeKZ() const
 
 double HiggsKigen::computeKZga() const
 {
-    if (FlagKiLoop) {
-        return Kzga;
-    } else {
-        return computeKZgaLoop();        
-    }
+    return Kzga;
 }
 
 double HiggsKigen::computeKgaga() const
 {
-    if (FlagKiLoop) {
-        return Kga;
-    } else {
-        return computeKgagaLoop();        
-    }
+    return Kga;
 }
 
 double HiggsKigen::computeKe() const

@@ -31,6 +31,26 @@ HiggsChiral::HiggsChiral()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitCMS13", boost::cref(expZgaLimitCMS13)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitATLAS", boost::cref(expZgaLimitATLAS)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitCMS", boost::cref(expZgaLimitCMS)));
+    
+    loopComputed = false;
+    cg_loop = 0.;
+    cga_loop = 0.;
+    cZga_loop = 0.;
+}
+
+bool HiggsChiral::PostUpdate()
+{
+    if (!NPbase::PostUpdate()) return (false);
+    
+    loopComputed = false;
+    
+    cg_loop = computecg();
+    cga_loop = computecgaga();
+    cZga_loop = computecZga();
+    
+    loopComputed = true;
+
+    return (true);
 }
 
 void HiggsChiral::setParameter(const std::string name, const double& value)
@@ -837,6 +857,8 @@ double HiggsChiral::computeGammaTotalRatio() const
 
 double HiggsChiral::computecg() const
 {
+    if (loopComputed) return cg_loop;
+    
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
     double Mc=trueSM.getQuarks(QCD::CHARM).getMass();
@@ -864,6 +886,8 @@ double HiggsChiral::computecV() const
 
 double HiggsChiral::computecZga() const
 {
+    if (loopComputed) return cZga_loop;
+    
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
     double Mc=trueSM.getQuarks(QCD::CHARM).getMass();
@@ -908,6 +932,8 @@ double HiggsChiral::computecZga() const
 
 double HiggsChiral::computecgaga() const
 {
+    if (loopComputed) return cga_loop;
+    
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
     double Mc=trueSM.getQuarks(QCD::CHARM).getMass();

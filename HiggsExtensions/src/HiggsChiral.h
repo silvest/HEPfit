@@ -94,8 +94,15 @@ public:
      * @brief The default destructor.
      */
     virtual ~HiggsChiral()
-    {
-    };
+    {};
+    
+    /**
+     * @brief The post-update method for %HiggsChiral.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool PostUpdate();
 
     /**
      * @brief .
@@ -1057,6 +1064,11 @@ private:
     double expZgaLimitCMS13; ///< 
     double expZgaLimitATLAS; ///< 
     double expZgaLimitCMS; ///< 
+    
+    double cg_loop;
+    double cga_loop;
+    double cZga_loop;
+    bool loopComputed;
 };
 
 #endif	/* HIGGSCHIRAL_H */
