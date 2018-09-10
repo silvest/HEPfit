@@ -968,6 +968,140 @@ public:
      * @return 
      */
     virtual double ccminusctau() const;
+      
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
+     * @return @f$\delta g_{HGG}@f$
+     */
+    virtual double deltaG_hgg() const;
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HGG}/g_{HGG}^SM}@f$
+     */
+    virtual double deltaG_hggRatio() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
+     * @return @f$\delta g_{HWW}^{(1)}@f$
+     */
+    virtual double deltaG1_hWW() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
+     * @return @f$\delta g_{HWW}^{(2)}@f$
+     */
+    virtual double deltaG2_hWW() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
+     * @return @f$\delta g_{HWW}^{(3)}@f$
+     */
+    virtual double deltaG3_hWW() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZZ}^{(1)}@f$
+     */
+    virtual double deltaG1_hZZ() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZZ}^{(2)}@f$
+     */
+    virtual double deltaG2_hZZ() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
+     * @return @f$\delta g_{HZZ}^{(3)}@f$
+     */
+    virtual double deltaG3_hZZ() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZA}^{(1)}@f$
+     */
+    virtual double deltaG1_hZA() const;
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HZA}^{(1)}/g_{HZA}^{(1),SM}@f$
+     */
+    virtual double deltaG1_hZARatio() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZA}^{(2)}@f$
+     */
+    virtual double deltaG2_hZA() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HAA}@f$
+     */
+    virtual double deltaG_hAA() const;
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HAA}/g_{HAA}^SM}@f$
+     */
+    virtual double deltaG_hAARatio() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Hff}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaG_hff(const Particle p) const; 
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{\mu,eff}=\sqrt{\Gamma_{H\mu\mu}/\Gamma_{H\mu\mu}^{SM}}@f$.
+     * @return @f$\kappa_{\mu,eff}@f$
+     */
+    virtual double kappamueff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{\tau,eff}=\sqrt{\Gamma_{H\tau\tau}/\Gamma_{H\tau\tau}^{SM}}@f$.
+     * @return @f$\kappa_{\tau,eff}@f$
+     */
+    virtual double kappataueff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{c,eff}=\sqrt{\Gamma_{Hcc}/\Gamma_{Hcc}^{SM}}@f$.
+     * @return @f$\kappa_{c,eff}@f$
+     */
+    virtual double kappaceff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{b,eff}=\sqrt{\Gamma_{Hbb}/\Gamma_{Hbb}^{SM}}@f$.
+     * @return @f$\kappa_{b,eff}@f$
+     */
+    virtual double kappabeff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{G,eff}=\sqrt{\Gamma_{HGG}/\Gamma_{HGG}^{SM}}@f$.
+     * @return @f$\kappa_{G,eff}@f$
+     */
+    virtual double kappaGeff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{Z,eff}=\sqrt{\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}}@f$.
+     * @return @f$\kappa_{Z,eff}@f$
+     */
+    virtual double kappaZeff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{W,eff}=\sqrt{\Gamma_{HWW}/\Gamma_{HWW}^{SM}}@f$.
+     * @return @f$\kappa_{W,eff}@f$
+     */
+    virtual double kappaWeff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{A,eff}=\sqrt{\Gamma_{HAA}/\Gamma_{HAA}^{SM}}@f$.
+     * @return @f$\kappa_{A,eff}@f$
+     */
+    virtual double kappaAeff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{ZA,eff}=\sqrt{\Gamma_{HZA}/\Gamma_{HZA}^{SM}}@f$.
+     * @return @f$\kappa_{ZA,eff}@f$
+     */
+    virtual double kappaZAeff() const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:

@@ -857,6 +857,144 @@ double HiggsKigen::computeKgagaLoop() const
     return (sqrt(KgagaEff));
 }
 
+////////////////////////////////////////////////////////////////////////
+
+double HiggsKigen::deltaG_hgg() const
+{
+    // Not needed/implemented yet
+    return 0.0;
+}
+
+double HiggsKigen::deltaG_hggRatio() const{
+    return (computeKg() - 1.0);
+}
+
+double HiggsKigen::deltaG1_hWW() const{
+    return 0.0;
+}
+
+double HiggsKigen::deltaG2_hWW() const{
+    return 0.0;
+}
+
+double HiggsKigen::deltaG3_hWW() const{
+    
+    double gSM = 2.0 * (trueSM.Mw_tree())* (trueSM.Mw_tree()) / (trueSM.v());
+    
+    return ( gSM * (computeKW() - 1.0 ) );
+}
+
+double HiggsKigen::deltaG1_hZZ() const{
+    return 0.0;
+}
+
+double HiggsKigen::deltaG2_hZZ() const{
+    return 0.0;
+}
+
+double HiggsKigen::deltaG3_hZZ() const{
+    
+    double gSM = (trueSM.getMz()) * (trueSM.getMz()) / (trueSM.v());
+    
+    return ( gSM * (computeKZ() - 1.0 ) );
+}
+
+double HiggsKigen::deltaG1_hZA() const{
+    // Not needed/implemented yet
+    return 0.0;
+}
+
+double HiggsKigen::deltaG1_hZARatio() const{
+    return (computeKZga() - 1.0);
+}
+
+double HiggsKigen::deltaG2_hZA() const{
+    return 0.0;
+}
+
+double HiggsKigen::deltaG_hAA() const{
+    // Not needed/implemented yet
+    return 0.0;
+}
+
+double HiggsKigen::deltaG_hAARatio() const{
+    return (computeKgaga() - 1.0);
+}
+
+gslpp::complex HiggsKigen::deltaG_hff(const Particle p) const{
+    
+    double gSM = -(p.getMass()) / (trueSM.v());
+    
+    if ( p.is("ELECTRON") ) {
+        return ( gSM * (computeKe() - 1.0 ) );
+    } else if ( p.is("MU") ) {
+         return ( gSM * (computeKmu() - 1.0 ) );       
+    } else if ( p.is("TAU") ) {
+        return ( gSM * (computeKtau() - 1.0 ) );        
+    } else if ( p.is("UP") ) {
+        return ( gSM * (computeKu() - 1.0 ) );        
+    } else if ( p.is("CHARM") ) {
+        return ( gSM * (computeKc() - 1.0 ) );        
+    } else if ( p.is("TOP") ) {
+        return ( gSM * (computeKt() - 1.0 ) );        
+    } else if ( p.is("DOWN") ) {
+        return ( gSM * (computeKd() - 1.0 ) );        
+    } else if ( p.is("STRANGE") ) {
+        return ( gSM * (computeKs() - 1.0 ) );        
+    } else if ( p.is("BOTTOM") ) {
+        return ( gSM * (computeKb() - 1.0 ) );        
+    } else {
+        return 0.0;
+    }
+}
+ 
+///////////////////////////////////////////////////////////////////////////////
+
+double HiggsKigen::kappamueff() const
+{
+      return computeKmu();
+}
+
+double HiggsKigen::kappataueff() const
+{
+      return computeKtau();
+}
+
+double HiggsKigen::kappaceff() const
+{
+      return computeKc();
+}
+
+double HiggsKigen::kappabeff() const
+{
+      return computeKb();
+}
+
+double HiggsKigen::kappaGeff() const
+{
+      return computeKg();
+}
+
+double HiggsKigen::kappaZeff() const
+{
+      return computeKZ();
+}
+
+double HiggsKigen::kappaWeff() const
+{
+      return computeKW();
+}
+
+double HiggsKigen::kappaAeff() const
+{
+      return computeKgaga();
+}
+
+double HiggsKigen::kappaZAeff() const
+{
+      return computeKZga();
+}
+
 //////////////////////////////////////////////////////////////////////
 
 gslpp::complex HiggsKigen::f_func(const double x) const{
