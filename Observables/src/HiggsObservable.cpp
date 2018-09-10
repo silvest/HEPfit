@@ -47,7 +47,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.compare(0, 11, "MEASUREMENT") != 0)
             continue;
-        boost::char_separator<char> sep(" |");
+        boost::char_separator<char> sep(" |\t");
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
         // Read the necessary information from the config file. Each row contains:
