@@ -2246,7 +2246,8 @@ double NPSMEFTd6::obliqueU() const
 
 double NPSMEFTd6::deltaMz() const
 {
-    return ( (Mz - 91.1879) / 91.1879 );
+    //  Ref. value from SM EW fit 2018
+    return ( (Mz - 91.1882) / 91.1882 );
 }
     
 double NPSMEFTd6::deltaMz2() const
@@ -2256,6 +2257,7 @@ double NPSMEFTd6::deltaMz2() const
         
 double NPSMEFTd6::deltaMh() const
 {
+    //  Ref. value from SM EW fit 2018
     return ( (mHl - 125.1) / 125.1 );
 }
     
@@ -2266,7 +2268,8 @@ double NPSMEFTd6::deltaMh2() const
     
 double NPSMEFTd6::deltamt() const
 {
-    return ( (mtpole - 173.0) / 173.0 );
+    //  Ref. value from SM EW fit 2018
+    return ( (mtpole - 173.2) / 173.2 );
 }
     
 double NPSMEFTd6::deltamt2() const
@@ -2276,6 +2279,7 @@ double NPSMEFTd6::deltamt2() const
 
 double NPSMEFTd6::deltamb() const
 {
+    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
     return ( ((quarks[BOTTOM].getMass()) - 4.18) / 4.18 );
 }
     
@@ -2286,6 +2290,7 @@ double NPSMEFTd6::deltamb2() const
     
 double NPSMEFTd6::deltamc() const
 {
+    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
     return ( ((quarks[CHARM].getMass()) - 1.275) / 1.275 );
 }
     
@@ -2296,7 +2301,8 @@ double NPSMEFTd6::deltamc2() const
    
 double NPSMEFTd6::deltamtau() const
 {
-    return ( ((leptons[TAU].getMass()) - 1.77682) / 1.77682 );
+    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    return ( ((leptons[TAU].getMass()) - 1.77686) / 1.77686 );
 }
     
 double NPSMEFTd6::deltamtau2() const
@@ -2306,7 +2312,8 @@ double NPSMEFTd6::deltamtau2() const
  
 double NPSMEFTd6::deltaGmu() const
 {
-    return ( (GF - 1.166370/100000.0 ) / 1.166370/100000.0 );
+    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    return ( (GF - 1.1663787/100000.0 ) / (1.1663787/100000.0) );
 }
     
 double NPSMEFTd6::deltaGmu2() const
@@ -2316,7 +2323,8 @@ double NPSMEFTd6::deltaGmu2() const
     
 double NPSMEFTd6::deltaaMZ() const
 {
-    return ( 128.955156195 * (aleMz - 1.0/128.955156195) );
+    //  Ref. value from SM EW fit 2018
+    return ( (aleMz - 0.007754941997887603) / 0.007754941997887603 );
 }
     
 double NPSMEFTd6::deltaaMZ2() const
@@ -2326,7 +2334,8 @@ double NPSMEFTd6::deltaaMZ2() const
 
 double NPSMEFTd6::deltaa0() const
 {
-    return ( 137.035999139 * (aleMz - 1.0/137.035999139) );
+    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    return ( (aleMz - 0.0072973525664) / 0.0072973525664 );
 }
     
 double NPSMEFTd6::deltaa02() const
@@ -2336,6 +2345,7 @@ double NPSMEFTd6::deltaa02() const
     
 double NPSMEFTd6::deltaaSMZ() const
 {
+    //  Ref. value from SM EW fit 2018
     return ( (AlsMz - 0.1180) / 0.1180 );
 }
     
