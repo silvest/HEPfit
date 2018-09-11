@@ -108,6 +108,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["alpha_s_NNLO"] = boost::bind(boost::factory<alpha_s*>(), _1, NNLO);
     obsThFactory["alpha_s_FULLNNLO"] = boost::bind(boost::factory<alpha_s*>(), _1, FULLNNLO);
     //-----  Electroweak precision observables  -----
+    obsThFactory["alphaMz"] = boost::factory<AlphaEmMz*>();
     obsThFactory["Mw"] = boost::factory<Mw*>();
     obsThFactory["GammaW"] = boost::factory<GammaW*>();
     obsThFactory["BrWlepton"] = boost::factory<BrWlepton*>();

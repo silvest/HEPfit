@@ -321,7 +321,7 @@ void GenerateEvent::createDirectories()
     } else if(nIteration > 0 && outputTerm == 0) {
         std::cout << "\nRunning in Event Generation mode... \nWARNING: Output being sent to terminal, no data written to disk!!" /* \nWARNING: The output should not be used for any statistical analysis. \n         Neither randomness or completness of the sample is gauranteed!!\n "*/ << std::endl;
     } else {
-        std::cout.precision(10);
+        std::cout.precision(16);
         std::cout << std::endl << "Running in Single Event mode...\nNo data will be written to disk!\n" << std::endl;
     }
 }
