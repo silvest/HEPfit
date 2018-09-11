@@ -1758,3 +1758,28 @@ double lambzHB::computeThValue()
 
 /* -------------------------------------*/
 
+//-----  Other useful observables to work with new physics  ----------
+
+/* -------------------------------------*/
+
+deltaMW::deltaMW(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltaMW::~deltaMW()
+{}
+
+double deltaMW::computeThValue()
+{
+    double dMW = (myNPbase->Mw()) - (SM.Mw());
+    double MWSM = SM.Mw();
+    
+    return dMW/MWSM;
+}
+
+/* -------------------------------------*/
+

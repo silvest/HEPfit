@@ -348,6 +348,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["cgaga_HB"] = boost::factory<cgagaHB*>();
     obsThFactory["cgg_HB"] = boost::factory<cggHB*>();
     obsThFactory["lambz_HB"] = boost::factory<lambzHB*>();
+    //-----  Other useful observables to work with new physics  ----------
+    obsThFactory["deltaMW"] = boost::factory<deltaMW*>();
 
     //-----  Higgs Extension observables  ----------
 

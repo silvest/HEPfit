@@ -20,11 +20,11 @@
 /**
  * @class deltagZveveL
  * @brief An observable class for the deviation from the SM of the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling
- * @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}@f$.
+ * @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling
- * @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}@f$.
+ * @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
  *
  */
 class deltagZveveL : public ThObservable {
@@ -42,8 +42,8 @@ public:
     virtual ~deltagZveveL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}@f$.
-     * @return @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -57,11 +57,11 @@ private:
 /**
  * @class deltagZvmuvmuL
  * @brief An observable class for the deviation from the SM of the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling
- * @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}@f$.
+ * @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling
- * @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}@f$.
+ * @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
  *
  */
 class deltagZvmuvmuL : public ThObservable {
@@ -79,8 +79,8 @@ public:
     virtual ~deltagZvmuvmuL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}@f$.
-     * @return @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -95,11 +95,11 @@ private:
 /**
  * @class deltagZvtavtaL
  * @brief An observable class for the deviation from the SM of the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling
- * @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}@f$.
+ * @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling
- * @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}@f$.
+ * @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
  *
  */
 class deltagZvtavtaL : public ThObservable {
@@ -117,8 +117,8 @@ public:
     virtual ~deltagZvtavtaL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}@f$.
-     * @return @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -133,11 +133,11 @@ private:
 /**
  * @class deltagZeeL
  * @brief An observable class for the deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
- * @f$\delta g_{Zee}^{L}@f$.
+ * @f$\delta g_{Zee}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z e_{L} e_{L}@f$ coupling
- * @f$\delta g_{Zee}^{L}@f$.
+ * @f$\delta g_{Zee}^{L}/g_{SM}@f$.
  *
  */
 class deltagZeeL : public ThObservable {
@@ -155,8 +155,8 @@ public:
     virtual ~deltagZeeL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling @f$\delta g_{Zee}^{L}@f$.
-     * @return @f$\delta g_{Zee}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling @f$\delta g_{Zee}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zee}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -170,11 +170,11 @@ private:
 /**
  * @class deltagZeeR
  * @brief An observable class for the deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
- * @f$\delta g_{Zee}^{R}@f$.
+ * @f$\delta g_{Zee}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z e_{R} e_{R}@f$ coupling
- * @f$\delta g_{Zee}^{R}@f$.
+ * @f$\delta g_{Zee}^{R}/g_{SM}@f$.
  *
  */
 class deltagZeeR : public ThObservable {
@@ -192,8 +192,8 @@ public:
     virtual ~deltagZeeR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling @f$\delta g_{Zee}^{R}@f$.
-     * @return @f$\delta g_{Zee}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling @f$\delta g_{Zee}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zee}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -207,11 +207,11 @@ private:
 /**
  * @class deltagZmumuL
  * @brief An observable class for the deviation from the SM of the @f$Z \mu_{L} \mu_{L}@f$ coupling
- * @f$\delta g_{Z\mu\mu}^{L}@f$.
+ * @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z \mu_{L} \mu_{L}@f$ coupling
- * @f$\delta g_{Z\mu\mu}^{L}@f$.
+ * @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
  *
  */
 class deltagZmumuL : public ThObservable {
@@ -229,8 +229,8 @@ public:
     virtual ~deltagZmumuL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z \mu_{L} \mu_{L}@f$ coupling @f$\delta g_{Z\mu\mu}^{L}@f$.
-     * @return @f$\delta g_{Z\mu\mu}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z \mu_{L} \mu_{L}@f$ coupling @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -244,11 +244,11 @@ private:
 /**
  * @class deltagZmumuR
  * @brief An observable class for the deviation from the SM of the @f$Z \mu_{R} \mu_{R}@f$ coupling
- * @f$\delta g_{Z\mu\mu}^{R}@f$.
+ * @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z \mu_{R} \mu_{R}@f$ coupling
- * @f$\delta g_{Z\mu\mu}^{R}@f$.
+ * @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
  *
  */
 class deltagZmumuR : public ThObservable {
@@ -266,8 +266,8 @@ public:
     virtual ~deltagZmumuR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z \mu_{R} \mu_{R}@f$ coupling @f$\delta g_{Z\mu\mu}^{R}@f$.
-     * @return @f$\delta g_{Z\mu\mu}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z \mu_{R} \mu_{R}@f$ coupling @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -281,11 +281,11 @@ private:
 /**
  * @class deltagZtataL
  * @brief An observable class for the deviation from the SM of the @f$Z \tau_{L} \tau_{L}@f$ coupling
- * @f$\delta g_{Z\tau\tau}^{L}@f$.
+ * @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z \tau_{L} \tau_{L}@f$ coupling
- * @f$\delta g_{Z\tau\tau}^{L}@f$.
+ * @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
  *
  */
 class deltagZtataL : public ThObservable {
@@ -303,8 +303,8 @@ public:
     virtual ~deltagZtataL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z \tau_{L} \tau_{L}@f$ coupling @f$\delta g_{Z\tau\tau}^{L}@f$.
-     * @return @f$\delta g_{Z\tau\tau}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z \tau_{L} \tau_{L}@f$ coupling @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -318,11 +318,11 @@ private:
 /**
  * @class deltagZtataR
  * @brief An observable class for the deviation from the SM of the @f$Z \tau_{R} \tau_{R}@f$ coupling
- * @f$\delta g_{Z\tau\tau}^{R}@f$.
+ * @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z \tau_{R} \tau_{R}@f$ coupling
- * @f$\delta g_{Z\tau\tau}^{R}@f$.
+ * @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
  *
  */
 class deltagZtataR : public ThObservable {
@@ -340,8 +340,8 @@ public:
     virtual ~deltagZtataR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z \tau_{R} \tau_{R}@f$ coupling @f$\delta g_{Z\tau\tau}^{R}@f$.
-     * @return @f$\delta g_{Z\tau\tau}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z \tau_{R} \tau_{R}@f$ coupling @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -355,11 +355,11 @@ private:
 /**
  * @class deltagZuuL
  * @brief An observable class for the deviation from the SM of the @f$Z u_{L} u_{L}@f$ coupling
- * @f$\delta g_{Zuu}^{L}@f$.
+ * @f$\delta g_{Zuu}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z u_{L} u_{L}@f$ coupling
- * @f$\delta g_{Zuu}^{L}@f$.
+ * @f$\delta g_{Zuu}^{L}/g_{SM}@f$.
  *
  */
 class deltagZuuL : public ThObservable {
@@ -377,8 +377,8 @@ public:
     virtual ~deltagZuuL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z u_{L} u_{L}@f$ coupling @f$\delta g_{Zuu}^{L}@f$.
-     * @return @f$\delta g_{Zuu}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z u_{L} u_{L}@f$ coupling @f$\delta g_{Zuu}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zuu}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -392,11 +392,11 @@ private:
 /**
  * @class deltagZuuR
  * @brief An observable class for the deviation from the SM of the @f$Z u_{R} u_{R}@f$ coupling
- * @f$\delta g_{Zuu}^{R}@f$.
+ * @f$\delta g_{Zuu}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z u_{R} u_{R}@f$ coupling
- * @f$\delta g_{Zuu}^{R}@f$.
+ * @f$\delta g_{Zuu}^{R}/g_{SM}@f$.
  *
  */
 class deltagZuuR : public ThObservable {
@@ -414,8 +414,8 @@ public:
     virtual ~deltagZuuR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z u_{R} u_{R}@f$ coupling @f$\delta g_{Zuu}^{R}@f$.
-     * @return @f$\delta g_{Zuu}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z u_{R} u_{R}@f$ coupling @f$\delta g_{Zuu}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zuu}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -429,11 +429,11 @@ private:
 /**
  * @class deltagZuuV
  * @brief An observable class for the deviation from the SM of the @f$Z u u@f$ vector coupling
- * @f$\delta g_{Zuu}^{V}@f$.
+ * @f$\delta g_{Zuu}^{V}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z u u@f$ vector coupling
- * @f$\delta g_{Zuu}^{V}@f$.
+ * @f$\delta g_{Zuu}^{V}/g_{SM}@f$.
  *
  */
 class deltagZuuV : public ThObservable {
@@ -451,8 +451,8 @@ public:
     virtual ~deltagZuuV();
 
     /**
-     * @brief The deviation from the SM of the @f$Z uu@f$ vector coupling @f$\delta g_{Zuu}^{V}@f$.
-     * @return @f$\delta g_{Zuu}^{V}@f$
+     * @brief The deviation from the SM of the @f$Z uu@f$ vector coupling @f$\delta g_{Zuu}^{V}/g_{SM}@f$.
+     * @return @f$\delta g_{Zuu}^{V}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -466,11 +466,11 @@ private:
 /**
  * @class deltagZuuA
  * @brief An observable class for the deviation from the SM of the @f$Z uu@f$ axial coupling
- * @f$\delta g_{Zuu}^{A}@f$.
+ * @f$\delta g_{Zuu}^{A}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z uu@f$ axial coupling
- * @f$\delta g_{Zuu}^{A}@f$.
+ * @f$\delta g_{Zuu}^{A}/g_{SM}@f$.
  *
  */
 class deltagZuuA : public ThObservable {
@@ -488,8 +488,8 @@ public:
     virtual ~deltagZuuA();
 
     /**
-     * @brief The deviation from the SM of the @f$Z uu@f$ axial coupling @f$\delta g_{Zuu}^{A}@f$.
-     * @return @f$\delta g_{Zuu}^{A}@f$
+     * @brief The deviation from the SM of the @f$Z uu@f$ axial coupling @f$\delta g_{Zuu}^{A}/g_{SM}@f$.
+     * @return @f$\delta g_{Zuu}^{A}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -503,11 +503,11 @@ private:
 /**
  * @class deltagZccL
  * @brief An observable class for the deviation from the SM of the @f$Z c_{L} c_{L}@f$ coupling
- * @f$\delta g_{Zcc}^{L}@f$.
+ * @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z c_{L} c_{L}@f$ coupling
- * @f$\delta g_{Zcc}^{L}@f$.
+ * @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
  *
  */
 class deltagZccL : public ThObservable {
@@ -525,8 +525,8 @@ public:
     virtual ~deltagZccL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z c_{L} c_{L}@f$ coupling @f$\delta g_{Zcc}^{L}@f$.
-     * @return @f$\delta g_{Zcc}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z c_{L} c_{L}@f$ coupling @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zcc}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -540,11 +540,11 @@ private:
 /**
  * @class deltagZccR
  * @brief An observable class for the deviation from the SM of the @f$Z c_{R} c_{R}@f$ coupling
- * @f$\delta g_{Zcc}^{R}@f$.
+ * @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z c_{R} c_{R}@f$ coupling
- * @f$\delta g_{Zcc}^{R}@f$.
+ * @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
  *
  */
 class deltagZccR : public ThObservable {
@@ -562,8 +562,8 @@ public:
     virtual ~deltagZccR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z c_{R} c_{R}@f$ coupling @f$\delta g_{Zcc}^{R}@f$.
-     * @return @f$\delta g_{Zcc}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z c_{R} c_{R}@f$ coupling @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zcc}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -577,11 +577,11 @@ private:
 /**
  * @class deltagZttL
  * @brief An observable class for the deviation from the SM of the @f$Z t_{L} t_{L}@f$ coupling
- * @f$\delta g_{Ztt}^{L}@f$.
+ * @f$\delta g_{Ztt}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z t_{L} t_{L}@f$ coupling
- * @f$\delta g_{Ztt}^{L}@f$.
+ * @f$\delta g_{Ztt}^{L}/g_{SM}@f$.
  *
  */
 class deltagZttL : public ThObservable {
@@ -599,8 +599,8 @@ public:
     virtual ~deltagZttL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z t_{L} t_{L}@f$ coupling @f$\delta g_{Ztt}^{L}@f$.
-     * @return @f$\delta g_{Ztt}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z t_{L} t_{L}@f$ coupling @f$\delta g_{Ztt}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Ztt}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -614,11 +614,11 @@ private:
 /**
  * @class deltagZttR
  * @brief An observable class for the deviation from the SM of the @f$Z t_{R} t_{R}@f$ coupling
- * @f$\delta g_{Ztt}^{R}@f$.
+ * @f$\delta g_{Ztt}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z t_{R} t_{R}@f$ coupling
- * @f$\delta g_{Ztt}^{R}@f$.
+ * @f$\delta g_{Ztt}^{R}/g_{SM}@f$.
  *
  */
 class deltagZttR : public ThObservable {
@@ -636,8 +636,8 @@ public:
     virtual ~deltagZttR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z t_{R} t_{R}@f$ coupling @f$\delta g_{Ztt}^{R}@f$.
-     * @return @f$\delta g_{Ztt}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z t_{R} t_{R}@f$ coupling @f$\delta g_{Ztt}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Ztt}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -651,11 +651,11 @@ private:
 /**
  * @class deltagZttV
  * @brief An observable class for the deviation from the SM of the @f$Z t t@f$ vector coupling
- * @f$\delta g_{Ztt}^{V}@f$.
+ * @f$\delta g_{Ztt}^{V}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z t t@f$ vector coupling
- * @f$\delta g_{Ztt}^{V}@f$.
+ * @f$\delta g_{Ztt}^{V}/g_{SM}@f$.
  *
  */
 class deltagZttV : public ThObservable {
@@ -673,8 +673,8 @@ public:
     virtual ~deltagZttV();
 
     /**
-     * @brief The deviation from the SM of the @f$Z t t@f$ vector coupling @f$\delta g_{Ztt}^{V}@f$.
-     * @return @f$\delta g_{Ztt}^{V}@f$
+     * @brief The deviation from the SM of the @f$Z t t@f$ vector coupling @f$\delta g_{Ztt}^{V}/g_{SM}@f$.
+     * @return @f$\delta g_{Ztt}^{V}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -688,11 +688,11 @@ private:
 /**
  * @class deltagZttA
  * @brief An observable class for the deviation from the SM of the @f$Z t t@f$ axial coupling
- * @f$\delta g_{Ztt}^{A}@f$.
+ * @f$\delta g_{Ztt}^{A}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z t t@f$ axial coupling
- * @f$\delta g_{Ztt}^{A}@f$.
+ * @f$\delta g_{Ztt}^{A}/g_{SM}@f$.
  *
  */
 class deltagZttA : public ThObservable {
@@ -710,8 +710,8 @@ public:
     virtual ~deltagZttA();
 
     /**
-     * @brief The deviation from the SM of the @f$Z t t@f$ axial coupling @f$\delta g_{Ztt}^{A}@f$.
-     * @return @f$\delta g_{Ztt}^{A}@f$
+     * @brief The deviation from the SM of the @f$Z t t@f$ axial coupling @f$\delta g_{Ztt}^{A}/g_{SM}@f$.
+     * @return @f$\delta g_{Ztt}^{A}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -726,11 +726,11 @@ private:
 /**
  * @class deltagZddL
  * @brief An observable class for the deviation from the SM of the @f$Z d_{L} d_{L}@f$ coupling
- * @f$\delta g_{Zdd}^{L}@f$.
+ * @f$\delta g_{Zdd}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z d_{L} d_{L}@f$ coupling
- * @f$\delta g_{Zdd}^{L}@f$.
+ * @f$\delta g_{Zdd}^{L}/g_{SM}@f$.
  *
  */
 class deltagZddL : public ThObservable {
@@ -748,8 +748,8 @@ public:
     virtual ~deltagZddL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z d_{L} d_{L}@f$ coupling @f$\delta g_{Zdd}^{L}@f$.
-     * @return @f$\delta g_{Zdd}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z d_{L} d_{L}@f$ coupling @f$\delta g_{Zdd}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zdd}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -763,11 +763,11 @@ private:
 /**
  * @class deltagZddR
  * @brief An observable class for the deviation from the SM of the @f$Z d_{R} d_{R}@f$ coupling
- * @f$\delta g_{Zdd}^{R}@f$.
+ * @f$\delta g_{Zdd}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z d_{R} d_{R}@f$ coupling
- * @f$\delta g_{Zdd}^{R}@f$.
+ * @f$\delta g_{Zdd}^{R}/g_{SM}@f$.
  *
  */
 class deltagZddR : public ThObservable {
@@ -785,8 +785,8 @@ public:
     virtual ~deltagZddR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z d_{R} d_{R}@f$ coupling @f$\delta g_{Zdd}^{R}@f$.
-     * @return @f$\delta g_{Zdd}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z d_{R} d_{R}@f$ coupling @f$\delta g_{Zdd}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zdd}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -800,11 +800,11 @@ private:
 /**
  * @class deltagZddV
  * @brief An observable class for the deviation from the SM of the @f$Z dd@f$ vector coupling
- * @f$\delta g_{Zdd}^{V}@f$.
+ * @f$\delta g_{Zdd}^{V}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z dd@f$ vector coupling
- * @f$\delta g_{Zdd}^{V}@f$.
+ * @f$\delta g_{Zdd}^{V}/g_{SM}@f$.
  *
  */
 class deltagZddV : public ThObservable {
@@ -822,8 +822,8 @@ public:
     virtual ~deltagZddV();
 
     /**
-     * @brief The deviation from the SM of the @f$Z dd@f$ vector coupling @f$\delta g_{Zdd}^{V}@f$.
-     * @return @f$\delta g_{Zdd}^{V}@f$
+     * @brief The deviation from the SM of the @f$Z dd@f$ vector coupling @f$\delta g_{Zdd}^{V}/g_{SM}@f$.
+     * @return @f$\delta g_{Zdd}^{V}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -837,11 +837,11 @@ private:
 /**
  * @class deltagZddA
  * @brief An observable class for the deviation from the SM of the @f$Z dd@f$ axial coupling
- * @f$\delta g_{Zdd}^{A}@f$.
+ * @f$\delta g_{Zdd}^{A}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z dd@f$ axial coupling
- * @f$\delta g_{Zdd}^{A}@f$.
+ * @f$\delta g_{Zdd}^{A}/g_{SM}@f$.
  *
  */
 class deltagZddA : public ThObservable {
@@ -859,8 +859,8 @@ public:
     virtual ~deltagZddA();
 
     /**
-     * @brief The deviation from the SM of the @f$Z dd@f$ axial coupling @f$\delta g_{Zdd}^{A}@f$.
-     * @return @f$\delta g_{Zdd}^{A}@f$
+     * @brief The deviation from the SM of the @f$Z dd@f$ axial coupling @f$\delta g_{Zdd}^{A}/g_{SM}@f$.
+     * @return @f$\delta g_{Zdd}^{A}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -874,11 +874,11 @@ private:
 /**
  * @class deltagZssL
  * @brief An observable class for the deviation from the SM of the @f$Z s_{L} s_{L}@f$ coupling
- * @f$\delta g_{Zss}^{L}@f$.
+ * @f$\delta g_{Zss}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z s_{L} s_{L}@f$ coupling
- * @f$\delta g_{Zss}^{L}@f$.
+ * @f$\delta g_{Zss}^{L}/g_{SM}@f$.
  *
  */
 class deltagZssL : public ThObservable {
@@ -896,8 +896,8 @@ public:
     virtual ~deltagZssL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z s_{L} s_{L}@f$ coupling @f$\delta g_{Zss}^{L}@f$.
-     * @return @f$\delta g_{Zss}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z s_{L} s_{L}@f$ coupling @f$\delta g_{Zss}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zss}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -911,11 +911,11 @@ private:
 /**
  * @class deltagZssR
  * @brief An observable class for the deviation from the SM of the @f$Z s_{R} s_{R}@f$ coupling
- * @f$\delta g_{Zss}^{R}@f$.
+ * @f$\delta g_{Zss}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z s_{R} s_{R}@f$ coupling
- * @f$\delta g_{Zss}^{R}@f$.
+ * @f$\delta g_{Zss}^{R}/g_{SM}@f$.
  *
  */
 class deltagZssR : public ThObservable {
@@ -933,8 +933,8 @@ public:
     virtual ~deltagZssR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z s_{R} s_{R}@f$ coupling @f$\delta g_{Zss}^{R}@f$.
-     * @return @f$\delta g_{Zss}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z s_{R} s_{R}@f$ coupling @f$\delta g_{Zss}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zss}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -948,11 +948,11 @@ private:
 /**
  * @class deltagZbbL
  * @brief An observable class for the deviation from the SM of the @f$Z b_{L} b_{L}@f$ coupling
- * @f$\delta g_{Zbb}^{L}@f$.
+ * @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z b_{L} b_{L}@f$ coupling
- * @f$\delta g_{Zbb}^{L}@f$.
+ * @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
  *
  */
 class deltagZbbL : public ThObservable {
@@ -970,8 +970,8 @@ public:
     virtual ~deltagZbbL();
 
     /**
-     * @brief The deviation from the SM of the @f$Z b_{L} b_{L}@f$ coupling @f$\delta g_{Zbb}^{L}@f$.
-     * @return @f$\delta g_{Zbb}^{L}@f$
+     * @brief The deviation from the SM of the @f$Z b_{L} b_{L}@f$ coupling @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zbb}^{L}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -985,11 +985,11 @@ private:
 /**
  * @class deltagZbbR
  * @brief An observable class for the deviation from the SM of the @f$Z b_{R} b_{R}@f$ coupling
- * @f$\delta g_{Zbb}^{R}@f$.
+ * @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$Z b_{R} b_{R}@f$ coupling
- * @f$\delta g_{Zbb}^{R}@f$.
+ * @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
  *
  */
 class deltagZbbR : public ThObservable {
@@ -1007,8 +1007,8 @@ public:
     virtual ~deltagZbbR();
 
     /**
-     * @brief The deviation from the SM of the @f$Z b_{R} b_{R}@f$ coupling @f$\delta g_{Zbb}^{R}@f$.
-     * @return @f$\delta g_{Zbb}^{R}@f$
+     * @brief The deviation from the SM of the @f$Z b_{R} b_{R}@f$ coupling @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zbb}^{R}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1024,11 +1024,11 @@ private:
 /**
  * @class deltaUWeve
  * @brief An observable class for the deviation from the SM of the @f$W^{-} \bar{e}_{L} \nu^{e}_{L}@f$ coupling
- * @f$\delta U_{We\nu}^{L}@f$.
+ * @f$\delta U_{We\nu}^{L}/U_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$W^{-} \bar{e}_{L} \nu^{e}_{L}@f$ coupling
- * @f$\delta U_{We\nu}^{L}@f$.
+ * @f$\delta U_{We\nu}^{L}/U_{SM}@f$.
  *
  */
 class deltaUWeve : public ThObservable {
@@ -1046,8 +1046,8 @@ public:
     virtual ~deltaUWeve();
 
     /**
-     * @brief The deviation from the SM of the @f$W^{-} \bar{e}_{L} \nu^{e}_{L}@f$ coupling @f$\delta U_{We\nu}^{L}@f$.
-     * @return @f$\delta U_{We\nu}^{L}@f$
+     * @brief The deviation from the SM of the @f$W^{-} \bar{e}_{L} \nu^{e}_{L}@f$ coupling @f$\delta U_{We\nu}^{L}/U_{SM}@f$.
+     * @return @f$\delta U_{We\nu}^{L}/U_{SM}@f$
      */
     double computeThValue();
       
@@ -1061,11 +1061,11 @@ private:
 /**
  * @class deltaUWmuvmu
  * @brief An observable class for the deviation from the SM of the @f$W^{-} \bar{\mu}_{L} \nu^{\mu}_{L}@f$ coupling
- * @f$\delta U_{W\mu\nu}^{L}@f$.
+ * @f$\delta U_{W\mu\nu}^{L}/U_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$W^{-} \bar{\mu}_{L} \nu^{\mu}_{L}@f$ coupling
- * @f$\delta U_{W\mu\nu}^{L}@f$.
+ * @f$\delta U_{W\mu\nu}^{L}/U_{SM}@f$.
  *
  */
 class deltaUWmuvmu : public ThObservable {
@@ -1083,8 +1083,8 @@ public:
     virtual ~deltaUWmuvmu();
 
     /**
-     * @brief The deviation from the SM of the @f$W^{-} \bar{\mu}_{L} \nu^{\mu}_{L}@f$ coupling @f$\delta U_{W\mu\nu}^{L}@f$.
-     * @return @f$\delta U_{W\mu\nu}^{L}@f$
+     * @brief The deviation from the SM of the @f$W^{-} \bar{\mu}_{L} \nu^{\mu}_{L}@f$ coupling @f$\delta U_{W\mu\nu}^{L}/U_{SM}@f$.
+     * @return @f$\delta U_{W\mu\nu}^{L}/U_{SM}@f$
      */
     double computeThValue();
       
@@ -1098,11 +1098,11 @@ private:
 /**
  * @class deltaUWtavta
  * @brief An observable class for the deviation from the SM of the @f$W^{-} \bar{\tau}_{L} \nu^{\tau}_{L}@f$ coupling
- * @f$\delta U_{W\tau\nu}^{L}@f$.
+ * @f$\delta U_{W\tau\nu}^{L}/U_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$W^{-} \bar{\tau}_{L} \nu^{\tau}_{L}@f$ coupling
- * @f$\delta U_{W\tau\nu}^{L}@f$.
+ * @f$\delta U_{W\tau\nu}^{L}/U_{SM}@f$.
  *
  */
 class deltaUWtavta : public ThObservable {
@@ -1120,8 +1120,8 @@ public:
     virtual ~deltaUWtavta();
 
     /**
-     * @brief The deviation from the SM of the @f$W^{-} \bar{\tau}_{L} \nu^{\tau}_{L}@f$ coupling @f$\delta U_{W\tau\nu}^{L}@f$.
-     * @return @f$\delta U_{W\tau\nu}^{L}@f$
+     * @brief The deviation from the SM of the @f$W^{-} \bar{\tau}_{L} \nu^{\tau}_{L}@f$ coupling @f$\delta U_{W\tau\nu}^{L}/U_{SM}@f$.
+     * @return @f$\delta U_{W\tau\nu}^{L}/U_{SM}@f$
      */
     double computeThValue();
       
@@ -1135,11 +1135,11 @@ private:
 /**
  * @class deltaVudL
  * @brief An observable class for the deviation from the SM of the @f$W^{+} \bar{u}_{L} d_{L}@f$ coupling
- * @f$\delta V_{Wud}^{L}@f$.
+ * @f$\delta V_{Wud}^{L}/V_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$W^{+} \bar{u}_{L} d_{L}@f$ coupling
- * @f$\delta V_{Wud}^{L}@f$.
+ * @f$\delta V_{Wud}^{L}/V_{SM}@f$.
  *
  */
 class deltaVudL : public ThObservable {
@@ -1157,8 +1157,8 @@ public:
     virtual ~deltaVudL();
 
     /**
-     * @brief The deviation from the SM of the @f$W^{+} \bar{u}_{L} d_{L}@f$ coupling @f$\delta V_{Wud}^{L}@f$.
-     * @return @f$\delta V_{Wud}^{L}@f$
+     * @brief The deviation from the SM of the @f$W^{+} \bar{u}_{L} d_{L}@f$ coupling @f$\delta V_{Wud}^{L}/V_{SM}@f$.
+     * @return @f$\delta V_{Wud}^{L}/V_{SM}@f$
      */
     double computeThValue();
       
@@ -1209,11 +1209,11 @@ private:
 /**
  * @class deltaVcsL
  * @brief An observable class for the deviation from the SM of the @f$W^{+} \bar{c}_{L} s_{L}@f$ coupling
- * @f$\delta V_{Wcs}^{L}@f$.
+ * @f$\delta V_{Wcs}^{L}/V_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$W^{+} \bar{c}_{L} s_{L}@f$ coupling
- * @f$\delta V_{Wcs}^{L}@f$.
+ * @f$\delta V_{Wcs}^{L}/V_{SM}@f$.
  *
  */
 class deltaVcsL : public ThObservable {
@@ -1231,8 +1231,8 @@ public:
     virtual ~deltaVcsL();
 
     /**
-     * @brief The deviation from the SM of the @f$W^{+} \bar{c}_{L} s_{L}@f$ coupling @f$\delta V_{Wcs}^{L}@f$.
-     * @return @f$\delta V_{Wcs}^{L}@f$
+     * @brief The deviation from the SM of the @f$W^{+} \bar{c}_{L} s_{L}@f$ coupling @f$\delta V_{Wcs}^{L}/V_{SM}@f$.
+     * @return @f$\delta V_{Wcs}^{L}/V_{SM}@f$
      */
     double computeThValue();
       
@@ -1283,11 +1283,11 @@ private:
 /**
  * @class deltaVtbL
  * @brief An observable class for the deviation from the SM of the @f$W^{+} \bar{t}_{L} b_{L}@f$ coupling
- * @f$\delta V_{Wtb}^{L}@f$.
+ * @f$\delta V_{Wtb}^{L}/V_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$W^{+} \bar{t}_{L} b_{L}@f$ coupling
- * @f$\delta V_{Wtb}^{L}@f$.
+ * @f$\delta V_{Wtb}^{L}/V_{SM}@f$.
  *
  */
 class deltaVtbL : public ThObservable {
@@ -1305,8 +1305,8 @@ public:
     virtual ~deltaVtbL();
 
     /**
-     * @brief The deviation from the SM of the @f$W^{+} \bar{t}_{L} b_{L}@f$ coupling @f$\delta V_{Wtb}^{L}@f$.
-     * @return @f$\delta V_{Wtb}^{L}@f$
+     * @brief The deviation from the SM of the @f$W^{+} \bar{t}_{L} b_{L}@f$ coupling @f$\delta V_{Wtb}^{L}/V_{SM}@f$.
+     * @return @f$\delta V_{Wtb}^{L}/V_{SM}@f$
      */
     double computeThValue();
       
@@ -1360,11 +1360,11 @@ private:
 /**
  * @class deltagHee
  * @brief An observable class for the deviation from the SM of the @f$H ee@f$ coupling
- * @f$\delta g_{Hee}@f$.
+ * @f$\delta g_{Hee}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H ee@f$ coupling
- * @f$\delta g_{Hee}@f$.
+ * @f$\delta g_{Hee}/g_{SM}@f$.
  *
  */
 class deltagHee : public ThObservable {
@@ -1382,8 +1382,8 @@ public:
     virtual ~deltagHee();
 
     /**
-     * @brief The deviation from the SM of the @f$H ee@f$ coupling @f$\delta g_{Hee}@f$.
-     * @return @f$\delta g_{Hee}@f$
+     * @brief The deviation from the SM of the @f$H ee@f$ coupling @f$\delta g_{Hee}/g_{SM}@f$.
+     * @return @f$\delta g_{Hee}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1397,11 +1397,11 @@ private:
 /**
  * @class deltagHmumu
  * @brief An observable class for the deviation from the SM of the @f$H \mu \mu@f$ coupling
- * @f$\delta g_{H\mu\mu}@f$.
+ * @f$\delta g_{H\mu\mu}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H \mu \mu@f$ coupling
- * @f$\delta g_{H\mu\mu}@f$.
+ * @f$\delta g_{H\mu\mu}/g_{SM}@f$.
  *
  */
 class deltagHmumu : public ThObservable {
@@ -1419,8 +1419,8 @@ public:
     virtual ~deltagHmumu();
 
     /**
-     * @brief The deviation from the SM of the @f$H \mu \mu@f$ coupling @f$\delta g_{H\mu\mu}@f$.
-     * @return @f$\delta g_{H\mu\mu}@f$
+     * @brief The deviation from the SM of the @f$H \mu \mu@f$ coupling @f$\delta g_{H\mu\mu}/g_{SM}@f$.
+     * @return @f$\delta g_{H\mu\mu}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1471,11 +1471,11 @@ private:
 /**
  * @class deltagHtata
  * @brief An observable class for the deviation from the SM of the @f$H \tau \tau@f$ coupling
- * @f$\delta g_{H\tau\tau}@f$.
+ * @f$\delta g_{H\tau\tau}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H \tau \tau@f$ coupling
- * @f$\delta g_{H\tau\tau}@f$.
+ * @f$\delta g_{H\tau\tau}/g_{SM}@f$.
  *
  */
 class deltagHtata : public ThObservable {
@@ -1493,8 +1493,8 @@ public:
     virtual ~deltagHtata();
 
     /**
-     * @brief The deviation from the SM of the @f$H \tau \tau@f$ coupling @f$\delta g_{H\tau\tau}@f$.
-     * @return @f$\delta g_{H\tau\tau}@f$
+     * @brief The deviation from the SM of the @f$H \tau \tau@f$ coupling @f$\delta g_{H\tau\tau}/g_{SM}@f$.
+     * @return @f$\delta g_{H\tau\tau}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1546,11 +1546,11 @@ private:
 /**
  * @class deltagHuu
  * @brief An observable class for the deviation from the SM of the @f$H uu@f$ coupling
- * @f$\delta g_{Huu}@f$.
+ * @f$\delta g_{Huu}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H uu@f$ coupling
- * @f$\delta g_{Huu}@f$.
+ * @f$\delta g_{Huu}/g_{SM}@f$.
  *
  */
 class deltagHuu : public ThObservable {
@@ -1568,8 +1568,8 @@ public:
     virtual ~deltagHuu();
 
     /**
-     * @brief The deviation from the SM of the @f$H uu@f$ coupling @f$\delta g_{Huu}@f$.
-     * @return @f$\delta g_{Huu}@f$
+     * @brief The deviation from the SM of the @f$H uu@f$ coupling @f$\delta g_{Huu}/g_{SM}@f$.
+     * @return @f$\delta g_{Huu}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1584,11 +1584,11 @@ private:
 /**
  * @class deltagHcc
  * @brief An observable class for the deviation from the SM of the @f$H cc@f$ coupling
- * @f$\delta g_{Hcc}@f$.
+ * @f$\delta g_{Hcc}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H cc@f$ coupling
- * @f$\delta g_{Hcc}@f$.
+ * @f$\delta g_{Hcc}/g_{SM}@f$.
  *
  */
 class deltagHcc : public ThObservable {
@@ -1606,8 +1606,8 @@ public:
     virtual ~deltagHcc();
 
     /**
-     * @brief The deviation from the SM of the @f$H cc@f$ coupling @f$\delta g_{Hcc}@f$.
-     * @return @f$\delta g_{Hcc}@f$
+     * @brief The deviation from the SM of the @f$H cc@f$ coupling @f$\delta g_{Hcc}/g_{SM}@f$.
+     * @return @f$\delta g_{Hcc}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1658,11 +1658,11 @@ private:
 /**
  * @class deltagHtt
  * @brief An observable class for the deviation from the SM of the @f$H tt@f$ coupling
- * @f$\delta g_{Htt}@f$.
+ * @f$\delta g_{Htt}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H tt@f$ coupling
- * @f$\delta g_{Htt}@f$.
+ * @f$\delta g_{Htt}/g_{SM}@f$.
  *
  */
 class deltagHtt : public ThObservable {
@@ -1680,8 +1680,8 @@ public:
     virtual ~deltagHtt();
 
     /**
-     * @brief The deviation from the SM of the @f$H tt@f$ coupling @f$\delta g_{Htt}@f$.
-     * @return @f$\delta g_{Htt}@f$
+     * @brief The deviation from the SM of the @f$H tt@f$ coupling @f$\delta g_{Htt}/g_{SM}@f$.
+     * @return @f$\delta g_{Htt}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1695,11 +1695,11 @@ private:
 /**
  * @class deltagHdd
  * @brief An observable class for the deviation from the SM of the @f$H dd@f$ coupling
- * @f$\delta g_{Hdd}@f$.
+ * @f$\delta g_{Hdd}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H dd@f$ coupling
- * @f$\delta g_{Hdd}@f$.
+ * @f$\delta g_{Hdd}/g_{SM}@f$.
  *
  */
 class deltagHdd : public ThObservable {
@@ -1717,8 +1717,8 @@ public:
     virtual ~deltagHdd();
 
     /**
-     * @brief The deviation from the SM of the @f$H dd@f$ coupling @f$\delta g_{Hdd}@f$.
-     * @return @f$\delta g_{Hdd}@f$
+     * @brief The deviation from the SM of the @f$H dd@f$ coupling @f$\delta g_{Hdd}/g_{SM}@f$.
+     * @return @f$\delta g_{Hdd}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1732,11 +1732,11 @@ private:
 /**
  * @class deltagHss
  * @brief An observable class for the deviation from the SM of the @f$H ss@f$ coupling
- * @f$\delta g_{Hss}@f$.
+ * @f$\delta g_{Hss}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H ss@f$ coupling
- * @f$\delta g_{Hss}@f$.
+ * @f$\delta g_{Hss}/g_{SM}@f$.
  *
  */
 class deltagHss : public ThObservable {
@@ -1754,8 +1754,8 @@ public:
     virtual ~deltagHss();
 
     /**
-     * @brief The deviation from the SM of the @f$H ss@f$ coupling @f$\delta g_{Hss}@f$.
-     * @return @f$\delta g_{Hss}@f$
+     * @brief The deviation from the SM of the @f$H ss@f$ coupling @f$\delta g_{Hss}/g_{SM}@f$.
+     * @return @f$\delta g_{Hss}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1770,11 +1770,11 @@ private:
 /**
  * @class deltagHbb
  * @brief An observable class for the deviation from the SM of the @f$H b b@f$ coupling
- * @f$\delta g_{Hbb}@f$.
+ * @f$\delta g_{Hbb}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the @f$H bb@f$ coupling
- * @f$\delta g_{Hbb}@f$.
+ * @f$\delta g_{Hbb}/g_{SM}@f$.
  *
  */
 class deltagHbb : public ThObservable {
@@ -1792,8 +1792,8 @@ public:
     virtual ~deltagHbb();
 
     /**
-     * @brief The deviation from the SM of the @f$H bb@f$ coupling @f$\delta g_{Hbb}@f$.
-     * @return @f$\delta g_{Hbb}@f$
+     * @brief The deviation from the SM of the @f$H bb@f$ coupling @f$\delta g_{Hbb}/g_{SM}@f$.
+     * @return @f$\delta g_{Hbb}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1846,11 +1846,11 @@ private:
 /**
  * @class deltagHGG
  * @brief An observable class for the deviation from the SM of the effective @f$H g g@f$ coupling
- * @f$\delta g_{HGG}@f$.
+ * @f$\delta g_{HGG}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the effective @f$H g g@f$ coupling
- * @f$\delta g_{HGG}@f$.
+ * @f$\delta g_{HGG}/g_{SM}@f$.
  *
  */
 class deltagHGG : public ThObservable {
@@ -1868,8 +1868,8 @@ public:
     virtual ~deltagHGG();
 
     /**
-     * @brief The deviation from the SM of the effective @f$H g g@f$ coupling @f$\delta g_{HGG}@f$.
-     * @return @f$\delta g_{HGG}@f$
+     * @brief The deviation from the SM of the effective @f$H g g@f$ coupling @f$\delta g_{HGG}/g_{SM}@f$.
+     * @return @f$\delta g_{HGG}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -1922,11 +1922,11 @@ private:
 /**
  * @class deltagHZZ
  * @brief An observable class for the deviation from the SM of the @f$H Z Z@f$ coupling
- * @f$\delta g_{HZZ}@f$.
+ * @f$\delta g_{HZZ}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the effective @f$H Z Z@f$ coupling
- * @f$\delta g_{HZZ}@f$.
+ * @f$\delta g_{HZZ}/g_{SM}@f$.
  *
  */
 class deltagHZZ : public ThObservable {
@@ -1944,8 +1944,8 @@ public:
     virtual ~deltagHZZ();
 
     /**
-     * @brief The deviation from the SM of the effective @f$H Z Z@f$ coupling @f$\delta g_{HZZ}@f$.
-     * @return @f$\delta g_{HZZ}@f$
+     * @brief The deviation from the SM of the effective @f$H Z Z@f$ coupling @f$\delta g_{HZZ}/g_{SM}@f$.
+     * @return @f$\delta g_{HZZ}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -2072,11 +2072,11 @@ private:
 /**
  * @class deltagHAA
  * @brief An observable class for the deviation from the SM of the effective @f$H \gamma \gamma@f$ coupling
- * @f$\delta g_{HAA}@f$.
+ * @f$\delta g_{HAA}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the effective @f$H \gamma \gamma@f$ coupling
- * @f$\delta g_{HAA}@f$.
+ * @f$\delta g_{HAA}/g_{SM}@f$.
  *
  */
 class deltagHAA : public ThObservable {
@@ -2094,8 +2094,8 @@ public:
     virtual ~deltagHAA();
 
     /**
-     * @brief The deviation from the SM of the effective @f$H \gamma \gamma@f$ coupling @f$\delta g_{HAA}@f$.
-     * @return @f$\delta g_{HAA}@f$
+     * @brief The deviation from the SM of the effective @f$H \gamma \gamma@f$ coupling @f$\delta g_{HAA}/g_{SM}@f$.
+     * @return @f$\delta g_{HAA}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -2149,11 +2149,11 @@ private:
 /**
  * @class deltagHZA
  * @brief An observable class for the deviation from the SM of the effective @f$H Z \gamma@f$ coupling
- * @f$\delta g_{HZA}@f$.
+ * @f$\delta g_{HZA}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the effective @f$H Z \gamma@f$ coupling
- * @f$\delta g_{HZA}@f$.
+ * @f$\delta g_{HZA}/g_{SM}@f$.
  *
  */
 class deltagHZA : public ThObservable {
@@ -2171,8 +2171,8 @@ public:
     virtual ~deltagHZA();
 
     /**
-     * @brief The deviation from the SM of the effective @f$H Z \gamma@f$ coupling @f$\delta g_{HZA}@f$.
-     * @return @f$\delta g_{HZA}@f$
+     * @brief The deviation from the SM of the effective @f$H Z \gamma@f$ coupling @f$\delta g_{HZA}/g_{SM}@f$.
+     * @return @f$\delta g_{HZA}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -2262,11 +2262,11 @@ private:
 /**
  * @class deltagHWW
  * @brief An observable class for the deviation from the SM of the @f$H W W@f$ coupling
- * @f$\delta g_{HWW}@f$.
+ * @f$\delta g_{HWW}/g_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the effective @f$H W W@f$ coupling
- * @f$\delta g_{HWW}@f$.
+ * @f$\delta g_{HWW}/g_{SM}@f$.
  *
  */
 class deltagHWW : public ThObservable {
@@ -2284,8 +2284,8 @@ public:
     virtual ~deltagHWW();
 
     /**
-     * @brief The deviation from the SM of the effective @f$H W W@f$ coupling @f$\delta g_{HWW}@f$.
-     * @return @f$\delta g_{HWW}@f$
+     * @brief The deviation from the SM of the effective @f$H W W@f$ coupling @f$\delta g_{HWW}/g_{SM}@f$.
+     * @return @f$\delta g_{HWW}/g_{SM}@f$
      */
     double computeThValue();
       
@@ -2526,11 +2526,11 @@ private:
 /**
  * @class deltalHHH
  * @brief An observable class for the deviation from the SM of the @f$H H H@f$ coupling
- * @f$\delta \lambda_{H^3}@f$.
+ * @f$\delta \lambda_{H^3}/\lambda_{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the deviation from the SM on the effective @f$H H H@f$ coupling
- * @f$\delta \lambda_{H^3}@f$.
+ * @f$\delta \lambda_{H^3}/\lambda_{SM}@f$.
  *
  */
 class deltalHHH : public ThObservable {
@@ -2548,8 +2548,8 @@ public:
     virtual ~deltalHHH();
 
     /**
-     * @brief The deviation from the SM of the effective @f$H H H@f$ coupling @f$\delta \lambda_{H^3}@f$.
-     * @return @f$\delta \lambda_{H^3}@f$
+     * @brief The deviation from the SM of the effective @f$H H H@f$ coupling @f$\delta \lambda_{H^3}/\lambda_{SM}@f$.
+     * @return @f$\delta \lambda_{H^3}/\lambda_{SM}@f$
      */
     double computeThValue();
       
@@ -3011,6 +3011,46 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
      * @return @f$\lambda_{z}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+//-----  Other useful observables to work with new physics  ----------
+
+/**
+ * @class deltaMW
+ * @brief An observable class for the deviation from the SM of the @f$W@f$ mass
+ * @f$\delta M_{W}/M_{W}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM of the @f$W@f$ mass
+ * @f$\delta M_{W}/M_{W}@f$.
+ *
+ */
+class deltaMW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltaMW(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltaMW class.
+     */
+    virtual ~deltaMW();
+
+    /**
+     * @brief The deviation from the SM of the @f$W@f$ mass.
+     * @return @f$\delta M_{W}/M_{W}@f$
      */
     double computeThValue();
       
