@@ -49,10 +49,9 @@ mH1_GTHDM::mH1_GTHDM(const StandardModel& SM_i)
 
 double mH1_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH1_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mH1_2);
+    if(myGTHDM.getMyGTHDMCache()->mH1sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
         return sqrt(myGTHDM.getMyGTHDMCache()->mH1sq);
 }
 
@@ -62,12 +61,9 @@ mH2_GTHDM::mH2_GTHDM(const StandardModel& SM_i)
 
 double mH2_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH2_2 < 0. || (myGTHDM.getMyGTHDMCache()->R32_GTHDM)*
-//            ((myGTHDM.getMyGTHDMCache()->R13_GTHDM)*(myGTHDM.getMyGTHDMCache()->R22_GTHDM) -
-//            (myGTHDM.getMyGTHDMCache()->R12_GTHDM)*(myGTHDM.getMyGTHDMCache()->R23_GTHDM)) < 0.00001)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mH2_2);
+       if(myGTHDM.getMyGTHDMCache()->mH2sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
         return sqrt(myGTHDM.getMyGTHDMCache()->mH2sq);
 }
 
@@ -77,12 +73,9 @@ mH3_GTHDM::mH3_GTHDM(const StandardModel& SM_i)
 
 double mH3_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH3_2 < 0. || (myGTHDM.getMyGTHDMCache()->R33_GTHDM)*
-//            ((myGTHDM.getMyGTHDMCache()->R13_GTHDM)*(myGTHDM.getMyGTHDMCache()->R22_GTHDM) -
-//            (myGTHDM.getMyGTHDMCache()->R12_GTHDM)*(myGTHDM.getMyGTHDMCache()->R23_GTHDM)) < 0.00001)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mH3_2);
+       if(myGTHDM.getMyGTHDMCache()->mH3sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
         return sqrt(myGTHDM.getMyGTHDMCache()->mH3sq);
 }
 
@@ -140,11 +133,10 @@ mH3mmH2_GTHDM::mH3mmH2_GTHDM(const StandardModel& SM_i)
 
 double mH3mmH2_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH3_2 < 0. || myGTHDM.getMyGTHDMCache()->mH2_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mH3_2) - sqrt(myGTHDM.getMyGTHDMCache()->mH2_2);
-        return 0.0;
+    if(myGTHDM.getMyGTHDMCache()->mH3sq < 0. || myGTHDM.getMyGTHDMCache()->mH2sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
+        return sqrt(myGTHDM.getMyGTHDMCache()->mH3sq) - sqrt(myGTHDM.getMyGTHDMCache()->mH2sq);
 }
 
 mH3mmHp_GTHDM::mH3mmHp_GTHDM(const StandardModel& SM_i)
@@ -153,11 +145,10 @@ mH3mmHp_GTHDM::mH3mmHp_GTHDM(const StandardModel& SM_i)
 
 double mH3mmHp_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH3_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mH3_2) - sqrt(myGTHDM.getMyGTHDMCache()->mHp2_GTHDM);
-        return 0.0;
+    if(myGTHDM.getMyGTHDMCache()->mH3sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
+        return sqrt(myGTHDM.getMyGTHDMCache()->mH3sq) - sqrt(myGTHDM.getMyGTHDMCache()->mHp2);
 }
 
 mH3mmH1_GTHDM::mH3mmH1_GTHDM(const StandardModel& SM_i)
@@ -166,11 +157,10 @@ mH3mmH1_GTHDM::mH3mmH1_GTHDM(const StandardModel& SM_i)
 
 double mH3mmH1_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH3_2 < 0. || myGTHDM.getMyGTHDMCache()->mH1_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mH3_2) - sqrt(myGTHDM.getMyGTHDMCache()->mH1_2);
-        return 0.0;
+    if(myGTHDM.getMyGTHDMCache()->mH3sq < 0. || myGTHDM.getMyGTHDMCache()->mH1sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
+        return sqrt(myGTHDM.getMyGTHDMCache()->mH3sq) - sqrt(myGTHDM.getMyGTHDMCache()->mH1sq);
 }
 
 mH2mmHp_GTHDM::mH2mmHp_GTHDM(const StandardModel& SM_i)
@@ -179,11 +169,10 @@ mH2mmHp_GTHDM::mH2mmHp_GTHDM(const StandardModel& SM_i)
 
 double mH2mmHp_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH2_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mH2_2) - sqrt(myGTHDM.getMyGTHDMCache()->mHp2_GTHDM);   
-        return 0.0;
+    if(myGTHDM.getMyGTHDMCache()->mH2sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
+         return sqrt(myGTHDM.getMyGTHDMCache()->mH2sq) - sqrt(myGTHDM.getMyGTHDMCache()->mHp2);   
 }
 
 mH2mmH1_GTHDM::mH2mmH1_GTHDM(const StandardModel& SM_i)
@@ -192,11 +181,10 @@ mH2mmH1_GTHDM::mH2mmH1_GTHDM(const StandardModel& SM_i)
 
 double mH2mmH1_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH2_2 < 0. || myGTHDM.getMyGTHDMCache()->mH1_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mH2_2) - sqrt(myGTHDM.getMyGTHDMCache()->mH1_2);
-        return 0.0;
+    if(myGTHDM.getMyGTHDMCache()->mH2sq < 0. || myGTHDM.getMyGTHDMCache()->mH1sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
+        return sqrt(myGTHDM.getMyGTHDMCache()->mH2sq) - sqrt(myGTHDM.getMyGTHDMCache()->mH1sq);
 }
 
 mHpmmH1_GTHDM::mHpmmH1_GTHDM(const StandardModel& SM_i)
@@ -205,11 +193,10 @@ mHpmmH1_GTHDM::mHpmmH1_GTHDM(const StandardModel& SM_i)
 
 double mHpmmH1_GTHDM::computeThValue()
 {
-//    if(myGTHDM.getMyGTHDMCache()->mH1_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mHp2_GTHDM) - sqrt(myGTHDM.getMyGTHDMCache()->mH1_2);   
-        return 0.0;
+    if(myGTHDM.getMyGTHDMCache()->mH1sq < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+    else
+        return sqrt(myGTHDM.getMyGTHDMCache()->mHp2) - sqrt(myGTHDM.getMyGTHDMCache()->mH1sq);   
 }
 
 
@@ -604,50 +591,7 @@ double v2_GTHDM::computeThValue()
 //    return v*Ytu_33r/(sqrt(2.)*cosb*mtop)-tanb;
 //}
 
-massdifference_mH1mmH2::massdifference_mH1mmH2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-{}
 
-double massdifference_mH1mmH2::computeThValue()
-{
-    return  sqrt(myGTHDM->getMyGTHDMCache()->mH1sq) - sqrt(myGTHDM->getMyGTHDMCache()->mH2sq);
-}
-
-massdifference_mH1mmH3::massdifference_mH1mmH3(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-{}
-double massdifference_mH1mmH3::computeThValue()
-{
-    return  sqrt(myGTHDM->getMyGTHDMCache()->mH1sq) - sqrt(myGTHDM->getMyGTHDMCache()->mH3sq);
-}
-
-massdifference_mH2mmH3::massdifference_mH2mmH3(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-{}
-
-double massdifference_mH2mmH3::computeThValue()
-{
-    return  sqrt(myGTHDM->getMyGTHDMCache()->mH2sq) - sqrt(myGTHDM->getMyGTHDMCache()->mH3sq);
-}
-
-massdifference_mH2mmHp::massdifference_mH2mmHp(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-{}
-
-double massdifference_mH2mmHp::computeThValue()
-{
-    return  sqrt(myGTHDM->getMyGTHDMCache()->mH2sq) - sqrt(myGTHDM->getMyGTHDMCache()->mHp2_GTHDM);
-}
-
-
-massdifference_mH3mmHp::massdifference_mH3mmHp(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-{}
-
-double massdifference_mH3mmHp::computeThValue()
-{
-    return  sqrt(myGTHDM->getMyGTHDMCache()->mH3sq) - sqrt(myGTHDM->getMyGTHDMCache()->mHp2_GTHDM);
-}
 cosalpha1_GTHDM::cosalpha1_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
 {}

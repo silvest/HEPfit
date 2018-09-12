@@ -1901,7 +1901,7 @@ public:
      * @brief lambdaijk function
      * @return @f$\lambda_{ijk}=@f$, the coupling of three neutral (ijk) scalars  in the GA2HDM
      */
-    double lambdaijk(const double Ri1,const double Ri2,const double Ri3,const double Rj1,const double Rj2,const double Rj3, const double Rk1,const double Rk2,const double Rk3)const;
+    double lambdaijk(const double Ri1,const double Ri2,const double Ri3,const double Rj1,const double Rj2,const double Rj3, const double Rk1,const double Rk2,const double Rk3, const double lambda1H, const double lambda3H, const double lambda4H, const double Relambda5H, const double Imlambda5H, const double Relambda6H, const double Imlambda6H, const double Relambda7H, const double Imlambda7H) const;
 
     double lambdaipm(const double Ri1,const double Ri2,const double Ri3) const;
 

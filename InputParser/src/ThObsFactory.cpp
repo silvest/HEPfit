@@ -2125,20 +2125,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Relambda7H_GTHDM"] = boost::factory<Relambda7H_GTHDM*>();
     obsThFactory["Imlambda7H_GTHDM"] = boost::factory<Imlambda7H_GTHDM*>();
 
-
-
-    
-    
-   obsThFactory["mH1mmH2"] = boost::factory<massdifference_mH1mmH2*>();
-   obsThFactory["mH1mmH3"] = boost::factory<massdifference_mH1mmH3*>();
-   obsThFactory["mH2mmH3"] = boost::factory<massdifference_mH2mmH3*>();
-   obsThFactory["mH2mmHp"] = boost::factory<massdifference_mH2mmHp*>();
-   obsThFactory["mH3mmHp"] = boost::factory<massdifference_mH3mmHp*>();
-
    
    obsThFactory["R11"]= boost::factory<R11_GTHDM*>();
    obsThFactory["R12"]= boost::factory<R12_GTHDM*>();
-    obsThFactory["R13"]= boost::factory<R13_GTHDM*>();
+   obsThFactory["R13"]= boost::factory<R13_GTHDM*>();
    obsThFactory["R21"]= boost::factory<R21_GTHDM*>();
    obsThFactory["R22"]= boost::factory<R22_GTHDM*>();
    obsThFactory["R23"]= boost::factory<R23_GTHDM*>();
