@@ -150,6 +150,11 @@ public:
         ATLAS13_pp_H5ppmmH5mmpp_llll, ATLAS13_pp_H5ppmmH5mmpp_WWWW, CMS8_VV_H5ppmm_WW_jjll, CMS13_VV_H5ppmm_WW_jjll;
 
     /**
+     * @brief Expected @f$95\%@f$ upper cross section limits, depending on the invariant mass.
+     */
+    gslpp::matrix<double> ATLAS13_WZ_H5pm_WZ_lnull_e;
+
+    /**
      * @brief Interpolating function for the SM branching ratio to two top quarks.
      * @return @f$BR^{\text{SM}}(H\to t\bar t)@f$
      */
@@ -811,6 +816,12 @@ public:
     double ip_ex_WZ_H5pm_WZ_lnull_ATLAS13(double mH5);
 
     /**
+     * @brief Interpolating function for the expected ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1806.01532.
+     */
+    double ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_e(double mH5);
+
+    /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
      * @details Taken from arXiv:1705.02942.
      */
@@ -964,6 +975,8 @@ public:
     double THoEX_pp_H5ppmmH5mmpp_eeee_ATLAS8, THoEX_pp_H5ppmmH5mmpp_emuemu_ATLAS8, THoEX_pp_H5ppmmH5mmpp_mumumumu_ATLAS8;
     double THoEX_pp_H5ppmmH5mmpp_llll_ATLAS13, THoEX_pp_H5ppmmH5mmpp_WWWW_ATLAS13, THoEX_VV_H5ppmm_WW_jjll_CMS8, THoEX_VV_H5ppmm_WW_jjll_CMS13;
 
+    double R_WZ_H5pm_WZ_lnull_ATLAS13;
+    
     double lambda1, lambda2, lambda3, lambda4, lambda5;
     double cosb, sinb, tanb;
     double vPhi;
@@ -1532,6 +1545,7 @@ private:
     mutable double ip_ex_pp_Hpm_tb_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_WZ_H5pm_WZ_qqll_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_e_cache[2][CacheSize];
     mutable double ip_ex_WZ_H5pm_WZ_lnull_1_CMS13_cache[2][CacheSize];
     mutable double ip_ex_WZ_H5pm_WZ_lnull_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8_cache[2][CacheSize];

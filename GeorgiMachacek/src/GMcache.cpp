@@ -148,6 +148,7 @@ GMcache::GMcache(const StandardModel& SM_i)
     ATLAS13_pp_H5ppmmH5mmpp_WWWW(51,2,0.),
     CMS8_VV_H5ppmm_WW_jjll(65,2,0.),
     CMS13_VV_H5ppmm_WW_jjll(81,2,0.),
+    ATLAS13_WZ_H5pm_WZ_lnull_e(15,2,0.),
     unitarityeigenvalues(17, 0.),
     myGM(static_cast<const GeorgiMachacek*> (&SM_i))
 {
@@ -229,6 +230,7 @@ void GMcache::read(){
     std::stringstream ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex68,ex69,ex70,ex71,ex72,ex73;
     std::stringstream ex74,ex75,ex76,ex77,ex78,ex79,ex80,ex81,ex82,ex83;
     std::stringstream ex28a,ex43a,ex70a,ex70b;
+    std::stringstream ex68e;
 
     std::cout<<"reading tables"<<std::endl;
 
@@ -470,6 +472,8 @@ void GMcache::read(){
     readTable(ATLAS8_WZ_H5pm_WZ_qqll, ex67.str(),81,2);
     ex68 << tablepath << "180601532.dat";
     readTable(ATLAS13_WZ_H5pm_WZ_lnull, ex68.str(),71,2);
+    ex68e << tablepath << "180601532_e.dat";
+    readTable(ATLAS13_WZ_H5pm_WZ_lnull_e, ex68e.str(),15,2);
     ex69 << tablepath << "170502942.dat";
     readTable(CMS13_WZ_H5pm_WZ_lnull_1, ex69.str(),181,2);
     ex70 << tablepath << "14120237_a.dat";
@@ -2435,6 +2439,20 @@ double GMcache::ip_ex_WZ_H5pm_WZ_lnull_ATLAS13(double mH5){
     }
 }
 
+double GMcache::ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_e(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_e_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_e_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_WZ_H5pm_WZ_lnull_e,mH5);
+        CacheShiftReal(ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_e_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 double GMcache::ip_ex_WZ_H5pm_WZ_qqll_ATLAS8(double mH5){
     int NumPar = 1;
     double params[] = {mH5};
@@ -4192,6 +4210,9 @@ void GMcache::computeDirectSearchQuantities()
 //        THoEX_pp_H_hh_bbbb_1_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_1_CMS13(mHh);
 //    }
 
+    //95% to 1 sigma conversion factor, roughly sqrt(3.84)
+    double nftos=1.95996398454;
+
     if(mHh>= 400.0 && mHh<1000.0) THoEX_tt_H_tt_ATLAS13=tt_H_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(mHh);
     if(mA >= 400.0 && mA <1000.0) THoEX_tt_A_tt_ATLAS13=tt_A_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(mA);
     if(mHh>= 400.0 && mHh<1000.0) THoEX_bb_H_tt_ATLAS13=bb_H_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(mHh);
@@ -4307,6 +4328,7 @@ void GMcache::computeDirectSearchQuantities()
     if(mA >= 200.0 && mA <2000.0) THoEX_pp_Hpm_tb_ATLAS13=pp_Hpm_tb_TH13/ip_ex_pp_Hpm_tb_ATLAS13(mA);
     if(mH5>= 200.0 && mH5<1000.0) THoEX_WZ_H5pm_WZ_qqll_ATLAS8=WZ_H5pm_WZ_TH8/ip_ex_WZ_H5pm_WZ_qqll_ATLAS8(mH5);
     if(mH5>= 200.0 && mH5< 900.0) THoEX_WZ_H5pm_WZ_lnull_ATLAS13=WZ_H5pm_WZ_TH13/ip_ex_WZ_H5pm_WZ_lnull_ATLAS13(mH5);
+    if(mH5>= 200.0 && mH5< 900.0) R_WZ_H5pm_WZ_lnull_ATLAS13=(1+(WZ_H5pm_WZ_TH13-ip_ex_WZ_H5pm_WZ_lnull_ATLAS13(mH5))/ip_ex_WZ_H5pm_WZ_lnull_ATLAS13_e(mH5) ) * nftos;
     if(mH5>= 200.0 && mH5< 300.0) THoEX_WZ_H5pm_WZ_lnull_1_CMS13=WZ_H5pm_WZ_TH13/ip_ex_WZ_H5pm_WZ_lnull_1_CMS13(mH5);
     if(mH5>= 300.0 && mH5<2000.0) THoEX_WZ_H5pm_WZ_lnull_2_CMS13=WZ_H5pm_WZ_TH13/ip_ex_WZ_H5pm_WZ_lnull_2_CMS13(mH5);
     if(mH5>= 110.0 && mH5< 600.0) THoEX_pp_H5ppmmH5mmpp_eeee_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8(mH5);

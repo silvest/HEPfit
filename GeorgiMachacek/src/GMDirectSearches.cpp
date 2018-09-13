@@ -1691,6 +1691,17 @@ double Hobs_WZ_H5pm_WZ_lnull_ATLAS13::computeThValue()
 
 
 
+Robs_WZ_H5pm_WZ_lnull_ATLAS13::Robs_WZ_H5pm_WZ_lnull_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double Robs_WZ_H5pm_WZ_lnull_ATLAS13::computeThValue()
+{
+    return myGM.getMyGMCache()->R_WZ_H5pm_WZ_lnull_ATLAS13;
+}
+
+
+
 Hobs_WZ_H5pm_WZ_lnull_1_CMS13::Hobs_WZ_H5pm_WZ_lnull_1_CMS13(const StandardModel& SM_i)
 : ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
 {}

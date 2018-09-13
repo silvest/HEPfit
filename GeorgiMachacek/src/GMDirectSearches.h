@@ -2136,6 +2136,16 @@ private:
     const GeorgiMachacek& myGM;
 };
 
+class Robs_WZ_H5pm_WZ_lnull_ATLAS13: public ThObservable {
+public:
+
+    Robs_WZ_H5pm_WZ_lnull_ATLAS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
 class Hobs_WZ_H5pm_WZ_lnull_1_CMS13: public ThObservable {
 public:
 

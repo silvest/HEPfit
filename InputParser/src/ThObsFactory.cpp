@@ -3008,6 +3008,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_pp_H3pm_tb_ATLAS13"] = boost::factory<Hobs_pp_H3pm_tb_ATLAS13*>();
     obsThFactory["Hobs_WZ_H5pm_WZ_qqll_ATLAS8"] = boost::factory<Hobs_WZ_H5pm_WZ_qqll_ATLAS8*>();
     obsThFactory["Hobs_WZ_H5pm_WZ_lnull_ATLAS13"] = boost::factory<Hobs_WZ_H5pm_WZ_lnull_ATLAS13*>();
+    obsThFactory["Robs_WZ_H5pm_WZ_lnull_ATLAS13"] = boost::factory<Robs_WZ_H5pm_WZ_lnull_ATLAS13*>();
     obsThFactory["Hobs_WZ_H5pm_WZ_lnull_1_CMS13"] = boost::factory<Hobs_WZ_H5pm_WZ_lnull_1_CMS13*>();
     obsThFactory["Hobs_WZ_H5pm_WZ_lnull_2_CMS13"] = boost::factory<Hobs_WZ_H5pm_WZ_lnull_2_CMS13*>();
     obsThFactory["Hobs_pp_H5ppmmH5mmpp_eeee_ATLAS8"] = boost::factory<Hobs_pp_H5ppmmH5mmpp_eeee_ATLAS8*>();
