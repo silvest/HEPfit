@@ -2820,6 +2820,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GMGammaH5"] = boost::factory<GMGammaH5*>();
     obsThFactory["GMGammaH5p"] = boost::factory<GMGammaH5p*>();
     obsThFactory["GMGammaH5pp"] = boost::factory<GMGammaH5pp*>();
+    obsThFactory["GMghhh"] = boost::factory<GMghhh*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["GMunitarity1"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 0);
     obsThFactory["GMunitarity2"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 1);
@@ -2999,6 +3000,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_pp_H3_H1Z_bbll_CMS8"] = boost::factory<Hobs_pp_H3_H1Z_bbll_CMS8*>();
     obsThFactory["Hobs_pp_H1_H3Z_bbll_CMS8"] = boost::factory<Hobs_pp_H1_H3Z_bbll_CMS8*>();
     obsThFactory["Hobs_pp_H5_H3Z_bbll_CMS8"] = boost::factory<Hobs_pp_H5_H3Z_bbll_CMS8*>();
+    obsThFactory["Hobs_gg_H3_H1Z_bbll_ATLAS13"] = boost::factory<Hobs_gg_H3_H1Z_bbll_ATLAS13*>();
+    obsThFactory["Hobs_bb_H3_H1Z_bbll_ATLAS13"] = boost::factory<Hobs_bb_H3_H1Z_bbll_ATLAS13*>();
     obsThFactory["Hobs_pp_H3pm_taunu_ATLAS8"] = boost::factory<Hobs_pp_H3pm_taunu_ATLAS8*>();
     obsThFactory["Hobs_pp_H3p_taunu_CMS8"] = boost::factory<Hobs_pp_H3p_taunu_CMS8*>();
     obsThFactory["Hobs_pp_H3pm_taunu_ATLAS13"] = boost::factory<Hobs_pp_H3pm_taunu_ATLAS13*>();

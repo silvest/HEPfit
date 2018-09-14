@@ -392,3 +392,14 @@ double GMGammaH5pp::computeThValue()
 {
     return myGM.getMyGMCache()->GammaH5pptot;
 }
+
+
+
+GMghhh::GMghhh(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double GMghhh::computeThValue()
+{
+    return myGM.getMyGMCache()->ghhh;
+}

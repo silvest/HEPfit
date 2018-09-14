@@ -129,6 +129,8 @@ GMcache::GMcache(const StandardModel& SM_i)
     CMS13_bb_A_Zh_Zbb_2(121,2,0.),
     CMS8_pp_A_phiZ_bbll(28718, 3, 0.),
     CMS8_pp_phi_AZ_bbll(29050, 3, 0.),
+    ATLAS13_gg_A_phiZ_bbll(3364, 3, 0.),
+    ATLAS13_bb_A_phiZ_bbll(3364, 3, 0.),
     /* Charged searches */
     ATLAS8_pp_Hpm_taunu(83,2,0.),
     CMS8_pp_Hp_taunu(43,2,0.),
@@ -230,6 +232,7 @@ void GMcache::read(){
     std::stringstream ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex68,ex69,ex70,ex71,ex72,ex73;
     std::stringstream ex74,ex75,ex76,ex77,ex78,ex79,ex80,ex81,ex82,ex83;
     std::stringstream ex28a,ex43a,ex70a,ex70b;
+    std::stringstream ex59a,ex59b;
     std::stringstream ex68e;
 
     std::cout<<"reading tables"<<std::endl;
@@ -454,6 +457,10 @@ void GMcache::read(){
     readTable(CMS8_pp_A_phiZ_bbll, ex58.str(),28718,3);
     ex59 << tablepath << "160302991_b.dat";
     readTable(CMS8_pp_phi_AZ_bbll, ex59.str(),29050,3);
+    ex59a << tablepath << "180401126_a.dat";
+    readTable(ATLAS13_gg_A_phiZ_bbll, ex59a.str(),3364,3);
+    ex59b << tablepath << "180401126_b.dat";
+    readTable(ATLAS13_bb_A_phiZ_bbll, ex59b.str(),3364,3);
     ex60 << tablepath << "14126663.dat";
     readTable(ATLAS8_pp_Hpm_taunu, ex60.str(),83,2);
     ex61 << tablepath << "150807774_a.dat";
@@ -2327,6 +2334,34 @@ double GMcache::ip_ex_pp_phi_AZ_bbll_CMS8(double mA, double mH){
     }
 }
 
+double GMcache::ip_ex_gg_A_phiZ_bbll_ATLAS13(double mA, double mH){
+    int NumPar = 2;
+    double params[] = {mA,mH};
+
+    int i = CacheCheckReal(ip_ex_gg_A_phiZ_bbll_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_A_phiZ_bbll_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate2D(ATLAS13_gg_A_phiZ_bbll,mA,mH);
+        CacheShiftReal(ip_ex_gg_A_phiZ_bbll_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_A_phiZ_bbll_ATLAS13(double mA, double mH){
+    int NumPar = 2;
+    double params[] = {mA,mH};
+
+    int i = CacheCheckReal(ip_ex_bb_A_phiZ_bbll_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_A_phiZ_bbll_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate2D(ATLAS13_bb_A_phiZ_bbll,mA,mH);
+        CacheShiftReal(ip_ex_bb_A_phiZ_bbll_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 double GMcache::ip_ex_pp_Hpm_taunu_ATLAS8(double mHp){
     int NumPar = 1;
     double params[] = {mHp};
@@ -3900,6 +3935,8 @@ void GMcache::computeDirectSearchQuantities()
     pp_A_HZ_bbll_TH8=SigmaSumA8*Br_AtoHZ*Br_Htobb*(Br_Ztoee+Br_Ztomumu);
 //    std::cout<<"pp_A_HZ_bbll_TH8 = "<<pp_A_HZ_bbll_TH8<<std::endl;
     pp_A_H5Z_bbll_TH8=0.0;
+    gg_A_HZ_bbZ_TH13=SigmaggF_A13*Br_AtoHZ*Br_Htobb;
+    bb_A_HZ_bbZ_TH13=SigmabbF_A13*Br_AtoHZ*Br_Htobb;
     pp_H_AZ_bbll_TH8=SigmaSumH8*Br_HtoAZ*Br_Atobb*(Br_Ztoee+Br_Ztomumu);
 //    std::cout<<"pp_H_AZ_bbll_TH8 = "<<pp_H_AZ_bbll_TH8<<std::endl;
     pp_H5_AZ_bbll_TH8=SigmaSumH58*Br_H5toAZ*Br_Atobb*(Br_Ztoee+Br_Ztomumu);
@@ -4049,6 +4086,8 @@ void GMcache::computeDirectSearchQuantities()
     THoEX_bb_A_hZ_bbZ_2_CMS13=0.0;
     THoEX_pp_A_HZ_bbll_CMS8=0.0;
     THoEX_pp_A_H5Z_bbll_CMS8=0.0;
+    THoEX_gg_A_HZ_bbll_ATLAS13=0.0;
+    THoEX_bb_A_HZ_bbll_ATLAS13=0.0;
     THoEX_pp_H_AZ_bbll_CMS8=0.0;
     THoEX_pp_H5_AZ_bbll_CMS8=0.0;
     THoEX_pp_Hpm_taunu_ATLAS8=0.0;
@@ -4319,6 +4358,8 @@ void GMcache::computeDirectSearchQuantities()
     if(mHh>= 175.0 && mHh<1000.0 && mA >=40.0 && mA <910.0) THoEX_pp_H_AZ_bbll_CMS8=pp_H_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mHh);
     if(mH5>= 175.0 && mH5<1000.0 && mA >=40.0 && mA <910.0) THoEX_pp_H5_AZ_bbll_CMS8=pp_H5_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mH5);
     if(mA >= 175.0 && mA <1000.0 && mHh>=50.0 && mHh<910.0) THoEX_pp_A_HZ_bbll_CMS8=pp_A_HZ_bbll_TH8/ip_ex_pp_A_phiZ_bbll_CMS8(mA,mHh);
+    if(mA >= 230.0 && mA <800.0 && mHh>=130.0 && mHh<700.0) THoEX_gg_A_HZ_bbll_ATLAS13=gg_A_HZ_bbZ_TH13/ip_ex_gg_A_phiZ_bbll_ATLAS13(mA,mHh);
+    if(mA >= 230.0 && mA <800.0 && mHh>=130.0 && mHh<700.0) THoEX_bb_A_HZ_bbll_ATLAS13=bb_A_HZ_bbZ_TH13/ip_ex_bb_A_phiZ_bbll_ATLAS13(mA,mHh);
     if(mA >= 180.0 && mA <1000.0) THoEX_pp_Hpm_taunu_ATLAS8=pp_Hpm_taunu_TH8/ip_ex_pp_Hpm_taunu_ATLAS8(mA);
     if(mA >= 180.0 && mA < 600.0) THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mA);
     if(mA >=  90.0 && mA <2000.0) THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mA);

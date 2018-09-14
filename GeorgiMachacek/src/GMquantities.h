@@ -727,4 +727,25 @@ public:
     const GeorgiMachacek& myGM;
 };
 
+/**
+ * @class GMghhh
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMghhh: public ThObservable {
+public:
+
+    /**
+     * @brief GMghhh constructor.
+     */
+    GMghhh(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\g_{hhh}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
 #endif	/* GMQUANTITIES_H */

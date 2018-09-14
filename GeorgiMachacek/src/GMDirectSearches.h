@@ -2026,6 +2026,26 @@ private:
     const GeorgiMachacek& myGM;
 };
 
+class Hobs_gg_H3_H1Z_bbll_ATLAS13: public ThObservable {
+public:
+
+    Hobs_gg_H3_H1Z_bbll_ATLAS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class Hobs_bb_H3_H1Z_bbll_ATLAS13: public ThObservable {
+public:
+
+    Hobs_bb_H3_H1Z_bbll_ATLAS13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
 class Hobs_pp_H1_H3Z_bbll_CMS8: public ThObservable {
 public:
 

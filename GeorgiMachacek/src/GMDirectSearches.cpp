@@ -1570,6 +1570,28 @@ double Hobs_pp_H3_H1Z_bbll_CMS8::computeThValue()
 
 
 
+Hobs_gg_H3_H1Z_bbll_ATLAS13::Hobs_gg_H3_H1Z_bbll_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double Hobs_gg_H3_H1Z_bbll_ATLAS13::computeThValue()
+{
+    return myGM.getMyGMCache()->THoEX_gg_A_HZ_bbll_ATLAS13;
+}
+
+
+
+Hobs_bb_H3_H1Z_bbll_ATLAS13::Hobs_bb_H3_H1Z_bbll_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double Hobs_bb_H3_H1Z_bbll_ATLAS13::computeThValue()
+{
+    return myGM.getMyGMCache()->THoEX_bb_A_HZ_bbll_ATLAS13;
+}
+
+
+
 Hobs_pp_H1_H3Z_bbll_CMS8::Hobs_pp_H1_H3Z_bbll_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
 {}

@@ -142,7 +142,8 @@ public:
         ATLAS13_pp_phi_hh_bbbb, CMS13_pp_phi_hh_bbbb_1, CMS13_pp_phi_hh_bbbb_2, CMS13_gg_phi_hh_bbbb, ATLAS13_pp_phi_hh_gagabb,
         CMS13_pp_phi_hh_gagabb, ATLAS13_pp_phi_hh_bbtautau, CMS13_pp_phi_hh_bbtautau_1, CMS13_pp_phi_hh_bbtautau_2, CMS13_pp_phi_hh_bblnulnu, ATLAS13_gg_phi_hh_gagaWW,
         ATLAS8_gg_A_hZ_bbZ, CMS8_gg_A_hZ_bbll, ATLAS8_gg_A_hZ_tautauZ, CMS8_gg_A_hZ_tautaull,
-        ATLAS13_gg_A_Zh_Zbb, ATLAS13_bb_A_Zh_Zbb, CMS13_gg_A_Zh_Zbb_1, CMS13_bb_A_Zh_Zbb_1, CMS13_gg_A_Zh_Zbb_2, CMS13_bb_A_Zh_Zbb_2, CMS8_pp_A_phiZ_bbll, CMS8_pp_phi_AZ_bbll,
+        ATLAS13_gg_A_Zh_Zbb, ATLAS13_bb_A_Zh_Zbb, CMS13_gg_A_Zh_Zbb_1, CMS13_bb_A_Zh_Zbb_1, CMS13_gg_A_Zh_Zbb_2, CMS13_bb_A_Zh_Zbb_2,
+        CMS8_pp_A_phiZ_bbll, CMS8_pp_phi_AZ_bbll, ATLAS13_gg_A_phiZ_bbll, ATLAS13_bb_A_phiZ_bbll,
         ATLAS8_pp_Hpm_taunu, CMS8_pp_Hp_taunu, ATLAS13_pp_Hpm_taunu, CMS13_pp_Hpm_taunu,
         ATLAS8_pp_Hpm_tb, CMS8_pp_Hp_tb, ATLAS13_pp_Hpm_tb,
         ATLAS8_WZ_H5pm_WZ_qqll, ATLAS13_WZ_H5pm_WZ_lnull, CMS13_WZ_H5pm_WZ_lnull_1, CMS13_WZ_H5pm_WZ_lnull_2,
@@ -763,6 +764,18 @@ public:
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1804.01126.
+     */
+    double ip_ex_gg_A_phiZ_bbll_ATLAS13(double mA, double mH);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1804.01126.
+     */
+    double ip_ex_bb_A_phiZ_bbll_ATLAS13(double mA, double mH);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
      * @details Taken from arXiv:1412.6663.
      */
     double ip_ex_pp_Hpm_taunu_ATLAS8(double mHp);
@@ -966,6 +979,7 @@ public:
     double THoEX_gg_A_hZ_bbZ_ATLAS13, THoEX_bb_A_hZ_bbZ_ATLAS13;
     double THoEX_gg_A_hZ_bbZ_1_CMS13, THoEX_bb_A_hZ_bbZ_1_CMS13, THoEX_gg_A_hZ_bbZ_2_CMS13, THoEX_bb_A_hZ_bbZ_2_CMS13;
     double THoEX_pp_A_HZ_bbll_CMS8, THoEX_pp_A_H5Z_bbll_CMS8;
+    double THoEX_gg_A_HZ_bbll_ATLAS13, THoEX_bb_A_HZ_bbll_ATLAS13;
     double THoEX_pp_H_AZ_bbll_CMS8, THoEX_pp_H5_AZ_bbll_CMS8;
     double THoEX_pp_Hpm_taunu_ATLAS8, THoEX_pp_Hp_taunu_CMS8;
     double THoEX_pp_Hpm_taunu_ATLAS13, THoEX_pp_Hpm_taunu_CMS13;
@@ -980,6 +994,29 @@ public:
     double lambda1, lambda2, lambda3, lambda4, lambda5;
     double cosb, sinb, tanb;
     double vPhi;
+
+    double ghhh;
+    double ghhH;
+    double ghHH;
+    double gHHH;
+    double ghH3H3;
+    double gHH3H3;
+    double ghH3pH3m;
+    double gHH3pH3m;
+    double ghH5H5;
+    double gHH5H5;
+    double ghH5pH5m;
+    double gHH5pH5m;
+    double ghH5ppH5mm;
+    double gHH5ppH5mm;
+    double gH3H3H5;
+    double gH5H5H5;
+    gslpp::complex gH3H3pH5m;
+    double gH5H3pH3m;
+    double gH5H5pH5m;
+    double gH5H5ppH5mm;
+    double gH5ppH3mH3m;
+    double gH5ppH5mH5m;
 
     double tt_H_tt_TH13, bb_H_tt_TH13;
     double tt_A_tt_TH13, bb_A_tt_TH13;
@@ -1025,6 +1062,7 @@ public:
     double pp_H5_hh_bbbb_TH13, gg_H5_hh_bbbb_TH13, pp_H5_hh_TH13, pp_H5_hh_gagabb_TH13, pp_H5_hh_bbtautau_TH13, pp_H5_hh_bblnulnu_TH13, gg_H5_hh_TH13;
     double gg_A_hZ_bbZ_TH8, gg_A_hZ_bbll_TH8, gg_A_hZ_tautauZ_TH8, gg_A_hZ_tautaull_TH8, gg_A_hZ_bbZ_TH13, bb_A_hZ_bbZ_TH13;
     double pp_A_HZ_bbll_TH8, pp_A_H5Z_bbll_TH8, pp_H_AZ_bbll_TH8, pp_H5_AZ_bbll_TH8;
+    double gg_A_HZ_bbZ_TH13, bb_A_HZ_bbZ_TH13;
     double pp_Hpm_taunu_TH8, pp_Hp_taunu_TH8,pp_Hpm_taunu_TH13;
     double pp_Hpm_tb_TH8, pp_Hp_tb_TH8, pp_Hpm_tb_TH13;
     double WZ_H5pm_WZ_TH8, WZ_H5pm_WZ_TH13;
@@ -1391,28 +1429,6 @@ private:
     double Mu2;
     double M1sq;
     double M2sq;
-    double ghhh;
-    double ghhH;
-    double ghHH;
-    double gHHH;
-    double ghH3H3;
-    double gHH3H3;
-    double ghH3pH3m;
-    double gHH3pH3m;
-    double ghH5H5;
-    double gHH5H5;
-    double ghH5pH5m;
-    double gHH5pH5m;
-    double ghH5ppH5mm;
-    double gHH5ppH5mm;
-    double gH3H3H5;
-    double gH5H5H5;
-    gslpp::complex gH3H3pH5m;
-    double gH5H3pH3m;
-    double gH5H5pH5m;
-    double gH5H5ppH5mm;
-    double gH5ppH3mH3m;
-    double gH5ppH5mH5m;
 
     /**
      * @brief Heaviside @f$\Theta@f$ function
@@ -1536,6 +1552,8 @@ private:
     mutable double ip_ex_bb_A_hZ_bbZ_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_A_phiZ_bbll_CMS8_cache[3][CacheSize];
     mutable double ip_ex_pp_phi_AZ_bbll_CMS8_cache[3][CacheSize];
+    mutable double ip_ex_gg_A_phiZ_bbll_ATLAS13_cache[3][CacheSize];
+    mutable double ip_ex_bb_A_phiZ_bbll_ATLAS13_cache[3][CacheSize];
     mutable double ip_ex_pp_Hpm_taunu_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hp_taunu_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hpm_taunu_ATLAS13_cache[2][CacheSize];
