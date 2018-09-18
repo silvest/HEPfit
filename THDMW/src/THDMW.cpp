@@ -13,7 +13,9 @@ const std::string THDMW::THDMWvars[NTHDMWvars] = {"THDMW_logtb","THDMW_bma",
                                                "THDMW_mS2","THDMW_mu1","THDMW_mu2","THDMW_mu3","THDMW_mu4","THDMW_mu5","THDMW_mu6",
                                                "THDMW_nu1","THDMW_nu2","THDMW_nu3","THDMW_nu4","THDMW_nu5",
                                                "THDMW_omega1","THDMW_omega2","THDMW_omega3","THDMW_omega4","THDMW_omega5",
-                                               "THDMW_kappa1","THDMW_kappa2","THDMW_kappa3","Q_THDMW","RpepsTHDMW","NLOuniscaleTHDMW"};
+                                               "THDMW_kappa1","THDMW_kappa2","THDMW_kappa3",
+                                               "THDMW_etaU","THDMW_etaD",
+                                               "Q_THDMW","RpepsTHDMW","NLOuniscaleTHDMW"};
 
 THDMW::THDMW() : NPbase()/*, THDMWM(*this)*/ {
 
@@ -44,6 +46,9 @@ THDMW::THDMW() : NPbase()/*, THDMWM(*this)*/ {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_omega5", boost::cref(THDMW_omega5)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_kappa1", boost::cref(THDMW_kappa1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_kappa2", boost::cref(THDMW_kappa2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_kappa3", boost::cref(THDMW_kappa3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_etaU", boost::cref(THDMW_etaU)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_etaD", boost::cref(THDMW_etaD)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_kappa3", boost::cref(THDMW_kappa3)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_THDMW", boost::cref(Q_THDMW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("RpepsTHDMW", boost::cref(RpepsTHDMW)));
@@ -170,6 +175,10 @@ void THDMW::setParameter(const std::string name, const double& value){
         THDMW_kappa2 = value;
     else if(name.compare("THDMW_kappa3") == 0 && flag_modelTHDMW!="custodial1")
         THDMW_kappa3 = value;
+    else if(name.compare("THDMW_etaU") == 0
+        THDMW_etaU = value;
+    else if(name.compare("THDMW_etaD") == 0
+        THDMW_etaD = value;
     else if(name.compare("Q_THDMW") == 0)
         Q_THDMW = value;
     else if(name.compare("RpepsTHDMW") == 0)

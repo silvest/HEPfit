@@ -1244,7 +1244,7 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     double v1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,3);
     double v2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,3);
     return (arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z2-z) * (v2-v)
-            +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v2-v))
+            +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v2-v)
             +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v2-v)
             +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z-z1) * (v2-v)
             +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z2-z) * (v-v1)
@@ -1258,7 +1258,7 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
             +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z2-z) * (v-v1)
             +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z-z1) * (v-v1)
             +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v-v1)
-            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v-v1))
            /((x2-x1)*(y2-y1)*(z2-z1)*(v2-v1));
     }
 }
@@ -1922,6 +1922,8 @@ void THDMWcache::updateCache()
     kappa1=myTHDMW->getTHDMW_kappa1();
     kappa2=myTHDMW->getTHDMW_kappa2();
     kappa3=myTHDMW->getTHDMW_kappa3();
+    etaU=myTHDMW->getTHDMW_etaU();
+    etaD=myTHDMW->getTHDMW_etaD();
     RpepsTHDMW=myTHDMW->getRpepsTHDMW();
 
     setOtherParameters();

@@ -532,6 +532,8 @@ private:
     double kappa1;
     double kappa2;
     double kappa3;
+    double etaU;
+    double etaD;
     
     
         /**
