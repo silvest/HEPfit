@@ -7438,7 +7438,7 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
     {
         return (1.0/2.0)*(Imlambda7H*(-Ri3*Rj3*Rk3 - Ri2*Rj2*Rk3) - 3.0*Imlambda6H*Ri1*Rj1*Rk3 
                 + 2.0*lambda1H*Ri1*Rj1*Rk1 + Relambda7H*Ri2*Rj2*Rk2 + 3.0*Relambda6H*Ri1*Rj1*Rk2
-                +(2.0*Relambda5H + lambda3H + lambda4H)*Ri1*Rj1*Rk2 - (2.0*Relambda5H - lambda3H - lambda4H)*Ri1*Rj3*Rk3
+                +(2.0*Relambda5H + lambda3H + lambda4H)*Ri1*Rj2*Rk2 - (2.0*Relambda5H - lambda3H - lambda4H)*Ri1*Rj3*Rk3
                 + Relambda7H*Ri2*Rj3*Rk3 - Imlambda5H*Ri1*Rj2*Rk3);
     }
 
@@ -7484,7 +7484,11 @@ void GeneralTHDMcache::computeSignalStrengths()
     MW=MWGTHDM(myGTHDM->Mw_tree());
     cW2=cW2GTHDM(myGTHDM->c02());
     MZ=myGTHDM->getMz();
-    
+
+   
+
+
+   //CORRECT THAT. M1 CAN BE NOT  THE  LIGHTEST 
     double m1_2 = mH1sq;
     double m1 = sqrt(m1_2);
 
@@ -8011,14 +8015,50 @@ if (m3>=20. && m3 <=2000.) {
 
 
  double lambda112 = lambdaijk(R11, R12, R13, R11, R12, R13, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R12, R13, R21, R22, R23, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R21, R22, R23, R11, R12, R13, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H);
- 
- //std::cout << "lambda112 = " << lambda112 << std::endl;
 
  
 //phi2 -> phi1phi1
-double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*lambda112*lambda112/(32.0*m2*M_PI);
-//phi2 ->H+H-
-double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(32.0*m2*M_PI);
+//double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*vev*vev*lambda112*lambda112/(8.0*m2*M_PI);
+
+ double sin2b = 2.0*sinb*cosb;
+ double cos2b = cosb*cosb-sinb*sinb;
+ double sin3b = sinb*(2.0*cos2b+1.0);
+ double cos3b = cosb*(2.0*cos2b -1.0);
+ 
+ double  lambda = lambda1*cosb*cosb*cosb*cosb +lambda2*sinb*sinb*sinb*sinb + 
+ 1.0/2.0*(lambda3 + lambda4 + Relambda5)*sin2b*sin2b + 
+ 2.0*sin2b*(Relambda6*cosb*cosb + Relambda7*sinb*sinb);
+ 
+ double  lambdahat = 1.0/2.0*sin2b*(lambda1*cosb*cosb - lambda2*sinb*sinb
+        - (lambda3 +lambda4 + Relambda5)*cos2b) - Relambda6*cosb*cos3b - Relambda7*sinb*sin3b;
+ 
+ double lambdaA = cos2b*(lambda1*cosb*cosb - lambda2*sinb*sinb) + (lambda3+lambda4+Relambda5)*sin2b*sin2b
+ - Relambda5 + 2.0*Relambda6*cosb*sin3b - 2.0*Relambda7*sinb*cos3b;
+ 
+ double lambdaT = (1.0/4.0)*sin2b*sin2b*(lambda1+lambda2) + (lambda3+lambda4 +Relambda5)*(sinb*sinb*sinb*sinb +cosb*cosb*cosb*cosb) 
+ - 2.0*Relambda5 - sin2b*cos2b*(Relambda6-Relambda7);
+
+ double lambdaU =  1.0/2.0*sin2b*(sinb*sinb*lambda1 - cosb*cosb*lambda2 + 
+     cos2b*(lambda3+lambda4+Relambda5)) - Relambda6*sinb*sin3b - Relambda7*cosb*cos3b;
+ 
+  double gHhh = 3.0*vev*(lambda*cosa1*(-2.0/3.0  + sina1*sina1) - lambdahat*sina1*(1.0 - 3.0*cosa1*cosa1) + (2.0*lambdaA - lambdaT)*cosa1*(1.0/3.0 - sina1*sina1) - lambdaU*cosa1*cosa1*sina1);
+
+ 
+ /*std::cout << " lambda = " << lambda << std::endl;
+ std::cout << " lambdahat = " << lambdahat << std::endl;
+ std::cout << " lambdaA = " << lambdaA << std::endl;
+ std::cout << " lambdaT = " << lambdaT << std::endl;
+ std::cout << " lambdaU = " << lambdaU << std::endl;
+ std::cout << " gHhh = " << gHhh << std::endl;*/
+
+ 
+
+ double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*gHhh*gHhh/(8.0*m2*M_PI);
+
+ 
+ 
+ //phi2 ->H+H-
+double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(8.0*m2*M_PI);
 //phi2 -> phi1 Z
 double Gammaphi2_phi1Z=HSTheta(m2-(m1+MZ))*pow(KaellenFunction(m2_2,MZ*MZ,m1_2),3)*(R23*R12 + R22*R13)*(R23*R12 + R22*R13)/(2.0*M_PI*vev*vev);
 /* phi2 -> H+W- */
@@ -8057,6 +8097,46 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
  Br_phi2toHpHm=Gammaphi2_HpHm/Gammaphi2tot;
  Br_phi2tophi1Z=Gammaphi2_phi1Z/Gammaphi2tot;
  Br_phi2toHpW=Gammaphi2_HpW/Gammaphi2tot;
+ 
+ 
+ /*std::cout << "Gammaphi2tot = " << Gammaphi2tot << std::endl;
+ std::cout << " Gamma_phi2tott  = " << BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mt, m2_2)*beta(Mt, m2_2)))*Gammaphi2totSM << std::endl;
+ std::cout << " Gamma_phi2tocc = " << BrSM_phi2tocc*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mc, m2_2)*beta(Mc, m2_2)))*Gammaphi2totSM << std::endl;
+ std::cout << " Gamma_phi2tobb = " << BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdE/(beta(Mb, m2_2)*beta(Mb, m2_2)))*Gammaphi2totSM << std::endl;
+ std::cout << " Gamma_phi2totautau* = " << BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlE/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))*Gammaphi2totSM << std::endl;
+ std::cout << " Gamma_phi2toWW = " << BrSM_phi2toWW*rphi2_VV*Gammaphi2totSM << std::endl;
+ std::cout << " Gamma_phi2toZZ = " << BrSM_phi2toZZ*rphi2_VV*Gammaphi2totSM << std::endl;
+ std::cout << " Gammaphi2totSM = " << Gammaphi2totSM << std::endl;
+ std::cout << " Gamma_phi2gaga = " << Gamma_phi2gaga << std::endl;
+ std::cout << " Gamma_phi2Zga = " << Gamma_phi2Zga << std::endl;
+ std::cout << " Gamma_phi2gg = " << Gamma_phi2gg << std::endl;
+ std::cout << " Gammaphi2_phi1phi1 = " << Gammaphi2_phi1phi1 << std::endl;
+ std::cout << " Gammaphi2_HpHm = " << Gammaphi2_HpHm << std::endl;
+ std::cout << " Gammaphi2_phi1Z = " << Gammaphi2_phi1Z << std::endl;
+ std::cout << " Gammaphi2_HpW = " << Gammaphi2_HpW << std::endl;
+ 
+ std::cout << " lambda112 = " << lambda112 << std::endl;
+
+  
+ 
+ std::cout << "R11 = " << R11 << std::endl;
+  std::cout << "R12 = " << R12 << std::endl;
+    std::cout << "R13 = " << R13 << std::endl;
+  std::cout << "R21 = " << R21 << std::endl;
+  std::cout << "R22 = " << R22 << std::endl;
+  std::cout << "R23 = " << R23 << std::endl;
+  
+    std::cout << "lambda1H = " << lambda1H << std::endl;
+  std::cout << "lambda3H = " << lambda3H << std::endl;
+  std::cout << "lambda4H = " << lambda4H << std::endl;
+  std::cout << "Relambda5H = " << Relambda5H << std::endl;
+    std::cout << "Imlambda5H = " << Imlambda5H << std::endl;
+    std::cout << "Relambda6H = " << Relambda6H << std::endl;
+   std::cout << "Relambda7H = " << Relambda7H << std::endl;
+   std::cout << "Imlambda7H = " << Imlambda7H << std::endl;*/
+
+
+
  
  return 0.;
    

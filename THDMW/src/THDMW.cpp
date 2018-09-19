@@ -175,9 +175,9 @@ void THDMW::setParameter(const std::string name, const double& value){
         THDMW_kappa2 = value;
     else if(name.compare("THDMW_kappa3") == 0 && flag_modelTHDMW!="custodial1")
         THDMW_kappa3 = value;
-    else if(name.compare("THDMW_etaU") == 0
+    else if(name.compare("THDMW_etaU") == 0)
         THDMW_etaU = value;
-    else if(name.compare("THDMW_etaD") == 0
+    else if(name.compare("THDMW_etaD") == 0)
         THDMW_etaD = value;
     else if(name.compare("Q_THDMW") == 0)
         Q_THDMW = value;

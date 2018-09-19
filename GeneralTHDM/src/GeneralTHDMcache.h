@@ -3391,7 +3391,7 @@ public:
 
     //Remaining parameters of the generic potential depending on the input parameters
     double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda2,lambda3,lambda4,Imlambda6,Imlambda7;
-
+    
     //Parameters of the Higgs potential depending on the input parameters
     double m11sqH,m22sqH,Rem12sqH,Imm12sqH,lambda1H,lambda2H,lambda3H,lambda4H,Relambda5H,Imlambda5H,Relambda6H,Imlambda6H,Relambda7H,Imlambda7H;
     
