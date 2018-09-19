@@ -39,6 +39,8 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         ATLAS13_pp_Hp_tb2(181,2,0.),
         ATLAS13_pp_Hp_tb1_e(71,2,0.),
         ATLAS13_pp_Hp_tb2_e(181,2,0.),
+        ATLAS_13_pp_Gkk_tt(131,2,0.),
+        MadGraph_pp_Sr_tt(22800,5,0.),
         arraybsgamma(1111, 3, 0.),
         unitarityeigenvalues(11, 0.), NLOunitarityeigenvalues(11, 0.),
         myTHDMW(static_cast<const THDMW*> (&SM_i)),betaeigenvalues(11, 0.)
@@ -1216,33 +1218,33 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     double intervalx = arrayTab(1,0)-arrayTab(0,0);
     int iy=1;
     do iy++;
-    while(arrayTab(iy,1)-arrayTab(iy-1,1)==0&&iy<30000);
+    while(arrayTab(iy,1)-arrayTab(iy-1,1)==0&&iy<6000000);
     double intervaly = arrayTab(iy,1)-arrayTab(iy-1,1);
     int iz=1;
     do iz++;
-    while(arrayTab(iz,2)-arrayTab(iz-1,2)==0&&iz<30000);
+    while(arrayTab(iz,2)-arrayTab(iz-1,2)==0&&iz<6000000);
     double intervalz = arrayTab(iz,2)-arrayTab(iz-1,2);
     int iv=1;
     do iv++;
-    while(arrayTab(iv,3)-arrayTab(iv-1,3)==0&&iv<30000);
+    while(arrayTab(iv,3)-arrayTab(iv-1,3)==0&&iv<6000000);
     double intervalv = arrayTab(iv,3)-arrayTab(iv-1,3);
     int Nintervalsx = (x-xmin)/intervalx;
     int Nintervalsy = (y-ymin)/intervaly;
     int Nintervalsz = (z-zmin)/intervalz;
-    int Nintervalsv = (v-vmin)/intervalv;
+    int Nintervalsv = (v-vmin)/intervalv;       
     if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax||v<vmin||v>vmax){
-//        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
         return 0.;
     }
     else{
     double x1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,0);
-    double x2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,0);
+    double x2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx+1,0);
     double y1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,1);
-    double y2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,1);
+    double y2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz)+iy*(Nintervalsy+1)+Nintervalsx,1);
     double z1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,2);
-    double z2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,2);
+    double z2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz+1)+iy*(Nintervalsy)+Nintervalsx,2);
     double v1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,3);
-    double v2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,3);
+    double v2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx,3);
     return (arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z2-z) * (v2-v)
             +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v2-v)
             +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v2-v)
@@ -1312,6 +1314,8 @@ void THDMWcache::read(){
     std::stringstream ex4e,ex5e,ex6e,ex7e,ex8e;
     std::stringstream ex9,ex10,ex11,ex12,ex13;
     std::stringstream ex9e,ex10e,ex11e,ex12e,ex13e;
+    std::stringstream ex14;
+    std::stringstream th1;
 
     std::stringstream bsg1;
 
@@ -1410,8 +1414,11 @@ void THDMWcache::read(){
     CMS13_ggF_H_hh_bbbb = readTable(ex13.str(),226,2);
     ex13e << tablepath << "171004960_e.dat";
     CMS13_ggF_H_hh_bbbb_e = readTable(ex13e.str(),226,2);
+    ex14 << tablepath << "180410823_b.dat";
+    ATLAS_13_pp_Gkk_tt = readTable(ex14.str(),131,2);
 
-
+    th1 << tablepath << "Generated_data_S2t_Fixed_Steps.dat";
+    MadGraph_pp_Sr_tt = readTable(th1.str(),22800,5);
 
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
@@ -1813,6 +1820,65 @@ double THDMWcache::ip_ex_ggF_H_hh_bbbb_CMS13_e(double mass){
     }
 }
 
+double THDMWcache::ip_ex_pp_Gkk_tt_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_Gkk_tt_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_Gkk_tt_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS_13_pp_Gkk_tt,mass);
+        CacheShiftReal(ip_ex_pp_Gkk_tt_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+
+
+
+double THDMWcache::ip_th_pp_Sr_tt(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
+
+    int i = CacheCheckReal(ip_th_pp_Sr_tt_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Sr_tt_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate4D (MadGraph_pp_Sr_tt,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(ip_th_pp_Sr_tt_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+void THDMWcache::computeHHlimits()
+{
+    double mSr=sqrt(mSRsq);
+    double SqrtEtaU=copysign(sqrt(abs(etaU)),etaU);
+    double SqrtEtaD=copysign(sqrt(abs(etaD)),etaD);
+    double nu45=(nu4+nu5)/2;
+    //EtaU and EtaD in Sqrt Units!!!
+    THoEX_pp_Sr_tt=0.;
+    pp_Sr_tt_TH13 = 1.0e-15;
+    
+        if(mSr>= 400 && mSr<=1500 )
+    {
+        pp_Sr_tt_TH13=ip_th_pp_Sr_tt(SqrtEtaD,SqrtEtaU,nu45,mSr);
+     // pp_Sr_tt_TH13=ip_ex_pp_Gkk_tt_ATLAS13(mSr);    
+    }
+    
+    if(mSr>= 400 && mSr<=1500 )
+    {
+      THoEX_pp_Sr_tt=pp_Sr_tt_TH13/ip_ex_pp_Gkk_tt_ATLAS13(mSr);
+    //  THoEX_pp_Sr_tt=ip_th_pp_Sr_tt(1,7.,-10,500);
+
+    //    std::cout<<"ip_th_pp_Sr_tt = "<<ip_th_pp_Sr_tt(2,7.05,-10,500)<<std::endl;
+    }
+}
 
 
 
@@ -1926,7 +1992,9 @@ void THDMWcache::updateCache()
     etaD=myTHDMW->getTHDMW_etaD();
     RpepsTHDMW=myTHDMW->getRpepsTHDMW();
 
+
     setOtherParameters();
+    computeHHlimits();
     runTHDMWparameters();
     computeUnitarity();
     computeSignalStrengthQuantities();

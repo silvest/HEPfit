@@ -76,6 +76,44 @@ public:
     double mHpsq;
     double mSpsq;
 
+
+    
+     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr\to t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr\to t\bar t)@f$
+     */
+    double pp_Sr_tt_TH13;
+    
+    
+    
+    
+    
+    double THoEX_pp_Sr_tt;
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     double RpepsTHDMW;
     gslpp::vector<gslpp::complex> unitarityeigenvalues;
     gslpp::vector<gslpp::complex> NLOunitarityeigenvalues;
@@ -148,6 +186,10 @@ private:
     gslpp::complex A_H_W(const double mH, const double cW2, const double MW, const double MZ) const;
     gslpp::complex A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const;
 
+    
+    void computeHHlimits();
+    
+    
     mutable gslpp::complex I_h_U_cache[5][CacheSize];
     mutable gslpp::complex I_HH_U_cache[4][CacheSize];
     mutable gslpp::complex I_A_U_cache[4][CacheSize];
@@ -173,6 +215,7 @@ private:
     mutable gslpp::complex A_H_Hp_cache[5][CacheSize];
     
 //    mutable double ip_cs_ppto2Sto4t_13_cache[5][CacheSize];
+    mutable double ip_th_pp_Sr_tt_cache[5][CacheSize];
     mutable double ip_ex_pp_phi_hh_bbbb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_hh_bbbb_CMS8_cache_e[2][CacheSize];
     mutable double ip_ex_bb_phi_bb_CMS8_cache[2][CacheSize];
@@ -199,6 +242,7 @@ private:
     mutable double ip_ex_pp_Hp_tb_ATLAS13_2_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbbb_CMS13_cache[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbbb_CMS13_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Gkk_tt_ATLAS13_cache[2][CacheSize];
 
     
     
@@ -295,10 +339,49 @@ private:
     gslpp::matrix<double> ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e;
 
 
+        /**
+     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Kaluza-Klein Graviton mass. Process pp -> Gkk -> t tbar.
+     */
+    gslpp::matrix<double> ATLAS_13_pp_Gkk_tt;
+    
+    
+    
+        /**
+     * @brief Table for xsection times branching ratio for p p -> Sr -> t tbar generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Sr_tt;
+    
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
      */
     gslpp::matrix<double> arraybsgamma;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
     
     
         /**
@@ -483,6 +566,34 @@ private:
      */
     double ip_ex_ggF_H_hh_bbbb_CMS13_e(double mass);
 
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on pp -> Gkk (Kaluza-Klein graviton) -> t tbar
+     * @return xsection times branching ratio
+     * @details ATLAS arXiv:1804.01939, Fig. 16, 36.1 fb^-1, 13 TeV
+     */
+    double ip_ex_pp_Gkk_tt_ATLAS13(double mass);    
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr -> t tbar
+     * @return xsection times branching ratio of pp -> Sr -> t tbar
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sr_tt(double etaD, double etaU, double Lambda4, double mass);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
     
     
     gslpp::complex f_func(const double x) const;

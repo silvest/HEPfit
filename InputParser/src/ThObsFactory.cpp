@@ -2785,6 +2785,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["rh_gg_THDMW"] = boost::factory<rh_gg_THDMW*>();
     obsThFactory["rh_gaga_THDMW"] = boost::factory<rh_gaga_THDMW*>();
     obsThFactory["rh_Zga_THDMW"] = boost::factory<rh_Zga_THDMW*>();
+    //-----   Direct Searches -----
+    obsThFactory["Hobs_pp_Sr_tt_ATLAS13"] = boost::factory<Hobs_pp_Sr_tt_ATLAS13*>();
+    obsThFactory["log10_pp_Sr_tt_TH13"] = boost::factory<log10_pp_Sr_tt_TH13*>();
+    
     /** END: REMOVE FROM THE PACKAGE **/
 
     //-----  GeorgiMachacek observables  -----

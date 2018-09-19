@@ -8,6 +8,7 @@
 #ifndef THDMWOBSERVABLES_H
 #define	THDMWOBSERVABLES_H
 
+#include "THDMWdirectsearches.h"
 #include "THDMWpositivity.h"
 #include "THDMWquantities.h"
 #include "THDMWquantitiesatQ.h"
