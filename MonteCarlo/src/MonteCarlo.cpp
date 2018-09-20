@@ -260,6 +260,18 @@ void MonteCarlo::Run(const int rank) {
                 std::cout << "  " << it1->getName() << " containing "
                 << it1->getObs().size() << " observables." << std::endl;
             ParseMCMCConfig(MCMCConf);
+            char mbstr[100];
+            std::time_t ti = std::time(NULL); 
+            std::time_t tf = std::time(NULL);
+                                  
+            if (RunMinuitOnly) { 
+                if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) std::cout << "\nMinuit Minimization started at " <<  mbstr << std::endl; 
+                BCLog::OpenLog(("MinuitMinimizationResults" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
+                MCEngine.FindMode();
+                if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) std::cout << "\nMinuit Minimization ended at " <<  mbstr << std::endl;
+                return;
+            }
+  
             MCEngine.CreateHistogramMaps();
             
             if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
@@ -285,11 +297,8 @@ void MonteCarlo::Run(const int rank) {
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
-            std::time_t ti = std::time(NULL);
-            char mbstr[100];
             if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) std::cout << "MCMC Run started at " <<  mbstr << std::endl; 
             MCEngine.MarginalizeAll();
-            std::time_t tf = std::time(NULL);
             if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) std::cout << "MCMC Run ended at " <<  mbstr << std::endl; 
 
             // find mode using the best fit parameters as start values
@@ -475,6 +484,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (beg->compare("true") == 0 || beg->compare("false") == 0) FindModeWithMinuit = (beg->compare("true") == 0);
             else
                 throw std::runtime_error("\nERROR: FindModeWithMinuit in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("RunMinuitOnly") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) RunMinuitOnly = (beg->compare("true") == 0);
+            else
+                throw std::runtime_error("\nERROR: RunMinuitOnly in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
         } else if (beg->compare("CalculateNormalization") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) CalculateNormalization = *beg;
