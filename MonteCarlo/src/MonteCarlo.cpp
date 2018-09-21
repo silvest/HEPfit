@@ -36,6 +36,7 @@ MonteCarlo::MonteCarlo(
     else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
+    RunMinuitOnly = false;
     CalculateNormalization = "false";
     NIterationNormalizationMC = 0;
     PrintAllMarginalized = false;
