@@ -106,7 +106,7 @@ void MPlnu::updateParameters()
     q2max = (MM-MP)*(MM-MP);
     
     /* SM Wilson coefficients */
-    eta_EW = 1.0066;
+    eta_EW = (1.+ale_mub/M_PI*log(mySM.getMz()/mu_b));
     CV_SM = 1./2.;
     CV = CV_SM*eta_EW;
     CA = -CV_SM*eta_EW;
@@ -321,8 +321,11 @@ double MPlnu::f0(double q2)
     double w = w0 - q2 / (2. * MM * MP);
     double z = (sqrt(w + 1.) - sqrt(2.)) / (sqrt(w + 1.) + sqrt(2.));
     if (CLNflag) {
+        double prefac0 = 2. * sqrt(MP / MM) / (1. + MP / MM)*2. * sqrt(MP / MM) / (1. + MP / MM)*(1. + w0) / 2.;
+        double norm = prefac0 * 1.0036 * (1. - 0.0068 * (w0 - 1.) + 0.0017 * (w0 - 1.)*(w0 - 1.) - 0.0013 * (w0 - 1.)*(w0 - 1.)*(w0 - 1.));
         double prefac = fplus(q2)*2. * sqrt(MP / MM) / (1. + MP / MM)*2. * sqrt(MP / MM) / (1. + MP / MM)*(1. + w) / 2.;
-        return prefac * 1.0036 * (1. - 0.0068 * (w - 1.) + 0.0017 * (w - 1.)*(w - 1.) - 0.0013 * (w - 1.)*(w - 1.)*(w - 1.));
+        // norm introduced to respect f+(q2=0)=f0(q2=0) exactly
+        return prefac/norm * 1.0036 * (1. - 0.0068 * (w - 1.) + 0.0017 * (w - 1.)*(w - 1.) - 0.0013 * (w - 1.)*(w - 1.)*(w - 1.));
     } else {
         double P_f0 = (z - z0p_1) / (1. - z * z0p_1)*(z - z0p_2) / (1. - z * z0p_2);
         return (af0_0 + af0_1 * z + af0_2 * z * z) / phi_f0(z) / P_f0;
