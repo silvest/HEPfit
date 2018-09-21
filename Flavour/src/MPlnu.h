@@ -107,6 +107,7 @@ private:
     double amplsq_factor;   /**< Overall helicity |A|^2 factor*/
     double q2min, q2max; /**< min and max lepton-neutrino invariant mass squared*/
     
+    double eta_EW; /**<EW correction @f$\eta_{EW}@f$*/
     double CV_SM; /**<Wilson coeffients @f$C_{V}@f$*/
     
     double CS; /**<Wilson coeffients @f$C_{S}@f$*/
@@ -267,6 +268,13 @@ private:
     * @return \f$ J_{3} \f$
     */
     double  J3(double q2);
+    
+    /**
+    * @brief Differential Squared Amplitude \f$ d\Gamma/dq2 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ d\Gamma/dq2 \f$
+    */
+    double  dGammadq2(double q2);
 
     /**
     * @brief \f$ <J_{i}> \f$ 

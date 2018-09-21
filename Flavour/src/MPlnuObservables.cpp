@@ -25,10 +25,21 @@ double Gammaw_MPlnu::computeThValue()
 {
     double w_min = getBinMin();
     double w_max = getBinMax();
+    double MM = SM.getMesons(meson).getMass();
+    double MP = SM.getMesons(pseudoscalarM).getMass();
+    double q2_min_lep1 = SM.getLeptons(lep1).getMass()*SM.getLeptons(lep1).getMass();
+    double w_max_lep1 = (MM*MM+MP*MP)/(2.*MM*MP)-q2_min_lep1/(2.*MM*MP);
+    double w_max_extra = 0.;
+    double deltaGammadeltaw_lep2_extra = 0.;
+    if(w_max > w_max_lep1){
+        w_max_extra = w_max;
+        w_max = w_max_lep1;
+        deltaGammadeltaw_lep2_extra = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep2).getDeltaGammaDeltaw(w_max,w_max_extra);
+    }
     double deltaGammadeltaw_lep1 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).getDeltaGammaDeltaw(w_min,w_max);
-    double deltaGammadeltaw_lep2 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep2).getDeltaGammaDeltaw(w_min,w_max);
-    
-    return (deltaGammadeltaw_lep1+deltaGammadeltaw_lep2)/2./(w_max-w_min);
+    double deltaGammadeltaw_lep2 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep2).getDeltaGammaDeltaw(w_min,w_max);  
+    w_max_extra = w_max;
+    return (deltaGammadeltaw_lep2_extra+0.5*(deltaGammadeltaw_lep1+deltaGammadeltaw_lep2))/(w_max_extra-w_min);
 }
 
 RD_MPlnu::RD_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2, QCD::lepton lep_3)

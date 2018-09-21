@@ -106,9 +106,10 @@ void MPlnu::updateParameters()
     q2max = (MM-MP)*(MM-MP);
     
     /* SM Wilson coefficients */
-    CV_SM = 1./2.*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b));
-    CV = CV_SM;
-    CA = -CV_SM;
+    eta_EW = 1.0066;
+    CV_SM = 1./2.;
+    CV = CV_SM*eta_EW;
+    CA = -CV_SM*eta_EW;
     CVp = 0.;
     CAp = 0.;
     CS = 0.;
@@ -424,11 +425,23 @@ double MPlnu::J2(double q2)
     return amplsq_factor * G1(q2).real();
 }
 
-double MPlnu::J3(double q2)
+double MPlnu::J3(double q2) 
 {
     if ((q2 < Mlep * Mlep) or (q2 > (MM - MP)*(MM - MP))) return 0.;
     return amplsq_factor * 3. / 2. * G2(q2).real();
 }
+
+double MPlnu::dGammadq2(double q2)
+{
+    if ((q2 < q2min) or (q2 > (MM - MP)*(MM - MP))) return 0.;
+    double sqlambdaB = lambda_half(q2,MM*MM,MP*MP);
+    double prefac = (CV-CA)*(CV-CA)*GF*GF*Vcb.abs2()*MM*sqlambdaB/192./M_PI/M_PI/M_PI;
+    double coeff_fp = (1.+Mlep*Mlep/(2.*q2))*sqlambdaB*sqlambdaB/MM/MM/MM/MM;
+    double coeff_f0 = (1.-MP*MP/MM/MM)*(1.-MP*MP/MM/MM)*3*Mlep*Mlep/(2.*q2);
+    double TotAmp2 = coeff_fp*fplus(q2)*fplus(q2)+coeff_f0*f0(q2)*f0(q2);
+    return prefac*(1.-Mlep*Mlep/q2)*(1.-Mlep*Mlep/q2)*TotAmp2;
+ }
+
 /***************************************************************************
  * Integration of angular coefficients Js                                  *
  * ************************************************************************/
@@ -464,6 +477,11 @@ double MPlnu::integrateJ(int i, double q2_min, double q2_max)
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
+        case 4:
+            FJ = convertToGslFunction(boost::bind(&MPlnu::dGammadq2, &(*this), _1));
+            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
+            gsl_set_error_handler(old_handler);
+            return J_res;
             break;
         default:
             gsl_set_error_handler(old_handler);
@@ -473,6 +491,7 @@ double MPlnu::integrateJ(int i, double q2_min, double q2_max)
     }
 }
 
+/* misleading name, needs to be changed: this is like dGammadq2 ... */
 double MPlnu::dGammadw(double q2)
 {
     updateParameters();
@@ -480,24 +499,27 @@ double MPlnu::dGammadw(double q2)
     return 2. * (J1(q2) + J3(q2) / 3.);
 }
 
+/* misleading name, needs to be changed: this is like DeltaGamma only ... */
 double MPlnu::getDeltaGammaDeltaw(double w_min, double w_max)
 {
     updateParameters();
-
+    
     double q2_min = (2. * MM * MP)*(w0 - w_max); // min is Mlep*Mlep;
     double q2_max = (2. * MM * MP)*(w0 - w_min); // max is (MM-MP)*(MM-MP);
-
+    /*
     double intJ1 = integrateJ(1, q2_min, q2_max);
     double intJ3 = integrateJ(3, q2_min, q2_max);
 
     return 2. * (intJ1 + intJ3 / 3.);
+    */
+    return integrateJ(4, q2_min, q2_max);
 }
 
 double MPlnu::get_unitarity_1min_BGL()
 {
     updateParameters();
 
-    return afplus_0 * afplus_0 + afplus_1 * afplus_1 + afplus_2*afplus_2;
+    return afplus_0 * afplus_0 + afplus_1 * afplus_1 + afplus_2 * afplus_2;
 
 }
 
