@@ -7437,8 +7437,8 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
     double GeneralTHDMcache::lambdaijk(const double Ri1,const double Ri2,const double Ri3,const double Rj1,const double Rj2,const double Rj3, const double Rk1,const double Rk2,const double Rk3, const double lambda1H, const double lambda3H, const double lambda4H, const double Relambda5H, const double Imlambda5H, const double Relambda6H, const double Imlambda6H, const double Relambda7H, const double Imlambda7H) const
     {
         return (1.0/2.0)*(Imlambda7H*(-Ri3*Rj3*Rk3 - Ri2*Rj2*Rk3) - 3.0*Imlambda6H*Ri1*Rj1*Rk3 
-                + 2.0*lambda1H*Ri1*Rj1*Rk1 + Relambda7H*Ri2*Rj2*Rk2 + 3.0*Relambda6H*Ri1*Rj1*Rk2
-                +(2.0*Relambda5H + lambda3H + lambda4H)*Ri1*Rj2*Rk2 - (2.0*Relambda5H - lambda3H - lambda4H)*Ri1*Rj3*Rk3
+                + lambda1H*Ri1*Rj1*Rk1 + Relambda7H*Ri2*Rj2*Rk2 + 3.0*Relambda6H*Ri1*Rj1*Rk2
+                +(Relambda5H + lambda3H + lambda4H)*Ri1*Rj2*Rk2 - (2.0*Relambda5H - lambda3H - lambda4H)*Ri1*Rj3*Rk3
                 + Relambda7H*Ri2*Rj3*Rk3 - Imlambda5H*Ri1*Rj2*Rk3);
     }
 
@@ -8012,13 +8012,11 @@ if (m3>=20. && m3 <=2000.) {
     
     
     /*Decay of phi2 to the others scalars*/
+   
+    double lambda112 = (2.0)*(lambdaijk(R11, R21, R13, R11, R21, R13, R12, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R21, R13, -R21, R22, R23, R11, R21, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R12, R22, R23, R11, R21, R13, R11, R21, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H));
 
-
- double lambda112 = lambdaijk(R11, R12, R13, R11, R12, R13, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R12, R13, R21, R22, R23, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R21, R22, R23, R11, R12, R13, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H);
-
- 
 //phi2 -> phi1phi1
-//double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*vev*vev*lambda112*lambda112/(8.0*m2*M_PI);
+double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*vev*vev*lambda112*lambda112/(32.0*m2*M_PI);
 
  double sin2b = 2.0*sinb*cosb;
  double cos2b = cosb*cosb-sinb*sinb;
@@ -8029,7 +8027,7 @@ if (m3>=20. && m3 <=2000.) {
  1.0/2.0*(lambda3 + lambda4 + Relambda5)*sin2b*sin2b + 
  2.0*sin2b*(Relambda6*cosb*cosb + Relambda7*sinb*sinb);
  
- double  lambdahat = 1.0/2.0*sin2b*(lambda1*cosb*cosb - lambda2*sinb*sinb
+double  lambdahat = 1.0/2.0*sin2b*(lambda1*cosb*cosb - lambda2*sinb*sinb
         - (lambda3 +lambda4 + Relambda5)*cos2b) - Relambda6*cosb*cos3b - Relambda7*sinb*sin3b;
  
  double lambdaA = cos2b*(lambda1*cosb*cosb - lambda2*sinb*sinb) + (lambda3+lambda4+Relambda5)*sin2b*sin2b
@@ -8041,22 +8039,7 @@ if (m3>=20. && m3 <=2000.) {
  double lambdaU =  1.0/2.0*sin2b*(sinb*sinb*lambda1 - cosb*cosb*lambda2 + 
      cos2b*(lambda3+lambda4+Relambda5)) - Relambda6*sinb*sin3b - Relambda7*cosb*cos3b;
  
-  double gHhh = 3.0*vev*(lambda*cosa1*(-2.0/3.0  + sina1*sina1) - lambdahat*sina1*(1.0 - 3.0*cosa1*cosa1) + (2.0*lambdaA - lambdaT)*cosa1*(1.0/3.0 - sina1*sina1) - lambdaU*cosa1*cosa1*sina1);
 
- 
- /*std::cout << " lambda = " << lambda << std::endl;
- std::cout << " lambdahat = " << lambdahat << std::endl;
- std::cout << " lambdaA = " << lambdaA << std::endl;
- std::cout << " lambdaT = " << lambdaT << std::endl;
- std::cout << " lambdaU = " << lambdaU << std::endl;
- std::cout << " gHhh = " << gHhh << std::endl;*/
-
- 
-
- double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*gHhh*gHhh/(8.0*m2*M_PI);
-
- 
- 
  //phi2 ->H+H-
 double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(8.0*m2*M_PI);
 //phi2 -> phi1 Z
