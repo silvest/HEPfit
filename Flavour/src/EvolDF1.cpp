@@ -1248,8 +1248,7 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, uint n_u, uint n_d
 // assign blocks according to user request: "C", "CP", "CPM", "L", "CPML", "CPQB", "CPMQB", "CPMLQB"
     
     if(blocks.compare("C") == 0)
-        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
-        
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));        
     else if(blocks.compare("CP") == 0)
     {
         gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
