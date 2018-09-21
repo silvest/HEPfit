@@ -1250,7 +1250,7 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, uint n_u, uint n_d
     if(blocks.compare("C") == 0)
         gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
         
-    if(blocks.compare("CP") == 0)
+    else if(blocks.compare("CP") == 0)
     {
         gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
         gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
