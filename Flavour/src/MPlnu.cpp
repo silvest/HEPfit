@@ -95,7 +95,7 @@ void MPlnu::updateParameters()
     width = mySM.getMesons(meson).computeWidth();
     w0 = (MM*MM+MP*MP)/(2.*MM*MP);
     RV = 2.*sqrt(MM*MP)/(MM+MP);
-    mu_b = mySM.getMub();
+    mu_b = MM; // mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
     Vcb = mySM.getCKM().getV_cb(); // mySM.getOptionalParameter("AbsVcb");
@@ -509,13 +509,14 @@ double MPlnu::getDeltaGammaDeltaw(double w_min, double w_max)
     
     double q2_min = (2. * MM * MP)*(w0 - w_max); // min is Mlep*Mlep;
     double q2_max = (2. * MM * MP)*(w0 - w_min); // max is (MM-MP)*(MM-MP);
-    /*
+    
     double intJ1 = integrateJ(1, q2_min, q2_max);
     double intJ3 = integrateJ(3, q2_min, q2_max);
 
     return 2. * (intJ1 + intJ3 / 3.);
-    */
-    return integrateJ(4, q2_min, q2_max);
+    
+    // x-check of the SM computation
+    //return integrateJ(4, q2_min, q2_max);
 }
 
 double MPlnu::get_unitarity_1min_BGL()

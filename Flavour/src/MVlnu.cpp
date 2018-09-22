@@ -99,7 +99,7 @@ void MVlnu::updateParameters()
     width = mySM.getMesons(meson).computeWidth();
     w0 = (MM*MM+MV*MV)/(2.*MM*MV);
     RV = 2.*sqrt(MM*MV)/(MM+MV);
-    mu_b = mySM.getMub();
+    mu_b = MM; // mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
     Vcb = mySM.getCKM().getV_cb(); // mySM.getOptionalParameter("AbsVcb");
