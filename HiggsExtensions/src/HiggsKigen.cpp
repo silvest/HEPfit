@@ -234,7 +234,27 @@ double HiggsKigen::mueeZH(const double sqrt_s) const
     return (computeKZ() * computeKZ());
 }
 
+double HiggsKigen::mueeZllH(const double sqrt_s) const
+{
+    return (computeKZ() * computeKZ());
+}
+
+double HiggsKigen::mueeZqqH(const double sqrt_s) const
+{
+    return (computeKZ() * computeKZ());
+}
+
 double HiggsKigen::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return (computeKZ() * computeKZ());
+}
+
+double HiggsKigen::mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return (computeKZ() * computeKZ());
+}
+
+double HiggsKigen::mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return (computeKZ() * computeKZ());
 }
