@@ -5741,6 +5741,51 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
     return mu;
 }
 
+double NPSMEFTd6::mueeZllH(const double sqrt_s) const
+{
+    
+//  The signal strength eeZH
+    double mu = mueeZH(sqrt_s);
+    
+//  The (relative) linear correction to the Z>ll BR
+    double deltaBRratio;
+
+    deltaBRratio = deltaGamma_Zf(leptons[ELECTRON]) 
+            + deltaGamma_Zf(leptons[MU]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaZ(leptons[ELECTRON]) + trueSM.GammaZ(leptons[MU]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+
+    return mu + deltaBRratio;
+}
+
+double NPSMEFTd6::mueeZqqH(const double sqrt_s) const
+{
+    
+//  The signal strength eeZH
+    double mu = mueeZH(sqrt_s);
+    
+//  The (relative) linear correction to the Z>qq BR
+    double deltaBRratio;
+
+    deltaBRratio = deltaGamma_Zf(quarks[UP]) 
+            + deltaGamma_Zf(quarks[DOWN])
+            + deltaGamma_Zf(quarks[CHARM])
+            + deltaGamma_Zf(quarks[STRANGE])
+            + deltaGamma_Zf(quarks[BOTTOM]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaZ(quarks[UP]) + trueSM.GammaZ(quarks[DOWN])
+            + trueSM.GammaZ(quarks[CHARM]) + trueSM.GammaZ(quarks[STRANGE])
+            + trueSM.GammaZ(quarks[BOTTOM]));
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+
+    return mu + deltaBRratio;
+}
+
 double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
@@ -6684,6 +6729,51 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
+}
+
+double NPSMEFTd6::mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    
+//  The signal strength eeZH
+    double mu = mueeZHPol(sqrt_s, Pol_em, Pol_ep);
+    
+//  The (relative) linear correction to the Z>ll BR
+    double deltaBRratio;
+
+    deltaBRratio = deltaGamma_Zf(leptons[ELECTRON]) 
+            + deltaGamma_Zf(leptons[MU]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaZ(leptons[ELECTRON]) + trueSM.GammaZ(leptons[MU]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+
+    return mu + deltaBRratio;
+}
+
+double NPSMEFTd6::mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    
+//  The signal strength eeZH
+    double mu = mueeZHPol(sqrt_s, Pol_em, Pol_ep);
+    
+//  The (relative) linear correction to the Z>qq BR
+    double deltaBRratio;
+
+    deltaBRratio = deltaGamma_Zf(quarks[UP]) 
+            + deltaGamma_Zf(quarks[DOWN])
+            + deltaGamma_Zf(quarks[CHARM])
+            + deltaGamma_Zf(quarks[STRANGE])
+            + deltaGamma_Zf(quarks[BOTTOM]);
+    
+    deltaBRratio = deltaBRratio / 
+            ( trueSM.GammaZ(quarks[UP]) + trueSM.GammaZ(quarks[DOWN])
+            + trueSM.GammaZ(quarks[CHARM]) + trueSM.GammaZ(quarks[STRANGE])
+            + trueSM.GammaZ(quarks[BOTTOM]));
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+
+    return mu + deltaBRratio;
 }
 
 double NPSMEFTd6::muVH(const double sqrt_s) const
