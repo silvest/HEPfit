@@ -759,6 +759,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHbbRatio"] = boost::factory<BrHtobbRatio*>();
     //-----  Ratios of BR (ratios with SM)  ----------    
     obsThFactory["BrHtogaga_over_mumu_Ratio"] = boost::factory<BrHtogaga_over_mumu_Ratio*>();
+    obsThFactory["BrHtoZga_over_mumu_Ratio"] = boost::factory<BrHtoZga_over_mumu_Ratio*>();
     obsThFactory["BrHtogaga_over_4l_Ratio"] = boost::factory<BrHtogaga_over_4l_Ratio*>();
     obsThFactory["BrHtoZga_over_4l_Ratio"] = boost::factory<BrHtoZga_over_4l_Ratio*>();
     obsThFactory["BrHtomumu_over_4l_Ratio"] = boost::factory<BrHtomumu_over_4l_Ratio*>();

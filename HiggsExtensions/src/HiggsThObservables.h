@@ -1589,6 +1589,46 @@ private:
 
 
 /**
+ * @class BrHtoZga_over_mumu_Ratio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoZga_over_mumu_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoZga_over_mumu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoZga_over_mumu_Ratio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrHmumuRatio()) );
+        } else {
+            return (myNPbase->BrHZgaRatio())/(myNPbase->BrHmumuRatio());
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
  * @class BrHtogaga_over_4l_Ratio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
