@@ -340,12 +340,37 @@ double HiggsKigen::BrHZZ4lRatio() const
     return BrHZZRatio();
 }
 
+double HiggsKigen::BrHZZ4eRatio() const
+{
+    return BrHZZRatio();
+}
+
+double HiggsKigen::BrHZZ2e2muRatio() const
+{
+    return BrHZZRatio();
+}
+
+double HiggsKigen::BrHZZ4muRatio() const
+{
+    return BrHZZRatio();
+}
+
 double HiggsKigen::BrHZgaRatio() const
 {
     return (computeKZga() * computeKZga() / computeGammaTotalRatio());
 }
 
 double HiggsKigen::BrHZgallRatio() const
+{
+    return BrHZgaRatio();
+}
+
+double HiggsKigen::BrHZgaeeRatio() const
+{
+    return BrHZgaRatio();
+}
+
+double HiggsKigen::BrHZgamumuRatio() const
 {
     return BrHZgaRatio();
 }

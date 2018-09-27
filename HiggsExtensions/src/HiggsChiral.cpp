@@ -519,6 +519,27 @@ double HiggsChiral::BrHZZ4lRatio() const
     return BrHZZRatio();
 }
 
+double HiggsChiral::BrHZZ4eRatio() const
+{
+//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
+    
+    return BrHZZRatio();
+}
+
+double HiggsChiral::BrHZZ2e2muRatio() const
+{
+//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
+    
+    return BrHZZRatio();
+}
+
+double HiggsChiral::BrHZZ4muRatio() const
+{
+//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
+    
+    return BrHZZRatio();
+}
+
 double HiggsChiral::BrHZgaRatio() const
 {
 //    return GammaZga() / GammaTotal() / trueSM.computeBrHtoZga();
@@ -527,6 +548,20 @@ double HiggsChiral::BrHZgaRatio() const
 }
 
 double HiggsChiral::BrHZgallRatio() const
+{
+//    return GammaZga() / GammaTotal() / trueSM.computeBrHtoZga();
+    
+    return BrHZgaRatio();
+}
+
+double HiggsChiral::BrHZgaeeRatio() const
+{
+//    return GammaZga() / GammaTotal() / trueSM.computeBrHtoZga();
+    
+    return BrHZgaRatio();
+}
+
+double HiggsChiral::BrHZgamumuRatio() const
 {
 //    return GammaZga() / GammaTotal() / trueSM.computeBrHtoZga();
     

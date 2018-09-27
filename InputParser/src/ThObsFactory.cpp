@@ -750,8 +750,13 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHWW2l2vRatio"] = boost::factory<BrHtoWW2l2vRatio*>();
     obsThFactory["BrHZZRatio"] = boost::factory<BrHtoZZRatio*>();
     obsThFactory["BrHZZ4lRatio"] = boost::factory<BrHtoZZ4lRatio*>();
+    obsThFactory["BrHZZ4eRatio"] = boost::factory<BrHtoZZ4eRatio*>();
+    obsThFactory["BrHZZ2e2muRatio"] = boost::factory<BrHtoZZ2e2muRatio*>();
+    obsThFactory["BrHZZ4muRatio"] = boost::factory<BrHtoZZ4muRatio*>();
     obsThFactory["BrHZgaRatio"] = boost::factory<BrHtoZgaRatio*>();
     obsThFactory["BrHZgallRatio"] = boost::factory<BrHtoZgallRatio*>();
+    obsThFactory["BrHZgaeeRatio"] = boost::factory<BrHtoZgaeeRatio*>();
+    obsThFactory["BrHZgamumuRatio"] = boost::factory<BrHtoZgamumuRatio*>();
     obsThFactory["BrHgagaRatio"] = boost::factory<BrHtogagaRatio*>();
     obsThFactory["BrHmumuRatio"] = boost::factory<BrHtomumuRatio*>();
     obsThFactory["BrHtautauRatio"] = boost::factory<BrHtotautauRatio*>();
@@ -760,9 +765,12 @@ ThObsFactory::ThObsFactory()
     //-----  Ratios of BR (ratios with SM)  ----------    
     obsThFactory["BrHtogaga_over_mumu_Ratio"] = boost::factory<BrHtogaga_over_mumu_Ratio*>();
     obsThFactory["BrHtoZga_over_mumu_Ratio"] = boost::factory<BrHtoZga_over_mumu_Ratio*>();
-    obsThFactory["BrHtogaga_over_4l_Ratio"] = boost::factory<BrHtogaga_over_4l_Ratio*>();
+    obsThFactory["BrHtoZmumuga_over_mumu_Ratio"] = boost::factory<BrHtoZmumuga_over_mumu_Ratio*>();
+    obsThFactory["BrHtogaga_over_4l_Ratio"] = boost::factory<BrHtogaga_over_4l_Ratio*>();    
+    obsThFactory["BrHtogaga_over_2e2mu_Ratio"] = boost::factory<BrHtogaga_over_2e2mu_Ratio*>();
     obsThFactory["BrHtoZga_over_4l_Ratio"] = boost::factory<BrHtoZga_over_4l_Ratio*>();
-    obsThFactory["BrHtomumu_over_4l_Ratio"] = boost::factory<BrHtomumu_over_4l_Ratio*>();
+    obsThFactory["BrHtomumu_over_4l_Ratio"] = boost::factory<BrHtomumu_over_4l_Ratio*>();    
+    obsThFactory["BrHtomumu_over_4mu_Ratio"] = boost::factory<BrHtomumu_over_4mu_Ratio*>();        
     obsThFactory["BrHto4l_over_gaga_Ratio"] = boost::factory<BrHto4l_over_gaga_Ratio*>();
     obsThFactory["BrHtoZga_over_gaga_Ratio"] = boost::factory<BrHtoZga_over_gaga_Ratio*>();
     obsThFactory["BrHtomumu_over_gaga_Ratio"] = boost::factory<BrHtomumu_over_gaga_Ratio*>();    

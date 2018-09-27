@@ -7963,6 +7963,60 @@ double NPSMEFTd6::BrHZZ4lRatio() const
     return Br;
 }
 
+double NPSMEFTd6::BrHZZ4eRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHZZ4eRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHZZ4eRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZZ4eRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::BrHZZ2e2muRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHZZ2e2muRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHZZ2e2muRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZZ2e2muRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::BrHZZ4muRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHZZ4muRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - deltaGammaHZZ4muRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZZ4muRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
 double NPSMEFTd6::BrHZvvRatio() const
 {
     double Br = 1.0;
@@ -8132,6 +8186,28 @@ double NPSMEFTd6::BrHZgallRatio() const
     
     deltaBRratio = deltaBRratio / 
             ( trueSM.GammaZ(leptons[ELECTRON]) + trueSM.GammaZ(leptons[MU]) );
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+    
+    return ( BrHZgaRatio() + deltaBRratio );
+}
+
+double NPSMEFTd6::BrHZgaeeRatio() const
+{
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Zf(leptons[ELECTRON]) / (trueSM.GammaZ(leptons[ELECTRON]));
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+    
+    return ( BrHZgaRatio() + deltaBRratio );
+}
+
+double NPSMEFTd6::BrHZgamumuRatio() const
+{
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Zf(leptons[MU])/(trueSM.GammaZ(leptons[MU]));
     
     deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
     
@@ -8836,6 +8912,128 @@ double NPSMEFTd6::deltaGammaHZllRatio2() const
     
 }
 
+double NPSMEFTd6::GammaHZeeRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+
+    width += deltaGammaHZeeRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZeeRatio2();   
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZeeRatio1() const
+{
+    double dwidth = 0.0;
+    
+    double C1 = 0.0083;
+    
+//  Derived from the HZll expression for l=e only
+
+    dwidth = ( +121715. * CHbox / LambdaNP2
+                +8726.9 * CHL1_11 / LambdaNP2
+                -7315.2 * CHe_11 / LambdaNP2
+                +8726.9 * CHL3_11 / LambdaNP2
+                -5544.15 * CHD / LambdaNP2
+                -13560.9 * CHB / LambdaNP2
+                -45585.2 * CHW / LambdaNP2
+                -53507.9 * CHWB / LambdaNP2
+                +16829.2 * CDHB / LambdaNP2
+                +30766.6 * CDHW / LambdaNP2
+                -2.204 * DeltaGF()  );
+    
+//  Linear contribution from Higgs self-coupling
+    dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    // Add modifications due to small variations of the SM parameters    
+    //dwidth += cHSM * ( 0.0 ); 
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    //dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZeeRatio2() const
+{
+    double dwidth = 0.0;
+    
+//  Quadratic contribution from Higgs self-coupling
+    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );
+    
+}
+
+double NPSMEFTd6::GammaHZmumuRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+
+    width += deltaGammaHZmumuRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZmumuRatio2();   
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZmumuRatio1() const
+{
+    double dwidth = 0.0;
+    
+    double C1 = 0.0083;
+    
+//  Derived from the HZll expression for l=mu only
+
+    dwidth = ( +121715. * CHbox / LambdaNP2
+                +8726.9 * CHL1_22 / LambdaNP2
+                -7315.2 * CHe_22 / LambdaNP2
+                +8726.9 * CHL3_22 / LambdaNP2
+                -5544.15 * CHD / LambdaNP2
+                -13560.9 * CHB / LambdaNP2
+                -45585.2 * CHW / LambdaNP2
+                -53507.9 * CHWB / LambdaNP2
+                +16829.2 * CDHB / LambdaNP2
+                +30766.6 * CDHW / LambdaNP2
+                -2.204 * DeltaGF()  );
+    
+//  Linear contribution from Higgs self-coupling
+    dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    // Add modifications due to small variations of the SM parameters    
+    //dwidth += cHSM * ( 0.0 ); 
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    //dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZmumuRatio2() const
+{
+    double dwidth = 0.0;
+    
+//  Quadratic contribution from Higgs self-coupling
+    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );
+    
+}
+
 double NPSMEFTd6::GammaHZZ4lRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
@@ -8886,6 +9084,176 @@ double NPSMEFTd6::deltaGammaHZZ4lRatio2() const
     double dwidth = 0.0;
     
     dwidth = deltaGammaHZllRatio2(); 
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );
+    
+}
+
+double NPSMEFTd6::GammaHZZ4eRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+
+    width += deltaGammaHZZ4eRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZZ4eRatio2();   
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZZ4eRatio1() const
+{
+    double dwidth = 0.0;
+    
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Zf(leptons[ELECTRON]) / (trueSM.GammaZ(leptons[ELECTRON]));
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+
+    dwidth = deltaGammaHZeeRatio1() + deltaBRratio;
+    
+    // Add modifications due to small variations of the SM parameters    
+    dwidth += cHSM * ( -0.11 * deltaaMZ()
+                +2.276 * deltaGmu()
+                -10.058 * deltaMz()
+                +15.609 * deltaMh() ); 
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    //dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZZ4eRatio2() const
+{
+    double dwidth = 0.0;
+    
+    dwidth = deltaGammaHZeeRatio2(); 
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );
+    
+}
+
+double NPSMEFTd6::GammaHZZ2e2muRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+
+    width += deltaGammaHZZ2e2muRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZZ2e2muRatio2();   
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZZ2e2muRatio1() const
+{
+    double dwidth = 0.0;
+    
+    double dwidthmue = 0.0;
+    
+    double dwidthemu = 0.0;
+    
+    double deltaBRratioe = 0.0;
+    double deltaBRratiomu = 0.0;
+
+//  HZmumu *BRZee    
+    deltaBRratioe = deltaGamma_Zf(leptons[ELECTRON]) / (trueSM.GammaZ(leptons[ELECTRON]));
+    
+    deltaBRratioe = deltaBRratioe - deltaGamma_Z() / trueSM.Gamma_Z();
+
+    dwidthmue = deltaGammaHZmumuRatio1() + deltaBRratioe;
+    
+//  HZee *BRZmumu   
+    deltaBRratiomu = deltaGamma_Zf(leptons[MU]) / (trueSM.GammaZ(leptons[MU]));
+    
+    deltaBRratiomu = deltaBRratiomu - deltaGamma_Z() / trueSM.Gamma_Z();
+
+    dwidthemu = deltaGammaHZeeRatio1() + deltaBRratiomu;
+    
+//  Total    
+    dwidth = 0.5 * (dwidthmue + dwidthemu);
+        
+    // Add modifications due to small variations of the SM parameters    
+    dwidth += cHSM * ( -0.11 * deltaaMZ()
+                +2.276 * deltaGmu()
+                -10.058 * deltaMz()
+                +15.609 * deltaMh() ); 
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    //dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZZ2e2muRatio2() const
+{
+    double dwidth = 0.0;
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );
+    
+}
+
+double NPSMEFTd6::GammaHZZ4muRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+
+    width += deltaGammaHZZ4muRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHZZ4muRatio2();   
+        }
+    
+    return width;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZZ4muRatio1() const
+{
+    double dwidth = 0.0;
+    
+    double deltaBRratio;
+    
+    deltaBRratio = deltaGamma_Zf(leptons[MU]) / (trueSM.GammaZ(leptons[MU]));
+    
+    deltaBRratio = deltaBRratio - deltaGamma_Z() / trueSM.Gamma_Z();
+
+    dwidth = deltaGammaHZmumuRatio1() + deltaBRratio;
+    
+    // Add modifications due to small variations of the SM parameters    
+    dwidth += cHSM * ( -0.11 * deltaaMZ()
+                +2.276 * deltaGmu()
+                -10.058 * deltaMz()
+                +15.609 * deltaMh() ); 
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    //dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+    
+}
+
+double NPSMEFTd6::deltaGammaHZZ4muRatio2() const
+{
+    double dwidth = 0.0;
+    
+    dwidth = deltaGammaHZmumuRatio2(); 
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
