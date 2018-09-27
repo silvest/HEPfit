@@ -1908,9 +1908,9 @@ public:
         
     void computeSignalStrengths();
     double computephi2quantities();
-    double ComputeHeavyHiggs();
     double computephi3quantities();
     double ComputeMediumHiggs();
+    double ComputeHeavyHiggs();
     
     ////////////////////////////////////////////////////////////////////////////
 
