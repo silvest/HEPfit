@@ -7684,25 +7684,19 @@ void GeneralTHDMcache::computeSignalStrengths()
 
 double GeneralTHDMcache::computephi2quantities()
 {
-    
-    
+
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
 
-      //FLAG to select only the model in which all the couplings are the same (by families)
-    
+    //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
     {
         throw std::runtime_error("Direct Searches are only aviable in the A2HDM.");
     }
   
-        /*complex i */
-    
+    /*complex i */
      gslpp::complex i = gslpp::complex::i();
-     
-   
-    
-    
+
     /*up, down and leptonic couplings */
     gslpp::complex su = myGTHDM->getNu_33();
     gslpp::complex sd = myGTHDM->getNd_33();
@@ -7720,8 +7714,7 @@ double GeneralTHDMcache::computephi2quantities()
     double R31 = 0.0;
     double R32 = 0.0;
     double R33 = 0.0;
-    
-    
+
     //If to always set 1 as the SM Higgs and 3 as the heaviest
     if(mH1sq == mHl*mHl)
     {
@@ -7820,22 +7813,19 @@ double GeneralTHDMcache::computephi2quantities()
          
     }
     
-      if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
-                return std::numeric_limits<double>::quiet_NaN();
+    if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
+        return std::numeric_limits<double>::quiet_NaN();
     
     double m1 = sqrt(m1_2);
     double m2 = sqrt(m2_2);
     double m3 = sqrt(m3_2);
-    
 
     //fermionic couplings for phi2
-    
+
     gslpp::complex yu2 = R21 + (R22 - i*R23)*su.conjugate();
     gslpp::complex yd2 = R21 + (R22 + i*R23)*sd;
     gslpp::complex yl2 = R21 + (R22 + i*R23)*sl;
-    
-    
-    
+
     //These cross sections ratios are necessary for rphi2_gg
     //At 8 TeV
     
@@ -7952,35 +7942,35 @@ double GeneralTHDMcache::computephi2quantities()
        
  
     //Cross-sections of ggF, bbF and VBF at 8 TeV Sigmaxx_H8 = Sigmaxx_H8SM*rphi2_xx
-/*
- SigmaggF_phi2_8=ip_cs_ggtoH_8(m2)*rphi2_gg;
- SigmabbF_phi2_8=ip_cs_pptobbH_8(m2)*rphi2_QbQb;
- SigmaVBF_phi2_8=ip_cs_VBFtoH_8(m2)*rphi2_VV;
- SigmattF_phi2_8=ip_cs_pptottH_8(m2)*rphi2_QtQt;
- SigmaVH_phi2_8=(ip_cs_WtoWH_8(m2)+ip_cs_ZtoZH_8(m2))*rphi2_VV;*/
- 
-   
-SigmaggF_phi2_8=ip_cs_ggtoH_8(m2)* rphi2_ggE + ip_cs_ggtoA_8(m2)* rphi2_ggO;
-SigmabbF_phi2_8=ip_cs_pptobbH_8(m2)*rphi2_QdQdE + ip_cs_pptobbA_8(m2)*rphi2_QdQdO;
-SigmaVBF_phi2_8=ip_cs_VBFtoH_8(m2)*rphi2_VV;
-SigmattF_phi2_8=ip_cs_pptottH_8(m2)*rphi2_QuQuE + ip_cs_pptottA_8(m2)*rphi2_QuQuO;
-SigmaVH_phi2_8=(ip_cs_WtoWH_8(m2)+ip_cs_ZtoZH_8(m2))*rphi2_VV;
+    /*
+     SigmaggF_phi2_8=ip_cs_ggtoH_8(m2)*rphi2_gg;
+     SigmabbF_phi2_8=ip_cs_pptobbH_8(m2)*rphi2_QbQb;
+     SigmaVBF_phi2_8=ip_cs_VBFtoH_8(m2)*rphi2_VV;
+     SigmattF_phi2_8=ip_cs_pptottH_8(m2)*rphi2_QtQt;
+     SigmaVH_phi2_8=(ip_cs_WtoWH_8(m2)+ip_cs_ZtoZH_8(m2))*rphi2_VV;*/
+
+
+    SigmaggF_phi2_8=ip_cs_ggtoH_8(m2)* rphi2_ggE + ip_cs_ggtoA_8(m2)* rphi2_ggO;
+    SigmabbF_phi2_8=ip_cs_pptobbH_8(m2)*rphi2_QdQdE + ip_cs_pptobbA_8(m2)*rphi2_QdQdO;
+    SigmaVBF_phi2_8=ip_cs_VBFtoH_8(m2)*rphi2_VV;
+    SigmattF_phi2_8=ip_cs_pptottH_8(m2)*rphi2_QuQuE + ip_cs_pptottA_8(m2)*rphi2_QuQuO;
+    SigmaVH_phi2_8=(ip_cs_WtoWH_8(m2)+ip_cs_ZtoZH_8(m2))*rphi2_VV;
         
 
-//SM PREDICTIONS
+    //SM PREDICTIONS
 
-double SigmaTotSM_phi2_8 = 1.0e-15;
-                                                                               
-if (m3>=20. && m3 <=2000.) {
-    SigmaTotSM_phi2_8=ip_cs_ggtoH_8(m2)+ip_cs_VBFtoH_8(m2)+ip_cs_WtoWH_8(m2)+ip_cs_ZtoZH_8(m2)+ip_cs_pptottH_8(m2)+ip_cs_pptobbH_8(m2);
-}
- SigmaSumphi2_8 = SigmaggF_phi2_8 + SigmaVBF_phi2_8 + SigmaVH_phi2_8 + SigmattF_phi2_8 + SigmabbF_phi2_8;
+    double SigmaTotSM_phi2_8 = 1.0e-15;
 
- /*   SigmaggF_phi2_13=ip_cs_ggtoH_13(m2)*rphi2_gg;
-    SigmabbF_phi2_13=ip_cs_pptobbH_13(m2)*rphi2_QbQb;
-    SigmaVBF_phi2_13=ip_cs_VBFtoH_13(m2)*rphi2_VV;
-    SigmattF_phi2_13=ip_cs_pptottH_13(m2)*rphi2_QtQt;
-    SigmaVH_phi2_13=(ip_cs_WtoWH_13(m2)+ip_cs_ZtoZH_13(m2))*rphi2_VV;*/
+    if (m2>=20. && m2 <=2000.) {
+        SigmaTotSM_phi2_8=ip_cs_ggtoH_8(m2)+ip_cs_VBFtoH_8(m2)+ip_cs_WtoWH_8(m2)+ip_cs_ZtoZH_8(m2)+ip_cs_pptottH_8(m2)+ip_cs_pptobbH_8(m2);
+    }
+     SigmaSumphi2_8 = SigmaggF_phi2_8 + SigmaVBF_phi2_8 + SigmaVH_phi2_8 + SigmattF_phi2_8 + SigmabbF_phi2_8;
+
+     /*   SigmaggF_phi2_13=ip_cs_ggtoH_13(m2)*rphi2_gg;
+        SigmabbF_phi2_13=ip_cs_pptobbH_13(m2)*rphi2_QbQb;
+        SigmaVBF_phi2_13=ip_cs_VBFtoH_13(m2)*rphi2_VV;
+        SigmattF_phi2_13=ip_cs_pptottH_13(m2)*rphi2_QtQt;
+        SigmaVH_phi2_13=(ip_cs_WtoWH_13(m2)+ip_cs_ZtoZH_13(m2))*rphi2_VV;*/
  
  
   
@@ -8013,48 +8003,51 @@ if (m3>=20. && m3 <=2000.) {
     
     /*Decay of phi2 to the others scalars*/
    
-    double lambda112 = (2.0)*(lambdaijk(R11, R21, R13, R11, R21, R13, R12, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R21, R13, -R21, R22, R23, R11, R21, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R12, R22, R23, R11, R21, R13, R11, R21, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H));
+    double lambda112 = 2.0*(
+                            lambdaijk(R11, R21, R13, R11, R21, R13, R12, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)
+                          + lambdaijk(R11, R21, R13,-R21, R22, R23, R11, R21, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)
+                          + lambdaijk(R12, R22, R23, R11, R21, R13, R11, R21, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H));
 
-//phi2 -> phi1phi1
-double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*vev*vev*lambda112*lambda112/(32.0*m2*M_PI);
+    //phi2 -> phi1phi1
+    double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*vev*vev*lambda112*lambda112/(32.0*m2*M_PI);
 
- double sin2b = 2.0*sinb*cosb;
- double cos2b = cosb*cosb-sinb*sinb;
- double sin3b = sinb*(2.0*cos2b+1.0);
- double cos3b = cosb*(2.0*cos2b -1.0);
+    double sin2b = 2.0*sinb*cosb;
+    double cos2b = cosb*cosb-sinb*sinb;
+    double sin3b = sinb*(2.0*cos2b+1.0);
+    double cos3b = cosb*(2.0*cos2b -1.0);
+
+    double lambda = lambda1*cosb*cosb*cosb*cosb +lambda2*sinb*sinb*sinb*sinb 
+     +1.0/2.0*(lambda3 + lambda4 + Relambda5)*sin2b*sin2b 
+     +2.0*sin2b*(Relambda6*cosb*cosb + Relambda7*sinb*sinb);
+
+    double  lambdahat = 1.0/2.0*sin2b*(lambda1*cosb*cosb - lambda2*sinb*sinb
+            - (lambda3 +lambda4 + Relambda5)*cos2b) - Relambda6*cosb*cos3b - Relambda7*sinb*sin3b;
+
+    double lambdaA = cos2b*(lambda1*cosb*cosb - lambda2*sinb*sinb) + (lambda3+lambda4+Relambda5)*sin2b*sin2b
+     - Relambda5 + 2.0*Relambda6*cosb*sin3b - 2.0*Relambda7*sinb*cos3b;
+
+    double lambdaT = (1.0/4.0)*sin2b*sin2b*(lambda1+lambda2) + (lambda3+lambda4 +Relambda5)*(sinb*sinb*sinb*sinb +cosb*cosb*cosb*cosb) 
+     - 2.0*Relambda5 - sin2b*cos2b*(Relambda6-Relambda7);
+
+    double lambdaU =  1.0/2.0*sin2b*(sinb*sinb*lambda1 - cosb*cosb*lambda2 + 
+         cos2b*(lambda3+lambda4+Relambda5)) - Relambda6*sinb*sin3b - Relambda7*cosb*cos3b;
+
+
+     //phi2 ->H+H-
+    double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(8.0*m2*M_PI);
+    //phi2 -> phi1 Z
+    double Gammaphi2_phi1Z=HSTheta(m2-(m1+MZ))*pow(KaellenFunction(m2_2,MZ*MZ,m1_2),3)*(R23*R12 + R22*R13)*(R23*R12 + R22*R13)/(2.0*M_PI*vev*vev);
+    /* phi2 -> H+W- */
+    double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mHp2),3)*(R23-i*R22).abs2()/(M_PI*vev*vev);
+
+    /*
+     Gammaphi2tot= ((BrSM_phi2tott*rphi2_QtQt+BrSM_phi2tocc*rphi2_QcQc)+BrSM_phi2tobb*rphi2_QbQb+(BrSM_phi2totautau*rphi2_tautau+BrSM_phi2tomumu*rphi2_mumu)+(BrSM_phi2toWW+BrSM_phi2toZZ)*rphi2_VV)*Gammaphi2totSM+Gamma_phi2gaga+Gamma_phi2Zga+Gamma_phi2gg + Gammaphi2_phi1phi1+Gammaphi2_HpHm+Gammaphi2_phi1Z+Gammaphi2_HpW;
+
+     */
+
+    //std::cout << " Gammaphi2_phi1phi1 =" << Gammaphi2_phi1phi1 << std::endl;
  
- double  lambda = lambda1*cosb*cosb*cosb*cosb +lambda2*sinb*sinb*sinb*sinb + 
- 1.0/2.0*(lambda3 + lambda4 + Relambda5)*sin2b*sin2b + 
- 2.0*sin2b*(Relambda6*cosb*cosb + Relambda7*sinb*sinb);
- 
-double  lambdahat = 1.0/2.0*sin2b*(lambda1*cosb*cosb - lambda2*sinb*sinb
-        - (lambda3 +lambda4 + Relambda5)*cos2b) - Relambda6*cosb*cos3b - Relambda7*sinb*sin3b;
- 
- double lambdaA = cos2b*(lambda1*cosb*cosb - lambda2*sinb*sinb) + (lambda3+lambda4+Relambda5)*sin2b*sin2b
- - Relambda5 + 2.0*Relambda6*cosb*sin3b - 2.0*Relambda7*sinb*cos3b;
- 
- double lambdaT = (1.0/4.0)*sin2b*sin2b*(lambda1+lambda2) + (lambda3+lambda4 +Relambda5)*(sinb*sinb*sinb*sinb +cosb*cosb*cosb*cosb) 
- - 2.0*Relambda5 - sin2b*cos2b*(Relambda6-Relambda7);
-
- double lambdaU =  1.0/2.0*sin2b*(sinb*sinb*lambda1 - cosb*cosb*lambda2 + 
-     cos2b*(lambda3+lambda4+Relambda5)) - Relambda6*sinb*sin3b - Relambda7*cosb*cos3b;
- 
-
- //phi2 ->H+H-
-double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(8.0*m2*M_PI);
-//phi2 -> phi1 Z
-double Gammaphi2_phi1Z=HSTheta(m2-(m1+MZ))*pow(KaellenFunction(m2_2,MZ*MZ,m1_2),3)*(R23*R12 + R22*R13)*(R23*R12 + R22*R13)/(2.0*M_PI*vev*vev);
-/* phi2 -> H+W- */
-double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mHp2),3)*(R23-i*R22).abs2()/(M_PI*vev*vev);
-
-/*
- Gammaphi2tot= ((BrSM_phi2tott*rphi2_QtQt+BrSM_phi2tocc*rphi2_QcQc)+BrSM_phi2tobb*rphi2_QbQb+(BrSM_phi2totautau*rphi2_tautau+BrSM_phi2tomumu*rphi2_mumu)+(BrSM_phi2toWW+BrSM_phi2toZZ)*rphi2_VV)*Gammaphi2totSM+Gamma_phi2gaga+Gamma_phi2Zga+Gamma_phi2gg + Gammaphi2_phi1phi1+Gammaphi2_HpHm+Gammaphi2_phi1Z+Gammaphi2_HpW;
-
- */
-
-//std::cout << " Gammaphi2_phi1phi1 =" << Gammaphi2_phi1phi1 << std::endl;
- 
- Gammaphi2tot= (BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mt, m2_2)*beta(Mt, m2_2)))
+    Gammaphi2tot= (BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mt, m2_2)*beta(Mt, m2_2)))
          +BrSM_phi2tocc*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mc, m2_2)*beta(Mc, m2_2)))
          +BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdE/(beta(Mb, m2_2)*beta(Mb, m2_2)))
          +BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlE/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))
@@ -8068,20 +8061,19 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
  Br_phi2totautau=BrSM_phi2totautau*rphi2_tautau*Gammaphi2totSM/Gammaphi2tot;*/
  
  
- Br_phi2tott=BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mt, m2_2)*beta(Mt, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
- Br_phi2tobb=BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdE/(beta(Mb, m2_2)*beta(Mb, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
- Br_phi2totautau=BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlE/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
- 
- Br_phi2toWW=BrSM_phi2toWW*rphi2_VV*Gammaphi2totSM/Gammaphi2tot;
- Br_phi2toZZ=BrSM_phi2toZZ*rphi2_VV*Gammaphi2totSM/Gammaphi2tot;
- Br_phi2togaga=Gamma_phi2gaga/Gammaphi2tot;
- Br_phi2toZga=Gamma_phi2Zga/Gammaphi2tot;
- Br_phi2tophi1phi1=Gammaphi2_phi1phi1/Gammaphi2tot;
- Br_phi2toHpHm=Gammaphi2_HpHm/Gammaphi2tot;
- Br_phi2tophi1Z=Gammaphi2_phi1Z/Gammaphi2tot;
- Br_phi2toHpW=Gammaphi2_HpW/Gammaphi2tot;
- 
- 
+    Br_phi2tott=BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mt, m2_2)*beta(Mt, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
+    Br_phi2tobb=BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdE/(beta(Mb, m2_2)*beta(Mb, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
+    Br_phi2totautau=BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlE/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
+
+    Br_phi2toWW=BrSM_phi2toWW*rphi2_VV*Gammaphi2totSM/Gammaphi2tot;
+    Br_phi2toZZ=BrSM_phi2toZZ*rphi2_VV*Gammaphi2totSM/Gammaphi2tot;
+    Br_phi2togaga=Gamma_phi2gaga/Gammaphi2tot;
+    Br_phi2toZga=Gamma_phi2Zga/Gammaphi2tot;
+    Br_phi2tophi1phi1=Gammaphi2_phi1phi1/Gammaphi2tot;
+    Br_phi2toHpHm=Gammaphi2_HpHm/Gammaphi2tot;
+    Br_phi2tophi1Z=Gammaphi2_phi1Z/Gammaphi2tot;
+    Br_phi2toHpW=Gammaphi2_HpW/Gammaphi2tot;
+
  /*std::cout << "Gammaphi2tot = " << Gammaphi2tot << std::endl;
  std::cout << " Gamma_phi2tott  = " << BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mt, m2_2)*beta(Mt, m2_2)))*Gammaphi2totSM << std::endl;
  std::cout << " Gamma_phi2tocc = " << BrSM_phi2tocc*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mc, m2_2)*beta(Mc, m2_2)))*Gammaphi2totSM << std::endl;
@@ -8118,11 +8110,7 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
    std::cout << "Relambda7H = " << Relambda7H << std::endl;
    std::cout << "Imlambda7H = " << Imlambda7H << std::endl;*/
 
-
-
- 
- return 0.;
-   
+    return 0.;
 }
 
 
@@ -8401,26 +8389,26 @@ double GeneralTHDMcache::computephi3quantities()
                         +rphi3_ggO*GF*Als*Als*m3*m3*m3/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(I_A_Ux/4.0+I_A_Dx).abs2();
     
 
-//Cross-sections of ggF, bbF and VBF at 8 TeV Sigmaxx_H8 = Sigmaxx_H8SM*rphi3_xx
+    //Cross-sections of ggF, bbF and VBF at 8 TeV Sigmaxx_H8 = Sigmaxx_H8SM*rphi3_xx
 
- /*SigmaggF_phi3_8=ip_cs_ggtoH_8(m3)*rphi3_gg;
- SigmabbF_phi3_8=ip_cs_pptobbH_8(m3)*rphi3_QbQb;
- SigmattF_phi3_8=ip_cs_pptottH_8(m3)*rphi3_QtQt;
-*/
+     /*SigmaggF_phi3_8=ip_cs_ggtoH_8(m3)*rphi3_gg;
+     SigmabbF_phi3_8=ip_cs_pptobbH_8(m3)*rphi3_QbQb;
+     SigmattF_phi3_8=ip_cs_pptottH_8(m3)*rphi3_QtQt;
+    */
 
-SigmaggF_phi3_8=ip_cs_ggtoH_8(m3)* rphi3_ggE + ip_cs_ggtoA_8(m3)* rphi3_ggO;
-SigmabbF_phi3_8=ip_cs_pptobbH_8(m3)*rphi3_QdQdE + ip_cs_pptobbA_8(m3)*rphi3_QdQdO;
-SigmaVBF_phi3_8=ip_cs_VBFtoH_8(m3)*rphi3_VV;
-SigmattF_phi3_8=ip_cs_pptottH_8(m3)*rphi3_QuQuE + ip_cs_pptottA_8(m3)*rphi3_QuQuO;
-SigmaVH_phi3_8=(ip_cs_WtoWH_8(m3)+ip_cs_ZtoZH_8(m3))*rphi3_VV;
-                                                                               
-//SM PREDICTIONS
- SigmaTotSM_phi3_8 = 1.0e-15;
-                                                                               
-if (m3>=20. && m3 <=2000.) {
-    SigmaTotSM_phi3_8=ip_cs_ggtoH_8(m3)+ip_cs_VBFtoH_8(m3)+ip_cs_WtoWH_8(m3)+ip_cs_ZtoZH_8(m3)+ip_cs_pptottH_8(m3)+ip_cs_pptobbH_8(m3);
-}
- SigmaSumphi3_8 = SigmaggF_phi3_8 + SigmaVBF_phi3_8 + SigmaVH_phi3_8 + SigmattF_phi3_8 + SigmabbF_phi3_8;
+    SigmaggF_phi3_8=ip_cs_ggtoH_8(m3)* rphi3_ggE + ip_cs_ggtoA_8(m3)* rphi3_ggO;
+    SigmabbF_phi3_8=ip_cs_pptobbH_8(m3)*rphi3_QdQdE + ip_cs_pptobbA_8(m3)*rphi3_QdQdO;
+    SigmaVBF_phi3_8=ip_cs_VBFtoH_8(m3)*rphi3_VV;
+    SigmattF_phi3_8=ip_cs_pptottH_8(m3)*rphi3_QuQuE + ip_cs_pptottA_8(m3)*rphi3_QuQuO;
+    SigmaVH_phi3_8=(ip_cs_WtoWH_8(m3)+ip_cs_ZtoZH_8(m3))*rphi3_VV;
+
+    //SM PREDICTIONS
+     SigmaTotSM_phi3_8 = 1.0e-15;
+
+    if (m3>=20. && m3 <=2000.) {
+        SigmaTotSM_phi3_8=ip_cs_ggtoH_8(m3)+ip_cs_VBFtoH_8(m3)+ip_cs_WtoWH_8(m3)+ip_cs_ZtoZH_8(m3)+ip_cs_pptottH_8(m3)+ip_cs_pptobbH_8(m3);
+    }
+     SigmaSumphi3_8 = SigmaggF_phi3_8 + SigmaVBF_phi3_8 + SigmaVH_phi3_8 + SigmattF_phi3_8 + SigmabbF_phi3_8;
 
   /*  SigmaggF_phi3_13=ip_cs_ggtoH_13(m3)*rphi3_gg;
     SigmabbF_phi3_13=ip_cs_pptobbH_13(m3)*rphi3_QbQb;
@@ -8433,48 +8421,48 @@ if (m3>=20. && m3 <=2000.) {
     SigmaVH_phi3_13=(ip_cs_WtoWH_13(m3)+ip_cs_ZtoZH_13(m3))*rphi3_VV;
 
   
-//    double SigmaTotSM_H13 = 1.0e-15;
-//    if (mHh>=20. && mHh <=2000.) {
-//            SigmaTotSM_H13=ip_cs_ggtoH_13(mHh)+ip_cs_VBFtoH_13(mHh)+ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh)+ip_cs_pptottH_13(mHh)+ip_cs_pptobbH_13(mHh);
-//    }
-    SigmaSumphi3_13 = SigmaggF_phi3_13 + SigmaVBF_phi3_13 + SigmaVH_phi3_13 + SigmattF_phi3_13 + SigmabbF_phi3_13;
-
-    
-double BrSM_phi3tott=ip_Br_HPtott(m3);
-double BrSM_phi3tocc=ip_Br_HPtocc(m3);
-double BrSM_phi3tobb=ip_Br_HPtobb(m3);
-double BrSM_phi3totautau=ip_Br_HPtotautau(m3);
-//double BrSM_phi3tomumu=ip_Br_HPtomumu(m3);
-double BrSM_phi3toWW =ip_Br_HPtoWW(m3);
-double BrSM_phi3toZZ =ip_Br_HPtoZZ(m3);
-
- Gammaphi3totSM=ip_GammaHPtotSM(m3);
-
- 
- 
-/*Decay of phi3 to the others scalars*/
-double lambda123 = lambdaijk(R11, R12, R13, R21, R22, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R22, R23, R11, R12, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  ;
-double lambda223 = lambdaijk(R21, R22, R23, R21, R22, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R22, R23, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R21, R22, R23, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
-double lambda113 = lambdaijk(R11, R12, R13, R11, R12, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R11, R12, R13, R31, R32, R33, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R11, R12, R13, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
-//phi3 -> phi1 phi2
-double Gammaphi3_phi1phi2=HSTheta(m3 - (m1+m2))*KaellenFunction(m3_2,m1_2,m2_2)*lambda123*lambda123/(8.0*m3_2*M_PI);
-// phi3 -> phi2 phi2
-double Gammaphi3_phi2phi2=HSTheta(m3 - 2.0*m2)*sqrt(std::fabs(1.0 - (4.0*m2_2)/m3_2))*lambda223*lambda223/(32.0*m3*M_PI);
-//phi3 -> phi1phi1
-double Gammaphi3_phi1phi1=HSTheta(m3 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m3_2))*lambda113*lambda113/(32.0*m3*M_PI);
-//phi3 ->H+H-
-double Gammaphi3_HpHm=HSTheta(m3 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m3_2))*lambdaphi3HpHm*lambdaphi3HpHm/(32.0*m3*M_PI);
-//phi3 -> phi1 Z
-double Gammaphi3_phi1Z=HSTheta(m3-(m1+MZ))*pow(KaellenFunction(m3_2,MZ*MZ,m1_2),3)*(R33*R12 + R32*R13)*(R33*R12 + R32*R13)/(2.0*M_PI*vev*vev);
-//phi3 -> phi2 Z
-double Gammaphi3_phi2Z=HSTheta(m3-(m2+MZ))*pow(KaellenFunction(m3_2,MZ*MZ,m2_2),3)*(R33*R22 + R32*R23)*(R33*R22 + R32*R23)/(2.0*M_PI*vev*vev);
-/* phi3 -> H+W- */
-double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mHp2),3)*(R33-i*R32).abs2()/(M_PI*vev*vev);
-                                                                              
- /*Gammaphi3tot= ((BrSM_phi3tott*rphi3_QtQt+BrSM_phi3tocc*rphi3_QcQc)+BrSM_phi3tobb*rphi3_QbQb+(BrSM_phi3totautau*rphi3_tautau+BrSM_phi3tomumu*rphi3_mumu)+(BrSM_phi3toWW+BrSM_phi3toZZ)*rphi3_VV)*Gammaphi3totSM+Gamma_phi3gaga+Gamma_phi3Zga+Gamma_phi3gg + Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2+Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z+Gammaphi3_HpW;*/
+    //    double SigmaTotSM_H13 = 1.0e-15;
+    //    if (mHh>=20. && mHh <=2000.) {
+    //            SigmaTotSM_H13=ip_cs_ggtoH_13(mHh)+ip_cs_VBFtoH_13(mHh)+ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh)+ip_cs_pptottH_13(mHh)+ip_cs_pptobbH_13(mHh);
+    //    }
+        SigmaSumphi3_13 = SigmaggF_phi3_13 + SigmaVBF_phi3_13 + SigmaVH_phi3_13 + SigmattF_phi3_13 + SigmabbF_phi3_13;
 
 
- Gammaphi3tot= (BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mt, m3_2)*beta(Mt, m3_2)))
+    double BrSM_phi3tott=ip_Br_HPtott(m3);
+    double BrSM_phi3tocc=ip_Br_HPtocc(m3);
+    double BrSM_phi3tobb=ip_Br_HPtobb(m3);
+    double BrSM_phi3totautau=ip_Br_HPtotautau(m3);
+    //double BrSM_phi3tomumu=ip_Br_HPtomumu(m3);
+    double BrSM_phi3toWW =ip_Br_HPtoWW(m3);
+    double BrSM_phi3toZZ =ip_Br_HPtoZZ(m3);
+
+     Gammaphi3totSM=ip_GammaHPtotSM(m3);
+
+
+
+    /*Decay of phi3 to the others scalars*/
+    double lambda123 = lambdaijk(R11, R12, R13, R21, R22, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R22, R23, R11, R12, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  ;
+    double lambda223 = lambdaijk(R21, R22, R23, R21, R22, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R22, R23, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R21, R22, R23, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
+    double lambda113 = lambdaijk(R11, R12, R13, R11, R12, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R11, R12, R13, R31, R32, R33, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R11, R12, R13, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
+    //phi3 -> phi1 phi2
+    double Gammaphi3_phi1phi2=HSTheta(m3 - (m1+m2))*KaellenFunction(m3_2,m1_2,m2_2)*lambda123*lambda123/(8.0*m3_2*M_PI);
+    // phi3 -> phi2 phi2
+    double Gammaphi3_phi2phi2=HSTheta(m3 - 2.0*m2)*sqrt(std::fabs(1.0 - (4.0*m2_2)/m3_2))*lambda223*lambda223/(32.0*m3*M_PI);
+    //phi3 -> phi1phi1
+    double Gammaphi3_phi1phi1=HSTheta(m3 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m3_2))*lambda113*lambda113/(32.0*m3*M_PI);
+    //phi3 ->H+H-
+    double Gammaphi3_HpHm=HSTheta(m3 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m3_2))*lambdaphi3HpHm*lambdaphi3HpHm/(32.0*m3*M_PI);
+    //phi3 -> phi1 Z
+    double Gammaphi3_phi1Z=HSTheta(m3-(m1+MZ))*pow(KaellenFunction(m3_2,MZ*MZ,m1_2),3)*(R33*R12 + R32*R13)*(R33*R12 + R32*R13)/(2.0*M_PI*vev*vev);
+    //phi3 -> phi2 Z
+    double Gammaphi3_phi2Z=HSTheta(m3-(m2+MZ))*pow(KaellenFunction(m3_2,MZ*MZ,m2_2),3)*(R33*R22 + R32*R23)*(R33*R22 + R32*R23)/(2.0*M_PI*vev*vev);
+    /* phi3 -> H+W- */
+    double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mHp2),3)*(R33-i*R32).abs2()/(M_PI*vev*vev);
+
+     /*Gammaphi3tot= ((BrSM_phi3tott*rphi3_QtQt+BrSM_phi3tocc*rphi3_QcQc)+BrSM_phi3tobb*rphi3_QbQb+(BrSM_phi3totautau*rphi3_tautau+BrSM_phi3tomumu*rphi3_mumu)+(BrSM_phi3toWW+BrSM_phi3toZZ)*rphi3_VV)*Gammaphi3totSM+Gamma_phi3gaga+Gamma_phi3Zga+Gamma_phi3gg + Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2+Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z+Gammaphi3_HpW;*/
+
+
+     Gammaphi3tot= (BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mt, m3_2)*beta(Mt, m3_2)))
          +BrSM_phi3tocc*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mc, m3_2)*beta(Mc, m3_2)))
          +BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2)))
          +BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2)))
@@ -8482,64 +8470,59 @@ double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mH
          + Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2+Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z
          +Gammaphi3_HpW;
  
- /*std::cout << " Gammaphi3tot  = " << Gammaphi3tot  << std::endl;
- std::cout << " BrSM_phi3tott*...  = " << BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mc, m3_2)*beta(Mc, m3_2))) << std::endl;
- std::cout << " BrSM_phi3tocc*...  = " << BrSM_phi3tocc*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mc, m3_2)*beta(Mc, m3_2))) << std::endl;
- std::cout << " BrSM_phi3tobb*...  = " << BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2))) << std::endl;
- std::cout << " BrSM_phi3totautau*...  = " << BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2))) << std::endl;
- std::cout << " BrSM_phi3toWW  = " << (BrSM_phi3toWW+BrSM_phi3toZZ)*rphi3_VV << std::endl;
+     /*std::cout << " Gammaphi3tot  = " << Gammaphi3tot  << std::endl;
+     std::cout << " BrSM_phi3tott*...  = " << BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mc, m3_2)*beta(Mc, m3_2))) << std::endl;
+     std::cout << " BrSM_phi3tocc*...  = " << BrSM_phi3tocc*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mc, m3_2)*beta(Mc, m3_2))) << std::endl;
+     std::cout << " BrSM_phi3tobb*...  = " << BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2))) << std::endl;
+     std::cout << " BrSM_phi3totautau*...  = " << BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2))) << std::endl;
+     std::cout << " BrSM_phi3toWW  = " << (BrSM_phi3toWW+BrSM_phi3toZZ)*rphi3_VV << std::endl;
 
- std::cout << " Gammaphi3totSM  = " << Gammaphi3totSM << std::endl;
+     std::cout << " Gammaphi3totSM  = " << Gammaphi3totSM << std::endl;
 
- std::cout << " Gamma_phi3gaga  = " << Gamma_phi3gaga << std::endl;
-
-
- std::cout << " Gamma_phi3Zga  = " << Gamma_phi3Zga << std::endl;
- std::cout << " Gamma_phi3gg  = " << Gamma_phi3gg << std::endl;
- std::cout << " Gammaphi3_phi1phi1  = " << Gammaphi3_phi1phi1 << std::endl;
+     std::cout << " Gamma_phi3gaga  = " << Gamma_phi3gaga << std::endl;
 
 
- std::cout << " Gammaphi3_phi2phi2  = " << Gammaphi3_phi2phi2 << std::endl;
- std::cout << " Gammaphi3_phi1phi2  = " << Gammaphi3_phi1phi2 << std::endl;
- std::cout << " Gammaphi3_HpHm  = " << Gammaphi3_HpHm << std::endl;
- std::cout << " Gammaphi3_phi1Z  = " << Gammaphi3_phi1Z << std::endl;
- 
-  std::cout << " Gammaphi3_phi2Z  = " << Gammaphi3_phi2Z << std::endl;
- std::cout << " Gammaphi3_HpW  = " << Gammaphi3_HpW << std::endl; */
-
- 
-/*
-  Br_phi3tott=BrSM_phi3tott*rphi3_QtQt*Gammaphi3totSM/Gammaphi3tot;
- Br_phi3tobb=BrSM_phi3tobb*rphi3_QbQb*Gammaphi3totSM/Gammaphi3tot;
- Br_phi3totautau=BrSM_phi3totautau*rphi3_tautau*Gammaphi3totSM/Gammaphi3tot;
- */
-      
+     std::cout << " Gamma_phi3Zga  = " << Gamma_phi3Zga << std::endl;
+     std::cout << " Gamma_phi3gg  = " << Gamma_phi3gg << std::endl;
+     std::cout << " Gammaphi3_phi1phi1  = " << Gammaphi3_phi1phi1 << std::endl;
 
 
- Br_phi3tott=BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mt, m3_2)*beta(Mt, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
- Br_phi3tobb=BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
- Br_phi3totautau=BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
+     std::cout << " Gammaphi3_phi2phi2  = " << Gammaphi3_phi2phi2 << std::endl;
+     std::cout << " Gammaphi3_phi1phi2  = " << Gammaphi3_phi1phi2 << std::endl;
+     std::cout << " Gammaphi3_HpHm  = " << Gammaphi3_HpHm << std::endl;
+     std::cout << " Gammaphi3_phi1Z  = " << Gammaphi3_phi1Z << std::endl;
 
- Br_phi3toWW=BrSM_phi3toWW*rphi3_VV*Gammaphi3totSM/Gammaphi3tot;
- Br_phi3toZZ=BrSM_phi3toZZ*rphi3_VV*Gammaphi3totSM/Gammaphi3tot;
- Br_phi3togaga=Gamma_phi3gaga/Gammaphi3tot;
- Br_phi3toZga=Gamma_phi3Zga/Gammaphi3tot;
- Br_phi3tophi1phi1=Gammaphi3_phi1phi1/Gammaphi3tot;
- Br_phi3tophi2phi2=Gammaphi3_phi2phi2/Gammaphi3tot;
-  
- Br_phi3tophi1phi2=Gammaphi3_phi1phi2/Gammaphi3tot;
- Br_phi3toHpHm=Gammaphi3_HpHm/Gammaphi3tot;
- Br_phi3tophi1Z=Gammaphi3_phi1Z/Gammaphi3tot;
- Br_phi3tophi2Z=Gammaphi3_phi2Z/Gammaphi3tot;
- Br_phi3toHpW=Gammaphi3_HpW/Gammaphi3tot;
- 
-
-   
- return 0.;
+      std::cout << " Gammaphi3_phi2Z  = " << Gammaphi3_phi2Z << std::endl;
+     std::cout << " Gammaphi3_HpW  = " << Gammaphi3_HpW << std::endl; */
 
 
+    /*
+      Br_phi3tott=BrSM_phi3tott*rphi3_QtQt*Gammaphi3totSM/Gammaphi3tot;
+     Br_phi3tobb=BrSM_phi3tobb*rphi3_QbQb*Gammaphi3totSM/Gammaphi3tot;
+     Br_phi3totautau=BrSM_phi3totautau*rphi3_tautau*Gammaphi3totSM/Gammaphi3tot;
+     */
+
+
+
+     Br_phi3tott=BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mt, m3_2)*beta(Mt, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
+     Br_phi3tobb=BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
+     Br_phi3totautau=BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
+
+     Br_phi3toWW=BrSM_phi3toWW*rphi3_VV*Gammaphi3totSM/Gammaphi3tot;
+     Br_phi3toZZ=BrSM_phi3toZZ*rphi3_VV*Gammaphi3totSM/Gammaphi3tot;
+     Br_phi3togaga=Gamma_phi3gaga/Gammaphi3tot;
+     Br_phi3toZga=Gamma_phi3Zga/Gammaphi3tot;
+     Br_phi3tophi1phi1=Gammaphi3_phi1phi1/Gammaphi3tot;
+     Br_phi3tophi2phi2=Gammaphi3_phi2phi2/Gammaphi3tot;
+
+     Br_phi3tophi1phi2=Gammaphi3_phi1phi2/Gammaphi3tot;
+     Br_phi3toHpHm=Gammaphi3_HpHm/Gammaphi3tot;
+     Br_phi3tophi1Z=Gammaphi3_phi1Z/Gammaphi3tot;
+     Br_phi3tophi2Z=Gammaphi3_phi2Z/Gammaphi3tot;
+     Br_phi3toHpW=Gammaphi3_HpW/Gammaphi3tot;
+
+     return 0.;
 }
-
 
 
 //Higgs direct searches
@@ -8725,55 +8708,55 @@ double GeneralTHDMcache::ComputeMediumHiggs()
 
 
        
-THoEX_ggF_phi2_tautau_ATLAS8 = 0.0;
-R_ggF_phi2_tautau_ATLAS8 = 0.0;
-THoEX_ggF_phi2_tautau_CMS8 = 0.0;
-R_ggF_phi2_tautau_CMS8 = 0.0;
-THoEX_bbF_phi2_tautau_ATLAS8 = 0.0;
-R_bbF_phi2_tautau_ATLAS8 = 0.0;
-THoEX_bbF_phi2_tautau_CMS8 = 0.0;
-R_bbF_phi2_tautau_CMS8 = 0.0;
-THoEX_pp_phi2_gaga_ATLAS8 = 0.0;
-R_pp_phi2_gaga_ATLAS8 = 0.0;
-THoEX_ggF_phi2_gaga_CMS8 = 0.0;
-R_ggF_phi2_gaga_CMS8 = 0.0;
-THoEX_pp_phi2_Zga_llga_ATLAS8 = 0.0;
-R_pp_phi2_Zga_llga_ATLAS8 = 0.0;
-THoEX_pp_phi2_Zga_llga_CMS8 = 0.0;
-R_pp_phi2_Zga_llga_CMS8 = 0.0;
-THoEX_mu_pp_phi2_VV_CMS8 = 0.0;
-R_mu_pp_phi2_VV_CMS8 = 0.0;
-THoEX_ggF_phi2_ZZ_ATLAS8 = 0.0;
-R_ggF_phi2_ZZ_ATLAS8 = 0.0;
-THoEX_VBF_phi2_ZZ_ATLAS8 = 0.0;
- R_VBF_phi2_ZZ_ATLAS8 = 0.0;
-THoEX_ggF_phi2_WW_ATLAS8 = 0.0;
-R_ggF_phi2_WW_ATLAS8 = 0.0;
-THoEX_VBF_phi2_WW_ATLAS8 = 0.0;
-R_VBF_phi2_WW_ATLAS8 = 0.0;
-THoEX_ggF_phi2_phi1phi1_ATLAS8 = 0.0;
-R_VBF_phi2_WW_ATLAS8 = 0.0;
-R_ggF_phi2_phi1phi1_ATLAS8 = 0.0;
-THoEX_pp_phi2_phi1phi1_CMS8 = 0.0;
+    THoEX_ggF_phi2_tautau_ATLAS8 = 0.0;
+    R_ggF_phi2_tautau_ATLAS8 = 0.0;
+    THoEX_ggF_phi2_tautau_CMS8 = 0.0;
+    R_ggF_phi2_tautau_CMS8 = 0.0;
+    THoEX_bbF_phi2_tautau_ATLAS8 = 0.0;
+    R_bbF_phi2_tautau_ATLAS8 = 0.0;
+    THoEX_bbF_phi2_tautau_CMS8 = 0.0;
+    R_bbF_phi2_tautau_CMS8 = 0.0;
+    THoEX_pp_phi2_gaga_ATLAS8 = 0.0;
+    R_pp_phi2_gaga_ATLAS8 = 0.0;
+    THoEX_ggF_phi2_gaga_CMS8 = 0.0;
+    R_ggF_phi2_gaga_CMS8 = 0.0;
+    THoEX_pp_phi2_Zga_llga_ATLAS8 = 0.0;
+    R_pp_phi2_Zga_llga_ATLAS8 = 0.0;
+    THoEX_pp_phi2_Zga_llga_CMS8 = 0.0;
+    R_pp_phi2_Zga_llga_CMS8 = 0.0;
+    THoEX_mu_pp_phi2_VV_CMS8 = 0.0;
+    R_mu_pp_phi2_VV_CMS8 = 0.0;
+    THoEX_ggF_phi2_ZZ_ATLAS8 = 0.0;
+    R_ggF_phi2_ZZ_ATLAS8 = 0.0;
+    THoEX_VBF_phi2_ZZ_ATLAS8 = 0.0;
+     R_VBF_phi2_ZZ_ATLAS8 = 0.0;
+    THoEX_ggF_phi2_WW_ATLAS8 = 0.0;
+    R_ggF_phi2_WW_ATLAS8 = 0.0;
+    THoEX_VBF_phi2_WW_ATLAS8 = 0.0;
+    R_VBF_phi2_WW_ATLAS8 = 0.0;
+    THoEX_ggF_phi2_phi1phi1_ATLAS8 = 0.0;
+    R_VBF_phi2_WW_ATLAS8 = 0.0;
+    R_ggF_phi2_phi1phi1_ATLAS8 = 0.0;
+    THoEX_pp_phi2_phi1phi1_CMS8 = 0.0;
 
 
-R_pp_phi2_phi1phi1_CMS8 = 0.0;
-THoEX_ggF_phi2_phi1phi1_bbtautau_CMS8 = 0.0;
-R_ggF_phi2_phi1phi1_bbtautau_CMS8 = 0.0;
-THoEX_pp_phi2_phi1phi1_bbbb_CMS8 = 0.0;
-R_pp_phi2_phi1phi1_bbbb_CMS8 = 0.0;
-THoEX_pp_phi2_phi1phi1_gagabb_CMS8 = 0.0;
-R_pp_phi2_phi1phi1_gagabb_CMS8 = 0.0;
+    R_pp_phi2_phi1phi1_CMS8 = 0.0;
+    THoEX_ggF_phi2_phi1phi1_bbtautau_CMS8 = 0.0;
+    R_ggF_phi2_phi1phi1_bbtautau_CMS8 = 0.0;
+    THoEX_pp_phi2_phi1phi1_bbbb_CMS8 = 0.0;
+    R_pp_phi2_phi1phi1_bbbb_CMS8 = 0.0;
+    THoEX_pp_phi2_phi1phi1_gagabb_CMS8 = 0.0;
+    R_pp_phi2_phi1phi1_gagabb_CMS8 = 0.0;
 
 
-THoEX_ggF_phi2_tt_ATLAS8 = 0.0;
-R_ggF_phi2_tt_ATLAS8 = 0.0;
-THoEX_bbF_phi2_bb_CMS8 = 0.0;
-R_bbF_phi2_bb_CMS8 = 0.0;
-//THoEX_pp_H_AZ_bbll_CMS8 = 0.0;
-//R_pp_H_AZ_bbll_CMS8 = 0.0;
-//THoEX_pp_H_AZ_tautaull_CMS8 = 0.0;
-//R_pp_H_AZ_tautaull_CMS8 = 0.0;
+    THoEX_ggF_phi2_tt_ATLAS8 = 0.0;
+    R_ggF_phi2_tt_ATLAS8 = 0.0;
+    THoEX_bbF_phi2_bb_CMS8 = 0.0;
+    R_bbF_phi2_bb_CMS8 = 0.0;
+    //THoEX_pp_H_AZ_bbll_CMS8 = 0.0;
+    //R_pp_H_AZ_bbll_CMS8 = 0.0;
+    //THoEX_pp_H_AZ_tautaull_CMS8 = 0.0;
+    //R_pp_H_AZ_tautaull_CMS8 = 0.0;
 
 
 
@@ -8801,7 +8784,6 @@ R_bbF_phi2_bb_CMS8 = 0.0;
     ggF_phi2_phi1phi1_TH13=SigmaggF_phi2_13*Br_phi2tophi1phi1;
     
     pp_phi2_phi1phi1_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1;
-;
 
 
     
@@ -11468,9 +11450,7 @@ R_bbF_phi2_bb_CMS8 = 0.0;
         std::cout << "ip_ex_gg_H_hh_ATLAS8(950) = " << ip_ex_gg_H_hh_ATLAS8(950) << std::endl;
         std::cout << "ip_ex_gg_phi_gaga_CMS13(m2) = " << ip_ex_gg_phi_gaga_CMS13(m2) << std::endl;*/
 
-        
     return 0.;
-
 }
 
 
@@ -15340,15 +15320,9 @@ std::cout << " m3 = " << m3 << std::endl;*/
         THoEX_ggF_phi3_WW_enumunu_ATLAS13=ggF_phi3_WW_TH13/ip_ex_gg_H_WW_enumunu_ATLAS13(m3);
         R_ggF_phi3_WW_enumunu_ATLAS13=(1+(ggF_phi3_WW_TH13-ip_ex_gg_H_WW_enumunu_ATLAS13(m3))/ip_ex_gg_H_WW_enumunu_ATLAS13_e(m3) ) * nftos;
     }
-  
-    
+
     return 0.;
-} 
-    
-
-
-    
-
+}
     
     
 double GeneralTHDMcache::updateCache()

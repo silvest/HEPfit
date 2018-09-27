@@ -7769,23 +7769,23 @@ void THDMcache::computeHHquantities()
                +Gamma_Hgaga+Gamma_HZga+Gamma_Hgg
                +GammaHhh+GammaHHpHm+GammaHAA+GammaHAZ+GammaHHpW;
 
-    std::cout<<"GammaHtt = "<<BrSM_Htott*rHH_QuQu*GammaHtotSM<<std::endl;
-    std::cout<<"GammaHcc = "<<BrSM_Htocc*rHH_QuQu*GammaHtotSM<<std::endl;
-    std::cout<<"GammaHbb = "<<BrSM_Htobb*rHH_QdQd*GammaHtotSM<<std::endl;
-    std::cout<<"GammaHtautau = "<<BrSM_Htotautau*rHH_ll*GammaHtotSM<<std::endl;
-    std::cout<<"GammaHmumu = "<<BrSM_Htomumu*rHH_ll*GammaHtotSM<<std::endl;
-    std::cout<<"GammaHWW = "<<BrSM_HtoWW*rHH_VV*GammaHtotSM<<std::endl;
-    std::cout<<"GammaHZZ = "<<BrSM_HtoZZ*rHH_VV*GammaHtotSM<<std::endl;
-    std::cout<<"GammaHgaga = "<<Gamma_Hgaga<<std::endl;
-    std::cout<<"GammaHgg = "<<Gamma_Hgg<<std::endl;
-    std::cout<<"GammaHZga = "<<Gamma_HZga<<std::endl;
-    std::cout<<"GammaHhh = "<<GammaHhh<<std::endl;
-    std::cout<<"gHhh = "<<(cos_ba*cos_ba/(4.0*sinb*cosb*sinb*cosb)
-                    *pow(m12_2 + mHh2*cosa*sina + (2.0*mHl2 - 3.0*m12_2/(sinb*cosb))
-                    *sina*cosa,2))/(vev*vev)<<std::endl;
-    std::cout<<"------------------"<<std::endl;
-    std::cout<<"GammaHtotSM = "<<GammaHtotSM<<std::endl;
-    std::cout<<"GammaHtot = "<<GammaHtot<<std::endl;
+//    std::cout<<"GammaHtt = "<<BrSM_Htott*rHH_QuQu*GammaHtotSM<<std::endl;
+//    std::cout<<"GammaHcc = "<<BrSM_Htocc*rHH_QuQu*GammaHtotSM<<std::endl;
+//    std::cout<<"GammaHbb = "<<BrSM_Htobb*rHH_QdQd*GammaHtotSM<<std::endl;
+//    std::cout<<"GammaHtautau = "<<BrSM_Htotautau*rHH_ll*GammaHtotSM<<std::endl;
+//    std::cout<<"GammaHmumu = "<<BrSM_Htomumu*rHH_ll*GammaHtotSM<<std::endl;
+//    std::cout<<"GammaHWW = "<<BrSM_HtoWW*rHH_VV*GammaHtotSM<<std::endl;
+//    std::cout<<"GammaHZZ = "<<BrSM_HtoZZ*rHH_VV*GammaHtotSM<<std::endl;
+//    std::cout<<"GammaHgaga = "<<Gamma_Hgaga<<std::endl;
+//    std::cout<<"GammaHgg = "<<Gamma_Hgg<<std::endl;
+//    std::cout<<"GammaHZga = "<<Gamma_HZga<<std::endl;
+//    std::cout<<"GammaHhh = "<<GammaHhh<<std::endl;
+//    std::cout<<"gHhh = "<<(cos_ba/(2.0*sinb*cosb)
+//                    *(m12_2 + mHh2*cosa*sina + (2.0*mHl2 - 3.0*m12_2/(sinb*cosb))
+//                    *sina*cosa))/(vev))<<std::endl;
+//    std::cout<<"------------------"<<std::endl;
+//    std::cout<<"GammaHtotSM = "<<GammaHtotSM<<std::endl;
+//    std::cout<<"GammaHtot = "<<GammaHtot<<std::endl;
 
     Br_Htott=BrSM_Htott*rHH_QuQu*GammaHtotSM/GammaHtot;
     Br_Htobb=BrSM_Htobb*rHH_QdQd*GammaHtotSM/GammaHtot;
