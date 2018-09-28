@@ -2883,9 +2883,16 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_phi2_phi1phi1_bbtautau_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bbtautau_TH13*>();
     obsThFactory["log10_pp_phi2_phi1phi1_bblnulnu_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bblnulnu_TH13*>();
     obsThFactory["log10_pp_phi2_phi1phi1_bbVV_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bbVV_TH13*>();
+    
+    
     obsThFactory["log10_tt_phi2_tt_TH13"] = boost::factory<log10_tt_phi2_tt_TH13*>();
     obsThFactory["log10_bb_phi2_tt_TH13"] = boost::factory<log10_bb_phi2_tt_TH13*>();
     obsThFactory["log10_pp_phi2_bb_TH13"] = boost::factory<log10_pp_phi2_bb_TH13*>();
+    
+    obsThFactory["Hobs_ttF_phi2_tt_ATLAS13"] = boost::factory<Hobs_ttF_phi2_tt_ATLAS13*>();
+    obsThFactory["Hobs_bbF_phi2_tt_ATLAS13"] = boost::factory<Hobs_bbF_phi2_tt_ATLAS13*>();
+
+
 
         /** END: REMOVE FROM THE PACKAGE **/
     
