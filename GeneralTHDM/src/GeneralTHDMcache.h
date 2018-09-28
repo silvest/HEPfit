@@ -1901,9 +1901,9 @@ public:
      * @brief lambdaijk function
      * @return @f$\lambda_{ijk}=@f$, the coupling of three neutral (ijk) scalars  in the GA2HDM
      */
-    double lambdaijk(const double Ri1,const double Ri2,const double Ri3,const double Rj1,const double Rj2,const double Rj3, const double Rk1,const double Rk2,const double Rk3, const double lambda1H, const double lambda3H, const double lambda4H, const double Relambda5H, const double Imlambda5H, const double Relambda6H, const double Imlambda6H, const double Relambda7H, const double Imlambda7H) const;
+    double lambdaijk(const double R1i,const double R2i,const double R3i,const double R1j,const double R2j,const double R3j, const double R1k,const double R2k,const double R3k, const double lambda1H, const double lambda3H, const double lambda4H, const double Relambda5H, const double Imlambda5H, const double Relambda6H, const double Imlambda6H, const double Relambda7H, const double Imlambda7H) const;
 
-    double lambdaipm(const double Ri1,const double Ri2,const double Ri3) const;
+    double lambdaipm(const double R1i,const double R2i,const double R3i) const;
 
         
     void computeSignalStrengths();
@@ -3402,6 +3402,9 @@ public:
     double R21_GTHDM, R22_GTHDM, R23_GTHDM;
     double R31_GTHDM, R32_GTHDM, R33_GTHDM;
     
+    double R11, R12, R13, R21, R22, R23, R31, R32, R33;
+    double m1_2, m2_2, m3_2, m1, m2, m3;
+    
 //    double M2_GTHDM;
 //    double m11_2_GTHDM;
 //    double m22_2_GTHDM;
@@ -3422,6 +3425,8 @@ public:
     gslpp::matrix<gslpp::complex> Nu_GTHDM, Nd_GTHDM, Nl_GTHDM;
     gslpp::matrix<gslpp::complex> Yu1_GTHDM, Yu2_GTHDM, Yd1_GTHDM, Yd2_GTHDM, Yl1_GTHDM, Yl2_GTHDM;
     
+    gslpp::complex su, sd, sl;
+
 private:
 
     const GeneralTHDM * myGTHDM;
