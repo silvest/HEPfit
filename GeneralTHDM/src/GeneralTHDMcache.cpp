@@ -7877,39 +7877,12 @@ double  lambdahat = 1.0/2.0*sin2b*(lambda1*cosb*cosb - lambda2*sinb*sinb
  */
   
 
- 
- 
- double cnew = -sina1;
- double snew = cosa1;
- 
- 
- double gHhh = 3.0*vev*(lambda*cosa1*(-2.0/3.0  + sina1*sina1) - lambdahat*sina1*(1.0 - 3.0*cosa1*cosa1) + (2.0*lambdaA - lambdaT)*cosa1*(1.0/3.0 - sina1*sina1) - lambdaU*cosa1*cosa1*sina1);
- */
-  
-
  //phi2 ->H+H-
 double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(8.0*m2*M_PI);
 //phi2 -> phi1 Z
 double Gammaphi2_phi1Z=HSTheta(m2-(m1+MZ))*pow(KaellenFunction(m2_2,MZ*MZ,m1_2),3)*(R23*R12 + R22*R13)*(R23*R12 + R22*R13)/(2.0*M_PI*vev*vev);
 /* phi2 -> H+W- */
 double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mHp2),3)*(R23-i*R22).abs2()/(M_PI*vev*vev);
-
-    double lambdaA = cos2b*(lambda1*cosb*cosb - lambda2*sinb*sinb) + (lambda3+lambda4+Relambda5)*sin2b*sin2b
-     - Relambda5 + 2.0*Relambda6*cosb*sin3b - 2.0*Relambda7*sinb*cos3b;
-
-    double lambdaT = (1.0/4.0)*sin2b*sin2b*(lambda1+lambda2) + (lambda3+lambda4 +Relambda5)*(sinb*sinb*sinb*sinb +cosb*cosb*cosb*cosb) 
-     - 2.0*Relambda5 - sin2b*cos2b*(Relambda6-Relambda7);
-
-    double lambdaU =  1.0/2.0*sin2b*(sinb*sinb*lambda1 - cosb*cosb*lambda2 + 
-         cos2b*(lambda3+lambda4+Relambda5)) - Relambda6*sinb*sin3b - Relambda7*cosb*cos3b;
-
-
-     //phi2 ->H+H-
-    double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(8.0*m2*M_PI);
-    //phi2 -> phi1 Z
-    double Gammaphi2_phi1Z=HSTheta(m2-(m1+MZ))*pow(KaellenFunction(m2_2,MZ*MZ,m1_2),3)*(R23*R12 + R22*R13)*(R23*R12 + R22*R13)/(2.0*M_PI*vev*vev);
-    /* phi2 -> H+W- */
-    double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mHp2),3)*(R23-i*R22).abs2()/(M_PI*vev*vev);
 
     /*
      Gammaphi2tot= ((BrSM_phi2tott*rphi2_QtQt+BrSM_phi2tocc*rphi2_QcQc)+BrSM_phi2tobb*rphi2_QbQb+(BrSM_phi2totautau*rphi2_tautau+BrSM_phi2tomumu*rphi2_mumu)+(BrSM_phi2toWW+BrSM_phi2toZZ)*rphi2_VV)*Gammaphi2totSM+Gamma_phi2gaga+Gamma_phi2Zga+Gamma_phi2gg + Gammaphi2_phi1phi1+Gammaphi2_HpHm+Gammaphi2_phi1Z+Gammaphi2_HpW;
@@ -15144,9 +15117,9 @@ double GeneralTHDMcache::updateCache()
       if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
                 return std::numeric_limits<double>::quiet_NaN();
     
-    double m1 = sqrt(m1_2);
+    /*double m1 = sqrt(m1_2);
     double m2 = sqrt(m2_2);
-    double m3 = sqrt(m3_2);
+    double m3 = sqrt(m3_2);*/
     
 
 
