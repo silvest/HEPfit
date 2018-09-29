@@ -24,6 +24,7 @@ class F_2;
 #define GSL_INTERP_DIM 10
 #define GSL_INTERP_DIM_DC 10
 #define SPLINE true
+#define FULLNLOQCDF false
 
 /**
  * @class MVll
