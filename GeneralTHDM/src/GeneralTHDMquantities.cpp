@@ -599,3 +599,23 @@ double cosalpha1_GTHDM::computeThValue()
 {
     return   myGTHDM->getcosalpha1();
 }
+
+m1_2::m1_2(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double m1_2::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->m1_2;
+}
+
+
+m2_2::m2_2(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double m2_2::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->m2_2;
+}
+

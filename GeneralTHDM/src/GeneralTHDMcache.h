@@ -3405,6 +3405,7 @@ public:
     double R11, R12, R13, R21, R22, R23, R31, R32, R33;
     double m1_2, m2_2, m3_2, m1, m2, m3;
     
+    
 //    double M2_GTHDM;
 //    double m11_2_GTHDM;
 //    double m22_2_GTHDM;
@@ -3449,7 +3450,7 @@ private:
     double Imlambda5;
     double Relambda6;
     double Relambda7;
-
+    
 //    double Q_THDM;
 //    double bma;
 //    double m12_2;

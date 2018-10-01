@@ -1270,4 +1270,46 @@ public:
    const GeneralTHDM * myGTHDM;
 };
 
+/**
+ * @class m1_2
+ * @ingroup GeneralTHDM 
+ * @brief 
+ */
+class m1_2: public ThObservable {
+public:
+
+    /**
+     * @brief 
+     */
+    m1_2(const StandardModel& SM_i);
+
+    /**
+     * @return R11_GTHDM
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class m2_2
+ * @ingroup GeneralTHDM 
+ * @brief 
+ */
+class m2_2: public ThObservable {
+public:
+
+    /**
+     * @brief 
+     */
+    m2_2(const StandardModel& SM_i);
+
+    /**
+     * @return R11_GTHDM
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
 #endif	/* GENERALTHDMQUANTITIES_H */

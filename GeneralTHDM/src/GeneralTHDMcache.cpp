@@ -7488,7 +7488,7 @@ void GeneralTHDMcache::computeSignalStrengths()
     gslpp::complex yu1 = R11_GTHDM + (R12_GTHDM - i*R13_GTHDM)*su.conjugate();
     gslpp::complex yd1 = R11_GTHDM + (R12_GTHDM + i*R13_GTHDM)*sd;
     gslpp::complex yl1 = R11_GTHDM + (R12_GTHDM + i*R13_GTHDM)*sl;
-       
+          
      //The Standard Model h branching ratios
 
     BrSM_htobb = 5.77e-1;
@@ -7658,6 +7658,7 @@ void GeneralTHDMcache::computeSignalStrengths()
 
 double GeneralTHDMcache::computephi2quantities()
 {
+       m2 = sqrt(m2_2);
     
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
@@ -7742,7 +7743,7 @@ double GeneralTHDMcache::computephi2quantities()
                                                                              
     double Gamma_phi2gaga=(GF*Ale*Ale*m2*m2*m2/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI))*((I_phi2E_F+I_phi2_W+I_phi2_Hp).abs2()
                         + (I_phi2O_F).abs2());
-     
+            
     /*Decay to Z gamma
     CP-EVEN PART*/
 
@@ -7768,8 +7769,7 @@ double GeneralTHDMcache::computephi2quantities()
                                                                                
     double Gamma_phi2Zga=HSTheta(m2-MZ)*GF*Ale*Ale*m2*m2*m2/(sqrt(2.0)*64.0*M_PI*M_PI*M_PI)*(1.0-MZ*MZ/(m2*m2))*(1.0-MZ*MZ/(m2*m2))*(1.0-MZ*MZ/(m2*m2))*((A_phi2E_F+A_phi2_W+A_phi2_Hp).abs2()
                         + A_phi2O_F.abs2());
-    
-    
+       
     /*Decay to gluons*/
           
     
@@ -7810,14 +7810,13 @@ double GeneralTHDMcache::computephi2quantities()
  
  
   
-    SigmaggF_phi2_13=ip_cs_ggtoH_13(m2)* rphi2_ggE + ip_cs_ggtoA_13(m2)* rphi2_ggO;
+    SigmaggF_phi2_13=ip_cs_ggtoH_13(m2)*rphi2_ggE + ip_cs_ggtoA_13(m2)*rphi2_ggO;
     SigmabbF_phi2_13=ip_cs_pptobbH_13(m2)*rphi2_QdQdE + ip_cs_pptobbA_13(m2)*rphi2_QdQdO;
     SigmaVBF_phi2_13=ip_cs_VBFtoH_13(m2)*rphi2_VV;
     SigmattF_phi2_13=ip_cs_pptottH_13(m2)*rphi2_QuQuE + ip_cs_pptottA_13(m2)*rphi2_QuQuO;
     SigmaVH_phi2_13=(ip_cs_WtoWH_13(m2)+ip_cs_ZtoZH_13(m2))*rphi2_VV;
 
 
-    
  
 //    double SigmaTotSM_H13 = 1.0e-15;
 //    if (mHh>=20. && mHh <=2000.) {
@@ -7918,22 +7917,6 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
     Br_phi2tophi1Z=Gammaphi2_phi1Z/Gammaphi2tot;
     Br_phi2toHpW=Gammaphi2_HpW/Gammaphi2tot;
 
- /*std::cout << "Gammaphi2tot = " << Gammaphi2tot << std::endl;
- std::cout << " Gamma_phi2tott  = " << BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mt, m2_2)*beta(Mt, m2_2)))*Gammaphi2totSM << std::endl;
- std::cout << " Gamma_phi2tocc = " << BrSM_phi2tocc*(rphi2_QuQuE + rphi2_QuQuE/(beta(Mc, m2_2)*beta(Mc, m2_2)))*Gammaphi2totSM << std::endl;
- std::cout << " Gamma_phi2tobb = " << BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdE/(beta(Mb, m2_2)*beta(Mb, m2_2)))*Gammaphi2totSM << std::endl;
- std::cout << " Gamma_phi2totautau* = " << BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlE/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))*Gammaphi2totSM << std::endl;
- std::cout << " Gamma_phi2toWW = " << BrSM_phi2toWW*rphi2_VV*Gammaphi2totSM << std::endl;
- std::cout << " Gamma_phi2toZZ = " << BrSM_phi2toZZ*rphi2_VV*Gammaphi2totSM << std::endl;
- std::cout << " Gammaphi2totSM = " << Gammaphi2totSM << std::endl;
- std::cout << " Gamma_phi2gaga = " << Gamma_phi2gaga << std::endl;
- std::cout << " Gamma_phi2Zga = " << Gamma_phi2Zga << std::endl;
- std::cout << " Gamma_phi2gg = " << Gamma_phi2gg << std::endl;
- std::cout << " Gammaphi2_phi1phi1 = " << Gammaphi2_phi1phi1 << std::endl;
- std::cout << " Gammaphi2_HpHm = " << Gammaphi2_HpHm << std::endl;
- std::cout << " Gammaphi2_phi1Z = " << Gammaphi2_phi1Z << std::endl;
- std::cout << " Gammaphi2_HpW = " << Gammaphi2_HpW << std::endl;
- */
  
  return 0.;  
 }
@@ -7943,6 +7926,7 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
 double GeneralTHDMcache::computephi3quantities()
 {
     
+    m3 = sqrt(m3_2);
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
 
@@ -8024,13 +8008,6 @@ double GeneralTHDMcache::computephi3quantities()
     double lambdaphi3HpHm =  lambdaipm(R13, R23, R33);
     gslpp::complex I_phi3_Hp=(vev*vev)/(2.0*mHp2)*I_H_Hp(mHp2,m3)*(lambdaphi3HpHm);
     
-   /* 
-    std::cout << "I_H_Hp(mHp2,m3)  = " <<  I_H_Hp(mHp2,m3) << std::endl;
-     std::cout << "mHp2  = " <<  mHp2 << std::endl;
-        std::cout << "m3 = " << m3 << std::endl;
-    std::cout << "lambdaphi3HpHm = " <<  lambdaphi3HpHm << std::endl;
-      std::cout << "I_phi3_Hp first  = " <<  I_phi3_Hp << std::endl;
-    */
     
     /*CP ODD */
             
@@ -10979,14 +10956,7 @@ double GeneralTHDMcache::ComputeMediumHiggs()
         THoEX_ggF_phi2_WW_enumunu_ATLAS13=ggF_phi2_WW_TH13/ip_ex_gg_H_WW_enumunu_ATLAS13(m2);
         R_ggF_phi2_WW_enumunu_ATLAS13=(1+(ggF_phi2_WW_TH13-ip_ex_gg_H_WW_enumunu_ATLAS13(m2))/ip_ex_gg_H_WW_enumunu_ATLAS13_e(m2) ) * nftos;
     }      
-    
-      /*std::cout << "THoEX_ggF_phi2_phi1phi1_ATLAS8 = " << THoEX_ggF_phi2_phi1phi1_ATLAS8 << std::endl;
-        std::cout << "ggF_phi2_phi1phi1_TH8 = " << ggF_phi2_phi1phi1_TH8 << std::endl;
-        std::cout << "ip_ex_gg_H_hh_ATLAS8(m2) = " << ip_ex_gg_H_hh_ATLAS8(m2) << std::endl;
-        std::cout << "ip_ex_gg_H_hh_ATLAS8(100) = " << ip_ex_gg_H_hh_ATLAS8(100) << std::endl;
-        std::cout << "ip_ex_gg_H_hh_ATLAS8(950) = " << ip_ex_gg_H_hh_ATLAS8(950) << std::endl;
-        std::cout << "ip_ex_gg_phi_gaga_CMS13(m2) = " << ip_ex_gg_phi_gaga_CMS13(m2) << std::endl;*/
-
+   
     return 0.;
 }
 
@@ -11026,11 +10996,6 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     pp_phi3_Zga_llga_TH8=SigmaSumphi3_8*Br_phi3toZga*(Br_Ztoee+Br_Ztomumu);
     mu_pp_phi3_VV_TH8=SigmaSumphi3_8/SigmaTotSM_phi3_8*rphi3_VV*Gammaphi3totSM/Gammaphi3tot;
     
-   /* std::cout << "mu_pp_phi3_VV_TH8 = " << mu_pp_phi3_VV_TH8 << std::endl;
-    std::cout << "SigmaSumphi3_8 = " << SigmaSumphi3_8 << std::endl;
-    std::cout << "SigmaTotSM_phi3_8 = " << SigmaTotSM_phi3_8 << std::endl;
-    std::cout << "Gammaphi3totSM = " << Gammaphi3totSM << std::endl;
-        std::cout << "Gammaphi3tot = " << Gammaphi3tot << std::endl;*/
 
 
 
@@ -11048,7 +11013,6 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     pp_phi3_phi2phi2_TH8=SigmaSumphi3_8*Br_phi3tophi2phi2;   
     pp_phi3_phi1phi2_TH8=SigmaSumphi3_8*Br_phi3tophi1phi2;
     
-    /*std::cout << "ggF_phi3_phi1phi1_TH8 " <<ggF_phi3_phi1phi1_TH8 << std::endl;*/
 
  
     
@@ -11128,10 +11092,6 @@ R_bbF_phi3_bb_CMS8 = 0.0;
 //THoEX_pp_H_AZ_tautaull_CMS8 = 0.0;
 //R_pp_H_AZ_tautaull_CMS8 = 0.0;
 
-
-/*std::cout << " m1 = " << m1 << std::endl;
-std::cout << " m2 = " << m2 << std::endl;
-std::cout << " m3 = " << m3 << std::endl;*/
 
    //Theoretical expressions for the Heavy Higgs cross sections times branching ratios at 13 TeV
 
@@ -15117,12 +15077,10 @@ double GeneralTHDMcache::updateCache()
       if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
                 return std::numeric_limits<double>::quiet_NaN();
     
-    /*double m1 = sqrt(m1_2);
+   double m1 = sqrt(m1_2);
     double m2 = sqrt(m2_2);
-    double m3 = sqrt(m3_2);*/
+    double m3 = sqrt(m3_2);
     
-
-
     
 
 //    std::cout<<"mH1sq = "<<mH1sq<<std::endl;
@@ -15145,7 +15103,7 @@ double GeneralTHDMcache::updateCache()
 ////    m12_2=myTHDM->getm12_2();
 //    MW=MWTHDM(myTHDM->Mw_tree());
 //    cW2=cW2THDM(myTHDM->c02());
-//    Ale=myTHDM->getAle();
+    Ale=myGTHDM->getAle();
 //    Als=myTHDM->getAlsMz();
 //    Mt=myTHDM->getQuarks(QCD::TOP).getMass();
 //    Mb=myTHDM->getQuarks(QCD::BOTTOM).getMass();   
