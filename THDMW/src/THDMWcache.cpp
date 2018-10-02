@@ -41,6 +41,7 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         ATLAS13_pp_Hp_tb2_e(181,2,0.),
         ATLAS_13_pp_Gkk_tt(131,2,0.),
         MadGraph_pp_Sr_tt(22800,5,0.),
+        MadGraph_pp_Srtt_tttt(22800,5,0.),
         arraybsgamma(1111, 3, 0.),
         unitarityeigenvalues(11, 0.), NLOunitarityeigenvalues(11, 0.),
         myTHDMW(static_cast<const THDMW*> (&SM_i)),betaeigenvalues(11, 0.)
@@ -1315,7 +1316,7 @@ void THDMWcache::read(){
     std::stringstream ex9,ex10,ex11,ex12,ex13;
     std::stringstream ex9e,ex10e,ex11e,ex12e,ex13e;
     std::stringstream ex14;
-    std::stringstream th1;
+    std::stringstream th1,th2;
 
     std::stringstream bsg1;
 
@@ -1375,7 +1376,7 @@ void THDMWcache::read(){
     ATLAS13_bb_phi_tt = readTable(ex4.str(),61,2);      
     ex4e << tablepath << "ATLAS-CONF-2016-104_b_e.dat"; 
     ATLAS13_bb_phi_tt_e = readTable(ex4e.str(),61,2);   
-    ex5 << tablepath << "ATLAS-CONF-2016-104_a.dat";    
+    ex5 << tablepath << "180711883.dat";    
     ATLAS13_tt_phi_tt = readTable(ex5.str(),61,2);      
     ex5e << tablepath << "ATLAS-CONF-2016-104_a_e.dat";
     ATLAS13_tt_phi_tt_e = readTable(ex5e.str(),61,2);  
@@ -1419,6 +1420,9 @@ void THDMWcache::read(){
 
     th1 << tablepath << "Generated_data_S2t_Fixed_Steps.dat";
     MadGraph_pp_Sr_tt = readTable(th1.str(),22800,5);
+    
+    th2 << tablepath << "Generated_data_Stt_tttt_Fixed_Steps.dat";
+    MadGraph_pp_Srtt_tttt = readTable(th2.str(),22800,5);
 
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
@@ -1853,6 +1857,20 @@ double THDMWcache::ip_th_pp_Sr_tt(double etaD, double etaU, double Lambda4, doub
     }
 }
 
+double THDMWcache::ip_th_pp_Srtt_tttt(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
+
+    int i = CacheCheckReal(ip_th_pp_Srtt_tttt_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Srtt_tttt_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate4D (MadGraph_pp_Srtt_tttt,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(ip_th_pp_Srtt_tttt_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 
 
 void THDMWcache::computeHHlimits()
@@ -1863,20 +1881,25 @@ void THDMWcache::computeHHlimits()
     double nu45=(nu4+nu5)/2;
     //EtaU and EtaD in Sqrt Units!!!
     THoEX_pp_Sr_tt=0.;
+    THoEX_pp_Srtt_tttt=0.;
+    
     pp_Sr_tt_TH13 = 1.0e-15;
+    pp_Srtt_tttt_TH13 = 1.0e-15;
     
         if(mSr>= 400 && mSr<=1500 )
     {
         pp_Sr_tt_TH13=ip_th_pp_Sr_tt(SqrtEtaD,SqrtEtaU,nu45,mSr);
-     // pp_Sr_tt_TH13=ip_ex_pp_Gkk_tt_ATLAS13(mSr);    
+        pp_Srtt_tttt_TH13=ip_th_pp_Srtt_tttt(SqrtEtaD,SqrtEtaU,nu45,mSr);
     }
     
-    if(mSr>= 400 && mSr<=1500 )
+    if(mSr>= 400 && mSr<=1000 )
     {
       THoEX_pp_Sr_tt=pp_Sr_tt_TH13/ip_ex_pp_Gkk_tt_ATLAS13(mSr);
-    //  THoEX_pp_Sr_tt=ip_th_pp_Sr_tt(1,7.,-10,500);
-
-    //    std::cout<<"ip_th_pp_Sr_tt = "<<ip_th_pp_Sr_tt(2,7.05,-10,500)<<std::endl;
+      THoEX_pp_Srtt_tttt=pp_Srtt_tttt_TH13/ip_ex_tt_phi_tt_ATLAS13(mSr);
+    }
+    else if(mSr>= 1000 && mSr<=1500)
+    {
+      THoEX_pp_Sr_tt=pp_Sr_tt_TH13/ip_ex_pp_Gkk_tt_ATLAS13(mSr);
     }
 }
 

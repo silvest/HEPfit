@@ -23,15 +23,15 @@
  */
 
 /**
- * @class Hobs_ggF_H_tautau_ATLAS8
+ * @class Hobs_pp_Sr_tt_ATLAS13
  * @ingroup THDMW
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$gg\to H\to \tau\tau@f$.
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp\to Gkk\to t\bar t@f$.
  */
 class Hobs_pp_Sr_tt_ATLAS13: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_pp_Z'_ttbar_ATLAS13 constructor.
+     * @brief Hobs_pp_Sr_tt_ATLAS13 constructor.
      */
     Hobs_pp_Sr_tt_ATLAS13(const StandardModel& SM_i);
 
@@ -65,7 +65,48 @@ private:
     const THDMW& myTHDMW;
 };
 
+/**
+ * @class Hobs_pp_Srtt_tttt_ATLAS13
+ * @ingroup THDMW
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp\to H t t\bar \to t\bar t  t\bar t@f$.
+ */
+class Hobs_pp_Srtt_tttt_ATLAS13: public ThObservable {
+public:
 
+    /**
+     * @brief Hobs_pp_Stt_tttt_ATLAS13 constructor.
+     */
+    Hobs_pp_Srtt_tttt_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return xsection times Br ratio for pp -> Sr -> t tbar
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+
+/**
+ * @class log10_pp_Srtt_tttt_TH13
+ * @ingroup THDMW
+ * @brief Decadic logarithm of the cross section times branching ratio of the process pp -> Sr t tbar -> t tbar t tbar at 13 TeV.
+ */
+class log10_pp_Srtt_tttt_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Srtt_tttt_TH13 constructor.
+     */
+    log10_pp_Srtt_tttt_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDMW}}_{pp\to Sr t t\bar}\cdot BR^{\text{THDMW}}(Sr\to t\bar t)]@f$
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
 
 
 
