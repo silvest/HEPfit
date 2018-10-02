@@ -28,22 +28,3 @@ double log10_pp_Sr_tt_TH13::computeThValue()
 {
     return log10(myTHDMW.getMyTHDMWCache()->pp_Sr_tt_TH13);
 }
-
-Hobs_pp_Srtt_tttt_ATLAS13::Hobs_pp_Srtt_tttt_ATLAS13(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
-{}
-
-double Hobs_pp_Srtt_tttt_ATLAS13::computeThValue()
-{
-    return myTHDMW.getMyTHDMWCache()->THoEX_pp_Srtt_tttt;
-}
-
-
-log10_pp_Srtt_tttt_TH13::log10_pp_Srtt_tttt_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
-{}
-
-double log10_pp_Srtt_tttt_TH13::computeThValue()
-{
-    return log10(myTHDMW.getMyTHDMWCache()->pp_Srtt_tttt_TH13);
-}
