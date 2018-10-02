@@ -16,6 +16,8 @@ class StandardModel;
 #include <gsl/gsl_spline.h>
 #include <memory>
 
+#define NBGL 3 /* ONLY 3 or 2*/
+
 class MPlnu {
 public:
     /**
@@ -42,16 +44,22 @@ public:
     double getDeltaGammaDeltaw(double w_min, double w_max);
 
     /**
-    * @brief Unitarity constraint for BGL parameters related to 1- resonances
+    * @brief Weak Unitarity constraint for BGL parameters related to 1- resonances
     * @return \f$ \Sum_i (af+_i^2) \f$ 
     */
     double get_unitarity_1min_BGL();
  
     /**
-    * @brief Unitarity constraint for BGL parameters related to 0+ resonances
+    * @brief Weak Unitarity constraint for BGL parameters related to 0+ resonances
     * @return \f$ \Sum_i (af0_i^2) \f$ 
     */
     double get_unitarity_0plus_BGL();
+    
+    /**
+    * @brief Strong Unitarity constraint for BGL parameters using HQET
+    * @return \f$ \Sum_i (af0_i^2) \f$ 
+    */
+    double get_strong_unitarity_BGL();
 
     /**
      * @brief return fplus form factor at \f$ q^2 \f$
@@ -125,6 +133,9 @@ private:
     
     double fplusz0,rho1to2; /**<CLN form factor parameters*/
     double af0_0,af0_1,af0_2,afplus_0,afplus_1,afplus_2; /**<BGL form factor parameters*/
+#if NBGL == 3
+    double af0_3, afplus_3;
+#endif    
     double mBc1m_1,mBc1m_2,mBc1m_3,mBc1m_4,mBc0p_1,mBc0p_2,chitildeT,chiL,nI; /**<BGL form factor parameters*/
     double z1m_1,z1m_2,z1m_3,z0p_1,z0p_2;
     gslpp::complex z1m_4;
@@ -133,6 +144,9 @@ private:
                 cached_intJ1_el, cached_intJ2_el, cached_intJ3_el; /**< caching Js integral btw q2min and q2mx*/
     double fplusz0_cache,rho1to2_cache;
     double af0_1_cache,af0_2_cache,afplus_0_cache,afplus_1_cache,afplus_2_cache;
+#if NBGL == 3
+    double af0_3_cache,afplus_3_cache;
+#endif    
     double CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
     bool checkcache_int_tau, checkcache_int_mu, checkcache_int_el;
     

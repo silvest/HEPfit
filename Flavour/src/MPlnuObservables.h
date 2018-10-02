@@ -24,7 +24,7 @@ public:
     Gammaw_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
     /**
-    * @brief The binned observable @f$<\Gamma><w>@f$ in @f$M \to V l \nu@f$.
+    * @brief The binned observable @f$<\Gamma><w>@f$ in @f$M \to P l \nu@f$.
     * @return @f$<\Gamma><w>@f$
     */
     double computeThValue ();
@@ -50,7 +50,7 @@ public:
     RD_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2, QCD::lepton lep_3);
     
     /**
-    * @brief The binned observable @f$R_{D}@f$ in @f$M \to V l \nu@f$.
+    * @brief The binned observable @f$R_{D}@f$ in @f$M \to P l \nu@f$.
     * @return @f$R_{D}@f$
     */
     double computeThValue ();
@@ -77,7 +77,7 @@ public:
     UnitarityV_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
      
     /**
-    * @brief Vectorial unitarity constraint for @f$M \to V l \nu@f$.
+    * @brief Vectorial unitarity constraint for @f$M \to P l \nu@f$.
     * @return @f$ \Sum_i ag_i^2 @f$
     */
     double computeThValue ();
@@ -102,7 +102,32 @@ public:
     UnitarityA_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
     
     /**
-    * @brief Axial unitarity constraint for @f$M \to V l \nu@f$.
+    * @brief Axial unitarity constraint for @f$M \to P l \nu@f$.
+    * @return @f$ \Sum_i (af_i^2 + aF1_i^2) @f$
+    */
+    double computeThValue ();
+     
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalarM; /**< Final vector meson type. */
+
+};
+
+class Unitarity_Strong_MPlnu : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    Unitarity_Strong_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief Strong unitarity constraint for @f$M \to P l \nu@f$.
     * @return @f$ \Sum_i (af_i^2 + aF1_i^2) @f$
     */
     double computeThValue ();
@@ -127,7 +152,7 @@ public:
     FFplus_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
     
     /**
-    * @brief The binned observable @f$f_{+}@f$ in @f$M \to V l \nu@f$.
+    * @brief The binned observable @f$f_{+}@f$ in @f$M \to P l \nu@f$.
     * @return @f$<\Gamma><w>@f$
     */
     double computeThValue ();
@@ -152,7 +177,7 @@ public:
     FF0_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
     
     /**
-    * @brief The binned observable @f$f_{0}@f$ in @f$M \to V l \nu@f$.
+    * @brief The binned observable @f$f_{0}@f$ in @f$M \to P l \nu@f$.
     * @return @f$<\Gamma><w>@f$
     */
     double computeThValue ();

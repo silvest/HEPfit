@@ -43,6 +43,9 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
     if (btocNPpmflag) {
         if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
             << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2"
+#if NBGL == 3
+            << "af0_3" << "afplus_3"
+#endif                
             << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
             << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI"
             << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
@@ -61,6 +64,9 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
     } else {
         if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
             << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2"
+#if NBGL == 3
+            << "af0_3" << "afplus_3"
+#endif                
             << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
             << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI"
             << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
@@ -155,6 +161,10 @@ void MPlnu::updateParameters()
                 af0_2 = 0.;
                 afplus_1 = 0.;
                 afplus_2 = 0.;
+#if NBGL == 3
+                af0_3 = 0.;
+                afplus_3 = 0.;
+#endif                
                 mBc1m_1 = 0.;
                 mBc1m_2 = 0.;
                 mBc1m_3 = 0.;
@@ -172,6 +182,10 @@ void MPlnu::updateParameters()
                 afplus_0 = mySM.getOptionalParameter("afplus_0");
                 afplus_1 = mySM.getOptionalParameter("afplus_1");
                 afplus_2 = mySM.getOptionalParameter("afplus_2");
+#if NBGL == 3
+                af0_3 = mySM.getOptionalParameter("af0_3");
+                afplus_3 = mySM.getOptionalParameter("afplus_3");
+#endif                
                 mBc1m_1 = mySM.getOptionalParameter("mBc1m_1");
                 mBc1m_2 = mySM.getOptionalParameter("mBc1m_2");
                 mBc1m_3 = mySM.getOptionalParameter("mBc1m_3");
@@ -205,6 +219,9 @@ void MPlnu::updateParameters()
             || (af0_1 != af0_1_cache) || (af0_2 != af0_2_cache)
             || (afplus_0 != afplus_0_cache) || (afplus_1 != afplus_1_cache)
             || (afplus_2 != afplus_2_cache)
+#if NBGL == 3
+            || (af0_3 != af0_3_cache) || (afplus_3 != afplus_3_cache)
+#endif            
             || (CS != CS_cache) || (CSp != CSp_cache)
             || (CP != CP_cache) || (CPp != CPp_cache)
             || (CV != CV_cache) || (CVp != CVp_cache)
@@ -247,12 +264,20 @@ void MPlnu::updateParameters()
     afplus_0_cache = afplus_0;
     afplus_1_cache = afplus_1;
     afplus_2_cache = afplus_2;
+#if NBGL == 3
+    af0_3_cache = af0_3;
+    afplus_3_cache = afplus_3;
+#endif    
     /* f+(q2=0) = f0(q2=0) */
     z0 = (sqrt(w0+1.)-sqrt(2.))/(sqrt(w0+1.)+sqrt(2.));
     if (CLNflag) af0_0 = 0.;
     else {
         af0_0 = fplus(0.);
+#if NBGL == 3
+        af0_0 -= (af0_1 * z0 + af0_2 * z0 * z0 + af0_3 * z0 * z0 *z0) / phi_f0(z0) / ((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
+#else        
         af0_0 -= (af0_1 * z0 + af0_2 * z0 * z0) / phi_f0(z0) / ((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
+#endif        
         af0_0 *= phi_f0(z0)*((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
     }
     CS_cache = CS;
@@ -312,7 +337,11 @@ double MPlnu::fplus(double q2)
         return fplusz0 * (1. - 8. * rho1to2 * z + (51. * rho1to2 - 10.) * z * z - (252. * rho1to2 - 84.) * z * z * z);
     } else {
         double P_fplus = (z - z1m_1) / (1. - z * z1m_1)*(z - z1m_2) / (1. - z * z1m_2)*(z - z1m_3) / (1. - z * z1m_3);
+#if NBGL == 3        
+        return (afplus_0 + afplus_1 * z + afplus_2 * z * z +  afplus_3 * z * z * z) / phi_fplus(z) / P_fplus;
+#else
         return (afplus_0 + afplus_1 * z + afplus_2 * z * z) / phi_fplus(z) / P_fplus;
+#endif        
     }
 }
 
@@ -328,7 +357,11 @@ double MPlnu::f0(double q2)
         return prefac/norm * 1.0036 * (1. - 0.0068 * (w - 1.) + 0.0017 * (w - 1.)*(w - 1.) - 0.0013 * (w - 1.)*(w - 1.)*(w - 1.));
     } else {
         double P_f0 = (z - z0p_1) / (1. - z * z0p_1)*(z - z0p_2) / (1. - z * z0p_2);
+#if NBGL == 3
+        return (af0_0 + af0_1 * z + af0_2 * z * z + af0_3 * z * z * z) / phi_f0(z) / P_f0;
+#else        
         return (af0_0 + af0_1 * z + af0_2 * z * z) / phi_f0(z) / P_f0;
+#endif        
     }
 }
 
@@ -440,7 +473,7 @@ double MPlnu::dGammadq2(double q2)
     double sqlambdaB = lambda_half(q2,MM*MM,MP*MP);
     double prefac = (CV-CA)*(CV-CA)*GF*GF*Vcb.abs2()*MM*sqlambdaB/192./M_PI/M_PI/M_PI;
     double coeff_fp = (1.+Mlep*Mlep/(2.*q2))*sqlambdaB*sqlambdaB/MM/MM/MM/MM;
-    double coeff_f0 = (1.-MP*MP/MM/MM)*(1.-MP*MP/MM/MM)*3*Mlep*Mlep/(2.*q2);
+    double coeff_f0 = (1.-MP*MP/MM/MM)*(1.-MP*MP/MM/MM)*3.*Mlep*Mlep/(2.*q2);
     double TotAmp2 = coeff_fp*fplus(q2)*fplus(q2)+coeff_f0*f0(q2)*f0(q2);
     return prefac*(1.-Mlep*Mlep/q2)*(1.-Mlep*Mlep/q2)*TotAmp2;
  }
@@ -523,15 +556,35 @@ double MPlnu::get_unitarity_1min_BGL()
 {
     updateParameters();
 
+#if NBGL == 3
+    return afplus_0 * afplus_0 + afplus_1 * afplus_1 + afplus_2 * afplus_2 + afplus_3 * afplus_3;
+#else    
     return afplus_0 * afplus_0 + afplus_1 * afplus_1 + afplus_2 * afplus_2;
-
+#endif    
 }
 
 double MPlnu::get_unitarity_0plus_BGL()
 {
     updateParameters();
 
+#if NBGL == 3
+    return af0_0 * af0_0 + af0_1 * af0_1 + af0_2 * af0_2 + af0_3 * af0_3;
+#else    
     return af0_0 * af0_0 + af0_1 * af0_1 + af0_2*af0_2;
+#endif    
+}
+
+double MPlnu::get_strong_unitarity_BGL()
+{
+    updateParameters();
+
+#if NBGL == 3
+    return 1707.54 * afplus_0 * afplus_0 + 1299.57 * afplus_0 * afplus_1 + 442.82 * afplus_1 * afplus_1 - 356.01 * afplus_0 * afplus_2 
+               - 101.62 * afplus_1 * afplus_2 + 34.947 * afplus_2 * afplus_2 - 206.767 * afplus_0 * afplus_3 - 127.668 * afplus_1 * afplus_3 
+               + 33.234 * afplus_2 * afplus_3 + 16.475 * afplus_3 * afplus_3;
+#else    
+    return 442.82 * afplus_0 * afplus_0 - 101.619 * afplus_0 * afplus_1 + 34.947* afplus_1 * afplus_1 - 127.668 * afplus_0 * afplus_2 + 33.234 * afplus_1 * afplus_2 + 16.4754 * afplus_2 * afplus_2;
+#endif    
 }
 
 double MPlnu::get_fplus(double q2)

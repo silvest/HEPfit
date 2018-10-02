@@ -104,6 +104,21 @@ double UnitarityA_MPlnu::computeThValue()
     return SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).get_unitarity_1min_BGL();
 }
 
+Unitarity_Strong_MPlnu::Unitarity_Strong_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    pseudoscalarM = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).initializeMPlnuParameters());
+}
+
+double Unitarity_Strong_MPlnu::computeThValue() 
+{
+    return SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).get_strong_unitarity_BGL();
+}
+
 FFplus_MPlnu::FFplus_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
 : ThObservable(SM_i) 
 {  
