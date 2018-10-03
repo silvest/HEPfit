@@ -85,10 +85,19 @@ public:
     double pp_Sr_tt_TH13;
     
     
+         /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr t t\bar \to t\bar t  t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr t\bar t\to t\bar t  t\bar t)@f$
+     */
+    double pp_Srtt_tttt_TH13;
+    
+    
     
     
     
     double THoEX_pp_Sr_tt;
+    
+    double THoEX_pp_Srtt_tttt;
     
     
 
@@ -214,7 +223,7 @@ private:
     mutable gslpp::complex A_H_W_cache[5][CacheSize];
     mutable gslpp::complex A_H_Hp_cache[5][CacheSize];
     
-//    mutable double ip_cs_ppto2Sto4t_13_cache[5][CacheSize];
+    mutable double ip_th_pp_Srtt_tttt_cache[5][CacheSize];
     mutable double ip_th_pp_Sr_tt_cache[5][CacheSize];
     mutable double ip_ex_pp_phi_hh_bbbb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_hh_bbbb_CMS8_cache_e[2][CacheSize];
@@ -350,6 +359,11 @@ private:
      * @brief Table for xsection times branching ratio for p p -> Sr -> t tbar generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Sr_tt;
+    
+            /**
+     * @brief Table for xsection times branching ratio for p p -> Sr t tbar -> t tbar generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Srtt_tttt;
     
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -579,6 +593,13 @@ private:
      * @details Generated with MadGraph
      */
     double ip_th_pp_Sr_tt(double etaD, double etaU, double Lambda4, double mass);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr t tbar -> t tbar t tbar
+     * @return xsection times branching ratio of pp -> Sr t tbar-> t tbar t tbar
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Srtt_tttt(double etaD, double etaU, double Lambda4, double mass);
     
     
     
