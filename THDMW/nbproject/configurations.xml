@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/RunnerTHDMW.h</itemPath>
       <itemPath>src/THDMW.h</itemPath>
+      <itemPath>src/THDMWEWPO.h</itemPath>
       <itemPath>src/THDMWObservables.h</itemPath>
       <itemPath>src/THDMWSignalStrengths.h</itemPath>
       <itemPath>src/THDMWcache.h</itemPath>
@@ -24,6 +25,7 @@
                    projectFiles="true">
       <itemPath>src/RunnerTHDMW.cpp</itemPath>
       <itemPath>src/THDMW.cpp</itemPath>
+      <itemPath>src/THDMWEWPO.cpp</itemPath>
       <itemPath>src/THDMWSignalStrengths.cpp</itemPath>
       <itemPath>src/THDMWcache.cpp</itemPath>
       <itemPath>src/THDMWdirectsearches.cpp</itemPath>
@@ -83,6 +85,10 @@
       <item path="src/THDMW.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWEWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWEWPO.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -161,6 +167,10 @@
       </item>
       <item path="src/THDMW.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMWEWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWEWPO.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWSignalStrengths.cpp" ex="false" tool="1" flavor2="0">
@@ -228,6 +238,10 @@
       <item path="src/THDMW.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWEWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWEWPO.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
       </item>

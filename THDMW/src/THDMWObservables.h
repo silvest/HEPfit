@@ -14,5 +14,6 @@
 #include "THDMWquantitiesatQ.h"
 #include "THDMWSignalStrengths.h"
 #include "THDMWunitarity.h"
+#include "THDMWEWPO.h"
 
 #endif	/* THDMWOBSERVABLES_H */
