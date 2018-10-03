@@ -162,3 +162,18 @@ double FF0_MPlnu::computeThValue()
     
     return res_f0;
 }
+
+af0_0::af0_0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
+: ThObservable(SM_i) 
+{  
+    lep1 = lep_i;
+    meson = meson_i;
+    pseudoscalarM = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).initializeMPlnuParameters());
+}
+
+double af0_0::computeThValue() 
+{
+    return SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).getaf0_0();
+}

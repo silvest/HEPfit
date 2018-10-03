@@ -89,6 +89,16 @@ public:
         return width;
     }
     
+    /**
+    * @brief The BGL parameter \f$ a_0^{f_0}\f$
+    * @return \f$ a_0^{f_0}\f$
+    */
+    double getaf0_0()
+    {
+        updateParameters();
+        return af0_0;
+    }
+    
 private:
     const StandardModel& mySM;/**< Model type */
     QCD::lepton lep;/**< Final leptons type */

@@ -189,5 +189,30 @@ private:
     
 };
 
+class af0_0 : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    af0_0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The BGL parameter @f$ a_0^{f_0} @f$ in @f$M \to P l \nu@f$.
+    * @return @f$ a_0^{f_0} @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep1; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalarM; /**< Final vector meson type. */
+    
+};
+
 #endif /* MPLNUOBSERVABLES_H */
 
