@@ -1697,6 +1697,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["UnitarityV_MPlnu"] = boost::bind(boost::factory<UnitarityV_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
     obsThFactory["UnitarityA_MPlnu"] = boost::bind(boost::factory<UnitarityA_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
     obsThFactory["Unitarity_Strong_MPlnu"] = boost::bind(boost::factory<Unitarity_Strong_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
+    obsThFactory["af0_0"] = boost::bind(boost::factory<af0_0*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
     obsThFactory["FF0_MPlnu"] = boost::bind(boost::factory<FF0_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
     obsThFactory["FFplus_MPlnu"] = boost::bind(boost::factory<FFplus_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
     
