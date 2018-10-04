@@ -1057,7 +1057,7 @@ gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate, bool spline)
     double sh = q2 / mb_pole / mb_pole;
     double sh2 = sh*sh;
 
-#if FULLNLOQCDF    
+#if FULLNLOQCDF_MVLL    
     gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
     gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
@@ -1069,7 +1069,7 @@ gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate, bool spline)
     if (!conjugate) {
         gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
         gslpp::complex delta_t = C_8 * F_87 + delta;
-#if FULLNLOQCDF        
+#if FULLNLOQCDF_MVLL        
         gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
         return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
 #else
@@ -1078,7 +1078,7 @@ gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate, bool spline)
     } else {
         gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
         gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
-#if FULLNLOQCDF
+#if FULLNLOQCDF_MVLL
         gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
         return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
 #else
@@ -1101,7 +1101,7 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate, bool spline)
     double sh = q2 / mb_pole / mb_pole;
     double sh2 = sh*sh;
 
-#if FULLNLOQCDF    
+#if FULLNLOQCDF_MVLL    
     gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
     gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
     gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
@@ -1114,7 +1114,7 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate, bool spline)
     if (!conjugate) {
         gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
         gslpp::complex delta_t = C_8 * F_89 + delta;
-#if FULLNLOQCDF
+#if FULLNLOQCDF_MVLL
         gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
         return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
 #else        
@@ -1123,7 +1123,7 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate, bool spline)
     } else {
         gslpp::complex delta = C_1.conjugate() * F_19 + C_2.conjugate() * F_29;
         gslpp::complex delta_t = C_8.conjugate() * F_89 + delta;
-#if FULLNLOQCDF        
+#if FULLNLOQCDF_MVLL        
         gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
         return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
 #else        
@@ -1237,7 +1237,7 @@ gslpp::complex MVll::T_perp_plus_QSS(double q2, double u, bool conjugate)
 {
     gslpp::complex t_perp_mc = t_perp(q2, u, mc_pole * mc_pole);
     double eu = 0.666666667;
-#if FULLNLOQCDF    
+#if FULLNLOQCDF_MVLL    
     gslpp::complex t_perp_mb = t_perp(q2, u, mb_pole*mb_pole);
     gslpp::complex t_perp_0 = t_perp(q2, u, 0.);
     double ed = -0.333333333;   
@@ -1259,7 +1259,7 @@ gslpp::complex MVll::T_para_plus_QSS(double q2, double u, bool conjugate)
 {
     gslpp::complex t_para_mc = t_para(q2, u, mc_pole * mc_pole);
     double eu = 0.666666667;
-#if FULLNLOQCDF    
+#if FULLNLOQCDF_MVLL    
     gslpp::complex t_para_mb = t_para(q2, u, mb_pole*mb_pole);    
     gslpp::complex t_para_0 = t_para(q2, u, 0.);    
     double ed = -0.333333333;
@@ -1281,7 +1281,7 @@ gslpp::complex MVll::T_para_minus_QSS(double q2, double u, bool conjugate)
 {
     double ubar = 1. - u;
     gslpp::complex h_mc = h_func(ubar * MM2 + u*q2, mc_pole * mc_pole);
-#if FULLNLOQCDF    
+#if FULLNLOQCDF_MVLL    
     gslpp::complex h_mb = h_func(ubar*MM2 + u*q2, mb_pole*mb_pole);
     gslpp::complex h_0  = h_func(ubar*MM2 + u*q2, 0);
 
@@ -1313,7 +1313,7 @@ gslpp::complex MVll::lambda_B_minus(double q2)
 double MVll::T_perp_real(double q2, double u, bool conjugate)
 {
     gslpp::complex T_amp = N_QCDF / mySM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(q2, u) + T_perp_plus_QSS(q2, u, conjugate));
-#if FULLNLOQCDF 
+#if FULLNLOQCDF_MVLL 
     double ubar = 1. - u;
 
     T_amp += N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
@@ -1326,7 +1326,7 @@ double MVll::T_perp_real(double q2, double u, bool conjugate)
 double MVll::T_perp_imag(double q2, double u, bool conjugate)
 {
     gslpp::complex T_amp = N_QCDF / mySM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(q2, u) + T_perp_plus_QSS(q2, u, conjugate));
-#if FULLNLOQCDF            
+#if FULLNLOQCDF_MVLL            
     double ubar = 1. - u;
     
     T_amp += N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
@@ -1342,7 +1342,7 @@ double MVll::T_para_real(double q2, double u, bool conjugate)
 
     gslpp::complex T_amp = (N / lambda_B_minus(q2) * (T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate))
             + N / mySM.getMesons(meson).getLambdaM() * T_para_plus_QSS(q2, u, conjugate)) * phi_V(u);
-#if FULLNLOQCDF 
+#if FULLNLOQCDF_MVLL 
     T_amp += N / lambda_B_minus(q2) * T_para_minus_WA(conjugate)* phi_V(u);
 #endif    
     return sqrt(q2) * T_amp.real();
@@ -1354,7 +1354,7 @@ double MVll::T_para_imag(double q2, double u, bool conjugate)
 
     gslpp::complex T_amp = (N / lambda_B_minus(q2) * (/* + */T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate))
             + N / mySM.getMesons(meson).getLambdaM() * T_para_plus_QSS(q2, u, conjugate)) * phi_V(u);
-#if FULLNLOQCDF 
+#if FULLNLOQCDF_MVLL 
     T_amp += N / lambda_B_minus(q2) * T_para_minus_WA(conjugate) * phi_V(u);
 #endif
     return sqrt(q2) * T_amp.imag();

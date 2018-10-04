@@ -18,7 +18,7 @@ class AmpDB2;
 
 #define NFPOLARBASIS_MVGAMMA true
 #define UNIFIEDBTOS true
-#define FULLNLOQCDF false
+#define FULLNLOQCDF_MVGAMMA false
 
 /**
  * @class MVgamma
