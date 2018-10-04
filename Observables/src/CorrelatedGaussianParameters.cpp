@@ -137,6 +137,7 @@ int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars,
     ++beg;
     int size = atoi((*beg).c_str());
     int nlines = 0;
+    std::vector<bool> lines;
     std::string line;
     boost::char_separator<char>sep(" \t");
     for (int i = 0; i < size; i++) {
@@ -156,11 +157,16 @@ int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars,
         }
         ModelParameter tmpMP;
         beg = tmpMP.ParseModelParameter(beg);
+        lines.push_back(!tmpMP.IsFixed());
         if (beg != tok.end())
                 if (rank == 0) std::cout << "WARNING: unread information in parameter " << tmpMP.getname() << std::endl;
-        tmpMP.setCgp_name(name);
-        AddPar(tmpMP);
-        nlines++;
+        if (!tmpMP.IsFixed()) {
+            tmpMP.setCgp_name(name);
+            AddPar(tmpMP);
+            nlines++;
+        } else {
+            ModPars.push_back(tmpMP);
+        }
     }
     if (nlines > 1) {
         gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
@@ -172,27 +178,31 @@ int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars,
                 else sleep(2);
             }
             lineNo++;
-            boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
-            beg = mytok.begin();
-            int nj = 0;
-            for (int j = 0; j < size; j++) {
-                if ((*beg).compare(0, 1, "0") == 0
-                        || (*beg).compare(0, 1, "1") == 0
-                        || (*beg).compare(0, 1, "-") == 0) {
-                    if (std::distance(mytok.begin(), mytok.end()) < size) { 
-                        if (rank == 0) throw std::runtime_error("ERROR: invalid correlation matrix for " + name + ". Check element (" + boost::lexical_cast<std::string>(ni + 1) + "," + boost::lexical_cast<std::string>(nj + 1) + ") in line number " + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
-                        else sleep(2);
+            if (lines.at(i)) {
+                boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
+                beg = mytok.begin();
+                int nj = 0;
+                for (int j = 0; j < size; j++) {
+                    if ((*beg).compare(0, 1, "0") == 0
+                            || (*beg).compare(0, 1, "1") == 0
+                            || (*beg).compare(0, 1, "-") == 0) {
+                        if (std::distance(mytok.begin(), mytok.end()) < size) {
+                            if (rank == 0) throw std::runtime_error("ERROR: invalid correlation matrix for " + name + ". Check element (" + boost::lexical_cast<std::string>(ni + 1) + "," + boost::lexical_cast<std::string>(nj + 1) + ") in line number " + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
+                            else sleep(2);
+                        }
+                        if (lines.at(j)) {
+                            myCorr(ni, nj) = atof((*beg).c_str());
+                            nj++;
+                        }
+                        beg++;
+                    } else {
+                        if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
+                                << name << ". Check element (" << ni + 1 << "," << nj + 1 << ") in line number " + boost::lexical_cast<std::string>(lineNo) << std::endl;
+                        exit(EXIT_FAILURE);
                     }
-                    myCorr(ni, nj) = atof((*beg).c_str());
-                    nj++;
-                    beg++;
-                } else {
-                    if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
-                            << name << ". Check element (" << ni + 1 << "," << nj + 1 << ") in line number " + boost::lexical_cast<std::string>(lineNo) << std::endl;
-                    exit(EXIT_FAILURE);
                 }
+                ni++;
             }
-            ni++;
         }
         DiagonalizePars(myCorr);
         ModPars.insert(ModPars.end(), getDiagPars().begin(), getDiagPars().end());
