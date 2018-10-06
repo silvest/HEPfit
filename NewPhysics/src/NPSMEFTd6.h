@@ -1192,6 +1192,30 @@ public:
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
+    
+    /**
+     * @brief The relative NP corrections to the width of the @f$W@f$ boson, @f$\delta \Gamma_W/\Gamma_W@f$.
+     * @return @f$\delta \Gamma_W/\Gamma_W@f$
+     */
+    virtual double deltaGwd6() const;
+    
+    /**
+     * @brief The relative NP corrections to the width of the @f$W@f$ boson squared, @f$(\delta \Gamma_W/\Gamma_W)^2@f$.
+     * @return @f$(\delta \Gamma_W/\Gamma_W)^2@f$
+     */
+    virtual double deltaGwd62() const;
+    
+    /**
+     * @brief The relative NP corrections to the width of the @f$Z@f$ boson, @f$\delta \Gamma_Z/\Gamma_Z@f$.
+     * @return @f$\delta \Gamma_Z/\Gamma_Z@f$
+     */
+    virtual double deltaGzd6() const;
+    
+    /**
+     * @brief The relative NP corrections to the width of the @f$Z@f$ boson squared, @f$(\delta \Gamma_Z/\Gamma_Z)^2@f$.
+     * @return @f$(\delta \Gamma_Z/\Gamma_Z)^2@f$
+     */
+    virtual double deltaGzd62() const;
 
     /**
      * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
