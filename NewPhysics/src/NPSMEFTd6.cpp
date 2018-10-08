@@ -2979,40 +2979,44 @@ double NPSMEFTd6::muggHH(const double sqrt_s) const
     double ct,c2t,c3,cg,c2g;
     
     if (sqrt_s == 14.0) {
+        
+        // From the cut-based analysis. Table IV
 
-        A1HH = 2.13;
-        A2HH = 10.1;
-        A3HH = 0.300;
-        A4HH = 21.8;
-        A5HH = 188;
-        A6HH = -8.62;
-        A7HH = -1.43;
-        A8HH = 2.93;
-        A9HH = 21.0;
-        A10HH = 59.8;
-        A11HH = -9.93;
-        A12HH = -23.1;
-        A13HH = 4.87;
-        A14HH = 10.5;
-        A15HH = 96.6;
+        A1HH = 1.70;
+        A2HH = 10.7;
+        A3HH = 0.117;
+        A4HH = 6.11;
+        A5HH = 217.0;
+        A6HH = -7.56;
+        A7HH = -0.819;
+        A8HH = 1.95;
+        A9HH = 10.90;
+        A10HH = 51.6;
+        A11HH = -3.86;
+        A12HH = -12.5;
+        A13HH = 1.46;
+        A14HH = 5.49;
+        A15HH = 58.4;
         
     } else if (sqrt_s == 100.0) {
+        
+        // From the cut-based analysis. Table IV
 
-        A1HH = 1.95;
-        A2HH = 11.2;
-        A3HH = 0.229;
-        A4HH = 16.0;
-        A5HH = 386;
-        A6HH = -8.32;
-        A7HH = -1.18;
-        A8HH = 2.55;
-        A9HH = 16.9;
-        A10HH = 52.4;
-        A11HH = -7.49;
-        A12HH = -17.3;
-        A13HH = 3.55;
-        A14HH = 8.46;
-        A15HH = 87.5;
+        A1HH = 1.59;
+        A2HH = 12.8;
+        A3HH = 0.090;
+        A4HH = 5.2;
+        A5HH = 358.0;
+        A6HH = -7.66;
+        A7HH = -0.681;
+        A8HH = 1.83;
+        A9HH = 9.25;
+        A10HH = 51.2;
+        A11HH = -2.61;
+        A12HH = -7.35;
+        A13HH = 1.03;
+        A14HH = 4.65;
+        A15HH = 65.5;
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::muggHH()");
