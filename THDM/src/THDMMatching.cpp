@@ -57,23 +57,25 @@ std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
     return(vmcds);
 }
 
-std::vector<WilsonCoefficient>& THDMMatching::CMbtaunu() {
+std::vector<WilsonCoefficient>& THDMMatching::CMbtaunu(QCD::meson meson_i) {
 
     double Muw = myTHDM.getMuw();
     double GF = myTHDM.getGF();
     myCKM = myTHDM.getVCKM();
-    double mB = myTHDM.getMesons(QCD::B_P).getMass();
+    double mB = myTHDM.getMesons(meson_i).getMass();
     double tanb = myTHDM.gettanb();
     double mHp2=myTHDM.getmHp2();
 
-    vmcbtaunu = StandardModelMatching::CMbtaunu();
+    vmcbtaunu = StandardModelMatching::CMbtaunu(meson_i);
     mcbtaunu.setMu(Muw);
  
     switch (mcbtaunu.getOrder()) {
         case NNLO:
         case NLO:
         case LO:
-            mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            if (meson_i == QCD::B_P) mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            else if (meson_i == QCD::B_C) mcbtaunu.setCoeff(0, -4.*GF * myCKM(1,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            throw std::runtime_error("THDMMatching::CMbtaunu(): meson not implemented");
             break;
         default:
             std::stringstream out;

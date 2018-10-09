@@ -1702,7 +1702,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["FFplus_MPlnu"] = boost::bind(boost::factory<FFplus_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::ELECTRON);
     
     //----- B to tau nu  -----
-    obsThFactory["btaunu"] = boost::factory<Btaunu*>();
+    obsThFactory["btaunu"] = boost::bind(boost::factory<Btaunu*>(), _1, StandardModel::B_P);
+    obsThFactory["bctaunu"] = boost::bind(boost::factory<Btaunu*>(), _1, StandardModel::B_C);
     
     //-----  Lepton Flavour observables  -----
     obsThFactory["mu_e_gamma"] = boost::factory<mu_e_gamma*>();

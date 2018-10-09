@@ -3039,23 +3039,25 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
 }
 
 
-std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu() {
+std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu(QCD::meson meson_i) {
 
     double Muw = myGTHDM.getMuw();
     double GF = myGTHDM.getGF();
     myCKM = myGTHDM.getVCKM();
-    double mB = myGTHDM.getMesons(QCD::B_P).getMass();
+    double mB = myGTHDM.getMesons(meson_i).getMass();
     double tanb = myGTHDM.gettanb();
     double mHp2=myGTHDM.getmHp2();
 
-    vmcbtaunu = StandardModelMatching::CMbtaunu();
+    vmcbtaunu = StandardModelMatching::CMbtaunu(meson_i);
     mcbtaunu.setMu(Muw);
  
     switch (mcbtaunu.getOrder()) {
         case NNLO:
         case NLO:
         case LO:
-            mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / negsquareroot(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            if (meson_i == QCD::B_P) mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / negsquareroot(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            else if (meson_i == QCD::B_C) mcbtaunu.setCoeff(0, -4.*GF * myCKM(1,2) / negsquareroot(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            else throw std::runtime_error("GeneralTHDMMatching::CMbtaunu(): meson not implemeted"); 
             break;
         default:
             std::stringstream out;

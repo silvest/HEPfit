@@ -91,7 +91,7 @@ public:
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B \rightarrow \tau \nu \f$
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu(QCD::meson meson_i);
     
     /**
      * 

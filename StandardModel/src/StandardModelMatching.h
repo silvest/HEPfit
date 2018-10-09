@@ -172,7 +172,7 @@ public:
      * 
      * @return Wilson coefficient for \f$ B \rightarrow \tau \nu \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMbtaunu() ;
+    virtual  std::vector<WilsonCoefficient>& CMbtaunu(QCD::meson meson_i) ;
     
     /**
      * 

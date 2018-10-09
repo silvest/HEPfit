@@ -634,6 +634,7 @@ public:
         B_D, /**< @f$B_d@f$ meson */
         B_P, /**< @f$B^\pm@f$ meson */
         B_S, /**< @f$B_s@f$ meson */
+        B_C, /**< @f$B_c@f$ meson */
         PHI, /**< @f$\phi@f$ meson */
         K_star, /**< @f$K^*@f$ meson */
         K_star_P, /**< @f$K^{*,\pm}@f$ meson */

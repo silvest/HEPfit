@@ -98,7 +98,7 @@ public:
     /**
      * @return GeneralTHDM Wilson coefficient for \f$ B \to \tau \nu \f$ from @cite Hou:1992sy
      */
-    virtual  std::vector<WilsonCoefficient>& CMbtaunu();
+    virtual  std::vector<WilsonCoefficient>& CMbtaunu(QCD::meson meson_i);
     
     virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
     

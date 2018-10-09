@@ -97,6 +97,12 @@ void Meson::ModelParameterMapInsert(std::map< std::string, boost::reference_wrap
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DGs_Gs", boost::cref(Dgamma_gamma)));
         return;
     }
+    if (name.compare("B_C") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBc", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBc", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBc", boost::cref(decayconst)));
+        return;
+    }
     if (name.compare("PHI") == 0) {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mphi", boost::cref(mass)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tphi", boost::cref(lifetime)));
@@ -142,6 +148,7 @@ std::vector<std::string> Meson::parameterList(std::string name_i)
     if (name_i.compare("B_D") == 0) return make_vector<std::string>() << "MBd" << "tBd" << "FBsoFBd" << "lambdaB";
     if (name_i.compare("B_P") == 0) return make_vector<std::string>() << "MBp" << "tBp" << "FBsoFBd" << "lambdaB";
     if (name_i.compare("B_S") == 0) return make_vector<std::string>() << "MBs" << "tBs" << "FBs" << "lambdaB" << "DGs_Gs";
+    if (name_i.compare("B_C") == 0) return make_vector<std::string>() << "MBc" << "tBc" << "FBc";
     if (name_i.compare("PHI") == 0) return make_vector<std::string>() << "Mphi" << "tphi"  << "Fphi" << "Fphip" << "alpha2phi";
     if (name_i.compare("K_star") == 0) return make_vector<std::string>() << "MKstar"  << "tKstar"  << "FKstar" << "FKstarp" << "alpha1kst" << "alpha2kst";
     if (name_i.compare("K_star_P") == 0) return make_vector<std::string>() << "MKstarP" << "tKstar" << "FKstar" << "FKstarp" << "alpha1kst" << "alpha2kst";
@@ -298,6 +305,20 @@ bool Meson::setParameter(std::string name_i, double value)
         }
         if (name_i.compare("DGs_Gs") == 0) {
             Dgamma_gamma = value;
+            return true;
+        }
+    }
+    if (name.compare("B_C") == 0) {
+        if (name_i.compare("MBc") == 0) {
+            mass = value;
+            return true;
+        }
+        if (name_i.compare("tBc") == 0) {
+            lifetime = value;
+            return true;
+        }
+        if (name_i.compare("FBc") == 0) {
+            decayconst = value;
             return true;
         }
     }

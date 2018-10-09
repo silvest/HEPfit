@@ -124,7 +124,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B_d \to \tau \nu \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu() const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu(QCD::meson meson_i) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffsnunu() const;
 

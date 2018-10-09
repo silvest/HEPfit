@@ -1872,7 +1872,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  * Wilson coefficients calcoulus, misiak base for B -> tau nu                   *
  * ****************************************************************************/
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbtaunu() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbtaunu(QCD::meson meson_i) 
 {
     
     vmcbtaunu.clear();
@@ -1883,7 +1883,9 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
         case NNLO:
         case NLO:
         case LO:
-            mcbtaunu.setCoeff(0, 4.*GF * Vckm(0,2) / sqrt(2.) , LO);
+            if (meson_i == QCD::B_P) mcbtaunu.setCoeff(0, 4.*GF * Vckm(0,2) / sqrt(2.) , LO);
+            else if (meson_i == QCD::B_C) mcbtaunu.setCoeff(0, 4.*GF * Vckm(1,2) / sqrt(2.) , LO);
+            else throw std::runtime_error("StandardModelMatching::CMbtaunu(): meson not implemented");
             break;
         default:
             std::stringstream out;

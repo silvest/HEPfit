@@ -115,9 +115,9 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdmumu(double mu, schemes sc
     return HDB1->ComputeCoeffdmumu(mu, scheme);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffbtaunu() const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffbtaunu(QCD::meson meson_i) const
 {
-    return HDB1->ComputeCoeffbtaunu();
+    return HDB1->ComputeCoeffbtaunu(meson_i);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsnunu() const

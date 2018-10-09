@@ -9,6 +9,8 @@
 #define	BTAUNU_H
 
 #include "ThObservable.h"
+#include "QCD.h"
+
 class StandardModel;
 
 class Btaunu : public ThObservable {
@@ -17,7 +19,7 @@ public:
      * constructor
      * @param Flavour
      */
-    Btaunu(const StandardModel& SM_i);
+    Btaunu(const StandardModel& SM_i, QCD::meson meson_i);
     
     /**
      * 
@@ -29,6 +31,8 @@ public:
 protected:
     
 private:
+    
+    QCD::meson meson;
     
 };
 
