@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2018 SusyFit Collaboration
+ * Copyright (C) 2018 HEPfit Collaboration
  *
  *
  * For the licensing terms see doc/COPYING.
