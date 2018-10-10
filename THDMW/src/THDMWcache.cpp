@@ -44,8 +44,10 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         MadGraph_pp_Srtt_tttt(22800,5,0.),
         arraybsgamma(1111, 3, 0.),
         unitarityeigenvalues(11, 0.), NLOunitarityeigenvalues(11, 0.),
-        myTHDMW(static_cast<const THDMW*> (&SM_i)),betaeigenvalues(11, 0.)
+        myTHDMW(static_cast<const THDMW*> (&SM_i)),betaeigenvalues(11, 0.),
+        PV(false)
         //myTHDMW(static_cast<const THDMW*> (&SM_i))
+        
 
 
 {
@@ -111,6 +113,182 @@ void THDMWcache::CacheShiftReal(double cache[][CacheSize], const int NumPar,
         cache[NumPar][0] = newResult;
     }
 }
+
+////////////////////////////////////////////////////
+//--------- Passarino Veltman Functions for THDMW ---------//
+////////////////////////////////////////////////////
+
+gslpp::complex THDMWcache::A0_MZ2_mSp2(const double MZ2, const double mSp2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mSp2};
+
+    int i = CacheCheck(A0_MZ2_mSp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( A0_MZ2_mSp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.A0(MZ2, mSp2); 
+        CacheShift(A0_MZ2_mSp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMWcache::A0_MZ2_mSr2(const double MZ2, const double mSr2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mSr2};
+
+    int i = CacheCheck(A0_MZ2_mSr2_cache, NumPar, params);
+    if (i>=0) {
+        return ( A0_MZ2_mSr2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.A0(MZ2, mSr2);
+        CacheShift(A0_MZ2_mSr2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMWcache::A0_MZ2_mSi2(const double MZ2, const double mSi2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mSi2};
+
+    int i = CacheCheck(A0_MZ2_mSi2_cache, NumPar, params);
+    if (i>=0) {
+        return ( A0_MZ2_mSi2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.A0(MZ2, mSi2);
+        CacheShift(A0_MZ2_mSi2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMWcache::B0_MZ2_0_mSp2_mSp2(const double MZ2, const double mSp2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mSp2};
+
+    int i = CacheCheck(B0_MZ2_0_mSp2_mSp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_0_mSp2_mSp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2,0. ,mSp2 , mSp2);
+        CacheShift(B0_MZ2_0_mSp2_mSp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+ /*gslpp::complex THDMWcache::B00_MZ2_0_mSr2_mSp2(const double MZ2, const double mSr2, const double mSp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mSr2, mSp2};
+
+    int i = CacheCheck(B00_MZ2_0_mSr2_mSp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B00_MZ2_0_mSr2_mSp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B00(MZ2, 0. , mSr2, mSp2);
+        CacheShift(B00_MZ2_0_mSr2_mSp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMWcache::B00_MZ2_0_mSi2_mSp2(const double MZ2, const double mSi2, const double mSp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mSi2, mSp2};
+
+    int i = CacheCheck(B00_MZ2_0_mSi2_mSp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B00_MZ2_0_mSi2_mSp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B00(MZ2, 0. , mSi2, mSp2);
+        CacheShift(B00_MZ2_0_mSi2_mSp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMWcache::B00_MZ2_0_mSp2_mSp2(const double MZ2, const double mSp2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mSp2};
+
+    int i = CacheCheck(B00_MZ2_0_mSp2_mSp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B00_MZ2_0_mSp2_mSp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B00(MZ2, 0. , mSp2, mSp2);
+        CacheShift(B00_MZ2_0_mSp2_mSp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}*/
+
+gslpp::complex THDMWcache::B00_MZ2_MZ2_mSr2_mSp2(const double MZ2, const double mSr2, const double mSp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mSr2, mSp2};
+
+    int i = CacheCheck(B00_MZ2_MZ2_mSr2_mSp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B00_MZ2_MZ2_mSr2_mSp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B00(MZ2, MZ2 , mSr2, mSp2);
+        CacheShift(B00_MZ2_MZ2_mSr2_mSp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMWcache::B00_MZ2_MZ2_mSi2_mSp2(const double MZ2, const double mSi2, const double mSp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mSi2, mSp2};
+
+    int i = CacheCheck(B00_MZ2_MZ2_mSi2_mSp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B00_MZ2_MZ2_mSi2_mSp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B00(MZ2, MZ2 , mSi2, mSp2);
+        CacheShift(B00_MZ2_MZ2_mSi2_mSp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMWcache::B00_MZ2_MZ2_mSr2_mSi2(const double MZ2, const double mSr2, const double mSi2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mSr2, mSi2};
+
+    int i = CacheCheck(B00_MZ2_MZ2_mSr2_mSi2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B00_MZ2_MZ2_mSr2_mSi2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B00(MZ2, MZ2 , mSr2, mSi2);
+        CacheShift(B00_MZ2_MZ2_mSr2_mSi2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+
+
+gslpp::complex THDMWcache::B00_MZ2_MZ2_mSp2_mSp2(const double MZ2, const double mSp2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mSp2};
+
+    int i = CacheCheck(B00_MZ2_MZ2_mSp2_mSp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B00_MZ2_MZ2_mSp2_mSp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B00(MZ2, MZ2 , mSp2, mSp2);
+        CacheShift(B00_MZ2_MZ2_mSp2_mSp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////
+//--------- End Passarino Veltman Functions for THDMW ---------//
+////////////////////////////////////////////////////
+
+
+
 
 //double THDMWcache::ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const {
 //    int NumPar = 6;

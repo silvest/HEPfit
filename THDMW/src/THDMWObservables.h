@@ -15,5 +15,6 @@
 #include "THDMWSignalStrengths.h"
 #include "THDMWunitarity.h"
 #include "THDMWEWPO.h"
+#include "THDMWSTU.h"
 
 #endif	/* THDMWOBSERVABLES_H */

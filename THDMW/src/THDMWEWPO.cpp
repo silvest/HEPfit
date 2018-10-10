@@ -1,15 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2018 HEPfit Collaboration
+ *
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
-/* 
- * File:   THDMWEWPO.cpp
- * Author: victormirallesaznar
- * 
- * Created on September 25, 2018, 1:02 PM
- */
 
 
 #include "THDMWEWPO.h"
@@ -19,7 +14,7 @@
 #include <math.h>
 #include "THDMW.h"
 
-
+//GETTING ERROR WHEN THE MASSES ARE THE SAME -> SOLVE IT!!! PROBLEM IN DILOG FUNCTION!!!
 Rb0THDMW::Rb0THDMW(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i)) 
 {}

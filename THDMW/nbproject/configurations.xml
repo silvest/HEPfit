@@ -8,6 +8,7 @@
       <itemPath>src/THDMW.h</itemPath>
       <itemPath>src/THDMWEWPO.h</itemPath>
       <itemPath>src/THDMWObservables.h</itemPath>
+      <itemPath>src/THDMWSTU.h</itemPath>
       <itemPath>src/THDMWSignalStrengths.h</itemPath>
       <itemPath>src/THDMWcache.h</itemPath>
       <itemPath>src/THDMWdirectsearches.h</itemPath>
@@ -26,6 +27,7 @@
       <itemPath>src/RunnerTHDMW.cpp</itemPath>
       <itemPath>src/THDMW.cpp</itemPath>
       <itemPath>src/THDMWEWPO.cpp</itemPath>
+      <itemPath>src/THDMWSTU.cpp</itemPath>
       <itemPath>src/THDMWSignalStrengths.cpp</itemPath>
       <itemPath>src/THDMWcache.cpp</itemPath>
       <itemPath>src/THDMWdirectsearches.cpp</itemPath>
@@ -64,6 +66,7 @@
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -91,6 +94,10 @@
       <item path="src/THDMWEWPO.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWSTU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWSTU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWSignalStrengths.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -173,6 +180,10 @@
       </item>
       <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMWSTU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWSTU.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDMWSignalStrengths.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMWSignalStrengths.h" ex="false" tool="3" flavor2="0">
@@ -244,6 +255,10 @@
       <item path="src/THDMWEWPO.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWSTU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWSTU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWSignalStrengths.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -8,8 +8,14 @@
 #ifndef THDMWCACHE_H
 #define	THDMWCACHE_H
 
+#include <cmath>
 #include "THDMW.h"
 #include "RunnerTHDMW.h"
+#include "PVfunctions.h"
+//#include "../../LoopFunctions/src/PVfunctions.h"//Solve this
+#include <stdexcept>
+#include "gslpp.h"
+
 
 /**
  * @class THDMWcache
@@ -105,14 +111,26 @@ public:
     
     
     
+    // Passarino Veltman Functions //
+    
+    gslpp::complex A0_MZ2_mSp2(const double MZ2, const double mSp2) const;
+    gslpp::complex A0_MZ2_mSr2(const double MZ2, const double mSr2) const;
+    gslpp::complex A0_MZ2_mSi2(const double MZ2, const double mSr2) const;
+    gslpp::complex B0_MZ2_0_mSp2_mSp2(const double MZ2,const double mSp2) const;
+    //gslpp::complex B00_MZ2_0_mSr2_mSp2(const double MZ2,const double mSr2 ,const double mSp2) const;
+    //gslpp::complex B00_MZ2_0_mSi2_mSp2(const double MZ2,const double mSi2 ,const double mSp2) const;
+    //gslpp::complex B00_MZ2_0_mSp2_mSp2(const double MZ2,const double mSp2) const;
+    gslpp::complex B00_MZ2_MZ2_mSr2_mSp2(const double MZ2,const double mSr2 ,const double mSp2) const;
+    gslpp::complex B00_MZ2_MZ2_mSr2_mSi2(const double MZ2,const double mSr2 ,const double mSi2) const;
+    gslpp::complex B00_MZ2_MZ2_mSi2_mSp2(const double MZ2,const double mSi2 ,const double mSp2) const;
+    gslpp::complex B00_MZ2_MZ2_mSp2_mSp2(const double MZ2,const double mSp2) const;
+
+
     
     
     
     
-    
-    
-    
-    
+     // End Passarino Veltman Functions //
     
     
     
@@ -136,6 +154,7 @@ private:
 
     const THDMW * myTHDMW;
     RunnerTHDMW * myRunnerTHDMW;
+    const PVfunctions PV;
 
     /**
      * @brief Cache size.
@@ -222,6 +241,24 @@ private:
     mutable gslpp::complex A_A_L_cache[6][CacheSize];
     mutable gslpp::complex A_H_W_cache[5][CacheSize];
     mutable gslpp::complex A_H_Hp_cache[5][CacheSize];
+    
+    
+    
+    
+    mutable gslpp::complex A0_MZ2_mSp2_cache[3][CacheSize];
+    mutable gslpp::complex A0_MZ2_mSr2_cache[3][CacheSize];
+    mutable gslpp::complex A0_MZ2_mSi2_cache[3][CacheSize];
+    mutable gslpp::complex B0_MZ2_0_mSp2_mSp2_cache[3][CacheSize];
+    //mutable gslpp::complex B00_MZ2_0_mSr2_mSp2_cache[4][CacheSize];
+    //mutable gslpp::complex B00_MZ2_0_mSi2_mSp2_cache[4][CacheSize];
+    //mutable gslpp::complex B00_MZ2_0_mSp2_mSp2_cache[3][CacheSize];
+    mutable gslpp::complex B00_MZ2_MZ2_mSr2_mSp2_cache[4][CacheSize];
+    mutable gslpp::complex B00_MZ2_MZ2_mSr2_mSi2_cache[4][CacheSize];
+    mutable gslpp::complex B00_MZ2_MZ2_mSi2_mSp2_cache[4][CacheSize];
+    mutable gslpp::complex B00_MZ2_MZ2_mSp2_mSp2_cache[3][CacheSize];
+    
+    
+    
     
     mutable double ip_th_pp_Srtt_tttt_cache[5][CacheSize];
     mutable double ip_th_pp_Sr_tt_cache[5][CacheSize];

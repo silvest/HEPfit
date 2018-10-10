@@ -2859,6 +2859,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_Srtt_tttt_TH13"] = boost::factory<log10_pp_Srtt_tttt_TH13*>();
     //-----        EWPO       ------ 
     obsThFactory["Rb0_THDMW"] = boost::factory<Rb0THDMW*>();
+    //-----        STU       ------ 
+    obsThFactory["DeltaS_THDMW"] = boost::factory<THDMWDeltaS*>();
+    obsThFactory["DeltaT_THDMW"] = boost::factory<THDMWDeltaT*>();
+    obsThFactory["DeltaU_THDMW"] = boost::factory<THDMWDeltaU*>();
     
     /** END: REMOVE FROM THE PACKAGE **/
 
