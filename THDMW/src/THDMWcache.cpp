@@ -12,7 +12,11 @@
 #include <string>
 
 THDMWcache::THDMWcache(const StandardModel& SM_i)
-        :ATLAS8_gg_phi_tt(53, 2, 0.),
+        :unitarityeigenvalues(11, 0.),
+        NLOunitarityeigenvalues(11, 0.),
+        myTHDMW(static_cast<const THDMW*> (&SM_i)),
+        PV(false),
+        ATLAS8_gg_phi_tt(53, 2, 0.),
         ATLAS8_gg_phi_tt_e(53, 2, 0.),
         CMS8_pp_H_hh_bbbb(167, 2, 0.),
         CMS8_bb_phi_bb(81, 2, 0.),
@@ -39,13 +43,11 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         ATLAS13_pp_Hp_tb2(181,2,0.),
         ATLAS13_pp_Hp_tb1_e(71,2,0.),
         ATLAS13_pp_Hp_tb2_e(181,2,0.),
-        ATLAS_13_pp_Gkk_tt(131,2,0.),
+        ATLAS_13_pp_Gkk_tt(131,2,0.), 
         MadGraph_pp_Sr_tt(22800,5,0.),
         MadGraph_pp_Srtt_tttt(22800,5,0.),
         arraybsgamma(1111, 3, 0.),
-        unitarityeigenvalues(11, 0.), NLOunitarityeigenvalues(11, 0.),
-        myTHDMW(static_cast<const THDMW*> (&SM_i)),betaeigenvalues(11, 0.),
-        PV(false)
+        betaeigenvalues(11, 0.)
         //myTHDMW(static_cast<const THDMW*> (&SM_i))
         
 

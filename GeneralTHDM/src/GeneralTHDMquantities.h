@@ -189,7 +189,7 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDM& myGTHDM;
+//    const GeneralTHDM& myGTHDM;
 };
 
 /**
@@ -211,7 +211,7 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDM& myGTHDM;
+//    const GeneralTHDM& myGTHDM;
 };
 
 /**
@@ -233,7 +233,7 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDM& myGTHDM;
+//    const GeneralTHDM& myGTHDM;
 };
 
 /**
@@ -411,7 +411,7 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDM& myGTHDM;
+//    const GeneralTHDM& myGTHDM;
 };
 
 /**
@@ -433,7 +433,7 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDM& myGTHDM;
+//    const GeneralTHDM& myGTHDM;
 };
 
 /**
@@ -455,7 +455,7 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDM& myGTHDM;
+//    const GeneralTHDM& myGTHDM;
 };
 
 /**
@@ -608,7 +608,7 @@ public:
      */
     double computeThValue();
 private:
-    const GeneralTHDM& myGTHDM;
+//    const GeneralTHDM& myGTHDM;
 };
 
 /**

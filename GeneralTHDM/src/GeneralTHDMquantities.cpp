@@ -80,7 +80,8 @@ double mH3_GTHDM::computeThValue()
 }
 
 mHlight_GTHDM::mHlight_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+: ThObservable(SM_i)
+//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
 double mHlight_GTHDM::computeThValue()
@@ -93,7 +94,8 @@ double mHlight_GTHDM::computeThValue()
 }
 
 mHmedium_GTHDM::mHmedium_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+: ThObservable(SM_i)
+//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
 double mHmedium_GTHDM::computeThValue()
@@ -106,7 +108,8 @@ double mHmedium_GTHDM::computeThValue()
 }
 
 mHheavy_GTHDM::mHheavy_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+: ThObservable(SM_i)
+//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
 double mHheavy_GTHDM::computeThValue()
@@ -201,7 +204,8 @@ double mHpmmH1_GTHDM::computeThValue()
 
 
 mH1sq_GTHDM::mH1sq_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+: ThObservable(SM_i)
+//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
 double mH1sq_GTHDM::computeThValue()
@@ -211,7 +215,8 @@ double mH1sq_GTHDM::computeThValue()
 }
 
 mH2sq_GTHDM::mH2sq_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+: ThObservable(SM_i)
+//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
 double mH2sq_GTHDM::computeThValue()
@@ -221,7 +226,8 @@ double mH2sq_GTHDM::computeThValue()
 }
 
 mH3sq_GTHDM::mH3sq_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+: ThObservable(SM_i)
+//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
 double mH3sq_GTHDM::computeThValue()
@@ -285,7 +291,8 @@ double Msq33_GTHDM::computeThValue()
 }
 
 M2_GTHDM::M2_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+: ThObservable(SM_i)
+//,myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
 double M2_GTHDM::computeThValue()

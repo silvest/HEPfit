@@ -16,11 +16,7 @@
 
 
 GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
-:   Mu_GTHDM(3,3,0.), Md_GTHDM(3,3,0.), Ml_GTHDM(3,3,0.),
-    Nu_GTHDM(3,3,0.), Nd_GTHDM(3,3,0.), Nl_GTHDM(3,3,0.),
-    Yu1_GTHDM(3,3,0.), Yu2_GTHDM(3,3,0.), Yd1_GTHDM(3,3,0.), Yd2_GTHDM(3,3,0.),
-    Yl1_GTHDM(3,3,0.), Yl2_GTHDM(3,3,0.),
-        br_tt(19961, 2, 0.),
+:       br_tt(19961, 2, 0.),
         br_bb(19961, 2, 0.),
         br_tautau(19961, 2, 0.),
         br_cc(19961, 2, 0.),
@@ -135,8 +131,12 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_pp_Hpm_taunu(192, 2, 0.),
         ATLAS13_pp_Hpm_tb(181, 2, 0.),
         CMS13_pp_Hpm_taunu(283, 2, 0.),
-        //
         arraybsgamma(1111, 3, 0.),
+        Mu_GTHDM(3,3,0.), Md_GTHDM(3,3,0.), Ml_GTHDM(3,3,0.),
+        Nu_GTHDM(3,3,0.), Nd_GTHDM(3,3,0.), Nl_GTHDM(3,3,0.),
+        Yu1_GTHDM(3,3,0.), Yu2_GTHDM(3,3,0.), Yd1_GTHDM(3,3,0.), Yd2_GTHDM(3,3,0.),
+        Yl1_GTHDM(3,3,0.), Yl2_GTHDM(3,3,0.),
+        //
     myGTHDM(static_cast<const GeneralTHDM*> (&SM_i)), 
         PV(true)
 {
@@ -13590,10 +13590,10 @@ double GeneralTHDMcache::updateCache()
       if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
                 return std::numeric_limits<double>::quiet_NaN();
     
-    double m1 = sqrt(m1_2);
-    double m2 = sqrt(m2_2);
-    double m3 = sqrt(m3_2);
-    double mHp = sqrt(mHp2);
+//    double m1 = sqrt(m1_2);
+//    double m2 = sqrt(m2_2);
+//    double m3 = sqrt(m3_2);
+//    double mHp = sqrt(mHp2);
 
 //    std::cout<<"mH1sq = "<<mH1sq<<std::endl;
 //    std::cout<<"mH2sq = "<<mH2sq<<std::endl;
