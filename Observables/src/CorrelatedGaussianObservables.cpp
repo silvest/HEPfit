@@ -15,6 +15,8 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables(std::string name_i)
     name = name_i;
     IsPrediction = false;
     IsEOF = false;
+    covarianceFromConfig = false;
+    InvCov = NULL;
 }
 
 CorrelatedGaussianObservables::CorrelatedGaussianObservables()
@@ -22,21 +24,25 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables()
     name = "";
     IsPrediction = false;
     IsEOF = false;
+    covarianceFromConfig = false;
+    InvCov = NULL;
 }
 
 CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig)
 {
     Obs = orig.Obs;
     name = orig.name;
-    Cov = new gslpp::matrix<double>(*orig.Cov);
+    if (orig.InvCov) InvCov = new gslpp::matrix<double>(*orig.InvCov);
+    else InvCov = NULL;
     IsPrediction = orig.IsPrediction;
     IsEOF = orig.IsEOF;
+    covarianceFromConfig = false;
 }
 
 CorrelatedGaussianObservables::~CorrelatedGaussianObservables()
 {   
-    Cov = new gslpp::matrix<double>(10, 10, 0.); /** Put in to prevent seg fault during error handling in InputParser **/
-    delete(Cov);
+//    Cov = new gslpp::matrix<double>(100, 100, 0.); /** Put in to prevent seg fault during error handling in InputParser **/
+    if (InvCov) delete(InvCov);
 }
 
 void CorrelatedGaussianObservables::AddObs(Observable& Obs_i)
@@ -49,11 +55,17 @@ void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr)
     unsigned int size = Obs.size();
     if (Corr.size_i() != size || Corr.size_j() != size)
         throw std::runtime_error("The size of the correlated observables in " + name + " does not match the size of the correlation matrix!");
-    Cov = new gslpp::matrix<double>(size, size, 0.);
-    for (unsigned int i = 0; i < size; i++)
-        for (unsigned int j = 0; j < size; j++)
-            (*Cov)(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
-    *Cov = Cov->inverse();    
+    InvCov = new gslpp::matrix<double>(size, size, 0.);
+    if (covarianceFromConfig) {
+        for (unsigned int i = 0; i < size; i++)
+            for (unsigned int j = 0; j < size; j++)
+                (*InvCov)(i, j) = Corr(i, j);
+    } else {
+        for (unsigned int i = 0; i < size; i++)
+            for (unsigned int j = 0; j < size; j++)
+                (*InvCov)(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
+        *InvCov = InvCov->inverse();
+    }
 }
 
 double CorrelatedGaussianObservables::computeWeight()
@@ -63,7 +75,7 @@ double CorrelatedGaussianObservables::computeWeight()
     for (unsigned int i = 0; i < Obs.size(); i++)
         x(i) = Obs.at(i).computeTheoryValue() - Obs.at(i).getAve();
 
-    return (-0.5 * x * ((*Cov) * x));
+    return (-0.5 * x * ((*InvCov) * x));
 }
 
 int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Observables, 
@@ -163,7 +175,7 @@ int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Obser
             }
             ComputeCov(myCorr);
         } else {
-            Cov = new gslpp::matrix<double>(size, size, 0.);
+            InvCov = new gslpp::matrix<double>(size, size, 0.);
         }
     } else {
         if (rank == 0) std::cout << "\nWARNING: Correlated (Gaussian) Observable " << name.c_str() << " defined with less than two observables" << " in file " << infilename << ". The set is being marked as normal Observables." << std::endl;

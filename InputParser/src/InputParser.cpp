@@ -137,12 +137,22 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
 
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
+            
             CorrelatedGaussianObservables tmpCGO;
             lineNo = tmpCGO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
             IsEOF = tmpCGO.isEOF();
             if (tmpCGO.getObs().size() > 1) CGO.push_back(tmpCGO);
+            
+        } else if (type.compare("ObservablesWithCovarianceInverse") == 0) {
+            
+            CorrelatedGaussianObservables tmpCGO;
+            tmpCGO.setCovarianceFromConfig(true);
+            lineNo = tmpCGO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
+            IsEOF = tmpCGO.isEOF();
+            if (tmpCGO.getObs().size() > 1) CGO.push_back(tmpCGO);    
 
         } else if (type.compare("CorrelatedObservables") == 0) {
+            
             CorrelatedGaussianObservables tmpCO;
             tmpCO.setIsPrediction(true);
             lineNo = tmpCO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
@@ -150,6 +160,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             CGO.push_back(tmpCO);
 
         } else if (type.compare("CustomObservable") == 0) {
+            
             if (std::distance(tok->begin(), tok->end()) < 2) {
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename + ".\n");
             else sleep(2);

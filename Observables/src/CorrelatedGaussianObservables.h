@@ -104,7 +104,7 @@ public:
      */
     gslpp::matrix<double> getCov() const
     {
-        return *Cov;
+        return *InvCov;
     }
     
     /**
@@ -162,13 +162,23 @@ public:
         name = name_i;
     }
     
+    /**
+     * @brief A method to specify whether the inverse covariance is being set from the config file.
+     * @param[in] setInvCov a boolean which is true if the inverse covariance matrix is set from file
+     */
+    void setCovarianceFromConfig (bool setInvCov)
+    {
+        covarianceFromConfig = setInvCov;
+    }
+    
 private:
     std::vector<Observable> Obs;///< A vector of observables whose correlation will be calculated.
-    gslpp::matrix<double>* Cov;///< The covariance matrix.
+    gslpp::matrix<double>* InvCov;///< The covariance matrix.
     std::string name;///< The name of the correlated Gaussian Observables set.
     std::string filepath;///< The path to the config file being parsed
     bool IsEOF;///< A boolean which is true if the end of file is reached.
     bool IsPrediction;///< Flag to define a set of Correlated Observables to be predicted.
+    bool covarianceFromConfig;
 };
 
 /** 
