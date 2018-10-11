@@ -91,12 +91,23 @@ public:
     double pp_Sr_tt_TH13;
     
     
-         /**
+     /**
      * @brief Cross section times branching ratio for the process @f$pp\to Sr t t\bar \to t\bar t  t\bar t@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr t\bar t\to t\bar t  t\bar t)@f$
      */
     double pp_Srtt_tttt_TH13;
     
+     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr \to j j @f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr \to j j)@f$
+     */
+    double pp_Sr_jj_TH13;
+    
+     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(Sr \to j j)@f$
+     */
+    double pp_SrSr_jjjj_TH13;
     
     
     
@@ -105,6 +116,9 @@ public:
     
     double THoEX_pp_Srtt_tttt;
     
+    double THoEX_pp_Sr_jj;
+    
+    double THoEX_pp_SrSr_jjjj;
     
 
     
@@ -260,6 +274,8 @@ private:
     
     
     
+    mutable double ip_th_pp_SrSr_jjjj_cache[5][CacheSize];
+    mutable double ip_th_pp_Sr_jj_cache[5][CacheSize];
     mutable double ip_th_pp_Srtt_tttt_cache[5][CacheSize];
     mutable double ip_th_pp_Sr_tt_cache[5][CacheSize];
     mutable double ip_ex_pp_phi_hh_bbbb_CMS8_cache[2][CacheSize];
@@ -289,6 +305,8 @@ private:
     mutable double ip_ex_ggF_H_hh_bbbb_CMS13_cache[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbbb_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_Gkk_tt_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_R_gg_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_SS_jjjj_ATLAS13_cache[2][CacheSize];
 
     
     
@@ -353,7 +371,15 @@ private:
      */
     gslpp::matrix<double> CMS13_pp_phi_bb_e, CMS13_pp_H_hh_bbbb_e, CMS13_ggF_H_hh_bbbb_e;
 
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV for resonances decaying to two gluons.
+     */
+    gslpp::matrix<double> CMS13_pp_R_gg;
 
+    
+    
+    
+    
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
      */
@@ -385,22 +411,37 @@ private:
     gslpp::matrix<double> ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e;
 
 
-        /**
+    /**
      * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Kaluza-Klein Graviton mass. Process pp -> Gkk -> t tbar.
      */
-    gslpp::matrix<double> ATLAS_13_pp_Gkk_tt;
+    gslpp::matrix<double> ATLAS13_pp_Gkk_tt;
     
+    /**
+     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the scalar gluon mass. Process pp -> rho rho -> j j j j.
+     */
+    gslpp::matrix<double> ATLAS13_pp_SS_jjjj;
     
+   
     
-        /**
+    /**
      * @brief Table for xsection times branching ratio for p p -> Sr -> t tbar generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Sr_tt;
     
-            /**
+    /**
      * @brief Table for xsection times branching ratio for p p -> Sr t tbar -> t tbar generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Srtt_tttt;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Sr -> j j generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Sr_jj;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Sr Sr -> j j j j generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_SrSr_jjjj;
     
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -625,6 +666,23 @@ private:
     double ip_ex_pp_Gkk_tt_ATLAS13(double mass);    
     
     /**
+     * @brief Interpolating function for the expected CMS upper limit for resonances decaying to gluons
+     * @return xsection times branching ratio
+     * @details CMS CMS-CR-2018-204, Fig. 3 right green,  27 & 36  fb^-1, 13 TeV
+     */
+    double ip_ex_pp_R_gg_CMS13(double mass);    
+    
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on pp -> coloron coloron  -> j j j j 
+     * @return xsection times branching ratio
+     * @details # ATLAS arXiv:171007171, Fig. 9c,  36.7 fb^-1, 13 TeV
+     */
+    double ip_ex_pp_SS_jjjj_ATLAS13(double mass);  
+    
+    
+    
+    
+    /**
      * @brief Interpolating function for the theoretical value of p p -> Sr -> t tbar
      * @return xsection times branching ratio of pp -> Sr -> t tbar
      * @details Generated with MadGraph
@@ -637,6 +695,20 @@ private:
      * @details Generated with MadGraph
      */
     double ip_th_pp_Srtt_tttt(double etaD, double etaU, double Lambda4, double mass);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr   -> j j 
+     * @return xsection times branching ratio of pp -> Sr -> j j
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sr_jj(double etaD, double etaU, double Lambda4, double mass);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr  Sr ->j j j j 
+     * @return xsection times branching ratio of pp -> Sr Sr -> j j j j
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mass);
     
     
     

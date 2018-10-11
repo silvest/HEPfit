@@ -112,4 +112,105 @@ private:
 
 
 
+
+
+/**
+ * @class Hobs_pp_Sr_jj_CMS13
+ * @ingroup THDMW
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to Sr \to j j@f$.
+ */
+class Hobs_pp_Sr_jj_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_S_jj_ATLAS13 constructor.
+     */
+    Hobs_pp_Sr_jj_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return xsection times Br ratio for pp -> Sr -> j j
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+
+/**
+ * @class log10_pp_Sr_jj_TH13
+ * @ingroup THDMW
+ * @brief Decadic logarithm of the cross section times branching ratio of the process pp -> Sr  -> j j at 13 TeV.
+ */
+class log10_pp_Sr_jj_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Sr_jj_TH13 constructor.
+     */
+    log10_pp_Sr_jj_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr\to j j)]@f$
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+
+
+
+
+
+
+
+/**
+ * @class Hobs_pp_SrSr_jjjj_ATLAS13
+ * @ingroup THDMW
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to Sr Sr \to j j j j@f$.
+ */
+class Hobs_pp_SrSr_jjjj_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_SS_jjjj_ATLAS13 constructor.
+     */
+    Hobs_pp_SrSr_jjjj_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return xsection times Br ratio for pp -> Sr Sr -> j j j j
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+
+/**
+ * @class log10_pp_SrSr_jjjj_TH13
+ * @ingroup THDMW
+ * @brief Decadic logarithm of the cross section times branching ratio of the process pp -> Sr Sr -> j j j j at 13 TeV.
+ */
+class log10_pp_SrSr_jjjj_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_SrSr_jjjj_TH13 constructor.
+     */
+    log10_pp_SrSr_jjjj_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(Sr\to j j)]@f$
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+
+
+
+
+
+
 #endif	/* THDMWDIRECTSEARCHES_H */
