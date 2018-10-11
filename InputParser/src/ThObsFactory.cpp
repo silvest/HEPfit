@@ -10,6 +10,7 @@
 #include "ParamObs.h"
 #include "EWObservables.h"
 #include "NP_couplings.h"
+#include "OptimizedObservablesSMEFTd6.h"
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
 #include "MtMSbar.h"
@@ -1312,6 +1313,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["cb_minus_cc"] = boost::factory<cb_minus_cc*>();
     obsThFactory["cb_minus_ctau"] = boost::factory<cb_minus_ctau*>();
     obsThFactory["cc_minus_ctau"] = boost::factory<cc_minus_ctau*>();
+    
+    //-----  e+e- -> W+ W- Optimized Observables  -----
+    obsThFactory["eeWWOO"] = boost::factory<eeWW*>();
 
     //-----  Epsilon parameters  -----
     obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();

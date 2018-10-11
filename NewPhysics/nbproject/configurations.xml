@@ -23,6 +23,7 @@
       <itemPath>src/NPZbbbarLinearized.h</itemPath>
       <itemPath>src/NP_couplings.h</itemPath>
       <itemPath>src/NPbase.h</itemPath>
+      <itemPath>src/OptimizedObservablesSMEFTd6.h</itemPath>
       <itemPath>src/SigmaBR.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -51,6 +52,7 @@
       <itemPath>src/NPZbbbarLinearized.cpp</itemPath>
       <itemPath>src/NP_couplings.cpp</itemPath>
       <itemPath>src/NPbase.cpp</itemPath>
+      <itemPath>src/OptimizedObservablesSMEFTd6.cpp</itemPath>
       <itemPath>src/SigmaBR.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -167,6 +169,13 @@
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/OptimizedObservablesSMEFTd6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SigmaBR.h" ex="false" tool="3" flavor2="0">
@@ -279,6 +288,13 @@
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/OptimizedObservablesSMEFTd6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -393,6 +409,13 @@
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/OptimizedObservablesSMEFTd6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SigmaBR.h" ex="false" tool="3" flavor2="0">
@@ -496,6 +519,13 @@
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/OptimizedObservablesSMEFTd6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
       </item>
