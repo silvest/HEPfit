@@ -163,6 +163,16 @@ double HiggsChiral::mueeWBFPol(const double sqrt_s, const double Pol_em, const d
     return computecV() * computecV();
 }
 
+double HiggsChiral::mueeHvv(const double sqrt_s) const
+{
+    return computecV() * computecV();
+}
+
+double HiggsChiral::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return computecV() * computecV();
+}
+
 double HiggsChiral::mueeZBF(const double sqrt_s) const
 {
     return computecV() * computecV();

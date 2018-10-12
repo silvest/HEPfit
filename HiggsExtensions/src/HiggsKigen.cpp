@@ -199,6 +199,20 @@ double HiggsKigen::mueeWBFPol(const double sqrt_s, const double Pol_em, const do
     return (computeKW() * computeKW());
 }
 
+double HiggsKigen::mueeHvv(const double sqrt_s) const
+{
+//  In this model we neglect the contributions from HZ->vv with off-shell Z
+//  Dependence is exact if Custodial symmetry option is on
+    return (computeKW() * computeKW());
+}
+
+double HiggsKigen::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+//  In this model we neglect the contributions from HZ->vv with off-shell Z
+//  Dependence is exact if Custodial symmetry option is on
+    return (computeKW() * computeKW());
+}
+
 double HiggsKigen::mueeZBF(const double sqrt_s) const
 {
     return (computeKZ() * computeKZ());

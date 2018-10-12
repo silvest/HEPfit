@@ -3620,6 +3620,352 @@ double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const dou
     return mueeWBF(sqrt_s);
 }
 
+double NPSMEFTd6::mueeHvv(const double sqrt_s) const
+{
+    double mu = 1.0;
+    
+    double C1 = 0.0;
+    
+//  For Higgs trilinear contributions assume the WBF mechanism dominate
+    
+    if (sqrt_s == 0.240) {
+        
+        C1 = 0.0064;
+
+        mu += 
+                +121539. * CHbox / LambdaNP2
+                +328845. * CHL1_11 / LambdaNP2
+                -37798.9 * CHe_11 / LambdaNP2
+                +279733. * CHL3_11 / LambdaNP2
+                -196039. * CHD / LambdaNP2
+                -70718.5 * CHB / LambdaNP2
+                +29671.9 * CHW / LambdaNP2
+                -401378. * CHWB / LambdaNP2
+                -23969.3 * CDHB / LambdaNP2
+                -1814.47 * CDHW / LambdaNP2
+                -4.698 * DeltaGF()
+                -5.463 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +4.842 * deltaMz()
+                -2.535 * deltaMh()
+                -0.528 * deltaaMZ()
+                +3.46 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+          
+    } else if (sqrt_s == 0.250) {
+        
+        C1 = 0.0064;
+
+        mu += 
+                +120627. * CHbox / LambdaNP2
+                +256825. * CHL1_11 / LambdaNP2
+                -38677.5 * CHe_11 / LambdaNP2
+                +175735. * CHL3_11 / LambdaNP2
+                -201059. * CHD / LambdaNP2
+                -57405. * CHB / LambdaNP2
+                -9860.82 * CHW / LambdaNP2
+                -403474. * CHWB / LambdaNP2
+                -20447.1 * CDHB / LambdaNP2
+                -9672.74 * CDHW / LambdaNP2
+                -4.656 * DeltaGF()
+                -5.633 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +4.194 * deltaMz()
+                -2.783 * deltaMh()
+                -0.477 * deltaaMZ()
+                +3.414 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 0.350) {
+        
+        C1 = 0.0062;
+
+        mu += 
+                +120666. * CHbox / LambdaNP2
+                -19184.6 * CHL1_11 / LambdaNP2
+                -27432.1 * CHe_11 / LambdaNP2
+                -238244. * CHL3_11 / LambdaNP2
+                -204898. * CHD / LambdaNP2
+                +11833.5 * CHB / LambdaNP2
+                -94273.3 * CHW / LambdaNP2
+                -377703. * CHWB / LambdaNP2
+                +1111.63 * CDHB / LambdaNP2
+                -31735.2 * CDHW / LambdaNP2
+                -4.669 * DeltaGF()
+                -5.329 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +3.738 * deltaMz()
+                -1.994 * deltaMh()
+                -0.537 * deltaaMZ()
+                +3.484 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }      
+        
+    } else if (sqrt_s == 0.365) {
+        
+        C1 = 0.0062; // Use the same as 350 GeV
+
+        mu += 
+                +120864. * CHbox / LambdaNP2
+                -24430. * CHL1_11 / LambdaNP2
+                -24398.7 * CHe_11 / LambdaNP2
+                -253414. * CHL3_11 / LambdaNP2
+                -204817. * CHD / LambdaNP2
+                +12826.5 * CHB / LambdaNP2
+                -93455. * CHW / LambdaNP2
+                -377489. * CHWB / LambdaNP2
+                +1693.48 * CDHB / LambdaNP2
+                -32834.7 * CDHW / LambdaNP2
+                -4.68 * DeltaGF()
+                -5.265 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +3.834 * deltaMz()
+                -1.867 * deltaMh()
+                -0.556 * deltaaMZ()
+                +3.512 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 0.380) {
+        
+        C1 = 0.0062; // Use the same as 350 GeV
+
+        mu += 
+                +120775. * CHbox / LambdaNP2
+                -27548.7 * CHL1_11 / LambdaNP2
+                -22022.3 * CHe_11 / LambdaNP2
+                -266603. * CHL3_11 / LambdaNP2
+                -204782. * CHD / LambdaNP2
+                +13052.3 * CHB / LambdaNP2
+                -92560.2 * CHW / LambdaNP2
+                -377461. * CHWB / LambdaNP2
+                +1916.19 * CDHB / LambdaNP2
+                -33824.9 * CDHW / LambdaNP2
+                -4.684 * DeltaGF()
+                -5.221 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +3.931 * deltaMz()
+                -1.75 * deltaMh()
+                -0.574 * deltaaMZ()
+                +3.532 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+
+    } else if (sqrt_s == 0.500) {
+        
+        C1 = 0.0061;
+        
+        mu += 
+                +120683. * CHbox / LambdaNP2
+                -26906.2 * CHL1_11 / LambdaNP2
+                -11055.8 * CHe_11 / LambdaNP2
+                -326940. * CHL3_11 / LambdaNP2
+                -204335. * CHD / LambdaNP2
+                +10505.8 * CHB / LambdaNP2
+                -82453.1 * CHW / LambdaNP2
+                -378407. * CHWB / LambdaNP2
+                +1889.64 * CDHB / LambdaNP2
+                -41332.3 * CDHW / LambdaNP2
+                -4.705 * DeltaGF()
+                -4.943 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +4.412 * deltaMz()
+                -1.191 * deltaMh()
+                -0.659 * deltaaMZ()
+                +3.633 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 1.0) {
+        
+        C1 = 0.0059;
+
+        mu += 
+                +120462. * CHbox / LambdaNP2
+                -9025.99 * CHL1_11 / LambdaNP2
+                -3124.38 * CHe_11 / LambdaNP2
+                -454282. * CHL3_11 / LambdaNP2
+                -204077. * CHD / LambdaNP2
+                +3421.94 * CHB / LambdaNP2
+                -61892.5 * CHW / LambdaNP2
+                -379786. * CHWB / LambdaNP2
+                +396.747 * CDHB / LambdaNP2
+                -63826.6 * CDHW / LambdaNP2
+                -4.711 * DeltaGF()
+                -4.587 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +4.969 * deltaMz()
+                -0.583 * deltaMh()
+                -0.745 * deltaaMZ()
+                +3.729 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+  
+    } else if (sqrt_s == 1.4) {
+        
+        C1 = 0.0058;
+
+        mu += 
+                +120512. * CHbox / LambdaNP2
+                -4746.27 * CHL1_11 / LambdaNP2
+                -2212.55 * CHe_11 / LambdaNP2
+                -521829. * CHL3_11 / LambdaNP2
+                -204054. * CHD / LambdaNP2
+                +1891.37 * CHB / LambdaNP2
+                -54492.9 * CHW / LambdaNP2
+                -379916. * CHWB / LambdaNP2
+                +142.745 * CDHB / LambdaNP2
+                -75976. * CDHW / LambdaNP2
+                -4.712 * DeltaGF()
+                -4.486 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +5.108 * deltaMz()
+                -0.447 * deltaMh()
+                -0.767 * deltaaMZ()
+                +3.751 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 1.5) {
+        
+        C1 = 0.0058;// Use the same as 1400 GeV
+
+        mu += 
+                +120512. * CHbox / LambdaNP2
+                -4105.67 * CHL1_11 / LambdaNP2
+                -2086.49 * CHe_11 / LambdaNP2
+                -536150. * CHL3_11 / LambdaNP2
+                -204072. * CHD / LambdaNP2
+                +1682.65 * CHB / LambdaNP2
+                -53138.1 * CHW / LambdaNP2
+                -379943. * CHWB / LambdaNP2
+                +134.612 * CDHB / LambdaNP2
+                -78546.2 * CDHW / LambdaNP2
+                -4.711 * DeltaGF()
+                -4.469 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +5.132 * deltaMz()
+                -0.424 * deltaMh()
+                -0.773 * deltaaMZ()
+                +3.757 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 3.0) {
+        
+        C1 = 0.0057;
+        
+        mu += 
+                +120404. * CHbox / LambdaNP2
+                -1215.14 * CHL1_11 / LambdaNP2
+                -1382.75 * CHe_11 / LambdaNP2
+                -686451. * CHL3_11 / LambdaNP2
+                -204039. * CHD / LambdaNP2
+                +293.31 * CHB / LambdaNP2
+                -41440.6 * CHW / LambdaNP2
+                -380130. * CHWB / LambdaNP2
+                -272.36 * CDHB / LambdaNP2
+                -104900. * CDHW / LambdaNP2
+                -4.706 * DeltaGF()
+                -4.343 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +5.307 * deltaMz()
+                -0.283 * deltaMh()
+                -0.802 * deltaaMZ()
+                +3.789 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvv()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeWBFint + eeeWBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
+double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+
+//  Not pure WBF!! Add polarizations
+    
+    return mueeHvv(sqrt_s);
+}
+
 double NPSMEFTd6::mueeZBF(const double sqrt_s) const
 {
     double mu = 1.0;
