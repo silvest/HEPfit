@@ -2540,7 +2540,7 @@ double StandardModelMatching::setWCbnlepEW(int i, double x)
 gslpp::complex StandardModelMatching::S0c() const 
 {
     double xc = x_c(SM.getMuc());
-    gslpp::complex co = GF / 2. / M_PI * Mw_tree * SM.getCKM().computelamc().conjugate(); /* Mw_tree...?? */
+    gslpp::complex co = GF / 2. / M_PI * Mw * SM.getCKM().computelamc().conjugate();
 #if SUSYFIT_DEBUG & 2
     std::cout << "im lambdac = " << (SM.computelamc()*SM.computelamc()).imag() << std::endl;
 #endif
