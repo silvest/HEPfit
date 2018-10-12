@@ -3626,7 +3626,7 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
     
     double C1 = 0.0;
     
-//  For Higgs trilinear contributions assume the WBF mechanism dominate
+//  For the Higgs trilinear dependence assume the WBF mechanism dominates
     
     if (sqrt_s == 0.240) {
         
@@ -3960,10 +3960,429 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
 
 double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
-
-//  Not pure WBF!! Add polarizations
+    double mu = 1.0;
     
-    return mueeHvv(sqrt_s);
+    double C1 = 0.0;    
+    
+//  For the Higgs trilinear dependence assume the WBF mechanism dominates
+
+    if (sqrt_s == 0.240) {
+        
+        C1 = 0.0064;
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        }
+        
+    } else if (sqrt_s == 0.250) {
+        
+        C1 = 0.0064;
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        }
+        
+    } else if (sqrt_s == 0.350) {
+        
+        C1 = 0.0062;
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        } 
+    
+    } else if (sqrt_s == 0.365) {
+        
+        C1 = 0.0062; // Use the same as 350 GeV
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        } 
+    
+    } else if (sqrt_s == 0.380) {
+        
+        C1 = 0.0062; // Use the same as 350 GeV
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        } 
+    
+    } else if (sqrt_s == 0.500) {
+        
+        C1 = 0.0061;
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        } 
+    
+    } else if (sqrt_s == 1.0) {
+        
+        C1 = 0.0059;
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        } 
+    
+    } else if (sqrt_s == 1.4) {
+        
+        C1 = 0.0058;
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        } 
+        
+    } else if (sqrt_s == 1.5) {
+        
+        C1 = 0.0058;// Use the same as 1400 GeV
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        }
+    
+    } else if (sqrt_s == 3.0) {
+        
+        C1 = 0.0057;
+
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                0.0
+                ; 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( 0.0 );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");
+        } 
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueeHvvPol()");   
+    
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeWBFint + eeeWBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+    
+    if (FlagQuadraticTerms) {
+//  Quadratic contribution from Higgs self-coupling
+        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
+    }
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 }
 
 double NPSMEFTd6::mueeZBF(const double sqrt_s) const
@@ -11175,10 +11594,10 @@ double NPSMEFTd6::ppZHprobe(const double sqrt_s) const
     
     double ghZuL,ghZdL,ghZuR,ghZdR;
     
-    ghZuL=0.0;
-    ghZdL=0.0;
-    ghZuR=0.0;
-    ghZdR=0.0;   
+    ghZuL = -(eeMz/sW_tree/cW_tree)*(CHQ1_11 - CHQ3_11) * v2_over_LambdaNP2;
+    ghZdL = -(eeMz/sW_tree/cW_tree)*(CHQ1_11 + CHQ3_11) * v2_over_LambdaNP2;
+    ghZuR = -(eeMz/sW_tree/cW_tree)*CHu_11 * v2_over_LambdaNP2;
+    ghZdR = -(eeMz/sW_tree/cW_tree)*CHd_11 * v2_over_LambdaNP2;   
     
     if (sqrt_s == 100.0) {
          

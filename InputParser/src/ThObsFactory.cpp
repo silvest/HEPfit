@@ -606,7 +606,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["eeWBF1400"] = boost::bind(boost::factory<mueeWBF*>(), _1, sqrt_s_leptcoll_1400);
     obsThFactory["eeWBF1500"] = boost::bind(boost::factory<mueeWBF*>(), _1, sqrt_s_leptcoll_1500);
     obsThFactory["eeWBF3000"] = boost::bind(boost::factory<mueeWBF*>(), _1, sqrt_s_leptcoll_3000);   
-     //
+    //
     obsThFactory["eeWBF250_p80_m30"] = boost::bind(boost::factory<mueeWBFPol*>(), _1, sqrt_s_leptcoll_250, pol_80, -pol_30);
     obsThFactory["eeWBF250_m80_p30"] = boost::bind(boost::factory<mueeWBFPol*>(), _1, sqrt_s_leptcoll_250, -pol_80, pol_30);
     obsThFactory["eeWBF250_p80_0"] = boost::bind(boost::factory<mueeWBFPol*>(), _1, sqrt_s_leptcoll_250, pol_80, pol_0);
