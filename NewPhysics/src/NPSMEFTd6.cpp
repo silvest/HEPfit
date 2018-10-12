@@ -10817,6 +10817,76 @@ double NPSMEFTd6::xseeWW(const double sqrt_s) const
     return dxseeWWdcosBin(sqrt_s, -1.0, 1.0);
 }
 
+////////////////////////////////////////////////////////////////////////
+    
+    //----- High Energy diboson observables at hadron colliders
+
+
+double NPSMEFTd6::ppZHprobe(const double sqrt_s) const
+{    
+
+    double gpZ=0.0;
+    
+    double ghZuL,ghZdL,ghZuR,ghZdR;
+    
+    ghZuL=0.0;
+    ghZdL=0.0;
+    ghZuR=0.0;
+    ghZdR=0.0;   
+    
+    if (sqrt_s == 100.0) {
+         
+        gpZ = ghZuL - 0.90 * ghZdL - 0.45 * ghZuR + 0.17 * ghZdR;
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::ppZHprobe()");
+    
+
+    return gpZ;
+    
+}
+    
+double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const
+{    
+    double mu = 1.0;
+    
+    double cHWp = 0.0;
+    
+    cHWp = 2.0 * CHQ3_11 / LambdaNP2;
+
+    if (sqrt_s == 100.0) {
+
+        if (pTV1 == 220.){
+            mu += (2000.0 * cHWp + 400.0 * cHWp*cHWp) / 8070.0;          
+    
+        } else if (pTV1 == 300.){
+            mu += (2860.0 * cHWp + 1012.0 * cHWp*cHWp) / 7100.0;           
+    
+        } else if (pTV1 == 500.){
+            mu += (1516.0 * cHWp + 1420.0 * cHWp*cHWp) / 2010.0;
+    
+        } else if (pTV1 == 750.){
+            mu += (1290.0 * cHWp + 2668.0 * cHWp*cHWp) / 713.0;
+
+        } else if (pTV1 == 1200.){
+            mu += (660.0 * cHWp + 3424.0 * cHWp*cHWp) / 150.0;
+    
+        } else if (pTV1 == 1800.){
+            mu += (252.0 * cHWp + 2956.0 * cHWp*cHWp) / 40.3;
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mupTVppWZ()");
+        } 
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mupTVppWZ()");    
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 double NPSMEFTd6::kappamueff() const

@@ -1489,6 +1489,32 @@ public:
     {
         return 0.0;
     }
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    //----- High Energy diboson observables at hadron colliders
+
+    /**
+     * @brief The direction constrained by @f$ p p \to Z H@f$ in the boosted regime, @f$g_p^Z@f$.
+     * From arXiv:1807.01796 and the contribution to FCC CDR Vol 1. Implemented only in NPSMEFTd6 class.
+     * @return @f$g_p^Z@f$
+     */
+    virtual double ppZHprobe(const double sqrt_s) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The number of events in  @f$ p p \to WZ@f$
+     * in a given @f$p_{TV}@f$ bin, normalized to the SM prediction.
+     * From arXiv: 1712.01310 [hep-ph] and private communication.
+     * Implemented only in NPSMEFTd6 class.
+     * @return @f$N_{ev}^{p_{TV}}/N_{ev,SM}^{p_{TV}}@f$
+     */
+    virtual double mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const
+    {
+        return 1.0;
+    }
  
     ////////////////////////////////////////////////////////////////////////
     

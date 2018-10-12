@@ -256,6 +256,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deeWWdcos_365_Bin8"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_365, cos8_ee_WW, cos9_ee_WW);    
     obsThFactory["deeWWdcos_365_Bin9"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_365, cos9_ee_WW, cos10_ee_WW);    
     obsThFactory["deeWWdcos_365_Bin10"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_365, cos10_ee_WW, cos11_ee_WW);
+    //----- High Energy diboson observables at hadron colliders
+    obsThFactory["ppZHprobe100"] = boost::bind(boost::factory<ppZHprobe*>(), _1, sqrt_s_FCC100);
+    //
+    obsThFactory["mupTVppWZ_100_Bin1"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 220., 300.);
+    obsThFactory["mupTVppWZ_100_Bin2"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 300., 500.);
+    obsThFactory["mupTVppWZ_100_Bin3"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 500., 750.);
+    obsThFactory["mupTVppWZ_100_Bin4"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 750., 1200.);
+    obsThFactory["mupTVppWZ_100_Bin5"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 1200., 1800.);
+    obsThFactory["mupTVppWZ_100_Bin6"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 1800., 2400.);
     //-----  Observables for particle couplings -----
     //-----  Zff couplings observables  ----------
     obsThFactory["deltagZveveL"] = boost::factory<deltagZveveL*>();
