@@ -9,7 +9,6 @@
 #include "StandardModel.h"
 
 
-
 Hobs_tt_phi2_tt_ATLAS13::Hobs_tt_phi2_tt_ATLAS13(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
@@ -1320,764 +1319,14 @@ double Hobs_pp_Hpm_tb_ATLAS13::computeThValue()
 }
 
 
-
-log10_ggF_phi3_tautau_TH8::log10_ggF_phi3_tautau_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_tautau_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_tautau_TH8);
-}
-
-
-
-log10_bbF_phi3_tautau_TH8::log10_bbF_phi3_tautau_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_bbF_phi3_tautau_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_tautau_TH8);
-}
-
-
-
-log10_pp_phi3_gaga_TH8::log10_pp_phi3_gaga_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_gaga_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_gaga_TH8);
-}
-
-
-
-log10_ggF_phi3_gaga_TH8::log10_ggF_phi3_gaga_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_gaga_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_gaga_TH8);
-}
-
-
-
-log10_pp_phi3_Zga_llga_TH8::log10_pp_phi3_Zga_llga_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_Zga_llga_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_Zga_llga_TH8);
-}
-
-
-
-log10_mu_pp_phi3_VV_TH8::log10_mu_pp_phi3_VV_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_mu_pp_phi3_VV_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->mu_pp_phi3_VV_TH8);
-}
-
-
-
-log10_ggF_phi3_ZZ_TH8::log10_ggF_phi3_ZZ_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_ZZ_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_ZZ_TH8);
-}
-
-
-
-log10_VBF_phi3_ZZ_TH8::log10_VBF_phi3_ZZ_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi3_ZZ_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_ZZ_TH8);
-}
-
-
-
-log10_ggF_phi3_WW_TH8::log10_ggF_phi3_WW_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_WW_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_WW_TH8);
-}
-
-
-
-log10_VBF_phi3_WW_TH8::log10_VBF_phi3_WW_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi3_WW_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_WW_TH8);
-}
-
-
-//ggF and pp TH8
-
-log10_ggF_phi3_phi1phi1_TH8::log10_ggF_phi3_phi1phi1_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi1phi1_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi1_TH8);
-}
-
-
-
-log10_pp_phi3_phi1phi1_TH8::log10_pp_phi3_phi1phi1_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_TH8);
-}
-
-
-log10_ggF_phi3_phi2phi2_TH8::log10_ggF_phi3_phi2phi2_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi2phi2_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi2phi2_TH8);
-}
-
-
-log10_ggF_phi3_phi1phi2_TH8::log10_ggF_phi3_phi1phi2_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi1phi2_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi2_TH8);
-}
-
-
-
-log10_pp_phi3_phi2phi2_TH8::log10_pp_phi3_phi2phi2_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_TH8);
-}
-
-
-log10_pp_phi3_phi1phi2_TH8::log10_pp_phi3_phi1phi2_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi2_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_TH8);
-}
-
-
-// ggF  bbtautau
-
-log10_ggF_phi3_phi1phi1_bbtautau_TH8::log10_ggF_phi3_phi1phi1_bbtautau_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi1phi1_bbtautau_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi1_bbtautau_TH8);
-}
-
-log10_ggF_phi3_phi2phi2_bbtautau_TH8::log10_ggF_phi3_phi2phi2_bbtautau_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi2phi2_bbtautau_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi2phi2_bbtautau_TH8);
-}
-
-log10_ggF_phi3_phi1phi2_bbtautau_TH8::log10_ggF_phi3_phi1phi2_bbtautau_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi1phi2_bbtautau_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi2_bbtautau_TH8);
-}
-
-
-// pp  bbbb
-
-log10_pp_phi3_phi1phi1_bbbb_TH8::log10_pp_phi3_phi1phi1_bbbb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_bbbb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbbb_TH8);
-}
-
-log10_pp_phi3_phi1phi2_bbbb_TH8::log10_pp_phi3_phi1phi2_bbbb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi2_bbbb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_bbbb_TH8);
-}
-
-log10_pp_phi3_phi2phi2_bbbb_TH8::log10_pp_phi3_phi2phi2_bbbb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_bbbb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_bbbb_TH8);
-}
-
-//pp gagabb
-
-
-log10_pp_phi3_phi1phi1_gagabb_TH8::log10_pp_phi3_phi1phi1_gagabb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_gagabb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_gagabb_TH8);
-}
-
-log10_pp_phi3_phi1phi2_gagabb_TH8::log10_pp_phi3_phi1phi2_gagabb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi2_gagabb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_gagabb_TH8);
-}
-
-
-log10_pp_phi3_phi2phi2_gagabb_TH8::log10_pp_phi3_phi2phi2_gagabb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_gagabb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_gagabb_TH8);
-}
-
-
-//
-
-
-log10_ggF_phi3_tt_TH8::log10_ggF_phi3_tt_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_tt_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_tt_TH8);
-}
-
-
-
-log10_bbF_phi3_bb_TH8::log10_bbF_phi3_bb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_bbF_phi3_bb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_bb_TH8);
-}
-
-
-//pp AZbbll TH8
-
-log10_pp_phi3_phi1Z_bbll_TH8::log10_pp_phi3_phi1Z_bbll_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1Z_bbll_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1Z_bbll_TH8);
-}
-
-log10_pp_phi3_phi2Z_bbll_TH8::log10_pp_phi3_phi2Z_bbll_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2Z_bbll_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2Z_bbll_TH8);
-}
-
-
-//pp AZ tautaull
-
-log10_pp_phi3_phi1Z_tautaull_TH8::log10_pp_phi3_phi1Z_tautaull_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1Z_tautaull_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1Z_tautaull_TH8);
-}
-
-log10_pp_phi3_phi2Z_tautaull_TH8::log10_pp_phi3_phi2Z_tautaull_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2Z_tautaull_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2Z_tautaull_TH8);
-}
-
-
-//
-
-
-log10_ggF_phi3_tautau_TH13::log10_ggF_phi3_tautau_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_tautau_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_tautau_TH13);
-}
-
-
-
-log10_bbF_phi3_tautau_TH13::log10_bbF_phi3_tautau_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_bbF_phi3_tautau_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_tautau_TH13);
-}
-
-
-
-log10_pp_phi3_gaga_TH13::log10_pp_phi3_gaga_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_gaga_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_gaga_TH13);
-}
-
-
-
-log10_ggF_phi3_gaga_TH13::log10_ggF_phi3_gaga_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_gaga_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_gaga_TH13);
-}
-
-
-
-log10_pp_phi3_Zga_TH13::log10_pp_phi3_Zga_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_Zga_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_Zga_TH13);
-}
-
-
-
-log10_ggF_phi3_Zga_TH13::log10_ggF_phi3_Zga_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_Zga_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_Zga_TH13);
-}
-
-
-
-log10_pp_phi3_ZZ_TH13::log10_pp_phi3_ZZ_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_ZZ_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_ZZ_TH13);
-}
-
-log10_ggF_phi3_ZZ_TH13::log10_ggF_phi3_ZZ_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_ZZ_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_ZZ_TH13);
-}
-
-
-
-log10_VBF_phi3_ZZ_TH13::log10_VBF_phi3_ZZ_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi3_ZZ_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_ZZ_TH13);
-}
-
-
-
-log10_ggF_phi3_ZZ_llll_TH13::log10_ggF_phi3_ZZ_llll_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_ZZ_llll_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_ZZ_llll_TH13);
-}
-
-
-
-log10_VBF_phi3_ZZ_llll_TH13::log10_VBF_phi3_ZZ_llll_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi3_ZZ_llll_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_ZZ_llll_TH13);
-}
-
-
-
-log10_pp_phi3_ZZ_llll_TH13::log10_pp_phi3_ZZ_llll_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_ZZ_llll_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_ZZ_llll_TH13);
-}
-
-
-
-log10_VBF_VH_phi3_ZZ_llll_TH13::log10_VBF_VH_phi3_ZZ_llll_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_VH_phi3_ZZ_llll_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_ZZ_llll_TH13);
-}
-
-
-
-log10_ggF_phi3_WW_TH13::log10_ggF_phi3_WW_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_WW_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_WW_TH13);
-}
-
-
-
-log10_VBF_phi3_WW_TH13::log10_VBF_phi3_WW_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi3_WW_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_WW_TH13);
-}
-
-
-
-log10_ggF_VBF_phi3_WW_lnulnu_TH13::log10_ggF_VBF_phi3_WW_lnulnu_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_VBF_phi3_WW_lnulnu_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggVV_phi3_WW_lnulnu_TH13);
-}
-
-
-// ggF, phi1phi1, TH13
-
-log10_ggF_phi3_phi1phi1_TH13::log10_ggF_phi3_phi1phi1_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi1phi1_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi1_TH13);
-}
-
-log10_ggF_phi3_phi2phi2_TH13::log10_ggF_phi3_phi2phi2_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi2phi2_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi2phi2_TH13);
-}
-
-log10_ggF_phi3_phi1phi2_TH13::log10_ggF_phi3_phi1phi2_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi1phi2_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi2_TH13);
-}
-
-//pp phi1phi1 TH13
-
-log10_pp_phi3_phi1phi1_TH13::log10_pp_phi3_phi1phi1_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_TH13);
-}
-
-log10_pp_phi3_phi2phi2_TH13::log10_pp_phi3_phi2phi2_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_TH13);
-}
-
-
-log10_pp_phi3_phi1phi2_TH13::log10_pp_phi3_phi1phi2_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi2_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_TH13);
-}
-
-
-
-//pp bbbb
-
-log10_pp_phi3_phi1phi1_bbbb_TH13::log10_pp_phi3_phi1phi1_bbbb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_bbbb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbbb_TH13);
-}
-
-log10_pp_phi3_phi2phi2_bbbb_TH13::log10_pp_phi3_phi2phi2_bbbb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_bbbb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_bbbb_TH13);
-}
-
-log10_pp_phi3_phi1phi2_bbbb_TH13::log10_pp_phi3_phi1phi2_bbbb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi2_bbbb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_bbbb_TH13);
-}
-
-
-
-//ggF bbbb
-
-log10_ggF_phi3_phi1phi1_bbbb_TH13::log10_ggF_phi3_phi1phi1_bbbb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi1phi1_bbbb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi1_bbbb_TH13);
-}
-
-
-log10_ggF_phi3_phi2phi2_bbbb_TH13::log10_ggF_phi3_phi2phi2_bbbb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi2phi2_bbbb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi2phi2_bbbb_TH13);
-}
-
-
-
-log10_ggF_phi3_phi1phi2_bbbb_TH13::log10_ggF_phi3_phi1phi2_bbbb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi3_phi1phi2_bbbb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi2_bbbb_TH13);
-}
-
-
-//pp gagabb
-
-log10_pp_phi3_phi1phi1_gagabb_TH13::log10_pp_phi3_phi1phi1_gagabb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_gagabb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbgaga_TH13);
-}
-
-log10_pp_phi3_phi2phi2_gagabb_TH13::log10_pp_phi3_phi2phi2_gagabb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_gagabb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_gagabb_TH13);
-}
-
-log10_pp_phi3_phi1phi2_gagabb_TH13::log10_pp_phi3_phi1phi2_gagabb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi2_gagabb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_gagabb_TH13);
-}
-
-
-
-
-
-//pp bbtautau
-
-log10_pp_phi3_phi1phi1_bbtautau_TH13::log10_pp_phi3_phi1phi1_bbtautau_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_bbtautau_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbtautau_TH13);
-}
-
-log10_pp_phi3_phi2phi2_bbtautau_TH13::log10_pp_phi3_phi2phi2_bbtautau_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_bbtautau_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_bbtautau_TH13);
-}
-
-log10_pp_phi3_phi1phi2_bbtautau_TH13::log10_pp_phi3_phi1phi2_bbtautau_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi2_bbtautau_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_bbtautau_TH13);
-}
-
-//pp bblnulnu
-
-log10_pp_phi3_phi1phi1_bblnulnu_TH13::log10_pp_phi3_phi1phi1_bblnulnu_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_bblnulnu_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bblnulnu_TH13);
-}
-
-
-log10_pp_phi3_phi2phi2_bblnulnu_TH13::log10_pp_phi3_phi2phi2_bblnulnu_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_bblnulnu_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_bblnulnu_TH13);
-}
-
-log10_pp_phi3_phi1phi2_bblnulnu_TH13::log10_pp_phi3_phi1phi2_bblnulnu_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi2_bblnulnu_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_bblnulnu_TH13);
-}
-
-
-//pp bbVV
-
-log10_pp_phi3_phi1phi1_bbVV_TH13::log10_pp_phi3_phi1phi1_bbVV_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi1phi1_bbVV_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbVV_TH13);
-}
-
-log10_pp_phi3_phi2phi2_bbVV_TH13::log10_pp_phi3_phi2phi2_bbVV_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi3_phi2phi2_bbVV_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2phi2_bbVV_TH13);
-}
-
-
-log10_pp_phi3_phi1phi2_bbVV_TH13::log10_pp_phi3_phi1phi2_bbVV_TH13(const StandardModel& SM_i)
+log10_tt_phi2_tt_TH13::log10_tt_phi2_tt_TH13(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double log10_pp_phi3_phi1phi2_bbVV_TH13::computeThValue()
+double log10_tt_phi2_tt_TH13::computeThValue()
 {
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi2_bbVV_TH13);
+    return log10(myGTHDM.getMyGTHDMCache()->tt_phi2_tt_TH13);
 }
-
-
-
-//
 
 log10_tt_phi3_tt_TH13::log10_tt_phi3_tt_TH13(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
@@ -2088,7 +1337,14 @@ double log10_tt_phi3_tt_TH13::computeThValue()
     return log10(myGTHDM.getMyGTHDMCache()->tt_phi3_tt_TH13);
 }
 
+log10_bb_phi2_tt_TH13::log10_bb_phi2_tt_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
 
+double log10_bb_phi2_tt_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi2_tt_TH13);
+}
 
 log10_bb_phi3_tt_TH13::log10_bb_phi3_tt_TH13(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
@@ -2100,6 +1356,51 @@ double log10_bb_phi3_tt_TH13::computeThValue()
 }
 
 
+log10_bb_phi2_bb_TH8::log10_bb_phi2_bb_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi2_bb_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi2_bb_TH8);
+}
+
+log10_bb_phi3_bb_TH8::log10_bb_phi3_bb_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi3_bb_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_bb_TH8);
+}
+
+log10_gg_phi2_bb_TH8::log10_gg_phi2_bb_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_bb_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_bb_TH8);
+}
+
+
+log10_gg_phi3_bb_TH8::log10_gg_phi3_bb_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_bb_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_bb_TH8);
+}
+
+log10_pp_phi2_bb_TH13::log10_pp_phi2_bb_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_bb_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_bb_TH13);
+}
 
 log10_pp_phi3_bb_TH13::log10_pp_phi3_bb_TH13(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
@@ -2111,7 +1412,841 @@ double log10_pp_phi3_bb_TH13::computeThValue()
 }
 
 
+log10_bb_phi2_bb_TH13::log10_bb_phi2_bb_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
 
+double log10_bb_phi2_bb_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi2_bb_TH13);
+}
+
+log10_bb_phi3_bb_TH13::log10_bb_phi3_bb_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi3_bb_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_bb_TH13);
+}
+
+
+log10_gg_phi2_tautau_TH8::log10_gg_phi2_tautau_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_tautau_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_tautau_TH8);
+}
+
+log10_gg_phi3_tautau_TH8::log10_gg_phi3_tautau_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_tautau_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_tautau_TH8);
+}
+
+log10_bb_phi2_tautau_TH8::log10_bb_phi2_tautau_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi2_tautau_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi2_tautau_TH8);
+}
+
+log10_bb_phi3_tautau_TH8::log10_bb_phi3_tautau_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi3_tautau_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_tautau_TH8);
+}
+
+log10_gg_phi2_tautau_TH13::log10_gg_phi2_tautau_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_tautau_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_tautau_TH13);
+}
+
+log10_gg_phi3_tautau_TH13::log10_gg_phi3_tautau_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_tautau_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_tautau_TH13);
+}
+
+log10_bb_phi2_tautau_TH13::log10_bb_phi2_tautau_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi2_tautau_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi2_tautau_TH13);
+}
+
+log10_bb_phi3_tautau_TH13::log10_bb_phi3_tautau_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi3_tautau_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_tautau_TH13);
+}
+
+
+log10_gg_phi2_gaga_TH8::log10_gg_phi2_gaga_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_gaga_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_gaga_TH8);
+}
+
+log10_gg_phi3_gaga_TH8::log10_gg_phi3_gaga_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_gaga_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_gaga_TH8);
+}
+
+log10_pp_phi2_gaga_TH13::log10_pp_phi2_gaga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_gaga_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_gaga_TH13);
+}
+
+log10_pp_phi3_gaga_TH13::log10_pp_phi3_gaga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_gaga_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_gaga_TH13);
+}
+
+log10_gg_phi2_gaga_TH13::log10_gg_phi2_gaga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_gaga_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_gaga_TH13);
+}
+
+log10_gg_phi3_gaga_TH13::log10_gg_phi3_gaga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_gaga_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_gaga_TH13);
+}
+
+
+log10_pp_phi2_Zga_llga_TH8::log10_pp_phi2_Zga_llga_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_Zga_llga_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_Zga_llga_TH8);
+}
+
+
+log10_pp_phi3_Zga_llga_TH8::log10_pp_phi3_Zga_llga_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_Zga_llga_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_Zga_llga_TH8);
+}
+
+log10_gg_phi2_Zga_TH13::log10_gg_phi2_Zga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_Zga_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_Zga_TH13);
+}
+
+log10_gg_phi3_Zga_TH13::log10_gg_phi3_Zga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_Zga_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_Zga_TH13);
+}
+
+
+log10_gg_phi2_ZZ_TH8::log10_gg_phi2_ZZ_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_ZZ_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_ZZ_TH8);
+}
+
+log10_gg_phi3_ZZ_TH8::log10_gg_phi3_ZZ_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_ZZ_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_ZZ_TH8);
+}
+
+log10_VV_phi2_ZZ_TH8::log10_VV_phi2_ZZ_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_VV_phi2_ZZ_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->VV_phi2_ZZ_TH8);
+}
+
+
+log10_VV_phi3_ZZ_TH8::log10_VV_phi3_ZZ_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_VV_phi3_ZZ_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_ZZ_TH8);
+}
+
+log10_gg_phi2_ZZ_TH13::log10_gg_phi2_ZZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_ZZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_ZZ_TH13);
+}
+
+log10_gg_phi3_ZZ_TH13::log10_gg_phi3_ZZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_ZZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_ZZ_TH13);
+}
+
+log10_VV_phi2_ZZ_TH13::log10_VV_phi2_ZZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_VV_phi2_ZZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->VV_phi2_ZZ_TH13);
+}
+
+log10_VV_phi3_ZZ_TH13::log10_VV_phi3_ZZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_VV_phi3_ZZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_ZZ_TH13);
+}
+
+log10_pp_phi2_ZZ_TH13::log10_pp_phi2_ZZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_ZZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_ZZ_TH13);
+}
+
+
+log10_pp_phi3_ZZ_TH13::log10_pp_phi3_ZZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_ZZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_ZZ_TH13);
+}
+
+
+log10_gg_phi2_WW_TH8::log10_gg_phi2_WW_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_WW_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_WW_TH8);
+}
+
+
+log10_gg_phi3_WW_TH8::log10_gg_phi3_WW_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_WW_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_WW_TH8);
+}
+
+log10_VV_phi2_WW_TH8::log10_VV_phi2_WW_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_VV_phi2_WW_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->VV_phi2_WW_TH8);
+}
+
+log10_VV_phi3_WW_TH8::log10_VV_phi3_WW_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_VV_phi3_WW_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_WW_TH8);
+}
+
+log10_gg_phi2_WW_TH13::log10_gg_phi2_WW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_WW_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_WW_TH13);
+}
+
+log10_gg_phi3_WW_TH13::log10_gg_phi3_WW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_WW_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_WW_TH13);
+}
+
+log10_VV_phi2_WW_TH13::log10_VV_phi2_WW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_VV_phi2_WW_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->VV_phi2_WW_TH13);
+}
+
+log10_VV_phi3_WW_TH13::log10_VV_phi3_WW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_VV_phi3_WW_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->VV_phi3_WW_TH13);
+}
+
+
+log10_ggVV_phi2_WW_lnulnu_TH13::log10_ggVV_phi2_WW_lnulnu_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_ggVV_phi2_WW_lnulnu_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->ggVV_phi2_WW_lnulnu_TH13);
+}
+
+log10_ggVV_phi3_WW_lnulnu_TH13::log10_ggVV_phi3_WW_lnulnu_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_ggVV_phi3_WW_lnulnu_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->ggVV_phi3_WW_lnulnu_TH13);
+}
+
+log10_pp_phi2_WW_TH13::log10_pp_phi2_WW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_WW_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_WW_TH13);
+}
+
+
+log10_pp_phi3_WW_TH13::log10_pp_phi3_WW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_WW_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_WW_TH13);
+}
+
+
+log10_mu_pp_phi2_VV_TH8::log10_mu_pp_phi2_VV_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_mu_pp_phi2_VV_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->mu_pp_phi2_VV_TH8);
+}
+
+log10_mu_pp_phi3_VV_TH8::log10_mu_pp_phi3_VV_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_mu_pp_phi3_VV_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->mu_pp_phi3_VV_TH8);
+}
+
+log10_pp_phi2_VV_TH13::log10_pp_phi2_VV_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_VV_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_VV_TH13);
+}
+
+log10_pp_phi3_VV_TH13::log10_pp_phi3_VV_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_VV_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_VV_TH13);
+}
+
+
+log10_gg_phi2_phi1phi1_TH8::log10_gg_phi2_phi1phi1_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_phi1phi1_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_phi1phi1_TH8);
+}
+
+log10_gg_phi3_phi1phi1_TH8::log10_gg_phi3_phi1phi1_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi1phi1_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi1_TH8);
+}
+
+log10_pp_phi2_phi1phi1_bbbb_TH8::log10_pp_phi2_phi1phi1_bbbb_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_phi1phi1_bbbb_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbbb_TH8);
+}
+
+log10_pp_phi3_phi1phi1_bbbb_TH8::log10_pp_phi3_phi1phi1_bbbb_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi1phi1_bbbb_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbbb_TH8);
+}
+
+log10_pp_phi2_phi1phi1_bbgaga_TH8::log10_pp_phi2_phi1phi1_bbgaga_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_phi1phi1_bbgaga_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbgaga_TH8);
+}
+
+log10_pp_phi3_phi1phi1_bbgaga_TH8::log10_pp_phi3_phi1phi1_bbgaga_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi1phi1_bbgaga_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbgaga_TH8);
+}
+
+log10_gg_phi2_phi1phi1_bbtautau_TH8::log10_gg_phi2_phi1phi1_bbtautau_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_phi1phi1_bbtautau_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_phi1phi1_bbtautau_TH8);
+}
+
+log10_gg_phi3_phi1phi1_bbtautau_TH8::log10_gg_phi3_phi1phi1_bbtautau_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi1phi1_bbtautau_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi1_bbtautau_TH8);
+}
+
+
+log10_pp_phi2_phi1phi1_TH8::log10_pp_phi2_phi1phi1_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_phi1phi1_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_TH8);
+}
+
+log10_pp_phi3_phi1phi1_TH8::log10_pp_phi3_phi1phi1_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi1phi1_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_TH8);
+}
+
+log10_pp_phi2_phi1phi1_bbbb_TH13::log10_pp_phi2_phi1phi1_bbbb_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_phi1phi1_bbbb_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbbb_TH13);
+}
+
+
+log10_pp_phi3_phi1phi1_bbbb_TH13::log10_pp_phi3_phi1phi1_bbbb_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi1phi1_bbbb_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbbb_TH13);
+}
+
+log10_pp_phi2_phi1phi1_TH13::log10_pp_phi2_phi1phi1_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_phi1phi1_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_TH13);
+}
+
+
+log10_pp_phi3_phi1phi1_TH13::log10_pp_phi3_phi1phi1_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi1phi1_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_TH13);
+}
+
+
+log10_pp_phi2_phi1phi1_bbgaga_TH13::log10_pp_phi2_phi1phi1_bbgaga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_phi1phi1_bbgaga_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbgaga_TH13);
+}
+
+log10_pp_phi3_phi1phi1_bbgaga_TH13::log10_pp_phi3_phi1phi1_bbgaga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi1phi1_bbgaga_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbgaga_TH13);
+}
+
+log10_pp_phi2_phi1phi1_bbtautau_TH13::log10_pp_phi2_phi1phi1_bbtautau_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_phi1phi1_bbtautau_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbtautau_TH13);
+}
+
+log10_pp_phi3_phi1phi1_bbtautau_TH13::log10_pp_phi3_phi1phi1_bbtautau_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi1phi1_bbtautau_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbtautau_TH13);
+}
+
+log10_pp_phi2_phi1phi1_bbVV_TH13::log10_pp_phi2_phi1phi1_bbVV_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi2_phi1phi1_bbVV_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbVV_TH13);
+}
+
+log10_pp_phi3_phi1phi1_bbVV_TH13::log10_pp_phi3_phi1phi1_bbVV_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi1phi1_bbVV_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi1phi1_bbVV_TH13);
+}
+
+log10_gg_phi2_phi1phi1_gagaWW_TH13::log10_gg_phi2_phi1phi1_gagaWW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_phi1phi1_gagaWW_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_phi1phi1_gagaWW_TH13);
+}
+
+log10_gg_phi3_phi1phi1_gagaWW_TH13::log10_gg_phi3_phi1phi1_gagaWW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi1phi1_gagaWW_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1phi1_gagaWW_TH13);
+}
+
+
+
+log10_gg_phi2_phi1Z_bbZ_TH8::log10_gg_phi2_phi1Z_bbZ_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_phi1Z_bbZ_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_phi1Z_bbZ_TH8);
+}
+
+log10_gg_phi3_phi1Z_bbZ_TH8::log10_gg_phi3_phi1Z_bbZ_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi1Z_bbZ_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1Z_bbZ_TH8);
+}
+
+log10_gg_phi2_phi1Z_bbll_TH8::log10_gg_phi2_phi1Z_bbll_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_phi1Z_bbll_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_phi1Z_bbll_TH8);
+}
+
+log10_gg_phi3_phi1Z_bbll_TH8::log10_gg_phi3_phi1Z_bbll_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi1Z_bbll_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1Z_bbll_TH8);
+}
+
+log10_gg_phi2_phi1Z_tautauZ_TH8::log10_gg_phi2_phi1Z_tautauZ_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_phi1Z_tautauZ_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_phi1Z_tautauZ_TH8);
+}
+
+
+log10_gg_phi3_phi1Z_tautauZ_TH8::log10_gg_phi3_phi1Z_tautauZ_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi1Z_tautauZ_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1Z_tautauZ_TH8);
+}
+
+log10_gg_phi2_phi1Z_tautaull_TH8::log10_gg_phi2_phi1Z_tautaull_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_phi1Z_tautaull_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_phi1Z_tautaull_TH8);
+}
+
+log10_gg_phi3_phi1Z_tautaull_TH8::log10_gg_phi3_phi1Z_tautaull_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi1Z_tautaull_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1Z_tautaull_TH8);
+}
+
+log10_gg_phi2_phi1Z_bbZ_TH13::log10_gg_phi2_phi1Z_bbZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi2_phi1Z_bbZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi2_phi1Z_bbZ_TH13);
+}
+
+log10_gg_phi3_phi1Z_bbZ_TH13::log10_gg_phi3_phi1Z_bbZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi1Z_bbZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi1Z_bbZ_TH13);
+}
+
+log10_bb_phi2_phi1Z_bbZ_TH13::log10_bb_phi2_phi1Z_bbZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi2_phi1Z_bbZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi2_phi1Z_bbZ_TH13);
+}
+
+log10_bb_phi3_phi1Z_bbZ_TH13::log10_bb_phi3_phi1Z_bbZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi3_phi1Z_bbZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_phi1Z_bbZ_TH13);
+}
+
+
+log10_pp_phi3_phi2Z_bbll_TH8::log10_pp_phi3_phi2Z_bbll_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi2Z_bbll_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2Z_bbll_TH8);
+}
+
+log10_pp_phi3_phi2Z_tautaull_TH8::log10_pp_phi3_phi2Z_tautaull_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_phi3_phi2Z_tautaull_TH8::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_phi3_phi2Z_tautaull_TH8);
+}
+
+log10_gg_phi3_phi2Z_bbZ_TH13::log10_gg_phi3_phi2Z_bbZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_gg_phi3_phi2Z_bbZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->gg_phi3_phi2Z_bbZ_TH13);
+}
+
+
+log10_bb_phi3_phi2Z_bbZ_TH13::log10_bb_phi3_phi2Z_bbZ_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_bb_phi3_phi2Z_bbZ_TH13::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->bb_phi3_phi2Z_bbZ_TH13);
+}
+
+
+log10_pp_Hpm_taunu_TH8_GTHDM::log10_pp_Hpm_taunu_TH8_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_Hpm_taunu_TH8_GTHDM::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_Hpm_taunu_TH8);
+}
+
+log10_pp_Hp_taunu_TH8_GTHDM::log10_pp_Hp_taunu_TH8_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_Hp_taunu_TH8_GTHDM::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_Hp_taunu_TH8);
+}
+
+log10_pp_Hpm_taunu_TH13_GTHDM::log10_pp_Hpm_taunu_TH13_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_Hpm_taunu_TH13_GTHDM::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_Hpm_taunu_TH13);
+}
+
+
+log10_pp_Hpm_tb_TH8_GTHDM::log10_pp_Hpm_tb_TH8_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_Hpm_tb_TH8_GTHDM::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_Hpm_tb_TH8);
+}
+
+
+log10_pp_Hp_tb_TH8_GTHDM::log10_pp_Hp_tb_TH8_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_Hp_tb_TH8_GTHDM::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_Hp_tb_TH8);
+}
+
+log10_pp_Hpm_tb_TH13_GTHDM::log10_pp_Hpm_tb_TH13_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double log10_pp_Hpm_tb_TH13_GTHDM::computeThValue()
+{
+    return log10(myGTHDM.getMyGTHDMCache()->pp_Hpm_tb_TH13);
+}
+/*NOT CLEANED YET*/
 
 Gamma_phi3_GTHDM::Gamma_phi3_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
@@ -2221,495 +2356,6 @@ double BR_phi3_HpW_GTHDM::computeThValue()
     return myGTHDM.getMyGTHDMCache()->Br_phi3toHpW;
 }
 
-
-log10_ggF_phi2_tautau_TH8::log10_ggF_phi2_tautau_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_tautau_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_tautau_TH8);
-}
-
-
-log10_bbF_phi2_tautau_TH8::log10_bbF_phi2_tautau_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_bbF_phi2_tautau_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->bbF_phi2_tautau_TH8);
-}
-
-
-
-log10_pp_phi2_gaga_TH8::log10_pp_phi2_gaga_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_gaga_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_gaga_TH8);
-}
-
-
-
-log10_ggF_phi2_gaga_TH8::log10_ggF_phi2_gaga_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_gaga_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_gaga_TH8);
-}
-
-
-
-log10_pp_phi2_Zga_llga_TH8::log10_pp_phi2_Zga_llga_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_Zga_llga_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_Zga_llga_TH8);
-}
-
-
-
-log10_mu_pp_phi2_VV_TH8::log10_mu_pp_phi2_VV_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_mu_pp_phi2_VV_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->mu_pp_phi2_VV_TH8);
-}
-
-
-log10_ggF_phi2_ZZ_TH8::log10_ggF_phi2_ZZ_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_ZZ_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_ZZ_TH8);
-}
-
-
-log10_VBF_phi2_ZZ_TH8::log10_VBF_phi2_ZZ_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi2_ZZ_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VBF_phi2_ZZ_TH8);
-}
-
-
-
-log10_ggF_phi2_WW_TH8::log10_ggF_phi2_WW_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_WW_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_WW_TH8);
-}
-
-
-log10_VBF_phi2_WW_TH8::log10_VBF_phi2_WW_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi2_WW_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VBF_phi2_WW_TH8);
-}
-
-//ggF and pp TH8
-
-log10_ggF_phi2_phi1phi1_TH8::log10_ggF_phi2_phi1phi1_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_phi1phi1_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_phi1phi1_TH8);
-}
-
-log10_pp_phi2_phi1phi1_TH8::log10_pp_phi2_phi1phi1_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_TH8);
-}
-
-// ggF  bbtautau
-
-log10_ggF_phi2_phi1phi1_bbtautau_TH8::log10_ggF_phi2_phi1phi1_bbtautau_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_phi1phi1_bbtautau_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_phi1phi1_bbtautau_TH8);
-}
-
-
-// pp  bbbb
-
-log10_pp_phi2_phi1phi1_bbbb_TH8::log10_pp_phi2_phi1phi1_bbbb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_bbbb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbbb_TH8);
-}
-
-//pp gagabb
-
-
-log10_pp_phi2_phi1phi1_gagabb_TH8::log10_pp_phi2_phi1phi1_gagabb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_gagabb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_gagabb_TH8);
-}
-
-
-log10_ggF_phi2_tt_TH8::log10_ggF_phi2_tt_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_tt_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_tt_TH8);
-}
-
-
-
-log10_bbF_phi2_bb_TH8::log10_bbF_phi2_bb_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_bbF_phi2_bb_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->bbF_phi2_bb_TH8);
-}
-
-
-//pp AZbbll TH8
-
-log10_pp_phi2_phi1Z_bbll_TH8::log10_pp_phi2_phi1Z_bbll_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1Z_bbll_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1Z_bbll_TH8);
-}
-
-
-
-//pp AZ tautaull
-
-log10_pp_phi2_phi1Z_tautaull_TH8::log10_pp_phi2_phi1Z_tautaull_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1Z_tautaull_TH8::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1Z_tautaull_TH8);
-}
-
-
-log10_ggF_phi2_tautau_TH13::log10_ggF_phi2_tautau_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_tautau_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_tautau_TH13);
-}
-
-
-
-log10_bbF_phi2_tautau_TH13::log10_bbF_phi2_tautau_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_bbF_phi2_tautau_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->bbF_phi2_tautau_TH13);
-}
-
-
-
-log10_pp_phi2_gaga_TH13::log10_pp_phi2_gaga_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_gaga_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_gaga_TH13);
-}
-
-
-
-log10_ggF_phi2_gaga_TH13::log10_ggF_phi2_gaga_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_gaga_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_gaga_TH13);
-}
-
-
-
-log10_pp_phi2_Zga_TH13::log10_pp_phi2_Zga_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_Zga_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_Zga_TH13);
-}
-
-
-
-log10_ggF_phi2_Zga_TH13::log10_ggF_phi2_Zga_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_Zga_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_Zga_TH13);
-}
-
-log10_pp_phi2_ZZ_TH13::log10_pp_phi2_ZZ_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_ZZ_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_ZZ_TH13);
-}
-
-
-log10_ggF_phi2_ZZ_TH13::log10_ggF_phi2_ZZ_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_ZZ_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_ZZ_TH13);
-}
-
-
-log10_VBF_phi2_ZZ_TH13::log10_VBF_phi2_ZZ_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi2_ZZ_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VBF_phi2_ZZ_TH13);
-}
-
-
-log10_ggF_phi2_ZZ_llll_TH13::log10_ggF_phi2_ZZ_llll_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_ZZ_llll_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_ZZ_llll_TH13);
-}
-
-log10_VBF_phi2_ZZ_llll_TH13::log10_VBF_phi2_ZZ_llll_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi2_ZZ_llll_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VBF_phi2_ZZ_llll_TH13);
-}
-
-
-
-log10_pp_phi2_ZZ_llll_TH13::log10_pp_phi2_ZZ_llll_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_ZZ_llll_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_ZZ_llll_TH13);
-}
-
-log10_VBF_VH_phi2_ZZ_llll_TH13::log10_VBF_VH_phi2_ZZ_llll_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_VH_phi2_ZZ_llll_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VBF_VH_phi2_ZZ_llll_TH13);
-}
-
-
-log10_ggF_phi2_WW_TH13::log10_ggF_phi2_WW_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_WW_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_WW_TH13);
-}
-
-
-
-log10_VBF_phi2_WW_TH13::log10_VBF_phi2_WW_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_VBF_phi2_WW_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->VBF_phi2_WW_TH13);
-}
-
-
-log10_ggF_VBF_phi2_WW_lnulnu_TH13::log10_ggF_VBF_phi2_WW_lnulnu_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_VBF_phi2_WW_lnulnu_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_VBF_phi2_WW_lnulnu_TH13);
-}
-
-
-// ggF, phi1phi1, TH13
-
-log10_ggF_phi2_phi1phi1_TH13::log10_ggF_phi2_phi1phi1_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_phi1phi1_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_phi1phi1_TH13);
-}
-
-
-//pp phi1phi1 TH13
-
-log10_pp_phi2_phi1phi1_TH13::log10_pp_phi2_phi1phi1_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_TH13);
-}
-//pp bbbb
-
-log10_pp_phi2_phi1phi1_bbbb_TH13::log10_pp_phi2_phi1phi1_bbbb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_bbbb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbbb_TH13);
-}
-
-//ggF bbbb
-
-log10_ggF_phi2_phi1phi1_bbbb_TH13::log10_ggF_phi2_phi1phi1_bbbb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_ggF_phi2_phi1phi1_bbbb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ggF_phi2_phi1phi1_bbbb_TH13);
-}
-//pp gagabb
-
-log10_pp_phi2_phi1phi1_gagabb_TH13::log10_pp_phi2_phi1phi1_gagabb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_gagabb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_gagabb_TH13);
-}
-
-//pp bbtautau
-
-log10_pp_phi2_phi1phi1_bbtautau_TH13::log10_pp_phi2_phi1phi1_bbtautau_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_bbtautau_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbtautau_TH13);
-}
-
-//pp bblnulnu
-
-log10_pp_phi2_phi1phi1_bblnulnu_TH13::log10_pp_phi2_phi1phi1_bblnulnu_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_bblnulnu_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bblnulnu_TH13);
-}
-
-//pp bbVV
-
-log10_pp_phi2_phi1phi1_bbVV_TH13::log10_pp_phi2_phi1phi1_bbVV_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_phi1phi1_bbVV_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_phi1phi1_bbVV_TH13);
-}
-//
-
-log10_tt_phi2_tt_TH13::log10_tt_phi2_tt_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_tt_phi2_tt_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->ttF_phi2_tt_TH13);
-}
-
-
-
-log10_bb_phi2_tt_TH13::log10_bb_phi2_tt_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_bb_phi2_tt_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->bbF_phi2_tt_TH13);
-}
-
-
-
-log10_pp_phi2_bb_TH13::log10_pp_phi2_bb_TH13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double log10_pp_phi2_bb_TH13::computeThValue()
-{
-    return log10(myGTHDM.getMyGTHDMCache()->pp_phi2_bb_TH13);
-}
 
 
 Gamma_phi2_GTHDM::Gamma_phi2_GTHDM(const StandardModel& SM_i)

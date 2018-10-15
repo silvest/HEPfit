@@ -296,7 +296,7 @@ class Hobs_gg_phi2_tautau_CMS13: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_ggF_phi2_tautau_CMS13 constructor.
+     * @brief Hobs_gg_phi2_tautau_CMS13 constructor.
      */
     Hobs_gg_phi2_tautau_CMS13(const StandardModel& SM_i);
 
@@ -1399,7 +1399,6 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
-
 /**
  * @class Hobs_bb_phi2_phi1Z_bbZ_2_CMS13
  * @ingroup GeneralTHDM
@@ -1694,7 +1693,7 @@ class Hobs_gg_phi3_tautau_CMS13: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_ggF_phi3_tautau_CMS13 constructor.
+     * @brief Hobs_gg_phi3_tautau_CMS13 constructor.
      */
     Hobs_gg_phi3_tautau_CMS13(const StandardModel& SM_i);
 
@@ -3088,253 +3087,20 @@ private:
 
 
 /**
- * @class log10_ggF_phi3_tautau_TH8
+ * @class log10_tt_phi2_tt_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to \tau\tau@f$ at 8 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$t\bar t\to phi2\to t\bar t@f$ at 13 TeV.
  */
-class log10_ggF_phi3_tautau_TH8: public ThObservable {
+class log10_tt_phi2_tt_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_tautau_TH8 constructor.
+     * @brief log10_tt_phi2_tt_TH13 constructor.
      */
-    log10_ggF_phi3_tautau_TH8(const StandardModel& SM_i);
+    log10_tt_phi2_tt_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \tau\tau)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_bbF_phi3_tautau_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi3\to \tau\tau@f$ at 8 TeV.
- */
-class log10_bbF_phi3_tautau_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_bbF_phi3_tautau_TH8 constructor.
-     */
-    log10_bbF_phi3_tautau_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \tau\tau)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_gaga_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to \gamma\gamma@f$ at 8 TeV.
- */
-class log10_pp_phi3_gaga_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_gaga_TH8 constructor.
-     */
-    log10_pp_phi3_gaga_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \gamma\gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_gaga_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to \gamma\gamma@f$ at 8 TeV.
- */
-class log10_ggF_phi3_gaga_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_gaga_TH8 constructor.
-     */
-    log10_ggF_phi3_gaga_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \gamma\gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_Zga_llga_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to Z\gamma \to \ell \ell \gamma@f$ at 8 TeV.
- */
-class log10_pp_phi3_Zga_llga_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_Zga_llga_TH8 constructor.
-     */
-    log10_pp_phi3_Zga_llga_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to Z\gamma \to \ell \ell \gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_mu_pp_phi3_VV_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the signal strength of the process @f$pp\to phi3\to VV@f$ at 8 TeV.
- */
-class log10_mu_pp_phi3_VV_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_mu_pp_phi3_VV_TH8 constructor.
-     */
-    log10_mu_pp_phi3_VV_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\mu_H^{\text{GTHDM}}(phi3\to VV)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_ZZ_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to ZZ@f$ at 8 TeV.
- */
-class log10_ggF_phi3_ZZ_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_ZZ_TH8 constructor.
-     */
-    log10_ggF_phi3_ZZ_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_phi3_ZZ_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to ZZ@f$ at 8 TeV.
- */
-class log10_VBF_phi3_ZZ_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_phi3_ZZ_TH8 constructor.
-     */
-    log10_VBF_phi3_ZZ_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_WW_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to WW@f$ at 8 TeV.
- */
-class log10_ggF_phi3_WW_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_WW_TH8 constructor.
-     */
-    log10_ggF_phi3_WW_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_phi3_WW_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to WW@f$ at 8 TeV.
- */
-class log10_VBF_phi3_WW_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_phi3_WW_TH8 constructor.
-     */
-    log10_VBF_phi3_WW_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-// pp and ggF 
-
-/**
- * @class log10_ggF_phi3_phi1phi1_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi1phi1@f$ at 8 TeV.
- */
-class log10_ggF_phi3_phi1phi1_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_phi1phi1_TH8 constructor.
-     */
-    log10_ggF_phi3_phi1phi1_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_phi2phi2_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi1phi1@f$ at 8 TeV.
- */
-class log10_ggF_phi3_phi2phi2_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_phi2phi2_TH8 constructor.
-     */
-    log10_ggF_phi3_phi2phi2_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{t\bar t\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)]@f$
      */
     double computeThValue();
 private:
@@ -3343,43 +3109,20 @@ private:
 
 
 /**
- * @class log10_ggF_phi3_phi1phi2_TH8
+ * @class log10_tt_phi3_tt_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi1phi1@f$ at 8 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$t\bar t\to phi3\to t\bar t@f$ at 13 TeV.
  */
-class log10_ggF_phi3_phi1phi2_TH8: public ThObservable {
+class log10_tt_phi3_tt_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_phi1phi2_TH8 constructor.
+     * @brief log10_tt_phi3_tt_TH13 constructor.
      */
-    log10_ggF_phi3_phi1phi2_TH8(const StandardModel& SM_i);
+    log10_tt_phi3_tt_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-
-/**
- * @class log10_pp_phi3_phi1phi1_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi1phi1_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi1_TH8 constructor.
-     */
-    log10_pp_phi3_phi1phi1_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{t\bar t\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to t\bar t)]@f$
      */
     double computeThValue();
 private:
@@ -3387,41 +3130,20 @@ private:
 };
 
 /**
- * @class log10_ggF_phi3_phi1phi1_bbtautau_TH8
+ * @class log10_bb_phi2_tt_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi1phi1\to b\bar b \tau\tau@f$ at 8 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to t\bar t@f$ at 13 TeV.
  */
-class log10_ggF_phi3_phi1phi1_bbtautau_TH8: public ThObservable {
- public:
-
-  /**                                                                                                                                         
-   * @brief log10_ggF_phi3_phi1phi1_bbtautau_TH8 constructor.                                                                                                                      
-   */
-  log10_ggF_phi3_phi1phi1_bbtautau_TH8(const StandardModel& SM_i);
-
-  /**                                                                                                                                         
-   * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau\tau)]@f$
-   */
-  double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_phi2phi2_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi2phi2_TH8: public ThObservable {
+class log10_bb_phi2_tt_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi2phi2_TH8 constructor.
+     * @brief log10_bb_phi2_tt_TH13 constructor.
      */
-    log10_pp_phi3_phi2phi2_TH8(const StandardModel& SM_i);
+    log10_bb_phi2_tt_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)]@f$
      */
     double computeThValue();
 private:
@@ -3429,173 +3151,20 @@ private:
 };
 
 /**
- * @class log10_pp_phi3_phi1phi2_TH8
+ * @class log10_bb_phi3_tt_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2@f$ at 8 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi3\to t\bar t@f$ at 13 TeV.
  */
-class log10_pp_phi3_phi1phi2_TH8: public ThObservable {
+class log10_bb_phi3_tt_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi1phi2_TH8 constructor.
+     * @brief log10_bb_phi3_tt_TH13 constructor.
      */
-    log10_pp_phi3_phi1phi2_TH8(const StandardModel& SM_i);
+    log10_bb_phi3_tt_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_phi2phi2_bbtautau_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi2phi2\to b\bar b \tau\tau@f$ at 8 TeV.
- */
-class log10_ggF_phi3_phi2phi2_bbtautau_TH8: public ThObservable {
- public:
-
-  /**                                                                                                                                         
-   * @brief log10_ggF_phi3_phi2phi2_bbtautau_TH8 constructor.                                                                                                                      
-   */
-  log10_ggF_phi3_phi2phi2_bbtautau_TH8(const StandardModel& SM_i);
-
-  /**                                                                                                                                         
-   * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau\tau)]@f$
-   */
-  double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_phi1phi2_bbtautau_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi2phi2\to b\bar b \tau\tau@f$ at 8 TeV.
- */
-class log10_ggF_phi3_phi1phi2_bbtautau_TH8: public ThObservable {
- public:
-
-  /**                                                                                                                                         
-   * @brief log10_ggF_phi3_phi1phi2_bbtautau_TH8 constructor.                                                                                                                      
-   */
-  log10_ggF_phi3_phi1phi2_bbtautau_TH8(const StandardModel& SM_i);
-
-  /**                                                                                                                                         
-   * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau\tau)]@f$
-   */
-  double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-
-// pp bbbb
-
-/**
- * @class log10_pp_phi3_phi1phi1_bbbb_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to b\bar b b\bar b@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi1phi1_bbbb_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi1_bbbb_TH8 constructor.
-     */
-    log10_pp_phi3_phi1phi1_bbbb_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_phi1phi2_bbbb_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to b\bar b b\bar b@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi1phi2_bbbb_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi2_bbbb_TH8 constructor.
-     */
-    log10_pp_phi3_phi1phi2_bbbb_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_phi2phi2_bbbb_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi2phi2_bbbb_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi2phi2_bbbb_TH8 constructor.
-     */
-    log10_pp_phi3_phi2phi2_bbbb_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//gagabb
-
-/**
- * @class log10_pp_phi3_phi1phi1_gagabb_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to \gamma\gamma b\bar b@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi1phi1_gagabb_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi1_gagabb_TH8 constructor.
-     */
-    log10_pp_phi3_phi1phi1_gagabb_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \gamma\gamma b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_phi1phi2_gagabb_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to \gamma\gamma b\bar b@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi1phi2_gagabb_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi2_gagabb_TH8 constructor.
-     */
-    log10_pp_phi3_phi1phi2_gagabb_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to \gamma\gamma b\bar b)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to t\bar t)]@f$
      */
     double computeThValue();
 private:
@@ -3603,23 +3172,21 @@ private:
 };
 
 
-
-
 /**
- * @class log10_pp_phi3_phi2phi2_gagabb_TH8
+ * @class log10_bb_phi2_bb_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to \gamma\gamma b\bar b@f$ at 8 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to b\bar b@f$ at 8 TeV.
  */
-class log10_pp_phi3_phi2phi2_gagabb_TH8: public ThObservable {
+class log10_bb_phi2_bb_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi2phi2_gagabb_TH8 constructor.
+     * @brief log10_bb_phi2_bb_TH8 constructor.
      */
-    log10_pp_phi3_phi2phi2_gagabb_TH8(const StandardModel& SM_i);
+    log10_bb_phi2_bb_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to \gamma\gamma b\bar b)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)]@f$
      */
     double computeThValue();
 private:
@@ -3627,41 +3194,18 @@ private:
 };
 
 
-//
-
 /**
- * @class log10_ggF_phi3_tt_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to t\bar t@f$ at 8 TeV.
- */
-class log10_ggF_phi3_tt_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_tt_TH8 constructor.
-     */
-    log10_ggF_phi3_tt_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to t\bar t)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_bbF_phi3_bb_TH8
+ * @class log10_bb_phi3_bb_TH8
  * @ingroup GeneralTHDM
  * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi3\to b\bar b@f$ at 8 TeV.
  */
-class log10_bbF_phi3_bb_TH8: public ThObservable {
+class log10_bb_phi3_bb_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_bbF_phi3_bb_TH8 constructor.
+     * @brief log10_bb_phi3_bb_TH8 constructor.
      */
-    log10_bbF_phi3_bb_TH8(const StandardModel& SM_i);
+    log10_bb_phi3_bb_TH8(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to b\bar b)]@f$
@@ -3672,23 +3216,21 @@ private:
 };
 
 
-
-
 /**
- * @class log10_pp_phi3_AZ_bbll_TH8
+ * @class log10_gg_phi2_bb_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to AZ\to b\bar b \ell \ell@f$ at 8 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to b\bar b@f$ at 8 TeV.
  */
-class log10_pp_phi3_phi1Z_bbll_TH8: public ThObservable {
+class log10_gg_phi2_bb_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_AZ_bbll_TH8 constructor.
+     * @brief log10_gg_phi2_bb_TH8 constructor.
      */
-    log10_pp_phi3_phi1Z_bbll_TH8(const StandardModel& SM_i);
+    log10_gg_phi2_bb_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to AZ\to b\bar b \ell \ell)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{g\bar g\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)]@f$
      */
     double computeThValue();
 private:
@@ -3697,65 +3239,20 @@ private:
 
 
 /**
- * @class log10_pp_phi3_AZ_bbll_TH8
+ * @class log10_gg_phi3_bb_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to AZ\to b\bar b \ell \ell@f$ at 8 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi3\to b\bar b@f$ at 8 TeV.
  */
-class log10_pp_phi3_phi2Z_bbll_TH8: public ThObservable {
+class log10_gg_phi3_bb_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_AZ_bbll_TH8 constructor.
+     * @brief log10_gg_phi3_bb_TH8 constructor.
      */
-    log10_pp_phi3_phi2Z_bbll_TH8(const StandardModel& SM_i);
+    log10_gg_phi3_bb_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to AZ\to b\bar b \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-
-
-/**
- * @class log10_pp_phi3_phi1Z_tautaull_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1Z\to \tau \tau \ell \ell@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi1Z_tautaull_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1Z_tautaull_TH8 constructor.
-     */
-    log10_pp_phi3_phi1Z_tautaull_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to \tau \tau \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_phi2Z_tautaull_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2Z\to \tau \tau \ell \ell@f$ at 8 TeV.
- */
-class log10_pp_phi3_phi2Z_tautaull_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi2Z_tautaull_TH8 constructor.
-     */
-    log10_pp_phi3_phi2Z_tautaull_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2Z\to \tau \tau \ell \ell)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{g\bar g\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to b\bar b)]@f$
      */
     double computeThValue();
 private:
@@ -3764,17 +3261,217 @@ private:
 
 
 /**
- * @class log10_ggF_phi3_tautau_TH13
+ * @class log10_pp_phi2_bb_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to b\bar b@f$ at 13 TeV.
+ */
+class log10_pp_phi2_bb_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi2_bb_TH13 constructor.
+     */
+    log10_pp_phi2_bb_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_phi3_bb_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to b\bar b@f$ at 13 TeV.
+ */
+class log10_pp_phi3_bb_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi3_bb_TH13 constructor.
+     */
+    log10_pp_phi3_bb_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_bb_phi2_bb_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to b\bar b@f$ at 13 TeV.
+ */
+class log10_bb_phi2_bb_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_bb_phi2_bb_TH13 constructor.
+     */
+    log10_bb_phi2_bb_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar{b} \to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_bb_phi3_bb_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to b\bar b@f$ at 13 TeV.
+ */
+class log10_bb_phi3_bb_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_bb_phi3_bb_TH13 constructor.
+     */
+    log10_bb_phi3_bb_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar{b} \to phi3}\cdot BR^{\text{GTHDM}}(phi3\to b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi2_tautau_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to \tau\tau@f$ at 8 TeV.
+ */
+class log10_gg_phi2_tautau_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_tautau_TH8 constructor.
+     */
+    log10_gg_phi2_tautau_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+    
+};
+
+
+/**
+ * @class log10_gg_phi3_tautau_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to \tau\tau@f$ at 8 TeV.
+ */
+class log10_gg_phi3_tautau_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_tautau_TH8 constructor.
+     */
+    log10_gg_phi3_tautau_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \tau\tau)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+    
+};
+
+/**
+ * @class log10_bb_phi2_tautau_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to \tau\tau@f$ at 8 TeV.
+ */
+class log10_bb_phi2_tautau_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_bb_phi2_tautau_TH8 constructor.
+     */
+    log10_bb_phi2_tautau_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_bb_phi3_tautau_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi3\to \tau\tau@f$ at 8 TeV.
+ */
+class log10_bb_phi3_tautau_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_bb_phi3_tautau_TH8 constructor.
+     */
+    log10_bb_phi3_tautau_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \tau\tau)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi2_tautau_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to \tau \tau@f$ at 13 TeV.
+ */
+class log10_gg_phi2_tautau_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_tautau_TH13 constructor.
+     */
+    log10_gg_phi2_tautau_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau \tau)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+
+/**
+ * @class log10_gg_phi3_tautau_TH13
  * @ingroup GeneralTHDM
  * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to \tau \tau@f$ at 13 TeV.
  */
-class log10_ggF_phi3_tautau_TH13: public ThObservable {
+class log10_gg_phi3_tautau_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_tautau_TH13 constructor.
+     * @brief log10_gg_phi3_tautau_TH13 constructor.
      */
-    log10_ggF_phi3_tautau_TH13(const StandardModel& SM_i);
+    log10_gg_phi3_tautau_TH13(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \tau \tau)]@f$
@@ -3784,18 +3481,41 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+
 /**
- * @class log10_bbF_phi3_tautau_TH13
+ * @class log10_bb_phi2_tautau_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi3\to \tau \tau@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to \tau \tau@f$ at 13 TeV.
  */
-class log10_bbF_phi3_tautau_TH13: public ThObservable {
+class log10_bb_phi2_tautau_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_bbF_phi3_tautau_TH13 constructor.
+     * @brief log10_bb_phi2_tautau_TH13 constructor.
      */
-    log10_bbF_phi3_tautau_TH13(const StandardModel& SM_i);
+    log10_bb_phi2_tautau_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau \tau)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_bb_phi3_tautau_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi3\to \tau \tau@f$ at 13 TeV.
+ */
+class log10_bb_phi3_tautau_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_bb_phi3_tautau_TH13 constructor.
+     */
+    log10_bb_phi3_tautau_TH13(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \tau \tau)]@f$
@@ -3804,6 +3524,71 @@ public:
 private:
     const GeneralTHDM& myGTHDM;
 };
+
+/**
+ * @class log10_gg_phi2_gaga_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to \gamma\gamma@f$ at 8 TeV.
+ */
+class log10_gg_phi2_gaga_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_gaga_TH8 constructor.
+     */
+    log10_gg_phi2_gaga_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma\gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi3_gaga_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to \gamma\gamma@f$ at 8 TeV.
+ */
+class log10_gg_phi3_gaga_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_gaga_TH8 constructor.
+     */
+    log10_gg_phi3_gaga_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \gamma\gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_pp_phi2_gaga_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to \gamma \gamma@f$ at 13 TeV.
+ */
+class log10_pp_phi2_gaga_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi2_gaga_TH13 constructor.
+     */
+    log10_pp_phi2_gaga_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma \gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
 
 /**
  * @class log10_pp_phi3_gaga_TH13
@@ -3826,18 +3611,40 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+
 /**
- * @class log10_ggF_phi3_gaga_TH13
+ * @class log10_gg_phi2_gaga_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to \gamma \gamma@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to \gamma \gamma@f$ at 13 TeV.
  */
-class log10_ggF_phi3_gaga_TH13: public ThObservable {
+class log10_gg_phi2_gaga_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_gaga_TH13 constructor.
+     * @brief log10_gg_phi2_gaga_TH13 constructor.
      */
-    log10_ggF_phi3_gaga_TH13(const StandardModel& SM_i);
+    log10_gg_phi2_gaga_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma \gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_gg_phi3_gaga_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to \gamma \gamma@f$ at 13 TeV.
+ */
+class log10_gg_phi3_gaga_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_gaga_TH13 constructor.
+     */
+    log10_gg_phi3_gaga_TH13(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \gamma \gamma)]@f$
@@ -3848,20 +3655,108 @@ private:
 };
 
 /**
- * @class log10_pp_phi3_Zga_TH13
+ * @class log10_pp_phi2_Zga_llga_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to Z\gamma@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to Z\gamma \to \ell \ell \gamma@f$ at 8 TeV.
  */
-class log10_pp_phi3_Zga_TH13: public ThObservable {
+class log10_pp_phi2_Zga_llga_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_Zga_TH13 constructor.
+     * @brief log10_pp_phi2_Zga_llga_TH8 constructor.
      */
-    log10_pp_phi3_Zga_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_Zga_llga_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to Z\gamma)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma \to \ell \ell \gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_phi3_Zga_llga_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to Z\gamma \to \ell \ell \gamma@f$ at 8 TeV.
+ */
+class log10_pp_phi3_Zga_llga_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi3_Zga_llga_TH8 constructor.
+     */
+    log10_pp_phi3_Zga_llga_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to Z\gamma \to \ell \ell \gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi2_Zga_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to Z\gamma@f$ at 13 TeV.
+ */
+class log10_gg_phi2_Zga_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_Zga_TH13 constructor.
+     */
+    log10_gg_phi2_Zga_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi3_Zga_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to Z\gamma@f$ at 13 TeV.
+ */
+class log10_gg_phi3_Zga_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_Zga_TH13 constructor.
+     */
+    log10_gg_phi3_Zga_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to Z\gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi2_ZZ_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to ZZ@f$ at 8 TeV.
+ */
+class log10_gg_phi2_ZZ_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_ZZ_TH8 constructor.
+     */
+    log10_gg_phi2_ZZ_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
      */
     double computeThValue();
 private:
@@ -3869,20 +3764,173 @@ private:
 };
 
 /**
- * @class log10_ggF_phi3_Zga_TH13
+ * @class log10_gg_phi3_ZZ_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to Z\gamma@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to ZZ@f$ at 8 TeV.
  */
-class log10_ggF_phi3_Zga_TH13: public ThObservable {
+class log10_gg_phi3_ZZ_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_Zga_TH13 constructor.
+     * @brief log10_gg_phi3_ZZ_TH8 constructor.
      */
-    log10_ggF_phi3_Zga_TH13(const StandardModel& SM_i);
+    log10_gg_phi3_ZZ_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to Z\gamma)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_VV_phi2_ZZ_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to ZZ@f$ at 8 TeV.
+ */
+class log10_VV_phi2_ZZ_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_VV_phi2_ZZ_TH8 constructor.
+     */
+    log10_VV_phi2_ZZ_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_VV_phi3_ZZ_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to ZZ@f$ at 8 TeV.
+ */
+class log10_VV_phi3_ZZ_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_VV_phi3_ZZ_TH8 constructor.
+     */
+    log10_VV_phi3_ZZ_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi2_ZZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to ZZ@f$ at 13 TeV.
+ */
+class log10_gg_phi2_ZZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_ZZ_TH13 constructor.
+     */
+    log10_gg_phi2_ZZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi3_ZZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to ZZ@f$ at 13 TeV.
+ */
+class log10_gg_phi3_ZZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_ZZ_TH13 constructor.
+     */
+    log10_gg_phi3_ZZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+
+/**
+ * @class log10_VV_phi2_ZZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to ZZ@f$ at 13 TeV.
+ */
+class log10_VV_phi2_ZZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_VV_phi2_ZZ_TH13 constructor.
+     */
+    log10_VV_phi2_ZZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_VV_phi3_ZZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to ZZ@f$ at 13 TeV.
+ */
+class log10_VV_phi3_ZZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_VV_phi3_ZZ_TH13 constructor.
+     */
+    log10_VV_phi3_ZZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_phi2_ZZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to ZZ@f$ at 13 TeV.
+ */
+class log10_pp_phi2_ZZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi2_ZZ_TH13 constructor.
+     */
+    log10_pp_phi2_ZZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
      */
     double computeThValue();
 private:
@@ -3911,20 +3959,20 @@ private:
 };
 
 /**
- * @class log10_ggF_phi3_ZZ_TH13
+ * @class log10_gg_phi2_WW_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to ZZ@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to WW@f$ at 8 TeV.
  */
-class log10_ggF_phi3_ZZ_TH13: public ThObservable {
+class log10_gg_phi2_WW_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_ZZ_TH13 constructor.
+     * @brief log10_gg_phi2_WW_TH8 constructor.
      */
-    log10_ggF_phi3_ZZ_TH13(const StandardModel& SM_i);
+    log10_gg_phi2_WW_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
      */
     double computeThValue();
 private:
@@ -3932,122 +3980,17 @@ private:
 };
 
 /**
- * @class log10_VBF_phi3_ZZ_TH13
+ * @class log10_gg_phi3_WW_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to ZZ@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to WW@f$ at 8 TeV.
  */
-class log10_VBF_phi3_ZZ_TH13: public ThObservable {
+class log10_gg_phi3_WW_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_VBF_phi3_ZZ_TH13 constructor.
+     * @brief log10_gg_phi3_WW_TH8 constructor.
      */
-    log10_VBF_phi3_ZZ_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_ZZ_llll_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to ZZ\to \ell \ell \ell \ell@f$ at 13 TeV.
- */
-class log10_ggF_phi3_ZZ_llll_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_ZZ_llll_TH13 constructor.
-     */
-    log10_ggF_phi3_ZZ_llll_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to \ell \ell \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_phi3_ZZ_llll_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to ZZ\to \ell \ell \ell \ell@f$ at 13 TeV.
- */
-class log10_VBF_phi3_ZZ_llll_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_phi3_ZZ_llll_TH13 constructor.
-     */
-    log10_VBF_phi3_ZZ_llll_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to \ell \ell \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_ZZ_llll_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to ZZ\to \ell \ell \ell \ell@f$ at 13 TeV.
- */
-class log10_pp_phi3_ZZ_llll_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_ZZ_llll_TH13 constructor.
-     */
-    log10_pp_phi3_ZZ_llll_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to \ell \ell \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_VH_phi3_ZZ_llll_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(VV+VH)\to phi3\to ZZ\to \ell \ell \ell \ell@f$ at 13 TeV.
- */
-class log10_VBF_VH_phi3_ZZ_llll_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_VH_phi3_ZZ_llll_TH13 constructor.
-     */
-    log10_VBF_VH_phi3_ZZ_llll_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{(VV+VH)\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to \ell \ell \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_WW_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to WW@f$ at 13 TeV.
- */
-class log10_ggF_phi3_WW_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_WW_TH13 constructor.
-     */
-    log10_ggF_phi3_WW_TH13(const StandardModel& SM_i);
+    log10_gg_phi3_WW_TH8(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)]@f$
@@ -4058,17 +4001,38 @@ private:
 };
 
 /**
- * @class log10_VBF_phi3_WW_TH13
+ * @class log10_VV_phi2_WW_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to WW@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to WW@f$ at 8 TeV.
  */
-class log10_VBF_phi3_WW_TH13: public ThObservable {
+class log10_VV_phi2_WW_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_VBF_phi3_WW_TH13 constructor.
+     * @brief log10_VV_phi2_WW_TH8 constructor.
      */
-    log10_VBF_phi3_WW_TH13(const StandardModel& SM_i);
+    log10_VV_phi2_WW_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_VV_phi3_WW_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to WW@f$ at 8 TeV.
+ */
+class log10_VV_phi3_WW_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_VV_phi3_WW_TH8 constructor.
+     */
+    log10_VV_phi3_WW_TH8(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)]@f$
@@ -4078,21 +4042,235 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+
 /**
- * @class log10_ggF_VBF_phi3_WW_lnulnu_TH13
+ * @class log10_gg_phi2_WW_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(gg+VV)\to phi3\to WW\to \ell \nu \ell \nu@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to WW@f$ at 13 TeV.
  */
-class log10_ggF_VBF_phi3_WW_lnulnu_TH13: public ThObservable {
+class log10_gg_phi2_WW_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_VBF_phi3_WW_lnulnu_TH13 constructor.
+     * @brief log10_gg_phi2_WW_TH13 constructor.
      */
-    log10_ggF_VBF_phi3_WW_lnulnu_TH13(const StandardModel& SM_i);
+    log10_gg_phi2_WW_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_gg_phi3_WW_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to WW@f$ at 13 TeV.
+ */
+class log10_gg_phi3_WW_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_WW_TH13 constructor.
+     */
+    log10_gg_phi3_WW_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_VV_phi2_WW_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to WW@f$ at 13 TeV.
+ */
+class log10_VV_phi2_WW_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_VV_phi2_WW_TH13 constructor.
+     */
+    log10_VV_phi2_WW_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_VV_phi3_WW_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi3\to WW@f$ at 13 TeV.
+ */
+class log10_VV_phi3_WW_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_VV_phi3_WW_TH13 constructor.
+     */
+    log10_VV_phi3_WW_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_ggVV_phi2_WW_lnulnu_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(gg+VV)\to phi2\to WW\to \ell \nu \ell \nu@f$ at 13 TeV.
+ */
+class log10_ggVV_phi2_WW_lnulnu_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_ggVV_phi2_WW_lnulnu_TH13 constructor.
+     */
+    log10_ggVV_phi2_WW_lnulnu_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{(gg+VV)\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW\to \ell \nu \ell \nu)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_ggVV_phi3_WW_lnulnu_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(gg+VV)\to phi3\to WW\to \ell \nu \ell \nu@f$ at 13 TeV.
+ */
+class log10_ggVV_phi3_WW_lnulnu_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_ggVV_phi3_WW_lnulnu_TH13 constructor.
+     */
+    log10_ggVV_phi3_WW_lnulnu_TH13(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{(gg+VV)\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW\to \ell \nu \ell \nu)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_phi2_WW_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(pp)\to phi2\to WWf$ at 13 TeV.
+ */
+class log10_pp_phi2_WW_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi2_WW_TH13 constructor.
+     */
+    log10_pp_phi2_WW_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_pp_phi3_WW_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(pp)\to phi3\to WWf$ at 13 TeV.
+ */
+class log10_pp_phi3_WW_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi3_WW_TH13 constructor.
+     */
+    log10_pp_phi3_WW_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_mu_pp_phi2_VV_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the signal strength of the process @f$pp\to phi2\to VV@f$ at 8 TeV.
+ */
+class log10_mu_pp_phi2_VV_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_mu_pp_phi2_VV_TH8 constructor.
+     */
+    log10_mu_pp_phi2_VV_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\mu_H^{\text{GTHDM}}(phi2\to VV)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_mu_pp_phi3_VV_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the signal strength of the process @f$pp\to phi3\to VV@f$ at 8 TeV.
+ */
+class log10_mu_pp_phi3_VV_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_mu_pp_phi3_VV_TH8 constructor.
+     */
+    log10_mu_pp_phi3_VV_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\mu_H^{\text{GTHDM}}(phi3\to VV)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_pp_phi2_VV_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to WW,ZZ@f$ at 13 TeV.
+ */
+class log10_pp_phi2_VV_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi2_VV_TH13 constructor.
+     */
+    log10_pp_phi2_VV_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot [BR^{\text{GTHDM}}(phi2\to WW)+BR^{\text{GTHDM}}(phi2\to ZZ)]]@f$
      */
     double computeThValue();
 private:
@@ -4120,20 +4298,40 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
-//ggF TH13
 
 /**
- * @class log10_ggF_phi3_phi1phi1_TH13
+ * @class log10_gg_phi2_phi1phi1_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi1phi1@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to phi1phi1@f$ at 8 TeV.
  */
-class log10_ggF_phi3_phi1phi1_TH13: public ThObservable {
+class log10_gg_phi2_phi1phi1_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_phi1phi1_TH13 constructor.
+     * @brief log10_gg_phi2_phi1phi1_TH8 constructor.
      */
-    log10_ggF_phi3_phi1phi1_TH13(const StandardModel& SM_i);
+    log10_gg_phi2_phi1phi1_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_gg_phi3_phi1phi1_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi1phi1@f$ at 8 TeV.
+ */
+class log10_gg_phi3_phi1phi1_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_phi1phi1_TH8 constructor.
+     */
+    log10_gg_phi3_phi1phi1_TH8(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)]@f$
@@ -4144,20 +4342,87 @@ private:
 };
 
 /**
- * @class log10_ggF_phi3_phi2phi2_TH13
+ * @class log10_pp_phi2_phi1phi1_bbbb_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi2phi2@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at 8 TeV.
  */
-class log10_ggF_phi3_phi2phi2_TH13: public ThObservable {
+class log10_pp_phi2_phi1phi1_bbbb_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_phi2phi2_TH13 constructor.
+     * @brief log10_pp_phi2_phi1phi1_bbbb_TH8 constructor.
      */
-    log10_ggF_phi3_phi2phi2_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_phi1phi1_bbbb_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_phi3_phi1phi1_bbbb_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to b\bar b b\bar b@f$ at 8 TeV.
+ */
+class log10_pp_phi3_phi1phi1_bbbb_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi3_phi1phi1_bbbb_TH8 constructor.
+     */
+    log10_pp_phi3_phi1phi1_bbbb_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+
+/**
+ * @class log10_pp_phi2_phi1phi1_bbgaga_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b \gamma \gamma@f$ at 8 TeV.
+ */
+class log10_pp_phi2_phi1phi1_bbgaga_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi2_phi1phi1_bbgaga_TH8 constructor.
+     */
+    log10_pp_phi2_phi1phi1_bbgaga_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b \gamma \gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_phi3_phi1phi1_bbgaga_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to b\bar b \gamma \gamma@f$ at 8 TeV.
+ */
+class log10_pp_phi3_phi1phi1_bbgaga_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi3_phi1phi1_bbgaga_TH8 constructor.
+     */
+    log10_pp_phi3_phi1phi1_bbgaga_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b \gamma \gamma)]@f$
      */
     double computeThValue();
 private:
@@ -4165,40 +4430,82 @@ private:
 };
 
 /**
- * @class log10_ggF_phi3_phi1phi2_TH13
+ * @class log10_gg_phi2_phi1phi1_bbtautau_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi2phi2@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to phi1phi1\to b\bar b \tau\tau@f$ at 8 TeV.
  */
-class log10_ggF_phi3_phi1phi2_TH13: public ThObservable {
+class log10_gg_phi2_phi1phi1_bbtautau_TH8: public ThObservable {
+ public:
+
+  /**                                                                                                                                         
+   * @brief log10_gg_phi2_phi1phi1_bbtautau_TH8 constructor.                                                                                                                      
+   */
+  log10_gg_phi2_phi1phi1_bbtautau_TH8(const StandardModel& SM_i);
+
+  /**                                                                                                                                         
+   * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi2phi2\to b\bar b \tau\tau)]@f$
+   */
+  double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi3_phi1phi1_bbtautau_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi1phi1\to b\bar b \tau\tau@f$ at 8 TeV.
+ */
+class log10_gg_phi3_phi1phi1_bbtautau_TH8: public ThObservable {
+ public:
+
+  /**                                                                                                                                         
+   * @brief log10_gg_phi3_phi1phi1_bbtautau_TH8 constructor.                                                                                                                      
+   */
+  log10_gg_phi3_phi1phi1_bbtautau_TH8(const StandardModel& SM_i);
+
+  /**                                                                                                                                         
+   * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau\tau)]@f$
+   */
+  double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_phi2_phi1phi1_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1@f$ at 8 TeV.
+ */
+class log10_pp_phi2_phi1phi1_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_phi1phi2_TH13 constructor.
+     * @brief log10_pp_phi2_phi1phi1_TH8 constructor.
      */
-    log10_ggF_phi3_phi1phi2_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_phi1phi1_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)]@f$
      */
     double computeThValue();
 private:
     const GeneralTHDM& myGTHDM;
 };
 
-//pp TH13
-
 /**
- * @class log10_pp_phi3_phi1phi1_TH13
+ * @class log10_pp_phi3_phi1phi1_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1@f$ at 8 TeV.
  */
-class log10_pp_phi3_phi1phi1_TH13: public ThObservable {
+class log10_pp_phi3_phi1phi1_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi1phi1_TH13 constructor.
+     * @brief log10_pp_phi3_phi1phi1_TH8 constructor.
      */
-    log10_pp_phi3_phi1phi1_TH13(const StandardModel& SM_i);
+    log10_pp_phi3_phi1phi1_TH8(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)]@f$
@@ -4208,51 +4515,26 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
-
 /**
- * @class log10_pp_phi3_phi2phi2_TH13
+ * @class log10_pp_phi2_phi1phi1_bbbb_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at 13 TeV.
  */
-class log10_pp_phi3_phi2phi2_TH13: public ThObservable {
+class log10_pp_phi2_phi1phi1_bbbb_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi2phi2_TH13 constructor.
+     * @brief log10_pp_phi2_phi1phi1_bbbb_TH13 constructor.
      */
-    log10_pp_phi3_phi2phi2_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_phi1phi1_bbbb_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b b\bar b)]@f$
      */
     double computeThValue();
 private:
     const GeneralTHDM& myGTHDM;
 };
-
-/**
- * @class log10_pp_phi3_phi2phi2_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2@f$ at 13 TeV.
- */
-class log10_pp_phi3_phi1phi2_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi2phi2_TH13 constructor.
-     */
-    log10_pp_phi3_phi1phi2_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-//pp bbbb
 
 /**
  * @class log10_pp_phi3_phi1phi1_bbbb_TH13
@@ -4276,20 +4558,20 @@ private:
 };
 
 /**
- * @class log10_pp_phi3_phi2phi2_bbbb_TH13
+ * @class log10_pp_phi2_phi1phi1_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1@f$ at 13 TeV.
  */
-class log10_pp_phi3_phi2phi2_bbbb_TH13: public ThObservable {
+class log10_pp_phi2_phi1phi1_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi2phi2_bbbb_TH13 constructor.
+     * @brief log10_pp_phi2_phi1phi1_TH13 constructor.
      */
-    log10_pp_phi3_phi2phi2_bbbb_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_phi1phi1_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)]@f$
      */
     double computeThValue();
 private:
@@ -4297,20 +4579,20 @@ private:
 };
 
 /**
- * @class log10_pp_phi3_phi1phi2_bbbb_TH13
+ * @class log10_pp_phi3_phi1phi1_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1@f$ at 13 TeV.
  */
-class log10_pp_phi3_phi1phi2_bbbb_TH13: public ThObservable {
+class log10_pp_phi3_phi1phi1_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi1phi2_bbbb_TH13 constructor.
+     * @brief log10_pp_phi3_phi1phi1_TH13 constructor.
      */
-    log10_pp_phi3_phi1phi2_bbbb_TH13(const StandardModel& SM_i);
+    log10_pp_phi3_phi1phi1_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b b\bar b)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)]@f$
      */
     double computeThValue();
 private:
@@ -4318,44 +4600,22 @@ private:
 };
 
 
-//ggF bbbb
 
 /**
- * @class log10_ggF_phi3_phi1phi1_bbbb_TH13
+ * @class log10_pp_phi2_phi1phi1_bbgaga_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi1phi1\to b\bar b b\bar b@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1 \to b \bar b \gamma \gamma @f$ at 13 TeV.
  */
-class log10_ggF_phi3_phi1phi1_bbbb_TH13: public ThObservable {
+class log10_pp_phi2_phi1phi1_bbgaga_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_phi1phi1_bbbb_TH13 constructor.
+     * @brief log10_pp_phi2_phi1phi1_bbgaga_TH13 constructor.
      */
-    log10_ggF_phi3_phi1phi1_bbbb_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_phi1phi1_bbgaga_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi3_phi2phi2_bbbb_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at 13 TeV.
- */
-class log10_ggF_phi3_phi2phi2_bbbb_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi3_phi2phi2_bbbb_TH13 constructor.
-     */
-    log10_ggF_phi3_phi2phi2_bbbb_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1 \to b \bar b \gamma \gamma)]@f$
      */
     double computeThValue();
 private:
@@ -4363,65 +4623,20 @@ private:
 };
 
 /**
- * @class log10_ggF_phi3_phi1phi2_bbbb_TH13
+ * @class log10_pp_phi3_phi1phi1_bbgaga_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1 \to b \bar b \gamma \gamma @f$ at 13 TeV.
  */
-class log10_ggF_phi3_phi1phi2_bbbb_TH13: public ThObservable {
+class log10_pp_phi3_phi1phi1_bbgaga_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_ggF_phi3_phi2phi2_bbbb_TH13 constructor.
+     * @brief log10_pp_phi3_phi1phi1_bbgaga_TH13 constructor.
      */
-    log10_ggF_phi3_phi1phi2_bbbb_TH13(const StandardModel& SM_i);
+    log10_pp_phi3_phi1phi1_bbgaga_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//pp gagabb
-
-/**
- * @class log10_pp_phi3_phi1phi1_gagabb_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to \gamma \gamma b\bar b@f$ at 13 TeV.
- */
-class log10_pp_phi3_phi1phi1_gagabb_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi1_gagabb_TH13 constructor.
-     */
-    log10_pp_phi3_phi1phi1_gagabb_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \gamma \gamma b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-/**
- * @class log10_pp_phi3_phi2phi2_gagabb_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to \gamma \gamma b\bar b@f$ at 13 TeV.
- */
-class log10_pp_phi3_phi2phi2_gagabb_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi2phi2_gagabb_TH13 constructor.
-     */
-    log10_pp_phi3_phi2phi2_gagabb_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to \gamma \gamma b\bar b)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1 \to b \bar b \gamma \gamma)]@f$
      */
     double computeThValue();
 private:
@@ -4429,28 +4644,25 @@ private:
 };
 
 /**
- * @class log10_pp_phi3_phi1phi2_gagabb_TH13
+ * @class log10_pp_phi2_phi1phi1_bbtautau_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to \gamma \gamma b\bar b@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b \tau \tau@f$ at 13 TeV.
  */
-class log10_pp_phi3_phi1phi2_gagabb_TH13: public ThObservable {
+class log10_pp_phi2_phi1phi1_bbtautau_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi1phi2_gagabb_TH13 constructor.
+     * @brief log10_pp_phi2_phi1phi1_bbtautau_TH13 constructor.
      */
-    log10_pp_phi3_phi1phi2_gagabb_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_phi1phi1_bbtautau_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to \gamma \gamma b\bar b)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b \tau \tau)]@f$
      */
     double computeThValue();
 private:
     const GeneralTHDM& myGTHDM;
 };
-
-
-//pp bbtautau
 
 /**
  * @class log10_pp_phi3_phi1phi1_bbtautau_TH13
@@ -4473,119 +4685,26 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
-
-
 /**
- * @class log10_pp_phi3_phi2phi2_bbtautau_TH13
+ * @class log10_pp_phi2_phi1phi1_bbVV_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to b\bar b \tau \tau@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b VV\to b\bar b \ell \ell \nu \nu@f$ at 13 TeV.
  */
-class log10_pp_phi3_phi2phi2_bbtautau_TH13: public ThObservable {
+class log10_pp_phi2_phi1phi1_bbVV_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi2phi2_bbtautau_TH13 constructor.
+     * @brief log10_pp_phi2_phi1phi1_bbVV_TH13 constructor.
      */
-    log10_pp_phi3_phi2phi2_bbtautau_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_phi1phi1_bbVV_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau \tau)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b WW\to b\bar b \ell \ell \nu \nu)]@f$
      */
     double computeThValue();
 private:
     const GeneralTHDM& myGTHDM;
 };
-
-
-/**
- * @class log10_pp_phi3_phi1phi2_bbtautau_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi2\to b\bar b \tau \tau@f$ at 13 TeV.
- */
-class log10_pp_phi3_phi1phi2_bbtautau_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi2_bbtautau_TH13 constructor.
-     */
-    log10_pp_phi3_phi1phi2_bbtautau_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b \tau \tau)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//pp bblnulnul
-
-
-/**
- * @class log10_pp_phi3_phi1phi1_bblnulnu_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at 13 TeV.
- */
-class log10_pp_phi3_phi1phi1_bblnulnu_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi1_bblnulnu_TH13 constructor.
-     */
-    log10_pp_phi3_phi1phi1_bblnulnu_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi3_phi2phi2_bblnulnu_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at 13 TeV.
- */
-class log10_pp_phi3_phi2phi2_bblnulnu_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi2phi2_bblnulnu_TH13 constructor.
-     */
-    log10_pp_phi3_phi2phi2_bblnulnu_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-/**
- * @class log10_pp_phi3_phi1phi2_bblnulnu_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at 13 TeV.
- */
-class log10_pp_phi3_phi1phi2_bblnulnu_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi3_phi1phi2_bblnulnu_TH13 constructor.
-     */
-    log10_pp_phi3_phi1phi2_bblnulnu_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//pp bbVV
 
 /**
  * @class log10_pp_phi3_phi1phi1_bbVV_TH13
@@ -4609,20 +4728,20 @@ private:
 };
 
 /**
- * @class log10_pp_phi3_phi2phi2_bbVV_TH13
+ * @class log10_gg_phi2_phi1phi1_gagaWW_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to b\bar b VV\to b\bar b \ell \ell \nu \nu@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to \gamma \gamma WW @f$ at 13 TeV.
  */
-class log10_pp_phi3_phi2phi2_bbVV_TH13: public ThObservable {
+class log10_gg_phi2_phi1phi1_gagaWW_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi2phi2_bbVV_TH13 constructor.
+     * @brief log10_gg_phi2_phi1phi1_gagaWW_TH13 constructor.
      */
-    log10_pp_phi3_phi2phi2_bbVV_TH13(const StandardModel& SM_i);
+    log10_gg_phi2_phi1phi1_gagaWW_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b WW\to b\bar b \ell \ell \nu \nu)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1 \to \gamma \gamma WW )]@f$
      */
     double computeThValue();
 private:
@@ -4630,64 +4749,42 @@ private:
 };
 
 /**
- * @class log10_pp_phi3_phi1phi2_bbVV_TH13
+ * @class log10_gg_phi3_phi1phi1_gagaWW_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2phi2\to b\bar b VV\to b\bar b \ell \ell \nu \nu@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1\to \gamma \gamma WW @f$ at 13 TeV.
  */
-class log10_pp_phi3_phi1phi2_bbVV_TH13: public ThObservable {
+class log10_gg_phi3_phi1phi1_gagaWW_TH13: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_phi1phi2_bbVV_TH13 constructor.
+     * @brief log10_gg_phi2_phi1phi1_gagaWW_TH13 constructor.
      */
-    log10_pp_phi3_phi1phi2_bbVV_TH13(const StandardModel& SM_i);
+    log10_gg_phi3_phi1phi1_gagaWW_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b WW\to b\bar b \ell \ell \nu \nu)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1 \to \gamma \gamma WW )]@f$
      */
     double computeThValue();
 private:
     const GeneralTHDM& myGTHDM;
 };
 
-//
 
 /**
- * @class log10_tt_phi3_tt_TH13
+ * @class log10_gg_phi2_phi1Z_bbZ_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$t\bar t\to phi3\to t\bar t@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1Z\to bbZ @f$ at 8 TeV.
  */
-class log10_tt_phi3_tt_TH13: public ThObservable {
+class log10_gg_phi2_phi1Z_bbZ_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_tt_phi3_tt_TH13 constructor.
+     * @brief log10_gg_phi2_phi1Z_bbZ_TH8 constructor.
      */
-    log10_tt_phi3_tt_TH13(const StandardModel& SM_i);
+    log10_gg_phi2_phi1Z_bbZ_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{t\bar t\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to t\bar t)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_bb_phi3_tt_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi3\to t\bar t@f$ at 13 TeV.
- */
-class log10_bb_phi3_tt_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_bb_phi3_tt_TH13 constructor.
-     */
-    log10_bb_phi3_tt_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to t\bar t)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to bbZ )]@f$
      */
     double computeThValue();
 private:
@@ -4695,25 +4792,461 @@ private:
 };
 
 /**
- * @class log10_pp_phi3_bb_TH13
+ * @class log10_gg_phi3_phi1Z_bbZ_TH8
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to b\bar b@f$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1Z\to bbZ @f$ at 8 TeV.
  */
-class log10_pp_phi3_bb_TH13: public ThObservable {
+class log10_gg_phi3_phi1Z_bbZ_TH8: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_phi3_bb_TH13 constructor.
+     * @brief log10_gg_phi3_phi1Z_bbZ_TH8 constructor.
      */
-    log10_pp_phi3_bb_TH13(const StandardModel& SM_i);
+    log10_gg_phi3_phi1Z_bbZ_TH8(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to b\bar b)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z \to bbZ )]@f$
      */
     double computeThValue();
 private:
     const GeneralTHDM& myGTHDM;
 };
+
+
+/**
+ * @class log10_gg_phi2_phi1Z_bbll_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1Z \to bbll @f$ at 8 TeV.
+ */
+class log10_gg_phi2_phi1Z_bbll_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_phi1Z_bbll_TH8 constructor.
+     */
+    log10_gg_phi2_phi1Z_bbll_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z \to bbll )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_gg_phi3_phi1Z_bbll_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1Z \to bbll @f$ at 8 TeV.
+ */
+class log10_gg_phi3_phi1Z_bbll_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_phi1Z_bbll_TH8 constructor.
+     */
+    log10_gg_phi3_phi1Z_bbll_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z \to bbll )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi2_phi1Z_tautauZ_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1Z \to tautauZ @f$ at 8 TeV.
+ */
+class log10_gg_phi2_phi1Z_tautauZ_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_phi1Z_tautauZ_TH8 constructor.
+     */
+    log10_gg_phi2_phi1Z_tautauZ_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z \to tautauZ )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_gg_phi3_phi1Z_tautauZ_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1Z \to tautauZ @f$ at 8 TeV.
+ */
+class log10_gg_phi3_phi1Z_tautauZ_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_phi1Z_tautauZ_TH8 constructor.
+     */
+    log10_gg_phi3_phi1Z_tautauZ_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z \to tautauZ )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_gg_phi2_phi1Z_tautaull_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1Z \to tautaull @f$ at 8 TeV.
+ */
+class log10_gg_phi2_phi1Z_tautaull_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_phi1Z_tautaull_TH8 constructor.
+     */
+    log10_gg_phi2_phi1Z_tautaull_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z \to tautaull )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi3_phi1Z_tautaull_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1Z \to tautaull @f$ at 13 TeV.
+ */
+class log10_gg_phi3_phi1Z_tautaull_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_phi1Z_tautaull_TH8 constructor.
+     */
+    log10_gg_phi3_phi1Z_tautaull_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z \to tautaull )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi2_phi1Z_bbZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1Z \to bbZ @f$ at 13 TeV.
+ */
+class log10_gg_phi2_phi1Z_bbZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi2_phi1Z_bbZ_TH13 constructor.
+     */
+    log10_gg_phi2_phi1Z_bbZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z \to bbZ )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+
+/**
+ * @class log10_gg_phi3_phi1Z_bbZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi1Z \to bbZ @f$ at 13 TeV.
+ */
+class log10_gg_phi3_phi1Z_bbZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_phi1Z_bbZ_TH13 constructor.
+     */
+    log10_gg_phi3_phi1Z_bbZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z \to bbZ )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_bb_phi2_phi1Z_bbZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$bb\to phi2\to phi1Z \to bbZ @f$ at 13 TeV.
+ */
+class log10_bb_phi2_phi1Z_bbZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_bb_phi2_phi1Z_bbZ_TH13 constructor.
+     */
+    log10_bb_phi2_phi1Z_bbZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{bb\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z \to bbZ )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_bb_phi3_phi1Z_bbZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$bb\to phi3\to phi1Z \to bbZ @f$ at 13 TeV.
+ */
+class log10_bb_phi3_phi1Z_bbZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_bb_phi2_phi1Z_bbZ_TH13 constructor.
+     */
+    log10_bb_phi3_phi1Z_bbZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{bb\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z \to bbZ )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_phi3_AZ_bbll_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2Z\to b\bar b \ell \ell@f$ at 8 TeV.
+ */
+class log10_pp_phi3_phi2Z_bbll_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi3_AZ_bbll_TH8 constructor.
+     */
+    log10_pp_phi3_phi2Z_bbll_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to AZ\to b\bar b \ell \ell)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_pp_phi3_phi2Z_tautaull_TH8
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to phi2Z \to \tau \tau \ell \ell@f$ at 8 TeV.
+ */
+class log10_pp_phi3_phi2Z_tautaull_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_phi3_phi2Z_tautaull_TH8 constructor.
+     */
+    log10_pp_phi3_phi2Z_tautaull_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2 Z\to \tau tau \ell \ell)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_gg_phi3_phi2Z_bbZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi3\to \phi2Z \to bbZ @f$ at 13 TeV.
+ */
+class log10_gg_phi3_phi2Z_bbZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_gg_phi3_phi2Z_bbZ_TH13 constructor.
+     */
+    log10_gg_phi3_phi2Z_bbZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \phi2 Z\to b\bar bZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_bb_phi3_phi2Z_bbZ_TH13
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$bb\to phi3\to \phi2Z \to bbZ @f$ at 13 TeV.
+ */
+class log10_bb_phi3_phi2Z_bbZ_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_bb_phi3_phi2Z_bbZ_TH13 constructor.
+     */
+    log10_bb_phi3_phi2Z_bbZ_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{bb\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \phi2 Z\to b\bar bZ)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_pp_Hpm_taunu_TH8_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H^{\pm} \to \tau \nu @f$ at 8 TeV.
+ */
+class log10_pp_Hpm_taunu_TH8_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Hpm_taunu_TH8_GTHDM constructor.
+     */
+    log10_pp_Hpm_taunu_TH8_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to H^{\pm}}\cdot BR^{\text{GTHDM}}(H^{\pm}\to \phi2 \tau \nu)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_pp_Hp_taunu_TH8_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H^{\+} \to \tau \nu @f$ at 8 TeV.
+ */
+class log10_pp_Hp_taunu_TH8_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Hp_taunu_TH8_GTHDM constructor.
+     */
+    log10_pp_Hp_taunu_TH8_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to H^{+}}\cdot BR^{\text{GTHDM}}(H^+\to \phi2 \tau \nu)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_Hpm_taunu_TH13_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H^{\pm} \to \tau \nu @f$ at 13 TeV.
+ */
+class log10_pp_Hpm_taunu_TH13_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Hpm_taunu_TH13 constructor.
+     */
+    log10_pp_Hpm_taunu_TH13_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to H^{\pm}}\cdot BR^{\text{GTHDM}}(H\to \phi2 \tau \nu)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_pp_Hpm_tb_TH8_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H^{\pm} \to t b  @f$ at 8 TeV.
+ */
+class log10_pp_Hpm_tb_TH8_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Hpm_tb_TH8_GTHDM constructor.
+     */
+    log10_pp_Hpm_tb_TH8_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to H^{\pm}}\cdot BR^{\text{GTHDM}}(H^{\pm}\to \phi2 t )]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class log10_pp_Hp_tb_TH8_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H^{\+} \to t b @f$ at 8 TeV.
+ */
+class log10_pp_Hp_tb_TH8_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Hp_tb_TH8_GTHDM constructor.
+     */
+    log10_pp_Hp_tb_TH8_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to H^{+}}\cdot BR^{\text{GTHDM}}(H^+\to \phi2 t b)]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class log10_pp_Hpm_tb_TH13_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H^{\pm} \to t b @f$ at 13 TeV.
+ */
+class log10_pp_Hpm_tb_TH13_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Hpm_taunu_TH13_GTHDM constructor.
+     */
+    log10_pp_Hpm_tb_TH13_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to H^{\pm}}\cdot BR^{\text{GTHDM}}(H\to \phi2 t b]@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+//NOT CLEANED YET
+
 
 /**
  * @class Gamma_phi3_GTHDM
@@ -4919,1075 +5452,6 @@ private:
 };
 
 
-
-
-/**
- * @class log10_ggF_phi2_tautau_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to \tau\tau@f$ at 8 TeV.
- */
-class log10_ggF_phi2_tautau_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_tautau_TH8 constructor.
-     */
-    log10_ggF_phi2_tautau_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_bbF_phi2_tautau_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to \tau\tau@f$ at 8 TeV.
- */
-class log10_bbF_phi2_tautau_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_bbF_phi2_tautau_TH8 constructor.
-     */
-    log10_bbF_phi2_tautau_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi2_gaga_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to \gamma\gamma@f$ at 8 TeV.
- */
-class log10_pp_phi2_gaga_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_gaga_TH8 constructor.
-     */
-    log10_pp_phi2_gaga_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma\gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_gaga_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to \gamma\gamma@f$ at 8 TeV.
- */
-class log10_ggF_phi2_gaga_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_gaga_TH8 constructor.
-     */
-    log10_ggF_phi2_gaga_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma\gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi2_Zga_llga_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to Z\gamma \to \ell \ell \gamma@f$ at 8 TeV.
- */
-class log10_pp_phi2_Zga_llga_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_Zga_llga_TH8 constructor.
-     */
-    log10_pp_phi2_Zga_llga_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma \to \ell \ell \gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_mu_pp_phi2_VV_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the signal strength of the process @f$pp\to phi2\to VV@f$ at 8 TeV.
- */
-class log10_mu_pp_phi2_VV_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_mu_pp_phi2_VV_TH8 constructor.
-     */
-    log10_mu_pp_phi2_VV_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\mu_H^{\text{GTHDM}}(phi2\to VV)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_ZZ_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to ZZ@f$ at 8 TeV.
- */
-class log10_ggF_phi2_ZZ_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_ZZ_TH8 constructor.
-     */
-    log10_ggF_phi2_ZZ_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_phi2_ZZ_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to ZZ@f$ at 8 TeV.
- */
-class log10_VBF_phi2_ZZ_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_phi2_ZZ_TH8 constructor.
-     */
-    log10_VBF_phi2_ZZ_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_WW_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to WW@f$ at 8 TeV.
- */
-class log10_ggF_phi2_WW_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_WW_TH8 constructor.
-     */
-    log10_ggF_phi2_WW_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_phi2_WW_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to WW@f$ at 8 TeV.
- */
-class log10_VBF_phi2_WW_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_phi2_WW_TH8 constructor.
-     */
-    log10_VBF_phi2_WW_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-// pp and ggF 
-
-/**
- * @class log10_ggF_phi2_phi1phi1_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to phi1phi1@f$ at 8 TeV.
- */
-class log10_ggF_phi2_phi1phi1_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_phi1phi1_TH8 constructor.
-     */
-    log10_ggF_phi2_phi1phi1_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_phi2phi2_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to phi1phi1@f$ at 8 TeV.
- */
-class log10_ggF_phi2_phi2phi2_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_phi2phi2_TH8 constructor.
-     */
-    log10_ggF_phi2_phi2phi2_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-/**
- * @class log10_ggF_phi2_phi1phi2_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to phi1phi1@f$ at 8 TeV.
- */
-class log10_ggF_phi2_phi1phi2_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_phi1phi2_TH8 constructor.
-     */
-    log10_ggF_phi2_phi1phi2_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi2)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-
-/**
- * @class log10_pp_phi2_phi1phi1_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1@f$ at 8 TeV.
- */
-class log10_pp_phi2_phi1phi1_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_TH8 constructor.
-     */
-    log10_pp_phi2_phi1phi1_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_phi1phi1_bbtautau_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to phi1phi1\to b\bar b \tau\tau@f$ at 8 TeV.
- */
-class log10_ggF_phi2_phi1phi1_bbtautau_TH8: public ThObservable {
- public:
-
-  /**                                                                                                                                         
-   * @brief log10_ggF_phi2_phi1phi1_bbtautau_TH8 constructor.                                                                                                                      
-   */
-  log10_ggF_phi2_phi1phi1_bbtautau_TH8(const StandardModel& SM_i);
-
-  /**                                                                                                                                         
-   * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi2phi2\to b\bar b \tau\tau)]@f$
-   */
-  double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-// pp bbbb
-
-/**
- * @class log10_pp_phi2_phi1phi1_bbbb_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at 8 TeV.
- */
-class log10_pp_phi2_phi1phi1_bbbb_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_bbbb_TH8 constructor.
-     */
-    log10_pp_phi2_phi1phi1_bbbb_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-//gagabb
-
-/**
- * @class log10_pp_phi2_phi1phi1_gagabb_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to \gamma\gamma b\bar b@f$ at 8 TeV.
- */
-class log10_pp_phi2_phi1phi1_gagabb_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_gagabb_TH8 constructor.
-     */
-    log10_pp_phi2_phi1phi1_gagabb_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//
-
-/**
- * @class log10_ggF_phi2_tt_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to t\bar t@f$ at 8 TeV.
- */
-class log10_ggF_phi2_tt_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_tt_TH8 constructor.
-     */
-    log10_ggF_phi2_tt_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_bbF_phi2_bb_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to b\bar b@f$ at 8 TeV.
- */
-class log10_bbF_phi2_bb_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_bbF_phi2_bb_TH8 constructor.
-     */
-    log10_bbF_phi2_bb_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-
-
-/**
- * @class log10_pp_phi2_AZ_bbll_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to AZ\to b\bar b \ell \ell@f$ at 8 TeV.
- */
-class log10_pp_phi2_phi1Z_bbll_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_AZ_bbll_TH8 constructor.
-     */
-    log10_pp_phi2_phi1Z_bbll_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to AZ\to b\bar b \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-/**
- * @class log10_pp_phi2_phi1Z_tautaull_TH8
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1Z\to \tau \tau \ell \ell@f$ at 8 TeV.
- */
-class log10_pp_phi2_phi1Z_tautaull_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1Z_tautaull_TH8 constructor.
-     */
-    log10_pp_phi2_phi1Z_tautaull_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to \tau \tau \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_tautau_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to \tau \tau@f$ at 13 TeV.
- */
-class log10_ggF_phi2_tautau_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_tautau_TH13 constructor.
-     */
-    log10_ggF_phi2_tautau_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau \tau)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_bbF_phi2_tautau_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to \tau \tau@f$ at 13 TeV.
- */
-class log10_bbF_phi2_tautau_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_bbF_phi2_tautau_TH13 constructor.
-     */
-    log10_bbF_phi2_tautau_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau \tau)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi2_gaga_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to \gamma \gamma@f$ at 13 TeV.
- */
-class log10_pp_phi2_gaga_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_gaga_TH13 constructor.
-     */
-    log10_pp_phi2_gaga_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma \gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_gaga_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to \gamma \gamma@f$ at 13 TeV.
- */
-class log10_ggF_phi2_gaga_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_gaga_TH13 constructor.
-     */
-    log10_ggF_phi2_gaga_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma \gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi2_Zga_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to Z\gamma@f$ at 13 TeV.
- */
-class log10_pp_phi2_Zga_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_Zga_TH13 constructor.
-     */
-    log10_pp_phi2_Zga_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_Zga_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to Z\gamma@f$ at 13 TeV.
- */
-class log10_ggF_phi2_Zga_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_Zga_TH13 constructor.
-     */
-    log10_ggF_phi2_Zga_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi2_ZZ_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to ZZ@f$ at 13 TeV.
- */
-class log10_pp_phi2_ZZ_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_ZZ_TH13 constructor.
-     */
-    log10_pp_phi2_ZZ_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_ZZ_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to ZZ@f$ at 13 TeV.
- */
-class log10_ggF_phi2_ZZ_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_ZZ_TH13 constructor.
-     */
-    log10_ggF_phi2_ZZ_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_phi2_ZZ_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to ZZ@f$ at 13 TeV.
- */
-class log10_VBF_phi2_ZZ_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_phi2_ZZ_TH13 constructor.
-     */
-    log10_VBF_phi2_ZZ_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_ZZ_llll_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to ZZ\to \ell \ell \ell \ell@f$ at 13 TeV.
- */
-class log10_ggF_phi2_ZZ_llll_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_ZZ_llll_TH13 constructor.
-     */
-    log10_ggF_phi2_ZZ_llll_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to \ell \ell \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_phi2_ZZ_llll_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to ZZ\to \ell \ell \ell \ell@f$ at 13 TeV.
- */
-class log10_VBF_phi2_ZZ_llll_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_phi2_ZZ_llll_TH13 constructor.
-     */
-    log10_VBF_phi2_ZZ_llll_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to \ell \ell \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi2_ZZ_llll_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to ZZ\to \ell \ell \ell \ell@f$ at 13 TeV.
- */
-class log10_pp_phi2_ZZ_llll_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_ZZ_llll_TH13 constructor.
-     */
-    log10_pp_phi2_ZZ_llll_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to \ell \ell \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_VH_phi2_ZZ_llll_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(VV+VH)\to phi2\to ZZ\to \ell \ell \ell \ell@f$ at 13 TeV.
- */
-class log10_VBF_VH_phi2_ZZ_llll_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_VH_phi2_ZZ_llll_TH13 constructor.
-     */
-    log10_VBF_VH_phi2_ZZ_llll_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{(VV+VH)\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to \ell \ell \ell \ell)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_phi2_WW_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to WW@f$ at 13 TeV.
- */
-class log10_ggF_phi2_WW_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_WW_TH13 constructor.
-     */
-    log10_ggF_phi2_WW_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_VBF_phi2_WW_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$VV\to phi2\to WW@f$ at 13 TeV.
- */
-class log10_VBF_phi2_WW_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_VBF_phi2_WW_TH13 constructor.
-     */
-    log10_VBF_phi2_WW_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_ggF_VBF_phi2_WW_lnulnu_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(gg+VV)\to phi2\to WW\to \ell \nu \ell \nu@f$ at 13 TeV.
- */
-class log10_ggF_VBF_phi2_WW_lnulnu_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_VBF_phi2_WW_lnulnu_TH13 constructor.
-     */
-    log10_ggF_VBF_phi2_WW_lnulnu_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{(gg+VV)\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW\to \ell \nu \ell \nu)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi2_VV_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to WW,ZZ@f$ at 13 TeV.
- */
-class log10_pp_phi2_VV_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_VV_TH13 constructor.
-     */
-    log10_pp_phi2_VV_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot [BR^{\text{GTHDM}}(phi2\to WW)+BR^{\text{GTHDM}}(phi2\to ZZ)]]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//ggF TH13
-
-/**
- * @class log10_ggF_phi2_phi1phi1_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to phi1phi1@f$ at 13 TeV.
- */
-class log10_ggF_phi2_phi1phi1_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_phi1phi1_TH13 constructor.
-     */
-    log10_ggF_phi2_phi1phi1_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//pp TH13
-
-/**
- * @class log10_pp_phi2_phi1phi1_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1@f$ at 13 TeV.
- */
-class log10_pp_phi2_phi1phi1_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_TH13 constructor.
-     */
-    log10_pp_phi2_phi1phi1_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//pp bbbb
-
-/**
- * @class log10_pp_phi2_phi1phi1_bbbb_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at 13 TeV.
- */
-class log10_pp_phi2_phi1phi1_bbbb_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_bbbb_TH13 constructor.
-     */
-    log10_pp_phi2_phi1phi1_bbbb_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-//
-
-/**
- * @class log10_ggF_phi2_phi1phi1_bbbb_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at 13 TeV.
- */
-class log10_ggF_phi2_phi1phi1_bbbb_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_ggF_phi2_phi1phi1_bbbb_TH13 constructor.
-     */
-    log10_ggF_phi2_phi1phi1_bbbb_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-//pp gagabb
-
-/**
- * @class log10_pp_phi2_phi1phi1_gagabb_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to \gamma \gamma b\bar b@f$ at 13 TeV.
- */
-class log10_pp_phi2_phi1phi1_gagabb_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_gagabb_TH13 constructor.
-     */
-    log10_pp_phi2_phi1phi1_gagabb_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma \gamma b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-//pp bbtautau
-
-/**
- * @class log10_pp_phi2_phi1phi1_bbtautau_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b \tau \tau@f$ at 13 TeV.
- */
-class log10_pp_phi2_phi1phi1_bbtautau_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_bbtautau_TH13 constructor.
-     */
-    log10_pp_phi2_phi1phi1_bbtautau_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b \tau \tau)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-//pp bblnulnul
-
-
-/**
- * @class log10_pp_phi2_phi1phi1_bblnulnu_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at 13 TeV.
- */
-class log10_pp_phi2_phi1phi1_bblnulnu_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_bblnulnu_TH13 constructor.
-     */
-    log10_pp_phi2_phi1phi1_bblnulnu_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//pp bbVV
-
-/**
- * @class log10_pp_phi2_phi1phi1_bbVV_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b VV\to b\bar b \ell \ell \nu \nu@f$ at 13 TeV.
- */
-class log10_pp_phi2_phi1phi1_bbVV_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_phi1phi1_bbVV_TH13 constructor.
-     */
-    log10_pp_phi2_phi1phi1_bbVV_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b WW\to b\bar b \ell \ell \nu \nu)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-//
-
-/**
- * @class log10_tt_phi2_tt_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$t\bar t\to phi2\to t\bar t@f$ at 13 TeV.
- */
-class log10_tt_phi2_tt_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_tt_phi2_tt_TH13 constructor.
-     */
-    log10_tt_phi2_tt_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{t\bar t\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_bb_phi2_tt_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to phi2\to t\bar t@f$ at 13 TeV.
- */
-class log10_bb_phi2_tt_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_bb_phi2_tt_TH13 constructor.
-     */
-    log10_bb_phi2_tt_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class log10_pp_phi2_bb_TH13
- * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to phi2\to b\bar b@f$ at 13 TeV.
- */
-class log10_pp_phi2_bb_TH13: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_phi2_bb_TH13 constructor.
-     */
-    log10_pp_phi2_bb_TH13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
 /**
  * @class Gamma_phi2_GTHDM
  * @ingroup GeneralTHDM
@@ -6149,9 +5613,6 @@ public:
 private:
     const GeneralTHDM& myGTHDM;
 };
-
-
-
 
 
 #endif	/*GENERALTHDMHEAVYHIGGS_H*/

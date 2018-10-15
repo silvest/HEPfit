@@ -1823,7 +1823,7 @@ void GeneralTHDMcache::read(){
     CMS13_gg_phi_gaga = readTable(ex56.str(),351,2);
     ex57 << tablepath << "171203143.dat";
     CMS13_gg_phi_Zga = readTable(ex57.str(),366,2);
-    ex58 << tablepath << "180401939.dat";
+    ex58 << tablepath << "180401939_a.dat";
     CMS13_pp_phi_ZZ_llqqnunull = readTable(ex58.str(),288,2);
     ex59 << tablepath << "180303838.dat";
     CMS13_pp_phi_ZZ_qqnunu = readTable(ex59.str(),301,2);
@@ -6452,6 +6452,67 @@ double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mH
 
 }
 
+    
+double GeneralTHDMcache::computeHpquantities()
+{
+    
+    m3 = sqrt(m3_2);
+    double GF=1/(sqrt(2.0)*vev*vev);
+    double sW2=1.0-cW2;
+    double Mb2 = Mb*Mb;
+    double Mt2 = Mt*Mt;
+    double Mtau2=Mtau*Mtau;
+    double MW2 = MW*MW;
+    double Vtb=myGTHDM->getCKM().getV_tb().abs();
+    
+    m2 = sqrt(m2_2);
+    m3 = sqrt(m3_2);
+
+
+
+
+      //FLAG to select only the model in which all the couplings are the same (by families)
+    
+    if (!myGTHDM->getATHDMflag())
+    {
+        throw std::runtime_error("Direct Searches are only aviable in the A2HDM.");
+    }
+  
+        /*complex i */
+    
+     gslpp::complex i = gslpp::complex::i();
+     
+     
+     
+    double GammaHptaunu=HSTheta(mHp-Mtau)*(Mtau2*(mHp2-Mtau2)*(mHp2-Mtau2)*sl.abs2())/(8.0*mHp*mHp2*M_PI*vev*vev);
+    
+    
+    
+    double GammaHptb=HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
+                        -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
+                      *sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2));
+    
+   
+    //decay to SM Higgs
+    double GammaHpHlW=KaellenFunction(1.0,mHl/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,mHl/MW)*KaellenFunction(1.0,mHp/MW,mHl/MW)
+                      *MW2*MW2/mHp*(R21-R31)*(R21-R31)/(2.0*M_PI*vev*vev);
+    
+    //decay to phi2
+    double GammaHpphi2W=KaellenFunction(1.0,m2/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,m2/MW)*KaellenFunction(1.0,mHp/MW,m2/MW)
+                      *MW2*MW2/mHp*(R22-R32)*(R22-R32)/(2.0*M_PI*vev*vev);
+    
+    //decay to phi3
+    double GammaHpphi3W=KaellenFunction(1.0,m3/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,m3/MW)*KaellenFunction(1.0,mHp/MW,m3/MW)
+                      *MW2*MW2/mHp*(R23-R33)*(R23-R33)/(2.0*M_PI*vev*vev);
+    
+    double GammaHptot= GammaHptaunu + GammaHptb + GammaHpHlW + GammaHpphi2W + GammaHpphi3W;
+
+    double Br_Hptotaunu=GammaHptaunu/GammaHptot;
+    double Br_Hptotb=GammaHptb/GammaHptot;
+
+    
+     return 0;
+}
 
 //
 ////Higgs direct searches
@@ -9430,7 +9491,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     pp_phi3_bb_TH13=SigmaSumphi3_13*Br_phi3tobb;
     bb_phi2_bb_TH13=SigmabbF_phi2_13*Br_phi2tobb;
     bb_phi3_bb_TH13=SigmabbF_phi3_13*Br_phi3tobb;
-
+//3
     gg_phi2_tautau_TH8=SigmaggF_phi2_8*Br_phi2totautau;
     gg_phi3_tautau_TH8=SigmaggF_phi3_8*Br_phi3totautau;
     bb_phi2_tautau_TH8=SigmabbF_phi2_8*Br_phi2totautau;
@@ -9439,19 +9500,19 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     gg_phi3_tautau_TH13=SigmaggF_phi3_13*Br_phi3totautau;
     bb_phi2_tautau_TH13=SigmabbF_phi2_13*Br_phi2totautau;
     bb_phi3_tautau_TH13=SigmabbF_phi3_13*Br_phi3totautau;
-
+//4
     gg_phi2_gaga_TH8=SigmaggF_phi2_8*Br_phi2togaga;
     gg_phi3_gaga_TH8=SigmaggF_phi3_8*Br_phi3togaga;
     pp_phi2_gaga_TH13=SigmaSumphi2_13*Br_phi2togaga;
     pp_phi3_gaga_TH13=SigmaSumphi3_13*Br_phi3togaga;
     gg_phi2_gaga_TH13=SigmaggF_phi2_13*Br_phi2togaga;
     gg_phi3_gaga_TH13=SigmaggF_phi3_13*Br_phi3togaga;
-
+//5
     pp_phi2_Zga_llga_TH8=SigmaSumphi2_8*Br_phi2toZga*(Br_Ztoee+Br_Ztomumu);
     pp_phi3_Zga_llga_TH8=SigmaSumphi3_8*Br_phi3toZga*(Br_Ztoee+Br_Ztomumu);
     gg_phi2_Zga_TH13=SigmaggF_phi2_13*Br_phi2toZga;
     gg_phi3_Zga_TH13=SigmaggF_phi3_13*Br_phi3toZga;
-
+//6
     gg_phi2_ZZ_TH8=SigmaggF_phi2_8*Br_phi2toZZ;
     gg_phi3_ZZ_TH8=SigmaggF_phi3_8*Br_phi3toZZ;
     VV_phi2_ZZ_TH8=SigmaVBF_phi2_8*Br_phi2toZZ;
@@ -9462,7 +9523,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     VV_phi3_ZZ_TH13=SigmaVBF_phi3_13*Br_phi3toZZ;
     pp_phi2_ZZ_TH13=SigmaSumphi2_13*Br_phi2toZZ;
     pp_phi3_ZZ_TH13=SigmaSumphi3_13*Br_phi3toZZ;
-
+//7
     gg_phi2_WW_TH8=SigmaggF_phi2_8*Br_phi2toWW;
     gg_phi3_WW_TH8=SigmaggF_phi3_8*Br_phi3toWW;
     VV_phi2_WW_TH8=SigmaVBF_phi2_8*Br_phi2toWW;
@@ -9475,12 +9536,12 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     ggVV_phi3_WW_lnulnu_TH13=(SigmaggF_phi3_13+SigmaVBF_phi3_13)*Br_phi3toWW*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu);
     pp_phi2_WW_TH13=SigmaSumphi2_13*Br_phi2toWW;
     pp_phi3_WW_TH13=SigmaSumphi3_13*Br_phi3toWW;
-
+//8
     mu_pp_phi2_VV_TH8=SigmaSumphi2_8/SigmaTotSM_phi2_8*rphi2_VV*Gammaphi2totSM/Gammaphi2tot;
     mu_pp_phi3_VV_TH8=SigmaSumphi3_8/SigmaTotSM_phi3_8*rphi3_VV*Gammaphi3totSM/Gammaphi3tot;
     pp_phi2_VV_TH13=SigmaSumphi2_13*(Br_phi2toZZ+Br_phi2toWW);
     pp_phi3_VV_TH13=SigmaSumphi3_13*(Br_phi3toZZ+Br_phi3toWW);
-
+//9
     gg_phi2_phi1phi1_TH8=SigmaggF_phi2_8*Br_phi2tophi1phi1;
     gg_phi3_phi1phi1_TH8=SigmaggF_phi3_8*Br_phi3tophi1phi1;
     pp_phi2_phi1phi1_bbbb_TH8=SigmaSumphi2_8*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_bb;
@@ -9505,7 +9566,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
                                                             +GTHDM_BR_h_ZZ*2.0*Br_Ztoinv*(Br_Ztoee+Br_Ztomumu+Br_Ztotautau*0.124));
     gg_phi2_phi1phi1_gagaWW_TH13=SigmaggF_phi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_gaga*GTHDM_BR_h_WW*2.0;
     gg_phi3_phi1phi1_gagaWW_TH13=SigmaggF_phi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_gaga*GTHDM_BR_h_WW*2.0;
-
+//10
     gg_phi2_phi1Z_bbZ_TH8=SigmaggF_phi2_8*Br_phi2tophi1Z*GTHDM_BR_h_bb;
     gg_phi3_phi1Z_bbZ_TH8=SigmaggF_phi3_8*Br_phi3tophi1Z*GTHDM_BR_h_bb;
     gg_phi2_phi1Z_bbll_TH8=SigmaggF_phi2_8*Br_phi2tophi1Z*GTHDM_BR_h_bb*(Br_Ztoee+Br_Ztomumu);
@@ -9518,12 +9579,12 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     gg_phi3_phi1Z_bbZ_TH13=SigmaggF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb;
     bb_phi2_phi1Z_bbZ_TH13=SigmabbF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_bb;
     bb_phi3_phi1Z_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb;
-
+//11
     pp_phi3_phi2Z_bbll_TH8=SigmaSumphi3_8*Br_phi3tophi2Z*Br_phi2tobb*(Br_Ztoee+Br_Ztomumu);
     pp_phi3_phi2Z_tautaull_TH8=SigmaSumphi3_8*Br_phi3tophi2Z*Br_phi2totautau*(Br_Ztoee+Br_Ztomumu);
     gg_phi3_phi2Z_bbZ_TH13=SigmaggF_phi3_13*Br_phi3tophi2Z*Br_phi2tobb;
     bb_phi3_phi2Z_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi2Z*Br_phi2tobb;
-
+//12
     pp_Hpm_taunu_TH8=0.0;
     pp_Hp_taunu_TH8=0.0;
     pp_Hpm_taunu_TH13=0.0;
@@ -13635,6 +13696,7 @@ double GeneralTHDMcache::updateCache()
     computephi3quantities();
     ComputeHeavyHiggs();
 //    ComputeMediumHiggs();
+    computeHpquantities();
  
     return mH1sq;
 }

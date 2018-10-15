@@ -737,6 +737,7 @@ public:
     double computephi3quantities();
 //    double ComputeMediumHiggs();
     double ComputeHeavyHiggs();
+    double computeHpquantities();
     
     ////////////////////////////////////////////////////////////////////////////
 
