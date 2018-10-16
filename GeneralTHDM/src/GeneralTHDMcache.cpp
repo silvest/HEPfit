@@ -5777,7 +5777,7 @@ void GeneralTHDMcache::computeSignalStrengths()
     gslpp::complex yu1 = R11_GTHDM + (R12_GTHDM - i*R13_GTHDM)*su.conjugate();
     gslpp::complex yd1 = R11_GTHDM + (R12_GTHDM + i*R13_GTHDM)*sd;
     gslpp::complex yl1 = R11_GTHDM + (R12_GTHDM + i*R13_GTHDM)*sl;
-          
+              
      //The Standard Model h branching ratios
 
     BrSM_htobb = 5.77e-1;
@@ -5934,15 +5934,15 @@ void GeneralTHDMcache::computeSignalStrengths()
             + BrSM_htocc*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2)));
 
     Gamma_h = sumModBRs*myGTHDM->computeGammaHTotal();
-
+  
     GTHDM_BR_h_bb=(rh_QdQdE + rh_QdQdO/(beta(Mb, m1_2)*beta(Mb, m1_2)))*BrSM_htobb/sumModBRs;
     GTHDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
     GTHDM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
     GTHDM_BR_h_tautau = BrSM_htotautau*(rh_QlQlE + rh_QlQlO/(beta(Mtau, m1_2)*beta(Mtau, m1_2)))/sumModBRs;
-    GTHDM_BR_h_cc =(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2)))/sumModBRs;
+    GTHDM_BR_h_cc =(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2)))*BrSM_htocc/sumModBRs;
     GTHDM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
     GTHDM_BR_h_gg = (Gamma_hgg/Gamma_hggSM)*BrSM_htogg/sumModBRs;
-
+ 
 }
 
 double GeneralTHDMcache::computephi2quantities()
@@ -6084,7 +6084,7 @@ double GeneralTHDMcache::computephi2quantities()
 
     //SM PREDICTIONS
 
-    double SigmaTotSM_phi2_8 = 1.0e-15;
+    SigmaTotSM_phi2_8 = 1.0e-15;
 
     if (m2>=20. && m2 <=2000.) {
         SigmaTotSM_phi2_8=ip_cs_ggtoH_8(m2)+ip_cs_VBFtoH_8(m2)+ip_cs_WtoWH_8(m2)+ip_cs_ZtoZH_8(m2)+ip_cs_pptottH_8(m2)+ip_cs_pptobbH_8(m2);
@@ -6121,7 +6121,7 @@ double GeneralTHDMcache::computephi2quantities()
     double BrSM_phi2toWW =ip_Br_HPtoWW(m2);
     double BrSM_phi2toZZ =ip_Br_HPtoZZ(m2);
 
-    double Gammaphi2totSM=ip_GammaHPtotSM(m2);
+     Gammaphi2totSM=ip_GammaHPtotSM(m2);
     
     
     
@@ -6279,7 +6279,7 @@ double GeneralTHDMcache::computephi3quantities()
      rphi3_ggE = yu3.real()*yd3.real() + (yu3.real()*yu3.real() - yu3.real()*yd3.real())*rSigmaggphi3E_t8  + (yd3.real()*yd3.real() - yu3.real()*yd3.real())*rSigmaggphi3E_b8;
      rphi3_ggO = yu3.imag()*yu3.imag() + (yu3.imag()*yu3.imag() - yu3.imag()*yd3.imag())*rSigmaggphi3O_t8  + (yd3.imag()*yd3.imag() - yu3.imag()*yd3.imag())*rSigmaggphi3O_b8;
      rphi3_VV=R31*R31;
-  
+       
     /*Gamma_phi3gaga and Gamma_phi3Zga expressions ...*/
     
     /*Decay to photons. The fermionic contribution has a CP-even part (HH) and a CP-odd (A)*/
@@ -6309,12 +6309,6 @@ double GeneralTHDMcache::computephi3quantities()
     double Gamma_phi3gaga=(GF*Ale*Ale*m3*m3*m3/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI))*((I_phi3E_F+I_phi3_W+I_phi3_Hp).abs2()
     + (I_phi3O_F).abs2());
     
-  /*  std::cout << " Gamma_phi3gaga first = " << Gamma_phi3gaga << std::endl;
-    std::cout << " GF*Ale*Ale*m3*m3*m3/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI)  = " << GF*Ale*Ale*m3*m3*m3/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI) << std::endl;
-    std::cout << " I_phi3E_F = " << I_phi3E_F << std::endl;
-    std::cout << " I_phi3_W = " << I_phi3_W << std::endl;
-    std::cout << " I_phi3_Hp= " << I_phi3_Hp << std::endl;
-    std::cout << " I_phi3O_F= " << I_phi3O_F << std::endl;*/
     
                                                                               
     /*Decay to Z gamma
@@ -6354,12 +6348,12 @@ double GeneralTHDMcache::computephi3quantities()
      SigmattF_phi3_8=ip_cs_pptottH_8(m3)*rphi3_QtQt;
     */
 
-    SigmaggF_phi3_8=ip_cs_ggtoH_8(m3)* rphi3_ggE + ip_cs_ggtoA_8(m3)* rphi3_ggO;
+    SigmaggF_phi3_8=ip_cs_ggtoH_8(m3)*rphi3_ggE + ip_cs_ggtoA_8(m3)*rphi3_ggO;
     SigmabbF_phi3_8=ip_cs_pptobbH_8(m3)*rphi3_QdQdE + ip_cs_pptobbA_8(m3)*rphi3_QdQdO;
     SigmaVBF_phi3_8=ip_cs_VBFtoH_8(m3)*rphi3_VV;
     SigmattF_phi3_8=ip_cs_pptottH_8(m3)*rphi3_QuQuE + ip_cs_pptottA_8(m3)*rphi3_QuQuO;
     SigmaVH_phi3_8=(ip_cs_WtoWH_8(m3)+ip_cs_ZtoZH_8(m3))*rphi3_VV;
-
+    
     //SM PREDICTIONS
      SigmaTotSM_phi3_8 = 1.0e-15;
 
@@ -9491,7 +9485,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     pp_phi3_bb_TH13=SigmaSumphi3_13*Br_phi3tobb;
     bb_phi2_bb_TH13=SigmabbF_phi2_13*Br_phi2tobb;
     bb_phi3_bb_TH13=SigmabbF_phi3_13*Br_phi3tobb;
-//3
+
     gg_phi2_tautau_TH8=SigmaggF_phi2_8*Br_phi2totautau;
     gg_phi3_tautau_TH8=SigmaggF_phi3_8*Br_phi3totautau;
     bb_phi2_tautau_TH8=SigmabbF_phi2_8*Br_phi2totautau;
@@ -9500,19 +9494,19 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     gg_phi3_tautau_TH13=SigmaggF_phi3_13*Br_phi3totautau;
     bb_phi2_tautau_TH13=SigmabbF_phi2_13*Br_phi2totautau;
     bb_phi3_tautau_TH13=SigmabbF_phi3_13*Br_phi3totautau;
-//4
+
     gg_phi2_gaga_TH8=SigmaggF_phi2_8*Br_phi2togaga;
     gg_phi3_gaga_TH8=SigmaggF_phi3_8*Br_phi3togaga;
     pp_phi2_gaga_TH13=SigmaSumphi2_13*Br_phi2togaga;
     pp_phi3_gaga_TH13=SigmaSumphi3_13*Br_phi3togaga;
     gg_phi2_gaga_TH13=SigmaggF_phi2_13*Br_phi2togaga;
     gg_phi3_gaga_TH13=SigmaggF_phi3_13*Br_phi3togaga;
-//5
+
     pp_phi2_Zga_llga_TH8=SigmaSumphi2_8*Br_phi2toZga*(Br_Ztoee+Br_Ztomumu);
     pp_phi3_Zga_llga_TH8=SigmaSumphi3_8*Br_phi3toZga*(Br_Ztoee+Br_Ztomumu);
     gg_phi2_Zga_TH13=SigmaggF_phi2_13*Br_phi2toZga;
     gg_phi3_Zga_TH13=SigmaggF_phi3_13*Br_phi3toZga;
-//6
+
     gg_phi2_ZZ_TH8=SigmaggF_phi2_8*Br_phi2toZZ;
     gg_phi3_ZZ_TH8=SigmaggF_phi3_8*Br_phi3toZZ;
     VV_phi2_ZZ_TH8=SigmaVBF_phi2_8*Br_phi2toZZ;
@@ -9523,7 +9517,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     VV_phi3_ZZ_TH13=SigmaVBF_phi3_13*Br_phi3toZZ;
     pp_phi2_ZZ_TH13=SigmaSumphi2_13*Br_phi2toZZ;
     pp_phi3_ZZ_TH13=SigmaSumphi3_13*Br_phi3toZZ;
-//7
+
     gg_phi2_WW_TH8=SigmaggF_phi2_8*Br_phi2toWW;
     gg_phi3_WW_TH8=SigmaggF_phi3_8*Br_phi3toWW;
     VV_phi2_WW_TH8=SigmaVBF_phi2_8*Br_phi2toWW;
@@ -9536,12 +9530,12 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     ggVV_phi3_WW_lnulnu_TH13=(SigmaggF_phi3_13+SigmaVBF_phi3_13)*Br_phi3toWW*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu);
     pp_phi2_WW_TH13=SigmaSumphi2_13*Br_phi2toWW;
     pp_phi3_WW_TH13=SigmaSumphi3_13*Br_phi3toWW;
-//8
+
     mu_pp_phi2_VV_TH8=SigmaSumphi2_8/SigmaTotSM_phi2_8*rphi2_VV*Gammaphi2totSM/Gammaphi2tot;
     mu_pp_phi3_VV_TH8=SigmaSumphi3_8/SigmaTotSM_phi3_8*rphi3_VV*Gammaphi3totSM/Gammaphi3tot;
     pp_phi2_VV_TH13=SigmaSumphi2_13*(Br_phi2toZZ+Br_phi2toWW);
     pp_phi3_VV_TH13=SigmaSumphi3_13*(Br_phi3toZZ+Br_phi3toWW);
-//9
+
     gg_phi2_phi1phi1_TH8=SigmaggF_phi2_8*Br_phi2tophi1phi1;
     gg_phi3_phi1phi1_TH8=SigmaggF_phi3_8*Br_phi3tophi1phi1;
     pp_phi2_phi1phi1_bbbb_TH8=SigmaSumphi2_8*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_bb;
@@ -9566,7 +9560,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
                                                             +GTHDM_BR_h_ZZ*2.0*Br_Ztoinv*(Br_Ztoee+Br_Ztomumu+Br_Ztotautau*0.124));
     gg_phi2_phi1phi1_gagaWW_TH13=SigmaggF_phi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_gaga*GTHDM_BR_h_WW*2.0;
     gg_phi3_phi1phi1_gagaWW_TH13=SigmaggF_phi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_gaga*GTHDM_BR_h_WW*2.0;
-//10
+
     gg_phi2_phi1Z_bbZ_TH8=SigmaggF_phi2_8*Br_phi2tophi1Z*GTHDM_BR_h_bb;
     gg_phi3_phi1Z_bbZ_TH8=SigmaggF_phi3_8*Br_phi3tophi1Z*GTHDM_BR_h_bb;
     gg_phi2_phi1Z_bbll_TH8=SigmaggF_phi2_8*Br_phi2tophi1Z*GTHDM_BR_h_bb*(Br_Ztoee+Br_Ztomumu);
@@ -9579,12 +9573,12 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     gg_phi3_phi1Z_bbZ_TH13=SigmaggF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb;
     bb_phi2_phi1Z_bbZ_TH13=SigmabbF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_bb;
     bb_phi3_phi1Z_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb;
-//11
+
     pp_phi3_phi2Z_bbll_TH8=SigmaSumphi3_8*Br_phi3tophi2Z*Br_phi2tobb*(Br_Ztoee+Br_Ztomumu);
-    pp_phi3_phi2Z_tautaull_TH8=SigmaSumphi3_8*Br_phi3tophi2Z*Br_phi2totautau*(Br_Ztoee+Br_Ztomumu);
+     pp_phi3_phi2Z_tautaull_TH8=SigmaSumphi3_8*Br_phi3tophi2Z*Br_phi2totautau*(Br_Ztoee+Br_Ztomumu);
     gg_phi3_phi2Z_bbZ_TH13=SigmaggF_phi3_13*Br_phi3tophi2Z*Br_phi2tobb;
     bb_phi3_phi2Z_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi2Z*Br_phi2tobb;
-//12
+
     pp_Hpm_taunu_TH8=0.0;
     pp_Hp_taunu_TH8=0.0;
     pp_Hpm_taunu_TH13=0.0;
@@ -13542,9 +13536,9 @@ double GeneralTHDMcache::updateCache()
     Yl2_GTHDM = (cosb*Nl_GTHDM + sinb*Ml_GTHDM)*sqrt(2.)/vev;
     
     /*up, down and leptonic couplings */
-    gslpp::complex su = myGTHDM->getNu_11();
-    gslpp::complex sd = myGTHDM->getNd_11();
-    gslpp::complex sl = myGTHDM->getNl_11();
+    su = myGTHDM->getNu_11();
+    sd = myGTHDM->getNd_11();
+    sl = myGTHDM->getNl_11();
     
     
         
