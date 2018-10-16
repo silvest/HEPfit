@@ -12202,27 +12202,30 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     
     double cHWp = 0.0;
     
-    cHWp = 2.0 * CHQ3_11 / LambdaNP2;
+    cHWp = (sw2_tree/eeMz2) * CHQ3_11 / LambdaNP2;
 
+//  Bin dependences assuming cutoff of the EFT at 5 TeV
+//  Normalize to the total number of events to remove the dependence on Lumi
+//  (Numbers correspond to 3/ab)
     if (sqrt_s == 100.0) {
 
         if (pTV1 == 220.){
-            mu += (2000.0 * cHWp + 400.0 * cHWp*cHWp) / 8070.0;          
+            mu += (2000.0 * cHWp + 368.4 * cHWp * cHWp) / 8030.0;          
     
         } else if (pTV1 == 300.){
-            mu += (2860.0 * cHWp + 1012.0 * cHWp*cHWp) / 7100.0;           
+            mu += (2780.0 * cHWp + 1000.0 * cHWp * cHWp) / 7270.0;           
     
         } else if (pTV1 == 500.){
-            mu += (1516.0 * cHWp + 1420.0 * cHWp*cHWp) / 2010.0;
+            mu += (1544.0 * cHWp + 1428.0 * cHWp * cHWp) / 2000.0;
     
         } else if (pTV1 == 750.){
-            mu += (1290.0 * cHWp + 2668.0 * cHWp*cHWp) / 713.0;
+            mu += (1256.0 * cHWp + 2668.0 * cHWp * cHWp) / 717.0;
 
         } else if (pTV1 == 1200.){
-            mu += (660.0 * cHWp + 3424.0 * cHWp*cHWp) / 150.0;
+            mu += (678.0 * cHWp + 3400.0 * cHWp * cHWp) / 142.0;
     
         } else if (pTV1 == 1800.){
-            mu += (252.0 * cHWp + 2956.0 * cHWp*cHWp) / 40.3;
+            mu += (234.0 * cHWp + 2540.0 * cHWp * cHWp) / 27.5;
     
         } else {
             throw std::runtime_error("Bad argument in NPSMEFTd6::mupTVppWZ()");
