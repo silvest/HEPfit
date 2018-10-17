@@ -12202,7 +12202,7 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     
     double cHWp = 0.0;
     
-    cHWp = (sw2_tree/eeMz2) * CHQ3_11 / LambdaNP2;
+    cHWp = (sW2_tree/eeMz2) * CHQ3_11 / LambdaNP2;
 
 //  Bin dependences assuming cutoff of the EFT at 5 TeV
 //  Normalize to the total number of events to remove the dependence on Lumi
