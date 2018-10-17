@@ -359,3 +359,244 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
 
     return(res);
 }
+
+double GeneralTHDM::muggH(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_gg;
+}
+
+double GeneralTHDM::muVBF(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV;
+}
+
+double GeneralTHDM::mueeWBF(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV;
+}
+
+double GeneralTHDM::muWH(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV;
+}
+
+double GeneralTHDM::muZH(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV;
+}
+
+double GeneralTHDM::mueeZH(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV;
+}
+
+double GeneralTHDM::muVH(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV;
+}
+
+double GeneralTHDM::muVBFpVH(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV;
+}
+
+double GeneralTHDM::muttH(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t);
+}
+
+double GeneralTHDM::computeGammaTotalRatio() const
+{
+    return getMyGTHDMCache()->sumModBRs;
+}
+
+double GeneralTHDM::GammaTotal() const
+{
+    return getMyGTHDMCache()->Gamma_h;
+}
+
+double GeneralTHDM::BrHggRatio() const
+{
+    return getMyGTHDMCache()->rh_gg / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::BrHWWRatio() const
+{
+    return getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::BrHZZRatio() const
+{
+    return getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::BrHZgaRatio() const
+{
+    return getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::BrHgagaRatio() const
+{
+    return getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::BrHmumuRatio() const
+{
+    return getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::BrHtautauRatio() const
+{
+    return getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::BrHccRatio() const
+{
+    return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_c*getMyGTHDMCache()->beta_h_c) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::BrHbbRatio() const
+{
+    return getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muggHgaga(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVBFHgaga(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVHgaga(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muttHgaga(const double sqrt_s) const
+{
+    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muggHZZ(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVBFHZZ(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVHZZ(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muttHZZ(const double sqrt_s) const
+{
+    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muggHWW(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVBFHWW(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVHWW(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muttHWW(const double sqrt_s) const
+{
+    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muggHtautau(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_gg * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVBFHtautau(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVHtautau(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muttHtautau(const double sqrt_s) const
+{
+    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))
+            * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muggHbb(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_gg * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVBFHbb(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muVHbb(const double sqrt_s) const
+{
+    return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muttHbb(const double sqrt_s) const
+{
+    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))
+            * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+}
+
+double GeneralTHDM::muppHmumu(const double sqrt_s) const
+{
+    if(sqrt_s==8)
+    {
+        return (0.872 * getMyGTHDMCache()->rh_gg + 0.122 * getMyGTHDMCache()->rh_VV + 0.006 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)))
+                * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu)) / computeGammaTotalRatio();
+    }
+    if(sqrt_s==13)
+    {
+        return (0.871 * getMyGTHDMCache()->rh_gg + 0.119 * getMyGTHDMCache()->rh_VV + 0.010 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)))
+                * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu)) / computeGammaTotalRatio();
+    }
+    else
+    {
+        throw std::runtime_error("The observable muppHmumu is only defined for 8 or 13 TeV.");
+    }
+}
+
+double GeneralTHDM::muppHZga(const double sqrt_s) const
+{
+    if(sqrt_s==8)
+    {
+        return (0.872 * getMyGTHDMCache()->rh_gg + 0.122 * getMyGTHDMCache()->rh_VV + 0.006 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))) * getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
+    }
+    if(sqrt_s==13)
+    {
+        return (0.871 * getMyGTHDMCache()->rh_gg + 0.119 * getMyGTHDMCache()->rh_VV + 0.010 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))) * getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
+    }
+    else
+    {
+        throw std::runtime_error("The observable muppHZga is only defined for 8 or 13 TeV.");
+    }
+}
+
+double GeneralTHDM::Mw() const{
+    double MZ = StandardModel::Mz;
+    return ( MZ / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * StandardModel::ale / (sqrt(2.0) * StandardModel::GF * MZ* MZ))));
+}

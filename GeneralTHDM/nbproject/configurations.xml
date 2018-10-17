@@ -93,6 +93,7 @@
             <pElem>../boost</pElem>
             <pElem>../LeptonFlavour/src</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>

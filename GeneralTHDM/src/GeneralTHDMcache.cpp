@@ -5813,9 +5813,11 @@ void GeneralTHDMcache::computeSignalStrengths()
     //gg -> A (phiodd) production cross section at 13 TeV, total
   //  double SigmagghO_13 = ip_cs_ggtoA_13(m1);
     
+    beta_h_t = beta(Mt, m1_2);
     beta_h_b = beta(Mb, m1_2);
     beta_h_tau = beta(Mtau, m1_2);
     beta_h_c = beta(Mc, m1_2);
+    beta_h_mu = beta(Mmu, m1_2);
      
     /* r_ii is the ratio of the squared 2HDM vertex coupling of h to
      * the particle i and the respective squared SM coupling. Where separated

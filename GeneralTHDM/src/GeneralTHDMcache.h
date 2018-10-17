@@ -842,23 +842,35 @@ public:
     
     
       /**
-     * @brief beta function evalauated at Mb and m1_2 
+     * @brief beta function evaluated at Mt and m1_2 
+     * @return @f$beta(Mt, m1_2)@f$
+     */
+    double beta_h_t;
+
+    /**
+     * @brief beta function evaluated at Mb and m1_2 
      * @return @f$beta(Mb, m1_2)@f$
      */
     double beta_h_b;
     
-      /**
-     * @brief beta function evalauated at Mtau and m1_2 
+    /**
+     * @brief beta function evaluated at Mtau and m1_2 
      * @return @f$beta(Mb, m1_2)@f$
      */
     double beta_h_tau;
     
-      /**
-     * @brief beta function evalauated at Mc and m1_2 
+    /**
+     * @brief beta function evaluated at Mc and m1_2 
      * @return @f$beta(Mc, m1_2)@f$
      */
     double beta_h_c;
     
+    /**
+     * @brief beta function evaluated at Mmu and m1_2 
+     * @return @f$beta(Mmu, m1_2)@f$
+     */
+    double beta_h_mu;
+
      /**
      * @brief Ratio of GTHDM and SM cross sections for ggF and tth production of h at 8 TeV.
      * @return @f$\sigma^{\text GTHDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$

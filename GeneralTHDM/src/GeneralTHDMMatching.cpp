@@ -2704,7 +2704,8 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
         case NNLO:
         case NLO:
         case LO:
-            mcdbs2.setCoeff(0, co * co * xt * (SWH+SHH) + C1bsSRR, LO);
+            mcdbs2.setCoeff(0, co * co * xt * (SWH+SHH), LO);
+            mcdbs2.setCoeff(1, co * co * C1bsSRR, LO);
             break;
         default:
             std::stringstream out;

@@ -10,6 +10,7 @@
 
 #include "StandardModel.h"
 #include "GeneralTHDMMatching.h"
+#include "NPbase.h"
 
 /**
  * @addtogroup GeneralTHDM
@@ -555,6 +556,54 @@ public:
     bool getCPconservationflag() const {
         return flag_CPconservation;
     }
+
+    virtual double muggH(const double sqrt_s) const;
+    virtual double muVBF(const double sqrt_s) const;
+    virtual double mueeWBF(const double sqrt_s) const;
+    virtual double muWH(const double sqrt_s) const;
+    virtual double muZH(const double sqrt_s) const;
+    virtual double mueeZH(const double sqrt_s) const;
+    virtual double muVH(const double sqrt_s) const;
+    virtual double muVBFpVH(const double sqrt_s) const;
+    virtual double muttH(const double sqrt_s) const;
+    virtual double GammaTotal() const;
+    virtual double BrHggRatio() const;
+    virtual double BrHWWRatio() const;
+    virtual double BrHZZRatio() const;
+    virtual double BrHZgaRatio() const;
+    virtual double BrHgagaRatio() const;
+    virtual double BrHmumuRatio() const;
+    virtual double BrHtautauRatio() const;
+    virtual double BrHccRatio() const;
+    virtual double BrHbbRatio() const;
+    virtual double muggHgaga(const double sqrt_s) const;
+    virtual double muVBFHgaga(const double sqrt_s) const;
+    virtual double muVHgaga(const double sqrt_s) const;
+    virtual double muttHgaga(const double sqrt_s) const;
+    virtual double muggHZZ(const double sqrt_s) const;
+    virtual double muVBFHZZ(const double sqrt_s) const;
+    virtual double muVHZZ(const double sqrt_s) const;
+    virtual double muttHZZ(const double sqrt_s) const;
+    virtual double muggHWW(const double sqrt_s) const;
+    virtual double muVBFHWW(const double sqrt_s) const;
+    virtual double muVHWW(const double sqrt_s) const;
+    virtual double muttHWW(const double sqrt_s) const;
+    virtual double muggHtautau(const double sqrt_s) const;
+    virtual double muVBFHtautau(const double sqrt_s) const;
+    virtual double muVHtautau(const double sqrt_s) const;
+    virtual double muttHtautau(const double sqrt_s) const;
+    virtual double muggHbb(const double sqrt_s) const;
+    virtual double muVBFHbb(const double sqrt_s) const;
+    virtual double muVHbb(const double sqrt_s) const;
+    virtual double muttHbb(const double sqrt_s) const;
+    virtual double muppHmumu(const double sqrt_s) const;
+    virtual double muppHZga(const double sqrt_s) const;
+    virtual double computeGammaTotalRatio() const;
+
+    /*
+     * @brief Method overriding the NPbase Mw with the tree-level W mass
+     */
+    virtual double Mw() const;
 
 protected:
 
