@@ -12392,6 +12392,27 @@ void THDMcache::runTHDMparameters()
         lambda3_at_Q = InitVals[11];
         lambda4_at_Q = InitVals[12];
         lambda5_at_Q = InitVals[13];
+        //Possibility to hard code lambda inputs for the unitarity bounds
+    }
+
+    if( UnitarityTestflag==true ) {
+        std::cout << "\n \t Warning: UnitarityTestflag is switched on.\n \t All lambda's are hard coded in this mode!\n" << std::endl;
+//        g1_at_Q = 0.0;
+//        g2_at_Q = 0.0;
+//        g3_at_Q = 0.0;
+//        Ytop_at_Q = 0.0;
+//        Ybottom1_at_Q = 0.0;
+//        Ybottom2_at_Q = 0.0;
+//        Ytau1_at_Q = 0.0;
+//        Ytau2_at_Q = 0.0;
+//        m11_2_at_Q = 0.0;
+//        m22_2_at_Q = 0.0;
+//        m12_2_at_Q = 0.0;
+        lambda1_at_Q = 0.1;
+        lambda2_at_Q = 0.1;
+        lambda3_at_Q = 3.0;
+        lambda4_at_Q = -4.0;
+        lambda5_at_Q = 0.1;
     }
 
 }
@@ -12811,6 +12832,8 @@ double THDMcache::updateCache()
     MZ=myTHDM->getMz();
     modelflag=myTHDM->getModelTypeflag();
     WFRflag=myTHDM->getWFRflag();
+
+    UnitarityTestflag=false; //Default is false; only set to true if you want to use hard-coded lambda's for unitarity
 
     computeSignalStrengthQuantities();
     computeHHquantities();

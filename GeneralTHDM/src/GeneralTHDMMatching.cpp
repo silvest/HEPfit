@@ -2676,12 +2676,26 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
     double GF=myGTHDM.getGF();
     double MW=myGTHDM.Mw();
     gslpp::complex co = GF / 4. / M_PI * MW * myGTHDM.getCKM().computelamt_s();
-    double tanb = myGTHDM.gettanb();
+    //double tanb = myGTHDM.gettanb();
     double mHp2=myGTHDM.getmHp2();
     double xHW=mHp2/(MW*MW);
     double xtH=xt/xHW;
-    double SWH=xtH*((2.0*xHW-8.0)*log(xtH)/((1.0-xHW)*(1.0-xtH)*(1.0-xtH))+6.0*xHW*log(xt)/((1.0-xHW)*(1.0-xt)*(1.0-xt))-(8.0-2.0*xt)/((1.0-xt)*(1.0-xtH)))/(tanb*tanb);
-    double SHH=xtH*((1.0+xtH)/((1.0-xtH)*(1.0-xtH))+2.0*xtH*log(xtH)/((1.0-xtH)*(1.0-xtH)*(1.0-xtH)))/(tanb*tanb*tanb*tanb);
+    double mb=myGTHDM.getQuarks(QCD::BOTTOM).getMass();
+    double sd = (myGTHDM.getNd_11()).real();
+    double su = (myGTHDM.getNu_11()).real();
+    double SWH=xtH*((2.0*xHW-8.0)*log(xtH)/((1.0-xHW)*(1.0-xtH)*(1.0-xtH))+6.0*xHW*log(xt)/((1.0-xHW)*(1.0-xt)*(1.0-xt))-(8.0-2.0*xt)/((1.0-xt)*(1.0-xtH)))*su*su;//su*su = sigu.abs2()
+    double SHH=xtH*((1.0+xtH)/((1.0-xtH)*(1.0-xtH))+2.0*xtH*log(xtH)/((1.0-xtH)*(1.0-xtH)*(1.0-xtH)))*su*su*su*su;//su*su*su*su = sigu.abs2()*sigu.abs2()
+//Taken from 1006.0470:
+    double C1bsSRR = 4.0*mb*mb*xt*xtH*sd*su/(mHp2*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)) //sd*su = sigd*sigu.conjugate()
+                     * (sd*su*(2.0*(xtH-1.0)-(xtH+1.0)*log(xtH)) //sd*su = sigd*sigu.conjugate()
+                        + (2.0*xt*xt*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)*log(xt)/(xt-1.0)
+                           +2.0*xt*(xtH-1.0)*((xt-xtH)*(xtH-1.0)+(xtH-xt*xtH)*log(xtH)))/((xt-1.0)*(xt-xtH)*xtH));
+
+//    std::cout<<"SWH = "<<SWH<<std::endl;
+//    std::cout<<"SHH = "<<SHH<<std::endl;
+//    std::cout<<"tanb = "<<tanb<<std::endl;
+//    std::cout<<"mHp2 = "<<mHp2<<std::endl;
+//    std::cout<<"xt * (SWH+SHH) = "<<xt * (SWH+SHH)<<std::endl;
 
     vmcds = StandardModelMatching::CMdbs2();
     mcdbs2.setMu(Mut);
@@ -2690,7 +2704,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
         case NNLO:
         case NLO:
         case LO:
-            mcdbs2.setCoeff(0, co * co * xt * (SWH+SHH), LO);
+            mcdbs2.setCoeff(0, co * co * xt * (SWH+SHH) + C1bsSRR, LO);
             break;
         default:
             std::stringstream out;
@@ -2733,7 +2747,7 @@ double GeneralTHDMMatching::C10Bll(double xt, double xHp, gslpp::complex su) {
   gslpp::complex  GeneralTHDMMatching:: CPZUBll(double xt, double xHp, double sW2, gslpp::complex su, gslpp::complex sd) {
 
     
-         // CPZF. Z-penguins diagrms. Eq. (52)
+         // CPZF. Z-penguins diagrams. Eq. (52)
        
      gslpp::complex CPZF = (xt/(4*(xHp - xt)*(xHp - xt)))*(sd*su.conjugate()*(-((xt + xHp)/2) 
              +  ((xt*xHp)/(xHp - xt))*(log(xHp) - log(xt))) + 

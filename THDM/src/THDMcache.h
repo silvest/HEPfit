@@ -2948,6 +2948,7 @@ private:
     double MZ;
     std::string modelflag;
     bool WFRflag;
+    bool UnitarityTestflag;
 
     ////////////////////////////////////////////////////////////////////////////
     //Caches

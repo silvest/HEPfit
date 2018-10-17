@@ -103,6 +103,8 @@ public:
      */
     double interpolate2D (gslpp::matrix<double> arrayTab, double x, double y);
 
+//    gslpp::matrix<double> dummytable;
+
     /**
      * @brief SM Higgs branching ratio tables (obtained with HDECAY 6.10), depending on the Higgs mass.
      */
@@ -735,9 +737,9 @@ public:
     void computeSignalStrengths();
     double computephi2quantities();
     double computephi3quantities();
+    double computeHpquantities();
 //    double ComputeMediumHiggs();
     double ComputeHeavyHiggs();
-    double computeHpquantities();
     
     ////////////////////////////////////////////////////////////////////////////
 
@@ -967,6 +969,12 @@ public:
     double Br_phi3tophi2Z;
     double Br_phi3toHpW;
     double Gammaphi3totSM;
+
+    double SigmaHp8;
+    double SigmaHpm13;
+    double Br_Hptotaunu;
+    double Br_Hptotb;
+    double GammaHptot;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi3\to t\bar t@f$ at the LHC with 8 TeV.
