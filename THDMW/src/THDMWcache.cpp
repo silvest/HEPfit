@@ -21,6 +21,7 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         CMS8_pp_H_hh_bbbb(167, 2, 0.),
         CMS8_bb_phi_bb(81, 2, 0.),
         CMS8_pp_H_hh_bbbb_e(167, 2, 0.),
+        Dummy(167, 2, 0.),
         CMS8_bb_phi_bb_e(81, 2, 0.),
         ATLAS13_bb_phi_tt(61,2,0.),
         ATLAS13_tt_phi_tt(61,2,0.),
@@ -1417,6 +1418,23 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     int Nintervalsy = (y-ymin)/intervaly;
     int Nintervalsz = (z-zmin)/intervalz;
     int Nintervalsv = (v-vmin)/intervalv;       
+    //std::cout<<"xmin="<<xmin<<std::endl;
+    //std::cout<<"xmax="<<xmax<<std::endl;
+    //std::cout<<"ymin="<<ymin<<std::endl;
+    //std::cout<<"ymax="<<ymax<<std::endl;
+    //std::cout<<"zmin="<<zmin<<std::endl;
+    //std::cout<<"zmax="<<zmax<<std::endl;
+    //std::cout<<"vmin="<<vmin<<std::endl;
+    //std::cout<<"vmax="<<vmax<<std::endl;
+    //std::cout<<"intervalx="<<intervalx<<std::endl;
+    //std::cout<<"intervaly="<<intervaly<<std::endl;
+    //std::cout<<"intervalz="<<intervalz<<std::endl;
+    //std::cout<<"intervalv="<<intervalv<<std::endl;
+    //std::cout<<"Nintervalsx="<<Nintervalsx<<std::endl;
+    //std::cout<<"Nintervalsy="<<Nintervalsy<<std::endl;
+    //std::cout<<"Nintervalsz="<<Nintervalsz<<std::endl;
+    //std::cout<<"Nintervalsv="<<Nintervalsv<<std::endl;
+    
     if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax||v<vmin||v>vmax){
         std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
         return 0.;
@@ -1430,6 +1448,30 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     double z2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz+1)+iy*(Nintervalsy)+Nintervalsx,2);
     double v1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,3);
     double v2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx,3);
+    //std::cout<<"x1="<<x1<<std::endl;
+    //std::cout<<"x2="<<x2<<std::endl;
+    //std::cout<<"y1="<<y1<<std::endl;
+    //std::cout<<"y2="<<y2<<std::endl;
+    //std::cout<<"z1="<<z1<<std::endl;
+    //std::cout<<"z2="<<z2<<std::endl;
+    //std::cout<<"v1="<<v1<<std::endl;
+    //std::cout<<"v2="<<v2<<std::endl;
+    /*std::cout<<"Interpolation= "<<(arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z2-z) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z-z1) * (v2-v)
+            +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z2-z) * (v-v1)
+            +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z2-z) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z-z1) * (v2-v)
+            +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v-v1)
+            +arrayTab(iv*Nintervalsv+1+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v2-v)
+            +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z-z1) * (v-v1)
+            +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v2-v)
+            +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z2-z) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z-z1) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v-v1)
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v-v1))/((x2-x1)*(y2-y1)*(z2-z1)*(v2-v1))<<std::endl;*/
     return (arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z2-z) * (v2-v)
             +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v2-v)
             +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v2-v)
@@ -1445,12 +1487,112 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
             +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z2-z) * (v-v1)
             +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z-z1) * (v-v1)
             +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v-v1)
-            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v-v1))
-           /((x2-x1)*(y2-y1)*(z2-z1)*(v2-v1));
+            +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v-v1))/((x2-x1)*(y2-y1)*(z2-z1)*(v2-v1));
     }
 }
 
-// Why EtaU and EtaD are not defined in the THDMW.cpp ???
+/*
+//4D log interpolation
+
+double THDMWcache::loginterpolate4D(gslpp::matrix<double> arrayTab, double x, double y, double z, double v){
+
+    int rowN=arrayTab.size_i();
+
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double ymin = arrayTab(0,1);
+    double ymax = arrayTab(rowN-1,1);
+    double zmin = arrayTab(0,2);
+    double zmax = arrayTab(rowN-1,2);
+    double vmin = arrayTab(0,3);
+    double vmax = arrayTab(rowN-1,3);
+    double intervalx = arrayTab(1,0)-arrayTab(0,0);
+    int iy=1;
+    do iy++;
+    while(arrayTab(iy,1)-arrayTab(iy-1,1)==0&&iy<6000000);
+    double intervaly = arrayTab(iy,1)-arrayTab(iy-1,1);
+    int iz=1;
+    do iz++;
+    while(arrayTab(iz,2)-arrayTab(iz-1,2)==0&&iz<6000000);
+    double intervalz = arrayTab(iz,2)-arrayTab(iz-1,2);
+    int iv=1;
+    do iv++;
+    while(arrayTab(iv,3)-arrayTab(iv-1,3)==0&&iv<6000000);
+    double intervalv = arrayTab(iv,3)-arrayTab(iv-1,3);
+    int Nintervalsx = (x-xmin)/intervalx;
+    int Nintervalsy = (y-ymin)/intervaly;
+    int Nintervalsz = (z-zmin)/intervalz;
+    int Nintervalsv = (v-vmin)/intervalv;       
+    
+    if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax||v<vmin||v>vmax){
+        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        return 0.;
+    }
+    else{
+    double x1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,0);
+    double x2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx+1,0);
+    double y1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,1);
+    double y2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz)+iy*(Nintervalsy+1)+Nintervalsx,1);
+    double z1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,2);
+    double z2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz+1)+iy*(Nintervalsy)+Nintervalsx,2);
+    double v1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,3);
+    double v2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx,3);
+    double N1=1e-15;
+    double N2=1e-15;
+    double N3=1e-15;
+    double N4=1e-15;
+    double N5=1e-15;
+    double N6=1e-15;
+    double N7=1e-15;
+    double N8=1e-15;
+    double N9=1e-15;
+    double N10=1e-15;
+    double N11=1e-15;
+    double N12=1e-15;
+    double N13=1e-15;
+    double N14=1e-15;
+    double N15=1e-15;
+    double N16=1e-15;
+    
+    if(sqrt(pow(arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4),2))>1e-15) N1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4);
+    if(sqrt(pow(arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4),2)>1e-15) N2=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4);
+    if(sqrt(pow(arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4),2))>1e-15) N3=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4);
+    if(sqrt(pow(arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4),2))>1e-15) N4=arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4);
+    if(sqrt(pow(arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4),2))>1e-15) N5=arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,4);
+    if(sqrt(pow(arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4),2))>1e-15) N6=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4);
+    if(sqrt(pow(arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4),2))>1e-15) N7=arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4);
+    if(sqrt(pow(arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4),2))>1e-15) N8=arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4);
+    if(sqrt(pow(arrayTab(iv*Nintervalsv+1+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4),2))>1e-15) N9=arrayTab(iv*Nintervalsv+1+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4);
+    if(sqrt(pow(arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4),2))>1e-15) N10=arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4);
+    if(sqrt(pow(arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4),2))>1e-15) N11=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4);
+    if(sqrt(pow(arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4),2))>1e-15) N12=arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4);
+    if(sqrt(pow(arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4),2))>1e-15) N13=arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4);
+    if(sqrt(pow(arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4),2))>1e-15) N14=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4);
+    if(sqrt(pow(arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4),2))>1e-15) N15=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4);
+    if(sqrt(pow(arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4),2))>1e-15) N16=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4);
+    
+    
+    
+    
+    return (log10(N1) * (x2-x) * (y2-y) * (z2-z) * (v2-v)
+            +log10(N2) * (x-x1) * (y2-y) * (z2-z) * (v2-v)
+            +log10(N3) * (x2-x) * (y-y1) * (z2-z) * (v2-v)
+            +log10(N4) * (x2-x) * (y2-y) * (z-z1) * (v2-v)
+            +log10(N5) * (x2-x) * (y2-y) * (z2-z) * (v-v1)
+            +log10(N6) * (x-x1) * (y-y1) * (z2-z) * (v2-v)
+            +log10(N7) * (x-x1) * (y2-y) * (z-z1) * (v2-v)
+            +log10(N8) * (x-x1) * (y2-y) * (z2-z) * (v-v1)
+            +log10(N9) * (x2-x) * (y-y1) * (z-z1) * (v2-v)
+            +log10(N10) * (x2-x) * (y-y1) * (z2-z) * (v-v1)
+            +log10(N11) * (x2-x) * (y2-y) * (z-z1) * (v-v1)
+            +log10(N12) * (x-x1) * (y-y1) * (z-z1) * (v2-v)
+            +log10(N13) * (x-x1) * (y-y1) * (z2-z) * (v-v1)
+            +log10(N14) * (x-x1) * (y2-y) * (z-z1) * (v-v1)
+            +log10(N15) * (x2-x) * (y-y1) * (z-z1) * (v-v1)
+            +log10(N16) * (x-x1) * (y-y1) * (z-z1) * (v-v1))/((x2-x1)*(y2-y1)*(z2-z1)*(v2-v1));
+    }
+}
+*/
 
 /*
 double THDMWcache::ip_cs_ppto2Sto4t_13(double etaD, double etaU, double THDMW_nu4, double mSR){
@@ -1492,7 +1634,7 @@ void THDMWcache::read(){
 
 
 
-    std::stringstream ex1,ex2,ex3;
+    std::stringstream ex0,ex1,ex2,ex3;
     std::stringstream ex1e,ex2e,ex3e;
 //    std::stringstream ex14ep2,ex14em2;
     std::stringstream ex4,ex5,ex6,ex7,ex8;
@@ -1529,7 +1671,8 @@ void THDMWcache::read(){
 
 
 
-
+    ex0 << tablepath << "150304114.dat";//Dummy will be deleted by Scientific Linux  
+    Dummy = readTable(ex0.str(),167,2); 
     ex1 << tablepath << "150304114.dat";              
     CMS8_pp_H_hh_bbbb = readTable(ex1.str(),167,2);   
     ex1e << tablepath << "150304114_e.dat";          
@@ -2120,15 +2263,29 @@ double THDMWcache::ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, 
     }
 }
 
+/*
+double THDMWcache::logip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
 
+    int i = CacheCheckReal(logip_th_pp_SrSr_jjjj_cache, NumPar, params);
+    if (i>=0) {
+        return(logip_th_pp_SrSr_jjjj_cache[NumPar][i] );
+    } else {
+        double newResult = loginterpolate4D (MadGraph_pp_SrSr_jjjj,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(logip_th_pp_SrSr_jjjj_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+*/
 
 
 
 void THDMWcache::computeHHlimits()
 {
     double mSr=sqrt(mSRsq);
-    double SqrtEtaU=copysign(sqrt(abs(etaU)),etaU);
-    double SqrtEtaD=copysign(sqrt(abs(etaD)),etaD);
+    double SqrtEtaU=copysign(sqrt(sqrt(pow(etaU,2))),etaU);
+    double SqrtEtaD=copysign(sqrt(sqrt(pow(etaD,2))),etaD);
     double nu45=(nu4+nu5)/2;
     //EtaU and EtaD in Sqrt Units!!!
     THoEX_pp_Sr_tt=0.;
@@ -2140,12 +2297,16 @@ void THDMWcache::computeHHlimits()
     pp_Srtt_tttt_TH13 = 1.0e-15;
     pp_Sr_jj_TH13=1.0e-15;
     pp_SrSr_jjjj_TH13=1.0e-15;
+    //logpp_SrSr_jjjj_TH13=-15;
     
     
-    if(mSr>= 400 && mSr<=1500) pp_Sr_tt_TH13=ip_th_pp_Sr_tt(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSr>= 400 && mSr<=1500) pp_Srtt_tttt_TH13=ip_th_pp_Srtt_tttt(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSr>= 400 && mSr<=1500) pp_Sr_jj_TH13=ip_th_pp_Sr_jj(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSr>= 400 && mSr<=1500) pp_SrSr_jjjj_TH13=ip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<7.5 && sqrt(pow(nu45,2))<13) pp_Sr_tt_TH13=ip_th_pp_Sr_tt(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<7.5 && sqrt(pow(nu45,2))<13) pp_Srtt_tttt_TH13=ip_th_pp_Srtt_tttt(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<2 && sqrt(pow(nu45,2))<13) pp_Sr_jj_TH13=ip_th_pp_Sr_jj(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<2 && sqrt(pow(nu45,2))<13) pp_SrSr_jjjj_TH13=ip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    //if(mSr>= 400 && mSr<=1500) logpp_SrSr_jjjj_TH13=logip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
+
+    //std::cout<<"pp_Sr_tt_TH13="<<pp_Sr_tt_TH13<<std::endl;
 
     if(mSr>= 400 && mSr<=1500) THoEX_pp_Sr_tt=pp_Sr_tt_TH13/ip_ex_pp_Gkk_tt_ATLAS13(mSr);
     if(mSr>= 400 && mSr<=1000) THoEX_pp_Srtt_tttt=pp_Srtt_tttt_TH13/ip_ex_tt_phi_tt_ATLAS13(mSr);

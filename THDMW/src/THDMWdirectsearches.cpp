@@ -91,4 +91,17 @@ log10_pp_SrSr_jjjj_TH13::log10_pp_SrSr_jjjj_TH13(const StandardModel& SM_i)
 double log10_pp_SrSr_jjjj_TH13::computeThValue()
 {
     return log10(myTHDMW.getMyTHDMWCache()->pp_SrSr_jjjj_TH13);
+    //return myTHDMW.getMyTHDMWCache()->pp_SrSr_jjjj_TH13;
 }
+
+//logpp_SrSr_jjjj_TH13::logpp_SrSr_jjjj_TH13(const StandardModel& SM_i)
+//: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+//{}
+
+/*
+double logpp_SrSr_jjjj_TH13::computeThValue()
+{
+    //return log10(myTHDMW.getMyTHDMWCache()->pp_SrSr_jjjj_TH13);
+    return myTHDMW.getMyTHDMWCache()->logpp_SrSr_jjjj_TH13;
+}
+*/

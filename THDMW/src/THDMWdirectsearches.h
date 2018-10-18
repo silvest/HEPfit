@@ -207,7 +207,27 @@ private:
     const THDMW& myTHDMW;
 };
 
+/**
+ * @class log10_pp_SrSr_jjjj_TH13
+ * @ingroup THDMW
+ * @brief Decadic logarithm of the cross section times branching ratio of the process pp -> Sr Sr -> j j j j at 13 TeV.
+ */
 
+//class logpp_SrSr_jjjj_TH13: public ThObservable {
+//public:
+
+    /**
+     * @brief log10_pp_SrSr_jjjj_TH13 constructor.
+     */
+//    logpp_SrSr_jjjj_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(Sr\to j j)]@f$
+     */
+//    double computeThValue();
+//private:
+//    const THDMW& myTHDMW;
+//};
 
 
 

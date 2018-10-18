@@ -109,6 +109,11 @@ public:
      */
     double pp_SrSr_jjjj_TH13;
     
+    /**
+     * @brief log of cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(Sr \to j j)@f$
+     */
+    //double logpp_SrSr_jjjj_TH13;
     
     
     
@@ -273,7 +278,7 @@ private:
     
     
     
-    
+    //mutable double logip_th_pp_SrSr_jjjj_cache[5][CacheSize];
     mutable double ip_th_pp_SrSr_jjjj_cache[5][CacheSize];
     mutable double ip_th_pp_Sr_jj_cache[5][CacheSize];
     mutable double ip_th_pp_Srtt_tttt_cache[5][CacheSize];
@@ -343,7 +348,13 @@ private:
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
      */
     gslpp::matrix<double>  CMS8_pp_H_hh_bbbb, CMS8_bb_phi_bb;
-
+    
+    /**
+     * @brief This will be deleted by Scientific Linux
+     */
+    gslpp::matrix<double>  Dummy;
+    
+    
     /**
      * @brief CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
      */
@@ -710,6 +721,13 @@ private:
      */
     double ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mass);
     
+    /**
+     * @brief loginterpolating function for the theoretical value of p p -> Sr  Sr ->j j j j 
+     * @return xsection times branching ratio of pp -> Sr Sr -> j j j j
+     * @details Generated with MadGraph
+     */
+    //double logip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mass);
+    
     
     
     
@@ -788,7 +806,17 @@ private:
      * @return the interpolated value
      */
     double interpolate4D (gslpp::matrix<double> arrayTab, double x, double y, double z, double v);
-
+   
+    
+    /**
+     * @brief Linearly interpolates the logarithm in base 10 of a table with four parameter dimensions. The log is only taken 
+     * on the values, not on the parameters.
+     * @return the interpolated value
+     */
+    /*
+    double loginterpolate4D (gslpp::matrix<double> arrayTab, double x, double y, double z, double v);
+    */
+    
     /**
      * @brief Interpolating function for the H production cross section via gluon-gluon fusion at 8 TeV.
      * @return @f$\sigma(gg\to H)@f$

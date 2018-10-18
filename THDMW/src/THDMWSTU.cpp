@@ -61,6 +61,8 @@ double THDMWDeltaS::computeThValue()
     //double MW2=pow(myTHDMW->Mw(),2);
     //We define the self energies removing the coupling because it will cancel
     
+    
+    
     //gslpp::complex delPiWW_MZ;
     gslpp::complex delPiZZ_MZ;
     //gslpp::complex delPiWW_0;
@@ -73,14 +75,10 @@ double THDMWDeltaS::computeThValue()
     //g1 on arxiv:0907.2696 is e/s_W
     //delPiWW_MZ=(1./(2.*pow(M_PI,2)*s_W2))*(mycache->B00_MZ2_MZ2_mSi2_mSp2(MZ2,mSI2,mSp2)+mycache->B00_MZ2_MZ2_mSr2_mSp2(MZ2,mSR2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSI2));
     
-    delPiZZ_MZ=(1./(2.*pow(M_PI,2)*c_W2*s_W2))*(pow(1.-2.*s_W2,2)*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2))+mycache->B00_MZ2_MZ2_mSr2_mSi2(MZ2,mSR2,mSI2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSI2));    
-    
+        
     //delPiWW_0=(1./(8.*pow(M_PI,2)*s_W2))*(0.5*F(mSp2,mSR2)+0.5*F(mSp2,mSI2));
     
     
-    delPiZZ_0=(1./(8.*pow(M_PI,2)*s_W2*c_W2))*(0.5*F(mSI2,mSR2));
-    delPiAAprime_0=-(1/(6.*pow(M_PI,2)))*mycache->B0_MZ2_0_mSp2_mSp2(MZ2,mSp2);
-    delPiZAprime_0=-((1-2*s_W2)/(12.*pow(M_PI,2)*sqrt(c_W2)*sqrt(s_W2)))*mycache->B0_MZ2_0_mSp2_mSp2(MZ2,mSp2);
     //delPiAA_MZ=(2./pow(M_PI,2))*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2));
     //delPiZA_MZ=((1.-2.*s_W2)/(pow(M_PI,2)*sqrt(c_W2)*sqrt(s_W2)))*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2));
 
@@ -105,8 +103,23 @@ double THDMWDeltaS::computeThValue()
     //std::cout<< "mSp2=" << mSp2 << std::endl;
     //std::cout<< "mSr2=" << mSR2 << std::endl;
     //std::cout<< "MZ2=" << MZ2 << std::endl;
-    return (16.*M_PI*s_W2*c_W2)*(((delPiZZ_MZ.real()-delPiZZ_0.real())/MZ2)-(c_W2-s_W2)*delPiZAprime_0.real()/(sqrt(s_W2)*sqrt(c_W2))-delPiAAprime_0.real());
-}
+    //std::cout<< "THDMWpositiveMassSquares=" << myTHDMW->getMyTHDMWCache()->setOtherParameters() << std::endl;
+    //std::cout<< "THDMWpositiveMassSquares=" << THDMWpositiveMassSquares << std::endl;
+    if(myTHDMW->getMyTHDMWCache()->setOtherParameters()<1.1)
+    {
+        delPiZZ_MZ=(1./(2.*pow(M_PI,2)*c_W2*s_W2))*(pow(1.-2.*s_W2,2)*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2))+mycache->B00_MZ2_MZ2_mSr2_mSi2(MZ2,mSR2,mSI2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSI2));    
+        delPiZZ_0=(1./(8.*pow(M_PI,2)*s_W2*c_W2))*(0.5*F(mSI2,mSR2));
+        delPiAAprime_0=-(1/(6.*pow(M_PI,2)))*mycache->B0_MZ2_0_mSp2_mSp2(MZ2,mSp2);
+        delPiZAprime_0=-((1-2*s_W2)/(12.*pow(M_PI,2)*sqrt(c_W2)*sqrt(s_W2)))*mycache->B0_MZ2_0_mSp2_mSp2(MZ2,mSp2);
+
+        return (16.*M_PI*s_W2*c_W2)*(((delPiZZ_MZ.real()-delPiZZ_0.real())/MZ2)-(c_W2-s_W2)*delPiZAprime_0.real()/(sqrt(s_W2)*sqrt(c_W2))-delPiAAprime_0.real());
+
+    }
+    else
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    }
 
 THDMWDeltaT::THDMWDeltaT(const StandardModel& SM_i)
 : THDMWSTU(SM_i)
@@ -130,15 +143,28 @@ double THDMWDeltaT::computeThValue()
 
     
     //g1 on arxiv:0907.2696 is e/s_W
-    delPiWW_0=(1./(8.*pow(M_PI,2)*s_W2))*(0.5*F(mSp2,mSR2)+0.5*F(mSp2,mSI2));
-    delPiZZ_0=(1./(8.*pow(M_PI,2)*s_W2*c_W2))*(0.5*F(mSI2,mSR2));
+    
     
     //double nu2=myTHDMW->getTHDMW_nu2();
     //double nu3=myTHDMW->getTHDMW_nu3();
     //double v=246.2;
     //std::cout<< "DeltaT approx.=" << pow(v,4)*(pow(nu2,2)-pow(2.*nu3,2))/(96.*pow(M_PI,1)*mSp2*MW2*s_W2) << std::endl;//typo in arxiv:0907.269, look at arxiv:0606172
     //std::cout<< "DeltaT fraction=" << pow(v,4)*(pow(nu2,2)-pow(2.*nu3,2))/(96.*pow(M_PI,1)*mSp2*MW2*s_W2)/((4.*M_PI)*(delPiWW_0.real()/MW2-delPiZZ_0.real()/MZ2)) << std::endl;
-    return (4.*M_PI)*(delPiWW_0.real()/MW2-delPiZZ_0.real()/MZ2);
+    if(myTHDMW->getMyTHDMWCache()->setOtherParameters()<1.1)
+    {
+        delPiWW_0=(1./(8.*pow(M_PI,2)*s_W2))*(0.5*F(mSp2,mSR2)+0.5*F(mSp2,mSI2));
+        delPiZZ_0=(1./(8.*pow(M_PI,2)*s_W2*c_W2))*(0.5*F(mSI2,mSR2));
+        return (4.*M_PI)*(delPiWW_0.real()/MW2-delPiZZ_0.real()/MZ2);
+    }
+    else
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    
+    
+    
+    
+    
 }
 
 
@@ -175,13 +201,7 @@ double THDMWDeltaU::computeThValue()
     
     //g1 on arxiv:0907.2696 is e/s_W
     
-    delPiWW_MW=(1./(2.*pow(M_PI,2)*s_W2))*(mycache->B00_MZ2_MZ2_mSi2_mSp2(MW2,mSI2,mSp2)+mycache->B00_MZ2_MZ2_mSr2_mSp2(MW2,mSR2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MW2,mSp2)-0.25*mycache->A0_MZ2_mSp2(MW2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MW2,mSI2));
-    delPiZZ_MZ=(1./(2.*pow(M_PI,2)*c_W2*s_W2))*(pow(1.-2.*s_W2,2)*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2))+mycache->B00_MZ2_MZ2_mSr2_mSi2(MZ2,mSR2,mSI2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSI2));    
     
-    delPiWW_0=(1./(8.*pow(M_PI,2)*s_W2))*(0.5*F(mSp2,mSR2)+0.5*F(mSp2,mSI2));
-    delPiZZ_0=(1./(8.*pow(M_PI,2)*s_W2*c_W2))*(0.5*F(mSI2,mSR2));
-    delPiAAprime_0=-(1/(6.*pow(M_PI,2)))*mycache->B0_MZ2_0_mSp2_mSp2(MZ2,mSp2);
-    delPiZAprime_0=-((1-2*s_W2)/(12.*pow(M_PI,2)*sqrt(c_W2)*sqrt(s_W2)))*mycache->B0_MZ2_0_mSp2_mSp2(MZ2,mSp2);
     //delPiAA_MZ=(2./pow(M_PI,2))*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2));
     //delPiZA_MZ=((1.-2.*s_W2)/(pow(M_PI,2)*sqrt(c_W2)*sqrt(s_W2)))*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2));
     //delPiAA_MW=(2./pow(M_PI,2))*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MW2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MW2,mSp2));
@@ -197,5 +217,25 @@ double THDMWDeltaU::computeThValue()
     //std::cout<< "Term with delMZ=" << c_W2*(delPiZZ_MZ.real()-delPiZZ_0.real())/MZ2 << std::endl;
     //std::cout<< "delPiAA=" << s_W2*delPiAA_MZ.real()/MZ2 << std::endl;
     //std::cout<< "delPiAZ=" << 2*sqrt(s_W2)*sqrt(c_W2)*delPiZA_MZ.real()/MZ2 << std::endl;
-    return (16.*M_PI*s_W2)*((delPiWW_MW.real()-delPiWW_0.real())/MW2-c_W2*((delPiZZ_MZ.real()-delPiZZ_0.real())/MZ2)-(s_W2*delPiAAprime_0.real())-(2.*sqrt(s_W2)*sqrt(c_W2)*delPiZAprime_0.real()));
-}
+    
+    if(myTHDMW->getMyTHDMWCache()->setOtherParameters()<1.1)
+    {
+        delPiWW_MW=(1./(2.*pow(M_PI,2)*s_W2))*(mycache->B00_MZ2_MZ2_mSi2_mSp2(MW2,mSI2,mSp2)+mycache->B00_MZ2_MZ2_mSr2_mSp2(MW2,mSR2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MW2,mSp2)-0.25*mycache->A0_MZ2_mSp2(MW2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MW2,mSI2));
+        delPiZZ_MZ=(1./(2.*pow(M_PI,2)*c_W2*s_W2))*(pow(1.-2.*s_W2,2)*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2))+mycache->B00_MZ2_MZ2_mSr2_mSi2(MZ2,mSR2,mSI2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSI2));    
+    
+        delPiWW_0=(1./(8.*pow(M_PI,2)*s_W2))*(0.5*F(mSp2,mSR2)+0.5*F(mSp2,mSI2));
+        delPiZZ_0=(1./(8.*pow(M_PI,2)*s_W2*c_W2))*(0.5*F(mSI2,mSR2));
+        delPiAAprime_0=-(1/(6.*pow(M_PI,2)))*mycache->B0_MZ2_0_mSp2_mSp2(MZ2,mSp2);
+        delPiZAprime_0=-((1-2*s_W2)/(12.*pow(M_PI,2)*sqrt(c_W2)*sqrt(s_W2)))*mycache->B0_MZ2_0_mSp2_mSp2(MZ2,mSp2);
+        return (16.*M_PI*s_W2)*((delPiWW_MW.real()-delPiWW_0.real())/MW2-c_W2*((delPiZZ_MZ.real()-delPiZZ_0.real())/MZ2)-(s_W2*delPiAAprime_0.real())-(2.*sqrt(s_W2)*sqrt(c_W2)*delPiZAprime_0.real()));
+
+    }
+    else
+    {
+    
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    
+    
+    
+    }
