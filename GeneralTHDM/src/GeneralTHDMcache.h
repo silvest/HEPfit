@@ -707,7 +707,7 @@ public:
     gslpp::complex A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const;
 
     
-        /**
+    /**
      * @brief Kaellen function
      * @return @f$\kappa(a,b,c)=\frac{1}{2a}\sqrt{a^2+b^a+c^2-2ab-2ac-2bc}@f$
      */
@@ -738,7 +738,6 @@ public:
     double computephi2quantities();
     double computephi3quantities();
     double computeHpquantities();
-//    double ComputeMediumHiggs();
     double ComputeHeavyHiggs();
     
     ////////////////////////////////////////////////////////////////////////////
@@ -989,35 +988,58 @@ public:
     double GammaHptot;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to t\bar t@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to t\bar t)@f$
+     * @brief Cross section times branching ratio for the process @f$t\bar t\to phi2\to t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{t\bar t\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)@f$
      */
-    double gg_phi2_tt_TH8;
-    double gg_phi3_tt_TH8;
+    double tt_phi2_tt_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$t\bar t\to phi3\to t\bar t@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{t\bar t\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to t\bar t)@f$
      */
-    double tt_phi2_tt_TH13;
     double tt_phi3_tt_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)@f$
+     */
+    double bb_phi2_tt_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to phi3\to t\bar t@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to t\bar t)@f$
      */
-    double bb_phi2_tt_TH13;
     double bb_phi3_tt_TH13;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)@f$
+     */
+    double bb_phi2_bb_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to phi3\to b\bar b@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to b\bar b)@f$
      */
-    double bb_phi2_bb_TH8;
     double bb_phi3_bb_TH8;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)@f$
+     */
     double gg_phi2_bb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to b\bar b)@f$
+     */
     double gg_phi3_bb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)@f$
+     */
+    double pp_phi2_bb_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to b\bar b@f$ at the LHC with 13 TeV.
@@ -1025,49 +1047,89 @@ public:
      */
     double pp_phi3_bb_TH13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)@f$
+     */
     double bb_phi2_bb_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi3\to b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to b\bar b)@f$
+     */
     double bb_phi3_bb_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi_2 \to \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \tau\tau)@f$
+     */
+    double gg_phi2_tautau_TH8;  
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi_3 \to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi_3\to \tau\tau)@f$
      */
-    double gg_phi2_tautau_TH8;  
     double gg_phi3_tautau_TH8;  
-    
-       /**
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi_2\to \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_2}\cdot BR^{\text{GTHDM}}(phi_2\to \tau\tau)@f$
+     */
+    double bb_phi2_tautau_TH8;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to phi_3\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to \tau\tau)@f$
      */
-    double bb_phi2_tautau_TH8;
     double bb_phi3_tautau_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to \tau\tau@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)@f$
+     */
+    double gg_phi2_tautau_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi3\to \tau\tau@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \tau\tau)@f$
      */
-    double gg_phi2_tautau_TH13;
     double gg_phi3_tautau_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to \tau\tau@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)@f$
+     */
+    double bb_phi2_tautau_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to phi3\to \tau\tau@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \tau\tau)@f$
      */
-    double bb_phi2_tautau_TH13;
     double bb_phi3_tautau_TH13;
 
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi_3\to \gamma\gamma@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi_3\to \gamma\gamma)@f$
+//     */
+//    double pp_phi3_gaga_TH8;
+
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi_3\to \gamma\gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi_3\to \gamma\gamma)@f$
+     * @brief Cross section times branching ratio for the process @f$gg\to phi_2\to \gamma\gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \gamma\gamma)@f$
      */
-    double pp_phi3_gaga_TH8;
+    double gg_phi2_gaga_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi_3\to \gamma\gamma@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi_3\to \gamma\gamma)@f$
      */
-    double gg_phi2_gaga_TH8;
     double gg_phi3_gaga_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to \gamma\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma\gamma)@f$
+     */
+    double pp_phi2_gaga_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to \gamma\gamma@f$ at the LHC with 13 TeV.
@@ -1076,11 +1138,22 @@ public:
     double pp_phi3_gaga_TH13;
 
     /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to \gamma\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma\gamma)@f$
+     */
+    double gg_phi2_gaga_TH13;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi3\to \gamma\gamma@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to \gamma\gamma)@f$
      */
-    double gg_phi2_gaga_TH13;
     double gg_phi3_gaga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi_2\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi_2}\cdot BR^{\text{GTHDM}}(phi_2\to Z\gamma \to \ell \ell \gamma)@f$
+     */
+    double pp_phi2_Zga_llga_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi_3\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV.
@@ -1088,32 +1161,77 @@ public:
      */
     double pp_phi3_Zga_llga_TH8;
 
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to Z\gamma@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to Z\gamma)@f$
+//     */
+//    double pp_phi3_Zga_TH13;
+
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to Z\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to Z\gamma)@f$
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to Z\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma)@f$
      */
-    double pp_phi3_Zga_TH13;
+    double gg_phi2_Zga_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi3\to Z\gamma@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to Z\gamma)@f$
      */
-    double gg_phi2_Zga_TH13;
     double gg_phi3_Zga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to ZZ@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
+     */
+    double gg_phi2_ZZ_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi3\to ZZ@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)@f$
      */
-    double gg_phi2_ZZ_TH8;
     double gg_phi3_ZZ_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to ZZ@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
+     */
+    double VV_phi2_ZZ_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$VV\to phi3\to ZZ@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)@f$
      */
-    double VV_phi2_ZZ_TH8;
     double VV_phi3_ZZ_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to ZZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
+     */
+    double gg_phi2_ZZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to ZZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)@f$
+     */
+    double gg_phi3_ZZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to ZZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
+     */
+    double VV_phi2_ZZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to phi3\to ZZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)@f$
+     */
+    double VV_phi3_ZZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to ZZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
+     */
+    double pp_phi2_ZZ_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to ZZ@f$ at the LHC with 13 TeV.
@@ -1121,75 +1239,102 @@ public:
      */
     double pp_phi3_ZZ_TH13;
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to ZZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)@f$
-     */
-    double gg_phi2_ZZ_TH13;
-    double gg_phi3_ZZ_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to 4\ell)@f$
+//     */
+//    double gg_phi3_ZZ_llll_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$VV\to phi3\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to 4\ell)@f$
+//     */
+//    double VV_phi3_ZZ_llll_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to 4\ell)@f$
+//     */
+//    double pp_phi3_ZZ_llll_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$VV\to phi3\to ZZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)@f$
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to WW@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
      */
-    double VV_phi2_ZZ_TH13;
-    double VV_phi3_ZZ_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to 4\ell)@f$
-     */
-    double gg_phi3_ZZ_llll_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to phi3\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to 4\ell)@f$
-     */
-    double VV_phi3_ZZ_llll_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ\to 4\ell)@f$
-     */
-    double pp_phi3_ZZ_llll_TH13;
+    double gg_phi2_WW_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi3\to WW@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)@f$
      */
-    double gg_phi2_WW_TH8;
     double gg_phi3_WW_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to WW@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
+     */
+    double VV_phi2_WW_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$VV\to phi3\to WW@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)@f$
      */
-    double VV_phi2_WW_TH8;
     double VV_phi3_WW_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to WW@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
+     */
+    double gg_phi2_WW_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi3\to WW@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)@f$
      */
-    double gg_phi2_WW_TH13;
     double gg_phi3_WW_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to WW@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
+     */
+    double VV_phi2_WW_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$VV\to phi3\to WW@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)@f$
      */
-    double VV_phi2_WW_TH13;
     double VV_phi3_WW_TH13;
-    
+
+     /**
+     * @brief Cross section times branching ratio for the process @f$(gg+VV)\to phi2\to WW\to \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{(gg+VV)\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW\to \ell \nu \ell \nu)@f$
+     */
+    double ggVV_phi2_WW_lnulnu_TH13;
+
      /**
      * @brief Cross section times branching ratio for the process @f$(gg+VV)\to phi3\to WW\to \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{(gg+VV)\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW\to \ell \nu \ell \nu)@f$
      */
-    double ggVV_phi2_WW_lnulnu_TH13;
     double ggVV_phi3_WW_lnulnu_TH13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to WW@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
+     */
     double pp_phi2_WW_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to WW@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to WW)@f$
+     */
     double pp_phi3_WW_TH13;
+
+    /**
+     * @brief Signal strength for the process @f$pp\to phi_2\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
+     * @return @f$\mu_H^{\text{GTHDM}}(phi_2\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_2}\cdot BR^{\text{GTHDM}}(phi_3\to VV)] / [\sigma^{\text{SM}}_{pp\to phi3}\cdot BR^{\text{SM}}(phi3\to VV)]@f$
+     */
+    double mu_pp_phi2_VV_TH8;
 
     /**
      * @brief Signal strength for the process @f$pp\to phi_3\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
@@ -1198,10 +1343,70 @@ public:
     double mu_pp_phi3_VV_TH8;
 
     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to (WW+ZZ)@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot [BR^{\text{GTHDM}}(phi2\to WW)+BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
+     */
+    double pp_phi2_VV_TH13;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to (WW+ZZ)@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot [BR^{\text{GTHDM}}(phi3\to WW)+BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
      */
     double pp_phi3_VV_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1 phi1@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1 phi1)@f$
+     */
+    double gg_phi2_phi1phi1_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1 phi1@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1 phi1)@f$
+     */
+    double gg_phi3_phi1phi1_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1 phi1\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1 phi1\to b\bar b b\bar b)@f$
+     */
+    double pp_phi2_phi1phi1_bbbb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1 phi1\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1 phi1\to b\bar b b\bar b)@f$
+     */
+    double pp_phi3_phi1phi1_bbbb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1 phi1\to b\bar b \gamma\gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1 phi1\to b\bar b \gamma\gamma)@f$
+     */
+    double pp_phi2_phi1phi1_bbgaga_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1 phi1\to b\bar b \gamma\gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1 phi1\to b\bar b \gamma\gamma)@f$
+     */
+    double pp_phi3_phi1phi1_bbgaga_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1 phi1\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1 phi1\to b\bar b \tau\tau)@f$
+     */
+    double gg_phi2_phi1phi1_bbtautau_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1 phi1\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1 phi1\to b\bar b \tau\tau)@f$
+     */
+    double gg_phi3_phi1phi1_bbtautau_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)@f$
+     */
+    double pp_phi2_phi1phi1_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1@f$ at the LHC with 8 TeV.
@@ -1210,131 +1415,10 @@ public:
     double pp_phi3_phi1phi1_TH8;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b b\bar b)@f$
      */
-    double pp_phi3_phi2phi2_TH8;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)@f$
-     */
-    double pp_phi3_phi1phi2_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1 phi1\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1 phi1\to b\bar b \tau\tau)@f$
-     */
-    double gg_phi2_phi1phi1_bbtautau_TH8;
-    double gg_phi3_phi1phi1_bbtautau_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to hh\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to hh\to b\bar b b\bar b)@f$
-     */
-    double pp_phi3_phi1phi1_bbbb_TH8;
-
-    double pp_phi2_phi1phi1_bbgaga_TH8;
-    double pp_phi3_phi1phi1_bbgaga_TH8;
-
-     /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2phi2\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau\tau)@f$
-     */
-    double gg_phi3_phi2phi2_bbtautau_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)@f$
-     */
-    double pp_phi3_phi2phi2_bbbb_TH8;
-
-    
-     /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1 phi1\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1 phi2\to b\bar b \tau\tau)@f$
-     */
-    double gg_phi3_phi1phi2_bbtautau_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to hh\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to hh\to b\bar b b\bar b)@f$
-     */
-    double pp_phi3_phi1phi2_bbbb_TH8;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \gamma\gamma b\bar b)@f$
-     */
-    double pp_phi3_phi1phi1_gagabb_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to \gamma\gamma b\bar b)@f$
-     */
-    double pp_phi3_phi2phi2_gagabb_TH8;
-    
-     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to \gamma\gamma b\bar b)@f$
-     */
-    double pp_phi3_phi1phi2_gagabb_TH8;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2phi2@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)@f$
-     */
-    double gg_phi3_phi2phi2_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi1@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)@f$
-     */
-    double gg_phi2_phi1phi1_TH8;
-    double gg_phi3_phi1phi1_TH8;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi2@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)@f$
-     */
-    double gg_phi3_phi1phi2_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi1@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)@f$
-     */
-    double gg_phi2_phi1phi1_TH13;
-    double gg_phi3_phi1phi1_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2phi2@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)@f$
-     */
-    double gg_phi3_phi2phi2_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi2@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)@f$
-     */
-    double gg_phi3_phi1phi2_TH13;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to hh@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to hh)@f$
-     */
-    double pp_phi3_phi1phi1_TH13;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)@f$
-     */
-    double pp_phi3_phi2phi2_TH13;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)@f$
-     */
-    double pp_phi3_phi1phi2_TH13;
+    double pp_phi2_phi1phi1_bbbb_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
@@ -1343,163 +1427,385 @@ public:
     double pp_phi3_phi1phi1_bbbb_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi1\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b b\bar b)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to hh@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to hh)@f$
      */
-    double gg_phi2_phi1phi1_bbbb_TH13;
-    double gg_phi3_phi1phi1_bbbb_TH13;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)@f$
-     */
-    double pp_phi3_phi2phi2_bbbb_TH13;
+    double pp_phi2_phi1phi1_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to hh@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to hh)@f$
      */
-    double gg_phi3_phi2phi2_bbbb_TH13;
-    
-        /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b b\bar b)@f$
-     */
-    double pp_phi3_phi1phi2_bbbb_TH13;
+    double pp_phi3_phi1phi1_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi2\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b b\bar b)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma b\bar b)@f$
      */
-    double gg_phi3_phi1phi2_bbbb_TH13;
-    
+    double pp_phi2_phi1phi1_bbgaga_TH13;
+
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \gamma\gamma b\bar b)@f$
      */
-    double pp_phi2_phi1phi1_bbgaga_TH13;
     double pp_phi3_phi1phi1_bbgaga_TH13;
-    
+
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to \gamma\gamma b\bar b)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b \tau\tau)@f$
      */
-    double pp_phi3_phi1phi2_gagabb_TH13;
+    double pp_phi2_phi1phi1_bbtautau_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b \tau\tau)@f$
      */
     double pp_phi3_phi1phi1_bbtautau_TH13;
-    
-      /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b \tau\tau)@f$
-     */
-    double pp_phi3_phi1phi2_bbtautau_TH13;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to \gamma\gamma b\bar b)@f$
-     */
-    double pp_phi3_phi2phi2_gagabb_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau\tau)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}[phi2\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)]@f$
      */
-    double pp_phi3_phi2phi2_bbtautau_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
-     */
-    double pp_phi3_phi1phi1_bblnulnu_TH13;
-    
-         /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
-     */
-    double pp_phi3_phi1phi2_bblnulnu_TH13;
+    double pp_phi2_phi1phi1_bbVV_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)]@f$
      */
     double pp_phi3_phi1phi1_bbVV_TH13;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi2\to b\bar b VV(\ell\ell \nu\nu)]@f$
-     */
-    double pp_phi3_phi1phi2_bbVV_TH13;
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
-     */
-    double pp_phi3_phi2phi2_bblnulnu_TH13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1phi1\to \gamma\gamma WW@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma WW)@f$
+     */
     double gg_phi2_phi1phi1_gagaWW_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi1\to \gamma\gamma WW@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \gamma\gamma WW)@f$
+     */
     double gg_phi3_phi1phi1_gagaWW_TH13;
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi2phi2\to b\bar b VV(\ell\ell \nu\nu)]@f$
-     */
-    double pp_phi3_phi2phi2_bbVV_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)@f$
+//     */
+//    double pp_phi3_phi1phi1_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)@f$
+//     */
+//    double pp_phi3_phi2phi2_TH8;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)@f$
+//     */
+//    double pp_phi3_phi1phi2_TH8;
+//
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2phi2\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau\tau)@f$
+//     */
+//    double gg_phi3_phi2phi2_bbtautau_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)@f$
+//     */
+//    double pp_phi3_phi2phi2_bbbb_TH8;
+//
+//    
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1 phi1\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1 phi2\to b\bar b \tau\tau)@f$
+//     */
+//    double gg_phi3_phi1phi2_bbtautau_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to hh\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to hh\to b\bar b b\bar b)@f$
+//     */
+//    double pp_phi3_phi1phi2_bbbb_TH8;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \gamma\gamma b\bar b)@f$
+//     */
+//    double pp_phi3_phi1phi1_gagabb_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to \gamma\gamma b\bar b)@f$
+//     */
+//    double pp_phi3_phi2phi2_gagabb_TH8;
+//    
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to \gamma\gamma b\bar b)@f$
+//     */
+//    double pp_phi3_phi1phi2_gagabb_TH8;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2phi2@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)@f$
+//     */
+//    double gg_phi3_phi2phi2_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi2@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)@f$
+//     */
+//    double gg_phi3_phi1phi2_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi1@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)@f$
+//     */
+//    double gg_phi2_phi1phi1_TH13;
+//    double gg_phi3_phi1phi1_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2phi2@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)@f$
+//     */
+//    double gg_phi3_phi2phi2_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi2@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)@f$
+//     */
+//    double gg_phi3_phi1phi2_TH13;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2)@f$
+//     */
+//    double pp_phi3_phi2phi2_TH13;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2)@f$
+//     */
+//    double pp_phi3_phi1phi2_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi1\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b b\bar b)@f$
+//     */
+//    double gg_phi2_phi1phi1_bbbb_TH13;
+//    double gg_phi3_phi1phi1_bbbb_TH13;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)@f$
+//     */
+//    double pp_phi3_phi2phi2_bbbb_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2phi2\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b b\bar b)@f$
+//     */
+//    double gg_phi3_phi2phi2_bbbb_TH13;
+//    
+//        /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b b\bar b)@f$
+//     */
+//    double pp_phi3_phi1phi2_bbbb_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1phi2\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b b\bar b)@f$
+//     */
+//    double gg_phi3_phi1phi2_bbbb_TH13;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to \gamma\gamma b\bar b)@f$
+//     */
+//    double pp_phi3_phi1phi2_gagabb_TH13;
+//
+//      /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b \tau\tau)@f$
+//     */
+//    double pp_phi3_phi1phi2_bbtautau_TH13;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to \gamma\gamma b\bar b)@f$
+//     */
+//    double pp_phi3_phi2phi2_gagabb_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b \tau\tau)@f$
+//     */
+//    double pp_phi3_phi2phi2_bbtautau_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
+//     */
+//    double pp_phi3_phi1phi1_bblnulnu_TH13;
+//    
+//         /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
+//     */
+//    double pp_phi3_phi1phi2_bblnulnu_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi2\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi2\to b\bar b VV(\ell\ell \nu\nu)]@f$
+//     */
+//    double pp_phi3_phi1phi2_bbVV_TH13;
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2phi2\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
+//     */
+//    double pp_phi3_phi2phi2_bblnulnu_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2phi2\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi2phi2\to b\bar b VV(\ell\ell \nu\nu)]@f$
+//     */
+//    double pp_phi3_phi2phi2_bbVV_TH13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1Z\to b\bar b Z@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar b Z)@f$
+     */
     double gg_phi2_phi1Z_bbZ_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1Z\to b\bar b Z@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar b Z)@f$
+     */
     double gg_phi3_phi1Z_bbZ_TH8;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1Z\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar b \ell \ell)@f$
+     */
     double gg_phi2_phi1Z_bbll_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1Z\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar b \ell \ell)@f$
+     */
     double gg_phi3_phi1Z_bbll_TH8;
-    
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1Z\to \tau\tau Z@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to \tau\tau Z)@f$
+     */
     double gg_phi2_phi1Z_tautauZ_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1Z\to \tau\tau Z@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to \tau\tau Z)@f$
+     */
     double gg_phi3_phi1Z_tautauZ_TH8;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1Z\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to \tau\tau \ell \ell)@f$
+     */
     double gg_phi2_phi1Z_tautaull_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1Z\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to \tau\tau \ell \ell)@f$
+     */
     double gg_phi3_phi1Z_tautaull_TH8;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1Z\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar b \ell \ell)@f$
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to  phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar bZ)@f$
      */
-    double pp_phi3_phi1Z_bbll_TH8;
+    double gg_phi2_phi1Z_bbZ_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1Z\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  phi3}\cdot BR^{\text{GTHDM}}( phi3\to phi1Z\to \tau\tau \ell \ell)@f$
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to  phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar bZ)@f$
      */
-    double pp_phi3_phi1Z_tautaull_TH8;
-    
-    double gg_phi2_phi1Z_bbZ_TH13;
     double gg_phi3_phi1Z_bbZ_TH13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$bb\to phi2\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{bb\to  phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar bZ)@f$
+     */
     double bb_phi2_phi1Z_bbZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$bb\to phi3\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{bb\to  phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar bZ)@f$
+     */
     double bb_phi3_phi1Z_bbZ_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to  phi3\to AZ\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to AZ\to b\bar b \ell \ell)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2 Z\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2 Z\to b\bar b \ell \ell)@f$
      */
     double pp_phi3_phi2Z_bbll_TH8;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to  phi3\to  phi2Z\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  phi3}\cdot BR^{\text{GTHDM}}( phi3\to  phi2 Z\to \tau\tau \ell \ell)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2 Z\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2 Z\to \tau\tau \ell \ell)@f$
      */
     double pp_phi3_phi2Z_tautaull_TH8;
-    
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2 Z\to b\bar b Z@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2 Z\to b\bar b Z)@f$
+     */
     double gg_phi3_phi2Z_bbZ_TH13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$bb\to phi3\to phi2 Z\to b\bar b Z@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{bb\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2 Z\to b\bar b Z)@f$
+     */
     double bb_phi3_phi2Z_bbZ_TH13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to  H^\pm\to \tau\nu@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  H^\pm}\cdot BR^{\text{GTHDM}}( H^\pm\to \tau\nu)@f$
+     */
     double pp_Hpm_taunu_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to  H^+\to \tau\nu@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  H^+}\cdot BR^{\text{GTHDM}}( H^+\to \tau\nu)@f$
+     */
     double pp_Hp_taunu_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to  H^\pm\to \tau\nu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  H^\pm}\cdot BR^{\text{GTHDM}}( H^\pm\to \tau\nu)@f$
+     */
     double pp_Hpm_taunu_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to  H^\pm\to tb@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  H^\pm}\cdot BR^{\text{GTHDM}}( H^\pm\to tb)@f$
+     */
     double pp_Hpm_tb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to  H^+\to tb@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  H^+}\cdot BR^{\text{GTHDM}}( H^+\to tb)@f$
+     */
     double pp_Hp_tb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to  H^\pm\to tb@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  H^\pm}\cdot BR^{\text{GTHDM}}( H^\pm\to tb)@f$
+     */
     double pp_Hpm_tb_TH13;
 
     /**
@@ -1794,489 +2100,243 @@ public:
     double Br_phi2tophi1Z;
     double Br_phi2toHpW;
     double Gammaphi2totSM;
+//
+//       /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi_2 \to \tau\tau@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \tau\tau)@f$
+//     */
+//    double ggF_phi2_tautau_TH8;  
 //    
-//    double THoEX_ggF_phi2_tautau_ATLAS8;
-//    double R_ggF_phi2_tautau_ATLAS8;
-//    double THoEX_ggF_phi2_tautau_CMS8;
-//    double R_ggF_phi2_tautau_CMS8;
-//    double THoEX_bbF_phi2_tautau_ATLAS8;
-//    double R_bbF_phi2_tautau_ATLAS8;
-//    double THoEX_bbF_phi2_tautau_CMS8;
-//    double R_bbF_phi2_tautau_CMS8;
-//    double THoEX_pp_phi2_gaga_ATLAS8;
-//    double R_pp_phi2_gaga_ATLAS8;
-//    double THoEX_ggF_phi2_gaga_CMS8;
-//    double R_ggF_phi2_gaga_CMS8;
+//       /**
+//     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi_2\to \tau\tau@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_2}\cdot BR^{\text{GTHDM}}(phi_2\to \tau\tau)@f$
+//     */
+//    double bbF_phi2_tautau_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi_2\to \gamma\gamma@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \gamma\gamma)@f$
+//     */
+//    double pp_phi2_gaga_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi_2\to \gamma\gamma@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \gamma\gamma)@f$
+//     */
+//    double ggF_phi2_gaga_TH8;
+//
+//      /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to ZZ@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)@f$
+//     */
+//    double ggF_phi2_ZZ_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to ZZ@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
+//     */
+//    double VBF_phi2_ZZ_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to WW@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
+//     */
+//    double ggF_phi2_WW_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to WW@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
+//     */
+//    double VBF_phi2_WW_TH8;
 //    
-//    double THoEX_pp_phi2_Zga_llga_ATLAS8;
-//    double R_pp_phi2_Zga_llga_ATLAS8;
-//    double THoEX_pp_phi2_Zga_llga_CMS8;
-//    double R_pp_phi2_Zga_llga_CMS8;
-//    double THoEX_mu_pp_phi2_VV_CMS8;
-//    double R_mu_pp_phi2_VV_CMS8;
-//    double THoEX_ggF_phi2_ZZ_ATLAS8;
-//    double R_ggF_phi2_ZZ_ATLAS8;
-//    double THoEX_VBF_phi2_ZZ_ATLAS8;
-//    double R_VBF_phi2_ZZ_ATLAS8;
 //    
 //    
-//    double THoEX_ggF_phi2_WW_ATLAS8;
-//    double R_ggF_phi2_WW_ATLAS8;
-//    double THoEX_VBF_phi2_WW_ATLAS8;
-//    double R_VBF_phi2_WW_ATLAS8;
-//    double THoEX_ggF_phi2_phi1phi1_ATLAS8;
-//    double R_ggF_phi2_phi1phi1_ATLAS8;
-//    double THoEX_ggF_phi2_phi2phi2_ATLAS8;
-//    double R_ggF_phi2_phi2phi2_ATLAS8;
-//    double THoEX_ggF_phi2_phi1phi2_ATLAS8;
-//    double R_ggF_phi2_phi1phi2_ATLAS8;
 //    
 //    
-//    double THoEX_pp_phi2_phi1phi1_CMS8;
-//    double R_pp_phi2_phi1phi1_CMS8;
-//    double THoEX_pp_phi2_phi2phi2_CMS8;
-//    double R_pp_phi2_phi2phi2_CMS8;
-//    double THoEX_pp_phi2_phi1phi2_CMS8;
-//    double R_pp_phi2_phi1phi2_CMS8;
-//    double THoEX_ggF_phi2_phi1phi1_bbtautau_CMS8;
-//    double R_ggF_phi2_phi1phi1_bbtautau_CMS8;
-//    double THoEX_pp_phi2_phi1phi1_bbbb_CMS8;
-//    double R_pp_phi2_phi1phi1_bbbb_CMS8;
-//    double THoEX_pp_phi2_phi1phi1_gagabb_CMS8;
-//    
-//    double THoEX_ggF_phi2_phi2phi2_bbtautau_CMS8;
-//    double R_ggF_phi2_phi2phi2_bbtautau_CMS8;
-//    double THoEX_pp_phi2_phi2phi2_bbbb_CMS8;
-//    double R_pp_phi2_phi2phi2_bbbb_CMS8;
-//    double THoEX_pp_phi2_phi2phi2_gagabb_CMS8;
-//    double R_pp_phi2_phi1phi1_gagabb_CMS8;
-//    double R_pp_phi2_phi2phi2_gagabb_CMS8;
-//    
-//      double THoEX_ggF_phi2_phi1phi2_bbtautau_CMS8;
-//    double R_ggF_phi2_phi1phi2_bbtautau_CMS8;
-//    double THoEX_pp_phi2_phi1phi2_bbbb_CMS8;
-//    double R_pp_phi2_phi1phi2_bbbb_CMS8;
-//    double THoEX_pp_phi2_phi1phi2_gagabb_CMS8;
-//    double R_pp_phi2_phi1phi2_gagabb_CMS8;
 //
 //    
-//    double THoEX_ggF_phi2_tt_ATLAS8;
-//    double R_ggF_phi2_tt_ATLAS8;
-//    double THoEX_bbF_phi2_bb_CMS8;
-//    double R_bbF_phi2_bb_CMS8;
-//    double THoEX_pp_phi2_phi1Z_bbll_CMS8;
-//    double R_pp_phi2_phi1Z_bbll_CMS8;
-//    double THoEX_pp_phi2_phi2Z_bbll_CMS8;
-//    double R_pp_phi2_phi2Z_bbll_CMS8;
-//    double THoEX_pp_phi2_phi1Z_tautaull_CMS8;
-//    double R_pp_phi2_phi1Z_tautaull_CMS8;
-//    double THoEX_pp_phi2_phi2Z_tautaull_CMS8;
-//    double R_pp_phi2_phi2Z_tautaull_CMS8;
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to t\bar t@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)@f$
+//     */
+//    double ggF_phi2_tt_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to b\bar b@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)@f$
+//     */
+//    double bbF_phi2_bb_TH8;
+//    
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1Z\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar b \ell \ell)@f$
+//     */
+//    double pp_phi2_phi1Z_bbll_TH8;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1Z\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  phi2}\cdot BR^{\text{GTHDM}}( phi2\to phi1Z\to \tau\tau \ell \ell)@f$
+//     */
+//    double pp_phi2_phi1Z_tautaull_TH8;
+//    
+//
+//  
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1 phi1\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1 phi1\to b\bar b \tau\tau)@f$
+//     */
+//    double ggF_phi2_phi1phi1_bbtautau_TH8;
+//
+//
+//    
+//
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma b\bar b)@f$
+//     */
+//    double pp_phi2_phi1phi1_gagabb_TH8;
+//
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1phi1@f$ at the LHC with 8 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)@f$
+//     */
+//    double ggF_phi2_phi1phi1_TH8;
+//    
+//
+//
+//    
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to \tau\tau@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)@f$
+//     */
+//    double ggF_phi2_tautau_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to \tau\tau@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)@f$
+//     */
+//    double bbF_phi2_tautau_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to \gamma\gamma@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma\gamma)@f$
+//     */
+//    double ggF_phi2_gaga_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to Z\gamma@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma)@f$
+//     */
+//    double pp_phi2_Zga_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to Z\gamma@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma)@f$
+//     */
+//    double ggF_phi2_Zga_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to ZZ@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
+//     */
+//    double ggF_phi2_ZZ_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to ZZ@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
+//     */
+//    double VBF_phi2_ZZ_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to 4\ell)@f$
+//     */
+//    double ggF_phi2_ZZ_llll_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to 4\ell)@f$
+//     */
+//    double VBF_phi2_ZZ_llll_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to 4\ell)@f$
+//     */
+//    double pp_phi2_ZZ_llll_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$VV+Vphi2\to phi2\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{VV+Vphi2\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to 4\ell)@f$
+//     */
+//    double VBF_VH_phi2_ZZ_llll_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to WW@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
+//     */
+//    double ggF_phi2_WW_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to WW@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
+//     */
+//    double VBF_phi2_WW_TH13;
+//    
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$(gg+VV)\to phi2\to WW\to \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{(gg+VV)\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW\to \ell \nu \ell \nu)@f$
+//     */
+//    double ggF_VBF_phi2_WW_lnulnu_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1phi1@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)@f$
+//     */
+//    double ggF_phi2_phi1phi1_TH13;
+//
+//    
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to hh@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to hh)@f$
+//     */
+//    double pp_phi2_phi1phi1_TH13;
+//    
+//  
+//   
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma b\bar b)@f$
+//     */
+//    double pp_phi2_phi1phi1_gagabb_TH13;
+//   
+//
+//    
+//   
+//      /**
+//     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
+//     */
+//    double pp_phi2_phi1phi1_bblnulnu_TH13;
 //    
 //    
-//    double THoEX_ttF_phi2_tt_ATLAS13;
-//    double R_ttF_phi2_tt_ATLAS13;
-//    double THoEX_bbF_phi2_tt_ATLAS13;
-//    double R_bbF_phi2_tt_ATLAS13;
-//    double THoEX_ggF_phi2_tautau_ATLAS13;
-//    double R_ggF_phi2_tautau_ATLAS13;
-//    double THoEX_bbF_phi2_tautau_ATLAS13;
-//    double R_bbF_phi2_tautau_ATLAS13;
-//    double THoEX_ggF_phi2_tautau_CMS13;
-//    double R_ggF_phi2_tautau_CMS13;
-//    double THoEX_bbF_phi2_tautau_CMS13;
-//    double R_bbF_phi2_tautau_CMS13;
-//    double THoEX_pp_phi2_gaga_ATLAS13;
-//    double R_pp_phi2_gaga_ATLAS13;
-//    double THoEX_ggF_phi2_gaga_CMS13;
-//    double R_ggF_phi2_gaga_CMS13;
-//    double THoEX_pp_phi2_Zga_ATLAS13;
-//    double R_pp_phi2_Zga_ATLAS13;
-//    double THoEX_ggF_phi2_Zga_llga_ATLAS13;
-//    double R_ggF_phi2_Zga_llga_ATLAS13;
-//    double THoEX_pp_phi2_Zga_llga_CMS13;
-//    double R_pp_phi2_Zga_llga_CMS13;
-//    double THoEX_pp_phi2_Zga_qqga_CMS13;
-//    double R_pp_phi2_Zga_qqga_CMS13;
-//    double THoEX_ggF_phi2_Zga_CMS13;
-//    double R_ggF_phi2_Zga_CMS13;
-//    double THoEX_ggF_phi2_ZZ_llllnunu_ATLAS13;
-//    double R_ggF_phi2_ZZ_llllnunu_ATLAS13;
-//    double THoEX_VBF_phi2_ZZ_llllnunu_ATLAS13;
-//    double R_VBF_phi2_ZZ_llllnunu_ATLAS13;
-//    double THoEX_ggF_phi2_ZZ_llnunu_ATLAS13;
-//    double R_ggF_phi2_ZZ_llnunu_ATLAS13;
-//    double THoEX_pp_phi2_ZZ_llnunu_CMS13;
-//    double R_pp_phi2_ZZ_llnunu_CMS13;
-//    double THoEX_ggF_phi2_ZZ_llnunu_CMS13;
-//    double R_ggF_phi2_ZZ_llnunu_CMS13;
-//    double THoEX_VBF_phi2_ZZ_llnunu_CMS13;
-//    double R_VBF_phi2_ZZ_llnunu_CMS13;
-//    double THoEX_ggF_phi2_ZZ_llll_ATLAS13;
-//    double R_ggF_phi2_ZZ_llll_ATLAS13;
-//    double THoEX_VBF_phi2_ZZ_llll_ATLAS13;
-//    double R_VBF_phi2_ZZ_llll_ATLAS13;
-//    double THoEX_pp_phi2_ZZ_llll_CMS13;
-//    double R_pp_phi2_ZZ_llll_CMS13;
-//    double THoEX_VBF_VH_phi2_ZZ_llll_CMS13;
-//    double R_VBF_VH_phi2_ZZ_llll_CMS13;
-//    double THoEX_ggF_phi2_ZZ_qqllnunu_ATLAS13;
-//    double R_ggF_phi2_ZZ_qqllnunu_ATLAS13;
-//    double THoEX_VBF_phi2_ZZ_qqllnunu_ATLAS13;
-//    double R_VBF_phi2_ZZ_qqllnunu_ATLAS13;
-//    double THoEX_ggF_phi2_ZZ_llqq_ATLAS13;
-//    double R_ggF_phi2_ZZ_llqq_ATLAS13;
-//    double THoEX_VBF_phi2_ZZ_llqq_ATLAS13;
-//    double R_VBF_phi2_ZZ_llqq_ATLAS13;
-//    double THoEX_ggF_phi2_ZZ_nunuqq_ATLAS13;
-//    double R_ggF_phi2_ZZ_nunuqq_ATLAS13;
-//    double THoEX_pp_phi2_ZZ_llqq_CMS13;
-//    double R_pp_phi2_ZZ_llqq_CMS13;
-//    double THoEX_ggF_phi2_WW_lnuqq_ATLAS13;
-//    double R_ggF_phi2_WW_lnuqq_ATLAS13;
-//    double THoEX_VBF_phi2_WW_lnuqq_ATLAS13;
-//    double R_VBF_phi2_WW_lnuqq_ATLAS13;
-//    double THoEX_ggF_phi2_WW_enumunu_ATLAS13;
-//    double R_ggF_phi2_WW_enumunu_ATLAS13;
-//    double THoEX_VBF_phi2_WW_enumunu_ATLAS13;
-//    double R_VBF_phi2_WW_enumunu_ATLAS13;
-//    double THoEX_ggF_VBF_phi2_WW_lnulnu_CMS13;
-//    double R_ggF_VBF_phi2_WW_lnulnu_CMS13;
-//    double THoEX_pp_phi2_VV_qqqq_ATLAS13;
-//    double R_pp_phi2_VV_qqqq_ATLAS13;
+//
 //    
-//    double THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13;
-//    double R_pp_phi2_phi1phi1_bbgaga_ATLAS13;
-//    double THoEX_pp_phi2_phi1phi1_bbgaga_CMS13;
-//    double R_pp_phi2_phi1phi1_bbgaga_CMS13;
-//    double THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13;
-//    double R_pp_phi2_phi1phi1_bbbb_ATLAS13;
-//    double THoEX_pp_phi2_phi1phi1_bbbb_CMS13;
-//    double R_pp_phi2_phi1phi1_bbbb_CMS13;
-//    double THoEX_ggF_phi2_phi1phi1_bbbb_CMS13;
-//    double R_ggF_phi2_phi1phi1_bbbb_CMS13;
-//    double THoEX_ggF_phi2_phi1phi1_gagaWW_ATLAS13;
-//    double R_ggF_phi2_phi1phi1_gagaWW_ATLAS13;
-//    double THoEX_pp_phi2_phi1phi1_bbtautau_CMS13;
-//    double R_pp_phi2_phi1phi1_bbtautau_CMS13;
-//    double THoEX_pp_phi2_phi1phi1_bbtautau1_CMS13;
-//    double R_pp_phi2_phi1phi1_bbtautau1_CMS13;
-//    double THoEX_pp_phi2_phi1phi1_bblnulnu_CMS13;
-//    double R_pp_phi2_phi1phi1_bblnulnu_CMS13;
-//    double THoEX_pp_phi2_phi1phi1_bbVV_CMS13;
-//    double R_pp_phi2_phi1phi1_bbVV_CMS13;
-//    
-//    
-//    double THoEX_pp_phi2_bb_CMS13;
-//    double R_pp_phi2_bb_CMS13;
-    
-       /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi_2 \to \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \tau\tau)@f$
-     */
-    double ggF_phi2_tautau_TH8;  
-    
-       /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi_2\to \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_2}\cdot BR^{\text{GTHDM}}(phi_2\to \tau\tau)@f$
-     */
-    double bbF_phi2_tautau_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi_2\to \gamma\gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \gamma\gamma)@f$
-     */
-    double pp_phi2_gaga_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi_2\to \gamma\gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \gamma\gamma)@f$
-     */
-    double ggF_phi2_gaga_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi_2\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi_2}\cdot BR^{\text{GTHDM}}(phi_2\to Z\gamma \to \ell \ell \gamma)@f$
-     */
-    double pp_phi2_Zga_llga_TH8;
-
-    /**
-     * @brief Signal strength for the process @f$pp\to phi_2\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
-     * @return @f$\mu_H^{\text{GTHDM}}(phi_2\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_2}\cdot BR^{\text{GTHDM}}(phi_3\to VV)] / [\sigma^{\text{SM}}_{pp\to phi3}\cdot BR^{\text{SM}}(phi3\to VV)]@f$
-     */
-    double mu_pp_phi2_VV_TH8;
-    
-      /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to ZZ@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to ZZ)@f$
-     */
-    double ggF_phi2_ZZ_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to ZZ@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
-     */
-    double VBF_phi2_ZZ_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to WW@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
-     */
-    double ggF_phi2_WW_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to WW@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
-     */
-    double VBF_phi2_WW_TH8;
-    
-    
-    
-    
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)@f$
-     */
-    double pp_phi2_phi1phi1_TH8;
-
-    
-     /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to t\bar t@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)@f$
-     */
-    double ggF_phi2_tt_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)@f$
-     */
-    double bbF_phi2_bb_TH8;
-    
-     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1Z\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar b \ell \ell)@f$
-     */
-    double pp_phi2_phi1Z_bbll_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1Z\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to  phi2}\cdot BR^{\text{GTHDM}}( phi2\to phi1Z\to \tau\tau \ell \ell)@f$
-     */
-    double pp_phi2_phi1Z_tautaull_TH8;
-    
-
-  
-     /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1 phi1\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1 phi1\to b\bar b \tau\tau)@f$
-     */
-    double ggF_phi2_phi1phi1_bbtautau_TH8;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to hh\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to hh\to b\bar b b\bar b)@f$
-     */
-    double pp_phi2_phi1phi1_bbbb_TH8;
-
-    
-
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma b\bar b)@f$
-     */
-    double pp_phi2_phi1phi1_gagabb_TH8;
-
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1phi1@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)@f$
-     */
-    double ggF_phi2_phi1phi1_TH8;
-    
-
-
-    
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)@f$
-     */
-    double ggF_phi2_tautau_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \tau\tau)@f$
-     */
-    double bbF_phi2_tautau_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to \gamma\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma\gamma)@f$
-     */
-    double pp_phi2_gaga_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to \gamma\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to \gamma\gamma)@f$
-     */
-    double ggF_phi2_gaga_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to Z\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma)@f$
-     */
-    double pp_phi2_Zga_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to Z\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to Z\gamma)@f$
-     */
-    double ggF_phi2_Zga_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to ZZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
-     */
-    double pp_phi2_ZZ_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to ZZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
-     */
-    double ggF_phi2_ZZ_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to ZZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ)@f$
-     */
-    double VBF_phi2_ZZ_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to 4\ell)@f$
-     */
-    double ggF_phi2_ZZ_llll_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to 4\ell)@f$
-     */
-    double VBF_phi2_ZZ_llll_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to 4\ell)@f$
-     */
-    double pp_phi2_ZZ_llll_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV+Vphi2\to phi2\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{VV+Vphi2\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to ZZ\to 4\ell)@f$
-     */
-    double VBF_VH_phi2_ZZ_llll_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to WW@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
-     */
-    double ggF_phi2_WW_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to phi2\to WW@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW)@f$
-     */
-    double VBF_phi2_WW_TH13;
-    
-     /**
-     * @brief Cross section times branching ratio for the process @f$(gg+VV)\to phi2\to WW\to \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{(gg+VV)\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to WW\to \ell \nu \ell \nu)@f$
-     */
-    double ggF_VBF_phi2_WW_lnulnu_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to (WW+ZZ)@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot [BR^{\text{GTHDM}}(phi2\to WW)+BR^{\text{GTHDM}}(phi2\to ZZ)]@f$
-     */
-    double pp_phi2_VV_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1phi1@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)@f$
-     */
-    double ggF_phi2_phi1phi1_TH13;
-
-    
-     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to hh@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to hh)@f$
-     */
-    double pp_phi2_phi1phi1_TH13;
-    
-  
-        /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b b\bar b)@f$
-     */
-    double pp_phi2_phi1phi1_bbbb_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b b\bar b)@f$
-     */
-    double ggF_phi2_phi1phi1_bbbb_TH13;
-   
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma b\bar b)@f$
-     */
-    double pp_phi2_phi1phi1_gagabb_TH13;
-   
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b \tau\tau)@f$
-     */
-    double pp_phi2_phi1phi1_bbtautau_TH13;
-    
-   
-      /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
-     */
-    double pp_phi2_phi1phi1_bblnulnu_TH13;
-    
-    
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}[phi2\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)]@f$
-     */
-    double pp_phi2_phi1phi1_bbVV_TH13;
-    
-  
- 
-     /**
-     * @brief Cross section times branching ratio for the process @f$t\bar t\to phi2\to t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{t\bar t\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)@f$
-     */
-    double ttF_phi2_tt_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)@f$
-     */
-    double bbF_phi2_tt_TH13;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to b\bar b)@f$
-     */
-    double pp_phi2_bb_TH13;
-
-
-    
-    
+//  
+// 
+//     /**
+//     * @brief Cross section times branching ratio for the process @f$t\bar t\to phi2\to t\bar t@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{t\bar t\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)@f$
+//     */
+//    double ttF_phi2_tt_TH13;
+//
+//    /**
+//     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi2\to t\bar t@f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to t\bar t)@f$
+//     */
+//    double bbF_phi2_tt_TH13;
 
     double mH1sq;
     double mH2sq;

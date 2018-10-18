@@ -6765,7 +6765,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     bb_phi3_phi1Z_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb;
 
     pp_phi3_phi2Z_bbll_TH8=SigmaSumphi3_8*Br_phi3tophi2Z*Br_phi2tobb*(Br_Ztoee+Br_Ztomumu);
-     pp_phi3_phi2Z_tautaull_TH8=SigmaSumphi3_8*Br_phi3tophi2Z*Br_phi2totautau*(Br_Ztoee+Br_Ztomumu);
+    pp_phi3_phi2Z_tautaull_TH8=SigmaSumphi3_8*Br_phi3tophi2Z*Br_phi2totautau*(Br_Ztoee+Br_Ztomumu);
     gg_phi3_phi2Z_bbZ_TH13=SigmaggF_phi3_13*Br_phi3tophi2Z*Br_phi2tobb;
     bb_phi3_phi2Z_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi2Z*Br_phi2tobb;
 

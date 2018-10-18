@@ -33,7 +33,7 @@ class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
  * @anchor GeneralTHDMParameters
  * <h3>%Model parameters</h3>
  */
-class GeneralTHDM: public StandardModel {
+class GeneralTHDM: public NPbase {
 public:
 
     static const int NGeneralTHDMvars = 66;

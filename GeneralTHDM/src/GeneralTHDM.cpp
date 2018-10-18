@@ -20,7 +20,7 @@ const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mH
 "Nl_31r", "Nl_31i", "Nl_32r", "Nl_32i", "Nl_33r", "Nl_33i", 
 "Q_GTHDM"};
 
-GeneralTHDM::GeneralTHDM() : StandardModel(), GTHDMM(*this) {
+GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
 
     SMM.setObj((StandardModelMatching&) GTHDMM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
