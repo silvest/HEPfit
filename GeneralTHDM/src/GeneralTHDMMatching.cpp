@@ -2965,8 +2965,10 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
 
    
 
-     double mu = log(myGTHDM.getQ_GTHDM()/MW);
-
+    // mu relates the high alignment scale (\Lambda), not know (which can be until the Plank scale), to the electroweak scale
+    //double mu = log(Lambda/MW); 
+    // Lambda is not a paraemeter of the model so now mu is set to 0 -> the model is aligned at the ew scale
+    double mu = 0;
   
     double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambda7H;
     double Relambda7=myGTHDM.getMyGTHDMCache()->Relambda7H;

@@ -401,7 +401,7 @@ double GeneralTHDM::muVBFpVH(const double sqrt_s) const
 }
 
 double GeneralTHDM::muttH(const double sqrt_s) const
-{
+{    
     return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t);
 }
 

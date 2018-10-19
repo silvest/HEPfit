@@ -2393,6 +2393,8 @@ public:
     
     gslpp::complex su, sd, sl;
 
+protected:   
+    
 private:
 
     const GeneralTHDM * myGTHDM;

@@ -99,6 +99,7 @@
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralthdm.a</output>
         </archiverTool>
       </compileType>
       <item path="src/GeneralTHDM.cpp" ex="false" tool="1" flavor2="0">

@@ -215,7 +215,7 @@ GTHDM_VBF_Vh_htocc::GTHDM_VBF_Vh_htocc(const StandardModel& SM_i)
 
 double GTHDM_VBF_Vh_htocc::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->VBF_Vh*(myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_c*myGTHDM.getMyGTHDMCache()->beta_h_c))/myGTHDM.getMyGTHDMCache()->sumModBRs;
+    return myGTHDM.getMyGTHDMCache()->VBF_Vh*(myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_c*myGTHDM.getMyGTHDMCache()->beta_h_t))/myGTHDM.getMyGTHDMCache()->sumModBRs;
 }
 
 
@@ -280,7 +280,7 @@ GTHDM_tth_htobb::GTHDM_tth_htobb(const StandardModel& SM_i)
 
 double GTHDM_tth_htobb::computeThValue()
 {
-    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_c*myGTHDM.getMyGTHDMCache()->beta_h_c))*(myGTHDM.getMyGTHDMCache()->rh_QdQdE + myGTHDM.getMyGTHDMCache()->rh_QdQdO/(myGTHDM.getMyGTHDMCache()->beta_h_b*myGTHDM.getMyGTHDMCache()->beta_h_b))/myGTHDM.getMyGTHDMCache()->sumModBRs;
+    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_t*myGTHDM.getMyGTHDMCache()->beta_h_t))*(myGTHDM.getMyGTHDMCache()->rh_QdQdE + myGTHDM.getMyGTHDMCache()->rh_QdQdO/(myGTHDM.getMyGTHDMCache()->beta_h_b*myGTHDM.getMyGTHDMCache()->beta_h_b))/myGTHDM.getMyGTHDMCache()->sumModBRs;
 }
 
 
@@ -291,7 +291,7 @@ GTHDM_tth_htoWW::GTHDM_tth_htoWW(const StandardModel& SM_i)
 
 double GTHDM_tth_htoWW::computeThValue()
 {
-    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_c*myGTHDM.getMyGTHDMCache()->beta_h_c))*myGTHDM.getMyGTHDMCache()->rh_VV/myGTHDM.getMyGTHDMCache()->sumModBRs;
+    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_t*myGTHDM.getMyGTHDMCache()->beta_h_t))*myGTHDM.getMyGTHDMCache()->rh_VV/myGTHDM.getMyGTHDMCache()->sumModBRs;
 }
 
 
@@ -302,7 +302,7 @@ GTHDM_tth_htotautau::GTHDM_tth_htotautau(const StandardModel& SM_i)
 
 double GTHDM_tth_htotautau::computeThValue()
 {
-    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_c*myGTHDM.getMyGTHDMCache()->beta_h_c))*(myGTHDM.getMyGTHDMCache()->rh_QlQlE + myGTHDM.getMyGTHDMCache()->rh_QlQlO/(myGTHDM.getMyGTHDMCache()->beta_h_tau*myGTHDM.getMyGTHDMCache()->beta_h_tau))/myGTHDM.getMyGTHDMCache()->sumModBRs;
+    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_t*myGTHDM.getMyGTHDMCache()->beta_h_t))*(myGTHDM.getMyGTHDMCache()->rh_QlQlE + myGTHDM.getMyGTHDMCache()->rh_QlQlO/(myGTHDM.getMyGTHDMCache()->beta_h_tau*myGTHDM.getMyGTHDMCache()->beta_h_tau))/myGTHDM.getMyGTHDMCache()->sumModBRs;
 }
 
 
@@ -313,7 +313,7 @@ GTHDM_tth_htoZZ::GTHDM_tth_htoZZ(const StandardModel& SM_i)
 
 double GTHDM_tth_htoZZ::computeThValue()
 {
-    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_c*myGTHDM.getMyGTHDMCache()->beta_h_c))*myGTHDM.getMyGTHDMCache()->rh_VV/myGTHDM.getMyGTHDMCache()->sumModBRs;
+    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_t*myGTHDM.getMyGTHDMCache()->beta_h_t))*myGTHDM.getMyGTHDMCache()->rh_VV/myGTHDM.getMyGTHDMCache()->sumModBRs;
 }
 
 
@@ -324,7 +324,7 @@ GTHDM_tth_htogaga::GTHDM_tth_htogaga(const StandardModel& SM_i)
 
 double GTHDM_tth_htogaga::computeThValue()
 {
-    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_c*myGTHDM.getMyGTHDMCache()->beta_h_c))*myGTHDM.getMyGTHDMCache()->rh_gaga/myGTHDM.getMyGTHDMCache()->sumModBRs;
+    return (myGTHDM.getMyGTHDMCache()->rh_QuQuE + myGTHDM.getMyGTHDMCache()->rh_QuQuO/(myGTHDM.getMyGTHDMCache()->beta_h_t*myGTHDM.getMyGTHDMCache()->beta_h_t))*myGTHDM.getMyGTHDMCache()->rh_gaga/myGTHDM.getMyGTHDMCache()->sumModBRs;
 }
 
 
