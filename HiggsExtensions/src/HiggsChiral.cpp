@@ -13,7 +13,9 @@ const std::string HiggsChiral::HChiralvars[NHChiralvars] = {
 
 HiggsChiral::HiggsChiral()
 : NPbase()
-{
+{    
+    FlagUniversalcf = false;
+    
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cv", boost::cref(cv)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ct", boost::cref(ct)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cb", boost::cref(cb)));
@@ -41,6 +43,18 @@ HiggsChiral::HiggsChiral()
 bool HiggsChiral::PostUpdate()
 {
     if (!NPbase::PostUpdate()) return (false);
+
+//  Check first the flags that control the values of the parameters    
+
+    if (FlagUniversalcf) {
+//  Assign to all cf the value of ct
+        cb = ct;
+        cc = ct;
+        ctau = ct;
+        cmu = ct;
+    }
+
+//  Then the add the values of the loops to the cache
     
     loopComputed = false;
     
@@ -102,6 +116,18 @@ bool HiggsChiral::CheckParameters(const std::map<std::string, double>& DPars)
         }
     }
     return (NPbase::CheckParameters(DPars));
+}
+
+bool HiggsChiral::setFlag(const std::string name, const bool value)
+{
+    bool res = false;
+    if (name.compare("Universalcf") == 0) {
+        FlagUniversalcf = value;
+        res = true;
+    } else
+        res = NPbase::setFlag(name, value);
+
+    return (res);
 }
 
 ////////////////////////////////////////////////////////////////////////
