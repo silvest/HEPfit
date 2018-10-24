@@ -360,6 +360,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambz_HB"] = boost::factory<lambzHB*>();
     //-----  Other useful observables to work with new physics  ----------
     obsThFactory["deltaMW"] = boost::factory<deltaMW*>();
+    obsThFactory["delgZeL"] = boost::factory<delgZeL*>();
+    obsThFactory["delgZeR"] = boost::factory<delgZeR*>();
 
     //-----  Higgs Extension observables  ----------
 

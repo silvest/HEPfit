@@ -1762,6 +1762,12 @@ double lambzHB::computeThValue()
 
 /* -------------------------------------*/
 
+/* -------------------------------------*/
+
+//-----  Relative correction to W mass  ----------
+
+/* -------------------------------------*/
+
 deltaMW::deltaMW(const StandardModel& SM_i):
 
         ThObservable(SM_i), 
@@ -1779,6 +1785,54 @@ double deltaMW::computeThValue()
     double MWSM = SM.Mw();
     
     return dMW/MWSM;
+}
+
+/* -------------------------------------*/
+
+//-----  Absolute correction to some EW couplings (factoring e/sc or e/sqrt(2)s  ----------
+
+/* -------------------------------------*/
+
+/* -------------------------------------*/
+
+delgZeL::delgZeL(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+delgZeL::~delgZeL()
+{}
+
+double delgZeL::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::ELECTRON));
+    double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::ELECTRON));
+    
+    return 0.5*(dgV + dgA);
+}
+
+/* -------------------------------------*/
+
+delgZeR::delgZeR(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+delgZeR::~delgZeR()
+{}
+
+double delgZeR::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::ELECTRON));
+    double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::ELECTRON));
+
+    return 0.5*(dgV - dgA);
 }
 
 /* -------------------------------------*/
