@@ -2884,6 +2884,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_gg_phi2_phi1phi1_ATLAS8"] = boost::factory<Hobs_gg_phi2_phi1phi1_ATLAS8*>();  
     obsThFactory["Hobs_pp_phi2_phi1phi1_bbbb_CMS8"] = boost::factory<Hobs_pp_phi2_phi1phi1_bbbb_CMS8*>();
     obsThFactory["Hobs_pp_phi2_phi1phi1_bbgaga_CMS8"] = boost::factory<Hobs_pp_phi2_phi1phi1_bbgaga_CMS8*>();
+    obsThFactory["Hobs_gg_phi2_phi1phi1_bbtautau_CMS8"] = boost::factory<Hobs_gg_phi2_phi1phi1_bbtautau_CMS8*>();
     obsThFactory["Hobs_pp_phi2_phi1phi1_bbtautau_CMS8"] = boost::factory<Hobs_pp_phi2_phi1phi1_bbtautau_CMS8*>();
     obsThFactory["Hobs_pp_phi2_phi1phi1_bbbb_ATLAS13"] = boost::factory<Hobs_pp_phi2_phi1phi1_bbbb_ATLAS13*>();
     obsThFactory["Hobs_pp_phi2_phi1phi1_bbbb_1_CMS13"] = boost::factory<Hobs_pp_phi2_phi1phi1_bbbb_1_CMS13*>();
@@ -2949,6 +2950,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_gg_phi3_phi1phi1_ATLAS8"] = boost::factory<Hobs_gg_phi3_phi1phi1_ATLAS8*>();  
     obsThFactory["Hobs_pp_phi3_phi1phi1_bbbb_CMS8"] = boost::factory<Hobs_pp_phi3_phi1phi1_bbbb_CMS8*>();
     obsThFactory["Hobs_pp_phi3_phi1phi1_bbgaga_CMS8"] = boost::factory<Hobs_pp_phi3_phi1phi1_bbgaga_CMS8*>();
+    obsThFactory["Hobs_gg_phi3_phi1phi1_bbtautau_CMS8"] = boost::factory<Hobs_gg_phi3_phi1phi1_bbtautau_CMS8*>();
     obsThFactory["Hobs_pp_phi3_phi1phi1_bbtautau_CMS8"] = boost::factory<Hobs_pp_phi3_phi1phi1_bbtautau_CMS8*>();
     obsThFactory["Hobs_pp_phi3_phi1phi1_bbbb_ATLAS13"] = boost::factory<Hobs_pp_phi3_phi1phi1_bbbb_ATLAS13*>();
     obsThFactory["Hobs_pp_phi3_phi1phi1_bbbb_1_CMS13"] = boost::factory<Hobs_pp_phi3_phi1phi1_bbbb_1_CMS13*>();
