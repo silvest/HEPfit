@@ -7,10 +7,12 @@
       <itemPath>src/AFBbottom.h</itemPath>
       <itemPath>src/AFBcharm.h</itemPath>
       <itemPath>src/AFBlepton.h</itemPath>
+      <itemPath>src/AFBstrange.h</itemPath>
       <itemPath>src/Abottom.h</itemPath>
       <itemPath>src/Acharm.h</itemPath>
       <itemPath>src/Alepton.h</itemPath>
       <itemPath>src/AlphaMz.h</itemPath>
+      <itemPath>src/Astrange.h</itemPath>
       <itemPath>src/BrW.h</itemPath>
       <itemPath>src/EWObservables.h</itemPath>
       <itemPath>src/Epsilon1.h</itemPath>
@@ -37,10 +39,12 @@
       <itemPath>src/LEP2test.h</itemPath>
       <itemPath>src/Mw.h</itemPath>
       <itemPath>src/PtauPol.h</itemPath>
+      <itemPath>src/RWc.h</itemPath>
       <itemPath>src/Rbottom.h</itemPath>
       <itemPath>src/Rcharm.h</itemPath>
       <itemPath>src/Rinv.h</itemPath>
       <itemPath>src/Rlepton.h</itemPath>
+      <itemPath>src/Ruc.h</itemPath>
       <itemPath>src/aTGC.h</itemPath>
       <itemPath>src/ee_WW.h</itemPath>
       <itemPath>src/pp_DiBoson.h</itemPath>
@@ -57,10 +61,12 @@
       <itemPath>src/AFBbottom.cpp</itemPath>
       <itemPath>src/AFBcharm.cpp</itemPath>
       <itemPath>src/AFBlepton.cpp</itemPath>
+      <itemPath>src/AFBstrange.cpp</itemPath>
       <itemPath>src/Abottom.cpp</itemPath>
       <itemPath>src/Acharm.cpp</itemPath>
       <itemPath>src/Alepton.cpp</itemPath>
       <itemPath>src/AlphaMz.cpp</itemPath>
+      <itemPath>src/Astrange.cpp</itemPath>
       <itemPath>src/BrW.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>
@@ -81,10 +87,12 @@
       <itemPath>src/LEP2test.cpp</itemPath>
       <itemPath>src/Mw.cpp</itemPath>
       <itemPath>src/PtauPol.cpp</itemPath>
+      <itemPath>src/RWc.cpp</itemPath>
       <itemPath>src/Rbottom.cpp</itemPath>
       <itemPath>src/Rcharm.cpp</itemPath>
       <itemPath>src/Rinv.cpp</itemPath>
       <itemPath>src/Rlepton.cpp</itemPath>
+      <itemPath>src/Ruc.cpp</itemPath>
       <itemPath>src/aTGC.cpp</itemPath>
       <itemPath>src/sigmaHadron.cpp</itemPath>
       <itemPath>src/sin2thetaEff.cpp</itemPath>
@@ -282,6 +290,10 @@
       </item>
       <item path="src/AFBlepton.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/AFBstrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/AFBstrange.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Abottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Abottom.h" ex="false" tool="3" flavor2="0">
@@ -297,6 +309,10 @@
       <item path="src/AlphaMz.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AlphaMz.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Astrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Astrange.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BrW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -390,6 +406,10 @@
       </item>
       <item path="src/PtauPol.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/RWc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RWc.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Rbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rbottom.h" ex="false" tool="3" flavor2="0">
@@ -405,6 +425,10 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Ruc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Ruc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/aTGC.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -492,6 +516,10 @@
       </item>
       <item path="src/AFBlepton.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/AFBstrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/AFBstrange.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Abottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Abottom.h" ex="false" tool="3" flavor2="0">
@@ -507,6 +535,10 @@
       <item path="src/AlphaMz.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AlphaMz.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Astrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Astrange.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BrW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -600,6 +632,10 @@
       </item>
       <item path="src/PtauPol.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/RWc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RWc.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Rbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rbottom.h" ex="false" tool="3" flavor2="0">
@@ -615,6 +651,10 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Ruc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Ruc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/aTGC.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -702,6 +742,10 @@
       </item>
       <item path="src/AFBlepton.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/AFBstrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/AFBstrange.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Abottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Abottom.h" ex="false" tool="3" flavor2="0">
@@ -717,6 +761,10 @@
       <item path="src/AlphaMz.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AlphaMz.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Astrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Astrange.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BrW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -810,6 +858,10 @@
       </item>
       <item path="src/PtauPol.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/RWc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RWc.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Rbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rbottom.h" ex="false" tool="3" flavor2="0">
@@ -825,6 +877,10 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Ruc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Ruc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/aTGC.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1019,6 +1075,10 @@
       </item>
       <item path="src/AFBlepton.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/AFBstrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/AFBstrange.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Abottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Abottom.h" ex="false" tool="3" flavor2="0">
@@ -1034,6 +1094,10 @@
       <item path="src/AlphaMz.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AlphaMz.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Astrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Astrange.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BrW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1127,6 +1191,10 @@
       </item>
       <item path="src/PtauPol.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/RWc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RWc.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Rbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rbottom.h" ex="false" tool="3" flavor2="0">
@@ -1142,6 +1210,10 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Ruc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Ruc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/aTGC.cpp" ex="false" tool="1" flavor2="0">
       </item>

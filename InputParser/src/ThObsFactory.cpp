@@ -117,6 +117,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrWmuon"] = boost::factory<BrWmuon*>();
     obsThFactory["BrWtau"] = boost::factory<BrWtau*>();
     obsThFactory["BrWhadrons"] = boost::factory<BrWhadrons*>();
+    obsThFactory["RWc"] = boost::factory<RWc*>();
     obsThFactory["GammaZ"] = boost::factory<GammaZ*>();
     obsThFactory["sigmaHadron"] = boost::factory<sigmaHadron*>();
     obsThFactory["sin2thetaEff"] = boost::factory<sin2thetaEff*>();
@@ -127,12 +128,14 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Aelectron"] = boost::factory<Aelectron*>();
     obsThFactory["Amuon"] = boost::factory<Amuon*>();
     obsThFactory["Atau"] = boost::factory<Atau*>();
+    obsThFactory["Astrange"] = boost::factory<Astrange*>();
     obsThFactory["Acharm"] = boost::factory<Acharm*>();
     obsThFactory["Abottom"] = boost::factory<Abottom*>();
     obsThFactory["AFBlepton"] = boost::factory<AFBlepton*>();
     obsThFactory["AFBelectron"] = boost::factory<AFBelectron*>();
     obsThFactory["AFBmuon"] = boost::factory<AFBmuon*>();
     obsThFactory["AFBtau"] = boost::factory<AFBtau*>();
+    obsThFactory["AFBstrange"] = boost::factory<AFBstrange*>();
     obsThFactory["AFBcharm"] = boost::factory<AFBcharm*>();
     obsThFactory["AFBbottom"] = boost::factory<AFBbottom*>();
     obsThFactory["Rlepton"] = boost::factory<Rlepton*>();
@@ -140,6 +143,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Rmuon"] = boost::factory<Rmuon*>();
     obsThFactory["Rtau"] = boost::factory<Rtau*>();
     obsThFactory["Rinv"] = boost::factory<Rinv*>();
+    obsThFactory["Ruc"] = boost::factory<Ruc*>();
     obsThFactory["Rcharm"] = boost::factory<Rcharm*>();
     obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
     //-----  Triple gauge coupling observables  -----

@@ -1312,6 +1312,20 @@ double StandardModel::R0_f(const Particle f) const
             return (myApproximateFormulae->X_full_2_loop("R0_tau"));
         else
             return (Gamma_had() / GammaZ(leptons[TAU]));
+    }  else if (f.is("UP")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_full_2_loop("R0_up"));
+        else
+            return (GammaZ(quarks[UP]) / Gamma_had());
+
+    }  else if (f.is("STRANGE")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_full_2_loop("R0_strange"));
+        else
+            return (GammaZ(quarks[STRANGE]) / Gamma_had());
+
     }  else if (f.is("CHARM")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
