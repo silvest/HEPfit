@@ -370,3 +370,34 @@ double GTHDM_mu_htoZga::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->pph13*myGTHDM.getMyGTHDMCache()->rh_Zga/myGTHDM.getMyGTHDMCache()->sumModBRs;
 }
+
+
+rh_gg_GTHDM::rh_gg_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double rh_gg_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->rh_gg;
+}
+
+
+rh_gaga_GTHDM::rh_gaga_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double rh_gaga_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->rh_gaga;
+}
+
+
+rh_Zga_GTHDM::rh_Zga_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double rh_Zga_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->rh_Zga;
+}
+

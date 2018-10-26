@@ -739,4 +739,70 @@ private:
 
 
 
+/**
+ * @class rh_gg_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Squared relative coupling of @f$h@f$ to two gluons.
+ */
+class rh_gg_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    rh_gg_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$r^{(h)}_{gg}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+}; 
+
+    /**
+ * @class rh_gaga_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Squared relative coupling of @f$h@f$ to two photons.
+ */
+class rh_gaga_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    rh_gaga_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$r^{(h)}_{\gamma \gamma}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+}; 
+    
+        /**
+ * @class rh_Zga_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Squared relative coupling of @f$h@f$ to a Z and a photon.
+ */
+class rh_Zga_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    rh_Zga_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$r^{(h)}_{Z\gamma}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+}; 
+
+
+
+
 #endif /* GENERALTHDMLIGHTHIGGS_H */
