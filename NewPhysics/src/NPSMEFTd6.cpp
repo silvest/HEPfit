@@ -795,6 +795,9 @@ bool NPSMEFTd6::PostUpdate()
     cW2_tree = cW_tree * cW_tree;
     sW2_tree = 1.0 - cW2_tree;
     sW_tree = sqrt(sW2_tree);
+    
+    g1_tree = eeMz/cW_tree;
+    g2_tree = eeMz/sW_tree;
 
     Yuke = sqrt(2.) * (leptons[ELECTRON].getMass()) / v();
     Yukmu = sqrt(2.) * (leptons[MU].getMass()) / v();
@@ -12179,10 +12182,13 @@ double NPSMEFTd6::ppZHprobe(const double sqrt_s) const
     
     double ghZuL,ghZdL,ghZuR,ghZdR;
     
-    ghZuL = -(eeMz/sW_tree/cW_tree)*(CHQ1_11 - CHQ3_11) * v2_over_LambdaNP2;
-    ghZdL = -(eeMz/sW_tree/cW_tree)*(CHQ1_11 + CHQ3_11) * v2_over_LambdaNP2;
-    ghZuR = -(eeMz/sW_tree/cW_tree)*CHu_11 * v2_over_LambdaNP2;
-    ghZdR = -(eeMz/sW_tree/cW_tree)*CHd_11 * v2_over_LambdaNP2;   
+    // In the Warsaw basis the contact interactions are generated only by CHF ops but
+    // in the modified basis ODHB, ODHW also contribute
+    
+    ghZuL = -(eeMz/sW_tree/cW_tree)*(CHQ1_11 - CHQ3_11 + g1_tree * (1.0/12.0) * CDHB - (g2_tree/4.0) * CDHW) * v2_over_LambdaNP2;
+    ghZdL = -(eeMz/sW_tree/cW_tree)*(CHQ1_11 + CHQ3_11 + g1_tree * (1.0/12.0) * CDHB + (g2_tree/4.0) * CDHW) * v2_over_LambdaNP2;
+    ghZuR = -(eeMz/sW_tree/cW_tree)*(CHu_11 + g1_tree * (1.0/3.0) * CDHB) * v2_over_LambdaNP2;
+    ghZdR = -(eeMz/sW_tree/cW_tree)*(CHd_11 - g1_tree * (1.0/6.0) * CDHB) * v2_over_LambdaNP2;   
     
     if (sqrt_s == 100.0) {
          
@@ -12202,7 +12208,10 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     
     double cHWp = 0.0;
     
-    cHWp = (sW2_tree/eeMz2) * CHQ3_11 / LambdaNP2;
+    // In the Warsaw basis the contact interactions are generated only by CHQ3 but
+    // in the modified basis ODHW also contribute
+    
+    cHWp = (sW2_tree/eeMz2) * (CHQ3_11 + (g2_tree/4.0) * CDHW) / LambdaNP2;
 
 //  Bin dependences assuming cutoff of the EFT at 5 TeV
 //  Normalize to the total number of events to remove the dependence on Lumi

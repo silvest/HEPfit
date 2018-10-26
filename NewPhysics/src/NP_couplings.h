@@ -3024,6 +3024,9 @@ private:
 
 //-----  Other useful observables to work with new physics  ----------
 
+
+//-----  Relative correction to W mass  ----------
+
 /**
  * @class deltaMW
  * @brief An observable class for the deviation from the SM of the @f$W@f$ mass
@@ -3060,6 +3063,85 @@ private:
 
 
 };
+
+//-----  Absolute correction to some EW couplings (factoring e/sc or e/sqrt(2)s  ----------
+
+/**
+ * @class delgZeL
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
+ * @f$\delta g_{Zee}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z e_{L} e_{L}@f$ coupling
+ * @f$\delta g_{Zee}^{L}@f$.
+ *
+ */
+class delgZeL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    delgZeL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the delgZeL class.
+     */
+    virtual ~delgZeL();
+
+    /**
+     * @brief The absolute deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
+     * @f$\delta g_{Zee}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zee}^{L}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class delgZeR
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
+ * @f$\delta g_{Zee}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z e_{R} e_{R}@f$ coupling
+ * @f$\delta g_{Zee}^{R}@f$.
+ *
+ */
+class delgZeR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    delgZeR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the delgZeL class.
+     */
+    virtual ~delgZeR();
+
+    /**
+     * @brief The absolute deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
+     * @f$\delta g_{Zee}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zee}^{R}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
 
 
 #endif	/* NPCOUPLINGS_H */

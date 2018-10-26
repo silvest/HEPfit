@@ -74,6 +74,25 @@
  * </tr>
  * </table>
  * 
+ * @anchor HiggsChiralFlags
+ * <h3>%Model flags</h3>
+ *
+ * The Flags of HiggsChiral are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>Value</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Universalcf</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if all cf are assumed to take the same 
+ *   universal value. The value is controlled by the parameter ct.
+ *   The default value is FALSE.</td>
+ * </tr>
+ * </table>
+ * 
  */
 class HiggsChiral : public NPbase {
 public:
@@ -103,6 +122,14 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PostUpdate();
+    
+    /**
+     * @brief A method to set a flag of %HiggsChiral.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool setFlag(const std::string name, const bool value);
 
     /**
      * @brief .
@@ -1284,6 +1311,9 @@ private:
     double cga_loop;
     double cZga_loop;
     bool loopComputed;
+    
+    bool FlagUniversalcf; ///< A boolean flag that is true if all cf take the same universal value.
+
 };
 
 #endif	/* HIGGSCHIRAL_H */

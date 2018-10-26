@@ -3585,8 +3585,12 @@ protected:
     double eeMz2;///< The em coupling squared (at Mz).
     double cW_tree;///< The tree level values for the cosine of the weak angle.
     double sW_tree;///< The tree level values for the sine of the weak angle.
-    double cW2_tree;///< The sqaure of the tree level values for the cosine of the weak angle.
-    double sW2_tree;///< The sqaure of the tree level values for the sine of the weak angle.
+    double cW2_tree;///< The squqre of the tree level values for the cosine of the weak angle.
+    double sW2_tree;///< The squqre of the tree level values for the sine of the weak angle.
+    
+    double g1_tree;///< The tree level value of the \f$U(1)_Y\f$ gauge coupling contant (at the \f$Z\f$ pole).
+    double g2_tree;///< The tree level value of the \f$SU(2)_L\f$ gauge coupling contant (at the \f$Z\f$ pole).
+    
     double delta_ZZ;///< Combination of dimension 6 coefficients modifying the \f$Z_\mu\f$ canonical field definition.
     double delta_AA;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.
     double delta_AZ;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.

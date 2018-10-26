@@ -2690,13 +2690,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
                      * (sd*su*(2.0*(xtH-1.0)-(xtH+1.0)*log(xtH)) //sd*su = sigd*sigu.conjugate()
                         + (2.0*xt*xt*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)*log(xt)/(xt-1.0)
                            +2.0*xt*(xtH-1.0)*((xt-xtH)*(xtH-1.0)+(xtH-xt*xtH)*log(xtH)))/((xt-1.0)*(xt-xtH)*xtH));
-
-//    std::cout<<"SWH = "<<SWH<<std::endl;
-//    std::cout<<"SHH = "<<SHH<<std::endl;
-//    std::cout<<"tanb = "<<tanb<<std::endl;
-//    std::cout<<"mHp2 = "<<mHp2<<std::endl;
-//    std::cout<<"xt * (SWH+SHH) = "<<xt * (SWH+SHH)<<std::endl;
-
+    
     vmcds = StandardModelMatching::CMdbs2();
     mcdbs2.setMu(Mut);
 

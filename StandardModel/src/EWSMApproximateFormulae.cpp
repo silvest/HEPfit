@@ -917,6 +917,14 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         ThError = mycache.getSM().getDelR0l();        
         return X_extended("Gamma_had")/X_extended("Gamma_tau") + ThError;
 
+    } else if (observable.compare("R0_up") == 0) {
+        ThError = 0.0; // Set to zero for the moment       
+        return X_extended("Gamma_u")/X_extended("Gamma_had") + ThError;
+
+    } else if (observable.compare("R0_strange") == 0) {
+        ThError = 0.0; // Set to zero for the moment       
+        return X_extended("Gamma_d_s")/X_extended("Gamma_had") + ThError;
+
     } else if (observable.compare("R0_charm") == 0) {
         X0 = 172.23;
         a1 = -0.034;
@@ -1099,15 +1107,23 @@ double EWSMApproximateFormulae::X_full_2_loop(const std::string observable) cons
         ThError = mycache.getSM().getDelR0l();
     } else if (observable.compare("R0_electron") == 0) {
         ThError = mycache.getSM().getDelR0l();        
-        return X_extended("Gamma_had")/X_extended("Gamma_e_mu") + ThError;
+        return X_full_2_loop("Gamma_had")/X_full_2_loop("Gamma_e_mu") + ThError;
 
     } else if (observable.compare("R0_muon") == 0) {
         ThError = mycache.getSM().getDelR0l();        
-        return X_extended("Gamma_had")/X_extended("Gamma_e_mu") + ThError;
+        return X_full_2_loop("Gamma_had")/X_full_2_loop("Gamma_e_mu") + ThError;
 
     } else if (observable.compare("R0_tau") == 0) {
         ThError = mycache.getSM().getDelR0l();        
-        return X_extended("Gamma_had")/X_extended("Gamma_tau") + ThError;
+        return X_full_2_loop("Gamma_had")/X_full_2_loop("Gamma_tau") + ThError;
+
+    } else if (observable.compare("R0_up") == 0) {
+        ThError = 0.0; // Set to zero for the moment        
+        return X_full_2_loop("Gamma_u")/X_full_2_loop("Gamma_had") + ThError;
+
+    } else if (observable.compare("R0_strange") == 0) {
+        ThError = 0.0; // Set to zero for the moment        
+        return X_full_2_loop("Gamma_d_s")/X_full_2_loop("Gamma_had") + ThError;
 
     } else if (observable.compare("R0_charm") == 0) {
         X0 = 172.22;

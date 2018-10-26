@@ -16,6 +16,7 @@ HiggsKigen::HiggsKigen()
 {
     FlagKiLoop = true;
     FlagCustodial = false;
+    FlagUniversalKf = false;
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kw", boost::cref(Kw)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kz", boost::cref(Kz)));
@@ -38,15 +39,32 @@ HiggsKigen::HiggsKigen()
 bool HiggsKigen::PostUpdate()
 {
     if (!NPbase::PostUpdate()) return (false);
+
+//  Check first the flags that control the values of the parameters 
+    
+    if (FlagCustodial) {
+//  Assign to all Kz the value of Kw
+        Kz = Kw;
+    }
+    
+    if (FlagUniversalKf) {
+//  Assign to all Kf the value of Kt
+        Ku = Kt;
+        Kc = Kt;
+        Kd = Kt;
+        Ks = Kt;
+        Kb = Kt;
+        Ke = Kt;
+        Kmu = Kt;
+        Ktau = Kt;
+    }
+
+//  Then the flag to add the values of the loops to the cache  
     
     if (!FlagKiLoop) {
         Kg = computeKgLoop();
         Kga = computeKgagaLoop();
         Kzga = computeKZgaLoop();
-    }
-
-    if (FlagCustodial) {
-        Kz = Kw;
     }
 
     return (true);
@@ -111,6 +129,9 @@ bool HiggsKigen::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("Custodial") == 0) {
         FlagCustodial = value;
+        res = true;
+    } else if (name.compare("UniversalKf") == 0) {
+        FlagUniversalKf = value;
         res = true;
     } else
         res = NPbase::setFlag(name, value);
