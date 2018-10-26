@@ -131,6 +131,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muw", boost::cref(muw)));
     
     iterationNo = 0;
+    realorder = LO;
 
     w_GSL1 = gsl_integration_workspace_alloc (200);
 }
@@ -599,10 +600,31 @@ double StandardModel::Beta_e(int nm, unsigned int nf) const
 
 double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) const
 {
+    switch (order)
+    {
+        case LO:
+            realorder = order;
+            return AlsByOrder(mu, LO, qed_flag, Nf_thr);
+        case FULLNLO:
+            realorder = order;
+            return (AlsByOrder(mu, LO, qed_flag, Nf_thr) + AlsByOrder(mu, NLO, qed_flag, Nf_thr));
+        case FULLNNLO:
+            realorder = order;
+            return (AlsByOrder(mu, LO, qed_flag, Nf_thr) + AlsByOrder(mu, NLO, qed_flag, Nf_thr) + AlsByOrder(mu, NNLO, qed_flag, Nf_thr));
+        case FULLNNNLO:
+            realorder = order;
+            return (AlsByOrder(mu, LO, qed_flag, Nf_thr) + AlsByOrder(mu, NLO, qed_flag, Nf_thr) + AlsByOrder(mu, NNLO, qed_flag, Nf_thr) + AlsByOrder(mu, NNNLO, qed_flag, Nf_thr));
+        default:
+            throw std::runtime_error("StandardModel::Als(): " + orderToString(order) + " is not implemented.");
+    }
+}
+
+double StandardModel::AlsByOrder(double mu, orders order, bool qed_flag, bool Nf_thr) const
+{
     int i, nfAls = (int) Nf(Mz), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
     double als, alstmp, mutmp;
     orders fullord;
-
+    
     for (i = 0; i < CacheSize; ++i)
         if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
                 (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
@@ -613,12 +635,6 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
 
     switch (order)
     {
-        case FULLNLO:
-            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr));
-        case FULLNNLO:
-            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr) + Als(mu, NNLO, qed_flag, Nf_thr));
-        case FULLNNNLO:
-            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr) + Als(mu, NNLO, qed_flag, Nf_thr) + Als(mu, NNNLO, qed_flag, Nf_thr));
         case LO:
         case NLO:
         case NNLO:
@@ -628,11 +644,11 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
             fullord = FullOrder(order);
             if (nfAls > nfmu) {
                 mutmp = BelowTh(Mz);
-                alstmp = AlsWithInit(mutmp, AlsMz, Mz, fullord, qed_flag);
+                alstmp = AlsWithInit(mutmp, AlsMz, Mz, realorder, qed_flag);
                 alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls - 1; i > nfmu; i--) {
                     mutmp = BelowTh(mutmp - MEPS);
-                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, fullord, qed_flag);
+                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, realorder, qed_flag);
                     alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
                 }
                 als = AlsWithInit(mu, alstmp, AboveTh(mu) - MEPS, order, qed_flag);
@@ -640,11 +656,11 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
 
             if (nfAls < nfmu) {
                 mutmp = AboveTh(Mz) - MEPS;
-                alstmp = AlsWithInit(mutmp, AlsMz, Mz, fullord, qed_flag);
+                alstmp = AlsWithInit(mutmp, AlsMz, Mz, realorder, qed_flag);
                 alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls + 1; i < nfmu; i++) {
                     mutmp = AboveTh(mutmp) - MEPS;
-                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, fullord, qed_flag); 
+                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, realorder, qed_flag); 
                     alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
                 }
                 als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order, qed_flag);

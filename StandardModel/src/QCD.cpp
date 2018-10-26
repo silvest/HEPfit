@@ -78,6 +78,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mut", boost::cref(mut)));   
 
     unknownParameterWarning = true;
+    realorder = LO;
 }
 
 std::string QCD::orderToString(const orders order) const
@@ -622,11 +623,33 @@ double QCD::MassOfNf(int nf) const
     }
 }
 
-double QCD::Als(const double mu, const orders order, bool Nf_thr) const {
+double QCD::Als(const double mu, const orders order, bool Nf_thr) const 
+{
+    switch (order)
+    {
+        case LO:
+            realorder = order;
+            return AlsByOrder(mu, LO, Nf_thr);
+        case FULLNLO:
+            realorder = order;
+            return (AlsByOrder(mu, LO, Nf_thr) + AlsByOrder(mu, NLO, Nf_thr));
+        case FULLNNLO:
+            realorder = order;
+            return (AlsByOrder(mu, LO, Nf_thr) + AlsByOrder(mu, NLO, Nf_thr) + AlsByOrder(mu, NNLO, Nf_thr));
+        case FULLNNNLO:
+            realorder = order;
+            return (AlsByOrder(mu, LO, Nf_thr) + AlsByOrder(mu, NLO, Nf_thr) + AlsByOrder(mu, NNLO, Nf_thr) + AlsByOrder(mu, NNNLO, Nf_thr));
+        default:
+            throw std::runtime_error("QCD::Als(): " + orderToString(order) + " is not implemented.");
+    }
+}
+
+double QCD::AlsByOrder(const double mu, const orders order, bool Nf_thr) const 
+{
     int i, nfAls = (int) Nf(MAls), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
     double als, alstmp, mutmp;
     orders fullord;
-
+    
     for (i = 0; i < CacheSize; ++i)
         if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
                 (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
@@ -636,12 +659,6 @@ double QCD::Als(const double mu, const orders order, bool Nf_thr) const {
 
     switch (order)
     {
-        case FULLNLO:
-            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr));
-        case FULLNNLO:
-            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr) + Als(mu, NNLO, Nf_thr));
-        case FULLNNNLO:
-            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr) + Als(mu, NNLO, Nf_thr) + Als(mu, NNNLO, Nf_thr));
         case LO:
         case NLO:
         case NNLO:
@@ -651,11 +668,11 @@ double QCD::Als(const double mu, const orders order, bool Nf_thr) const {
             fullord = FullOrder(order);
             if (nfAls > nfmu) {
                 mutmp = BelowTh(MAls);
-                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord);
+                alstmp = AlsWithInit(mutmp, AlsM, MAls, realorder);
                 alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord));
                 for (i = nfAls - 1; i > nfmu; i--) {
                     mutmp = BelowTh(mutmp - MEPS);
-                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, fullord);
+                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, realorder);
                     alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord));
                 }
                 als = AlsWithInit(mu, alstmp, AboveTh(mu) - MEPS, order);
@@ -663,11 +680,11 @@ double QCD::Als(const double mu, const orders order, bool Nf_thr) const {
 
             if (nfAls < nfmu) {
                 mutmp = AboveTh(MAls) - MEPS;
-                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord);
+                alstmp = AlsWithInit(mutmp, AlsM, MAls, realorder);
                 alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord));
                 for (i = nfAls + 1; i < nfmu; i++) {
                     mutmp = AboveTh(mutmp) - MEPS;
-                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, fullord);
+                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, realorder);
                     alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord));
                 }
                 als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order);

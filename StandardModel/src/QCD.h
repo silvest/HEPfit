@@ -1067,6 +1067,7 @@ public:
      */
     double AlsOLD(const double mu, const orders order = FULLNLO) const;
     virtual double Als(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
+    virtual double AlsByOrder(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
 
     /**
      * @brief Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV.
@@ -1240,6 +1241,7 @@ private:
     std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.
     mutable std::map<const QCD::meson, Meson> mesonsMap;///< The map of defined mesons.
     bool FlagCsi; ///< A flag to determine whether \f$B_{B_s}\f$ and \f$B_{B_s}/B_{B_d}\f$ or \f$F_{B_s}\sqrt{B_{B_s}}\f$ (false) and \f$\csi \equiv F_{B_s}\sqrt{B_{B_s}}/(F_{B_d}\sqrt{B_{B_d}})\f$ (default, true) are used as inputs.
+    mutable orders realorder;
 
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.

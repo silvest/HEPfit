@@ -1101,6 +1101,7 @@ public:
 #pragma clang diagnostic ignored "-Woverloaded-virtual"
 #endif
     double Als(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
+    double AlsByOrder(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
@@ -3162,6 +3163,7 @@ private:
     static const int CacheSize = 5; ///< Defines the depth of the cache.
     mutable double als_cache[11][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double ale_cache[10][CacheSize]; ///< Cache for \f$\alpha_e\f$.
+    mutable orders realorder;
 
 
 };
