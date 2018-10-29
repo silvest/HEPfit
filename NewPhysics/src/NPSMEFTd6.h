@@ -3579,18 +3579,27 @@ protected:
     double dKappaga; ///< Independent contribution to aTGC.    
     double lambZ; ///< Independent contribution to aTGC.
     
+    double v2;///< The square of the EW vev.
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
     double aleMz;///< The em constant at Mz. 
     double eeMz;///< The em coupling at Mz.
     double eeMz2;///< The em coupling squared (at Mz).
     double cW_tree;///< The tree level values for the cosine of the weak angle.
     double sW_tree;///< The tree level values for the sine of the weak angle.
-    double cW2_tree;///< The squqre of the tree level values for the cosine of the weak angle.
-    double sW2_tree;///< The squqre of the tree level values for the sine of the weak angle.
+    double cW2_tree;///< The square of the tree level values for the cosine of the weak angle.
+    double sW2_tree;///< The square of the tree level values for the sine of the weak angle.
     
     double g1_tree;///< The tree level value of the \f$U(1)_Y\f$ gauge coupling contant (at the \f$Z\f$ pole).
     double g2_tree;///< The tree level value of the \f$SU(2)_L\f$ gauge coupling contant (at the \f$Z\f$ pole).
     
+    double gZvL;///< The tree level value of the \f$Z\bar{\nu}\nu\f$ couplings in the SM.
+    double gZlL,gZlR;///< The tree level value of the \f$Z\ell^+\ell^-\f$ couplings in the SM.
+    double gZuL,gZuR;///< The tree level value of the \f$Z\bar{u}u\f$ couplings in the SM.
+    double gZdL,gZdR;///< The tree level value of the \f$Z\bar{d}d\f$ couplings in the SM.
+    
+    double UevL;///< The tree level value of the \f$W^-\bar{\ell}\nu\f$ couplings in the SM. (Neglecting PMNS effects.)
+    double VudL;///< The tree level value of the \f$W^+\bar{u}d\f$ couplings in the SM. (Neglecting CKM effects.)
+        
     double delta_ZZ;///< Combination of dimension 6 coefficients modifying the \f$Z_\mu\f$ canonical field definition.
     double delta_AA;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.
     double delta_AZ;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.
