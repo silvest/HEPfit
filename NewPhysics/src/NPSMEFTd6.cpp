@@ -11023,7 +11023,7 @@ double NPSMEFTd6::deltaGammaHZZ4fRatio1() const
             Nc * ( 3.0*( gZdL*gZdL + gZdR*gZdR ) + 2.0*( gZuL*gZuL + gZuR*gZuR ) )           
             );
     
-    sf = 11267.6 * (1.0/3.0) * (            
+    sf = -11267.6 * (1.0/3.0) * (            
             3.0*( gZvL*gZvL + gZlL*gZlL + gZlR*gZlR ) +
             Nc * ( 3.0*( gZdL*gZdL + gZdR*gZdR ) + 2.0*( gZuL*gZuL + gZuR*gZuR ) )           
             );
