@@ -649,6 +649,13 @@ public:
      * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
      */
     virtual double BrHbbRatio() const;
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to invisible)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to invisible)@f$/Br@f$(H\to ZZ \to invisible)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHtoinvRatio() const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs

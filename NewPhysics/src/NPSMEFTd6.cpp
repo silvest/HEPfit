@@ -11463,7 +11463,12 @@ double NPSMEFTd6::Br_H_exo() const
 
 double NPSMEFTd6::Br_H_inv() const
 {    
-    return BrHinv;
+//  Contributions from both modifications in H->ZZ->4v and the extra invisible decays
+    double BR4v;
+    
+    BR4v = BrHZZ4vRatio()*(trueSM.computeBrHtoZZinv());
+    
+    return BR4v + BrHinv;
 }
 
 
@@ -11510,6 +11515,12 @@ double NPSMEFTd6::BrHvisRatio() const
     if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
+}
+
+
+double NPSMEFTd6::BrHtoinvRatio() const
+{        
+    return (Br_H_inv()/(trueSM.computeBrHtoZZinv()));
 }
 
 

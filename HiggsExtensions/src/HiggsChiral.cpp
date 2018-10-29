@@ -639,6 +639,13 @@ double HiggsChiral::BrHbbRatio() const
     return (computecb() * computecb() / computeGammaTotalRatio());
 }
 
+double HiggsChiral::BrHtoinvRatio() const
+{
+//    No extra decays so it scales as the H->ZZ
+    
+    return BrHZZRatio();
+}
+
 double HiggsChiral::muggHgaga(const double sqrt_s) const
 {
     return computecg() * computecg() * computecgaga() * computecgaga() / computeGammaTotalRatio();

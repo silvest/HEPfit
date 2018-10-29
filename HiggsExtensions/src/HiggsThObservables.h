@@ -1078,6 +1078,43 @@ private:
 
 
 /**
+ * @class BrHtoinvRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to invisible)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to invisible)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoinvRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoinvRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoinvRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to invisible)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to invisible)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHtoinvRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
  * @class BrHinvisible
  * @ingroup HiggsExtensions
  * @brief A class for computing the branching ratio of Higgs decays into 
