@@ -4940,6 +4940,49 @@ private:
 
 
 /**
+ * @class mueeZHBRinv
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the quantity @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the quantity @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$, i.e.
+ * the ratio between the @f$e^+e^- \to ZH@f$ 
+ * associated production cross-section in the current model and 
+ * the SM, times the total invisible branching ratio.
+ */
+class mueeZHBRinv : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mueeZHBRinv(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("mueeZHBRinv called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$ in the current model.
+     * @return @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$
+     */
+    double computeThValue()
+    {
+        
+        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->Br_H_inv());
+            
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
  * @class mueeZHinv
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$.
@@ -4947,8 +4990,7 @@ private:
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$ between the 
  * @f$e^+e^- \to ZH, H \to invisible@f$ 
- * associated production cross-section in the current model and 
- * the SM @f$e^+e^- \to ZH@f total cross section.
+ * associated production cross-section in the current model and the SM.
  */
 class mueeZHinv : public ThObservable {
 public:
@@ -4970,10 +5012,14 @@ public:
      * @return @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$
      */
     double computeThValue()
-    {
+    {    
         
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->Br_H_inv());
-            
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHtoinvRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHtoinvRatio());
+        } 
+        
     }
 
 private:
@@ -5341,6 +5387,48 @@ private:
     const double sqrt_s, Pol_em, Pol_ep;
 };
 
+/**
+ * @class mueeZHBRinvPol
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the quantity @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the quantity @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$, i.e.
+ * the ratio between the @f$e^+e^- \to ZH@f$ 
+ * associated production cross-section in the current model and 
+ * the SM, times the total invisible branching ratio.
+ */
+class mueeZHBRinvPol : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
+     */
+    mueeZHBRinvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("mueeZHBRinvPol called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$ in the current model.
+     * @return @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$
+     */
+    double computeThValue()
+    {  
+        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->Br_H_inv());
+            
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s, Pol_em, Pol_ep;
+};
+
 
 /**
  * @class mueeZHinvPol
@@ -5350,8 +5438,7 @@ private:
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$ between the 
  * @f$e^+e^- \to ZH, H \to invisible@f$ 
- * associated production cross-section in the current model and 
- * the SM @f$e^+e^- \to ZH@f total cross section.
+ * associated production cross-section in the current model and the SM.
  */
 class mueeZHinvPol : public ThObservable {
 public:
@@ -5375,7 +5462,12 @@ public:
      */
     double computeThValue()
     {  
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->Br_H_inv());
+        
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHtoinvRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHtoinvRatio());
+        }
             
     }
 
