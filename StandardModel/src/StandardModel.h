@@ -1877,11 +1877,9 @@ public:
     /**
      * @brief The ggH cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official N3LO numbers a la CERN Report 4 2016 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
-     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
-     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
+     * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
+     * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -1896,11 +1894,11 @@ public:
             return 19.24; // in pb for Mh=125.1 GeV
             //return 19.09; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 48.51; // in pb for Mh=125.1 GeV            
+            return 48.61; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 14.0) {
-            return 54.60; // in pb for Mh=125.1 GeV     
+            return 54.72; // in pb for Mh=125.09 GeV     
         } else if (sqrt_s == 27.0) {
-            return 151.6; // in pb
+            return 146.65; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 100.0) {
             return 740.3; // in pb for Mh=125. GeV            
         } else if (sqrt_s == 1.96) {
@@ -1999,11 +1997,9 @@ public:
     /**
      * @brief The VBF cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
-     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
-     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
+     * For the 7, 8, 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
+     * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2012,17 +2008,15 @@ public:
     double computeSigmaVBF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 1.222; // in pb for Mh=125.1 GeV
-            //return 1.214; // in pb for Mh=125.6 GeV
+            return 1.241; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 8.0) {
-            return 1.579; // in pb for Mh=125.1 GeV
-            //return 1.572; // in pb for Mh=125.6 GeV
+            return 1.601; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 13.0) {
-            return 3.779; // in pb for Mh=125.1 GeV            
+            return 3.766; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 14.0) {
-            return 4.275; // in pb for Mh=125.1 GeV            
+            return 4.260; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
-            return 12.41; // in pb
+            return 11.838; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 100.0) {
             return 82.0; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2100,11 +2094,9 @@ public:
     /**
      * @brief The WH production cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
-     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
-     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
+     * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
+     * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2119,11 +2111,11 @@ public:
             return 0.7027; // in pb for Mh=125.1 GeV
             //return 0.6931; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 1.369; // in pb for Mh=125.1 GeV            
+            return 1.358; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 14.0) {
-            return 1.510; // in pb for Mh=125.1 GeV            
+            return 1.498; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
-            return 3.4; // in pb for Mh=125.09 GeV
+            return 3.397; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 100.0) {
             return 15.9; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2135,11 +2127,9 @@ public:
     /**
      * @brief The ZH production cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
-     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
-     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
+     * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
+     * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2154,11 +2144,11 @@ public:
             return 0.4142; // in pb for Mh=125.1 GeV
             //return 0.4091; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 0.8819; // in pb for Mh=125.1 GeV            
+            return 0.880; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 14.0) {
-            return 0.9835; // in pb for Mh=125.1 GeV   
+            return 0.981; // in pb for Mh=125.09 GeV   
         } else if (sqrt_s == 27.0) {
-            return 2.47; // in pb for Mh=125.09 GeV        
+            return 2.463; // in pb for Mh=125.09 GeV        
         } else if (sqrt_s == 100.0) {
             return 11.26; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2170,11 +2160,12 @@ public:
     /**
      * @brief The ttH production cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * For the 13 TeV values we use the official numbers a la CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
-     * For the 27 TeV values we use the values from F. Caola's talk at the HE/HL-LHC workshop:
-     * https://indico.cern.ch/event/686494/contributions/3040042/attachments/1669643/2677952/HEHL-HiggsVBF.pdf
+     * For the 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
+     * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2191,7 +2182,7 @@ public:
         } else if (sqrt_s == 13.0) {
             return 0.5060; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
-            return 0.6127; // in pb for Mh=125.1 GeV            
+            return 0.6128; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
             return 2.86; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 100.0) {
@@ -2235,6 +2226,16 @@ public:
     {
         return 2.643e-2; // Mh=125.1 GeV
         //return 2.79e-2; // Mh=125.6 GeV
+    }
+    
+    /**
+     * @brief The Br@f$(H\to ZZ \to inv)@f$ in the Standard Model.
+     * @details 
+     * @return Br@f$(H\to ZZ\to inv)@f$ in the Standard Model
+     */
+    double computeBrHtoZZinv() const
+    {
+        return 1.06e-3;
     }
 
     /**
