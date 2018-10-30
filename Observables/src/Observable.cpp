@@ -42,6 +42,7 @@ Observable::Observable (const std::string name_i,
     bin_max = 0.;
     iterationNo = std::numeric_limits<int>::max();
     writeChain = false;
+    hasInverseCovariance = false;
 }
 
 Observable::Observable(const Observable& orig) 
@@ -67,6 +68,7 @@ Observable::Observable(const Observable& orig)
     iterationNo = orig.iterationNo;
     inhisto = orig.inhisto;
     writeChain = orig.writeChain;
+    hasInverseCovariance = orig.hasInverseCovariance;
 }
 
 Observable::Observable() 
@@ -91,6 +93,7 @@ Observable::Observable()
     bin_max = 0.;
     iterationNo = std::numeric_limits<int>::max();
     writeChain = false;
+    hasInverseCovariance = false;
 }
 
 Observable::~Observable() {}
@@ -265,11 +268,11 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                 ++beg;
                 if (type.compare("AsyGausObservable") == 0) errgr = atof((*beg).c_str());
                 else errf = atof((*beg).c_str());
-                if (type.compare("AsyGausObservable") != 0 && errf == 0. && errg == 0.) {
+                if (type.compare("AsyGausObservable") != 0 && errf == 0. && errg == 0. && !hasInverseCovariance) {
                     if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + infilename + " .\n");
                     else sleep(2);
                 }
-                if (type.compare("AsyGausObservable") == 0 && errgl == 0. && errgr == 0.) {
+                if (type.compare("AsyGausObservable") == 0 && errgl == 0. && errgr == 0. && !hasInverseCovariance) {
                     if (rank == 0) throw std::runtime_error("ERROR: The left Gaussian and right Gaussian error in weight for " + name + " cannot both be 0. in the " + infilename + " .\n");
                     else sleep(2);
                 }

@@ -66,8 +66,6 @@ void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr)
                 (*InvCov)(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
         *InvCov = InvCov->inverse();
     }
-    
-    std::cout << *InvCov << std::endl;
 }
 
 double CorrelatedGaussianObservables::computeWeight()
@@ -113,6 +111,7 @@ int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Obser
             else sleep(2);
         }
         Observable * tmpObs = new Observable();
+        tmpObs->setHasInverseCovariance(covarianceFromConfig);
         beg = tmpObs->ParseObservable(type, &tok, beg, filepath, infilename, rank);
         tmpObs->setTho(myObsFactory.CreateThMethod(tmpObs->getThname(), *myModel));
         if (!IsPrediction) {

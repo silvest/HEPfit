@@ -453,6 +453,15 @@ public:
     virtual int getNChannels() { return 0; }; 
     
     virtual bool isNew() { return false; };
+    
+     /**
+     * @brief A set method to state that the Observable is a part of ObservablesWithInverseCovariance
+     * @param[in] hasInverseCovariance a boolean which is true for ObservablesWithInverseCovariance
+     */
+    void setHasInverseCovariance(bool hasInverseCovariance)
+    {
+        this->hasInverseCovariance = hasInverseCovariance;
+    }
 
     /**
      * @brief Befriending of the std::ostream operator << to generate an
@@ -485,6 +494,7 @@ protected:
     double bin_max; ///< The maximum valus of the observable bin.
     int iterationNo; ///< A counter for the interation that helps with the observable caching.
     double thValue; ///< The theory value of the first observable.
+    bool hasInverseCovariance;
 };
 
 
