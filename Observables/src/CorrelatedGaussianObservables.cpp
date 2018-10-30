@@ -66,6 +66,8 @@ void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr)
                 (*InvCov)(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
         *InvCov = InvCov->inverse();
     }
+    
+    std::cout << *InvCov << std::endl;
 }
 
 double CorrelatedGaussianObservables::computeWeight()
@@ -155,7 +157,7 @@ int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Obser
                     for (int j = 0; j < size; j++) {
                         if ((*beg).compare(0, 1, "0") == 0
                                 || (*beg).compare(0, 1, "1") == 0
-                                || (*beg).compare(0, 1, "-") == 0) {
+                                || (*beg).compare(0, 1, "-") == 0 || (covarianceFromConfig == true)) {
                             if (std::distance(mytok.begin(), mytok.end()) < size) {
                                 if (rank == 0) throw std::runtime_error(("ERROR: Correlation matrix is of wrong size in Correlated Gaussian Observables: " + name + +" at line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n").c_str());
                                 else sleep(2);
