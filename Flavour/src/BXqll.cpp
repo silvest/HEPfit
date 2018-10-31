@@ -730,8 +730,8 @@ double BXqll::DeltaF_29im(double muh, double z, double sh, int maxpow)
 
 double BXqll::H_T(double sh)
 {
-    std::vector< std::vector<BXqll::Expanded> > HT = matH_T(sh);
-
+    gslpp::matrix<gslpp::complex> HT_LO = matH_T(sh,LO);
+    gslpp::matrix<gslpp::complex> HT_NLO = matH_T(sh,NLO);
 //    for(int i=0; i<10; i++)
 //        for(int j=0; j<10; j++)
 //           std::cout << i << "," << j << ": " << (HT_LO(i,j)!=0. ? HT_NLO(i,j)/HT_LO(i,j): 0.) << std::endl; 
@@ -742,9 +742,9 @@ double BXqll::H_T(double sh)
     {
         for(int i=0; i<=j; i++)
         {
-            Phill_T += ((*(allcoeff[LO]))(i)*(*(allcoeff[LO]))(j).conjugate()*((HT[i])[j].lo + (HT[i])[j].nlo) +
+            Phill_T += ((*(allcoeff[LO]))(i)*(*(allcoeff[LO]))(j).conjugate()*(HT_LO(i,j) + HT_NLO(i,j)) +
                        ((*(allcoeff[LO]))(i)*(*(allcoeff[NLO]))(j).conjugate()+
-                       (*(allcoeff[NLO]))(i)*(*(allcoeff[LO]))(j).conjugate())*(HT[i])[j].lo).real();
+                       (*(allcoeff[NLO]))(i)*(*(allcoeff[LO]))(j).conjugate())*HT_LO(i,j)).real();
         }
     }
 
@@ -771,9 +771,9 @@ double BXqll::H_L(double sh)
     return pre*pre*Phill_L/f_sl(z);
 }
 
-std::vector< std::vector<BXqll::Expanded> > BXqll::matH_T(double sh)
+gslpp::matrix<gslpp::complex> BXqll::matH_T(double sh, orders order)
 {
-    std::vector< std::vector<BXqll::Expanded> > Hij_T;
+    gslpp::matrix<gslpp::complex> Hij_T(10,10,0.);
 
     gslpp::vector<gslpp::complex> M7_LO = Mi7(sh, LO);
     gslpp::vector<gslpp::complex> M9_LO = Mi9(sh, LO);
@@ -781,79 +781,57 @@ std::vector< std::vector<BXqll::Expanded> > BXqll::matH_T(double sh)
     gslpp::vector<gslpp::complex> M7_NLO = Mi7(sh, NLO);
     gslpp::vector<gslpp::complex> M9_NLO = Mi9(sh, NLO);
 
-    Expanded S77_Te(S77_T(sh, LO), S77_T(sh, NLO));
-    Expanded S99_Te(S99_T(sh, LO), S99_T(sh, NLO));
-    Expanded S79_Te(S79_T(sh, LO), S79_T(sh, NLO));
-    Expanded S1010_Te(S1010_T(sh, LO), S1010_T(sh, NLO));
-    Expanded res(0.);
-
+    switch(order)
+    {
+        case LO:
     for (int j = 0; j < 10; j++)
     {
-        Expanded M7j(M7_LO(j), M7_NLO(j));
-        Expanded M9j(M9_LO(j), M9_NLO(j));
-        Expanded M10j(M10_LO(j));
-
         for (int i = 0; i <= j; i++)
         {
-            Expanded M7i(M7_LO(i), M7_NLO(i));
-            Expanded M9i(M9_LO(i), M9_NLO(i));
-            Expanded M10i(M10_LO(i));
+                    if(i==j)
+                        Hij_T.assign(i,j, S77_T(sh,LO)*M7_LO(i)*M7_LO(i).conjugate() +
+                                          S99_T(sh,LO)*M9_LO(i)*M9_LO(i).conjugate() +
+                                          S1010_T(sh,LO)*M10_LO(i)*M10_LO(i) +
+                                          S79_T(sh,LO)*(M7_LO(i)*M9_LO(i).conjugate()).real());
 
-            if (i == j)
-                res = (S77_Te * M7j.abs2() +
-                    S99_Te * M9j.abs2() +
-                    S1010_Te * M10j.abs2() +
-                    S79_Te * (M7j * M9j.conjugate()).real());
             else
-                res = (2. * (S77_Te * M7j.conjugate() * M7i +
-                    S99_Te * M9j.conjugate() * M9i +
-                    S1010_Te * M10j.conjugate() * M10i) +
-                    S79_Te * (M7i * M9j.conjugate() + M9i * M7j.conjugate()));
+                        Hij_T.assign(i,j, 2.*S77_T(sh,LO)*M7_LO(i)*M7_LO(j).conjugate() +
+                                          2.*S99_T(sh,LO)*M9_LO(i)*M9_LO(j).conjugate() +
+                                          2.*S1010_T(sh,LO)*M10_LO(i)*M10_LO(j) +
+                                          S79_T(sh,LO)*(M7_LO(i)*M9_LO(j).conjugate()+M9_LO(i)*M7_LO(j).conjugate()));
 
-            (Hij_T[i])[j] = res;
+                }
+            }
+            break;
+        case NLO:
+            for(int j=0; j<10; j++)
+            {
+                for(int i=0; i<=j; i++)
+                {
+                    if(i==j)
+                        Hij_T.assign(i,j, S77_T(sh,NLO)*M7_LO(i)*M7_LO(i).conjugate()+
+                        2*S77_T(sh,LO)*(M7_LO(i)*M7_NLO(i).conjugate()).real() +
+                                          S99_T(sh,NLO)*M9_LO(i)*M9_LO(i).conjugate()+
+                        2*S99_T(sh,LO)*(M9_LO(i)*M9_NLO(i).conjugate()).real() +
+                                          S1010_T(sh,NLO)*M10_LO(i)*M10_LO(i) +
+                                          S79_T(sh,NLO)*(M7_LO(i)*M9_LO(i).conjugate()).real()+
+                        S79_T(sh,LO)*(M7_LO(i)*M9_NLO(i).conjugate()+M7_NLO(i)*M9_LO(i).conjugate()).real());
 
-//            switch (order)
-//            {
-//                case LO:
-//                    if (i == j)
-//                        Hij_T.assign(i, j, S77_T(sh, LO) * M7_LO(i) * M7_LO(i).conjugate() +
-//                            S99_T(sh, LO) * M9_LO(i) * M9_LO(i).conjugate() +
-//                            S1010_T(sh, LO) * M10_LO(i) * M10_LO(i) +
-//                            S79_T(sh, LO)*(M7_LO(i) * M9_LO(i).conjugate()).real());
-//
-//                    else
-//                        Hij_T.assign(i, j, 2. * S77_T(sh, LO) * M7_LO(i) * M7_LO(j).conjugate() +
-//                            2. * S99_T(sh, LO) * M9_LO(i) * M9_LO(j).conjugate() +
-//                            2. * S1010_T(sh, LO) * M10_LO(i) * M10_LO(j) +
-//                            S79_T(sh, LO)*(M7_LO(i) * M9_LO(j).conjugate() + M9_LO(i) * M7_LO(j).conjugate()));
-//                    break;
-//                case NLO:
-//                    if (i == j)
-//                        Hij_T.assign(i, j, S77_T(sh, NLO) * M7_LO(i) * M7_LO(i).conjugate() +
-//                            2 * S77_T(sh, LO)*(M7_LO(i) * M7_NLO(i).conjugate()).real() +
-//                            S99_T(sh, NLO) * M9_LO(i) * M9_LO(i).conjugate() +
-//                            2 * S99_T(sh, LO)*(M9_LO(i) * M9_NLO(i).conjugate()).real() +
-//                            S1010_T(sh, NLO) * M10_LO(i) * M10_LO(i) +
-//                            S79_T(sh, NLO)*(M7_LO(i) * M9_LO(i).conjugate()).real() +
-//                            S79_T(sh, LO)*(M7_LO(i) * M9_NLO(i).conjugate() + M7_NLO(i) * M9_LO(i).conjugate()).real());
-//
-//                    else
-//                        Hij_T.assign(i, j, 2. * (S77_T(sh, NLO) * M7_LO(i) * M7_LO(j).conjugate() +
-//                            S77_T(sh, LO)*(M7_LO(i) * M7_NLO(j).conjugate() + M7_NLO(i) * M7_LO(j).conjugate())) +
-//                            2. * (S99_T(sh, NLO) * M9_LO(i) * M9_LO(j).conjugate() +
-//                            S99_T(sh, LO)*(M9_LO(i) * M9_NLO(j).conjugate() + M9_NLO(i) * M9_LO(j).conjugate())) +
-//                            2. * S1010_T(sh, NLO) * M10_LO(i) * M10_LO(j) +
-//                            S79_T(sh, NLO)*(M7_LO(i) * M9_LO(j).conjugate() + M9_LO(i) * M7_LO(j).conjugate()) +
-//                            S79_T(sh, LO)*(M7_LO(i) * M9_NLO(j).conjugate() + M7_NLO(i) * M9_LO(j).conjugate() +
-//                            M9_LO(i) * M7_NLO(j).conjugate() + M9_NLO(i) * M7_LO(j).conjugate()));
-//
-//                    break;
-//                default:
-//                    throw std::runtime_error("BXqll::matH_T: order not implemented");
-//            }
+                    else
+                        Hij_T.assign(i,j, 2.*(S77_T(sh,NLO)*M7_LO(i)*M7_LO(j).conjugate()+
+                        S77_T(sh,LO)*(M7_LO(i)*M7_NLO(j).conjugate() + M7_NLO(i)*M7_LO(j).conjugate())) +
+                                          2.*(S99_T(sh,NLO)*M9_LO(i)*M9_LO(j).conjugate()+
+                        S99_T(sh,LO)*(M9_LO(i)*M9_NLO(j).conjugate() + M9_NLO(i)*M9_LO(j).conjugate())) +
+                                          2.*S1010_T(sh,NLO)*M10_LO(i)*M10_LO(j) +
+                                          S79_T(sh,NLO)*(M7_LO(i)*M9_LO(j).conjugate()+M9_LO(i)*M7_LO(j).conjugate())+
+                        S79_T(sh,LO)*(M7_LO(i)*M9_NLO(j).conjugate() + M7_NLO(i)*M9_LO(j).conjugate()+
+                        M9_LO(i)*M7_NLO(j).conjugate() + M9_NLO(i)*M7_LO(j).conjugate()));
         }
     }
-    
+            break;
+        default:
+            throw std::runtime_error("BXqll::matH_T: order not implemented");
+    }
     return Hij_T;
 }
 
