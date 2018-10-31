@@ -12,14 +12,12 @@
 //#include <limits>
 #include "BXqll.h"
 #include "StandardModel.h"
-#include "F_1.h"
-#include "F_2.h"
 #include "gslpp_function_adapter.h"
 
-#define MPI2 M_PI * M_PI
+#define MPI2 (M_PI * M_PI)
 
 BXqll::BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i)
-: mySM(SM_i), myF_1(*(new F_1())), myF_2(*(new F_2()))
+: mySM(SM_i), myF_1(), myF_2(), myHeff("CPMLQB", SM_i, NNLO, NLO_QED22)
 {    
     lep = lep_i;
     quark = quark_i;    
@@ -48,7 +46,7 @@ void BXqll::updateParameters()
 {
     GF = mySM.getGF();
     Mlep = mySM.getLeptons(lep).getMass();
-    mu_b = mySM.getMub();
+    mu_b = 5.;//mySM.getMub();
     mu_c = mySM.getMuc();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass();
@@ -59,7 +57,7 @@ void BXqll::updateParameters()
     muh = mu_b/Mb;
     alsmu = mySM.Als(mu_b, FULLNNNLO, true);
     alsmuc = mySM.Als(mu_c, FULLNNNLO, true);
-    ale = mySM.Ale(mu_b, NLO);
+    ale = mySM.Ale(mu_b, FULLNLO);
     alstilde = alsmu / 4. / M_PI;
     aletilde = ale / 4. / M_PI;
     kappa = ale / alsmu;
@@ -86,6 +84,8 @@ void BXqll::updateParameters()
 
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
+    allcoeff_smm = mySM.getFlavour().ComputeCoeffsmumu(mu_b, NDR);
+    allcoeffDF1 = myHeff.ComputeCoeff(mu_b);
 
     for(int ord=LO; ord <= NLO; ord++)
     {
@@ -114,23 +114,21 @@ void BXqll::updateParameters()
         W_9[ord] = -1./2.*C_3[ord]-2./3.*C_4[ord]-8.*C_5[ord]-32./3.*C_6[ord];
    
     }
+
+    C_9_df1[LO_QED]     = (myHeff.LowScaleCoeff(01))(8);
+    C_9_df1[NLO_QED11]  = (myHeff.LowScaleCoeff(11))(8);
+    C_9_df1[NLO_QED21]  = (myHeff.LowScaleCoeff(21))(8);
+    C_9_df1[NLO_QED02]  = (myHeff.LowScaleCoeff(02))(8);
+    C_9_df1[NLO_QED12]  = (myHeff.LowScaleCoeff(12))(8);
+    C_9_df1[NLO_QED22]  = (myHeff.LowScaleCoeff(22))(8);
     
-//     ISIDORI VALUES
-//    C_1[LO] = -0.487;
-//    C_2[LO] = 1.024;
-//    C_7[LO] = -0.321;
-//    C_7[NLO] = 0.019;
-//    C_8L[LO] = -0.148;
-//    C_9[LO] = 4.129;
-//    C_9[NLO] = 0.013;
-//    C_10[LO] = -4.372;
-//    C_10[NLO] = 0.135;
-//    T_9[LO] = 0.374;
-//    T_9[NLO] = 0.251;
-//    U_9[LO] = 0.032;
-//    U_9[NLO] = 0.016;
-//    W_9[LO] = 0.032;
-//    W_9[NLO] = 0.012;
+    C_10_df1[LO_QED]    = (myHeff.LowScaleCoeff(01))(9);
+    C_10_df1[NLO_QED11] = (myHeff.LowScaleCoeff(11))(9);
+    C_10_df1[NLO_QED21] = (myHeff.LowScaleCoeff(21))(9);
+    C_10_df1[NLO_QED02] = (myHeff.LowScaleCoeff(02))(9);
+    C_10_df1[NLO_QED12] = (myHeff.LowScaleCoeff(12))(9);
+    C_10_df1[NLO_QED22] = (myHeff.LowScaleCoeff(22))(9);
+        
 
     C_1[FULLNLO] = C_1[LO] + C_1[NLO];
     C_1L_bar[FULLNLO] = C_1L_bar[LO] + C_1L_bar[NLO];
@@ -189,7 +187,109 @@ double BXqll::integrate_Rquark(double sh_min, double sh_max, q2regions q2region)
 double BXqll::getR_LOWQ2(double sh)
 {
     updateParameters();
-    return (R_quark(sh,LOWQ2)/* + deltaMb2_Rquark(sh,LOWQ2)*/);
+//    std::cout << "C1_LO:   " << C_1[LO] << std::endl;
+//    std::cout << "C1_NLO:  " << C_1[NLO] << std::endl;
+//    std::cout << "C1:      " << C_1[FULLNLO] << std::endl;
+//    std::cout << "C1nLO:   " << C1new[LO] << std::endl;
+//    std::cout << "C1nNLO:  " << C1new[NLO] << std::endl;
+//    std::cout << "C1n:     " << C1new[FULLQCD] << std::endl;
+     
+//    std::cout << std::endl;
+    double muw = mySM.getMuw();
+    std::cout << "MZ:      " << mySM.getMz() << std::endl;
+    std::cout << "MH:      " << mySM.getMHl() << std::endl;
+    std::cout << "ale(mu0) = 1 / " << 1. / mySM.Ale(muw, FULLNLO) << std::endl;
+    std::cout << "el(mu0): " << sqrt(mySM.Ale(muw, FULLNLO) * 4. * M_PI) << std::endl;
+//    std::cout << "mt(50):  " << mySM.Mrun(50., mySM.getQuarks(QCD::TOP).getMass_scale(), 
+//                                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO) << std::endl;
+    std::cout << "mt(mu0): " << mySM.Mrun(muw, mySM.getQuarks(QCD::TOP).getMass_scale(), 
+                                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO) << std::endl;
+//    std::cout << "mt(mt):  " << mySM.Mrun(mySM.getMut(), mySM.getQuarks(QCD::TOP).getMass_scale(), 
+//                                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO) << std::endl;
+//    std::cout << "mt(300): " << mySM.Mrun(300., mySM.getQuarks(QCD::TOP).getMass_scale(),
+//                                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO) << std::endl;
+//    std::cout << "mut:     " << mySM.getMut() << std::endl;
+    
+    double alstilde_2 = alstilde * alstilde;
+    double kappa_2 = kappa * kappa;
+    double GF_2 = GF * GF;
+    double MW_2 = MW * MW;
+    double sw2 = (M_PI * mySM.getAle()) / (sqrt(2.) * GF * MW * MW);
+//    double sw2 = 1. - MW*MW/91.1876/91.1876;
+    gslpp::complex Vtb = mySM.getCKM().getV_tb();
+    gslpp::complex Vts = mySM.getCKM().getV_ts();
+    gslpp::complex lambda_t = Vtb.conjugate() * Vts;
+    double mt_w = mySM.Mrun(muw, mySM.getQuarks(QCD::TOP).getMass_scale(), mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    
+    std::cout << "C9:      " << (kappa * C_9_df1[LO_QED] +
+                            alstilde * kappa * C_9_df1[NLO_QED11] +
+                            alstilde_2 * kappa * C_9_df1[NLO_QED21] +
+                            kappa_2 * C_9_df1[NLO_QED02] +
+                            alstilde * kappa_2 * C_9_df1[NLO_QED12] +
+                            alstilde_2 * kappa_2 * C_9_df1[NLO_QED22]) / aletilde << std::endl;
+    std::cout << "C9 (27): " << (kappa * C_9_df1[LO_QED] +
+                            alstilde * kappa * C_9_df1[NLO_QED11] +
+                            alstilde_2 * kappa * C_9_df1[NLO_QED21] +
+                            kappa_2 * C_9_df1[NLO_QED02] +
+                            alstilde * kappa_2 * C_9_df1[NLO_QED12] +
+                            alstilde_2 * kappa_2 * 27.32 ) / aletilde << std::endl;
+    
+    std::cout << std::endl;
+    gslpp::complex c10_df1 = ( kappa * C_10_df1[LO_QED] +
+                            alstilde * kappa * C_10_df1[NLO_QED11] +
+                            alstilde_2 * kappa * C_10_df1[NLO_QED21] +
+                            kappa_2 * C_10_df1[NLO_QED02] +
+                            alstilde * kappa_2 * C_10_df1[NLO_QED12] +
+                            alstilde_2 * kappa_2 * C_10_df1[NLO_QED22] );
+    
+    std::cout << "C10_df1:  " <<  c10_df1 / aletilde << std::endl;
+    
+    std::cout << "C10(-36): " << (kappa * C_10_df1[LO_QED] +
+                            alstilde * kappa * C_10_df1[NLO_QED11] +
+                            alstilde_2 * kappa * C_10_df1[NLO_QED21] +
+                            kappa_2 * C_10_df1[NLO_QED02] +
+                            alstilde * kappa_2 * C_10_df1[NLO_QED12] +
+                            alstilde_2 * kappa_2 * (-36.09) ) / aletilde << std::endl;
+
+    gslpp::complex c10_stu = ( (*(allcoeff_smm[NLO_QED11]))(7) +
+                            alstilde * (*(allcoeff_smm[NLO_QED21]))(7) +
+                            kappa / alstilde * (*(allcoeff_smm[NLO_QED02]))(7) +
+                            kappa * (*(allcoeff_smm[NLO_QED12]))(7) +
+                            alstilde * kappa * (*(allcoeff_smm[NLO_QED22]))(7) ) / lambda_t;
+    
+    std::cout << "C10_stu:  " << c10_stu / sw2 << std::endl;
+    std::cout << "Should be zero: " << (*(allcoeff_smm[LO]))(7) + (*(allcoeff_smm[NLO]))(7) +
+                                    (*(allcoeff_smm[NNLO]))(7) + (*(allcoeff_smm[LO_QED]))(7) << std::endl;
+    
+    std::cout << std::endl;
+    std::cout << "4 GF / sqrt(2) * C10   = " << 4. * GF * c10_df1 / sqrt(2.) << std::endl;
+    std::cout << "GF^2 MW^2 / pi^2 * C10 = " << GF_2 * MW_2 * c10_stu / M_PI / M_PI << std::endl;
+    std::cout << "1 / M_PI^2: " << 1. / M_PI / M_PI << std::endl;
+    std::cout << "1 / MPI2:   " << 1. / MPI2 << std::endl;
+    
+    std::cout << std::endl;
+    std::cout << "Orders C9:  " << C_9_df1[LO_QED] << "  " << C_9_df1[NLO_QED11] << "  " << C_9_df1[NLO_QED21];
+    std::cout << "  " << C_9_df1[NLO_QED02] << "  " << C_9_df1[NLO_QED12] << "  " << C_9_df1[NLO_QED22] << std::endl;
+    std::cout << "Orders C10: " << C_10_df1[LO_QED] << "  " << C_10_df1[NLO_QED11] << "  " << C_10_df1[NLO_QED21];
+    std::cout << "  " << C_10_df1[NLO_QED02] << "  " << C_10_df1[NLO_QED12] << "  " << C_10_df1[NLO_QED22] << std::endl;
+    
+    std::cout << std::endl;
+    std::cout << "C10_OS1: " << mySM.getMatching().C10_OS1(mt_w * mt_w / MW_2, muw) << std::endl;
+    std::cout << "Rest: " << mySM.getMatching().Rest(mt_w * mt_w / MW_2, muw) << std::endl;
+    
+    const std::vector<WilsonCoefficient>& match_df1 = mySM.getMatching().CMDF1("CPMLQB",15);
+    const std::vector<WilsonCoefficient>& match_stu = mySM.getMatching().CMbsmm();
+    gslpp::complex c10_11_df1 = (*(match_df1[0].getCoeff(orders_qed(NLO_QED11))))(9);
+    gslpp::complex c10_22_df1 = (*(match_df1[0].getCoeff(orders_qed(NLO_QED22))))(9);
+    gslpp::complex c10_11_stu = (*(match_stu[0].getCoeff(orders_qed(NLO_QED11))))(7);
+    gslpp::complex c10_22_stu = (*(match_stu[0].getCoeff(orders_qed(NLO_QED22))))(7);
+    
+    std::cout << "GF matching:   " << (4. * GF / sqrt(2.)) * (c10_11_df1 + c10_22_df1) << std::endl;
+    std::cout << "GF^2 matching: " << (GF_2 * MW_2 / M_PI / M_PI) * (c10_11_stu +
+                                    (mySM.Ale(120.,FULLNLO) / 4. / M_PI) * c10_22_stu) / lambda_t << std::endl;
+
+    return 0.;
+//    return (R_quark(sh,LOWQ2)/* + deltaMb2_Rquark(sh,LOWQ2)*/);
 //    gslpp::matrix<gslpp::complex> test = matH_L(sh,LO);
 //    return test(6,6).real();
 //    return (H_T(sh)+H_L(sh));

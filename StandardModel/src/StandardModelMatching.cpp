@@ -2969,6 +2969,38 @@ double StandardModelMatching::taub2(double x) // from hep-ph/9707243
             18.*x-7.)*fbb(x) );
 }
 
+double StandardModelMatching::C10_OS1(double x, double mu)
+{
+    double Mw_2 = Mw * Mw; 
+    double mt_2 = x * Mw_2;
+    double mt = sqrt(mt_2);
+    
+    double a1 = 69354.0995830457;
+    double b1 = 114.072536156018;
+    double c1 = -1802.9029763021;
+    double d1 = -0.6880489462364;
+    double e1 = 11.7037717083906;
+    double f1 = -1.422845251416;
+    double g1 = 0.00856609262141;
+    double h1 = 0.00005469961928;
+    double a2 = 4144.6231891191;
+    double b2 = 0.1706756075896;
+    double c2 = -104.32434492409;
+    double d2 = 0.00072836578577;
+    double e2 = 0.65260451121855;
+    double f2 = -0.0007261241908;
+    double a3 = -218.96716792134;
+    double b3 = -0.039653543101;
+    double c3 = 5.57241334587797;
+    double d3 = 2.8289915e-6;
+    double e3 = -0.0351477930751;
+    double f3 = 0.00048165797959;
+    
+    return (a1 + b1 * mt + c1 * Mw + d1 * mt_2 + e1 * Mw_2 + f1 * mt * Mw + g1 * mt_2 * Mw + h1 * mt_2 * mt +
+           (a2 + b2 * mt + c2 * Mw + d2 * mt_2 + e2 * Mw_2 + f2 * mt * Mw) * log(mu) +
+           (a3 + b3 * mt + c3 * Mw + d3 * mt_2 + e3 * Mw_2 + f3 * mt * Mw) * log(mu) * log (mu));
+}
+
 double StandardModelMatching::Delta_t(double mu, double x) // from hep-ph/9707243
 {
     return(18.*log(mu/Mt_muw)+11.-x/2.+x*(x-6.)/2.*log(x)+(x-4.)/2.*sqrt(x)*gbb(x));
@@ -3001,9 +3033,10 @@ WilsonCoefficient& StandardModelMatching::mc_L()
             //Eqs. (32-33) of ref. Huber et al.
             //Delta_t and tau_b in hep-ph/9707243
 //             mcL.setCoeff(0, aletilde*aletilde*(-xt*xt/32/sW2/sW2*(4.*sW2-1.)*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
-             mcL.setCoeff(1, aletilde*aletilde*(-xt*xt/32./sW2/sW2*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
-             mcL.setCoeff(0, (4. * sW2 - 1.) * (*(mcL.getCoeff(NLO_QED22)))(1), NLO_QED22);
+//             mcL.setCoeff(1, aletilde*aletilde*(-xt*xt/32./sW2/sW2*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
+//             mcL.setCoeff(0, (4. * sW2 - 1.) * (*(mcL.getCoeff(NLO_QED22)))(1), NLO_QED22);
 //             mcL.setCoeff(1, aletilde*aletilde*Rest(xt, Muw)/sW2, NLO_QED22);
+            mcL.setCoeff(1, aletilde*aletilde*C10_OS1(xt, Muw), NLO_QED22);
         case NLO_QED21:
             mcL.setCoeff(0, aletilde*alstilde*((1.-4.*sW2)/sW2*C1t(xt,Muw) - 1./sW2*B1t(xt,Muw) - D1t(xt,Muw) + 1./sW2 +
                                                 524./729. - 128./243.*M_PI*M_PI - 16./3.*L - 128./81.*L*L), NLO_QED21);

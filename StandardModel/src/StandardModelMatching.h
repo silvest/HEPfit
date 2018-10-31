@@ -414,6 +414,15 @@ public:
      * @param[in] mu the matching scale of the Wilson coefficients
      */
     double Rest(double x, double mu) const;
+
+    /**
+     * 
+     * @brief approximation of two-loops EW correction for Q_10 operator from 1311.1348
+     * @param[in] x the ratio \f$ \frac{m_t^2}{M_W^2} \f$
+     * @param[in] mu the matching scale
+     * @return return the fit to the 22 matching of C10 in the OS1 scheme
+     */
+    double C10_OS1(double x, double mu);
     
     /**
      *

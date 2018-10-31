@@ -9,13 +9,15 @@
 #define	BXQLL_H
 
 class StandardModel;
-class F_1;
-class F_2;
+
 #include "QCD.h"
 #include "ThObservable.h"
 //#include "Particle.h"
 #include "gslpp.h"
 #include <gsl/gsl_integration.h>
+#include "HeffDF1.h"
+#include "F_1.h"
+#include "F_2.h"
 
 /**
 * @enum q2regions
@@ -80,13 +82,12 @@ public:
     * @param[in] sh_max maximum \f$q^2/m_b^2\f$ of the integral
     */
     double integrate_Rquark(double sh_min, double sh_max, q2regions q2region);
-    
-    const StandardModel& mySM;/**< Model type */
 
 private:
-//    const StandardModel& mySM;/**< Model type */
-    F_1& myF_1;
-    F_2& myF_2;
+    const StandardModel& mySM;/**< Model type */
+    F_1 myF_1;
+    F_2 myF_2;
+    HeffDF1 myHeff;
     QCD::lepton lep;/**< Final leptons type */
     QCD::quark quark;/**< Initial meson type */
     double CF, GF, ale, alsmu, alsmuc, alstilde, aletilde, kappa;
@@ -98,29 +99,34 @@ private:
     gslpp::vector<gslpp::complex> ** allcoeff;/**<Vector that contains the Wilson coeffients */
 //    gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<Vector that contains the primed Wilson coeffients */
+
+    gslpp::vector<gslpp::complex> ** allcoeff_smm;/**<Vector that contains the primed Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeffDF1;/**<Vector that contains the primed Wilson coeffients */
     
-    gslpp::complex C_1[4];/**<Wilson coeffients @f$C_1@f$*/
-    gslpp::complex C_1L_bar[4];/**<Wilson coeffients @f$C_1@f$*/
-    gslpp::complex C_2[4];/**<Wilson coeffients @f$C_2@f$*/
-    gslpp::complex C_2L_bar[4];/**<Leading order Wilson coeffients @f$C_2@f$*/
-    gslpp::complex C_3[4];/**<Wilson coeffients @f$C_3@f$*/
-    gslpp::complex C_4[4];/**<Wilson coeffients @f$C_4@f$*/
-    gslpp::complex C_5[4];/**<Wilson coeffients @f$C_5@f$*/
-    gslpp::complex C_6[4];/**<Wilson coeffients @f$C_6@f$*/
-    gslpp::complex C_7[4];/**<Wilson coeffients @f$C_7@f$*/
-    gslpp::complex C_8L[4];/**<Leading order Wilson coeffients @f$C_8@f$*/
-    gslpp::complex C_9[4];/**<Wilson coeffients @f$C_9@f$*/
-    gslpp::complex C_10[4];/**<Wilson coeffients @f$C_{10}@f$*/
-    gslpp::complex C_S[4];/**<Wilson coeffients @f$C_S@f$*/
-    gslpp::complex C_P[4];/**<Wilson coeffients @f$C_P@f$*/
+    gslpp::complex C_1[5];/**<Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C_1L_bar[5];/**<Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C_2[5];/**<Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C_2L_bar[5];/**<Leading order Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C_3[5];/**<Wilson coeffients @f$C_3@f$*/
+    gslpp::complex C_4[5];/**<Wilson coeffients @f$C_4@f$*/
+    gslpp::complex C_5[5];/**<Wilson coeffients @f$C_5@f$*/
+    gslpp::complex C_6[5];/**<Wilson coeffients @f$C_6@f$*/
+    gslpp::complex C_7[5];/**<Wilson coeffients @f$C_7@f$*/
+    gslpp::complex C_8L[5];/**<Leading order Wilson coeffients @f$C_8@f$*/
+    gslpp::complex C_9[5];/**<Wilson coeffients @f$C_9@f$*/
+    gslpp::complex C_10[5];/**<Wilson coeffients @f$C_{10}@f$*/
+    gslpp::complex C_S[5];/**<Wilson coeffients @f$C_S@f$*/
+    gslpp::complex C_P[5];/**<Wilson coeffients @f$C_P@f$*/
     
-    gslpp::complex C_7p[4];/**<Wilson coeffients @f$C_7'@f$*/
-    gslpp::complex C_9p[4];/**<Wilson coeffients @f$C_9'@f$*/
-    gslpp::complex C_10p[4];/**<Wilson coeffients @f$C_{10}'@f$*/
-    gslpp::complex C_Sp[4];/**<Wilson coeffients @f$C_S'@f$*/
-    gslpp::complex C_Pp[4];/**<Wilson coeffients @f$C_P'@f$*/
-    gslpp::complex T_9[4], U_9[4], W_9[4];
-    
+    gslpp::complex C_7p[5];/**<Wilson coeffients @f$C_7'@f$*/
+    gslpp::complex C_9p[5];/**<Wilson coeffients @f$C_9'@f$*/
+    gslpp::complex C_10p[5];/**<Wilson coeffients @f$C_{10}'@f$*/
+    gslpp::complex C_Sp[5];/**<Wilson coeffients @f$C_S'@f$*/
+    gslpp::complex C_Pp[5];/**<Wilson coeffients @f$C_P'@f$*/
+    gslpp::complex T_9[5], U_9[5], W_9[5];
+
+    gslpp::complex C_9_df1[14], C_10_df1[14];
+
     double avaRquark;/**< Gsl integral variable */
     double errRquark;/**< Gsl integral variable */
     
