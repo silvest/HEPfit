@@ -566,7 +566,7 @@ double MVlnu::R0(double q2)
     double R2q2at0 = R2(0.);
     double R0q2at0 = (MM + MV - (MM - MV) * R2q2at0) / (2. * MV);
     // caveat: HQET rel at the kinematic endpoint, q2 = 0 ...
-    double R0w1 = R0q2at0 + j_0 * 0.11 * (w0 - 1.) - j_0 * 0.01 * (w0 - 1.)*(w0 - 1.);
+    double R0w1 = R0q2at0 + j_0 * 0.11 * (w0 - 1.) - k_0 * 0.01 * (w0 - 1.)*(w0 - 1.);
     // one may consider "lattice" R0w1 = 1.14 +- O(10%) + consistency rel at q2 = 0 ...
     return R0w1 - j_0 * 0.11 * (w - 1.) + k_0 * 0.01 * (w - 1.)*(w - 1.);
 }
