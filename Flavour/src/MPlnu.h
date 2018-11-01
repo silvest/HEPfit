@@ -142,6 +142,7 @@ private:
     double CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
     
     double fplusz0,rho1to2; /**<CLN form factor parameters*/
+    double N_0, alpha_0, alpha_p, beta_0, beta_p, gamma_0, gamma_p; /**<CLN form factor parameter modification*/
     double af0_0,af0_1,af0_2,afplus_0,afplus_1,afplus_2; /**<BGL form factor parameters*/
 #if NBGL == 3
     double af0_3, afplus_3;
@@ -153,6 +154,7 @@ private:
                 cached_intJ1_mu, cached_intJ2_mu, cached_intJ3_mu,
                 cached_intJ1_el, cached_intJ2_el, cached_intJ3_el; /**< caching Js integral btw q2min and q2mx*/
     double fplusz0_cache,rho1to2_cache;
+    double N_0_cache, alpha_0_cache, alpha_p_cache, beta_0_cache, beta_p_cache, gamma_0_cache, gamma_p_cache;
     double af0_1_cache,af0_2_cache,afplus_0_cache,afplus_1_cache,afplus_2_cache;
 #if NBGL == 3
     double af0_3_cache,afplus_3_cache;

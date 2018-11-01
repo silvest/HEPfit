@@ -15,6 +15,7 @@
 #include <TFitResult.h>
 #include <gsl/gsl_sf_gegenbauer.h>
 #include <gsl/gsl_sf_expint.h>
+#include <limits>
 
 MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
 : mySM(SM_i)
@@ -30,6 +31,39 @@ MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudosca
     checkcache_int_tau = 0;
     checkcache_int_mu = 0;
     checkcache_int_el = 0;
+    
+    double max_double = std::numeric_limits<double>::max();
+    
+    fplusz0_cache = max_double;
+    rho1to2_cache = max_double;
+    N_0_cache = max_double;
+    alpha_0_cache = max_double;
+    alpha_p_cache = max_double;
+    beta_0_cache = max_double;
+    beta_p_cache = max_double;
+    gamma_0_cache = max_double;
+    gamma_p_cache = max_double;
+    af0_1_cache = max_double;
+    af0_2_cache = max_double;
+    afplus_0_cache = max_double;
+    afplus_1_cache = max_double;
+    afplus_2_cache = max_double;
+    
+#if NBGL == 3
+    af0_3_cache = max_double;
+    afplus_3_cache = max_double;
+#endif 
+    
+    CS_cache = max_double;
+    CSp_cache = max_double;
+    CP_cache = max_double;
+    CPp_cache = max_double;
+    CV_cache = max_double;
+    CVp_cache = max_double;
+    CA_cache = max_double;
+    CAp_cache = max_double;
+    CT_cache = max_double;
+    CTp_cache = max_double;
 }
 
 MPlnu::~MPlnu()
@@ -59,6 +93,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
             mplnuParameters.clear();
             if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
                 << "fplusz0" << "rho1to2"
+                << "N_0" << "alpha_0" << "alpha_p" << "beta_0" << "beta_p" << "gamma_0" << "gamma_p"
                 << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
         }
     } else {
@@ -80,6 +115,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
             mplnuParameters.clear();
             if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
                 << "fplusz0" << "rho1to2" 
+                << "N_0" << "alpha_0" << "alpha_p" << "beta_0" << "beta_p" << "gamma_0" << "gamma_p"
                 << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
         }
     }
@@ -157,6 +193,13 @@ void MPlnu::updateParameters()
             if (CLNflag) {
                 fplusz0 = mySM.getOptionalParameter("fplusz0");
                 rho1to2 = mySM.getOptionalParameter("rho1to2");
+                N_0 = mySM.getOptionalParameter("N_0");
+                alpha_0 = mySM.getOptionalParameter("alpha_0"); 
+                alpha_p = mySM.getOptionalParameter("alpha_p");
+                beta_0 = mySM.getOptionalParameter("beta_0");
+                beta_p = mySM.getOptionalParameter("beta_p");
+                gamma_0 = mySM.getOptionalParameter("gamma_0");
+                gamma_p = mySM.getOptionalParameter("gamma_p");
                 af0_1 = 0.;
                 af0_2 = 0.;
                 afplus_1 = 0.;
@@ -177,6 +220,13 @@ void MPlnu::updateParameters()
             } else {
                 fplusz0 = 0.;
                 rho1to2 = 0.;
+                N_0 = 0.;
+                alpha_0 = 0.;
+                alpha_p = 0.;
+                beta_0 = 0.;
+                beta_p = 0.;
+                gamma_0 = 0.;
+                gamma_p = 0.;
                 af0_1 = mySM.getOptionalParameter("af0_1");
                 af0_2 = mySM.getOptionalParameter("af0_2");
                 afplus_0 = mySM.getOptionalParameter("afplus_0");
@@ -215,7 +265,11 @@ void MPlnu::updateParameters()
     z0p_2 = sqrt((MM+MP)*(MM+MP)-mBc0p_2*mBc0p_2)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
     z0p_2 /= (sqrt((MM+MP)*(MM+MP)-mBc0p_2*mBc0p_2)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
 
-    if ((fplusz0 != fplusz0_cache) || (rho1to2 != rho1to2_cache)
+    if ((fplusz0 != fplusz0_cache) || (rho1to2 != rho1to2_cache) 
+            || (N_0 != N_0_cache) 
+            || (alpha_0 != alpha_0_cache) || (alpha_p != alpha_p_cache)
+            || (beta_0 != beta_0_cache) || (beta_p != beta_p_cache)
+            || (gamma_0 != gamma_0_cache) || (gamma_p != gamma_p_cache)
             || (af0_1 != af0_1_cache) || (af0_2 != af0_2_cache)
             || (afplus_0 != afplus_0_cache) || (afplus_1 != afplus_1_cache)
             || (afplus_2 != afplus_2_cache)
@@ -258,6 +312,13 @@ void MPlnu::updateParameters()
 
     fplusz0_cache = fplusz0;
     rho1to2_cache = rho1to2;
+    N_0_cache = N_0;
+    alpha_0_cache = alpha_0;
+    alpha_p_cache = alpha_p;
+    beta_0_cache = beta_0;
+    beta_p_cache = beta_p;
+    gamma_0_cache = gamma_0;
+    gamma_p_cache = gamma_p;
 
     af0_1_cache = af0_1;
     af0_2_cache = af0_2;
@@ -332,9 +393,9 @@ double MPlnu::phi_f0(double z)
 double MPlnu::fplus(double q2)
 {
     double w = w0 - q2 / (2. * MM * MP);
-    double z = (sqrt(w + 1.) - sqrt(2.)) / (sqrt(w + 1.) + sqrt(2.));
+    double z = (sqrt(w + 1.) - M_SQRT2) / (sqrt(w + 1.) + M_SQRT2);
     if (CLNflag) {
-        return fplusz0 * (1. - 8. * rho1to2 * z + (51. * rho1to2 - 10.) * z * z - (252. * rho1to2 - 84.) * z * z * z);
+        return fplusz0 * N_0 * (1. - alpha_p*8. * rho1to2 * z + beta_p*(51. * rho1to2 - 10.) * z * z - gamma_p*(252. * rho1to2 - 84.) * z * z * z);
     } else {
         double P_fplus = (z - z1m_1) / (1. - z * z1m_1)*(z - z1m_2) / (1. - z * z1m_2)*(z - z1m_3) / (1. - z * z1m_3);
 #if NBGL == 3        
@@ -348,13 +409,13 @@ double MPlnu::fplus(double q2)
 double MPlnu::f0(double q2)
 {
     double w = w0 - q2 / (2. * MM * MP);
-    double z = (sqrt(w + 1.) - sqrt(2.)) / (sqrt(w + 1.) + sqrt(2.));
+    double z = (sqrt(w + 1.) - M_SQRT2) / (sqrt(w + 1.) + M_SQRT2);
     if (CLNflag) {
-        double prefac0 = 2. * sqrt(MP / MM) / (1. + MP / MM)*2. * sqrt(MP / MM) / (1. + MP / MM)*(1. + w0) / 2.;
-        double norm = prefac0 * 1.0036 * (1. - 0.0068 * (w0 - 1.) + 0.0017 * (w0 - 1.)*(w0 - 1.) - 0.0013 * (w0 - 1.)*(w0 - 1.)*(w0 - 1.));
-        double prefac = fplus(q2)*2. * sqrt(MP / MM) / (1. + MP / MM)*2. * sqrt(MP / MM) / (1. + MP / MM)*(1. + w) / 2.;
+        double prefac0 = 2. * (MP / MM) / (1. + MP / MM)/ (1. + MP / MM)*(1. + w0);
+        double norm = prefac0 * (1. - alpha_0*0.0068 * (w0 - 1.) + beta_0*0.0017 * (w0 - 1.)*(w0 - 1.) - gamma_0*0.0013 * (w0 - 1.)*(w0 - 1.)*(w0 - 1.));
+        double prefac = fplus(q2)* prefac0/(1. + w0)*(1. + w);
         // norm introduced to respect f+(q2=0)=f0(q2=0) exactly
-        return prefac/norm * 1.0036 * (1. - 0.0068 * (w - 1.) + 0.0017 * (w - 1.)*(w - 1.) - 0.0013 * (w - 1.)*(w - 1.)*(w - 1.));
+        return prefac/norm * (1. - alpha_0*0.0068 * (w - 1.) + beta_0*0.0017 * (w - 1.)*(w - 1.) - gamma_0*0.0013 * (w - 1.)*(w - 1.)*(w - 1.));
     } else {
         double P_f0 = (z - z0p_1) / (1. - z * z0p_1)*(z - z0p_2) / (1. - z * z0p_2);
 #if NBGL == 3
@@ -421,7 +482,7 @@ gslpp::complex MPlnu::G0(double q2)
             (4. * (Elep * Enu + Mlep * Mnu) + lambda_lep2 / q2) * HP(q2).abs2()+
             (8. * (Elep * Enu - Mlep * Mnu) - lambda_lep2 / (12. * q2)) * HT(q2).abs2()+
             (16. * (Elep * Enu + Mlep * Mnu) - lambda_lep2 / (12. * q2)) * HTt(q2).abs2() +
-            8. * sqrt(2.)*(Enu * Mlep - Elep * Mnu)*(HA(q2) * HT(q2).conjugate()).imag() +
+            8. * M_SQRT2 *(Enu * Mlep - Elep * Mnu)*(HA(q2) * HT(q2).conjugate()).imag() +
             16. * (Enu * Mlep + Elep * Mnu)*(HV(q2) * HTt(q2).conjugate()).imag());
 }
 
