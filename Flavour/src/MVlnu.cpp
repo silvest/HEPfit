@@ -13,6 +13,7 @@
 #include <limits>
 #include <gsl/gsl_sf_gegenbauer.h>
 #include <gsl/gsl_sf_expint.h>
+#include <limits>
 
 MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
 : mySM(SM_i)
@@ -28,6 +29,47 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     checkcache_int_tau = 0;
     checkcache_int_mu = 0;
     checkcache_int_el = 0;
+    
+    double max_double = std::numeric_limits<double>::max();
+    
+    hA1w1_cache = max_double;
+    rho2_cache = max_double;
+    R1w1_cache = max_double;
+    R2w1_cache = max_double;
+    N_A_cache = max_double;
+    N_1_cache =max_double;
+    N_2_cache = max_double;
+    j_A_cache= max_double;
+    j_0_cache = max_double;
+    j_1_cache = max_double;
+    j_2_cache = max_double;
+    k_A_cache = max_double;
+    k_0_cache = max_double;
+    k_1_cache = max_double;
+    k_2_cache = max_double;
+    l_A_cache = max_double;
+
+    af0_cache = max_double;
+    af1_cache = max_double;
+    af2_cache = max_double;
+    ag0_cache = max_double;
+    ag1_cache = max_double;
+    ag2_cache = max_double;
+    aF11_cache = max_double;
+    aF12_cache = max_double;
+    aF21_cache = max_double;
+    aF22_cache = max_double;
+
+    CS_cache = max_double;
+    CSp_cache = max_double;
+    CP_cache = max_double;
+    CPp_cache = max_double;
+    CV_cache = max_double;
+    CVp_cache = max_double;
+    CA_cache = max_double;
+    CAp_cache = max_double;
+    CT_cache = max_double;
+    CTp_cache = max_double;
 }
 
 MVlnu::~MVlnu() {
@@ -57,6 +99,8 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
             mvlnuParameters.clear();
             if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
                 << "hA1w1" << "rho2" << "R1w1" << "R2w1" 
+                << "N_A" << "N_1" << "N_2" << "j_A" << "j_0" << "j_1" << "j_2"
+                << "k_A" << "k_0" << "k_1" << "k_2" << "l_A"
                 << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
         }
     } else {
@@ -78,6 +122,8 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
             mvlnuParameters.clear();
             if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
                 << "hA1w1" << "rho2" << "R1w1" << "R2w1" 
+                << "N_A" << "N_1" << "N_2" << "j_A" << "j_0" << "j_1" << "j_2"
+                << "k_A" << "k_0" << "k_1" << "k_2" << "l_A"
                 << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
         }
     }    
@@ -159,6 +205,18 @@ void MVlnu::updateParameters()
                 rho2 = mySM.getOptionalParameter("rho2");
                 R1w1 = mySM.getOptionalParameter("R1w1");
                 R2w1 = mySM.getOptionalParameter("R2w1");
+                N_A = mySM.getOptionalParameter("N_A");
+                N_1 = mySM.getOptionalParameter("N_1");
+                N_2 = mySM.getOptionalParameter("N_2"); 
+                j_A = mySM.getOptionalParameter("j_A");
+                j_0 = mySM.getOptionalParameter("j_0");
+                j_1 = mySM.getOptionalParameter("j_1"); 
+                j_2 = mySM.getOptionalParameter("j_2");
+                k_A = mySM.getOptionalParameter("k_A");
+                k_0 = mySM.getOptionalParameter("k_0");
+                k_1 = mySM.getOptionalParameter("k_1");
+                k_2 = mySM.getOptionalParameter("k_2");
+                l_A = mySM.getOptionalParameter("l_A");
                 af0 = 0.;
                 af1 = 0.;
                 af2 = 0.;
@@ -189,6 +247,18 @@ void MVlnu::updateParameters()
                 rho2 = 0.;
                 R1w1 = 0.;
                 R2w1 = 0.;
+                N_A = 0.;
+                N_1 = 0.;
+                N_2 = 0.;
+                j_A = 0.;
+                j_0 = 0.;
+                j_1 = 0.;
+                j_2 = 0.;
+                k_A = 0.;
+                k_0 = 0.;
+                k_1 = 0.;
+                k_2 = 0.;
+                l_A = 0.;
                 af0 = mySM.getOptionalParameter("af0");
                 af1 = mySM.getOptionalParameter("af1");
                 af2 = mySM.getOptionalParameter("af2");
@@ -248,6 +318,10 @@ void MVlnu::updateParameters()
     zP3 /= (sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
 
     if ((hA1w1 != hA1w1_cache) || (rho2 != rho2_cache) || (R1w1 != R1w1_cache) || (R2w1 != R2w1_cache)
+            || (N_A != N_A_cache) || (N_1 != N_1_cache) || (N_2 != N_2_cache)
+            || (j_A != j_A_cache) || (j_0 != j_0_cache) || (j_1 != j_1_cache) || (j_2 != j_2_cache)
+            || (k_A != k_A_cache) || (k_0 != k_0_cache) || (k_1 != k_1_cache) || (k_2 != k_2_cache)
+            || (l_A != l_A_cache)
             || (af0 != af0_cache) || (af1 != af1_cache) || (af2 != af2_cache)
             || (ag0 != ag0_cache) || (ag1 != af1_cache) || (ag2 != af2_cache)
             || (aF11 != aF11_cache) || (aF12 != aF12_cache)
@@ -335,6 +409,18 @@ void MVlnu::updateParameters()
     rho2_cache = rho2;
     R1w1_cache = R1w1;
     R2w1_cache = R2w1;
+    N_A_cache = N_A;
+    N_1_cache =N_1;
+    N_2_cache = N_2;
+    j_A_cache= j_A;
+    j_0_cache = j_0;
+    j_1_cache = j_1;
+    j_2_cache = j_2;
+    k_A_cache = k_A;
+    k_0_cache = k_0;
+    k_1_cache = k_1;
+    k_2_cache = k_2;
+    l_A_cache = l_A;
 
     af0_cache = af0;
     af1_cache = af1;
@@ -457,20 +543,20 @@ double MVlnu::hA1(double q2)
 {
     double w = w0 - q2 / (2. * MM * MV);
     double z = (sqrt(w + 1.) - M_SQRT2) / (sqrt(w + 1.) + M_SQRT2);
-    if (CLNflag) return hA1w1 * (1. - 8. * rho2 * z + (53. * rho2 - 15.) * z * z - (231. * rho2 - 91.) * z * z * z);
+    if (CLNflag) return hA1w1 * N_A * (1. - j_A * 8. * rho2 * z + k_A * (53. * rho2 - 15.) * z * z - l_A * (231. * rho2 - 91.) * z * z * z);
     else return f_BGL(q2) / sqrt(MM * MV) / (1. + w);
 }
 
 double MVlnu::R1(double q2)
 {
     double w = w0 - q2 / (2. * MM * MV);
-    return R1w1 - 0.12 * (w - 1.) + 0.05 * (w - 1.)*(w - 1.);
+    return N_1 * R1w1 - j_1 * 0.12 * (w - 1.) + k_1 * 0.05 * (w - 1.)*(w - 1.);
 }
 
 double MVlnu::R2(double q2)
 {
     double w = w0 - q2 / (2. * MM * MV);
-    return R2w1 + 0.11 * (w - 1.) - 0.06 * (w - 1.)*(w - 1.);
+    return N_2 * R2w1 + j_2 * 0.11 * (w - 1.) - k_2 * 0.06 * (w - 1.)*(w - 1.);
 }
 
 double MVlnu::R0(double q2)
@@ -480,9 +566,9 @@ double MVlnu::R0(double q2)
     double R2q2at0 = R2(0.);
     double R0q2at0 = (MM + MV - (MM - MV) * R2q2at0) / (2. * MV);
     // caveat: HQET rel at the kinematic endpoint, q2 = 0 ...
-    double R0w1 = R0q2at0 + 0.11 * (w0 - 1.) - 0.01 * (w0 - 1.)*(w0 - 1.);
+    double R0w1 = R0q2at0 + j_0 * 0.11 * (w0 - 1.) - j_0 * 0.01 * (w0 - 1.)*(w0 - 1.);
     // one may consider "lattice" R0w1 = 1.14 +- O(10%) + consistency rel at q2 = 0 ...
-    return R0w1 - 0.11 * (w - 1.) + 0.01 * (w - 1.)*(w - 1.);
+    return R0w1 - j_0 * 0.11 * (w - 1.) + k_0 * 0.01 * (w - 1.)*(w - 1.);
 }
 
 double MVlnu::V(double q2)

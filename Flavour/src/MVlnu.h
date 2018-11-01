@@ -139,6 +139,7 @@ private:
     double CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
     
     double hA1w1,rho2,R1w1,R2w1; /**<CLN form factor parameters*/
+    double N_A, N_1, N_2, j_A, j_0, j_1, j_2, k_A, k_0, k_1, k_2, l_A; /**<CLN Enhanced form factor parameters*/
     double af0,af1,af2,ag0,ag1,ag2,aF11,aF12,aF21,aF22; /**<BGL form factor parameters*/
     double mBcstV1,mBcstV2,mBcstV3,mBcstV4,mBcstA1,mBcstA2,mBcstA3,mBcstA4,
         mBcstP1,mBcstP2,mBcstP3,chiTV,chiTA,chiTP,nI; /**<BGL form factor parameters*/
@@ -150,6 +151,7 @@ private:
                 cached_intJ1s_el, cached_intJ1c_el, cached_intJ2s_el, cached_intJ2c_el, cached_intJ3_el, cached_intJ4_el,
                 cached_intJ5_el, cached_intJ6s_el, cached_intJ6c_el, cached_intJ7_el, cached_intJ8_el, cached_intJ9_el; /**< caching Js integral btw q2min and q2mx*/
     double hA1w1_cache,rho2_cache,R1w1_cache,R2w1_cache;
+    double N_A_cache, N_1_cache, N_2_cache, j_A_cache, j_0_cache, j_1_cache, j_2_cache, k_A_cache, k_0_cache, k_1_cache, k_2_cache, l_A_cache;
     double af0_cache,af1_cache,af2_cache,ag0_cache,ag1_cache,ag2_cache,aF11_cache,aF12_cache,aF21_cache,aF22_cache;
     double CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
     bool checkcache_int_tau, checkcache_int_mu, checkcache_int_el;
