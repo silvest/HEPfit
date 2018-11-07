@@ -5709,6 +5709,14 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
             return sqrt(1.0-4.0*mf*mf/m_2);
     }
     
+    
+    double GeneralTHDMcache::beta_mt_sq(const double mt,const double m_2) const
+    {
+        if (4.0*mt*mt/m_2 < 1 )
+            return 1.0-4.0*mt*mt/m_2;
+        else
+            return -(1.0-4.0*mt*mt/m_2);
+    }
   
 
      double GeneralTHDMcache::lambdaijk(const double R1i,const double R2i,const double R3i,const double R1j,const double R2j,const double R3j, const double R1k,const double R2k,const double R3k, const double lambda1H, const double lambda3H, const double lambda4H, const double Relambda5H, const double Imlambda5H, const double Relambda6H, const double Imlambda6H, const double Relambda7H, const double Imlambda7H) const
@@ -5991,9 +5999,8 @@ double GeneralTHDMcache::computephi2quantities()
     rphi2_ggO = yu2.imag()*yu2.imag() + (yu2.imag()*yu2.imag() - yu2.imag()*yd2.imag())*rSigmaggphi2O_t8  + (yd2.imag()*yd2.imag() - yu2.imag()*yd2.imag())*rSigmaggphi2O_b8;
     rphi2_VV=R21*R21;
 
-    double beta_mt_m2 = 1.0-4.0*Mt*Mt/m2_2;
     
-  
+
     /*Gamma_phi2gaga and Gamma_phi2Zga expressions ...*/
     
     /*Decay to photons. The fermionic contribution has a CP-even part (HH) and a CP-odd (A)*/
@@ -6163,7 +6170,7 @@ double Gammaphi2_phi1Z=HSTheta(m2-(m1+MZ))*pow(KaellenFunction(m2_2,MZ*MZ,m1_2),
 double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mHp2),3)*(R23-i*R22).abs2()/(M_PI*vev*vev);
 
  
-    Gammaphi2tot= (BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuO/(beta_mt_m2*beta_mt_m2))
+    Gammaphi2tot= (BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuO/(beta_mt_sq(Mt, m2_2)))
          +BrSM_phi2tocc*(rphi2_QuQuE + rphi2_QuQuO/(beta(Mc, m2_2)*beta(Mc, m2_2)))
          +BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdO/(beta(Mb, m2_2)*beta(Mb, m2_2)))
          +BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlO/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))
@@ -6173,7 +6180,7 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
     
  
  
-    Br_phi2tott=BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta_mt_m2*beta_mt_m2))*Gammaphi2totSM/Gammaphi2tot;
+    Br_phi2tott=BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta_mt_sq(Mt, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2tobb=BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdE/(beta(Mb, m2_2)*beta(Mb, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2totautau=BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlE/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
 
@@ -6260,9 +6267,7 @@ double GeneralTHDMcache::computephi3quantities()
      rphi3_ggO = yu3.imag()*yu3.imag() + (yu3.imag()*yu3.imag() - yu3.imag()*yd3.imag())*rSigmaggphi3O_t8  + (yd3.imag()*yd3.imag() - yu3.imag()*yd3.imag())*rSigmaggphi3O_b8;
      rphi3_VV=R31*R31;
      
-    double beta_mt_m3 = 1.0-4.0*Mt*Mt/m3_2;
 
-       
     /*Gamma_phi3gaga and Gamma_phi3Zga expressions ...*/
     
     /*Decay to photons. The fermionic contribution has a CP-even part (HH) and a CP-odd (A)*/
@@ -6397,7 +6402,7 @@ double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mH
  /*Gammaphi3tot= ((BrSM_phi3tott*rphi3_QtQt+BrSM_phi3tocc*rphi3_QcQc)+BrSM_phi3tobb*rphi3_QbQb+(BrSM_phi3totautau*rphi3_tautau+BrSM_phi3tomumu*rphi3_mumu)+(BrSM_phi3toWW+BrSM_phi3toZZ)*rphi3_VV)*Gammaphi3totSM+Gamma_phi3gaga+Gamma_phi3Zga+Gamma_phi3gg + Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2+Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z+Gammaphi3_HpW;*/
 
 
- Gammaphi3tot= (BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta_mt_m3*beta_mt_m3))
+ Gammaphi3tot= (BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta_mt_sq(Mt, m3_2)))
          +BrSM_phi3tocc*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mc, m3_2)*beta(Mc, m3_2)))
          +BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2)))
          +BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2)))
@@ -6405,7 +6410,7 @@ double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mH
          + Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2+Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z
          +Gammaphi3_HpW;
  
- Br_phi3tott=BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta_mt_m3*beta_mt_m3))*Gammaphi3totSM/Gammaphi3tot;
+ Br_phi3tott=BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta_mt_sq(Mt, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
  Br_phi3tobb=BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
  Br_phi3totautau=BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
 

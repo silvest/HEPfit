@@ -724,6 +724,13 @@ public:
     double beta(const double mf, const double m_2) const;
 
     
+      /**
+     * @brief beta_mt_sq function
+     * @return @f$\beta_mt_sq(mf, m_2)=abs(1-4*mf*mf/(m_2))@f$
+     */
+    double beta_mt_sq(const double mt, const double m_2) const;
+
+    
         
     /**
      * @brief lambdaijk function
