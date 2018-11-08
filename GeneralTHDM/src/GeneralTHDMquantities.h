@@ -1312,4 +1312,403 @@ public:
 private:
     const GeneralTHDM& myGTHDM;
 };
+
+
+
+/**
+ * @class Q_stGTHDM
+ * @ingroup GeneralTHDM
+ * @brief Q_stTHDMW.
+ */
+class Q_stGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Q_stGTHDM constructor.
+     */
+    Q_stGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$Q_{\text{stability}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class DeltaQ_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief DeltaQ_GTHDM.
+ */
+class DeltaQ_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief DeltaQ_GTHDM constructor.
+     */
+    DeltaQ_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$Q_{\text{GTHDM}}-Q_{\text{stability}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class g1atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief g1atQGTHDM.
+ */
+class g1atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief g1atQGTHDM constructor.
+     */
+    g1atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$g_1(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class g2atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief g2atQGTHDM.
+ */
+class g2atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief g2atQGTHDM constructor.
+     */
+    g2atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$g_2(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class g3atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief g3atQGTHDM.
+ */
+class g3atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief g3atQGTHDM constructor.
+     */
+    g3atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$g_3(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class etaU1atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief etaU1atQGTHDM.
+ */
+class etaU1atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief etaU1atQGTHDM constructor.
+     */
+    etaU1atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$Y_{t1}(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class etaU2atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief etaU2atQGTHDM.
+ */
+class etaU2atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief etaU2atQGTHDM constructor.
+     */
+    etaU2atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$Y_{t2}(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class etaD1atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief etaD1atQGTHDM.
+ */
+class etaD1atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief etaD1atQGTHDM constructor.
+     */
+    etaD1atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$Y_{b1}(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class etaD2atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief etaD2atQGTHDM.
+ */
+class etaD2atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief etaD2atQGTHDM constructor.
+     */
+    etaD2atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$Y_{b2}(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class etaL1atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief etaL1atQGTHDM.
+ */
+class etaL1atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief etaL1atQGTHDM constructor.
+     */
+    etaL1atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$Y_{\tau 1}(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class etaL2atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief etaL2atQGTHDM.
+ */
+class etaL2atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief etaL2atQGTHDM constructor.
+     */
+    etaL2atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$Y_{\tau 2}(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class lambda1atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief lambda1atQGTHDM.
+ */
+class lambda1atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief lambda1atQGTHDM constructor.
+     */
+    lambda1atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\lambda_1(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class lambda2atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief lambda2atQGTHDM.
+ */
+class lambda2atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief lambda2atQGTHDM constructor.
+     */
+    lambda2atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\lambda_2(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class lambda3atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief lambda3atQGTHDM.
+ */
+class lambda3atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief lambda3atQGTHDM constructor.
+     */
+    lambda3atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\lambda_3(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class lambda4atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief lambda4atQGTHDM.
+ */
+class lambda4atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief lambda4atQGTHDM constructor.
+     */
+    lambda4atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\lambda_4(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Relambda5atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief Relambda5atQGTHDM.
+ */
+class Relambda5atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Relambda5atQGTHDM constructor.
+     */
+    Relambda5atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return Re @f$\lambda_5(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Relambda6atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief Relambda6atQGTHDM.
+ */
+class Relambda6atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Relambda6atQGTHDM constructor.
+     */
+    Relambda6atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return Re @f$\lambda_6(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Relambda7atQGTHDM
+ * @ingroup GeneralTHDM
+ * @brief Relambda7atQGTHDM.
+ */
+class Relambda7atQGTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Relambda7atQGTHDM constructor.
+     */
+    Relambda7atQGTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return Re @f$\lambda_7(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
 #endif	/* GENERALTHDMQUANTITIES_H */

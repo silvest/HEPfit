@@ -2877,19 +2877,36 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Imlambda7H_GTHDM"] = boost::factory<Imlambda7H_GTHDM*>();
 
    
-   obsThFactory["R11"]= boost::factory<R11_GTHDM*>();
-   obsThFactory["R12"]= boost::factory<R12_GTHDM*>();
-   obsThFactory["R13"]= boost::factory<R13_GTHDM*>();
-   obsThFactory["R21"]= boost::factory<R21_GTHDM*>();
-   obsThFactory["R22"]= boost::factory<R22_GTHDM*>();
-   obsThFactory["R23"]= boost::factory<R23_GTHDM*>();
-   obsThFactory["R31"]= boost::factory<R31_GTHDM*>();
-   obsThFactory["R32"]= boost::factory<R32_GTHDM*>();
+    obsThFactory["R11"]= boost::factory<R11_GTHDM*>();
+    obsThFactory["R12"]= boost::factory<R12_GTHDM*>();
+    obsThFactory["R13"]= boost::factory<R13_GTHDM*>();
+    obsThFactory["R21"]= boost::factory<R21_GTHDM*>();
+    obsThFactory["R22"]= boost::factory<R22_GTHDM*>();
+    obsThFactory["R23"]= boost::factory<R23_GTHDM*>();
+    obsThFactory["R31"]= boost::factory<R31_GTHDM*>();
+    obsThFactory["R32"]= boost::factory<R32_GTHDM*>();
     obsThFactory["R33"]= boost::factory<R33_GTHDM*>();
 
-   obsThFactory["cosalpha1"]= boost::factory<cosalpha1_GTHDM*>();
+    obsThFactory["cosalpha1"]= boost::factory<cosalpha1_GTHDM*>();
 
-  
+    obsThFactory["Q_stGTHDM"]= boost::factory<Q_stGTHDM*>();
+    obsThFactory["DeltaQ_GTHDM"]= boost::factory<DeltaQ_GTHDM*>();
+    obsThFactory["g1atQGTHDM"]= boost::factory<g1atQGTHDM*>();
+    obsThFactory["g2atQGTHDM"]= boost::factory<g2atQGTHDM*>();
+    obsThFactory["g3atQGTHDM"]= boost::factory<g3atQGTHDM*>();
+    obsThFactory["etaU1atQGTHDM"]= boost::factory<etaU1atQGTHDM*>();
+    obsThFactory["etaU2atQGTHDM"]= boost::factory<etaU2atQGTHDM*>();
+    obsThFactory["etaD1atQGTHDM"]= boost::factory<etaD1atQGTHDM*>();
+    obsThFactory["etaD2atQGTHDM"]= boost::factory<etaD2atQGTHDM*>();
+    obsThFactory["etaL1atQGTHDM"]= boost::factory<etaL1atQGTHDM*>();
+    obsThFactory["etaL2atQGTHDM"]= boost::factory<etaL2atQGTHDM*>();
+    obsThFactory["lambda1atQGTHDM"]= boost::factory<lambda1atQGTHDM*>();
+    obsThFactory["lambda2atQGTHDM"]= boost::factory<lambda2atQGTHDM*>();
+    obsThFactory["lambda3atQGTHDM"]= boost::factory<lambda3atQGTHDM*>();
+    obsThFactory["lambda4atQGTHDM"]= boost::factory<lambda4atQGTHDM*>();
+    obsThFactory["Relambda5atQGTHDM"]= boost::factory<Relambda5atQGTHDM*>();
+    obsThFactory["Relambda6atQGTHDM"]= boost::factory<Relambda6atQGTHDM*>();
+    obsThFactory["Relambda7atQGTHDM"]= boost::factory<Relambda7atQGTHDM*>();
 
     obsThFactory["unitarity1_GTHDM"] = boost::factory<unitarity1_GTHDM*>();
     obsThFactory["unitarity2_GTHDM"] = boost::factory<unitarity2_GTHDM*>();

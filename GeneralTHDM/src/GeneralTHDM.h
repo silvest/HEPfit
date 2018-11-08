@@ -36,7 +36,7 @@ class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
 class GeneralTHDM: public NPbase {
 public:
 
-    static const int NGeneralTHDMvars = 66;
+    static const int NGeneralTHDMvars = 68;
     static const std::string GeneralTHDMvars[NGeneralTHDMvars];
 
     /**
@@ -90,7 +90,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
-//    virtual bool setFlagStr(const std::string name, const std::string value);
+    virtual bool setFlagStr(const std::string name, const std::string value);
     virtual bool setFlag(const std::string, const bool);
 
     GeneralTHDMcache* getMyGTHDMCache() const
@@ -540,7 +540,23 @@ public:
     double getQ_GTHDM() const {
         return Q_GTHDM;
     }
-    
+
+    /**
+     *
+     * @return Minimal R' value
+     */
+    double getRpepsGTHDM() const {
+        return RpepsGTHDM;
+    }
+
+    /**
+     *
+     * @return Minimal NLO unitarity check scale
+     */
+    double getNLOuniscaleGTHDM() const {
+        return NLOuniscaleGTHDM;
+    }
+
     /**
      *
      * @return Flag to switch on the Aligned Two Higgs Doublet Model
@@ -555,6 +571,14 @@ public:
      */
     bool getCPconservationflag() const {
         return flag_CPconservation;
+    }
+
+    /**
+     *
+     * @return Switch for NLO RGE and approximate NLO RGE
+     */
+    std::string getRGEorderflag() const {
+        return flag_RGEorder;
     }
 
     virtual double muggH(const double sqrt_s) const;
@@ -625,6 +649,20 @@ protected:
 //            return false;
 //    }
 
+    /**
+     * @brief A method to check if the RGE order name in string form is valid.
+     * @param[in] GeneralTHDM RGE order
+     * @return a boolean that is true if the RGE order string is valid
+     */
+    bool checkRGEorder(const std::string RGEorder) const
+    {
+        if (RGEorder.compare("LO") == 0)
+//                || RGEorder.compare("approxNLO") == 0)
+            return true;
+        else
+            return false;
+    }
+
     mutable Matching<GeneralTHDMMatching,GeneralTHDM> GTHDMM; ///< An object of type Matching.
 
 private:
@@ -642,8 +680,9 @@ private:
             Nl_11r, Nl_11i, Nl_12r, Nl_12i, Nl_13r, Nl_13i, 
             Nl_21r, Nl_21i, Nl_22r, Nl_22i, Nl_23r, Nl_23i, 
             Nl_31r, Nl_31i, Nl_32r, Nl_32i, Nl_33r, Nl_33i, 
-            Q_GTHDM;
+            Q_GTHDM, RpepsGTHDM, NLOuniscaleGTHDM;
     bool flag_ATHDM, flag_CPconservation;
+    std::string flag_RGEorder;
 };
 
 /**

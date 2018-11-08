@@ -18,7 +18,7 @@ const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mH
 "Nl_11r", "Nl_11i", "Nl_12r", "Nl_12i", "Nl_13r", "Nl_13i", 
 "Nl_21r", "Nl_21i", "Nl_22r", "Nl_22i", "Nl_23r", "Nl_23i", 
 "Nl_31r", "Nl_31i", "Nl_32r", "Nl_32i", "Nl_33r", "Nl_33i", 
-"Q_GTHDM"};
+"Q_GTHDM","RpepsGTHDM","NLOuniscaleGTHDM"};
 
 GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
 
@@ -89,6 +89,8 @@ GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_33r", boost::cref(Nl_33r)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_33i", boost::cref(Nl_33i)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_GTHDM", boost::cref(Q_GTHDM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("RpepsGTHDM", boost::cref(RpepsGTHDM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("NLOuniscaleGTHDM", boost::cref(NLOuniscaleGTHDM)));
 }
 
 GeneralTHDM::~GeneralTHDM(){
@@ -300,6 +302,10 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         Nl_33i = value;
     else if(name.compare("Q_GTHDM") == 0)
         Q_GTHDM = value;
+    else if(name.compare("RpepsGTHDM") == 0)
+        RpepsGTHDM = value;
+    else if(name.compare("NLOuniscaleGTHDM") == 0)
+        NLOuniscaleGTHDM = value;
     else
         StandardModel::setParameter(name,value);
 }
@@ -317,29 +323,29 @@ bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-//bool GeneralTHDM::setFlagStr(const std::string name, const std::string value)
-//{
-//    bool res = false;
-//    if(name.compare("ATHDMflag") == 0)
-//    {
-//        if (checkmodelType(value))
-//        {
-//            flag_model = value;
-//            res = true;
-//        }
-//        else
-//        {
-//            throw std::runtime_error("GeneralTHDM::setFlagStr(): Invalid flag "
-//                + name + "=" + value);
-//        }
-//    }
-//    else
-//    {
-//        res = StandardModel::setFlagStr(name,value);
-//    }
-//
-//    return(res);
-//}
+bool GeneralTHDM::setFlagStr(const std::string name, const std::string value)
+{
+    bool res = false;
+    if(name.compare("RGEorder") == 0)
+    {
+        if (checkRGEorder(value))
+        {
+            flag_RGEorder = value;
+            res = true;
+        }
+        else
+        {
+            throw std::runtime_error("GeneralTHDM::setFlagStr(): Invalid flag "
+                + name + "=" + value);
+        }
+    }
+    else
+    {
+        res = StandardModel::setFlagStr(name,value);
+    }
+
+    return(res);
+}
 
 bool GeneralTHDM::setFlag(const std::string name, const bool value)
 {

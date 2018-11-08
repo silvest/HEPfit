@@ -6926,6 +6926,127 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     return 0.;
 }
 
+void GeneralTHDMcache::runGeneralTHDMparameters()
+{
+
+    std::string RGEorder=myGTHDM->getRGEorderflag();
+    //flag will be used to transport information about model and RGEorder to the Runner:
+    //flag=0 for LO (1 for approxNLO and 2 for NLO - not implemented yet)
+    int flag;
+    if( RGEorder == "LO" ) flag=0;
+//    else if( RGEorder == "approxNLO" ) flag=1;
+//    else if( RGEorder == "NLO" ) flag=2;
+    else {
+        throw std::runtime_error("RGEorder can be only \"LO\" at the moment");//any of \"LO\", \"approxNLO\" or \"NLO\"
+    }
+
+    if(myGTHDM->getATHDMflag() && myGTHDM->getCPconservationflag())
+    {
+        double g1_at_MZ=sqrt(4.0*M_PI*Ale/cW2);
+        double g2_at_MZ=sqrt(4.0*M_PI*Ale/(1-cW2));
+        double g3_at_MZ=sqrt(4.0*M_PI*Als);
+        double v1_at_MZ=0.;
+        double v2_at_MZ=0.;
+        double etaU1_at_MZ=0.;
+        double etaU2_at_MZ=0.;
+        double etaD1_at_MZ=0.;
+        double etaD2_at_MZ=0.;
+        double etaL1_at_MZ=0.;
+        double etaL2_at_MZ=0.;
+        double m11sq_at_MZ=0.;
+        double m12sq_at_MZ=0.;
+        double m22sq_at_MZ=0.;
+        double lambda1_at_MZ=lambda1;
+        double lambda2_at_MZ=lambda2;
+        double lambda3_at_MZ=lambda3;
+        double lambda4_at_MZ=lambda4;
+        double lambda5_at_MZ=Relambda5;
+        double lambda6_at_MZ=Relambda6;
+        double lambda7_at_MZ=Relambda7;
+        double RpepsGTHDM=myGTHDM->getRpepsGTHDM();
+        double NLOuniscale=myGTHDM->getNLOuniscaleGTHDM();
+
+        if(fabs(Q_GTHDM-log10(MZ))<0.005)   //at MZ scale
+        {
+            Q_cutoff=log10(MZ);
+
+            g1_at_Q = g1_at_MZ;
+            g2_at_Q = g2_at_MZ;
+            g3_at_Q = g3_at_MZ;
+            v1_at_Q = v1_at_MZ;
+            v2_at_Q = v2_at_MZ;
+            etaU1_at_Q = etaU1_at_MZ;
+            etaU2_at_Q = etaU2_at_MZ;
+            etaD1_at_Q = etaD1_at_MZ;
+            etaD2_at_Q = etaD2_at_MZ;
+            etaL1_at_Q = etaL1_at_MZ;
+            etaL2_at_Q = etaL2_at_MZ;
+            m11sq_at_Q = m11sq_at_MZ;
+            m12sq_at_Q = m12sq_at_MZ;
+            m22sq_at_Q = m22sq_at_MZ;
+            lambda1_at_Q = lambda1_at_MZ;
+            lambda2_at_Q = lambda2_at_MZ;
+            lambda3_at_Q = lambda3_at_MZ;
+            lambda4_at_Q = lambda4_at_MZ;
+            Relambda5_at_Q = lambda5_at_MZ;
+            Relambda6_at_Q = lambda6_at_MZ;
+            Relambda7_at_Q = lambda7_at_MZ;
+        }
+        else   //at some other scale
+        {
+            double InitVals[21];
+            InitVals[0]=g1_at_MZ;
+            InitVals[1]=g2_at_MZ;
+            InitVals[2]=g3_at_MZ;
+            InitVals[3]=v1_at_MZ;
+            InitVals[4]=v2_at_MZ;
+            InitVals[5]=etaU1_at_MZ;
+            InitVals[6]=etaU2_at_MZ;
+            InitVals[7]=etaD1_at_MZ;
+            InitVals[8]=etaD2_at_MZ;
+            InitVals[9]=etaL1_at_MZ;
+            InitVals[10]=etaL2_at_MZ;
+            InitVals[11]=m11sq_at_MZ;
+            InitVals[12]=m12sq_at_MZ;
+            InitVals[13]=m22sq_at_MZ;
+            InitVals[14]=lambda1_at_MZ;
+            InitVals[15]=lambda2_at_MZ;
+            InitVals[16]=lambda3_at_MZ;
+            InitVals[17]=lambda4_at_MZ;
+            InitVals[18]=lambda5_at_MZ;
+            InitVals[19]=lambda6_at_MZ;
+            InitVals[20]=lambda7_at_MZ;
+
+            Q_cutoff=myRunnerGTHDM->RGEGeneralTHDMRunner(InitVals, 21, log10(MZ), Q_GTHDM, flag, RpepsGTHDM, NLOuniscale);  //Running up to Q_cutoff<=Q_GTHDM
+
+            g1_at_Q = InitVals[0];
+            g2_at_Q = InitVals[1];
+            g3_at_Q = InitVals[2];
+            v1_at_Q = InitVals[3];
+            v2_at_Q = InitVals[4];
+            etaU1_at_Q = InitVals[5];
+            etaU2_at_Q = InitVals[6];
+            etaD1_at_Q = InitVals[7];
+            etaD2_at_Q = InitVals[8];
+            etaL1_at_Q = InitVals[9];
+            etaL2_at_Q = InitVals[10];
+            m11sq_at_Q = InitVals[11];
+            m12sq_at_Q = InitVals[12];
+            m22sq_at_Q = InitVals[13];
+            lambda1_at_Q = InitVals[14];
+            lambda2_at_Q = InitVals[15];
+            lambda3_at_Q = InitVals[16];
+            lambda4_at_Q = InitVals[17];
+            Relambda5_at_Q = InitVals[18];
+            Relambda6_at_Q = InitVals[19];
+            Relambda7_at_Q = InitVals[20];
+        }
+    }//End ATHDM case
+    else {
+        throw std::runtime_error("RGE are only defined for the CP conserving ATHDM at the moment");
+    }
+}
+
 double GeneralTHDMcache::updateCache()
 {      
     mHl=myGTHDM->getMHl();
@@ -7330,10 +7451,7 @@ double GeneralTHDMcache::updateCache()
 //    std::cout<<"lambda4_GTHDM = "<<lambda4_GTHDM<<std::endl;
 //    std::cout<<"Relambda5_GTHDM = "<<Relambda5_GTHDM<<std::endl;
         
-//    Q_THDM=myTHDM->getQ_THDM();
-////    m12_2=myTHDM->getm12_2();
-//    MW=MWTHDM(myTHDM->Mw_tree());
-//    cW2=cW2THDM(myTHDM->c02());
+    Q_GTHDM=myGTHDM->getQ_GTHDM();
     Ale=myGTHDM->getAle();
     Als=myGTHDM->getAlsMz();
 //    Mt=myTHDM->getQuarks(QCD::TOP).getMass();
@@ -7349,6 +7467,7 @@ double GeneralTHDMcache::updateCache()
 //    modelflag=myTHDM->getModelTypeflag();
 //    WFRflag=myTHDM->getWFRflag();
 
+    runGeneralTHDMparameters();
     computeSignalStrengths();
     computephi2quantities();
     computephi3quantities();

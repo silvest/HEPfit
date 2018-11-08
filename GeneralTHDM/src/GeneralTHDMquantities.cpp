@@ -626,3 +626,173 @@ double m2_2::computeThValue()
     return myGTHDM.getMyGTHDMCache()->m2_2;
 }
 
+
+
+
+//  Quantities at higher scales
+
+
+
+Q_stGTHDM::Q_stGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Q_stGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->Q_cutoff;
+}
+
+
+DeltaQ_GTHDM::DeltaQ_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double DeltaQ_GTHDM::computeThValue()
+{
+    return myGTHDM.getQ_GTHDM() - myGTHDM.getMyGTHDMCache()->Q_cutoff;
+}
+
+
+g1atQGTHDM::g1atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double g1atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->g1_at_Q;
+}
+
+g2atQGTHDM::g2atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double g2atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->g2_at_Q;
+}
+
+g3atQGTHDM::g3atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double g3atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->g3_at_Q;
+}
+
+etaU1atQGTHDM::etaU1atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double etaU1atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->etaU1_at_Q;
+}
+
+etaU2atQGTHDM::etaU2atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double etaU2atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->etaU2_at_Q;
+}
+
+etaD1atQGTHDM::etaD1atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double etaD1atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->etaD1_at_Q;
+}
+
+etaD2atQGTHDM::etaD2atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double etaD2atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->etaD2_at_Q;
+}
+
+etaL1atQGTHDM::etaL1atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double etaL1atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->etaL1_at_Q;
+}
+
+etaL2atQGTHDM::etaL2atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double etaL2atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->etaL2_at_Q;
+}
+
+lambda1atQGTHDM::lambda1atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double lambda1atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->lambda1_at_Q;
+}
+
+lambda2atQGTHDM::lambda2atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double lambda2atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->lambda2_at_Q;
+}
+
+lambda3atQGTHDM::lambda3atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double lambda3atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->lambda3_at_Q;
+}
+
+lambda4atQGTHDM::lambda4atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double lambda4atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->lambda4_at_Q;
+}
+
+Relambda5atQGTHDM::Relambda5atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Relambda5atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->Relambda5_at_Q;
+}
+
+Relambda6atQGTHDM::Relambda6atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Relambda6atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->Relambda6_at_Q;
+}
+
+Relambda7atQGTHDM::Relambda7atQGTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Relambda7atQGTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->Relambda7_at_Q;
+}

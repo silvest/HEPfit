@@ -12,6 +12,7 @@
       <itemPath>src/GeneralTHDMLightHiggs.h</itemPath>
       <itemPath>src/GeneralTHDMMatching.h</itemPath>
       <itemPath>src/GeneralTHDMObservables.h</itemPath>
+      <itemPath>src/GeneralTHDMRunner.h</itemPath>
       <itemPath>src/GeneralTHDMSTU.h</itemPath>
       <itemPath>src/GeneralTHDMcache.h</itemPath>
       <itemPath>src/GeneralTHDMgminus2.h</itemPath>
@@ -33,6 +34,7 @@
       <itemPath>src/GeneralTHDMHeavyHiggs.cpp</itemPath>
       <itemPath>src/GeneralTHDMLightHiggs.cpp</itemPath>
       <itemPath>src/GeneralTHDMMatching.cpp</itemPath>
+      <itemPath>src/GeneralTHDMRunner.cpp</itemPath>
       <itemPath>src/GeneralTHDMSTU.cpp</itemPath>
       <itemPath>src/GeneralTHDMcache.cpp</itemPath>
       <itemPath>src/GeneralTHDMgminus2.cpp</itemPath>
@@ -132,6 +134,10 @@
       </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMRunner.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMSTU.h" ex="false" tool="3" flavor2="0">
@@ -220,6 +226,10 @@
       </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMRunner.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMSTU.h" ex="false" tool="3" flavor2="0">
@@ -298,6 +308,10 @@
       </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMRunner.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMSTU.h" ex="false" tool="3" flavor2="0">
@@ -375,6 +389,10 @@
       <item path="src/GeneralTHDMMatching.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMRunner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>

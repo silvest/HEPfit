@@ -9,6 +9,7 @@
 #define GENERALTHDMCACHE_H
 
 #include <cmath>
+#include "GeneralTHDMRunner.h"
 #include "PVfunctions.h"
 #include "GeneralTHDM.h"
 #include "GeneralTHDMquantities.h"
@@ -2400,13 +2401,38 @@ public:
     
     gslpp::complex su, sd, sl;
 
+    double Q_cutoff;
+    double g1_at_Q;
+    double g2_at_Q;
+    double g3_at_Q;
+    double v1_at_Q;
+    double v2_at_Q;
+    double etaU1_at_Q;
+    double etaU2_at_Q;
+    double etaD1_at_Q;
+    double etaD2_at_Q;
+    double etaL1_at_Q;
+    double etaL2_at_Q;
+    double m11sq_at_Q;
+    double m22sq_at_Q;
+    double m12sq_at_Q;
+    double lambda1_at_Q;
+    double lambda2_at_Q;
+    double lambda3_at_Q;
+    double lambda4_at_Q;
+    double Relambda5_at_Q;
+    double Relambda6_at_Q;
+    double Relambda7_at_Q;
+
 protected:   
     
 private:
 
     const GeneralTHDM * myGTHDM;
+    GeneralTHDMRunner * myRunnerGTHDM;
     const PVfunctions PV;
 
+    void runGeneralTHDMparameters();
 
     double mHl;
     double vev;
@@ -2425,7 +2451,7 @@ private:
     double Relambda6;
     double Relambda7;
     
-//    double Q_THDM;
+    double Q_GTHDM;
 //    double bma;
 //    double m12_2;
 //    double mHh2;
