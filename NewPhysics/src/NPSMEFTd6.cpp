@@ -12274,7 +12274,55 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
 //  Bin dependences assuming cutoff of the EFT at 5 TeV
 //  Normalize to the total number of events to remove the dependence on Lumi
 //  (Numbers correspond to 3/ab)
-    if (sqrt_s == 100.0) {
+    if (sqrt_s == 14.0) {
+        
+        if (pTV1 == 100.){
+            mu += (558.0 * cHWp + 56.8 * cHWp * cHWp) / 3450.0;          
+    
+        } else if (pTV1 == 150.){
+            mu += (410.0 * cHWp + 17.64 * cHWp * cHWp) / 2690.0;           
+    
+        } else if (pTV1 == 220.){
+            mu += (266.0 * cHWp + 45.6 * cHWp * cHWp) / 925.0;
+    
+        } else if (pTV1 == 300.){
+            mu += (304.0 * cHWp + 108. * cHWp * cHWp) / 563.0;
+
+        } else if (pTV1 == 500.){
+            mu += (114.40 * cHWp + 96.8 * cHWp * cHWp) / 85.1 ;
+    
+        } else if (pTV1 == 750.){
+            mu += (46.20 * cHWp + 86.8 * cHWp * cHWp) / 14.9;
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mupTVppWZ()");
+        } 
+        
+    } else if (sqrt_s == 27.0) {
+        
+        if (pTV1 == 150.){
+            mu += (824.0 * cHWp + 71.6 * cHWp * cHWp) / 5370.0;          
+    
+        } else if (pTV1 == 220.){
+            mu += (510.0 * cHWp + 75.2 * cHWp * cHWp) / 2210.0;           
+    
+        } else if (pTV1 == 300.){
+            mu += (808.0 * cHWp + 268.4 * cHWp * cHWp) / 1610.0;
+    
+        } else if (pTV1 == 500.){
+            mu += (374.0 * cHWp + 308.0 * cHWp * cHWp) / 331.0;
+
+        } else if (pTV1 == 750.){
+            mu += (216.0 * cHWp + 420.0 * cHWp * cHWp) / 85.9;
+    
+        } else if (pTV1 == 1200.){
+            mu += (78.2 * cHWp + 325.2 * cHWp * cHWp) / 10.0;
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mupTVppWZ()");
+        } 
+        
+    } else if (sqrt_s == 100.0) {
 
         if (pTV1 == 220.){
             mu += (2000.0 * cHWp + 368.4 * cHWp * cHWp) / 8030.0;          

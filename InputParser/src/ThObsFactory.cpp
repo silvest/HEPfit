@@ -263,6 +263,20 @@ ThObsFactory::ThObsFactory()
     //----- High Energy diboson observables at hadron colliders
     obsThFactory["ppZHprobe100"] = boost::bind(boost::factory<ppZHprobe*>(), _1, sqrt_s_FCC100);
     //
+    obsThFactory["mupTVppWZ_14_Bin1"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC14, 100., 150.);
+    obsThFactory["mupTVppWZ_14_Bin2"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC14, 150., 220.);
+    obsThFactory["mupTVppWZ_14_Bin3"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC14, 220., 300.);
+    obsThFactory["mupTVppWZ_14_Bin4"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC14, 300., 500.);
+    obsThFactory["mupTVppWZ_14_Bin5"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC14, 500., 750.);
+    obsThFactory["mupTVppWZ_14_Bin6"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC14, 750., 1200.);
+    //
+    obsThFactory["mupTVppWZ_27_Bin1"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC27, 150., 220.);
+    obsThFactory["mupTVppWZ_27_Bin2"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC27, 220., 300.);
+    obsThFactory["mupTVppWZ_27_Bin3"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC27, 300., 500.);
+    obsThFactory["mupTVppWZ_27_Bin4"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC27, 500., 750.);
+    obsThFactory["mupTVppWZ_27_Bin5"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC27, 750., 1200.);
+    obsThFactory["mupTVppWZ_27_Bin6"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_LHC27, 1200., 1800.);
+    //
     obsThFactory["mupTVppWZ_100_Bin1"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 220., 300.);
     obsThFactory["mupTVppWZ_100_Bin2"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 300., 500.);
     obsThFactory["mupTVppWZ_100_Bin3"] = boost::bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 500., 750.);
