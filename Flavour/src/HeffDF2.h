@@ -54,7 +54,7 @@ public:
      * @return the effective hamiltonian at the scale mu for B_d oscillations
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR);
-    
+
     /**
      * 
      * @param mu is the low energy scale
@@ -62,7 +62,15 @@ public:
      * @return the effective hamiltonian at the scale mu for B_s oscillations
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffBs(double mu, schemes scheme = NDR);
-    
+
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme (Default: NDR)
+     * @return the effective hamiltonian at the scale mu for B_s oscillations
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffBsp(double mu, schemes scheme = NDR);
+
     /**
      * 
      * @param mu is the low energy scale

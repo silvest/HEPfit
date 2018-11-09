@@ -50,6 +50,13 @@ public:
      * @return return the vector of SM Wilson coefficients
      */
     virtual   std::vector<WilsonCoefficient>& CMdbs2() ;
+
+    /**
+     * 
+     * @brief \f$ \Delta B = 2 \f$, \f$ B_{s} \f$ 
+     * @return return the vector of SM Wilson coefficients of the primed operators
+     */
+    virtual   std::vector<WilsonCoefficient>& CMdbsp2() ;
     
     /**
      * 
@@ -654,7 +661,7 @@ public:
     }
      
 protected:
-    std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
+    std::vector<WilsonCoefficient> vmcdb, vmcds, vmcdsp, vmcd2, vmck2, vmck, vmckcc;
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu;
     std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j, vmcmueconv, vmcgminus2mu;
@@ -667,7 +674,7 @@ private:
     double S0p(double x) const;
     double S11(double x) const;
     double S18(double x) const;
-    WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
+    WilsonCoefficient mcdbd2, mcdbs2, mcdbsp2, mcdd2, mcdk2, mck, mckcc;
     WilsonCoefficient mcbsg, mcprimebsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mcbtaunu;
     WilsonCoefficient mcDLij, mcDLi3j, mcmueconv, mcgminus2mu;

@@ -72,6 +72,10 @@ gslpp::complex AmpDB2::AmpBs(orders order)
             mySM.getBBs().getMu(),
             mySM.getBBs().getScheme());
 
+    gslpp::vector<gslpp::complex> ** allcoeff_prime = mySM.getFlavour().ComputeCoeffBsp(
+            mySM.getBBs().getMu(),
+            mySM.getBBs().getScheme());
+
     gslpp::vector<double> me(mySM.getBBs().getBpars());
     double MBs = mySM.getMesons(QCD::B_S).getMass();
     double Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
@@ -92,9 +96,9 @@ gslpp::complex AmpDB2::AmpBs(orders order)
     
     switch(order) {
         case FULLNLO:
-            return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me / HCUT);
+            return((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff_prime[LO]) + *(allcoeff_prime[NLO])) * me / HCUT);
         case LO:
-            return((*(allcoeff[LO])) * me / HCUT);
+            return((*(allcoeff[LO]) + *(allcoeff_prime[LO])) * me / HCUT);
         default:
             throw std::runtime_error("AmpDB2::AmpBs(): order not implemented"); 
     }
