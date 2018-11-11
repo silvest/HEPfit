@@ -1189,3 +1189,38 @@ double MVlnu::get_hA1w1()
 
     return hA1(q2max);
 }
+
+double MVlnu::get_hA1(double w)
+{
+    updateParameters();
+    double q2 = (2. * MM * MV)*(w0 - w);
+
+    return hA1(q2);
+}
+
+double MVlnu::get_R1(double w)
+{
+    updateParameters();
+    double q2 = (2. * MM * MV)*(w0 - w);
+
+    if (CLNflag) return R1(q2);
+    else return V(q2) * RV / hA1(q2);
+}
+
+double MVlnu::get_R2(double w)
+{
+    updateParameters();
+    double q2 = (2. * MM * MV)*(w0 - w);
+
+    if (CLNflag) return R2(q2);
+    else return A2(q2) * RV / hA1(q2);
+}
+
+double MVlnu::get_R0(double w)
+{
+    updateParameters();
+    double q2 = (2. * MM * MV)*(w0 - w);
+
+    if (CLNflag) return R0(q2);
+    else return A0(q2) * RV / hA1(q2);
+}

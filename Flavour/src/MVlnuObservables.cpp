@@ -202,6 +202,69 @@ double FF_hA1atw1::computeThValue()
     return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA1w1();
 }
 
+FF_hA1::FF_hA1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep).initializeMVlnuParameters());
+}
+ 
+double FF_hA1::computeThValue()  
+{
+    double w = getBinMin();
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA1(w);
+}
+
+FF_R1::FF_R1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep).initializeMVlnuParameters());
+}
+ 
+double FF_R1::computeThValue()  
+{
+    double w = getBinMin();
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R1(w);
+}
+
+FF_R2::FF_R2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep).initializeMVlnuParameters());
+}
+ 
+double FF_R2::computeThValue()  
+{
+    double w = getBinMin();
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R2(w);
+}
+
+FF_R0::FF_R0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep).initializeMVlnuParameters());
+}
+ 
+double FF_R0::computeThValue()  
+{
+    double w = getBinMin();
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R0(w);
+}
 UnitarityV_D_Dst::UnitarityV_D_Dst(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::meson pseudoscalar_i,  QCD::lepton lep_i)
 : ThObservable(SM_i) 
 {  

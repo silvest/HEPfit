@@ -85,6 +85,30 @@ public:
     * @return \f$ h_{A1}((MM-MV)^2) \f$ 
     */
     double get_hA1w1();
+    
+    /**
+    * @brief return \f$ h_{A1} \f$ at \f$ w = w \f$
+    * @return \f$ h_{A1}(w) \f$ 
+    */
+    double get_hA1(double w);
+    
+    /**
+    * @brief return \f$ R_1 \f$ at \f$ w = w \f$
+    * @return \f$ R_{1}(w) \f$ 
+    */
+    double get_R1(double w);
+    
+    /**
+    * @brief return \f$ R_2 \f$ at \f$ w = w \f$
+    * @return \f$ R_{2}(w) \f$ 
+    */
+    double get_R2(double w);
+    
+    /**
+    * @brief return \f$ R_0 \f$ at \f$ w = w \f$
+    * @return \f$ R_{0}(w) \f$ 
+    */
+    double get_R0(double w);
 
     /**
     * @brief The width of the meson M

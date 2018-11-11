@@ -248,6 +248,106 @@ private:
     
 };
 
+class FF_hA1 : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    FF_hA1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief @f$ h_{A1}(w) @f$.
+    * @return @f$ h_{A1}(w) @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
+class FF_R1 : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    FF_R1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief @f$ R_{1}(w) @f$.
+    * @return @f$ R_{1}(w) @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
+class FF_R2 : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    FF_R2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief @f$ R_{2}(w) @f$.
+    * @return @f$ R_{2}(w) @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
+class FF_R0 : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    FF_R0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief @f$ R_{0}(w) @f$.
+    * @return @f$ R_{0}(w) @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
 class UnitarityV_D_Dst : public ThObservable{
 public:
      
