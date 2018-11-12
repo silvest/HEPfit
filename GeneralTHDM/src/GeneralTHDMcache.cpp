@@ -5759,7 +5759,7 @@ void GeneralTHDMcache::computeSignalStrengths()
     Me=myGTHDM->getLeptons(StandardModel::ELECTRON).getMass();
     MW=MWGTHDM(myGTHDM->Mw_tree());
     cW2=cW2GTHDM(myGTHDM->c02());
-    MZ=myGTHDM->getMz();
+//    MZ=myGTHDM->getMz();
 
    
     
@@ -7463,7 +7463,7 @@ double GeneralTHDMcache::updateCache()
 //    Mu=myTHDM->getQuarks(QCD::UP).getMass();
 //    Md=myTHDM->getQuarks(QCD::DOWN).getMass();
 //    Me=myTHDM->getLeptons(StandardModel::ELECTRON).getMass();
-//    MZ=myTHDM->getMz();
+    MZ=myGTHDM->getMz();
 //    modelflag=myTHDM->getModelTypeflag();
 //    WFRflag=myTHDM->getWFRflag();
 
