@@ -93,6 +93,14 @@ private:
     double CF, GF, ale, alsmu, alsmuc, alstilde, aletilde, kappa;
     double Mlep, mu_b, mu_c, Mb, Mc, Mtau, Mb_pole, Mc_pole, Ms, MW;
     double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl, phi1, phi2;
+   
+    std::vector< gslpp::vector<gslpp::complex> > M_7;
+    std::vector< gslpp::vector<gslpp::complex> > M_9;
+    std::vector< gslpp::vector<gslpp::complex> > M_10;
+    
+    std::vector< gslpp::matrix<gslpp::complex> > Hij_T;
+    std::vector< gslpp::matrix<gslpp::complex> > Hij_L;
+    std::vector< gslpp::matrix<gslpp::complex> > Hij_A;
 
     std::vector<std::string> BXqllParameters;/**< The string of mandatory MVgamma parameters */
 
@@ -101,7 +109,9 @@ private:
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<Vector that contains the primed Wilson coeffients */
 
     gslpp::vector<gslpp::complex> ** allcoeff_smm;/**<Vector that contains the primed Wilson coeffients */
-    gslpp::vector<gslpp::complex> ** allcoeffDF1;/**<Vector that contains the primed Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeffDF1;/**<Vector that contains the Wilson coeffients */
+    
+    gslpp::matrix<gslpp::complex> WC;/**<Matrix that contains the Wilson coeffients for each order */
     
     gslpp::complex C_1[5];/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1L_bar[5];/**<Wilson coeffients @f$C_1@f$*/
@@ -401,9 +411,9 @@ private:
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     * @param[in] i,j indices in eq. (4.10) in @cite Huber:2015sra
     */
-    gslpp::complex cij_T(unsigned int i, unsigned int j, double sh, orders order);
-    gslpp::complex cij_L(unsigned int i, unsigned int j, double sh, orders order);
-    gslpp::complex cij_A(unsigned int i, unsigned int j, double sh, orders order);
+    gslpp::complex cij_T(unsigned int i, unsigned int j, double sh, orders_qed order_qed);
+    gslpp::complex cij_L(unsigned int i, unsigned int j, double sh, orders_qed order_qed);
+    gslpp::complex cij_A(unsigned int i, unsigned int j, double sh);
     
     /**
     * @brief Log-enhanced electromagnetic corrections \f$e_{ij}^I\f$ as defined in @cite Huber:2015sra
@@ -494,38 +504,29 @@ private:
     gslpp::complex F_BIR(double r);
     
     /**
-    * @brief Vector of auxiliary functions \f$M_i^7(sh)\f$ from Table 6 of @cite Huber:2005ig
+    * @brief Vectors of auxiliary functions \f$M_i^{7,9,10}sh)\f$ from Table 6 of @cite Huber:2005ig
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     * @param[in] order LO or NLO
     */
-    gslpp::vector<gslpp::complex> Mi7(double sh, orders order);
-    
-    /**
-    * @brief Vector of auxiliary functions \f$M_i^9(sh)\f$ from Table 6 of @cite Huber:2005ig
-    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    * @param[in] order LO or NLO
-    */
-    gslpp::vector<gslpp::complex> Mi9(double sh, orders order);
-    
-    /**
-    * @brief Vector of auxiliary functions \f$M_i^10(sh)\f$ from Table 6 of @cite Huber:2005ig
-    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    */
-    gslpp::vector<double> Mi10(double sh);
+    void computeMi(double sh);
     
     /**
     * @brief Matrix of auxiliary functions \f$H_{ij}^{T}\f$ from @cite Huber:2015sra
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    * @param[in] order LO or NLO
     */
-    gslpp::matrix<gslpp::complex> matH_T(double sh, orders order);
+    void computeHij_T(double sh);
     
     /**
     * @brief Matrix of auxiliary functions \f$H_{ij}^{L}\f$ from @cite Huber:2015sra
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    * @param[in] order LO or NLO
     */
-    gslpp::matrix<gslpp::complex> matH_L(double sh, orders order);
+    void computeHij_L(double sh);
+    
+    /**
+    * @brief Matrix of auxiliary functions \f$H_{ij}^{A}\f$ from @cite Huber:2015sra
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    */
+    void computeHij_A(double sh);
     
     /**
     * @brief Angular observable \f$H_T\f$ as defined in @cite Huber:2015sra
@@ -538,6 +539,12 @@ private:
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     */
     double H_L (double sh);
+    
+    /**
+    * @brief Angular observable \f$H_A\f$ as defined in @cite Huber:2015sra
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    */
+    double H_A (double sh);
 
     /**
     * @brief Normalization function for \f$B\to X_s\ell\ell\f$ from eq. (4.8) of 1503.04849
@@ -545,5 +552,11 @@ private:
     */
     double Phi_u(orders ord);
     double Phi_u(orders_qed ord_qed);
+    
+    /**
+    * @brief Auxiliary function that matches orders_qed to an integer
+    * @param[in] ord_qed order to be returned
+    */
+    unsigned int int_qed(orders_qed order_qed);
 };
 #endif	/* BXqLL_H */
