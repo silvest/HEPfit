@@ -12,7 +12,7 @@
 //Theoretical formulae taken from https://arxiv.org/pdf/0907.2696.pdf
 
 THDMWSTU::THDMWSTU(const StandardModel& SM_i)
-: ThObservable(SM_i), myTHDMW(static_cast<const THDMW*> (&SM_i))
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
 
 {
     mycache = new THDMWcache(SM_i);
@@ -51,13 +51,13 @@ THDMWDeltaS::THDMWDeltaS(const StandardModel& SM_i)
 
 double THDMWDeltaS::computeThValue()
 {
-    double mSp2=myTHDMW->getMyTHDMWCache() -> mSpsq;
-    double mSR2=myTHDMW->getMyTHDMWCache() -> mSRsq;
-    double mSI2=myTHDMW->getMyTHDMWCache() -> mSIsq;
-    double s_W2 = myTHDMW->sW2();
+    double mSp2=myTHDMW.getMyTHDMWCache()->mSpsq;
+    double mSR2=myTHDMW.getMyTHDMWCache()->mSRsq;
+    double mSI2=myTHDMW.getMyTHDMWCache()->mSIsq;
+    double s_W2 = myTHDMW.sW2();
     //std::cout<< "SinW_2=" << s_W2 << std::endl;//Why this value?
-    double c_W2 = 1-myTHDMW->sW2();
-    double MZ2=pow(myTHDMW->getMz(),2);
+    double c_W2 = 1-myTHDMW.sW2();
+    double MZ2=pow(myTHDMW.getMz(),2);
     //double MW2=pow(myTHDMW->Mw(),2);
     //We define the self energies removing the coupling because it will cancel
     
@@ -105,7 +105,7 @@ double THDMWDeltaS::computeThValue()
     //std::cout<< "MZ2=" << MZ2 << std::endl;
     //std::cout<< "THDMWpositiveMassSquares=" << myTHDMW->getMyTHDMWCache()->setOtherParameters() << std::endl;
     //std::cout<< "THDMWpositiveMassSquares=" << THDMWpositiveMassSquares << std::endl;
-    if(myTHDMW->getMyTHDMWCache()->setOtherParameters()<1.1)
+    if(fabs(myTHDMW.getMyTHDMWCache()->setOtherParameters()-1.)<1.e-10)
     {
         delPiZZ_MZ=(1./(2.*pow(M_PI,2)*c_W2*s_W2))*(pow(1.-2.*s_W2,2)*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2))+mycache->B00_MZ2_MZ2_mSr2_mSi2(MZ2,mSR2,mSI2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSI2));    
         delPiZZ_0=(1./(8.*pow(M_PI,2)*s_W2*c_W2))*(0.5*F(mSI2,mSR2));
@@ -127,14 +127,14 @@ THDMWDeltaT::THDMWDeltaT(const StandardModel& SM_i)
 
 double THDMWDeltaT::computeThValue()
 {
-    double mSp2=myTHDMW->getMyTHDMWCache() -> mSpsq;
-    double mSR2=myTHDMW->getMyTHDMWCache() -> mSRsq;
-    double mSI2=myTHDMW->getMyTHDMWCache() -> mSIsq;
-    double s_W2 = myTHDMW->sW2();
+    double mSp2=myTHDMW.getMyTHDMWCache()->mSpsq;
+    double mSR2=myTHDMW.getMyTHDMWCache()->mSRsq;
+    double mSI2=myTHDMW.getMyTHDMWCache()->mSIsq;
+    double s_W2 = myTHDMW.sW2();
     //std::cout<< "SinW_2=" << s_W2 << std::endl;//Why this value?
-    double c_W2 = 1-myTHDMW->sW2();
-    double MZ2=pow(myTHDMW->getMz(),2);
-    double MW2=pow(myTHDMW->Mw(),2);
+    double c_W2 = 1-myTHDMW.sW2();
+    double MZ2=pow(myTHDMW.getMz(),2);
+    double MW2=pow(myTHDMW.Mw(),2);
     //We define the self energies removing the coupling because it will cancel
     
 
@@ -150,7 +150,7 @@ double THDMWDeltaT::computeThValue()
     //double v=246.2;
     //std::cout<< "DeltaT approx.=" << pow(v,4)*(pow(nu2,2)-pow(2.*nu3,2))/(96.*pow(M_PI,1)*mSp2*MW2*s_W2) << std::endl;//typo in arxiv:0907.269, look at arxiv:0606172
     //std::cout<< "DeltaT fraction=" << pow(v,4)*(pow(nu2,2)-pow(2.*nu3,2))/(96.*pow(M_PI,1)*mSp2*MW2*s_W2)/((4.*M_PI)*(delPiWW_0.real()/MW2-delPiZZ_0.real()/MZ2)) << std::endl;
-    if(myTHDMW->getMyTHDMWCache()->setOtherParameters()<1.1)
+    if(fabs(myTHDMW.getMyTHDMWCache()->setOtherParameters()-1.)<1.e-10)
     {
         delPiWW_0=(1./(8.*pow(M_PI,2)*s_W2))*(0.5*F(mSp2,mSR2)+0.5*F(mSp2,mSI2));
         delPiZZ_0=(1./(8.*pow(M_PI,2)*s_W2*c_W2))*(0.5*F(mSI2,mSR2));
@@ -174,14 +174,14 @@ THDMWDeltaU::THDMWDeltaU(const StandardModel& SM_i)
 
 double THDMWDeltaU::computeThValue()
 {
-    double mSp2=myTHDMW->getMyTHDMWCache() -> mSpsq;
-    double mSR2=myTHDMW->getMyTHDMWCache() -> mSRsq;
-    double mSI2=myTHDMW->getMyTHDMWCache() -> mSIsq;
-    double s_W2 = myTHDMW->sW2();
+    double mSp2=myTHDMW.getMyTHDMWCache()->mSpsq;
+    double mSR2=myTHDMW.getMyTHDMWCache()->mSRsq;
+    double mSI2=myTHDMW.getMyTHDMWCache()->mSIsq;
+    double s_W2 = myTHDMW.sW2();
     //std::cout<< "SinW_2=" << s_W2 << std::endl;//Why this value?
-    double c_W2 = 1-myTHDMW->sW2();
-    double MZ2=pow(myTHDMW->getMz(),2);
-    double MW2=pow(myTHDMW->Mw(),2);
+    double c_W2 = 1-myTHDMW.sW2();
+    double MZ2=pow(myTHDMW.getMz(),2);
+    double MW2=pow(myTHDMW.Mw(),2);
     //We define the self energies removing the coupling because it will cancel
     
     gslpp::complex delPiWW_MW;
@@ -218,7 +218,7 @@ double THDMWDeltaU::computeThValue()
     //std::cout<< "delPiAA=" << s_W2*delPiAA_MZ.real()/MZ2 << std::endl;
     //std::cout<< "delPiAZ=" << 2*sqrt(s_W2)*sqrt(c_W2)*delPiZA_MZ.real()/MZ2 << std::endl;
     
-    if(myTHDMW->getMyTHDMWCache()->setOtherParameters()<1.1)
+    if(fabs(myTHDMW.getMyTHDMWCache()->setOtherParameters()-1.)<1.e-10)
     {
         delPiWW_MW=(1./(2.*pow(M_PI,2)*s_W2))*(mycache->B00_MZ2_MZ2_mSi2_mSp2(MW2,mSI2,mSp2)+mycache->B00_MZ2_MZ2_mSr2_mSp2(MW2,mSR2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MW2,mSp2)-0.25*mycache->A0_MZ2_mSp2(MW2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MW2,mSI2));
         delPiZZ_MZ=(1./(2.*pow(M_PI,2)*c_W2*s_W2))*(pow(1.-2.*s_W2,2)*(mycache->B00_MZ2_MZ2_mSp2_mSp2(MZ2,mSp2)-0.5*mycache->A0_MZ2_mSp2(MZ2,mSp2))+mycache->B00_MZ2_MZ2_mSr2_mSi2(MZ2,mSR2,mSI2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSR2)-0.25*mycache->A0_MZ2_mSp2(MZ2,mSI2));    

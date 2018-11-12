@@ -44,7 +44,7 @@ class THDMWcache; //forward reference to THDMWcache class
 class THDMW: public NPbase {
 public:
 
-    static const int NTHDMWvars = 32;
+    static const int NTHDMWvars = 34;
     static const std::string THDMWvars[NTHDMWvars];
     
     /**
@@ -481,6 +481,25 @@ public:
     double getTHDMW_etaD() const {
         return THDMW_etaD;
     }
+    
+    
+    /**
+     *
+     * @return @f$\eta_U@f$
+     */
+    double getTHDMW_rho_b() const {
+        return THDMW_rho_b;
+    }
+
+    /**
+     *
+     * @return @f$\eta_D@f$
+     */
+    double getTHDMW_S_b() const {
+        return THDMW_S_b;
+    }
+    
+    
 
     /**
      *
@@ -604,6 +623,7 @@ private:
     double THDMW_omega1, THDMW_omega2, THDMW_omega3, THDMW_omega4, THDMW_omega5;
     double THDMW_kappa1, THDMW_kappa2, THDMW_kappa3;
     double THDMW_etaU, THDMW_etaD;
+    double THDMW_rho_b, THDMW_S_b;
     double Q_THDMW, RpepsTHDMW, NLOuniscaleTHDMW;
     std::string flag_modelTHDMW, flag_RGEorder;
 };

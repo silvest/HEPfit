@@ -109,6 +109,15 @@ public:
      */
     double pp_SrSr_jjjj_TH13;
     
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to S+ tbar b \to t tbar b bar @f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(S^+ t\bar b \to t\bar t b\bar b)@f$
+     */
+    double pp_Stb_tbtb_TH13;
+    
+   
+    
     /**
      * @brief log of cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(Sr \to j j)@f$
@@ -124,6 +133,8 @@ public:
     double THoEX_pp_Sr_jj;
     
     double THoEX_pp_SrSr_jjjj;
+    
+    double THoEX_pp_Stb_tbtb;
     
 
     
@@ -279,6 +290,7 @@ private:
     
     
     //mutable double logip_th_pp_SrSr_jjjj_cache[5][CacheSize];
+    mutable double ip_th_pp_Stb_tbtb_cache[4][CacheSize];
     mutable double ip_th_pp_SrSr_jjjj_cache[5][CacheSize];
     mutable double ip_th_pp_Sr_jj_cache[5][CacheSize];
     mutable double ip_th_pp_Srtt_tttt_cache[5][CacheSize];
@@ -303,10 +315,10 @@ private:
     mutable double ip_ex_pp_Hpm_tb_ATLAS8_cache_e[2][CacheSize];
     mutable double ip_ex_pp_Hp_tb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hp_tb_CMS8_cache_e[2][CacheSize];
-    mutable double ip_ex_pp_Hp_tb_ATLAS13_1_cache[2][CacheSize];
-    mutable double ip_ex_pp_Hp_tb_ATLAS13_1_cache_e[2][CacheSize];
-    mutable double ip_ex_pp_Hp_tb_ATLAS13_2_cache[2][CacheSize];
-    mutable double ip_ex_pp_Hp_tb_ATLAS13_2_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_ATLAS13_cache[2][CacheSize];
+    //mutable double ip_ex_pp_Hp_tb_ATLAS13_1_cache_e[2][CacheSize];
+    //mutable double ip_ex_pp_Hp_tb_ATLAS13_2_cache[2][CacheSize];
+    //mutable double ip_ex_pp_Hp_tb_ATLAS13_2_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbbb_CMS13_cache[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbbb_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_Gkk_tt_ATLAS13_cache[2][CacheSize];
@@ -410,16 +422,22 @@ private:
      * @brief CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
      */
     gslpp::matrix<double> CMS8_pp_Hp_tb_e;
+    
+    
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> ATLAS13_pp_Hp_tb;
 
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
      */
-    gslpp::matrix<double> ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2;
+//    gslpp::matrix<double> ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2;
 
     /**
      * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
      */
-    gslpp::matrix<double> ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e;
+//    gslpp::matrix<double> ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e;
 
 
     /**
@@ -453,6 +471,11 @@ private:
      * @brief Table for xsection times branching ratio for p p -> Sr Sr -> j j j j generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_SrSr_jjjj;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> S+ tbar b -> t tbar b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Stb_tbtb;
     
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -632,28 +655,28 @@ private:
      * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from ATLAS-CONF-2016-089, Figure 12 @cite ATLAS:2016qiq.
      */
-    double ip_ex_pp_Hp_tb_ATLAS13_1(double mass);
+    double ip_ex_pp_Hp_tb_ATLAS13(double mass);
 
     /**
      * @brief Interpolating function for the expected ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
      * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from ATLAS-CONF-2016-089, Figure 12 @cite ATLAS:2016qiq.
      */
-    double ip_ex_pp_Hp_tb_ATLAS13_1_e(double mass);
+    //double ip_ex_pp_Hp_tb_ATLAS13_1_e(double mass);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
      * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from ATLAS-CONF-2016-104, Figure 23 @cite ATLAS:2016btu.
      */
-    double ip_ex_pp_Hp_tb_ATLAS13_2(double mass);
+    //double ip_ex_pp_Hp_tb_ATLAS13_2(double mass);
 
     /**
      * @brief Interpolating function for the expected ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
      * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from ATLAS-CONF-2016-104, Figure 23 @cite ATLAS:2016btu.
      */
-    double ip_ex_pp_Hp_tb_ATLAS13_2_e(double mass);
+    //double ip_ex_pp_Hp_tb_ATLAS13_2_e(double mass);
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to four b quarks.
@@ -720,6 +743,13 @@ private:
      * @details Generated with MadGraph
      */
     double ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mass);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> S+ tbar b -> t bbar tbar b 
+     * @return xsection times branching ratio of p p -> S+ tbar b -> t bbar tbar b 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Stb_tbtb(double etaD, double etaU, double mass);
     
     /**
      * @brief loginterpolating function for the theoretical value of p p -> Sr  Sr ->j j j j 
@@ -793,6 +823,8 @@ private:
     double kappa3;
     double etaU;
     double etaD;
+    double rho_b;
+    double S_b;
     
     
         /**
@@ -800,6 +832,12 @@ private:
      * @return the interpolated value
      */
     double interpolate (gslpp::matrix<double> arrayTab, double x);
+    
+    /**
+     * @brief Linearly interpolates a table with three parameter dimensions.
+     * @return the interpolated value
+     */
+    double interpolate3D (gslpp::matrix<double> arrayTab, double x, double y, double z);
         
     /**
      * @brief Linearly interpolates a table with four parameter dimensions.

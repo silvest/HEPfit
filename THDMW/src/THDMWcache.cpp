@@ -41,16 +41,18 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         ATLAS8_pp_Hpm_tb_e(41,2,0.),
         CMS8_pp_Hp_tb(43,2,0.),
         CMS8_pp_Hp_tb_e(43,2,0.),
-        ATLAS13_pp_Hp_tb1(71,2,0.),
-        ATLAS13_pp_Hp_tb2(181,2,0.),
-        ATLAS13_pp_Hp_tb1_e(71,2,0.),
-        ATLAS13_pp_Hp_tb2_e(181,2,0.),
+        ATLAS13_pp_Hp_tb(181,2,0.),
+//        ATLAS13_pp_Hp_tb1(71,2,0.),
+//        ATLAS13_pp_Hp_tb2(181,2,0.),
+//        ATLAS13_pp_Hp_tb1_e(71,2,0.),
+//        ATLAS13_pp_Hp_tb2_e(181,2,0.),
         ATLAS13_pp_Gkk_tt(131,2,0.),
         ATLAS13_pp_SS_jjjj(126,2,0.),
         MadGraph_pp_Sr_tt(22800,5,0.),
         MadGraph_pp_Srtt_tttt(22800,5,0.),
         MadGraph_pp_Sr_jj(2940,5,0.),
-        MadGraph_pp_SrSr_jjjj(1764,5,0.),
+        MadGraph_pp_SrSr_jjjj(4200,5,0.),
+        MadGraph_pp_Stb_tbtb(4332,4,0.),
         arraybsgamma(1111, 3, 0.),
         betaeigenvalues(11, 0.)
         //myTHDMW(static_cast<const THDMW*> (&SM_i))
@@ -1380,10 +1382,52 @@ double THDMWcache::interpolate(gslpp::matrix<double> arrayTab, double x){
 }
 
 
+//3D interpolation
 
+double THDMWcache::interpolate3D(gslpp::matrix<double> arrayTab, double x, double y, double z){
 
+    int rowN=arrayTab.size_i();
 
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double ymin = arrayTab(0,1);
+    double ymax = arrayTab(rowN-1,1);
+    double zmin = arrayTab(0,2);
+    double zmax = arrayTab(rowN-1,2);
+    double intervalx = arrayTab(1,0)-arrayTab(0,0);
+    int iy=1;
+    do iy++;
+    while(arrayTab(iy,1)-arrayTab(iy-1,1)==0&&iy<6000000);
+    double intervaly = arrayTab(iy,1)-arrayTab(iy-1,1);
+    int iz=1;
+    do iz++;
+    while(arrayTab(iz,2)-arrayTab(iz-1,2)==0&&iz<6000000);
+    double intervalz = arrayTab(iz,2)-arrayTab(iz-1,2);
+    int Nintervalsx = (x-xmin)/intervalx;
+    int Nintervalsy = (y-ymin)/intervaly;
+    int Nintervalsz = (z-zmin)/intervalz;          
+    if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax){
+        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        return 0.;
+    }
+    else{
+    double x1=arrayTab(iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,0);
+    double x2=arrayTab(iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx+1,0);
+    double y1=arrayTab(iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,1);
+    double y2=arrayTab(iz*(Nintervalsz)+iy*(Nintervalsy+1)+Nintervalsx,1);
+    double z1=arrayTab(iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,2);
+    double z2=arrayTab(iz*(Nintervalsz+1)+iy*(Nintervalsy)+Nintervalsx,2);
 
+    return (arrayTab(iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,3) * (x2-x) * (y2-y) * (z2-z)
+            +arrayTab(iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,3) * (x-x1) * (y2-y) * (z2-z)
+            +arrayTab(iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,3) * (x2-x) * (y-y1) * (z2-z) 
+            +arrayTab(iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,3) * (x2-x) * (y2-y) * (z-z1) 
+            +arrayTab(iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,3) * (x-x1) * (y-y1) * (z2-z)
+            +arrayTab(iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,3) * (x-x1) * (y2-y) * (z-z1)
+            +arrayTab(iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,3) * (x2-x) * (y-y1) * (z-z1)
+            +arrayTab(iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,3) * (x-x1) * (y-y1) * (z-z1))/((x2-x1)*(y2-y1)*(z2-z1));
+    }
+}
 
 
 
@@ -1464,7 +1508,7 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
             +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z2-z) * (v2-v)
             +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z-z1) * (v2-v)
             +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v-v1)
-            +arrayTab(iv*Nintervalsv+1+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v2-v)
             +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v-v1)
             +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z-z1) * (v-v1)
             +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v2-v)
@@ -1480,7 +1524,7 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
             +arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z2-z) * (v2-v)
             +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z-z1) * (v2-v)
             +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx+1,4) * (x-x1) * (y2-y) * (z2-z) * (v-v1)
-            +arrayTab(iv*Nintervalsv+1+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v2-v)
+            +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z-z1) * (v2-v)
             +arrayTab(iv*(Nintervalsv+1)+iz*Nintervalsz+iy*(Nintervalsy+1)+Nintervalsx,4) * (x2-x) * (y-y1) * (z2-z) * (v-v1)
             +arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx,4) * (x2-x) * (y2-y) * (z-z1) * (v-v1)
             +arrayTab(iv*Nintervalsv+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,4) * (x-x1) * (y-y1) * (z-z1) * (v2-v)
@@ -1639,10 +1683,10 @@ void THDMWcache::read(){
 //    std::stringstream ex14ep2,ex14em2;
     std::stringstream ex4,ex5,ex6,ex7,ex8;
     std::stringstream ex4e,ex5e,ex6e,ex7e,ex8e;
-    std::stringstream ex9,ex10,ex11,ex12,ex13;
-    std::stringstream ex9e,ex10e,ex11e,ex12e,ex13e;
-    std::stringstream ex14, ex15,ex16;
-    std::stringstream th1,th2,th3,th4;
+    std::stringstream ex9,ex10,ex13;
+    std::stringstream ex9e,ex10e,ex13e;
+    std::stringstream ex14, ex15,ex16,ex17;
+    std::stringstream th1,th2,th3,th4,th5;
 
     std::stringstream bsg1;
 
@@ -1730,14 +1774,16 @@ void THDMWcache::read(){
     CMS8_pp_Hp_tb = readTable(ex10.str(),43,2);  
     ex10e << tablepath << "150807774_b_e.dat";   
     CMS8_pp_Hp_tb_e = readTable(ex10e.str(),43,2);
-    ex11 << tablepath << "ATLAS-CONF-2016-089.dat";
-    ATLAS13_pp_Hp_tb1 = readTable(ex11.str(),71,2);        
-    ex11e << tablepath << "ATLAS-CONF-2016-089_e.dat";     
-    ATLAS13_pp_Hp_tb1_e = readTable(ex11e.str(),71,2);     
-    ex12 << tablepath << "ATLAS-CONF-2016-104_c.dat"; 
-    ATLAS13_pp_Hp_tb2 = readTable(ex12.str(),181,2);  
-    ex12e << tablepath << "ATLAS-CONF-2016-104_c_e.dat"; 
-    ATLAS13_pp_Hp_tb2_e = readTable(ex12e.str(),181,2);  
+    ex17 << tablepath << "180803599.dat";
+    ATLAS13_pp_Hp_tb = readTable(ex17.str(),181,2);  
+//    ex11 << tablepath << "ATLAS-CONF-2016-089.dat";
+//    ATLAS13_pp_Hp_tb1 = readTable(ex11.str(),71,2);        
+//    ex11e << tablepath << "ATLAS-CONF-2016-089_e.dat";     
+//    ATLAS13_pp_Hp_tb1_e = readTable(ex11e.str(),71,2);     
+//    ex12 << tablepath << "ATLAS-CONF-2016-104_c.dat"; 
+//    ATLAS13_pp_Hp_tb2 = readTable(ex12.str(),181,2);  
+//    ex12e << tablepath << "ATLAS-CONF-2016-104_c_e.dat"; 
+//    ATLAS13_pp_Hp_tb2_e = readTable(ex12e.str(),181,2);  
     ex13 << tablepath << "171004960.dat";
     CMS13_ggF_H_hh_bbbb = readTable(ex13.str(),226,2);
     ex13e << tablepath << "171004960_e.dat";
@@ -1759,8 +1805,11 @@ void THDMWcache::read(){
     MadGraph_pp_Sr_jj = readTable(th3.str(),2940,5);
     
     th4 << tablepath << "Generated_data_SS_jjjj_Fixed_Steps.dat";
-    MadGraph_pp_SrSr_jjjj = readTable(th4.str(),1764,5);
+    MadGraph_pp_SrSr_jjjj = readTable(th4.str(),4200,5);
 
+    th5 << tablepath << "Generated_data_Stb_tbtb_Fixed_Steps.dat";
+    MadGraph_pp_Stb_tbtb = readTable(th5.str(),4332,4);
+    
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
 }    
@@ -2069,67 +2118,22 @@ double THDMWcache::ip_ex_pp_Hp_tb_CMS8_e(double mass){
     }
 }
 
-double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13_1(double mass){
+double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_1_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_cache, NumPar, params);
     if (i>=0) {
-        return(ip_ex_pp_Hp_tb_ATLAS13_1_cache[NumPar][i] );
+        return(ip_ex_pp_Hp_tb_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS13_pp_Hp_tb1,mass);
-        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_1_cache, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS13_pp_Hp_tb,mass);
+        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13_1_e(double mass){
-    int NumPar = 1;
-    double params[] = {mass};
-
-    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_1_cache_e, NumPar, params);
-    if (i>=0) {
-        return(ip_ex_pp_Hp_tb_ATLAS13_1_cache_e[NumPar][i] );
-    } else {
-        double newResult = interpolate (ATLAS13_pp_Hp_tb1_e,mass);
-        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_1_cache_e, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-
-
-double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13_2(double mass){
-    int NumPar = 1;
-    double params[] = {mass};
-
-    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_2_cache, NumPar, params);
-    if (i>=0) {
-        return(ip_ex_pp_Hp_tb_ATLAS13_2_cache[NumPar][i] );
-    } else {
-        double newResult = interpolate (ATLAS13_pp_Hp_tb2,mass);
-        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_2_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-
-
-double THDMWcache::ip_ex_pp_Hp_tb_ATLAS13_2_e(double mass){
-    int NumPar = 1;
-    double params[] = {mass};
-
-    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS13_2_cache_e, NumPar, params);
-    if (i>=0) {
-        return(ip_ex_pp_Hp_tb_ATLAS13_2_cache_e[NumPar][i] );
-    } else {
-        double newResult = interpolate (ATLAS13_pp_Hp_tb2_e,mass);
-        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS13_2_cache_e, NumPar, params, newResult);
-        return newResult;
-    }
-}
 
 double THDMWcache::ip_ex_ggF_H_hh_bbbb_CMS13(double mass){
     int NumPar = 1;
@@ -2263,6 +2267,21 @@ double THDMWcache::ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, 
     }
 }
 
+
+double THDMWcache::ip_th_pp_Stb_tbtb(double etaD, double etaU, double mS){
+    int NumPar = 3;
+    double params[] = {etaD, etaU, mS};
+
+    int i = CacheCheckReal(ip_th_pp_Stb_tbtb_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Stb_tbtb_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate3D (MadGraph_pp_Stb_tbtb,etaD,etaU,mS);
+        CacheShiftReal(ip_th_pp_Stb_tbtb_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 /*
 double THDMWcache::logip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mSr){
     int NumPar = 4;
@@ -2284,6 +2303,8 @@ double THDMWcache::logip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda
 void THDMWcache::computeHHlimits()
 {
     double mSr=sqrt(mSRsq);
+    double mSp=sqrt(mSpsq);
+    double mSi=sqrt(mSIsq);
     double SqrtEtaU=copysign(sqrt(sqrt(pow(etaU,2))),etaU);
     double SqrtEtaD=copysign(sqrt(sqrt(pow(etaD,2))),etaD);
     double nu45=(nu4+nu5)/2;
@@ -2292,11 +2313,13 @@ void THDMWcache::computeHHlimits()
     THoEX_pp_Srtt_tttt=0.;
     THoEX_pp_Sr_jj=0.;
     THoEX_pp_SrSr_jjjj=0.;
+    THoEX_pp_Stb_tbtb=0.;
     
     pp_Sr_tt_TH13 = 1.0e-15;
     pp_Srtt_tttt_TH13 = 1.0e-15;
     pp_Sr_jj_TH13=1.0e-15;
     pp_SrSr_jjjj_TH13=1.0e-15;
+    pp_Stb_tbtb_TH13=1.0e-15;
     //logpp_SrSr_jjjj_TH13=-15;
     
     
@@ -2304,14 +2327,16 @@ void THDMWcache::computeHHlimits()
     if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<7.5 && sqrt(pow(nu45,2))<13) pp_Srtt_tttt_TH13=ip_th_pp_Srtt_tttt(SqrtEtaD,SqrtEtaU,nu45,mSr);
     if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<2 && sqrt(pow(nu45,2))<13) pp_Sr_jj_TH13=ip_th_pp_Sr_jj(SqrtEtaD,SqrtEtaU,nu45,mSr);
     if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<2 && sqrt(pow(nu45,2))<13) pp_SrSr_jjjj_TH13=ip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSp>= 400 && mSp<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<7.5 && mSp<=mSr && mSp<=mSi) pp_Stb_tbtb_TH13=ip_th_pp_Stb_tbtb(SqrtEtaD,SqrtEtaU,mSp);
     //if(mSr>= 400 && mSr<=1500) logpp_SrSr_jjjj_TH13=logip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
 
-    //std::cout<<"pp_Sr_tt_TH13="<<pp_Sr_tt_TH13<<std::endl;
-
+    //std::cout<<"pp_Stb_tbtb_TH13 first="<<ip_th_pp_Stb_tbtb(SqrtEtaD,SqrtEtaU,mSp)<<std::endl;
+    //std::cout<<"pp_Stb_tbtb_TH13 second="<<interpolate3D(MadGraph_pp_Stb_tbtb,SqrtEtaD,SqrtEtaU,mSp)<<std::endl;
     if(mSr>= 400 && mSr<=1500) THoEX_pp_Sr_tt=pp_Sr_tt_TH13/ip_ex_pp_Gkk_tt_ATLAS13(mSr);
     if(mSr>= 400 && mSr<=1000) THoEX_pp_Srtt_tttt=pp_Srtt_tttt_TH13/ip_ex_tt_phi_tt_ATLAS13(mSr);
     if(mSr>= 600 && mSr<=1500) THoEX_pp_Sr_jj=pp_Sr_jj_TH13/ip_ex_pp_R_gg_CMS13(mSr);
     if(mSr>= 500 && mSr<=1500) THoEX_pp_SrSr_jjjj=pp_SrSr_jjjj_TH13/ip_ex_pp_SS_jjjj_ATLAS13(mSr);
+    if(mSp>= 400 && mSp<=1500) THoEX_pp_Stb_tbtb=pp_Stb_tbtb_TH13/ip_ex_pp_Hp_tb_ATLAS13(mSp);
 
     
 }
@@ -2426,6 +2451,8 @@ void THDMWcache::updateCache()
     kappa3=myTHDMW->getTHDMW_kappa3();
     etaU=myTHDMW->getTHDMW_etaU();
     etaD=myTHDMW->getTHDMW_etaD();
+    rho_b=myTHDMW->getTHDMW_rho_b();
+    S_b=myTHDMW->getTHDMW_S_b();
     RpepsTHDMW=myTHDMW->getRpepsTHDMW();
 
 

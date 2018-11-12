@@ -41,7 +41,9 @@ double Rb0THDMW::computeThValue()
     double Rb=0.;
     //double rho_SM=1.00578;//up and charm value
     //double rho_SM=1.00675;//down and strange value
-    double rhob_SM=0.99426;
+    //double rhob_SM=0.99426;
+    double rhob_SM=myTHDMW.getTHDMW_rho_b();
+    double Sb=myTHDMW.getTHDMW_S_b();
     //double sW2_SM=myTHDMW.sW2();
     double sW2b_SM= 0.23298;
     double mSpsq=myTHDMW.getMyTHDMWCache() -> mSpsq;
@@ -66,8 +68,8 @@ double Rb0THDMW::computeThValue()
     double f2=-6.*x*(x-2.)*gsl_sf_dilog(1.0-1./x)/pow((x-1.),2)+x*(-27.+11.*x)/pow((x-1.),2)+x*(25.-9.*x)*log(x)/pow(x-1.,3)+(6.*x*(3.-x)/pow(x-1.,2)-12.*x*log(x)/pow(x-1.,3))*log(pow(mtMZ,2)/pow(mu,2))-3.*f1;
     double f3=3.*x*gsl_sf_dilog(1.0-1./x)/(x-1.)+3.*x*(1.-2.*x+pow(x,2)+pow(log(x),2))/pow(x-1.,3)-6.*x*log(x)/pow(x-1.,2);
     
-    double delrhob=(1/T3b)*(a/(4*M_PI*sW2b_SM))*CR1*(pow(abs(eta_U)*mtMZ/(sqrt(2)*MW),2)+pow(abs(eta_D)*mbMZ/(sqrt(2)*MW),2))*(f1+(as/(4*M_PI))*(CF*f2+CR2*f3));
-    double delsW2b=-0.5*delrhob*sW2b_SM+(1/(2*Qb))*(a/(4*M_PI*sW2b_SM))*CR1*pow(abs(eta_D)*mbMZ/(sqrt(2)*MW),2)*(f1+(as/(4*M_PI))*(CF*f2+CR2*f3));
+    double delrhob=(1/T3b)*(a/(4*M_PI*sW2b_SM))*CR1*(pow(sqrt(pow(eta_U,2))*mtMZ/(sqrt(2)*MW),2)+pow(sqrt(pow(eta_D,2))*mbMZ/(sqrt(2)*MW),2))*(f1+(as/(4*M_PI))*(CF*f2+CR2*f3));
+    double delsW2b=-0.5*delrhob*sW2b_SM+(1/(2*Qb))*(a/(4*M_PI*sW2b_SM))*CR1*pow(sqrt(pow(eta_D,2))*mbMZ/(sqrt(2)*MW),2)*(f1+(as/(4*M_PI))*(CF*f2+CR2*f3));
     
     //double rhob=rho_SM+delrhob;
     //double sW2b=sW2_SM+delsW2b;
@@ -119,7 +121,7 @@ double Rb0THDMW::computeThValue()
     double sd= (pow(gLd,2)+pow(gRd,2))*(1.+pow(myTHDMW.getQuarks(QCD::DOWN).getCharge(),2)*3.*a/(4.*M_PI));
     double sc= (pow(gLc,2)+pow(gRc,2))*(1.+pow(myTHDMW.getQuarks(QCD::CHARM).getCharge(),2)*3.*a/(4.*M_PI));
     double ss= (pow(gLs,2)+pow(gRs,2))*(1.+pow(myTHDMW.getQuarks(QCD::STRANGE).getCharge(),2)*3.*a/(4.*M_PI));
-    double Sb=su+sd+sc+ss;
+    //double Sb=su+sd+sc+ss;
     //std::cout<<"glu= "<< gLu << std::endl;
     //std::cout<<"gru= "<< gRu << std::endl;
     //std::cout<<"gld= "<< gLd << std::endl;

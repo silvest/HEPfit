@@ -36,7 +36,7 @@ public:
      */
     double computeThValue();
 
-    const THDMW * myTHDMW;
+    const THDMW& myTHDMW;
 
     /**
      * @brief Function @f$F(m02,m12)@f$ used for %THDMW. Remember that this function is

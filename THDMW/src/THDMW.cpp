@@ -15,6 +15,7 @@ const std::string THDMW::THDMWvars[NTHDMWvars] = {"THDMW_logtb","THDMW_bma",
                                                "THDMW_omega1","THDMW_omega2","THDMW_omega3","THDMW_omega4","THDMW_omega5",
                                                "THDMW_kappa1","THDMW_kappa2","THDMW_kappa3",
                                                "THDMW_etaU","THDMW_etaD",
+                                               "THDMW_rho_b", "THDMW_S_b",
                                                "Q_THDMW","RpepsTHDMW","NLOuniscaleTHDMW"};
 
 THDMW::THDMW() : NPbase()/*, THDMWM(*this)*/ {
@@ -49,6 +50,8 @@ THDMW::THDMW() : NPbase()/*, THDMWM(*this)*/ {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_kappa3", boost::cref(THDMW_kappa3)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_etaU", boost::cref(THDMW_etaU)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_etaD", boost::cref(THDMW_etaD)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_rho_b", boost::cref(THDMW_rho_b)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_S_b", boost::cref(THDMW_S_b)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_kappa3", boost::cref(THDMW_kappa3)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_THDMW", boost::cref(Q_THDMW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("RpepsTHDMW", boost::cref(RpepsTHDMW)));
@@ -179,6 +182,10 @@ void THDMW::setParameter(const std::string name, const double& value){
         THDMW_etaU = value;
     else if(name.compare("THDMW_etaD") == 0)
         THDMW_etaD = value;
+    else if(name.compare("THDMW_rho_b") == 0)
+        THDMW_rho_b = value;
+    else if(name.compare("THDMW_S_b") == 0)
+        THDMW_S_b = value;
     else if(name.compare("Q_THDMW") == 0)
         Q_THDMW = value;
     else if(name.compare("RpepsTHDMW") == 0)
@@ -326,6 +333,7 @@ double THDMW::BrHZgaRatio() const
 
 double THDMW::BrHgagaRatio() const
 {
+    //std::cout<<"rh_gaga="<< getMyTHDMWCache()->rh_gaga /computeGammaTotalRatio() << std::endl;
     return getMyTHDMWCache()->rh_gaga / computeGammaTotalRatio();
 }
 
