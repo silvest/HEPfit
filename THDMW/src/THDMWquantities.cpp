@@ -43,6 +43,23 @@ double mhsqTHDMW::computeThValue()
     return myTHDMW.getMyTHDMWCache()->mhsq;
 }
 
+mhTHDMW::mhTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mhTHDMW::computeThValue()
+{
+    double msq=myTHDMW.getMyTHDMWCache()->mhsq;
+    if (msq<0.)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    else
+    {
+        return sqrt(msq);
+    }
+}
+
 mHHsqTHDMW::mHHsqTHDMW(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
 {}
@@ -50,6 +67,23 @@ mHHsqTHDMW::mHHsqTHDMW(const StandardModel& SM_i)
 double mHHsqTHDMW::computeThValue()
 {
     return myTHDMW.getMyTHDMWCache()->mHsq;
+}
+
+mHHTHDMW::mHHTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mHHTHDMW::computeThValue()
+{
+    double msq=myTHDMW.getMyTHDMWCache()->mHsq;
+    if (msq<0.)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    else
+    {
+        return sqrt(msq);
+    }
 }
 
 mAsqTHDMW::mAsqTHDMW(const StandardModel& SM_i)
@@ -61,6 +95,23 @@ double mAsqTHDMW::computeThValue()
     return myTHDMW.getMyTHDMWCache()->mAsq;
 }
 
+mATHDMW::mATHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mATHDMW::computeThValue()
+{
+    double msq=myTHDMW.getMyTHDMWCache()->mAsq;
+    if (msq<0.)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    else
+    {
+        return sqrt(msq);
+    }
+}
+
 mSRsqTHDMW::mSRsqTHDMW(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
 {}
@@ -68,6 +119,23 @@ mSRsqTHDMW::mSRsqTHDMW(const StandardModel& SM_i)
 double mSRsqTHDMW::computeThValue()
 {
     return myTHDMW.getMyTHDMWCache()->mSRsq;
+}
+
+mSRTHDMW::mSRTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mSRTHDMW::computeThValue()
+{
+    double msq=myTHDMW.getMyTHDMWCache()->mSRsq;
+    if (msq<0.)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    else
+    {
+        return sqrt(msq);
+    }
 }
 
 mSIsqTHDMW::mSIsqTHDMW(const StandardModel& SM_i)
@@ -79,6 +147,23 @@ double mSIsqTHDMW::computeThValue()
     return myTHDMW.getMyTHDMWCache()->mSIsq;
 }
 
+mSITHDMW::mSITHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mSITHDMW::computeThValue()
+{
+    double msq=myTHDMW.getMyTHDMWCache()->mSIsq;
+    if (msq<0.)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    else
+    {
+        return sqrt(msq);
+    }
+}
+
 mHpsqTHDMW::mHpsqTHDMW(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
 {}
@@ -88,6 +173,23 @@ double mHpsqTHDMW::computeThValue()
     return myTHDMW.getMyTHDMWCache()->mHpsq;
 }
 
+mHpTHDMW::mHpTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mHpTHDMW::computeThValue()
+{
+    double msq=myTHDMW.getMyTHDMWCache()->mHpsq;
+    if (msq<0.)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    else
+    {
+        return sqrt(msq);
+    }
+}
+
 mSpsqTHDMW::mSpsqTHDMW(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
 {}
@@ -95,6 +197,23 @@ mSpsqTHDMW::mSpsqTHDMW(const StandardModel& SM_i)
 double mSpsqTHDMW::computeThValue()
 {
     return myTHDMW.getMyTHDMWCache()->mSpsq;
+}
+
+mSpTHDMW::mSpTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mSpTHDMW::computeThValue()
+{
+    double msq=myTHDMW.getMyTHDMWCache()->mSpsq;
+    if (msq<0.)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    else
+    {
+        return sqrt(msq);
+    }
 }
 
 mAmmHH_THDMW::mAmmHH_THDMW(const StandardModel& SM_i)

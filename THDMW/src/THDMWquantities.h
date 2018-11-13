@@ -93,7 +93,29 @@ public:
     mhsqTHDMW(const StandardModel& SM_i);
 
     /**
-     * @return @f$m_h^2}@f$
+     * @return @f$m_h^2@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mhTHDMW
+ * @ingroup THDMW
+ * @brief mhTHDMW.
+ */
+class mhTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mhTHDMW constructor.
+     */
+    mhTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_h@f$
      */
     double computeThValue();
 
@@ -115,7 +137,29 @@ public:
     mHHsqTHDMW(const StandardModel& SM_i);
 
     /**
-     * @return @f$m_H^2}@f$
+     * @return @f$m_H^2@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mHHTHDMW
+ * @ingroup THDMW
+ * @brief mHHTHDMW.
+ */
+class mHHTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mHHTHDMW constructor.
+     */
+    mHHTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_H@f$
      */
     double computeThValue();
 
@@ -146,6 +190,28 @@ private:
 };
 
 /**
+ * @class mATHDMW
+ * @ingroup THDMW
+ * @brief mATHDMW.
+ */
+class mATHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mATHDMW constructor.
+     */
+    mATHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_A@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
  * @class mSRsqTHDMW
  * @ingroup THDMW
  * @brief mSRsqTHDMW.
@@ -159,7 +225,29 @@ public:
     mSRsqTHDMW(const StandardModel& SM_i);
 
     /**
-     * @return @f$Re[m_S]^2}@f$
+     * @return @f$m_{Re[S]}^2@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mSRTHDMW
+ * @ingroup THDMW
+ * @brief mSRTHDMW.
+ */
+class mSRTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mSRTHDMW constructor.
+     */
+    mSRTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{Re[S]}@f$
      */
     double computeThValue();
 
@@ -181,7 +269,29 @@ public:
     mSIsqTHDMW(const StandardModel& SM_i);
 
     /**
-     * @return @f$Im[m_S]^2}@f$
+     * @return @f$m_{Im[S]}^2@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mSITHDMW
+ * @ingroup THDMW
+ * @brief mSITHDMW.
+ */
+class mSITHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mSITHDMW constructor.
+     */
+    mSITHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{Im[S]}@f$
      */
     double computeThValue();
 
@@ -203,7 +313,29 @@ public:
     mHpsqTHDMW(const StandardModel& SM_i);
 
     /**
-     * @return @f$m_{H^+}^2}@f$
+     * @return @f$m_{H^+}^2@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mHpTHDMW
+ * @ingroup THDMW
+ * @brief mHpTHDMW.
+ */
+class mHpTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mHpTHDMW constructor.
+     */
+    mHpTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{H^+}@f$
      */
     double computeThValue();
 
@@ -225,7 +357,29 @@ public:
     mSpsqTHDMW(const StandardModel& SM_i);
 
     /**
-     * @return @f$m_{S^+}^2}@f$
+     * @return @f$m_{S^+}^2@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mSpTHDMW
+ * @ingroup THDMW
+ * @brief mSpTHDMW.
+ */
+class mSpTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mSpTHDMW constructor.
+     */
+    mSpTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{S^+}@f$
      */
     double computeThValue();
 

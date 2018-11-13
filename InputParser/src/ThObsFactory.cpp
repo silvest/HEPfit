@@ -3375,11 +3375,17 @@ ThObsFactory::ThObsFactory()
     obsThFactory["m11sqTHDMW"] = boost::factory<m11sqTHDMW*>();
     obsThFactory["m22sqTHDMW"] = boost::factory<m22sqTHDMW*>();
     obsThFactory["mhsqTHDMW"] = boost::factory<mhsqTHDMW*>();
+    obsThFactory["mhTHDMW"] = boost::factory<mhTHDMW*>();
     obsThFactory["mHHsqTHDMW"] = boost::factory<mHHsqTHDMW*>();
+    obsThFactory["mHHTHDMW"] = boost::factory<mHHTHDMW*>();
     obsThFactory["mAsqTHDMW"] = boost::factory<mAsqTHDMW*>();
+    obsThFactory["mATHDMW"] = boost::factory<mATHDMW*>();
     obsThFactory["mSpsqTHDMW"] = boost::factory<mSpsqTHDMW*>();
+    obsThFactory["mSpTHDMW"] = boost::factory<mSpTHDMW*>();
     obsThFactory["mSRsqTHDMW"] = boost::factory<mSRsqTHDMW*>();
+    obsThFactory["mSRTHDMW"] = boost::factory<mSRTHDMW*>();
     obsThFactory["mSIsqTHDMW"] = boost::factory<mSIsqTHDMW*>();
+    obsThFactory["mSITHDMW"] = boost::factory<mSITHDMW*>();
     obsThFactory["mAmmHH_THDMW"] = boost::factory<mAmmHH_THDMW*>();
     obsThFactory["mHHmmA_THDMW"] = boost::factory<mHHmmA_THDMW*>();
     obsThFactory["mAmmSR_THDMW"] = boost::factory<mAmmSR_THDMW*>();
