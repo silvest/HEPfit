@@ -123,8 +123,14 @@ void BXqll::updateParameters()
         j = 0;
         ij = 10*i + j;
         
-        WC.assign(8, ord, (myHeff.LowScaleCoeff(ij))(8));
-        WC.assign(9, ord, (myHeff.LowScaleCoeff(ij))(9));
+        WC.assign(0, ord, (myHeff.LowScaleCoeff(ij))(0));
+        WC.assign(1, ord, (myHeff.LowScaleCoeff(ij))(1));
+        WC.assign(2, ord, (myHeff.LowScaleCoeff(ij))(2));
+        WC.assign(3, ord, (myHeff.LowScaleCoeff(ij))(3));
+        WC.assign(4, ord, (myHeff.LowScaleCoeff(ij))(4));
+        WC.assign(5, ord, (myHeff.LowScaleCoeff(ij))(5));
+        WC.assign(6, ord, (myHeff.LowScaleCoeff(ij))(6));
+        WC.assign(7, ord, (myHeff.LowScaleCoeff(ij))(7));
     }
     
     for(unsigned int ord_qed = int_qed(LO_QED); ord_qed <= int_qed(NLO_QED22); ord_qed++)
@@ -133,7 +139,26 @@ void BXqll::updateParameters()
         {
             i = ord_qed - int_qed(LO_QED);
             j = 1;
+            
+            if (ord_qed <= int_qed(NLO_QED11))
+            {
+                WC.assign(0, ord_qed, (myHeff.LowScaleCoeff(ij))(0));
+                WC.assign(1, ord_qed, (myHeff.LowScaleCoeff(ij))(1));
+                WC.assign(2, ord_qed, (myHeff.LowScaleCoeff(ij))(2));
+                WC.assign(3, ord_qed, (myHeff.LowScaleCoeff(ij))(3));
+                WC.assign(4, ord_qed, (myHeff.LowScaleCoeff(ij))(4));
+                WC.assign(5, ord_qed, (myHeff.LowScaleCoeff(ij))(5));
+                WC.assign(6, ord_qed, (myHeff.LowScaleCoeff(ij))(6));
+                WC.assign(7, ord_qed, (myHeff.LowScaleCoeff(ij))(7));
+            }
+            
+            WC.assign(10, ord_qed, (myHeff.LowScaleCoeff(ij))(10));
+            WC.assign(11, ord_qed, (myHeff.LowScaleCoeff(ij))(11));
+            WC.assign(12, ord_qed, (myHeff.LowScaleCoeff(ij))(12));
+            WC.assign(13, ord_qed, (myHeff.LowScaleCoeff(ij))(13));
+            WC.assign(14, ord_qed, (myHeff.LowScaleCoeff(ij))(14));
         }
+        
         else
         {
             i = ord_qed - int_qed(NLO_QED02);
@@ -143,22 +168,7 @@ void BXqll::updateParameters()
         
         WC.assign(8, ord_qed, (myHeff.LowScaleCoeff(ij))(8));
         WC.assign(9, ord_qed, (myHeff.LowScaleCoeff(ij))(9));
-    }
-
-    C_9_df1[LO_QED]     = (myHeff.LowScaleCoeff(01))(8);
-    C_9_df1[NLO_QED11]  = (myHeff.LowScaleCoeff(11))(8);
-    C_9_df1[NLO_QED21]  = (myHeff.LowScaleCoeff(21))(8);
-    C_9_df1[NLO_QED02]  = (myHeff.LowScaleCoeff(02))(8);
-    C_9_df1[NLO_QED12]  = (myHeff.LowScaleCoeff(12))(8);
-    C_9_df1[NLO_QED22]  = (myHeff.LowScaleCoeff(22))(8);
-    
-    C_10_df1[LO_QED]    = (myHeff.LowScaleCoeff(01))(9);
-    C_10_df1[NLO_QED11] = (myHeff.LowScaleCoeff(11))(9);
-    C_10_df1[NLO_QED21] = (myHeff.LowScaleCoeff(21))(9);
-    C_10_df1[NLO_QED02] = (myHeff.LowScaleCoeff(02))(9);
-    C_10_df1[NLO_QED12] = (myHeff.LowScaleCoeff(12))(9);
-    C_10_df1[NLO_QED22] = (myHeff.LowScaleCoeff(22))(9);
-        
+    }   
 
     C_1[FULLNLO] = C_1[LO] + C_1[NLO];
     C_1L_bar[FULLNLO] = C_1L_bar[LO] + C_1L_bar[NLO];
@@ -289,12 +299,6 @@ double BXqll::getR_LOWQ2(double sh)
 //    std::cout << "GF^2 MW^2 / pi^2 * C10 = " << GF_2 * MW_2 * c10_stu / M_PI / M_PI << std::endl;
 //    std::cout << "1 / M_PI^2: " << 1. / M_PI / M_PI << std::endl;
 //    std::cout << "1 / MPI2:   " << 1. / MPI2 << std::endl;
-//    
-    std::cout << std::endl;
-    std::cout << "Orders C9:  " << C_9_df1[LO_QED] << "  " << C_9_df1[NLO_QED11] << "  " << C_9_df1[NLO_QED21];
-    std::cout << "  " << C_9_df1[NLO_QED02] << "  " << C_9_df1[NLO_QED12] << "  " << C_9_df1[NLO_QED22] << std::endl;
-    std::cout << "Orders C10: " << C_10_df1[LO_QED] << "  " << C_10_df1[NLO_QED11] << "  " << C_10_df1[NLO_QED21];
-    std::cout << "  " << C_10_df1[NLO_QED02] << "  " << C_10_df1[NLO_QED12] << "  " << C_10_df1[NLO_QED22] << std::endl;
     
     std::cout << std::endl;
     std::cout << "Orders C9:  " << WC(8, int_qed(LO_QED)) << "  " << WC(8, int_qed(NLO_QED11)) << "  " << WC(8, int_qed(NLO_QED21));
@@ -1552,13 +1556,18 @@ void BXqll::computeMi(double sh)
         M_9.push_back(M9i);
   
     // M_9: NLO_QED11
-    M9i.assign(0, aletilde * f_Huber(sh, -32./27., 4./3., 0.,      0.,       -16./27.));
-    M9i.assign(1, aletilde * f_Huber(sh, -8./9.,   1.,    0.,      0.,       -4./9.));
-    M9i.assign(2, aletilde * f_Huber(sh, -16./9.,  6.,    -7./2.,  2./9.,    2./27.));
-    M9i.assign(3, aletilde * f_Huber(sh, 32./27.,  0.,    -2./3.,  8./27.,   8./81.));
-    M9i.assign(4, aletilde * f_Huber(sh, -112./9., 60.,   -38.,    32./9.,   -136./27.));
-    M9i.assign(5, aletilde * f_Huber(sh, 512./27., 0.,    -32./3., 128./27., 320./81.));
-    M9i.assign(8, aletilde * f9pen_Huber(sh));
+    M9i.assign(0,  aletilde * f_Huber(sh,   -32./27., 4./3.,      0.,        0.,   -16./27.));
+    M9i.assign(1,  aletilde * f_Huber(sh,     -8./9.,    1.,      0.,        0.,     -4./9.));
+    M9i.assign(2,  aletilde * f_Huber(sh,    -16./9.,    6.,  -7./2.,     2./9.,     2./27.));
+    M9i.assign(3,  aletilde * f_Huber(sh,    32./27.,    0.,  -2./3.,    8./27.,     8./81.));
+    M9i.assign(4,  aletilde * f_Huber(sh,   -112./9.,   60.,    -38.,    32./9.,  -136./27.));
+    M9i.assign(5,  aletilde * f_Huber(sh,   512./27.,    0., -32./3.,  128./27.,   320./81.));
+    M9i.assign(10, aletilde * f_Huber(sh,  -272./27.,    4.,   7./6.,  -74./27.,   358./81.));
+    M9i.assign(11, aletilde * f_Huber(sh,   -32./81.,    0.,   2./9.,   -8./81.,   -8./243.));
+    M9i.assign(12, aletilde * f_Huber(sh, -2768./27.,   40.,  38./3., -752./27.,  1144./81.));
+    M9i.assign(13, aletilde * f_Huber(sh,  -512./81.,    0.,  32./9., -128./81., -320./243.));
+    M9i.assign(14, aletilde * f_Huber(sh,     16./9.,    0.,     -2.,        0.,    26./27.));
+    M9i.assign(8,  aletilde * f9pen_Huber(sh));
     M_9.push_back(M9i);
 
     // M_9: NLO_QED21
@@ -1740,30 +1749,27 @@ double BXqll::S910_A(double sh, orders order)
     }
 }
 
-gslpp::complex BXqll::cij_T(unsigned int i, unsigned int j, double sh, orders_qed order_qed)
+gslpp::complex BXqll::cij_T(unsigned int i, unsigned int j, double sh)
 {
     unsigned int ij = 10*(i + 1) + (j + 1);
     double umsh = (1. - sh), uptsh = 1. + 3.*sh;
     double r = sh * Mb * Mb / 4. / Mc / Mc;
-    gslpp::complex Mj7, M17, Mj9, M19;
+    gslpp::complex Mj7, Mj9;
     
-    switch(order_qed)
+    switch(j)
     {
-        case NLO_QED11:
+        case 9:
             Mj7 = 0.;
-            M17 = 0.;
             Mj9 = (M_9[LO])(j);
-            M19 = (M_9[LO])(1);
             break;
-        case NLO_QED22:
-            // Keeping a 32 contribution in 22 because it is mc^2 suppressed
-            Mj7 = (M_7[int_qed(NLO_QED11)])(j) + (M_7[int_qed(NLO_QED21)])(j);
-            M17 = (M_7[int_qed(NLO_QED11)])(1) + (M_7[int_qed(NLO_QED21)])(1);
-            Mj9 = (M_9[int_qed(NLO_QED11)])(j) + (M_9[int_qed(NLO_QED21)])(j);
-            M19 = (M_9[int_qed(NLO_QED11)])(1) + (M_9[int_qed(NLO_QED21)])(1);
+        case 7:
+            Mj7 = (M_7[int_qed(NLO_QED11)])(j);
+            Mj9 = 0.;
             break;
         default:
-            return 0.;
+            Mj7 = 0.;
+            Mj9 = (M_9[int_qed(NLO_QED11)])(j);
+            break;
     }
 
     gslpp::complex F_M7c_M9c = F_BIR(r) * (Mj7.conjugate() / sh + Mj9.conjugate() / 2.);
@@ -1774,35 +1780,32 @@ gslpp::complex BXqll::cij_T(unsigned int i, unsigned int j, double sh, orders_qe
         return (aletilde*4.*lambda_2/27./Mc/Mc*umsh*umsh*uptsh * F_M7c_M9c);
     else if (ij == 12)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh *
-                (F_BIR(r).conjugate() * (M17 / sh + M19 / 2.) - F_M7c_M9c / 6.));
+                (F_BIR(r).conjugate() * (M_9[int_qed(NLO_QED11)])(1) / 2. - F_M7c_M9c / 6.));
     else
         return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*uptsh * F_M7c_M9c);
 }
 
-gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh, orders_qed order_qed)
+gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh)
 {
     unsigned int ij = 10*(i + 1) + (j + 1);
     double umsh = (1. - sh), tmsh = 3. - sh;
     double r = sh * Mb * Mb / 4. / Mc / Mc;
-    gslpp::complex Mj7, M17, Mj9, M19;
+    gslpp::complex Mj7, Mj9;
     
-    switch(order_qed)
+    switch(j)
     {
-        case NLO_QED11:
+        case 9:
             Mj7 = 0.;
-            M17 = 0.;
             Mj9 = (M_9[LO])(j);
-            M19 = (M_9[LO])(1);
             break;
-        case NLO_QED22:
-            // Keeping a 32 contribution in 22 because it is mc^2 suppressed
-            Mj7 = (M_7[int_qed(NLO_QED11)])(j) + (M_7[int_qed(NLO_QED21)])(j);
-            M17 = (M_7[int_qed(NLO_QED11)])(1) + (M_7[int_qed(NLO_QED21)])(1);
-            Mj9 = (M_9[int_qed(NLO_QED11)])(j) + (M_9[int_qed(NLO_QED21)])(j);
-            M19 = (M_9[int_qed(NLO_QED11)])(1) + (M_9[int_qed(NLO_QED21)])(1);
+        case 7:
+            Mj7 = (M_7[int_qed(NLO_QED11)])(j);
+            Mj9 = 0.;
             break;
         default:
-            return 0.;
+            Mj7 = 0.;
+            Mj9 = (M_9[int_qed(NLO_QED11)])(j);
+            break;
     }
     
     gslpp::complex F_M7c_M9c = F_BIR(r) * (Mj7.conjugate() + Mj9.conjugate() / 2.);
@@ -1813,7 +1816,7 @@ gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh, orders_qe
         return (aletilde*4.*lambda_2/27./Mc/Mc*umsh*umsh*tmsh * F_M7c_M9c);
     else if (ij == 12)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh *
-                (F_BIR(r).conjugate() * (M17 + M19 / 2.) - F_M7c_M9c / 6.));
+                (F_BIR(r).conjugate() * (M_9[int_qed(NLO_QED11)])(1) / 2. - F_M7c_M9c / 6.));
     else
         return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*tmsh * F_M7c_M9c);
 }

@@ -411,8 +411,8 @@ private:
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     * @param[in] i,j indices in eq. (4.10) in @cite Huber:2015sra
     */
-    gslpp::complex cij_T(unsigned int i, unsigned int j, double sh, orders_qed order_qed);
-    gslpp::complex cij_L(unsigned int i, unsigned int j, double sh, orders_qed order_qed);
+    gslpp::complex cij_T(unsigned int i, unsigned int j, double sh);
+    gslpp::complex cij_L(unsigned int i, unsigned int j, double sh);
     gslpp::complex cij_A(unsigned int i, unsigned int j, double sh);
     
     /**
