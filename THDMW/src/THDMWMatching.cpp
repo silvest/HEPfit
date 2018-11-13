@@ -20,8 +20,7 @@ THDMWMatching::THDMWMatching(const THDMW & THDMW_i) :
     myCKM(3, 3, 0.),
     mcBMll(13, NDR, NLO),
     mcbsg(8, NDR, NNLO),
-    mcdbs2(5, NDR, NLO),
-    mcdbsp2(5, NDR, NLO)
+    mcdbs2(5, NDR, NLO)
 {
 }
 
@@ -167,8 +166,6 @@ std::vector<WilsonCoefficient>& THDMWMatching::CMdbs2() {
     gslpp::complex etaD = myTHDMW.getTHDMW_etaD();
     double GF=myTHDMW.getGF();
     double co = GF / 4. / M_PI * MW;
-    
-
 
     vmcds = StandardModelMatching::CMdbs2();
     mcdbs2.setMu(Mut);
@@ -186,48 +183,67 @@ std::vector<WilsonCoefficient>& THDMWMatching::CMdbs2() {
     }
 
     vmcds.push_back(mcdbs2);
-    return(vmcds);
-}
+    //The following are the primed coefficients.
+    mcdbs2.setMu(Mut);
 
-std::vector<WilsonCoefficient>& THDMWMatching::CMdbsp2() {
-
-    double Mut = myTHDMW.getMut();
-    double Muc = myTHDMW.getMuc();
-    double Mub = myTHDMW.getMub();
-    double xt = x_t(Mut);//ratio mass of the top square at the scale of its mass over mass of the W square. Why not Mw scale???
-    double xc= x_c(Muc);
-    double mb =myTHDMW.Mrun(Mub, myTHDMW.getQuarks(QCD::BOTTOM).getMass_scale(),
-                              myTHDMW.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
-    double mSp2=myTHDMW.getMyTHDMWCache()->mSpsq;
-    double MW=myTHDMW.Mw();
-    double xb=pow(mb,2)/(MW*MW);
-    
-    double xS=mSp2/(MW*MW);
-    gslpp::complex etaU = myTHDMW.getTHDMW_etaU();
-    gslpp::complex etaD = myTHDMW.getTHDMW_etaD();
-    double GF=myTHDMW.getGF();
-    double co = GF / 4. / M_PI * MW;
-    
-    vmcdsp = StandardModelMatching::CMdbs2();
-    mcdbsp2.setMu(Mut);
-
-    switch (mcdbsp2.getOrder()) {
+    switch (mcdbs2.getOrder()) {
         case NNLO:
         case NLO:
         case LO:
-            mcdbsp2.setCoeff(1, co * co * CNPSRR1(xc, xb, xt, xS, etaU, etaD).conjugate()+4*co * co * CNPSRR2(xc, xb, xt, xS, etaU, etaD).conjugate(), LO);
-            mcdbsp2.setCoeff(2, 8*co * co * CNPSRR2(xc, xb, xt, xS, etaU, etaD).conjugate(), LO);
+            mcdbs2.setCoeff(1, co * co * CNPSRR1(xc, xb, xt, xS, etaU, etaD).conjugate()+4*co * co * CNPSRR2(xc, xb, xt, xS, etaU, etaD).conjugate(), LO);
+            mcdbs2.setCoeff(2, 8*co * co * CNPSRR2(xc, xb, xt, xS, etaU, etaD).conjugate(), LO);
             //OSRR2=4*O2+8*O3 -> From Buras basis to SUSY basis
             break;
         default:
             std::stringstream out;
-            out << mcdbsp2.getOrder();
+            out << mcdbs2.getOrder();
             throw std::runtime_error("THDMMatching::CMdbs2(): order " + out.str() + "not implemented");
     }
 
-    vmcdsp.push_back(mcdbsp2);
-    return(vmcdsp);
+    vmcds.push_back(mcdbs2);
+
+    return(vmcds);
 }
+//
+//std::vector<WilsonCoefficient>& THDMWMatching::CMdbsp2() {
+//
+//    double Mut = myTHDMW.getMut();
+//    double Muc = myTHDMW.getMuc();
+//    double Mub = myTHDMW.getMub();
+//    double xt = x_t(Mut);//ratio mass of the top square at the scale of its mass over mass of the W square. Why not Mw scale???
+//    double xc= x_c(Muc);
+//    double mb =myTHDMW.Mrun(Mub, myTHDMW.getQuarks(QCD::BOTTOM).getMass_scale(),
+//                              myTHDMW.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+//    double mSp2=myTHDMW.getMyTHDMWCache()->mSpsq;
+//    double MW=myTHDMW.Mw();
+//    double xb=pow(mb,2)/(MW*MW);
+//    
+//    double xS=mSp2/(MW*MW);
+//    gslpp::complex etaU = myTHDMW.getTHDMW_etaU();
+//    gslpp::complex etaD = myTHDMW.getTHDMW_etaD();
+//    double GF=myTHDMW.getGF();
+//    double co = GF / 4. / M_PI * MW;
+//    
+//    vmcdsp = StandardModelMatching::CMdbs2();
+//    mcdbs2.setMu(Mut);
+//
+//    switch (mcdbsp2.getOrder()) {
+//        case NNLO:
+//        case NLO:
+//        case LO:
+//            mcdbsp2.setCoeff(1, co * co * CNPSRR1(xc, xb, xt, xS, etaU, etaD).conjugate()+4*co * co * CNPSRR2(xc, xb, xt, xS, etaU, etaD).conjugate(), LO);
+//            mcdbsp2.setCoeff(2, 8*co * co * CNPSRR2(xc, xb, xt, xS, etaU, etaD).conjugate(), LO);
+//            //OSRR2=4*O2+8*O3 -> From Buras basis to SUSY basis
+//            break;
+//        default:
+//            std::stringstream out;
+//            out << mcdbsp2.getOrder();
+//            throw std::runtime_error("THDMMatching::CMdbs2(): order " + out.str() + "not implemented");
+//    }
+//
+//    vmcds.push_back(mcdbs2);
+//    return(vmcdsp);
+//}
 
 
 

@@ -91,8 +91,6 @@ public:
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffBs(double mu, schemes scheme = NDR) const;
 
-    gslpp::vector<gslpp::complex>** ComputeCoeffBsp(double mu, schemes scheme = NDR) const;
-
     gslpp::vector<gslpp::complex>** ComputeCoeffdd(double mu, schemes scheme = NDR) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffK(double mu, schemes scheme = NDR) const;

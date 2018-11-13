@@ -18,7 +18,6 @@ GeneralTHDMMatching::GeneralTHDMMatching(const GeneralTHDM & GeneralTHDM_i) :
     myGTHDM(GeneralTHDM_i),
     myCKM(3, 3, 0.),
     mcdbs2(5, NDR, NLO),
-    mcdbsp2(5, NDR, NLO),
     mcbtaunu(3, NDR, LO),
     mcBMll(13, NDR, NLO),
     mcbsg(8, NDR, NNLO),
@@ -2681,12 +2680,16 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
     double mHp2=myGTHDM.getmHp2();
     double xHW=mHp2/(MW*MW);
     double xtH=xt/xHW;
-//    double mb=myGTHDM.getQuarks(QCD::BOTTOM).getMass();
-//    double sd = (myGTHDM.getNd_11()).real();
+    double mb=myGTHDM.getQuarks(QCD::BOTTOM).getMass();
+    double sd = (myGTHDM.getNd_11()).real();
     double su = (myGTHDM.getNu_11()).real();
     double SWH=xtH*((2.0*xHW-8.0)*log(xtH)/((1.0-xHW)*(1.0-xtH)*(1.0-xtH))+6.0*xHW*log(xt)/((1.0-xHW)*(1.0-xt)*(1.0-xt))-(8.0-2.0*xt)/((1.0-xt)*(1.0-xtH)))*su*su;//su*su = sigu.abs2()
     double SHH=xtH*((1.0+xtH)/((1.0-xtH)*(1.0-xtH))+2.0*xtH*log(xtH)/((1.0-xtH)*(1.0-xtH)*(1.0-xtH)))*su*su*su*su;//su*su*su*su = sigu.abs2()*sigu.abs2()
-    
+    double C1bsSRR = 4.0*mb*mb*xt*xtH*sd*su/(mHp2*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)) //sd*su = sigd*sigu.conjugate()
+                     * (sd*su*(2.0*(xtH-1.0)-(xtH+1.0)*log(xtH)) //sd*su = sigd*sigu.conjugate()
+                        + (2.0*xt*xt*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)*log(xt)/(xt-1.0)
+                           +2.0*xt*(xtH-1.0)*((xt-xtH)*(xtH-1.0)+(xtH-xt*xtH)*log(xtH)))/((xt-1.0)*(xt-xtH)*xtH));
+
     vmcds = StandardModelMatching::CMdbs2();
     mcdbs2.setMu(Mut);
 
@@ -2703,46 +2706,63 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
     }
 
     vmcds.push_back(mcdbs2);
-    return(vmcds);
-}
+    //The following are the primed coefficients.
+    mcdbs2.setMu(Mut);
 
-std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbsp2() {
-
-    double Mut = myGTHDM.getMut();
-    double xt = x_t(Mut);
-    double GF=myGTHDM.getGF();
-    double MW=myGTHDM.Mw();
-    gslpp::complex co = GF / 4. / M_PI * MW * myGTHDM.getCKM().computelamt_s();
-    double mHp2=myGTHDM.getmHp2();
-    double xHW=mHp2/(MW*MW);
-    double xtH=xt/xHW;
-    double mb=myGTHDM.getQuarks(QCD::BOTTOM).getMass();
-    double sd = (myGTHDM.getNd_11()).real();
-    double su = (myGTHDM.getNu_11()).real();
-//Taken from 1006.0470:
-    double C1bsSRR = 4.0*mb*mb*xt*xtH*sd*su/(mHp2*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)) //sd*su = sigd*sigu.conjugate()
-                     * (sd*su*(2.0*(xtH-1.0)-(xtH+1.0)*log(xtH)) //sd*su = sigd*sigu.conjugate()
-                        + (2.0*xt*xt*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)*log(xt)/(xt-1.0)
-                           +2.0*xt*(xtH-1.0)*((xt-xtH)*(xtH-1.0)+(xtH-xt*xtH)*log(xtH)))/((xt-1.0)*(xt-xtH)*xtH));
-    
-    vmcdsp = StandardModelMatching::CMdbs2();
-    mcdbsp2.setMu(Mut);
-
-    switch (mcdbsp2.getOrder()) {
+    switch (mcdbs2.getOrder()) {
         case NNLO:
         case NLO:
         case LO:
-            mcdbsp2.setCoeff(1, co * co * C1bsSRR, LO);
+            mcdbs2.setCoeff(1, co * co * C1bsSRR, LO);
             break;
         default:
             std::stringstream out;
-            out << mcdbsp2.getOrder();
+            out << mcdbs2.getOrder();
             throw std::runtime_error("THDMMatching::CMdbs2(): order " + out.str() + "not implemented");
     }
 
-    vmcdsp.push_back(mcdbsp2);
-    return(vmcdsp);
+    vmcds.push_back(mcdbs2);
+
+    return(vmcds);
 }
+//
+//std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbsp2() {
+//
+//    double Mut = myGTHDM.getMut();
+//    double xt = x_t(Mut);
+//    double GF=myGTHDM.getGF();
+//    double MW=myGTHDM.Mw();
+//    gslpp::complex co = GF / 4. / M_PI * MW * myGTHDM.getCKM().computelamt_s();
+//    double mHp2=myGTHDM.getmHp2();
+//    double xHW=mHp2/(MW*MW);
+//    double xtH=xt/xHW;
+//    double mb=myGTHDM.getQuarks(QCD::BOTTOM).getMass();
+//    double sd = (myGTHDM.getNd_11()).real();
+//    double su = (myGTHDM.getNu_11()).real();
+////Taken from 1006.0470:
+//    double C1bsSRR = 4.0*mb*mb*xt*xtH*sd*su/(mHp2*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)) //sd*su = sigd*sigu.conjugate()
+//                     * (sd*su*(2.0*(xtH-1.0)-(xtH+1.0)*log(xtH)) //sd*su = sigd*sigu.conjugate()
+//                        + (2.0*xt*xt*(xtH-1.0)*(xtH-1.0)*(xtH-1.0)*log(xt)/(xt-1.0)
+//                           +2.0*xt*(xtH-1.0)*((xt-xtH)*(xtH-1.0)+(xtH-xt*xtH)*log(xtH)))/((xt-1.0)*(xt-xtH)*xtH));
+//    
+//    vmcdsp = StandardModelMatching::CMdbs2();
+//    mcdbsp2.setMu(Mut);
+//
+//    switch (mcdbsp2.getOrder()) {
+//        case NNLO:
+//        case NLO:
+//        case LO:
+//            mcdbsp2.setCoeff(1, co * co * C1bsSRR, LO);
+//            break;
+//        default:
+//            std::stringstream out;
+//            out << mcdbsp2.getOrder();
+//            throw std::runtime_error("THDMMatching::CMdbs2(): order " + out.str() + "not implemented");
+//    }
+//
+//    vmcdsp.push_back(mcdbsp2);
+//    return(vmcdsp);
+//}
 
 double GeneralTHDMMatching::C10Bll(double xt, double xHp, gslpp::complex su) {
     

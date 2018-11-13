@@ -17,7 +17,6 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
 : SM(SM_i),
         mcdbd2(5, NDR, NLO),
         mcdbs2(5, NDR, NLO),
-        mcdbsp2(5, NDR, NLO),
         mcdd2(5, NDR, NLO),
         mcdk2(5, NDR, NLO),
         mck(10, NDR, NLO),
@@ -1090,39 +1089,6 @@ double StandardModelMatching::phi_xy(double x, double y) const
 
     vmcds.push_back(mcdbs2);
     return(vmcds);
-}
-
- std::vector<WilsonCoefficient>& StandardModelMatching::CMdbsp2() 
-{
-
-    vmcdsp.clear();
-
-    switch (mcdbsp2.getScheme()) {
-        case NDR:
-            break;
-        case HV:
-        case LRI:
-        default:
-            std::stringstream out;
-            out << mcdbsp2.getScheme();
-            throw std::runtime_error("StandardModel::CMdbs2(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcdbsp2.setMu(Mut);
- 
-    switch (mcdbsp2.getOrder()) {
-        case NNLO:
-        case NLO:          
-        case LO:
-            break;
-        default:
-            std::stringstream out;
-            out << mcdbsp2.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMdbs2(): order " + out.str() + "not implemented"); 
-    }    
-
-    vmcdsp.push_back(mcdbsp2);
-    return(vmcdsp);
 }
 
 /*******************************************************************************

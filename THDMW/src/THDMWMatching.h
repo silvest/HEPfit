@@ -51,7 +51,6 @@ public:
      * @return THDMW Wilson coefficients for \f$ B_s \to \bar{B_s}\f$ according to 1504.00839 
      */
     virtual  std::vector<WilsonCoefficient>& CMdbs2();
-    virtual  std::vector<WilsonCoefficient>& CMdbsp2();
 
     
 
@@ -511,7 +510,7 @@ private:
     const THDMW & myTHDMW;
 
     gslpp::matrix<gslpp::complex> myCKM;
-    WilsonCoefficient mcBMll,mcbsg , mcdbs2, mcdbsp2;
+    WilsonCoefficient mcBMll,mcbsg , mcdbs2;
 
     //double GF, mMU;
     //gslpp::complex CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];

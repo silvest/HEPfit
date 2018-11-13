@@ -75,11 +75,6 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBs(double mu, schemes schem
     return HDF2->ComputeCoeffBs(mu, scheme);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBsp(double mu, schemes scheme) const
-{
-    return HDF2->ComputeCoeffBsp(mu, scheme);
-}
-
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdd(double mu, schemes scheme) const
 {
     return HDF2->ComputeCoeffdd(mu, scheme);

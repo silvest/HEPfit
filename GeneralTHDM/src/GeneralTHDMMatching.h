@@ -94,7 +94,7 @@ public:
      * @return GeneralTHDM Wilson coefficients for \f$ B_s \to \bar{B_s}\f$ according to @cite Geng:1988bq, @cite Deschamps:2009rh
      */
     virtual  std::vector<WilsonCoefficient>& CMdbs2();
-    virtual  std::vector<WilsonCoefficient>& CMdbsp2();
+//    virtual  std::vector<WilsonCoefficient>& CMdbsp2();
 
     /**
      * @return GeneralTHDM Wilson coefficient for \f$ B \to \tau \nu \f$ from @cite Hou:1992sy
@@ -242,7 +242,7 @@ private:
     const GeneralTHDM & myGTHDM;
 
     gslpp::matrix<gslpp::complex> myCKM;
-    WilsonCoefficient mcdbs2, mcdbsp2, mcbtaunu, mcBMll, mcbsg, mcgminus2mu, mcbsmm;
+    WilsonCoefficient mcdbs2, mcbtaunu, mcBMll, mcbsg, mcgminus2mu, mcbsmm;
 
     double GF, mMU;
     gslpp::complex CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];
