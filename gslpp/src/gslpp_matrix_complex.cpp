@@ -118,6 +118,11 @@ namespace gslpp
 //  }
 
   /** Assign */
+  void matrix<complex>::reset()
+  {
+      gsl_matrix_complex_set_zero(_matrix);
+  }
+  
   matrix<complex>& matrix<complex>::operator=(const matrix<complex>& m)
   {
       if(size_i()==m.size_i() && size_j()==m.size_j())

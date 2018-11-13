@@ -79,6 +79,7 @@ namespace gslpp
       /** Assign */
       matrix<complex>& operator=(const matrix<complex>& m);
       /** Assign element */
+      void reset();
       void assign(const size_t& i, const size_t& j, const complex& z);
       void assign(const size_t& i, const size_t& j, const double& a);
       void assign(const size_t& i, const size_t& j, const matrix<complex>& z);

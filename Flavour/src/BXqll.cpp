@@ -1187,7 +1187,7 @@ void BXqll::computeHij_T(double sh)
     
     
     // NLO
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     
     for (unsigned int j = 0; j < 15; j++)
     {
@@ -1208,7 +1208,7 @@ void BXqll::computeHij_T(double sh)
     
     
     // NNLO -> LO_QED
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     Hij_T.push_back(Hij);
     Hij_T.push_back(Hij);
     
@@ -1236,7 +1236,7 @@ void BXqll::computeHij_T(double sh)
     
     
     // NLO_QED21
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     
     for (unsigned int j = 0; j < 15; j++)
     {
@@ -1268,7 +1268,7 @@ void BXqll::computeHij_T(double sh)
     
     
     // NLO_QED02 -> NLO_QED12
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     Hij_T.push_back(Hij);
     Hij_T.push_back(Hij);
     
@@ -1323,7 +1323,7 @@ void BXqll::computeHij_L(double sh)
     
     
     // NLO
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     
     for (unsigned int j = 0; j < 15; j++)
     {
@@ -1344,7 +1344,7 @@ void BXqll::computeHij_L(double sh)
     
     
     // NNLO -> LO_QED
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     Hij_L.push_back(Hij);
     Hij_L.push_back(Hij);
     
@@ -1372,7 +1372,7 @@ void BXqll::computeHij_L(double sh)
     
     
     // NLO_QED21
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     
     for (unsigned int j = 0; j < 15; j++)
     {
@@ -1404,7 +1404,7 @@ void BXqll::computeHij_L(double sh)
     
     
     // NLO_QED02 -> NLO_QED12
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     Hij_L.push_back(Hij);
     Hij_L.push_back(Hij);
     
@@ -1453,7 +1453,7 @@ void BXqll::computeHij_A(double sh)
     
     
     // NLO
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     
     for (unsigned int j = 0; j < 15; j++)
     {
@@ -1468,7 +1468,7 @@ void BXqll::computeHij_A(double sh)
     
     
     // NNLO -> LO_QED
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     Hij_A.push_back(Hij);
     Hij_A.push_back(Hij);
     
@@ -1489,7 +1489,7 @@ void BXqll::computeHij_A(double sh)
     
     
     // NLO_QED21
-    Hij = Hij - Hij; // To clear Hij
+    Hij.reset(); // To clear Hij
     
     for (unsigned int j = 0; j < 15; j++)
     {
@@ -1510,7 +1510,7 @@ void BXqll::computeHij_A(double sh)
     
     
 //    // NLO_QED02 -> NLO_QED12
-//    Hij = Hij - Hij; // To clear Hij
+//    Hij.reset(); // To clear Hij
 //    Hij_A.push_back(Hij);
 //    Hij_A.push_back(Hij);    
 //    Hij_A.push_back(Hij);
@@ -1536,7 +1536,7 @@ void BXqll::computeMi(double sh)
     M_7.push_back(M7i);
     
     // M_7: NLO_QED21
-    M7i = M7i - M7i; // To clear M7i
+    M7i.reset(); // To clear M7i
     M7i.assign(0, -alstilde * aletilde * F17(sh));
     M7i.assign(1, -alstilde * aletilde * F27(sh));
     M7i.assign(7, -alstilde * aletilde * F87(sh));
@@ -1547,7 +1547,7 @@ void BXqll::computeMi(double sh)
     M_9.push_back(M9i);
     
     // M_9: NLO -> LO_QED
-    M9i = M9i - M9i; // To clear M9i
+    M9i.reset(); // To clear M9i
     for (unsigned int i = NLO; i <= int_qed(LO_QED); i++)
         M_9.push_back(M9i);
   
@@ -1562,7 +1562,7 @@ void BXqll::computeMi(double sh)
     M_9.push_back(M9i);
 
     // M_9: NLO_QED21
-    M9i = M9i - M9i; // To clear M9i
+    M9i.reset(); // To clear M9i
     M9i.assign(0, -alstilde * aletilde * F19(sh));
     M9i.assign(1, -alstilde * aletilde * F19(sh));
     M9i.assign(7, -alstilde * aletilde * F89(sh));
@@ -1573,7 +1573,7 @@ void BXqll::computeMi(double sh)
     M_10.push_back(M10i);
     
     // M_10: NLO -> NLO_QED21
-    M10i = M10i - M10i; // To clear M7i
+    M10i.reset(); // To clear M7i
     for (unsigned int i = NLO; i <= int_qed(NLO_QED21); i++)
         M_10.push_back(M10i);
 }

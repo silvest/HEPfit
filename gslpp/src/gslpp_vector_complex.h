@@ -53,6 +53,7 @@ namespace gslpp
       vector<complex>& operator=(const vector<complex>& v);
       vector<complex>& operator=(double a);
       /** Assign element */
+      void reset();
       void assign(const size_t& i, const complex& z);
       void assign(const size_t& i, const double& a);
       /** Get vector size */
