@@ -147,5 +147,36 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff(double mu, schemes scheme)
 
     }
     
+    gslpp::complex c9, c10;
+    gslpp::vector<gslpp::complex> zz(nops, 0.);
+    int a;
+    
+    for(j = NLO_QED21; j <= ordDF1_qed; j++)
+    {
+        a = -1;
+
+        if(blocks == "L") break;
+  
+        if(blocks == "CPL") {
+            c9 = (*(coeff.getCoeff(orders_qed(j))))(6);
+            c10 = (*(coeff.getCoeff(orders_qed(j))))(7);
+            a = 6;
+        }
+        else if(blocks == "CPML" || blocks == "CPMLQB") {
+            c9 = (*(coeff.getCoeff(orders_qed(j))))(8);
+            c10 = (*(coeff.getCoeff(orders_qed(j))))(9);
+            a = 8;
+        }
+        
+        coeff.setCoeff(zz, orders_qed(j));
+
+        if(a != -1)
+        {
+          coeff.setCoeff(a, c9, orders_qed(j));
+          coeff.setCoeff(a + 1, c10, orders_qed(j));
+        }
+        
+    }
+    
     return coeff.getCoeff();
 }

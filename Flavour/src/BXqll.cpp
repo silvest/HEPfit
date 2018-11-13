@@ -343,7 +343,34 @@ double BXqll::getR_LOWQ2(double sh)
     std::cout << std::endl;
     std::cout << "H_T: " << H_T(0.15) << std::endl;
     std::cout << "H_L: " << H_L(0.15) << std::endl; 
-    std::cout << "H_A: " << H_A(0.15) << std::endl; 
+    std::cout << "H_A: " << H_A(0.15) << std::endl;
+    
+    uint i,j,ij;
+    for(unsigned int ord = LO; ord <= NNLO; ord++)
+    {
+        i = ord;
+        j = 0;
+        ij = 10*i + j;
+
+        std::cout << "LowScaleCoeff(" << ij <<  ") = "  << myHeff.LowScaleCoeff(ij) << std::endl;
+    }
+    for(unsigned int ord_qed = int_qed(LO_QED); ord_qed <= int_qed(NLO_QED22); ord_qed++)
+    {   
+        if (ord_qed <= int_qed(NLO_QED21))
+        {
+            i = ord_qed - int_qed(LO_QED);
+            j = 1;
+        }
+        else
+        {
+            i = ord_qed - int_qed(NLO_QED02);
+            j = 2;
+        }
+        ij = 10*i + j;
+        
+        std::cout << "LowScaleCoeff(" << ij <<  ") = "  << myHeff.LowScaleCoeff(ij) << std::endl;
+    }   
+
     
     return 0.;
 //    return (R_quark(sh,LOWQ2)/* + deltaMb2_Rquark(sh,LOWQ2)*/);
