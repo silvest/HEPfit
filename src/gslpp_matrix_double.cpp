@@ -82,6 +82,11 @@ namespace gslpp
   }
 
   /** Assign */
+  void matrix<double>::reset()
+  {
+      gsl_matrix_set_zero(_matrix);  
+  }
+  
   matrix<double>& matrix<double>::operator=(const matrix<double>& m)
   {
       if(size_i()==m.size_i() && size_j()==m.size_j())

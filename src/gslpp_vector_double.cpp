@@ -72,6 +72,12 @@ namespace gslpp
   }
 
   /** Assign */
+  void vector<double>::reset()
+    {
+        gsl_vector_set_zero(_vector);
+    }
+    
+
   vector<double>& vector<double>::operator=(const vector<double>& v)
   {
     gsl_vector_memcpy(_vector, v.as_gsl_type_ptr());

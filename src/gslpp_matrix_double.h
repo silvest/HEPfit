@@ -65,6 +65,7 @@ namespace gslpp
       /** Set i-th element */
       double& operator()(const size_t& i, const size_t& j);
       /** Assign */
+      void reset();
       matrix<double>& operator=(const matrix<double>& m);
       matrix<double>& operator=(double a);
       void assign(const size_t& i, const size_t& j, const double& a);

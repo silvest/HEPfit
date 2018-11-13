@@ -96,6 +96,11 @@ namespace gslpp {
     }
 
     /** Assign element */
+    void vector<complex>::reset()
+    {
+        gsl_vector_complex_set_zero(_vector);
+    }
+    
     void vector<complex>::assign(const size_t& i, const complex& z)
     {
         gsl_complex *x = gsl_vector_complex_ptr(_vector, i);

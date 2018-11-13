@@ -49,6 +49,7 @@ namespace gslpp
       /** Set i-th element */
       double& operator()(const size_t& i);
       /** Assign */
+      void reset();
       vector<double>& operator=(const vector<double>& v);
       /** Get vector size */
       size_t size() const;
