@@ -28,6 +28,24 @@ public:
     THDMWMatching(const THDMW & THDMW_i);
 
 
+    /**
+     * @return C10 Wilson coefficient of  B_q \to l \bar{l}\f$ according to 1504.00839.
+     */
+    virtual gslpp::complex C10NP(double xt, double xS, gslpp::complex etaU);
+    
+    /**
+     * @return CS Wilson coefficient of  B_q \to l \bar{l}\f$ according to 1504.00839.
+     */
+    virtual gslpp::complex CSNP(double nu1, double xh, double xt, double xS, gslpp::complex etaU,  gslpp::complex etaD);
+    
+    
+    /**
+     * @return CP Wilson coefficient of  B_q \to l \bar{l}\f$ according to 1504.00839.
+     */
+    virtual gslpp::complex CPNP(double xt, double xS, gslpp::complex etaU,  gslpp::complex etaD);
+    
+    
+    
     
     /**
      * @return THDMW Wilson coefficients for \f$ B_s \to \bar{B_s}\f$ according to 1504.00839 
@@ -36,7 +54,8 @@ public:
     virtual  std::vector<WilsonCoefficient>& CMdbsp2();
 
     
-    
+
+    virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
     
     
     
@@ -492,7 +511,7 @@ private:
     const THDMW & myTHDMW;
 
     gslpp::matrix<gslpp::complex> myCKM;
-    WilsonCoefficient mcdbs2, mcdbsp2;
+    WilsonCoefficient mcBMll,mcbsg , mcdbs2, mcdbsp2;
 
     //double GF, mMU;
     //gslpp::complex CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];

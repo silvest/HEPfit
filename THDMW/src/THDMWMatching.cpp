@@ -18,16 +18,135 @@ THDMWMatching::THDMWMatching(const THDMW & THDMW_i) :
     StandardModelMatching(THDMW_i),
     myTHDMW(THDMW_i),
     myCKM(3, 3, 0.),
+    mcBMll(13, NDR, NLO),
+    mcbsg(8, NDR, NNLO),
     mcdbs2(5, NDR, NLO),
     mcdbsp2(5, NDR, NLO)
 {
 }
 
+
+
+
+
+std::vector<WilsonCoefficient>& THDMWMatching::CMBMll(QCD::lepton lepton)
+{           
+    //From 1504.00839
+    double Mut = myTHDMW.getMut();
+    double Muw = myTHDMW.getMuw();
+    double MW = myTHDMW.Mw();
+    double xt = x_t(Mut);
+    double mhsq = myTHDMW.getMyTHDMWCache()->mhsq;
+    double xh = mhsq/pow(MW,2);
+    double sW2 = myTHDMW.sW2();
+    double mSp2 =myTHDMW.getMyTHDMWCache()->mSpsq;
+    double xS = mSp2/pow(MW,2);
+    double nu1 = myTHDMW.getTHDMW_nu1();
+    gslpp::complex etaU = myTHDMW.getTHDMW_etaU();
+    gslpp::complex etaD = myTHDMW.getTHDMW_etaD();
+    
+    double mb=myTHDMW.getQuarks(QCD::BOTTOM).getMass();
+   
+    double ml=myTHDMW.getLeptons(lepton).getMass();
+    
+    
+    
+    vmcBMll = StandardModelMatching::CMBMll(lepton);
+      switch (mcbsg.getScheme()) {
+        case NDR:
+
+            break;
+        default:
+        std::stringstream out;
+       out << mcBMll.getScheme();
+     throw std::runtime_error("THDMWMatching::CMBMll(): scheme " + out.str() + "not implemented");
+    }
+    mcBMll.setMu(Muw);
+    
+     switch (mcBMll.getOrder()) {
+        case NNLO:
+        case NLO:           
+        case LO:           
+            mcBMll.setCoeff(9 , C10NP(xt, xS, etaU)/(sW2), LO);
+            mcBMll.setCoeff(10 , CSNP(nu1, xh, xt, xS, etaU, etaD)*mb*ml/(MW*MW*sW2), LO);
+            mcBMll.setCoeff(11 , CPNP(xt, xS, etaU, etaD)*(mb*ml)/(MW*MW*sW2), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcBMll.getOrder();
+            throw std::runtime_error("THDMWMatching::CMBMll(): order " + out.str() + "not implemented"); 
+            }
+    vmcBMll.push_back(mcBMll);
+    return (vmcBMll);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+gslpp::complex THDMWMatching::C10NP(double xt, double xS , gslpp::complex etaU) {
+    
+    gslpp::complex C10 = etaU.abs2()*(pow(xt,2)/6)*(1/(xS-xt)+(xS/pow(xS-xt,2))*(log(xt)-log(xS)));
+    return C10;
+    }
+
+gslpp::complex THDMWMatching::CSNP(double nu1, double xh,double xt, double xS, gslpp::complex etaU, gslpp::complex etaD) {
+    double mhsq= myTHDMW.getMyTHDMWCache()->mhsq;
+    double vev= myTHDMW.v();
+    
+    gslpp::complex CS =(pow(vev,2)*xt*nu1/(mhsq*6*(xS-xt)))*(etaD*etaU.conjugate()*(xt*(log(xS)-log(xt))/(xS-xt)-1)+
+            etaU.abs2()*(pow(xt,2)*(log(xS)-log(xt))/(2*pow(xS-xt,2))+(xS-3*xt)/(4*(xS-xt))))+
+            (2*xt/(3*xh))*(etaD*etaU.conjugate()*xt*(1-xS*(log(xS)-log(xt))/(xS-xt))/(xS-xt)+
+            etaU.abs2()*(xt/(2*pow(xS-xt,2)))*((xS+xt)/2-xS*xt*(log(xS)-log(xt))/(xS-xt)));
+    return CS;
+    }
+
+gslpp::complex THDMWMatching::CPNP(double xt, double xS, gslpp::complex etaU, gslpp::complex etaD) {
+    double sW2 = myTHDMW.sW2();
+    gslpp::complex CP =(xt/(3*pow(xS-xt,2)))*(etaD*etaU.conjugate()*(-(xt+xS)/2+xt*xS*(log(xS)-log(xt))/(xS-xt))+
+    (etaU.abs2()/(6*(xS-xt)))*((pow(xS,2)-8*xS*xt-17*pow(xt,2))/6+pow(xt,2)*(3*xS+xt)*(log(xS)-log(xt))/(xS-xt)))+
+    (2*sW2*xt/(9*pow(xS-xt,2)))*(etaD*etaU.conjugate()*((5*xt-3*xS)/2+xS*(2*xS-3*xt)*(log(xS)-log(xt))/(xS-xt))
+    +(etaU.abs2()/(6*(xS-xt)))*((17*pow(xS,2)-64*xS*xt+71*pow(xt,2))/6)
+    -(4*pow(xS,3)-12*pow(xS,2)*xt+9*xS*pow(xt,2)+3*pow(xt,3))*(log(xS)-log(xt))/(xS-xt))
+    +etaU.abs2()*(1-sW2)*pow(xt,2)*(xS*(log(xS)-log(xt))+xt-xS)/(3*pow(xS-xt,2));
+    return CP;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 //For including the contribution to DelB_s we'll use the result of 1504.00839. 
 //The prediction of SM in this paper is the same than HEPfit except for lambdat_s which is conjugated (There are no additional factors)
 //Note that in 1504.00839 what is computed is the decay of a B\bar_s^0 to a B_s^0 but usually the matrix elements are define for the conjugated elements.
 //We should take the complex conjugate in order to be consistent with the HEPfit calculations.
-
 
 
 std::vector<WilsonCoefficient>& THDMWMatching::CMdbs2() {
