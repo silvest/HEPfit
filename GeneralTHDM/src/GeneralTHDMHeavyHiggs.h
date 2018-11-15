@@ -1189,6 +1189,27 @@ private:
 };
 
 /**
+ * @class Hobs_pp_phi2_phi1phi1_bbWW_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1 [\to b\bar b WW]\f$.
+ */
+class Hobs_pp_phi2_phi1phi1_bbWW_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi2_phi1phi1_bbWW_ATLAS13 constructor.
+     */
+    Hobs_pp_phi2_phi1phi1_bbWW_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b WW)]_{\text{theo}} / [\sigma_{pp\to phi2}\cdot BR(phi2\to phi1phi1\to b\bar b WW)]_{\text{ATLAS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
  * @class Hobs_gg_phi2_phi1phi1_gagaWW_ATLAS13
  * @ingroup GeneralTHDM
  * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi2\to phi1phi1\to b\bar b \tau \tau@f$.
@@ -2576,6 +2597,30 @@ public:
 private:
     const GeneralTHDM& myGTHDM;
 };
+
+
+/**
+ * @class Hobs_pp_phi3_phi1phi1_bbWW_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp\to phi3\to phi1phi1 [\to b\bar b WW]\f$.
+ */
+class Hobs_pp_phi3_phi1phi1_bbWW_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi3_phi1phi1_bbWW_ATLAS13 constructor.
+     */
+    Hobs_pp_phi3_phi1phi1_bbWW_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b WW)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to phi1phi1\to b\bar b WW)]_{\text{ATLAS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
 
 /**
  * @class Hobs_gg_phi3_phi1phi1_gagaWW_ATLAS13

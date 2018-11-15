@@ -202,7 +202,7 @@ public:
     gslpp::matrix<double> ATLAS13_tt_phi_tt, ATLAS13_bb_phi_tt, ATLAS13_gg_phi_tautau, ATLAS13_bb_phi_tautau, ATLAS13_pp_phi_gaga, ATLAS13_gg_phi_Zga_llga, ATLAS13_gg_phi_Zga_qqga,\
                           ATLAS13_gg_phi_ZZ_llllnunu, ATLAS13_VV_phi_ZZ_llllnunu, ATLAS13_gg_phi_ZZ_qqllnunu, ATLAS13_VV_phi_ZZ_qqllnunu,\
                           ATLAS13_gg_phi_WW_enumunu, ATLAS13_VV_phi_WW_enumunu, ATLAS13_gg_phi_WW_lnuqq, ATLAS13_VV_phi_WW_lnuqq, ATLAS13_pp_phi_VV_qqqq,\
-                          ATLAS13_pp_phi_phi1phi1_bbbb, ATLAS13_pp_phi_phi1phi1_bbgaga, ATLAS13_pp_phi_phi1phi1_bbtautau, ATLAS13_gg_phi_phi1phi1_gagaWW,\
+                          ATLAS13_pp_phi_phi1phi1_bbbb, ATLAS13_pp_phi_phi1phi1_bbgaga, ATLAS13_pp_phi_phi1phi1_bbtautau, ATLAS13_pp_phi_phi1phi1_bbWW, ATLAS13_gg_phi_phi1phi1_gagaWW,\
                           ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ;
     
     gslpp::matrix<double> ATLAS13_gg_phi3_phi2Z_bbZ, ATLAS13_bb_phi3_phi2Z_bbZ;
@@ -510,6 +510,7 @@ public:
     double ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13(double mass);
     double ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(double mass);
     double ip_ex_pp_phi_phi1phi1_bbVV_CMS13(double mass);
+    double ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(double mass);
     double ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(double mass);
     double ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(double mass);
     double ip_ex_gg_phi_phi1Z_bbll_CMS8(double mass);
@@ -1481,7 +1482,21 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)]@f$
      */
     double pp_phi3_phi1phi1_bbVV_TH13;
-
+    
+     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1 [\to b\bar b WW]@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}[phi2\to phi1phi1[\to b\bar b WW]@f$
+     */
+    double pp_phi2_phi1phi1_bbWW_TH13;
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1 [\to b\bar b WW]@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi1[\to b\bar b WW]@f$
+     */
+    double pp_phi3_phi1phi1_bbWW_TH13;
+    
+    
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1phi1\to \gamma\gamma WW@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma WW)@f$
@@ -1995,6 +2010,7 @@ public:
     double THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13;
     double THoEX_pp_phi2_phi1phi1_bblnulnu_CMS13;
     double THoEX_pp_phi2_phi1phi1_bbVV_CMS13;
+    double THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13;
     double THoEX_gg_phi3_phi1phi1_ATLAS8;
     double THoEX_pp_phi3_phi1phi1_CMS8;
     double THoEX_gg_phi3_phi1phi1_bbtautau_CMS8;
@@ -2013,6 +2029,7 @@ public:
     double THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13;
     double THoEX_pp_phi3_phi1phi1_bblnulnu_CMS13;
     double THoEX_pp_phi3_phi1phi1_bbVV_CMS13;
+    double THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13;
 
     double THoEX_gg_phi3_phi1phi2_ATLAS8;
     double THoEX_pp_phi3_phi1phi2_CMS8;
@@ -2663,6 +2680,7 @@ private:
     mutable double ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbVV_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_phi1Z_bbZ_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_phi1Z_bbll_CMS8_cache[2][CacheSize];
