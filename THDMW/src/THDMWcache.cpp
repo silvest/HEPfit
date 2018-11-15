@@ -2322,6 +2322,10 @@ void THDMWcache::computeHHlimits()
     pp_Stb_tbtb_TH13=1.0e-15;
     //logpp_SrSr_jjjj_TH13=-15;
     
+    //std::cout<<"mSr="<<mSr<<std::endl;
+    //std::cout<<"nu45="<<nu45<<std::endl;
+    //std::cout<<"etaU="<<etaU<<std::endl;
+    //std::cout<<"etaD="<<etaD<<std::endl;
     
     if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<7.5 && sqrt(pow(nu45,2))<13) pp_Sr_tt_TH13=ip_th_pp_Sr_tt(SqrtEtaD,SqrtEtaU,nu45,mSr);
     if(mSr>= 400 && mSr<=1500 && sqrt(pow(etaD,2))<20 && sqrt(pow(etaU,2))<7.5 && sqrt(pow(nu45,2))<13) pp_Srtt_tttt_TH13=ip_th_pp_Srtt_tttt(SqrtEtaD,SqrtEtaU,nu45,mSr);

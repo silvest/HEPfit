@@ -29,8 +29,8 @@ THDMWMatching::THDMWMatching(const THDMW & THDMW_i) :
 
 
 std::vector<WilsonCoefficient>& THDMWMatching::CMBMll(QCD::lepton lepton)
-{           
-    //From 1504.00839
+{
+    //From 1504.00839 Note that in this paper the Effective Hamiltonian has a typo and a factor 1/sw^2 it's missing
     double Mut = myTHDMW.getMut();
     double Muw = myTHDMW.getMuw();
     double MW = myTHDMW.Mw();
@@ -166,6 +166,7 @@ std::vector<WilsonCoefficient>& THDMWMatching::CMdbs2() {
     gslpp::complex etaD = myTHDMW.getTHDMW_etaD();
     double GF=myTHDMW.getGF();
     double co = GF / 4. / M_PI * MW;
+
 
     vmcds = StandardModelMatching::CMdbs2();
     mcdbs2.setMu(Mut);

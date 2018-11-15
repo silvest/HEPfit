@@ -9,7 +9,7 @@
 #define	THDMW_H
 
 #include "StandardModel.h"
-//#include "THDMWMatching.h"
+#include "THDMWMatching.h"
 #include "NPbase.h"
 
 class THDMWcache; //forward reference to THDMWcache class
@@ -73,10 +73,10 @@ public:
      * @brief A get method to access the member reference of type StandardModelMatching.
      * @return a reference to a StandardModelMatching object
      */
-//    virtual THDMWMatching& getMatching() const
-//    {
-//        return THDMWM.getObj();
-//    }
+    virtual THDMWMatching& getMatching() const
+    {
+        return THDMWM.getObj();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Flags
@@ -596,7 +596,7 @@ protected:
             return false;
     }
 
-//    mutable Matching<THDMWMatching,THDMW> THDMWM; ///< An object of type Matching.
+    mutable Matching<THDMWMatching,THDMW> THDMWM; ///< An object of type Matching.
 
     /**
      * @brief A method to check if the RGE order name in string form is valid.

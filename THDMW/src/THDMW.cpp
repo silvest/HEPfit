@@ -18,9 +18,9 @@ const std::string THDMW::THDMWvars[NTHDMWvars] = {"THDMW_logtb","THDMW_bma",
                                                "THDMW_rho_b", "THDMW_S_b",
                                                "Q_THDMW","RpepsTHDMW","NLOuniscaleTHDMW"};
 
-THDMW::THDMW() : NPbase()/*, THDMWM(*this)*/ {
+THDMW::THDMW() : NPbase(), THDMWM(*this) {
 
-//    SMM.setObj((StandardModelMatching&) THDMWM.getObj());
+    SMM.setObj((StandardModelMatching&) THDMWM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_logtb", boost::cref(THDMW_logtb)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_bma", boost::cref(THDMW_bma)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_lambda1", boost::cref(THDMW_lambda1)));
