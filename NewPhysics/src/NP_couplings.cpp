@@ -25,7 +25,7 @@ deltagZveveL::~deltagZveveL()
 
 double deltagZveveL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::NEUTRINO_1));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::NEUTRINO_1));
     double gSM = (SM.getLeptons(StandardModel::NEUTRINO_1)).getIsospin() 
@@ -49,7 +49,7 @@ deltagZvmuvmuL::~deltagZvmuvmuL()
 
 double deltagZvmuvmuL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::NEUTRINO_2));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::NEUTRINO_2));
     double gSM = (SM.getLeptons(StandardModel::NEUTRINO_2)).getIsospin() 
@@ -73,7 +73,7 @@ deltagZvtavtaL::~deltagZvtavtaL()
 
 double deltagZvtavtaL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::NEUTRINO_3));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::NEUTRINO_3));    
     double gSM = (SM.getLeptons(StandardModel::NEUTRINO_3)).getIsospin() 
@@ -98,7 +98,7 @@ deltagZeeL::~deltagZeeL()
 
 double deltagZeeL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::ELECTRON));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::ELECTRON));
     double gSM = (SM.getLeptons(StandardModel::ELECTRON)).getIsospin() 
@@ -122,7 +122,7 @@ deltagZeeR::~deltagZeeR()
 
 double deltagZeeR::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::ELECTRON));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::ELECTRON));
     double gSM = - ((SM.getLeptons(StandardModel::ELECTRON)).getCharge())*sw2_tree;
@@ -145,7 +145,7 @@ deltagZmumuL::~deltagZmumuL()
 
 double deltagZmumuL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::MU));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::MU));
     double gSM = (SM.getLeptons(StandardModel::MU)).getIsospin() 
@@ -169,7 +169,7 @@ deltagZmumuR::~deltagZmumuR()
 
 double deltagZmumuR::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::MU));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::MU));
     double gSM = - ((SM.getLeptons(StandardModel::MU)).getCharge())*sw2_tree;
@@ -192,7 +192,7 @@ deltagZtataL::~deltagZtataL()
 
 double deltagZtataL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::TAU));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::TAU));
     double gSM = (SM.getLeptons(StandardModel::TAU)).getIsospin() 
@@ -216,7 +216,7 @@ deltagZtataR::~deltagZtataR()
 
 double deltagZtataR::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::TAU));
     double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::TAU));
     double gSM = - ((SM.getLeptons(StandardModel::TAU)).getCharge())*sw2_tree;
@@ -240,7 +240,7 @@ deltagZuuL::~deltagZuuL()
 
 double deltagZuuL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::UP));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::UP));
     double gSM = (SM.getQuarks(StandardModel::UP)).getIsospin() 
@@ -264,7 +264,7 @@ deltagZuuR::~deltagZuuR()
 
 double deltagZuuR::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::UP));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::UP));
     double gSM = - ((SM.getQuarks(StandardModel::UP)).getCharge())*sw2_tree;
@@ -287,7 +287,7 @@ deltagZuuV::~deltagZuuV()
 
 double deltagZuuV::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::UP));
     double gSM = ((SM.getQuarks(StandardModel::UP)).getIsospin()) * (1.0 - 4.0*fabs(SM.getQuarks(StandardModel::UP).getCharge())*sw2_tree);
 
@@ -331,7 +331,7 @@ deltagZccL::~deltagZccL()
 
 double deltagZccL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::CHARM));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::CHARM));
     double gSM = (SM.getQuarks(StandardModel::CHARM)).getIsospin() 
@@ -355,7 +355,7 @@ deltagZccR::~deltagZccR()
 
 double deltagZccR::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::CHARM));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::CHARM));
     double gSM = - ((SM.getQuarks(StandardModel::CHARM)).getCharge())*sw2_tree;
@@ -380,7 +380,7 @@ deltagZttL::~deltagZttL()
 double deltagZttL::computeThValue()
 {
 //    Corrections to Ztt eff. couplings are 0 by default in NPBase, unless overrriden. 
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::TOP));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::TOP));
     double gSM = (SM.getQuarks(StandardModel::TOP)).getIsospin() 
@@ -405,7 +405,7 @@ deltagZttR::~deltagZttR()
 double deltagZttR::computeThValue()
 {
 //    Corrections to Ztt eff. couplings are 0 by default in NPBase, unless overrriden. 
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::TOP));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::TOP));
     double gSM = - ((SM.getQuarks(StandardModel::TOP)).getCharge())*sw2_tree;
@@ -429,7 +429,7 @@ deltagZttV::~deltagZttV()
 double deltagZttV::computeThValue()
 {
 //    Corrections to Ztt eff. couplings are 0 by default in NPBase, unless overrriden. 
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::TOP));
     double gSM = ((SM.getQuarks(StandardModel::TOP)).getIsospin()) * (1.0 - 4.0*fabs(SM.getQuarks(StandardModel::TOP).getCharge())*sw2_tree);
 
@@ -474,7 +474,7 @@ deltagZddL::~deltagZddL()
 
 double deltagZddL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::DOWN));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::DOWN));    
     double gSM = (SM.getQuarks(StandardModel::DOWN)).getIsospin() 
@@ -498,7 +498,7 @@ deltagZddV::~deltagZddV()
 
 double deltagZddV::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::DOWN));
     double gSM = ((SM.getQuarks(StandardModel::DOWN)).getIsospin()) * (1.0 - 4.0*fabs(SM.getQuarks(StandardModel::DOWN).getCharge())*sw2_tree);
 
@@ -542,7 +542,7 @@ deltagZddR::~deltagZddR()
 
 double deltagZddR::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::DOWN));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::DOWN));    
     double gSM = - ((SM.getQuarks(StandardModel::DOWN)).getCharge())*sw2_tree;
@@ -565,7 +565,7 @@ deltagZssL::~deltagZssL()
 
 double deltagZssL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::STRANGE));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::STRANGE));    
     double gSM = (SM.getQuarks(StandardModel::STRANGE)).getIsospin() 
@@ -589,7 +589,7 @@ deltagZssR::~deltagZssR()
 
 double deltagZssR::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::STRANGE));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::STRANGE));    
     double gSM = - ((SM.getQuarks(StandardModel::STRANGE)).getCharge())*sw2_tree;
@@ -612,7 +612,7 @@ deltagZbbL::~deltagZbbL()
 
 double deltagZbbL::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::BOTTOM));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::BOTTOM));    
     double gSM = (SM.getQuarks(StandardModel::BOTTOM)).getIsospin() 
@@ -636,7 +636,7 @@ deltagZbbR::~deltagZbbR()
 
 double deltagZbbR::computeThValue()
 {
-    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::BOTTOM));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::BOTTOM));    
     double gSM = - ((SM.getQuarks(StandardModel::BOTTOM)).getCharge())*sw2_tree;
@@ -1121,10 +1121,8 @@ deltagHGG::~deltagHGG()
 {}
 
 double deltagHGG::computeThValue()
-{
-    double dgRatio = myNPbase->deltaG_hggRatio();
-    
-    return dgRatio;
+{   
+    return myNPbase->deltaG_hggRatio();
 }
 
 /* -------------------------------------*/
@@ -1185,9 +1183,7 @@ gHZZeff::~gHZZeff()
 
 double gHZZeff::computeThValue()
 {
-    double gNP = myNPbase->kappaZeff();
-    
-    return gNP;
+    return myNPbase->kappaZeff();
 }
 
 /* -------------------------------------*/
@@ -1205,9 +1201,7 @@ gHZZ1::~gHZZ1()
 
 double gHZZ1::computeThValue()
 {
-    double gNP = myNPbase->deltaG1_hZZ();
-    
-    return gNP;
+    return myNPbase->deltaG1_hZZ();
 }
 
 /* -------------------------------------*/
@@ -1225,9 +1219,7 @@ gHZZ2::~gHZZ2()
 
 double gHZZ2::computeThValue()
 {
-    double gNP = myNPbase->deltaG2_hZZ();
-    
-    return gNP;
+    return myNPbase->deltaG2_hZZ();
 }
 
 /* -------------------------------------*/
@@ -1249,9 +1241,7 @@ deltagHAA::~deltagHAA()
 
 double deltagHAA::computeThValue()
 {
-    double dgRatio = myNPbase->deltaG_hAARatio();
-    
-    return dgRatio;
+    return myNPbase->deltaG_hAARatio();
 }
 
 /* -------------------------------------*/
@@ -1291,9 +1281,7 @@ deltagHZA::~deltagHZA()
 
 double deltagHZA::computeThValue()
 {
-    double dgRatio = myNPbase->deltaG1_hZARatio();
-    
-    return dgRatio;
+    return myNPbase->deltaG1_hZARatio();
 }
 
 /* -------------------------------------*/
@@ -1329,9 +1317,7 @@ gHZA2::~gHZA2()
 
 double gHZA2::computeThValue()
 {
-    double gNP = myNPbase->deltaG2_hZA();
-    
-    return gNP;
+    return myNPbase->deltaG2_hZA();
 }
 
 /* -------------------------------------*/
@@ -1353,7 +1339,7 @@ deltagHWW::~deltagHWW()
 double deltagHWW::computeThValue()
 {
     double dg = myNPbase->deltaG3_hWW();
-    double gSM = 2.0 * (SM.Mw_tree())* (SM.Mw_tree()) / (SM.v());
+    double gSM = 2.0 * (SM.StandardModel::Mw_tree())* (SM.StandardModel::Mw_tree()) / (SM.v());
     
     return dg/gSM;
 }
@@ -1374,9 +1360,7 @@ gHWWeff::~gHWWeff()
 
 double gHWWeff::computeThValue()
 {
-    double gNP = myNPbase->kappaWeff();
-    
-    return gNP;
+    return myNPbase->kappaWeff();
 }
 
 /* -------------------------------------*/
@@ -1394,9 +1378,7 @@ gHWW1::~gHWW1()
 
 double gHWW1::computeThValue()
 {
-    double gNP = myNPbase->deltaG1_hWW();
-    
-    return gNP;
+    return myNPbase->deltaG1_hWW();
 }
 
 /* -------------------------------------*/
@@ -1414,9 +1396,7 @@ gHWW2::~gHWW2()
 
 double gHWW2::computeThValue()
 {
-    double gNP = myNPbase->deltaG2_hWW();
-    
-    return gNP;
+    return myNPbase->deltaG2_hWW();
 }
 
 /* -------------------------------------*/
@@ -1439,9 +1419,7 @@ gHWZeff::~gHWZeff()
 
 double gHWZeff::computeThValue()
 {
-    double gNP = (myNPbase->kappaWeff())/(myNPbase->kappaZeff());
-    
-    return gNP;
+    return (myNPbase->kappaWeff())/(myNPbase->kappaZeff());
 }
 
 /* -------------------------------------*/
@@ -1459,9 +1437,7 @@ gHbWeff::~gHbWeff()
 
 double gHbWeff::computeThValue()
 {
-    double gNP = (myNPbase->kappabeff())/(myNPbase->kappaWeff());
-    
-    return gNP;
+    return (myNPbase->kappabeff())/(myNPbase->kappaWeff());
 }
 
 /* -------------------------------------*/
@@ -1479,9 +1455,7 @@ gHtaWeff::~gHtaWeff()
 
 double gHtaWeff::computeThValue()
 {
-    double gNP = (myNPbase->kappataueff())/(myNPbase->kappaWeff());
-    
-    return gNP;
+    return (myNPbase->kappataueff())/(myNPbase->kappaWeff());
 }
 
 /* -------------------------------------*/
@@ -1503,9 +1477,7 @@ deltalHHH::~deltalHHH()
 
 double deltalHHH::computeThValue()
 {
-    double dgRatio = myNPbase->deltaG_hhhRatio();
-    
-    return dgRatio;
+    return myNPbase->deltaG_hhhRatio();
 }
 
 /* -------------------------------------*/
@@ -1531,9 +1503,7 @@ deltaytHB::~deltaytHB()
 
 double deltaytHB::computeThValue()
 {
-    double HBcoup = myNPbase->deltayt_HB();
-    
-    return HBcoup;
+    return myNPbase->deltayt_HB();
 }
 
 /* -------------------------------------*/
@@ -1551,9 +1521,7 @@ deltaybHB::~deltaybHB()
 
 double deltaybHB::computeThValue()
 {
-    double HBcoup = myNPbase->deltayb_HB();
-    
-    return HBcoup;
+    return myNPbase->deltayb_HB();
 }
 
 /* -------------------------------------*/
@@ -1571,9 +1539,7 @@ deltaytauHB::~deltaytauHB()
 
 double deltaytauHB::computeThValue()
 {
-    double HBcoup = myNPbase->deltaytau_HB();
-    
-    return HBcoup;
+    return myNPbase->deltaytau_HB();
 }
 
 /* -------------------------------------*/
@@ -1591,9 +1557,7 @@ deltaycHB::~deltaycHB()
 
 double deltaycHB::computeThValue()
 {
-    double HBcoup = myNPbase->deltayc_HB();
-    
-    return HBcoup;
+    return myNPbase->deltayc_HB();
 }
 
 /* -------------------------------------*/
@@ -1611,9 +1575,7 @@ deltaymuHB::~deltaymuHB()
 
 double deltaymuHB::computeThValue()
 {
-    double HBcoup = myNPbase->deltaymu_HB();
-    
-    return HBcoup;
+    return myNPbase->deltaymu_HB();
 }
 
 /* -------------------------------------*/
@@ -1631,9 +1593,7 @@ deltacZHB::~deltacZHB()
 
 double deltacZHB::computeThValue()
 {
-    double HBcoup = myNPbase->deltacZ_HB();
-    
-    return HBcoup;
+    return myNPbase->deltacZ_HB();
 }
 
 /* -------------------------------------*/
@@ -1651,9 +1611,7 @@ cZBoxHB::~cZBoxHB()
 
 double cZBoxHB::computeThValue()
 {
-    double HBcoup = myNPbase->cZBox_HB();
-    
-    return HBcoup;
+    return myNPbase->cZBox_HB();
 }
 
 /* -------------------------------------*/
@@ -1670,10 +1628,8 @@ cZZHB::~cZZHB()
 {}
 
 double cZZHB::computeThValue()
-{
-    double HBcoup = myNPbase->cZZ_HB();
-    
-    return HBcoup;
+{   
+    return myNPbase->cZZ_HB();
 }
 
 /* -------------------------------------*/
@@ -1690,10 +1646,8 @@ cZgaHB::~cZgaHB()
 {}
 
 double cZgaHB::computeThValue()
-{
-    double HBcoup = myNPbase->cZga_HB();
-    
-    return HBcoup;
+{   
+    return myNPbase->cZga_HB();
 }
 
 /* -------------------------------------*/
@@ -1710,10 +1664,8 @@ cgagaHB::~cgagaHB()
 {}
 
 double cgagaHB::computeThValue()
-{
-    double HBcoup = myNPbase->cgaga_HB();
-    
-    return HBcoup;
+{   
+    return myNPbase->cgaga_HB();
 }
 
 /* -------------------------------------*/
@@ -1731,9 +1683,7 @@ cggHB::~cggHB()
 
 double cggHB::computeThValue()
 {
-    double HBcoup = myNPbase->cgg_HB();
-    
-    return HBcoup;
+    return myNPbase->cgg_HB();
 }
 
 /* -------------------------------------*/
@@ -1750,10 +1700,8 @@ lambzHB::~lambzHB()
 {}
 
 double lambzHB::computeThValue()
-{
-    double HBcoup = myNPbase->lambz_HB();
-    
-    return HBcoup;
+{   
+    return myNPbase->lambz_HB();
 }
 
 /* -------------------------------------*/
@@ -1781,10 +1729,7 @@ deltaMW::~deltaMW()
 
 double deltaMW::computeThValue()
 {
-    double dMW = (myNPbase->Mw()) - (SM.Mw());
-    double MWSM = SM.Mw();
-    
-    return dMW/MWSM;
+    return (myNPbase->Mw())/SM.StandardModel::Mw() - 1.;
 }
 
 /* -------------------------------------*/
@@ -1799,8 +1744,7 @@ delgZeL::delgZeL(const StandardModel& SM_i):
 
         ThObservable(SM_i), 
         myNPbase(static_cast<const NPbase*> (&SM_i))
-{
-}
+{}
 
 
 delgZeL::~delgZeL()
@@ -1820,8 +1764,7 @@ delgZeR::delgZeR(const StandardModel& SM_i):
 
         ThObservable(SM_i), 
         myNPbase(static_cast<const NPbase*> (&SM_i))
-{
-}
+{}
 
 
 delgZeR::~delgZeR()
