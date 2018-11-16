@@ -68,8 +68,12 @@ void BXqll::updateParameters()
     z = Mc_pole*Mc_pole/Mb_pole/Mb_pole; //****** Must be pole masses ****/
     Lbl = 2.*log(Mb/Mlep);
     
-    lambda_1 = mySM.getOptionalParameter("BI_lambda1");
-    lambda_2 = mySM.getOptionalParameter("BI_lambda2");
+    BR_BXcenu = 0.1051; // Branching ratio of B -> Xc e nu
+    C_ratio = 0.574; // Ratio of branching ratios as defined by Gambino, Misiak, arXiv:hep-ph/0104034
+    pre = BR_BXcenu * abslambdat_over_Vcb * abslambdat_over_Vcb * 4. / C_ratio;
+    
+    lambda_1 = -0.362; //mySM.getOptionalParameter("BI_lambda1");
+    lambda_2 = 0.12; //mySM.getOptionalParameter("BI_lambda2");
     
     //ISIDORI VALUES
 //    z = 0.29*0.29;
@@ -86,6 +90,8 @@ void BXqll::updateParameters()
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
 //    allcoeff_smm = mySM.getFlavour().ComputeCoeffsmumu(mu_b, NDR);
     allcoeffDF1 = myHeff.ComputeCoeff(mu_b); // TO BE CHANGED TO ALLCOEFF ONLY
+    
+//    std::cout << (*(allcoeffDF1[LO])).size() << std::endl;
 
     for(int ord=LO; ord <= NLO; ord++)
     {
@@ -116,21 +122,23 @@ void BXqll::updateParameters()
     }
     
     unsigned int i, j, ij;
+    double alpha_kappa;
     
     for(unsigned int ord = LO; ord <= NNLO; ord++)
     {
         i = ord;
         j = 0;
         ij = 10*i + j;
+        alpha_kappa = pow(alstilde, i);
         
-        WC.assign(0, ord, (myHeff.LowScaleCoeff(ij))(0));
-        WC.assign(1, ord, (myHeff.LowScaleCoeff(ij))(1));
-        WC.assign(2, ord, (myHeff.LowScaleCoeff(ij))(2));
-        WC.assign(3, ord, (myHeff.LowScaleCoeff(ij))(3));
-        WC.assign(4, ord, (myHeff.LowScaleCoeff(ij))(4));
-        WC.assign(5, ord, (myHeff.LowScaleCoeff(ij))(5));
-        WC.assign(6, ord, (myHeff.LowScaleCoeff(ij))(6));
-        WC.assign(7, ord, (myHeff.LowScaleCoeff(ij))(7));
+        WC.assign(0, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(0));
+        WC.assign(1, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(1));
+        WC.assign(2, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(2));
+        WC.assign(3, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(3));
+        WC.assign(4, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(4));
+        WC.assign(5, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(5));
+        WC.assign(6, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(6));
+        WC.assign(7, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(7));
     }
     
     for(unsigned int ord_qed = int_qed(LO_QED); ord_qed <= int_qed(NLO_QED22); ord_qed++)
@@ -139,35 +147,30 @@ void BXqll::updateParameters()
         {
             i = ord_qed - int_qed(LO_QED);
             j = 1;
-            
-            if (ord_qed <= int_qed(NLO_QED11))
-            {
-                WC.assign(0, ord_qed, (myHeff.LowScaleCoeff(ij))(0));
-                WC.assign(1, ord_qed, (myHeff.LowScaleCoeff(ij))(1));
-                WC.assign(2, ord_qed, (myHeff.LowScaleCoeff(ij))(2));
-                WC.assign(3, ord_qed, (myHeff.LowScaleCoeff(ij))(3));
-                WC.assign(4, ord_qed, (myHeff.LowScaleCoeff(ij))(4));
-                WC.assign(5, ord_qed, (myHeff.LowScaleCoeff(ij))(5));
-                WC.assign(6, ord_qed, (myHeff.LowScaleCoeff(ij))(6));
-                WC.assign(7, ord_qed, (myHeff.LowScaleCoeff(ij))(7));
-            }
-            
-            WC.assign(10, ord_qed, (myHeff.LowScaleCoeff(ij))(10));
-            WC.assign(11, ord_qed, (myHeff.LowScaleCoeff(ij))(11));
-            WC.assign(12, ord_qed, (myHeff.LowScaleCoeff(ij))(12));
-            WC.assign(13, ord_qed, (myHeff.LowScaleCoeff(ij))(13));
-            WC.assign(14, ord_qed, (myHeff.LowScaleCoeff(ij))(14));
         }
-        
         else
         {
             i = ord_qed - int_qed(NLO_QED02);
             j = 2;
         }
         ij = 10*i + j;
+        alpha_kappa = pow(alstilde, i) * pow(kappa, j);
         
-        WC.assign(8, ord_qed, (myHeff.LowScaleCoeff(ij))(8));
-        WC.assign(9, ord_qed, (myHeff.LowScaleCoeff(ij))(9));
+        WC.assign(0, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(0));
+        WC.assign(1, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(1));
+        WC.assign(2, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(2));
+        WC.assign(3, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(3));
+        WC.assign(4, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(4));
+        WC.assign(5, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(5));
+        WC.assign(6, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(6));
+        WC.assign(7, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(7));
+        WC.assign(8, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(8));
+        WC.assign(9, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(9));
+        WC.assign(10, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(10));
+        WC.assign(11, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(11));
+        WC.assign(12, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(12));
+        WC.assign(13, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(13));
+        WC.assign(14, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(14));
     }   
 
     C_1[FULLNLO] = C_1[LO] + C_1[NLO];
@@ -194,11 +197,13 @@ void BXqll::updateParameters()
     W_9[FULLNLO] = W_9[LO]+W_9[NLO];    
 }
 
-double BXqll::integrate_Rquark(double sh_min, double sh_max, q2regions q2region)
+double BXqll::integrate_Rquark(double q_min, double q_max, q2regions q2region)
 {
     updateParameters();
 
     old_handler = gsl_set_error_handler_off();
+    
+    double sh_min = q_min/Mb/Mb, sh_max = q_max/Mb/Mb;
     
     switch(q2region)
     {
@@ -208,14 +213,12 @@ double BXqll::integrate_Rquark(double sh_min, double sh_max, q2regions q2region)
             if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-5, 1.e-4, w_Rquark, &avaRquark, &errRquark, NULL) != 0)
                 return std::numeric_limits<double>::quiet_NaN();
             return avaRquark;
-            break;
         case HIGHQ2:
             FR = convertToGslFunction(boost::bind(&BXqll::getR_HIGHQ2, &(*this), _1));
     
             if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-5, 1.e-4, w_Rquark, &avaRquark, &errRquark, NULL) != 0)
                 return std::numeric_limits<double>::quiet_NaN();
             return avaRquark;
-            break;
         default:
             throw std::runtime_error("BXqll::integrate_R: region of q^2 not implemented");         
     }
@@ -229,60 +232,41 @@ double BXqll::getR_LOWQ2(double sh)
     updateParameters();
 
 //    double muw = mySM.getMuw();
-//    std::cout << "MZ:      " << mySM.getMz() << std::endl;
-//    std::cout << "MH:      " << mySM.getMHl() << std::endl;
-//    std::cout << "ale(mu0) = 1 / " << 1. / mySM.Ale(muw, FULLNLO) << std::endl;
-//    std::cout << "el(mu0): " << sqrt(mySM.Ale(muw, FULLNLO) * 4. * M_PI) << std::endl;
-//    std::cout << "mt(50):  " << mySM.Mrun(50., mySM.getQuarks(QCD::TOP).getMass_scale(), 
-//                                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO) << std::endl;
-//    std::cout << "mt(mu0): " << mySM.Mrun(muw, mySM.getQuarks(QCD::TOP).getMass_scale(), 
-//                                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO) << std::endl;
-//    std::cout << "mt(mt):  " << mySM.Mrun(mySM.getMut(), mySM.getQuarks(QCD::TOP).getMass_scale(), 
-//                                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO) << std::endl;
-//    std::cout << "mt(300): " << mySM.Mrun(300., mySM.getQuarks(QCD::TOP).getMass_scale(),
-//                                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO) << std::endl;
-//    std::cout << "mut:     " << mySM.getMut() << std::endl;
-    
 //    double alstilde_2 = alstilde * alstilde;
 //    double kappa_2 = kappa * kappa;
 //    double GF_2 = GF * GF;
 //    double MW_2 = MW * MW;
 //    double sw2 = (M_PI * mySM.getAle()) / (sqrt(2.) * GF * MW * MW);
-////    double sw2 = 1. - MW*MW/91.1876/91.1876;
 //    gslpp::complex Vtb = mySM.getCKM().getV_tb();
 //    gslpp::complex Vts = mySM.getCKM().getV_ts();
 //    gslpp::complex lambda_t = Vtb.conjugate() * Vts;
 //    double mt_w = mySM.Mrun(muw, mySM.getQuarks(QCD::TOP).getMass_scale(), mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
 //    
-//    std::cout << "C9:      " << (kappa * C_9_df1[LO_QED] +
-//                            alstilde * kappa * C_9_df1[NLO_QED11] +
-//                            alstilde_2 * kappa * C_9_df1[NLO_QED21] +
-//                            kappa_2 * C_9_df1[NLO_QED02] +
-//                            alstilde * kappa_2 * C_9_df1[NLO_QED12] +
-//                            alstilde_2 * kappa_2 * C_9_df1[NLO_QED22]) / aletilde << std::endl;
-//    std::cout << "C9 (27): " << (kappa * C_9_df1[LO_QED] +
-//                            alstilde * kappa * C_9_df1[NLO_QED11] +
-//                            alstilde_2 * kappa * C_9_df1[NLO_QED21] +
-//                            kappa_2 * C_9_df1[NLO_QED02] +
-//                            alstilde * kappa_2 * C_9_df1[NLO_QED12] +
-//                            alstilde_2 * kappa_2 * 27.32 ) / aletilde << std::endl;
+//    std::cout << "C9:      " << (WC(8, int_qed(LO_QED)) +
+//                                 WC(8, int_qed(NLO_QED11)) +
+//                                 WC(8, int_qed(NLO_QED21)) +
+//                                 WC(8, int_qed(NLO_QED02)) +
+//                                 WC(8, int_qed(NLO_QED12)) +
+//                                 WC(8, int_qed(NLO_QED22)) ) / aletilde << std::endl;
+//    std::cout << "C9 (27): " << (WC(8, int_qed(LO_QED)) +
+//                                 WC(8, int_qed(NLO_QED11)) +
+//                                 WC(8, int_qed(NLO_QED21)) +
+//                                 WC(8, int_qed(NLO_QED02)) +
+//                                 WC(8, int_qed(NLO_QED12)) +
+//                                 alstilde_2 * kappa_2 * 27.32 ) / aletilde << std::endl;
 //    
 //    std::cout << std::endl;
-//    gslpp::complex c10_df1 = ( kappa * C_10_df1[LO_QED] +
-//                            alstilde * kappa * C_10_df1[NLO_QED11] +
-//                            alstilde_2 * kappa * C_10_df1[NLO_QED21] +
-//                            kappa_2 * C_10_df1[NLO_QED02] +
-//                            alstilde * kappa_2 * C_10_df1[NLO_QED12] +
-//                            alstilde_2 * kappa_2 * C_10_df1[NLO_QED22] );
+//    gslpp::complex c10_df1 = WC(9, int_qed(LO_QED)) +
+//                             WC(9, int_qed(NLO_QED11)) +
+//                             WC(9, int_qed(NLO_QED21)) +
+//                             WC(9, int_qed(NLO_QED02)) +
+//                             WC(9, int_qed(NLO_QED12)) +
+//                             WC(9, int_qed(NLO_QED22));
 //    
-//    std::cout << "C10_df1:  " <<  c10_df1 / aletilde << std::endl;
+//    std::cout << "C10_df1:  " << c10_df1 / aletilde << std::endl;
 //    
-//    std::cout << "C10(-36): " << (kappa * C_10_df1[LO_QED] +
-//                            alstilde * kappa * C_10_df1[NLO_QED11] +
-//                            alstilde_2 * kappa * C_10_df1[NLO_QED21] +
-//                            kappa_2 * C_10_df1[NLO_QED02] +
-//                            alstilde * kappa_2 * C_10_df1[NLO_QED12] +
-//                            alstilde_2 * kappa_2 * (-36.09) ) / aletilde << std::endl;
+//    std::cout << "C10(-36): " << (c10_df1 - WC(9, int_qed(NLO_QED22)) +
+//                                  alstilde_2 * kappa_2 * (-36.09) ) / aletilde << std::endl;
 //
 //    gslpp::complex c10_stu = ( (*(allcoeff_smm[NLO_QED11]))(7) +
 //                            alstilde * (*(allcoeff_smm[NLO_QED21]))(7) +
@@ -297,14 +281,12 @@ double BXqll::getR_LOWQ2(double sh)
 //    std::cout << std::endl;
 //    std::cout << "4 GF / sqrt(2) * C10   = " << 4. * GF * c10_df1 / sqrt(2.) << std::endl;
 //    std::cout << "GF^2 MW^2 / pi^2 * C10 = " << GF_2 * MW_2 * c10_stu / M_PI / M_PI << std::endl;
-//    std::cout << "1 / M_PI^2: " << 1. / M_PI / M_PI << std::endl;
-//    std::cout << "1 / MPI2:   " << 1. / MPI2 << std::endl;
-    
-    std::cout << std::endl;
-    std::cout << "Orders C9:  " << WC(8, int_qed(LO_QED)) << "  " << WC(8, int_qed(NLO_QED11)) << "  " << WC(8, int_qed(NLO_QED21));
-    std::cout << "  " << WC(8, int_qed(NLO_QED02)) << "  " << WC(8, int_qed(NLO_QED12)) << "  " << WC(8, int_qed(NLO_QED22)) << std::endl;
-    std::cout << "Orders C10: " << WC(9, int_qed(LO_QED)) << "  " << WC(9, int_qed(NLO_QED11)) << "  " << WC(9, int_qed(NLO_QED21));
-    std::cout << "  " << WC(9, int_qed(NLO_QED02)) << "  " << WC(9, int_qed(NLO_QED12)) << "  " << WC(9, int_qed(NLO_QED22)) << std::endl;
+//    
+//    std::cout << std::endl;
+//    std::cout << "Orders C9:  " << WC(8, int_qed(LO_QED)) << "  " << WC(8, int_qed(NLO_QED11)) << "  " << WC(8, int_qed(NLO_QED21));
+//    std::cout << "  " << WC(8, int_qed(NLO_QED02)) << "  " << WC(8, int_qed(NLO_QED12)) << "  " << WC(8, int_qed(NLO_QED22)) << std::endl;
+//    std::cout << "Orders C10: " << WC(9, int_qed(LO_QED)) << "  " << WC(9, int_qed(NLO_QED11)) << "  " << WC(9, int_qed(NLO_QED21));
+//    std::cout << "  " << WC(9, int_qed(NLO_QED02)) << "  " << WC(9, int_qed(NLO_QED12)) << "  " << WC(9, int_qed(NLO_QED22)) << std::endl;
 //    
 //    std::cout << std::endl;
 //    std::cout << "C10_OS1: " << mySM.getMatching().C10_OS1(mt_w * mt_w / MW_2, muw) << std::endl;
@@ -321,64 +303,7 @@ double BXqll::getR_LOWQ2(double sh)
 //    std::cout << "GF^2 matching: " << (GF_2 * MW_2 / M_PI / M_PI) * (c10_11_stu +
 //                                    (mySM.Ale(120.,FULLNLO) / 4. / M_PI) * c10_22_stu) / lambda_t << std::endl;
     
-//    computeMi(0.15);
-//    std::cout << "M7:" << std::endl;
-//    for (unsigned int i = LO; i <= int_qed(NLO_QED21); i++)
-//        std::cout << M_7[i] << std::endl;
-//
-//    std::cout << "M9:" << std::endl;
-//    for (unsigned int i = LO; i <= int_qed(NLO_QED21); i++)
-//        std::cout << M_9[i] << std::endl;
-//
-//    std::cout << "M10:" << std::endl;
-//    for (unsigned int i = LO; i <= int_qed(NLO_QED21); i++)
-//        std::cout << M_10[i] << std::endl;
-//    
-//    computeH_T(0.15);
-//    std::cout << std::endl;
-//    std::cout << "H_T:" << std::endl;
-//    for (unsigned int i = LO; i <= int_qed(NLO_QED22); i++)
-//        std::cout << Hij_T[i] << std::endl;
-    
-    std::cout << std::endl;
-    std::cout << "H_T: " << H_T(0.15) << std::endl;
-    std::cout << "H_L: " << H_L(0.15) << std::endl; 
-    std::cout << "H_A: " << H_A(0.15) << std::endl;
-    
-    uint i,j,ij;
-    for(unsigned int ord = LO; ord <= NNLO; ord++)
-    {
-        i = ord;
-        j = 0;
-        ij = 10*i + j;
-
-        std::cout << "LowScaleCoeff(" << ij <<  ") = "  << myHeff.LowScaleCoeff(ij) << std::endl;
-    }
-    for(unsigned int ord_qed = int_qed(LO_QED); ord_qed <= int_qed(NLO_QED22); ord_qed++)
-    {   
-        if (ord_qed <= int_qed(NLO_QED21))
-        {
-            i = ord_qed - int_qed(LO_QED);
-            j = 1;
-        }
-        else
-        {
-            i = ord_qed - int_qed(NLO_QED02);
-            j = 2;
-        }
-        ij = 10*i + j;
-        
-        std::cout << "LowScaleCoeff(" << ij <<  ") = "  << myHeff.LowScaleCoeff(ij) << std::endl;
-    }   
-
-    
-    return 0.;
-//    return (R_quark(sh,LOWQ2)/* + deltaMb2_Rquark(sh,LOWQ2)*/);
-//    gslpp::matrix<gslpp::complex> test = matH_L(sh,LO);
-//    return test(6,6).real();
-//    return (H_T(sh)+H_L(sh));
-//    return S77_L(sh,NLO);
-//   return(C_9[LO].real());
+    return H_T(sh);
 }
 
 double BXqll::getR_HIGHQ2(double sh)
@@ -918,13 +843,13 @@ double BXqll::H_T(double sh)
     computeHij_T(sh);
     
     double Phi_ll = 0.;
-    double pre = 2.*abslambdat_over_Vcb;
     
     for(int j=0; j<10; j++)
     {
         for(int i=0; i<=j; i++)
         {
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) ).real();
+            // LO terms with 1/mc^2 corrections
+            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * ((Hij_T[LO])(i,j) + cij_T(i, j, sh)) ).real();
             
             Phi_ll += (WC(i, LO).conjugate() * WC(j, NLO) * (Hij_T[LO])(i,j) +
                        WC(i, NLO).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) +
@@ -1002,8 +927,12 @@ double BXqll::H_T(double sh)
                        WC(i, LO).conjugate() * WC(j, LO) * (Hij_T[int_qed(NLO_QED22)])(i,j) ).real();
         }
     }
+    
+    // 1/mc^2 corrections associated with C9
+    Phi_ll += (WC(0, LO).conjugate() * WC(8, int_qed(LO_QED)) * cij_T(0, 8, sh) +
+               WC(1, LO).conjugate() * WC(8, int_qed(LO_QED)) * cij_T(1, 8, sh) ).real();
 
-    return pre*pre*Phi_ll;
+    return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
 }
 
 double BXqll::H_L(double sh)
@@ -1011,13 +940,13 @@ double BXqll::H_L(double sh)
     computeHij_L(sh);
     
     double Phi_ll = 0.;
-    double pre = 2.*abslambdat_over_Vcb;
     
     for(int j=0; j<10; j++)
     {
         for(int i=0; i<=j; i++)
         {
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) ).real();
+            // LO terms with 1/mc^2 corrections
+            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * ((Hij_L[LO])(i,j) + cij_L(i, j, sh)) ).real();
             
             Phi_ll += (WC(i, LO).conjugate() * WC(j, NLO) * (Hij_L[LO])(i,j) +
                        WC(i, NLO).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) +
@@ -1096,7 +1025,11 @@ double BXqll::H_L(double sh)
         }
     }
 
-    return pre*pre*Phi_ll;
+    // 1/mc^2 corrections associated with C9
+    Phi_ll += (WC(0, LO).conjugate() * WC(8, int_qed(LO_QED)) * cij_L(0, 8, sh) +
+               WC(1, LO).conjugate() * WC(8, int_qed(LO_QED)) * cij_L(1, 8, sh) ).real();
+    
+    return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
 }
 
 double BXqll::H_A(double sh)
@@ -1104,7 +1037,6 @@ double BXqll::H_A(double sh)
     computeHij_A(sh);
     
     double Phi_ll = 0.;
-    double pre = 2.*abslambdat_over_Vcb;
     
     for(int j=0; j<10; j++)
     {
@@ -1188,7 +1120,11 @@ double BXqll::H_A(double sh)
         }
     }
 
-    return pre*pre*Phi_ll;
+    // 1/mc^2 corrections associated with C10
+    Phi_ll += (WC(0, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * cij_A(0, 9, sh) +
+               WC(1, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * cij_A(1, 9, sh) ).real();
+    
+    return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
 }
 
 void BXqll::computeHij_T(double sh)
@@ -1646,7 +1582,7 @@ double BXqll::S79_T(double sh, orders order)
         case LO:
             return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alstilde*omega79_T(sh) + deltaMb2;
+            return sigma*8.*alstilde*omega79_T(sh);
         default:
             throw std::runtime_error("BXqll::S79_T: order not implemented");
     }
@@ -1665,7 +1601,7 @@ double BXqll::S99_T(double sh, orders order)
         case LO:
             return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alstilde*omega99_T(sh) + deltaMb2;
+            return sigma*8.*alstilde*omega99_T(sh);
         default:
             throw std::runtime_error("BXqll::S99_T: order not implemented");
     }
@@ -1687,9 +1623,9 @@ double BXqll::S77_L(double sh, orders order)
     switch(order)
     {
         case LO:
-            return sigma;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alstilde*omega77_L(sh) + deltaMb2;
+            return sigma*8.*alstilde*omega77_L(sh);
         default:
             throw std::runtime_error("BXqll::S77_L: order not implemented");
     }
@@ -1708,7 +1644,7 @@ double BXqll::S79_L(double sh, orders order)
         case LO:
             return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alstilde*omega79_L(sh) + deltaMb2;
+            return sigma*8.*alstilde*omega79_L(sh);
         default:
             throw std::runtime_error("BXqll::S79_L: order not implemented");
     }
@@ -1727,7 +1663,7 @@ double BXqll::S99_L(double sh, orders order)
         case LO:
             return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alstilde*omega99_L(sh) + deltaMb2;
+            return sigma*8.*alstilde*omega99_L(sh);
         default:
             throw std::runtime_error("BXqll::S99_L: order not implemented");
     }
@@ -1751,7 +1687,7 @@ double BXqll::S710_A(double sh, orders order)
         case LO:
             return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alstilde*omega710_A(sh) + deltaMb2;
+            return sigma*8.*alstilde*omega710_A(sh);
         default:
             throw std::runtime_error("BXqll::S710_A: order not implemented");
     }
@@ -1770,7 +1706,7 @@ double BXqll::S910_A(double sh, orders order)
         case LO:
             return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alstilde*omega910_A(sh) + deltaMb2;
+            return sigma*8.*alstilde*omega910_A(sh);
         default:
             throw std::runtime_error("BXqll::S910_A: order not implemented");
     }
@@ -1783,7 +1719,7 @@ gslpp::complex BXqll::cij_T(unsigned int i, unsigned int j, double sh)
     double r = sh * Mb * Mb / 4. / Mc / Mc;
     gslpp::complex Mj7, Mj9;
     
-    switch(j)
+    switch(j + 1)
     {
         case 9:
             Mj7 = 0.;
@@ -1801,15 +1737,17 @@ gslpp::complex BXqll::cij_T(unsigned int i, unsigned int j, double sh)
 
     gslpp::complex F_M7c_M9c = F_BIR(r) * (Mj7.conjugate() / sh + Mj9.conjugate() / 2.);
     
-    if (i == 2)
+    if (i + 1 == 2)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh * F_M7c_M9c);
     else if (ij == 11)
         return (aletilde*4.*lambda_2/27./Mc/Mc*umsh*umsh*uptsh * F_M7c_M9c);
     else if (ij == 12)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh *
                 (F_BIR(r).conjugate() * (M_9[int_qed(NLO_QED11)])(1) / 2. - F_M7c_M9c / 6.));
-    else
+    else if (i + 1 == 1)
         return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*uptsh * F_M7c_M9c);
+    else
+        return (0.);
 }
 
 gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh)
@@ -1819,7 +1757,7 @@ gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh)
     double r = sh * Mb * Mb / 4. / Mc / Mc;
     gslpp::complex Mj7, Mj9;
     
-    switch(j)
+    switch(j + 1)
     {
         case 9:
             Mj7 = 0.;
@@ -1837,15 +1775,17 @@ gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh)
     
     gslpp::complex F_M7c_M9c = F_BIR(r) * (Mj7.conjugate() + Mj9.conjugate() / 2.);
     
-    if (i == 2)
+    if (i + 1 == 2)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh * F_M7c_M9c);
     else if (ij == 11)
         return (aletilde*4.*lambda_2/27./Mc/Mc*umsh*umsh*tmsh * F_M7c_M9c);
     else if (ij == 12)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh *
                 (F_BIR(r).conjugate() * (M_9[int_qed(NLO_QED11)])(1) / 2. - F_M7c_M9c / 6.));
-    else
+    else if (i + 1 == 1)
         return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*tmsh * F_M7c_M9c);
+    else
+        return (0.);
 }
 
 gslpp::complex BXqll::cij_A(unsigned int i, unsigned int j, double sh)
@@ -2257,9 +2197,10 @@ gslpp::complex BXqll::F_BIR(double r)
     gslpp::complex i = gslpp::complex::i();
 
     if(r > 0. && r < 1.)
-        return (1.5/r*(atan(sqrt(r/(r - 1.)))/sqrt(r - r*r) - 1.));
+        return (1.5 / r * (atan(sqrt(r / (1. - r))) / sqrt(r - r*r) - 1.));
     else if (r > 1.)
-        return (1.5/r*((log((1. - sqrt(1. - 1./r))/(1. + sqrt(1. - 1./r))) + i*M_PI)/2./sqrt(r*r - r) - 1.));
+        return (1.5 / r * ((log((1. - sqrt(1. - 1./r)) / (1. + sqrt(1. - 1./r))) + i * M_PI) /
+                2. / sqrt(r*r - r) - 1.));
     else
         throw std::runtime_error("BXqll::F_BIR(): 1/mc^2 corrections diverge at q^2 = 4*mc^2");
 }
@@ -2275,6 +2216,10 @@ double BXqll::Phi_u(orders ord)
         case NNLO:
             return(alstilde * alstilde * (phi2 + 2. * mySM.Beta0(5) * phi1 * log(muh))
                    + (lambda_1 / 2. - 9. / 2. * lambda_2) / Mb / Mb );
+        case FULLNNLO:
+            return (1. + alstilde * phi1 +
+                    alstilde * alstilde * (phi2 + 2. * mySM.Beta0(5) * phi1 * log(muh)) +
+                    (lambda_1 / 2. - 9. / 2. * lambda_2) / Mb / Mb);
         default:
             throw std::runtime_error("BXqll::Phi_u(): order not implemented.");
      }
@@ -2286,6 +2231,9 @@ double BXqll::Phi_u(orders_qed ord_qed)
     {
         case LO_QED:
             return(kappa * (12. / 23. * (1. - alsmu / mySM.Als(mySM.getMuw(), FULLNNNLO, true))));
+        case FULLNLO_QED:
+            return (Phi_u(FULLNNLO) +
+                    kappa * (12. / 23. * (1. - alsmu / mySM.Als(mySM.getMuw(), FULLNNNLO, true))));
         default:
             throw std::runtime_error("BXqll::Phi_u(): order not implemented.");
      }

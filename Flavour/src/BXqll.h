@@ -77,11 +77,11 @@ public:
     double getR_HIGHQ2(double sh);
     
     /**
-    * @brief The integral of dGamma/ds for @f$B \to X_q l^+ l^-@f$ from \f$s_{min}\f$ to \f$s_{max}\f$
-    * @param[in] sh_min minimum \f$q^2/m_b^2\f$ of the integral
-    * @param[in] sh_max maximum \f$q^2/m_b^2\f$ of the integral
+    * @brief The integral of dGamma/dq^2 for @f$B \to X_q l^+ l^-@f$ from \f$q_{min}\f$ to \f$q_{max}\f$
+    * @param[in] q_min minimum \f$q^2\f$ of the integral
+    * @param[in] q_max maximum \f$q^2\f$ of the integral
     */
-    double integrate_Rquark(double sh_min, double sh_max, q2regions q2region);
+    double integrate_Rquark(double q_min, double q_max, q2regions q2region);
 
 private:
     const StandardModel& mySM;/**< Model type */
@@ -93,6 +93,7 @@ private:
     double CF, GF, ale, alsmu, alsmuc, alstilde, aletilde, kappa;
     double Mlep, mu_b, mu_c, Mb, Mc, Mtau, Mb_pole, Mc_pole, Ms, MW;
     double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl, phi1, phi2;
+    double BR_BXcenu, C_ratio, pre;
    
     std::vector< gslpp::vector<gslpp::complex> > M_7;
     std::vector< gslpp::vector<gslpp::complex> > M_9;

@@ -35,7 +35,11 @@ R_BXqll::R_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_
 
 double R_BXqll::computeThValue()
 { 
-   return myBXqll.getR_LOWQ2(0.15);
+//    std::cout << "1/Mb^2: " << myBXqll.getR_LOWQ2(1./4.9/4.9) << std::endl;
+//    std::cout << "3/Mb^2: " << myBXqll.getR_LOWQ2(3./4.9/4.9) << std::endl;
+//    std::cout << "6/Mb^2: " << myBXqll.getR_LOWQ2(6./4.9/4.9) << std::endl;
+    
+    return myBXqll.getR_LOWQ2(3./4.9/4.9);
 //   return myBXqll.getR_HIGHQ2(0.8);
 }
 
@@ -52,9 +56,9 @@ Rlow_BXqll::Rlow_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepto
 
 double Rlow_BXqll::computeThValue()
 {   
-    double sh_min = 1./4.9/4.9; // Isidori range
-    double sh_max = 6./4.9/4.9;
-    return (myBXqll.integrate_Rquark(sh_min, sh_max, LOWQ2));
+    double q_min = 1.; //getBinMin();
+    double q_max = 6.; //getBinMax();
+    return (myBXqll.integrate_Rquark(q_min, q_max, LOWQ2));
 }
 
 

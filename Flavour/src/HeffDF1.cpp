@@ -34,7 +34,9 @@ gslpp::vector<gslpp::complex> HeffDF1::LowScaleCoeff(int nm)
 //    orders ordDF1 = coeff.getOrder();
     orders_qed ordDF1_qed = coeff.getOrder_qed();
 
-    gslpp::vector<gslpp::complex> test(nops, 0.);
+    gslpp::vector<gslpp::complex> aux01(nops, 0.);
+    gslpp::vector<gslpp::complex> aux11(nops, 0.);
+    gslpp::vector<gslpp::complex> aux21(nops, 0.);
 
     if (mu == -1) throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): coeff not initialized.");
     if (model.Nf(mu) != 5) throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): defined for 5 flavours only.");
@@ -61,6 +63,24 @@ gslpp::vector<gslpp::complex> HeffDF1::LowScaleCoeff(int nm)
         b1 = model.Beta_s(10, 5.);
         b1e = model.Beta_e(01, 5.);
         kM = model.Ale(M, FULLNLO) / 4. / M_PI / alsM;
+  
+        if(blocks == "CPL") {
+            aux01.assign(6, (*(coeff.getCoeff(orders_qed(LO_QED))))(6));
+            aux11.assign(6, (*(coeff.getCoeff(orders_qed(NLO_QED11))))(6));
+            aux21.assign(6, (*(coeff.getCoeff(orders_qed(NLO_QED21))))(6));
+            aux01.assign(7, (*(coeff.getCoeff(orders_qed(LO_QED))))(7));
+            aux11.assign(7, (*(coeff.getCoeff(orders_qed(NLO_QED11))))(7));
+            aux21.assign(7, (*(coeff.getCoeff(orders_qed(NLO_QED21))))(7));
+        }
+        else if(blocks == "CPML" || blocks == "CPMLQB") {
+            aux01.assign(8, (*(coeff.getCoeff(orders_qed(LO_QED))))(8));
+            aux11.assign(8, (*(coeff.getCoeff(orders_qed(NLO_QED11))))(8));
+            aux21.assign(8, (*(coeff.getCoeff(orders_qed(NLO_QED21))))(8));
+            aux01.assign(9, (*(coeff.getCoeff(orders_qed(LO_QED))))(9));
+            aux11.assign(9, (*(coeff.getCoeff(orders_qed(NLO_QED11))))(9));
+            aux21.assign(9, (*(coeff.getCoeff(orders_qed(NLO_QED21))))(9));
+        }
+        
         switch (nm)
         {
             case 01:
@@ -70,13 +90,13 @@ gslpp::vector<gslpp::complex> HeffDF1::LowScaleCoeff(int nm)
             case 21:
                 return (*(coeff.getCoeff(NLO_QED21)) * eta / kM / alsM / alsM);
             case 02:
-                return (*(coeff.getCoeff(NLO_QED02)) / kM / kM / eta / eta + b0e / b0 * (1. - eta) / eta / eta * (*(coeff.getCoeff(LO_QED))) / kM);
+                return (*(coeff.getCoeff(NLO_QED02)) / kM / kM / eta / eta + b0e / b0 * (1. - eta) / eta / eta * aux01 / kM);
             case 12:
-                return (*(coeff.getCoeff(NLO_QED12)) / alsM / kM / kM / eta + b0e / b0 * (1. - eta) / eta * (*(coeff.getCoeff(NLO_QED11))) / kM / alsM
-                        + log(eta) / eta * (b0e * b1 / b0 / b0 - b1e / b0) * (*(coeff.getCoeff(LO_QED))) / kM);
+                return (*(coeff.getCoeff(NLO_QED12)) / alsM / kM / kM / eta + b0e / b0 * (1. - eta) / eta * aux11 / kM / alsM
+                        + log(eta) / eta * (b0e * b1 / b0 / b0 - b1e / b0) * aux01 / kM);
             case 22:
-                return (*(coeff.getCoeff(NLO_QED22)) / alsM / alsM / kM / kM + b0e / b0 * (1. - eta) * (*(coeff.getCoeff(NLO_QED21))) / kM / alsM / alsM
-                        + log(eta) * (b0e * b1 / b0 / b0 - b1e / b0) * (*(coeff.getCoeff(NLO_QED11))) / kM / alsM);
+                return (*(coeff.getCoeff(NLO_QED22)) / alsM / alsM / kM / kM + b0e / b0 * (1. - eta) * aux21 / kM / alsM / alsM
+                        + log(eta) * (b0e * b1 / b0 / b0 - b1e / b0) * aux11 / kM / alsM);
             default:
                 throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): undefined order.");
         }
