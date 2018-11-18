@@ -1083,27 +1083,43 @@ std::string MonteCarloEngine::computeStatistics() {
             int size = it1->getObs().size();
             CorrelationMap[it1->getName()]->MakePrincipals();
             //CorrelationMap[it1->getName()]->Print();
-            TMatrixD * corr = const_cast<TMatrixD*>(CorrelationMap[it1->getName()]->GetCovarianceMatrix());
-            *corr *= (double)size;
+            TMatrixD * corr = const_cast<TMatrixD*>(CorrelationMap[it1->getName()]->GetCovarianceMatrix()); // This returns the normalized correlation matrix.
+            TVectorD * sigma = const_cast<TVectorD*>(CorrelationMap[it1->getName()]->GetSigmas()); // This returns the vector of standard deviations.
+            *corr *= (double)size; // Get rid of the normalization which is just the size of the matrix.
+            gslpp::matrix<double> inverseCovariance(size, size);
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j <= i; j++) {
+                    inverseCovariance(i, j) = (*corr)(i, j) * (*sigma)(i) * (*sigma)(j);
+                    inverseCovariance(j, i) = inverseCovariance(i, j);
+                }
+            }
+            inverseCovariance = inverseCovariance.inverse(); // This is just produces inverse covariance, the name is misleading.
             StatsLog << "\nThe correlation matrix for " << it1->getName() << " is given by the " << size << "x"<< size << " matrix:\n" << std::endl;
 
             for (int i = 0; i < size + 1; i++) {
                 if (i == 0) StatsLog << std::setw(4) << "" << " | ";
-                else StatsLog << std::setw(5) << i << std::setw(5) << "    |";
+                else StatsLog << std::setw(6) << i << std::setw(6) << "     |";
             }
             StatsLog << std::endl;
             for (int i = 0; i < size + 1; i++) {
                 if (i == 0) StatsLog << std::setw(8) << "--------";
-                else StatsLog << std::setw(10) << "----------";
+                else StatsLog << std::setw(12) << "------------";
             }
             StatsLog << std::endl;
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size + 1; j++) {
                     if (j == 0) StatsLog << std::setw(4) << i+1 << " |";
-                    else StatsLog << std::setprecision(5) << std::setw(10) << (*corr)(i, j - 1);
+                    else StatsLog << std::setprecision(5) << std::setw(12) << (*corr)(i, j - 1);
                 }
             StatsLog << std::endl;
             }
+            StatsLog << std::endl;
+            StatsLog << " The inverse of the square root of the diagonal elements of the inverse covariance matrix are:\n"<< std::endl;
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << std::setw(4) << "sigma" << "|";
+                else StatsLog << std::setprecision(5) << std::setw(12) << 1./sqrt(inverseCovariance(i -1, i - 1));
+            }
+            StatsLog << std::endl;
         }
     }
     
