@@ -487,8 +487,53 @@ double NPbase::R_inv() const
 
 
 double NPbase::deltaN_nu() const
-{
-    return 0.0;
+{   
+    double dNnu = 0.0;
+    double dGl1, dGl2, dGl3, dGl, dGinv;
+    double Gl1, Gl2, Gl3, Gl, Ginv;
+    double dRl1, dRl2, dRl3, dRl;
+    double Rl1, Rl2, Rl3, Rl;
+    double shad0;
+    
+    dGl1 = deltaGamma_Zf(leptons[ELECTRON]);
+    dGl2 = deltaGamma_Zf(leptons[MU]);
+    dGl3 = deltaGamma_Zf(leptons[TAU]);
+    
+    dGl = (1.0/3.0) * (dGl1 + dGl2 + dGl3);
+    
+    Gl1 = trueSM.GammaZ(leptons[ELECTRON]);
+    Gl2 = trueSM.GammaZ(leptons[MU]);
+    Gl3 = trueSM.GammaZ(leptons[TAU]);
+    
+    Gl = (1.0/3.0) * (Gl1 + Gl2 + Gl3);
+    
+    dGinv = deltaGamma_Zf(leptons[NEUTRINO_1]) + 
+            deltaGamma_Zf(leptons[NEUTRINO_2]) +
+            deltaGamma_Zf(leptons[NEUTRINO_3]);
+    
+    Ginv = trueSM.GammaZ(leptons[NEUTRINO_1]) + 
+            trueSM.GammaZ(leptons[NEUTRINO_2]) +
+            trueSM.GammaZ(leptons[NEUTRINO_3]);
+    
+    dRl1 = deltaR0_f(leptons[ELECTRON]);
+    dRl2 = deltaR0_f(leptons[MU]);
+    dRl3 = deltaR0_f(leptons[TAU]);
+    
+    dRl = (1.0/3.0) * (dRl1 + dRl2 + dRl3);
+    
+    Rl1 = trueSM.R0_f(leptons[ELECTRON]);
+    Rl2 = trueSM.R0_f(leptons[MU]);
+    Rl3 = trueSM.R0_f(leptons[TAU]);
+    
+    Rl = (1.0/3.0) * (Rl1 + Rl2 + Rl3);
+    
+    shad0 = trueSM.sigma0_had();
+    
+    dNnu = (trueSM.N_nu())*( dGl/Gl - dGinv/Ginv ) -
+            3.0*(Gl/Ginv)*dRl +
+            (Gl/Ginv)*sqrt(3.0*M_PI*Rl/Mz/Mz/shad0)*(-3.0*deltaSigmaHadron()/shad0 + 3.0* dRl/Rl);
+
+    return dNnu;
 }
 
 double NPbase::N_nu() const
