@@ -484,3 +484,14 @@ double NPbase::R_inv() const
 {
     return ( trueSM.R_inv() + deltaR_inv() );
 }
+
+
+double NPbase::deltaN_nu() const
+{
+    return 0.0;
+}
+
+double NPbase::N_nu() const
+{
+    return ( trueSM.N_nu() + deltaN_nu() );
+}

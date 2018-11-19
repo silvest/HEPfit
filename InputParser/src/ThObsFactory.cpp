@@ -138,6 +138,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["AFBstrange"] = boost::factory<AFBstrange*>();
     obsThFactory["AFBcharm"] = boost::factory<AFBcharm*>();
     obsThFactory["AFBbottom"] = boost::factory<AFBbottom*>();
+    obsThFactory["Nneutrinos"] = boost::factory<Nneutrinos*>();
     obsThFactory["Rlepton"] = boost::factory<Rlepton*>();
     obsThFactory["Relectron"] = boost::factory<Relectron*>();
     obsThFactory["Rmuon"] = boost::factory<Rmuon*>();

@@ -1365,6 +1365,24 @@ double StandardModel::R_inv() const
 
 }
 
+double StandardModel::N_nu() const
+{
+    double Nnu = 0.0;
+    double Gl = 0.0;    
+    double Rl = 0.0;
+    
+    // Don't assume lepton universality: average over lepton flavours
+    Gl = GammaZ(leptons[ELECTRON]) + GammaZ(leptons[MU]) + GammaZ(leptons[TAU]);
+    Rl = (1.0/3.0) * ( R0_f(leptons[ELECTRON]) + R0_f(leptons[MU]) + R0_f(leptons[TAU]) );
+    
+    Nnu = sqrt( 12.0 * M_PI * Rl / Mz / Mz / sigma0_had() ) - Rl -3.0;
+    
+    Nnu = (Gl/Gamma_inv()) * Nnu;
+    
+    return Nnu;
+
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 

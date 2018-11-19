@@ -441,6 +441,21 @@ public:
      * are inherited from NPbase.
      */
     virtual double R_inv() const;
+    
+    /**
+     * @brief The new physics contribution to the number of neutrinos dervied from the @f$Z@f$ pole measurements.
+     * @return @f$\delta N_{\nu}@f$
+     */
+    virtual double deltaN_nu() const;
+
+    /**
+     * @brief The number of neutrinos dervied from the @f$Z@f$ pole measurements, @f$N_{\nu}@f$.
+     * @return @f$N_{\nu}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double N_nu() const;
 
     ////////////////////////////////////////////////////////////////////////
     

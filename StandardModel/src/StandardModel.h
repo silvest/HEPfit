@@ -1640,10 +1640,20 @@ public:
      * @f[
      * R_{inv} = \frac{\Gamma_{inv}}{\Gamma_e}\,.
      * @f],
-     * @param[in] f a lepton or quark
      * @return @f$R_{inv} @f$
      */
     virtual double R_inv() const;
+    
+    /**
+     * @brief @copybrief Nneutrinos::computeThValue()
+     * @details @f$N_{\nu}@f$ is calculated with
+     * @f[
+     * N_{\nu}
+     * = \frac{\Gamma_\ell}{\Gamma_{\nu}}\left(\sqrt{\frac{12\pi R_\ell}{M_Z^2 \sigma_\mathrm{had}^0}}-R_\ell - 3\right)\,.
+     * @f]
+     * @return @f$N_{\nu} @f$
+     */
+    virtual double N_nu() const;
 
 
     ////////////////////////////////////////////////////////////////////////
