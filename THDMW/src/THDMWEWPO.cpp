@@ -67,6 +67,10 @@ double Rb0THDMW::computeThValue()
     double f1=x/(x-1.)- x*log(x)/pow((x-1.),2);
     double f2=-6.*x*(x-2.)*gsl_sf_dilog(1.0-1./x)/pow((x-1.),2)+x*(-27.+11.*x)/pow((x-1.),2)+x*(25.-9.*x)*log(x)/pow(x-1.,3)+(6.*x*(3.-x)/pow(x-1.,2)-12.*x*log(x)/pow(x-1.,3))*log(pow(mtMZ,2)/pow(mu,2))-3.*f1;
     double f3=3.*x*gsl_sf_dilog(1.0-1./x)/(x-1.)+3.*x*(1.-2.*x+pow(x,2)+pow(log(x),2))/pow(x-1.,3)-6.*x*log(x)/pow(x-1.,2);
+    //std::cout<<"x= "<< x << std::endl;
+    //std::cout<<"(1.0-1./x)= "<< (1.0-1./x) << std::endl;
+    //std::cout<<"gsl_sf_dilog(1.0-1./x)= "<< gsl_sf_dilog(1.0-1./x) << std::endl;
+    
     
     double delrhob=(1/T3b)*(a/(4*M_PI*sW2b_SM))*CR1*(pow(sqrt(pow(eta_U,2))*mtMZ/(sqrt(2)*MW),2)+pow(sqrt(pow(eta_D,2))*mbMZ/(sqrt(2)*MW),2))*(f1+(as/(4*M_PI))*(CF*f2+CR2*f3));
     double delsW2b=-0.5*delrhob*sW2b_SM+(1/(2*Qb))*(a/(4*M_PI*sW2b_SM))*CR1*pow(sqrt(pow(eta_D,2))*mbMZ/(sqrt(2)*MW),2)*(f1+(as/(4*M_PI))*(CF*f2+CR2*f3));
