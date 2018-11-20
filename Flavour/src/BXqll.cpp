@@ -70,7 +70,8 @@ void BXqll::updateParameters()
     
     BR_BXcenu = 0.1051; // Branching ratio of B -> Xc e nu
     C_ratio = 0.574; // Ratio of branching ratios as defined by Gambino, Misiak, arXiv:hep-ph/0104034
-    pre = BR_BXcenu * abslambdat_over_Vcb * abslambdat_over_Vcb * 4. / C_ratio;
+//    pre = BR_BXcenu * abslambdat_over_Vcb * abslambdat_over_Vcb * 4. / C_ratio;
+    pre = BR_BXcenu * 0.9621 * 4. / C_ratio;
     
     lambda_1 = -0.362; //mySM.getOptionalParameter("BI_lambda1");
     lambda_2 = 0.12; //mySM.getOptionalParameter("BI_lambda2");
@@ -300,7 +301,8 @@ double BXqll::getR_LOWQ2(double sh)
 //    std::cout << "GF matching:   " << (4. * GF / sqrt(2.)) * (c10_11_df1 + c10_22_df1) << std::endl;
 //    std::cout << "GF^2 matching: " << (GF_2 * MW_2 / M_PI / M_PI) * (c10_11_stu +
 //                                    (mySM.Ale(120.,FULLNLO) / 4. / M_PI) * c10_22_stu) / lambda_t << std::endl;
-    
+
+    computeMi(sh);
     return H_T(sh);
 }
 
@@ -837,7 +839,6 @@ double BXqll::DeltaF_29im(double muh, double z, double sh, int maxpow)
 
 double BXqll::H_T(double sh)
 {
-    computeMi(sh); // TO BE MOVED TO BXqll::getR_LOWQ2
     computeHij_T(sh);
     
     double Phi_ll = 0.;
@@ -943,7 +944,7 @@ double BXqll::H_T(double sh)
     Phi_ll += (C9.abs2() * eij_T(8, 8, sh) ).real();
     Phi_ll += (WC(9, int_qed(NLO_QED11)).abs2() * eij_T(9, 9, sh) ).real();
 
-    return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
+    return pre * Phi_ll / Phi_u(FULLNLO_QED);
 }
 
 double BXqll::H_L(double sh)
@@ -1053,7 +1054,7 @@ double BXqll::H_L(double sh)
     Phi_ll += (C9.abs2() * eij_L(8, 8, sh) ).real();
     Phi_ll += (WC(9, int_qed(NLO_QED11)).abs2() * eij_L(9, 9, sh) ).real();
     
-    return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
+    return pre * Phi_ll / Phi_u(FULLNLO_QED);
 }
 
 double BXqll::H_A(double sh)
@@ -1154,7 +1155,7 @@ double BXqll::H_A(double sh)
     Phi_ll += (WC(6, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(6, 9, sh) ).real();
     Phi_ll += ((WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11))) * WC(9, int_qed(NLO_QED11)) * eij_A(8, 9, sh) ).real();
     
-    return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
+    return pre * Phi_ll / Phi_u(FULLNLO_QED);
 }
 
 void BXqll::computeHij_T(double sh)
@@ -1773,7 +1774,7 @@ gslpp::complex BXqll::cij_T(unsigned int i, unsigned int j, double sh)
         return (aletilde*4.*lambda_2/27./Mc/Mc*umsh*umsh*uptsh * F_M7c_M9c);
     else if (ij == 12)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh *
-                (F_BIR(r).conjugate() * (M_9[int_qed(NLO_QED11)])(1) / 2. - F_M7c_M9c / 6.));
+                (F_BIR(r).conjugate() * (M_9[int_qed(NLO_QED11)])(0) / 2. - F_M7c_M9c / 6.));
     else if (i + 1 == 1)
         return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*uptsh * F_M7c_M9c);
     else
@@ -1803,7 +1804,7 @@ gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh)
             break;
     }
     
-    gslpp::complex F_M7c_M9c = F_BIR(r) * (Mj7.conjugate() + Mj9.conjugate() / 2.);
+    gslpp::complex F_M7c_M9c = F_BIR(r) * (Mj7.conjugate() / sh + Mj9.conjugate() / 2.);
     
     if (i + 1 == 2)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh * F_M7c_M9c);
@@ -1811,7 +1812,7 @@ gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh)
         return (aletilde*4.*lambda_2/27./Mc/Mc*umsh*umsh*tmsh * F_M7c_M9c);
     else if (ij == 12)
         return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh *
-                (F_BIR(r).conjugate() * (M_9[int_qed(NLO_QED11)])(1) / 2. - F_M7c_M9c / 6.));
+                (F_BIR(r).conjugate() * (M_9[int_qed(NLO_QED11)])(0) / 2. - F_M7c_M9c / 6.));
     else if (i + 1 == 1)
         return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*tmsh * F_M7c_M9c);
     else

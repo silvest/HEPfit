@@ -3191,6 +3191,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMDF1(std::string blocks,
         std::make_pair("B", &StandardModelMatching::mc_B)
     };
 
+    vmcDF1.clear();
     mcDF1.setMu(Muw);
     for (std::vector< std::pair<std::string, BlockM> >::iterator it = Methods.begin(); it != Methods.end(); it++)
         if (blocks.find(it->first) != std::string::npos)

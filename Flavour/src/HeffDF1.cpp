@@ -18,11 +18,6 @@ HeffDF1::HeffDF1(std::string blocks, const StandardModel & SM, orders order, ord
    this->blocks = blocks;
    this->nops = blocks_nops.at(blocks);
    mu_cache = 0.;
-    // cache initialization
-    for (unsigned int i = 0; i < nops; i++) {
-        WC_cache.push_back(coeff);
-        Vmu_cache.push_back(0.);
-    }
 }
 
 HeffDF1::~HeffDF1() 
@@ -112,34 +107,35 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff(double mu, schemes scheme)
     orders_qed ordDF1_qed = coeff.getOrder_qed();
     unsigned int i,j,k,l;
 
-    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMDF1(blocks, nops);
+    std::vector<WilsonCoefficient>& mc = model.getMatching().CMDF1(blocks, nops);
 
     if (mu == mu_cache && scheme == scheme_cache)
     {
-        int check = 1;
+        bool check = true;
         for (i = 0; i < mc.size(); i++)
-            if (mc[i].getMu() == Vmu_cache[i])
+          if (mc[i].getMu() == Vmu_cache[i])
             {
                 for (j = LO; j <= ordDF1; j++)
                     for (l = 0; l < coeff.getSize(); l++)
-                        check *= ((*(mc[i].getCoeff(orders(j))))(l) == (*(WC_cache[i].getCoeff(orders(j))))(l));
+                        check = check && ((*(mc[i].getCoeff(orders(j))))(l) == (*(WC_cache[i].getCoeff(orders(j))))(l));
                 for (j = LO_QED; j <= ordDF1_qed; j++)
                     for (l = 0; l < coeff.getSize(); l++)
-                        check *= ((*(mc[i].getCoeff(orders_qed(j))))(l) == (*(WC_cache[i].getCoeff(orders_qed(j))))(l));
-            } else check = 0;
-        if (check == 1) return coeff.getCoeff();
-    } 
-    
+                        check = check && ((*(mc[i].getCoeff(orders_qed(j))))(l) == (*(WC_cache[i].getCoeff(orders_qed(j))))(l));
+            } else check = false;
+
+        if (check) return coeff.getCoeff();
+    }
+
     mu_cache = mu;
     scheme_cache = scheme;
-    WC_cache.clear();
     WC_cache = mc;
+    Vmu_cache.clear();
     
     coeff.setMu(mu); // also reset the coefficients
 
     for (i = 0; i < mc.size(); i++)
     {
-        Vmu_cache[i] = mc[i].getMu();
+        Vmu_cache.push_back(mc[i].getMu());
         for (j = LO; j <= ordDF1; j++)
             for (k = LO; k <= j; k++)
             {
