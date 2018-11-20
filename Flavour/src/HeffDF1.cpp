@@ -125,7 +125,7 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff(double mu, schemes scheme)
                         check *= ((*(mc[i].getCoeff(orders(j))))(l) == (*(WC_cache[i].getCoeff(orders(j))))(l));
                 for (j = LO_QED; j <= ordDF1_qed; j++)
                     for (l = 0; l < coeff.getSize(); l++)
-                        check *= ((*(mc[i].getCoeff(orders(j))))(l) == (*(WC_cache[i].getCoeff(orders(j))))(l));
+                        check *= ((*(mc[i].getCoeff(orders_qed(j))))(l) == (*(WC_cache[i].getCoeff(orders_qed(j))))(l));
             } else check = 0;
         if (check == 1) return coeff.getCoeff();
     } 

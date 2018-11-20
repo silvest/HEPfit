@@ -90,8 +90,6 @@ void BXqll::updateParameters()
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
 //    allcoeff_smm = mySM.getFlavour().ComputeCoeffsmumu(mu_b, NDR);
     allcoeffDF1 = myHeff.ComputeCoeff(mu_b); // TO BE CHANGED TO ALLCOEFF ONLY
-    
-//    std::cout << (*(allcoeffDF1[LO])).size() << std::endl;
 
     for(int ord=LO; ord <= NLO; ord++)
     {
@@ -844,9 +842,9 @@ double BXqll::H_T(double sh)
     
     double Phi_ll = 0.;
     
-    for(int j=0; j<10; j++)
+    for(unsigned int j = 0; j < 15; j++)
     {
-        for(int i=0; i<=j; i++)
+        for(unsigned int i = 0; i <= j; i++)
         {
             // LO terms with 1/mc^2 corrections
             Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * ((Hij_T[LO])(i,j) + cij_T(i, j, sh)) ).real();
@@ -928,9 +926,22 @@ double BXqll::H_T(double sh)
         }
     }
     
+    gslpp::complex C9 = WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11));
+    
     // 1/mc^2 corrections associated with C9
-    Phi_ll += (WC(0, LO).conjugate() * WC(8, int_qed(LO_QED)) * cij_T(0, 8, sh) +
-               WC(1, LO).conjugate() * WC(8, int_qed(LO_QED)) * cij_T(1, 8, sh) ).real();
+    Phi_ll += (C9 * (WC(0, LO).conjugate() * cij_T(0, 8, sh) + WC(1, LO).conjugate() * cij_T(1, 8, sh)) ).real();
+    
+    // log-enhanced electromagnetic corrections
+    for (unsigned int i = 0; i < 7; i++)
+    {
+        for (unsigned int j = i; j < 7; j++)
+            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * eij_T(i, j, sh) ).real();
+        
+        Phi_ll += (WC(i, LO).conjugate() * C9 * eij_T(i, 8, sh) ).real();
+    }
+    
+    Phi_ll += (C9.abs2() * eij_T(8, 8, sh) ).real();
+    Phi_ll += (WC(9, int_qed(NLO_QED11)).abs2() * eij_T(9, 9, sh) ).real();
 
     return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
 }
@@ -941,9 +952,9 @@ double BXqll::H_L(double sh)
     
     double Phi_ll = 0.;
     
-    for(int j=0; j<10; j++)
+    for(unsigned int j = 0; j < 15; j++)
     {
-        for(int i=0; i<=j; i++)
+        for(unsigned int i = 0; i <= j; i++)
         {
             // LO terms with 1/mc^2 corrections
             Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * ((Hij_L[LO])(i,j) + cij_L(i, j, sh)) ).real();
@@ -1024,10 +1035,23 @@ double BXqll::H_L(double sh)
                        WC(i, LO).conjugate() * WC(j, LO) * (Hij_L[int_qed(NLO_QED22)])(i,j) ).real();
         }
     }
-
+    
+    gslpp::complex C9 = WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11));
+    
     // 1/mc^2 corrections associated with C9
-    Phi_ll += (WC(0, LO).conjugate() * WC(8, int_qed(LO_QED)) * cij_L(0, 8, sh) +
-               WC(1, LO).conjugate() * WC(8, int_qed(LO_QED)) * cij_L(1, 8, sh) ).real();
+    Phi_ll += (C9 * (WC(0, LO).conjugate() * cij_L(0, 8, sh) + WC(1, LO).conjugate() * cij_L(1, 8, sh)) ).real();
+    
+    // log-enhanced electromagnetic corrections
+    for (unsigned int i = 0; i < 7; i++)
+    {
+        for (unsigned int j = i; j < 7; j++)
+            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * eij_L(i, j, sh) ).real();
+        
+        Phi_ll += (WC(i, LO).conjugate() * C9 * eij_L(i, 8, sh) ).real();
+    }
+    
+    Phi_ll += (C9.abs2() * eij_L(8, 8, sh) ).real();
+    Phi_ll += (WC(9, int_qed(NLO_QED11)).abs2() * eij_L(9, 9, sh) ).real();
     
     return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
 }
@@ -1038,9 +1062,9 @@ double BXqll::H_A(double sh)
     
     double Phi_ll = 0.;
     
-    for(int j=0; j<10; j++)
+    for(unsigned int j = 0; j < 15; j++)
     {
-        for(int i=0; i<=j; i++)
+        for(unsigned int i = 0; i <= j; i++)
         {
             Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) ).real();
             
@@ -1123,6 +1147,12 @@ double BXqll::H_A(double sh)
     // 1/mc^2 corrections associated with C10
     Phi_ll += (WC(0, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * cij_A(0, 9, sh) +
                WC(1, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * cij_A(1, 9, sh) ).real();
+    
+    // log-enhanced electromagnetic corrections
+    Phi_ll += (WC(0, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(0, 9, sh) ).real();
+    Phi_ll += (WC(1, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(1, 9, sh) ).real();
+    Phi_ll += (WC(6, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(6, 9, sh) ).real();
+    Phi_ll += ((WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11))) * WC(9, int_qed(NLO_QED11)) * eij_A(8, 9, sh) ).real();
     
     return pre * Phi_ll / Phi_u(orders_qed(FULLNLO_QED));
 }
