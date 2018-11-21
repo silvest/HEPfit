@@ -154,6 +154,7 @@
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -239,6 +240,7 @@
             <pElem>../Flavour/src</pElem>
             <pElem>../NewPhysics/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>

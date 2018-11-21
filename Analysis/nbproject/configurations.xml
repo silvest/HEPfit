@@ -183,15 +183,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../Flavour"
+              <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../Flavour"
+                            WD="../NewPhysics"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -204,6 +204,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -228,18 +240,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../NewPhysics"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../NewPhysics"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1070,6 +1070,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../EW"
                             CT="3"
                             CN="Release"
@@ -1115,18 +1127,6 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../NewPhysics"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../NewPhysics"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1509,15 +1509,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../Flavour"
+              <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Release"
                             AC="false"
                             BL="true"
-                            WD="../Flavour"
+                            WD="../NewPhysics"
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1530,6 +1530,18 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1554,18 +1566,6 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../NewPhysics"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../NewPhysics"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1958,27 +1958,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../LeptonFlavour"
+              <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Cluster"
                             AC="false"
                             BL="true"
-                            WD="../LeptonFlavour"
+                            WD="../NewPhysics"
                             BC="${MAKE}  -f Makefile CONF=Cluster"
                             CC="${MAKE}  -f Makefile CONF=Cluster clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../Flavour"
-                            CT="3"
-                            CN="Cluster"
-                            AC="false"
-                            BL="true"
-                            WD="../Flavour"
-                            BC="${MAKE}  -f Makefile CONF=Cluster"
-                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -2027,18 +2015,6 @@
                             BC="${MAKE}  -f Makefile CONF=Cluster"
                             CC="${MAKE}  -f Makefile CONF=Cluster clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../NewPhysics"
-                            CT="3"
-                            CN="Cluster"
-                            AC="false"
-                            BL="true"
-                            WD="../NewPhysics"
-                            BC="${MAKE}  -f Makefile CONF=Cluster"
-                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -2430,27 +2406,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../LeptonFlavour"
+              <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Cluster"
                             AC="false"
                             BL="true"
-                            WD="../LeptonFlavour"
+                            WD="../NewPhysics"
                             BC="${MAKE}  -f Makefile CONF=Cluster"
                             CC="${MAKE}  -f Makefile CONF=Cluster clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../Flavour"
-                            CT="3"
-                            CN="Cluster"
-                            AC="false"
-                            BL="true"
-                            WD="../Flavour"
-                            BC="${MAKE}  -f Makefile CONF=Cluster"
-                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -2499,18 +2463,6 @@
                             BC="${MAKE}  -f Makefile CONF=Cluster"
                             CC="${MAKE}  -f Makefile CONF=Cluster clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../NewPhysics"
-                            CT="3"
-                            CN="Cluster"
-                            AC="false"
-                            BL="true"
-                            WD="../NewPhysics"
-                            BC="${MAKE}  -f Makefile CONF=Cluster"
-                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -2909,15 +2861,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../Flavour"
+              <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Release"
                             AC="false"
                             BL="true"
-                            WD="../Flavour"
+                            WD="../NewPhysics"
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -2930,6 +2882,18 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -2954,18 +2918,6 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../NewPhysics"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../NewPhysics"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -3343,15 +3295,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../Flavour"
+              <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="ArchLinux"
                             AC="false"
                             BL="true"
-                            WD="../Flavour"
+                            WD="../NewPhysics"
                             BC="${MAKE}  -f Makefile CONF=ArchLinux"
                             CC="${MAKE}  -f Makefile CONF=ArchLinux clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -3364,6 +3316,18 @@
                             BC="${MAKE}  -f Makefile CONF=ArchLinux"
                             CC="${MAKE}  -f Makefile CONF=ArchLinux clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="ArchLinux"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=ArchLinux"
+                            CC="${MAKE}  -f Makefile CONF=ArchLinux clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -3388,18 +3352,6 @@
                             BC="${MAKE}  -f Makefile CONF=ArchLinux"
                             CC="${MAKE}  -f Makefile CONF=ArchLinux clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../NewPhysics"
-                            CT="3"
-                            CN="ArchLinux"
-                            AC="false"
-                            BL="true"
-                            WD="../NewPhysics"
-                            BC="${MAKE}  -f Makefile CONF=ArchLinux"
-                            CC="${MAKE}  -f Makefile CONF=ArchLinux clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
