@@ -116,7 +116,11 @@ public:
      */
     double pp_Stb_tbtb_TH13;
     
-   
+   /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Si t t\bar \to t\bar t  t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si}\cdot BR^{\text{THDMW}}(Si t\bar t\to t\bar t  t\bar t)@f$
+     */
+    double pp_Sitt_tttt_TH13;
     
     /**
      * @brief log of cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
@@ -135,6 +139,8 @@ public:
     double THoEX_pp_SrSr_jjjj;
     
     double THoEX_pp_Stb_tbtb;
+    
+    double THoEX_pp_Sitt_tttt;
     
 
     
@@ -290,6 +296,7 @@ private:
     
     
     //mutable double logip_th_pp_SrSr_jjjj_cache[5][CacheSize];
+    mutable double ip_th_pp_Sitt_tttt_cache[4][CacheSize];
     mutable double ip_th_pp_Stb_tbtb_cache[4][CacheSize];
     mutable double ip_th_pp_SrSr_jjjj_cache[5][CacheSize];
     mutable double ip_th_pp_Sr_jj_cache[5][CacheSize];
@@ -476,6 +483,11 @@ private:
      * @brief Table for xsection times branching ratio for p p -> S+ tbar b -> t tbar b bbar  generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Stb_tbtb;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Si tbar t -> t tbar t tbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Sitt_tttt;
     
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -750,6 +762,13 @@ private:
      * @details Generated with MadGraph
      */
     double ip_th_pp_Stb_tbtb(double etaD, double etaU, double mass);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Si tbar t -> t tbar tbar t 
+     * @return xsection times branching ratio of p p -> Si tbar t -> t tbar tbar t 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sitt_tttt(double etaD, double etaU, double mass);
     
     /**
      * @brief loginterpolating function for the theoretical value of p p -> Sr  Sr ->j j j j 

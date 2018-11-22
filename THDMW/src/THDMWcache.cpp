@@ -53,6 +53,7 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         MadGraph_pp_Sr_jj(2940,5,0.),
         MadGraph_pp_SrSr_jjjj(4200,5,0.),
         MadGraph_pp_Stb_tbtb(4332,4,0.),
+        MadGraph_pp_Sitt_tttt(9360,4,0.),
         arraybsgamma(1111, 3, 0.),
         betaeigenvalues(11, 0.)
         //myTHDMW(static_cast<const THDMW*> (&SM_i))
@@ -1405,7 +1406,10 @@ double THDMWcache::interpolate3D(gslpp::matrix<double> arrayTab, double x, doubl
     double intervalz = arrayTab(iz,2)-arrayTab(iz-1,2);
     int Nintervalsx = (x-xmin)/intervalx;
     int Nintervalsy = (y-ymin)/intervaly;
-    int Nintervalsz = (z-zmin)/intervalz;          
+    int Nintervalsz = (z-zmin)/intervalz;  
+    //std::cout<<"intervalx="<<intervalx<<std::endl;
+    //std::cout<<"intervaly="<<intervaly<<std::endl;
+    //std::cout<<"intervalz="<<intervalz<<std::endl;
     if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax){
         std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
     //    std::cout<<"x="<<x<<std::endl;
@@ -1693,7 +1697,7 @@ void THDMWcache::read(){
     std::stringstream ex9,ex10,ex13;
     std::stringstream ex9e,ex10e,ex13e;
     std::stringstream ex14, ex15,ex16,ex17;
-    std::stringstream th1,th2,th3,th4,th5;
+    std::stringstream th1,th2,th3,th4,th5,th6;
 
     std::stringstream bsg1;
 
@@ -1816,6 +1820,9 @@ void THDMWcache::read(){
 
     th5 << tablepath << "Generated_data_Stb_tbtb_Fixed_Steps.dat";
     MadGraph_pp_Stb_tbtb = readTable(th5.str(),4332,4);
+    
+    th6 << tablepath << "Generated_data_Soddtt_tttt_Fixed_Steps.dat";
+    MadGraph_pp_Sitt_tttt = readTable(th6.str(),9360,4);
     
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
@@ -2289,6 +2296,21 @@ double THDMWcache::ip_th_pp_Stb_tbtb(double etaD, double etaU, double mS){
     }
 }
 
+
+double THDMWcache::ip_th_pp_Sitt_tttt(double etaD, double etaU, double mS){
+    int NumPar = 3;
+    double params[] = {etaD, etaU, mS};
+
+    int i = CacheCheckReal(ip_th_pp_Sitt_tttt_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Sitt_tttt_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate3D (MadGraph_pp_Sitt_tttt,etaD,etaU,mS);
+        CacheShiftReal(ip_th_pp_Sitt_tttt_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 /*
 double THDMWcache::logip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mSr){
     int NumPar = 4;
@@ -2312,6 +2334,8 @@ void THDMWcache::computeHHlimits()
     double mSr=sqrt(mSRsq);
     double mSp=sqrt(mSpsq);
     double mSi=sqrt(mSIsq);
+    double MW=myTHDMW->Mw();
+    //double mW2=myTHDMW->Mw();
     double SqrtEtaU=copysign(sqrt(sqrt(pow(etaU,2))),etaU);
     double SqrtEtaD=copysign(sqrt(sqrt(pow(etaD,2))),etaD);
     double nu45=(nu4+nu5)/2;
@@ -2321,25 +2345,36 @@ void THDMWcache::computeHHlimits()
     THoEX_pp_Sr_jj=0.;
     THoEX_pp_SrSr_jjjj=0.;
     THoEX_pp_Stb_tbtb=0.;
+    THoEX_pp_Sitt_tttt=0.;
     
     pp_Sr_tt_TH13 = 1.0e-15;
     pp_Srtt_tttt_TH13 = 1.0e-15;
     pp_Sr_jj_TH13=1.0e-15;
     pp_SrSr_jjjj_TH13=1.0e-15;
     pp_Stb_tbtb_TH13=1.0e-15;
+    pp_Srtt_tttt_TH13 = 1.0e-15;
+    pp_Sitt_tttt_TH13 = 1.0e-15;
     //logpp_SrSr_jjjj_TH13=-15;
+    
+    
     
     //std::cout<<"mSr="<<mSr<<std::endl;
     //std::cout<<"nu45="<<nu45<<std::endl;
     //std::cout<<"etaU="<<etaU<<std::endl;
     //std::cout<<"etaD="<<etaD<<std::endl;
+    //std::cout<<"MW="<<MW<<std::endl;
+    //std::cout<<"MZ="<<MZ<<std::endl;
     
-    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && sqrt(pow(etaU,2))<56.2499 && nu45*nu45<168.999) pp_Sr_tt_TH13=ip_th_pp_Sr_tt(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && sqrt(pow(etaU,2))<56.2499 && nu45*nu45<168.999) pp_Srtt_tttt_TH13=ip_th_pp_Srtt_tttt(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999) pp_Sr_jj_TH13=ip_th_pp_Sr_jj(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6&& etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999) pp_SrSr_jjjj_TH13=ip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSpsq > 1.6001e5 && mSpsq<2.2499e6 && etaD*etaD<399.99  && etaU*etaU<56.2499 && mSpsq<=mSRsq && mSp<=mSIsq) pp_Stb_tbtb_TH13=ip_th_pp_Stb_tbtb(SqrtEtaD,SqrtEtaU,mSp);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_tt_TH13=ip_th_pp_Sr_tt(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Srtt_tttt_TH13=ip_th_pp_Srtt_tttt(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_jj_TH13=ip_th_pp_Sr_jj(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6&& etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_SrSr_jjjj_TH13=ip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSpsq > 1.6001e5 && mSpsq<2.2499e6 && etaD*etaD<399.99  && etaU*etaU<56.2499 && mSpsq<(mSRsq+MW*MW) && mSp<=(mSIsq+MW*MW)) pp_Stb_tbtb_TH13=ip_th_pp_Stb_tbtb(SqrtEtaD,SqrtEtaU,mSp);
+    if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && nu45*nu45<168.999 &&  mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Sitt_tttt_TH13=ip_th_pp_Sitt_tttt(SqrtEtaD,SqrtEtaU,mSi);
+
     
+    //std::cout<<"Sitt="<< interpolate3D(MadGraph_pp_Sitt_tttt,SqrtEtaD,SqrtEtaU,mSi)<<std::endl;
+    //std::cout<<"Sitt="<<ip_th_pp_Sitt_tttt(SqrtEtaD,0,mSi)<<std::endl;
     //if(mSr>= 400 && mSr<=1500) logpp_SrSr_jjjj_TH13=logip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
 
     //std::cout<<"pp_Stb_tbtb_TH13 first="<<ip_th_pp_Stb_tbtb(SqrtEtaD,SqrtEtaU,mSp)<<std::endl;
@@ -2349,6 +2384,7 @@ void THDMWcache::computeHHlimits()
     if(mSr>= 600 && mSr<=1500) THoEX_pp_Sr_jj=pp_Sr_jj_TH13/ip_ex_pp_R_gg_CMS13(mSr);
     if(mSr>= 500 && mSr<=1500) THoEX_pp_SrSr_jjjj=pp_SrSr_jjjj_TH13/ip_ex_pp_SS_jjjj_ATLAS13(mSr);
     if(mSp>= 400 && mSp<=1500) THoEX_pp_Stb_tbtb=pp_Stb_tbtb_TH13/ip_ex_pp_Hp_tb_ATLAS13(mSp);
+    if(mSi>= 400 && mSi<=1000) THoEX_pp_Sitt_tttt=pp_Sitt_tttt_TH13/ip_ex_tt_phi_tt_ATLAS13(mSi);
 
     
 }
