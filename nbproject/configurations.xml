@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/Expanded.h</itemPath>
       <itemPath>src/gslpp.h</itemPath>
       <itemPath>src/gslpp_complex.h</itemPath>
       <itemPath>src/gslpp_function_adapter.h</itemPath>
@@ -24,6 +25,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/Expanded.cpp</itemPath>
       <itemPath>src/gslpp_complex.cpp</itemPath>
       <itemPath>src/gslpp_matrix_complex.cpp</itemPath>
       <itemPath>src/gslpp_matrix_double.cpp</itemPath>
@@ -125,6 +127,10 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <item path="src/Expanded.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Expanded.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gslpp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_complex.cpp" ex="false" tool="1" flavor2="0">
@@ -235,6 +241,10 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <item path="src/Expanded.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Expanded.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gslpp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_complex.cpp" ex="false" tool="1" flavor2="0">
@@ -345,6 +355,10 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <item path="src/Expanded.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Expanded.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gslpp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_complex.cpp" ex="false" tool="1" flavor2="0">
@@ -451,6 +465,10 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <item path="src/Expanded.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Expanded.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gslpp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_complex.cpp" ex="false" tool="1" flavor2="0">

@@ -73,6 +73,7 @@ namespace gslpp
      /** Get matrix size */
       size_t size_i() const;
       size_t size_j() const;
+      size_t size() const;
       /** Identity matrix */
       static matrix<double> Id(size_t size);
       /** Transpose matrix */
@@ -133,6 +134,13 @@ namespace gslpp
       matrix<complex> operator*(const complex& z) const;
       /** Division operator (complex) */
       matrix<complex> operator/(const complex& z) const;
+      /** Comparison == (matrix) */
+      bool operator==(const matrix<double>& a) const;
+      bool operator!=(const matrix<double>& a) const
+      {
+          return(!(*this == a));
+      }
+
       /** friend functions */
       friend std::ostream& operator<<(std::ostream& output, const matrix<double>& m);
       /** @{

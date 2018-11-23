@@ -105,6 +105,13 @@ namespace gslpp
       /** Division operator (complex) */
       vector<complex> operator/(const complex& z) const;
 
+      /** Comparison == (vector) */
+      bool operator==(const vector<double>& a) const;
+      bool operator!=(const vector<double>& a) const
+      {
+          return(!(*this == a));
+      }
+
       /** friend functions */
       friend std::ostream& operator<<(std::ostream& output, const vector<double>& v);
       /** @{
