@@ -116,6 +116,12 @@ namespace gslpp
       vector<complex>& operator*=(const double& a);
       /** Division assignment */
       vector<complex>& operator/=(const double& a);
+      /** Comparison == (vector) */
+      bool operator==(const vector<complex>& a) const;
+      bool operator!=(const vector<complex>& a) const
+      {
+          return(!(*this == a));
+      }
 
       /** friend functions */
       friend std::ostream& operator<<(std::ostream& output, const vector<complex>& v);

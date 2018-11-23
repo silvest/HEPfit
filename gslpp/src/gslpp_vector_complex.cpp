@@ -374,6 +374,18 @@ namespace gslpp {
         *this = *this / a;
         return *this;
     }
+    /** Comparison == (vector) */
+    bool vector<complex>::operator==(const vector<complex>& a) const
+    {
+        if (a.size() != size())
+        {
+            std::cout << "\n Error in vector<complex>::operator== (vector): cannot compare vectors of different size" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        for (size_t i = 0; i < size(); i++)
+            if (a(i) != (*this)(i)) return (false);
+        return (true);
+    }
 
     /** friend functions */
     std::ostream& operator<<(std::ostream& output, const vector<complex>& v)
@@ -381,7 +393,7 @@ namespace gslpp {
         size_t i;
         output << "(";
         for (i = 0; i < v.size() - 1; i++)
-            output << v(i) << ",";
+            output << v(i) << ", ";
         output << v(i) << ")";
         return output;
     }

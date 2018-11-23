@@ -143,10 +143,10 @@ namespace gslpp
   std::ostream& operator<<(std::ostream& output, const complex& z)
   {
     double absim = ::fabs(z.imag());
-    output << "(" <<  z.real() << (z.imag() < 0.? "-" : "+");
+    output <<  z.real() << (z.imag() < 0.? "-" : "+");
     if (absim != 1.)
       output << fabs(z.imag()) << "*";
-    output << "i)";
+    output << "i";
     return output;
   }
 
