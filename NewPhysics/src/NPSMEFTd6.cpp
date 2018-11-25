@@ -11274,11 +11274,16 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
     double C1 = 0.0;
 
 //  It includes modifications of Zff vertices and MW, but not on the pure VVV and VVVV vertices
-    dwidth = ( +14894914. * CHB / LambdaNP2
-            -14894913. * CHW / LambdaNP2
-            +9508089. * CHWB / LambdaNP2
-            -2869576. * CDHB / LambdaNP2
-            +1572613. * CDHW / LambdaNP2            
+    
+//  Write the tree-level contributions directly as a function 
+//  of delta_ZA (or deltaG1_hZA()) to account for variations of sw2 and cw2
+
+    dwidth = ( -71769.02 * deltaG1_hZA() 
+//            +14894914. * CHB / LambdaNP2
+//            -14894913. * CHW / LambdaNP2
+//            +9508089. * CHWB / LambdaNP2
+//            -2869576. * CDHB / LambdaNP2
+//            +1572613. * CDHW / LambdaNP2            
             + cLHd6 * (
             +120002. * CHbox / LambdaNP2
             +50.12 * CHL1_33 / LambdaNP2
@@ -11354,9 +11359,14 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
     double C1 = 0.0049;
 
 //  It does not include modifications of MW
-    dwidth = ( -48314158. * CHB / LambdaNP2
-            -14510502. * CHW / LambdaNP2
-            +26477588. * CHWB / LambdaNP2 
+    
+//  Write the tree-level contributions directly as a function 
+//  of delta_AA (or deltaG_hAA) to account for variations of sw2 and cw2
+    
+    dwidth = ( -255156.97*deltaG_hAA()            
+//            -48314158. * CHB / LambdaNP2
+//            -14510502. * CHW / LambdaNP2
+//            +26477588. * CHWB / LambdaNP2 
             + cLHd6 * (
             +119766. * CHbox / LambdaNP2
             -42565.7 * CeH_33r / LambdaNP2
