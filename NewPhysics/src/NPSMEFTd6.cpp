@@ -876,6 +876,20 @@ bool NPSMEFTd6::PostUpdate()
             - (cW2_tree - sW2_tree) * CHWB * v2_over_LambdaNP2;
     delta_h = (-CHD / 4.0 + CHbox) * v2_over_LambdaNP2;
     
+//  Calculation of some quantities repeteadly used in the code
+    
+//  NP corrections to Total Higgs width
+    dGammaHTotR1 = deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        dGammaHTotR2 = deltaGammaTotalRatio2();
+    } else {
+        dGammaHTotR2 = 0.0;  
+    }
+    
+//  Total: to be used in BR functions to check positivity
+    GammaHTotR = 1.0 + dGammaHTotR1 + dGammaHTotR2;
+    
     NPSMEFTd6M.getObj().updateNPSMEFTd6Parameters();
 
     return (true);
@@ -9158,17 +9172,24 @@ double NPSMEFTd6::mummH(const double sqrt_s) const
 double NPSMEFTd6::BrHggRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHggRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHggRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHggRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHggRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHggRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;    
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -9184,17 +9205,24 @@ double NPSMEFTd6::BrHWWRatio() const
 double NPSMEFTd6::BrHWlvRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHWlvRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHWlvRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHWlvRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHWlvRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHWlvRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9202,17 +9230,24 @@ double NPSMEFTd6::BrHWlvRatio() const
 double NPSMEFTd6::BrHWW2l2vRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHWW2l2vRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHWW2l2vRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHWW2l2vRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHWW2l2vRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHWW2l2vRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9220,17 +9255,24 @@ double NPSMEFTd6::BrHWW2l2vRatio() const
 double NPSMEFTd6::BrHWjjRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHWjjRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHWjjRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHWjjRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHWjjRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHWjjRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9238,17 +9280,24 @@ double NPSMEFTd6::BrHWjjRatio() const
 double NPSMEFTd6::BrHWW4jRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHWW4jRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHWW4jRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHWW4jRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHWW4jRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHWW4jRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9256,17 +9305,24 @@ double NPSMEFTd6::BrHWW4jRatio() const
 double NPSMEFTd6::BrHWffRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHWffRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHWffRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHWffRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHWffRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHWffRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9275,17 +9331,24 @@ double NPSMEFTd6::BrHWffRatio() const
 double NPSMEFTd6::BrHWW4fRatio() const
 {    
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHWW4fRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHWW4fRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHWW4fRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHWW4fRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHWW4fRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9298,17 +9361,24 @@ double NPSMEFTd6::BrHZZRatio() const
 double NPSMEFTd6::BrHZllRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZllRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZllRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZllRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZllRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZllRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9316,17 +9386,24 @@ double NPSMEFTd6::BrHZllRatio() const
 double NPSMEFTd6::BrHZZ4lRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZZ4lRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZZ4lRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZZ4lRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZZ4lRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZZ4lRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9334,17 +9411,24 @@ double NPSMEFTd6::BrHZZ4lRatio() const
 double NPSMEFTd6::BrHZZ4eRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZZ4eRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZZ4eRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZZ4eRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZZ4eRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZZ4eRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9352,17 +9436,24 @@ double NPSMEFTd6::BrHZZ4eRatio() const
 double NPSMEFTd6::BrHZZ2e2muRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZZ2e2muRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZZ2e2muRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZZ2e2muRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZZ2e2muRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZZ2e2muRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9370,17 +9461,24 @@ double NPSMEFTd6::BrHZZ2e2muRatio() const
 double NPSMEFTd6::BrHZZ4muRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZZ4muRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZZ4muRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZZ4muRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZZ4muRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZZ4muRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9388,17 +9486,24 @@ double NPSMEFTd6::BrHZZ4muRatio() const
 double NPSMEFTd6::BrHZvvRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZvvRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZvvRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZvvRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZvvRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZvvRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9406,17 +9511,24 @@ double NPSMEFTd6::BrHZvvRatio() const
 double NPSMEFTd6::BrHZZ4vRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZZ4vRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZZ4vRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZZ4vRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZZ4vRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZZ4vRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9424,17 +9536,24 @@ double NPSMEFTd6::BrHZZ4vRatio() const
 double NPSMEFTd6::BrHZuuRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZuuRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZuuRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZuuRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZuuRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZuuRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9457,17 +9576,24 @@ double NPSMEFTd6::BrHZZ4uRatio() const
 double NPSMEFTd6::BrHZddRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZddRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZddRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZddRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZddRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZddRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9493,17 +9619,24 @@ double NPSMEFTd6::BrHZZ4dRatio() const
 double NPSMEFTd6::BrHZffRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZffRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZffRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZffRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZffRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZffRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9511,17 +9644,24 @@ double NPSMEFTd6::BrHZffRatio() const
 double NPSMEFTd6::BrHZZ4fRatio() const
 {    
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZZ4fRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZZ4fRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZZ4fRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZZ4fRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZZ4fRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }
@@ -9529,17 +9669,24 @@ double NPSMEFTd6::BrHZZ4fRatio() const
 double NPSMEFTd6::BrHZgaRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHZgaRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHZgaRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHZgaRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHZgaRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHZgaRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -9585,17 +9732,24 @@ double NPSMEFTd6::BrHZgamumuRatio() const
 double NPSMEFTd6::BrHgagaRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHgagaRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHgagaRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHgagaRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHgagaRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHgagaRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -9604,17 +9758,24 @@ double NPSMEFTd6::BrHgagaRatio() const
 double NPSMEFTd6::BrHmumuRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHmumuRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHmumuRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHmumuRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHmumuRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHmumuRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -9623,17 +9784,24 @@ double NPSMEFTd6::BrHmumuRatio() const
 double NPSMEFTd6::BrHtautauRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHtautauRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHtautauRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHtautauRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHtautauRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHtautauRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -9642,17 +9810,24 @@ double NPSMEFTd6::BrHtautauRatio() const
 double NPSMEFTd6::BrHccRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHccRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHccRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHccRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHccRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHccRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -9661,17 +9836,24 @@ double NPSMEFTd6::BrHccRatio() const
 double NPSMEFTd6::BrHbbRatio() const
 {
     double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    Br += deltaGammaHbbRatio1() - deltaGammaTotalRatio1();
+    dGHiR1= deltaGammaHbbRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHbbRatio2();
+        
         //Add contributions that are quadratic in the effective coefficients
-        Br += - deltaGammaHbbRatio1() * deltaGammaTotalRatio1()
-                + deltaGammaHbbRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -9681,11 +9863,11 @@ double NPSMEFTd6::computeGammaTotalRatio() const
 {
     double width = 1.0;
 
-    width += deltaGammaTotalRatio1();
+    width += dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaTotalRatio2();
+            width += dGammaHTotR2;
         }
     
     if (width < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -11458,6 +11640,8 @@ double NPSMEFTd6::deltaGammaHbbRatio2() const
 
 double NPSMEFTd6::Br_H_exo() const
 {    
+    if (BrHexo < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return BrHexo;
 }
 
@@ -11468,6 +11652,10 @@ double NPSMEFTd6::Br_H_inv() const
     
     BR4v = BrHZZ4vRatio()*(trueSM.computeBrHtoZZinv());
     
+//  BR4v positivity is already checked inside BrHZZ4vRatio()
+//  and will be nan if negative. Check here BrHinv, to make sure both are positive
+    if (BrHinv < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return BR4v + BrHinv;
 }
 
@@ -11475,7 +11663,8 @@ double NPSMEFTd6::Br_H_inv() const
 double NPSMEFTd6::BrHvisRatio() const
 {    
     double Br = 1.0;
-    double dvis1,dvis2,delta2SM;
+    double dvis1 = 0.0, dvis2 = 0.0, delta2SM;
+    double GHvisR = 1.0;
 
 //  Sum over decays of visible SM and exotic modes
     dvis1 = (trueSM.computeBrHtogg() * deltaGammaHggRatio1()
@@ -11489,7 +11678,7 @@ double NPSMEFTd6::BrHvisRatio() const
             + trueSM.computeBrHtobb() * deltaGammaHbbRatio1()
             + BrHexo);    
     
-    Br += dvis1 - deltaGammaTotalRatio1();
+    Br += dvis1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
 
@@ -11507,12 +11696,13 @@ double NPSMEFTd6::BrHvisRatio() const
         dvis2 = delta2SM + (BrHexo)*(BrHexo + delta2SM);
 
         //Add contributions that are quadratic in the effective coefficients
-        Br += - dvis1 * deltaGammaTotalRatio1()
-                + dvis2 - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2.0);            
+        Br += - dvis1 * dGammaHTotR1
+                + dvis2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
         }
     
-    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    GHvisR += dvis1 + dvis2; 
+    if ((Br < 0) || (GHvisR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 }

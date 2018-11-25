@@ -3621,6 +3621,9 @@ protected:
     double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
     double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
     double Yukd,Yuks,Yukb;///< SM d-quark Yukawas
+
+    // Cache variables
+    double dGammaHTotR1,dGammaHTotR2,GammaHTotR;///< NP contributions and Total to Higgs width ratio with SM
     
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(1)}\f$ corresponding to particle F.
