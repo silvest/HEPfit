@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 HEPfit Collaboration
  *
  *
@@ -59,7 +59,7 @@ MPlnu_BdbarDelnu(new MPlnu(SM_i, StandardModel::B_D, StandardModel::D_P, Standar
     update_BdDtaunu = true;
     update_BdDmunu = true;
     update_BdDelnu = true;
-    
+
     dispersion = false;
     CLNflag = false;
     btocNPpmflag = false;
@@ -70,9 +70,9 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes schem
     return HDF2->ComputeCoeffBd(mu, scheme);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBs(double mu, schemes scheme) const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBs(double mu, schemes scheme, bool SM) const
 {
-    return HDF2->ComputeCoeffBs(mu, scheme);
+    return HDF2->ComputeCoeffBs(mu, scheme, SM);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdd(double mu, schemes scheme) const

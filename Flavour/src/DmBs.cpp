@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 HEPfit Collaboration
  *
  *
@@ -8,7 +8,12 @@
 #include "DmBs.h"
 #include "StandardModel.h"
 
-double  DmBs::computeThValue() 
+double  DmBs::computeThValue()
 {
     return(2. * SM.getCBs() * AmpBs(FULLNLO).abs());
+}
+
+double  RmBs::computeThValue()
+{
+    return RBs(FULLNLO).abs() - 1.;
 }

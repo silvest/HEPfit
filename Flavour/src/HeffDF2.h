@@ -59,9 +59,10 @@ public:
      * 
      * @param mu is the low energy scale
      * @param scheme indicates the renormalization scheme (Default: NDR)
+     * @param SM boolean to select only the SM contributions to the coefficients (Default: false)
      * @return the effective hamiltonian at the scale mu for B_s oscillations
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBs(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBs(double mu, schemes scheme = NDR, bool SM = false);
 
     /**
      * 
