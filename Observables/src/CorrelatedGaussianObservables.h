@@ -173,7 +173,7 @@ public:
     
 private:
     std::vector<Observable> Obs;///< A vector of observables whose correlation will be calculated.
-    gslpp::matrix<double>* InvCov;///< The covariance matrix.
+    gslpp::matrix<double>* InvCov;///< The inverse covariance matrix.
     std::string name;///< The name of the correlated Gaussian Observables set.
     std::string filepath;///< The path to the config file being parsed
     bool IsEOF;///< A boolean which is true if the end of file is reached.

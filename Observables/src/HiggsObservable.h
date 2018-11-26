@@ -9,6 +9,7 @@
 #define	HIGGSOBSERVABLE_H
 
 #include "Observable.h"
+#include "gslpp.h"
 #include <boost/tokenizer.hpp>
 
 class ThObsFactory;
@@ -25,11 +26,7 @@ class ThObsFactory;
 
 class HiggsObservable : public Observable {
 public:
-    HiggsObservable(const Observable& Obs): 
-               Observable(Obs)
-               {
-                   isnew = true;
-               };
+    HiggsObservable(const Observable& Obs);
                
     HiggsObservable(const HiggsObservable& orig);
 
@@ -83,6 +80,16 @@ public:
         return channelsize;
     }
     
+    bool getIsCorrelated()
+    {
+        return isCorrelated;
+    }
+    
+    void setIsCorrelated(bool correlated)
+    {
+        isCorrelated = correlated;
+    }
+    
     
     /**
      * @brief the parser for HiggsObservables
@@ -101,9 +108,13 @@ public:
         TMatrixD channels;///< A matrix holding the information of all the channels.
         bool isnew;///< A boolean which is true if the parametrization is new.
         std::vector<ThObservable*> thObsV;///< A vector of ThObservables.
-        std::vector<double> theoryValues;
-        double thobsvsize;
-        double channelsize;
+        std::vector<double> theoryValues;///< A vector to contain the theoryvalues.
+        double thobsvsize;///< The size of the theory observables vector.
+        double channelsize;///< The number of channels in the Higgs Observable.
+        bool isCorrelated;///< A flag for correlated Higgs Observable.
+        bool covarianceFromConfig;///< A flag for reading inverse covariance from config file.
+        gslpp::matrix<double>* InvCov;///< The inverse covariance matrix.
+        int rank;///< The rank of the process initializing this observable.
 };
 
 #endif	/* HIGGSOBSERVABLE_H */
