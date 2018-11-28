@@ -120,24 +120,24 @@ void BXqll::updateParameters()
    
     }
     
-    unsigned int i, j, ij;
     double alpha_kappa;
     
-    for(unsigned int ord = LO; ord <= NNLO; ord++)
+    for(unsigned int qcd_ord = QCD0; qcd_ord <= QCD2; qcd_ord++)
+        for(unsigned int qed_ord = QED0; qed_ord <= QED2; qed_ord++)
     {
-        i = ord;
-        j = 0;
-        ij = 10*i + j;
-        alpha_kappa = pow(alstilde, i);
-        
-        WC.assign(0, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(0));
-        WC.assign(1, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(1));
-        WC.assign(2, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(2));
-        WC.assign(3, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(3));
-        WC.assign(4, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(4));
-        WC.assign(5, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(5));
-        WC.assign(6, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(6));
-        WC.assign(7, ord, alpha_kappa * (myHeff.LowScaleCoeff(ij))(7));
+        alpha_kappa = pow(alstilde, qcd_ord) * pow(kappa, qed_ord);
+        for(int i = 0, i < ; i++)
+        {
+        WC.assign(i, ord, alpha_kappa * (myHeff.LowScaleCoeff())(0));
+        WC.assign(1, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(1));
+        WC.assign(2, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(2));
+        WC.assign(3, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(3));
+        WC.assign(4, ord, alpha_kappa * (myHeff.LowS
+        caleCoeff((qcd_orders) ord, 0))(4));
+        WC.assign(5, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(5));
+        WC.assign(6, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(6));
+        WC.assign(7, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(7));
+        }
     }
     
     for(unsigned int ord_qed = int_qed(LO_QED); ord_qed <= int_qed(NLO_QED22); ord_qed++)

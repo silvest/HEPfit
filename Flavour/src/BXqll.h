@@ -14,6 +14,7 @@ class StandardModel;
 #include "ThObservable.h"
 //#include "Particle.h"
 #include "gslpp.h"
+#include "Expanded.h"
 #include <gsl/gsl_integration.h>
 #include "HeffDF1.h"
 #include "F_1.h"
@@ -110,9 +111,9 @@ private:
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<Vector that contains the primed Wilson coeffients */
 
     gslpp::vector<gslpp::complex> ** allcoeff_smm;/**<Vector that contains the primed Wilson coeffients */
-    gslpp::vector<gslpp::complex> ** allcoeffDF1;/**<Vector that contains the Wilson coeffients */
+    Expanded<gslpp::vector<gslpp::complex> > allcoeffDF1;/**<Vector that contains the Wilson coeffients */
     
-    gslpp::matrix<gslpp::complex> WC;/**<Matrix that contains the Wilson coeffients for each order */
+//    gslpp::matrix<gslpp::complex> WC;/**<Matrix that contains the Wilson coeffients for each order */
     
     gslpp::complex C_1[5];/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1L_bar[5];/**<Wilson coeffients @f$C_1@f$*/
