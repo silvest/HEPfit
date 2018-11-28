@@ -809,7 +809,55 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ}@f$
      */
-    virtual double muttHZZ(const double sqrt_s) const;
+    virtual double muttHZZ(const double sqrt_s) const; 
+    /**
+     * @brief The ratio @f$\mu_{ggH,ZZ\to 4l}@f$ between the gluon-gluon fusion Higgs
+     * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH,ZZ\to 4l}@f$
+     */
+    virtual double muggHZZ4l(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{VBF,ZZ\to 4l}@f$ between the VBF Higgs
+     * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VBF,ZZ\to 4l}@f$
+     */
+    virtual double muVBFHZZ4l(const double sqrt_s) const;    
+    /**
+     * @brief The ratio @f$\mu_{ZH,ZZ\to 4l}@f$ between the ZH
+     * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ZH,ZZ\to 4l}@f$
+     */
+    virtual double muZHZZ4l(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{WH,ZZ\to 4l}@f$ between the WH
+     * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{WH,ZZ\to 4l}@f$
+     */
+    virtual double muWHZZ4l(const double sqrt_s) const;    
+    /**
+     * @brief The ratio @f$\mu_{VH,ZZ\to 4l}@f$ between the VH
+     * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VH,ZZ\to 4l}@f$
+     */
+    virtual double muVHZZ4l(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{ttH,ZZ\to 4l}@f$ between the ttH
+     * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ttH,ZZ\to 4l}@f$
+     */
+    virtual double muttHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,WW}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -858,6 +906,54 @@ public:
      * @return @f$\mu_{ttH,WW}@f$
      */
     virtual double muttHWW(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{ggH,WW\to 2l2\nu}@f$ between the gluon-gluon fusion Higgs
+     * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH,WW\to 2l2\nu}@f$
+     */
+    virtual double muggHWW2l2v(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{VBF,WW\to 2l2\nu}@f$ between the VBF Higgs
+     * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VBF,WW\to 2l2\nu}@f$
+     */
+    virtual double muVBFHWW2l2v(const double sqrt_s) const;   
+    /**
+     * @brief The ratio @f$\mu_{ZH,WW\to 2l2\nu}@f$ between the ZH
+     * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ZH,WW\to 2l2\nu}@f$
+     */
+    virtual double muZHWW2l2v(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{WH,WW\to 2l2\nu}@f$ between the WH
+     * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{WH,WW\to 2l2\nu}@f$
+     */
+    virtual double muWHWW2l2v(const double sqrt_s) const;    
+    /**
+     * @brief The ratio @f$\mu_{VH,WW\to 2l2\nu}@f$ between the VH
+     * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VH,WW\to 2l2\nu}@f$
+     */
+    virtual double muVHWW2l2v(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{ttH,WW\to 2l2\nu}@f$ between the ttH
+     * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
+     * current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ttH,WW\to 2l2\nu}@f$
+     */
+    virtual double muttHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,\mu\mu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the

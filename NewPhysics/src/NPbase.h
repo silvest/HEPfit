@@ -1219,6 +1219,33 @@ public:
     {
         return 1.0;
     }
+    
+    virtual double muggHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muWHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
     virtual double muggHWW(const double sqrt_s) const
     {
         return 1.0;
@@ -1243,6 +1270,30 @@ public:
     {
         return 1.0;
     }
+    virtual double muggHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }   
     virtual double muggHmumu(const double sqrt_s) const
     {
         return 1.0;

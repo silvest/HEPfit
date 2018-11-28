@@ -3066,6 +3066,248 @@ private:
     const double sqrt_s;
 };
 
+
+/**
+ * @class muggHZZ4l
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHZZ4l : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muggHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muggHZZ4l called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
+        } else {
+            return myNPbase->muggHZZ4l(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muVBFHZZ4l
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muVBFHZZ4l : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muVBFHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muVBFHZZ4l called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
+        } else {
+            return myNPbase->muVBFHZZ4l(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muZHZZ4l
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muZHZZ4l : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muZHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muZHZZ4l called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
+        } else {
+            return myNPbase->muZHZZ4l(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muWHZZ4l
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muWHZZ4l : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muWHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muWHZZ4l called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
+        } else {
+            return myNPbase->muWHZZ4l(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muVHZZ4l
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muVHZZ4l : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muVHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muVHZZ4l called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
+        } else {
+            return myNPbase->muVHZZ4l(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muttHZZ4l
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHZZ4l : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muttHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muttHZZ4l called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
+        } else {
+            return myNPbase->muttHZZ4l(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
 /**
  * @class muggHWW
  * @ingroup HiggsExtensions
@@ -3305,6 +3547,248 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s;
 };
+
+
+/**
+ * @class muggHWW2l2v
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHWW2l2v : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muggHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muggHWW2l2v called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
+        } else {
+            return myNPbase->muggHWW2l2v(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muVBFHWW2l2v
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muVBFHWW2l2v : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muVBFHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muVBFHWW2l2v called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
+        } else {
+            return myNPbase->muVBFHWW2l2v(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muZHWW2l2v
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muZHWW2l2v : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muZHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muZHWW2l2v called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
+        } else {
+            return myNPbase->muZHWW2l2v(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muWHWW2l2v
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muWHWW2l2v : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muWHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muWHWW2l2v called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
+        } else {
+            return myNPbase->muWHWW2l2v(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muVHWW2l2v
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muVHWW2l2v : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muVHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muVHWW2l2v called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
+        } else {
+            return myNPbase->muVHWW2l2v(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muttHWW2l2v
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHWW2l2v : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muttHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muttHWW2l2v called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
+        } else {
+            return myNPbase->muttHWW2l2v(sqrt_s);
+        }
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
 
 /**
  * @class muggHmumu

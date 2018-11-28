@@ -613,6 +613,36 @@ double HiggsKigen::muttHZZ(const double sqrt_s) const
     return muttH(sqrt_s)*BrHZZRatio();
 }
 
+double HiggsKigen::muggHZZ4l(const double sqrt_s) const
+{
+    return muggH(sqrt_s)*BrHZZ4lRatio();
+}
+
+double HiggsKigen::muVBFHZZ4l(const double sqrt_s) const
+{
+    return muVBF(sqrt_s)*BrHZZ4lRatio();
+}
+
+double HiggsKigen::muZHZZ4l(const double sqrt_s) const
+{
+    return muZH(sqrt_s)*BrHZZ4lRatio();
+}
+
+double HiggsKigen::muWHZZ4l(const double sqrt_s) const
+{
+    return muWH(sqrt_s)*BrHZZ4lRatio();
+}
+
+double HiggsKigen::muVHZZ4l(const double sqrt_s) const
+{
+    return muVH(sqrt_s)*BrHZZ4lRatio();
+}
+
+double HiggsKigen::muttHZZ4l(const double sqrt_s) const
+{
+    return muttH(sqrt_s)*BrHZZ4lRatio();
+}
+
 double HiggsKigen::muggHWW(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHWWRatio();
@@ -641,6 +671,36 @@ double HiggsKigen::muVHWW(const double sqrt_s) const
 double HiggsKigen::muttHWW(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHWWRatio();
+}
+
+double HiggsKigen::muggHWW2l2v(const double sqrt_s) const
+{
+    return muggH(sqrt_s)*BrHWW2l2vRatio();
+}
+
+double HiggsKigen::muVBFHWW2l2v(const double sqrt_s) const
+{
+    return muVBF(sqrt_s)*BrHWW2l2vRatio();
+}
+
+double HiggsKigen::muZHWW2l2v(const double sqrt_s) const
+{
+    return muZH(sqrt_s)*BrHWW2l2vRatio();
+}
+
+double HiggsKigen::muWHWW2l2v(const double sqrt_s) const
+{
+    return muWH(sqrt_s)*BrHWW2l2vRatio();
+}
+
+double HiggsKigen::muVHWW2l2v(const double sqrt_s) const
+{
+    return muVH(sqrt_s)*BrHWW2l2vRatio();
+}
+
+double HiggsKigen::muttHWW2l2v(const double sqrt_s) const
+{
+    return muttH(sqrt_s)*BrHWW2l2vRatio();
 }
 
 double HiggsKigen::muggHmumu(const double sqrt_s) const

@@ -11890,6 +11890,42 @@ double NPSMEFTd6::muttHZZ(const double sqrt_s) const
     
 }
 
+double NPSMEFTd6::muggHZZ4l(const double sqrt_s) const
+{   
+    return muggH(sqrt_s) * BrHZZ4lRatio();
+    
+}
+
+double NPSMEFTd6::muVBFHZZ4l(const double sqrt_s) const
+{   
+    return muVBF(sqrt_s) * BrHZZ4lRatio();
+    
+}
+
+double NPSMEFTd6::muZHZZ4l(const double sqrt_s) const
+{   
+    return muZH(sqrt_s) * BrHZZ4lRatio();
+    
+}
+
+double NPSMEFTd6::muWHZZ4l(const double sqrt_s) const
+{   
+    return muWH(sqrt_s) * BrHZZ4lRatio();
+    
+}
+
+double NPSMEFTd6::muVHZZ4l(const double sqrt_s) const
+{   
+    return muVH(sqrt_s) * BrHZZ4lRatio();
+    
+}
+
+double NPSMEFTd6::muttHZZ4l(const double sqrt_s) const
+{   
+    return muttH(sqrt_s) * BrHZZ4lRatio();
+    
+}
+
 double NPSMEFTd6::muggHWW(const double sqrt_s) const
 {   
     return muggH(sqrt_s) * BrHWWRatio();
@@ -11923,6 +11959,42 @@ double NPSMEFTd6::muVHWW(const double sqrt_s) const
 double NPSMEFTd6::muttHWW(const double sqrt_s) const
 {   
     return muttH(sqrt_s) * BrHWWRatio();
+    
+}
+
+double NPSMEFTd6::muggHWW2l2v(const double sqrt_s) const
+{   
+    return muggH(sqrt_s) * BrHWW2l2vRatio();
+    
+}
+
+double NPSMEFTd6::muVBFHWW2l2v(const double sqrt_s) const
+{   
+    return muVBF(sqrt_s) * BrHWW2l2vRatio();
+    
+}
+
+double NPSMEFTd6::muZHWW2l2v(const double sqrt_s) const
+{   
+    return muZH(sqrt_s) * BrHWW2l2vRatio();
+    
+}
+
+double NPSMEFTd6::muWHWW2l2v(const double sqrt_s) const
+{   
+    return muWH(sqrt_s) * BrHWW2l2vRatio();
+    
+}
+
+double NPSMEFTd6::muVHWW2l2v(const double sqrt_s) const
+{   
+    return muVH(sqrt_s) * BrHWW2l2vRatio();
+    
+}
+
+double NPSMEFTd6::muttHWW2l2v(const double sqrt_s) const
+{   
+    return muttH(sqrt_s) * BrHWW2l2vRatio();
     
 }
 

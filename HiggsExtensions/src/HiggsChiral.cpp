@@ -783,8 +783,37 @@ double HiggsChiral::muVHZZ(const double sqrt_s) const
     return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
 }
 
-
 double HiggsChiral::muttHZZ(const double sqrt_s) const
+{
+    return computect() * computect() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muggHZZ4l(const double sqrt_s) const
+{
+    return computecg() * computecg() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHZZ4l(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muZHZZ4l(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHZZ4l(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVHZZ4l(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muttHZZ4l(const double sqrt_s) const
 {
     return computect() * computect() * computecV() * computecV() / computeGammaTotalRatio();
 }
@@ -815,6 +844,36 @@ double HiggsChiral::muVHWW(const double sqrt_s) const
 }
 
 double HiggsChiral::muttHWW(const double sqrt_s) const
+{
+    return computect() * computect() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muggHWW2l2v(const double sqrt_s) const
+{
+    return computecg() * computecg() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHWW2l2v(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muZHWW2l2v(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muWHWW2l2v(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVHWW2l2v(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muttHWW2l2v(const double sqrt_s) const
 {
     return computect() * computect() * computecV() * computecV() / computeGammaTotalRatio();
 }
