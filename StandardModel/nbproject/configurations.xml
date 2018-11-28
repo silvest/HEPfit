@@ -29,10 +29,13 @@
       <itemPath>src/Particle.h</itemPath>
       <itemPath>src/QCD.h</itemPath>
       <itemPath>src/RGEvolutor.h</itemPath>
+      <itemPath>src/RGEvolutorNew.h</itemPath>
       <itemPath>src/StandardModel.h</itemPath>
       <itemPath>src/StandardModelMatching.h</itemPath>
       <itemPath>src/WilsonCoefficient.h</itemPath>
+      <itemPath>src/WilsonCoefficientNew.h</itemPath>
       <itemPath>src/WilsonTemplate.h</itemPath>
+      <itemPath>src/WilsonTemplateNew.h</itemPath>
       <itemPath>src/alpha_s.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -63,9 +66,11 @@
       <itemPath>src/Particle.cpp</itemPath>
       <itemPath>src/QCD.cpp</itemPath>
       <itemPath>src/RGEvolutor.cpp</itemPath>
+      <itemPath>src/RGEvolutorNew.cpp</itemPath>
       <itemPath>src/StandardModel.cpp</itemPath>
       <itemPath>src/StandardModelMatching.cpp</itemPath>
       <itemPath>src/WilsonCoefficient.cpp</itemPath>
+      <itemPath>src/WilsonCoefficientNew.cpp</itemPath>
       <itemPath>src/alpha_s.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -606,6 +611,10 @@
       </item>
       <item path="src/RGEvolutor.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/RGEvolutorNew.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RGEvolutorNew.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/StandardModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/StandardModel.h" ex="false" tool="3" flavor2="0">
@@ -618,7 +627,13 @@
       </item>
       <item path="src/WilsonCoefficient.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/WilsonCoefficientNew.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/WilsonCoefficientNew.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/WilsonTemplate.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/WilsonTemplateNew.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/alpha_s.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -930,6 +945,10 @@
       </item>
       <item path="src/RGEvolutor.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/RGEvolutorNew.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RGEvolutorNew.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/StandardModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/StandardModel.h" ex="false" tool="3" flavor2="0">
@@ -942,7 +961,13 @@
       </item>
       <item path="src/WilsonCoefficient.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/WilsonCoefficientNew.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/WilsonCoefficientNew.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/WilsonTemplate.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/WilsonTemplateNew.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/alpha_s.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1252,6 +1277,10 @@
       </item>
       <item path="src/RGEvolutor.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/RGEvolutorNew.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RGEvolutorNew.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/StandardModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/StandardModel.h" ex="false" tool="3" flavor2="0">
@@ -1264,7 +1293,13 @@
       </item>
       <item path="src/WilsonCoefficient.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/WilsonCoefficientNew.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/WilsonCoefficientNew.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/WilsonTemplate.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/WilsonTemplateNew.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/alpha_s.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1708,6 +1743,10 @@
       </item>
       <item path="src/RGEvolutor.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/RGEvolutorNew.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RGEvolutorNew.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/StandardModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/StandardModel.h" ex="false" tool="3" flavor2="0">
@@ -1720,7 +1759,13 @@
       </item>
       <item path="src/WilsonCoefficient.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/WilsonCoefficientNew.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/WilsonCoefficientNew.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/WilsonTemplate.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/WilsonTemplateNew.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/alpha_s.cpp" ex="false" tool="1" flavor2="0">
       </item>

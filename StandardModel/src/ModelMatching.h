@@ -9,6 +9,7 @@
 #define	MODELMATCHING_H
 
 #include"WilsonCoefficient.h"
+#include"WilsonCoefficientNew.h"
 #include "QCD.h"
 #include <vector>
 #include <string>
@@ -26,7 +27,7 @@ public:
     
     virtual ~ModelMatching() {};
     
-    virtual std::vector<WilsonCoefficient>& CMDF1(std::string blocks, unsigned int nops) = 0;
+    virtual std::vector<WilsonCoefficientNew>& CMDF1(std::string blocks, unsigned int nops) = 0;
     
     virtual std::vector<WilsonCoefficient>& CMdbd2() = 0;
     virtual std::vector<WilsonCoefficient>& CMdbs2() = 0;

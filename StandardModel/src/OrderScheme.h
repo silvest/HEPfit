@@ -56,4 +56,35 @@ enum orders_qed // WARNING: don't change the ordering, it matters in HeffDF1
     FULLNLO_QED /**< Full NLO_QED = LO + NLO + LO_QED + NLO_QED +...+ NLO_QED22 */
 };
 
+// New enum for orders introduced with Expanded
+/**
+ * @enum orders_qcd
+ * @ingroup StandardModel
+ * @brief An enum type for orders_qcd in %QCD.
+ */
+enum qcd_orders
+{
+    QCD0 = 0, /**< Leading order */
+    QCD1, /**< Next-to-leading order */
+    QCD2, /**< Next-to-next-to-leading order */
+    QCD3, /**< Next-to-next-to-next-to-leading order */
+    FULLQCD1, /**< Full NLO = LO + NLO */
+    FULLQCD2, /**< Full NNLO = LO + NLO + NNLO */
+    FULLQCD3 /**< Full NNLO = LO + NLO + NNLO + NNNLO */        
+};
+
+/**
+ * @enum orders_qed
+ * @ingroup StandardModel
+ * @brief An enum type for orders_qcd in electroweak.
+ */
+enum qed_orders // WARNING: don't change the ordering, it matters in HeffDF1
+{
+    QED0=0, /* Leading order e/s */
+    QED1, /* */
+    QED2, /**< Next-to-leading order e */
+    FULLQED1,
+    FULLQED2 /* all terms up to QED2 included */
+};
+
 #endif	/* ORDERSCHEME_H */

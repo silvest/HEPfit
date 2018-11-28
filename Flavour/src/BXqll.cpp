@@ -17,7 +17,7 @@
 #define MPI2 (M_PI * M_PI)
 
 BXqll::BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i)
-: mySM(SM_i), myF_1(), myF_2(), myHeff("CPMLQB", SM_i, NNLO, NLO_QED22), WC(15, 9, 0.)
+: mySM(SM_i), myF_1(), myF_2(), myHeff("CPMLQB", SM_i, QCD2, QED2), WC(15, 9, 0.)
 {    
     lep = lep_i;
     quark = quark_i;    
