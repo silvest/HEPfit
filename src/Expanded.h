@@ -474,7 +474,7 @@ public:
     Expanded<T> transpose() const;
 
     T& getAllOrd() {
-        T res();
+        T res;
         for (uint i = 0; i < ord1; i++)
             for (uint j = 0; j < ord2; j++)
                 res += data[i][j];
