@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 HEPfit Collaboration
  *
  *
@@ -23,11 +23,11 @@ class StandardModel;
 class AmpDB2 {
 public:
     AmpDB2(const StandardModel& SM_i);
-    
+
     gslpp::complex getAmpBd(orders order){
         return AmpBd(order);
     }
-    
+
     gslpp::complex getAmpBs(orders order){
         return AmpBs(order);
     }
@@ -35,20 +35,23 @@ public:
     gslpp::complex getPBd(){
         return PBd();
     }
-    
+
     gslpp::complex getPBs(){
         return PBs();
     }
-    
+
 protected:
     gslpp::complex AmpBd(orders order);
     gslpp::complex AmpBs(orders order);
+    gslpp::complex RBs(orders order);
     gslpp::complex PBd();
     gslpp::complex PBs();
 
 private:
-    
+
     const StandardModel& mySM;
+    
+    gslpp::complex C_1_SM;/**<Wilson coeffients @f$C_1@f$*/
 
 };
 

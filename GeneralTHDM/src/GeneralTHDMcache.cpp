@@ -5731,9 +5731,13 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
     double GeneralTHDMcache::beta_mt_sq(const double mt,const double m_2) const
     {
         if (4.0*mt*mt/m_2 < 1 )
+        {    
             return 1.0-4.0*mt*mt/m_2;
+        }
         else
+        {    
             return -(1.0-4.0*mt*mt/m_2);
+        }
     }
   
 
@@ -5962,8 +5966,11 @@ void GeneralTHDMcache::computeSignalStrengths()
 
 double GeneralTHDMcache::computephi2quantities()
 {
-       m2 = sqrt(m2_2);
-    
+    m2 = sqrt(mH2sq);
+    m2_2 = mH2sq;
+ /*   std::cout << "m2  = " << m2 << std::endl;
+    std::cout << "mH2sq = " << mH2sq << std::endl;*/
+   
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
 
@@ -6142,7 +6149,7 @@ double GeneralTHDMcache::computephi2quantities()
     
     /*Decay of phi2 to the others scalars*/
    
-    double lambda112 = (2.0)*(lambdaijk(R11, R21, R31, R12, R22, R32, R11, R21, R31, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R21, R31, R11, R21, R31, R12, R22, R32, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R12, R22, R32, R11, R21, R31, R11, R21, R31,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) );
+double lambda112 = (2.0)*(lambdaijk(R11, R21, R31, R12, R22, R32, R11, R21, R31, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R21, R31, R11, R21, R31, R12, R22, R32, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R12, R22, R32, R11, R21, R31, R11, R21, R31,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) );
 
    
 //phi2 -> phi1phi1
@@ -6195,9 +6202,38 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
          +(BrSM_phi2toWW+BrSM_phi2toZZ)*rphi2_VV)*Gammaphi2totSM+Gamma_phi2gaga+Gamma_phi2Zga+Gamma_phi2gg 
          + Gammaphi2_phi1phi1+Gammaphi2_HpHm+Gammaphi2_phi1Z
          +Gammaphi2_HpW;
-    
- 
- 
+  
+    /*std::cout << "Gammaphi2tot = " << Gammaphi2tot << std::endl;
+    std::cout << "BrSM_phi2tott = " << BrSM_phi2tott << std::endl;
+    std::cout << "rphi2_QuQuE = " << rphi2_QuQuE << std::endl;
+    std::cout << "rphi2_QuQuO = " << rphi2_QuQuO << std::endl;
+    std::cout << "Mt = " << Mt  << std::endl;
+    std::cout << "m2_2 = " << m2_2  << std::endl;
+    std::cout << "beta_mt_sq(Mt, m2_2) = " << beta_mt_sq(Mt, m2_2) << std::endl;
+    std::cout << "BrSM_phi2tocc = " << BrSM_phi2tocc << std::endl;
+    std::cout << "beta(Mc, m2_2) = " << beta(Mc, m2_2) << std::endl;
+    std::cout << "BrSM_phi2tobb = " << BrSM_phi2tobb << std::endl;
+    std::cout << "rphi2_QdQdE = " <<rphi2_QdQdE << std::endl;
+    std::cout << "rphi2_QdQdO = " << rphi2_QdQdO<< std::endl;
+    std::cout << "beta(Mb, m2_2) = " <<beta(Mb, m2_2) << std::endl;
+    std::cout << "BrSM_phi2totautau = " << BrSM_phi2totautau << std::endl;
+    std::cout << "rphi2_QlQlE = " << rphi2_QlQlE << std::endl;
+    std::cout << "rphi2_QlQlO = " << rphi2_QlQlO << std::endl;
+    std::cout << "beta(Mtau, m2_2) = " << beta(Mtau, m2_2) << std::endl;
+    std::cout << "BrSM_phi2toWW = " << BrSM_phi2toWW << std::endl;
+    std::cout << "BrSM_phi2toZZ = " << BrSM_phi2toZZ << std::endl;
+    std::cout << "rphi2_VV = " << rphi2_VV << std::endl;
+    std::cout << "rphi2_VV = " << rphi2_VV << std::endl;
+    std::cout << "Gammaphi2totSM = " << Gammaphi2totSM << std::endl;
+    std::cout << "Gamma_phi2gaga = " << Gamma_phi2gaga << std::endl;
+    std::cout << "Gamma_phi2Zga = " << Gamma_phi2Zga << std::endl;
+    std::cout << "Gamma_phi2gg = " << Gamma_phi2gg << std::endl;
+    std::cout << "Gammaphi2_phi1phi1 = " << Gammaphi2_phi1phi1 << std::endl;
+    std::cout << "Gammaphi2_HpHm = " << Gammaphi2_HpHm << std::endl;
+    std::cout << "Gammaphi2_phi1Z = " << Gammaphi2_phi1Z << std::endl;
+    std::cout << "Gammaphi2_HpW = " << Gammaphi2_HpW << std::endl;*/
+
+
     Br_phi2tott=BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta_mt_sq(Mt, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2tobb=BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdE/(beta(Mb, m2_2)*beta(Mb, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2totautau=BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlE/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
@@ -6220,7 +6256,9 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
 double GeneralTHDMcache::computephi3quantities()
 {
     
-    m3 = sqrt(m3_2);
+    m3 = sqrt(mH3sq);
+    m3_2 = mH3sq;
+
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
 
@@ -6831,8 +6869,8 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     if(m2>=  65.0 && m2< 600.0) THoEX_gg_phi2_gaga_ATLAS8=gg_phi2_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(m2);
     if(m3>=  65.0 && m3< 600.0) THoEX_gg_phi3_gaga_ATLAS8=gg_phi3_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(m3);
     if(m2>= 200.0 && m2<2700.0) THoEX_pp_phi2_gaga_ATLAS13=pp_phi2_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m2);
-    if(m3>= 200.0 && m3<2700.0) THoEX_pp_phi3_gaga_ATLAS13=pp_phi3_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m3);
-    if(m2>= 500.0 && m2<4000.0) THoEX_gg_phi2_gaga_CMS13=gg_phi2_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m2);
+    if(m3>= 200.0 && m3<2700.0) THoEX_pp_phi3_gaga_ATLAS13=pp_phi3_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m3);   
+    if(m2>= 500.0 && m2<4000.0) THoEX_gg_phi2_gaga_CMS13=gg_phi2_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m2);    
     if(m3>= 500.0 && m3<4000.0) THoEX_gg_phi3_gaga_CMS13=gg_phi3_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m3);
     if(m2>= 200.0 && m2<1600.0) THoEX_pp_phi2_Zga_llga_ATLAS8=pp_phi2_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m2);
     if(m3>= 200.0 && m3<1600.0) THoEX_pp_phi3_Zga_llga_ATLAS8=pp_phi3_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m3);

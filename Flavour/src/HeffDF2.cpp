@@ -61,15 +61,20 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBd(double mu, schemes schem
     return coeffbd.getCoeff();
 }
 
-gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme, bool SM) 
 {
 
-    std::vector<WilsonCoefficient> mc = model.getMatching().CMdbs2();
-
+    std::vector<WilsonCoefficient> mc;
+    
+    if (SM)
+        mc = model.getMatching().StandardModelMatching::CMdbs2();
+    else
+        mc = model.getMatching().CMdbs2();
+    
     coeffbs.setMu(mu);
     
     coeffbs.setScheme(mc[0].getScheme());
-
+    
     orders ordDF2 = coeffbs.getOrder();
     for (unsigned int i = 0; i < mc.size(); i++){
         ChangeScheme(mc[0].getScheme(),mc[i],ordDF2);

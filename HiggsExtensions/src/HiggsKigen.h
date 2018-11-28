@@ -159,6 +159,13 @@
  *   universal value. The value is controlled by the parameter Kt.
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%UniversalK</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if all K are assumed to take the same 
+ *   universal value. The value is controlled by the parameter Kt. (It does not apply to the extra BR.)
+ *   The default value is FALSE.</td>
+ * </tr>
  * </table>
  *
  * Please read information about parameter initialization and update in the documentation of the %StandardModel class.
@@ -1516,6 +1523,7 @@ private:
     bool FlagKiLoop; ///< A boolean flag that is true if one allows independent kappa's for the loop induced processes (g,ga,Zga)
     bool FlagCustodial; ///< A boolean flag that is true if KZ=KW.
     bool FlagUniversalKf; ///< A boolean flag that is true if all Kf take the same universal value.
+    bool FlagUniversalK; ///< A boolean flag that is true if all K take the same universal value.
 
 };
 

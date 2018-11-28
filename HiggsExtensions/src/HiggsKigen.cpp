@@ -17,6 +17,7 @@ HiggsKigen::HiggsKigen()
     FlagKiLoop = true;
     FlagCustodial = false;
     FlagUniversalKf = false;
+    FlagUniversalK = false;
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kw", boost::cref(Kw)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kz", boost::cref(Kz)));
@@ -57,6 +58,26 @@ bool HiggsKigen::PostUpdate()
         Ke = Kt;
         Kmu = Kt;
         Ktau = Kt;
+    }
+    
+    if (FlagUniversalK) {
+//  Assign to all K the value of Kt 
+        Kz = Kt;
+        Kw = Kt;
+        
+        Ku = Kt;
+        Kc = Kt;
+        Kd = Kt;
+        Ks = Kt;
+        Kb = Kt;
+        Ke = Kt;
+        Kmu = Kt;
+        Ktau = Kt;
+
+//  If the following are given by modifications of SM loops only they will be replaced below        
+        Kg = Kt;
+        Kga = Kt;
+        Kzga = Kt;
     }
 
 //  Then the flag to add the values of the loops to the cache  
@@ -132,6 +153,9 @@ bool HiggsKigen::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("UniversalKf") == 0) {
         FlagUniversalKf = value;
+        res = true;
+    } else if (name.compare("UniversalK") == 0) {
+        FlagUniversalK = value;
         res = true;
     } else
         res = NPbase::setFlag(name, value);
