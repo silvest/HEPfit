@@ -12448,7 +12448,16 @@ double NPSMEFTd6::ppZHprobe(const double sqrt_s) const
     ghZuR = -(eeMz/sW_tree/cW_tree)*(CHu_11 + g1_tree * (1.0/3.0) * CDHB) * v2_over_LambdaNP2;
     ghZdR = -(eeMz/sW_tree/cW_tree)*(CHd_11 - g1_tree * (1.0/6.0) * CDHB) * v2_over_LambdaNP2;   
     
-    if (sqrt_s == 100.0) {
+    if (sqrt_s == 14.0) {
+         
+        gpZ = ghZuL - 0.76 * ghZdL - 0.45 * ghZuR + 0.14 * ghZdR;
+        
+    } else if (sqrt_s == 27.0) {
+        // Use the same as for 14 TeV for the moment 
+        
+        gpZ = ghZuL - 0.76 * ghZdL - 0.45 * ghZuR + 0.14 * ghZdR;
+        
+    } else if (sqrt_s == 100.0) {
          
         gpZ = ghZuL - 0.90 * ghZdL - 0.45 * ghZuR + 0.17 * ghZdR;
         
