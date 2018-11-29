@@ -12,7 +12,7 @@
 #include "gslpp_function_adapter.h"
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
-        = {"CG", "CW", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -94,7 +94,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
-        = {"CG", "CW", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -176,7 +176,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
-        = {"CG", "CW", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
@@ -213,7 +213,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
-        = {"CG", "CW", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
@@ -260,6 +260,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagRotateCHWCHB = false;
     FlagPartialQFU = false;
     FlagFlavU3OfX = false;
+    FlagUnivOfX = false;
     FlagHiggsSM = false;
     FlagLoopHd6 = false;
     setModelLinearized();
@@ -270,6 +271,8 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
 
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CG", boost::cref(CG)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CW", boost::cref(CW)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C2B", boost::cref(C2B)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C2W", boost::cref(C2W)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHG", boost::cref(CHG)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHB", boost::cref(CHB)));
@@ -831,7 +834,23 @@ bool NPSMEFTd6::PostUpdate()
         CHWHB_gagaorth = - cW2_tree * CHW + sW2_tree * CHB;
     }
     
-    if (FlagFlavU3OfX) {
+    if (FlagFlavU3OfX || FlagUnivOfX) {
+        
+        if (FlagUnivOfX) {            
+            CeH_11r = CuH_33r;
+            CeH_22r = CuH_33r;        
+            CeH_33r = CuH_33r;
+                
+            CuH_11r = CuH_33r;            
+            CuH_22r = CuH_33r; 
+        // CuH_33r = CuH_33r;
+
+            CdH_11r = CuH_33r;
+            CdH_22r = CuH_33r;            
+            CdH_33r = CuH_33r;
+        
+        // Currently OfV are only implemented for u quarks so nothing else is needed to apply universality.
+        }        
 
         CeH_11r = Yuke * CeH_11r;
         CeH_22r = Yukmu * CeH_22r;        
@@ -901,6 +920,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CG = value;
     else if (name.compare("CW") == 0)
         CW = value;
+    else if (name.compare("C2B") == 0)
+        C2B = value;
+    else if (name.compare("C2W") == 0)
+        C2W = value;
     else if (name.compare("CHG") == 0)
         CHG = value;
     else if (name.compare("CHW") == 0)
@@ -2051,6 +2074,9 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
         res = true; 
     } else if (name.compare("FlavU3OfX") == 0) {        
         FlagFlavU3OfX = value;
+        res = true; 
+    } else if (name.compare("UnivOfX") == 0) {        
+        FlagUnivOfX = value;
         res = true; 
     } else if (name.compare("HiggsSM") == 0) {        
         FlagHiggsSM = value;
@@ -12567,7 +12593,7 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
             mu += (266.0 * cHWp + 45.6 * cHWp * cHWp) / 925.0;
     
         } else if (pTV1 == 300.){
-            mu += (304.0 * cHWp + 108. * cHWp * cHWp) / 563.0;
+            mu += (304.0 * cHWp + 108.0 * cHWp * cHWp) / 563.0;
 
         } else if (pTV1 == 500.){
             mu += (114.40 * cHWp + 96.8 * cHWp * cHWp) / 85.1 ;

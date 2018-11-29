@@ -74,6 +74,18 @@
  *   \f${\cal O}_{W}=\varepsilon_{abc}W_{\mu}^{a\nu} W_{\nu}^{b\rho}W_{\rho}^{b\mu}\f$. </td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%C2B </td>
+ *   <td class="mod_symb">\f$C_{2B} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C2W </td>
+ *   <td class="mod_symb">\f$C_{2W} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. </td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CHG </td>
  *   <td class="mod_symb">\f$C_{HG} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -403,6 +415,18 @@
  *   \f${\cal O}_{W}=\varepsilon_{abc}W_{\mu}^{a\nu} W_{\nu}^{b\rho}W_{\rho}^{b\mu}\f$. </td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%C2B </td>
+ *   <td class="mod_symb">\f$C_{2B} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C2W </td>
+ *   <td class="mod_symb">\f$C_{2W} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. </td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CHG </td>
  *   <td class="mod_symb">\f$C_{HG} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -684,6 +708,17 @@
  *   The default value is FALSE.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%FlagUnivOfX</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if using @f$U(3)^5@f$ flavour symmetry relations
+ *   in the coefficients of the operators @f$O_{fH}@f$ and @f$O_{fV}@f$ plus they are the same for all fermions. 
+ *   If TRUE, all the operator coefficients are proportional
+ *   to the corresponding Yukawa matrix (diagonal), with the proportionality coefficient given by 
+ *   the Model parameter corresponding to the coefficients of third family for @f$O_{uH}@f$ and @f$O_{uV}@f$, respectively.
+ *   (Implemented only for the real and diagonal elements of the @f$O_{fH}@f$ and @f$O_{fV}@f$ operators.)
+ *   The default value is FALSE.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%HiggsSM</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to TRUE if including dependence on small variations of the SM parameters (dependence is linearized). 
@@ -713,7 +748,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 398;
+    static const int NNPSMEFTd6Vars = 400;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -731,7 +766,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 202;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 204;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -3325,6 +3360,8 @@ protected:
 
     double CG; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
+    double C2B; ///< The dimension-6 operator coefficient \f$C_{2W}\f$.
+    double C2W; ///< The dimension-6 operator coefficient \f$C_{2B}\f$.
     double CHG; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
     double CHW; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
     double CHB; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
@@ -3795,6 +3832,7 @@ private:
     bool FlagRotateCHWCHB; ///< A boolean flag that is true if we use as parameters CHWHB_gaga and CHWHB_gagaorth instead of CHW and CHB.
     bool FlagPartialQFU; ///< A boolean flag that is true if assuming partial quark flavour universality between the 1st and 2nd family in the CHF operators.
     bool FlagFlavU3OfX; ///< A boolean flag that is true if assuming U(3)^5 symmetry in the CfH and CfV operator coefficients.
+    bool FlagUnivOfX; ///< A boolean flag that is true if assuming U(3)^5 symmetry in the CfH and CfV operator coefficients and all proportional to the same coefficient (CuH_33 and CuV_33 respectively).
     bool FlagHiggsSM; ///< A boolean flag that is true if including dependence on small variations of the SM parameters (dependence is linearized). Available only in selected Higgs observables. 
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
 
