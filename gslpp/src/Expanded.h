@@ -16,6 +16,7 @@
 
 #include <vector>
 #include <iostream>
+#include <stdexcept>
 
 #include "gslpp_complex.h"
 #include "gslpp_vector_double.h"
