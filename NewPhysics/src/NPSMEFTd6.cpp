@@ -789,6 +789,20 @@ bool NPSMEFTd6::PostUpdate()
 {
     if (!NPbase::PostUpdate()) return (false);
 
+//  0) Post-update operations not involving SM nor NP parameters    
+    if (!FlagHiggsSM) {
+        cHSM = 0.0;
+    } else {
+        cHSM = 1.0;
+    }
+    
+    if (!FlagLoopHd6) {
+        cLHd6 = 0.0;
+    } else {
+        cLHd6 = 1.0;
+    }
+   
+//  1) Post-update operations involving SM parameters only
     LambdaNP2 = Lambda_NP * Lambda_NP;
     v2 = v() * v();
     v2_over_LambdaNP2 = v2 / LambdaNP2;
@@ -802,6 +816,8 @@ bool NPSMEFTd6::PostUpdate()
     
     g1_tree = eeMz/cW_tree;
     g2_tree = eeMz/sW_tree;
+    
+    lambdaH_tree = mHl*mHl/2.0/v2;
     
     gZvL = (leptons[NEUTRINO_1].getIsospin());
     gZlL = (leptons[ELECTRON].getIsospin()) - (leptons[ELECTRON].getCharge())*sW2_tree;
@@ -825,15 +841,8 @@ bool NPSMEFTd6::PostUpdate()
     Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
     
     dZH = -(9.0/16.0)*( GF*mHl*mHl/sqrt(2.0)/M_PI/M_PI )*( 2.0*M_PI/3.0/sqrt(3.0) - 1.0 );
-      
-    if (FlagRotateCHWCHB) {
-        CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
-        CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
-    } else {
-        CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
-        CHWHB_gagaorth = - cW2_tree * CHW + sW2_tree * CHB;
-    }
-    
+        
+//  2) Post-update operations related to assumptions in the form of the dimension-6 operators 
     if (FlagFlavU3OfX || FlagUnivOfX) {
         
         if (FlagUnivOfX) {            
@@ -875,20 +884,65 @@ bool NPSMEFTd6::PostUpdate()
         CuB_11r = Yuku * CuB_11r;
         CuB_22r = Yukc * CuB_22r;                   
         CuB_33r = Yukt * CuB_33r;
+    }    
+        
+//  C2B and C2W are incorporated by change of basis transformation:
+//  Write here, before working with the dim 6 interactions,
+//  the contributions from O2W and O2B to the other operators.
+//  WARNING: Ignoring contributions to 4 fermion-processes for the moment. IMPORTANT FOR LEP2
+    CHL1_11 = CHL1_11 - (g1_tree*g1_tree/2.0) * C2B;
+    CHL1_22 = CHL1_22 - (g1_tree*g1_tree/2.0) * C2B;
+    CHL1_33 = CHL1_33 - (g1_tree*g1_tree/2.0) * C2B;
+    CHL3_11 = CHL3_11 + (g2_tree*g2_tree/2.0) * C2W;
+    CHL3_22 = CHL3_22 + (g2_tree*g2_tree/2.0) * C2W;
+    CHL3_33 = CHL3_33 + (g2_tree*g2_tree/2.0) * C2W;
+    
+    CHQ1_11 = CHQ1_11 + (g1_tree*g1_tree/6.0) * C2B;
+    CHQ1_22 = CHQ1_22 + (g1_tree*g1_tree/6.0) * C2B;
+    CHQ1_33 = CHQ1_33 + (g1_tree*g1_tree/6.0) * C2B;
+    CHQ3_11 = CHQ3_11 + (g2_tree*g2_tree/2.0) * C2W;
+    CHQ3_22 = CHQ3_22 + (g2_tree*g2_tree/2.0) * C2W;
+    CHQ3_33 = CHQ3_33 + (g2_tree*g2_tree/2.0) * C2W;
+    
+    CHe_11 = CHe_11 - (g1_tree*g1_tree) * C2B;
+    CHe_22 = CHe_22 - (g1_tree*g1_tree) * C2B;
+    CHe_33 = CHe_33 - (g1_tree*g1_tree) * C2B;
+    
+    CHu_11 = CHu_11 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+    CHu_22 = CHu_22 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+    CHu_33 = CHu_33 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+    
+    CHd_11 = CHd_11 - (g1_tree*g1_tree/3.0) * C2B;
+    CHd_22 = CHd_22 - (g1_tree*g1_tree/3.0) * C2B;
+    CHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * C2B;
+    
+    CW = CW + g2_tree * C2W;
+    
+    CHbox = CHbox + (g1_tree*g1_tree/4.0) * C2B + (3.0*g2_tree*g2_tree/4.0) * C2W;
+    CHD = CHD + (g1_tree*g1_tree/4.0) * C2B;
+    CH = CH + (2.0*g2_tree*g2_tree*lambdaH_tree) * C2W;
+    
+    CeH_11r = CeH_11r + (g2_tree*g2_tree*Yuke) * C2W;
+    CeH_22r = CeH_22r + (g2_tree*g2_tree*Yukmu) * C2W;
+    CeH_33r = CeH_33r + (g2_tree*g2_tree*Yuktau) * C2W;
+    
+    CuH_11r = CuH_11r + (g2_tree*g2_tree*Yuku) * C2W;
+    CuH_22r = CuH_22r + (g2_tree*g2_tree*Yukc) * C2W;
+    CuH_33r = CuH_33r + (g2_tree*g2_tree*Yukt) * C2W;
+    
+    CdH_11r = CdH_11r + (g2_tree*g2_tree*Yukd) * C2W;
+    CdH_22r = CdH_22r + (g2_tree*g2_tree*Yuks) * C2W;
+    CdH_33r = CdH_33r + (g2_tree*g2_tree*Yukb) * C2W;
+    
+//  3) Post-update operations working directly with the dimension six operators  
+    if (FlagRotateCHWCHB) {
+        CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
+        CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
+    } else {
+        CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
+        CHWHB_gagaorth = - cW2_tree * CHW + sW2_tree * CHB;
     }
     
-    if (!FlagHiggsSM) {
-        cHSM = 0.0;
-    } else {
-        cHSM = 1.0;
-    }
-    
-    if (!FlagLoopHd6) {
-        cLHd6 = 0.0;
-    } else {
-        cLHd6 = 1.0;
-    }
-
     delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB + sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
     delta_AA = (sW2_tree * CHW + cW2_tree * CHB - sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
     delta_AZ = 2.0 * sW_tree * cW_tree * (CHW - CHB) * v2_over_LambdaNP2

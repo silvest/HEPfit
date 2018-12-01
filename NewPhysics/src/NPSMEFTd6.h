@@ -3755,6 +3755,8 @@ protected:
     double delta_AZ;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.
     double delta_h;///< Combinations of dimension 6 coefficients modifying the \f$H\f$ canonical field definition.
     
+    double lambdaH_tree;///< The SM tree level value of the scalar quartic coupling in the potential.
+    
     double dZH;///< Higgs self-coupling contribution to the universal resummed Higgs wave function renormalization
     
     double cHSM;///< Parameter to control the includion of modifications of SM parameters in selected Higgs processes.
