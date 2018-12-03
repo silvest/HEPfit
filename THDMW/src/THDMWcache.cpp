@@ -41,6 +41,7 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         ATLAS8_pp_Hpm_tb_e(41,2,0.),
         CMS8_pp_Hp_tb(43,2,0.),
         CMS8_pp_Hp_tb_e(43,2,0.),
+        CMS13_bb_H_bb(101,2,0.),
         ATLAS13_pp_Hp_tb(181,2,0.),
 //        ATLAS13_pp_Hp_tb1(71,2,0.),
 //        ATLAS13_pp_Hp_tb2(181,2,0.),
@@ -54,6 +55,7 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         MadGraph_pp_SrSr_jjjj(4200,5,0.),
         MadGraph_pp_Stb_tbtb(4332,4,0.),
         MadGraph_pp_Sitt_tttt(9360,4,0.),
+        MadGraph_pp_Srbb_bbbb(15960,5,0.),
         arraybsgamma(1111, 3, 0.),
         betaeigenvalues(11, 0.)
         //myTHDMW(static_cast<const THDMW*> (&SM_i))
@@ -1412,9 +1414,9 @@ double THDMWcache::interpolate3D(gslpp::matrix<double> arrayTab, double x, doubl
     //std::cout<<"intervalz="<<intervalz<<std::endl;
     if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax){
         std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
-    //    std::cout<<"x="<<x<<std::endl;
-    //    std::cout<<"y="<<y<<std::endl;
-    //    std::cout<<"z="<<z<<std::endl;
+        std::cout<<"x="<<x<<std::endl;
+        std::cout<<"y="<<y<<std::endl;
+        std::cout<<"z="<<z<<std::endl;
         return 0.;
     }
     else{
@@ -1488,10 +1490,10 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     
     if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax||v<vmin||v>vmax){
         std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
-    //    std::cout<<"x="<<x<<std::endl;
-    //    std::cout<<"y="<<y<<std::endl;
-    //    std::cout<<"z="<<z<<std::endl;
-    //    std::cout<<"v="<<v<<std::endl;
+        std::cout<<"x="<<x<<std::endl;
+        std::cout<<"y="<<y<<std::endl;
+        std::cout<<"z="<<z<<std::endl;
+        std::cout<<"v="<<v<<std::endl;
         return 0.;
     }
     else{
@@ -1696,8 +1698,8 @@ void THDMWcache::read(){
     std::stringstream ex4e,ex5e,ex6e,ex7e,ex8e;
     std::stringstream ex9,ex10,ex13;
     std::stringstream ex9e,ex10e,ex13e;
-    std::stringstream ex14, ex15,ex16,ex17;
-    std::stringstream th1,th2,th3,th4,th5,th6;
+    std::stringstream ex14, ex15,ex16,ex17,ex18;
+    std::stringstream th1,th2,th3,th4,th5,th6,th7;
 
     std::stringstream bsg1;
 
@@ -1786,7 +1788,9 @@ void THDMWcache::read(){
     ex10e << tablepath << "150807774_b_e.dat";   
     CMS8_pp_Hp_tb_e = readTable(ex10e.str(),43,2);
     ex17 << tablepath << "180803599.dat";
-    ATLAS13_pp_Hp_tb = readTable(ex17.str(),181,2);  
+    ATLAS13_pp_Hp_tb = readTable(ex17.str(),181,2); 
+    ex18 << tablepath << "180512191.dat";
+    CMS13_bb_H_bb = readTable(ex18.str(),101,2); 
 //    ex11 << tablepath << "ATLAS-CONF-2016-089.dat";
 //    ATLAS13_pp_Hp_tb1 = readTable(ex11.str(),71,2);        
 //    ex11e << tablepath << "ATLAS-CONF-2016-089_e.dat";     
@@ -1823,6 +1827,8 @@ void THDMWcache::read(){
     
     th6 << tablepath << "Generated_data_Soddtt_tttt_Fixed_Steps.dat";
     MadGraph_pp_Sitt_tttt = readTable(th6.str(),9360,4);
+    th7 << tablepath << "Generated_data_Srbb_bbbb_Fixed_Steps.dat";
+    MadGraph_pp_Srbb_bbbb = readTable(th7.str(),15960,5);
     
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
@@ -2221,6 +2227,20 @@ double THDMWcache::ip_ex_pp_SS_jjjj_ATLAS13(double mass){
     }
 }
 
+double THDMWcache::ip_ex_bb_H_bb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_H_bb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_H_bb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_bb_H_bb,mass);
+        CacheShiftReal(ip_ex_bb_H_bb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 
 
 
@@ -2311,6 +2331,21 @@ double THDMWcache::ip_th_pp_Sitt_tttt(double etaD, double etaU, double mS){
     }
 }
 
+
+double THDMWcache::ip_th_pp_Srbb_bbbb(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
+
+    int i = CacheCheckReal(ip_th_pp_Srbb_bbbb_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Srbb_bbbb_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate4D (MadGraph_pp_Srbb_bbbb,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(ip_th_pp_Srbb_bbbb_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 /*
 double THDMWcache::logip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mSr){
     int NumPar = 4;
@@ -2346,6 +2381,7 @@ void THDMWcache::computeHHlimits()
     THoEX_pp_SrSr_jjjj=0.;
     THoEX_pp_Stb_tbtb=0.;
     THoEX_pp_Sitt_tttt=0.;
+    THoEX_pp_Srbb_bbbb=0.;
     
     pp_Sr_tt_TH13 = 1.0e-15;
     pp_Srtt_tttt_TH13 = 1.0e-15;
@@ -2354,6 +2390,7 @@ void THDMWcache::computeHHlimits()
     pp_Stb_tbtb_TH13=1.0e-15;
     pp_Srtt_tttt_TH13 = 1.0e-15;
     pp_Sitt_tttt_TH13 = 1.0e-15;
+    pp_Srbb_bbbb_TH13= 1.0e-15;
     //logpp_SrSr_jjjj_TH13=-15;
     
     
@@ -2370,7 +2407,8 @@ void THDMWcache::computeHHlimits()
     if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_jj_TH13=ip_th_pp_Sr_jj(SqrtEtaD,SqrtEtaU,nu45,mSr);
     if(mSRsq > 1.6001e5 && mSRsq<2.2499e6&& etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_SrSr_jjjj_TH13=ip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
     if(mSpsq > 1.6001e5 && mSpsq<2.2499e6 && etaD*etaD<399.99  && etaU*etaU<56.2499 && mSpsq<(mSRsq+MW*MW) && mSp<=(mSIsq+MW*MW)) pp_Stb_tbtb_TH13=ip_th_pp_Stb_tbtb(SqrtEtaD,SqrtEtaU,mSp);
-    if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && nu45*nu45<168.999 &&  mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Sitt_tttt_TH13=ip_th_pp_Sitt_tttt(SqrtEtaD,SqrtEtaU,mSi);
+    if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Sitt_tttt_TH13=ip_th_pp_Sitt_tttt(SqrtEtaD,SqrtEtaU,mSi);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Srbb_bbbb_TH13=ip_th_pp_Srbb_bbbb(SqrtEtaD,SqrtEtaU,nu45,mSr);
 
     
     //std::cout<<"Sitt="<< interpolate3D(MadGraph_pp_Sitt_tttt,SqrtEtaD,SqrtEtaU,mSi)<<std::endl;
@@ -2385,7 +2423,9 @@ void THDMWcache::computeHHlimits()
     if(mSr>= 500 && mSr<=1500) THoEX_pp_SrSr_jjjj=pp_SrSr_jjjj_TH13/ip_ex_pp_SS_jjjj_ATLAS13(mSr);
     if(mSp>= 400 && mSp<=1500) THoEX_pp_Stb_tbtb=pp_Stb_tbtb_TH13/ip_ex_pp_Hp_tb_ATLAS13(mSp);
     if(mSi>= 400 && mSi<=1000) THoEX_pp_Sitt_tttt=pp_Sitt_tttt_TH13/ip_ex_tt_phi_tt_ATLAS13(mSi);
-
+    if(mSr>= 400 && mSr<=1300) THoEX_pp_Srbb_bbbb=pp_Srbb_bbbb_TH13/ip_ex_bb_H_bb_CMS13(mSr);
+    
+    
     
 }
 

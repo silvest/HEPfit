@@ -112,15 +112,23 @@ public:
     
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to S+ tbar b \to t tbar b bar @f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(S^+ t\bar b \to t\bar t b\bar b)@f$
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S^+  t\bar b}\cdot BR^{\text{THDMW}}(S^+ \to  t b\bar )@f$
      */
     double pp_Stb_tbtb_TH13;
     
    /**
      * @brief Cross section times branching ratio for the process @f$pp\to Si t t\bar \to t\bar t  t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si}\cdot BR^{\text{THDMW}}(Si t\bar t\to t\bar t  t\bar t)@f$
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si}\cdot BR^{\text{THDMW}}(Si \to t\bar t)@f$
      */
     double pp_Sitt_tttt_TH13;
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr b b\bar \to b\bar b  b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     */
+    double pp_Srbb_bbbb_TH13;
+    
     
     /**
      * @brief log of cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
@@ -141,6 +149,8 @@ public:
     double THoEX_pp_Stb_tbtb;
     
     double THoEX_pp_Sitt_tttt;
+    
+    double THoEX_pp_Srbb_bbbb;
     
 
     
@@ -296,6 +306,7 @@ private:
     
     
     //mutable double logip_th_pp_SrSr_jjjj_cache[5][CacheSize];
+    mutable double ip_th_pp_Srbb_bbbb_cache[5][CacheSize];
     mutable double ip_th_pp_Sitt_tttt_cache[4][CacheSize];
     mutable double ip_th_pp_Stb_tbtb_cache[4][CacheSize];
     mutable double ip_th_pp_SrSr_jjjj_cache[5][CacheSize];
@@ -331,6 +342,7 @@ private:
     mutable double ip_ex_pp_Gkk_tt_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_R_gg_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_SS_jjjj_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_H_bb_CMS13_cache[2][CacheSize];
 
     
     
@@ -432,6 +444,12 @@ private:
     
     
     /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> CMS13_bb_H_bb;
+    
+    
+    /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
      */
     gslpp::matrix<double> ATLAS13_pp_Hp_tb;
@@ -488,6 +506,11 @@ private:
      * @brief Table for xsection times branching ratio for p p -> Si tbar t -> t tbar t tbar  generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Sitt_tttt;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Sr bbar b -> b bbar b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Srbb_bbbb;
     
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -725,6 +748,13 @@ private:
      */
     double ip_ex_pp_SS_jjjj_ATLAS13(double mass);  
     
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on pp -> H b bbar  -> b bbar b bbar 
+     * @return xsection times branching ratio
+     * @details CMS arXiv:1805.12191, Fig. 6
+     */
+    double ip_ex_bb_H_bb_CMS13(double mass);  
+    
     
     
     
@@ -769,6 +799,16 @@ private:
      * @details Generated with MadGraph
      */
     double ip_th_pp_Sitt_tttt(double etaD, double etaU, double mass);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr b bbar -> b bbar b bbar
+     * @return xsection times branching ratio of pp -> Sr b bbar-> b bbar b bbar
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Srbb_bbbb(double etaD, double etaU, double Lambda4, double mass);
+    
+    
+    
     
     /**
      * @brief loginterpolating function for the theoretical value of p p -> Sr  Sr ->j j j j 
