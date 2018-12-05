@@ -626,6 +626,15 @@ double m2_2::computeThValue()
     return myGTHDM.getMyGTHDMCache()->m2_2;
 }
 
+m3_2::m3_2(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double m3_2::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->m3_2;
+}
+
 
 
 

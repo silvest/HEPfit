@@ -1284,7 +1284,7 @@ public:
     m1_2(const StandardModel& SM_i);
 
     /**
-     * @return R11_GTHDM
+     * @return m1_2
      */
     double computeThValue();
 private:
@@ -1306,7 +1306,29 @@ public:
     m2_2(const StandardModel& SM_i);
 
     /**
-     * @return R11_GTHDM
+     * @return m2_2
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class m3_2
+ * @ingroup GeneralTHDM 
+ * @brief 
+ */
+class m3_2: public ThObservable {
+public:
+
+    /**
+     * @brief 
+     */
+    m3_2(const StandardModel& SM_i);
+
+    /**
+     * @return m3_2
      */
     double computeThValue();
 private:

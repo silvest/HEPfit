@@ -5966,8 +5966,8 @@ void GeneralTHDMcache::computeSignalStrengths()
 
 double GeneralTHDMcache::computephi2quantities()
 {
-    m2 = sqrt(mH2sq);
-    m2_2 = mH2sq;
+    m2 = sqrt(m2_2);
+  //  m2_2 = mH2sq;
  /*   std::cout << "m2  = " << m2 << std::endl;
     std::cout << "mH2sq = " << mH2sq << std::endl;*/
    
@@ -6256,8 +6256,8 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
 double GeneralTHDMcache::computephi3quantities()
 {
     
-    m3 = sqrt(mH3sq);
-    m3_2 = mH3sq;
+    m3 = sqrt(m3_2);
+//    m3_2 = mH3sq;
 
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
@@ -6950,6 +6950,8 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     if(m3>= 500.0 && m3< 3000.0) THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13=pp_phi3_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m3);  
     if(m2>= 260.0 && m2< 500.0) THoEX_gg_phi2_phi1phi1_gagaWW_ATLAS13=gg_phi2_phi1phi1_gagaWW_TH13/ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(m2);
     if(m3>= 260.0 && m3< 500.0) THoEX_gg_phi3_phi1phi1_gagaWW_ATLAS13=gg_phi3_phi1phi1_gagaWW_TH13/ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(m3);
+    
+    
     if(m2>= 220.0 && m2<1000.0) THoEX_gg_phi2_phi1Z_bbZ_ATLAS8=gg_phi2_phi1Z_bbZ_TH8/ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(m2);
     if(m3>= 220.0 && m3<1000.0) THoEX_gg_phi3_phi1Z_bbZ_ATLAS8=gg_phi3_phi1Z_bbZ_TH8/ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(m3);
     if(m2>= 225.0 && m2< 600.0) THoEX_gg_phi2_phi1Z_bbll_CMS8=gg_phi2_phi1Z_bbll_TH8/ip_ex_gg_phi_phi1Z_bbll_CMS8(m2);
