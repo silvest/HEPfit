@@ -2351,6 +2351,16 @@ double NPSMEFTd6::obliqueU() const
     return 0.0;
 }
 
+double NPSMEFTd6::obliqueW() const
+{
+    return (- g2_tree * g2_tree * C2W * v2_over_LambdaNP2 / 2.0);
+}
+
+double NPSMEFTd6::obliqueY() const
+{
+    return (- g2_tree * g2_tree * C2B * v2_over_LambdaNP2 / 2.0);
+}
+
 /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
 
 double NPSMEFTd6::deltaMz() const
@@ -12895,6 +12905,44 @@ double NPSMEFTd6::lambz_HB() const
     ciHB = -(3.0/2.0)*(eeMz/sW_tree)*CW*v2_over_LambdaNP2;
     
     return ciHB;
+}
+
+////////////////////////////Auxiliary observables//////////////////////////////
+
+double NPSMEFTd6::AuxObs_NP1() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP2() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP3() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP4() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP5() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP6() const
+{
+    // To be used for some temporary observable
+    return 0.0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

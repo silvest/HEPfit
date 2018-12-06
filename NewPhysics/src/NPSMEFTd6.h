@@ -1041,12 +1041,14 @@ public:
 
     /**
      * @brief The oblique parameter \f$S\f$.
+     * (Simplified implementation. Contribution only from @f$O_{HWB}@f$.)
      * @return the value of @f$S@f$
      */
     virtual double obliqueS() const;
 
     /**
      * @brief The oblique parameter \f$T\f$.
+     * (Simplified implementation. Contribution only from @f$O_{HD}@f$.)
      * @return the value of @f$T@f$
      */
     virtual double obliqueT() const;
@@ -1056,6 +1058,20 @@ public:
      * @return the value of @f$U@f$
      */
     virtual double obliqueU() const;
+    
+    /**
+     * @brief The oblique parameter \f$W\f$.
+     * (Simplified implementation. Contribution only from @f$O_{2W}@f$.)
+     * @return the value of @f$W@f$
+     */
+    virtual double obliqueW() const;
+
+    /**
+     * @brief The oblique parameter \f$Y\f$.
+     * (Simplified implementation. Contribution only from @f$O_{2B}@f$.)
+     * @return the value of @f$Y@f$
+     */
+    virtual double obliqueY() const;
     
     
     /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
@@ -3347,6 +3363,50 @@ public:
      * @return @f$\lambda_{z}@f$
      */
     virtual double lambz_HB() const;
+    
+    /////////////Auxiliary observables////////////////
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP1
+     * (See code for details.)
+     * @return AuxObs_NP1
+     */
+    virtual double AuxObs_NP1() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP2
+     * (See code for details.)
+     * @return AuxObs_NP2
+     */
+    virtual double AuxObs_NP2() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP3
+     * (See code for details.)
+     * @return AuxObs_NP3
+     */
+    virtual double AuxObs_NP3() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP4
+     * (See code for details.)
+     * @return AuxObs_NP4
+     */
+    virtual double AuxObs_NP4() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP5
+     * (See code for details.)
+     * @return AuxObs_NP5
+     */
+    virtual double AuxObs_NP5() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP6
+     * (See code for details.)
+     * @return AuxObs_NP6
+     */
+    virtual double AuxObs_NP6() const;
     
     ////////////////////////////////////////////////////////////////////////
 protected:

@@ -139,6 +139,24 @@ public:
     {
         return 0.;
     }
+    
+    /**
+     * @brief The oblique parameter \f$W\f$.
+     * @return the value of @f$W@f$
+     */
+    virtual double obliqueW() const
+    {
+        return 0.;
+    }
+    
+    /**
+     * @brief The oblique parameter \f$Y\f$.
+     * @return the value of @f$Y@f$
+     */
+    virtual double obliqueY() const
+    {
+        return 0.;
+    }
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -1819,6 +1837,62 @@ public:
      * @return @f$\lambda_{z}@f$
      */
     virtual double lambz_HB() const
+    {
+        return 0.0;
+    }
+    
+    /////////////Auxiliary observables////////////////
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP1
+     * @return AuxObs_NP1
+     */
+    virtual double AuxObs_NP1() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP2
+     * @return AuxObs_NP2
+     */
+    virtual double AuxObs_NP2() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP3
+     * @return AuxObs_NP3
+     */
+    virtual double AuxObs_NP3() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP4
+     * @return AuxObs_NP4
+     */
+    virtual double AuxObs_NP4() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP5
+     * @return AuxObs_NP5
+     */
+    virtual double AuxObs_NP5() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP6
+     * @return AuxObs_NP6
+     */
+    virtual double AuxObs_NP6() const
     {
         return 0.0;
     }
