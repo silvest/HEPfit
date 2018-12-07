@@ -12999,7 +12999,233 @@ double NPSMEFTd6::AuxObs_NP5() const
 double NPSMEFTd6::AuxObs_NP6() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // HL-LHC DiHiggs invariant mass distribution: 14 TeV 3/ab
+
+//  NP in decays
+    double dGH2,dGgaga,dGbb, dBRTot;
+    
+//  Contributions from the different bins    
+    double Bin1,Bin2,Bin3,Bin4,Bin5,Bin6;
+    double LLBin1, LLBin2, LLBin3, LLBin4, LLBin5, LLBin6;
+
+//  Higgs basis parameters
+    double dcZHB,cZboxHB,cZZHB,cZgaHB,cgagaHB,cggHB;
+    double dytHB,dybHB,dytauHB;
+    double dKlambda;
+    
+    dcZHB = deltacZ_HB();
+    cZboxHB = cZBox_HB();
+    cZZHB = cZZ_HB();
+    
+// In the paper it seems they use diff. norm but in the chi 2.nb
+//  they translate into that convention, so I assume their calculation
+//  is directly in the HB for the following 3 couplings 
+    cZgaHB = cZga_HB();
+    cgagaHB = cgaga_HB();
+    cggHB = cgg_HB();
+
+    dytHB = deltayt_HB();
+    dybHB = deltayb_HB();
+    dytauHB = deltaytau_HB();
+    
+    dKlambda = deltaG_hhhRatio();
+        
+//  Corrections to the different Higgs widths
+    dGH2 = 1. + 0.010512791990056657 * cZboxHB 
+            -  0.003819752423722165 * cZZHB + 0.0016024991450954641 * cZgaHB 
+            -  0.0005968238492400916 * (2.8975474398595105 * cZboxHB 
+            +  1.8975474398595107 * cZZHB - cZgaHB - 0.3426378481886507 * cgagaHB) 
+            +  0.0990750425382019 * (1.4487737199297552 * cZboxHB + 0.44877371992975534 * cZZHB 
+            -  0.2365019764475461 * cZgaHB - 0.08103452830235015 * cgagaHB) 
+            -  0.0330404571742506 * (cZZHB + 0.4730039528950922 * cZgaHB + 0.055933184863595636 * cgagaHB) 
+            -  0.00033171593951211893 * cgagaHB + 0.48287726036165796 * dcZHB 
+            +  1.1541846695471276 * dybHB + 0.12642022723635785 * dytauHB 
+            +  0.1704272683629381 * (0. + 118.68284969347252 * cggHB 
+            -  0.031082871395970327 * dybHB + 1.034601498835783 * dytHB) 
+            +  0.004560729716754681 * (0. - 12.079950077697095 * cgagaHB 
+            +  1.2739859351743013 * dcZHB + 0.0022136399615102554 * dybHB 
+            -  0.28081416399029446 * dytHB + 0.0036305606562964158 * dytauHB) 
+            +  0.003080492878860618 * (0. - 17.021015025105033 * cZgaHB 
+            +  1.0557935963831278 * dcZHB + 0.0006235357344154619 * dybHB 
+            -  0.05644023795399054 * dytHB + 0.000023105836447458856 * dytauHB);
+    
+    dGH2 = dGH2 * dGH2;
+    
+    dGgaga = 1.0 + 2.0 * (0. - 12.079950077697095 * cgagaHB 
+            + 1.2739859351743013 * dcZHB + 0.0022136399615102554 * dybHB 
+            - 0.28081416399029446 * dytHB + 0.0036305606562964158 * dytauHB);
+    
+    dGbb = 1.0 + 2.0 * dybHB;
+    
+    dBRTot = dGbb * dGgaga / dGH2;
+    
+    // Bin 1
+    Bin1 = 0.17*(1.0 + 3.9863794294589585 * cggHB 
+            +    21.333394807321064 * cggHB*cggHB + 3.9527789724382836 * dcZHB 
+            +    0.5566823785534646 * cggHB*dcZHB + 9.077153576669469 * dcZHB*dcZHB 
+            -    7.713285621354339 * dytHB + 6.573887966178747 * cggHB*dytHB 
+            -    45.88983201032187 * dcZHB*dytHB + 62.42156375416841 * dytHB*dytHB 
+            +    4.257555672380181 * cggHB*dytHB*dytHB +   4.620310477256665 * dcZHB*dytHB*dytHB 
+            -    9.403185493195476 * dytHB*dytHB*dytHB +   1.1563473213070041 * dytHB*dytHB*dytHB*dytHB 
+            -    0.14505129596051047 * dKlambda -    0.1418831193390564 * cggHB*dKlambda 
+            +    1.3502693869386464 * cggHB*cggHB*dKlambda -   0.6675315048183816 * dcZHB*dKlambda 
+            -    0.002999558395846163 * cggHB*dcZHB*dKlambda 
+            +    1.5448485758806263 * dytHB * dKlambda 
+            -    0.005002986050963205 * cggHB*dytHB*dKlambda 
+            -    0.6675315048183816 * dcZHB*dytHB * dKlambda 
+            +    1.5222565251876392 * dytHB*dytHB * dKlambda 
+            +    0.1278814581005547 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.1676433466534976 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.011296025346493552 * dKlambda*dKlambda 
+            +    0.0014116654816114353 * cggHB*dKlambda*dKlambda 
+            +    0.022260157195710357 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.022592050692987104 * dytHB * dKlambda*dKlambda 
+            +    0.0014116654816114353 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.011296025346493552 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin1 = Bin1 * dBRTot;
+    
+    // Delta chi2 = -2*LL for the bin
+    LLBin1 = 2.0 * (0.67944 + Bin1 - 0.84944 + 0.84944 * log( 0.84944 / (0.67944 + Bin1) ) );
+    
+    // Bin 2
+    Bin2 = 0.33*(1.0 + 1.8019627645351037 * cggHB 
+            +    7.953163597932105 * cggHB*cggHB + 3.735123481549394 * dcZHB 
+            -    2.654186900737259 * cggHB*dcZHB + 6.403420811368324 * dcZHB*dcZHB 
+            -    6.991501690350679 * dytHB + 11.425848100026737 * cggHB*dytHB 
+            -    30.219763494155394 * dcZHB*dytHB + 39.692409895713936 * dytHB*dytHB 
+            +    1.661324633279857 * cggHB*dytHB*dytHB +    4.46563789250516 * dcZHB*dytHB*dytHB 
+            -    8.710706509282613 * dytHB*dytHB*dytHB +    1.2361692069676826 * dytHB*dytHB*dytHB*dytHB 
+            -    0.21386875429750188 * dKlambda +    0.2363972133088796 * cggHB*dKlambda 
+            +    0.8549707073528667 * cggHB*cggHB*dKlambda -    0.7305144109557659 * dcZHB*dKlambda 
+            -    0.14136602060890807 * cggHB*dcZHB*dKlambda +    1.50533606463443 * dytHB * dKlambda 
+            +    0.747017712869579 * cggHB*dytHB*dKlambda -    0.7305144109557659 * dcZHB*dytHB * dKlambda 
+            +    1.4607351592940678 * dytHB*dytHB * dKlambda 
+            +    0.08652243773397514 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.25846965963786395 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.022300452670181038 * dKlambda*dKlambda +    0.009236644319657653 * cggHB*dKlambda*dKlambda 
+            +    0.023125582948149842 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.044600905340362075 * dytHB * dKlambda*dKlambda 
+            +    0.009236644319657653 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.022300452670181038 * dytHB*dytHB * dKlambda*dKlambda) ;
+    
+    Bin2 = Bin2 * dBRTot;
+    
+    // Delta chi2 = -2*LL for the bin
+    LLBin2 = 2.0 * (1.4312 + Bin2 - 1.7612 + 1.7612 * log( 1.7612 / (1.4312 + Bin2) ) );
+    
+    // Bin 3
+    Bin3 = 0.99*(1.0 + 0.6707152151845268 * cggHB 
+            +    4.113022405261353 * cggHB*cggHB + 3.4241906309399726 * dcZHB 
+            -    2.9926046286644703 * cggHB*dcZHB + 4.72026565086762 * dcZHB*dcZHB 
+            -    5.98522416048399 * dytHB + 10.012680455917307 * cggHB*dytHB 
+            -    20.69102310585157 * dcZHB*dytHB + 26.4871108999121 * dytHB*dytHB 
+            +    0.36415135473936855 * cggHB*dytHB*dytHB 
+            +    4.206380168414172 * dcZHB*dytHB*dytHB - 7.688318821918381 * dytHB*dytHB*dytHB 
+            +    1.3217369754941033 * dytHB*dytHB*dytHB*dytHB - 0.2873477323359291 * dKlambda 
+            +    0.35631144357921507 * cggHB*dKlambda 
+            +    0.6197019283831009 * cggHB*cggHB*dKlambda 
+            -    0.7821895374741993 * dcZHB*dKlambda 
+            -    0.23172596419155064 * cggHB*dcZHB*dKlambda 
+            +    1.415746929098462 * dytHB * dKlambda 
+            +    1.0816714186441074 * cggHB*dytHB*dKlambda 
+            -    0.7821895374741993 * dcZHB*dytHB * dKlambda 
+            +    1.3469684427821131 * dytHB*dytHB * dKlambda 
+            +    0.030182082490240562 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.35612621865227795 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.03438924315817444 * dKlambda*dKlambda 
+            +    0.019565500643816278 * cggHB*dKlambda*dKlambda 
+            +    0.02382411268034237 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.06877848631634888 * dytHB * dKlambda*dKlambda 
+            +    0.019565500643816278 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.03438924315817444 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin3 = Bin3 * dBRTot;
+    
+    // Delta chi2 = -2*LL for the bin
+    LLBin3 = 2.0 * (1.9764 + Bin3 - 2.9664 + 2.9664 * log( 2.9664 / (1.9764 + Bin3) ) );
+    
+    // Bin 4
+    Bin4 = 2.86*(1.0 - 0.27406342847042814 * cggHB 
+            +    1.9597360046161074 * cggHB*cggHB + 3.0113078755334115 * dcZHB 
+            -    2.776019265892887 * cggHB*dcZHB + 3.1917709639679823 * dcZHB*dcZHB 
+            -    4.6362529563760955 * dytHB + 7.377234185667426 * cggHB*dytHB 
+            -    12.294598143269557 * dcZHB*dytHB + 15.407456380301479 * dytHB*dytHB 
+            -    0.6767601835408067 * cggHB*dytHB*dytHB 
+            +    3.844719765004924 * dcZHB*dytHB*dytHB 
+            -    6.227970053277897 * dytHB*dytHB*dytHB +    1.4542592857563688 * dytHB*dytHB*dytHB*dytHB 
+            -    0.39767067022413716 * dKlambda +    0.3661464075997459 * cggHB*dKlambda 
+            +    0.4464409042746693 * cggHB*cggHB*dKlambda 
+            -    0.8334118894715125 * dcZHB*dKlambda 
+            -    0.3263197431214281 * cggHB*dcZHB*dKlambda 
+            +    1.1940464266776625 * dytHB * dKlambda 
+            +    1.2643073873631234 * cggHB*dytHB*dKlambda 
+            -    0.8334118894715125 * dcZHB*dytHB * dKlambda 
+            +    1.0808691956131988 * dytHB*dytHB * dKlambda 
+            -    0.0807982496009068 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.5108479012886007 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.05658861553223176 * dKlambda*dKlambda 
+            +    0.04424790213027415 * cggHB*dKlambda*dKlambda 
+            +    0.02585578262020257 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.11317723106446352 * dytHB * dKlambda*dKlambda 
+            +    0.04424790213027415 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.05658861553223176 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin4 = Bin4 * dBRTot;
+    
+    // Delta chi2 = -2*LL for the bin
+    LLBin4 = 2.0 * (5.167 + Bin4 - 8.027 + 8.027 * log( 8.027 / (5.167 + Bin4) ) );
+    
+    // Bin 5
+    Bin5 = 6.34* (1.0 - 1.094329254675176 * cggHB 
+            +    1.0393648302909912 * cggHB*cggHB + 2.6000916816530903 * dcZHB 
+            -    2.4448264513323226 * cggHB*dcZHB + 2.073935963891534 * dcZHB*dcZHB 
+            -    3.192332240205929 * dytHB + 4.5914586198385 * cggHB*dytHB 
+            -    6.2871857258718595 * dcZHB*dytHB + 8.134770266934664 * dytHB*dytHB 
+            -    1.648691479483292 * cggHB*dytHB*dytHB +    3.5563383758242524 * dcZHB*dytHB*dytHB 
+            -    4.615570013047001 * dytHB*dytHB*dytHB +    1.7227511548362076 * dytHB*dytHB*dytHB*dytHB 
+            -    0.6079428047533413 * dKlambda +    0.33825211279194234 * cggHB*dKlambda 
+            +    0.3879052211526028 * cggHB*cggHB*dKlambda -    0.956246694171162 * dcZHB*dKlambda 
+            -    0.4572431444456198 * cggHB*dcZHB*dKlambda +    0.8152949680877302 * dytHB * dKlambda 
+            +    1.3814632626914451 * cggHB*dytHB*dKlambda 
+            -    0.956246694171162 * dcZHB*dytHB * dKlambda +    0.5856782679219981 * dytHB*dytHB * dKlambda 
+            -    0.3285182834373566 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.8375595049190734 * dytHB*dytHB*dytHB * dKlambda +    0.11480835008286604 * dKlambda*dKlambda 
+            +    0.11240817142118299 * cggHB*dKlambda*dKlambda +    0.03688252014841459 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.22961670016573207 * dytHB * dKlambda*dKlambda 
+            +    0.11240817142118299 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.11480835008286604 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin5 = Bin5 * dBRTot;
+    
+    // Delta chi2 = -2*LL for the bin
+    LLBin5 = 2.0 * (15.93 + Bin5 - 22.27 + 22.27 * log( 22.27 / (15.93 + Bin5) ) );
+    
+    // Bin 6
+    Bin6 = 2.14*(1.0 - 2.007855065799201 * cggHB + 1.1994575008850934 * cggHB*cggHB 
+            +    2.5987763498382352 * dcZHB - 2.908713303420072 * cggHB*dcZHB 
+            +    1.804645897901265 * dcZHB*dcZHB - 2.806900956988577 * dytHB 
+            +    3.5621616844486415 * cggHB*dytHB - 4.250685020965587 * dcZHB*dytHB 
+            +    5.7468374752045515 * dytHB*dytHB - 3.1561231600123736 * cggHB*dytHB*dytHB 
+            +    3.9784140166037667 * dcZHB*dytHB*dytHB - 4.4303353405513395 * dytHB*dytHB*dytHB 
+            +    2.257739308366916 * dytHB*dytHB*dytHB*dytHB - 0.9894280925261291 * dKlambda 
+            +    0.589956279744333 * cggHB*dKlambda +   0.6687315933211253 * cggHB*cggHB*dKlambda 
+            -    1.3796376667655315 * dcZHB*dKlambda -    0.8069993678124955 * cggHB*dcZHB*dKlambda 
+            +    0.6340062910366335 * dytHB * dKlambda +    2.127573647123277 * cggHB*dytHB*dKlambda 
+            -    1.3796376667655315 * dcZHB*dytHB * dKlambda +   0.09738385935505989 * dytHB*dytHB * dKlambda 
+            -    0.8833807360585424 * cggHB*dytHB*dytHB * dKlambda -    1.5260505242077027 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.2683112158407868 * dKlambda*dKlambda +   0.32506892158970235 * cggHB*dKlambda*dKlambda 
+            +    0.09418943796384227 * cggHB*cggHB*dKlambda*dKlambda +    0.5366224316815736 * dytHB * dKlambda*dKlambda 
+            +    0.32506892158970235 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.2683112158407868 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin6 = Bin6 * dBRTot;
+    
+    // Delta chi2 = -2*LL for the bin
+    LLBin6 = 2.0 * (12.01 + Bin6 - 14.15 + 14.15 * log( 14.15 / (12.01 + Bin6) ) );
+        
+    return (LLBin1 + LLBin2 + LLBin3 + LLBin4 + LLBin5 + LLBin6);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
