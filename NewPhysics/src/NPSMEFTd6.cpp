@@ -12915,7 +12915,7 @@ double NPSMEFTd6::AuxObs_NP1() const
     
     // WY analysis at 13 TeV for HL-LHC 3/ab
     double Wpar, Ypar, Wpar2, Ypar2;
-    double Chi2NC13, Chi2CC13;
+    double Chi2NC13, Chi2CC13, Chi2Tot;
     
     Wpar = 10000.0 * obliqueW();
     Ypar = 10000.0 * obliqueY();
@@ -12930,8 +12930,10 @@ double NPSMEFTd6::AuxObs_NP1() const
             + Wpar * Ypar * (7.988302197022343 + Ypar * (-0.5450119819316416 + 0.0050292149953719766 * Ypar)) 
             + Wpar2 * (5.68581760491364 + Ypar * (-0.5794111075840261 + 0.048026245835369625 * Ypar));
     
+    Chi2Tot = Chi2CC13 + Chi2NC13;
     
-    return Chi2CC13 + Chi2NC13;
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP2() const
@@ -12941,7 +12943,7 @@ double NPSMEFTd6::AuxObs_NP2() const
     // WY analysis at 13 TeV for HL-LHC 3/ab for the CC
     // WY analysis at 27 TeV for HE-LHC 15/ab for the NC. 5% systematics (corr and uncorr)
     double Wpar, Ypar, Wpar2, Ypar2;
-    double Chi2NC27, Chi2CC13;
+    double Chi2NC27, Chi2CC13, Chi2Tot;
     
     Wpar = 10000.0 * obliqueW();
     Ypar = 10000.0 * obliqueY();
@@ -12956,7 +12958,10 @@ double NPSMEFTd6::AuxObs_NP2() const
             + Ypar2 * (81.01075991905888 + Ypar * (-58.822719932531164 + 14.670206406369107 * Ypar)) 
             + Wpar2 * (0.013670787790194357 + Ypar * (-86.48485007990255 + 35.67671393730628 * Ypar));
     
-    return Chi2CC13 + Chi2NC27;
+    Chi2Tot = Chi2CC13 + Chi2NC27;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP3() const
@@ -12966,7 +12971,7 @@ double NPSMEFTd6::AuxObs_NP3() const
     // WY analysis at 13 TeV for HL-LHC 3/ab for the CC
     // WY analysis at 27 TeV for HE-LHC 15/ab for the NC. 1% systematics (corr and uncorr)
     double Wpar, Ypar, Wpar2, Ypar2;
-    double Chi2NC27, Chi2CC13;
+    double Chi2NC27, Chi2CC13, Chi2Tot;
     
     Wpar = 10000.0 * obliqueW();
     Ypar = 10000.0 * obliqueY();
@@ -12980,8 +12985,11 @@ double NPSMEFTd6::AuxObs_NP3() const
             + Wpar * Ypar * (0.025311721255992683 + Ypar * (-93.18990615818014 + 6.8250043104055816 * Ypar)) 
             + Ypar2 * (97.52107126224298 + Ypar * (-67.961770347904945 + 16.80046890875678 * Ypar)) 
             + Wpar2 * (166.84179829911304 + Ypar * (-100.88118582829852 + 41.55424691040131 * Ypar));
+        
+    Chi2Tot = Chi2CC13 + Chi2NC27;
     
-    return Chi2CC13 + Chi2NC27;
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP4() const
@@ -13001,6 +13009,8 @@ double NPSMEFTd6::AuxObs_NP6() const
     // To be used for some temporary observable
     
     // HL-LHC DiHiggs invariant mass distribution: 14 TeV 3/ab
+    
+    double Chi2Tot;
 
 //  NP in decays
     double dGH2,dGgaga,dGbb, dBRTot;
@@ -13224,8 +13234,12 @@ double NPSMEFTd6::AuxObs_NP6() const
     
     // Delta chi2 = -2*LL for the bin
     LLBin6 = 2.0 * (12.01 + Bin6 - 14.15 + 14.15 * log( 14.15 / (12.01 + Bin6) ) );
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = LLBin1 + LLBin2 + LLBin3 + LLBin4 + LLBin5 + LLBin6;
         
-    return (LLBin1 + LLBin2 + LLBin3 + LLBin4 + LLBin5 + LLBin6);
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
