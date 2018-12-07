@@ -82,7 +82,6 @@
       <itemPath>src/BR_Kmumu.cpp</itemPath>
       <itemPath>src/BR_Kp0nunu.cpp</itemPath>
       <itemPath>src/BR_Kppnunu.cpp</itemPath>
-      <itemPath>src/BXqll.cpp</itemPath>
       <itemPath>src/BXqllObservables.cpp</itemPath>
       <itemPath>src/BdmumuOBsmumu.cpp</itemPath>
       <itemPath>src/Betas_JPsiPhi.cpp</itemPath>
@@ -497,8 +496,6 @@
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BXqll.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/BXqll.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BXqllObservables.cpp" ex="false" tool="1" flavor2="0">
@@ -759,8 +756,6 @@
       <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BXqll.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BXqll.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1025,8 +1020,6 @@
       <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BXqll.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BXqll.h" ex="false" tool="3" flavor2="0">
       </item>
