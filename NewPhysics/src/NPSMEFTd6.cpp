@@ -12912,19 +12912,76 @@ double NPSMEFTd6::lambz_HB() const
 double NPSMEFTd6::AuxObs_NP1() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // WY analysis at 13 TeV for HL-LHC 3/ab
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2NC13, Chi2CC13;
+    
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
+    
+    Chi2NC13 = 0.032772034538390675 * Wpar2*Wpar2 + 2.815243944990361 * Ypar2 - 0.36522061776278516 * Ypar2*Ypar 
+            + 0.017375258924241194 * Ypar2*Ypar2 + Wpar2*Wpar * (-0.7059117582389635 + 0.006816297425306027 * Ypar) 
+            + Wpar * Ypar * (7.988302197022343 + Ypar * (-0.5450119819316416 + 0.0050292149953719766 * Ypar)) 
+            + Wpar2 * (5.68581760491364 + Ypar * (-0.5794111075840261 + 0.048026245835369625 * Ypar));
+    
+    
+    return Chi2CC13 + Chi2NC13;
 }
 
 double NPSMEFTd6::AuxObs_NP2() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // WY analysis at 13 TeV for HL-LHC 3/ab for the CC
+    // WY analysis at 27 TeV for HE-LHC 15/ab for the NC. 5% systematics (corr and uncorr)
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2NC27, Chi2CC13;
+    
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
+    
+    Chi2NC27 = 21.139285368181907 * Wpar2*Wpar2 + Wpar2*Wpar * (-89.16828370317616 + 7.182929295852857 * Ypar) 
+            + Wpar * Ypar * (0.02088092257396059 + Ypar * (-81.00102926445666 + 6.203591096144735 * Ypar)) 
+            + Ypar2 * (81.01075991905888 + Ypar * (-58.822719932531164 + 14.670206406369107 * Ypar)) 
+            + Wpar2 * (0.013670787790194357 + Ypar * (-86.48485007990255 + 35.67671393730628 * Ypar));
+    
+    return Chi2CC13 + Chi2NC27;
 }
 
 double NPSMEFTd6::AuxObs_NP3() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // WY analysis at 13 TeV for HL-LHC 3/ab for the CC
+    // WY analysis at 27 TeV for HE-LHC 15/ab for the NC. 1% systematics (corr and uncorr)
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2NC27, Chi2CC13;
+    
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
+    
+    Chi2NC27 = 25.148424251427552 * Wpar2*Wpar2 + Wpar2*Wpar * (-105.31753344410277 + 8.01723084630248 * Ypar) 
+            + Wpar * Ypar * (0.025311721255992683 + Ypar * (-93.18990615818014 + 6.8250043104055816 * Ypar)) 
+            + Ypar2 * (97.52107126224298 + Ypar * (-67.961770347904945 + 16.80046890875678 * Ypar)) 
+            + Wpar2 * (166.84179829911304 + Ypar * (-100.88118582829852 + 41.55424691040131 * Ypar));
+    
+    return Chi2CC13 + Chi2NC27;
 }
 
 double NPSMEFTd6::AuxObs_NP4() const
