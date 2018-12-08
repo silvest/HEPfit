@@ -731,6 +731,14 @@
  *   <td class="mod_desc">This flag is set to TRUE if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%LoopH3d6Quad</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if including quadratic modifications in the SM loops in Higgs observables due 
+ *   to the dim 6 interactions that contribute to the trilinear Higgs coupling. 
+ *   Works independently of the flag QuadraticTerms (the quadratic contributions are also added if the latter is true).
+ *   The default value is FALSE.</td>
+ * </tr>
  * 
  * 
  * </table>
@@ -3819,9 +3827,11 @@ protected:
     
     double dZH;///< Higgs self-coupling contribution to the universal resummed Higgs wave function renormalization
     
-    double cHSM;///< Parameter to control the includion of modifications of SM parameters in selected Higgs processes.
+    double cHSM;///< Parameter to control the inclusion of modifications of SM parameters in selected Higgs processes.
     
-    double cLHd6;///< Parameter to control the includion of modifications of SM loops in Higgs processes due to dim 6 interactions.
+    double cLHd6;///< Parameter to control the inclusion of modifications of SM loops in Higgs processes due to dim 6 interactions.
+    
+    double cLH3d62;///< Parameter to control the inclusion of modifications of SM loops in Higgs processes due to dim 6 interactions modifying the Higgs trilinear coupling (Quadratic terms).
 
     double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
     double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
@@ -3897,6 +3907,7 @@ private:
     bool FlagUnivOfX; ///< A boolean flag that is true if assuming U(3)^5 symmetry in the CfH and CfV operator coefficients and all proportional to the same coefficient (CuH_33 and CuV_33 respectively).
     bool FlagHiggsSM; ///< A boolean flag that is true if including dependence on small variations of the SM parameters (dependence is linearized). Available only in selected Higgs observables. 
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
+    bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
 
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour
