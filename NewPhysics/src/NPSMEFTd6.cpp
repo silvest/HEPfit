@@ -897,49 +897,60 @@ bool NPSMEFTd6::PostUpdate()
 //  Write here, before working with the dim 6 interactions,
 //  the contributions from O2W and O2B to the other operators.
 //  WARNING: Ignoring contributions to 4 fermion-processes for the moment. IMPORTANT FOR LEP2
-    CHL1_11 = CHL1_11 - (g1_tree*g1_tree/2.0) * C2B;
-    CHL1_22 = CHL1_22 - (g1_tree*g1_tree/2.0) * C2B;
-    CHL1_33 = CHL1_33 - (g1_tree*g1_tree/2.0) * C2B;
-    CHL3_11 = CHL3_11 + (g2_tree*g2_tree/2.0) * C2W;
-    CHL3_22 = CHL3_22 + (g2_tree*g2_tree/2.0) * C2W;
-    CHL3_33 = CHL3_33 + (g2_tree*g2_tree/2.0) * C2W;
     
-    CHQ1_11 = CHQ1_11 + (g1_tree*g1_tree/6.0) * C2B;
-    CHQ1_22 = CHQ1_22 + (g1_tree*g1_tree/6.0) * C2B;
-    CHQ1_33 = CHQ1_33 + (g1_tree*g1_tree/6.0) * C2B;
-    CHQ3_11 = CHQ3_11 + (g2_tree*g2_tree/2.0) * C2W;
-    CHQ3_22 = CHQ3_22 + (g2_tree*g2_tree/2.0) * C2W;
-    CHQ3_33 = CHQ3_33 + (g2_tree*g2_tree/2.0) * C2W;
+//  WARNING: if some of the parameters below, e.g. CHL1_11, are not floating in the fit this will
+//  create a problem since the value generated below CHL1_11 will propagate to the next iteration
+//  generating an uncontrolled value of the parameter.
+//  (This is so because SetParameters is not called for non-floating parameters.)
+//  Possible fix: Not modify model parameters but save everything into internal replicas
+//  of each model relevant model par. Those then have to be used in the calculations.
+//  Comment out the following lines until this is resolved
+//    CHL1_11 = CHL1_11 - (g1_tree*g1_tree/2.0) * C2B;
+//    CHL1_22 = CHL1_22 - (g1_tree*g1_tree/2.0) * C2B;
+//    CHL1_33 = CHL1_33 - (g1_tree*g1_tree/2.0) * C2B;
+//    CHL3_11 = CHL3_11 + (g2_tree*g2_tree/2.0) * C2W;
+//    CHL3_22 = CHL3_22 + (g2_tree*g2_tree/2.0) * C2W;
+//    CHL3_33 = CHL3_33 + (g2_tree*g2_tree/2.0) * C2W;
     
-    CHe_11 = CHe_11 - (g1_tree*g1_tree) * C2B;
-    CHe_22 = CHe_22 - (g1_tree*g1_tree) * C2B;
-    CHe_33 = CHe_33 - (g1_tree*g1_tree) * C2B;
+//    CHQ1_11 = CHQ1_11 + (g1_tree*g1_tree/6.0) * C2B;
+//    CHQ1_22 = CHQ1_22 + (g1_tree*g1_tree/6.0) * C2B;
+//    CHQ1_33 = CHQ1_33 + (g1_tree*g1_tree/6.0) * C2B;
+//    CHQ3_11 = CHQ3_11 + (g2_tree*g2_tree/2.0) * C2W;
+//    CHQ3_22 = CHQ3_22 + (g2_tree*g2_tree/2.0) * C2W;
+//    CHQ3_33 = CHQ3_33 + (g2_tree*g2_tree/2.0) * C2W;
     
-    CHu_11 = CHu_11 + (2.0*g1_tree*g1_tree/3.0) * C2B;
-    CHu_22 = CHu_22 + (2.0*g1_tree*g1_tree/3.0) * C2B;
-    CHu_33 = CHu_33 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+//    CHe_11 = CHe_11 - (g1_tree*g1_tree) * C2B;
+//    CHe_22 = CHe_22 - (g1_tree*g1_tree) * C2B;
+//    CHe_33 = CHe_33 - (g1_tree*g1_tree) * C2B;
     
-    CHd_11 = CHd_11 - (g1_tree*g1_tree/3.0) * C2B;
-    CHd_22 = CHd_22 - (g1_tree*g1_tree/3.0) * C2B;
-    CHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * C2B;
+//    CHu_11 = CHu_11 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+//    CHu_22 = CHu_22 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+//    CHu_33 = CHu_33 + (2.0*g1_tree*g1_tree/3.0) * C2B;
     
-    CW = CW + g2_tree * C2W;
+//    CHd_11 = CHd_11 - (g1_tree*g1_tree/3.0) * C2B;
+//    CHd_22 = CHd_22 - (g1_tree*g1_tree/3.0) * C2B;
+//    CHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * C2B;
     
-    CHbox = CHbox + (g1_tree*g1_tree/4.0) * C2B + (3.0*g2_tree*g2_tree/4.0) * C2W;
-    CHD = CHD + (g1_tree*g1_tree/4.0) * C2B;
-    CH = CH + (2.0*g2_tree*g2_tree*lambdaH_tree) * C2W;
+//    CW = CW + g2_tree * C2W;
     
-    CeH_11r = CeH_11r + (g2_tree*g2_tree*Yuke) * C2W;
-    CeH_22r = CeH_22r + (g2_tree*g2_tree*Yukmu) * C2W;
-    CeH_33r = CeH_33r + (g2_tree*g2_tree*Yuktau) * C2W;
+//    CHbox = CHbox + (g1_tree*g1_tree/4.0) * C2B + (3.0*g2_tree*g2_tree/4.0) * C2W;
+//    CHD = CHD + (g1_tree*g1_tree/4.0) * C2B;
+//    CH = CH + (2.0*g2_tree*g2_tree*lambdaH_tree) * C2W;
     
-    CuH_11r = CuH_11r + (g2_tree*g2_tree*Yuku) * C2W;
-    CuH_22r = CuH_22r + (g2_tree*g2_tree*Yukc) * C2W;
-    CuH_33r = CuH_33r + (g2_tree*g2_tree*Yukt) * C2W;
+//    CeH_11r = CeH_11r + (g2_tree*g2_tree*Yuke) * C2W;
+//    CeH_22r = CeH_22r + (g2_tree*g2_tree*Yukmu) * C2W;
+//    CeH_33r = CeH_33r + (g2_tree*g2_tree*Yuktau) * C2W;
     
-    CdH_11r = CdH_11r + (g2_tree*g2_tree*Yukd) * C2W;
-    CdH_22r = CdH_22r + (g2_tree*g2_tree*Yuks) * C2W;
-    CdH_33r = CdH_33r + (g2_tree*g2_tree*Yukb) * C2W;
+//    CuH_11r = CuH_11r + (g2_tree*g2_tree*Yuku) * C2W;
+//    CuH_22r = CuH_22r + (g2_tree*g2_tree*Yukc) * C2W;
+//    CuH_33r = CuH_33r + (g2_tree*g2_tree*Yukt) * C2W;
+    
+//    CdH_11r = CdH_11r + (g2_tree*g2_tree*Yukd) * C2W;
+//    CdH_22r = CdH_22r + (g2_tree*g2_tree*Yuks) * C2W;
+//    CdH_33r = CdH_33r + (g2_tree*g2_tree*Yukb) * C2W;
+    
+//  I ALSO NEED THE CONTRIBUTION TO THE FOUR LEPTON OPERATOR THAT ENTERS IN GF
+    
     
 //  3) Post-update operations working directly with the dimension six operators  
     if (FlagRotateCHWCHB) {
