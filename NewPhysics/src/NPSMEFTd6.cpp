@@ -949,8 +949,9 @@ bool NPSMEFTd6::PostUpdate()
 //    CdH_22r = CdH_22r + (g2_tree*g2_tree*Yuks) * C2W;
 //    CdH_33r = CdH_33r + (g2_tree*g2_tree*Yukb) * C2W;
     
-//  I ALSO NEED THE CONTRIBUTION TO THE FOUR LEPTON OPERATOR THAT ENTERS IN GF
-    
+//    CLL_1221 = CLL_1221 + (g2_tree*g2_tree/2.0) * C2W;
+//    CLL_2112 = CLL_1221;
+
     
 //  3) Post-update operations working directly with the dimension six operators  
     if (FlagRotateCHWCHB) {
