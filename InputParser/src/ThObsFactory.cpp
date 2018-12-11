@@ -383,6 +383,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltaMW"] = boost::factory<deltaMW*>();
     obsThFactory["delgZeL"] = boost::factory<delgZeL*>();
     obsThFactory["delgZeR"] = boost::factory<delgZeR*>();
+    obsThFactory["oblWpar"] = boost::factory<oblW*>();
+    obsThFactory["oblYpar"] = boost::factory<oblY*>();
+    //-----  Auxiliary observables to work with new physics  ----------
+    obsThFactory["AuxObsNP1"] = boost::factory<AuxObsNP1*>();
+    obsThFactory["AuxObsNP2"] = boost::factory<AuxObsNP2*>();
+    obsThFactory["AuxObsNP3"] = boost::factory<AuxObsNP3*>();
+    obsThFactory["AuxObsNP4"] = boost::factory<AuxObsNP4*>();
+    obsThFactory["AuxObsNP5"] = boost::factory<AuxObsNP5*>();
+    obsThFactory["AuxObsNP6"] = boost::factory<AuxObsNP6*>();
 
     //-----  Higgs Extension observables  ----------
 

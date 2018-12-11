@@ -731,6 +731,14 @@
  *   <td class="mod_desc">This flag is set to TRUE if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%LoopH3d6Quad</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if including quadratic modifications in the SM loops in Higgs observables due 
+ *   to the dim 6 interactions that contribute to the trilinear Higgs coupling. 
+ *   Works independently of the flag QuadraticTerms (the quadratic contributions are also added if the latter is true).
+ *   The default value is FALSE.</td>
+ * </tr>
  * 
  * 
  * </table>
@@ -1041,12 +1049,14 @@ public:
 
     /**
      * @brief The oblique parameter \f$S\f$.
+     * (Simplified implementation. Contribution only from @f$O_{HWB}@f$.)
      * @return the value of @f$S@f$
      */
     virtual double obliqueS() const;
 
     /**
      * @brief The oblique parameter \f$T\f$.
+     * (Simplified implementation. Contribution only from @f$O_{HD}@f$.)
      * @return the value of @f$T@f$
      */
     virtual double obliqueT() const;
@@ -1056,6 +1066,20 @@ public:
      * @return the value of @f$U@f$
      */
     virtual double obliqueU() const;
+    
+    /**
+     * @brief The oblique parameter \f$W\f$.
+     * (Simplified implementation. Contribution only from @f$O_{2W}@f$.)
+     * @return the value of @f$W@f$
+     */
+    virtual double obliqueW() const;
+
+    /**
+     * @brief The oblique parameter \f$Y\f$.
+     * (Simplified implementation. Contribution only from @f$O_{2B}@f$.)
+     * @return the value of @f$Y@f$
+     */
+    virtual double obliqueY() const;
     
     
     /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
@@ -3348,6 +3372,50 @@ public:
      */
     virtual double lambz_HB() const;
     
+    /////////////Auxiliary observables////////////////
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP1
+     * (See code for details.)
+     * @return AuxObs_NP1
+     */
+    virtual double AuxObs_NP1() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP2
+     * (See code for details.)
+     * @return AuxObs_NP2
+     */
+    virtual double AuxObs_NP2() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP3
+     * (See code for details.)
+     * @return AuxObs_NP3
+     */
+    virtual double AuxObs_NP3() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP4
+     * (See code for details.)
+     * @return AuxObs_NP4
+     */
+    virtual double AuxObs_NP4() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP5
+     * (See code for details.)
+     * @return AuxObs_NP5
+     */
+    virtual double AuxObs_NP5() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP6
+     * (See code for details.)
+     * @return AuxObs_NP6
+     */
+    virtual double AuxObs_NP6() const;
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -3759,9 +3827,11 @@ protected:
     
     double dZH;///< Higgs self-coupling contribution to the universal resummed Higgs wave function renormalization
     
-    double cHSM;///< Parameter to control the includion of modifications of SM parameters in selected Higgs processes.
+    double cHSM;///< Parameter to control the inclusion of modifications of SM parameters in selected Higgs processes.
     
-    double cLHd6;///< Parameter to control the includion of modifications of SM loops in Higgs processes due to dim 6 interactions.
+    double cLHd6;///< Parameter to control the inclusion of modifications of SM loops in Higgs processes due to dim 6 interactions.
+    
+    double cLH3d62;///< Parameter to control the inclusion of modifications of SM loops in Higgs processes due to dim 6 interactions modifying the Higgs trilinear coupling (Quadratic terms).
 
     double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
     double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
@@ -3837,6 +3907,7 @@ private:
     bool FlagUnivOfX; ///< A boolean flag that is true if assuming U(3)^5 symmetry in the CfH and CfV operator coefficients and all proportional to the same coefficient (CuH_33 and CuV_33 respectively).
     bool FlagHiggsSM; ///< A boolean flag that is true if including dependence on small variations of the SM parameters (dependence is linearized). Available only in selected Higgs observables. 
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
+    bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
 
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour

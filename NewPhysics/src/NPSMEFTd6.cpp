@@ -263,6 +263,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagUnivOfX = false;
     FlagHiggsSM = false;
     FlagLoopHd6 = false;
+    FlagLoopH3d6Quad = false;
     setModelLinearized();
     
     w_WW = gsl_integration_cquad_workspace_alloc(100);
@@ -801,6 +802,12 @@ bool NPSMEFTd6::PostUpdate()
     } else {
         cLHd6 = 1.0;
     }
+    
+    if (FlagLoopH3d6Quad || FlagQuadraticTerms) {
+        cLH3d62 = 1.0;
+    } else {
+        cLH3d62 = 0.0;
+    }
    
 //  1) Post-update operations involving SM parameters only
     LambdaNP2 = Lambda_NP * Lambda_NP;
@@ -890,49 +897,61 @@ bool NPSMEFTd6::PostUpdate()
 //  Write here, before working with the dim 6 interactions,
 //  the contributions from O2W and O2B to the other operators.
 //  WARNING: Ignoring contributions to 4 fermion-processes for the moment. IMPORTANT FOR LEP2
-    CHL1_11 = CHL1_11 - (g1_tree*g1_tree/2.0) * C2B;
-    CHL1_22 = CHL1_22 - (g1_tree*g1_tree/2.0) * C2B;
-    CHL1_33 = CHL1_33 - (g1_tree*g1_tree/2.0) * C2B;
-    CHL3_11 = CHL3_11 + (g2_tree*g2_tree/2.0) * C2W;
-    CHL3_22 = CHL3_22 + (g2_tree*g2_tree/2.0) * C2W;
-    CHL3_33 = CHL3_33 + (g2_tree*g2_tree/2.0) * C2W;
     
-    CHQ1_11 = CHQ1_11 + (g1_tree*g1_tree/6.0) * C2B;
-    CHQ1_22 = CHQ1_22 + (g1_tree*g1_tree/6.0) * C2B;
-    CHQ1_33 = CHQ1_33 + (g1_tree*g1_tree/6.0) * C2B;
-    CHQ3_11 = CHQ3_11 + (g2_tree*g2_tree/2.0) * C2W;
-    CHQ3_22 = CHQ3_22 + (g2_tree*g2_tree/2.0) * C2W;
-    CHQ3_33 = CHQ3_33 + (g2_tree*g2_tree/2.0) * C2W;
+//  WARNING: if some of the parameters below, e.g. CHL1_11, are not floating in the fit this will
+//  create a problem since the value generated below CHL1_11 will propagate to the next iteration
+//  generating an uncontrolled value of the parameter.
+//  (This is so because SetParameters is not called for non-floating parameters.)
+//  Possible fix: Not modify model parameters but save everything into internal replicas
+//  of each model relevant model par. Those then have to be used in the calculations.
+//  Comment out the following lines until this is resolved
+//    CHL1_11 = CHL1_11 - (g1_tree*g1_tree/2.0) * C2B;
+//    CHL1_22 = CHL1_22 - (g1_tree*g1_tree/2.0) * C2B;
+//    CHL1_33 = CHL1_33 - (g1_tree*g1_tree/2.0) * C2B;
+//    CHL3_11 = CHL3_11 + (g2_tree*g2_tree/2.0) * C2W;
+//    CHL3_22 = CHL3_22 + (g2_tree*g2_tree/2.0) * C2W;
+//    CHL3_33 = CHL3_33 + (g2_tree*g2_tree/2.0) * C2W;
     
-    CHe_11 = CHe_11 - (g1_tree*g1_tree) * C2B;
-    CHe_22 = CHe_22 - (g1_tree*g1_tree) * C2B;
-    CHe_33 = CHe_33 - (g1_tree*g1_tree) * C2B;
+//    CHQ1_11 = CHQ1_11 + (g1_tree*g1_tree/6.0) * C2B;
+//    CHQ1_22 = CHQ1_22 + (g1_tree*g1_tree/6.0) * C2B;
+//    CHQ1_33 = CHQ1_33 + (g1_tree*g1_tree/6.0) * C2B;
+//    CHQ3_11 = CHQ3_11 + (g2_tree*g2_tree/2.0) * C2W;
+//    CHQ3_22 = CHQ3_22 + (g2_tree*g2_tree/2.0) * C2W;
+//    CHQ3_33 = CHQ3_33 + (g2_tree*g2_tree/2.0) * C2W;
     
-    CHu_11 = CHu_11 + (2.0*g1_tree*g1_tree/3.0) * C2B;
-    CHu_22 = CHu_22 + (2.0*g1_tree*g1_tree/3.0) * C2B;
-    CHu_33 = CHu_33 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+//    CHe_11 = CHe_11 - (g1_tree*g1_tree) * C2B;
+//    CHe_22 = CHe_22 - (g1_tree*g1_tree) * C2B;
+//    CHe_33 = CHe_33 - (g1_tree*g1_tree) * C2B;
     
-    CHd_11 = CHd_11 - (g1_tree*g1_tree/3.0) * C2B;
-    CHd_22 = CHd_22 - (g1_tree*g1_tree/3.0) * C2B;
-    CHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * C2B;
+//    CHu_11 = CHu_11 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+//    CHu_22 = CHu_22 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+//    CHu_33 = CHu_33 + (2.0*g1_tree*g1_tree/3.0) * C2B;
     
-    CW = CW + g2_tree * C2W;
+//    CHd_11 = CHd_11 - (g1_tree*g1_tree/3.0) * C2B;
+//    CHd_22 = CHd_22 - (g1_tree*g1_tree/3.0) * C2B;
+//    CHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * C2B;
     
-    CHbox = CHbox + (g1_tree*g1_tree/4.0) * C2B + (3.0*g2_tree*g2_tree/4.0) * C2W;
-    CHD = CHD + (g1_tree*g1_tree/4.0) * C2B;
-    CH = CH + (2.0*g2_tree*g2_tree*lambdaH_tree) * C2W;
+//    CW = CW + g2_tree * C2W;
     
-    CeH_11r = CeH_11r + (g2_tree*g2_tree*Yuke) * C2W;
-    CeH_22r = CeH_22r + (g2_tree*g2_tree*Yukmu) * C2W;
-    CeH_33r = CeH_33r + (g2_tree*g2_tree*Yuktau) * C2W;
+//    CHbox = CHbox + (g1_tree*g1_tree/4.0) * C2B + (3.0*g2_tree*g2_tree/4.0) * C2W;
+//    CHD = CHD + (g1_tree*g1_tree/4.0) * C2B;
+//    CH = CH + (2.0*g2_tree*g2_tree*lambdaH_tree) * C2W;
     
-    CuH_11r = CuH_11r + (g2_tree*g2_tree*Yuku) * C2W;
-    CuH_22r = CuH_22r + (g2_tree*g2_tree*Yukc) * C2W;
-    CuH_33r = CuH_33r + (g2_tree*g2_tree*Yukt) * C2W;
+//    CeH_11r = CeH_11r + (g2_tree*g2_tree*Yuke) * C2W;
+//    CeH_22r = CeH_22r + (g2_tree*g2_tree*Yukmu) * C2W;
+//    CeH_33r = CeH_33r + (g2_tree*g2_tree*Yuktau) * C2W;
     
-    CdH_11r = CdH_11r + (g2_tree*g2_tree*Yukd) * C2W;
-    CdH_22r = CdH_22r + (g2_tree*g2_tree*Yuks) * C2W;
-    CdH_33r = CdH_33r + (g2_tree*g2_tree*Yukb) * C2W;
+//    CuH_11r = CuH_11r + (g2_tree*g2_tree*Yuku) * C2W;
+//    CuH_22r = CuH_22r + (g2_tree*g2_tree*Yukc) * C2W;
+//    CuH_33r = CuH_33r + (g2_tree*g2_tree*Yukt) * C2W;
+    
+//    CdH_11r = CdH_11r + (g2_tree*g2_tree*Yukd) * C2W;
+//    CdH_22r = CdH_22r + (g2_tree*g2_tree*Yuks) * C2W;
+//    CdH_33r = CdH_33r + (g2_tree*g2_tree*Yukb) * C2W;
+    
+//    CLL_1221 = CLL_1221 + (g2_tree*g2_tree/2.0) * C2W;
+//    CLL_2112 = CLL_1221;
+
     
 //  3) Post-update operations working directly with the dimension six operators  
     if (FlagRotateCHWCHB) {
@@ -2138,6 +2157,9 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
     } else if (name.compare("LoopHd6") == 0) {        
         FlagLoopHd6 = value;
         res = true;
+    } else if (name.compare("LoopH3d6Quad") == 0) {        
+        FlagLoopH3d6Quad = value;
+        res = true;
     } else
         res = NPbase::setFlag(name, value);
 
@@ -2349,6 +2371,16 @@ double NPSMEFTd6::obliqueT() const
 double NPSMEFTd6::obliqueU() const
 {
     return 0.0;
+}
+
+double NPSMEFTd6::obliqueW() const
+{
+    return (- g2_tree * g2_tree * C2W * v2_over_LambdaNP2 / 2.0);
+}
+
+double NPSMEFTd6::obliqueY() const
+{
+    return (- g2_tree * g2_tree * C2B * v2_over_LambdaNP2 / 2.0);
 }
 
 /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
@@ -3059,15 +3091,14 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
         gslpp::complex tmp2 = tmpt +tmpb +tmpc + tmpHG;
         
         mu += tmp2.abs2();
-        
-//  Quadratic contribution from Higgs self-coupling
-    mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         
     }
       
@@ -3362,11 +3393,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
-    
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -3413,11 +3441,8 @@ double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
-    
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -3708,12 +3733,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -4055,12 +4077,9 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -5043,12 +5062,9 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -5359,12 +5375,9 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -6306,12 +6319,9 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -6678,12 +6688,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -6877,12 +6884,9 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -7192,11 +7196,8 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
-    
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -8182,12 +8183,9 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -8399,12 +8397,9 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -8613,12 +8608,9 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -9218,12 +9210,9 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
     
 //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
-    if (FlagQuadraticTerms) {
-//  Quadratic contribution from Higgs self-coupling
-        mu = mu + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();        
-    }
-
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;
@@ -10031,6 +10020,8 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +1.003 * deltaGmu()
@@ -10049,9 +10040,7 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
 double NPSMEFTd6::deltaGammaHggRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10083,7 +10072,9 @@ double NPSMEFTd6::deltaGammaHWWRatio1() const
     dwidth = deltaGammaHWW4fRatio1();
     
 //  Linear contribution from Higgs self-coupling
-//    dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();    
+//    dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio(); 
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+//    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
 //    dwidth += eHWWint + eHWWpar;
@@ -10099,8 +10090,6 @@ double NPSMEFTd6::deltaGammaHWWRatio2() const
     //Contributions that are quadratic in the effective coefficients
     dwidth = deltaGammaHWW4fRatio2();
     
-//  Quadratic contribution from Higgs self-coupling
-//    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     return dwidth;
     
@@ -10139,6 +10128,8 @@ double NPSMEFTd6::deltaGammaHWlvRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 );
@@ -10153,9 +10144,7 @@ double NPSMEFTd6::deltaGammaHWlvRatio1() const
 double NPSMEFTd6::deltaGammaHWlvRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10197,6 +10186,8 @@ double NPSMEFTd6::deltaGammaHWW2l2vRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -12.123 * deltaMz()
@@ -10215,7 +10206,6 @@ double NPSMEFTd6::deltaGammaHWW2l2vRatio2() const
 {
     double dwidth = 0.0;
     
-    dwidth = deltaGammaHWlvRatio2(); 
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10255,6 +10245,8 @@ double NPSMEFTd6::deltaGammaHWjjRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -10269,9 +10261,7 @@ double NPSMEFTd6::deltaGammaHWjjRatio1() const
 double NPSMEFTd6::deltaGammaHWjjRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10312,6 +10302,8 @@ double NPSMEFTd6::deltaGammaHWW4jRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -12.168 * deltaMz()
@@ -10329,8 +10321,7 @@ double NPSMEFTd6::deltaGammaHWW4jRatio1() const
 double NPSMEFTd6::deltaGammaHWW4jRatio2() const
 {
     double dwidth = 0.0;
-    
-    dwidth = deltaGammaHWjjRatio2(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10371,6 +10362,8 @@ double NPSMEFTd6::deltaGammaHWffRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -10385,9 +10378,7 @@ double NPSMEFTd6::deltaGammaHWffRatio1() const
 double NPSMEFTd6::deltaGammaHWffRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10438,6 +10429,8 @@ double NPSMEFTd6::deltaGammaHWW4fRatio1() const
         
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -12.271 * deltaMz()
@@ -10456,7 +10449,6 @@ double NPSMEFTd6::deltaGammaHWW4fRatio2() const
 {
     double dwidth = 0.0;
     
-    dwidth = deltaGammaHWffRatio2();
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10489,6 +10481,8 @@ double NPSMEFTd6::deltaGammaHZZRatio1() const
     
 //  Linear contribution from Higgs self-coupling
 //    dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+//    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
 //    dwidth += eHZZint + eHZZpar;
@@ -10504,8 +10498,6 @@ double NPSMEFTd6::deltaGammaHZZRatio2() const
     //Contributions that are quadratic in the effective coefficients
     dwidth = deltaGammaHZZ4fRatio2();
     
-//  Quadratic contribution from Higgs self-coupling
-//    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     return dwidth;
     
@@ -10547,6 +10539,8 @@ double NPSMEFTd6::deltaGammaHZllRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -10561,9 +10555,7 @@ double NPSMEFTd6::deltaGammaHZllRatio1() const
 double NPSMEFTd6::deltaGammaHZllRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10608,6 +10600,8 @@ double NPSMEFTd6::deltaGammaHZeeRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -10623,9 +10617,7 @@ double NPSMEFTd6::deltaGammaHZeeRatio2() const
 {
     double dwidth = 0.0;
     
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
-
+ 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
     
@@ -10669,6 +10661,8 @@ double NPSMEFTd6::deltaGammaHZmumuRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -10683,9 +10677,7 @@ double NPSMEFTd6::deltaGammaHZmumuRatio1() const
 double NPSMEFTd6::deltaGammaHZmumuRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10736,6 +10728,8 @@ double NPSMEFTd6::deltaGammaHZZ4lRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -9.734 * deltaMz()
@@ -10754,7 +10748,6 @@ double NPSMEFTd6::deltaGammaHZZ4lRatio2() const
 {
     double dwidth = 0.0;
     
-    dwidth = deltaGammaHZllRatio2(); 
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10798,6 +10791,8 @@ double NPSMEFTd6::deltaGammaHZZ4eRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -9.228 * deltaMz()
@@ -10815,8 +10810,7 @@ double NPSMEFTd6::deltaGammaHZZ4eRatio1() const
 double NPSMEFTd6::deltaGammaHZZ4eRatio2() const
 {
     double dwidth = 0.0;
-    
-    dwidth = deltaGammaHZeeRatio2(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10860,6 +10854,8 @@ double NPSMEFTd6::deltaGammaHZZ2e2muRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
         
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -10.07 * deltaMz()
@@ -10920,6 +10916,8 @@ double NPSMEFTd6::deltaGammaHZZ4muRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -9.254 * deltaMz()
@@ -10937,8 +10935,7 @@ double NPSMEFTd6::deltaGammaHZZ4muRatio1() const
 double NPSMEFTd6::deltaGammaHZZ4muRatio2() const
 {
     double dwidth = 0.0;
-    
-    dwidth = deltaGammaHZmumuRatio2(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -10980,6 +10977,8 @@ double NPSMEFTd6::deltaGammaHZvvRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -10994,9 +10993,7 @@ double NPSMEFTd6::deltaGammaHZvvRatio1() const
 double NPSMEFTd6::deltaGammaHZvvRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11040,6 +11037,8 @@ double NPSMEFTd6::deltaGammaHZZ4vRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -10.49 * deltaMz()
@@ -11057,8 +11056,7 @@ double NPSMEFTd6::deltaGammaHZZ4vRatio1() const
 double NPSMEFTd6::deltaGammaHZZ4vRatio2() const
 {
     double dwidth = 0.0;
-    
-    dwidth = deltaGammaHZvvRatio2(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11101,6 +11099,8 @@ double NPSMEFTd6::deltaGammaHZuuRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -11115,9 +11115,7 @@ double NPSMEFTd6::deltaGammaHZuuRatio1() const
 double NPSMEFTd6::deltaGammaHZuuRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11160,6 +11158,8 @@ double NPSMEFTd6::deltaGammaHZddRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -11174,9 +11174,7 @@ double NPSMEFTd6::deltaGammaHZddRatio1() const
 double NPSMEFTd6::deltaGammaHZddRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11223,6 +11221,8 @@ double NPSMEFTd6::deltaGammaHZffRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     //dwidth += cHSM * ( 0.0 ); 
@@ -11237,9 +11237,7 @@ double NPSMEFTd6::deltaGammaHZffRatio1() const
 double NPSMEFTd6::deltaGammaHZffRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11306,6 +11304,8 @@ double NPSMEFTd6::deltaGammaHZZ4fRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( -9.548 * deltaMz()
@@ -11324,7 +11324,6 @@ double NPSMEFTd6::deltaGammaHZZ4fRatio2() const
 {
     double dwidth = 0.0;
     
-    dwidth = deltaGammaHZffRatio2();
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11385,6 +11384,8 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +1. * deltaa0()
@@ -11407,9 +11408,7 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
 double NPSMEFTd6::deltaGammaHZgaRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11461,6 +11460,8 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +2. * deltaa0()
@@ -11483,9 +11484,7 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
 double NPSMEFTd6::deltaGammaHgagaRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11521,6 +11520,8 @@ double NPSMEFTd6::deltaGammaHmumuRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +1. * deltaGmu()
@@ -11535,9 +11536,7 @@ double NPSMEFTd6::deltaGammaHmumuRatio1() const
 double NPSMEFTd6::deltaGammaHmumuRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11573,6 +11572,8 @@ double NPSMEFTd6::deltaGammaHtautauRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +1. * deltaGmu()
@@ -11588,9 +11589,7 @@ double NPSMEFTd6::deltaGammaHtautauRatio1() const
 double NPSMEFTd6::deltaGammaHtautauRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11637,6 +11636,8 @@ double NPSMEFTd6::deltaGammaHccRatio1() const
     
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +1. * deltaGmu()
@@ -11654,9 +11655,7 @@ double NPSMEFTd6::deltaGammaHccRatio1() const
 double NPSMEFTd6::deltaGammaHccRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );
@@ -11702,6 +11701,8 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +1. * deltaGmu()
@@ -11719,9 +11720,7 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
 double NPSMEFTd6::deltaGammaHbbRatio2() const
 {
     double dwidth = 0.0;
-    
-//  Quadratic contribution from Higgs self-coupling
-    dwidth = dwidth + cLHd6*dZH*deltaG_hhhRatio()*deltaG_hhhRatio(); 
+     
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth );        
@@ -12895,6 +12894,371 @@ double NPSMEFTd6::lambz_HB() const
     ciHB = -(3.0/2.0)*(eeMz/sW_tree)*CW*v2_over_LambdaNP2;
     
     return ciHB;
+}
+
+////////////////////////////Auxiliary observables//////////////////////////////
+
+double NPSMEFTd6::AuxObs_NP1() const
+{
+    // To be used for some temporary observable
+    
+    // WY analysis at 13 TeV for HL-LHC 3/ab
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2NC13, Chi2CC13, Chi2Tot;
+    
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
+    
+    Chi2NC13 = 0.032772034538390675 * Wpar2*Wpar2 + 2.815243944990361 * Ypar2 - 0.36522061776278516 * Ypar2*Ypar 
+            + 0.017375258924241194 * Ypar2*Ypar2 + Wpar2*Wpar * (-0.7059117582389635 + 0.006816297425306027 * Ypar) 
+            + Wpar * Ypar * (7.988302197022343 + Ypar * (-0.5450119819316416 + 0.0050292149953719766 * Ypar)) 
+            + Wpar2 * (5.68581760491364 + Ypar * (-0.5794111075840261 + 0.048026245835369625 * Ypar));
+    
+    Chi2Tot = Chi2CC13 + Chi2NC13;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
+}
+
+double NPSMEFTd6::AuxObs_NP2() const
+{
+    // To be used for some temporary observable
+    
+    // WY analysis at 13 TeV for HL-LHC 3/ab for the CC
+    // WY analysis at 27 TeV for HE-LHC 15/ab for the NC. 5% systematics (corr and uncorr)
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2NC27, Chi2CC13, Chi2Tot;
+    
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
+    
+    Chi2NC27 = 21.139285368181907 * Wpar2*Wpar2 + Wpar2*Wpar * (-89.16828370317616 + 7.182929295852857 * Ypar) 
+            + Wpar * Ypar * (0.02088092257396059 + Ypar * (-81.00102926445666 + 6.203591096144735 * Ypar)) 
+            + Ypar2 * (81.01075991905888 + Ypar * (-58.822719932531164 + 14.670206406369107 * Ypar)) 
+            + Wpar2 * (0.013670787790194357 + Ypar * (-86.48485007990255 + 35.67671393730628 * Ypar));
+    
+    Chi2Tot = Chi2CC13 + Chi2NC27;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
+}
+
+double NPSMEFTd6::AuxObs_NP3() const
+{
+    // To be used for some temporary observable
+    
+    // WY analysis at 13 TeV for HL-LHC 3/ab for the CC
+    // WY analysis at 27 TeV for HE-LHC 15/ab for the NC. 1% systematics (corr and uncorr)
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2NC27, Chi2CC13, Chi2Tot;
+    
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
+    
+    Chi2NC27 = 25.148424251427552 * Wpar2*Wpar2 + Wpar2*Wpar * (-105.31753344410277 + 8.01723084630248 * Ypar) 
+            + Wpar * Ypar * (0.025311721255992683 + Ypar * (-93.18990615818014 + 6.8250043104055816 * Ypar)) 
+            + Ypar2 * (97.52107126224298 + Ypar * (-67.961770347904945 + 16.80046890875678 * Ypar)) 
+            + Wpar2 * (166.84179829911304 + Ypar * (-100.88118582829852 + 41.55424691040131 * Ypar));
+        
+    Chi2Tot = Chi2CC13 + Chi2NC27;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
+}
+
+double NPSMEFTd6::AuxObs_NP4() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP5() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP6() const
+{
+    // To be used for some temporary observable
+    
+    // HL-LHC DiHiggs invariant mass distribution: 14 TeV 3/ab
+    
+    double Chi2Tot;
+
+//  NP in decays
+    double dGH2,dGgaga,dGbb, dBRTot;
+    
+//  Contributions from the different bins    
+    double Bin1,Bin2,Bin3,Bin4,Bin5,Bin6;
+    double LLBin1, LLBin2, LLBin3, LLBin4, LLBin5, LLBin6;
+
+//  Higgs basis parameters
+    double dcZHB,cZboxHB,cZZHB,cZgaHB,cgagaHB,cggHB;
+    double dytHB,dybHB,dytauHB;
+    double dKlambda;
+    
+    dcZHB = deltacZ_HB();
+    cZboxHB = cZBox_HB();
+    cZZHB = cZZ_HB();
+    
+// In the paper it seems they use diff. norm but in the chi 2.nb
+//  they translate into that convention, so I assume their calculation
+//  is directly in the HB for the following 3 couplings 
+    cZgaHB = cZga_HB();
+    cgagaHB = cgaga_HB();
+    cggHB = cgg_HB();
+
+    dytHB = deltayt_HB();
+    dybHB = deltayb_HB();
+    dytauHB = deltaytau_HB();
+    
+    dKlambda = deltaG_hhhRatio();
+        
+//  Corrections to the different Higgs widths
+    dGH2 = 1. + 0.010512791990056657 * cZboxHB 
+            -  0.003819752423722165 * cZZHB + 0.0016024991450954641 * cZgaHB 
+            -  0.0005968238492400916 * (2.8975474398595105 * cZboxHB 
+            +  1.8975474398595107 * cZZHB - cZgaHB - 0.3426378481886507 * cgagaHB) 
+            +  0.0990750425382019 * (1.4487737199297552 * cZboxHB + 0.44877371992975534 * cZZHB 
+            -  0.2365019764475461 * cZgaHB - 0.08103452830235015 * cgagaHB) 
+            -  0.0330404571742506 * (cZZHB + 0.4730039528950922 * cZgaHB + 0.055933184863595636 * cgagaHB) 
+            -  0.00033171593951211893 * cgagaHB + 0.48287726036165796 * dcZHB 
+            +  1.1541846695471276 * dybHB + 0.12642022723635785 * dytauHB 
+            +  0.1704272683629381 * (0. + 118.68284969347252 * cggHB 
+            -  0.031082871395970327 * dybHB + 1.034601498835783 * dytHB) 
+            +  0.004560729716754681 * (0. - 12.079950077697095 * cgagaHB 
+            +  1.2739859351743013 * dcZHB + 0.0022136399615102554 * dybHB 
+            -  0.28081416399029446 * dytHB + 0.0036305606562964158 * dytauHB) 
+            +  0.003080492878860618 * (0. - 17.021015025105033 * cZgaHB 
+            +  1.0557935963831278 * dcZHB + 0.0006235357344154619 * dybHB 
+            -  0.05644023795399054 * dytHB + 0.000023105836447458856 * dytauHB);
+    
+    dGH2 = dGH2 * dGH2;
+    
+    dGgaga = 1.0 + 2.0 * (0. - 12.079950077697095 * cgagaHB 
+            + 1.2739859351743013 * dcZHB + 0.0022136399615102554 * dybHB 
+            - 0.28081416399029446 * dytHB + 0.0036305606562964158 * dytauHB);
+    
+    dGbb = 1.0 + 2.0 * dybHB;
+    
+    dBRTot = dGbb * dGgaga / dGH2;
+    
+    // Bin 1
+    Bin1 = 0.17*(1.0 + 3.9863794294589585 * cggHB 
+            +    21.333394807321064 * cggHB*cggHB + 3.9527789724382836 * dcZHB 
+            +    0.5566823785534646 * cggHB*dcZHB + 9.077153576669469 * dcZHB*dcZHB 
+            -    7.713285621354339 * dytHB + 6.573887966178747 * cggHB*dytHB 
+            -    45.88983201032187 * dcZHB*dytHB + 62.42156375416841 * dytHB*dytHB 
+            +    4.257555672380181 * cggHB*dytHB*dytHB +   4.620310477256665 * dcZHB*dytHB*dytHB 
+            -    9.403185493195476 * dytHB*dytHB*dytHB +   1.1563473213070041 * dytHB*dytHB*dytHB*dytHB 
+            -    0.14505129596051047 * dKlambda -    0.1418831193390564 * cggHB*dKlambda 
+            +    1.3502693869386464 * cggHB*cggHB*dKlambda -   0.6675315048183816 * dcZHB*dKlambda 
+            -    0.002999558395846163 * cggHB*dcZHB*dKlambda 
+            +    1.5448485758806263 * dytHB * dKlambda 
+            -    0.005002986050963205 * cggHB*dytHB*dKlambda 
+            -    0.6675315048183816 * dcZHB*dytHB * dKlambda 
+            +    1.5222565251876392 * dytHB*dytHB * dKlambda 
+            +    0.1278814581005547 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.1676433466534976 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.011296025346493552 * dKlambda*dKlambda 
+            +    0.0014116654816114353 * cggHB*dKlambda*dKlambda 
+            +    0.022260157195710357 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.022592050692987104 * dytHB * dKlambda*dKlambda 
+            +    0.0014116654816114353 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.011296025346493552 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin1 = 0.67944 + Bin1 * dBRTot;
+    
+    // Exclude points with negative values of BinX
+    if ( Bin1 < 0 ) return std::numeric_limits<double>::quiet_NaN();
+    
+    // Delta chi2 = -2*LL for the bin
+    // Add an abs in the denominator of the log, 
+    // even if events with negative BinX are not supposed to reach here.
+    LLBin1 = 2.0 * (Bin1 - 0.84944 + 0.84944 * log( 0.84944 / fabs(Bin1) ) );
+    
+    // Bin 2
+    Bin2 = 0.33*(1.0 + 1.8019627645351037 * cggHB 
+            +    7.953163597932105 * cggHB*cggHB + 3.735123481549394 * dcZHB 
+            -    2.654186900737259 * cggHB*dcZHB + 6.403420811368324 * dcZHB*dcZHB 
+            -    6.991501690350679 * dytHB + 11.425848100026737 * cggHB*dytHB 
+            -    30.219763494155394 * dcZHB*dytHB + 39.692409895713936 * dytHB*dytHB 
+            +    1.661324633279857 * cggHB*dytHB*dytHB +    4.46563789250516 * dcZHB*dytHB*dytHB 
+            -    8.710706509282613 * dytHB*dytHB*dytHB +    1.2361692069676826 * dytHB*dytHB*dytHB*dytHB 
+            -    0.21386875429750188 * dKlambda +    0.2363972133088796 * cggHB*dKlambda 
+            +    0.8549707073528667 * cggHB*cggHB*dKlambda -    0.7305144109557659 * dcZHB*dKlambda 
+            -    0.14136602060890807 * cggHB*dcZHB*dKlambda +    1.50533606463443 * dytHB * dKlambda 
+            +    0.747017712869579 * cggHB*dytHB*dKlambda -    0.7305144109557659 * dcZHB*dytHB * dKlambda 
+            +    1.4607351592940678 * dytHB*dytHB * dKlambda 
+            +    0.08652243773397514 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.25846965963786395 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.022300452670181038 * dKlambda*dKlambda +    0.009236644319657653 * cggHB*dKlambda*dKlambda 
+            +    0.023125582948149842 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.044600905340362075 * dytHB * dKlambda*dKlambda 
+            +    0.009236644319657653 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.022300452670181038 * dytHB*dytHB * dKlambda*dKlambda) ;
+    
+    Bin2 = 1.4312 + Bin2 * dBRTot;
+    
+    // Exclude points with negative values of BinX
+    if ( Bin2 < 0 ) return std::numeric_limits<double>::quiet_NaN();
+    
+    // Delta chi2 = -2*LL for the bin
+    // Add an abs in the denominator of the log, 
+    // even if events with negative BinX are not supposed to reach here.
+    LLBin2 = 2.0 * (Bin2 - 1.7612 + 1.7612 * log( 1.7612 / fabs(Bin2) ) );
+    
+    // Bin 3
+    Bin3 = 0.99*(1.0 + 0.6707152151845268 * cggHB 
+            +    4.113022405261353 * cggHB*cggHB + 3.4241906309399726 * dcZHB 
+            -    2.9926046286644703 * cggHB*dcZHB + 4.72026565086762 * dcZHB*dcZHB 
+            -    5.98522416048399 * dytHB + 10.012680455917307 * cggHB*dytHB 
+            -    20.69102310585157 * dcZHB*dytHB + 26.4871108999121 * dytHB*dytHB 
+            +    0.36415135473936855 * cggHB*dytHB*dytHB 
+            +    4.206380168414172 * dcZHB*dytHB*dytHB - 7.688318821918381 * dytHB*dytHB*dytHB 
+            +    1.3217369754941033 * dytHB*dytHB*dytHB*dytHB - 0.2873477323359291 * dKlambda 
+            +    0.35631144357921507 * cggHB*dKlambda 
+            +    0.6197019283831009 * cggHB*cggHB*dKlambda 
+            -    0.7821895374741993 * dcZHB*dKlambda 
+            -    0.23172596419155064 * cggHB*dcZHB*dKlambda 
+            +    1.415746929098462 * dytHB * dKlambda 
+            +    1.0816714186441074 * cggHB*dytHB*dKlambda 
+            -    0.7821895374741993 * dcZHB*dytHB * dKlambda 
+            +    1.3469684427821131 * dytHB*dytHB * dKlambda 
+            +    0.030182082490240562 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.35612621865227795 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.03438924315817444 * dKlambda*dKlambda 
+            +    0.019565500643816278 * cggHB*dKlambda*dKlambda 
+            +    0.02382411268034237 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.06877848631634888 * dytHB * dKlambda*dKlambda 
+            +    0.019565500643816278 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.03438924315817444 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin3 = 1.9764 + Bin3 * dBRTot;
+    
+    // Exclude points with negative values of BinX
+    if ( Bin3 < 0 ) return std::numeric_limits<double>::quiet_NaN();
+    
+    // Delta chi2 = -2*LL for the bin
+    // Add an abs in the denominator of the log, 
+    // even if events with negative BinX are not supposed to reach here.
+    LLBin3 = 2.0 * (Bin3 - 2.9664 + 2.9664 * log( 2.9664 / fabs(Bin3) ) );
+    
+    // Bin 4
+    Bin4 = 2.86*(1.0 - 0.27406342847042814 * cggHB 
+            +    1.9597360046161074 * cggHB*cggHB + 3.0113078755334115 * dcZHB 
+            -    2.776019265892887 * cggHB*dcZHB + 3.1917709639679823 * dcZHB*dcZHB 
+            -    4.6362529563760955 * dytHB + 7.377234185667426 * cggHB*dytHB 
+            -    12.294598143269557 * dcZHB*dytHB + 15.407456380301479 * dytHB*dytHB 
+            -    0.6767601835408067 * cggHB*dytHB*dytHB 
+            +    3.844719765004924 * dcZHB*dytHB*dytHB 
+            -    6.227970053277897 * dytHB*dytHB*dytHB +    1.4542592857563688 * dytHB*dytHB*dytHB*dytHB 
+            -    0.39767067022413716 * dKlambda +    0.3661464075997459 * cggHB*dKlambda 
+            +    0.4464409042746693 * cggHB*cggHB*dKlambda 
+            -    0.8334118894715125 * dcZHB*dKlambda 
+            -    0.3263197431214281 * cggHB*dcZHB*dKlambda 
+            +    1.1940464266776625 * dytHB * dKlambda 
+            +    1.2643073873631234 * cggHB*dytHB*dKlambda 
+            -    0.8334118894715125 * dcZHB*dytHB * dKlambda 
+            +    1.0808691956131988 * dytHB*dytHB * dKlambda 
+            -    0.0807982496009068 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.5108479012886007 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.05658861553223176 * dKlambda*dKlambda 
+            +    0.04424790213027415 * cggHB*dKlambda*dKlambda 
+            +    0.02585578262020257 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.11317723106446352 * dytHB * dKlambda*dKlambda 
+            +    0.04424790213027415 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.05658861553223176 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin4 = 5.167 + Bin4 * dBRTot;
+    
+    // Exclude points with negative values of BinX
+    if ( Bin4 < 0 ) return std::numeric_limits<double>::quiet_NaN();
+    
+    // Delta chi2 = -2*LL for the bin
+    // Add an abs in the denominator of the log, 
+    // even if events with negative BinX are not supposed to reach here.
+    LLBin4 = 2.0 * (Bin4 - 8.027 + 8.027 * log( 8.027 / fabs(Bin4) ) );
+    
+    // Bin 5
+    Bin5 = 6.34* (1.0 - 1.094329254675176 * cggHB 
+            +    1.0393648302909912 * cggHB*cggHB + 2.6000916816530903 * dcZHB 
+            -    2.4448264513323226 * cggHB*dcZHB + 2.073935963891534 * dcZHB*dcZHB 
+            -    3.192332240205929 * dytHB + 4.5914586198385 * cggHB*dytHB 
+            -    6.2871857258718595 * dcZHB*dytHB + 8.134770266934664 * dytHB*dytHB 
+            -    1.648691479483292 * cggHB*dytHB*dytHB +    3.5563383758242524 * dcZHB*dytHB*dytHB 
+            -    4.615570013047001 * dytHB*dytHB*dytHB +    1.7227511548362076 * dytHB*dytHB*dytHB*dytHB 
+            -    0.6079428047533413 * dKlambda +    0.33825211279194234 * cggHB*dKlambda 
+            +    0.3879052211526028 * cggHB*cggHB*dKlambda -    0.956246694171162 * dcZHB*dKlambda 
+            -    0.4572431444456198 * cggHB*dcZHB*dKlambda +    0.8152949680877302 * dytHB * dKlambda 
+            +    1.3814632626914451 * cggHB*dytHB*dKlambda 
+            -    0.956246694171162 * dcZHB*dytHB * dKlambda +    0.5856782679219981 * dytHB*dytHB * dKlambda 
+            -    0.3285182834373566 * cggHB*dytHB*dytHB * dKlambda 
+            -    0.8375595049190734 * dytHB*dytHB*dytHB * dKlambda +    0.11480835008286604 * dKlambda*dKlambda 
+            +    0.11240817142118299 * cggHB*dKlambda*dKlambda +    0.03688252014841459 * cggHB*cggHB*dKlambda*dKlambda 
+            +    0.22961670016573207 * dytHB * dKlambda*dKlambda 
+            +    0.11240817142118299 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.11480835008286604 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin5 = 15.93 + Bin5 * dBRTot;
+    
+    // Exclude points with negative values of BinX
+    if ( Bin5 < 0 ) return std::numeric_limits<double>::quiet_NaN();
+    
+    // Delta chi2 = -2*LL for the bin
+    // Add an abs in the denominator of the log, 
+    // even if events with negative BinX are not supposed to reach here.
+    LLBin5 = 2.0 * (Bin5 - 22.27 + 22.27 * log( 22.27 / fabs(Bin5) ) );
+    
+    // Bin 6
+    Bin6 = 2.14*(1.0 - 2.007855065799201 * cggHB + 1.1994575008850934 * cggHB*cggHB 
+            +    2.5987763498382352 * dcZHB - 2.908713303420072 * cggHB*dcZHB 
+            +    1.804645897901265 * dcZHB*dcZHB - 2.806900956988577 * dytHB 
+            +    3.5621616844486415 * cggHB*dytHB - 4.250685020965587 * dcZHB*dytHB 
+            +    5.7468374752045515 * dytHB*dytHB - 3.1561231600123736 * cggHB*dytHB*dytHB 
+            +    3.9784140166037667 * dcZHB*dytHB*dytHB - 4.4303353405513395 * dytHB*dytHB*dytHB 
+            +    2.257739308366916 * dytHB*dytHB*dytHB*dytHB - 0.9894280925261291 * dKlambda 
+            +    0.589956279744333 * cggHB*dKlambda +   0.6687315933211253 * cggHB*cggHB*dKlambda 
+            -    1.3796376667655315 * dcZHB*dKlambda -    0.8069993678124955 * cggHB*dcZHB*dKlambda 
+            +    0.6340062910366335 * dytHB * dKlambda +    2.127573647123277 * cggHB*dytHB*dKlambda 
+            -    1.3796376667655315 * dcZHB*dytHB * dKlambda +   0.09738385935505989 * dytHB*dytHB * dKlambda 
+            -    0.8833807360585424 * cggHB*dytHB*dytHB * dKlambda -    1.5260505242077027 * dytHB*dytHB*dytHB * dKlambda 
+            +    0.2683112158407868 * dKlambda*dKlambda +   0.32506892158970235 * cggHB*dKlambda*dKlambda 
+            +    0.09418943796384227 * cggHB*cggHB*dKlambda*dKlambda +    0.5366224316815736 * dytHB * dKlambda*dKlambda 
+            +    0.32506892158970235 * cggHB*dytHB*dKlambda*dKlambda 
+            +    0.2683112158407868 * dytHB*dytHB * dKlambda*dKlambda);
+    
+    Bin6 = 12.01 + Bin6 * dBRTot;
+    
+    // Exclude points with negative values of BinX
+    if ( Bin6 < 0 ) return std::numeric_limits<double>::quiet_NaN();
+    
+    // Delta chi2 = -2*LL for the bin
+    // Add an abs in the denominator of the log, 
+    // even if events with negative BinX are not supposed to reach here.
+    LLBin6 = 2.0 * (Bin6 - 14.15 + 14.15 * log( 14.15 / fabs(Bin6) ) );
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = LLBin1 + LLBin2 + LLBin3 + LLBin4 + LLBin5 + LLBin6;
+        
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
