@@ -109,8 +109,6 @@ private:
      */
     void CheckNf(indices nm, uint nf) const;
 
-    void setExpandedMatrix(Expanded<gslpp::matrix<double> >& expm, unsigned int i, unsigned int j, double x, qcd_orders order_qcd_i, qed_orders order_qed_i = QED0);
-
     /**
      * @brief a void type method storing properly the magic numbers for the implementation of the evolutor
      * @param mu a double for the low scale of the evolution

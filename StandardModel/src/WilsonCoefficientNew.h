@@ -12,7 +12,7 @@
 #include "WilsonTemplateNew.h"
 
 /**
- * @class WilsonCoefficient
+ * @class WilsonCoefficientNew
  * @ingroup StandardModel
  * @brief A class for the Wilson coefficients. 
  * @author HEPfit Collaboration
@@ -23,9 +23,9 @@ class WilsonCoefficientNew : public WilsonTemplateNew<gslpp::vector<gslpp::compl
 public:
     WilsonCoefficientNew(unsigned int dim, schemes scheme, qcd_orders order_qcd, qed_orders order_qed = QED0);
     
-    Expanded<gslpp::complex> getCoeffElement(uint i) const;
+    Expanded<gslpp::complex> getCoeffElement(int i) const;
     
-    void setCoeff(unsigned int i, gslpp::complex z, qcd_orders order_qcd_i, qed_orders order_qed_i = QED0);
+    void setCoeff(int i, gslpp::complex z, qcd_orders order_qcd_i, qed_orders order_qed_i = QED0);
     
     void setCoeff(const gslpp::vector<gslpp::complex>& v, qcd_orders order_qcd_i, qed_orders order_qed_i = QED0);
     

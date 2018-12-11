@@ -1450,26 +1450,6 @@ const Expanded<gslpp::matrix<double> >& EvolDF1::DF1Evol(double mu, double M, sc
 //    return (*Evol(ord));
 //}
 
-void EvolDF1::setExpandedMatrix(Expanded<gslpp::matrix<double> >& expm, unsigned int i, unsigned int j, double x, qcd_orders order_qcd_i, qed_orders order_qed_i)
-{
-    if (i > nops || j > nops)
-    {
-        std::stringstream out;
-        out << i << " " << j;
-        throw std::runtime_error("RGEvolutor::setEvol(): matrix indices " + out.str() + " out of range");
-    }
-    if (order_qcd_i > order_qcd || order_qed_i > order_qed)
-    {
-        std::stringstream out;
-        out << order_qcd_i << " and " << order_qed_i;
-        throw std::runtime_error("RGEvolutor::setEvol(): order " + out.str() + " not implemented ");
-    }
-    //    gslpp::matrix<double> tmp = expm.getOrd(order_qcd_i, order_qed_i);
-    //    tmp.assign(i, j, x);
-    //    expm.setOrd(order_qcd_i, order_qed_i, tmp);
-    expm.setSingleElem(order_qcd_i, order_qed_i, i, j, x);
-}
-
 void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
 {
     gslpp::matrix<double> mtmp(nops, 0.);
@@ -1505,7 +1485,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
         const uint &b = v[1];
         const uint &i = v[2];
 
-        setExpandedMatrix(res, a, b, res.getOrd(QCD0, QED0)(a, b) + itr->second * pow(eta, ai[nnf].at(i)), QCD0, QED0);
+        res.setMatrixElement(QCD0, QED0, a, b, res.getOrd(QCD0, QED0)(a, b) + itr->second * pow(eta, ai[nnf].at(i)));
     }
 
     for (itr = vM1vi[nnf].begin(); itr != vM1vi[nnf].end(); ++itr)
@@ -1516,7 +1496,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
         const uint &i = v[2];
         const uint &j = v[3];
 
-        setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED0)(a, b) + omega * itr->second * f_f(nnf, i, j, -1, eta), QCD1, QED0);
+        res.setMatrixElement(QCD1, QED0, a, b, res.getOrd(QCD1, QED0)(a, b) + omega * itr->second * f_f(nnf, i, j, -1, eta));
     }
 
     for (itr = vM2vi[nnf].begin(); itr != vM2vi[nnf].end(); ++itr)
@@ -1527,7 +1507,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
         const uint &i = v[2];
         const uint &j = v[3];
 
-        setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED0)(a, b) + omega * omega * itr->second * f_f(nnf, i, j, -2, eta), QCD2, QED0);
+        res.setMatrixElement(QCD2, QED0, a, b, res.getOrd(QCD2, QED0)(a, b) + omega * omega * itr->second * f_f(nnf, i, j, -2, eta));
     }
 
     for (itr = vM11vi[nnf].begin(); itr != vM11vi[nnf].end(); ++itr)
@@ -1539,7 +1519,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
         const uint &j = v[3];
         const uint &p = v[4];
 
-        setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED0)(a, b) + omega * omega * itr->second * f_g(nnf, i, p, j, -1, -1, eta), QCD2, QED0);
+        res.setMatrixElement(QCD2, QED0, a, b, res.getOrd(QCD2, QED0)(a, b) + omega * omega * itr->second * f_g(nnf, i, p, j, -1, -1, eta));
     }
 
     if (order_qed != QED0)
@@ -1557,9 +1537,9 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const double &term = itr->second;
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD0, QED1)(a, b) + lambda * term * f_f(nnf, i, j, 1, eta), QCD0, QED1);
-            setExpandedMatrix(res, a, b, res.getOrd(QCD0, QED2)(a, b) + lambda * lambda * term * (f_f(nnf, i, j, 2, eta) - f_f(nnf, i, j, 1, eta)), QCD0, QED2);
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * b5 * term * f_r(nnf, i, j, 1, eta), QCD1, QED2);
+            res.setMatrixElement(QCD0, QED1, a, b, res.getOrd(QCD0, QED1)(a, b) + lambda * term * f_f(nnf, i, j, 1, eta));
+            res.setMatrixElement(QCD0, QED2, a, b, res.getOrd(QCD0, QED2)(a, b) + lambda * lambda * term * (f_f(nnf, i, j, 2, eta) - f_f(nnf, i, j, 1, eta)));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * b5 * term * f_r(nnf, i, j, 1, eta));
         }
 
         for (itr = vM4vi[nnf].begin(); itr != vM4vi[nnf].end(); ++itr)
@@ -1571,8 +1551,8 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const double &term = itr->second;
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_f(nnf, i, j, 0, eta), QCD1, QED1);
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) - omega * lambda * lambda * term * f_f(nnf, i, j, 0, eta), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED1, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_f(nnf, i, j, 0, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) - omega * lambda * lambda * term * f_f(nnf, i, j, 0, eta));
         }
 
         for (itr = vM5vi[nnf].begin(); itr != vM5vi[nnf].end(); ++itr)
@@ -1583,7 +1563,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &i = v[2];
             const uint &j = v[3];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_f(nnf, i, j, -1, eta), QCD2, QED1);
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_f(nnf, i, j, -1, eta));
         }
 
         for (itr = vM6vi[nnf].begin(); itr != vM6vi[nnf].end(); ++itr)
@@ -1594,7 +1574,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &i = v[2];
             const uint &j = v[3];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_f(nnf, i, j, 1, eta), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_f(nnf, i, j, 1, eta));
         }
 
         for (itr = vM33vi[nnf].begin(); itr != vM33vi[nnf].end(); ++itr)
@@ -1606,7 +1586,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const uint &p = v[4];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD0, QED2)(a, b) + lambda * lambda * itr->second * f_g(nnf, i, p, j, 1, 1, eta), QCD0, QED2);
+            res.setMatrixElement(QCD0, QED2, a, b, res.getOrd(QCD0, QED2)(a, b) + lambda * lambda * itr->second * f_g(nnf, i, p, j, 1, 1, eta));
         }
 
         for (itr = vM13vi[nnf].begin(); itr != vM13vi[nnf].end(); ++itr)
@@ -1619,8 +1599,8 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const double &term = itr->second;
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_g(nnf, i, p, j, -1, 1, eta), QCD1, QED1);
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * term * (f_g(nnf, i, p, j, -1, 2, eta) - f_g(nnf, i, p, j, -1, 1, eta)), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED1, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_g(nnf, i, p, j, -1, 1, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * term * (f_g(nnf, i, p, j, -1, 2, eta) - f_g(nnf, i, p, j, -1, 1, eta)));
         }
 
         for (itr = vM31vi[nnf].begin(); itr != vM31vi[nnf].end(); ++itr)
@@ -1633,8 +1613,8 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const double &term = itr->second;
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_g(nnf, i, p, j, 1, -1, eta), QCD1, QED1);
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * term * (f_g(nnf, i, p, j, 2, -1, eta) - f_g(nnf, i, p, j, 1, -1, eta)), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED1, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_g(nnf, i, p, j, 1, -1, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * term * (f_g(nnf, i, p, j, 2, -1, eta) - f_g(nnf, i, p, j, 1, -1, eta)));
         }
 
         for (itr = vM34vi[nnf].begin(); itr != vM34vi[nnf].end(); ++itr)
@@ -1646,7 +1626,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const uint &p = v[4];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_g(nnf, i, p, j, 1, 0, eta), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_g(nnf, i, p, j, 1, 0, eta));
         }
 
         for (itr = vM43vi[nnf].begin(); itr != vM43vi[nnf].end(); ++itr)
@@ -1658,7 +1638,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const uint &p = v[4];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_g(nnf, i, p, j, 0, 1, eta), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_g(nnf, i, p, j, 0, 1, eta));
         }
 
         for (itr = vM23vi[nnf].begin(); itr != vM23vi[nnf].end(); ++itr)
@@ -1670,7 +1650,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const uint &p = v[4];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, -2, 1, eta), QCD2, QED1);
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, -2, 1, eta));
         }
 
         for (itr = vM32vi[nnf].begin(); itr != vM32vi[nnf].end(); ++itr)
@@ -1682,7 +1662,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const uint &p = v[4];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, 1, -2, eta), QCD2, QED1);
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, 1, -2, eta));
         }
 
         for (itr = vM14vi[nnf].begin(); itr != vM14vi[nnf].end(); ++itr)
@@ -1694,7 +1674,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const uint &p = v[4];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, -1, 0, eta), QCD2, QED1);
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, -1, 0, eta));
         }
 
         for (itr = vM41vi[nnf].begin(); itr != vM41vi[nnf].end(); ++itr)
@@ -1706,7 +1686,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &j = v[3];
             const uint &p = v[4];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, 0, -1, eta), QCD2, QED1);
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, 0, -1, eta));
         }
 
         for (itr = vM113vi[nnf].begin(); itr != vM113vi[nnf].end(); ++itr)
@@ -1719,7 +1699,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, -1, -1, 1, eta), QCD2, QED1);
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, -1, -1, 1, eta));
         }
 
         for (itr = vM131vi[nnf].begin(); itr != vM131vi[nnf].end(); ++itr)
@@ -1732,7 +1712,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, -1, 1, -1, eta), QCD2, QED1);
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, -1, 1, -1, eta));
         }
 
         for (itr = vM311vi[nnf].begin(); itr != vM311vi[nnf].end(); ++itr)
@@ -1745,7 +1725,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, 1, -1, -1, eta), QCD2, QED1);
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, 1, -1, -1, eta));
         }
 
         for (itr = vM133vi[nnf].begin(); itr != vM133vi[nnf].end(); ++itr)
@@ -1758,7 +1738,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, -1, 1, 1, eta), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, -1, 1, 1, eta));
         }
 
         for (itr = vM313vi[nnf].begin(); itr != vM313vi[nnf].end(); ++itr)
@@ -1771,7 +1751,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, 1, -1, 1, eta), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, 1, -1, 1, eta));
         }
 
         for (itr = vM331vi[nnf].begin(); itr != vM331vi[nnf].end(); ++itr)
@@ -1784,7 +1764,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            setExpandedMatrix(res, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, 1, 1, -1, eta), QCD1, QED2);
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, 1, 1, -1, eta));
         }
         /*
         for (a = 0; a < nops; a++)
@@ -1828,22 +1808,22 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
         for (uint a = 0; a < nops; a++)
             for (uint b = 0; b < nops; b++)
             {
-                if (fabs(res.getOrd(QCD0, QED0)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD0, QED0);
-                if (fabs(res.getOrd(QCD1, QED0)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD1, QED0);
-                if (fabs(res.getOrd(QCD2, QED0)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD2, QED0);
-                if (fabs(res.getOrd(QCD0, QED1)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD0, QED1);
-                if (fabs(res.getOrd(QCD0, QED2)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD0, QED2);
-                if (fabs(res.getOrd(QCD1, QED1)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD1, QED1);
-                if (fabs(res.getOrd(QCD1, QED2)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD1, QED2);
-                if (fabs(res.getOrd(QCD2, QED1)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD2, QED1);
+                if (fabs(res.getOrd(QCD0, QED0)(a, b)) < EPS) res.setMatrixElement(QCD0, QED0, a, b, 0.);
+                if (fabs(res.getOrd(QCD1, QED0)(a, b)) < EPS) res.setMatrixElement(QCD1, QED0, a, b, 0.);
+                if (fabs(res.getOrd(QCD2, QED0)(a, b)) < EPS) res.setMatrixElement(QCD2, QED0, a, b, 0.);
+                if (fabs(res.getOrd(QCD0, QED1)(a, b)) < EPS) res.setMatrixElement(QCD0, QED1, a, b, 0.);
+                if (fabs(res.getOrd(QCD0, QED2)(a, b)) < EPS) res.setMatrixElement(QCD0, QED2, a, b, 0.);
+                if (fabs(res.getOrd(QCD1, QED1)(a, b)) < EPS) res.setMatrixElement(QCD1, QED1, a, b, 0.);
+                if (fabs(res.getOrd(QCD1, QED2)(a, b)) < EPS) res.setMatrixElement(QCD1, QED2, a, b, 0.);
+                if (fabs(res.getOrd(QCD2, QED1)(a, b)) < EPS) res.setMatrixElement(QCD2, QED1, a, b, 0.);
             }
     } else
         for (uint a = 0; a < nops; a++)
             for (uint b = 0; b < nops; b++)
             {
-                if (fabs(res.getOrd(QCD0, QED0)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD0, QED0);
-                if (fabs(res.getOrd(QCD1, QED0)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD1, QED0);
-                if (fabs(res.getOrd(QCD2, QED0)(a, b)) < EPS) setExpandedMatrix(res, a, b, 0., QCD2, QED0);
+                if (fabs(res.getOrd(QCD0, QED0)(a, b)) < EPS) res.setMatrixElement(QCD0, QED0, a, b, 0.);
+                if (fabs(res.getOrd(QCD1, QED0)(a, b)) < EPS) res.setMatrixElement(QCD1, QED0, a, b, 0.);
+                if (fabs(res.getOrd(QCD2, QED0)(a, b)) < EPS) res.setMatrixElement(QCD2, QED0, a, b, 0.);
             }
 
     wilson = res * wilson;

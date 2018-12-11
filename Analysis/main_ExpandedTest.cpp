@@ -164,35 +164,35 @@ int main(void) {
     std::cout << "esd*vc1 = " << esd * vc1 << std::endl;
     std::cout << "esd*md1 = " << esd * md1 << std::endl;
     std::cout << "esd*mc1 = " << esd * mc1 << std::endl;
-
+//
     std::cout << "esc*5 = " << esc * 5. << std::endl;
     std::cout << "esc*(4-2I) = " << esc * (4. - 2. * zi) << std::endl;
     std::cout << "esc*vd1 = " << esc * vd1 << std::endl;
     std::cout << "esc*vc1 = " << esc * vc1 << std::endl;
     std::cout << "esc*md1 = " << esc * md1 << std::endl;
     std::cout << "esc*mc1 = " << esc * mc1 << std::endl;
-
+//
     std::cout << "evd*5 = " << evd * 5. << std::endl;
     std::cout << "evd*(4-2I) = " << evd * (4. - 2. * zi) << std::endl;
     std::cout << "evd*vd1 = " << evd * vd1 << std::endl;
     std::cout << "evd*vc1 = " << evd * vc1 << std::endl;
     std::cout << "evd*md1 = " << evd * md1 << std::endl;
     std::cout << "evd*mc1 = " << evd * mc1 << std::endl;
-
+//
     std::cout << "evc*5 = " << evc * 5. << std::endl;
     std::cout << "evc*(4-2I) = " << evc * (4. - 2. * zi) << std::endl;
     std::cout << "evc*vd1 = " << evc * vd1 << std::endl;
     std::cout << "evc*vc1 = " << evc * vc1 << std::endl;
     std::cout << "evc*md1 = " << evc * md1 << std::endl;
     std::cout << "evc*mc1 = " << evc * mc1 << std::endl;
-
+//
     std::cout << "emd*5 = " << emd * 5. << std::endl;
     std::cout << "emd*(4-2I) = " << emd * (4. - 2. * zi) << std::endl;
     std::cout << "emd*vd1 = " << emd * vd1 << std::endl;
     std::cout << "emd*vc1 = " << emd * vc1 << std::endl;
     std::cout << "emd*md1 = " << emd * md1 << std::endl;
     std::cout << "emd*mc1 = " << emd * mc1 << std::endl;
-
+//
     std::cout << "emc*5 = " << emc * 5. << std::endl;
     std::cout << "emc*(4-2I) = " << emc * (4. - 2. * zi) << std::endl;
     std::cout << "emc*vd1 = " << emc * vd1 << std::endl;
@@ -202,7 +202,7 @@ int main(void) {
 
     std::cout << "-------------" << std::endl;
     
-    // Expanded / UnExpanded-Scalar
+//    // Expanded / UnExpanded-Scalar
     
     std::cout << "esd/5 = " << esd / 5. << std::endl;
     std::cout << "esd/(4-2I) = " << esd / (4. - 2. * zi) << std::endl;
@@ -226,8 +226,8 @@ int main(void) {
     std::cout << "zero1 = " << 5. * evd - evd * 5. << std::endl;
     std::cout << "zero1 = " << 5. * evc - evc * 5. << std::endl;
     std::cout << "zero1 = " << 5. * emd - emd * 5. << std::endl;
-    std::cout << "zero1 =" << 5. * emc - emc * 5. << std::endl;
-
+    std::cout << "zero1 ="  << 5. * emc - emc * 5. << std::endl;
+//
     std::cout << "zero2 = " << (4 - 2 * zi) * esd - esd * (4 - 2 * zi) << std::endl;
     std::cout << "zero2 = " << (4 - 2 * zi) * esc - esc * (4 - 2 * zi) << std::endl;
     std::cout << "zero2 = " << (4 - 2 * zi) * evd - evd * (4 - 2 * zi) << std::endl;
@@ -241,20 +241,80 @@ int main(void) {
     std::cout << "zero3 = " << vd1 * evc - evc * vd1 << std::endl;
     std::cout << "zero3 = " << vd1 * emd - emd.transpose() * vd1 << std::endl;
     std::cout << "zero3 = " << vd1 * emc - emc.transpose() * vd1 << std::endl;
-
+//
     std::cout << "zero4 = " << vc1 * esd - esd * vc1 << std::endl;
     std::cout << "zero4 = " << vc1 * esc - esc * vc1 << std::endl;
     std::cout << "zero4 = " << vc1 * evd - evd * vc1 << std::endl;
     std::cout << "zero4 = " << vc1 * evc - evc * vc1 << std::endl;
     std::cout << "zero4 = " << vc1 * emd - emd.transpose() * vc1 << std::endl;
     std::cout << "zero4 = " << vc1 * emc - emc.transpose() * vc1 << std::endl;
-
+//
     std::cout << "zero5 = " << md1 * esd - esd * md1 << std::endl;
     std::cout << "zero5 = " << md1 * esc - esc * md1 << std::endl;
     std::cout << "zero5 = " << md1 * evd - evd * md1.transpose() << std::endl;
     std::cout << "zero5 = " << md1 * evc - evc * md1.transpose() << std::endl;
     std::cout << "zero5 = " << md1 * emd - (emd.transpose() * md1.transpose()).transpose() << std::endl;
     std::cout << "zero5 = " << md1 * emc - (emc.transpose() * md1.transpose()).transpose() << std::endl;
+//
+    std::cout << "zero6 = " << mc1 * esd - esd * mc1 << std::endl;
+    std::cout << "zero6 = " << mc1 * esc - esc * mc1 << std::endl;
+    std::cout << "zero6 = " << mc1 * evd - evd * mc1.transpose() << std::endl;
+    std::cout << "zero6 = " << mc1 * evc - evc * mc1.transpose() << std::endl;
+    std::cout << "zero6 = " << mc1 * emd - (emd.transpose() * mc1.transpose()).transpose() << std::endl;
+    std::cout << "zero6 = " << mc1 * emc - (emc.transpose() * mc1.transpose()).transpose() << std::endl;
 
+    std::cout << "true = " << (esd == esd) << std::endl;
+    std::cout << "true = " << (esc == esc) << std::endl;
+    std::cout << "true = " << (evd == evd) << std::endl;
+    std::cout << "true = " << (evc == evc) << std::endl;
+    std::cout << "true = " << (emd == emd) << std::endl;
+    std::cout << "true = " << (emc == emc) << std::endl;
+
+    std::cout << "false = " << (esd == esd * esd) << std::endl;
+    std::cout << "false = " << (esc == esc * esc) << std::endl;
+    std::cout << "false = " << (evd == 5 * evd) << std::endl;
+    std::cout << "false = " << (evc == 7 * evc) << std::endl;
+    std::cout << "false = " << (emd == emd * emd) << std::endl;
+    std::cout << "false = " << (emc == emc * emc) << std::endl;
+
+    Expanded<double> esd1(sd, 2);
+    std::vector<double> sdx = {10., 5., 1.,-7};
+    Expanded<double> esd2(sdx, 1);
+    
+    std::cout << "esd1 * esd2 = " << esd1*esd2 << std::endl;
+    std::cout << "esd1 + esd2 = " << esd1+esd2 << std::endl;
+    std::cout << "esd1 - esd2 = " << esd1-esd2 << std::endl;
+    
+    std::vector<double> q1={1.,0.};
+    std::vector<double> q2={5.,7.};
+    std::vector<std::vector<double> > v1 = {q1,q2};
+    std::vector<double> w1={3.,4.};
+    std::vector<double> w2={8.};
+    std::vector<std::vector<double> > v2 = {w1,w2};
+    Expanded<double> ev1(v1, 1, 0);
+    Expanded<double> ev2(v2);
+    std::cout << "ev1 = " << ev1 << std::endl;
+    std::cout << "ev2 = " << ev2 << std::endl;
+    std::cout << "ev1 * ev2 = " << ev1*ev2 << std::endl;
+    std::cout << "ev1 + ev2 = " << ev1+ev2 << std::endl;
+    std::cout << "1/ev1 = " << ev1.inverse() << std::endl;
+    std::cout << "1/ev2 = " << ev2.inverse() << std::endl;    
+
+    complex ii(0, 1);
+    std::vector<complex> r1={1.+2.*ii, 3.+4.*ii};
+    std::vector<complex> r2={5. + 6.*ii, 7.+8.*ii, 9.+10.*ii};
+    std::vector<std::vector<complex> > vv1 = {r1,r2};
+    Expanded<complex> evv1(vv1, 1, 1);
+    std::cout << "evv1 = " << evv1 << std::endl;
+    std::cout << "1/evv1 = " << evv1.inverse() << std::endl;
+
+    std::cout << "ev1/evv1 = " << ev1/evv1 << std::endl;
+    std::cout << "evv1/ev1 = " << evv1/ev1 << std::endl;
+    Expanded<complex> tmp(evv1.truncate(std::vector<int>(2,2),2));
+    std::cout << "evv1 trunc at (std::vector<int>(2,2),2)" << tmp << std::endl;
+    
+    std::cout << "evv1 series = " << evv1.Series(std::vector<int>(2,2),2) << std::endl;
+
+    Expanded<double> pp;
     return (0);
 }
