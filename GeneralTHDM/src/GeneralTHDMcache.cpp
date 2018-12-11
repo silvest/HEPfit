@@ -5966,8 +5966,9 @@ void GeneralTHDMcache::computeSignalStrengths()
 
 double GeneralTHDMcache::computephi2quantities()
 {
-    m2 = sqrt(m2_2);
-  //  m2_2 = mH2sq;
+
+    m2_2 = mH2sq;
+      m2 = sqrt(m2_2);
  /*   std::cout << "m2  = " << m2 << std::endl;
     std::cout << "mH2sq = " << mH2sq << std::endl;*/
    
@@ -6256,9 +6257,9 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
 double GeneralTHDMcache::computephi3quantities()
 {
     
+  
+   m3_2 = mH3sq;
     m3 = sqrt(m3_2);
-//    m3_2 = mH3sq;
-
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
 
@@ -7394,7 +7395,7 @@ double GeneralTHDMcache::updateCache()
     //If to always set 1 as the SM Higgs and 3 as the heaviest
     /*This loop is different as the previous. Before it was ordered by mass. Now we 
     want 1 as the SM Higgs and 3 as the heaviest*/
-    if(mH1sq == mHl*mHl)
+   /* if(mH1sq == mHl*mHl)
     {
          m1_2 = mH1sq;
           
@@ -7493,7 +7494,45 @@ double GeneralTHDMcache::updateCache()
     
       if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
                 return std::numeric_limits<double>::quiet_NaN();
+     
+     */
     
+    
+    
+    m1_2=mH1sq;
+    
+    
+    R11 = R11_GTHDM;
+    R12 = R12_GTHDM;
+    R13 = R13_GTHDM;
+    
+    if(mH2sq<=mH3sq)
+    {   
+            m2_2 = mH2sq;
+            m3_2 = mH3sq;
+            R21 = R21_GTHDM;
+            R22 = R22_GTHDM;
+            R23 = R23_GTHDM;
+            R31 = R31_GTHDM;
+            R32 = R32_GTHDM;
+            R33 = R33_GTHDM;
+        }
+         else
+        {   
+            m2_2 = mH3sq;
+            m3_2 = mH2sq;
+            R21 = R31_GTHDM;
+            R22 = R32_GTHDM;
+            R23 = R33_GTHDM;
+            R31 = R21_GTHDM;
+            R32 = R22_GTHDM;
+            R33 = R23_GTHDM;
+        }
+    
+    if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
+                return std::numeric_limits<double>::quiet_NaN();
+    
+
 //    double m1 = sqrt(m1_2);
 //    double m2 = sqrt(m2_2);
 //    double m3 = sqrt(m3_2);
