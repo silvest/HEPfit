@@ -75,7 +75,7 @@
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
-          <commandLine>-DFEYNHIGGS_VERSION=`../FeynHiggs/bin/FeynHiggs | head -1 | cut -d" " -f 2 | cut -d"." -f1-2| sed -e 's/\.//g'` `root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>-DFEYNHIGGS_VERSION=212 `root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>FHDEBUG</Elem>
           </preprocessorList>
@@ -167,7 +167,7 @@
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
-          <commandLine>-DFEYNHIGGS_VERSION=`../FeynHiggs/bin/FeynHiggs | head -1 | cut -d" " -f 2 | cut -d"." -f1-2| sed -e 's/\.//g'` `root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>-DFEYNHIGGS_VERSION=`FeynHiggs | head -1 | cut -d" " -f 2 | cut -d"." -f1-2| sed -e 's/\.//g'` `root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -261,7 +261,7 @@
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
-          <commandLine>-DFEYNHIGGS_VERSION=`../FeynHiggs/bin/FeynHiggs | head -1 | cut -d" " -f 2 | cut -d"." -f1-2| sed -e 's/\.//g'``root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>-DFEYNHIGGS_VERSION=`FeynHiggs | head -1 | cut -d" " -f 2 | cut -d"." -f1-2| sed -e 's/\.//g'``root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
