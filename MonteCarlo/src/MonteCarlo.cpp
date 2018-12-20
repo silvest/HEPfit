@@ -358,7 +358,8 @@ void MonteCarlo::Run(const int rank) {
             BCLog::CloseLog();
             
             // print results of the analysis into a text file
-            BCLog::OpenLog(("MonteCarlo_results" + JobTag + ".txt").c_str(), BCLog::results, BCLog::nothing);
+            BCLog::SetPrefix(false);
+            BCLog::OpenLog(("MonteCarlo_results" + JobTag + ".txt").c_str(), BCLog::summary, BCLog::nothing);
             MCEngine.PrintSummary();
             BCLog::CloseLog();
             

@@ -501,7 +501,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     delete [] buff;
 #else
     for (unsigned int i = 0; i < fMCMCNChains; ++i) {
-        std::vector<double>::const_iterator first = fMCMCx.at(i).begin();
+        std::vector<double>::const_iterator first = fMCMCStates.at(i).parameters.begin();
         std::vector<double>::const_iterator last = first + GetNParameters();
         std::vector<double> currvec(first, last);
         setDParsFromParameters(currvec,DPars);
