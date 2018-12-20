@@ -161,10 +161,10 @@ int RGEsMW(double t, const double y[], double beta[], void *flags)
     double pi=M_PI;
 
     //RGE taken from 1303.4848
+    //The lambda1 running is taken from (4.1) in 1303.4848. The rest stems from the appendix.
 
     //beta_la1
-    //I have no idea whether this is correct, it's just taken from the custodial THDMW!
-    beta[0] = (12.0*la1*la1 + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 8.0*nu2*nu2)/(16.0*pi*pi);
+    beta[0] = (12.0*la1*la1 + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 4.0*nu2*nu2 + 16.0*nu3*nu3)/(16.0*pi*pi);
     //beta_nu1
     beta[1] = (2.0*nu1*nu1 + nu2*nu2 + 4.0*nu3*nu3 + 2.0*la1*(3.0*nu1+nu2)
                + (7.0*nu4*nu4 - 4.0*nu4*nu5 + 7.0*nu5*nu5)/3.0
@@ -581,9 +581,133 @@ int RGEcheckMW(const double InitialValues[], const double t1, const double Rpeps
     if(sqrt(la1Q*muAtimes2)+nu1Q+nu2Q-2.0*fabs(nu3Q)<0.0) check=1;
     if(la1Q+0.25*muAtimes2+nu1Q+nu2Q+2.0*nu3Q-fabs(nu4Q+nu5Q)/sqrt(3.0)<0.0) check=1;
 
-    //unitarity checks
+    /////////////////
+    //NLO unitarity//
+    /////////////////
 
-    //...need to be implemented
+    double pi=M_PI;
+    gslpp::vector<gslpp::complex> unitarityeigenvalues(8,0.);
+
+    if(t1>tNLOuni)
+    {
+        //LO part
+        double muA = 4.0*mu1Q+4.0*mu2Q+8.5*mu3Q+5.0*mu4Q+1.5*mu5Q+2.5*mu6Q;
+        double muB = (4.0*mu1Q+4.0*mu2Q+1.5*mu3Q+12.0*mu4Q+1.5*mu5Q-0.5*mu6Q)/3.0;
+        double muC = (-0.5*mu1Q-0.5*mu2Q+1.5*mu3Q+1.5*mu4Q+12.0*mu5Q+4.0*mu6Q)/3.0;
+        double MA1 = 3.0*la1Q + muA - sqrt(9.0*la1Q*la1Q-6.0*la1Q*muA+muA*muA+32.0*nu1Q*nu1Q+32.0*nu1Q*nu2Q+8.0*nu2Q*nu2Q);
+        double MA2 = 3.0*la1Q + muA + sqrt(9.0*la1Q*la1Q-6.0*la1Q*muA+muA*muA+32.0*nu1Q*nu1Q+32.0*nu1Q*nu2Q+8.0*nu2Q*nu2Q);
+        double MB1 = la1Q + muB - sqrt(la1Q*la1Q-2.0*la1Q*muB+muB*muB+8.0*nu2Q*nu2Q);
+        double MB2 = la1Q + muB + sqrt(la1Q*la1Q-2.0*la1Q*muB+muB*muB+8.0*nu2Q*nu2Q);
+        double MC1 = la1Q + muC - sqrt(la1Q*la1Q-2.0*la1Q*muC+muC*muC+32.0*nu3Q*nu3Q);
+        double MC2 = la1Q + muC + sqrt(la1Q*la1Q-2.0*la1Q*muC+muC*muC+32.0*nu3Q*nu3Q);
+        unitarityeigenvalues.assign(0, MA1/(16.0*pi));
+        unitarityeigenvalues.assign(1, MA2/(16.0*pi));
+        unitarityeigenvalues.assign(2, MB1/(16.0*pi));
+        unitarityeigenvalues.assign(3, MB2/(16.0*pi));
+        unitarityeigenvalues.assign(4, MC1/(16.0*pi));
+        unitarityeigenvalues.assign(5, MC2/(16.0*pi));
+        unitarityeigenvalues.assign(6, la1Q/(8.0*pi));
+        unitarityeigenvalues.assign(7, sqrt(15.0)*(nu4Q+nu5Q)/(64.0*pi));
+
+        //NLO part
+        //beta_la1*16pi^2
+        double betala1 = 12.0*la1Q*la1Q + 8.0*nu1Q*nu1Q + 8.0*nu1Q*nu2Q + 4.0*nu2Q*nu2Q + 16.0*nu3Q*nu3Q;
+        //beta_nu1*16pi^2
+        double betanu1 = 2.0*nu1Q*nu1Q + nu2Q*nu2Q + 4.0*nu3Q*nu3Q + 2.0*la1Q*(3.0*nu1Q+nu2Q)
+               + (7.0*nu4Q*nu4Q - 4.0*nu4Q*nu5Q + 7.0*nu5Q*nu5Q)/3.0
+               + nu1Q*(8.0*mu1Q + 8.0*mu2Q + 17.0*mu3Q + 10.0*mu4Q + 3.0*mu5Q + 5.0*mu6Q)
+               + nu2Q*(8.0*mu1Q + 8.0*mu2Q + 24.0*mu3Q + 3.0*mu4Q
+                      + 3.0*mu5Q + 8.0*mu6Q)/3.0;
+        //beta_nu2*16pi^2
+        double betanu2 = 2.0*nu2Q*nu2Q + 4.0*nu1Q*nu2Q + 16.0*nu3Q*nu3Q + 2.0*la1Q*nu2Q
+               + (4.0*nu4Q*nu4Q + 17.0*nu4Q*nu5Q + 4.0*nu5Q*nu5Q)/3.0
+               + nu2Q*(8.0*mu1Q + 8.0*mu2Q + 3.0*mu3Q + 24.0*mu4Q
+                      + 3.0*mu5Q - mu6Q)/3.0;
+        //beta_nu3*16pi^2
+        double betanu3 = 2.0*nu3Q*(la1Q + 2.0*nu1Q + 3.0*nu2Q)
+               + (17.0*nu4Q*nu4Q + 16.0*nu4Q*nu5Q + 17.0*nu5Q*nu5Q)/12.0
+               + nu3Q*(-mu1Q - mu2Q + 3.0*mu3Q + 3.0*mu4Q
+                      + 24.0*mu5Q + 8.0*mu6Q)/3.0;
+        //beta_nu4*16pi^2
+        double betanu4 = 8.0*nu3Q*nu4Q + 2.0*nu3Q*nu5Q
+               + nu5Q*(2.0*nu2Q - mu2Q + 2.0*mu4Q + 4.0*mu5Q + mu6Q)
+               + nu4Q*(3.0*nu1Q + 2.0*nu2Q + 6.0*mu1Q + 2.0*mu2Q + 3.0*mu3Q
+                      + 2.0*mu4Q + mu5Q + mu6Q);
+        //beta_nu5*16pi^2
+        double betanu5 = 2.0*nu3Q*nu4Q + 8.0*nu3Q*nu5Q
+               + nu4Q*(2.0*nu2Q - mu1Q + 2.0*mu4Q + 4.0*mu5Q + mu6Q)
+               + nu5Q*(3.0*nu1Q + 2.0*nu2Q + 6.0*mu1Q + 2.0*mu2Q + 3.0*mu3Q
+                      + 2.0*mu4Q + mu5Q + mu6Q);
+        //beta_mu1*16pi^2
+        double betamu1 = 3.0*nu4Q*nu4Q + 7.0*mu1Q*mu1Q
+               + mu1Q*(6.0*mu2Q + 6.0*mu3Q + 4.0*mu4Q - mu5Q - 2.0*mu6Q)
+               + mu2Q*(4.0*mu4Q - mu5Q)
+               - 2.0*mu4Q*mu6Q + 2.0*mu5Q*mu6Q + mu6Q*mu6Q;
+        //beta_mu2*16pi^2
+        double betamu2 = 3.0*nu5Q*nu5Q + 7.0*mu2Q*mu2Q
+               + mu2Q*(6.0*mu1Q + 6.0*mu3Q + 4.0*mu4Q - mu5Q - 2.0*mu6Q)
+               + mu1Q*(4.0*mu4Q - mu5Q)
+               - 2.0*mu4Q*mu6Q + 2.0*mu5Q*mu6Q + mu6Q*mu6Q;
+        //beta_mu3*16pi^2
+        double betamu3 = 20.0*mu3Q*mu3Q
+               + mu3Q*(288.0*mu1Q + 288.0*mu2Q + 360.0*mu4Q + 108.0*mu5Q + 180.0*mu6Q)/18.0
+               + (36.0*nu1Q*nu1Q + 36.0*nu1Q*nu2Q - 24.0*nu4Q*nu4Q - 12.0*nu4Q*nu5Q
+                  - 24.0*nu5Q*nu5Q + 62.0*mu1Q*mu1Q + 64.0*mu1Q*mu2Q + 62.0*mu2Q*mu2Q
+                  + (96.0*mu4Q + 18.0*mu5Q + 58.0*mu6Q)*(mu1Q + mu2Q)
+                  + 54.0*mu4Q*mu4Q + 36.0*mu4Q*mu5Q + 132.0*mu4Q*mu6Q + 18.0*mu5Q*mu5Q
+                  + 18.0*mu5Q*mu6Q + 29.0*mu6Q*mu6Q)/18.0;
+        //beta_mu4*16pi^2
+        double betamu4 = nu2Q*nu2Q - (nu4Q*nu4Q - 4.0*nu4Q*nu5Q + nu5Q*nu5Q)/3.0 + 10.0*mu4Q*mu4Q /*mu4Q??*/
+               + mu5Q*(mu1Q + mu2Q + mu6Q)
+               + mu4Q*(4.0*(4.0*mu1Q + 4.0*mu2Q + mu6Q)/3.0 + 2.0*mu5Q + 6.0*mu4Q)
+               + 4.0*mu5Q*mu5Q
+               + (mu1Q*mu1Q + mu2Q*mu2Q - 4.0*mu6Q*(mu1Q+mu2Q) - 2.0*mu6Q*mu6Q)/9.0
+               + 26.0/9.0*mu1Q*mu2Q;
+        //beta_mu5*16pi^2
+        double betamu5 = 4.0*nu3Q*nu3Q - (nu4Q*nu4Q - 4.0*nu4Q*nu5Q + nu5Q*nu5Q)/3.0
+               + mu5Q*((mu1Q + mu2Q + 19.0*mu6Q)/3.0 + 8.0*mu4Q + 6.0*mu3Q)
+               + 2.0*mu4Q*mu6Q + 8.0*mu5Q*mu5Q
+               + (mu1Q*mu1Q + mu2Q*mu2Q - 4.0*mu6Q*(mu1Q+mu2Q) + 7.0*mu6Q*mu6Q)/9.0
+               - 10.0/9.0*mu1Q*mu2Q;
+        //beta_mu6*16pi^2
+        double betamu6 = 0.5*mu6Q*mu6Q + 3.0*nu4Q*nu4Q + 3.0*nu5Q*nu5Q
+               - 2.0*(mu1Q*mu1Q + mu2Q*mu2Q) + 6.0*mu5Q*(mu1Q + mu2Q)
+               + 7.0*mu6Q*(mu1Q + mu2Q + mu3Q);
+
+        double betamuA = 4.0*betamu1+4.0*betamu2+8.5*betamu3+5.0*betamu4+1.5*betamu5+2.5*betamu6;
+        double betamuB = (4.0*betamu1+4.0*betamu2+1.5*betamu3+12.0*betamu4+1.5*betamu5-0.5*betamu6)/3.0;
+        double betamuC = (-0.5*betamu1-0.5*betamu2+1.5*betamu3+1.5*betamu4+12.0*betamu5+4.0*betamu6)/3.0;
+        double betaMA1 = 3.0*betala1 + betamuA 
+                         - sqrt(9.0*betala1*betala1-6.0*betala1*betamuA+betamuA*betamuA
+                                +32.0*betanu1*betanu1+32.0*betanu1*betanu2+8.0*betanu2*betanu2);
+        double betaMA2 = 3.0*betala1 + betamuA 
+                         + sqrt(9.0*betala1*betala1-6.0*betala1*betamuA+betamuA*betamuA
+                                +32.0*betanu1*betanu1+32.0*betanu1*betanu2+8.0*betanu2*betanu2);
+        double betaMB1 = betala1 + betamuB - sqrt(betala1*betala1-2.0*betala1*betamuB+betamuB*betamuB+8.0*betanu2*betanu2);
+        double betaMB2 = betala1 + betamuB + sqrt(betala1*betala1-2.0*betala1*betamuB+betamuB*betamuB+8.0*betanu2*betanu2);
+        double betaMC1 = betala1 + betamuC - sqrt(betala1*betala1-2.0*betala1*betamuC+betamuC*betamuC+32.0*betanu3*betanu3);
+        double betaMC2 = betala1 + betamuC + sqrt(betala1*betala1-2.0*betala1*betamuC+betamuC*betamuC+32.0*betanu3*betanu3);
+
+        gslpp::vector<gslpp::complex> betaeigenvalues(8,0.);
+        gslpp::vector<gslpp::complex> NLOunitarityeigenvalues(8,0.);
+
+        betaeigenvalues.assign(0, -1.5 * betaMA1/(16.0*pi));
+        betaeigenvalues.assign(1, -1.5 * betaMA2/(16.0*pi));
+        betaeigenvalues.assign(2, -1.5 * betaMB1/(16.0*pi));
+        betaeigenvalues.assign(3, -1.5 * betaMB2/(16.0*pi));
+        betaeigenvalues.assign(4, -1.5 * betaMC1/(16.0*pi));
+        betaeigenvalues.assign(5, -1.5 * betaMC2/(16.0*pi));
+        betaeigenvalues.assign(6, -1.5 * betala1/(8.0*pi));
+        betaeigenvalues.assign(7, -1.5 * sqrt(15.0)*(betanu4+betanu5)/(64.0*pi));
+
+        for (int i=0; i < 8; i++) {
+            NLOunitarityeigenvalues.assign(i, -(gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
+            if( ( unitarityeigenvalues(i) + NLOunitarityeigenvalues(i).real() ).abs() > 0.5) check=1;
+            if( (unitarityeigenvalues(i)).abs() > Rpeps && (NLOunitarityeigenvalues(i)/unitarityeigenvalues(i)).abs() > 1.0) check=1;
+        }
+
+    } //end of the if(t1>tNLOuni)
+
 
     return check;
 }

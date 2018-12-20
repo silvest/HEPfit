@@ -1253,38 +1253,29 @@ void THDMWcache::computeUnitarity()
     if( THDMWmodel == "ManoharWise")
     {
         double pi=M_PI;
-        gslpp::matrix<gslpp::complex> Smatrix1(4,4,0.), Smatrix2(4,4,0.);
-//        gslpp::matrix<gslpp::complex> Sbmatrix1(4,4,0.), Sbmatrix2(4,4,0.);
-        gslpp::matrix<gslpp::complex> Seigenvectors1(4,4,0.), Seigenvectors2(4,4,0.);
-//        gslpp::matrix<gslpp::complex> Seigenvectors1T(4,4,0.), Seigenvectors2T(4,4,0.);
-        gslpp::vector<double> Seigenvalues1(4,0.), Seigenvalues2(4,0.);
-//        gslpp::vector<gslpp::complex> Sbeigenvalues1(4,0.), Sbeigenvalues2(4,0.);
 
         /*
         *******   LO part   *************
         */
 
-        // Definition of the blocks of the S-matrix, taken from 1303.4848
-        Smatrix1.assign(0,0, 3.0*lambda1/(16.0*pi));
-        Smatrix1.assign(0,3, (2.0*nu1+nu2)/(8.0*sqrt(2.0)*pi));
-        Smatrix1.assign(3,0, Smatrix1(0,3));
-        Smatrix1.assign(3,3, (26.0*mu1+17.0*mu3+13.0*mu4)/(32.0*pi));
-
-        Smatrix2.assign(0,0, lambda1/(16.0*pi));
-        Smatrix2.assign(0,3, nu3/(4.0*sqrt(2.0)*pi));
-        Smatrix2.assign(3,0, Smatrix2(0,3));
-        Smatrix2.assign(3,3, (14.0*mu1+3.0*mu3+27.0*mu4)/(96.0*pi)); //??
-
-        Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
-        Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
-
-        for (int i=0; i < 4; i++) {
-            unitarityeigenvalues.assign(i, Seigenvalues1(i));
-            unitarityeigenvalues.assign(4+i, Seigenvalues2(i));
-        }
-//        unitarityeigenvalues.assign(8, (lambda3-lambda4)/(16.0*pi));
-        unitarityeigenvalues.assign(9, sqrt(15.0)*(nu4+nu5)/(64.0*pi)); //non-custodial limit from 1606.01298
-//        unitarityeigenvalues.assign(10, sqrt(15.0)*omega4/(16.0*pi));
+        // Eigenvalues of the S-matrix, calculated by Li Cheng and Victor Miralles
+        double muA = 4.0*mu1+4.0*mu2+8.5*mu3+5.0*mu4+1.5*mu5+2.5*mu6;
+        double muB = (4.0*mu1+4.0*mu2+1.5*mu3+12.0*mu4+1.5*mu5-0.5*mu6)/3.0;
+        double muC = (-0.5*mu1-0.5*mu2+1.5*mu3+1.5*mu4+12.0*mu5+4.0*mu6)/3.0;
+        double MA1 = 3.0*lambda1 + muA - sqrt(9.0*lambda1*lambda1-6.0*lambda1*muA+muA*muA+32.0*nu1*nu1+32.0*nu1*nu2+8.0*nu2*nu2);
+        double MA2 = 3.0*lambda1 + muA + sqrt(9.0*lambda1*lambda1-6.0*lambda1*muA+muA*muA+32.0*nu1*nu1+32.0*nu1*nu2+8.0*nu2*nu2);
+        double MB1 = lambda1 + muB - sqrt(lambda1*lambda1-2.0*lambda1*muB+muB*muB+8.0*nu2*nu2);
+        double MB2 = lambda1 + muB + sqrt(lambda1*lambda1-2.0*lambda1*muB+muB*muB+8.0*nu2*nu2);
+        double MC1 = lambda1 + muC - sqrt(lambda1*lambda1-2.0*lambda1*muC+muC*muC+32.0*nu3*nu3);
+        double MC2 = lambda1 + muC + sqrt(lambda1*lambda1-2.0*lambda1*muC+muC*muC+32.0*nu3*nu3);
+        unitarityeigenvalues.assign(0, MA1/(16.0*pi));
+        unitarityeigenvalues.assign(1, MA2/(16.0*pi));
+        unitarityeigenvalues.assign(2, MB1/(16.0*pi));
+        unitarityeigenvalues.assign(3, MB2/(16.0*pi));
+        unitarityeigenvalues.assign(4, MC1/(16.0*pi));
+        unitarityeigenvalues.assign(5, MC2/(16.0*pi));
+        unitarityeigenvalues.assign(6, lambda1/(8.0*pi));
+        unitarityeigenvalues.assign(7, sqrt(15.0)*(nu4+nu5)/(64.0*pi));
     }//End of the ManoharWise case
     if( THDMWmodel == "custodialMW")
     {
