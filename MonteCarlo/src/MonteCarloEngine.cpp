@@ -340,10 +340,10 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         if(!(it->isPrediction())) logprob += it->computeWeight();
     }
-    if (std::isnan(logprob)) {
+    if (!std::isfinite(logprob)) {
         NumOfDiscardedEvents++;
 #ifdef _MCDEBUG
-        std::cout << "Event discarded since logprob evaluated to NAN.\n" << logprob << std::endl ;
+//        std::cout << "Event discarded since logprob evaluated to: " << logprob << std::endl ;
 #endif
         return (log(0.));
     }
@@ -501,7 +501,8 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     delete [] buff;
 #else
     for (unsigned int i = 0; i < fMCMCNChains; ++i) {
-        std::vector<double>::const_iterator first = fMCMCStates.at(i).parameters.begin();
+        // NOTE: BAT syncs fMCMCThreadLocalStorage with fMCMCStates before calling MCMCUserIterationInterface.
+        std::vector<double>::const_iterator first = fMCMCStates.at(i).parameters.begin(); 
         std::vector<double>::const_iterator last = first + GetNParameters();
         std::vector<double> currvec(first, last);
         setDParsFromParameters(currvec,DPars);
@@ -784,7 +785,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, Observable& it, cons
         std::string fname = OutputDir + "/" + HistName + ".pdf";
         Histo1D[HistName].SetGlobalMode(it.computeTheoryValue());
         Print1D(Histo1D[HistName], fname.c_str());
-        std::cout << fname << " has been created." << std::endl;
+        std::cout << " " + HistName + ".pdf" << std::endl;
         if(OutFile.compare("") == 0) {
             throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
         }
@@ -810,6 +811,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
 
     Mod->Update(DPars);
 
+    if (Obs_ALL.size() != 0 || CGO.size() != 0) std::cout << "\nPrinting 1D histograms in the Observables directory: " << std::endl;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) PrintHistogram(OutFile, *it, OutputDir);
     
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
@@ -817,6 +819,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
         for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) PrintHistogram(OutFile, *it, OutputDir);
     }
     
+    if (Obs2D_ALL.size() != 0) std::cout << "\nPrinting 2D histograms in the Observables directory: " << std::endl;
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
         std::string HistName = it->getName();
         if (Histo2D[HistName].GetHistogram()->Integral() > 0.0) {
@@ -826,7 +829,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
             th.push_back(it->computeTheoryValue2());
             Histo2D[HistName].SetGlobalMode(th);
             Print2D(Histo2D[HistName], fname.c_str());
-            std::cout << fname << " has been created." << std::endl;
+            std::cout << " " + HistName + ".pdf" << std::endl;
             if(OutFile.compare("") == 0) throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
             TDirectory * dir = gDirectory;
             GetOutputFile()->cd();
@@ -835,11 +838,12 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
             CheckHistogram(*Histo2D[HistName].GetHistogram(), HistName);
         } else HistoLog << "WARNING: The histogram of " << HistName << " is empty!" << std::endl;
     }
-        
+    
+    std::cout << "\nPrinting LogLikelihood histogram in the Observables directory: " << std::endl;
     if (Histo1D["LogLikelihood"].GetHistogram()->Integral() > 0.0) {
         std::string fname = OutputDir + "/LogLikelihood.pdf";
         Print1D(Histo1D["LogLikelihood"], fname.c_str());
-        std::cout << fname << " has been created." << std::endl;
+        std::cout << " LogLikelihood.pdf" << std::endl;
         TDirectory * dir = gDirectory;
         GetOutputFile()->cd();
         Histo1D["LogLikelihood"].GetHistogram()->Write();
@@ -848,6 +852,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
     }
     
     if (PrintLoglikelihoodPlots) {
+        std::cout << "\nPrinting LogLikelihood vs. parameter 2D histograms in the Observables directory: " << std::endl;
         for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it != ModPars.end(); it++) {
             if (it->IsFixed()) continue;
             if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) != unknownParameters.end()) continue;
@@ -855,7 +860,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
             if (Histo2D[HistName].GetHistogram()->Integral() > 0.0) {
                 std::string fname = OutputDir + "/LogLikelihoodPlots/" + HistName + ".pdf";
                 Print2D(Histo2D[HistName], fname.c_str());
-                std::cout << fname << " has been created." << std::endl;
+                std::cout << " " + HistName + ".pdf" << std::endl;
                 if (OutFile.compare("") == 0) throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
                 TDirectory * dir = gDirectory;
                 GetOutputFile()->cd();

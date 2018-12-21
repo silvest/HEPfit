@@ -20,6 +20,7 @@
 #include <stdexcept>
 #include <ctime>
 #include <iostream>
+#include <iomanip>
 
 
 MonteCarlo::MonteCarlo(
@@ -261,15 +262,14 @@ void MonteCarlo::Run(const int rank) {
                 std::cout << "  " << it1->getName() << " containing "
                 << it1->getObs().size() << " observables." << std::endl;
             ParseMCMCConfig(MCMCConf);
-            char mbstr[100];
-            std::time_t ti = std::time(NULL); 
-            std::time_t tf = std::time(NULL);
                                   
             if (RunMinuitOnly) { 
-                if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) std::cout << "\nMinuit Minimization started at " <<  mbstr << std::endl; 
+                std::time_t ti = std::time(NULL);
+                std::cout << "\nMinuit Minimization started at " << std::put_time(std::localtime(&ti), "%c %Z") << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
                 BCLog::OpenLog(("MinuitMinimizationResults" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
                 MCEngine.FindMode();
-                if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) std::cout << "\nMinuit Minimization ended at " <<  mbstr << std::endl;
+                std::time_t tf = std::time(NULL);
+                std::cout << "\nMinuit Minimization ended at " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
                 return;
             }
   
@@ -290,17 +290,26 @@ void MonteCarlo::Run(const int rank) {
                 if (MCEngine.getchainedObsSize() > 0) MCEngine.AddChains();
             }
             // set nicer style for drawing than the ROOT default
-            BCAux::SetStyle();
-
+//            BCAux::SetStyle();
+            
+            std::time_t ti = std::time(NULL);
+            std::cout << "\nMCMC run started at " << std::put_time(std::localtime(&ti), "%c %Z") << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
             // open log file
             BCLog::OpenLog(("log" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
 
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
-            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) std::cout << "MCMC Run started at " <<  mbstr << std::endl; 
             MCEngine.MarginalizeAll();
-            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) std::cout << "MCMC Run ended at " <<  mbstr << std::endl; 
+            std::time_t tf = std::time(NULL);
+            std::cout << "\nMCMC run ended at  " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << std::endl;
+            int hour = (tf-ti)/3600;
+            int min = ((tf-ti)%3600) / 60;
+            int sec = ((tf-ti)%3600) % 60;
+            std::cout << "Time taken by the MCMC run: ";
+            std::cout << std::setfill('0') << std::setw(2) << hour << ":"; 
+            std::cout << std::setfill('0') << std::setw(2) << min  << ":" ;
+            std::cout << std::setfill('0') << std::setw(2) << sec   << "\n" << std::endl;
 
             // find mode using the best fit parameters as start values
             if (FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
@@ -349,10 +358,14 @@ void MonteCarlo::Run(const int rank) {
 
             /* Number of events */
             std::stringstream ss;
+            ss << ""; 
+            BCLog::SetPrefix(false);
+            BCLog::OutSummary(ss.str().c_str());
+            BCLog::SetPrefix(true);
             ss << "Number of used events: " << MCEngine.getNumOfUsedEvents();
             BCLog::OutSummary(ss.str().c_str());
             ss.str("");
-            ss << "Number of discarded events: " << MCEngine.getNumOfDiscardedEvents();
+            ss << "Number of discarded events: " << MCEngine.getNumOfDiscardedEvents() << "\n";
             BCLog::OutSummary(ss.str().c_str());
             // close log file
             BCLog::CloseLog();
