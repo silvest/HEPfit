@@ -3787,15 +3787,67 @@ protected:
     double ettH_1314_G;///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{G}\f$ to ttH production at Tevatron (13 & 14 TeV).
     double ettH_1314_uG_33r;///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{uG})_{33}\f$ to ttH production at the LHC (13 & 14 TeV).
     double ettH_1314_DeltagHt;///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta g_{Htt}\f$ to ttH production at the LHC (13 & 14 TeV).
-
-    double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
-    
+        
     double BrHinv; ///< The branching ratio of invisible Higgs decays.
     double BrHexo; ///< The branching ratio of exotic (not invisible) Higgs decays.
     
     double dg1Z; ///< Independent contribution to aTGC.
     double dKappaga; ///< Independent contribution to aTGC.    
     double lambZ; ///< Independent contribution to aTGC.
+
+//  ----------------------------------------------------------------------------
+//  Internal parameters    
+//  ----------------------------------------------------------------------------
+    
+    double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
+    
+    // Internal values for some of the dimension-6 coefficients (to allow changes of bases in Post-Update
+    double CiHL1_11;
+    double CiHL1_22;
+    double CiHL1_33;
+    double CiHL3_11;
+    double CiHL3_22;
+    double CiHL3_33;
+    
+    double CiHQ1_11;
+    double CiHQ1_22;
+    double CiHQ1_33;
+    double CiHQ3_11;
+    double CiHQ3_22;
+    double CiHQ3_33;
+    
+    double CiHe_11;
+    double CiHe_22;
+    double CiHe_33;
+    
+    double CiHu_11;
+    double CiHu_22;
+    double CiHu_33;
+    
+    double CiHd_11;
+    double CiHd_22;
+    double CiHd_33;
+    
+    double CiW;
+    
+    double CiHbox;
+    double CiHD;
+    double CiH;
+    
+    double CieH_11r;
+    double CieH_22r;
+    double CieH_33r;
+    
+    double CiuH_11r;
+    double CiuH_22r;
+    double CiuH_33r;
+    
+    double CidH_11r;
+    double CidH_22r;
+    double CidH_33r;
+    
+    double CiLL_1221;
+    double CiLL_2112;    
     
     double v2;///< The square of the EW vev.
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
