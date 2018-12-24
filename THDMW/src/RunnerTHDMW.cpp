@@ -600,14 +600,14 @@ int RGEcheckMW(const double InitialValues[], const double t1, const double Rpeps
         double MB2 = la1Q + muB + sqrt(la1Q*la1Q-2.0*la1Q*muB+muB*muB+8.0*nu2Q*nu2Q);
         double MC1 = la1Q + muC - sqrt(la1Q*la1Q-2.0*la1Q*muC+muC*muC+32.0*nu3Q*nu3Q);
         double MC2 = la1Q + muC + sqrt(la1Q*la1Q-2.0*la1Q*muC+muC*muC+32.0*nu3Q*nu3Q);
-        unitarityeigenvalues.assign(0, MA1/(16.0*pi));
-        unitarityeigenvalues.assign(1, MA2/(16.0*pi));
-        unitarityeigenvalues.assign(2, MB1/(16.0*pi));
-        unitarityeigenvalues.assign(3, MB2/(16.0*pi));
-        unitarityeigenvalues.assign(4, MC1/(16.0*pi));
-        unitarityeigenvalues.assign(5, MC2/(16.0*pi));
-        unitarityeigenvalues.assign(6, la1Q/(8.0*pi));
-        unitarityeigenvalues.assign(7, sqrt(15.0)*(nu4Q+nu5Q)/(64.0*pi));
+        unitarityeigenvalues.assign(0, MA1/(32.0*pi));
+        unitarityeigenvalues.assign(1, MA2/(32.0*pi));
+        unitarityeigenvalues.assign(2, MB1/(32.0*pi));
+        unitarityeigenvalues.assign(3, MB2/(32.0*pi));
+        unitarityeigenvalues.assign(4, MC1/(32.0*pi));
+        unitarityeigenvalues.assign(5, MC2/(32.0*pi));
+        unitarityeigenvalues.assign(6, la1Q/(16.0*pi));
+        unitarityeigenvalues.assign(7, sqrt(15.0)*(nu4Q+nu5Q)/(32.0*pi));
 
         //NLO part
         //beta_la1*16pi^2
