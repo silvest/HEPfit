@@ -117,6 +117,11 @@
  *   <td class="mod_desc">The factor rescaling all Higgs couplings to taus with respect to the SM.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%KH</td>
+ *   <td class="mod_symb">@f$\kappa_H@f$</td>
+ *   <td class="mod_desc">The factor rescaling the Higgs total width with respect to the SM. (Only applies when flag UseKH is true. )</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%BrHinv</td>
  *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
  *   <td class="mod_desc">The branching ratio of invisible Higgs decays. Only the absolute value of this parameter is considered. </td>
@@ -124,7 +129,8 @@
  * <tr>
  *   <td class="mod_name">%BrHexo</td>
  *   <td class="mod_symb">Br@f$(H\to exotic (visible))@f$</td>
- *   <td class="mod_desc">The branching ratio of exotic, not invisible, Higgs decays. Only the absolute value of this parameter is considered.</td>
+ *   <td class="mod_desc">The branching ratio of exotic, not invisible, Higgs decays. Only the absolute value of this parameter is considered. 
+ *   (If flag UseKH is true this parameter is ignored and it is recomputed as a function of KH. )</td>
  * </tr>
  * </table>
  * 
@@ -166,6 +172,13 @@
  *   universal value. The value is controlled by the parameter Kt. (It does not apply to the extra BR.)
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%UseKH</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if the total Higgs width is rescaled by KH. Otherwise, it is computed
+ *   from the other SM decays, BrHinv and BrHexo. (If true BrHexo is ignored and computed from KH.)
+ *   The default value is FALSE.</td>
+ * </tr>
  * </table>
  *
  * Please read information about parameter initialization and update in the documentation of the %StandardModel class.
@@ -173,7 +186,7 @@
 class HiggsKigen : public NPbase {
 public:
 
-    static const int NHKvKfgenvars = 16; ///< The number of the model parameters in %HiggsKigen.
+    static const int NHKvKfgenvars = 17; ///< The number of the model parameters in %HiggsKigen.
 
     /**
      * @brief A string array containing the labels of the model parameters in %HiggsKigen.
@@ -487,6 +500,26 @@ public:
     {
         this->Kt = Kt;
     }   
+    
+    /**
+     * @brief A get method to retrieve the factor rescaling the total Higgs width
+     * with respect to the SM @f$K_H@f$.
+     * @return @f$K_H@f$
+     */
+    double getKH() const
+    {
+        return KH;
+    }
+
+    /**
+     * @brief A set method to change the factor rescaling the total Higgs width
+     * with respect to the SM @f$K_H@f$.
+     * @param[in] @f$K_H@f$ the factor rescaling the total Higgs width.
+     */
+    void setKH(double KH)
+    {
+        this->KH = KH;
+    }
     
     
     /**
@@ -1328,6 +1361,13 @@ public:
     virtual double computeGammaTotalRatio() const;
     
     /**
+     * @brief The ratio of the @f$\Gamma(H\to SM)@f$ in the current model
+     * and in the Standard Model, including only SM decays.
+     * @return @f$\Gamma(H\to SM)@f$/@f$\Gamma(H\to SM)_{\mathrm{SM}}@f$
+     */
+    virtual double computeGammaTotalSMRatio() const;
+    
+    /**
      * @brief The branching ratio of the of the Higgs into exotic particles (invisible or not).
      * @return Br@f$(H\to exotic)@f$
      */
@@ -1605,29 +1645,37 @@ private:
     gslpp::complex g_func(const double x) const;
     gslpp::complex Int1(const double tau, const double lambda) const;
     gslpp::complex Int2(const double tau, const double lambda) const;
-    
-    double Kw; ///< The factor rescaling all Higgs couplings to the W vector bosons with respect to the SM.
-    double Kz; ///< The factor rescaling all Higgs couplings to the Z vector bosons with respect to the SM.
-    double Kg; ///< The factor rescaling all Higgs couplings to gluons with respect to the SM.
-    double Kga; ///< The factor rescaling all Higgs couplings to photons with respect to the SM.
-    double Kzga; ///< The factor rescaling all Higgs couplings to the Z and a photon with respect to the SM.
-    double Ku; ///< The factor rescaling all Higgs couplings to the up quark with respect to the SM.
-    double Kc; ///< The factor rescaling all Higgs couplings to the charm quark with respect to the SM.
-    double Kt; ///< The factor rescaling all Higgs couplings to the top quark with respect to the SM.
-    double Kd; ///< The factor rescaling all Higgs couplings to the down quark with respect to the SM.
-    double Ks; ///< The factor rescaling all Higgs couplings to the strange quark with respect to the SM.
-    double Kb; ///< The factor rescaling all Higgs couplings to the bottom quark with respect to the SM.
-    double Ke; ///< The factor rescaling all Higgs couplings to electrons with respect to the SM.
-    double Kmu; ///< The factor rescaling all Higgs couplings to muons with respect to the SM.
-    double Ktau; ///< The factor rescaling all Higgs couplings to taus with respect to the SM.
+
+    // Model parameters    
+    double Kw; ///< The factor rescaling the SM-like Higgs couplings to the W vector bosons with respect to the SM.
+    double Kz; ///< The factor rescaling the SM-like Higgs couplings to the Z vector bosons with respect to the SM.
+    double Kg; ///< The factor rescaling the effective Higgs couplings to gluons with respect to the SM.
+    double Kga; ///< The factor rescaling the effective Higgs couplings to photons with respect to the SM.
+    double Kzga; ///< The factor rescaling the effective Higgs couplings to the Z and a photon with respect to the SM.
+    double Ku; ///< The factor rescaling the Higgs couplings to the up quark with respect to the SM.
+    double Kc; ///< The factor rescaling the Higgs couplings to the charm quark with respect to the SM.
+    double Kt; ///< The factor rescaling the Higgs couplings to the top quark with respect to the SM.
+    double Kd; ///< The factor rescaling the Higgs couplings to the down quark with respect to the SM.
+    double Ks; ///< The factor rescaling the Higgs couplings to the strange quark with respect to the SM.
+    double Kb; ///< The factor rescaling the Higgs couplings to the bottom quark with respect to the SM.
+    double Ke; ///< The factor rescaling the Higgs couplings to electrons with respect to the SM.
+    double Kmu; ///< The factor rescaling the Higgs couplings to muons with respect to the SM.
+    double Ktau; ///< The factor rescaling the Higgs couplings to taus with respect to the SM.
+    double KH; ///< The factor rescaling the total Higgs width with respect to the SM.
     double BrHinv; ///< The branching ratio of invisible Higgs decays.
     double BrHexo; ///< The branching ratio of exotic (not invisible) Higgs decays.
     
+    // Cache variables
+    double GammaHTotR;///< Total Higgs width ratio with respect to SM
+    double GammaHTotSMR;///< Total Higgs width ratio with respect to SM (only SM channels)
+    
+    // Flags    
     bool FlagKiLoop; ///< A boolean flag that is true if one allows independent kappa's for the loop induced processes (g,ga,Zga)
     bool FlagCustodial; ///< A boolean flag that is true if KZ=KW.
     bool FlagUniversalKf; ///< A boolean flag that is true if all Kf take the same universal value.
     bool FlagUniversalK; ///< A boolean flag that is true if all K take the same universal value.
-
+    bool FlagUseKH; ///< A boolean flag that is true if the Higgs width is rescaled by KH. (See above for the description of flag.)
+    
 };
 
 #endif	/* HIGGSKIGEN_H */

@@ -8,7 +8,7 @@
 #include "HiggsKigen.h"
 
 const std::string HiggsKigen::HKvKfgenvars[NHKvKfgenvars] = {
-    "Kw", "Kz", "Kg", "Kga", "Kzga", "Ku", "Kc", "Kt", "Kd", "Ks", "Kb", "Ke", "Kmu", "Ktau", "BrHinv", "BrHexo"
+    "Kw", "Kz", "Kg", "Kga", "Kzga", "Ku", "Kc", "Kt", "Kd", "Ks", "Kb", "Ke", "Kmu", "Ktau", "KH", "BrHinv", "BrHexo"
 };
 
 HiggsKigen::HiggsKigen()
@@ -18,6 +18,7 @@ HiggsKigen::HiggsKigen()
     FlagCustodial = false;
     FlagUniversalKf = false;
     FlagUniversalK = false;
+    FlagUseKH = false;
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kw", boost::cref(Kw)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kz", boost::cref(Kz)));
@@ -33,6 +34,7 @@ HiggsKigen::HiggsKigen()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ke", boost::cref(Ke)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kmu", boost::cref(Kmu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ktau", boost::cref(Ktau)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("KH", boost::cref(KH)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(BrHinv)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHexo", boost::cref(BrHexo)));
 }
@@ -79,6 +81,8 @@ bool HiggsKigen::PostUpdate()
         Kga = Kt;
         Kzga = Kt;
     }
+    
+//  Calculation of some quantities repeteadly used in the code
 
 //  Then the flag to add the values of the loops to the cache  
     
@@ -86,6 +90,46 @@ bool HiggsKigen::PostUpdate()
         Kg = computeKgLoop();
         Kga = computeKgagaLoop();
         Kzga = computeKZgaLoop();
+    }
+    
+//  Ratio of the total Higgs width with respect to SM and Exotic BR
+    if (FlagUseKH) {
+        GammaHTotR = KH*KH;  
+        GammaHTotSMR = computeGammaTotalSMRatio();
+        
+        //  Compute BrHexo from KH
+        BrHexo = 1.0 - BrHinv - GammaHTotSMR/GammaHTotR;     
+        
+        //  Note that since the extra invisible or exotic BR>0 => computeGammaTotalSMRatio()/GammaHTotR must be in [0,1] 
+        //  The quantity is positive by definition, but can be larger than 1 depending on the values of the Ki.
+        //  If that is the case, exclude the point from likelihood by assigning a nan to all parameters
+        if ( GammaHTotSMR/GammaHTotR > 1.0 ) {
+
+            GammaHTotR = std::numeric_limits<double>::quiet_NaN();
+
+            Kw = std::numeric_limits<double>::quiet_NaN();            
+            Kz = std::numeric_limits<double>::quiet_NaN();
+            Kg = std::numeric_limits<double>::quiet_NaN();
+            Kga = std::numeric_limits<double>::quiet_NaN();
+            Kzga = std::numeric_limits<double>::quiet_NaN();        
+            Ku = std::numeric_limits<double>::quiet_NaN();
+            Kc = std::numeric_limits<double>::quiet_NaN();
+            Kt = std::numeric_limits<double>::quiet_NaN();
+            Kd = std::numeric_limits<double>::quiet_NaN();
+            Ks = std::numeric_limits<double>::quiet_NaN();
+            Kb = std::numeric_limits<double>::quiet_NaN();
+            Ke = std::numeric_limits<double>::quiet_NaN();
+            Kmu = std::numeric_limits<double>::quiet_NaN();
+            Ktau = std::numeric_limits<double>::quiet_NaN();  
+            KH = std::numeric_limits<double>::quiet_NaN();
+            
+            BrHinv = std::numeric_limits<double>::quiet_NaN();
+            BrHexo = std::numeric_limits<double>::quiet_NaN();
+        }        
+        
+    } else {
+        GammaHTotR = computeGammaTotalRatio();
+        GammaHTotSMR = computeGammaTotalSMRatio();
     }
 
     return (true);
@@ -121,6 +165,8 @@ void HiggsKigen::setParameter(const std::string name, const double& value)
         Kmu = value;
     else if (name.compare("Ktau") == 0)
         Ktau = value;
+    else if (name.compare("KH") == 0)
+        KH = value;
     else if (name.compare("BrHinv") == 0)
 //  Always positive
         BrHinv = fabs(value);
@@ -156,6 +202,9 @@ bool HiggsKigen::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("UniversalK") == 0) {
         FlagUniversalK = value;
+        res = true;
+    } else if (name.compare("UseKH") == 0) {
+        FlagUseKH = value;
         res = true;
     } else
         res = NPbase::setFlag(name, value);
@@ -376,12 +425,12 @@ double HiggsKigen::mueettHPol(const double sqrt_s, const double Pol_em, const do
 
 double HiggsKigen::BrHggRatio() const
 {
-    return (computeKg() * computeKg() / computeGammaTotalRatio());
+    return (computeKg() * computeKg() / GammaHTotR);
 }
 
 double HiggsKigen::BrHWWRatio() const
 {
-    return (computeKW() * computeKW() / computeGammaTotalRatio());
+    return (computeKW() * computeKW() / GammaHTotR);
 }
 
 double HiggsKigen::BrHWW2l2vRatio() const
@@ -391,7 +440,7 @@ double HiggsKigen::BrHWW2l2vRatio() const
 
 double HiggsKigen::BrHZZRatio() const
 {
-    return (computeKZ() * computeKZ() / computeGammaTotalRatio());
+    return (computeKZ() * computeKZ() / GammaHTotR);
 }
 
 double HiggsKigen::BrHZZ4lRatio() const
@@ -416,7 +465,7 @@ double HiggsKigen::BrHZZ4muRatio() const
 
 double HiggsKigen::BrHZgaRatio() const
 {
-    return (computeKZga() * computeKZga() / computeGammaTotalRatio());
+    return (computeKZga() * computeKZga() / GammaHTotR);
 }
 
 double HiggsKigen::BrHZgallRatio() const
@@ -436,32 +485,32 @@ double HiggsKigen::BrHZgamumuRatio() const
 
 double HiggsKigen::BrHgagaRatio() const
 {
-    return (computeKgaga() * computeKgaga() / computeGammaTotalRatio());
+    return (computeKgaga() * computeKgaga() / GammaHTotR);
 }
 
 double HiggsKigen::BrHmumuRatio() const
 {
-    return (computeKmu() * computeKmu() / computeGammaTotalRatio());
+    return (computeKmu() * computeKmu() / GammaHTotR);
 }
 
 double HiggsKigen::BrHtautauRatio() const
 {
-    return (computeKtau() * computeKtau() / computeGammaTotalRatio());
+    return (computeKtau() * computeKtau() / GammaHTotR);
 }
 
 double HiggsKigen::BrHccRatio() const
 {
-    return (computeKc() * computeKc() / computeGammaTotalRatio());
+    return (computeKc() * computeKc() / GammaHTotR);
 }
 
 double HiggsKigen::BrHbbRatio() const
 {
-    return (computeKb() * computeKb() / computeGammaTotalRatio());
+    return (computeKb() * computeKb() / GammaHTotR);
 }
 
 double HiggsKigen::muttHZbbboost(const double sqrt_s) const
 {    
-    return computeKt() * computeKt() * computeKb() * computeKb() / computeGammaTotalRatio();
+    return computeKt() * computeKt() * computeKb() * computeKb() / GammaHTotR;
     
 }
 
@@ -798,6 +847,16 @@ double HiggsKigen::computeGammaTotalRatio() const
 {
     double GammaRatioSMmodes;
 
+    GammaRatioSMmodes = computeGammaTotalSMRatio();
+        
+    return (GammaRatioSMmodes/(1.0 - BrHinv - BrHexo));
+
+}
+
+double HiggsKigen::computeGammaTotalSMRatio() const
+{
+    double GammaRatioSMmodes;
+
     GammaRatioSMmodes = ((computeKg() * computeKg() * trueSM.computeBrHtogg()
             + computeKW() * computeKW() * trueSM.computeBrHtoWW()
             + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
@@ -817,13 +876,13 @@ double HiggsKigen::computeGammaTotalRatio() const
             + trueSM.computeBrHtocc()
             + trueSM.computeBrHtobb()));
         
-    return (GammaRatioSMmodes/(1.0 - BrHinv - BrHexo));
+    return GammaRatioSMmodes;
 
 }
 
 double HiggsKigen::Br_H_exo() const
 {
-    return BrHexo;
+    return BrHexo;    
 };
 
 
