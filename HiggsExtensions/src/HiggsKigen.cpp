@@ -100,10 +100,10 @@ bool HiggsKigen::PostUpdate()
         //  Compute BrHexo from KH
         BrHexo = 1.0 - BrHinv - GammaHTotSMR/GammaHTotR;     
         
-        //  Note that since the extra invisible or exotic BR>0 => computeGammaTotalSMRatio()/GammaHTotR must be in [0,1] 
-        //  The quantity is positive by definition, but can be larger than 1 depending on the values of the Ki.
-        //  If that is the case, exclude the point from likelihood by assigning a nan to all parameters
-        if ( GammaHTotSMR/GammaHTotR > 1.0 ) {
+        //  BRHinv is positive by definition and the bound is controlled by the corresponding parameter. 
+        //  The exotic must be in [0,1]. Demand that 0<BrHexo<1.
+        //  Otherwise, exclude the point from likelihood by assigning a nan to all parameters
+        if ( (BrHexo > 1.0) || (BrHexo < 0.0) ) {
 
             GammaHTotR = std::numeric_limits<double>::quiet_NaN();
 
