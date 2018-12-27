@@ -5967,8 +5967,8 @@ void GeneralTHDMcache::computeSignalStrengths()
 double GeneralTHDMcache::computephi2quantities()
 {
 
-   // m2_2 = mH2sq;
-      m2 = sqrt(m2_2);
+    m2_2 = mH2sq;
+    m2 = sqrt(m2_2);
    /* std::cout << "m2_2  = " << m2_2 << std::endl;
     std::cout << "mH2sq = " << mH2sq << std::endl;*/
    
@@ -6258,7 +6258,7 @@ double GeneralTHDMcache::computephi3quantities()
 {
     
   
-  // m3_2 = mH3sq;
+    m3_2 = mH3sq;
     m3 = sqrt(m3_2);
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
