@@ -1,0 +1,7 @@
+Download the tarball from: https://github.com/bat/bat/releases/download/v1.0.0/BAT-1.0.0.tar.gz
+gunzip and/or untar.
+cd into the directiory
+copy files in BATv1.0-dev/src-dev to BAT-1.0.0/src
+./configure --prefix=path
+make
+make install
