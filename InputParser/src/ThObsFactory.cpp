@@ -3502,6 +3502,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_Sitt_tttt_TH13"] = boost::factory<log10_pp_Sitt_tttt_TH13*>();
     obsThFactory["Hobs_pp_Srbb_bbbb_CMS13"] = boost::factory<Hobs_pp_Srbb_bbbb_CMS13*>();
     obsThFactory["log10_pp_Srbb_bbbb_TH13"] = boost::factory<log10_pp_Srbb_bbbb_TH13*>();
+    obsThFactory["Hobs_pp_Sibb_bbbb_CMS13"] = boost::factory<Hobs_pp_Sibb_bbbb_CMS13*>();
+    obsThFactory["log10_pp_Sibb_bbbb_TH13"] = boost::factory<log10_pp_Sibb_bbbb_TH13*>();
 
     //obsThFactory["logpp_SrSr_jjjj_TH13"] = boost::factory<logpp_SrSr_jjjj_TH13*>();
     //-----        EWPO       ------

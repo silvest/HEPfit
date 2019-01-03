@@ -607,7 +607,7 @@ int RGEcheckMW(const double InitialValues[], const double t1, const double Rpeps
         unitarityeigenvalues.assign(4, MC1/(32.0*pi));
         unitarityeigenvalues.assign(5, MC2/(32.0*pi));
         unitarityeigenvalues.assign(6, la1Q/(16.0*pi));
-        unitarityeigenvalues.assign(7, sqrt(15.0)*(nu4Q+nu5Q)/(32.0*pi));
+        unitarityeigenvalues.assign(7, sqrt(15.0)*(nu4Q+nu5Q)/(64.0*pi));
 
         //NLO part
         //beta_la1*16pi^2
@@ -691,13 +691,13 @@ int RGEcheckMW(const double InitialValues[], const double t1, const double Rpeps
         gslpp::vector<gslpp::complex> betaeigenvalues(8,0.);
         gslpp::vector<gslpp::complex> NLOunitarityeigenvalues(8,0.);
 
-        betaeigenvalues.assign(0, -1.5 * betaMA1/(16.0*pi));
-        betaeigenvalues.assign(1, -1.5 * betaMA2/(16.0*pi));
-        betaeigenvalues.assign(2, -1.5 * betaMB1/(16.0*pi));
-        betaeigenvalues.assign(3, -1.5 * betaMB2/(16.0*pi));
-        betaeigenvalues.assign(4, -1.5 * betaMC1/(16.0*pi));
-        betaeigenvalues.assign(5, -1.5 * betaMC2/(16.0*pi));
-        betaeigenvalues.assign(6, -1.5 * betala1/(8.0*pi));
+        betaeigenvalues.assign(0, -1.5 * betaMA1/(32.0*pi));
+        betaeigenvalues.assign(1, -1.5 * betaMA2/(32.0*pi));
+        betaeigenvalues.assign(2, -1.5 * betaMB1/(32.0*pi));
+        betaeigenvalues.assign(3, -1.5 * betaMB2/(32.0*pi));
+        betaeigenvalues.assign(4, -1.5 * betaMC1/(32.0*pi));
+        betaeigenvalues.assign(5, -1.5 * betaMC2/(32.0*pi));
+        betaeigenvalues.assign(6, -1.5 * betala1/(16.0*pi));
         betaeigenvalues.assign(7, -1.5 * sqrt(15.0)*(betanu4+betanu5)/(64.0*pi));
 
         for (int i=0; i < 8; i++) {

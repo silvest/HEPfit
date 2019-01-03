@@ -129,6 +129,12 @@ public:
      */
     double pp_Srbb_bbbb_TH13;
     
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Si b b\bar \to b\bar b  b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si}\cdot BR^{\text{THDMW}}(Si \to b\bar b)@f$
+     */
+    double pp_Sibb_bbbb_TH13;
+    
     
     /**
      * @brief log of cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
@@ -152,6 +158,7 @@ public:
     
     double THoEX_pp_Srbb_bbbb;
     
+    double THoEX_pp_Sibb_bbbb;
 
     
     
@@ -306,6 +313,7 @@ private:
     
     
     //mutable double logip_th_pp_SrSr_jjjj_cache[5][CacheSize];
+    mutable double ip_th_pp_Sibb_bbbb_cache[4][CacheSize];
     mutable double ip_th_pp_Srbb_bbbb_cache[5][CacheSize];
     mutable double ip_th_pp_Sitt_tttt_cache[4][CacheSize];
     mutable double ip_th_pp_Stb_tbtb_cache[4][CacheSize];
@@ -511,6 +519,11 @@ private:
      * @brief Table for xsection times branching ratio for p p -> Sr bbar b -> b bbar b bbar  generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Srbb_bbbb;
+    
+     /**
+     * @brief Table for xsection times branching ratio for p p -> Si bbar b -> b bbar b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Sibb_bbbb;
     
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -763,51 +776,56 @@ private:
      * @return xsection times branching ratio of pp -> Sr -> t tbar
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Sr_tt(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_Sr_tt(double etaD, double etaU, double Lambda4, double mSr);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr t tbar -> t tbar t tbar
      * @return xsection times branching ratio of pp -> Sr t tbar-> t tbar t tbar
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Srtt_tttt(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_Srtt_tttt(double etaD, double etaU, double Lambda4, double mSr);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr   -> j j 
      * @return xsection times branching ratio of pp -> Sr -> j j
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Sr_jj(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_Sr_jj(double etaD, double etaU, double Lambda4, double mSr);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr  Sr ->j j j j 
      * @return xsection times branching ratio of pp -> Sr Sr -> j j j j
      * @details Generated with MadGraph
      */
-    double ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mSr);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> S+ tbar b -> t bbar tbar b 
      * @return xsection times branching ratio of p p -> S+ tbar b -> t bbar tbar b 
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Stb_tbtb(double etaD, double etaU, double mass);
+    double ip_th_pp_Stb_tbtb(double etaD, double etaU, double mS);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Si tbar t -> t tbar tbar t 
      * @return xsection times branching ratio of p p -> Si tbar t -> t tbar tbar t 
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Sitt_tttt(double etaD, double etaU, double mass);
+    double ip_th_pp_Sitt_tttt(double etaD, double etaU, double mS);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr b bbar -> b bbar b bbar
      * @return xsection times branching ratio of pp -> Sr b bbar-> b bbar b bbar
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Srbb_bbbb(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_Srbb_bbbb(double etaD, double etaU, double Lambda4, double mSr);
     
-    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Si bbar b -> b bbar bbar b 
+     * @return xsection times branching ratio of p p -> Si bbar b -> b bbar bbar b 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sibb_bbbb(double etaD, double etaU, double mS);
     
     
     /**
