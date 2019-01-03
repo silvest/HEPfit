@@ -12983,14 +12983,135 @@ double NPSMEFTd6::AuxObs_NP3() const
 
 double NPSMEFTd6::AuxObs_NP4() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // WH distribution at 14 TeV: From 1704.01953 + hvqq terms
+    
+    double Bin1 = 1.0, Bin2 = 1.0, Bin3 = 1.0, Bin4 = 1.0, Bin5 = 1.0;
+    
+    double dVud = 0.0, dVcs = 0.0;
+    double dcZ = 0.0, cZBox = 0.0, cZZ = 0.0, cZA = 0.0, cAA = 0.0;
+    
+    double C11 = 0.0178, C12 = 0.0144, C13 = 0.0102, C14 = 0.0052, C15 = 0.0006;
+    
+    double dchi2;
+    
+//  Production in each bin (signal strength)
+    
+    Bin1 += 12.8 * dVud + 1.75 * dVcs
+            + 2.00 * dcZ + 5.01 * cZBox + 2.72 * cZZ - 0.0267 * cZA - 0.0217 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin1 = Bin1 + cLHd6*(C11 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin1 = Bin1 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    Bin2 += 15.3 * dVud + 1.91 * dVcs
+            + 2.00 * dcZ + 5.81 * cZBox + 3.10 * cZZ - 0.0337 * cZA - 0.0255 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin2 = Bin2 + cLHd6*(C12 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin2 = Bin2 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    Bin3 += 20.7 * dVud + 2.49 * dVcs
+            + 2.01 * dcZ + 7.44 * cZBox + 3.76 * cZZ - 0.0535 * cZA - 0.0340 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin3 = Bin3 + cLHd6*(C13 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin3 = Bin3 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    Bin4 += 35.1 * dVud + 3.63 * dVcs
+            + 1.98 * dcZ + 11.8 * cZBox + 5.40 * cZZ - 0.112 * cZA - 0.0572 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin4 = Bin4 + cLHd6*(C14 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin4 = Bin4 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+
+    Bin5 += 67.7 * dVud + 5.41 * dVcs
+            + 2.03 * dcZ + 22.6 * cZBox + 9.05 * cZZ - 0.276 * cZA - 0.117 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin5 = Bin5 + cLHd6*(C15 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin5 = Bin5 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+//  Compute Chi square using only the last bin and the diphoton, ZZ and bb channels
+    dchi2 = ( Bin5 * BrHZZ4lRatio() - 1.0 ) * ( Bin5 * BrHZZ4lRatio() - 1.0 )/(0.07*0.07 + 0.48*0.48)
+            + ( Bin5 * BrHgagaRatio() - 1.0 ) * ( Bin5 * BrHgagaRatio() - 1.0 )/(0.08*0.08 + 0.54*0.54)
+            + ( Bin5 * BrHbbRatio() - 1.0 ) * ( Bin5 * BrHbbRatio() - 1.0 )/(0.33*0.33 + 0.61*0.61);
+        
+    return sqrt(dchi2);
 }
 
 double NPSMEFTd6::AuxObs_NP5() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // ZH distribution at 14 TeV: From 1704.01953 + hvqq terms
+    
+    double Bin1 = 1.0, Bin2 = 1.0, Bin3 = 1.0, Bin4 = 1.0, Bin5 = 1.0;
+    
+    double dgLZuu = 0.0, dgRZuu = 0.0, dgLZcc = 0.0, dgRZcc = 0.0;
+    double dgLZdd = 0.0, dgRZdd = 0.0, dgLZss = 0.0, dgRZss = 0.0;
+    
+    double dcZ = 0.0, cZBox = 0.0, cZZ = 0.0, cZA = 0.0, cAA = 0.0;
+    
+    double C11 = 0.0208, C12 = 0.0164, C13 = 0.0112, C14 = 0.0051, C15 = 0.0021;
+    
+    double dchi2;
+    
+//  Production in each bin (signal strength)
+    
+    Bin1 += 14.6 * dgLZuu - 6.74 * dgRZuu - 11.6 * dgLZdd + 2.28 * dgRZdd
+            + 1.35 * dgLZcc - 0.589 * dgRZcc - 2.35 * dgLZss + 0.431 * dgRZss
+            + 2.01 * dcZ + 4.14 * cZBox + 2.12 * cZZ - 0.0237 * cZA - 0.0126 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin1 = Bin1 + cLHd6*(C11 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin1 = Bin1 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    Bin2 += 16.2 * dgLZuu - 7.77 * dgRZuu - 13.4 * dgLZdd + 2.63 * dgRZdd
+            + 1.44 * dgLZcc - 0.668 * dgRZcc - 2.52 * dgLZss + 0.462 * dgRZss
+            + 2.01 * dcZ + 4.86* cZBox + 2.49 * cZZ - 0.0284 * cZA - 0.0156 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin2 = Bin2 + cLHd6*(C12 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin2 = Bin2 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    Bin3 += 23.0* dgLZuu - 10.8 * dgRZuu - 19.0 * dgLZdd + 3.64 * dgRZdd
+            + 1.88 * dgLZcc - 0.891 * dgRZcc - 3.19 * dgLZss + 0.591 * dgRZss
+            + 2.00 * dcZ + 6.35 * cZBox + 3.02 * cZZ - 0.0448 * cZA - 0.0221 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin3 = Bin3 + cLHd6*(C13 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin3 = Bin3 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    Bin4 += 39.2 * dgLZuu - 18.4 * dgRZuu - 31.4 * dgLZdd + 5.88 * dgRZdd
+            + 2.78 * dgLZcc - 1.36 * dgRZcc - 4.64 * dgLZss + 0.919 * dgRZss
+            + 1.98 * dcZ + 10.5 * cZBox + 4.44 * cZZ - 0.0873 * cZA - 0.0396 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin4 = Bin4 + cLHd6*(C14 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin4 = Bin4 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+
+    Bin5 += 73.4 * dgLZuu - 35.5 * dgRZuu - 58.5 * dgLZdd + 11.2 * dgRZdd
+            + 4.13 * dgLZcc - 1.95 * dgRZcc - 6.97 * dgLZss + 1.41 * dgRZss
+            + 1.96 * dcZ + 20.3 * cZBox + 7.27 * cZZ - 0.193 * cZA - 0.0800 * cAA;
+    
+//  Linear contribution from Higgs self-coupling
+    Bin5 = Bin5 + cLHd6*(C15 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    Bin5 = Bin5 + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+//  Compute Chi square using only the last bin and the diphoton, ZZ and bb channels
+    dchi2 = ( Bin5 * BrHZZ4lRatio() - 1.0 ) * ( Bin5 * BrHZZ4lRatio() - 1.0 )/(0.09*0.09 + 0.65*0.65)
+            + ( Bin5 * BrHgagaRatio() - 1.0 ) * ( Bin5 * BrHgagaRatio() - 1.0 )/(0.03*0.03 + 0.99*0.99)
+            + ( Bin5 * BrHbbRatio() - 1.0 ) * ( Bin5 * BrHbbRatio() - 1.0 )/(0.10*0.10 + 0.34*0.34);
+        
+    return sqrt(dchi2);
 }
 
 double NPSMEFTd6::AuxObs_NP6() const
