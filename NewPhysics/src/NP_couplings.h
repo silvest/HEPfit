@@ -3426,5 +3426,215 @@ private:
 
 };
 
+
+/**
+ * @class AuxObsNP7
+ * @brief An observable class for the auxiliary observable AuxObsNP7
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP7.
+ *
+ */
+class AuxObsNP7 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP7(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP7();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP7.
+     * @return AuxObsNP7
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP8
+ * @brief An observable class for the auxiliary observable AuxObsNP8
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP8.
+ *
+ */
+class AuxObsNP8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP8(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP8();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP8.
+     * @return AuxObsNP8
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP9
+ * @brief An observable class for the auxiliary observable AuxObsNP9
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP9.
+ *
+ */
+class AuxObsNP9 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP9(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP9();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP9.
+     * @return AuxObsNP9
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP10
+ * @brief An observable class for the auxiliary observable AuxObsNP10
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP10.
+ *
+ */
+class AuxObsNP10 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP10(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP10();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP10.
+     * @return AuxObsNP10
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP11
+ * @brief An observable class for the auxiliary observable AuxObsNP11
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP11.
+ *
+ */
+class AuxObsNP11 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP11(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP11();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP11.
+     * @return AuxObsNP11
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP12
+ * @brief An observable class for the auxiliary observable AuxObsNP12
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP12.
+ *
+ */
+class AuxObsNP12 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP12(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP12();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP12.
+     * @return AuxObsNP12
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
 #endif	/* NPCOUPLINGS_H */
 

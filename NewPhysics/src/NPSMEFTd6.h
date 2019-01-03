@@ -3416,6 +3416,48 @@ public:
      */
     virtual double AuxObs_NP6() const;
     
+    /**
+     * @brief Auxiliary observable AuxObs_NP7
+     * (See code for details.)
+     * @return AuxObs_NP7
+     */
+    virtual double AuxObs_NP7() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP8
+     * (See code for details.)
+     * @return AuxObs_NP8
+     */
+    virtual double AuxObs_NP8() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP9
+     * (See code for details.)
+     * @return AuxObs_NP9
+     */
+    virtual double AuxObs_NP9() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP10
+     * (See code for details.)
+     * @return AuxObs_NP10
+     */
+    virtual double AuxObs_NP10() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP11
+     * (See code for details.)
+     * @return AuxObs_NP11
+     */
+    virtual double AuxObs_NP11() const;
+        
+    /**
+     * @brief Auxiliary observable AuxObs_NP12
+     * (See code for details.)
+     * @return AuxObs_NP12
+     */
+    virtual double AuxObs_NP12() const;
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 

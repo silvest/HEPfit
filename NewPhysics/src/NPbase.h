@@ -1896,6 +1896,60 @@ public:
     {
         return 0.0;
     }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP7
+     * @return AuxObs_NP7
+     */
+    virtual double AuxObs_NP7() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP8
+     * @return AuxObs_NP8
+     */
+    virtual double AuxObs_NP8() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP9
+     * @return AuxObs_NP9
+     */
+    virtual double AuxObs_NP9() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP10
+     * @return AuxObs_NP10
+     */
+    virtual double AuxObs_NP10() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP11
+     * @return AuxObs_NP11
+     */
+    virtual double AuxObs_NP11() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP12
+     * @return AuxObs_NP12
+     */
+    virtual double AuxObs_NP12() const
+    {
+        return 0.0;
+    }
       
     ////////////////////////////////////////////////////////////////////////
 protected:

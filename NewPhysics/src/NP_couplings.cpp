@@ -1929,3 +1929,111 @@ double AuxObsNP6::computeThValue()
 }
 
 /* -------------------------------------*/
+
+
+AuxObsNP7::AuxObsNP7(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP7::~AuxObsNP7()
+{}
+
+double AuxObsNP7::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP7());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP8::AuxObsNP8(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP8::~AuxObsNP8()
+{}
+
+double AuxObsNP8::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP8());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP9::AuxObsNP9(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP9::~AuxObsNP9()
+{}
+
+double AuxObsNP9::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP9());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP10::AuxObsNP10(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP10::~AuxObsNP10()
+{}
+
+double AuxObsNP10::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP10());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP11::AuxObsNP11(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP11::~AuxObsNP11()
+{}
+
+double AuxObsNP11::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP11());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP12::AuxObsNP12(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP12::~AuxObsNP12()
+{}
+
+double AuxObsNP12::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP12());
+}
+
+/* -------------------------------------*/
