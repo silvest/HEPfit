@@ -30,6 +30,7 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         ATLAS13_tt_phi_tt_e(61,2,0.),
         ATLAS13_pp_H_hh_bbbb_e(271,2,0.),
         CMS13_pp_phi_bb(66,2,0.),
+        CMS8_pp_phi_bb(88,2,0.),
         CMS13_pp_H_hh_bbbb(95,2,0.),
         CMS13_ggF_H_hh_bbbb(226,2,0.),
         CMS13_pp_phi_bb_e(66,2,0.),
@@ -57,6 +58,9 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         MadGraph_pp_Sitt_tttt(9360,4,0.),
         MadGraph_pp_Srbb_bbbb(15960,5,0.),
         MadGraph_pp_Sibb_bbbb(8892,4,0.),
+        MadGraph_pp_Sr_bb(15960,5,0.),
+        MadGraph_pp_Sr_bb_8TeV(15960,5,0.),
+        MadGraph_pp_Si_bb(8892,4,0.),
         arraybsgamma(1111, 3, 0.),
         betaeigenvalues(11, 0.)
         //myTHDMW(static_cast<const THDMW*> (&SM_i))
@@ -1510,6 +1514,7 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     double z2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz+1)+iy*(Nintervalsy)+Nintervalsx,2);
     double v1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,3);
     double v2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx,3);
+    //std::cout<<"Nmax="<<iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1<<std::endl;
     //std::cout<<"x1="<<x1<<std::endl;
     //std::cout<<"x2="<<x2<<std::endl;
     //std::cout<<"y1="<<y1<<std::endl;
@@ -1703,8 +1708,8 @@ void THDMWcache::read(){
     std::stringstream ex4e,ex5e,ex6e,ex7e,ex8e;
     std::stringstream ex9,ex10,ex13;
     std::stringstream ex9e,ex10e,ex13e;
-    std::stringstream ex14, ex15,ex16,ex17,ex18;
-    std::stringstream th1,th2,th3,th4,th5,th6,th7,th8;
+    std::stringstream ex14, ex15,ex16,ex17,ex18,ex19;
+    std::stringstream th1,th2,th3,th4,th5,th6,th7,th8,th9,th10,th11;
 
     std::stringstream bsg1;
 
@@ -1814,6 +1819,9 @@ void THDMWcache::read(){
     CMS13_pp_R_gg = readTable(ex15.str(),241,2);
     ex16 << tablepath << "171007171.dat";
     ATLAS13_pp_SS_jjjj = readTable(ex16.str(),126,2);
+    
+    ex19 << tablepath << "180206149.dat";
+    CMS8_pp_phi_bb = readTable(ex19.str(),88,2); 
 
     th1 << tablepath << "Generated_data_S2t_Fixed_Steps.dat";
     MadGraph_pp_Sr_tt = readTable(th1.str(),22800,5);
@@ -1838,6 +1846,15 @@ void THDMWcache::read(){
     
     th8 << tablepath << "Generated_data_Sibb_bbbb_Fixed_Steps.dat";
     MadGraph_pp_Sibb_bbbb = readTable(th8.str(),8892,4);
+    
+    th9 << tablepath << "Generated_data_Sr_bb_Fixed_Steps.dat";
+    MadGraph_pp_Sr_bb = readTable(th9.str(),15960,5);
+    
+    th10 << tablepath << "Generated_data_Sr_bb_8TeV_Fixed_Steps.dat";
+    MadGraph_pp_Sr_bb_8TeV = readTable(th10.str(),15960,5);
+    
+    th11 << tablepath << "Generated_data_Si_bb_Fixed_Steps.dat";
+    MadGraph_pp_Si_bb = readTable(th11.str(),8892,4);
     
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
@@ -2037,6 +2054,22 @@ double THDMWcache::ip_ex_pp_phi_bb_CMS13(double mass){
         return newResult;
     }
 }
+
+double THDMWcache::ip_ex_pp_phi_bb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_bb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_bb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_phi_bb,mass);
+        CacheShiftReal(ip_ex_pp_phi_bb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
 
 
 
@@ -2371,6 +2404,52 @@ double THDMWcache::ip_th_pp_Sibb_bbbb(double etaD, double etaU, double mS){
     }
 }
 
+double THDMWcache::ip_th_pp_Sr_bb(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
+
+    int i = CacheCheckReal(ip_th_pp_Sr_bb_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Sr_bb_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate4D (MadGraph_pp_Sr_bb,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(ip_th_pp_Sr_bb_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_th_pp_Sr_bb_8TeV(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
+
+    int i = CacheCheckReal(ip_th_pp_Sr_bb_8TeV_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Sr_bb_8TeV_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate4D (MadGraph_pp_Sr_bb_8TeV,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(ip_th_pp_Sr_bb_8TeV_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double THDMWcache::ip_th_pp_Si_bb(double etaD, double etaU, double mS){
+    int NumPar = 3;
+    double params[] = {etaD, etaU, mS};
+
+    int i = CacheCheckReal(ip_th_pp_Si_bb_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Si_bb_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate3D (MadGraph_pp_Si_bb,etaD,etaU,mS);
+        //std::cout<<"check"<<std::endl;
+        CacheShiftReal(ip_th_pp_Si_bb_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 /*
 double THDMWcache::logip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mSr){
     int NumPar = 4;
@@ -2408,6 +2487,9 @@ void THDMWcache::computeHHlimits()
     THoEX_pp_Sitt_tttt=0.;
     THoEX_pp_Srbb_bbbb=0.;
     THoEX_pp_Sibb_bbbb=0.;
+    THoEX_pp_Sr_bb=0.;
+    THoEX_pp_Sr_bb_8TeV=0.;
+    THoEX_pp_Si_bb=0.;
     
     pp_Sr_tt_TH13 = 1.0e-15;
     pp_Srtt_tttt_TH13 = 1.0e-15;
@@ -2418,6 +2500,9 @@ void THDMWcache::computeHHlimits()
     pp_Sitt_tttt_TH13 = 1.0e-15;
     pp_Srbb_bbbb_TH13= 1.0e-15;
     pp_Sibb_bbbb_TH13= 1.0e-15;
+    pp_Sr_bb_TH13= 1.0e-15;
+    pp_Sr_bb_TH8= 1.0e-15;
+    pp_Si_bb_TH13= 1.0e-15;
     //logpp_SrSr_jjjj_TH13=-15;
     
     
@@ -2437,6 +2522,11 @@ void THDMWcache::computeHHlimits()
     if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Sitt_tttt_TH13=ip_th_pp_Sitt_tttt(SqrtEtaD,SqrtEtaU,mSi);
     if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Srbb_bbbb_TH13=ip_th_pp_Srbb_bbbb(SqrtEtaD,SqrtEtaU,nu45,mSr);
     if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.999 &&  mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Sibb_bbbb_TH13=ip_th_pp_Sibb_bbbb(SqrtEtaD,SqrtEtaU,mSi);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_bb_TH13=ip_th_pp_Sr_bb(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_bb_TH8 =ip_th_pp_Sr_bb_8TeV(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.999 &&  mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Si_bb_TH13=ip_th_pp_Si_bb(SqrtEtaD,SqrtEtaU,mSi);
+
+
 
     //std::cout<<"Sibb2="<< interpolate3D(MadGraph_pp_Sibb_bbbb,4.47213,1.4141,1450)<<std::endl;
     //std::cout<<"Sibb="<< interpolate3D(MadGraph_pp_Sibb_bbbb,-4.47214,-1.4142,350)<<std::endl;
@@ -2454,8 +2544,12 @@ void THDMWcache::computeHHlimits()
     if(mSi>= 400 && mSi<=1000) THoEX_pp_Sitt_tttt=pp_Sitt_tttt_TH13/ip_ex_tt_phi_tt_ATLAS13(mSi);
     if(mSr>= 400 && mSr<=1300) THoEX_pp_Srbb_bbbb=pp_Srbb_bbbb_TH13/ip_ex_bb_H_bb_CMS13(mSr);
     if(mSi>= 400 && mSi<=1300) THoEX_pp_Sibb_bbbb=pp_Sibb_bbbb_TH13/ip_ex_bb_H_bb_CMS13(mSi);
-    
-    
+    if(mSr>= 550 && mSr<=1200) THoEX_pp_Sr_bb=pp_Sr_bb_TH13/ip_ex_pp_phi_bb_CMS13(mSr);
+    if(mSr>= 400 && mSr<=1200) THoEX_pp_Sr_bb_8TeV=pp_Sr_bb_TH8/ip_ex_pp_phi_bb_CMS8(mSr);
+    if(mSi>= 550 && mSi<=1200) THoEX_pp_Si_bb=pp_Si_bb_TH13/ip_ex_pp_phi_bb_CMS13(mSi);
+    //std::cout<<"ip_ex_pp_phi_bb_CMS13(mSi)="<< ip_ex_pp_phi_bb_CMS13(550) <<std::endl;
+    //std::cout<<"pp_Si_bb_TH13="<< ip_th_pp_Si_bb(4.469,0,550) <<std::endl;
+    //std::cout<<"pp_Si_bb_TH13="<< ip_th_pp_Si_bb(4.469,1.41,550) <<std::endl;
 }
 
 
