@@ -7506,8 +7506,11 @@ double GeneralTHDMcache::updateCache()
     R12 = R12_GTHDM;
     R13 = R13_GTHDM;
     
-    if(mH2sq<=mH3sq)
+   /* COMMENTED ON 08/01/2019- TEST
+    *  if(mH2sq<=mH3sq)
     {   
+        
+        std::cout << "loop2 " << std::endl;
             m2_2 = mH2sq;
             m3_2 = mH3sq;
             R21 = R21_GTHDM;
@@ -7519,6 +7522,7 @@ double GeneralTHDMcache::updateCache()
         }
          else
         {   
+        std::cout << "loop2 " << std::endl;
             m2_2 = mH3sq;
             m3_2 = mH2sq;
             R21 = R31_GTHDM;
@@ -7528,7 +7532,7 @@ double GeneralTHDMcache::updateCache()
             R32 = R22_GTHDM;
             R33 = R23_GTHDM;
         }
-    
+    */
     if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
                 return std::numeric_limits<double>::quiet_NaN();
     
