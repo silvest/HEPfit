@@ -354,10 +354,6 @@ private:
 };
 
 
-
-
-
-
 /**
  * @class Hobs_pp_Sibb_bbbb_CMS13
  * @ingroup THDMW
@@ -400,10 +396,6 @@ public:
 private:
     const THDMW& myTHDMW;
 };
-
-
-
-
 
 
 
@@ -556,6 +548,59 @@ public:
 private:
     const THDMW& myTHDMW;
 };
+
+
+
+
+
+
+
+
+
+/**
+ * @class Hobs_pp_Si_bb_CMS8
+ * @ingroup THDMW
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to H  \to   b\bar b@f$.
+ */
+class Hobs_pp_Si_bb_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_Si_bb_CMS8 constructor.
+     */
+    Hobs_pp_Si_bb_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return xsection times Br ratio for pp -> Si -> b bbar
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+
+/**
+ * @class log10_pp_Si_bb_TH8
+ * @ingroup THDMW
+ * @brief Decadic logarithm of the cross section times branching ratio of the process pp -> Si  ->  b bbar at 8 TeV.
+ */
+class log10_pp_Si_bb_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_Sj_bb_TH8 constructor.
+     */
+    log10_pp_Si_bb_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDMW}}_{pp\to Si}\cdot BR^{\text{THDMW}}(Si\to b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+
 
 
 

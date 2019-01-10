@@ -154,6 +154,12 @@ public:
     double pp_Si_bb_TH13;
     
     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Si  \to b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si }\cdot BR^{\text{THDMW}}(Si \to b\bar b)@f$
+     */
+    double pp_Si_bb_TH8;
+    
+    /**
      * @brief log of cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(Sr \to j j)@f$
      */
@@ -182,6 +188,8 @@ public:
     double THoEX_pp_Sr_bb_8TeV;
     
     double THoEX_pp_Si_bb;
+    
+    double THoEX_pp_Si_bb_8TeV;
 
     
     
@@ -336,6 +344,7 @@ private:
     
     
     //mutable double logip_th_pp_SrSr_jjjj_cache[5][CacheSize];
+    mutable double ip_th_pp_Si_bb_8TeV_cache[4][CacheSize];
     mutable double ip_th_pp_Si_bb_cache[4][CacheSize];
     mutable double ip_th_pp_Sr_bb_8TeV_cache[5][CacheSize];
     mutable double ip_th_pp_Sr_bb_cache[5][CacheSize];
@@ -561,6 +570,11 @@ private:
      * @brief Table for xsection times branching ratio for p p -> Si -> b bbar  generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Si_bb;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Si -> b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Si_bb_8TeV;
     
     /**
      * @brief Table for xsection times branching ratio for p p -> Sr  -> b bbar  generated with Madgraph
@@ -904,6 +918,16 @@ private:
      * @details Generated with MadGraph
      */
     double ip_th_pp_Si_bb(double etaD, double etaU, double mS);
+    
+    
+    
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Si -> b bbar 
+     * @return xsection times branching ratio of p p -> Si  -> b bbar 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Si_bb_8TeV(double etaD, double etaU, double mS);
     
     
     /**

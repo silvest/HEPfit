@@ -238,10 +238,6 @@ double log10_pp_Sr_bb_TH8::computeThValue()
 }
 
 
-
-
-
-
 Hobs_pp_Si_bb_CMS13::Hobs_pp_Si_bb_CMS13(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
 {}
@@ -260,6 +256,30 @@ double log10_pp_Si_bb_TH13::computeThValue()
 {
     return log10(myTHDMW.getMyTHDMWCache()->pp_Si_bb_TH13);
 }
+
+
+
+
+
+Hobs_pp_Si_bb_CMS8::Hobs_pp_Si_bb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double Hobs_pp_Si_bb_CMS8::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->THoEX_pp_Si_bb_8TeV;
+}
+
+
+log10_pp_Si_bb_TH8::log10_pp_Si_bb_TH8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double log10_pp_Si_bb_TH8::computeThValue()
+{
+    return log10(myTHDMW.getMyTHDMWCache()->pp_Si_bb_TH8);
+}
+
 
 
 //logpp_SrSr_jjjj_TH13::logpp_SrSr_jjjj_TH13(const StandardModel& SM_i)
