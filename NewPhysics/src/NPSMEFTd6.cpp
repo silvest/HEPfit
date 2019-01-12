@@ -12628,8 +12628,10 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     
     // In the Warsaw basis the contact interactions are generated only by CiHQ3 but
     // in the modified basis ODHW also contribute
+    // Master Equations below are for cHWp = Ci/Lambda^2 in units of TeV^{-2}, 
+    // but LambdaNP is in GeV. Add conversion factor.
     
-    cHWp = (sW2_tree/eeMz2) * (CiHQ3_11 + (g2_tree/4.0) * CDHW) / LambdaNP2;
+    cHWp = (sW2_tree/eeMz2) * (CiHQ3_11 + (g2_tree/4.0) * CDHW) * 1000000.0 / LambdaNP2;
 
 //  Bin dependences assuming cutoff of the EFT at 5 TeV
 //  Normalize to the total number of events to remove the dependence on Lumi
