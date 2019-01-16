@@ -2867,7 +2867,28 @@ public:
     Hobs_pp_phi3_phi2Z_bbll_1_CMS8(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to AZ\to b\bar b\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to AZ\to b\bar b\ell \ell)]_{\text{CMS,95\%}}@f$
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2Z\to b\bar b\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to phi2Z\to b\bar b\ell \ell)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_phi2_phi3Z_bbll_1_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi3\to AZ\to b\bar b \ell\ell@f$.
+ */
+class Hobs_pp_phi2_phi3Z_bbll_1_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi2_phi3Z_bbll_1_CMS8 constructor.
+     */
+    Hobs_pp_phi2_phi3Z_bbll_1_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2Z\to b\bar b\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi2}\cdot BR(phi3\to phi3Z\to b\bar b\ell \ell)]_{\text{CMS,95\%}}@f$
      */
     double computeThValue();
 private:
@@ -2888,7 +2909,28 @@ public:
     Hobs_pp_phi3_phi2Z_bbll_2_CMS8(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to AZ\to b\bar b\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to AZ\to b\bar b\ell \ell)]_{\text{CMS,95\%}}@f$
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2Z\to b\bar b\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi2}\cdot BR(phi2\to phi3Z\to b\bar b\ell \ell)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_phi2_phi3Z_bbll_2_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi3\to AZ\to b\bar b \ell\ell@f$.
+ */
+class Hobs_pp_phi2_phi3Z_bbll_2_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi2_phi3Z_bbll_2_CMS8 constructor.
+     */
+    Hobs_pp_phi2_phi3Z_bbll_2_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi3Z\to b\bar b\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi2}\cdot BR(phi2\to phi3Z\to b\bar b\ell \ell)]_{\text{CMS,95\%}}@f$
      */
     double computeThValue();
 private:
@@ -2898,7 +2940,7 @@ private:
 /**
  * @class Hobs_pp_phi3_phi2Z_tautaull_1_CMS8
  * @ingroup GeneralTHDM
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi3\to AZ\to \tau\tau\ell\ell@f$.
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi3\to phi2Z\to \tau\tau\ell\ell@f$.
  */
 class Hobs_pp_phi3_phi2Z_tautaull_1_CMS8: public ThObservable {
 public:
@@ -2909,7 +2951,28 @@ public:
     Hobs_pp_phi3_phi2Z_tautaull_1_CMS8(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to AZ\to \tau\tau\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to AZ\to \tau\tau\ell \ell)]_{\text{CMS,95\%}}@f$
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2Z\to \tau\tau\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to AZ\to \tau\tau\ell \ell)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_phi2_phi3Z_tautaull_1_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi2\to phi3Z\to \tau\tau\ell\ell@f$.
+ */
+class Hobs_pp_phi2_phi3Z_tautaull_1_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi2_phi3Z_tautaull_1_CMS8 constructor.
+     */
+    Hobs_pp_phi2_phi3Z_tautaull_1_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi3Z\to \tau\tau\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi2}\cdot BR(phi2\to phi3Z\to \tau\tau\ell \ell)]_{\text{CMS,95\%}}@f$
      */
     double computeThValue();
 private:
@@ -2919,7 +2982,7 @@ private:
 /**
  * @class Hobs_pp_phi3_phi2Z_tautaull_2_CMS8
  * @ingroup GeneralTHDM
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi3\to AZ\to \tau\tau\ell\ell@f$.
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi3\to phi2Z\to \tau\tau\ell\ell@f$.
  */
 class Hobs_pp_phi3_phi2Z_tautaull_2_CMS8: public ThObservable {
 public:
@@ -2930,7 +2993,28 @@ public:
     Hobs_pp_phi3_phi2Z_tautaull_2_CMS8(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to AZ\to \tau\tau\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to AZ\to \tau\tau\ell \ell)]_{\text{CMS,95\%}}@f$
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2Z\to \tau\tau\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to AZ\to \tau\tau\ell \ell)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_phi2_phi3Z_tautaull_2_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to phi3\to AZ\to \tau\tau\ell\ell@f$.
+ */
+class Hobs_pp_phi2_phi3Z_tautaull_2_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi2_phi3Z_tautaull_2_CMS8 constructor.
+     */
+    Hobs_pp_phi2_phi3Z_tautaull_2_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi3Z\to \tau\tau\ell \ell)]_{\text{theo}} / [\sigma_{pp\to phi3}\cdot BR(phi3\to AZ\to \tau\tau\ell \ell)]_{\text{CMS,95\%}}@f$
      */
     double computeThValue();
 private:
@@ -2959,6 +3043,27 @@ private:
 };
 
 /**
+ * @class Hobs_gg_phi2_phi3Z_bbZ_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio 
+ */
+class Hobs_gg_phi2_phi3Z_bbZ_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_gg_phi2_phi3Z_bbZ_ATLAS13 constructor.
+     */
+    Hobs_gg_phi2_phi3Z_bbZ_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
  * @class Hobs_bb_phi3_phi2Z_bbZ_ATLAS13
  * @ingroup GeneralTHDM
  * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio 
@@ -2970,6 +3075,27 @@ public:
      * @brief Hobs_bb_phi3_phi2Z_bbZ_ATLAS13 constructor.
      */
     Hobs_bb_phi3_phi2Z_bbZ_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_bb_phi2_phi3Z_bbZ_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio 
+ */
+class Hobs_bb_phi2_phi3Z_bbZ_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_bb_phi2_phi3Z_bbZ_ATLAS13 constructor.
+     */
+    Hobs_bb_phi2_phi3Z_bbZ_ATLAS13(const StandardModel& SM_i);
 
     /**
      * @return 
