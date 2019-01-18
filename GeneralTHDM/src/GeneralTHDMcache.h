@@ -774,6 +774,25 @@ public:
      */
     double BrSM_htotautau;
     
+    
+     /**
+     * @brief Coupling of the SM-Higgs to up quarks real part.
+     * @return @y_{u1}@f$
+     */
+    double yu1R;
+    
+      /**
+     * @brief Coupling of the SM-Higgs to down quarks real part.
+     * @return @y_{d1}@f$
+     */
+    double yd1R;
+    
+         /**
+     * @brief Coupling of the SM-Higgs to leptons real part.
+     * @return @y_{l1}@f$
+     */
+    double yl1R;
+    
         /**
      * @brief Squared relative coupling of @f$h@f$ to two up quarks, odd part.
      * @return @f$r^{(h)}_{Q_uQ_u}@f$

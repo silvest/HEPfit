@@ -1322,7 +1322,7 @@ Hobs_bb_phi2_phi3Z_bbZ_ATLAS13::Hobs_bb_phi2_phi3Z_bbZ_ATLAS13(const StandardMod
 
 double Hobs_bb_phi2_phi3Z_bbZ_ATLAS13::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->THoEX_bb_phi3_phi2Z_bbZ_ATLAS13;
+    return myGTHDM.getMyGTHDMCache()->THoEX_bb_phi2_phi3Z_bbZ_ATLAS13;
 }
 
 
