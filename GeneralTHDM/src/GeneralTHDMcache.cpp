@@ -6172,8 +6172,9 @@ double Gammaphi2_phi3Z=HSTheta(m2-(m3+MZ))*pow(KaellenFunction(m2_2,MZ*MZ,m3_2),
 /* phi2 -> H+W- */
 double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mHp2),3)*(R23-i*R22).abs2()/(M_PI*vev*vev);
 
- 
-    Gammaphi2tot= (BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuO/(beta_mt_sq(Mt, m2_2)))
+Gammaphi2tot = 1.e-10;
+
+Gammaphi2tot= Gammaphi2tot + (BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuO/(beta_mt_sq(Mt, m2_2)))
          +BrSM_phi2tocc*(rphi2_QuQuE + rphi2_QuQuO/(beta(Mc, m2_2)*beta(Mc, m2_2)))
          +BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdO/(beta(Mb, m2_2)*beta(Mb, m2_2)))
          +BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlO/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))
@@ -6182,30 +6183,6 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
          +Gammaphi2_HpW;
   
 
-
-    if(Gammaphi2tot==0){
-        
-    Br_phi2tott=0.0;
-    Br_phi2tobb=0.0;
-    Br_phi2totautau=0.0;
-
-    Br_phi2toWW=0.0;
-    Br_phi2toZZ=0.0;
-    Br_phi2togaga=0.0;
-    Br_phi2toZga=0.0;
-    Br_phi2tophi1phi1=0.0;
-    Br_phi2tophi3phi3=0.0;
-    Br_phi2tophi1phi3=0.0;
-    Br_phi2toHpHm=0.0;
-    Br_phi2tophi1Z=0.0;
-    Br_phi2tophi3Z=0.0;
-    Br_phi2toHpW=0.0;
-
-        
-    }
-    
-    else{
-    
     Br_phi2tott=BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuE/(beta_mt_sq(Mt, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2tobb=BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdE/(beta(Mb, m2_2)*beta(Mb, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2totautau=BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlE/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
@@ -6222,7 +6199,6 @@ double Gammaphi2_HpW=HSTheta(m2-sqrt(mHp2)-MW)*pow(KaellenFunction(m2_2,MW*MW,mH
     Br_phi2tophi3Z=Gammaphi2_phi3Z/Gammaphi2tot;
     Br_phi2toHpW=Gammaphi2_HpW/Gammaphi2tot;
 
-    }
  return 0.;  
 }
 
@@ -6423,37 +6399,16 @@ double Gammaphi3_phi2Z=HSTheta(m3-(m2+MZ))*pow(KaellenFunction(m3_2,MZ*MZ,m2_2),
 /* phi3 -> H+W- */
 double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mHp2),3)*(R33-i*R32).abs2()/(M_PI*vev*vev);
                                                                               
- /*Gammaphi3tot= ((BrSM_phi3tott*rphi3_QtQt+BrSM_phi3tocc*rphi3_QcQc)+BrSM_phi3tobb*rphi3_QbQb+(BrSM_phi3totautau*rphi3_tautau+BrSM_phi3tomumu*rphi3_mumu)+(BrSM_phi3toWW+BrSM_phi3toZZ)*rphi3_VV)*Gammaphi3totSM+Gamma_phi3gaga+Gamma_phi3Zga+Gamma_phi3gg + Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2+Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z+Gammaphi3_HpW;*/
+Gammaphi3tot  = 1.e-10;
 
-
- Gammaphi3tot= (BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta_mt_sq(Mt, m3_2)))
+ Gammaphi3tot= Gammaphi3tot + (BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta_mt_sq(Mt, m3_2)))
          +BrSM_phi3tocc*(rphi3_QuQuE + rphi3_QuQuE/(beta(Mc, m3_2)*beta(Mc, m3_2)))
          +BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2)))
          +BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2)))
          +(BrSM_phi3toWW+BrSM_phi3toZZ)*rphi3_VV)*Gammaphi3totSM+Gamma_phi3gaga+Gamma_phi3Zga+Gamma_phi3gg 
          + Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2+Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z
          +Gammaphi3_HpW;
- 
- if(Gammaphi3tot == 0)
- {
-    Br_phi3tott=0.;
-    Br_phi3tobb=0.;
-    Br_phi3totautau=0.; 
-    Br_phi3toWW=0.;
-    Br_phi3toZZ=0.;
-    Br_phi3togaga=0.;
-    Br_phi3toZga=0.;
-    Br_phi3tophi1phi1=0.;
-    Br_phi3tophi2phi2=0.;
-    Br_phi3tophi1phi2=0.;
-    Br_phi3toHpHm=0.;
-    Br_phi3tophi1Z=0.;
-    Br_phi3tophi2Z=0.;
-    Br_phi3toHpW=0.;
 
- }
- else
- {
     Br_phi3tott=BrSM_phi3tott*(rphi3_QuQuE + rphi3_QuQuE/(beta_mt_sq(Mt, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
     Br_phi3tobb=BrSM_phi3tobb*(rphi3_QdQdE + rphi3_QdQdE/(beta(Mb, m3_2)*beta(Mb, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
     Br_phi3totautau=BrSM_phi3totautau*(rphi3_QlQlE + rphi3_QlQlE/(beta(Mtau, m3_2)*beta(Mtau, m3_2)))*Gammaphi3totSM/Gammaphi3tot;
@@ -6469,7 +6424,7 @@ double Gammaphi3_HpW=HSTheta(m3-sqrt(mHp2)-MW)*pow(KaellenFunction(m3_2,MW*MW,mH
     Br_phi3tophi1Z=Gammaphi3_phi1Z/Gammaphi3tot;
     Br_phi3tophi2Z=Gammaphi3_phi2Z/Gammaphi3tot;
     Br_phi3toHpW=Gammaphi3_HpW/Gammaphi3tot;
- }
+ 
    
  return 0.;
 
@@ -6527,17 +6482,15 @@ double GeneralTHDMcache::computeHpquantities()
     double GammaHpphi3W=KaellenFunction(1.0,m3/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,m3/MW)*KaellenFunction(1.0,mHp/MW,m3/MW)
                       *MW2*MW2/mHp*(R23-R33)*(R23-R33)/(2.0*M_PI*vev*vev);
     
-    double GammaHptot= GammaHptaunu + GammaHptb + GammaHpHlW + GammaHpphi2W + GammaHpphi3W;
+    GammaHptot = 1.e-10;
+    
+    GammaHptot= GammaHptot + GammaHptaunu + GammaHptb + GammaHpHlW + GammaHpphi2W + GammaHpphi3W;
 
-    if(GammaHptot==0){
-        Br_Hptotaunu=0.0;
-        Br_Hptotb=0.0;
-    }
-    else{
+
     Br_Hptotaunu=GammaHptaunu/GammaHptot;
     Br_Hptotb=GammaHptb/GammaHptot;
-    }
-    
+
+  
      return 0;
 }
 
