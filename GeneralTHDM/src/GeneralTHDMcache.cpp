@@ -5735,21 +5735,27 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
     }
   
 
-     double GeneralTHDMcache::lambdaijk(const double R1i,const double R2i,const double R3i,const double R1j,const double R2j,const double R3j, const double R1k,const double R2k,const double R3k, const double lambda1H, const double lambda3H, const double lambda4H, const double Relambda5H, const double Imlambda5H, const double Relambda6H, const double Imlambda6H, const double Relambda7H, const double Imlambda7H) const
+     double GeneralTHDMcache::lambdaijk(const double Ri1,const double Ri2,const double Ri3,const double Rj1,const double Rj2,const double Rj3, const double Rk1,const double Rk2,const double Rk3, const double lambda1H, const double lambda3H, const double lambda4H, const double Relambda5H, const double Imlambda5H, const double Relambda6H, const double Imlambda6H, const double Relambda7H, const double Imlambda7H) const
     {
-        return (1.0/2.0)*vev*(Imlambda7H*(-R3i*R3j*R3k - R2i*R2j*R3k) - 3.0*Imlambda6H*R1i*R1j*R3k 
-                + lambda1H*R1i*R1j*R1k + Relambda7H*R2i*R2j*R2k + 3.0*Relambda6H*R1i*R1j*R2k
-                +(Relambda5H + lambda3H + lambda4H)*R1i*R2j*R2k - (2.0*Relambda5H - lambda3H - lambda4H)*R1i*R3j*R3k
-                + Relambda7H*R2i*R3j*R3k - Imlambda5H*R1i*R2j*R3k);
+        return (1.0/2.0)*vev*(Imlambda7H*(-Ri3*Rj3*Rk3 - Ri2*Rj2*Rk3) - 3.0*Imlambda6H*Ri1*Rj1*Rk3 
+                + lambda1H*Ri1*Rj1*Rk1 + Relambda7H*Ri2*Rj2*Rk2 + 3.0*Relambda6H*Ri1*Rj1*Rk2
+                +(Relambda5H + lambda3H + lambda4H)*Ri1*Rj2*Rk2 - (2.0*Relambda5H - lambda3H - lambda4H)*Ri1*Rj3*Rk3
+                + Relambda7H*Ri2*Rj3*Rk3 - Imlambda5H*Ri1*Rj2*Rk3);
     }
     
-    double GeneralTHDMcache::lambdaipm(const double R1i,const double R2i, const double R3i) const
+    double GeneralTHDMcache::lambdaipm(const double Ri1,const double Ri2, const double Ri3) const
     {
-        return -vev*(lambda3H*R1i + Relambda7H*R2i - Imlambda7H*R3i);
+        return -vev*(lambda3H*Ri1 + Relambda7H*Ri2 - Imlambda7H*Ri3);
     }
        
 void GeneralTHDMcache::computeSignalStrengths()
 {
+    
+    m2_2 = mH2sq;
+    m2 = sqrt(m2_2);
+    m3_2 = mH3sq;
+    m3 = sqrt(m3_2);
+    
     
     double GF = 1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
@@ -5881,10 +5887,10 @@ void GeneralTHDMcache::computeSignalStrengths()
                                                                                
     /*Coupling between h and two charged Higgs*/
     
-    double lambdahHpHm = lambdaipm(R11_GTHDM, R21_GTHDM, R31_GTHDM);
-    
+    double lambdahHpHm = lambdaipm(R11_GTHDM, R12_GTHDM, R13_GTHDM);
+       
     gslpp::complex I_h_Hp=(vev)/(2.0*mHp2)*I_H_Hp(mHp2,m1)*lambdahHpHm;
-    
+       
     /*CP ODD */
 
     gslpp::complex I_h_Ux=I_A_U(m1_2,Mc,Mt);
@@ -5894,7 +5900,7 @@ void GeneralTHDMcache::computeSignalStrengths()
     gslpp::complex I_hO_F = yu1.imag()*I_h_Ux + yd1.imag()*I_h_Dx + yl1.imag()*I_h_Lx;
 
    // double Gamma_hgaga=(GF*Ale*Ale*m1*m1*m1/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI))*((I_hE_F+I_h_W+I_h_Hp).abs2()+ (I_hO_F).abs2());
-    rh_gaga = ((I_hE_F+I_h_W+I_h_Hp).abs2()+ (I_hO_F).abs2())/(I_hSM_F +I_hSM_W).abs2();
+    rh_gaga = ((I_hE_F+I_h_W+I_h_Hp).abs2()+ (I_hO_F).abs2())/(I_hSM_F +I_hSM_W).abs2();    
     /*Decay to Z gamma
     CP-EVEN PART*/
 
@@ -5965,10 +5971,12 @@ void GeneralTHDMcache::computeSignalStrengths()
 
 double GeneralTHDMcache::computephi2quantities()
 {
-
+    
     m2_2 = mH2sq;
     m2 = sqrt(m2_2);
-   
+    m3_2 = mH3sq;
+    m3 = sqrt(m3_2);
+      
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
 
@@ -6141,7 +6149,7 @@ double GeneralTHDMcache::computephi2quantities()
     double BrSM_phi2toWW =ip_Br_HPtoWW(m2);
     double BrSM_phi2toZZ =ip_Br_HPtoZZ(m2);
 
-     Gammaphi2totSM=ip_GammaHPtotSM(m2);
+Gammaphi2totSM=ip_GammaHPtotSM(m2);
     
  /*Decay of phi3 to the others scalars*/
 double lambda132 = lambdaijk(R11, R21, R31, R13, R23, R33, R12, R22, R32, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R12, R22, R32, R11, R22, R32, R12, R22, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R12, R22, R32, R13, R23, R33, R11, R21, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R11, R21, R31, R13, R23, R33, R12, R22, R32, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R13, R23,R33, R11, R21, R31, R12, R22, R32,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R13, R23,R33, R12, R22, R32, R11, R21, R31,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  ;
@@ -6158,7 +6166,6 @@ double lambda112 = (2.0)*(lambdaijk(R11, R21, R31, R12, R22, R32, R11, R21, R31,
    
 //phi2 -> phi1phi1
 double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*lambda112*lambda112/(32.0*m2*M_PI);
-
 
  //phi2 ->H+H-
 double Gammaphi2_HpHm=HSTheta(m2 - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/m2_2))*lambdaphi2HpHm*lambdaphi2HpHm/(8.0*m2*M_PI);
@@ -6198,7 +6205,7 @@ Gammaphi2tot= Gammaphi2tot + (BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuO/(beta_mt_
     Br_phi2tophi1Z=Gammaphi2_phi1Z/Gammaphi2tot;
     Br_phi2tophi3Z=Gammaphi2_phi3Z/Gammaphi2tot;
     Br_phi2toHpW=Gammaphi2_HpW/Gammaphi2tot;
-
+    
  return 0.;  
 }
 
@@ -6208,8 +6215,12 @@ double GeneralTHDMcache::computephi3quantities()
 {
     
   
+    m2_2 = mH2sq;
+    m2 = sqrt(m2_2);
     m3_2 = mH3sq;
     m3 = sqrt(m3_2);
+    
+    
     double GF=1/(sqrt(2.0)*vev*vev);
     double sW2=1.0-cW2;
 
@@ -6418,7 +6429,7 @@ Gammaphi3tot  = 1.e-10;
     Br_phi3toZga=Gamma_phi3Zga/Gammaphi3tot;
     Br_phi3tophi1phi1=Gammaphi3_phi1phi1/Gammaphi3tot;
     Br_phi3tophi2phi2=Gammaphi3_phi2phi2/Gammaphi3tot;
-  
+    
     Br_phi3tophi1phi2=Gammaphi3_phi1phi2/Gammaphi3tot;
     Br_phi3toHpHm=Gammaphi3_HpHm/Gammaphi3tot;
     Br_phi3tophi1Z=Gammaphi3_phi1Z/Gammaphi3tot;
@@ -6435,7 +6446,11 @@ Gammaphi3tot  = 1.e-10;
 double GeneralTHDMcache::computeHpquantities()
 {
     
+    m2_2 = mH2sq;
+    m2 = sqrt(m2_2);
+    m3_2 = mH3sq;
     m3 = sqrt(m3_2);
+    
 //    double GF=1/(sqrt(2.0)*vev*vev);
 //    double sW2=1.0-cW2;
     double Mb2 = Mb*Mb;
@@ -6498,6 +6513,13 @@ double GeneralTHDMcache::computeHpquantities()
 
 double GeneralTHDMcache::ComputeHeavyHiggs()
 {
+    
+    m2_2 = mH2sq;
+    m2 = sqrt(m2_2);
+    m3_2 = mH3sq;
+    m3 = sqrt(m3_2);
+    
+    
     //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
     {
@@ -6733,7 +6755,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     pp_phi2_VV_TH13=SigmaSumphi2_13*(Br_phi2toZZ+Br_phi2toWW);
     pp_phi3_VV_TH13=SigmaSumphi3_13*(Br_phi3toZZ+Br_phi3toWW);
 
-    gg_phi2_phi1phi1_TH8=SigmaggF_phi2_8*Br_phi2tophi1phi1;
+    gg_phi2_phi1phi1_TH8=SigmaggF_phi2_8*Br_phi2tophi1phi1; 
     gg_phi3_phi1phi1_TH8=SigmaggF_phi3_8*Br_phi3tophi1phi1;
     pp_phi2_phi1phi1_bbbb_TH8=SigmaSumphi2_8*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_bb;
     pp_phi3_phi1phi1_bbbb_TH8=SigmaSumphi3_8*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_bb;
@@ -6872,7 +6894,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     if(m3>= 145.0 && m3<1000.0) THoEX_mu_pp_phi3_VV_CMS8=mu_pp_phi3_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(m3);
     if(m2>=1200.0 && m2<3000.0) THoEX_pp_phi2_VV_qqqq_ATLAS13=pp_phi2_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(m2);
     if(m3>=1200.0 && m3<3000.0) THoEX_pp_phi3_VV_qqqq_ATLAS13=pp_phi3_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(m3);
-    if(m2>= 260.0 && m2<1000.0) THoEX_gg_phi2_phi1phi1_ATLAS8=gg_phi2_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m2);
+    if(m2>= 260.0 && m2<1000.0) THoEX_gg_phi2_phi1phi1_ATLAS8=gg_phi2_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m2);   
     if(m3>= 260.0 && m3<1000.0) THoEX_gg_phi3_phi1phi1_ATLAS8=gg_phi3_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m3);
     if(m2>= 270.0 && m2<1100.0) THoEX_pp_phi2_phi1phi1_bbbb_CMS8=pp_phi2_phi1phi1_bbbb_TH8/ip_ex_pp_phi_phi1phi1_bbbb_CMS8(m2);
     if(m3>= 270.0 && m3<1100.0) THoEX_pp_phi3_phi1phi1_bbbb_CMS8=pp_phi3_phi1phi1_bbbb_TH8/ip_ex_pp_phi_phi1phi1_bbbb_CMS8(m3);
