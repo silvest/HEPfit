@@ -49,7 +49,6 @@
         <ccTool>
           <standard>8</standard>
           <incDir>
-            <pElem>../HiggsExtensions/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
