@@ -110,7 +110,6 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../HiggsExtensions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -std=c++11</commandLine>
           <preprocessorList>
