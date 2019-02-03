@@ -13,6 +13,7 @@
       <itemPath>src/HiggsKvKf.h</itemPath>
       <itemPath>src/HiggsKvKfgen.h</itemPath>
       <itemPath>src/HiggsKvgenKfgen.h</itemPath>
+      <itemPath>src/HiggsThObservables.h</itemPath>
       <itemPath>src/NPEffectiveBS.h</itemPath>
       <itemPath>src/NPEffectiveGIMR.h</itemPath>
       <itemPath>src/NPEffectiveGIMRprime.h</itemPath>
@@ -138,6 +139,8 @@
       <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -279,6 +282,8 @@
       </item>
       <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffectiveBS.h" ex="false" tool="3" flavor2="0">
@@ -419,6 +424,8 @@
       </item>
       <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffectiveBS.h" ex="false" tool="3" flavor2="0">
@@ -549,6 +556,8 @@
       <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
