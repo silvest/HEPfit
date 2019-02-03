@@ -4,13 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/HiggsChiral.h</itemPath>
-      <itemPath>src/HiggsKi.h</itemPath>
-      <itemPath>src/HiggsKigen.h</itemPath>
-      <itemPath>src/HiggsKvKf.h</itemPath>
-      <itemPath>src/HiggsKvKfgen.h</itemPath>
-      <itemPath>src/HiggsKvgenKf.h</itemPath>
-      <itemPath>src/HiggsKvgenKfgen.h</itemPath>
       <itemPath>src/HiggsThObservables.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -20,13 +13,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/HiggsChiral.cpp</itemPath>
-      <itemPath>src/HiggsKi.cpp</itemPath>
-      <itemPath>src/HiggsKigen.cpp</itemPath>
-      <itemPath>src/HiggsKvKf.cpp</itemPath>
-      <itemPath>src/HiggsKvKfgen.cpp</itemPath>
-      <itemPath>src/HiggsKvgenKf.cpp</itemPath>
-      <itemPath>src/HiggsKvgenKfgen.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -65,34 +51,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKi.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKi.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKigen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKigen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -119,34 +77,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKi.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKi.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKigen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKigen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -182,34 +112,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKi.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKi.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKigen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKigen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="9">
-      </item>
-      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="9">
-      </item>
-      <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="9">
-      </item>
-      <item path="src/HiggsKvgenKf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -235,34 +137,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKi.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKi.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKigen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKigen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKf.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>

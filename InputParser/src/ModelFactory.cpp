@@ -21,8 +21,6 @@
 #include "HiggsKvKf.h"
 #include "HiggsKvKfgen.h"
 #include "HiggsKvgenKfgen.h"
-#include "HiggsKvgenKf.h"
-#include "HiggsKi.h"
 #include "HiggsKigen.h"
 #include "HiggsChiral.h"
 #include "GeneralSUSY.h"
@@ -73,8 +71,6 @@ ModelFactory::ModelFactory()
     modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
     modelFactory["HiggsKvgenKfgen"] = boost::factory<HiggsKvgenKfgen*>();
-    modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
-    modelFactory["HiggsKi"] = boost::factory<HiggsKi*>();
     modelFactory["HiggsKigen"] = boost::factory<HiggsKigen*>();
     modelFactory["HiggsChiral"] = boost::factory<HiggsChiral*>();
     modelFactory["NPDF2"] = boost::factory<NPDF2*>();
