@@ -113,7 +113,7 @@ public:
 private:
     QCD::lepton lep; /**< Final leptons type. */
     QCD::quark quark; /**< Final quark type. */
-    BXqll myBXqll;
+//    BXqll myBXqll;
 };
 
 
