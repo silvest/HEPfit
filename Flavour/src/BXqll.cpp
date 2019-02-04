@@ -122,55 +122,13 @@ void BXqll::updateParameters()
     
     double alpha_kappa;
     
-    for(unsigned int qcd_ord = QCD0; qcd_ord <= QCD2; qcd_ord++)
-        for(unsigned int qed_ord = QED0; qed_ord <= QED2; qed_ord++)
-    {
-        alpha_kappa = pow(alstilde, qcd_ord) * pow(kappa, qed_ord);
-        for(int i = 0, i < ; i++)
+    for(unsigned int qed_ord = QED0; qed_ord <= QED2; qed_ord++)
+        for(unsigned int qcd_ord = QCD0; qcd_ord <= QCD2; qcd_ord++)
         {
-        WC.assign(i, ord, alpha_kappa * (myHeff.LowScaleCoeff())(0));
-        WC.assign(1, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(1));
-        WC.assign(2, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(2));
-        WC.assign(3, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(3));
-        WC.assign(4, ord, alpha_kappa * (myHeff.LowS
-        caleCoeff((qcd_orders) ord, 0))(4));
-        WC.assign(5, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(5));
-        WC.assign(6, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(6));
-        WC.assign(7, ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) ord, 0))(7));
-        }
-    }
-    
-    for(unsigned int ord_qed = int_qed(LO_QED); ord_qed <= int_qed(NLO_QED22); ord_qed++)
-    {   
-        if (ord_qed <= int_qed(NLO_QED21))
-        {
-            i = ord_qed - int_qed(LO_QED);
-            j = 1;
-        }
-        else
-        {
-            i = ord_qed - int_qed(NLO_QED02);
-            j = 2;
-        }
-        ij = 10*i + j;
-        alpha_kappa = pow(alstilde, i) * pow(kappa, j);
-        
-        WC.assign(0, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(0));
-        WC.assign(1, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(1));
-        WC.assign(2, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(2));
-        WC.assign(3, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(3));
-        WC.assign(4, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(4));
-        WC.assign(5, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(5));
-        WC.assign(6, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(6));
-        WC.assign(7, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(7));
-        WC.assign(8, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(8));
-        WC.assign(9, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(9));
-        WC.assign(10, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(10));
-        WC.assign(11, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(11));
-        WC.assign(12, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(12));
-        WC.assign(13, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(13));
-        WC.assign(14, ord_qed, alpha_kappa * (myHeff.LowScaleCoeff(ij))(14));
-    }   
+            alpha_kappa = pow(alstilde, qcd_ord) * pow(kappa, qed_ord);
+            for (unsigned int i = 0; i < 15; i++)
+                WC.assign(i, qcd_ord + 3*qed_ord, alpha_kappa * (myHeff.LowScaleCoeff((qcd_orders) qcd_ord, (qed_orders) qed_ord))(i));
+        }  
 
     C_1[FULLNLO] = C_1[LO] + C_1[NLO];
     C_1L_bar[FULLNLO] = C_1L_bar[LO] + C_1L_bar[NLO];
@@ -301,9 +259,10 @@ double BXqll::getR_LOWQ2(double sh)
 //    std::cout << "GF matching:   " << (4. * GF / sqrt(2.)) * (c10_11_df1 + c10_22_df1) << std::endl;
 //    std::cout << "GF^2 matching: " << (GF_2 * MW_2 / M_PI / M_PI) * (c10_11_stu +
 //                                    (mySM.Ale(120.,FULLNLO) / 4. / M_PI) * c10_22_stu) / lambda_t << std::endl;
-
+    
     computeMi(sh);
-    return H_T(sh);
+    return H_A(sh);
+//    return 0.;
 }
 
 double BXqll::getR_HIGHQ2(double sh)
@@ -841,95 +800,16 @@ double BXqll::H_T(double sh)
 {
     computeHij_T(sh);
     
-    double Phi_ll = 0.;
+    double Phi_ll = CCH_multiplication(Hij_T);
     
+    // 1/mc^2 corrections
     for(unsigned int j = 0; j < 15; j++)
-    {
         for(unsigned int i = 0; i <= j; i++)
-        {
-            // LO terms with 1/mc^2 corrections
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * ((Hij_T[LO])(i,j) + cij_T(i, j, sh)) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, NLO) * (Hij_T[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_T[NLO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, NNLO) * (Hij_T[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, NLO) * (Hij_T[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, NLO) * (Hij_T[NLO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_T[NLO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_T[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_T[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_T[int_qed(NLO_QED11)])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED21)) * (Hij_T[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_T[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NNLO) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, NLO) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED21)).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_T[NLO])(i,j) +                 
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_T[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, NLO) * (Hij_T[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_T[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_T[int_qed(NLO_QED21)])(i,j) ).real();
-                      
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_T[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NLO) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, LO) * (Hij_T[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_T[int_qed(NLO_QED11)])(i,j) ).real();
-             
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED22)) * (Hij_T[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_T[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED21)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED21)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NNLO) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, NLO) * (Hij_T[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED22)).conjugate() * WC(j, LO) * (Hij_T[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_T[NLO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NLO) * (Hij_T[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, LO) * (Hij_T[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_T[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_T[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_T[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_T[int_qed(NLO_QED21)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_T[int_qed(NLO_QED21)])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_T[int_qed(NLO_QED22)])(i,j) ).real();
-        }
-    }
-    
-    gslpp::complex C9 = WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11));
+            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * cij_T(i, j, sh) ).real();
     
     // 1/mc^2 corrections associated with C9
+    gslpp::complex C9 = WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11));
+    
     Phi_ll += (C9 * (WC(0, LO).conjugate() * cij_T(0, 8, sh) + WC(1, LO).conjugate() * cij_T(1, 8, sh)) ).real();
     
     // log-enhanced electromagnetic corrections
@@ -951,95 +831,16 @@ double BXqll::H_L(double sh)
 {
     computeHij_L(sh);
     
-    double Phi_ll = 0.;
+    double Phi_ll = CCH_multiplication(Hij_L);
     
+    // 1/mc^2 corrections
     for(unsigned int j = 0; j < 15; j++)
-    {
         for(unsigned int i = 0; i <= j; i++)
-        {
-            // LO terms with 1/mc^2 corrections
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * ((Hij_L[LO])(i,j) + cij_L(i, j, sh)) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, NLO) * (Hij_L[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_L[NLO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, NNLO) * (Hij_L[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, NLO) * (Hij_L[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, NLO) * (Hij_L[NLO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_L[NLO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_L[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_L[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_L[int_qed(NLO_QED11)])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED21)) * (Hij_L[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_L[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NNLO) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, NLO) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED21)).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_L[NLO])(i,j) +                 
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_L[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, NLO) * (Hij_L[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_L[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_L[int_qed(NLO_QED21)])(i,j) ).real();
-                      
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_L[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NLO) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, LO) * (Hij_L[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_L[int_qed(NLO_QED11)])(i,j) ).real();
-             
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED22)) * (Hij_L[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_L[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED21)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED21)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NNLO) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, NLO) * (Hij_L[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED22)).conjugate() * WC(j, LO) * (Hij_L[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_L[NLO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NLO) * (Hij_L[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, LO) * (Hij_L[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_L[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_L[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_L[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_L[int_qed(NLO_QED21)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_L[int_qed(NLO_QED21)])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_L[int_qed(NLO_QED22)])(i,j) ).real();
-        }
-    }
-    
-    gslpp::complex C9 = WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11));
+            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * cij_L(i, j, sh) ).real();
     
     // 1/mc^2 corrections associated with C9
+    gslpp::complex C9 = WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11));
+    
     Phi_ll += (C9 * (WC(0, LO).conjugate() * cij_L(0, 8, sh) + WC(1, LO).conjugate() * cij_L(1, 8, sh)) ).real();
     
     // log-enhanced electromagnetic corrections
@@ -1061,89 +862,8 @@ double BXqll::H_A(double sh)
 {
     computeHij_A(sh);
     
-    double Phi_ll = 0.;
-    
-    for(unsigned int j = 0; j < 15; j++)
-    {
-        for(unsigned int i = 0; i <= j; i++)
-        {
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, NLO) * (Hij_A[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_A[NLO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, NNLO) * (Hij_A[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, NLO) * (Hij_A[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, NLO) * (Hij_A[NLO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_A[NLO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_A[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_A[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_A[int_qed(NLO_QED11)])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED21)) * (Hij_A[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_A[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NNLO) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, NLO) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED21)).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_A[NLO])(i,j) +                 
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_A[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, NLO) * (Hij_A[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, LO) * (Hij_A[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, LO) * (Hij_A[int_qed(NLO_QED21)])(i,j) ).real();
-                      
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) ).real();
-            
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_A[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NLO) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, LO) * (Hij_A[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_A[int_qed(NLO_QED11)])(i,j) ).real();
-             
-            Phi_ll += (WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED22)) * (Hij_A[LO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_A[LO])(i,j) +
-                       WC(i, NNLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED21)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED21)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NNLO) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, NLO) * (Hij_A[LO])(i,j) +
-                       WC(i, int_qed(NLO_QED22)).conjugate() * WC(j, LO) * (Hij_A[LO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED12)) * (Hij_A[NLO])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(NLO_QED02)) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NLO) * (Hij_A[NLO])(i,j) +
-                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, LO) * (Hij_A[NLO])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(NLO_QED11)) * (Hij_A[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, NLO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, NLO) * (Hij_A[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO) * (Hij_A[int_qed(NLO_QED11)])(i,j) +
-                       WC(i, LO).conjugate() * WC(j, int_qed(LO_QED)) * (Hij_A[int_qed(NLO_QED21)])(i,j) +
-                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO) * (Hij_A[int_qed(NLO_QED21)])(i,j) ).real();
-        }
-    }
+    double Phi_ll = CCH_multiplication(Hij_A);
+//    double Phi_ll = FULLCCH_multiplication(Hij_A);
 
     // 1/mc^2 corrections associated with C10
     Phi_ll += (WC(0, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * cij_A(0, 9, sh) +
@@ -1507,11 +1227,11 @@ void BXqll::computeHij_A(double sh)
     Hij_A.push_back(Hij);
     
     
-//    // NLO_QED02 -> NLO_QED12
-//    Hij.reset(); // To clear Hij
-//    Hij_A.push_back(Hij);
-//    Hij_A.push_back(Hij);    
-//    Hij_A.push_back(Hij);
+//    // NLO_QED02 -> NLO_QED22
+    Hij.reset(); // To clear Hij
+    Hij_A.push_back(Hij);
+    Hij_A.push_back(Hij);    
+    Hij_A.push_back(Hij);
 }
 
 void BXqll::computeMi(double sh)
@@ -2014,25 +1734,29 @@ double BXqll::omega99_L(double sh)
 double BXqll::omega710_A(double sh)
 {
     double umsh = 1.-sh;
+    double num = 3.*umsh*umsh;
     double umsqrt = 1.-sqrt(sh);
+    double dilog_sh = gslpp_special_functions::dilog(umsh);
+    double dilog_sqrt = gslpp_special_functions::dilog(umsqrt);
     
-    return (-4./3.*log(muh) + 2.*(4.*sh*sh-13.*sh-1.)*dilog((gslpp::complex) umsqrt).real()/3./umsh/umsh - (2.*sh*sh-
-            9.*sh-3.)*dilog((gslpp::complex) umsh).real()/3./umsh/umsh - (3.*sh*sh-16.*sh+13.)*log(umsqrt)/3./umsh/umsh +
-            (4.*sh*sh-13.*sh-1.)*log(umsqrt)*log(sh)/3./umsh/umsh - (2.*sh*sh-9.*sh-3.)*log(umsh)*log(sh)/3./umsh/umsh +
-            (sh*sh*sh-23.*sh*sh+23.*sh-1.)*log(umsh)/6./umsh/umsh/sh + (sh-20.*sqrt(sh)+5.)*umsqrt*umsqrt/6./umsh/umsh -
-            M_PI*M_PI/3.);
+    return (-4./3.*log(muh) + 2.*(4.*sh*sh-13.*sh-1.)*dilog_sqrt/num - (2.*sh*sh-9.*sh-3.)*dilog_sh/num -
+            (3.*sh*sh-16.*sh+13.)*log(umsqrt)/num + (4.*sh*sh-13.*sh-1.)*log(umsqrt)*log(sh)/num -
+            (2.*sh*sh-9.*sh-3.)*log(umsh)*log(sh)/num + (sh*sh*sh-23.*sh*sh+23.*sh-1.)*log(umsh)/2./num/sh +
+            (sh-20.*sqrt(sh)+5.)*umsqrt*umsqrt/2./num - M_PI*M_PI/3.);
 }
 
 double BXqll::omega910_A(double sh)
 {
     double umsh = 1.-sh;
+    double num = 3.*umsh*umsh;
     double umsqrt = 1.-sqrt(sh);
+    double dilog_sh = gslpp_special_functions::dilog(umsh);
+    double dilog_sqrt = gslpp_special_functions::dilog(umsqrt);
     
-    return (-2.*(sh*sh-3.*sh-1.)*dilog((gslpp::complex) umsh).real()/3./umsh/umsh - 4.*(5.-2.*sh)*sh*
-            dilog((gslpp::complex) umsqrt).real()/3./umsh/umsh - (4.*sqrt(sh)-3.)*umsqrt*umsqrt/3./umsh/umsh -
-            2.*(2.*sh*sh-7.*sh+5.)*log(umsqrt)/3./umsh/umsh - 2.*(sh*sh-3.*sh-1.)*log(umsh)*log(sh)/3./umsh/umsh +
-            (2.*sh*sh*sh-11.*sh*sh+10.*sh-1.)*log(umsh)/3./umsh/umsh/sh + 2.*sh*(2.*sh-5.)*log(umsqrt)*log(sh)/
-            3./umsh/umsh - M_PI*M_PI/3.);
+    return (-2.*(sh*sh-3.*sh-1.)*dilog_sh/num - 4.*(5.-2.*sh)*sh*dilog_sqrt/num - (4.*sqrt(sh)-3.)*umsqrt*umsqrt/num -
+            2.*(2.*sh*sh-7.*sh+5.)*log(umsqrt)/num - 2.*(sh*sh-3.*sh-1.)*log(umsh)*log(sh)/num +
+            (2.*sh*sh*sh-11.*sh*sh+10.*sh-1.)*log(umsh)/num/sh + 2.*sh*(2.*sh-5.)*log(umsqrt)*log(sh)/num -
+            M_PI*M_PI/3.);
 }
 
 double BXqll::omega77em_T(double sh)
@@ -2274,4 +1998,175 @@ unsigned int BXqll::int_qed(orders_qed order_qed)
 {
     // For LO_QED to come right after NNLO
     return (order_qed - NO_QED + NNLO);
+}
+
+double BXqll::CCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& Hij)
+{
+    double Phi_ll = 0.;
+    
+    for(unsigned int j = 0; j < 15; j++)
+    {
+        for(unsigned int i = 0; i <= j; i++)
+        {
+            // 00, with 1/mc^2 corrections
+            Phi_ll += (WC(i, LO).conjugate() * WC(j, LO) * Hij[LO](i,j) ).real();
+            
+            // 10
+            Phi_ll += (WC(i, LO).conjugate()  * WC(j, NLO) * Hij[LO](i,j) +
+                       WC(i, NLO).conjugate() * WC(j, LO)  * Hij[LO](i,j) +
+                       WC(i, LO).conjugate()  * WC(j, LO)  * Hij[NLO](i,j) ).real();
+            
+            // 20
+            Phi_ll += (WC(i, LO).conjugate()   * WC(j, NNLO) * Hij[LO](i,j) +
+                       WC(i, NLO).conjugate()  * WC(j, NLO)  * Hij[LO](i,j) +
+                       WC(i, NNLO).conjugate() * WC(j, LO)   * Hij[LO](i,j) +
+                       WC(i, LO).conjugate()   * WC(j, NLO)  * Hij[NLO](i,j) +
+                       WC(i, NLO).conjugate()  * WC(j, LO)   * Hij[NLO](i,j) ).real();
+            
+            // 01
+            Phi_ll += (WC(i, LO).conjugate()              * WC(j, int_qed(LO_QED)) * Hij[LO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate() * WC(j, LO)              * Hij[LO](i,j) ).real();
+            
+            // 11
+            Phi_ll += (WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED11)) * Hij[LO](i,j) +
+                       WC(i, NLO).conjugate()                * WC(j, int_qed(LO_QED))    * Hij[LO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, NLO)                * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO)                 * Hij[LO](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, int_qed(LO_QED))    * Hij[NLO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, LO)                 * Hij[NLO](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, LO)                 * Hij[int_qed(NLO_QED11)](i,j) ).real();
+            
+            // 21
+            Phi_ll += (WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED21)) * Hij[LO](i,j) +
+                       WC(i, NLO).conjugate()                * WC(j, int_qed(NLO_QED11)) * Hij[LO](i,j) +
+                       WC(i, NNLO).conjugate()               * WC(j, int_qed(LO_QED))    * Hij[LO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, NNLO)               * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, NLO)                * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED21)).conjugate() * WC(j, LO)                 * Hij[LO](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED11)) * Hij[NLO](i,j) +                 
+                       WC(i, NLO).conjugate()                * WC(j, int_qed(LO_QED))    * Hij[NLO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, NLO)                * Hij[NLO](i,j) +
+                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO)                 * Hij[NLO](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, NLO)                * Hij[int_qed(NLO_QED11)](i,j) +
+                       WC(i, NLO).conjugate()                * WC(j, LO)                 * Hij[int_qed(NLO_QED11)](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, LO)                 * Hij[int_qed(NLO_QED21)](i,j) ).real();
+            
+            // 02
+            Phi_ll += (WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED02)) * Hij[LO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, int_qed(LO_QED))    * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, LO)                 * Hij[LO](i,j) ).real();
+            
+            // 12
+            Phi_ll += (WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED12)) * Hij[LO](i,j) +
+                       WC(i, NLO).conjugate()                * WC(j, int_qed(NLO_QED02)) * Hij[LO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, int_qed(NLO_QED11)) * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(LO_QED))    * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NLO)                * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, LO)                 * Hij[LO](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED02)) * Hij[NLO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, int_qed(LO_QED))    * Hij[NLO](i,j) +
+                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, LO)                 * Hij[NLO](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, int_qed(LO_QED))    * Hij[int_qed(NLO_QED11)](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, LO)                 * Hij[int_qed(NLO_QED11)](i,j) ).real();
+            
+            // 22
+            Phi_ll += (WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED22)) * Hij[LO](i,j) +
+                       WC(i, NLO).conjugate()                * WC(j, int_qed(NLO_QED12)) * Hij[LO](i,j) +
+                       WC(i, NNLO).conjugate()               * WC(j, int_qed(NLO_QED02)) * Hij[LO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, int_qed(NLO_QED21)) * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(NLO_QED11)) * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED21)).conjugate() * WC(j, int_qed(LO_QED))    * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NNLO)               * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, NLO)                * Hij[LO](i,j) +
+                       WC(i, int_qed(NLO_QED22)).conjugate() * WC(j, LO)                 * Hij[LO](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED12)) * Hij[NLO](i,j) +
+                       WC(i, NLO).conjugate()                * WC(j, int_qed(NLO_QED02)) * Hij[NLO](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, int_qed(NLO_QED11)) * Hij[NLO](i,j) +
+                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, int_qed(LO_QED))    * Hij[NLO](i,j) +
+                       WC(i, int_qed(NLO_QED02)).conjugate() * WC(j, NLO)                * Hij[NLO](i,j) +
+                       WC(i, int_qed(NLO_QED12)).conjugate() * WC(j, LO)                 * Hij[NLO](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, int_qed(NLO_QED11)) * Hij[int_qed(NLO_QED11)](i,j) +
+                       WC(i, NLO).conjugate()                * WC(j, int_qed(LO_QED))    * Hij[int_qed(NLO_QED11)](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, NLO)                * Hij[int_qed(NLO_QED11)](i,j) +
+                       WC(i, int_qed(NLO_QED11)).conjugate() * WC(j, LO)                 * Hij[int_qed(NLO_QED11)](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, int_qed(LO_QED))    * Hij[int_qed(NLO_QED21)](i,j) +
+                       WC(i, int_qed(LO_QED)).conjugate()    * WC(j, LO)                 * Hij[int_qed(NLO_QED21)](i,j) +
+                       WC(i, LO).conjugate()                 * WC(j, LO)                 * Hij[int_qed(NLO_QED22)](i,j) ).real();
+        }
+    }
+    
+    // orders above 22 (only available for C9 and C10)
+    // 32
+    Phi_ll += (WC(9, int_qed(NLO_QED11)).conjugate() * WC(9, int_qed(NLO_QED21)) * Hij[LO](9,9) +
+               WC(9, int_qed(NLO_QED21)).conjugate() * WC(9, int_qed(NLO_QED11)) * Hij[LO](9,9) +
+               WC(9, int_qed(NLO_QED11)).conjugate() * WC(9, int_qed(NLO_QED11)) * Hij[NLO](9,9) ).real();
+    
+    // 03
+    Phi_ll += (WC(8, int_qed(LO_QED)).conjugate()    * WC(8, int_qed(NLO_QED02)) * Hij[LO](8,8) +
+               WC(8, int_qed(NLO_QED02)).conjugate() * WC(8, int_qed(LO_QED))    * Hij[LO](8,8) ).real();
+    
+    for(unsigned int i = 8; i < 10; i++)
+    {
+        // 13
+        Phi_ll += (WC(i, int_qed(LO_QED)).conjugate()    * WC(i, int_qed(NLO_QED12)) * Hij[LO](i,i) +
+                   WC(i, int_qed(NLO_QED11)).conjugate() * WC(i, int_qed(NLO_QED02)) * Hij[LO](i,i) +
+                   WC(i, int_qed(NLO_QED02)).conjugate() * WC(i, int_qed(NLO_QED11)) * Hij[LO](i,i) +
+                   WC(i, int_qed(NLO_QED12)).conjugate() * WC(i, int_qed(LO_QED))    * Hij[LO](i,i) +
+                   WC(i, int_qed(LO_QED)).conjugate()    * WC(i, int_qed(NLO_QED02)) * Hij[NLO](i,i) +
+                   WC(i, int_qed(NLO_QED02)).conjugate() * WC(i, int_qed(LO_QED))    * Hij[NLO](i,i) +
+                   WC(i, int_qed(LO_QED)).conjugate()    * WC(i, int_qed(LO_QED))    * Hij[int_qed(NLO_QED11)](i,i) ).real();
+        
+        // 23, MISSING: Ci02 Cj01 Hij20 + Ci01 Cj02 Hij20
+        Phi_ll += (WC(i, int_qed(LO_QED)).conjugate()    * WC(i, int_qed(NLO_QED22)) * Hij[LO](i,i) +
+                   WC(i, int_qed(NLO_QED11)).conjugate() * WC(i, int_qed(NLO_QED12)) * Hij[LO](i,i) +
+                   WC(i, int_qed(NLO_QED21)).conjugate() * WC(i, int_qed(NLO_QED02)) * Hij[LO](i,i) +
+                   WC(i, int_qed(NLO_QED02)).conjugate() * WC(i, int_qed(NLO_QED21)) * Hij[LO](i,i) +
+                   WC(i, int_qed(NLO_QED12)).conjugate() * WC(i, int_qed(NLO_QED11)) * Hij[LO](i,i) +
+                   WC(i, int_qed(NLO_QED22)).conjugate() * WC(i, int_qed(LO_QED))    * Hij[LO](i,i) +
+                   WC(i, int_qed(LO_QED)).conjugate()    * WC(i, int_qed(NLO_QED12)) * Hij[NLO](i,i) +
+                   WC(i, int_qed(NLO_QED11)).conjugate() * WC(i, int_qed(NLO_QED02)) * Hij[NLO](i,i) +
+                   WC(i, int_qed(NLO_QED02)).conjugate() * WC(i, int_qed(NLO_QED11)) * Hij[NLO](i,i) +
+                   WC(i, int_qed(NLO_QED12)).conjugate() * WC(i, int_qed(LO_QED))    * Hij[NLO](i,i) +
+                   WC(i, int_qed(LO_QED)).conjugate()    * WC(i, int_qed(NLO_QED11)) * Hij[int_qed(NLO_QED11)](i,i) +
+                   WC(i, int_qed(NLO_QED11)).conjugate() * WC(i, int_qed(LO_QED))    * Hij[int_qed(NLO_QED11)](i,i) +
+                   WC(i, int_qed(LO_QED)).conjugate()    * WC(i, int_qed(LO_QED))    * Hij[int_qed(NLO_QED21)](i,i) ).real();   
+    }
+    
+    // 33, MISSING: Ci11 Cj02 Hij20 + Ci02 Cj11 Hij20
+    Phi_ll += (WC(9, int_qed(NLO_QED11)).conjugate() * WC(9, int_qed(NLO_QED22)) * Hij[LO](9,9) +
+               WC(9, int_qed(NLO_QED21)).conjugate() * WC(9, int_qed(NLO_QED12)) * Hij[LO](9,9) +
+               WC(9, int_qed(NLO_QED12)).conjugate() * WC(9, int_qed(NLO_QED21)) * Hij[LO](9,9) +
+               WC(9, int_qed(NLO_QED22)).conjugate() * WC(9, int_qed(NLO_QED11)) * Hij[LO](9,9) +
+               WC(9, int_qed(NLO_QED11)).conjugate() * WC(9, int_qed(NLO_QED12)) * Hij[NLO](9,9) +
+               WC(9, int_qed(NLO_QED21)).conjugate() * WC(9, int_qed(NLO_QED02)) * Hij[NLO](9,9) +
+               WC(9, int_qed(NLO_QED02)).conjugate() * WC(9, int_qed(NLO_QED21)) * Hij[NLO](9,9) +
+               WC(9, int_qed(NLO_QED12)).conjugate() * WC(9, int_qed(NLO_QED11)) * Hij[NLO](9,9) +
+               WC(9, int_qed(NLO_QED11)).conjugate() * WC(9, int_qed(NLO_QED11)) * Hij[int_qed(NLO_QED11)](9,9) ).real();
+    
+    return Phi_ll;
+}
+
+double BXqll::FULLCCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& Hij)
+{
+    double Phi_ll = 0.;
+    gslpp::vector<gslpp::complex> FULLWC(15, 0.);
+    gslpp::matrix<gslpp::complex> FULLHij(15, 15, 0.);
+    
+    for(unsigned int j = 0; j < 15; j++)
+    {
+        FULLWC.assign(j, WC(j, LO) + WC(j, NLO) + WC(j, NNLO) +
+                WC(j, int_qed(LO_QED)) + WC(j, int_qed(NLO_QED11)) + WC(j, int_qed(NLO_QED21)) +
+                WC(j, int_qed(NLO_QED02)) + WC(j, int_qed(NLO_QED12)) + WC(j, int_qed(NLO_QED22)) );
+        for(unsigned int i = 0; i <= j; i++)
+        {
+            FULLHij.assign(i,j,
+                    Hij[LO](i,j) + Hij[NLO](i,j) + Hij[NNLO](i,j) +
+                    Hij[int_qed(LO_QED)](i,j) + Hij[int_qed(NLO_QED11)](i,j) + Hij[int_qed(NLO_QED21)](i,j) +
+                    Hij[int_qed(NLO_QED02)](i,j) + Hij[int_qed(NLO_QED12)](i,j) + Hij[int_qed(NLO_QED22)](i,j) );
+            
+            Phi_ll += (FULLWC(i) * FULLWC (j).conjugate() * FULLHij(i,j) ).real();
+        }
+    }
+    
+    return (Phi_ll);
 }
