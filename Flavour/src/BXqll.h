@@ -110,10 +110,10 @@ private:
 //    gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<Vector that contains the primed Wilson coeffients */
 
-    gslpp::vector<gslpp::complex> ** allcoeff_smm;/**<Vector that contains the primed Wilson coeffients */
+//    gslpp::vector<gslpp::complex> ** allcoeff_smm;/**<Vector that contains the primed Wilson coeffients */
     Expanded<gslpp::vector<gslpp::complex> > allcoeffDF1;/**<Vector that contains the Wilson coeffients */
     
-//    gslpp::matrix<gslpp::complex> WC;/**<Matrix that contains the Wilson coeffients for each order */
+    gslpp::matrix<gslpp::complex> WC;/**<Matrix that contains the Wilson coeffients for each order */
     
     gslpp::complex C_1[5];/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1L_bar[5];/**<Wilson coeffients @f$C_1@f$*/
@@ -560,5 +560,17 @@ private:
     * @param[in] ord_qed order to be returned
     */
     unsigned int int_qed(orders_qed order_qed);
+    
+    /**
+    * @brief Auxiliary function that performs the multiplication of Wilson coefficients and matrix elements
+    * @param[in] Hij matrix element related to the one of the angular observables of \f$B\to X_s\ell\ell\f$
+    */
+    double CCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& Hij);
+    
+    /**
+    * @brief Auxiliary function that performs the multiplication of Wilson coefficients and matrix elements
+    * @param[in] Hij matrix element related to the one of the angular observables of \f$B\to X_s\ell\ell\f$
+    */
+    double FULLCCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& Hij);
 };
 #endif	/* BXqLL_H */

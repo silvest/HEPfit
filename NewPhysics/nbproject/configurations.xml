@@ -8,6 +8,12 @@
       <itemPath>src/EW_BURGESS.h</itemPath>
       <itemPath>src/EW_CHMN.h</itemPath>
       <itemPath>src/EW_TEST.h</itemPath>
+      <itemPath>src/HiggsChiral.h</itemPath>
+      <itemPath>src/HiggsKigen.h</itemPath>
+      <itemPath>src/HiggsKvKf.h</itemPath>
+      <itemPath>src/HiggsKvKfgen.h</itemPath>
+      <itemPath>src/HiggsKvgenKfgen.h</itemPath>
+      <itemPath>src/HiggsThObservables.h</itemPath>
       <itemPath>src/NPEffectiveBS.h</itemPath>
       <itemPath>src/NPEffectiveGIMR.h</itemPath>
       <itemPath>src/NPEffectiveGIMRprime.h</itemPath>
@@ -37,6 +43,11 @@
       <itemPath>src/EW_BURGESS.cpp</itemPath>
       <itemPath>src/EW_CHMN.cpp</itemPath>
       <itemPath>src/EW_TEST.cpp</itemPath>
+      <itemPath>src/HiggsChiral.cpp</itemPath>
+      <itemPath>src/HiggsKigen.cpp</itemPath>
+      <itemPath>src/HiggsKvKf.cpp</itemPath>
+      <itemPath>src/HiggsKvKfgen.cpp</itemPath>
+      <itemPath>src/HiggsKvgenKfgen.cpp</itemPath>
       <itemPath>src/NPEffectiveBS.cpp</itemPath>
       <itemPath>src/NPEffectiveGIMR.cpp</itemPath>
       <itemPath>src/NPEffectiveGIMRprime.cpp</itemPath>
@@ -108,6 +119,28 @@
       <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKigen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKigen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -229,6 +262,28 @@
       </item>
       <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKigen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKigen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffectiveBS.h" ex="false" tool="3" flavor2="0">
@@ -349,6 +404,28 @@
       </item>
       <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKigen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKigen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffectiveBS.h" ex="false" tool="3" flavor2="0">
@@ -459,6 +536,28 @@
       <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKigen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKigen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
