@@ -18,7 +18,6 @@
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
 #include <algorithm>
-#include <boost/bind.hpp>
 #include "QCD.h"
 #include "gslpp_special_functions.h"
 
@@ -65,17 +64,17 @@ QCD::QCD()
             mp2mbar_cache[j][i] = 0.;
     }
 
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("AlsM", boost::cref(AlsM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MAls", boost::cref(MAls)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mup", boost::cref(quarks[UP].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mdown", boost::cref(quarks[DOWN].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mcharm", boost::cref(quarks[CHARM].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mstrange", boost::cref(quarks[STRANGE].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mtop", boost::cref(mtpole)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mbottom", boost::cref(quarks[BOTTOM].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muc", boost::cref(muc)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mub", boost::cref(mub)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mut", boost::cref(mut)));   
+    ModelParamMap.insert(std::make_pair("AlsM", std::cref(AlsM)));
+    ModelParamMap.insert(std::make_pair("MAls", std::cref(MAls)));
+    ModelParamMap.insert(std::make_pair("mup", std::cref(quarks[UP].getMass())));
+    ModelParamMap.insert(std::make_pair("mdown", std::cref(quarks[DOWN].getMass())));
+    ModelParamMap.insert(std::make_pair("mcharm", std::cref(quarks[CHARM].getMass())));
+    ModelParamMap.insert(std::make_pair("mstrange", std::cref(quarks[STRANGE].getMass())));
+    ModelParamMap.insert(std::make_pair("mtop", std::cref(mtpole)));
+    ModelParamMap.insert(std::make_pair("mbottom", std::cref(quarks[BOTTOM].getMass())));
+    ModelParamMap.insert(std::make_pair("muc", std::cref(muc)));
+    ModelParamMap.insert(std::make_pair("mub", std::cref(mub)));
+    ModelParamMap.insert(std::make_pair("mut", std::cref(mut)));   
 
     unknownParameterWarning = true;
     realorder = LO;
@@ -130,7 +129,9 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+    {
         setParameter(it->first, it->second);
+    }
 
     if (UpdateError) return (false);
 
@@ -153,7 +154,7 @@ bool QCD::PostUpdate()
     }
     if (computeBd) {
         if (FlagCsi) {
-        BParameterMap.at("BBd").setBpars(0, FBsoFBd * FBsoFBd * BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getcsi() / BParameterMap.at("BBd").getcsi());
+        BParameterMap.at("BBd").setBpars(0, mesonsMap.at(QCD::B_D).getFBsoFBd() * mesonsMap.at(QCD::B_D).getFBsoFBd() * BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getcsi() / BParameterMap.at("BBd").getcsi());
         BParameterMap.at("BBd").setBBsoBBd(BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getBpars()(0));
         BParameterMap.at("BBd").setBpars(1, BParameterMap.at("BBd").getFBdSqrtBBd2() * BParameterMap.at("BBd").getFBdSqrtBBd2() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
         BParameterMap.at("BBd").setBpars(2, BParameterMap.at("BBd").getFBdSqrtBBd3() * BParameterMap.at("BBd").getFBdSqrtBBd3() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
@@ -181,7 +182,7 @@ void QCD::addParameters(std::vector<std::string> params_i)
     for (std::vector<std::string>::iterator it = params_i.begin(); it < params_i.end(); it++) {
         if (optionalParameters.find(*it) == optionalParameters.end()){
             optionalParameters[*it] = 0.;
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >(*it, boost::cref(optionalParameters[*it])));
+            ModelParamMap.insert(std::make_pair(*it, std::cref(optionalParameters[*it])));
         }
     }
 }

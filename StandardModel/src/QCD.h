@@ -12,8 +12,6 @@
 #include "Meson.h"
 #include "BParameter.h"
 #include "OrderScheme.h"
-#include <boost/functional/factory.hpp>
-#include <boost/function.hpp>
 #define MEPS 1.e-10 // mass precision
 
 /**
@@ -229,11 +227,6 @@
  *   <td class="mod_name">%FBs</td>
  *   <td class="mod_symb">@f$F_{B_s}@f$</td>
  *   <td class="mod_desc">The decay constant of the \f$ B_s \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FBsoFBd</td>
- *   <td class="mod_symb">@f$F_{B_d}/F_{B_d}@f$</td>
- *   <td class="mod_desc">The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%BK1 - %BK5</td>
@@ -1215,7 +1208,6 @@ protected:
     double mut; ///< The threshold between six- and five-flavour theory in GeV. 
     double mub; ///< The threshold between five- and four-flavour theory in GeV. 
     double muc; ///< The threshold between four- and three-flavour theory in GeV. 
-    double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     
     double Nc; ///< The number of colours.
     double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
