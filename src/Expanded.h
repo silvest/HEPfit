@@ -320,7 +320,7 @@ public:
     }
 
     Expanded<T> inverse() const {
-        throw std::runtime_error("inverse:: method not implemented");
+        throw std::runtime_error("Expanded::inverse: method not implemented");
     }
 
     Expanded<T> operator-() const {
@@ -622,13 +622,13 @@ public:
      * @return a new Expanded<T> with the truncated expansion.
      */
     Expanded<T> truncate(std::vector<int> n2max, int n1max) {
-        if (n1max < minord1 || n1max > minord1 + n1)
-            throw std::runtime_error("truncate(): order of the outer expansion not present in Expanded");
+        if (n1max < minord1 || n1max >= minord1 + n1)
+            throw std::runtime_error("Expanded::truncate(): order of the outer expansion not present in Expanded");
         std::vector<std::vector<T> > res;
         for (int i1 = 0; i1 <= n1max - minord1; i1++) {
             std::vector<T> tmp;
-            if (n2max.at(i1) > minord2 + n2.at(i1))
-                throw std::runtime_error("truncate(): order of the inner expansion not present in Expanded");
+            if (n2max.at(i1) >= minord2 + n2.at(i1))
+                throw std::runtime_error("Expanded::truncate(): order of the inner expansion not present in Expanded");
             for (int j1 = 0; j1 <= n2max.at(i1) - minord2; j1++)
                 tmp.push_back(data[i1][j1]);
             res.push_back(tmp);
@@ -641,8 +641,8 @@ public:
      * @return a new Expanded<T> with the truncated expansion.
      */
     Expanded<T> truncate(int n2max) {
-        if(n1 > 1 || minord1 > 0)
-             throw std::runtime_error("truncate(): wrong method, please use truncate(std::vector<int>, int)");
+        if(n1 >= 1 || minord1 > 0)
+             throw std::runtime_error("Expanded::truncate(): wrong method, please use truncate(std::vector<int>, int)");
         return truncate(std::vector<int>(1, n2max), 0);
     }
     
@@ -702,8 +702,7 @@ public:
      * @return the (i-th, j-th) element of the double expansion.
      */
     const T& getOrd(int j, int i) const {
-        if (i < minord1 || i > minord1 + n1 || j < minord2 || j > minord2 + n2.at(i-minord1))
-            throw std::runtime_error("getOrd:: Order non present in Expanded");
+        checkOrd(j, i, "Expanded::getOrd(): order non present in Expanded");
         return data[i - minord1][j - minord2];
     }
 
@@ -721,11 +720,15 @@ public:
      * @param[in] i order of the element to be set in the outer expansion.
      */
     void setOrd(int j, int i, T value) {
-        if (i < minord1 || i > minord1 + n1 || j < minord2 || j > minord2 + n2.at(i-minord1))
-            throw std::runtime_error("setOrd:: Order non present in Expanded");
+        checkOrd(j, i, "Expanded::setOrd(): order non present in Expanded");
         data[i - minord1][j - minord2] = value;
     }
 
+    void checkOrd(int j, int i, std::string s) const {
+        if (i < minord1 || i >= minord1 + n1 || j < minord2 || j >= minord2 + n2.at(i - minord1))
+            throw std::runtime_error(s);
+    }
+ 
     /**
      * @brief Set an element of a matrix in a double Expanded<matrix<*> >
      * @param[in] j order in the inner expansion of the matrix whose element has to be set.
@@ -736,8 +739,7 @@ public:
      */
     template <class Q> typename std::enable_if<isMat(T, Q), void>::type
     setMatrixElement(int j, int i, int h, int k, Q x) {
-        if (i < minord1 || i > minord1 + n1 || j < minord2 || j > minord2 + n2.at(i-minord1))
-            throw std::runtime_error("setSinlgeElem:: Order non present in Expanded");
+        checkOrd(j, i, "Expanded::setMatrixElement(): order non present in Expanded");
         data[i - minord1][j - minord2].assign(h, k, x);
     }
     /**
@@ -761,8 +763,7 @@ public:
      */
     template <class Q> typename std::enable_if<isVec(T, Q), void>::type
     setVectorElement(int j, int i, int h, Q x) {
-        if (i < minord1 || i > minord1 + n1 || j < minord2 || j > minord2 + n2.at(i-minord1))
-            throw std::runtime_error("setSingleElem:: Order non present in Expanded");
+        checkOrd(j, i, "Expanded::setVectorElement(): order non present in Expanded");
         data[i - minord1][j - minord2].assign(h, x);
     }
 
@@ -827,7 +828,7 @@ private:
      * @return the (i-th, j-th) coefficient of the expansion of 1/Expanded.
      */
     T invCoeff(int i, int j) const {
-        throw std::runtime_error("invCoeff:: method not implemented");
+        throw std::runtime_error("Expanded::invCoeff: method not implemented");
     }
 
     int minord1, minord2, n1;
