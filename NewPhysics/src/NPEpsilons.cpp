@@ -20,10 +20,10 @@ NPEpsilons::NPEpsilons()
     FlagEpsilon2SM = false;
     FlagEpsilon3SM = false;
     FlagEpsilonbSM = false;
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("epsilon_1", boost::cref(myEpsilon_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("epsilon_2", boost::cref(myEpsilon_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("epsilon_3", boost::cref(myEpsilon_3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("epsilon_b", boost::cref(myEpsilon_b)));
+    ModelParamMap.insert(std::make_pair("epsilon_1", std::cref(myEpsilon_1)));
+    ModelParamMap.insert(std::make_pair("epsilon_2", std::cref(myEpsilon_2)));
+    ModelParamMap.insert(std::make_pair("epsilon_3", std::cref(myEpsilon_3)));
+    ModelParamMap.insert(std::make_pair("epsilon_b", std::cref(myEpsilon_b)));
 }
 
 bool NPEpsilons::PostUpdate()

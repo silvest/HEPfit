@@ -15,30 +15,30 @@ const std::string RealWeakEFTLFV::RealWeakEFTLFVvars[NRealWeakEFTLFVvars] = {"C7
 RealWeakEFTLFV::RealWeakEFTLFV() : StandardModel(), ReWEFTM(*this) {   
 
     SMM.setObj((StandardModelMatching&) ReWEFTM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C7", boost::cref(C7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C7p", boost::cref(C7p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C8", boost::cref(C8)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C8p", boost::cref(C8p)));
+    ModelParamMap.insert(std::make_pair("C7", std::cref(C7)));
+    ModelParamMap.insert(std::make_pair("C7p", std::cref(C7p)));
+    ModelParamMap.insert(std::make_pair("C8", std::cref(C8)));
+    ModelParamMap.insert(std::make_pair("C8p", std::cref(C8p)));
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C9_11", boost::cref(C9_11)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C9p_11", boost::cref(C9p_11)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C10_11", boost::cref(C10_11)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C10p_11", boost::cref(C10p_11)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CS_11", boost::cref(CS_11)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CSp_11", boost::cref(CSp_11)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CP_11", boost::cref(CP_11)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CPp_11", boost::cref(CPp_11)));
+    ModelParamMap.insert(std::make_pair("C9_11", std::cref(C9_11)));
+    ModelParamMap.insert(std::make_pair("C9p_11", std::cref(C9p_11)));
+    ModelParamMap.insert(std::make_pair("C10_11", std::cref(C10_11)));
+    ModelParamMap.insert(std::make_pair("C10p_11", std::cref(C10p_11)));
+    ModelParamMap.insert(std::make_pair("CS_11", std::cref(CS_11)));
+    ModelParamMap.insert(std::make_pair("CSp_11", std::cref(CSp_11)));
+    ModelParamMap.insert(std::make_pair("CP_11", std::cref(CP_11)));
+    ModelParamMap.insert(std::make_pair("CPp_11", std::cref(CPp_11)));
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C9_22", boost::cref(C9_22)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C9p_22", boost::cref(C9p_22)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C10_22", boost::cref(C10_22)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("C10p_22", boost::cref(C10p_22)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CS_22", boost::cref(CS_22)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CSp_22", boost::cref(CSp_22)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CP_22", boost::cref(CP_22)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CPp_22", boost::cref(CPp_22)));
+    ModelParamMap.insert(std::make_pair("C9_22", std::cref(C9_22)));
+    ModelParamMap.insert(std::make_pair("C9p_22", std::cref(C9p_22)));
+    ModelParamMap.insert(std::make_pair("C10_22", std::cref(C10_22)));
+    ModelParamMap.insert(std::make_pair("C10p_22", std::cref(C10p_22)));
+    ModelParamMap.insert(std::make_pair("CS_22", std::cref(CS_22)));
+    ModelParamMap.insert(std::make_pair("CSp_22", std::cref(CSp_22)));
+    ModelParamMap.insert(std::make_pair("CP_22", std::cref(CP_22)));
+    ModelParamMap.insert(std::make_pair("CPp_22", std::cref(CPp_22)));
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("WCscale", boost::cref(WCscale)));
+    ModelParamMap.insert(std::make_pair("WCscale", std::cref(WCscale)));
 }
 
 RealWeakEFTLFV::~RealWeakEFTLFV(){

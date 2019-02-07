@@ -16,13 +16,13 @@ const std::string NPSTUVWXY::STUVWXYvars[NSTUVWXYvars]
 NPSTUVWXY::NPSTUVWXY()
 : NPbase(), myLEP2oblique(trueSM)
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueShat", boost::cref(myObliqueShat)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueThat", boost::cref(myObliqueThat)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueUhat", boost::cref(myObliqueUhat)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueV", boost::cref(myObliqueV)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueW", boost::cref(myObliqueW)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueX", boost::cref(myObliqueX)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueY", boost::cref(myObliqueY)));
+    ModelParamMap.insert(std::make_pair("obliqueShat", std::cref(myObliqueShat)));
+    ModelParamMap.insert(std::make_pair("obliqueThat", std::cref(myObliqueThat)));
+    ModelParamMap.insert(std::make_pair("obliqueUhat", std::cref(myObliqueUhat)));
+    ModelParamMap.insert(std::make_pair("obliqueV", std::cref(myObliqueV)));
+    ModelParamMap.insert(std::make_pair("obliqueW", std::cref(myObliqueW)));
+    ModelParamMap.insert(std::make_pair("obliqueX", std::cref(myObliqueX)));
+    ModelParamMap.insert(std::make_pair("obliqueY", std::cref(myObliqueY)));
 
 }
 

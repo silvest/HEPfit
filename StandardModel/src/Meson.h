@@ -12,8 +12,8 @@ class QCD;
 
 #include <stdexcept>
 #include <vector>
-#include <boost/ref.hpp>
 #include <map>
+#include <functional>
 #include "Particle.h"
 #include "boost/lexical_cast.hpp"
 
@@ -51,7 +51,7 @@ public:
      */
     virtual ~Meson();
     
-    void ModelParameterMapInsert(std::map< std::string, boost::reference_wrapper<const double> >& ModelParamMap);
+    void ModelParameterMapInsert(std::map< std::string, std::reference_wrapper<const double> >& ModelParamMap);
     
     std::vector<std::string> parameterList(std::string name_i);
     

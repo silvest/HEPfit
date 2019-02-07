@@ -23,84 +23,84 @@ BParameter::BParameter(int n, std::string name_i)
 BParameter::~BParameter()
 {}
 
-void BParameter::ModelParameterMapInsert(std::map< std::string, boost::reference_wrapper<const double> >& ModelParamMap)
+void BParameter::ModelParameterMapInsert(std::map< std::string, std::reference_wrapper<const double> >& ModelParamMap)
 {
     if (name.compare("BBs") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs1", boost::cref(bpars(0))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs2", boost::cref(bpars(1))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs3", boost::cref(bpars(2))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs4", boost::cref(bpars(3))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs5", boost::cref(bpars(4))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsscale", boost::cref(mu)));
+        ModelParamMap.insert(std::make_pair("BBs1", std::cref(bpars(0))));
+        ModelParamMap.insert(std::make_pair("BBs2", std::cref(bpars(1))));
+        ModelParamMap.insert(std::make_pair("BBs3", std::cref(bpars(2))));
+        ModelParamMap.insert(std::make_pair("BBs4", std::cref(bpars(3))));
+        ModelParamMap.insert(std::make_pair("BBs5", std::cref(bpars(4))));
+        ModelParamMap.insert(std::make_pair("BBsscale", std::cref(mu)));
         if (FlagCsi) {
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsSqrtBBs1", boost::cref(FBsSqrtBBs1)));
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsSqrtBBs2", boost::cref(FBsSqrtBBs2)));
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsSqrtBBs3", boost::cref(FBsSqrtBBs3)));
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsSqrtBBs4", boost::cref(FBsSqrtBBs4)));
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsSqrtBBs5", boost::cref(FBsSqrtBBs5)));
+            ModelParamMap.insert(std::make_pair("FBsSqrtBBs1", std::cref(FBsSqrtBBs1)));
+            ModelParamMap.insert(std::make_pair("FBsSqrtBBs2", std::cref(FBsSqrtBBs2)));
+            ModelParamMap.insert(std::make_pair("FBsSqrtBBs3", std::cref(FBsSqrtBBs3)));
+            ModelParamMap.insert(std::make_pair("FBsSqrtBBs4", std::cref(FBsSqrtBBs4)));
+            ModelParamMap.insert(std::make_pair("FBsSqrtBBs5", std::cref(FBsSqrtBBs5)));
         }
         return;
     }
     if (name.compare("BBd") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsoBBd", boost::cref(BBsoBBd)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd2", boost::cref(bpars(1))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd3", boost::cref(bpars(2))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd4", boost::cref(bpars(3))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd5", boost::cref(bpars(4))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBdscale", boost::cref(mu)));
+        ModelParamMap.insert(std::make_pair("BBsoBBd", std::cref(BBsoBBd)));
+        ModelParamMap.insert(std::make_pair("BBd2", std::cref(bpars(1))));
+        ModelParamMap.insert(std::make_pair("BBd3", std::cref(bpars(2))));
+        ModelParamMap.insert(std::make_pair("BBd4", std::cref(bpars(3))));
+        ModelParamMap.insert(std::make_pair("BBd5", std::cref(bpars(4))));
+        ModelParamMap.insert(std::make_pair("BBdscale", std::cref(mu)));
         if (FlagCsi) {
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("csi", boost::cref(csi)));
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBdSqrtBBd2", boost::cref(FBdSqrtBBd2)));
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBdSqrtBBd3", boost::cref(FBdSqrtBBd3)));
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBdSqrtBBd4", boost::cref(FBdSqrtBBd4)));
-            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBdSqrtBBd5", boost::cref(FBdSqrtBBd5)));
+            ModelParamMap.insert(std::make_pair("csi", std::cref(csi)));
+            ModelParamMap.insert(std::make_pair("FBdSqrtBBd2", std::cref(FBdSqrtBBd2)));
+            ModelParamMap.insert(std::make_pair("FBdSqrtBBd3", std::cref(FBdSqrtBBd3)));
+            ModelParamMap.insert(std::make_pair("FBdSqrtBBd4", std::cref(FBdSqrtBBd4)));
+            ModelParamMap.insert(std::make_pair("FBdSqrtBBd5", std::cref(FBdSqrtBBd5)));
         }
         return;
     }
     if (name.compare("BK") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK1", boost::cref(bpars(0))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK2", boost::cref(bpars(1))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK3", boost::cref(bpars(2))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK4", boost::cref(bpars(3))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK5", boost::cref(bpars(4))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKscale", boost::cref(mu)));
+        ModelParamMap.insert(std::make_pair("BK1", std::cref(bpars(0))));
+        ModelParamMap.insert(std::make_pair("BK2", std::cref(bpars(1))));
+        ModelParamMap.insert(std::make_pair("BK3", std::cref(bpars(2))));
+        ModelParamMap.insert(std::make_pair("BK4", std::cref(bpars(3))));
+        ModelParamMap.insert(std::make_pair("BK5", std::cref(bpars(4))));
+        ModelParamMap.insert(std::make_pair("BKscale", std::cref(mu)));
         return;
     }
     if (name.compare("BD") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD1", boost::cref(bpars(0))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD2", boost::cref(bpars(1))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD3", boost::cref(bpars(2))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD4", boost::cref(bpars(3))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD5", boost::cref(bpars(4))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDscale", boost::cref(mu)));
+        ModelParamMap.insert(std::make_pair("BD1", std::cref(bpars(0))));
+        ModelParamMap.insert(std::make_pair("BD2", std::cref(bpars(1))));
+        ModelParamMap.insert(std::make_pair("BD3", std::cref(bpars(2))));
+        ModelParamMap.insert(std::make_pair("BD4", std::cref(bpars(3))));
+        ModelParamMap.insert(std::make_pair("BD5", std::cref(bpars(4))));
+        ModelParamMap.insert(std::make_pair("BDscale", std::cref(mu)));
         return;
     }
     if (name.compare("BKd1") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)1", boost::cref(bpars(0))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)2", boost::cref(bpars(1))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)3", boost::cref(bpars(2))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)4", boost::cref(bpars(3))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)5", boost::cref(bpars(4))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)6", boost::cref(bpars(5))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)7", boost::cref(bpars(6))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)8", boost::cref(bpars(7))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)9", boost::cref(bpars(8))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)10", boost::cref(bpars(9))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKd_scale", boost::cref(mu)));
+        ModelParamMap.insert(std::make_pair("BK(1/2)1", std::cref(bpars(0))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)2", std::cref(bpars(1))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)3", std::cref(bpars(2))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)4", std::cref(bpars(3))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)5", std::cref(bpars(4))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)6", std::cref(bpars(5))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)7", std::cref(bpars(6))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)8", std::cref(bpars(7))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)9", std::cref(bpars(8))));
+        ModelParamMap.insert(std::make_pair("BK(1/2)10", std::cref(bpars(9))));
+        ModelParamMap.insert(std::make_pair("BKd_scale", std::cref(mu)));
         return;
     }
     if (name.compare("BKd3") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)1", boost::cref(bpars(0))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)2", boost::cref(bpars(1))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)3", boost::cref(bpars(2))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)4", boost::cref(bpars(3))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)5", boost::cref(bpars(4))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)6", boost::cref(bpars(5))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)7", boost::cref(bpars(6))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)8", boost::cref(bpars(7))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)9", boost::cref(bpars(8))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)10", boost::cref(bpars(9))));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKd_scale", boost::cref(mu)));
+        ModelParamMap.insert(std::make_pair("BK(3/2)1", std::cref(bpars(0))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)2", std::cref(bpars(1))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)3", std::cref(bpars(2))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)4", std::cref(bpars(3))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)5", std::cref(bpars(4))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)6", std::cref(bpars(5))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)7", std::cref(bpars(6))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)8", std::cref(bpars(7))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)9", std::cref(bpars(8))));
+        ModelParamMap.insert(std::make_pair("BK(3/2)10", std::cref(bpars(9))));
+        ModelParamMap.insert(std::make_pair("BKd_scale", std::cref(mu)));
         return;
     } else throw std::runtime_error(name + " is not implemented in BParameter class");
 }

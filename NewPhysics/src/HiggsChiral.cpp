@@ -16,23 +16,23 @@ HiggsChiral::HiggsChiral()
 {    
     FlagUniversalcf = false;
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cv", boost::cref(cv)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ct", boost::cref(ct)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cb", boost::cref(cb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cc", boost::cref(cc)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ctau", boost::cref(ctau)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cmu", boost::cref(cmu)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cg", boost::cref(cg)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cga", boost::cref(cga)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cZga", boost::cref(cZga)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obsZgaLimitATLAS13", boost::cref(obsZgaLimitATLAS13)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obsZgaLimitCMS13", boost::cref(obsZgaLimitCMS13)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obsZgaLimitATLAS", boost::cref(obsZgaLimitATLAS)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obsZgaLimitCMS", boost::cref(obsZgaLimitCMS)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitATLAS13", boost::cref(expZgaLimitATLAS13)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitCMS13", boost::cref(expZgaLimitCMS13)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitATLAS", boost::cref(expZgaLimitATLAS)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitCMS", boost::cref(expZgaLimitCMS)));
+    ModelParamMap.insert(std::make_pair("cv", std::cref(cv)));
+    ModelParamMap.insert(std::make_pair("ct", std::cref(ct)));
+    ModelParamMap.insert(std::make_pair("cb", std::cref(cb)));
+    ModelParamMap.insert(std::make_pair("cc", std::cref(cc)));
+    ModelParamMap.insert(std::make_pair("ctau", std::cref(ctau)));
+    ModelParamMap.insert(std::make_pair("cmu", std::cref(cmu)));
+    ModelParamMap.insert(std::make_pair("cg", std::cref(cg)));
+    ModelParamMap.insert(std::make_pair("cga", std::cref(cga)));
+    ModelParamMap.insert(std::make_pair("cZga", std::cref(cZga)));
+    ModelParamMap.insert(std::make_pair("obsZgaLimitATLAS13", std::cref(obsZgaLimitATLAS13)));
+    ModelParamMap.insert(std::make_pair("obsZgaLimitCMS13", std::cref(obsZgaLimitCMS13)));
+    ModelParamMap.insert(std::make_pair("obsZgaLimitATLAS", std::cref(obsZgaLimitATLAS)));
+    ModelParamMap.insert(std::make_pair("obsZgaLimitCMS", std::cref(obsZgaLimitCMS)));
+    ModelParamMap.insert(std::make_pair("expZgaLimitATLAS13", std::cref(expZgaLimitATLAS13)));
+    ModelParamMap.insert(std::make_pair("expZgaLimitCMS13", std::cref(expZgaLimitCMS13)));
+    ModelParamMap.insert(std::make_pair("expZgaLimitATLAS", std::cref(expZgaLimitATLAS)));
+    ModelParamMap.insert(std::make_pair("expZgaLimitCMS", std::cref(expZgaLimitCMS)));
     
     loopComputed = false;
     cg_loop = 0.;

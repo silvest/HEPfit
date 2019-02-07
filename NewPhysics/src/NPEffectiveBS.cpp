@@ -31,50 +31,50 @@ const std::string NPEffectiveBS::NPEffectiveBSVars_LFU_QFU[NNPEffectiveBSVars_LF
 NPEffectiveBS::NPEffectiveBS(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniversal_in)
 : NPbase(), FlagLeptonUniversal(FlagLeptonUniversal_in), FlagQuarkUniversal(FlagQuarkUniversal_in)
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cWB_NP", boost::cref(cWB)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cH_NP", boost::cref(cH)));
+    ModelParamMap.insert(std::make_pair("cWB_NP", std::cref(cWB)));
+    ModelParamMap.insert(std::make_pair("cH_NP", std::cref(cH)));
     if (FlagLeptonUniversal) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cLL_NP", boost::cref(cL1L1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHLp_NP", boost::cref(cHL1p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHL_NP", boost::cref(cHL1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHE_NP", boost::cref(cHE1)));
+        ModelParamMap.insert(std::make_pair("cLL_NP", std::cref(cL1L1)));
+        ModelParamMap.insert(std::make_pair("cHLp_NP", std::cref(cHL1p)));
+        ModelParamMap.insert(std::make_pair("cHL_NP", std::cref(cHL1)));
+        ModelParamMap.insert(std::make_pair("cHE_NP", std::cref(cHE1)));
     } else {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cL1L1_NP", boost::cref(cL1L1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cL1L2_NP", boost::cref(cL1L2)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cL1L3_NP", boost::cref(cL1L3)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cL2L2_NP", boost::cref(cL2L2)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cL2L3_NP", boost::cref(cL2L3)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cL3L3_NP", boost::cref(cL3L3)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHL1p_NP", boost::cref(cHL1p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHL2p_NP", boost::cref(cHL2p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHL3p_NP", boost::cref(cHL3p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHL1_NP", boost::cref(cHL1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHL2_NP", boost::cref(cHL2)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHL3_NP", boost::cref(cHL3)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHE1_NP", boost::cref(cHE1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHE2_NP", boost::cref(cHE2)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHE3_NP", boost::cref(cHE3)));
+        ModelParamMap.insert(std::make_pair("cL1L1_NP", std::cref(cL1L1)));
+        ModelParamMap.insert(std::make_pair("cL1L2_NP", std::cref(cL1L2)));
+        ModelParamMap.insert(std::make_pair("cL1L3_NP", std::cref(cL1L3)));
+        ModelParamMap.insert(std::make_pair("cL2L2_NP", std::cref(cL2L2)));
+        ModelParamMap.insert(std::make_pair("cL2L3_NP", std::cref(cL2L3)));
+        ModelParamMap.insert(std::make_pair("cL3L3_NP", std::cref(cL3L3)));
+        ModelParamMap.insert(std::make_pair("cHL1p_NP", std::cref(cHL1p)));
+        ModelParamMap.insert(std::make_pair("cHL2p_NP", std::cref(cHL2p)));
+        ModelParamMap.insert(std::make_pair("cHL3p_NP", std::cref(cHL3p)));
+        ModelParamMap.insert(std::make_pair("cHL1_NP", std::cref(cHL1)));
+        ModelParamMap.insert(std::make_pair("cHL2_NP", std::cref(cHL2)));
+        ModelParamMap.insert(std::make_pair("cHL3_NP", std::cref(cHL3)));
+        ModelParamMap.insert(std::make_pair("cHE1_NP", std::cref(cHE1)));
+        ModelParamMap.insert(std::make_pair("cHE2_NP", std::cref(cHE2)));
+        ModelParamMap.insert(std::make_pair("cHE3_NP", std::cref(cHE3)));
     }
     if (FlagQuarkUniversal) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQp_NP", boost::cref(cHQ1p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQ_NP", boost::cref(cHQ1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHU_NP", boost::cref(cHU1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHD_NP", boost::cref(cHD1)));
+        ModelParamMap.insert(std::make_pair("cHQp_NP", std::cref(cHQ1p)));
+        ModelParamMap.insert(std::make_pair("cHQ_NP", std::cref(cHQ1)));
+        ModelParamMap.insert(std::make_pair("cHU_NP", std::cref(cHU1)));
+        ModelParamMap.insert(std::make_pair("cHD_NP", std::cref(cHD1)));
     } else {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQ1p_NP", boost::cref(cHQ1p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQ2p_NP", boost::cref(cHQ2p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQ3p_NP", boost::cref(cHQ3p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQ1_NP", boost::cref(cHQ1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQ2_NP", boost::cref(cHQ2)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQ3_NP", boost::cref(cHQ3)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHU1_NP", boost::cref(cHU1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHU2_NP", boost::cref(cHU2)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHU3_NP", boost::cref(cHU3)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHD1_NP", boost::cref(cHD1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHD2_NP", boost::cref(cHD2)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHD3_NP", boost::cref(cHD3)));
+        ModelParamMap.insert(std::make_pair("cHQ1p_NP", std::cref(cHQ1p)));
+        ModelParamMap.insert(std::make_pair("cHQ2p_NP", std::cref(cHQ2p)));
+        ModelParamMap.insert(std::make_pair("cHQ3p_NP", std::cref(cHQ3p)));
+        ModelParamMap.insert(std::make_pair("cHQ1_NP", std::cref(cHQ1)));
+        ModelParamMap.insert(std::make_pair("cHQ2_NP", std::cref(cHQ2)));
+        ModelParamMap.insert(std::make_pair("cHQ3_NP", std::cref(cHQ3)));
+        ModelParamMap.insert(std::make_pair("cHU1_NP", std::cref(cHU1)));
+        ModelParamMap.insert(std::make_pair("cHU2_NP", std::cref(cHU2)));
+        ModelParamMap.insert(std::make_pair("cHU3_NP", std::cref(cHU3)));
+        ModelParamMap.insert(std::make_pair("cHD1_NP", std::cref(cHD1)));
+        ModelParamMap.insert(std::make_pair("cHD2_NP", std::cref(cHD2)));
+        ModelParamMap.insert(std::make_pair("cHD3_NP", std::cref(cHD3)));
     }
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
+    ModelParamMap.insert(std::make_pair("Lambda_NP", std::cref(Lambda_NP)));
 }
 
 

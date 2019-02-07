@@ -14,12 +14,12 @@ const std::string HiggsKvgenKfgen::HKvgenKfgenvars[NHKvgenKfgenvars] = {
 HiggsKvgenKfgen::HiggsKvgenKfgen()
 : NPbase()
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("KW", boost::cref(KW)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("KZ", boost::cref(KZ)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ku", boost::cref(Ku)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kd", boost::cref(Kd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kl", boost::cref(Kl)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(BrHinv)));
+    ModelParamMap.insert(std::make_pair("KW", std::cref(KW)));
+    ModelParamMap.insert(std::make_pair("KZ", std::cref(KZ)));
+    ModelParamMap.insert(std::make_pair("Ku", std::cref(Ku)));
+    ModelParamMap.insert(std::make_pair("Kd", std::cref(Kd)));
+    ModelParamMap.insert(std::make_pair("Kl", std::cref(Kl)));
+    ModelParamMap.insert(std::make_pair("BrHinv", std::cref(BrHinv)));
 }
 
 void HiggsKvgenKfgen::setParameter(const std::string name, const double& value)

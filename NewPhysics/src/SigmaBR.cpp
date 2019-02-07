@@ -14,19 +14,19 @@ SigmaBR::SigmaBR()
 : NPbase()
 {
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ggH", boost::cref(ggh)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("VBF", boost::cref(vbf)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("WH", boost::cref(wh)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ZH", boost::cref(zh)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ttH", boost::cref(tth)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHggRatio", boost::cref(brhggratio)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHWWRatio", boost::cref(brhwwratio)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHZZRatio", boost::cref(brhzzratio)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHZgaRatio", boost::cref(brhzgaratio)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHgagaRatio", boost::cref(brhgagaratio)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHtautauRatio", boost::cref(brhtautauratio)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHccRatio", boost::cref(brhccratio)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHbbRatio", boost::cref(brhbbratio)));
+    ModelParamMap.insert(std::make_pair("ggH", std::cref(ggh)));
+    ModelParamMap.insert(std::make_pair("VBF", std::cref(vbf)));
+    ModelParamMap.insert(std::make_pair("WH", std::cref(wh)));
+    ModelParamMap.insert(std::make_pair("ZH", std::cref(zh)));
+    ModelParamMap.insert(std::make_pair("ttH", std::cref(tth)));
+    ModelParamMap.insert(std::make_pair("BrHggRatio", std::cref(brhggratio)));
+    ModelParamMap.insert(std::make_pair("BrHWWRatio", std::cref(brhwwratio)));
+    ModelParamMap.insert(std::make_pair("BrHZZRatio", std::cref(brhzzratio)));
+    ModelParamMap.insert(std::make_pair("BrHZgaRatio", std::cref(brhzgaratio)));
+    ModelParamMap.insert(std::make_pair("BrHgagaRatio", std::cref(brhgagaratio)));
+    ModelParamMap.insert(std::make_pair("BrHtautauRatio", std::cref(brhtautauratio)));
+    ModelParamMap.insert(std::make_pair("BrHccRatio", std::cref(brhccratio)));
+    ModelParamMap.insert(std::make_pair("BrHbbRatio", std::cref(brhbbratio)));
 }
 
 void SigmaBR::setParameter(const std::string name, const double& value)

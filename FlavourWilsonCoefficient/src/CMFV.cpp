@@ -11,7 +11,7 @@ const std::string CMFV::CMFVvars[NCMFVvars] = {"Ftt"};
 CMFV::CMFV() : StandardModel(), CMFVM(*this) {   
 
     SMM.setObj((StandardModelMatching&) CMFVM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ftt", boost::cref(Ftt)));
+    ModelParamMap.insert(std::make_pair("Ftt", std::cref(Ftt)));
 }
 
 ///////////////////////////////////////////////////////////////////////////

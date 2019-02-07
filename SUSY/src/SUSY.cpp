@@ -30,16 +30,16 @@ SUSY::SUSY()
         Ru(6,6,0.), Rd(6,6,0.), Rdresum(6,6,0.), Rn(6,6,0.), Rl(6,6,0.),SUSYM(*this)
 {
     SMM.setObj((StandardModelMatching&) SUSYM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m1r", boost::cref(m1.real())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m1i", boost::cref(m1.imag())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m2r", boost::cref(m2.real())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m2i", boost::cref(m2.imag())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m3", boost::cref(m3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muHr", boost::cref(muH.real())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muHi", boost::cref(muH.imag())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHptree", boost::cref(mHptree)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tanb", boost::cref(tanb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_SUSY", boost::cref(Q_SUSY)));
+    ModelParamMap.insert(std::make_pair("m1r", std::cref(m1.real())));
+    ModelParamMap.insert(std::make_pair("m1i", std::cref(m1.imag())));
+    ModelParamMap.insert(std::make_pair("m2r", std::cref(m2.real())));
+    ModelParamMap.insert(std::make_pair("m2i", std::cref(m2.imag())));
+    ModelParamMap.insert(std::make_pair("m3", std::cref(m3)));
+    ModelParamMap.insert(std::make_pair("muHr", std::cref(muH.real())));
+    ModelParamMap.insert(std::make_pair("muHi", std::cref(muH.imag())));
+    ModelParamMap.insert(std::make_pair("mHptree", std::cref(mHptree)));
+    ModelParamMap.insert(std::make_pair("tanb", std::cref(tanb)));
+    ModelParamMap.insert(std::make_pair("Q_SUSY", std::cref(Q_SUSY)));
     
     flag_fh = false;
     flag_h = false;

@@ -14,9 +14,9 @@ const std::string HiggsKvKf::HKvKfvars[NHKvKfvars] = {
 HiggsKvKf::HiggsKvKf()
 : NPbase()
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kv", boost::cref(Kv)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kf", boost::cref(Kf)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(BrHinv)));
+    ModelParamMap.insert(std::make_pair("Kv", std::cref(Kv)));
+    ModelParamMap.insert(std::make_pair("Kf", std::cref(Kf)));
+    ModelParamMap.insert(std::make_pair("BrHinv", std::cref(BrHinv)));
 }
 
 void HiggsKvKf::setParameter(const std::string name, const double& value)

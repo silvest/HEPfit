@@ -10,12 +10,12 @@ const std::string NPDF2::NPDF2vars[NNPDF2vars] = {"CepsK","CDMK","CBd","PhiBd","
 
 NPDF2::NPDF2() : StandardModel() {   
 
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CepsK", boost::cref(CepsK)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CDMK", boost::cref(CDMK)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CBd", boost::cref(CBd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("PhiBd", boost::cref(phiBd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CBs", boost::cref(CBs)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("PhiBs", boost::cref(PhiBs)));
+    ModelParamMap.insert(std::make_pair("CepsK", std::cref(CepsK)));
+    ModelParamMap.insert(std::make_pair("CDMK", std::cref(CDMK)));
+    ModelParamMap.insert(std::make_pair("CBd", std::cref(CBd)));
+    ModelParamMap.insert(std::make_pair("PhiBd", std::cref(phiBd)));
+    ModelParamMap.insert(std::make_pair("CBs", std::cref(CBs)));
+    ModelParamMap.insert(std::make_pair("PhiBs", std::cref(PhiBs)));
 }
 
 void NPDF2::setParameter(const std::string name, const double& value){    

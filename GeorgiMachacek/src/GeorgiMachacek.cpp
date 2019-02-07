@@ -13,14 +13,14 @@ std::string GeorgiMachacek::GMvars[NGMvars] = {"vDelta", "alpha", "mHh", "mA", "
 
 GeorgiMachacek::GeorgiMachacek() : NPbase(), GMM(*this) {
     SMM.setObj((StandardModelMatching&) GMM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("vDelta", boost::cref(vDelta)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha", boost::cref(alpha)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh", boost::cref(mHh)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA", boost::cref(mA)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH5", boost::cref(mH5)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mu1", boost::cref(Mu1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mu2", boost::cref(Mu2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_GM", boost::cref(Q_GM)));
+    ModelParamMap.insert(std::make_pair("vDelta", std::cref(vDelta)));
+    ModelParamMap.insert(std::make_pair("alpha", std::cref(alpha)));
+    ModelParamMap.insert(std::make_pair("mHh", std::cref(mHh)));
+    ModelParamMap.insert(std::make_pair("mA", std::cref(mA)));
+    ModelParamMap.insert(std::make_pair("mH5", std::cref(mH5)));
+    ModelParamMap.insert(std::make_pair("Mu1", std::cref(Mu1)));
+    ModelParamMap.insert(std::make_pair("Mu2", std::cref(Mu2)));
+    ModelParamMap.insert(std::make_pair("Q_GM", std::cref(Q_GM)));
     flag_use_sq_masses=false;
 }
 

@@ -18,10 +18,10 @@ const std::string NPZbbbarLinearized::ZbbbarLRVars[NZbbbarVars]
 NPZbbbarLinearized::NPZbbbarLinearized(const bool FlagNPZbbbarLR_in)
 : NPbase(), FlagNPZbbbarLR(FlagNPZbbbarLR_in)
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGVb", boost::cref(myDeltaGVb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGAb", boost::cref(myDeltaGAb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGLb", boost::cref(myDeltaGLb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGRb", boost::cref(myDeltaGRb)));
+    ModelParamMap.insert(std::make_pair("deltaGVb", std::cref(myDeltaGVb)));
+    ModelParamMap.insert(std::make_pair("deltaGAb", std::cref(myDeltaGAb)));
+    ModelParamMap.insert(std::make_pair("deltaGLb", std::cref(myDeltaGLb)));
+    ModelParamMap.insert(std::make_pair("deltaGRb", std::cref(myDeltaGRb)));
 }
 
 bool NPZbbbarLinearized::PostUpdate()

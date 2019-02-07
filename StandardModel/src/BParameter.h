@@ -10,8 +10,8 @@
 
 #include <gslpp_vector_double.h>
 #include <vector>
-#include <boost/ref.hpp>
 #include <map>
+#include <functional>
 #include "OrderScheme.h"
 
 /**
@@ -22,7 +22,7 @@
 
 /**
  * @class BParameter
- * @brief A class for the bag paramters.
+ * @brief A class for the bag parameters.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is the class for defining bag parameters, which depend on
@@ -130,7 +130,7 @@ public:
      * @brief A method to pass the list of parameters as observables.
      * @param[in] ModelParamMap the reference to the Model Parameter Map.
      */
-    void ModelParameterMapInsert(std::map< std::string, boost::reference_wrapper<const double> >& ModelParamMap);
+    void ModelParameterMapInsert(std::map< std::string, std::reference_wrapper<const double> >& ModelParamMap);
     
     /**
      * @brief A set method to set the flag for the parameter set to be used for BBs and BBd.
