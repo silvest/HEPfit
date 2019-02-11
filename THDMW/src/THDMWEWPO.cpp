@@ -14,7 +14,7 @@
 #include <math.h>
 #include "THDMW.h"
 
-//GETTING ERROR WHEN THE MASSES ARE THE SAME -> SOLVE IT!!! PROBLEM IN DILOG FUNCTION!!!
+
 Rb0THDMW::Rb0THDMW(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i)) 
 {}

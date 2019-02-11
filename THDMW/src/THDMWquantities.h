@@ -629,6 +629,56 @@ private:
     const THDMW& myTHDMW;
 };
 
+
+
+/**
+ * @class mSpmmSI_THDMW
+ * @ingroup THDMW
+ * @brief mSpmmSI_THDMW.
+ */
+class mSpmmSI_THDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mSRmmSI_THDMW constructor.
+     */
+    mSpmmSI_THDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{S^\pm}-m_{S_I}}@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+
+/**
+ * @class mSRmmSp_THDMW
+ * @ingroup THDMW
+ * @brief mSRmmSp_THDMW.
+ */
+class mSRmmSp_THDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mSRmmSp_THDMW constructor.
+     */
+    mSRmmSp_THDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{S_R}-m_{S^\pm}}@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+
+
+
 /**
  * @class mSImmSR_THDMW
  * @ingroup THDMW
@@ -650,6 +700,52 @@ public:
 private:
     const THDMW& myTHDMW;
 };
+
+/**
+ * @class mSpmmSR_THDMW
+ * @ingroup THDMW
+ * @brief mSpmmSR_THDMW.
+ */
+class mSpmmSR_THDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mSpmmSR_THDMW constructor.
+     */
+    mSpmmSR_THDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{S^\pm}-m_{S_R}}@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mSImmSp_THDMW
+ * @ingroup THDMW
+ * @brief mSImmSp_THDMW.
+ */
+class mSImmSp_THDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mSImmSp_THDMW constructor.
+     */
+    mSImmSp_THDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{S_I}-m_{S^\pm}}@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+
 
 /**
  * @class rh_gg_THDMW

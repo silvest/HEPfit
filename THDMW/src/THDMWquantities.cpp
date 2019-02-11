@@ -324,6 +324,49 @@ double mSImmSR_THDMW::computeThValue()
     return sqrt(myTHDMW.getMyTHDMWCache()->mSIsq) - sqrt(myTHDMW.getMyTHDMWCache()->mSRsq);
 }
 
+
+mSpmmSI_THDMW::mSpmmSI_THDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mSpmmSI_THDMW::computeThValue()
+{
+    return sqrt(myTHDMW.getMyTHDMWCache()->mSpsq) - sqrt(myTHDMW.getMyTHDMWCache()->mSIsq);
+}
+
+mSRmmSp_THDMW::mSRmmSp_THDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mSRmmSp_THDMW::computeThValue()
+{
+    return sqrt(myTHDMW.getMyTHDMWCache()->mSRsq) - sqrt(myTHDMW.getMyTHDMWCache()->mSpsq);
+}
+
+
+
+mSImmSp_THDMW::mSImmSp_THDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mSImmSp_THDMW::computeThValue()
+{
+    return sqrt(myTHDMW.getMyTHDMWCache()->mSIsq) - sqrt(myTHDMW.getMyTHDMWCache()->mSpsq);
+}
+
+
+mSpmmSR_THDMW::mSpmmSR_THDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mSpmmSR_THDMW::computeThValue()
+{
+    return sqrt(myTHDMW.getMyTHDMWCache()->mSpsq) - sqrt(myTHDMW.getMyTHDMWCache()->mSRsq);
+}
+
+
+
+
 rh_gg_THDMW::rh_gg_THDMW(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
 {}

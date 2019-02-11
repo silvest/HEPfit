@@ -130,10 +130,22 @@ public:
     double pp_Srbb_bbbb_TH13;
     
     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr b b\bar \to b\bar b  b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr b\bar b}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     */
+    double pp_Srbb_bbbb_TH8;
+    
+    /**
      * @brief Cross section times branching ratio for the process @f$pp\to Si b b\bar \to b\bar b  b\bar b@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{THDMW}}_{pp\to Si b\bar b}\cdot BR^{\text{THDMW}}(Si \to b\bar b)@f$
      */
     double pp_Sibb_bbbb_TH13;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Si b b\bar \to b\bar b  b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si b\bar b}\cdot BR^{\text{THDMW}}(Si \to b\bar b)@f$
+     */
+    double pp_Sibb_bbbb_TH8;
     
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to Sr \to  b\bar b@f$ at the LHC with 13 TeV.
@@ -181,7 +193,11 @@ public:
     
     double THoEX_pp_Srbb_bbbb;
     
+    double THoEX_pp_Srbb_bbbb_8TeV;
+    
     double THoEX_pp_Sibb_bbbb;
+    
+    double THoEX_pp_Sibb_bbbb_8TeV;
     
     double THoEX_pp_Sr_bb;
     
@@ -349,7 +365,9 @@ private:
     mutable double ip_th_pp_Sr_bb_8TeV_cache[5][CacheSize];
     mutable double ip_th_pp_Sr_bb_cache[5][CacheSize];
     mutable double ip_th_pp_Sibb_bbbb_cache[4][CacheSize];
+    mutable double ip_th_pp_Sibb_bbbb_8TeV_cache[4][CacheSize];
     mutable double ip_th_pp_Srbb_bbbb_cache[5][CacheSize];
+    mutable double ip_th_pp_Srbb_bbbb_8TeV_cache[5][CacheSize];
     mutable double ip_th_pp_Sitt_tttt_cache[4][CacheSize];
     mutable double ip_th_pp_Stb_tbtb_cache[4][CacheSize];
     mutable double ip_th_pp_SrSr_jjjj_cache[5][CacheSize];
@@ -562,9 +580,19 @@ private:
     gslpp::matrix<double> MadGraph_pp_Srbb_bbbb;
     
     /**
+     * @brief Table for xsection times branching ratio for p p -> Sr bbar b -> b bbar b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Srbb_bbbb_8TeV;
+    
+    /**
      * @brief Table for xsection times branching ratio for p p -> Si bbar b -> b bbar b bbar  generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Sibb_bbbb;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Si bbar b -> b bbar b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Sibb_bbbb_8TeV;
     
     /**
      * @brief Table for xsection times branching ratio for p p -> Si -> b bbar  generated with Madgraph
@@ -889,12 +917,26 @@ private:
      */
     double ip_th_pp_Srbb_bbbb(double etaD, double etaU, double Lambda4, double mSr);
     
+        /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr b bbar -> b bbar b bbar
+     * @return xsection times branching ratio of pp -> Sr b bbar-> b bbar b bbar
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Srbb_bbbb_8TeV(double etaD, double etaU, double Lambda4, double mSr);
+    
     /**
      * @brief Interpolating function for the theoretical value of p p -> Si bbar b -> b bbar bbar b 
      * @return xsection times branching ratio of p p -> Si bbar b -> b bbar bbar b 
      * @details Generated with MadGraph
      */
     double ip_th_pp_Sibb_bbbb(double etaD, double etaU, double mS);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Si bbar b -> b bbar bbar b 
+     * @return xsection times branching ratio of p p -> Si bbar b -> b bbar bbar b 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sibb_bbbb_8TeV(double etaD, double etaU, double mS);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr  ->  b bbar

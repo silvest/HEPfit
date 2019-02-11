@@ -3499,6 +3499,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mSImmHH_THDMW"] = boost::factory<mSImmHH_THDMW*>();
     obsThFactory["mSRmmSI_THDMW"] = boost::factory<mSRmmSI_THDMW*>();
     obsThFactory["mSImmSR_THDMW"] = boost::factory<mSImmSR_THDMW*>();
+    obsThFactory["mSpmmSI_THDMW"] = boost::factory<mSpmmSI_THDMW*>();
+    obsThFactory["mSpmmSR_THDMW"] = boost::factory<mSpmmSR_THDMW*>();
+    obsThFactory["mSRmmSp_THDMW"] = boost::factory<mSRmmSp_THDMW*>();
+    obsThFactory["mSImmSp_THDMW"] = boost::factory<mSImmSp_THDMW*>();
     //-----   Higgs observables -----
     obsThFactory["rh_gg_THDMW"] = boost::factory<rh_gg_THDMW*>();
     obsThFactory["rh_gaga_THDMW"] = boost::factory<rh_gaga_THDMW*>();
@@ -3518,8 +3522,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_Sitt_tttt_TH13"] = boost::factory<log10_pp_Sitt_tttt_TH13*>();
     obsThFactory["Hobs_pp_Srbb_bbbb_CMS13"] = boost::factory<Hobs_pp_Srbb_bbbb_CMS13*>();
     obsThFactory["log10_pp_Srbb_bbbb_TH13"] = boost::factory<log10_pp_Srbb_bbbb_TH13*>();
+    obsThFactory["Hobs_pp_Srbb_bbbb_CMS8"] = boost::factory<Hobs_pp_Srbb_bbbb_CMS8*>();
+    obsThFactory["log10_pp_Srbb_bbbb_TH8"] = boost::factory<log10_pp_Srbb_bbbb_TH8*>();
     obsThFactory["Hobs_pp_Sibb_bbbb_CMS13"] = boost::factory<Hobs_pp_Sibb_bbbb_CMS13*>();
     obsThFactory["log10_pp_Sibb_bbbb_TH13"] = boost::factory<log10_pp_Sibb_bbbb_TH13*>();
+    obsThFactory["Hobs_pp_Sibb_bbbb_CMS8"] = boost::factory<Hobs_pp_Sibb_bbbb_CMS8*>();
+    obsThFactory["log10_pp_Sibb_bbbb_TH8"] = boost::factory<log10_pp_Sibb_bbbb_TH8*>();
     obsThFactory["Hobs_pp_Sr_bb_CMS13"] = boost::factory<Hobs_pp_Sr_bb_CMS13*>();
     obsThFactory["log10_pp_Sr_bb_TH13"] = boost::factory<log10_pp_Sr_bb_TH13*>();
     obsThFactory["Hobs_pp_Sr_bb_CMS8"] = boost::factory<Hobs_pp_Sr_bb_CMS8*>();
