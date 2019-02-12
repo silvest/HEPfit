@@ -339,7 +339,7 @@ void MVll::updateParameters()
             etaV = -1;
             angmomV = 1.;
 
-            b = 0.489;
+            b = 1.; //0.489;
 
             SU3_breaking = 1. + gslpp::complex(mySM.getOptionalParameter("SU3_breaking_abs"),
                     mySM.getOptionalParameter("SU3_breaking_arg"), true);
