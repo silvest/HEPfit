@@ -46,7 +46,7 @@ public:
      */
     const HeffDF2& getHDF2() const
     {
-        return *getPtr<HeffDF2>(HDF2);
+        return *HDF2;
     }
 
     /**
@@ -56,7 +56,7 @@ public:
      */
     const HeffDS1& getHDS1() const
     {
-        return *getPtr<HeffDS1>(HDS1);
+        return *HDS1;
     }
 
     /**
@@ -66,7 +66,7 @@ public:
      */
     const HeffDB1& getHDB1() const
     {
-        return *getPtr<HeffDB1>(HDB1);
+        return *HDB1;
     }
 
     /**
@@ -174,7 +174,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell^+ \ell^- \f$
      *
      */
-    MVll& getMVll(QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) const;
+    MVll& getMVll(unsigned int meson_i, unsigned int vector_i, unsigned int lep_i) const;
 
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to P \ell^+ \ell^- \f$.
@@ -184,7 +184,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to P \ell^+ \ell^- \f$
      *
      */
-    MPll& getMPll(QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) const;
+    MPll& getMPll(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const;
 
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to V \gamma \f$.
@@ -193,7 +193,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \gamma \f$
      *
      */
-    MVgamma& getMVgamma(QCD::meson meson_i, QCD::meson vector_i) const;
+    MVgamma& getMVgamma(unsigned int meson_i, unsigned int vector_i) const;
 
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to V \ell \nu \f$.
@@ -203,7 +203,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell^+ \ell^- \f$
      *
      */
-    MVlnu& getMVlnu(QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) const;
+    MVlnu& getMVlnu(unsigned int meson_i, unsigned int vector_i, unsigned int lep_i) const;
 
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to P \ell \nu \f$.
@@ -213,7 +213,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell \nu \f$
      *
      */
-    MPlnu& getMPlnu(QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) const;
+    MPlnu& getMPlnu(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const;
 
     /**
      * @brief sets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -222,7 +222,7 @@ public:
      * @param[in] lepton_i specifies the lepton in the final state
      *
      */
-    void setUpdateFlag(QCD::meson meson_i, QCD::meson meson_j, QCD::lepton lep_i, bool updated_i) const;
+    void setUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned int lep_i, bool updated_i) const;
 
     /**
      * @brief gets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -231,7 +231,7 @@ public:
      * @param[in] lepton_i specifies the lepton in the final state
      *
      */
-    bool getUpdateFlag(QCD::meson meson_i, QCD::meson meson_j, QCD::lepton lep_i) const;
+    bool getUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned int lep_i) const;
 
     /**
      * @brief a member used for the caching for \f$ B \to V \ell^+ \ell^- \f$.
@@ -280,31 +280,29 @@ public:
     }
 
 private:
-    template<typename T, typename... Args> std::shared_ptr<T>& getPtr(std::shared_ptr<T>& x, Args... args) const;
-    
-    const StandardModel & mySM;
-    mutable std::shared_ptr<HeffDF2> HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
-    mutable std::shared_ptr<HeffDB1> HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
-    mutable std::shared_ptr<HeffDS1> HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
-    mutable std::shared_ptr<MVll> MVll_BdKstarmu; ///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
-    mutable std::shared_ptr<MVll> MVll_BdKstarel; ///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
-    mutable std::shared_ptr<MVll> MVll_BpKstarmu; ///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
-    mutable std::shared_ptr<MVll> MVll_BpKstarel; ///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
-    mutable std::shared_ptr<MVll> MVll_Bsphimu; ///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
-    mutable std::shared_ptr<MVll> MVll_Bsphiel; ///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
-    mutable std::shared_ptr<MPll> MPll_BpKmu; ///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
-    mutable std::shared_ptr<MPll> MPll_BpKel; ///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
-    mutable std::shared_ptr<MPll> MPll_B0Kmu; ///< An object for the process \f$ B^0 \to K^0 \mu^+ \mu^- \f$.
-    mutable std::shared_ptr<MPll> MPll_B0Kel; ///< An object for the process \f$ B^0 \to K^0 \e^+ \e^- \f$.
-    mutable std::shared_ptr<MVgamma> MVgamma_BdKstgamma;
-    mutable std::shared_ptr<MVgamma> MVgamma_BpKstgamma;
-    mutable std::shared_ptr<MVgamma> MVgamma_Bsphigamma;
-    mutable std::shared_ptr<MVlnu> MVlnu_BdbarDstartaunu; ///< An object for the process \f$ \bar{B} \to D^* \tau^- \nu \f$.
-    mutable std::shared_ptr<MVlnu> MVlnu_BdbarDstarmunu; ///< An object for the process \f$ \bar{B} \to D^* \mu^- \nu  \f$.
-    mutable std::shared_ptr<MVlnu> MVlnu_BdbarDstarelnu; ///< An object for the process \f$ \bar{B} \to D^* \e^- \nu  \f$.
-    mutable std::shared_ptr<MPlnu> MPlnu_BdbarDtaunu; ///< An object for the process \f$ \bar{B} \to D \tau^- \nu \f$.
-    mutable std::shared_ptr<MPlnu> MPlnu_BdbarDmunu; ///< An object for the process \f$ \bar{B} \to D \mu^- \nu  \f$.
-    mutable std::shared_ptr<MPlnu> MPlnu_BdbarDelnu; ///< An object for the process \f$ \bar{B} \to D \e^- \nu  \f$.
+
+    std::shared_ptr<HeffDF2> HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
+    std::shared_ptr<HeffDB1> HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
+    std::shared_ptr<HeffDS1> HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
+    std::shared_ptr<MVll> MVll_BdKstarmu; ///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
+    std::shared_ptr<MVll> MVll_BdKstarel; ///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
+    std::shared_ptr<MVll> MVll_BpKstarmu; ///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
+    std::shared_ptr<MVll> MVll_BpKstarel; ///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
+    std::shared_ptr<MVll> MVll_Bsphimu; ///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
+    std::shared_ptr<MVll> MVll_Bsphiel; ///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
+    std::shared_ptr<MPll> MPll_BpKmu; ///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
+    std::shared_ptr<MPll> MPll_BpKel; ///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    std::shared_ptr<MPll> MPll_B0Kmu; ///< An object for the process \f$ B^0 \to K^0 \mu^+ \mu^- \f$.
+    std::shared_ptr<MPll> MPll_B0Kel; ///< An object for the process \f$ B^0 \to K^0 \e^+ \e^- \f$.
+    std::shared_ptr<MVgamma> MVgamma_BdKstgamma;
+    std::shared_ptr<MVgamma> MVgamma_BpKstgamma;
+    std::shared_ptr<MVgamma> MVgamma_Bsphigamma;
+    std::shared_ptr<MVlnu> MVlnu_BdbarDstartaunu; ///< An object for the process \f$ \bar{B} \to D^* \tau^- \nu \f$.
+    std::shared_ptr<MVlnu> MVlnu_BdbarDstarmunu; ///< An object for the process \f$ \bar{B} \to D^* \mu^- \nu  \f$.
+    std::shared_ptr<MVlnu> MVlnu_BdbarDstarelnu; ///< An object for the process \f$ \bar{B} \to D^* \e^- \nu  \f$.
+    std::shared_ptr<MPlnu> MPlnu_BdbarDtaunu; ///< An object for the process \f$ \bar{B} \to D \tau^- \nu \f$.
+    std::shared_ptr<MPlnu> MPlnu_BdbarDmunu; ///< An object for the process \f$ \bar{B} \to D \mu^- \nu  \f$.
+    std::shared_ptr<MPlnu> MPlnu_BdbarDelnu; ///< An object for the process \f$ \bar{B} \to D \e^- \nu  \f$.
     mutable bool update_BdKstarmu; ///< A flag used for caching of \f$ B_d \to K^* \mu^+ \mu^- \f$.
     mutable bool update_BdKstarel; ///< A flag used for caching of \f$ B_d \to K^* \e^+ \e^- \f$.
     mutable bool update_BpKstarmu; ///< A flag used for caching of \f$ B_d \to K^{*\pm} \mu^+ \mu^- \f$.
