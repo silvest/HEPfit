@@ -2304,6 +2304,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["R1_w"] = boost::bind(boost::factory<FF_R1*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
     obsThFactory["R2_w"] = boost::bind(boost::factory<FF_R2*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
     obsThFactory["R0_w"] = boost::bind(boost::factory<FF_R0*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
+    obsThFactory["FL_MVtaunu"] = boost::bind(boost::factory<FL_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::TAU);
+    obsThFactory["Ptau_MVtaunu"] = boost::bind(boost::factory<Plep_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::TAU);
     //----- B to Dlnu -----
     obsThFactory["Gammaw_MPlnu"] = boost::bind(boost::factory<Gammaw_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["RD_MPlnu"] = boost::bind(boost::factory<RD_MPlnu*>(), _1, StandardModel::B_D, StandardModel::D_P, StandardModel::TAU, StandardModel::MU, StandardModel::ELECTRON);

@@ -61,6 +61,12 @@ public:
     * @return \f$ <d\Gamma/dcos\chi> \f$ 
     */
     double getDeltaGammaDeltachi(double chi_min, double chi_max);
+    
+    /**
+    * @brief Binned D* polarization fraction \f$ F_{L} \f$ 
+    * @return \f$ <F_{L}> \f$ 
+    */
+    double getFL();
 
     /**
     * @brief Vector unitarity constraint for BGL parameters
@@ -109,6 +115,12 @@ public:
     * @return \f$ R_{0}(w) \f$ 
     */
     double get_R0(double w);
+ 
+     /**
+    * @brief Binned lepton helicity asymmetry \f$ P_{\ell} = (<G_{+}>  - <G_{-}>) / (<G_{+}> + <G_{-}>) \f$ 
+    * @return \f$ <P_{\ell}> \f$ 
+    */
+    double getPlep();
 
     /**
     * @brief The width of the meson M
@@ -584,8 +596,8 @@ private:
     /**
     * @brief \f$ <J_{i}> \f$ 
     * @param[in] i, angular coefficient index (i = 1,...,12)
-    * @param[in] q2_min, lower extreme \f$q^2\f$ of intgrated decay
-    * @param[in] q2_max, upper extreme \f$q^2\f$ of intgrated decay
+    * @param[in] q2_min, lower extreme \f$q^2\f$ of integrated decay
+    * @param[in] q2_max, upper extreme \f$q^2\f$ of integrated decay
     * @return \f$ <J_{i}> \f$ 
     */
     double integrateJ(int i, double q2_min, double q2_max) ;
@@ -642,6 +654,57 @@ private:
      * @return \f$ d\Gamma/dcos \chi \f$ 
      */
     double dGammadchi(double chi);
+    
+    /**
+    * @brief Helicity amplitude \f$ H_{--} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_{--} \f$
+    */
+    double  Hminus(double q2);
+    
+    /**
+    * @brief Helicity amplitude \f$ H_{++} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_{++} \f$
+    */
+    double  Hplus(double q2);
+    
+    /**
+    * @brief Helicity amplitude \f$ H_{00} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_{00} \f$
+    */
+    double  H0(double q2);
+    
+    /**
+    * @brief Helicity amplitude \f$ H_{0t} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_{0t} \f$
+    */
+    double  H0t(double q2);
+    
+    /**
+     * @brief \f$ d\Gamma_{\lambda=+1/2}/dq2 \f$ 
+     * @param[in] q2 \f$q^2\f$ of the decay
+     * @return \f$ d\Gamma_{\lambda=+1/2}/dq2 \f$ 
+     */    
+    double dGpdq2(double q2);
+    
+    /**
+     * @brief \f$ d\Gamma_{\lambda=-1/2}/dq2 \f$ 
+     * @param[in] q2 \f$q^2\f$ of the decay
+     * @return \f$ d\Gamma_{\lambda=-1/2}/dq2 \f$ 
+     */    
+    double dGmdq2(double q2);
+ 
+    /**
+    * @brief \f$ <G_{i}> \f$ 
+    * @param[in] i, lepn helicity index (i = 1,2 <--> +,-)
+    * @param[in] q2_min, lower extreme \f$q^2\f$ of integrated decay
+    * @param[in] q2_max, upper extreme \f$q^2\f$ of integrated decay
+    * @return \f$ <G_{i}> \f$ 
+    */
+    double integrateGpm(int i, double q2_min, double q2_max) ;
     
     gsl_error_handler_t * old_handler; /**< GSL error handler store */
     gsl_function FJ;/**< GSL integral variable */

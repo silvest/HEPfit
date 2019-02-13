@@ -142,6 +142,20 @@ double Gammachi_MVlnu::computeThValue()
     return (deltaGammadeltachi_lep1+deltaGammadeltachi_lep2)/2.;
 }
 
+FL_MVlnu::FL_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i): ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep).initializeMVlnuParameters());
+}
+
+double FL_MVlnu::computeThValue() 
+{
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).getFL();
+}
+
 UnitarityV_MVlnu::UnitarityV_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
 : ThObservable(SM_i) 
 {  
@@ -280,4 +294,18 @@ UnitarityV_D_Dst::UnitarityV_D_Dst(const StandardModel& SM_i, QCD::meson meson_i
 double UnitarityV_D_Dst::computeThValue() 
 {
     return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_unitarity_V_BGL() + SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).get_unitarity_1min_BGL();
+}
+
+Plep_MVlnu::Plep_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i): ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVlnu(meson, vectorM, lep).initializeMVlnuParameters());
+}
+
+double Plep_MVlnu::computeThValue() 
+{
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).getPlep();
 }

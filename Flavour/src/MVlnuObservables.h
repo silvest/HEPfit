@@ -148,7 +148,7 @@ private:
     
 };
 
-class UnitarityV_MVlnu : public ThObservable{
+class FL_MVlnu : public ThObservable{
 public:
      
     /**
@@ -158,8 +158,33 @@ public:
     * @param[in] vector_i final vector meson of the decay
     * @param[in] lep_i final leptons of the decay
     */
-    UnitarityV_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    FL_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
      
+    /**
+    * @brief FL polarization fraction @f$M \to V l \nu@f$.
+    * @return @f$ F_L @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
+class UnitarityV_MVlnu : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    UnitarityV_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
     /**
     * @brief Vectorial unitarity constraint for @f$M \to V l \nu@f$.
     * @return @f$ \Sum_i ag_i^2 @f$
@@ -373,6 +398,31 @@ private:
     QCD::meson pseudoscalarM; /**< Final pseudoscalar meson type. */
     QCD::meson vectorM; /**< Final vector meson type. */
 
+};
+
+class Plep_MVlnu : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    Plep_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+     
+    /**
+    * @brief Binned lepton helicity asymmetry \f$ P_{\ell} = (<G_{+}>  - <G_{-}>) / (<G_{+}> + <G_{-}>) \f$ 
+    * @return @f$ P_{\ell} @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
 };
 
 #endif /* MVLNUOBSERVABLES_H */
