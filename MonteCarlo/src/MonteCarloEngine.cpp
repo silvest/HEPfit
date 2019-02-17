@@ -40,7 +40,7 @@ MonteCarloEngine::MonteCarloEngine(
     printLogo = false;
     nSmooth = 0;
     histogram2Dtype = 1001;
-    noLegend = false;
+    noLegend = true;
     PrintLoglikelihoodPlots = false;
     alpha2D = 1.;
     kchainedObs = 0;
@@ -624,21 +624,16 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
     if (printLogo) {
         double xRange = (bch1d.GetHistogram()->GetXaxis()->GetXmax() - bch1d.GetHistogram()->GetXaxis()->GetXmin())*3./4.;
         double yRange = (bch1d.GetHistogram()->GetMaximum() - bch1d.GetHistogram()->GetMinimum());
+        
+        double xL;
+        if (noLegend) xL = bch1d.GetHistogram()->GetXaxis()->GetXmin()+0.0475*xRange;
+        else xL = bch1d.GetHistogram()->GetXaxis()->GetXmin() + 0.0375 * xRange;
+        double yL = bch1d.GetHistogram()->GetYaxis()->GetXmin() + 0.89 * yRange;
 
-        double xL, xR, yL, yR;
-        if (noLegend) {
-            xL = bch1d.GetHistogram()->GetXaxis()->GetXmin() + 0.045 * xRange;
-            yL = bch1d.GetHistogram()->GetMinimum() + 0.941 * yRange;
-
-            xR = xL + 0.21 * xRange;
-            yR = yL + 0.091 * yRange;
-        } else {
-            xL = bch1d.GetHistogram()->GetXaxis()->GetXmin() + 0.035 * xRange;
-            yL = bch1d.GetHistogram()->GetMinimum() + 0.88 * yRange;
-
-            xR = xL + 0.18 * xRange;
-            yR = yL + 0.09 * yRange;
-        }
+        double xR;
+        if (noLegend) xR = xL + 0.21*xRange;
+        else xR = xL + 0.18 * xRange;
+        double yR = yL + 0.09 * yRange;
 
         TBox b1 = TBox(xL, yL, xR, yR);
         b1.SetFillColor(gIdx);
@@ -649,7 +644,7 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
         
         TPaveText b3 = TPaveText(xL+0.014*xRange, yL+0.013*yRange, xL+0.70*(xR-xL), yR-0.013*yRange);
         if (noLegend) b3.SetTextSize(0.056);
-        else b3.SetTextSize(0.044);
+        else b3.SetTextSize(0.051);
         b3.SetTextAlign(22);
         b3.SetTextColor(kWhite);
         b3.AddText("HEP");
@@ -658,14 +653,12 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
         TPaveText * b4; 
         if (noLegend) {
             b4 = new TPaveText(xL+0.72*(xR-xL), yL+0.030*yRange, xR-0.008*xRange, yR-0.013*yRange);
-            b4->SetTextSize(0.046);
-            b4->SetTextAlign(23);
-        }
-        else {
-            b4 = new TPaveText(xL + 0.7 * (xR - xL), yL + 0.027 * yRange, xR - 0.008 * xRange, yR - 0.015 * yRange);
+            b4->SetTextSize(0.048);
+        } else {
+            b4 = new TPaveText(xL + 0.75 * (xR - xL), yL + 0.024 * yRange, xR - 0.008 * xRange, yR - 0.013 * yRange);
             b4->SetTextSize(0.039);
-            b4->SetTextAlign(33);
         }
+        b4->SetTextAlign(33);
         b4->SetTextColor(rIdx);
         b4->AddText("fit");
         b4->SetFillColor(kWhite);
@@ -694,6 +687,7 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
         c = new TCanvas(TString::Format("c_bch2d_%d",cindex));
     
     bch2d.GetHistogram()->Scale(1./bch2d.GetHistogram()->Integral("width"));
+    bch2d.GetHistogram()->GetYaxis()->SetTitleOffset(1.45);
 
     bch2d.SetBandType(BCH2D::kSmallestInterval);
     bch2d.SetBandColor(0, TColor::GetColorTransparent(kOrange - 3, alpha2D)); 
@@ -715,12 +709,12 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
     bch2d.Draw();
 
     if (printLogo) {
-        double xRange = bch2d.GetHistogram()->GetXaxis()->GetXmax() - bch2d.GetHistogram()->GetXaxis()->GetXmin();
+        double xRange = (bch2d.GetHistogram()->GetXaxis()->GetXmax() - bch2d.GetHistogram()->GetXaxis()->GetXmin())*3./4.;
         double yRange = bch2d.GetHistogram()->GetYaxis()->GetXmax() - bch2d.GetHistogram()->GetYaxis()->GetXmin();
 
         double xL;
-        if (noLegend) xL = bch2d.GetHistogram()->GetXaxis()->GetXmin()+0.045*xRange;
-        else xL = bch2d.GetHistogram()->GetXaxis()->GetXmin() + 0.035 * xRange;
+        if (noLegend) xL = bch2d.GetHistogram()->GetXaxis()->GetXmin()+0.0475*xRange;
+        else xL = bch2d.GetHistogram()->GetXaxis()->GetXmin() + 0.0375 * xRange;
         double yL = bch2d.GetHistogram()->GetYaxis()->GetXmin() + 0.89 * yRange;
 
         double xR;
@@ -736,7 +730,7 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
 
         TPaveText b3 = TPaveText(xL + 0.014 * xRange, yL + 0.013 * yRange, xL + 0.70 * (xR - xL), yR - 0.013 * yRange);
         if (noLegend) b3.SetTextSize(0.056);
-        else b3.SetTextSize(0.044);
+        else b3.SetTextSize(0.051);
         b3.SetTextAlign(22);
         b3.SetTextColor(kWhite);
         b3.AddText("HEP");
@@ -748,7 +742,7 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
             b4->SetTextSize(0.048);
         } else {
             b4 = new TPaveText(xL + 0.75 * (xR - xL), yL + 0.024 * yRange, xR - 0.008 * xRange, yR - 0.013 * yRange);
-            b4->SetTextSize(0.038);
+            b4->SetTextSize(0.039);
         }
         b4->SetTextAlign(33);
         b4->SetTextColor(rIdx);
@@ -1157,8 +1151,10 @@ std::string MonteCarloEngine::computeStatistics() {
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++)
         StatsLog << sep << std::left << std::setw(obs_width) << it->getName() << sep << std::right << std::setw(value_width) << it->computeTheoryValue() << sep << '\n';
     
-    StatsLog << obs_line << '\n' << '\n';
+    StatsLog << obs_line << '\n';
     StatsLog << std::endl;
+    
+    StatsLog << "LogLikelihood at mode: " << LogLikelihood(mode) << "\n\n" << std::endl;
     
     double llika = Histo1D["LogLikelihood"].GetHistogram()->GetMean();
     StatsLog << "LogLikelihood mean value: " << llika << std::endl;
