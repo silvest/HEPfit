@@ -40,7 +40,7 @@ MonteCarloEngine::MonteCarloEngine(
     printLogo = false;
     nSmooth = 0;
     histogram2Dtype = 1001;
-    noLegend = false;
+    noLegend = true;
     PrintLoglikelihoodPlots = false;
     alpha2D = 1.;
     kchainedObs = 0;
@@ -340,10 +340,10 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         if(!(it->isPrediction())) logprob += it->computeWeight();
     }
-    if (std::isnan(logprob)) {
+    if (!std::isfinite(logprob)) {
         NumOfDiscardedEvents++;
 #ifdef _MCDEBUG
-        std::cout << "Event discarded since logprob evaluated to NAN.\n" << logprob << std::endl ;
+//        std::cout << "Event discarded since logprob evaluated to: " << logprob << std::endl ;
 #endif
         return (log(0.));
     }
@@ -359,7 +359,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     int buffsize = npars + 1;
     int index_chain[procnum];
     double *recvbuff = new double[buffsize];
-    std::vector<std::vector<double> > fMCMCxvect;
     std::vector<double> pars;
     double **buff;
 
@@ -380,9 +379,8 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
 
     while (mychain < fMCMCNChains) {
         pars.clear();
-        pars = fMCMCx.at(mychain);
+        pars = fMCMCStates.at(mychain).parameters;
 
-        fMCMCxvect.push_back(pars);
         if (PrintLoglikelihoodPlots) {
             std::map<std::string, double> tmpDPars;
             setDParsFromParameters(pars, tmpDPars);
@@ -398,8 +396,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             //The first entry of the array specifies the task to be executed.
 
             sendbuff[il][0] = 2.; // 2 = observables calculation
-            for (int im = 1; im < buffsize; im++)
-                sendbuff[il][im] = fMCMCxvect[il][im - 1];
+            for (int im = 1; im < buffsize; im++) sendbuff[il][im] = fMCMCStates.at(index_chain[il]).parameters.at(im - 1);
         }
         for (int il = iproc; il < procnum; il++) {
             sendbuff[il][0] = 3.; // 3 = nothing to execute, but return a buffer of observables
@@ -471,13 +468,11 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 }
 
                 // fill the histograms for correlated observables
-                for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-                        it1 < CGO.end(); it1++) {
+                for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                     std::vector<Observable> ObsV(it1->getObs());
                     Double_t * COdata = new Double_t[ObsV.size()];
                     int nObs = 0;
-                    for (std::vector<Observable>::iterator it = ObsV.begin();
-                            it != ObsV.end(); ++it) {
+                    for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) {
                         double th = buff[il][k++];
                         /* set the min and max of theory values */
                         if (th < thMin[it->getName()]) thMin[it->getName()] = th;
@@ -491,7 +486,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             }
         }
         iproc = 0;
-        fMCMCxvect.clear();
     }
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0) InChainFillObservablesTree();
     delete sendbuff[0];
@@ -501,7 +495,8 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     delete [] buff;
 #else
     for (unsigned int i = 0; i < fMCMCNChains; ++i) {
-        std::vector<double>::const_iterator first = fMCMCx.at(i).begin();
+        // NOTE: BAT syncs fMCMCThreadLocalStorage with fMCMCStates before calling MCMCUserIterationInterface.
+        std::vector<double>::const_iterator first = fMCMCStates.at(i).parameters.begin(); 
         std::vector<double>::const_iterator last = first + GetNParameters();
         std::vector<double> currvec(first, last);
         setDParsFromParameters(currvec,DPars);
@@ -627,23 +622,18 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
     bch1d.Draw();
     
     if (printLogo) {
-        double xRange = bch1d.GetHistogram()->GetXaxis()->GetXmax() - bch1d.GetHistogram()->GetXaxis()->GetXmin();
-        double yRange = bch1d.GetHistogram()->GetMaximum() - bch1d.GetHistogram()->GetMinimum();
+        double xRange = (bch1d.GetHistogram()->GetXaxis()->GetXmax() - bch1d.GetHistogram()->GetXaxis()->GetXmin())*3./4.;
+        double yRange = (bch1d.GetHistogram()->GetMaximum() - bch1d.GetHistogram()->GetMinimum());
+        
+        double xL;
+        if (noLegend) xL = bch1d.GetHistogram()->GetXaxis()->GetXmin()+0.0475*xRange;
+        else xL = bch1d.GetHistogram()->GetXaxis()->GetXmin() + 0.0375 * xRange;
+        double yL = bch1d.GetHistogram()->GetYaxis()->GetXmin() + 0.89 * yRange;
 
-        double xL, xR, yL, yR;
-        if (noLegend) {
-            xL = bch1d.GetHistogram()->GetXaxis()->GetXmin() + 0.045 * xRange;
-            yL = bch1d.GetHistogram()->GetMinimum() + 0.941 * yRange;
-
-            xR = xL + 0.21 * xRange;
-            yR = yL + 0.091 * yRange;
-        } else {
-            xL = bch1d.GetHistogram()->GetXaxis()->GetXmin() + 0.035 * xRange;
-            yL = bch1d.GetHistogram()->GetMinimum() + 0.88 * yRange;
-
-            xR = xL + 0.18 * xRange;
-            yR = yL + 0.09 * yRange;
-        }
+        double xR;
+        if (noLegend) xR = xL + 0.21*xRange;
+        else xR = xL + 0.18 * xRange;
+        double yR = yL + 0.09 * yRange;
 
         TBox b1 = TBox(xL, yL, xR, yR);
         b1.SetFillColor(gIdx);
@@ -654,7 +644,7 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
         
         TPaveText b3 = TPaveText(xL+0.014*xRange, yL+0.013*yRange, xL+0.70*(xR-xL), yR-0.013*yRange);
         if (noLegend) b3.SetTextSize(0.056);
-        else b3.SetTextSize(0.044);
+        else b3.SetTextSize(0.051);
         b3.SetTextAlign(22);
         b3.SetTextColor(kWhite);
         b3.AddText("HEP");
@@ -663,14 +653,12 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
         TPaveText * b4; 
         if (noLegend) {
             b4 = new TPaveText(xL+0.72*(xR-xL), yL+0.030*yRange, xR-0.008*xRange, yR-0.013*yRange);
-            b4->SetTextSize(0.046);
-            b4->SetTextAlign(23);
-        }
-        else {
-            b4 = new TPaveText(xL + 0.7 * (xR - xL), yL + 0.027 * yRange, xR - 0.008 * xRange, yR - 0.015 * yRange);
+            b4->SetTextSize(0.048);
+        } else {
+            b4 = new TPaveText(xL + 0.75 * (xR - xL), yL + 0.024 * yRange, xR - 0.008 * xRange, yR - 0.013 * yRange);
             b4->SetTextSize(0.039);
-            b4->SetTextAlign(33);
         }
+        b4->SetTextAlign(33);
         b4->SetTextColor(rIdx);
         b4->AddText("fit");
         b4->SetFillColor(kWhite);
@@ -699,6 +687,7 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
         c = new TCanvas(TString::Format("c_bch2d_%d",cindex));
     
     bch2d.GetHistogram()->Scale(1./bch2d.GetHistogram()->Integral("width"));
+    bch2d.GetHistogram()->GetYaxis()->SetTitleOffset(1.45);
 
     bch2d.SetBandType(BCH2D::kSmallestInterval);
     bch2d.SetBandColor(0, TColor::GetColorTransparent(kOrange - 3, alpha2D)); 
@@ -720,12 +709,12 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
     bch2d.Draw();
 
     if (printLogo) {
-        double xRange = bch2d.GetHistogram()->GetXaxis()->GetXmax() - bch2d.GetHistogram()->GetXaxis()->GetXmin();
+        double xRange = (bch2d.GetHistogram()->GetXaxis()->GetXmax() - bch2d.GetHistogram()->GetXaxis()->GetXmin())*3./4.;
         double yRange = bch2d.GetHistogram()->GetYaxis()->GetXmax() - bch2d.GetHistogram()->GetYaxis()->GetXmin();
 
         double xL;
-        if (noLegend) xL = bch2d.GetHistogram()->GetXaxis()->GetXmin()+0.045*xRange;
-        else xL = bch2d.GetHistogram()->GetXaxis()->GetXmin() + 0.035 * xRange;
+        if (noLegend) xL = bch2d.GetHistogram()->GetXaxis()->GetXmin()+0.0475*xRange;
+        else xL = bch2d.GetHistogram()->GetXaxis()->GetXmin() + 0.0375 * xRange;
         double yL = bch2d.GetHistogram()->GetYaxis()->GetXmin() + 0.89 * yRange;
 
         double xR;
@@ -741,7 +730,7 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
 
         TPaveText b3 = TPaveText(xL + 0.014 * xRange, yL + 0.013 * yRange, xL + 0.70 * (xR - xL), yR - 0.013 * yRange);
         if (noLegend) b3.SetTextSize(0.056);
-        else b3.SetTextSize(0.044);
+        else b3.SetTextSize(0.051);
         b3.SetTextAlign(22);
         b3.SetTextColor(kWhite);
         b3.AddText("HEP");
@@ -753,7 +742,7 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
             b4->SetTextSize(0.048);
         } else {
             b4 = new TPaveText(xL + 0.75 * (xR - xL), yL + 0.024 * yRange, xR - 0.008 * xRange, yR - 0.013 * yRange);
-            b4->SetTextSize(0.038);
+            b4->SetTextSize(0.039);
         }
         b4->SetTextAlign(33);
         b4->SetTextColor(rIdx);
@@ -784,7 +773,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, Observable& it, cons
         std::string fname = OutputDir + "/" + HistName + ".pdf";
         Histo1D[HistName].SetGlobalMode(it.computeTheoryValue());
         Print1D(Histo1D[HistName], fname.c_str());
-        std::cout << fname << " has been created." << std::endl;
+        std::cout << " " + HistName + ".pdf" << std::endl;
         if(OutFile.compare("") == 0) {
             throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
         }
@@ -810,6 +799,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
 
     Mod->Update(DPars);
 
+    if (Obs_ALL.size() != 0 || CGO.size() != 0) std::cout << "\nPrinting 1D histograms in the Observables directory: " << std::endl;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) PrintHistogram(OutFile, *it, OutputDir);
     
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
@@ -817,6 +807,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
         for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) PrintHistogram(OutFile, *it, OutputDir);
     }
     
+    if (Obs2D_ALL.size() != 0) std::cout << "\nPrinting 2D histograms in the Observables directory: " << std::endl;
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
         std::string HistName = it->getName();
         if (Histo2D[HistName].GetHistogram()->Integral() > 0.0) {
@@ -826,7 +817,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
             th.push_back(it->computeTheoryValue2());
             Histo2D[HistName].SetGlobalMode(th);
             Print2D(Histo2D[HistName], fname.c_str());
-            std::cout << fname << " has been created." << std::endl;
+            std::cout << " " + HistName + ".pdf" << std::endl;
             if(OutFile.compare("") == 0) throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
             TDirectory * dir = gDirectory;
             GetOutputFile()->cd();
@@ -835,11 +826,12 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
             CheckHistogram(*Histo2D[HistName].GetHistogram(), HistName);
         } else HistoLog << "WARNING: The histogram of " << HistName << " is empty!" << std::endl;
     }
-        
+    
+    std::cout << "\nPrinting LogLikelihood histogram in the Observables directory: " << std::endl;
     if (Histo1D["LogLikelihood"].GetHistogram()->Integral() > 0.0) {
         std::string fname = OutputDir + "/LogLikelihood.pdf";
         Print1D(Histo1D["LogLikelihood"], fname.c_str());
-        std::cout << fname << " has been created." << std::endl;
+        std::cout << " LogLikelihood.pdf" << std::endl;
         TDirectory * dir = gDirectory;
         GetOutputFile()->cd();
         Histo1D["LogLikelihood"].GetHistogram()->Write();
@@ -848,6 +840,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
     }
     
     if (PrintLoglikelihoodPlots) {
+        std::cout << "\nPrinting LogLikelihood vs. parameter 2D histograms in the Observables directory: " << std::endl;
         for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it != ModPars.end(); it++) {
             if (it->IsFixed()) continue;
             if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) != unknownParameters.end()) continue;
@@ -855,7 +848,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
             if (Histo2D[HistName].GetHistogram()->Integral() > 0.0) {
                 std::string fname = OutputDir + "/LogLikelihoodPlots/" + HistName + ".pdf";
                 Print2D(Histo2D[HistName], fname.c_str());
-                std::cout << fname << " has been created." << std::endl;
+                std::cout << " " + HistName + ".pdf" << std::endl;
                 if (OutFile.compare("") == 0) throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
                 TDirectory * dir = gDirectory;
                 GetOutputFile()->cd();
@@ -1158,8 +1151,10 @@ std::string MonteCarloEngine::computeStatistics() {
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++)
         StatsLog << sep << std::left << std::setw(obs_width) << it->getName() << sep << std::right << std::setw(value_width) << it->computeTheoryValue() << sep << '\n';
     
-    StatsLog << obs_line << '\n' << '\n';
+    StatsLog << obs_line << '\n';
     StatsLog << std::endl;
+    
+    StatsLog << "LogLikelihood at mode: " << LogLikelihood(mode) << "\n\n" << std::endl;
     
     double llika = Histo1D["LogLikelihood"].GetHistogram()->GetMean();
     StatsLog << "LogLikelihood mean value: " << llika << std::endl;
