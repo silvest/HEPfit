@@ -204,8 +204,7 @@ void MonteCarlo::Run(const int rank) {
                 obsbuffsize += it1->getObs().size();
 
             while (true) {
-                MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
-                        recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+                MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
                 if (recvbuff[0] == 0.) { // do nothing and return ll
                     double ll = log(0.);
@@ -412,8 +411,7 @@ void MonteCarlo::Run(const int rank) {
                 sendbuff[il] = sendbuff[il - 1] + buffsize;
                 sendbuff[il][0] = -1.; //Exit command
             }
-            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
-                    recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             delete sendbuff[0];
             delete [] sendbuff;
 #endif
@@ -605,22 +603,28 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
                 throw std::runtime_error("\nERROR: Histogram2DAlpha in the MonteCarlo configuration file: " + MCMCConf + " can only be a real number greater than 0.0 and less than or equal to 1.0.\n");
         } else if (beg->compare("NBinsHistogram1D") == 0) {
             ++beg;
-            double nBins1D = atoi((*beg).c_str());
+            unsigned int nBins1D = atoi((*beg).c_str());
             if (nBins1D >= 0) MCEngine.setNBins1D(nBins1D);
             else throw std::runtime_error("\nERROR: NBinsHistogram1D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
         } else if (beg->compare("NBinsHistogram2D") == 0) {
             ++beg;
-            double nBins2D = atoi((*beg).c_str());
+            unsigned int nBins2D = atoi((*beg).c_str());
             if (nBins2D >= 0) MCEngine.setNBins2D(nBins2D);
             else throw std::runtime_error("\nERROR: NBinsHistogram2D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
+        } else if (beg->compare("InitialPositionAttemptLimit") == 0) {
+            ++beg;
+            unsigned int max_tries = atoi((*beg).c_str());
+            if (max_tries > 0) MCEngine.SetInitialPositionAttemptLimit(max_tries);
+            else if (max_tries == 0) MCEngine.SetInitialPositionAttemptLimit(100);
+            else throw std::runtime_error("\nERROR: InitialPositionAttemptLimit in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
         } else if (beg->compare("SignificantDigits") == 0) {
             ++beg;
-            int significants = atoi((*beg).c_str());
+            unsigned int significants = atoi((*beg).c_str());
             if (significants >= 0) MCEngine.setSignificants(significants);
             else throw std::runtime_error("\nERROR: SignificantDigits in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
         } else if (beg->compare("HistogramBufferSize") == 0) {
             ++beg;
-            int histogramBufferSize = atoi((*beg).c_str());
+            unsigned int histogramBufferSize = atoi((*beg).c_str());
             if (histogramBufferSize >= 0) MCEngine.setHistogramBufferSize(histogramBufferSize);
             else throw std::runtime_error("\nERROR: HistogramBufferSize in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
         } else

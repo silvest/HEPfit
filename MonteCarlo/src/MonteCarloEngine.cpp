@@ -359,7 +359,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     int buffsize = npars + 1;
     int index_chain[procnum];
     double *recvbuff = new double[buffsize];
-    std::vector<std::vector<double> > fMCMCxvect;
     std::vector<double> pars;
     double **buff;
 
@@ -380,9 +379,8 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
 
     while (mychain < fMCMCNChains) {
         pars.clear();
-        pars = fMCMCx.at(mychain);
+        pars = fMCMCStates.at(mychain).parameters;
 
-        fMCMCxvect.push_back(pars);
         if (PrintLoglikelihoodPlots) {
             std::map<std::string, double> tmpDPars;
             setDParsFromParameters(pars, tmpDPars);
@@ -398,8 +396,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             //The first entry of the array specifies the task to be executed.
 
             sendbuff[il][0] = 2.; // 2 = observables calculation
-            for (int im = 1; im < buffsize; im++)
-                sendbuff[il][im] = fMCMCxvect[il][im - 1];
+            for (int im = 1; im < buffsize; im++) sendbuff[il][im] = fMCMCStates.at(index_chain[il]).parameters.at(im - 1);
         }
         for (int il = iproc; il < procnum; il++) {
             sendbuff[il][0] = 3.; // 3 = nothing to execute, but return a buffer of observables
@@ -471,13 +468,11 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 }
 
                 // fill the histograms for correlated observables
-                for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-                        it1 < CGO.end(); it1++) {
+                for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                     std::vector<Observable> ObsV(it1->getObs());
                     Double_t * COdata = new Double_t[ObsV.size()];
                     int nObs = 0;
-                    for (std::vector<Observable>::iterator it = ObsV.begin();
-                            it != ObsV.end(); ++it) {
+                    for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) {
                         double th = buff[il][k++];
                         /* set the min and max of theory values */
                         if (th < thMin[it->getName()]) thMin[it->getName()] = th;
@@ -491,7 +486,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             }
         }
         iproc = 0;
-        fMCMCxvect.clear();
     }
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0) InChainFillObservablesTree();
     delete sendbuff[0];
@@ -628,8 +622,8 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
     bch1d.Draw();
     
     if (printLogo) {
-        double xRange = bch1d.GetHistogram()->GetXaxis()->GetXmax() - bch1d.GetHistogram()->GetXaxis()->GetXmin();
-        double yRange = bch1d.GetHistogram()->GetMaximum() - bch1d.GetHistogram()->GetMinimum();
+        double xRange = (bch1d.GetHistogram()->GetXaxis()->GetXmax() - bch1d.GetHistogram()->GetXaxis()->GetXmin())*3./4.;
+        double yRange = (bch1d.GetHistogram()->GetMaximum() - bch1d.GetHistogram()->GetMinimum());
 
         double xL, xR, yL, yR;
         if (noLegend) {
