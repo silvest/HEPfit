@@ -1,8 +1,8 @@
 -- Download the tarball from: https://github.com/bat/bat/releases/download/v1.0.0/BAT-1.0.0.tar.gz
 -- gunzip and/or untar.
--- cd into the directiory
+-- cd BAT-1.0.0
 -- copy files in BATv1.0-dev/src-dev to BAT-1.0.0/src
 -- copy files in BATv1.0-dev/BAT-dev to BAT-1.0.0/BAT
--- ./configure --prefix=path CXX=mpic++
+-- ./configure --prefix=path CXX=mpic++  (path usually points to the HEPfit directory)
 -- make
 -- make install
