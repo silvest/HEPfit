@@ -2,6 +2,7 @@
 -- gunzip and/or untar.
 -- cd into the directiory
 -- copy files in BATv1.0-dev/src-dev to BAT-1.0.0/src
+-- copy files in BATv1.0-dev/BAT-dev to BAT-1.0.0/BAT
 -- ./configure --prefix=path CXX=mpic++
 -- make
 -- make install
