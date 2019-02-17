@@ -1,11 +1,8 @@
-Download the tarbal from: https://github.com/bat/bat/releases/download/v1.0.0-RC1/BAT-1.0.0-RC1.tar.gz
+Download the tarball from: https://github.com/bat/bat/releases/download/v1.0.0-RC1/BAT-1.0.0-RC1.tar.gz
 gunzip and/or untar.
 cd into the directiory
-copy files in BATv1.0-dev/BAT-dev to BAT-1.0.0-RC1/BAT
-copy files in BATv1.0-dev/src-dev to BAT-1.0.0-RC1/ser
+copy files in BATv1.0RC1-dev/BAT-dev to BAT-1.0.0-RC1/BAT
+copy files in BATv1.0RC1-dev/src-dev to BAT-1.0.0-RC1/src
 ./configure --prefix=path
 make
 make install
-
-FOR GCC 5+
-./configure --prefix=path CC=mpicc CXX=mpic++ CXXFLAGS=-D_GLIBCXX_USE_CXX11_ABI=0
