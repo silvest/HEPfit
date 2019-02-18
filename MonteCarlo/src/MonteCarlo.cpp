@@ -264,11 +264,23 @@ void MonteCarlo::Run(const int rank) {
                                   
             if (RunMinuitOnly) { 
                 std::time_t ti = std::time(NULL);
+#if __GNUC__ >= 5 || defined __clang__
                 std::cout << "\nMinuit Minimization started at " << std::put_time(std::localtime(&ti), "%c %Z") << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
+#else
+                char mitime[128];
+                strftime(mitime,sizeof(mitime),"%c %Z", std::localtime(&ti));
+                std::cout << "\nMinuit Minimization started at " << mitime << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
+#endif
                 BCLog::OpenLog(("MinuitMinimizationResults" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
                 MCEngine.FindMode();
                 std::time_t tf = std::time(NULL);
+#if __GNUC__ >= 5 || defined __clang__
                 std::cout << "\nMinuit Minimization ended at " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
+#else
+                char mftime[128];
+                strftime(mitime,sizeof(mftime),"%c %Z", std::localtime(&tf));
+                std::cout << "\nMinuit Minimization ended at " << mftime << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
+#endif
                 return;
             }
   
@@ -292,16 +304,27 @@ void MonteCarlo::Run(const int rank) {
 //            BCAux::SetStyle();
             
             std::time_t ti = std::time(NULL);
+#if __GNUC__ >= 5 || defined __clang__
             std::cout << "\nMCMC run started at " << std::put_time(std::localtime(&ti), "%c %Z") << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
+#else
+            char mitime[128];
+            strftime(mitime,sizeof(mitime),"%c %Z", std::localtime(&ti));
+            std::cout << "\nMCMC run started at " << mitime << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
+#endif
             // open log file
             BCLog::OpenLog(("log" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
-
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
             MCEngine.MarginalizeAll();
             std::time_t tf = std::time(NULL);
+#if __GNUC__ >= 5 || defined __clang__
             std::cout << "\nMCMC run ended at  " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << std::endl;
+#else
+            char mftime[128];
+            strftime(mftime,sizeof(mftime),"%c %Z", std::localtime(&tf));
+            std::cout << "\nMCMC run ended at " << mftime << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
+#endif            
             int hour = (tf-ti)/3600;
             int min = ((tf-ti)%3600) / 60;
             int sec = ((tf-ti)%3600) % 60;
