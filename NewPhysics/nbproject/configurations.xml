@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/DiBosonThObservables.h</itemPath>
       <itemPath>src/EW_ABC.h</itemPath>
       <itemPath>src/EW_BURGESS.h</itemPath>
       <itemPath>src/EW_CHMN.h</itemPath>
@@ -104,6 +105,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
@@ -246,6 +249,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
@@ -388,6 +393,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
@@ -521,6 +528,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">

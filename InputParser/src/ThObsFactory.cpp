@@ -12,6 +12,7 @@
 #include "NP_couplings.h"
 #include "OptimizedObservablesSMEFTd6.h"
 #include "HiggsThObservables.h"
+#include "DiBosonThObservables.h"
 #include "FlavourObservables.h"
 #include "MtMSbar.h"
 #include "alpha_s.h"
@@ -261,6 +262,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deeWWdcos_365_Bin8"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_365, cos8_ee_WW, cos9_ee_WW);
     obsThFactory["deeWWdcos_365_Bin9"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_365, cos9_ee_WW, cos10_ee_WW);
     obsThFactory["deeWWdcos_365_Bin10"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_365, cos10_ee_WW, cos11_ee_WW);
+    //-----  ee -> WW observables: total rates (ratio with the SM)  -----
+    obsThFactory["eeWW250_p80_m30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_250, pol_80, -pol_30);
+    obsThFactory["eeWW250_m80_p30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_250, -pol_80, pol_30);
+    //
+    obsThFactory["eeWW350_p80_m30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_350, pol_80, -pol_30);
+    obsThFactory["eeWW350_m80_p30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_350, -pol_80, pol_30);
     //----- High Energy diboson observables at hadron colliders
     obsThFactory["ppZHprobe14"] = boost::bind(boost::factory<ppZHprobe*>(), _1, sqrt_s_LHC14);
     obsThFactory["ppZHprobe27"] = boost::bind(boost::factory<ppZHprobe*>(), _1, sqrt_s_LHC27);

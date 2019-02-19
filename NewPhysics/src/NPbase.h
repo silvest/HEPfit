@@ -1609,6 +1609,31 @@ public:
         return 0.0;
     }
     
+    /**
+     * @brief The ratio @f$\mu_{eeWW}@f$ between the 
+     * @f$ e^{+}e^{-}\to W^{+}W^{-} @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeWW}@f$
+     */
+    virtual double mueeWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio @f$\mu_{eeWW}@f$ between the 
+     * @f$ e^{+}e^{-}\to W^{+}W^{-} @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$\mu_{eeWW}@f$
+     */
+    virtual double mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+    {
+        return 1.0;
+    }
+    
     ////////////////////////////////////////////////////////////////////////
     
     //----- High Energy diboson observables at hadron colliders

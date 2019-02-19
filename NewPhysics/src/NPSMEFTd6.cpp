@@ -12579,6 +12579,116 @@ double NPSMEFTd6::xseeWW(const double sqrt_s) const
     return dxseeWWdcosBin(sqrt_s, -1.0, 1.0);
 }
 
+
+double NPSMEFTd6::mueeWW(const double sqrt_s) const
+{
+    double mu = 1.0;
+
+    if (sqrt_s == 0.240) {
+        
+        mu +=  0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+
+    } else if (sqrt_s == 0.250) {
+
+        mu +=  0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWW()");
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
+double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    double mu = 1.0;
+    
+    double dg1Z, dkga, lz;
+    double dgLze11, dgRze11, dgLwlv11;
+    double dm;
+    
+    dg1Z = deltag1ZNP();
+    dkga = deltaKgammaNP();
+    lz = lambdaZNP();
+    
+    dgLze11 = deltaGL_f(leptons[ELECTRON]);
+    dgRze11 = deltaGR_f(leptons[ELECTRON]);
+    dgLwlv11 = deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]).real();
+    
+    dm = deltaMwd6();
+
+    if (sqrt_s == 0.240) {
+        
+            mu += 0.0;
+        
+    } else if (sqrt_s == 0.250) {
+        
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 1.9520167410658278 * dg1Z 
+                    + 4.233352191746733 * dgLwlv11 
+                    + 0.8682730347986258 * dgLze11 
+                    + 9.342097041414128 * dgRze11 
+                    - 1.458788456399 * dm 
+                    - 1.702762911925472 * dkga 
+                    + 0.004067613915951548 * lz;
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += -0.2612070278639413 * dg1Z 
+                    + 4.9496230004882396 * dgLwlv11 
+                    + 1.015182288644331 * dgLze11 
+                    + 0.0390981758211266 * dgRze11 
+                    - 0.9240549411102696 * dm 
+                    - 0.08813746252215097 * dkga 
+                    - 0.1261012340403853 * lz;
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWWPol()");
+        }
+        
+    } else if (sqrt_s == 0.350) {
+        
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 2.5506832429769415 * dg1Z 
+                    + 5.0042976160500565 * dgLwlv11 
+                    + 1.4489263186126822 * dgLze11 
+                    + 12.565450838861613 * dgRze11 
+                    - 1.031806424377101 * dm 
+                    - 2.809542419323476 * dkga
+                    - 0.09750343384248217 * lz;
+    
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += -0.4167224027680953 * dg1Z 
+                    + 5.5560567626827435 * dgLwlv11 
+                    + 1.6086796216666133 * dgLze11 
+                    + 0.049937406884741777 * dgRze11 
+                    - 0.7352231492329624 * dm 
+                    - 0.17192469546795056 * dkga 
+                    - 0.17465768537785867 * lz;
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWWPol()");
+        }
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWWPol()");
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 ////////////////////////////////////////////////////////////////////////
     
     //----- High Energy diboson observables at hadron colliders
