@@ -380,9 +380,28 @@ ThObsFactory::ThObsFactory()
     obsThFactory["cgg_HB"] = boost::factory<cggHB*>();
     obsThFactory["lambz_HB"] = boost::factory<lambzHB*>();
     //-----  Other useful observables to work with new physics  ----------
+    //-----  Z couplings with leptons ---------
+    obsThFactory["delgZeL"] = boost::bind(boost::factory<delgZlL*>(), _1, StandardModel::ELECTRON);
+    obsThFactory["delgZeR"] = boost::bind(boost::factory<delgZlR*>(), _1, StandardModel::ELECTRON);
+    obsThFactory["delgZmuL"] = boost::bind(boost::factory<delgZlL*>(), _1, StandardModel::MU);
+    obsThFactory["delgZmuR"] = boost::bind(boost::factory<delgZlR*>(), _1, StandardModel::MU);
+    obsThFactory["delgZtaL"] = boost::bind(boost::factory<delgZlL*>(), _1, StandardModel::TAU);
+    obsThFactory["delgZtaR"] = boost::bind(boost::factory<delgZlR*>(), _1, StandardModel::TAU);
+    //-----  Z couplings with up sector quarks ---------
+    obsThFactory["delgZuL"] = boost::bind(boost::factory<delgZqL*>(), _1, StandardModel::UP);
+    obsThFactory["delgZuR"] = boost::bind(boost::factory<delgZqR*>(), _1, StandardModel::UP);
+    obsThFactory["delgZcL"] = boost::bind(boost::factory<delgZqL*>(), _1, StandardModel::CHARM);
+    obsThFactory["delgZcR"] = boost::bind(boost::factory<delgZqR*>(), _1, StandardModel::CHARM);
+    obsThFactory["delgZtL"] = boost::bind(boost::factory<delgZqL*>(), _1, StandardModel::TOP);
+    obsThFactory["delgZtR"] = boost::bind(boost::factory<delgZqR*>(), _1, StandardModel::TOP);
+    //-----  Z couplings with down sector quarks ---------
+    obsThFactory["delgZdL"] = boost::bind(boost::factory<delgZqL*>(), _1, StandardModel::DOWN);
+    obsThFactory["delgZdR"] = boost::bind(boost::factory<delgZqR*>(), _1, StandardModel::DOWN);
+    obsThFactory["delgZsL"] = boost::bind(boost::factory<delgZqL*>(), _1, StandardModel::STRANGE);
+    obsThFactory["delgZsR"] = boost::bind(boost::factory<delgZqR*>(), _1, StandardModel::STRANGE);
+    obsThFactory["delgZbL"] = boost::bind(boost::factory<delgZqL*>(), _1, StandardModel::BOTTOM);
+    obsThFactory["delgZbR"] = boost::bind(boost::factory<delgZqR*>(), _1, StandardModel::BOTTOM);
     obsThFactory["deltaMW"] = boost::factory<deltaMW*>();
-    obsThFactory["delgZeL"] = boost::factory<delgZeL*>();
-    obsThFactory["delgZeR"] = boost::factory<delgZeR*>();
     obsThFactory["oblWpar"] = boost::factory<oblW*>();
     obsThFactory["oblYpar"] = boost::factory<oblY*>();
     //-----  Auxiliary observables to work with new physics  ----------

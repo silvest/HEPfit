@@ -3067,78 +3067,154 @@ private:
 //-----  Absolute correction to some EW couplings (factoring e/sc or e/sqrt(2)s  ----------
 
 /**
- * @class delgZeL
- * @brief An observable class for the absolute deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
- * @f$\delta g_{Zee}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @class delgZlL
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z l_{L} l_{L}@f$ coupling
+ * @f$\delta g_{Zll}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the absolute deviation from the SM on the @f$Z e_{L} e_{L}@f$ coupling
- * @f$\delta g_{Zee}^{L}@f$.
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z l_{L} l_{L}@f$ coupling
+ * @f$\delta g_{Zll}^{L}@f$.
  *
  */
-class delgZeL : public ThObservable {
+class delgZlL : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] lepton a lepton
      */
-    delgZeL(const StandardModel& SM_i);
+    delgZlL(const StandardModel& SM_i, const StandardModel::lepton lepton);
       
     /**
-     * @brief Destructor of the delgZeL class.
+     * @brief Destructor of the delgZlL class.
      */
-    virtual ~delgZeL();
+    virtual ~delgZlL();
 
     /**
-     * @brief The absolute deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
-     * @f$\delta g_{Zee}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
-     * @return @f$\delta g_{Zee}^{L}@f$
+     * @brief The absolute deviation from the SM of the @f$Z l_{L} l_{L}@f$ coupling
+     * @f$\delta g_{Zll}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zll}^{L}@f$
      */
-    double computeThValue();
-      
-    const NPbase * myNPbase;
+    double computeThValue();    
     
 private:
-
+    const NPbase * myNPbase;
+    StandardModel::lepton lepton;
 
 };
 
 /**
- * @class delgZeR
- * @brief An observable class for the absolute deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
- * @f$\delta g_{Zee}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @class delgZlR
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z l_{R} l_{R}@f$ coupling
+ * @f$\delta g_{Zll}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the absolute deviation from the SM on the @f$Z e_{R} e_{R}@f$ coupling
- * @f$\delta g_{Zee}^{R}@f$.
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z l_{R} l_{R}@f$ coupling
+ * @f$\delta g_{Zll}^{R}@f$.
  *
  */
-class delgZeR : public ThObservable {
+class delgZlR : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] lepton a lepton
      */
-    delgZeR(const StandardModel& SM_i);
+    delgZlR(const StandardModel& SM_i, const StandardModel::lepton lepton);
       
     /**
-     * @brief Destructor of the delgZeL class.
+     * @brief Destructor of the delgZlR class.
      */
-    virtual ~delgZeR();
+    virtual ~delgZlR();
 
     /**
-     * @brief The absolute deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
-     * @f$\delta g_{Zee}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
-     * @return @f$\delta g_{Zee}^{R}@f$
+     * @brief The absolute deviation from the SM of the @f$Z l_{R} l_{R}@f$ coupling
+     * @f$\delta g_{Zll}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zll}^{R}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
     
 private:
+    const NPbase * myNPbase;
+    StandardModel::lepton lepton;
 
+};
+
+/**
+ * @class delgZqL
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z q_{L} q_{L}@f$ coupling
+ * @f$\delta g_{Zqq}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z q_{L} q_{L}@f$ coupling
+ * @f$\delta g_{Zqq}^{L}@f$.
+ *
+ */
+class delgZqL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] quark a quark
+     */
+    delgZqL(const StandardModel& SM_i, const StandardModel::quark quark);
+      
+    /**
+     * @brief Destructor of the delgZqL class.
+     */
+    virtual ~delgZqL();
+
+    /**
+     * @brief The absolute deviation from the SM of the @f$Z q_{L} q_{L}@f$ coupling
+     * @f$\delta g_{Zqq}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zqq}^{L}@f$
+     */
+    double computeThValue();    
+    
+private:
+    const NPbase * myNPbase;
+    StandardModel::quark quark;
+
+};
+
+/**
+ * @class delgZqR
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z q_{R} q_{R}@f$ coupling
+ * @f$\delta g_{Zqq}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z q_{R} q_{R}@f$ coupling
+ * @f$\delta g_{Zqq}^{R}@f$.
+ *
+ */
+class delgZqR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] quark a quark
+     */
+    delgZqR(const StandardModel& SM_i, const StandardModel::quark quark);
+      
+    /**
+     * @brief Destructor of the delgZqR class.
+     */
+    virtual ~delgZqR();
+
+    /**
+     * @brief The absolute deviation from the SM of the @f$Z q_{R} q_{R}@f$ coupling
+     * @f$\delta g_{Zqq}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zqq}^{R}@f$
+     */
+    double computeThValue();
+    
+private:
+    const NPbase * myNPbase;
+    StandardModel::quark quark;
 
 };
 

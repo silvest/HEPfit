@@ -1740,40 +1740,88 @@ double deltaMW::computeThValue()
 
 /* -------------------------------------*/
 
-delgZeL::delgZeL(const StandardModel& SM_i):
+delgZlL::delgZlL(const StandardModel& SM_i, const StandardModel::lepton lepton):
 
         ThObservable(SM_i), 
         myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
-
-
-delgZeL::~delgZeL()
-{}
-
-double delgZeL::computeThValue()
 {
-    double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::ELECTRON));
-    double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::ELECTRON));
+    this->lepton = lepton;
+}
+
+
+delgZlL::~delgZlL()
+{}
+
+double delgZlL::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getLeptons(lepton));
+    double dgA = myNPbase->deltaGA_f(SM.getLeptons(lepton));
     
     return 0.5*(dgV + dgA);
 }
 
 /* -------------------------------------*/
 
-delgZeR::delgZeR(const StandardModel& SM_i):
+delgZlR::delgZlR(const StandardModel& SM_i, const StandardModel::lepton lepton):
 
         ThObservable(SM_i), 
         myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
-
-
-delgZeR::~delgZeR()
-{}
-
-double delgZeR::computeThValue()
 {
-    double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::ELECTRON));
-    double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::ELECTRON));
+    this->lepton = lepton;
+}
+
+
+delgZlR::~delgZlR()
+{}
+
+double delgZlR::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getLeptons(lepton));
+    double dgA = myNPbase->deltaGA_f(SM.getLeptons(lepton));
+
+    return 0.5*(dgV - dgA);
+}
+
+/* -------------------------------------*/
+
+delgZqL::delgZqL(const StandardModel& SM_i, const StandardModel::quark quark):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+    this->quark = quark;
+}
+
+
+delgZqL::~delgZqL()
+{}
+
+double delgZqL::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getQuarks(quark));
+    double dgA = myNPbase->deltaGA_f(SM.getQuarks(quark));
+    
+    return 0.5*(dgV + dgA);
+}
+
+/* -------------------------------------*/
+
+delgZqR::delgZqR(const StandardModel& SM_i, const StandardModel::quark quark):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+    this->quark = quark;
+}
+
+
+delgZqR::~delgZqR()
+{}
+
+double delgZqR::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getQuarks(quark));
+    double dgA = myNPbase->deltaGA_f(SM.getQuarks(quark));
 
     return 0.5*(dgV - dgA);
 }
