@@ -263,6 +263,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deeWWdcos_365_Bin9"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_365, cos9_ee_WW, cos10_ee_WW);
     obsThFactory["deeWWdcos_365_Bin10"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_365, cos10_ee_WW, cos11_ee_WW);
     //-----  ee -> WW observables: total rates (ratio with the SM)  -----
+    obsThFactory["eeWW161"] = boost::bind(boost::factory<mueeWW*>(), _1, sqrt_s_leptcoll_161);
+    //
     obsThFactory["eeWW240"] = boost::bind(boost::factory<mueeWW*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["eeWW240_p80_m30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_240, pol_80, -pol_30);
     obsThFactory["eeWW240_m80_p30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_240, -pol_80, pol_30);
@@ -275,9 +277,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["eeWW350_p80_m30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_350, pol_80, -pol_30);
     obsThFactory["eeWW350_m80_p30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_350, -pol_80, pol_30);
     //
+    obsThFactory["eeWW380_p80_0"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_380, pol_80, pol_0);
+    obsThFactory["eeWW380_m80_0"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_380, -pol_80, pol_0);
+    //
     obsThFactory["eeWW365"] = boost::bind(boost::factory<mueeWW*>(), _1, sqrt_s_leptcoll_365);
     obsThFactory["eeWW365_p80_m30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_365, pol_80, -pol_30);
     obsThFactory["eeWW365_m80_p30"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_365, -pol_80, pol_30);
+    //
+    obsThFactory["eeWW1500_p80_0"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_1500, pol_80, pol_0);
+    obsThFactory["eeWW1500_m80_0"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_1500, -pol_80, pol_0);
+    //
+    obsThFactory["eeWW3000_p80_0"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
+    obsThFactory["eeWW3000_m80_0"] = boost::bind(boost::factory<mueeWWPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //----- High Energy diboson observables at hadron colliders
     obsThFactory["ppZHprobe14"] = boost::bind(boost::factory<ppZHprobe*>(), _1, sqrt_s_LHC14);
     obsThFactory["ppZHprobe27"] = boost::bind(boost::factory<ppZHprobe*>(), _1, sqrt_s_LHC27);

@@ -12584,7 +12584,31 @@ double NPSMEFTd6::mueeWW(const double sqrt_s) const
 {
     double mu = 1.0;
 
-    if (sqrt_s == 0.240) {
+     if (sqrt_s == 0.161) {
+        
+        mu += 
+                -127.685 * CHL1_11 / LambdaNP2
+                -175.567 * CHe_11 / LambdaNP2
+                +242506. * CHL3_11 / LambdaNP2
+                -86570.7 * CHD / LambdaNP2
+                -189772. * CHWB / LambdaNP2
+                +12.769 * CDHB / LambdaNP2
+                +6.384 * CDHW / LambdaNP2
+                +0. * CW / LambdaNP2
+                -2.858 * DeltaGF()
+                -70.01 * deltaMwd6();
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( -13.134 * deltaMz()
+                +0. * deltaaMZ()
+                +18.795 * deltaGmu() ); 
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+
+    } else if (sqrt_s == 0.240) {
         
         mu += 
                 -26882.4 * CHL1_11 / LambdaNP2
@@ -12870,6 +12894,132 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
             mu += cHSM * ( +4.576 * deltaMz()
                 -0.681 * deltaaMZ()
                 +2.795 * deltaGmu() );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWWPol()");
+        }
+    
+    } else if (sqrt_s == 0.380) {
+        
+        if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                -49806.5 * CHL1_11 / LambdaNP2
+                -221155. * CHe_11 / LambdaNP2
+                +280445. * CHL3_11 / LambdaNP2
+                -80550.4 * CHD / LambdaNP2
+                -101476. * CHWB / LambdaNP2
+                +31723.3 * CDHB / LambdaNP2
+                +1672.16 * CDHW / LambdaNP2
+                +8838.57 * CW / LambdaNP2
+                -2.707 * DeltaGF()
+                -0.891 * deltaMwd6(); 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( +4.331 * deltaMz()
+                -0.503 * deltaaMZ()
+                +2.64 * deltaGmu() );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                -52386.5 * CHL1_11 / LambdaNP2
+                -2537.08 * CHe_11 / LambdaNP2
+                +294134. * CHL3_11 / LambdaNP2
+                -84922.5 * CHD / LambdaNP2
+                -176871. * CHWB / LambdaNP2
+                +3635.55 * CDHB / LambdaNP2
+                +7973.68 * CDHW / LambdaNP2
+                +10984.7 * CW / LambdaNP2
+                -2.838 * DeltaGF()
+                -0.753 * deltaMwd6(); 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( +4.589 * deltaMz()
+                -0.68 * deltaaMZ()
+                +2.81 * deltaGmu() );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWWPol()");
+        }
+    
+    } else if (sqrt_s == 1.5) {
+        
+        if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                -261040. * CHL1_11 / LambdaNP2
+                -1059495. * CHe_11 / LambdaNP2
+                +500666. * CHL3_11 / LambdaNP2
+                -84992.3 * CHD / LambdaNP2
+                -144925. * CHWB / LambdaNP2
+                +205215. * CDHB / LambdaNP2
+                +38777.5 * CDHW / LambdaNP2
+                +7857.84 * CW / LambdaNP2
+                -2.817 * DeltaGF()
+                -0.471 * deltaMwd6(); 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( +4.975 * deltaMz()
+                -0.718 * deltaaMZ()
+                +2.688 * deltaGmu() );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                -265008. * CHL1_11 / LambdaNP2
+                -13002.4 * CHe_11 / LambdaNP2
+                +507924. * CHL3_11 / LambdaNP2
+                -86313.9 * CHD / LambdaNP2
+                -182113. * CHWB / LambdaNP2
+                +24953.6 * CDHB / LambdaNP2
+                +42429.8 * CDHW / LambdaNP2
+                +8014.86 * CW / LambdaNP2
+                -2.857 * DeltaGF()
+                -0.429 * deltaMwd6(); 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( +5.094 * deltaMz()
+                -0.768 * deltaaMZ()
+                +2.739 * deltaGmu() );
+    
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWWPol()");
+        }
+    
+    } else if (sqrt_s == 3.0) {
+        
+        if (Pol_em == 80. && Pol_ep == 0.){
+            mu += 
+                -776767. * CHL1_11 / LambdaNP2
+                -3168410. * CHe_11 / LambdaNP2
+                +1016120. * CHL3_11 / LambdaNP2
+                -85414.3 * CHD / LambdaNP2
+                -155729. * CHWB / LambdaNP2
+                +628130. * CDHB / LambdaNP2
+                +123368. * CDHW / LambdaNP2
+                +6454.34 * CW / LambdaNP2
+                -2.831 * DeltaGF()
+                -0.352 * deltaMwd6(); 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( +5.165 * deltaMz()
+                -0.755 * deltaaMZ()
+                +2.77 * deltaGmu() );
+    
+        } else if (Pol_em == -80. && Pol_ep == 0.){
+            mu += 
+                -785359. * CHL1_11 / LambdaNP2
+                -39533. * CHe_11 / LambdaNP2
+                +1027322. * CHL3_11 / LambdaNP2
+                -86621.7 * CHD / LambdaNP2
+                -184516. * CHWB / LambdaNP2
+                +75975.5 * CDHB / LambdaNP2
+                +127086. * CDHW / LambdaNP2
+                +6519.78 * CW / LambdaNP2
+                -2.86 * DeltaGF()
+                -0.328 * deltaMwd6(); 
+            
+    // Add modifications due to small variations of the SM parameters    
+            mu += cHSM * ( +5.246 * deltaMz()
+                -0.79 * deltaaMZ()
+                +2.81 * deltaGmu() );
     
         } else {
             throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWWPol()");
