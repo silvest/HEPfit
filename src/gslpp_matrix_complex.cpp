@@ -281,6 +281,42 @@ namespace gslpp {
         gsl_permutation_free(p);
         return m2;
     }
+    
+    /** Check if matrix is singular (This is to avoid error checking by luc.c)**/
+
+    bool matrix<complex>::isSingular()
+    {
+        matrix<complex> m1(_matrix);
+        int signum;
+        gsl_permutation *p;
+
+        if (size_j() != size_i())
+        {
+            std::cout << "\n ** Size mismatch in bool isSingular" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+
+        if ((p = gsl_permutation_alloc(size_i())) == NULL)
+        {
+            std::cout << "\n ** Error in bool isSingular" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+
+        if (gsl_linalg_complex_LU_decomp(m1.as_gsl_type_ptr(), p, &signum))
+        {
+            std::cout << "\n ** Error in bool isSingular" << std::endl;
+            gsl_permutation_free(p);
+            exit(EXIT_FAILURE);
+        }
+        
+        size_t i, n = m1.size_i();
+
+        for (i = 0; i < n; i++) {
+            gsl_complex u = gsl_matrix_complex_get(m1.as_gsl_type_ptr(), i, i);
+            if (GSL_REAL(u) == 0 && GSL_IMAG(u) == 0) return 1;
+        }
+        return 0;
+    }
 
     /** Get matrix of real parts */
     matrix<double> matrix<complex>::real() const
