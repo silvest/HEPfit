@@ -653,7 +653,9 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
     } while (!IsEOF);
-    
+    if (FindModeWithMinuit) {
+        MCEngine.SetOptimizationMethod(BCIntegrate::kOptMinuit);
+    }
     if (MCEngine.GetMaximumEfficiency() <= MCEngine.GetMinimumEfficiency()) 
                 throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
 }

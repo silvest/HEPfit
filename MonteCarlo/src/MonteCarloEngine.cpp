@@ -1086,7 +1086,8 @@ std::string MonteCarloEngine::computeStatistics() {
                     inverseCovariance(j, i) = inverseCovariance(i, j);
                 }
             }
-            inverseCovariance = inverseCovariance.inverse(); // This is just produces inverse covariance, the name is misleading.
+            bool SingularCovariance = inverseCovariance.isSingular();
+            if (!SingularCovariance) inverseCovariance = inverseCovariance.inverse(); // This is just produces inverse covariance, the name is misleading.
             StatsLog << "\nThe correlation matrix for " << it1->getName() << " is given by the " << size << "x"<< size << " matrix:\n" << std::endl;
 
             for (int i = 0; i < size + 1; i++) {
@@ -1107,11 +1108,13 @@ std::string MonteCarloEngine::computeStatistics() {
             StatsLog << std::endl;
             }
             StatsLog << std::endl;
-            StatsLog << " The inverse of the square root of the diagonal elements of the inverse covariance matrix are:\n"<< std::endl;
-            for (int i = 0; i < size + 1; i++) {
-                if (i == 0) StatsLog << std::setw(4) << "sigma" << "|";
-                else StatsLog << std::setprecision(5) << std::setw(12) << 1./sqrt(inverseCovariance(i -1, i - 1));
-            }
+            if (!SingularCovariance) {
+                StatsLog << " The inverse of the square root of the diagonal elements of the inverse covariance matrix are:\n" << std::endl;
+                for (int i = 0; i < size + 1; i++) {
+                    if (i == 0) StatsLog << std::setw(4) << "sigma" << "|";
+                    else StatsLog << std::setprecision(5) << std::setw(12) << 1. / sqrt(inverseCovariance(i - 1, i - 1));
+                }
+            } else StatsLog << " The covariance matrix cannot be inverted.\n" << std::endl;
             StatsLog << std::endl;
         }
     }
