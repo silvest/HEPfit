@@ -11,6 +11,7 @@
 #include "EWObservables.h"
 #include "NP_couplings.h"
 #include "OptimizedObservablesSMEFTd6.h"
+#include "NPSMEFT6dtopquark.h"
 #include "HiggsThObservables.h"
 #include "DiBosonThObservables.h"
 #include "FlavourObservables.h"
@@ -1973,6 +1974,35 @@ ThObsFactory::ThObsFactory()
     obsThFactory["epsilon2"] = boost::factory<Epsilon2*>();
     obsThFactory["epsilon3"] = boost::factory<Epsilon3*>();
     obsThFactory["epsilonb"] = boost::factory<Epsilonb*>();
+    
+    
+    //----- NPSMEFT6dtopquark  -----
+    obsThFactory["Rb"] = boost::factory<Rb*>();
+    obsThFactory["AFBLR"] = boost::factory<AFBLR*>();
+    obsThFactory["SigmattZ"] = boost::factory<sigmattZ*>();
+    obsThFactory["SigmattA_1"] = boost::factory<sigmattA_1*>();
+    obsThFactory["SigmattA_2"] = boost::factory<sigmattA_2*>();
+    obsThFactory["SigmattH"] = boost::factory<sigmattH*>();
+    obsThFactory["SigmattW"] = boost::factory<sigmattW*>();
+    obsThFactory["Sigmatq"] = boost::factory<sigmatq*>();
+    obsThFactory["SigmatW"] = boost::factory<sigmatW*>();
+    obsThFactory["SigmatqZ"] = boost::factory<sigmatqZ*>();
+    obsThFactory["F0"] = boost::factory<F0*>();
+    obsThFactory["FL"] = boost::factory<FL*>();
+    obsThFactory["sigma_250_bb_eLpR"] = boost::factory<sigma_250_bb_eLpR*>();
+    obsThFactory["a_250_bb_eLpR"] = boost::factory<a_250_bb_eLpR*>();
+    obsThFactory["sigma_250_bb_eRpL"] = boost::factory<sigma_250_bb_eRpL*>();
+    obsThFactory["a_250_bb_eRpL"] = boost::factory<a_250_bb_eRpL*>();
+    obsThFactory["sigma_500_bb_eLpR"] = boost::factory<sigma_500_bb_eLpR*>();
+    obsThFactory["a_500_bb_eLpR"] = boost::factory<a_500_bb_eLpR*>();
+    obsThFactory["sigma_500_bb_eRpL"] = boost::factory<sigma_500_bb_eRpL*>();
+    obsThFactory["a_500_bb_eRpL"] = boost::factory<a_500_bb_eRpL*>();
+    obsThFactory["sigma_500_tt_eLpR"] = boost::factory<sigma_500_tt_eLpR*>();
+    obsThFactory["a_500_tt_eLpR"] = boost::factory<a_500_tt_eLpR*>();
+    obsThFactory["sigma_500_tt_eRpL"] = boost::factory<sigma_500_tt_eRpL*>();
+    obsThFactory["a_500_tt_eRpL"] = boost::factory<a_500_tt_eRpL*>();
+    obsThFactory["pt_500_tt_eLpR"] = boost::factory<pt_500_tt_eLpR*>();
+    obsThFactory["pt_500_tt_eRpL"] = boost::factory<pt_500_tt_eRpL*>();
 
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  LEP-II two-fermion processes  -----

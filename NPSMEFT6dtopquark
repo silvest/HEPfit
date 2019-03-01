@@ -1,0 +1,57 @@
+######################################################################
+# Model name
+#---------------------------------------------------------------------
+NPSMEFT6dtopquark
+######################################################################
+# Include here mandatory configuration files
+#---------------------------------------------------------------------
+#
+######################################################################
+# Model Flags
+#---------------------------------------------------------------------
+#
+# 
+#
+######################################################################
+# Model Parameters: Dimension six operator coefficients and Lambda_NP [GeV]
+#               name        ave         errg        errf
+#---------------------------------------------------------------------
+ModelParameter  C_phit      0.  		0.  			5.
+ModelParameter  C_phiQ3     0.  		0.  			5.
+ModelParameter  C_phiQ1     0.  		0.  			5.
+ModelParameter  C_tW        0.  		0.  			5.
+ModelParameter  C_tB        0.  		0.  			5.
+ModelParameter  C_tphi      0.  		0.  			5.
+ModelParameter  C_phib      0.  		0.  			5.
+ModelParameter  C_bW     	0.  		0.  			5.
+
+#
+######################################################################
+# Observables
+# use one of the following formats:
+# Observable  name th label min max (no)MCMC weight ave errg errf
+# Observable  name th label min max (no)MCMC file filename histoname
+# Observable  name th label min max  noMCMC  noweight    
+
+
+Observable  SigmattZ SigmattZ SigmattZ 0 2  noMCMC  noweight    
+
+
+#
+# BinnedObservables:
+# use one of the following formats:
+# BinnedObservable  name th label min max (no)MCMC weight ave errg errf bin_min bin_max
+# BinnedObservable  name th label min max (no)MCMC file filename histoname bin_min bin_max
+# BinnedObservable  name th label min max  noMCMC  noweight bin_min bin_max    
+#
+# Observables2D
+# use one of the following formats:
+# Observable2D  name th1 label1 min1 max1 noMCMC noweight th2 label2 min2 max2
+# Observable2D  name th1 label1 min1 max1 MCMC file filename histoname th2 label2 min2 max2
+#
+# CustomObservable CustomName name th label min max (no)MCMC user defined input
+#
+# The keyword "CorrelatedGaussianObservables name Nobs" initializes a set 
+# of Nobs correlated observables. It must be followed by exactly Nobs 
+# Observable lines and then by Nobs lines of Nobs numbers (the corr matrix). 
+######################################################################
