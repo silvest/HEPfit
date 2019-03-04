@@ -175,7 +175,6 @@ void MonteCarlo::Run(const int rank) {
             if (rank == 0) throw std::runtime_error("No relevant parameters being varied. Aborting MCMC run.\n");
             else sleep(2);
         }
-        if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
 
         /* create a directory for outputs */
         if (rank == 0) {
@@ -249,8 +248,9 @@ void MonteCarlo::Run(const int rank) {
             delete [] sendbuff;
 #endif
         } else {
-
-            std::cout << std::endl;
+            ParseMCMCConfig(MCMCConf);
+            if (!RunMinuitOnly) std::cout << std::endl << "\nRunning in MonteCarlo mode...\n" << std::endl;
+            else std::cout << std::endl << "\nRunning Minuit Minimizer..." << std::endl;
             std::cout << std::endl;
             if (ModPars.size() > 0) std::cout << ModPars.size() - unknownParameters.size() << " parameters defined." << std::endl;
             if (Obs.size() > 0) std::cout << Obs.size() << " observables defined." << std::endl;
@@ -260,9 +260,12 @@ void MonteCarlo::Run(const int rank) {
                     it1 != CGO.end(); ++it1)
                 std::cout << "  " << it1->getName() << " containing "
                 << it1->getObs().size() << " observables." << std::endl;
-            ParseMCMCConfig(MCMCConf);
+            std::cout << std::endl;
                                   
-            if (RunMinuitOnly) { 
+            if (RunMinuitOnly) {
+                BCLog::OpenLog(("MinuitMinimizationResults" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
+                RedirectHandle_t * rHandle = NULL;
+                gSystem->RedirectOutput(("MinuitMinimizationResults" + JobTag + ".txt").c_str(), "a", rHandle);
                 std::time_t ti = std::time(NULL);
 #if __GNUC__ >= 5 || defined __clang__
                 std::cout << "\nMinuit Minimization started at " << std::put_time(std::localtime(&ti), "%c %Z") << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
@@ -270,8 +273,11 @@ void MonteCarlo::Run(const int rank) {
                 char mitime[128];
                 strftime(mitime,sizeof(mitime),"%c %Z", std::localtime(&ti));
                 std::cout << "\nMinuit Minimization started at " << mitime << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
-#endif
-                BCLog::OpenLog(("MinuitMinimizationResults" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
+#endif      
+                std::cout << "          " <<std::endl;
+                std::cout << "\t\t*** Minimizer Options ***" << std::endl;
+                MCEngine.GetMinuit().Options().Print();
+                std::cout << "          " <<std::endl;
                 MCEngine.FindMode();
                 std::time_t tf = std::time(NULL);
 #if __GNUC__ >= 5 || defined __clang__
@@ -280,14 +286,19 @@ void MonteCarlo::Run(const int rank) {
                 char mftime[128];
                 strftime(mitime,sizeof(mftime),"%c %Z", std::localtime(&tf));
                 std::cout << "\nMinuit Minimization ended at " << mftime << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
-#endif
+#endif                
+                gSystem->RedirectOutput(0);
+                BCLog::OutSummary(("Minuit results printed in MinuitMinimizationResults" + JobTag + ".txt").c_str());
+                BCLog::SetPrefix(false);
+                BCLog::OutSummary("");
+                BCLog::SetPrefix(true);
+                BCLog::CloseLog();               
+                MCEngine.GetMinuit().PrintResults();
+                std::cout << std::endl;
                 return;
             }
   
             MCEngine.CreateHistogramMaps();
-            
-            if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
-                throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
             
             /* Open root file for storing data. */
             if (writechains) {
@@ -653,11 +664,12 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
     } while (!IsEOF);
-    if (FindModeWithMinuit) {
+    if (FindModeWithMinuit || RunMinuitOnly) 
         MCEngine.SetOptimizationMethod(BCIntegrate::kOptMinuit);
-    }
     if (MCEngine.GetMaximumEfficiency() <= MCEngine.GetMinimumEfficiency()) 
-                throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
+        throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
+     if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
+        throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
 }
 
 void MonteCarlo::ReadPreRunData(std::string file)
