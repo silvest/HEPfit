@@ -15,6 +15,7 @@
 #include "HiggsThObservables.h"
 #include "DiBosonThObservables.h"
 #include "FlavourObservables.h"
+#include "NPSMEFT6dtopquark.h"
 #include "MtMSbar.h"
 #include "alpha_s.h"
 #include "LeptonFlavourObservables.h"
@@ -1977,7 +1978,7 @@ ThObsFactory::ThObsFactory()
     
     
     //----- NPSMEFT6dtopquark  -----
-    obsThFactory["Rb"] = boost::factory<Rb*>();
+    obsThFactory["Rb_NPSMEFT6dtopquark"] = boost::factory<Rb_NPSMEFT6dtopquark*>();
     obsThFactory["AFBLR"] = boost::factory<AFBLR*>();
     obsThFactory["SigmattZ"] = boost::factory<sigmattZ*>();
     obsThFactory["SigmattA_1"] = boost::factory<sigmattA_1*>();
@@ -2004,6 +2005,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["pt_500_tt_eLpR"] = boost::factory<pt_500_tt_eLpR*>();
     obsThFactory["pt_500_tt_eRpL"] = boost::factory<pt_500_tt_eRpL*>();
 
+
+    
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  LEP-II two-fermion processes  -----
     const double sqrt_s[12] = {130., 136., 161., 172., 183., 189.,

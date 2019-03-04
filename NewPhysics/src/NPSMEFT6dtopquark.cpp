@@ -75,12 +75,12 @@ bool NPSMEFT6dtopquark::setFlag(const std::string name, const bool value)
 
 
 
-Rb::Rb(const StandardModel& SM_i)
+Rb_NPSMEFT6dtopquark::Rb_NPSMEFT6dtopquark(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {};
 
 
-double Rb::computeThValue()
+double Rb_NPSMEFT6dtopquark::computeThValue()
 {
     double smlep_bb = 0.21579;
     double lep_bb_madgraph = 0.22;
@@ -557,8 +557,6 @@ pt_500_tt_eLpR::pt_500_tt_eLpR(const StandardModel& SM_i)
 double pt_500_tt_eLpR::computeThValue()
 {
     //double pt_500_tt_eLpR_madgraph = (0.570477+0.573802+0.576393+0.570551+0.584227)/5;
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
     double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
     double C_tB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
