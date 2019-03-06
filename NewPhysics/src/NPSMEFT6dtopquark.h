@@ -116,6 +116,217 @@ private:
 };
 
 
+/**
+ * @class C_phit
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_phit
+ */
+class C_phit: public ThObservable {
+public:
+
+    /**
+     * @brief C_phit constructor.
+     */
+    C_phit(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_phit
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+/**
+ * @class C_phiQ3
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_phiQ3
+ */
+class C_phiQ3: public ThObservable {
+public:
+
+    /**
+     * @brief C_phiQ3 constructor.
+     */
+    C_phiQ3(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_phiQ3
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+/**
+ * @class C_phiQ1
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_phit
+ */
+class C_phiQ1: public ThObservable {
+public:
+
+    /**
+     * @brief C_phit constructor.
+     */
+    C_phiQ1(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_phiQ1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_tW
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_tW
+ */
+class C_tW: public ThObservable {
+public:
+
+    /**
+     * @brief C_phit constructor.
+     */
+    C_tW(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_tW
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_tB
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_phit
+ */
+class C_tB: public ThObservable {
+public:
+
+    /**
+     * @brief C_tB constructor.
+     */
+    C_tB(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_tphi
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_tphi
+ */
+class C_tphi: public ThObservable {
+public:
+
+    /**
+     * @brief C_phit constructor.
+     */
+    C_tphi(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_tphi
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_phib
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_phit
+ */
+class C_phib: public ThObservable {
+public:
+
+    /**
+     * @brief C_phib constructor.
+     */
+    C_phib(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_phib
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+/**
+ * @class C_bW
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_phit
+ */
+class C_bW: public ThObservable {
+public:
+
+    /**
+     * @brief C_bW constructor.
+     */
+    C_bW(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_bW
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+/**
+ * @class C_bB
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_phit
+ */
+class C_bB: public ThObservable {
+public:
+
+    /**
+     * @brief C_bB constructor.
+     */
+    C_bB(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
 //Observables from LEP1
 
 class Rb_NPSMEFT6dtopquark : public ThObservable {
