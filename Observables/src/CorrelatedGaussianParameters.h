@@ -12,14 +12,8 @@
 #include "gslpp.h"
 
 /**
- * @addtogroup Observables
- * @brief A module for model parameters and observables.
- * @{
- */
-
-/**
  * @class CorrelatedGaussianParameters
- * @ingroup Observables
+ * @ingroup Observable
  * @brief A class for correlated Gaussian parameters. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License

@@ -22,11 +22,11 @@
 #include "EWSMApproximateFormulae.h"
 #include "LeptonFlavour.h"
 #include "gslpp_function_adapter.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
 #include "EWSMTwoFermionsLEP2.h"
 #include <functional>
 #include <boost/bind.hpp>
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
   
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", 
@@ -91,9 +91,9 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     myThreeLoopEW2QCD = NULL;
     myThreeLoopEW = NULL;
     myApproximateFormulae = NULL;
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     myTwoFermionsLEP2 = NULL;
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
 
     // Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
     leptons[NEUTRINO_1] = Particle("NEUTRINO_1", 0., 0., 0., 0., .5);
@@ -148,9 +148,9 @@ StandardModel::~StandardModel()
         if (myThreeLoopEW != NULL) delete(myThreeLoopEW);
         if (myApproximateFormulae != NULL) delete(myApproximateFormulae);
         if (myLeptonFlavour != NULL) delete(myLeptonFlavour);
-        /** BEGIN: REMOVE FROM THE PACKAGE **/
+        /* BEGIN: REMOVE FROM THE PACKAGE */
         if (myTwoFermionsLEP2 != NULL) delete(myTwoFermionsLEP2);
-        /** END: REMOVE FROM THE PACKAGE **/
+        /* END: REMOVE FROM THE PACKAGE */
     }
 }
 
@@ -169,9 +169,9 @@ bool StandardModel::InitializeModel()
     myThreeLoopEW = new EWSMThreeLoopEW(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopEW.
     myApproximateFormulae = new EWSMApproximateFormulae(*myEWSMcache); ///< A pointer to an object of type EWSMApproximateFormulae.
     myLeptonFlavour = new LeptonFlavour(*this);
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(*myEWSMcache); ///< A pointer to an object of type EWSMTwoFermionsLEP2.
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
     setModelInitialized(true);
     return (true);
 }
@@ -2229,7 +2229,7 @@ double StandardModel::RVh() const
     return ( gV_sum.abs2()*(-0.4132 * AlsMzPi3 - 4.9841 * AlsMzPi4));
 }
 
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
 ////////////////////////////////////////////////////////////////////////////////////
 //LEP2 Observables
 
@@ -7705,4 +7705,4 @@ double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207(double x) const
     double s = 207. * 207.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */

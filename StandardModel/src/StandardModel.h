@@ -25,9 +25,9 @@ class EWSMThreeLoopEW2QCD;
 class EWSMThreeLoopEW;
 class EWSMApproximateFormulae;
 class LeptonFlavour;
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
 class EWSMTwoFermionsLEP2;
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
 
 
 /**
@@ -1009,7 +1009,7 @@ public:
         return myApproximateFormulae;
     }
 
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     /**
      * @brief A get method to retrieve the member pointer of type EWSMTwoFermionsLEP2.
      * @return the pointer #myTwoFermionsLEP2
@@ -1018,7 +1018,7 @@ public:
     {
         return myTwoFermionsLEP2;
     }
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
 
     EWSMThreeLoopEW* getMyThreeLoopEW() const
     {
@@ -2483,7 +2483,7 @@ public:
         return 0.;
     }
     
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////
     //LEP2 Observables
     
@@ -2499,7 +2499,7 @@ public:
     virtual double LEP2AFBbottom(const double s) const;
     virtual double LEP2Rcharm(const double s) const;
     virtual double LEP2Rbottom(const double s) const;
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
     
 bool setFlagSigmaForAFB(const bool flagSigmaForAFB_i)
 {
@@ -2824,7 +2824,7 @@ protected:
 
     Flavour SMFlavour; ///< An object of type Flavour.
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     //////////////////////////////////////////////////////////////////////// 
     //Migrated from LEP2ThObservables.h
     
@@ -3113,7 +3113,7 @@ protected:
     double getIntegrand_AFBnumeratorWithISR_bottom205(double x) const; 
     double getIntegrand_AFBnumeratorWithISR_bottom207(double x) const; 
     
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////    
 private:
     EWSMcache* myEWSMcache; ///< A pointer to an object of type EWSMcache.
@@ -3125,9 +3125,9 @@ private:
     EWSMThreeLoopEW* myThreeLoopEW; ///< A pointer to an object of type EWSMThreeLoopEW.
     EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
     LeptonFlavour* myLeptonFlavour; ///< A pointer to an object of the type LeptonFlavour.
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
 
     bool FlagWithoutNonUniversalVC; ///< A boolean for the model flag %WithoutNonUniversalVC.
     bool FlagNoApproximateGammaZ; ///< A boolean for the model flag %NoApproximateGammaZ.
@@ -3154,7 +3154,7 @@ private:
     mutable bool useRhoZ_f_cache[12];
     mutable bool useKappaZ_f_cache[12];
     
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
     // caches for the SM prediction of LEP2 Obs
 //    mutable double SMparams_cache[NumSMParamsForEWPO+3];
     mutable double SMresult_cache; 
@@ -3165,7 +3165,7 @@ private:
     mutable double error;/**< GSL integral variable */    
     mutable gsl_function f_GSL;/**< GSL integral variable */
     gsl_integration_workspace * w_GSL1;/**< GSL integral variable */
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
     
     int iterationNo;
     

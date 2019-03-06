@@ -47,7 +47,7 @@
 #include "aTGC.h"
 #include "ee_WW.h"
 #include "pp_DiBoson.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
 #include "LEP2sigmaHadron.h"
 #include "LEP2sigmaMu.h"
 #include "LEP2sigmaTau.h"
@@ -57,7 +57,7 @@
 #include "LEP2AFBcharm.h"
 #include "LEP2Rbottom.h"
 #include "LEP2Rcharm.h"
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
 
 #endif	/* EWOBSERVABLES_H */
 
