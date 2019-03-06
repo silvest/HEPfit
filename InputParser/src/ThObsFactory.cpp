@@ -15,6 +15,7 @@
 #include "HiggsThObservables.h"
 #include "DiBosonThObservables.h"
 #include "FlavourObservables.h"
+#include "NPSMEFT6dtopquark.h"
 #include "MtMSbar.h"
 #include "alpha_s.h"
 #include "LeptonFlavourObservables.h"
@@ -1977,7 +1978,7 @@ ThObsFactory::ThObsFactory()
     
     
     //----- NPSMEFT6dtopquark  -----
-    obsThFactory["Rb"] = boost::factory<Rb*>();
+    obsThFactory["Rb_NPSMEFT6dtopquark"] = boost::factory<Rb_NPSMEFT6dtopquark*>();
     obsThFactory["AFBLR"] = boost::factory<AFBLR*>();
     obsThFactory["SigmattZ"] = boost::factory<sigmattZ*>();
     obsThFactory["SigmattA_1"] = boost::factory<sigmattA_1*>();

@@ -118,10 +118,10 @@ private:
 
 //Observables from LEP1
 
-class Rb : public ThObservable {
+class Rb_NPSMEFT6dtopquark : public ThObservable {
 public:   
 
-    Rb(const StandardModel& SM_i);
+    Rb_NPSMEFT6dtopquark(const StandardModel& SM_i);
     
    
     double computeThValue();
