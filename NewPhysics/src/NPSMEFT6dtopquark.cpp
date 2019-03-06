@@ -283,14 +283,16 @@ double sigmatqZ::computeThValue()
     double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
+    double C_bB =  myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
     if(flag_Quadratic){
         return smxztq + (0.0029*C_phit+0.0005*C_phit*C_phiQ3-0.0005*C_phit*C_phiQ1
             +0.092*C_phiQ3+0.014*C_phiQ3*C_phiQ3+0.0003*C_phiQ3*C_bW+0.001*C_phiQ3*C_tW+0.01*C_phiQ1
             +0.0003*C_phiQ1*C_tW+0.0017*C_phiQ3*C_phiQ1+0.007*C_tW+0.016*C_tW*C_tW-0.0003*C_phib
-            -0.0002*C_phib*C_bW+0.026*C_bW*C_bW)*(smxztq/xztq_madgraph);
+            -0.000045*C_bW+0.028*C_bW*C_bW-0.000021*C_bB+0.025*C_bB*C_bB)*(smxztq/xztq_madgraph);
     }
     else{
-        return smxztq + (0.0029*C_phit+0.092*C_phiQ3+0.01*C_phiQ1+0.007*C_tW-0.0003*C_phib)*(smxztq/xztq_madgraph);
+        return smxztq + (0.0029*C_phit+0.092*C_phiQ3+0.01*C_phiQ1+0.007*C_tW-0.0003*C_phib
+            -0.000045*C_bW-0.000021*C_bB)*(smxztq/xztq_madgraph);
     }
 }
 
@@ -367,7 +369,8 @@ double a_250_bb_eLpR::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
-        return ((0.4*C_phiQ3+0.3*C_phiQ1-2.2*C_phib-2.3*C_bW-0.6504*C_bB));
+        return ((0.4*C_phiQ3+0.3*C_phiQ1-2.2*C_phib
+                -1.15*C_bW-0.6504*C_bB));
 }
 
 
@@ -383,7 +386,7 @@ double sigma_250_bb_eRpL::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
-        return (0.094*C_phiQ3+0.094*C_phiQ1-0.11*C_phib+0.007*C_bW+0.017*C_bB);
+        return (0.094*C_phiQ3+0.094*C_phiQ1-0.11*C_phib+0.006*C_bW+0.017*C_bB);
 }
 
 
@@ -401,7 +404,7 @@ double a_250_bb_eRpL::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
-        return (-7.8*C_phiQ3-7.7*C_phiQ1-4.5*C_phib-0.5*C_bW+2.4304*C_bB);
+        return (-7.8*C_phiQ3-7.7*C_phiQ1-4.5*C_phib-0.3*C_bW+2.4304*C_bB);
 }
 
 
@@ -421,7 +424,7 @@ double sigma_500_bb_eLpR::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
-        return (0.064*C_phiQ3+0.064*C_phiQ1+0.012*C_phib+0.1*C_bW+0.0132856*C_bB);
+        return (0.064*C_phiQ3+0.064*C_phiQ1+0.012*C_phib+0.02*C_bW+0.0132856*C_bB);
 }
 
 
@@ -438,7 +441,7 @@ double a_500_bb_eLpR::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
-        return (0.2*C_phiQ3+0.2*C_phiQ1-2.3*C_phib-8*C_bW-0.5204*C_bB);
+        return (0.2*C_phiQ3+0.2*C_phiQ1-2.3*C_phib-0.6*C_bW-0.5204*C_bB);
 }
 
 
@@ -454,7 +457,7 @@ double sigma_500_bb_eRpL::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
-        return (0.02*C_phiQ3+0.02*C_phiQ1-0.024*C_phib+0.006*C_bW+0.00530063*C_bB);
+        return (0.02*C_phiQ3+0.02*C_phiQ1-0.024*C_phib+0.0014*C_bW+0.00530063*C_bB);
 }
 
 
@@ -472,7 +475,7 @@ double a_500_bb_eRpL::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
-        return (-6.9*C_phiQ3-7.1*C_phiQ1-3.5*C_phib-1.5*C_bW+1.256*C_bB);
+        return (-6.9*C_phiQ3-7.1*C_phiQ1-3.5*C_phib-0.1*C_bW+1.256*C_bB);
 }
 
 
