@@ -2295,6 +2295,17 @@ public:
         return 2.883e-2; // Mh=125.1 GeV
         //return 2.86e-2; // Mh=125.6 GeV
     }
+    
+    /**
+     * @brief The Br@f$(H\to ss)@f$ in the Standard Model.
+     * @details From Table 7 in
+     * http://cdsweb.cern.ch/record/2629412/files/ATLAS-CONF-2018-031.pdf
+     * @return Br@f$(H\to ss)@f$ in the Standard Model
+     */
+    double computeBrHtoss() const
+    {
+        return 4.0e-4;
+    }
 
     /**
      * @brief The Br@f$(H\to bb)@f$ in the Standard Model.
