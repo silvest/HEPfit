@@ -194,7 +194,7 @@
             <pElem>../Flavour/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -308,7 +308,7 @@
             <pElem>../Flavour/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

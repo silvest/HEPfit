@@ -435,11 +435,7 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
         <ccTool>
-          <developmentMode>0</developmentMode>
           <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
@@ -450,251 +446,250 @@
             <pElem>../boost</pElem>
             <pElem>src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/AmpDB2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/AmpDB2.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/AmpDB2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/AmpDD2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/AmpDD2.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/AmpDD2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/AmpDK2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/AmpDK2.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/AmpDK2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/AmpDS1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/AmpDS1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BR_Bsnunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Kmumu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/BR_Kmumu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BR_Kmumu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Kp0nunu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/BR_Kp0nunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BR_Kp0nunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BXqll.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/BXqll.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BXqll.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BXqllObservables.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/BXqllObservables.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BXqllObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BdmumuOBsmumu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/BdmumuOBsmumu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Betas_JPsiPhi.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Betas_JPsiPhi.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/Betas_JPsiPhi.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/CPenguinBox.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/CPenguinBoxMu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/CPenguinBoxMu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/CPenguinBoxMu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/Charm_Kpnunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/DmBd.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/DmBs.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/DmBs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/DmBs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/DmK.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/DmK.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/DmK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EpsilonK.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EpsilonK.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EpsilonK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EpsilonP_O_Epsilon.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EpsilonP_O_Epsilon.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EvolDB1Mll.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EvolDB1Mll.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EvolDB1Mll.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EvolDB1bsg.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EvolDB1bsg.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EvolDB1bsg.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EvolDC1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EvolDC1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EvolDC1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EvolDC1Buras.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EvolDC1Buras.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EvolDC1Buras.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EvolDF1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EvolDF1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EvolDF1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EvolDF1nlep.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EvolDF1nlep.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EvolDF1nlep.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/F_1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/F_1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/F_2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/F_2.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Flavour.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Flavour.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/Flavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/FlavourObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDB1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDB1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/HeffDB1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDC1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDC1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/HeffDC1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDF1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDF1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/HeffDF1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDF1bnlep.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDF1bnlep.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/HeffDF1bnlep.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDF1bsg.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDF1bsg.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/HeffDF1bsg.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDF2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDF2.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/HeffDF2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDS1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDS1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/HeffDS1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/M12D.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MPll.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MPll.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MPll.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MPllObservables.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MPllObservables.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MPllObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MPlnu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MPlnu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MPlnu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MPlnuObservables.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MPlnuObservables.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MPlnuObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MVgamma.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MVgamma.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MVgamma.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MVll.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MVll.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MVll.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MVllObservables.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MVllObservables.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MVllObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MVlnu.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MVlnu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MVlnu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/MVlnuObservables.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/MVlnuObservables.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/MVlnuObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mll.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Mll.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/Mll.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/VCKM.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/VCKM.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/VCKM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/WilsonCoefficientObservables.cpp"
             ex="false"
             tool="1"
-            flavor2="0">
+            flavor2="8">
       </item>
       <item path="src/WilsonCoefficientObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/alpha.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/alpha.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/alpha.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/alpha_2a.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/alpha_2a.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/alpha_2a.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool>
+          <incDir>
+            <pElem>../LoopFunctions/src</pElem>
+          </incDir>
+        </ccTool>
       </item>
       <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/gamma.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/gamma.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -719,7 +714,7 @@
             <pElem>../boost</pElem>
             <pElem>src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>

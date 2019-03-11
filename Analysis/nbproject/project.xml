@@ -41,15 +41,15 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
+                    <name>Release_MPI</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
                     <name>Debug</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
                     <name>Release</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Release_MPI</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
