@@ -1284,6 +1284,104 @@ void THDMWcache::computeUnitarity()
         unitarityeigenvalues.assign(5, MC2/(32.0*pi));
         unitarityeigenvalues.assign(6, lambda1/(16.0*pi));
         unitarityeigenvalues.assign(7, sqrt(15.0)*(nu4+nu5)/(64.0*pi));
+        
+        /*
+        *******   NLO part   *************
+        */
+        
+            //beta_lambda1
+        double betalambda1 = (12.0*lambda1*lambda1 + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 4.0*nu2*nu2 + 16.0*nu3*nu3)/(16.0*pi*pi);
+        //beta_nu1
+        double betanu1 = (2.0*nu1*nu1 + nu2*nu2 + 4.0*nu3*nu3 + 2.0*lambda1*(3.0*nu1+nu2)
+               + (7.0*nu4*nu4 - 4.0*nu4*nu5 + 7.0*nu5*nu5)/3.0
+               + nu1*(8.0*mu1 + 8.0*mu2 + 17.0*mu3 + 10.0*mu4 + 3.0*mu5 + 5.0*mu6)
+               + nu2*(8.0*mu1 + 8.0*mu2 + 24.0*mu3 + 3.0*mu4
+                      + 3.0*mu5 + 8.0*mu6)/3.0)/(16.0*pi*pi);
+        //beta_nu2
+        double betanu2 = (2.0*nu2*nu2 + 4.0*nu1*nu2 + 16.0*nu3*nu3 + 2.0*lambda1*nu2
+               + (4.0*nu4*nu4 + 17.0*nu4*nu5 + 4.0*nu5*nu5)/3.0
+               + nu2*(8.0*mu1 + 8.0*mu2 + 3.0*mu3 + 24.0*mu4
+                      + 3.0*mu5 - mu6)/3.0)/(16.0*pi*pi);
+        //beta_nu3
+        double betanu3 = (2.0*nu3*(lambda1 + 2.0*nu1 + 3.0*nu2)
+               + (17.0*nu4*nu4 + 16.0*nu4*nu5 + 17.0*nu5*nu5)/12.0
+               + nu3*(-mu1 - mu2 + 3.0*mu3 + 3.0*mu4
+                      + 24.0*mu5 + 8.0*mu6)/3.0)/(16.0*pi*pi);
+        //beta_nu4
+        double betanu4 = (8.0*nu3*nu4 + 2.0*nu3*nu5
+               + nu5*(2.0*nu2 - mu2 + 2.0*mu4 + 4.0*mu5 + mu6)
+               + nu4*(3.0*nu1 + 2.0*nu2 + 6.0*mu1 + 2.0*mu2 + 3.0*mu3
+                      + 2.0*mu4 + mu5 + mu6))/(16.0*pi*pi);
+        //beta_nu5
+        double betanu5 = (2.0*nu3*nu4 + 8.0*nu3*nu5
+               + nu4*(2.0*nu2 - mu1 + 2.0*mu4 + 4.0*mu5 + mu6)
+               + nu5*(3.0*nu1 + 2.0*nu2 + 6.0*mu1 + 2.0*mu2 + 3.0*mu3
+                      + 2.0*mu4 + mu5 + mu6))/(16.0*pi*pi);
+        //beta_mu1
+        double betamu1 = (3.0*nu4*nu4 + 7.0*mu1*mu1
+               + mu1*(6.0*mu2 + 6.0*mu3 + 4.0*mu4 - mu5 - 2.0*mu6)
+               + mu2*(4.0*mu4 - mu5)
+               - 2.0*mu4*mu6 + 2.0*mu5*mu6 + mu6*mu6)/(16.0*pi*pi);
+        //beta_mu2
+        double betamu2 = (3.0*nu5*nu5 + 7.0*mu2*mu2
+               + mu2*(6.0*mu1 + 6.0*mu3 + 4.0*mu4 - mu5 - 2.0*mu6)
+               + mu1*(4.0*mu4 - mu5)
+               - 2.0*mu4*mu6 + 2.0*mu5*mu6 + mu6*mu6)/(16.0*pi*pi);
+        //beta_mu3
+        double betamu3 = (20.0*mu3*mu3
+               + mu3*(288.0*mu1 + 288.0*mu2 + 360.0*mu4 + 108.0*mu5 + 180.0*mu6)/18.0
+               + (36.0*nu1*nu1 + 36.0*nu1*nu2 - 24.0*nu4*nu4 - 12.0*nu4*nu5
+                  - 24.0*nu5*nu5 + 62.0*mu1*mu1 + 64.0*mu1*mu2 + 62.0*mu2*mu2
+                  + (96.0*mu4 + 18.0*mu5 + 58.0*mu6)*(mu1 + mu2)
+                  + 54.0*mu4*mu4 + 36.0*mu4*mu5 + 132.0*mu4*mu6 + 18.0*mu5*mu5
+                  + 18.0*mu5*mu6 + 29.0*mu6*mu6)/18.0)/(16.0*pi*pi);
+        //beta_mu4
+        double betamu4 = (nu2*nu2 - (nu4*nu4 - 4.0*nu4*nu5 + nu5*nu5)/3.0 + 10.0*mu4*mu4 /*mu4??*/
+               + mu5*(mu1 + mu2 + mu6)
+               + mu4*(4.0*(4.0*mu1 + 4.0*mu2 + mu6)/3.0 + 2.0*mu5 + 6.0*mu4)
+               + 4.0*mu5*mu5
+               + (mu1*mu1 + mu2*mu2 - 4.0*mu6*(mu1+mu2) - 2.0*mu6*mu6)/9.0
+               + 26.0/9.0*mu1*mu2)/(16.0*pi*pi);
+        //beta_mu5
+        double betamu5 = (4.0*nu3*nu3 - (nu4*nu4 - 4.0*nu4*nu5 + nu5*nu5)/3.0
+               + mu5*((mu1 + mu2 + 19.0*mu6)/3.0 + 8.0*mu4 + 6.0*mu3)
+               + 2.0*mu4*mu6 + 8.0*mu5*mu5
+               + (mu1*mu1 + mu2*mu2 - 4.0*mu6*(mu1+mu2) + 7.0*mu6*mu6)/9.0
+               - 10.0/9.0*mu1*mu2)/(16.0*pi*pi);
+        //beta_mu6
+        double betamu6 = (0.5*mu6*mu6 + 3.0*nu4*nu4 + 3.0*nu5*nu5
+               - 2.0*(mu1*mu1 + mu2*mu2) + 6.0*mu5*(mu1 + mu2)
+               + 7.0*mu6*(mu1 + mu2 + mu3))/(16.0*pi*pi);
+        
+        
+        double betamuA = 4.0*betamu1+4.0*betamu2+8.5*betamu3+5.0*betamu4+1.5*betamu5+2.5*betamu6;
+        double betamuB = (4.0*betamu1+4.0*betamu2+1.5*betamu3+12.0*betamu4+1.5*betamu5-0.5*betamu6)/3.0;
+        double betamuC = (-0.5*betamu1-0.5*betamu2+1.5*betamu3+1.5*betamu4+12.0*betamu5+4.0*betamu6)/3.0;
+        double betaMA1 = 3.0*betalambda1 + betamuA 
+                         - sqrt(9.0*betalambda1*betalambda1-6.0*betalambda1*betamuA+betamuA*betamuA
+                                +32.0*betanu1*betanu1+32.0*betanu1*betanu2+8.0*betanu2*betanu2);
+        double betaMA2 = 3.0*betalambda1 + betamuA 
+                         + sqrt(9.0*betalambda1*betalambda1-6.0*betalambda1*betamuA+betamuA*betamuA
+                                +32.0*betanu1*betanu1+32.0*betanu1*betanu2+8.0*betanu2*betanu2);
+        double betaMB1 = betalambda1 + betamuB - sqrt(betalambda1*betalambda1-2.0*betalambda1*betamuB+betamuB*betamuB+8.0*betanu2*betanu2);
+        double betaMB2 = betalambda1 + betamuB + sqrt(betalambda1*betalambda1-2.0*betalambda1*betamuB+betamuB*betamuB+8.0*betanu2*betanu2);
+        double betaMC1 = betalambda1 + betamuC - sqrt(betalambda1*betalambda1-2.0*betalambda1*betamuC+betamuC*betamuC+32.0*betanu3*betanu3);
+        double betaMC2 = betalambda1 + betamuC + sqrt(betalambda1*betalambda1-2.0*betalambda1*betamuC+betamuC*betamuC+32.0*betanu3*betanu3);
+
+        betaeigenvalues.assign(0, -1.5 * betaMA1/(32.0*pi));
+        betaeigenvalues.assign(1, -1.5 * betaMA2/(32.0*pi));
+        betaeigenvalues.assign(2, -1.5 * betaMB1/(32.0*pi));
+        betaeigenvalues.assign(3, -1.5 * betaMB2/(32.0*pi));
+        betaeigenvalues.assign(4, -1.5 * betaMC1/(32.0*pi));
+        betaeigenvalues.assign(5, -1.5 * betaMC2/(32.0*pi));
+        betaeigenvalues.assign(6, -1.5 * betalambda1/(16.0*pi));
+        betaeigenvalues.assign(7, -1.5 * sqrt(15.0)*(betanu4+betanu5)/(64.0*pi));
+        
+        
+        for (int i=0; i < 8; i++) {
+            NLOunitarityeigenvalues.assign(i, -(gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
+        }
+        
     }//End of the ManoharWise case
     if( THDMWmodel == "custodialMW")
     {
