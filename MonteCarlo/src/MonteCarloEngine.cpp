@@ -1168,6 +1168,20 @@ std::string MonteCarloEngine::computeStatistics() {
     double pd = 2.*llikv; //Wikipedia notation...
     StatsLog << "IC value: " << dbar + 2.*pd << std::endl; 
     StatsLog << "DIC value: " << dbar + pd << std::endl; 
+    
+    
+    //For testing purposes:
+    const BCEngineMCMC::Statistics& st = GetStatistics();
+    //get mean value of parameters from BAT
+    std::vector<double> parmeans = st.mean;
+    double llonmean = LogLikelihood(parmeans);
+    StatsLog << "LogLikelihood on mean value of parameters: " << llonmean << std::endl;
+    StatsLog << "pD computed using variance: " << pd << std::endl; 
+    pd = 2.*llonmean-2.*llika;
+    StatsLog << "pD computed using 2LL(thetabar) - 2LLbar: " << pd << std::endl; 
+    StatsLog << "IC value computed from BAT with alternate pD definition: " << dbar + 2.*pd << std::endl; 
+    StatsLog << "DIC value computed from BAT with alternate pD definition: " << dbar + pd << std::endl;
+    
     StatsLog << std::endl;
 
     return StatsLog.str().c_str();
