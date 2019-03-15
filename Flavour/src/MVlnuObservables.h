@@ -273,6 +273,31 @@ private:
     
 };
 
+class FF_hV : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    FF_hV(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief @f$ h_{V}(w) @f$.
+    * @return @f$ h_{V}(w) @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
 class FF_hA1 : public ThObservable{
 public:
      
@@ -288,6 +313,56 @@ public:
     /**
     * @brief @f$ h_{A1}(w) @f$.
     * @return @f$ h_{A1}(w) @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
+class FF_hA2 : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    FF_hA2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief @f$ h_{A2}(w) @f$.
+    * @return @f$ h_{A2}(w) @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
+class FF_hA3 : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    FF_hA3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief @f$ h_{A3}(w) @f$.
+    * @return @f$ h_{A3}(w) @f$
     */
     double computeThValue ();
     

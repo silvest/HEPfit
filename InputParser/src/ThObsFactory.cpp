@@ -2388,7 +2388,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["UnitarityA_MVlnu"] = boost::bind(boost::factory<UnitarityA_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::ELECTRON);
     obsThFactory["UnitarityV_D_Dst"] = boost::bind(boost::factory<UnitarityV_D_Dst*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::D_P, StandardModel::ELECTRON);
     obsThFactory["hA1_at_w1"] = boost::bind(boost::factory<FF_hA1atw1*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
+    obsThFactory["hV_w"] = boost::bind(boost::factory<FF_hV*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
     obsThFactory["hA1_w"] = boost::bind(boost::factory<FF_hA1*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
+    obsThFactory["hA2_w"] = boost::bind(boost::factory<FF_hA2*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
+    obsThFactory["hA3_w"] = boost::bind(boost::factory<FF_hA3*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
     obsThFactory["R1_w"] = boost::bind(boost::factory<FF_R1*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
     obsThFactory["R2_w"] = boost::bind(boost::factory<FF_R2*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
     obsThFactory["R0_w"] = boost::bind(boost::factory<FF_R0*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU);
