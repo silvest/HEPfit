@@ -764,7 +764,9 @@ public:
     template <class Q> typename std::enable_if<isVec(T, Q), void>::type
     setVectorElement(int j, int i, int h, Q x) {
         checkOrd(j, i, "Expanded::setVectorElement(): order non present in Expanded");
-        data[i - minord1][j - minord2].assign(h, x);
+        //THERE IS NO ASSIGN METHOD FOR VECTORS
+        //data[i - minord1][j - minord2].assign(h, x);
+        data[i - minord1][j - minord2](h) = x;
     }
 
     /**

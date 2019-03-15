@@ -187,82 +187,13 @@ double BXqll::integrate_Rquark(double q_min, double q_max, q2regions q2region)
 double BXqll::getR_LOWQ2(double sh)
 {
     updateParameters();
-
-//    double muw = mySM.getMuw();
-//    double alstilde_2 = alstilde * alstilde;
-//    double kappa_2 = kappa * kappa;
-//    double GF_2 = GF * GF;
-//    double MW_2 = MW * MW;
-//    double sw2 = (M_PI * mySM.getAle()) / (sqrt(2.) * GF * MW * MW);
-//    gslpp::complex Vtb = mySM.getCKM().getV_tb();
-//    gslpp::complex Vts = mySM.getCKM().getV_ts();
-//    gslpp::complex lambda_t = Vtb.conjugate() * Vts;
-//    double mt_w = mySM.Mrun(muw, mySM.getQuarks(QCD::TOP).getMass_scale(), mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
-//    
-//    std::cout << "C9:      " << (WC(8, int_qed(LO_QED)) +
-//                                 WC(8, int_qed(NLO_QED11)) +
-//                                 WC(8, int_qed(NLO_QED21)) +
-//                                 WC(8, int_qed(NLO_QED02)) +
-//                                 WC(8, int_qed(NLO_QED12)) +
-//                                 WC(8, int_qed(NLO_QED22)) ) / aletilde << std::endl;
-//    std::cout << "C9 (27): " << (WC(8, int_qed(LO_QED)) +
-//                                 WC(8, int_qed(NLO_QED11)) +
-//                                 WC(8, int_qed(NLO_QED21)) +
-//                                 WC(8, int_qed(NLO_QED02)) +
-//                                 WC(8, int_qed(NLO_QED12)) +
-//                                 alstilde_2 * kappa_2 * 27.32 ) / aletilde << std::endl;
-//    
-//    std::cout << std::endl;
-//    gslpp::complex c10_df1 = WC(9, int_qed(LO_QED)) +
-//                             WC(9, int_qed(NLO_QED11)) +
-//                             WC(9, int_qed(NLO_QED21)) +
-//                             WC(9, int_qed(NLO_QED02)) +
-//                             WC(9, int_qed(NLO_QED12)) +
-//                             WC(9, int_qed(NLO_QED22));
-//    
-//    std::cout << "C10_df1:  " << c10_df1 / aletilde << std::endl;
-//    
-//    std::cout << "C10(-36): " << (c10_df1 - WC(9, int_qed(NLO_QED22)) +
-//                                  alstilde_2 * kappa_2 * (-36.09) ) / aletilde << std::endl;
-//
-//    gslpp::complex c10_stu = ( (*(allcoeff_smm[NLO_QED11]))(7) +
-//                            alstilde * (*(allcoeff_smm[NLO_QED21]))(7) +
-//                            kappa / alstilde * (*(allcoeff_smm[NLO_QED02]))(7) +
-//                            kappa * (*(allcoeff_smm[NLO_QED12]))(7) +
-//                            alstilde * kappa * (*(allcoeff_smm[NLO_QED22]))(7) ) / lambda_t;
-//    
-//    std::cout << "C10_stu:  " << c10_stu / sw2 << std::endl;
-//    std::cout << "Should be zero: " << (*(allcoeff_smm[LO]))(7) + (*(allcoeff_smm[NLO]))(7) +
-//                                    (*(allcoeff_smm[NNLO]))(7) + (*(allcoeff_smm[LO_QED]))(7) << std::endl;
-//    
-//    std::cout << std::endl;
-//    std::cout << "4 GF / sqrt(2) * C10   = " << 4. * GF * c10_df1 / sqrt(2.) << std::endl;
-//    std::cout << "GF^2 MW^2 / pi^2 * C10 = " << GF_2 * MW_2 * c10_stu / M_PI / M_PI << std::endl;
-//    
-//    std::cout << std::endl;
-//    std::cout << "Orders C9:  " << WC(8, int_qed(LO_QED)) << "  " << WC(8, int_qed(NLO_QED11)) << "  " << WC(8, int_qed(NLO_QED21));
-//    std::cout << "  " << WC(8, int_qed(NLO_QED02)) << "  " << WC(8, int_qed(NLO_QED12)) << "  " << WC(8, int_qed(NLO_QED22)) << std::endl;
-//    std::cout << "Orders C10: " << WC(9, int_qed(LO_QED)) << "  " << WC(9, int_qed(NLO_QED11)) << "  " << WC(9, int_qed(NLO_QED21));
-//    std::cout << "  " << WC(9, int_qed(NLO_QED02)) << "  " << WC(9, int_qed(NLO_QED12)) << "  " << WC(9, int_qed(NLO_QED22)) << std::endl;
-//    
-//    std::cout << std::endl;
-//    std::cout << "C10_OS1: " << mySM.getMatching().C10_OS1(mt_w * mt_w / MW_2, muw) << std::endl;
-//    std::cout << "Rest: " << mySM.getMatching().Rest(mt_w * mt_w / MW_2, muw) << std::endl;
-//    
-//    const std::vector<WilsonCoefficient>& match_df1 = mySM.getMatching().CMDF1("CPMLQB",15);
-//    const std::vector<WilsonCoefficient>& match_stu = mySM.getMatching().CMbsmm();
-//    gslpp::complex c10_11_df1 = (*(match_df1[0].getCoeff(orders_qed(NLO_QED11))))(9);
-//    gslpp::complex c10_22_df1 = (*(match_df1[0].getCoeff(orders_qed(NLO_QED22))))(9);
-//    gslpp::complex c10_11_stu = (*(match_stu[0].getCoeff(orders_qed(NLO_QED11))))(7);
-//    gslpp::complex c10_22_stu = (*(match_stu[0].getCoeff(orders_qed(NLO_QED22))))(7);
-//    
-//    std::cout << "GF matching:   " << (4. * GF / sqrt(2.)) * (c10_11_df1 + c10_22_df1) << std::endl;
-//    std::cout << "GF^2 matching: " << (GF_2 * MW_2 / M_PI / M_PI) * (c10_11_stu +
-//                                    (mySM.Ale(120.,FULLNLO) / 4. / M_PI) * c10_22_stu) / lambda_t << std::endl;
     
-    computeMi(sh);
-    return H_A(sh);
-//    return 0.;
+    //To test HeffDF1 Wilson coefficients and Expanded multiplications 
+    Test_WC_DF1();
+    return 0.;
+    
+//    computeMi(sh);
+//    return H_A(sh);
 }
 
 double BXqll::getR_HIGHQ2(double sh)
@@ -2169,4 +2100,155 @@ double BXqll::FULLCCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> 
     }
     
     return (Phi_ll);
+}
+
+void BXqll::Test_WC_DF1()
+{
+//    double muw = mySM.getMuw();
+//    double alstilde_2 = alstilde * alstilde;
+//    double kappa_2 = kappa * kappa;
+//    double GF_2 = GF * GF;
+//    double MW_2 = MW * MW;
+////    double sw2 = 0.2312;
+//    double MZ = mySM.getMz();
+//    double sw2 = 1. - (MW_2 / MZ / MZ);
+//    gslpp::complex Vtb = mySM.getCKM().getV_tb();
+//    gslpp::complex Vts = mySM.getCKM().getV_ts();
+//    gslpp::complex lambda_t = Vtb.conjugate() * Vts;
+//    double xt = mySM.getMatching().x_t(muw);
+//    double alemuw = mySM.Ale(muw, FULLNLO);
+//    double aletildemuw = alemuw / 4. / M_PI;
+//    
+//    std::cout << "MW         = " << MW << std::endl;
+//    std::cout << "1/ale(muw) = " << 1./alemuw << std::endl;
+//    std::cout << "1/ale(mub) = " << 1./ale << std::endl;
+//    std::cout << "xt         = " << xt << std::endl; 
+//     
+//    gslpp::complex c7_df1 = 0.;
+//    gslpp::complex c9_df1 = 0.;
+//    gslpp::complex c10_df1 = 0.;
+//    
+//    for (int i = 0; i < 5; i++)
+//    {
+//        c7_df1 += WC(6, i);
+//        c9_df1 += WC(8, i);
+//        c10_df1 += WC(9, i);
+//    }
+//    for (int i = 5; i < 9; i++)
+//    {
+//        c9_df1 += WC(8, i);
+//        c10_df1 += WC(9, i);
+//    }
+//    
+//    std::cout << std::endl;
+//    
+//    std::cout << "00:      " << WC(6,0) << std::endl;
+//    std::cout << "10:      " << WC(6,1) / alstilde << std::endl;
+//    std::cout << "20:      " << WC(6,2) / alstilde / alstilde << std::endl;
+//    std::cout << "01:      " << WC(6,3) / kappa << std::endl;
+//    std::cout << "11:      " << WC(6,4) / alstilde / kappa << std::endl;
+//    std::cout << "C7:      " << c7_df1 << std::endl << std::endl;
+//    
+//    std::cout << "01:      " << WC(8,3) / kappa << std::endl;
+//    std::cout << "11:      " << WC(8,4) / alstilde / kappa << std::endl;
+//    std::cout << "21:      " << WC(8,5) / alstilde_2 / kappa << std::endl;
+//    std::cout << "02:      " << WC(8,6) / kappa_2 << std::endl;
+//    std::cout << "12:      " << WC(8,7) / alstilde / kappa_2 << std::endl;
+//    std::cout << "22:      " << WC(8,8) / alstilde_2 / kappa_2 << std::endl;
+//    std::cout << "C9:      " << c9_df1 / aletilde << std::endl << std::endl;
+//    
+//    std::cout << "11:      " << WC(9,4) / alstilde / kappa << std::endl;
+//    std::cout << "21:      " << WC(9,5) / alstilde_2 / kappa << std::endl;
+//    std::cout << "02:      " << WC(9,6) / kappa_2 << std::endl;
+//    std::cout << "12:      " << WC(9,7) / alstilde / kappa_2 << std::endl;
+//    std::cout << "22:      " << WC(9,8) / alstilde_2 / kappa_2 << std::endl;
+//    std::cout << "C10:     " << c10_df1 / aletilde << std::endl;
+//    
+//    std::cout << "C9 (27): " << (c9_df1 - WC(8, int_qed(NLO_QED22)) + alstilde_2*kappa_2*27.32) / aletilde << std::endl;
+//    
+//    
+//    std::cout << "C10(-36): " << (c10_df1 - WC(9, int_qed(NLO_QED22)) +
+//                                  alstilde_2 * kappa_2 * (-36.09) ) / aletilde << std::endl;
+//
+//    gslpp::complex c10_stu = ( (*(allcoeff_smm[NLO_QED11]))(7) +
+//                            alstilde * (*(allcoeff_smm[NLO_QED21]))(7) +
+//                            kappa / alstilde * (*(allcoeff_smm[NLO_QED02]))(7) +
+//                            kappa * (*(allcoeff_smm[NLO_QED12]))(7) +
+//                            alstilde * kappa * (*(allcoeff_smm[NLO_QED22]))(7) ) / lambda_t;
+//    
+//    std::cout << "C10_stu:  " << c10_stu / sw2 << std::endl;
+//    std::cout << "Should be zero: " << (*(allcoeff_smm[LO]))(7) + (*(allcoeff_smm[NLO]))(7) +
+//                                    (*(allcoeff_smm[NNLO]))(7) + (*(allcoeff_smm[LO_QED]))(7) << std::endl;
+//    
+//    std::cout << std::endl;
+//    std::cout << "4 GF / sqrt(2) * C10   = " << 4. * GF * c10_df1 / sqrt(2.) << std::endl;
+//    std::cout << "GF^2 MW^2 / pi^2 * C10 = " << GF_2 * MW_2 * c10_stu / M_PI / M_PI << std::endl;
+//
+//    std::cout << std::endl;
+//    std::cout << "C10_OS1: " << mySM.getMatching().C10_OS1(mt_w * mt_w / MW_2, muw) << std::endl;
+//    std::cout << "Rest: " << mySM.getMatching().Rest(mt_w * mt_w / MW_2, muw) << std::endl;
+//
+//    const std::vector<WilsonCoefficientNew>& match_df1 = mySM.getMatching().CMDF1("CPMLQB",15);
+//    const std::vector<WilsonCoefficient>& match_stu = mySM.getMatching().CMbsmm();
+//    gslpp::complex c10_11_df1 = match_df1[0].getCoeff(QCD1, QED1)(9);
+//    gslpp::complex c10_22_df1 = match_df1[0].getCoeff(QCD2, QED2)(9);
+//    gslpp::complex c10_11_stu = (*(match_stu[0].getCoeff(orders_qed(NLO_QED11))))(7) / lambda_t;
+//    gslpp::complex c10_22_stu = (*(match_stu[0].getCoeff(orders_qed(NLO_QED22))))(7) / lambda_t;
+//    
+//    std::cout << std::endl;
+//    std::cout << "c10_11_df1:     " << c10_11_df1/aletildemuw << std::endl;
+//    std::cout << "c10_11_stu:     " << c10_11_stu << std::endl;
+//    std::cout << "c10_11_stu/sW2: " << c10_11_stu/sw2 << std::endl;
+//    std::cout << "c10_22_df1:     " << c10_22_df1/aletildemuw/aletildemuw << std::endl;
+//    std::cout << "c10_22_stu:     " << c10_22_stu << std::endl;
+//    std::cout << "c10_22_stu/sW2: " << c10_22_stu/sw2 << std::endl;
+//    std::cout << "GF matching:    " << (4. * GF / sqrt(2.)) * (c10_11_df1 + c10_22_df1) << std::endl;
+//    std::cout << "GF^2 matching:  " << (GF_2 * MW_2 / M_PI / M_PI) * (c10_11_stu +
+//                                    (mySM.Ale(muw,FULLNLO) / 4. / M_PI) * c10_22_stu) << std::endl;
+        
+    //ATTEMPT AT A WORKING EXPANDED * EXPANDED
+    gslpp::vector<double> vec2(2,0.);
+    std::vector<gslpp::vector<double> > vtmp;
+    std::vector<std::vector<gslpp::vector<double> > > vtmp12;
+    std::vector<std::vector<gslpp::vector<double> > > vtmp910;
+
+    for (int j = 0; j <= QCD2; j++)
+        vtmp.push_back(vec2);
+    for (int i = 0; i <= QED1; i++)
+        vtmp12.push_back(vtmp);
+    for (int i = 0; i <= QED2; i++)
+        vtmp910.push_back(vtmp);
+    
+    Expanded<gslpp::vector<double> > wilson12(vtmp12);
+    Expanded<gslpp::vector<double> > wilson910(vtmp910);
+    
+    wilson12.setVectorElement(QCD0, QED0, 0, 1.);
+    wilson12.setVectorElement(QCD1, QED0, 0, 2.);
+    wilson12.setVectorElement(QCD2, QED0, 0, 3.);
+    wilson12.setVectorElement(QCD0, QED1, 0, 4.);
+    wilson12.setVectorElement(QCD0, QED0, 1, 1.);
+    wilson12.setVectorElement(QCD1, QED0, 1, 2.);
+    wilson12.setVectorElement(QCD2, QED0, 1, 3.);
+    wilson12.setVectorElement(QCD0, QED1, 1, 4.);
+    
+    wilson910.setVectorElement(QCD1, QED1, 0, 5.);
+    wilson910.setVectorElement(QCD2, QED2, 0, 6.);
+    wilson910.setVectorElement(QCD1, QED1, 1, 5.);
+    wilson910.setVectorElement(QCD2, QED2, 1, 6.);
+
+    
+    std::cout << "00 " << wilson12.getOrd(QCD0,QED0) << std::endl;
+    std::cout << "10 " << wilson12.getOrd(QCD1,QED0) << std::endl;
+    std::cout << "20 " << wilson12.getOrd(QCD2,QED0) << std::endl;
+    std::cout << "01 " << wilson12.getOrd(QCD0,QED1) << std::endl;
+    
+    std::cout << "11 " << wilson910.getOrd(QCD1,QED1) << std::endl;
+    std::cout << "22 " << wilson910.getOrd(QCD2,QED2) << std::endl;
+    
+    std::cout << std::endl;
+    std::cout << wilson12*wilson12 << std::endl;
+    std::cout << std::endl;
+    std::cout << wilson12*wilson910 << std::endl;
+    std::cout << std::endl;
+    std::cout << wilson910*wilson910 << std::endl;
 }

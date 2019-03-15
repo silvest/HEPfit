@@ -572,5 +572,10 @@ private:
     * @param[in] Hij matrix element related to the one of the angular observables of \f$B\to X_s\ell\ell\f$
     */
     double FULLCCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& Hij);
+    
+    /**
+    * @brief Temporary method to test Wilson coefficients with C10_OS1 matching and HeffDF1 evolution 
+    */
+    void Test_WC_DF1();
 };
 #endif	/* BXqLL_H */

@@ -3038,9 +3038,10 @@ WilsonCoefficientNew& StandardModelMatching::mc_L() {
             //Eqs. (32-33) of ref. Huber et al.
             //Delta_t and tau_b in hep-ph/9707243
                     //             mcL.setCoeff(0, aletilde*aletilde*(-xt*xt/32/sW2/sW2*(4.*sW2-1.)*(3.+taub2(xht)-Delta_t(Muw,xht))), NNLO, QED2);
-                    mcL.setCoeff(1, aletilde * aletilde * (-xt * xt / 32. / sW2 / sW2 * (3. + taub2(xht) - Delta_t(Muw, xht))), QCD2, QED2);
-                    mcL.setCoeff(0, (4. * sW2 - 1.) * (mcL.getCoeff(QCD2, QED2)(1)), QCD2, QED2);
+                    //mcL.setCoeff(1, aletilde * aletilde * (-xt * xt / 32. / sW2 / sW2 * (3. + taub2(xht) - Delta_t(Muw, xht))), QCD2, QED2);
+                    //mcL.setCoeff(0, (4. * sW2 - 1.) * (mcL.getCoeff(QCD2, QED2)(1)), QCD2, QED2);
                     //             mcL.setCoeff(1, aletilde*aletilde*Rest(xt, Muw)/sW2, NNLO, QED2);
+                    mcL.setCoeff(1, aletilde * aletilde * C10_OS1(xt, Muw), QCD2, QED2);
                 case QCD1:
                 case QCD0:
             break;
