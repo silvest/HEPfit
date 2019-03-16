@@ -2642,6 +2642,13 @@ public:
     virtual double Br_H_inv() const;
     
     /**
+     * @brief The branching ratio of the of the Higgs into invisible particles 
+     * (only invisible new particles).
+     * @return Br@f$(H\to invisible,NP)@f$
+     */
+    virtual double Br_H_inv_NP() const;
+    
+    /**
      * @brief The ratio of the Br@f$(H\to visible)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to visible)@f$/Br@f$(H\to visible)_{\mathrm{SM}}@f$

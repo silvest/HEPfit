@@ -11749,6 +11749,17 @@ double NPSMEFTd6::Br_H_inv() const
 }
 
 
+double NPSMEFTd6::Br_H_inv_NP() const
+{    
+    
+//  BR4v positivity is already checked inside BrHZZ4vRatio()
+//  and will be nan if negative. Check here BrHinv, to make sure both are positive
+    if (BrHinv < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return BrHinv;
+}
+
+
 double NPSMEFTd6::BrHvisRatio() const
 {    
     double Br = 1.0;

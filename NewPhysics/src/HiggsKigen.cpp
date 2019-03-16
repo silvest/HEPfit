@@ -1062,10 +1062,15 @@ double HiggsKigen::Br_H_inv() const
     return ( (trueSM.computeBrHtoZZinv())*BrHZZRatio() + BrHinv );
 }
 
+double HiggsKigen::Br_H_inv_NP() const
+{
+    return BrHinv;
+}
+
 
 double HiggsKigen::BrHvisRatio() const
 {    
-        return (1.0 - BrHinv);   
+        return (1.0 - Br_H_inv());   
 }
 
 double HiggsKigen::BrHtoinvRatio() const
