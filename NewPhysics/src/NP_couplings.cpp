@@ -1484,7 +1484,44 @@ double deltalHHH::computeThValue()
 
 //-----  VVV couplings observables  ----------
 
-// See aTGC in EW
+// See aTGC in EW. Here we define only the Effective couplings used in arXiv: 1708.09079 [hep-ph]
+
+/* -------------------------------------*/
+
+deltag1ZEff::deltag1ZEff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltag1ZEff::~deltag1ZEff()
+{}
+
+double deltag1ZEff::computeThValue()
+{
+    return myNPbase->deltag1ZNPEff();
+}
+
+/* -------------------------------------*/
+
+deltaKgammaEff::deltaKgammaEff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+deltaKgammaEff::~deltaKgammaEff()
+{}
+
+double deltaKgammaEff::computeThValue()
+{
+    return myNPbase->deltaKgammaNPEff();
+}
+
+/* -------------------------------------*/
 
 //-----  Basic interactions of the so-called Higgs basis  ----------
 

@@ -3136,6 +3136,22 @@ public:
     virtual double lambdaZNP() const;
     
     ////////////////////////////////////////////////////////////////////////
+      
+    /**
+     * @brief The new physics contribution to the effective anomalous triple 
+     * gauge coupling @f$g_{1,Z}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
+     * @return @f$\delta g_{1,Z}@f$
+     */
+    virtual double deltag1ZNPEff() const;
+      
+    /**
+     * @brief The new physics contribution to the effective anomalous triple 
+     * gauge coupling @f$\kappa_{\gamma}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
+     * @return @f$\delta \kappa_{\gamma}@f$
+     */
+    virtual double deltaKgammaNPEff() const;
+    
+    ////////////////////////////////////////////////////////////////////////
     /**
      * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
      * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.

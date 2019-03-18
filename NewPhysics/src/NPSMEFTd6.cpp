@@ -12241,6 +12241,33 @@ double NPSMEFTd6::lambdaZNP() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
+double NPSMEFTd6::deltag1ZNPEff() const
+{
+    /* From arXiv:1708.09079 [hep-ph]. In our case, delta_e=0 since it is taken as inputs and its effects propagated
+     * everywhere else */
+    double dgEff;
+    
+    dgEff = (1.0/ cW2_tree) * ( (cW2_tree - sW2_tree)*deltaGL_f(leptons[ELECTRON])/gZlL +
+            sW2_tree * deltaGR_f(leptons[ELECTRON])/gZlR -
+            2.0 * deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]).real()/UevL );
+      
+    return dgEff + deltag1ZNP() ;
+}
+      
+double NPSMEFTd6::deltaKgammaNPEff() const
+{     
+    /* From arXiv:1708.09079 [hep-ph]. In our case, delta_e=0 since it is taken as inputs and its effects propagated
+     * everywhere else */
+    double dgEff;
+    
+    dgEff = (cW2_tree - sW2_tree)*( deltaGL_f(leptons[ELECTRON])/gZlL - deltaGR_f(leptons[ELECTRON])/gZlR )
+            - 2.0 * deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]).real()/UevL;
+    
+    return dgEff + deltaKgammaNP() ;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 {
     double sqrt_sGeV = 1000. * sqrt_s;

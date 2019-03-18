@@ -2562,9 +2562,82 @@ private:
 
 //-----  VVV couplings observables  ----------
 
-// See aTGC in EW
+// See aTGC in EW. Here we define only the Effective couplings used in arXiv: 1708.09079 [hep-ph]
+
+/**
+ * @class deltag1ZEff
+ * @brief An observable class for the effective anomalous triple gauge coupling
+ * @f$\delta g_{1,Z}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective anomalous triple gauge coupling
+ * @f$\delta g_{1,Z}^{Eff}@f$.
+ *
+ */
+class deltag1ZEff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltag1ZEff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltag1ZEff class.
+     */
+    virtual ~deltag1ZEff();
+
+    /**
+     * @brief The anomalous triple gauge coupling @f$\delta g_{1,Z}^{Eff}@f$.
+     * @return @f$\delta g_{1,Z}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
 
 
+};
+
+
+/**
+ * @class deltaKgammaEff
+ * @brief An observable class for the effective anomalous triple gauge coupling
+ * @f$\delta \kappa_{\gamma}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective anomalous triple gauge coupling
+ * @f$\delta \kappa_{\gamma}^{Eff}@f$.
+ *
+ */
+class deltaKgammaEff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltaKgammaEff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltaKgammaEff class.
+     */
+    virtual ~deltaKgammaEff();
+
+    /**
+     * @brief The anomalous triple gauge coupling @f$\delta \kappa_{\gamma}^{Eff}@f$.
+     * @return @f$\delta \kappa_{\gamma}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
 
 
 //-----  Basic interactions of the so-called Higgs basis  ----------
