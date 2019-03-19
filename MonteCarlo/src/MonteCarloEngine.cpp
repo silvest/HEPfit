@@ -557,7 +557,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0) InChainFillObservablesTree();
 #endif
     for (unsigned int i = 0; i < fMCMCNChains; i++) {
-        double LogLikelihood = GetLogProbx(i) - LogAPrioriProbability(Getx(i));
+        double LogLikelihood = fMCMCStates.at(i).log_likelihood;
         Histo1D["LogLikelihood"].GetHistogram()->Fill(LogLikelihood);
         if (PrintLoglikelihoodPlots) {
             for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it != ModPars.end(); it++) {
@@ -1174,6 +1174,21 @@ std::string MonteCarloEngine::computeStatistics() {
     const BCEngineMCMC::Statistics& st = GetStatistics();
     //get mean value of parameters from BAT
     std::vector<double> parmeans = st.mean;
+    
+    setDParsFromParameters(parmeans,DPars);
+    Mod->Update(DPars);
+    
+    StatsLog << "\nMean value of the parameters:" << std::endl;
+    StatsLog << std::endl;
+    StatsLog << par_line << '\n' << sep
+                 << std::left << std::setw(par_width) << "parameter" << sep << std::right << std::setw(value_width) << "mean value" << sep << '\n' << par_line << '\n';
+
+    for (std::map<std::string,double>::iterator it = DPars.begin(); it != DPars.end(); it++)
+        StatsLog << sep << std::left << std::setw(par_width) << it->first << sep << std::right << std::setw(value_width) << it->second << sep << '\n';
+    
+    StatsLog << par_line << '\n';
+    StatsLog << std::endl;
+    
     double llonmean = LogLikelihood(parmeans);
     StatsLog << "LogLikelihood on mean value of parameters: " << llonmean << std::endl;
     StatsLog << "pD computed using variance: " << pd << std::endl; 
