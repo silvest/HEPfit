@@ -2241,6 +2241,16 @@ ThObsFactory::ThObsFactory()
     obsThFactory["a_500_tt_eRpL"] = boost::factory<a_500_tt_eRpL*>();
     obsThFactory["pt_500_tt_eLpR"] = boost::factory<pt_500_tt_eLpR*>();
     obsThFactory["pt_500_tt_eRpL"] = boost::factory<pt_500_tt_eRpL*>();
+    
+    //OPTIMIZED OBSERVABLES
+    
+    obsThFactory["op1"] = boost::factory<op1*>();
+    obsThFactory["op2"] = boost::factory<op2*>();
+    obsThFactory["op3"] = boost::factory<op3*>();
+    obsThFactory["op4"] = boost::factory<op4*>();
+
+            
+
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
     //-----  LEP-II two-fermion processes  -----
