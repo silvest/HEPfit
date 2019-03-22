@@ -3333,7 +3333,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
    
     } else if (sqrt_s == 27.0) {
         
-        C1 = 0.0; // N.A.
+        C1 = 0.0062; // From arXiv: 1902.00134
 
         mu += 
                 +120777. * CiHbox / LambdaNP2
@@ -6640,7 +6640,7 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
 
     } else if (sqrt_s == 27.0) {
         
-        C1 = 0.0; // N.A.
+        C1 = 0.0101; // From arXiv: 1902.00134
 
         mu += 
                 +120696. * CiHbox / LambdaNP2
@@ -6829,7 +6829,7 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
 
     } else if (sqrt_s == 27.0) {
         
-        C1 = 0.0; // N.A.
+        C1 = 0.0116; // From arXiv: 1902.00134
 
         mu += 
                 +121206. * CiHbox / LambdaNP2
@@ -8357,7 +8357,7 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
 
     } else if (sqrt_s == 27.0) {
         
-        C1 = 0.0; // N.A.
+        C1 = 0.0320; // From arXiv: 1902.00134
 
         mu += 
                 +519682. * CHG / LambdaNP2
