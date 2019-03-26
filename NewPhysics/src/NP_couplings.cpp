@@ -1725,6 +1725,24 @@ double cggHB::computeThValue()
 
 /* -------------------------------------*/
 
+cggEffHB::cggEffHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+cggEffHB::~cggEffHB()
+{}
+
+double cggEffHB::computeThValue()
+{
+    return myNPbase->cggEff_HB();
+}
+
+/* -------------------------------------*/
+
 lambzHB::lambzHB(const StandardModel& SM_i):
 
         ThObservable(SM_i), 

@@ -35,8 +35,8 @@
  * @f]
  * The implementation is written in the basis of \cite Grzadkowski:2010es.
  * For convenience, the parameterization also includes operators appearing in
- * other common bases. In particular, the complete set of parameters containts 2
- * redundancies, given by coefficients \f$C_{DHB} \f$ and \f$C_{DHW} \f$,
+ * other common bases. In particular, the complete set of parameters containts 4
+ * redundancies, given by the coefficients \f$C_{2B,2W,DHB,DHW,DB,DW} \f$,
  * which correspond to operators not included in the basis of \cite Grzadkowski:2010es.
  * For meaningful physical results one must make sure to include only
  * a complete set of interactions in a given analysis.
@@ -77,13 +77,15 @@
  *   <td class="mod_name">%C2B </td>
  *   <td class="mod_symb">\f$C_{2B} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. </td>
+ *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. 
+ *  (Implemented via EOM.)</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%C2W </td>
  *   <td class="mod_symb">\f$C_{2W} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. </td>
+ *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. 
+ *  (Implemented via EOM.)</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHG </td>
@@ -113,13 +115,27 @@
  *   <td class="mod_name">%CDHW </td>
  *   <td class="mod_symb">\f$C_{DHW}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \tau^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
+ *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \sigma^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CDB </td>
+ *   <td class="mod_symb">\f$C_{DB} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{DB}=i\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
+ *   (Implemented via EOM.)</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CDW </td>
+ *   <td class="mod_symb">\f$C_{DW}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{DW}=i\big(H^\dagger \sigma^a \overset{\leftrightarrow}{D}^\mu H\big) D^\nu W_{\mu\nu}^a\f$.
+ *  (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CWB </td>
  *   <td class="mod_symb">\f$C_{WB} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HWB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
+ *   \f${\cal O}_{HWB}=\big(H^\dagger\sigma^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHD </td>
@@ -151,7 +167,7 @@
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{kk}, \mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{L^i}\,\gamma^\mu \tau^a L^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \big(\overline{L^i}\,\gamma^\mu \sigma^a L^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHe_kk, CHe_klr, CHe_kli </td>
@@ -172,7 +188,7 @@
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{kk}, \mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{Q^i}\,\gamma^\mu \tau^a Q^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \big(\overline{Q^i}\,\gamma^\mu \sigma^a Q^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHu_kk, CHu_klr, CHu_kli </td>
@@ -226,7 +242,7 @@
  *   <td class="mod_name">%CuW_klr, CuW_kli </td>
  *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{kl}\big], \mbox{Im}\big[(C_{uW})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \tau_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \sigma_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CuB_klr, CuB_kli </td>
@@ -252,8 +268,8 @@
  *   <td class="mod_name">%CLQ3 </td>
  *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \tau_a L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu \tau_a Q^l\big)\f$. </td>
+ *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \sigma_a L^j\big)
+ *   \big(\overline{Q^k}\,\gamma_\mu \sigma_a Q^l\big)\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Cee </td>
@@ -388,7 +404,7 @@
  * @f]
  * and
  * @f[
- * H^\dagger i \overset{\leftrightarrow}{D^a_\mu} H\equiv H^\dagger i (\tau^a D_\mu - \overset{\leftarrow}{D}_\mu \tau^a)H.  
+ * H^\dagger i \overset{\leftrightarrow}{D^a_\mu} H\equiv H^\dagger i (\sigma^a D_\mu - \overset{\leftarrow}{D}_\mu \sigma^a)H.  
  * @f]
  *
  * Alternatively, when using the model name "NPSMEFTd6_LFU_QFU", where lepton
@@ -418,13 +434,15 @@
  *   <td class="mod_name">%C2B </td>
  *   <td class="mod_symb">\f$C_{2B} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. </td>
+ *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. 
+ *   (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%C2W </td>
  *   <td class="mod_symb">\f$C_{2W} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. </td>
+ *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. 
+ *   (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHG </td>
@@ -454,13 +472,27 @@
  *   <td class="mod_name">%CDHW </td>
  *   <td class="mod_symb">\f$C_{DHW}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \tau^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
+ *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \sigma^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CDB </td>
+ *   <td class="mod_symb">\f$C_{DB} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{DB}=i\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
+ *   (Implemented via EOM.)</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CDW </td>
+ *   <td class="mod_symb">\f$C_{DW}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{DW}=i\big(H^\dagger \sigma^a \overset{\leftrightarrow}{D}^\mu H\big) D^\nu W_{\mu\nu}^a\f$.
+ *  (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CWB </td>
  *   <td class="mod_symb">\f$C_{WB} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HWB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
+ *   \f${\cal O}_{HWB}=\big(H^\dagger\sigma^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHD </td>
@@ -492,7 +524,7 @@
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{HL}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{L^i}\,\gamma^\mu \tau^a L^i\big)\f$ (flavor universal). </td>
+ *   \big(\overline{L^i}\,\gamma^\mu \sigma^a L^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHe </td>
@@ -513,7 +545,7 @@
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{ii}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{HQ}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{Q^i}\,\gamma^\mu \tau^a Q^i\big)\f$ (flavor universal). </td>
+ *   \big(\overline{Q^i}\,\gamma^\mu \sigma^a Q^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHu </td>
@@ -567,7 +599,7 @@
  *   <td class="mod_name">%CuW_klr, CuW_kli </td>
  *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{kl}\big], \mbox{Im}\big[(C_{uW})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \tau_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \sigma_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CuB_klr, CuB_kli </td>
@@ -593,8 +625,8 @@
  *   <td class="mod_name">%CLQ3 </td>
  *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \tau_a L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu \tau_a Q^l\big)\f$. </td>
+ *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \sigma_a L^j\big)
+ *   \big(\overline{Q^k}\,\gamma_\mu \sigma_a Q^l\big)\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Cee </td>
@@ -756,7 +788,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 400;
+    static const int NNPSMEFTd6Vars = 402;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -774,7 +806,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 204;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 206;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -3403,6 +3435,18 @@ public:
     virtual double cgg_HB() const;
     
     /**
+     * @brief The effective Higgs-basis coupling @f$c_{gg}^{Eff}@f$. (Similar to cgg_HB but including modifications of SM loops.)
+     * (See arXiv: 1505.00046 [hep-ph] document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{gg}^{Eff}@f$
+     */
+    virtual double cggEff_HB() const;
+    
+    /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
      * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
@@ -3521,6 +3565,8 @@ protected:
     double CHWHB_gagaorth; ///< The combination of dimension-6 operator coefficients \f$-c_W^2 C_{HW} + s_W^2 C_{HW}\f$.
     double CDHB; ///< The dimension-6 operator coefficient \f$C_{DHB}\f$.
     double CDHW; ///< The dimension-6 operator coefficient \f$C_{DHW}\f$.
+    double CDB; ///< The dimension-6 operator coefficient \f$C_{DB}\f$.
+    double CDW; ///< The dimension-6 operator coefficient \f$C_{DW}\f$.
     double CHWB; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
     double CHD; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
     double CHbox; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.

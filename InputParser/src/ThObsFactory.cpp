@@ -409,6 +409,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["cZga_HB"] = boost::factory<cZgaHB*>();
     obsThFactory["cgaga_HB"] = boost::factory<cgagaHB*>();
     obsThFactory["cgg_HB"] = boost::factory<cggHB*>();
+    obsThFactory["cggEff_HB"] = boost::factory<cggEffHB*>();
     obsThFactory["lambz_HB"] = boost::factory<lambzHB*>();
     //-----  Other useful observables to work with new physics  ----------
     //-----  Z couplings with leptons ---------

@@ -12,7 +12,7 @@
 #include "gslpp_function_adapter.h"
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
-        = {"CG", "CW", "C2B", "C2W", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -94,7 +94,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
-        = {"CG", "CW", "C2B", "C2W", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -176,7 +176,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
-        = {"CG", "CW", "C2B", "C2W", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
@@ -213,7 +213,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
-        = {"CG", "CW", "C2B", "C2W", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
@@ -281,6 +281,8 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::make_pair("CHWHB_gagaorth", std::cref(CHWHB_gagaorth)));        
     ModelParamMap.insert(std::make_pair("CDHB", std::cref(CDHB)));
     ModelParamMap.insert(std::make_pair("CDHW", std::cref(CDHW)));
+    ModelParamMap.insert(std::make_pair("CDB", std::cref(CDB)));
+    ModelParamMap.insert(std::make_pair("CDW", std::cref(CDW)));
     ModelParamMap.insert(std::make_pair("CHWB", std::cref(CHWB)));
     ModelParamMap.insert(std::make_pair("CHD", std::cref(CHD)));
     ModelParamMap.insert(std::make_pair("CHbox", std::cref(CHbox)));
@@ -1011,6 +1013,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CDHB = value;
     else if (name.compare("CDHW") == 0)
         CDHW = value;
+    else if (name.compare("CDB") == 0)
+        CDB = value;
+    else if (name.compare("CDW") == 0)
+        CDW = value;
     else if (name.compare("CHWB") == 0)
         CHWB = value;
     else if (name.compare("CHD") == 0)
@@ -12346,7 +12352,7 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     d1RH.assign(2,2, d1mm[1]);
     
 //  TGC parameterization
-    double g1Z,g1ga,kZ,kga,lambZ,lambga,g4Z,g4ga,g5Z,g5ga,ktZ,ktga,lambtZ,lambtga;
+    double g1Z,g1ga,kZ,kga,lambdaZ,lambdaga,g4Z,g4ga,g5Z,g5ga,ktZ,ktga,lambdatZ,lambdatga;
 
 //  TGC present in the SM     
     g1Z=1.0 + deltag1ZNP();
@@ -12354,21 +12360,21 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     kZ=1.0 + deltag1ZNP() - (sW2_tree/cW2_tree) * deltaKgammaNP();
     kga=1.0 + deltaKgammaNP();
 //  TGC not present in the SM
-    lambZ=lambdaZNP(); //Check normalization
-    lambga=lambZ;
+    lambdaZ=lambdaZNP(); //Check normalization
+    lambdaga=lambdaZ;
     g4Z=0.0;
     g4ga=0.0;
     g5Z=0.0;
     g5ga=0.0;
     ktZ=0.0;
     ktga=0.0;
-    lambtZ=0.0;
-    lambtga=0.0;
+    lambdatZ=0.0;
+    lambdatga=0.0;
     
     double f3Z, f3ga;
     
-    f3Z = g1Z + kZ + lambZ;    
-    f3ga = g1ga + kga + lambga;
+    f3Z = g1Z + kZ + lambdaZ;    
+    f3ga = g1ga + kga + lambdaga;
     
  // Kinematic factors
     double beta, gamma, gamma2;
@@ -12380,15 +12386,15 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 //  J=1 Subamplitudes: Z
     gslpp::complex AZpp, AZmm, AZp0, AZm0, AZ0p, AZ0m, AZ00;
     
-    AZpp = gslpp::complex(g1Z + 2.0* gamma2* lambZ, (ktZ + lambtZ - 2.0*lambtZ)/beta , false);
-    AZmm = gslpp::complex(g1Z + 2.0* gamma2* lambZ, -(ktZ + lambtZ - 2.0*lambtZ)/beta , false);
-    AZp0 = gslpp::complex(f3Z + beta * g5Z , -g4Z + (ktZ-lambtZ)/beta , false);
+    AZpp = gslpp::complex(g1Z + 2.0* gamma2* lambdaZ, (ktZ + lambdatZ - 2.0*lambdatZ)/beta , false);
+    AZmm = gslpp::complex(g1Z + 2.0* gamma2* lambdaZ, -(ktZ + lambdatZ - 2.0*lambdatZ)/beta , false);
+    AZp0 = gslpp::complex(f3Z + beta * g5Z , -g4Z + (ktZ-lambdatZ)/beta , false);
     AZp0 = gamma * AZp0;
-    AZm0 = gslpp::complex(f3Z - beta * g5Z , -g4Z - (ktZ-lambtZ)/beta , false);
+    AZm0 = gslpp::complex(f3Z - beta * g5Z , -g4Z - (ktZ-lambdatZ)/beta , false);
     AZm0 = gamma * AZm0;
-    AZ0p = gslpp::complex(f3Z - beta * g5Z , g4Z + (ktZ-lambtZ)/beta , false);
+    AZ0p = gslpp::complex(f3Z - beta * g5Z , g4Z + (ktZ-lambdatZ)/beta , false);
     AZ0p = gamma * AZ0p;
-    AZ0m = gslpp::complex(f3Z + beta * g5Z , g4Z - (ktZ-lambtZ)/beta , false);
+    AZ0m = gslpp::complex(f3Z + beta * g5Z , g4Z - (ktZ-lambdatZ)/beta , false);
     AZ0m = gamma * AZ0m;
     AZ00 = gslpp::complex( g1Z + 2.0*gamma2*kZ, 0.0 , false);
     
@@ -12433,15 +12439,15 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 //  J=1 Subamplitudes: gamma
     gslpp::complex Agapp, Agamm, Agap0, Agam0, Aga0p, Aga0m, Aga00;
     
-    Agapp = gslpp::complex(g1ga + 2.0* gamma2* lambga, (ktga + lambtga - 2.0*lambtga)/beta , false);
-    Agamm = gslpp::complex(g1ga + 2.0* gamma2* lambga, -(ktga + lambtga - 2.0*lambtga)/beta , false);
-    Agap0 = gslpp::complex(f3ga + beta * g5ga , -g4ga + (ktga-lambtga)/beta , false);
+    Agapp = gslpp::complex(g1ga + 2.0* gamma2* lambdaga, (ktga + lambdatga - 2.0*lambdatga)/beta , false);
+    Agamm = gslpp::complex(g1ga + 2.0* gamma2* lambdaga, -(ktga + lambdatga - 2.0*lambdatga)/beta , false);
+    Agap0 = gslpp::complex(f3ga + beta * g5ga , -g4ga + (ktga-lambdatga)/beta , false);
     Agap0 = gamma * Agap0;
-    Agam0 = gslpp::complex(f3ga - beta * g5ga , -g4ga - (ktga-lambtga)/beta , false);
+    Agam0 = gslpp::complex(f3ga - beta * g5ga , -g4ga - (ktga-lambdatga)/beta , false);
     Agam0 = gamma * Agam0;
-    Aga0p = gslpp::complex(f3ga - beta * g5ga , g4ga + (ktga-lambtga)/beta , false);
+    Aga0p = gslpp::complex(f3ga - beta * g5ga , g4ga + (ktga-lambdatga)/beta , false);
     Aga0p = gamma * Aga0p;
-    Aga0m = gslpp::complex(f3ga + beta * g5ga , g4ga - (ktga-lambtga)/beta , false);
+    Aga0m = gslpp::complex(f3ga + beta * g5ga , g4ga - (ktga-lambdatga)/beta , false);
     Aga0m = gamma * Aga0m;
     Aga00 = gslpp::complex( g1ga + 2.0*gamma2*kga, 0.0 , false);
 
@@ -12754,20 +12760,6 @@ double NPSMEFTd6::mueeWW(const double sqrt_s) const
 double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
-    
-    double dg1Z, dkga, lz;
-    double dgLze11, dgRze11, dgLwlv11;
-    double dm;
-    
-    dg1Z = deltag1ZNP();
-    dkga = deltaKgammaNP();
-    lz = lambdaZNP();
-    
-    dgLze11 = deltaGL_f(leptons[ELECTRON]);
-    dgRze11 = deltaGR_f(leptons[ELECTRON]);
-    dgLwlv11 = deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]).real();
-    
-    dm = deltaMwd6();
 
     if (sqrt_s == 0.240) {
                 
@@ -13376,6 +13368,24 @@ double NPSMEFTd6::cgg_HB() const
     double ciHB;
     
     ciHB = (1.0/(M_PI * AlsMz))*CHG*v2_over_LambdaNP2;
+    
+    return ciHB;
+}
+
+double NPSMEFTd6::cggEff_HB() const
+{
+    double ciHB;
+    
+    double m_t = mtpole;
+    //doulbe m_t = quarks[TOP].getMass();
+    double m_b = quarks[BOTTOM].getMass();
+    double m_c = quarks[CHARM].getMass();
+    
+    double At = deltayt_HB() * AH_f(4.0 * m_t * m_t / mHl / mHl).real();
+    double Ab = deltayb_HB() * AH_f(4.0 * m_b * m_b / mHl / mHl).real();
+    double Ac = deltayc_HB() * AH_f(4.0 * m_c * m_c / mHl / mHl).real();
+    
+    ciHB = cgg_HB() + (1.0/16.0/M_PI/M_PI) * (At + Ab + Ac) ;
     
     return ciHB;
 }

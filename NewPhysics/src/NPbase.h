@@ -1890,6 +1890,16 @@ public:
     }
     
     /**
+     * @brief The effective Higgs-basis coupling @f$c_{gg}^{Eff}@f$. (Similar to cgg_HB but including modifications of SM loops.)
+     * (See arXiv: 1505.00046 [hep-ph] document.)
+     * @return @f$c_{gg}^{Eff}@f$
+     */
+    virtual double cggEff_HB() const
+    {
+        return 0.0;
+    }
+    
+    /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
      * @return @f$\lambda_{z}@f$
