@@ -667,6 +667,55 @@ double pt_500_tt_eRpL::computeThValue()
         return (-0.00550366*C_phit+0.0176743*C_phiQ3-0.0302046*C_phiQ1+0.104522*C_tW-0.204084*C_tB);
 }
 
+
+//OPTIMAL OBSERVABLES
+
+
+op1::op1(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op1::computeThValue()
+{
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+        return C_phit;
+}
+
+
+op2::op2(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op2::computeThValue()
+{
+    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+        return (C_phiQ1-C_phiQ3);
+}
+
+op3::op3(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op3::computeThValue()
+{
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+        return C_tW;
+}
+
+op4::op4(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op4::computeThValue()
+{
+    double C_tB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+        return C_tB;
+}
+
+
+
+
 //double NPSMEFT6dtopquark::sigmattbarZ(const double sqrt_s) const
 //{
 //}

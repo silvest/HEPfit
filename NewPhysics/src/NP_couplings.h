@@ -3060,6 +3060,45 @@ private:
 
 
 /**
+ * @class cggEffHB
+ * @brief An observable class for the Higgs-basis coupling @f$c_{gg}^{Eff}@f$.
+ * (Similar to cgg_HB but including modifications of SM loops.)
+ * (See arXiv: 1505.00046 [hep-ph] document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$c_{gg}^{Eff}@f$.
+ *
+ */
+class cggEffHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    cggEffHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the cggEffHB class.
+     */
+    virtual ~cggEffHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$c_{gg}^{Eff}@f$.
+     * @return @f$c_{gg}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
  * @class lambzHB
  * @brief An observable class for the Higgs-basis coupling @f$\lambda_{z}@f$.
  * (See LHCHXSWG-INT-2015-001 document.)
