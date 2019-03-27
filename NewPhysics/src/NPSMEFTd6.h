@@ -121,14 +121,14 @@
  *   <td class="mod_name">%CDB </td>
  *   <td class="mod_symb">\f$C_{DB} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DB}=i\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
+ *   \f${\cal O}_{DB}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
  *   (Implemented via EOM.)</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CDW </td>
  *   <td class="mod_symb">\f$C_{DW}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DW}=i\big(H^\dagger \sigma^a \overset{\leftrightarrow}{D}^\mu H\big) D^\nu W_{\mu\nu}^a\f$.
+ *   \f${\cal O}_{DW}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^{a~\!\mu} H\big) D^\nu W_{\mu\nu}^a\f$.
  *  (Implemented via EOM.) </td>
  * </tr>
  * <tr>
@@ -478,14 +478,14 @@
  *   <td class="mod_name">%CDB </td>
  *   <td class="mod_symb">\f$C_{DB} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DB}=i\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
+ *   \f${\cal O}_{DB}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
  *   (Implemented via EOM.)</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CDW </td>
  *   <td class="mod_symb">\f$C_{DW}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DW}=i\big(H^\dagger \sigma^a \overset{\leftrightarrow}{D}^\mu H\big) D^\nu W_{\mu\nu}^a\f$.
+ *   \f${\cal O}_{DW}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^{a~\!\mu} H\big) D^\nu W_{\mu\nu}^a\f$.
  *  (Implemented via EOM.) </td>
  * </tr>
  * <tr>
@@ -3931,7 +3931,7 @@ protected:
     
     double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
     
-    // Internal values for some of the dimension-6 coefficients (to allow changes of bases in Post-Update
+    // Internal values for some of the dimension-6 coefficients (to allow changes of bases in Post-Update)
     double CiHL1_11;
     double CiHL1_22;
     double CiHL1_33;
@@ -3959,6 +3959,12 @@ protected:
     double CiHd_33;
     
     double CiW;
+    
+    double CiHW;
+    double CiHB; 
+    double CiDHB; 
+    double CiDHW;
+    double CiHWB;
     
     double CiHbox;
     double CiHD;

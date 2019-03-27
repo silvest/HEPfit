@@ -852,6 +852,18 @@ bool NPSMEFTd6::PostUpdate()
     dZH = -(9.0/16.0)*( GF*mHl*mHl/sqrt(2.0)/M_PI/M_PI )*( 2.0*M_PI/3.0/sqrt(3.0) - 1.0 );
         
 //  2) Post-update operations related to assumptions in the form of the dimension-6 operators 
+  
+//  Rotated CHW and CHB parameters
+    if (FlagRotateCHWCHB) {
+        CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
+        CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
+    } else {
+        CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
+        CHWHB_gagaorth = - cW2_tree * CHW + sW2_tree * CHB;
+    }    
+    
+//  Flavour universality assumptions    
+    
     if (FlagFlavU3OfX || FlagUnivOfX) {
         
         if (FlagUnivOfX) {            
@@ -895,18 +907,20 @@ bool NPSMEFTd6::PostUpdate()
         CuB_33r = Yukt * CuB_33r;
     }    
         
-//  C2B and C2W are incorporated by change of basis transformation:
+//  C2B, C2W, CDB, CDW are incorporated by change of basis transformation:
 //  Write here, before working with the dim 6 interactions,
 //  the contributions from O2W and O2B to the other operators.
 //  WARNING: Ignoring contributions to 4 fermion-processes for the moment. IMPORTANT FOR LEP2
     
-//  WARNING: if some of the parameters below, e.g. CHL1_11, are not floating in the fit this will
+//  WARNING (OBSOLETE MESSAGE?): if some of the parameters below, e.g. CHL1_11, are not floating in the fit this will
 //  create a problem since the value generated below CHL1_11 will propagate to the next iteration
 //  generating an uncontrolled value of the parameter.
 //  (This is so because SetParameters is not called for non-floating parameters.)
 //  Possible fix: Not modify model parameters but save everything into internal replicas
 //  of each model relevant model par. Those then have to be used in the calculations.
 //  Comment out the following lines until this is resolved
+    
+//  Contributionsfrom C2W, C2B
     CiHL1_11 = CHL1_11 - (g1_tree*g1_tree/2.0) * C2B;
     CiHL1_22 = CHL1_22 - (g1_tree*g1_tree/2.0) * C2B;
     CiHL1_33 = CHL1_33 - (g1_tree*g1_tree/2.0) * C2B;
@@ -934,7 +948,7 @@ bool NPSMEFTd6::PostUpdate()
     CiHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * C2B;
     
     CiW = CW + g2_tree * C2W;
-    
+        
     CiHbox = CHbox + (g1_tree*g1_tree/4.0) * C2B + (3.0*g2_tree*g2_tree/4.0) * C2W;
     CiHD = CHD + (g1_tree*g1_tree/4.0) * C2B;
     CiH = CH + (2.0*g2_tree*g2_tree*lambdaH_tree) * C2W;
@@ -953,21 +967,22 @@ bool NPSMEFTd6::PostUpdate()
     
     CiLL_1221 = CLL_1221 + (g2_tree*g2_tree/2.0) * C2W;
     CiLL_2112 = CiLL_1221;
-
+    
+//  Contributionsfrom CDW, DB    
+    CiHB = CHB + (g1_tree/4.0) * CDB;    
+    CiHW = CHW + (g2_tree/4.0) * CDW; 
+//    CiHWHB_gaga = CHWHB_gaga; 
+//    CiHWHB_gagaorth = CHWHB_gagaorth; 
+    CiDHB = CDHB + CDB; 
+    CiDHW = CDHW + CDW;
+    CiHWB = CHWB + (1.0/4.0) * ( g1_tree * CDW + g2_tree * CDB );
     
 //  3) Post-update operations working directly with the dimension six operators  
-    if (FlagRotateCHWCHB) {
-        CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
-        CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
-    } else {
-        CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
-        CHWHB_gagaorth = - cW2_tree * CHW + sW2_tree * CHB;
-    }
     
-    delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB + sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
-    delta_AA = (sW2_tree * CHW + cW2_tree * CHB - sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
-    delta_AZ = 2.0 * sW_tree * cW_tree * (CHW - CHB) * v2_over_LambdaNP2
-            - (cW2_tree - sW2_tree) * CHWB * v2_over_LambdaNP2;
+    delta_ZZ = (cW2_tree * CiHW + sW2_tree * CiHB + sW_tree * cW_tree * CiHWB) * v2_over_LambdaNP2;
+    delta_AA = (sW2_tree * CiHW + cW2_tree * CiHB - sW_tree * cW_tree * CiHWB) * v2_over_LambdaNP2;
+    delta_AZ = 2.0 * sW_tree * cW_tree * (CiHW - CiHB) * v2_over_LambdaNP2
+            - (cW2_tree - sW2_tree) * CiHWB * v2_over_LambdaNP2;
     delta_h = (-CiHD / 4.0 + CiHbox) * v2_over_LambdaNP2;
     
 //  Calculation of some quantities repeteadly used in the code
@@ -2366,7 +2381,7 @@ double NPSMEFTd6::DeltaGF() const
 
 double NPSMEFTd6::obliqueS() const
 {
-    return (4.0 * sW_tree * cW_tree * CHWB / alphaMz() * v2_over_LambdaNP2);
+    return (4.0 * sW_tree * cW_tree * CiHWB / alphaMz() * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6::obliqueT() const
@@ -2507,7 +2522,7 @@ double NPSMEFTd6::deltaaSMZ2() const
 double NPSMEFTd6::Mw() const
 {
     return (trueSM.Mw() - Mw_tree() / 4.0 / (cW2_tree - sW2_tree)
-            *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
+            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
             + cW2_tree * CiHD * v2_over_LambdaNP2
             + 2.0 * sW2_tree * DeltaGF()));
 }
@@ -2515,7 +2530,7 @@ double NPSMEFTd6::Mw() const
 double NPSMEFTd6::deltaMwd6() const
 {
     return (- 1.0 / 4.0 / (cW2_tree - sW2_tree)
-            *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
+            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
             + cW2_tree * CiHD * v2_over_LambdaNP2
             + 2.0 * sW2_tree * DeltaGF()));
 }
@@ -2546,7 +2561,7 @@ double NPSMEFTd6::deltaGamma_Wff(const Particle fi, const Particle fj) const
     }
     
     deltaGamma_Wij = - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
-            *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
+            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
             + cW2_tree * CiHD * v2_over_LambdaNP2
             + 2.0 * (1.0 + cW2_tree) / 3.0 * DeltaGF());
     
@@ -2567,7 +2582,7 @@ double NPSMEFTd6::deltaGamma_W() const
     double GammaW_tree = (3.0 + 2.0 * Nc) * G0;
 
     return (- 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
-            *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
+            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
             + cW2_tree * CiHD * v2_over_LambdaNP2
             + 2.0 * (1.0 + cW2_tree) / 3.0 * DeltaGF())
             + 2.0 * G0 * (CiHL3_11 + CiHL3_22 + CiHL3_33 + Nc*(CiHQ3_11 + CiHQ3_22)) * v2_over_LambdaNP2);          
@@ -2622,7 +2637,7 @@ double NPSMEFTd6::deltaGL_f(const Particle p) const
 
     NPindirect = -I3p / 4.0 * (CiHD * v2_over_LambdaNP2 + 2.0 * DeltaGF())
                 - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-                *((4.0 * cW_tree / sW_tree * CHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
+                *((4.0 * cW_tree / sW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
 
     double NPdirect = -0.5 * (CHF1 - 2.0 * I3p * CHF3) * v2_over_LambdaNP2;
     return (NPindirect + NPdirect);
@@ -2635,7 +2650,7 @@ double NPSMEFTd6::deltaGR_f(const Particle p) const
     double NPindirect;
 
     NPindirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-                *((4.0 * cW_tree / sW_tree * CHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
+                *((4.0 * cW_tree / sW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
 
     double NPdirect = -0.5 * CHf*v2_over_LambdaNP2;
     return (NPindirect + NPdirect);
@@ -2653,7 +2668,7 @@ gslpp::complex NPSMEFTd6::deltaGL_Wff(const Particle pbar, const Particle p) con
     double NPindirect;
 
     NPindirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
-                * ((4.0 * sW_tree / cW_tree * CHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
+                * ((4.0 * sW_tree / cW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
 
     double NPdirect = CHF3 * v2_over_LambdaNP2;
     return (NPindirect + NPdirect);
@@ -2697,12 +2712,12 @@ double NPSMEFTd6::deltaG_hggRatio() const
 
 double NPSMEFTd6::deltaG1_hWW() const
 {
-    return (( 2.0 * CHW - sqrt( M_PI * aleMz ) * CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return (( 2.0 * CiHW - sqrt( M_PI * aleMz ) * CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG2_hWW() const
 {
-    return ( - sqrt( M_PI * aleMz ) * ( CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return ( - sqrt( M_PI * aleMz ) * ( CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG3_hWW() const
@@ -2711,19 +2726,19 @@ double NPSMEFTd6::deltaG3_hWW() const
 
     NPindirect = 2.0 * cW2_tree * Mz * Mz / v()
                 * (delta_h - 1.0 / 2.0 / (cW2_tree - sW2_tree)
-                * ((4.0 * sW_tree * cW_tree * CHWB + cW2_tree * CiHD) * v2_over_LambdaNP2 + DeltaGF()));
+                * ((4.0 * sW_tree * cW_tree * CiHWB + cW2_tree * CiHD) * v2_over_LambdaNP2 + DeltaGF()));
 
     return NPindirect;
 }
 
 double NPSMEFTd6::deltaG1_hZZ() const
 {
-    return ( (delta_ZZ - 0.5 * sqrt( M_PI * aleMz ) * (CDHB / cW_tree + CDHW / sW_tree) * v2_over_LambdaNP2 )/ v());
+    return ( (delta_ZZ - 0.5 * sqrt( M_PI * aleMz ) * (CiDHB / cW_tree + CiDHW / sW_tree) * v2_over_LambdaNP2 )/ v());
 }
 
 double NPSMEFTd6::deltaG2_hZZ() const
 {
-    return ( - sqrt( M_PI * aleMz ) * ( CDHB / cW_tree + CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return ( - sqrt( M_PI * aleMz ) * ( CiDHB / cW_tree + CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG3_hZZ() const
@@ -2735,7 +2750,7 @@ double NPSMEFTd6::deltaG3_hZZ() const
 
 double NPSMEFTd6::deltaG1_hZA() const
 {
-    return ( (delta_AZ + 0.5 * sqrt( M_PI * aleMz ) * (CDHB / sW_tree - CDHW / cW_tree) * v2_over_LambdaNP2 )/ v());
+    return ( (delta_AZ + 0.5 * sqrt( M_PI * aleMz ) * (CiDHB / sW_tree - CiDHW / cW_tree) * v2_over_LambdaNP2 )/ v());
 }
 
 double NPSMEFTd6::deltaG1_hZARatio() const
@@ -2820,7 +2835,7 @@ double NPSMEFTd6::deltaG1_hZARatio() const
 
 double NPSMEFTd6::deltaG2_hZA() const
 {
-    return ( sqrt( M_PI * aleMz ) * ( CDHB / sW_tree - CDHW / cW_tree ) * v2_over_LambdaNP2 / v());
+    return ( sqrt( M_PI * aleMz ) * ( CiDHB / sW_tree - CiDHW / cW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG_hAA() const
@@ -3212,12 +3227,12 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +4055.59 * (1. + eVBF_2_Hd_11 ) * CiHd_11 / LambdaNP2
                 -229691. * (1. + eVBF_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -170093. * (1. + eVBF_2_HD ) * CiHD / LambdaNP2
-                +8971.22 * (1. + eVBF_2_HB ) * CHB / LambdaNP2
-                -65827.6 * (1. + eVBF_2_HW ) * CHW / LambdaNP2
-                -323514. * (1. + eVBF_2_HWB ) * CHWB / LambdaNP2
+                +8971.22 * (1. + eVBF_2_HB ) * CiHB / LambdaNP2
+                -65827.6 * (1. + eVBF_2_HW ) * CiHW / LambdaNP2
+                -323514. * (1. + eVBF_2_HWB ) * CiHWB / LambdaNP2
                 +481332. * (1. + eVBF_2_HG ) * CHG / LambdaNP2
-                +1255.16 * (1. + eVBF_2_DHB ) * CDHB / LambdaNP2
-                -34956.7 * (1. + eVBF_2_DHW ) * CDHW / LambdaNP2
+                +1255.16 * (1. + eVBF_2_DHB ) * CiDHB / LambdaNP2
+                -34956.7 * (1. + eVBF_2_DHW ) * CiDHW / LambdaNP2
                 -4.511 * (1. + eVBF_2_DeltaGF ) * DeltaGF()
                 -3.481 * deltaMwd6()
                 ;
@@ -3240,12 +3255,12 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +8892.12 * (1. + eVBF_78_Hd_11 ) * CiHd_11 / LambdaNP2
                 -411400. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -164286. * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
-                -423.123 * (1. + eVBF_78_HB ) * CHB / LambdaNP2
-                -89854. * (1. + eVBF_78_HW ) * CHW / LambdaNP2
-                -312617. * (1. + eVBF_78_HWB ) * CHWB / LambdaNP2
+                -423.123 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
+                -89854. * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
+                -312617. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
                 -82956.8 * (1. + eVBF_78_HG ) * CHG / LambdaNP2
-                -279.08 * (1. + eVBF_78_DHB ) * CDHB / LambdaNP2
-                -54861. * (1. + eVBF_78_DHW ) * CDHW / LambdaNP2
+                -279.08 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
+                -54861. * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
                 -4.479 * (1. + eVBF_78_DeltaGF ) * DeltaGF()
                 -3.22 * deltaMwd6()
                 ;
@@ -3268,12 +3283,12 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +9134.21 * (1. + eVBF_78_Hd_11 ) * CiHd_11 / LambdaNP2
                 -423704. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -165182. * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
-                -349.242 * (1. + eVBF_78_HB ) * CHB / LambdaNP2
-                -87279.4 * (1. + eVBF_78_HW ) * CHW / LambdaNP2
-                -313449. * (1. + eVBF_78_HWB ) * CHWB / LambdaNP2
+                -349.242 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
+                -87279.4 * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
+                -313449. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
                 -69421.9 * (1. + eVBF_78_HG ) * CHG / LambdaNP2
-                -373.338 * (1. + eVBF_78_DHB ) * CDHB / LambdaNP2
-                -57028.1 * (1. + eVBF_78_DHW ) * CDHW / LambdaNP2
+                -373.338 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
+                -57028.1 * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
                 -4.472 * (1. + eVBF_78_DeltaGF ) * DeltaGF()
                 -3.138 * deltaMwd6()
                 ;
@@ -3295,12 +3310,12 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +10564.3 * (1. + eVBF_1314_Hd_11 ) * CiHd_11 / LambdaNP2
                 -466270. * (1. + eVBF_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -164119. * (1. + eVBF_1314_HD ) * CiHD / LambdaNP2
-                -61.471 * (1. + eVBF_1314_HB ) * CHB / LambdaNP2
-                -82985.3 * (1. + eVBF_1314_HW ) * CHW / LambdaNP2
-                -313815. * (1. + eVBF_1314_HWB ) * CHWB / LambdaNP2
+                -61.471 * (1. + eVBF_1314_HB ) * CiHB / LambdaNP2
+                -82985.3 * (1. + eVBF_1314_HW ) * CiHW / LambdaNP2
+                -313815. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
                 -36554. * (1. + eVBF_1314_HG ) * CHG / LambdaNP2
-                -725.694 * (1. + eVBF_1314_DHB ) * CDHB / LambdaNP2
-                -65253.4 * (1. + eVBF_1314_DHW ) * CDHW / LambdaNP2
+                -725.694 * (1. + eVBF_1314_DHB ) * CiDHB / LambdaNP2
+                -65253.4 * (1. + eVBF_1314_DHW ) * CiDHW / LambdaNP2
                 -4.474 * (1. + eVBF_1314_DeltaGF ) * DeltaGF()
                 -3.109 * deltaMwd6()
                 ;
@@ -3321,12 +3336,12 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +10716.4 * (1. + eVBF_1314_Hd_11 ) * CiHd_11 / LambdaNP2
                 -473497. * (1. + eVBF_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -164672. * (1. + eVBF_1314_HD ) * CiHD / LambdaNP2
-                -60.253 * (1. + eVBF_1314_HB ) * CHB / LambdaNP2
-                -83504.9 * (1. + eVBF_1314_HW ) * CHW / LambdaNP2
-                -314059. * (1. + eVBF_1314_HWB ) * CHWB / LambdaNP2
+                -60.253 * (1. + eVBF_1314_HB ) * CiHB / LambdaNP2
+                -83504.9 * (1. + eVBF_1314_HW ) * CiHW / LambdaNP2
+                -314059. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
                 -33627.6 * (1. + eVBF_1314_HG ) * CHG / LambdaNP2
-                -775.959 * (1. + eVBF_1314_DHB ) * CDHB / LambdaNP2
-                -66336.3 * (1. + eVBF_1314_DHW ) * CDHW / LambdaNP2
+                -775.959 * (1. + eVBF_1314_DHB ) * CiDHB / LambdaNP2
+                -66336.3 * (1. + eVBF_1314_DHW ) * CiDHW / LambdaNP2
                 -4.474 * (1. + eVBF_1314_DeltaGF ) * DeltaGF()
                 -3.193 * deltaMwd6()
                 ;
@@ -3348,12 +3363,12 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +12917.3 * CiHd_11 / LambdaNP2
                 -536216. * CiHQ3_11 / LambdaNP2
                 -163493. * CiHD / LambdaNP2
-                +58.33 * CHB / LambdaNP2
-                -81360.5 * CHW / LambdaNP2
-                -313026. * CHWB / LambdaNP2
+                +58.33 * CiHB / LambdaNP2
+                -81360.5 * CiHW / LambdaNP2
+                -313026. * CiHWB / LambdaNP2
                 -16430. * CHG / LambdaNP2
-                -1314.45 * CDHB / LambdaNP2
-                -75884.6 * CDHW / LambdaNP2
+                -1314.45 * CiDHB / LambdaNP2
+                -75884.6 * CiDHW / LambdaNP2
                 -4.475 * DeltaGF()
                 -2.99 * deltaMwd6()
                 ;
@@ -3375,12 +3390,12 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +17539.2 * CiHd_11 / LambdaNP2
                 -674206. * CiHQ3_11 / LambdaNP2
                 -163344. * CiHD / LambdaNP2
-                +71.488 * CHB / LambdaNP2
-                -90808.2 * CHW / LambdaNP2
-                -312544. * CHWB / LambdaNP2
+                +71.488 * CiHB / LambdaNP2
+                -90808.2 * CiHW / LambdaNP2
+                -312544. * CiHWB / LambdaNP2
                 -8165.65 * CHG / LambdaNP2
-                -2615.48 * CDHB / LambdaNP2
-                -96539.6 * CDHW / LambdaNP2
+                -2615.48 * CiDHB / LambdaNP2
+                -96539.6 * CiDHW / LambdaNP2
                 -4.452 * DeltaGF()
                 -2.949 * deltaMwd6()
                 ;
@@ -3424,11 +3439,11 @@ double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
                 +119630. * CiHbox / LambdaNP2
                 -501300. * CiHQ3_11 / LambdaNP2
                 -200890. * CiHD / LambdaNP2
-                +11852.5 * CHB / LambdaNP2
-                -131586. * CHW / LambdaNP2
-                -361991. * CHWB / LambdaNP2
-                -18894.5 * CDHB / LambdaNP2
-                -69025.4 * CDHW / LambdaNP2
+                +11852.5 * CiHB / LambdaNP2
+                -131586. * CiHW / LambdaNP2
+                -361991. * CiHWB / LambdaNP2
+                -18894.5 * CiDHB / LambdaNP2
+                -69025.4 * CiDHW / LambdaNP2
                 +23773.1 * CiW / LambdaNP2
                 -4.629 * DeltaGF()
                 -5.637 * deltaMwd6()
@@ -3469,9 +3484,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121120. * CiHbox / LambdaNP2
                 -138682. * CiHL3_11 / LambdaNP2
                 -203727. * CiHD / LambdaNP2
-                -24699.7 * CHW / LambdaNP2
-                -379830. * CHWB / LambdaNP2
-                -18173.7 * CDHW / LambdaNP2
+                -24699.7 * CiHW / LambdaNP2
+                -379830. * CiHWB / LambdaNP2
+                -18173.7 * CiDHW / LambdaNP2
                 -4.716 * DeltaGF()
                 -5.665 * deltaMwd6()
                 ;
@@ -3496,9 +3511,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121142. * CiHbox / LambdaNP2
                 -147357. * CiHL3_11 / LambdaNP2
                 -203726. * CiHD / LambdaNP2
-                -26559.2 * CHW / LambdaNP2
-                -379797. * CHWB / LambdaNP2
-                -19265.3 * CDHW / LambdaNP2
+                -26559.2 * CiHW / LambdaNP2
+                -379797. * CiHWB / LambdaNP2
+                -19265.3 * CiDHW / LambdaNP2
                 -4.717 * DeltaGF()
                 -5.593 * deltaMwd6()
                 ;
@@ -3523,9 +3538,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121107. * CiHbox / LambdaNP2
                 -219582. * CiHL3_11 / LambdaNP2
                 -203717. * CiHD / LambdaNP2
-                -39722.3 * CHW / LambdaNP2
-                -379795. * CHWB / LambdaNP2
-                -28864.2 * CDHW / LambdaNP2
+                -39722.3 * CiHW / LambdaNP2
+                -379795. * CiHWB / LambdaNP2
+                -28864.2 * CiDHW / LambdaNP2
                 -4.714 * DeltaGF()
                 -5.13 * deltaMwd6()
                 ;
@@ -3550,9 +3565,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121071. * CiHbox / LambdaNP2
                 -228452. * CiHL3_11 / LambdaNP2
                 -203725. * CiHD / LambdaNP2
-                -40966.9 * CHW / LambdaNP2
-                -379798. * CHWB / LambdaNP2
-                -30110.4 * CDHW / LambdaNP2
+                -40966.9 * CiHW / LambdaNP2
+                -379798. * CiHWB / LambdaNP2
+                -30110.4 * CiDHW / LambdaNP2
                 -4.714 * DeltaGF()
                 -5.08 * deltaMwd6()
                 ;
@@ -3577,9 +3592,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121001. * CiHbox / LambdaNP2
                 -237126. * CiHL3_11 / LambdaNP2
                 -203726. * CiHD / LambdaNP2
-                -42070.9 * CHW / LambdaNP2
-                -379788. * CHWB / LambdaNP2
-                -31352.7 * CDHW / LambdaNP2
+                -42070.9 * CiHW / LambdaNP2
+                -379788. * CiHWB / LambdaNP2
+                -31352.7 * CiDHW / LambdaNP2
                 -4.714 * DeltaGF()
                 -5.044 * deltaMwd6()
                 ;
@@ -3604,9 +3619,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121063. * CiHbox / LambdaNP2
                 -295115. * CiHL3_11 / LambdaNP2
                 -203679. * CiHD / LambdaNP2
-                -47539.5 * CHW / LambdaNP2
-                -379773. * CHWB / LambdaNP2
-                -39825.1 * CDHW / LambdaNP2
+                -47539.5 * CiHW / LambdaNP2
+                -379773. * CiHWB / LambdaNP2
+                -39825.1 * CiDHW / LambdaNP2
                 -4.715 * DeltaGF()
                 -4.817 * deltaMwd6()
                 ;
@@ -3631,9 +3646,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +120960. * CiHbox / LambdaNP2
                 -442647. * CiHL3_11 / LambdaNP2
                 -203748. * CiHD / LambdaNP2
-                -49375.4 * CHW / LambdaNP2
-                -379685. * CHWB / LambdaNP2
-                -63503.9 * CDHW / LambdaNP2
+                -49375.4 * CiHW / LambdaNP2
+                -379685. * CiHWB / LambdaNP2
+                -63503.9 * CiDHW / LambdaNP2
                 -4.712 * DeltaGF()
                 -4.481 * deltaMwd6()
                 ;
@@ -3658,9 +3673,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121118. * CiHbox / LambdaNP2
                 -515189. * CiHL3_11 / LambdaNP2
                 -203684. * CiHD / LambdaNP2
-                -46619.5 * CHW / LambdaNP2
-                -379667. * CHWB / LambdaNP2
-                -75747.8 * CDHW / LambdaNP2
+                -46619.5 * CiHW / LambdaNP2
+                -379667. * CiHWB / LambdaNP2
+                -75747.8 * CiDHW / LambdaNP2
                 -4.714 * DeltaGF()
                 -4.391 * deltaMwd6()
                 ;
@@ -3685,9 +3700,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121200. * CiHbox / LambdaNP2
                 -530152. * CiHL3_11 / LambdaNP2
                 -203649. * CiHD / LambdaNP2
-                -45921.3 * CHW / LambdaNP2
-                -379591. * CHWB / LambdaNP2
-                -78241.3 * CDHW / LambdaNP2
+                -45921.3 * CiHW / LambdaNP2
+                -379591. * CiHWB / LambdaNP2
+                -78241.3 * CiDHW / LambdaNP2
                 -4.715 * DeltaGF()
                 -4.38 * deltaMwd6()
                 ;
@@ -3712,9 +3727,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 +121321. * CiHbox / LambdaNP2
                 -684382. * CiHL3_11 / LambdaNP2
                 -203585. * CiHD / LambdaNP2
-                -38239. * CHW / LambdaNP2
-                -379518. * CHWB / LambdaNP2
-                -104465. * CDHW / LambdaNP2
+                -38239. * CiHW / LambdaNP2
+                -379518. * CiHWB / LambdaNP2
+                -104465. * CiDHW / LambdaNP2
                 -4.714 * DeltaGF()
                 -4.258 * deltaMwd6()
                 ;
@@ -3775,11 +3790,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -37798.9 * CiHe_11 / LambdaNP2
                 +279733. * CiHL3_11 / LambdaNP2
                 -196039. * CiHD / LambdaNP2
-                -70718.5 * CHB / LambdaNP2
-                +29671.9 * CHW / LambdaNP2
-                -401378. * CHWB / LambdaNP2
-                -23969.3 * CDHB / LambdaNP2
-                -1814.47 * CDHW / LambdaNP2
+                -70718.5 * CiHB / LambdaNP2
+                +29671.9 * CiHW / LambdaNP2
+                -401378. * CiHWB / LambdaNP2
+                -23969.3 * CiDHB / LambdaNP2
+                -1814.47 * CiDHW / LambdaNP2
                 -4.698 * DeltaGF()
                 -5.463 * deltaMwd6()
                 ;
@@ -3806,11 +3821,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -38677.5 * CiHe_11 / LambdaNP2
                 +175735. * CiHL3_11 / LambdaNP2
                 -201059. * CiHD / LambdaNP2
-                -57405. * CHB / LambdaNP2
-                -9860.82 * CHW / LambdaNP2
-                -403474. * CHWB / LambdaNP2
-                -20447.1 * CDHB / LambdaNP2
-                -9672.74 * CDHW / LambdaNP2
+                -57405. * CiHB / LambdaNP2
+                -9860.82 * CiHW / LambdaNP2
+                -403474. * CiHWB / LambdaNP2
+                -20447.1 * CiDHB / LambdaNP2
+                -9672.74 * CiDHW / LambdaNP2
                 -4.656 * DeltaGF()
                 -5.633 * deltaMwd6()
                 ;
@@ -3837,11 +3852,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -27432.1 * CiHe_11 / LambdaNP2
                 -238244. * CiHL3_11 / LambdaNP2
                 -204898. * CiHD / LambdaNP2
-                +11833.5 * CHB / LambdaNP2
-                -94273.3 * CHW / LambdaNP2
-                -377703. * CHWB / LambdaNP2
-                +1111.63 * CDHB / LambdaNP2
-                -31735.2 * CDHW / LambdaNP2
+                +11833.5 * CiHB / LambdaNP2
+                -94273.3 * CiHW / LambdaNP2
+                -377703. * CiHWB / LambdaNP2
+                +1111.63 * CiDHB / LambdaNP2
+                -31735.2 * CiDHW / LambdaNP2
                 -4.669 * DeltaGF()
                 -5.329 * deltaMwd6()
                 ;
@@ -3868,11 +3883,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -24398.7 * CiHe_11 / LambdaNP2
                 -253414. * CiHL3_11 / LambdaNP2
                 -204817. * CiHD / LambdaNP2
-                +12826.5 * CHB / LambdaNP2
-                -93455. * CHW / LambdaNP2
-                -377489. * CHWB / LambdaNP2
-                +1693.48 * CDHB / LambdaNP2
-                -32834.7 * CDHW / LambdaNP2
+                +12826.5 * CiHB / LambdaNP2
+                -93455. * CiHW / LambdaNP2
+                -377489. * CiHWB / LambdaNP2
+                +1693.48 * CiDHB / LambdaNP2
+                -32834.7 * CiDHW / LambdaNP2
                 -4.68 * DeltaGF()
                 -5.265 * deltaMwd6()
                 ;
@@ -3899,11 +3914,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -22022.3 * CiHe_11 / LambdaNP2
                 -266603. * CiHL3_11 / LambdaNP2
                 -204782. * CiHD / LambdaNP2
-                +13052.3 * CHB / LambdaNP2
-                -92560.2 * CHW / LambdaNP2
-                -377461. * CHWB / LambdaNP2
-                +1916.19 * CDHB / LambdaNP2
-                -33824.9 * CDHW / LambdaNP2
+                +13052.3 * CiHB / LambdaNP2
+                -92560.2 * CiHW / LambdaNP2
+                -377461. * CiHWB / LambdaNP2
+                +1916.19 * CiDHB / LambdaNP2
+                -33824.9 * CiDHW / LambdaNP2
                 -4.684 * DeltaGF()
                 -5.221 * deltaMwd6()
                 ;
@@ -3930,11 +3945,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -11055.8 * CiHe_11 / LambdaNP2
                 -326940. * CiHL3_11 / LambdaNP2
                 -204335. * CiHD / LambdaNP2
-                +10505.8 * CHB / LambdaNP2
-                -82453.1 * CHW / LambdaNP2
-                -378407. * CHWB / LambdaNP2
-                +1889.64 * CDHB / LambdaNP2
-                -41332.3 * CDHW / LambdaNP2
+                +10505.8 * CiHB / LambdaNP2
+                -82453.1 * CiHW / LambdaNP2
+                -378407. * CiHWB / LambdaNP2
+                +1889.64 * CiDHB / LambdaNP2
+                -41332.3 * CiDHW / LambdaNP2
                 -4.705 * DeltaGF()
                 -4.943 * deltaMwd6()
                 ;
@@ -3961,11 +3976,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -3124.38 * CiHe_11 / LambdaNP2
                 -454282. * CiHL3_11 / LambdaNP2
                 -204077. * CiHD / LambdaNP2
-                +3421.94 * CHB / LambdaNP2
-                -61892.5 * CHW / LambdaNP2
-                -379786. * CHWB / LambdaNP2
-                +396.747 * CDHB / LambdaNP2
-                -63826.6 * CDHW / LambdaNP2
+                +3421.94 * CiHB / LambdaNP2
+                -61892.5 * CiHW / LambdaNP2
+                -379786. * CiHWB / LambdaNP2
+                +396.747 * CiDHB / LambdaNP2
+                -63826.6 * CiDHW / LambdaNP2
                 -4.711 * DeltaGF()
                 -4.587 * deltaMwd6()
                 ;
@@ -3992,11 +4007,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -2212.55 * CiHe_11 / LambdaNP2
                 -521829. * CiHL3_11 / LambdaNP2
                 -204054. * CiHD / LambdaNP2
-                +1891.37 * CHB / LambdaNP2
-                -54492.9 * CHW / LambdaNP2
-                -379916. * CHWB / LambdaNP2
-                +142.745 * CDHB / LambdaNP2
-                -75976. * CDHW / LambdaNP2
+                +1891.37 * CiHB / LambdaNP2
+                -54492.9 * CiHW / LambdaNP2
+                -379916. * CiHWB / LambdaNP2
+                +142.745 * CiDHB / LambdaNP2
+                -75976. * CiDHW / LambdaNP2
                 -4.712 * DeltaGF()
                 -4.486 * deltaMwd6()
                 ;
@@ -4023,11 +4038,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -2086.49 * CiHe_11 / LambdaNP2
                 -536150. * CiHL3_11 / LambdaNP2
                 -204072. * CiHD / LambdaNP2
-                +1682.65 * CHB / LambdaNP2
-                -53138.1 * CHW / LambdaNP2
-                -379943. * CHWB / LambdaNP2
-                +134.612 * CDHB / LambdaNP2
-                -78546.2 * CDHW / LambdaNP2
+                +1682.65 * CiHB / LambdaNP2
+                -53138.1 * CiHW / LambdaNP2
+                -379943. * CiHWB / LambdaNP2
+                +134.612 * CiDHB / LambdaNP2
+                -78546.2 * CiDHW / LambdaNP2
                 -4.711 * DeltaGF()
                 -4.469 * deltaMwd6()
                 ;
@@ -4054,11 +4069,11 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
                 -1382.75 * CiHe_11 / LambdaNP2
                 -686451. * CiHL3_11 / LambdaNP2
                 -204039. * CiHD / LambdaNP2
-                +293.31 * CHB / LambdaNP2
-                -41440.6 * CHW / LambdaNP2
-                -380130. * CHWB / LambdaNP2
-                -272.36 * CDHB / LambdaNP2
-                -104900. * CDHW / LambdaNP2
+                +293.31 * CiHB / LambdaNP2
+                -41440.6 * CiHW / LambdaNP2
+                -380130. * CiHWB / LambdaNP2
+                -272.36 * CiDHB / LambdaNP2
+                -104900. * CiDHW / LambdaNP2
                 -4.706 * DeltaGF()
                 -4.343 * deltaMwd6()
                 ;
@@ -4111,11 +4126,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -508958. * CiHe_11 / LambdaNP2
                 +220003. * CiHL3_11 / LambdaNP2
                 -149238. * CiHD / LambdaNP2
-                +24268.3 * CHB / LambdaNP2
-                -32411.5 * CHW / LambdaNP2
-                -194663. * CHWB / LambdaNP2
-                +29267.1 * CDHB / LambdaNP2
-                -11610.1 * CDHW / LambdaNP2
+                +24268.3 * CiHB / LambdaNP2
+                -32411.5 * CiHW / LambdaNP2
+                -194663. * CiHWB / LambdaNP2
+                +29267.1 * CiDHB / LambdaNP2
+                -11610.1 * CiDHW / LambdaNP2
                 -3.633 * DeltaGF()
                 -4.394 * deltaMwd6()
                 ; 
@@ -4133,11 +4148,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 +931.718 * CiHe_11 / LambdaNP2
                 +283908. * CiHL3_11 / LambdaNP2
                 -199920. * CiHD / LambdaNP2
-                -78796.8 * CHB / LambdaNP2
-                +34606.7 * CHW / LambdaNP2
-                -418335. * CHWB / LambdaNP2
-                -28484. * CDHB / LambdaNP2
-                -1197.92 * CDHW / LambdaNP2
+                -78796.8 * CiHB / LambdaNP2
+                +34606.7 * CiHW / LambdaNP2
+                -418335. * CiHWB / LambdaNP2
+                -28484. * CiDHB / LambdaNP2
+                -1197.92 * CiDHW / LambdaNP2
                 -4.781 * DeltaGF()
                 -5.537 * deltaMwd6()
                 ; 
@@ -4155,11 +4170,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -313151. * CiHe_11 / LambdaNP2
                 +245682. * CiHL3_11 / LambdaNP2
                 -168446. * CiHD / LambdaNP2
-                -15072.1 * CHB / LambdaNP2
-                -6209.98 * CHW / LambdaNP2
-                -281195. * CHWB / LambdaNP2
-                +6468.72 * CDHB / LambdaNP2
-                -7633.09 * CDHW / LambdaNP2
+                -15072.1 * CiHB / LambdaNP2
+                -6209.98 * CiHW / LambdaNP2
+                -281195. * CiHWB / LambdaNP2
+                +6468.72 * CiDHB / LambdaNP2
+                -7633.09 * CiDHW / LambdaNP2
                 -4.079 * DeltaGF()
                 -4.832 * deltaMwd6()
                 ; 
@@ -4177,11 +4192,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -1209.82 * CiHe_11 / LambdaNP2
                 +283754. * CiHL3_11 / LambdaNP2
                 -199723. * CiHD / LambdaNP2
-                -78465.3 * CHB / LambdaNP2
-                +34393.4 * CHW / LambdaNP2
-                -417413. * CHWB / LambdaNP2
-                -28344.3 * CDHB / LambdaNP2
-                -1296.23 * CDHW / LambdaNP2
+                -78465.3 * CiHB / LambdaNP2
+                +34393.4 * CiHW / LambdaNP2
+                -417413. * CiHWB / LambdaNP2
+                -28344.3 * CiDHB / LambdaNP2
+                -1296.23 * CiDHW / LambdaNP2
                 -4.777 * DeltaGF()
                 -5.539 * deltaMwd6()
                 ; 
@@ -4207,11 +4222,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -516799. * CiHe_11 / LambdaNP2
                 +146366. * CiHL3_11 / LambdaNP2
                 -156275. * CiHD / LambdaNP2
-                +30993.1 * CHB / LambdaNP2
-                -62277.2 * CHW / LambdaNP2
-                -213096. * CHWB / LambdaNP2
-                +32593.7 * CDHB / LambdaNP2
-                -18479.4 * CDHW / LambdaNP2
+                +30993.1 * CiHB / LambdaNP2
+                -62277.2 * CiHW / LambdaNP2
+                -213096. * CiHWB / LambdaNP2
+                +32593.7 * CiDHB / LambdaNP2
+                -18479.4 * CiDHW / LambdaNP2
                 -3.678 * DeltaGF()
                 -4.598 * deltaMwd6()
                 ; 
@@ -4229,11 +4244,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -351.165 * CiHe_11 / LambdaNP2
                 -396055. * CiHL3_11 / LambdaNP2
                 -204612. * CiHD / LambdaNP2
-                -64672.8 * CHB / LambdaNP2
-                -5618.64 * CHW / LambdaNP2
-                -418629. * CHWB / LambdaNP2
-                -24815.6 * CDHB / LambdaNP2
-                -9013.23 * CDHW / LambdaNP2
+                -64672.8 * CiHB / LambdaNP2
+                -5618.64 * CiHW / LambdaNP2
+                -418629. * CiHWB / LambdaNP2
+                -24815.6 * CiDHB / LambdaNP2
+                -9013.23 * CiDHW / LambdaNP2
                 +286902. * CiLL_1221 / LambdaNP2
                 -5.706 * deltaMwd6()
                 ; 
@@ -4251,11 +4266,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -315248. * CiHe_11 / LambdaNP2
                 +158895. * CiHL3_11 / LambdaNP2
                 -175074. * CiHD / LambdaNP2
-                -6529.15 * CHB / LambdaNP2
-                -40099.4 * CHW / LambdaNP2
-                -293696. * CHWB / LambdaNP2
-                +10284.9 * CDHB / LambdaNP2
-                -15311.7 * CDHW / LambdaNP2
+                -6529.15 * CiHB / LambdaNP2
+                -40099.4 * CiHW / LambdaNP2
+                -293696. * CiHWB / LambdaNP2
+                +10284.9 * CiDHB / LambdaNP2
+                -15311.7 * CiDHW / LambdaNP2
                 -4.092 * DeltaGF()
                 -5.01 * deltaMwd6()
                 ; 
@@ -4273,11 +4288,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -2507.98 * CiHe_11 / LambdaNP2
                 +177390. * CiHL3_11 / LambdaNP2
                 -204514. * CiHD / LambdaNP2
-                -64371.5 * CHB / LambdaNP2
-                -5927.95 * CHW / LambdaNP2
-                -417860. * CHWB / LambdaNP2
-                -24699.8 * CDHB / LambdaNP2
-                -9119.93 * CDHW / LambdaNP2
+                -64371.5 * CiHB / LambdaNP2
+                -5927.95 * CiHW / LambdaNP2
+                -417860. * CiHWB / LambdaNP2
+                -24699.8 * CiDHB / LambdaNP2
+                -9119.93 * CiDHW / LambdaNP2
                 -4.726 * DeltaGF()
                 -5.715 * deltaMwd6()
                 ; 
@@ -4303,11 +4318,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -416801. * CiHe_11 / LambdaNP2
                 -192794. * CiHL3_11 / LambdaNP2
                 -182281. * CiHD / LambdaNP2
-                +102909. * CHB / LambdaNP2
-                -87947.8 * CHW / LambdaNP2
-                -228111. * CHWB / LambdaNP2
-                +40181.7 * CDHB / LambdaNP2
-                -37530.5 * CDHW / LambdaNP2
+                +102909. * CiHB / LambdaNP2
+                -87947.8 * CiHW / LambdaNP2
+                -228111. * CiHWB / LambdaNP2
+                +40181.7 * CiDHB / LambdaNP2
+                -37530.5 * CiDHW / LambdaNP2
                 -4.236 * DeltaGF()
                 -4.832 * deltaMwd6()
                 ; 
@@ -4325,11 +4340,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -1357.61 * CiHe_11 / LambdaNP2
                 -241114. * CiHL3_11 / LambdaNP2
                 -206464. * CiHD / LambdaNP2
-                +5738.97 * CHB / LambdaNP2
-                -94600.4 * CHW / LambdaNP2
-                -387581. * CHWB / LambdaNP2
-                -1403.89 * CDHB / LambdaNP2
-                -31363.8 * CDHW / LambdaNP2
+                +5738.97 * CiHB / LambdaNP2
+                -94600.4 * CiHW / LambdaNP2
+                -387581. * CiHWB / LambdaNP2
+                -1403.89 * CiDHB / LambdaNP2
+                -31363.8 * CiDHW / LambdaNP2
                 -4.699 * DeltaGF()
                 -5.361 * deltaMwd6()
                 ; 
@@ -4347,11 +4362,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -235832. * CiHe_11 / LambdaNP2
                 -213581. * CiHL3_11 / LambdaNP2
                 -192620. * CiHD / LambdaNP2
-                +60320.1 * CHB / LambdaNP2
-                -90446.2 * CHW / LambdaNP2
-                -297833. * CHWB / LambdaNP2
-                +22132.1 * CDHB / LambdaNP2
-                -34844.4 * CDHW / LambdaNP2
+                +60320.1 * CiHB / LambdaNP2
+                -90446.2 * CiHW / LambdaNP2
+                -297833. * CiHWB / LambdaNP2
+                +22132.1 * CiDHB / LambdaNP2
+                -34844.4 * CiDHW / LambdaNP2
                 -4.439 * DeltaGF()
                 -5.054 * deltaMwd6()
                 ; 
@@ -4369,11 +4384,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -2786.58 * CiHe_11 / LambdaNP2
                 -241197. * CiHL3_11 / LambdaNP2
                 -206387. * CiHD / LambdaNP2
-                +6134.48 * CHB / LambdaNP2
-                -94603.3 * CHW / LambdaNP2
-                -387053. * CHWB / LambdaNP2
-                -1323.12 * CDHB / LambdaNP2
-                -31434.2 * CDHW / LambdaNP2
+                +6134.48 * CiHB / LambdaNP2
+                -94603.3 * CiHW / LambdaNP2
+                -387053. * CiHWB / LambdaNP2
+                -1323.12 * CiDHB / LambdaNP2
+                -31434.2 * CiDHW / LambdaNP2
                 -4.696 * DeltaGF()
                 -5.365 * deltaMwd6()
                 ; 
@@ -4399,11 +4414,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -379332. * CiHe_11 / LambdaNP2
                 -213151. * CiHL3_11 / LambdaNP2
                 -185704. * CiHD / LambdaNP2
-                +95027.9 * CHB / LambdaNP2
-                -87042.2 * CHW / LambdaNP2
-                -246839. * CHWB / LambdaNP2
-                +37834.6 * CDHB / LambdaNP2
-                -38594.2 * CDHW / LambdaNP2
+                +95027.9 * CiHB / LambdaNP2
+                -87042.2 * CiHW / LambdaNP2
+                -246839. * CiHWB / LambdaNP2
+                +37834.6 * CiDHB / LambdaNP2
+                -38594.2 * CiDHW / LambdaNP2
                 -4.314 * DeltaGF()
                 -4.867 * deltaMwd6()
                 ; 
@@ -4421,11 +4436,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -1266.64 * CiHe_11 / LambdaNP2
                 -256145. * CiHL3_11 / LambdaNP2
                 -206112. * CiHD / LambdaNP2
-                +7209.08 * CHB / LambdaNP2
-                -94095.3 * CHW / LambdaNP2
-                -386056. * CHWB / LambdaNP2
-                -673.745 * CDHB / LambdaNP2
-                -32528.4 * CDHW / LambdaNP2
+                +7209.08 * CiHB / LambdaNP2
+                -94095.3 * CiHW / LambdaNP2
+                -386056. * CiHWB / LambdaNP2
+                -673.745 * CiDHB / LambdaNP2
+                -32528.4 * CiDHW / LambdaNP2
                 -4.703 * DeltaGF()
                 -5.297 * deltaMwd6()
                 ; 
@@ -4443,11 +4458,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -212361. * CiHe_11 / LambdaNP2
                 -232050. * CiHL3_11 / LambdaNP2
                 -194801. * CiHD / LambdaNP2
-                +56353. * CHB / LambdaNP2
-                -90080.9 * CHW / LambdaNP2
-                -308151. * CHWB / LambdaNP2
-                +20707.2 * CDHB / LambdaNP2
-                -35840.6 * CDHW / LambdaNP2
+                +56353. * CiHB / LambdaNP2
+                -90080.9 * CiHW / LambdaNP2
+                -308151. * CiHWB / LambdaNP2
+                +20707.2 * CiDHB / LambdaNP2
+                -35840.6 * CiDHW / LambdaNP2
                 -4.485 * DeltaGF()
                 -5.033 * deltaMwd6()
                 ; 
@@ -4465,11 +4480,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -2521.89 * CiHe_11 / LambdaNP2
                 -255807. * CiHL3_11 / LambdaNP2
                 -205972. * CiHD / LambdaNP2
-                +7600.7 * CHB / LambdaNP2
-                -94080.6 * CHW / LambdaNP2
-                -385587. * CHWB / LambdaNP2
-                -525.394 * CDHB / LambdaNP2
-                -32486.9 * CDHW / LambdaNP2
+                +7600.7 * CiHB / LambdaNP2
+                -94080.6 * CiHW / LambdaNP2
+                -385587. * CiHWB / LambdaNP2
+                -525.394 * CiDHB / LambdaNP2
+                -32486.9 * CiDHW / LambdaNP2
                 -4.703 * DeltaGF()
                 -5.294 * deltaMwd6()
                 ; 
@@ -4495,11 +4510,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -344628. * CiHe_11 / LambdaNP2
                 -230932. * CiHL3_11 / LambdaNP2
                 -188656. * CiHD / LambdaNP2
-                +86802.5 * CHB / LambdaNP2
-                -86378.3 * CHW / LambdaNP2
-                -262732. * CHWB / LambdaNP2
-                +35211.7 * CDHB / LambdaNP2
-                -39122. * CDHW / LambdaNP2
+                +86802.5 * CiHB / LambdaNP2
+                -86378.3 * CiHW / LambdaNP2
+                -262732. * CiHWB / LambdaNP2
+                +35211.7 * CiDHB / LambdaNP2
+                -39122. * CiDHW / LambdaNP2
                 -4.375 * DeltaGF()
                 -4.833 * deltaMwd6()
                 ; 
@@ -4517,11 +4532,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -1156.51 * CiHe_11 / LambdaNP2
                 -268680. * CiHL3_11 / LambdaNP2
                 -205752. * CiHD / LambdaNP2
-                +8226.72 * CHB / LambdaNP2
-                -92973.9 * CHW / LambdaNP2
-                -384868. * CHWB / LambdaNP2
-                -154.996 * CDHB / LambdaNP2
-                -33479.2 * CDHW / LambdaNP2
+                +8226.72 * CiHB / LambdaNP2
+                -92973.9 * CiHW / LambdaNP2
+                -384868. * CiHWB / LambdaNP2
+                -154.996 * CiDHB / LambdaNP2
+                -33479.2 * CiDHW / LambdaNP2
                 -4.706 * DeltaGF()
                 -5.24 * deltaMwd6()
                 ; 
@@ -4539,11 +4554,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -191922. * CiHe_11 / LambdaNP2
                 -247636. * CiHL3_11 / LambdaNP2
                 -196255. * CiHD / LambdaNP2
-                +52143.1 * CHB / LambdaNP2
-                -89227.7 * CHW / LambdaNP2
-                -317018. * CHWB / LambdaNP2
-                +19725.8 * CDHB / LambdaNP2
-                -36723.5 * CDHW / LambdaNP2
+                +52143.1 * CiHB / LambdaNP2
+                -89227.7 * CiHW / LambdaNP2
+                -317018. * CiHWB / LambdaNP2
+                +19725.8 * CiDHB / LambdaNP2
+                -36723.5 * CiDHW / LambdaNP2
                 -4.524 * DeltaGF()
                 -5.007 * deltaMwd6()
                 ; 
@@ -4561,11 +4576,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -2293.44 * CiHe_11 / LambdaNP2
                 -268673. * CiHL3_11 / LambdaNP2
                 -205696. * CiHD / LambdaNP2
-                +8476.41 * CHB / LambdaNP2
-                -92899.6 * CHW / LambdaNP2
-                -384414. * CHWB / LambdaNP2
-                +15.496 * CDHB / LambdaNP2
-                -33502.8 * CDHW / LambdaNP2
+                +8476.41 * CiHB / LambdaNP2
+                -92899.6 * CiHW / LambdaNP2
+                -384414. * CiHWB / LambdaNP2
+                +15.496 * CiDHB / LambdaNP2
+                -33502.8 * CiDHW / LambdaNP2
                 -4.704 * DeltaGF()
                 -5.232 * deltaMwd6()
                 ; 
@@ -4591,11 +4606,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -177471. * CiHe_11 / LambdaNP2
                 -312922. * CiHL3_11 / LambdaNP2
                 -199388. * CiHD / LambdaNP2
-                +44288.8 * CHB / LambdaNP2
-                -78960.3 * CHW / LambdaNP2
-                -332501. * CHWB / LambdaNP2
-                +20615.5 * CDHB / LambdaNP2
-                -43923.9 * CDHW / LambdaNP2
+                +44288.8 * CiHB / LambdaNP2
+                -78960.3 * CiHW / LambdaNP2
+                -332501. * CiHWB / LambdaNP2
+                +20615.5 * CiDHB / LambdaNP2
+                -43923.9 * CiDHW / LambdaNP2
                 -4.614 * DeltaGF()
                 -4.84 * deltaMwd6()
                 ; 
@@ -4613,11 +4628,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -905.141 * CiHe_11 / LambdaNP2
                 -327709. * CiHL3_11 / LambdaNP2
                 -204622. * CiHD / LambdaNP2
-                +8508.33 * CHB / LambdaNP2
-                -82669.6 * CHW / LambdaNP2
-                -381185. * CHWB / LambdaNP2
-                +784.456 * CDHB / LambdaNP2
-                -41153.8 * CDHW / LambdaNP2
+                +8508.33 * CiHB / LambdaNP2
+                -82669.6 * CiHW / LambdaNP2
+                -381185. * CiHWB / LambdaNP2
+                +784.456 * CiDHB / LambdaNP2
+                -41153.8 * CiDHW / LambdaNP2
                 -4.711 * DeltaGF()
                 -4.948 * deltaMwd6()
                 ; 
@@ -4635,11 +4650,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -96672.9 * CiHe_11 / LambdaNP2
                 -320011. * CiHL3_11 / LambdaNP2
                 -201855. * CiHD / LambdaNP2
-                +27690.6 * CHB / LambdaNP2
-                -80770. * CHW / LambdaNP2
-                -355060. * CHWB / LambdaNP2
-                +11299.4 * CDHB / LambdaNP2
-                -42756.5 * CDHW / LambdaNP2
+                +27690.6 * CiHB / LambdaNP2
+                -80770. * CiHW / LambdaNP2
+                -355060. * CiHWB / LambdaNP2
+                +11299.4 * CiDHB / LambdaNP2
+                -42756.5 * CiDHW / LambdaNP2
                 -4.656 * DeltaGF()
                 -4.875 * deltaMwd6()
                 ; 
@@ -4657,11 +4672,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -1490.31 * CiHe_11 / LambdaNP2
                 -327665. * CiHL3_11 / LambdaNP2
                 -204644. * CiHD / LambdaNP2
-                +8471.25 * CHB / LambdaNP2
-                -82673.2 * CHW / LambdaNP2
-                -381049. * CHWB / LambdaNP2
-                +862.813 * CDHB / LambdaNP2
-                -41179.7 * CDHW / LambdaNP2
+                +8471.25 * CiHB / LambdaNP2
+                -82673.2 * CiHW / LambdaNP2
+                -381049. * CiHWB / LambdaNP2
+                +862.813 * CiDHB / LambdaNP2
+                -41179.7 * CiDHW / LambdaNP2
                 -4.711 * DeltaGF()
                 -4.942 * deltaMwd6()
                 ; 
@@ -4687,11 +4702,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -46166.9 * CiHe_11 / LambdaNP2
                 -452752. * CiHL3_11 / LambdaNP2
                 -203700. * CiHD / LambdaNP2
-                +8561.22 * CHB / LambdaNP2
-                -61449.7 * CHW / LambdaNP2
-                -374076. * CHWB / LambdaNP2
-                +6473.98 * CDHB / LambdaNP2
-                -64032.3 * CDHW / LambdaNP2
+                +8561.22 * CiHB / LambdaNP2
+                -61449.7 * CiHW / LambdaNP2
+                -374076. * CiHWB / LambdaNP2
+                +6473.98 * CiDHB / LambdaNP2
+                -64032.3 * CiDHW / LambdaNP2
                 -4.706 * DeltaGF()
                 -4.581 * deltaMwd6()
                 ; 
@@ -4709,11 +4724,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -529.908 * CiHe_11 / LambdaNP2
                 -454326. * CiHL3_11 / LambdaNP2
                 -204057. * CiHD / LambdaNP2
-                +3158.25 * CHB / LambdaNP2
-                -61850.9 * CHW / LambdaNP2
-                -380114. * CHWB / LambdaNP2
-                +63.589 * CDHB / LambdaNP2
-                -63800.9 * CDHW / LambdaNP2
+                +3158.25 * CiHB / LambdaNP2
+                -61850.9 * CiHW / LambdaNP2
+                -380114. * CiHWB / LambdaNP2
+                +63.589 * CiDHB / LambdaNP2
+                -63800.9 * CiDHW / LambdaNP2
                 -4.712 * DeltaGF()
                 -4.587 * deltaMwd6()
                 ; 
@@ -4731,11 +4746,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -25028.5 * CiHe_11 / LambdaNP2
                 -453487. * CiHL3_11 / LambdaNP2
                 -203871. * CiHD / LambdaNP2
-                +6021.71 * CHB / LambdaNP2
-                -61580. * CHW / LambdaNP2
-                -376790. * CHWB / LambdaNP2
-                +3494.08 * CDHB / LambdaNP2
-                -63959. * CDHW / LambdaNP2
+                +6021.71 * CiHB / LambdaNP2
+                -61580. * CiHW / LambdaNP2
+                -376790. * CiHWB / LambdaNP2
+                +3494.08 * CiDHB / LambdaNP2
+                -63959. * CiDHW / LambdaNP2
                 -4.708 * DeltaGF()
                 -4.589 * deltaMwd6()
                 ; 
@@ -4753,11 +4768,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -633.766 * CiHe_11 / LambdaNP2
                 -454337. * CiHL3_11 / LambdaNP2
                 -204073. * CiHD / LambdaNP2
-                +3196.39 * CHB / LambdaNP2
-                -61833.5 * CHW / LambdaNP2
-                -380094. * CHWB / LambdaNP2
-                +82.665 * CDHB / LambdaNP2
-                -63817.5 * CDHW / LambdaNP2
+                +3196.39 * CiHB / LambdaNP2
+                -61833.5 * CiHW / LambdaNP2
+                -380094. * CiHWB / LambdaNP2
+                +82.665 * CiDHB / LambdaNP2
+                -63817.5 * CiDHW / LambdaNP2
                 -4.712 * DeltaGF()
                 -4.588 * deltaMwd6()
                 ; 
@@ -4783,11 +4798,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -29937.8 * CiHe_11 / LambdaNP2
                 -521211. * CiHL3_11 / LambdaNP2
                 -203908. * CiHD / LambdaNP2
-                +4153.08 * CHB / LambdaNP2
-                -54219.3 * CHW / LambdaNP2
-                -377548. * CHWB / LambdaNP2
-                +4509.78 * CDHB / LambdaNP2
-                -76054.8 * CDHW / LambdaNP2
+                +4153.08 * CiHB / LambdaNP2
+                -54219.3 * CiHW / LambdaNP2
+                -377548. * CiHWB / LambdaNP2
+                +4509.78 * CiDHB / LambdaNP2
+                -76054.8 * CiDHW / LambdaNP2
                 -4.71 * DeltaGF()
                 -4.484 * deltaMwd6()
                 ; 
@@ -4805,11 +4820,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -488.036 * CiHe_11 / LambdaNP2
                 -521821. * CiHL3_11 / LambdaNP2
                 -204045. * CiHD / LambdaNP2
-                +1784.38 * CHB / LambdaNP2
-                -54507.5 * CHW / LambdaNP2
-                -380042. * CHWB / LambdaNP2
-                -122.009 * CDHB / LambdaNP2
-                -75950.5 * CDHW / LambdaNP2
+                +1784.38 * CiHB / LambdaNP2
+                -54507.5 * CiHW / LambdaNP2
+                -380042. * CiHWB / LambdaNP2
+                -122.009 * CiDHB / LambdaNP2
+                -75950.5 * CiDHW / LambdaNP2
                 -4.712 * DeltaGF()
                 -4.487 * deltaMwd6()
                 ; 
@@ -4827,11 +4842,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -16376.8 * CiHe_11 / LambdaNP2
                 -521472. * CiHL3_11 / LambdaNP2
                 -203960. * CiHD / LambdaNP2
-                +3068.42 * CHB / LambdaNP2
-                -54375.2 * CHW / LambdaNP2
-                -378699. * CHWB / LambdaNP2
-                +2390.51 * CDHB / LambdaNP2
-                -75996.8 * CDHW / LambdaNP2
+                +3068.42 * CiHB / LambdaNP2
+                -54375.2 * CiHW / LambdaNP2
+                -378699. * CiHWB / LambdaNP2
+                +2390.51 * CiDHB / LambdaNP2
+                -75996.8 * CiDHW / LambdaNP2
                 -4.711 * DeltaGF()
                 -4.485 * deltaMwd6()
                 ; 
@@ -4849,11 +4864,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -574.963 * CiHe_11 / LambdaNP2
                 -521805. * CiHL3_11 / LambdaNP2
                 -204053. * CiHD / LambdaNP2
-                +1784.37 * CHB / LambdaNP2
-                -54482.7 * CHW / LambdaNP2
-                -380051. * CHWB / LambdaNP2
-                -99.132 * CDHB / LambdaNP2
-                -75974.5 * CDHW / LambdaNP2
+                +1784.37 * CiHB / LambdaNP2
+                -54482.7 * CiHW / LambdaNP2
+                -380051. * CiHWB / LambdaNP2
+                -99.132 * CiDHB / LambdaNP2
+                -75974.5 * CiDHW / LambdaNP2
                 -4.712 * DeltaGF()
                 -4.487 * deltaMwd6()
                 ; 
@@ -4879,11 +4894,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -28114.2 * CiHe_11 / LambdaNP2
                 -535633. * CiHL3_11 / LambdaNP2
                 -203960. * CiHD / LambdaNP2
-                +3556.32 * CHB / LambdaNP2
-                -52816.2 * CHW / LambdaNP2
-                -377932. * CHWB / LambdaNP2
-                +4253.17 * CDHB / LambdaNP2
-                -78599.6 * CDHW / LambdaNP2
+                +3556.32 * CiHB / LambdaNP2
+                -52816.2 * CiHW / LambdaNP2
+                -377932. * CiHWB / LambdaNP2
+                +4253.17 * CiDHB / LambdaNP2
+                -78599.6 * CiDHW / LambdaNP2
                 -4.71 * DeltaGF()
                 -4.465 * deltaMwd6()
                 ; 
@@ -4901,11 +4916,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -517.747 * CiHe_11 / LambdaNP2
                 -536169. * CiHL3_11 / LambdaNP2
                 -204050. * CiHD / LambdaNP2
-                +1553.24 * CHB / LambdaNP2
-                -53097.9 * CHW / LambdaNP2
-                -380055. * CHWB / LambdaNP2
-                -129.437 * CDHB / LambdaNP2
-                -78539.4 * CDHW / LambdaNP2
+                +1553.24 * CiHB / LambdaNP2
+                -53097.9 * CiHW / LambdaNP2
+                -380055. * CiHWB / LambdaNP2
+                -129.437 * CiDHB / LambdaNP2
+                -78539.4 * CiDHW / LambdaNP2
                 -4.711 * DeltaGF()
                 -4.468 * deltaMwd6()
                 ; 
@@ -4923,11 +4938,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -15376.9 * CiHe_11 / LambdaNP2
                 -535845. * CiHL3_11 / LambdaNP2
                 -203987. * CiHD / LambdaNP2
-                +2641.32 * CHB / LambdaNP2
-                -53045.1 * CHW / LambdaNP2
-                -378920. * CHWB / LambdaNP2
-                +2237.55 * CDHB / LambdaNP2
-                -78549.8 * CDHW / LambdaNP2
+                +2641.32 * CiHB / LambdaNP2
+                -53045.1 * CiHW / LambdaNP2
+                -378920. * CiHWB / LambdaNP2
+                +2237.55 * CiDHB / LambdaNP2
+                -78549.8 * CiDHW / LambdaNP2
                 -4.711 * DeltaGF()
                 -4.468 * deltaMwd6()
                 ; 
@@ -4945,11 +4960,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -616.984 * CiHe_11 / LambdaNP2
                 -536155. * CiHL3_11 / LambdaNP2
                 -204035. * CiHD / LambdaNP2
-                +1570.5 * CHB / LambdaNP2
-                -53079.3 * CHW / LambdaNP2
-                -380043. * CHWB / LambdaNP2
-                -112.179 * CDHB / LambdaNP2
-                -78543.9 * CDHW / LambdaNP2
+                +1570.5 * CiHB / LambdaNP2
+                -53079.3 * CiHW / LambdaNP2
+                -380043. * CiHWB / LambdaNP2
+                -112.179 * CiDHB / LambdaNP2
+                -78543.9 * CiDHW / LambdaNP2
                 -4.711 * DeltaGF()
                 -4.468 * deltaMwd6()
                 ; 
@@ -4975,11 +4990,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -16370.4 * CiHe_11 / LambdaNP2
                 -686389. * CiHL3_11 / LambdaNP2
                 -204031. * CiHD / LambdaNP2
-                +628.479 * CHB / LambdaNP2
-                -41464.7 * CHW / LambdaNP2
-                -379766. * CHWB / LambdaNP2
-                +2259.53 * CDHB / LambdaNP2
-                -104941. * CDHW / LambdaNP2
+                +628.479 * CiHB / LambdaNP2
+                -41464.7 * CiHW / LambdaNP2
+                -379766. * CiHWB / LambdaNP2
+                +2259.53 * CiDHB / LambdaNP2
+                -104941. * CiDHW / LambdaNP2
                 -4.706 * DeltaGF()
                 -4.342 * deltaMwd6()
                 ; 
@@ -4997,11 +5012,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -537.201 * CiHe_11 / LambdaNP2
                 -686427. * CiHL3_11 / LambdaNP2
                 -204047. * CiHD / LambdaNP2
-                +268.601 * CHB / LambdaNP2
-                -41454. * CHW / LambdaNP2
-                -380141. * CHWB / LambdaNP2
-                -447.668 * CDHB / LambdaNP2
-                -104906. * CDHW / LambdaNP2
+                +268.601 * CiHB / LambdaNP2
+                -41454. * CiHW / LambdaNP2
+                -380141. * CiHWB / LambdaNP2
+                -447.668 * CiDHB / LambdaNP2
+                -104906. * CiDHW / LambdaNP2
                 -4.707 * DeltaGF()
                 -4.342 * deltaMwd6()
                 ; 
@@ -5019,11 +5034,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -9008.44 * CiHe_11 / LambdaNP2
                 -686485. * CiHL3_11 / LambdaNP2
                 -204052. * CiHD / LambdaNP2
-                +439.947 * CHB / LambdaNP2
-                -41459.8 * CHW / LambdaNP2
-                -379947. * CHWB / LambdaNP2
-                +1005.59 * CDHB / LambdaNP2
-                -104927. * CDHW / LambdaNP2
+                +439.947 * CiHB / LambdaNP2
+                -41459.8 * CiHW / LambdaNP2
+                -379947. * CiHWB / LambdaNP2
+                +1005.59 * CiDHB / LambdaNP2
+                -104927. * CiDHW / LambdaNP2
                 -4.706 * DeltaGF()
                 -4.342 * deltaMwd6()
                 ; 
@@ -5041,11 +5056,11 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
                 -535.407 * CiHe_11 / LambdaNP2
                 -686461. * CiHL3_11 / LambdaNP2
                 -204048. * CiHD / LambdaNP2
-                +244.425 * CHB / LambdaNP2
-                -41447.5 * CHW / LambdaNP2
-                -380150. * CHWB / LambdaNP2
-                -430.653 * CDHB / LambdaNP2
-                -104905. * CDHW / LambdaNP2
+                +244.425 * CiHB / LambdaNP2
+                -41447.5 * CiHW / LambdaNP2
+                -380150. * CiHWB / LambdaNP2
+                -430.653 * CiDHB / LambdaNP2
+                -104905. * CiDHW / LambdaNP2
                 -4.706 * DeltaGF()
                 -4.343 * deltaMwd6()
                 ; 
@@ -5092,11 +5107,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 -357163. * CiHe_11 / LambdaNP2
                 +489617. * CiHL3_11 / LambdaNP2
                 -39217.8 * CiHD / LambdaNP2
-                +1525468. * CHB / LambdaNP2
-                +378019. * CHW / LambdaNP2
-                +215983. * CHWB / LambdaNP2
-                -6554.11 * CDHB / LambdaNP2
-                +1175.47 * CDHW / LambdaNP2
+                +1525468. * CiHB / LambdaNP2
+                +378019. * CiHW / LambdaNP2
+                +215983. * CiHWB / LambdaNP2
+                -6554.11 * CiDHB / LambdaNP2
+                +1175.47 * CiDHW / LambdaNP2
                 -3.161 * DeltaGF()
                 ;
         
@@ -5121,11 +5136,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 -315727. * CiHe_11 / LambdaNP2
                 +444406. * CiHL3_11 / LambdaNP2
                 -41440.8 * CiHD / LambdaNP2
-                +1186855. * CHB / LambdaNP2
-                +301913. * CHW / LambdaNP2
-                +98540.5 * CHWB / LambdaNP2
-                -5766.35 * CDHB / LambdaNP2
-                +294.724 * CDHW / LambdaNP2
+                +1186855. * CiHB / LambdaNP2
+                +301913. * CiHW / LambdaNP2
+                +98540.5 * CiHWB / LambdaNP2
+                -5766.35 * CiDHB / LambdaNP2
+                +294.724 * CiDHW / LambdaNP2
                 -3.279 * DeltaGF()
                 ;
         
@@ -5150,11 +5165,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 -251.929 * CiHe_11 / LambdaNP2
                 +46354.9 * CiHL3_11 / LambdaNP2
                 -43426.2 * CiHD / LambdaNP2
-                +450512. * CHB / LambdaNP2
-                +166493. * CHW / LambdaNP2
-                -198898. * CHWB / LambdaNP2
-                -4408.76 * CDHB / LambdaNP2
-                -17005.2 * CDHW / LambdaNP2
+                +450512. * CiHB / LambdaNP2
+                +166493. * CiHW / LambdaNP2
+                -198898. * CiHWB / LambdaNP2
+                -4408.76 * CiDHB / LambdaNP2
+                -17005.2 * CiDHW / LambdaNP2
                 -3.427 * DeltaGF()
                 ; 
         
@@ -5179,11 +5194,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 +27809. * CiHe_11 / LambdaNP2
                 +9887.64 * CiHL3_11 / LambdaNP2
                 -43174.2 * CiHD / LambdaNP2
-                +417865. * CHB / LambdaNP2
-                +154270. * CHW / LambdaNP2
-                -201517. * CHWB / LambdaNP2
-                -4943.82 * CDHB / LambdaNP2
-                -19213.5 * CDHW / LambdaNP2
+                +417865. * CiHB / LambdaNP2
+                +154270. * CiHW / LambdaNP2
+                -201517. * CiHWB / LambdaNP2
+                -4943.82 * CiDHB / LambdaNP2
+                -19213.5 * CiDHW / LambdaNP2
                 -3.423 * DeltaGF()
                 ;
         
@@ -5208,11 +5223,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 +52903.2 * CiHe_11 / LambdaNP2
                 -22289.7 * CiHL3_11 / LambdaNP2
                 -43137.3 * CiHD / LambdaNP2
-                +388336. * CHB / LambdaNP2
-                +140923. * CHW / LambdaNP2
-                -202884. * CHWB / LambdaNP2
-                -5363.69 * CDHB / LambdaNP2
-                -21404.2 * CDHW / LambdaNP2
+                +388336. * CiHB / LambdaNP2
+                +140923. * CiHW / LambdaNP2
+                -202884. * CiHWB / LambdaNP2
+                -5363.69 * CiDHB / LambdaNP2
+                -21404.2 * CiDHW / LambdaNP2
                 -3.418 * DeltaGF()
                 ;
         
@@ -5237,11 +5252,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 +178925. * CiHe_11 / LambdaNP2
                 -185326. * CiHL3_11 / LambdaNP2
                 -42051.6 * CiHD / LambdaNP2
-                +236945. * CHB / LambdaNP2
-                +67833.5 * CHW / LambdaNP2
-                -178623. * CHWB / LambdaNP2
-                -8004.61 * CDHB / LambdaNP2
-                -33567.3 * CDHW / LambdaNP2
+                +236945. * CiHB / LambdaNP2
+                +67833.5 * CiHW / LambdaNP2
+                -178623. * CiHWB / LambdaNP2
+                -8004.61 * CiDHB / LambdaNP2
+                -33567.3 * CiDHW / LambdaNP2
                 -3.416 * DeltaGF()
                 ;
         
@@ -5266,11 +5281,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 +356730. * CiHe_11 / LambdaNP2
                 -409543. * CiHL3_11 / LambdaNP2
                 -42133.9 * CiHD / LambdaNP2
-                +69851. * CHB / LambdaNP2
-                -14416.8 * CHW / LambdaNP2
-                -113198. * CHWB / LambdaNP2
-                -18688.4 * CDHB / LambdaNP2
-                -61696. * CDHW / LambdaNP2
+                +69851. * CiHB / LambdaNP2
+                -14416.8 * CiHW / LambdaNP2
+                -113198. * CiHWB / LambdaNP2
+                -18688.4 * CiDHB / LambdaNP2
+                -61696. * CiDHW / LambdaNP2
                 -3.405 * DeltaGF()
                 ;
         
@@ -5295,11 +5310,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 +426669. * CiHe_11 / LambdaNP2
                 -493617. * CiHL3_11 / LambdaNP2
                 -42486.9 * CiHD / LambdaNP2
-                +34633.1 * CHB / LambdaNP2
-                -27609.6 * CHW / LambdaNP2
-                -97014.2 * CHWB / LambdaNP2
-                -23942.2 * CDHB / LambdaNP2
-                -74940.3 * CDHW / LambdaNP2
+                +34633.1 * CiHB / LambdaNP2
+                -27609.6 * CiHW / LambdaNP2
+                -97014.2 * CiHWB / LambdaNP2
+                -23942.2 * CiDHB / LambdaNP2
+                -74940.3 * CiDHW / LambdaNP2
                 -3.405 * DeltaGF()
                 ;
         
@@ -5324,11 +5339,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 +440504. * CiHe_11 / LambdaNP2
                 -510290. * CiHL3_11 / LambdaNP2
                 -42529.6 * CiHD / LambdaNP2
-                +30448.1 * CHB / LambdaNP2
-                -30741.2 * CHW / LambdaNP2
-                -95903.3 * CHWB / LambdaNP2
-                -25074.9 * CDHB / LambdaNP2
-                -77634.5 * CDHW / LambdaNP2
+                +30448.1 * CiHB / LambdaNP2
+                -30741.2 * CiHW / LambdaNP2
+                -95903.3 * CiHWB / LambdaNP2
+                -25074.9 * CiDHB / LambdaNP2
+                -77634.5 * CiDHW / LambdaNP2
                 -3.401 * DeltaGF()
                 ;
         
@@ -5353,11 +5368,11 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
                 +582037. * CiHe_11 / LambdaNP2
                 -677185. * CiHL3_11 / LambdaNP2
                 -42541.3 * CiHD / LambdaNP2
-                +6810.6 * CHB / LambdaNP2
-                -32994.5 * CHW / LambdaNP2
-                -78012.3 * CHWB / LambdaNP2
-                -36250. * CDHB / LambdaNP2
-                -105734. * CDHW / LambdaNP2
+                +6810.6 * CiHB / LambdaNP2
+                -32994.5 * CiHW / LambdaNP2
+                -78012.3 * CiHWB / LambdaNP2
+                -36250. * CiDHB / LambdaNP2
+                -105734. * CiDHW / LambdaNP2
                 -3.405 * DeltaGF()
                 ;
         
@@ -5407,11 +5422,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -939512. * CiHe_11 / LambdaNP2
                 +58943.5 * CiHL3_11 / LambdaNP2
                 +77442.6 * CiHD / LambdaNP2
-                +2082256. * CHB / LambdaNP2
-                +108043. * CHW / LambdaNP2
-                +1362693. * CHWB / LambdaNP2
-                +40385. * CDHB / LambdaNP2
-                -21886. * CDHW / LambdaNP2
+                +2082256. * CiHB / LambdaNP2
+                +108043. * CiHW / LambdaNP2
+                +1362693. * CiHWB / LambdaNP2
+                +40385. * CiDHB / LambdaNP2
+                -21886. * CiDHW / LambdaNP2
                 +0.563 * DeltaGF()
                 ;            
 
@@ -5428,11 +5443,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -55689. * CiHe_11 / LambdaNP2
                 +905327. * CiHL3_11 / LambdaNP2
                 -124548. * CiHD / LambdaNP2
-                +905057. * CHB / LambdaNP2
-                +540185. * CHW / LambdaNP2
-                -329708. * CHWB / LambdaNP2
-                -37296.9 * CDHB / LambdaNP2
-                +20497.1 * CDHW / LambdaNP2
+                +905057. * CiHB / LambdaNP2
+                +540185. * CiHW / LambdaNP2
+                -329708. * CiHWB / LambdaNP2
+                -37296.9 * CiDHB / LambdaNP2
+                +20497.1 * CiDHW / LambdaNP2
                 -5.854 * DeltaGF()
                 ; 
 
@@ -5449,11 +5464,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -753269. * CiHe_11 / LambdaNP2
                 +88774.4 * CiHL3_11 / LambdaNP2
                 +54593.2 * CiHD / LambdaNP2
-                +2101955. * CHB / LambdaNP2
-                +182237. * CHW / LambdaNP2
-                +972861. * CHWB / LambdaNP2
-                +29346.2 * CDHB / LambdaNP2
-                -18562.1 * CDHW / LambdaNP2
+                +2101955. * CiHB / LambdaNP2
+                +182237. * CiHW / LambdaNP2
+                +972861. * CiHWB / LambdaNP2
+                +29346.2 * CiDHB / LambdaNP2
+                -18562.1 * CiDHW / LambdaNP2
                 -0.206 * DeltaGF()
                 ; 
 
@@ -5470,11 +5485,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -66907.6 * CiHe_11 / LambdaNP2
                 +785643. * CiHL3_11 / LambdaNP2
                 -107673. * CiHD / LambdaNP2
-                +1115316. * CHB / LambdaNP2
-                +521873. * CHW / LambdaNP2
-                -331727. * CHWB / LambdaNP2
-                -32442.4 * CDHB / LambdaNP2
-                +15348.7 * CDHW / LambdaNP2
+                +1115316. * CiHB / LambdaNP2
+                +521873. * CiHW / LambdaNP2
+                -331727. * CiHWB / LambdaNP2
+                -32442.4 * CiDHB / LambdaNP2
+                +15348.7 * CiDHW / LambdaNP2
                 -5.334 * DeltaGF()
                 ; 
 
@@ -5499,11 +5514,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -851357. * CiHe_11 / LambdaNP2
                 +51113. * CiHL3_11 / LambdaNP2
                 +76762.9 * CiHD / LambdaNP2
-                +1629614. * CHB / LambdaNP2
-                +72741.6 * CHW / LambdaNP2
-                +1130834. * CHWB / LambdaNP2
-                +34381.7 * CDHB / LambdaNP2
-                -19876.5 * CDHW / LambdaNP2
+                +1629614. * CiHB / LambdaNP2
+                +72741.6 * CiHW / LambdaNP2
+                +1130834. * CiHWB / LambdaNP2
+                +34381.7 * CiDHB / LambdaNP2
+                -19876.5 * CiDHW / LambdaNP2
                 +0.563 * DeltaGF()
                 ;     
 
@@ -5520,11 +5535,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -45066.5 * CiHe_11 / LambdaNP2
                 +824294. * CiHL3_11 / LambdaNP2
                 -128864. * CiHD / LambdaNP2
-                +644513. * CHB / LambdaNP2
-                +425051. * CHW / LambdaNP2
-                -383720. * CHWB / LambdaNP2
-                -32434.3 * CDHB / LambdaNP2
-                +15329.4 * CDHW / LambdaNP2
+                +644513. * CiHB / LambdaNP2
+                +425051. * CiHW / LambdaNP2
+                -383720. * CiHWB / LambdaNP2
+                -32434.3 * CiDHB / LambdaNP2
+                +15329.4 * CiDHW / LambdaNP2
                 -6.022 * DeltaGF()
                 ; 
 
@@ -5541,11 +5556,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -676199. * CiHe_11 / LambdaNP2
                 +77372.1 * CiHL3_11 / LambdaNP2
                 +53294.7 * CiHD / LambdaNP2
-                +1668830. * CHB / LambdaNP2
-                +145010. * CHW / LambdaNP2
-                +772902. * CHWB / LambdaNP2
-                +23910.6 * CDHB / LambdaNP2
-                -16890.6 * CDHW / LambdaNP2
+                +1668830. * CiHB / LambdaNP2
+                +145010. * CiHW / LambdaNP2
+                +772902. * CiHWB / LambdaNP2
+                +23910.6 * CiDHB / LambdaNP2
+                -16890.6 * CiDHW / LambdaNP2
                 -0.226 * DeltaGF()
                 ; 
 
@@ -5562,11 +5577,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -53393.3 * CiHe_11 / LambdaNP2
                 +713174. * CiHL3_11 / LambdaNP2
                 -111120. * CiHD / LambdaNP2
-                +843388. * CHB / LambdaNP2
-                +417838. * CHW / LambdaNP2
-                -386753. * CHWB / LambdaNP2
-                -27915.7 * CDHB / LambdaNP2
-                +11946.5 * CDHW / LambdaNP2
+                +843388. * CiHB / LambdaNP2
+                +417838. * CiHW / LambdaNP2
+                -386753. * CiHWB / LambdaNP2
+                -27915.7 * CiDHB / LambdaNP2
+                +11946.5 * CiDHW / LambdaNP2
                 -5.496 * DeltaGF()
                 ; 
 
@@ -5591,11 +5606,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -172088. * CiHe_11 / LambdaNP2
                 -47420.2 * CiHL3_11 / LambdaNP2
                 +59728. * CiHD / LambdaNP2
-                +544205. * CHB / LambdaNP2
-                +83604.4 * CHW / LambdaNP2
-                +435393. * CHWB / LambdaNP2
-                -24800.4 * CDHB / LambdaNP2
-                -4583.09 * CDHW / LambdaNP2
+                +544205. * CiHB / LambdaNP2
+                +83604.4 * CiHW / LambdaNP2
+                +435393. * CiHWB / LambdaNP2
+                -24800.4 * CiDHB / LambdaNP2
+                -4583.09 * CiDHW / LambdaNP2
                 -0.05 * DeltaGF()
                 ;           
 
@@ -5612,11 +5627,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +42238.9 * CiHe_11 / LambdaNP2
                 +197618. * CiHL3_11 / LambdaNP2
                 -124376. * CiHD / LambdaNP2
-                +181154. * CHB / LambdaNP2
-                +195329. * CHW / LambdaNP2
-                -505800. * CHWB / LambdaNP2
-                +13082.6 * CDHB / LambdaNP2
-                -26607.4 * CDHW / LambdaNP2
+                +181154. * CiHB / LambdaNP2
+                +195329. * CiHW / LambdaNP2
+                -505800. * CiHWB / LambdaNP2
+                +13082.6 * CiDHB / LambdaNP2
+                -26607.4 * CiDHW / LambdaNP2
                 -6.096 * DeltaGF()
                 ; 
 
@@ -5633,11 +5648,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -83019.6 * CiHe_11 / LambdaNP2
                 -62853. * CiHL3_11 / LambdaNP2
                 +34395.4 * CiHD / LambdaNP2
-                +623389. * CHB / LambdaNP2
-                +123932. * CHW / LambdaNP2
-                +181789. * CHWB / LambdaNP2
-                -20420. * CDHB / LambdaNP2
-                -7820.42 * CDHW / LambdaNP2
+                +623389. * CiHB / LambdaNP2
+                +123932. * CiHW / LambdaNP2
+                +181789. * CiHWB / LambdaNP2
+                -20420. * CiDHB / LambdaNP2
+                -7820.42 * CiDHW / LambdaNP2
                 -0.875 * DeltaGF()
                 ; 
 
@@ -5654,11 +5669,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +63326.7 * CiHe_11 / LambdaNP2
                 +131443. * CiHL3_11 / LambdaNP2
                 -103038. * CiHD / LambdaNP2
-                +323596. * CHB / LambdaNP2
-                +201676. * CHW / LambdaNP2
-                -491019. * CHWB / LambdaNP2
-                +7992.43 * CDHB / LambdaNP2
-                -24283.6 * CDHW / LambdaNP2
+                +323596. * CiHB / LambdaNP2
+                +201676. * CiHW / LambdaNP2
+                -491019. * CiHWB / LambdaNP2
+                +7992.43 * CiDHB / LambdaNP2
+                -24283.6 * CiDHW / LambdaNP2
                 -5.391 * DeltaGF()
                 ; 
 
@@ -5683,11 +5698,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -109686. * CiHe_11 / LambdaNP2
                 -58695.1 * CiHL3_11 / LambdaNP2
                 +58496.7 * CiHD / LambdaNP2
-                +489137. * CHB / LambdaNP2
-                +80751.3 * CHW / LambdaNP2
-                +410304. * CHWB / LambdaNP2
-                -30918.3 * CDHB / LambdaNP2
-                -3571.31 * CDHW / LambdaNP2
+                +489137. * CiHB / LambdaNP2
+                +80751.3 * CiHW / LambdaNP2
+                +410304. * CiHWB / LambdaNP2
+                -30918.3 * CiDHB / LambdaNP2
+                -3571.31 * CiDHW / LambdaNP2
                 -0.085 * DeltaGF()
                 ;            
 
@@ -5704,11 +5719,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +50762. * CiHe_11 / LambdaNP2
                 +136019. * CiHL3_11 / LambdaNP2
                 -123859. * CiHD / LambdaNP2
-                +165799. * CHB / LambdaNP2
-                +176652. * CHW / LambdaNP2
-                -504889. * CHWB / LambdaNP2
-                +16920.7 * CDHB / LambdaNP2
-                -31414.1 * CDHW / LambdaNP2
+                +165799. * CiHB / LambdaNP2
+                +176652. * CiHW / LambdaNP2
+                -504889. * CiHWB / LambdaNP2
+                +16920.7 * CiDHB / LambdaNP2
+                -31414.1 * CiDHW / LambdaNP2
                 -6.076 * DeltaGF()
                 ; 
 
@@ -5725,11 +5740,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -32264.3 * CiHe_11 / LambdaNP2
                 -76905.7 * CiHL3_11 / LambdaNP2
                 +33650.3 * CiHD / LambdaNP2
-                +573505. * CHB / LambdaNP2
-                +117937. * CHW / LambdaNP2
-                +166382. * CHWB / LambdaNP2
-                -25012.1 * CDHB / LambdaNP2
-                -7703.47 * CDHW / LambdaNP2
+                +573505. * CiHB / LambdaNP2
+                +117937. * CiHW / LambdaNP2
+                +166382. * CiHWB / LambdaNP2
+                -25012.1 * CiDHB / LambdaNP2
+                -7703.47 * CiDHW / LambdaNP2
                 -0.911 * DeltaGF()
                 ; 
 
@@ -5746,11 +5761,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +74274.1 * CiHe_11 / LambdaNP2
                 +77981.5 * CiHL3_11 / LambdaNP2
                 -102068. * CiHD / LambdaNP2
-                +305730. * CHB / LambdaNP2
-                +183682. * CHW / LambdaNP2
-                -487770. * CHWB / LambdaNP2
-                +10624.8 * CDHB / LambdaNP2
-                -28092.3 * CDHW / LambdaNP2
+                +305730. * CiHB / LambdaNP2
+                +183682. * CiHW / LambdaNP2
+                -487770. * CiHWB / LambdaNP2
+                +10624.8 * CiDHB / LambdaNP2
+                -28092.3 * CiDHW / LambdaNP2
                 -5.366 * DeltaGF()
                 ; 
 
@@ -5775,11 +5790,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 -54383.2 * CiHe_11 / LambdaNP2
                 -68799.8 * CiHL3_11 / LambdaNP2
                 +57427.7 * CiHD / LambdaNP2
-                +439155. * CHB / LambdaNP2
-                +76978.2 * CHW / LambdaNP2
-                +392293. * CHWB / LambdaNP2
-                -36175.9 * CDHB / LambdaNP2
-                -3193.74 * CDHW / LambdaNP2
+                +439155. * CiHB / LambdaNP2
+                +76978.2 * CiHW / LambdaNP2
+                +392293. * CiHWB / LambdaNP2
+                -36175.9 * CiDHB / LambdaNP2
+                -3193.74 * CiDHW / LambdaNP2
                 -0.11 * DeltaGF()
                 ;           
 
@@ -5796,11 +5811,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +58002.2 * CiHe_11 / LambdaNP2
                 +80159.7 * CiHL3_11 / LambdaNP2
                 -123524. * CiHD / LambdaNP2
-                +151617. * CHB / LambdaNP2
-                +154342. * CHW / LambdaNP2
-                -500961. * CHWB / LambdaNP2
-                +20509.9 * CDHB / LambdaNP2
-                -35718.1 * CDHW / LambdaNP2
+                +151617. * CiHB / LambdaNP2
+                +154342. * CiHW / LambdaNP2
+                -500961. * CiHWB / LambdaNP2
+                +20509.9 * CiDHB / LambdaNP2
+                -35718.1 * CiDHW / LambdaNP2
                 -6.064 * DeltaGF()
                 ; 
 
@@ -5817,11 +5832,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +11882.3 * CiHe_11 / LambdaNP2
                 -89494.3 * CiHL3_11 / LambdaNP2
                 +32430.1 * CiHD / LambdaNP2
-                +524620. * CHB / LambdaNP2
-                +111520. * CHW / LambdaNP2
-                +156122. * CHWB / LambdaNP2
-                -29271.1 * CDHB / LambdaNP2
-                -8056.8 * CDHW / LambdaNP2
+                +524620. * CiHB / LambdaNP2
+                +111520. * CiHW / LambdaNP2
+                +156122. * CiHWB / LambdaNP2
+                -29271.1 * CiDHB / LambdaNP2
+                -8056.8 * CiDHW / LambdaNP2
                 -0.928 * DeltaGF()
                 ; 
 
@@ -5838,11 +5853,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +84014. * CiHe_11 / LambdaNP2
                 +30046.7 * CiHL3_11 / LambdaNP2
                 -101539. * CiHD / LambdaNP2
-                +286981. * CHB / LambdaNP2
-                +164662. * CHW / LambdaNP2
-                -480410. * CHWB / LambdaNP2
-                +13149.6 * CDHB / LambdaNP2
-                -31886.7 * CDHW / LambdaNP2
+                +286981. * CiHB / LambdaNP2
+                +164662. * CiHW / LambdaNP2
+                -480410. * CiHWB / LambdaNP2
+                +13149.6 * CiDHB / LambdaNP2
+                -31886.7 * CiDHW / LambdaNP2
                 -5.346 * DeltaGF()
                 ; 
 
@@ -5867,11 +5882,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +224754. * CiHe_11 / LambdaNP2
                 -121062. * CiHL3_11 / LambdaNP2
                 +55161.7 * CiHD / LambdaNP2
-                +201238. * CHB / LambdaNP2
-                +52456.6 * CHW / LambdaNP2
-                +335517. * CHWB / LambdaNP2
-                -63733.4 * CDHB / LambdaNP2
-                -2379.21 * CDHW / LambdaNP2
+                +201238. * CiHB / LambdaNP2
+                +52456.6 * CiHW / LambdaNP2
+                +335517. * CiHWB / LambdaNP2
+                -63733.4 * CiDHB / LambdaNP2
+                -2379.21 * CiDHW / LambdaNP2
                 -0.207 * DeltaGF()
                 ;            
 
@@ -5888,11 +5903,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +96427.7 * CiHe_11 / LambdaNP2
                 -200849. * CiHL3_11 / LambdaNP2
                 -121178. * CiHD / LambdaNP2
-                +83220.9 * CHB / LambdaNP2
-                +42832.2 * CHW / LambdaNP2
-                -464173. * CHWB / LambdaNP2
-                +37654.2 * CDHB / LambdaNP2
-                -59029.6 * CDHW / LambdaNP2
+                +83220.9 * CiHB / LambdaNP2
+                +42832.2 * CiHW / LambdaNP2
+                -464173. * CiHWB / LambdaNP2
+                +37654.2 * CiDHB / LambdaNP2
+                -59029.6 * CiDHW / LambdaNP2
                 -6.025 * DeltaGF()
                 ; 
 
@@ -5909,11 +5924,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +235326. * CiHe_11 / LambdaNP2
                 -154953. * CiHL3_11 / LambdaNP2
                 +30472. * CiHD / LambdaNP2
-                +298145. * CHB / LambdaNP2
-                +75047.6 * CHW / LambdaNP2
-                +137304. * CHWB / LambdaNP2
-                -49636.1 * CDHB / LambdaNP2
-                -10277.1 * CDHW / LambdaNP2
+                +298145. * CiHB / LambdaNP2
+                +75047.6 * CiHW / LambdaNP2
+                +137304. * CiHWB / LambdaNP2
+                -49636.1 * CiDHB / LambdaNP2
+                -10277.1 * CiDHW / LambdaNP2
                 -1.027 * DeltaGF()
                 ; 
 
@@ -5930,11 +5945,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +134790. * CiHe_11 / LambdaNP2
                 -208577. * CiHL3_11 / LambdaNP2
                 -98708.1 * CiHD / LambdaNP2
-                +190310. * CHB / LambdaNP2
-                +62321.4 * CHW / LambdaNP2
-                -429412. * CHWB / LambdaNP2
-                +24628.2 * CDHB / LambdaNP2
-                -51722.9 * CDHW / LambdaNP2
+                +190310. * CiHB / LambdaNP2
+                +62321.4 * CiHW / LambdaNP2
+                -429412. * CiHWB / LambdaNP2
+                +24628.2 * CiDHB / LambdaNP2
+                -51722.9 * CiDHW / LambdaNP2
                 -5.287 * DeltaGF()
                 ; 
 
@@ -5959,11 +5974,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +586357. * CiHe_11 / LambdaNP2
                 -206156. * CiHL3_11 / LambdaNP2
                 +54157.3 * CiHD / LambdaNP2
-                -30839.6 * CHB / LambdaNP2
-                +18110.3 * CHW / LambdaNP2
-                +345253. * CHWB / LambdaNP2
-                -108488. * CDHB / LambdaNP2
-                -12324.2 * CDHW / LambdaNP2
+                -30839.6 * CiHB / LambdaNP2
+                +18110.3 * CiHW / LambdaNP2
+                +345253. * CiHWB / LambdaNP2
+                -108488. * CiDHB / LambdaNP2
+                -12324.2 * CiDHW / LambdaNP2
                 -0.229 * DeltaGF()
                 ;         
 
@@ -5980,11 +5995,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +157498. * CiHe_11 / LambdaNP2
                 -565700. * CiHL3_11 / LambdaNP2
                 -120795. * CiHD / LambdaNP2
-                +7953.6 * CHB / LambdaNP2
-                -79908.9 * CHW / LambdaNP2
-                -402278. * CHWB / LambdaNP2
-                +54805.3 * CDHB / LambdaNP2
-                -101988. * CDHW / LambdaNP2
+                +7953.6 * CiHB / LambdaNP2
+                -79908.9 * CiHW / LambdaNP2
+                -402278. * CiHWB / LambdaNP2
+                +54805.3 * CiDHB / LambdaNP2
+                -101988. * CiDHW / LambdaNP2
                 -6.001 * DeltaGF()
                 ; 
 
@@ -6001,11 +6016,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +533190. * CiHe_11 / LambdaNP2
                 -263143. * CiHL3_11 / LambdaNP2
                 +29434.5 * CiHD / LambdaNP2
-                +63176.5 * CHB / LambdaNP2
-                +26728.5 * CHW / LambdaNP2
-                +184228. * CHWB / LambdaNP2
-                -85487.1 * CDHB / LambdaNP2
-                -24906.1 * CDHW / LambdaNP2
+                +63176.5 * CiHB / LambdaNP2
+                +26728.5 * CiHW / LambdaNP2
+                +184228. * CiHWB / LambdaNP2
+                -85487.1 * CiDHB / LambdaNP2
+                -24906.1 * CiDHW / LambdaNP2
                 -1.044 * DeltaGF()
                 ; 
 
@@ -6022,11 +6037,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +218758. * CiHe_11 / LambdaNP2
                 -524119. * CiHL3_11 / LambdaNP2
                 -98164. * CiHD / LambdaNP2
-                +74694.7 * CHB / LambdaNP2
-                -49060.4 * CHW / LambdaNP2
-                -348619. * CHWB / LambdaNP2
-                +33861.6 * CDHB / LambdaNP2
-                -90369.8 * CDHW / LambdaNP2
+                +74694.7 * CiHB / LambdaNP2
+                -49060.4 * CiHW / LambdaNP2
+                -348619. * CiHWB / LambdaNP2
+                +33861.6 * CiDHB / LambdaNP2
+                -90369.8 * CiDHW / LambdaNP2
                 -5.256 * DeltaGF()
                 ; 
 
@@ -6051,11 +6066,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +714345. * CiHe_11 / LambdaNP2
                 -242720. * CiHL3_11 / LambdaNP2
                 +53823.3 * CiHD / LambdaNP2
-                -64876.7 * CHB / LambdaNP2
-                +9362.37 * CHW / LambdaNP2
-                +355440. * CHWB / LambdaNP2
-                -127361. * CDHB / LambdaNP2
-                -18147.3 * CDHW / LambdaNP2
+                -64876.7 * CiHB / LambdaNP2
+                +9362.37 * CiHW / LambdaNP2
+                +355440. * CiHWB / LambdaNP2
+                -127361. * CiDHB / LambdaNP2
+                -18147.3 * CiDHW / LambdaNP2
                 -0.228 * DeltaGF()
                 ;         
 
@@ -6072,11 +6087,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +184416. * CiHe_11 / LambdaNP2
                 -692905. * CiHL3_11 / LambdaNP2
                 -121143. * CiHD / LambdaNP2
-                -4989.81 * CHB / LambdaNP2
-                -93241.6 * CHW / LambdaNP2
-                -392394. * CHWB / LambdaNP2
-                +60556.9 * CDHB / LambdaNP2
-                -121409. * CDHW / LambdaNP2
+                -4989.81 * CiHB / LambdaNP2
+                -93241.6 * CiHW / LambdaNP2
+                -392394. * CiHWB / LambdaNP2
+                +60556.9 * CiDHB / LambdaNP2
+                -121409. * CiDHW / LambdaNP2
                 -6.003 * DeltaGF()
                 ; 
 
@@ -6093,11 +6108,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +643900. * CiHe_11 / LambdaNP2
                 -309806. * CiHL3_11 / LambdaNP2
                 +29091.1 * CiHD / LambdaNP2
-                +22438.3 * CHB / LambdaNP2
-                +16021.7 * CHW / LambdaNP2
-                +202496. * CHWB / LambdaNP2
-                -100775. * CDHB / LambdaNP2
-                -32830.8 * CDHW / LambdaNP2
+                +22438.3 * CiHB / LambdaNP2
+                +16021.7 * CiHW / LambdaNP2
+                +202496. * CiHWB / LambdaNP2
+                -100775. * CiDHB / LambdaNP2
+                -32830.8 * CiDHW / LambdaNP2
                 -1.043 * DeltaGF()
                 ; 
 
@@ -6114,11 +6129,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +256188. * CiHe_11 / LambdaNP2
                 -637584. * CiHL3_11 / LambdaNP2
                 -98543.3 * CiHD / LambdaNP2
-                +49040.2 * CHB / LambdaNP2
-                -63051.7 * CHW / LambdaNP2
-                -332850. * CHWB / LambdaNP2
-                +36510.1 * CDHB / LambdaNP2
-                -108018. * CDHW / LambdaNP2
+                +49040.2 * CiHB / LambdaNP2
+                -63051.7 * CiHW / LambdaNP2
+                -332850. * CiHWB / LambdaNP2
+                +36510.1 * CiDHB / LambdaNP2
+                -108018. * CiDHW / LambdaNP2
                 -5.256 * DeltaGF()
                 ; 
 
@@ -6143,11 +6158,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +739684. * CiHe_11 / LambdaNP2
                 -250340. * CiHL3_11 / LambdaNP2
                 +53685.8 * CiHD / LambdaNP2
-                -71192.9 * CHB / LambdaNP2
-                +9743.41 * CHW / LambdaNP2
-                +357556. * CHWB / LambdaNP2
-                -131206. * CDHB / LambdaNP2
-                -19448. * CDHW / LambdaNP2
+                -71192.9 * CiHB / LambdaNP2
+                +9743.41 * CiHW / LambdaNP2
+                +357556. * CiHWB / LambdaNP2
+                -131206. * CiDHB / LambdaNP2
+                -19448. * CiDHW / LambdaNP2
                 -0.224 * DeltaGF()
                 ;          
 
@@ -6164,11 +6179,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +189852. * CiHe_11 / LambdaNP2
                 -718001. * CiHL3_11 / LambdaNP2
                 -121214. * CiHD / LambdaNP2
-                -6057.91 * CHB / LambdaNP2
-                -95148.1 * CHW / LambdaNP2
-                -390958. * CHWB / LambdaNP2
-                +61690.7 * CDHB / LambdaNP2
-                -125382. * CDHW / LambdaNP2
+                -6057.91 * CiHB / LambdaNP2
+                -95148.1 * CiHW / LambdaNP2
+                -390958. * CiHWB / LambdaNP2
+                +61690.7 * CiDHB / LambdaNP2
+                -125382. * CiDHW / LambdaNP2
                 -5.997 * DeltaGF()
                 ; 
 
@@ -6185,11 +6200,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +665765. * CiHe_11 / LambdaNP2
                 -319378. * CiHL3_11 / LambdaNP2
                 +29010.7 * CiHD / LambdaNP2
-                +14190.4 * CHB / LambdaNP2
-                +16080. * CHW / LambdaNP2
-                +205187. * CHWB / LambdaNP2
-                -103927. * CDHB / LambdaNP2
-                -34420.2 * CDHW / LambdaNP2
+                +14190.4 * CiHB / LambdaNP2
+                +16080. * CiHW / LambdaNP2
+                +205187. * CiHWB / LambdaNP2
+                -103927. * CiDHB / LambdaNP2
+                -34420.2 * CiDHW / LambdaNP2
                 -1.04 * DeltaGF()
                 ; 
 
@@ -6206,11 +6221,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +263841. * CiHe_11 / LambdaNP2
                 -659879. * CiHL3_11 / LambdaNP2
                 -98617.3 * CiHD / LambdaNP2
-                +46418.4 * CHB / LambdaNP2
-                -64166.6 * CHW / LambdaNP2
-                -330855. * CHWB / LambdaNP2
-                +36774.5 * CDHB / LambdaNP2
-                -111573. * CDHW / LambdaNP2
+                +46418.4 * CiHB / LambdaNP2
+                -64166.6 * CiHW / LambdaNP2
+                -330855. * CiHWB / LambdaNP2
+                +36774.5 * CiDHB / LambdaNP2
+                -111573. * CiDHW / LambdaNP2
                 -5.253 * DeltaGF()
                 ; 
 
@@ -6235,11 +6250,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +988310. * CiHe_11 / LambdaNP2
                 -327096. * CiHL3_11 / LambdaNP2
                 +53758.1 * CiHD / LambdaNP2
-                -79161. * CHB / LambdaNP2
-                +3856.87 * CHW / LambdaNP2
-                +369878. * CHWB / LambdaNP2
-                -170059. * CDHB / LambdaNP2
-                -32235.8 * CDHW / LambdaNP2
+                -79161. * CiHB / LambdaNP2
+                +3856.87 * CiHW / LambdaNP2
+                +369878. * CiHWB / LambdaNP2
+                -170059. * CiDHB / LambdaNP2
+                -32235.8 * CiDHW / LambdaNP2
                 -0.226 * DeltaGF()
                 ;    
 
@@ -6256,11 +6271,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +247947. * CiHe_11 / LambdaNP2
                 -961658. * CiHL3_11 / LambdaNP2
                 -121230. * CiHD / LambdaNP2
-                -10752.9 * CHB / LambdaNP2
-                -92123.7 * CHW / LambdaNP2
-                -391807. * CHWB / LambdaNP2
-                +73242.2 * CDHB / LambdaNP2
-                -165690. * CDHW / LambdaNP2
+                -10752.9 * CiHB / LambdaNP2
+                -92123.7 * CiHW / LambdaNP2
+                -391807. * CiHWB / LambdaNP2
+                +73242.2 * CiDHB / LambdaNP2
+                -165690. * CiDHW / LambdaNP2
                 -6.002 * DeltaGF()
                 ; 
 
@@ -6277,11 +6292,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +884851. * CiHe_11 / LambdaNP2
                 -417962. * CiHL3_11 / LambdaNP2
                 +29065.5 * CiHD / LambdaNP2
-                -10885.4 * CHB / LambdaNP2
-                +8249.25 * CHW / LambdaNP2
-                +228820. * CHWB / LambdaNP2
-                -135851. * CDHB / LambdaNP2
-                -51177.2 * CDHW / LambdaNP2
+                -10885.4 * CiHB / LambdaNP2
+                +8249.25 * CiHW / LambdaNP2
+                +228820. * CiHWB / LambdaNP2
+                -135851. * CiDHB / LambdaNP2
+                -51177.2 * CiDHW / LambdaNP2
                 -1.04 * DeltaGF()
                 ; 
 
@@ -6298,11 +6313,11 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
                 +344657. * CiHe_11 / LambdaNP2
                 -880604. * CiHL3_11 / LambdaNP2
                 -98656.8 * CiHD / LambdaNP2
-                +28681.4 * CHB / LambdaNP2
-                -66216.6 * CHW / LambdaNP2
-                -320715. * CHWB / LambdaNP2
-                +41721.6 * CDHB / LambdaNP2
-                -148698. * CDHW / LambdaNP2
+                +28681.4 * CiHB / LambdaNP2
+                -66216.6 * CiHW / LambdaNP2
+                -320715. * CiHWB / LambdaNP2
+                +41721.6 * CiDHB / LambdaNP2
+                -148698. * CiDHW / LambdaNP2
                 -5.256 * DeltaGF()
                 ; 
 
@@ -6344,9 +6359,9 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
                 -161604. * CiHL3_11 / LambdaNP2
                 -161282. * CiHQ3_11 / LambdaNP2
                 -203141. * CiHD / LambdaNP2
-                -88171.6 * CHW / LambdaNP2
-                -377218. * CHWB / LambdaNP2
-                -37738.9 * CDHW / LambdaNP2
+                -88171.6 * CiHW / LambdaNP2
+                -377218. * CiHWB / LambdaNP2
+                -37738.9 * CiDHW / LambdaNP2
                 -4.676 * DeltaGF()
                 -4.916 * deltaMwd6()
                 ;
@@ -6363,9 +6378,9 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
                 -182643. * CiHL3_11 / LambdaNP2
                 -181961. * CiHQ3_11 / LambdaNP2
                 -202400. * CiHD / LambdaNP2
-                -78295.8 * CHW / LambdaNP2
-                -377193. * CHWB / LambdaNP2
-                -45757.3 * CDHW / LambdaNP2
+                -78295.8 * CiHW / LambdaNP2
+                -377193. * CiHWB / LambdaNP2
+                -45757.3 * CiDHW / LambdaNP2
                 -4.672 * DeltaGF()
                 -4.637 * deltaMwd6()
                 ;
@@ -6382,9 +6397,9 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
                 -216885. * CiHL3_11 / LambdaNP2
                 -218544. * CiHQ3_11 / LambdaNP2
                 -202390. * CiHD / LambdaNP2
-                -64783.2 * CHW / LambdaNP2
-                -377727. * CHWB / LambdaNP2
-                -60431.2 * CDHW / LambdaNP2
+                -64783.2 * CiHW / LambdaNP2
+                -377727. * CiHWB / LambdaNP2
+                -60431.2 * CiDHW / LambdaNP2
                 -4.688 * DeltaGF()
                 -4.573 * deltaMwd6()
                 ;
@@ -6401,9 +6416,9 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
                 -237868. * CiHL3_11 / LambdaNP2
                 -236470. * CiHQ3_11 / LambdaNP2
                 -203294. * CiHD / LambdaNP2
-                -60911. * CHW / LambdaNP2
-                -378045. * CHWB / LambdaNP2
-                -67483.7 * CDHW / LambdaNP2
+                -60911. * CiHW / LambdaNP2
+                -378045. * CiHWB / LambdaNP2
+                -67483.7 * CiDHW / LambdaNP2
                 -4.667 * DeltaGF()
                 -4.437 * deltaMwd6()
                 ;
@@ -6437,11 +6452,11 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 -152367. * CiHL3_11 / LambdaNP2
                 -165343. * CiHQ3_11 / LambdaNP2
                 -173922. * CiHD / LambdaNP2
-                -34636.2 * CHB / LambdaNP2
-                -121438. * CHW / LambdaNP2
-                -74939.1 * CHWB / LambdaNP2
-                -5454.93 * CDHB / LambdaNP2
-                -39349.6 * CDHW / LambdaNP2
+                -34636.2 * CiHB / LambdaNP2
+                -121438. * CiHW / LambdaNP2
+                -74939.1 * CiHWB / LambdaNP2
+                -5454.93 * CiDHB / LambdaNP2
+                -39349.6 * CiDHW / LambdaNP2
                 -3.719 * DeltaGF()
                 ;
         
@@ -6462,11 +6477,11 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 -173566. * CiHL3_11 / LambdaNP2
                 -188606. * CiHQ3_11 / LambdaNP2
                 -174301. * CiHD / LambdaNP2
-                -19800. * CHB / LambdaNP2
-                -103254. * CHW / LambdaNP2
-                -89049.2 * CHWB / LambdaNP2
-                -8304.85 * CDHB / LambdaNP2
-                -48942.9 * CDHW / LambdaNP2
+                -19800. * CiHB / LambdaNP2
+                -103254. * CiHW / LambdaNP2
+                -89049.2 * CiHWB / LambdaNP2
+                -8304.85 * CiDHB / LambdaNP2
+                -48942.9 * CiDHW / LambdaNP2
                 -3.714 * DeltaGF()
                 ;
         
@@ -6487,11 +6502,11 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 -206981. * CiHL3_11 / LambdaNP2
                 -227549. * CiHQ3_11 / LambdaNP2
                 -172298. * CiHD / LambdaNP2
-                -6887.17 * CHB / LambdaNP2
-                -79245. * CHW / LambdaNP2
-                -103223. * CHWB / LambdaNP2
-                -9863.11 * CDHB / LambdaNP2
-                -61304.3 * CDHW / LambdaNP2
+                -6887.17 * CiHB / LambdaNP2
+                -79245. * CiHW / LambdaNP2
+                -103223. * CiHWB / LambdaNP2
+                -9863.11 * CiDHB / LambdaNP2
+                -61304.3 * CiDHW / LambdaNP2
                 -3.721 * DeltaGF()
                 ;
         
@@ -6512,11 +6527,11 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 -225267. * CiHL3_11 / LambdaNP2
                 -247738. * CiHQ3_11 / LambdaNP2
                 -172768. * CiHD / LambdaNP2
-                -4524.89 * CHB / LambdaNP2
-                -71935.4 * CHW / LambdaNP2
-                -104998. * CHWB / LambdaNP2
-                -11877.8 * CDHB / LambdaNP2
-                -69467.3 * CDHW / LambdaNP2
+                -4524.89 * CiHB / LambdaNP2
+                -71935.4 * CiHW / LambdaNP2
+                -104998. * CiHWB / LambdaNP2
+                -11877.8 * CiDHB / LambdaNP2
+                -69467.3 * CiDHW / LambdaNP2
                 -3.71 * DeltaGF()
                 ;
         
@@ -6547,9 +6562,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 +121173. * (1. + eWH_2_Hbox ) * CiHbox / LambdaNP2
                 +1566788. * (1. + eWH_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -160914. * (1. + eWH_2_HD ) * CiHD / LambdaNP2
-                +860916. * (1. + eWH_2_HW ) * CHW / LambdaNP2
-                -286409. * (1. + eWH_2_HWB ) * CHWB / LambdaNP2
-                +134641. * (1. + eWH_2_DHW ) * CDHW / LambdaNP2
+                +860916. * (1. + eWH_2_HW ) * CiHW / LambdaNP2
+                -286409. * (1. + eWH_2_HWB ) * CiHWB / LambdaNP2
+                +134641. * (1. + eWH_2_DHW ) * CiDHW / LambdaNP2
                 -3.31 * (1. + eWH_2_DeltaGF ) * DeltaGF()
                 -2.199 * deltaMwd6()
                 ;
@@ -6568,9 +6583,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 +121015. * (1. + eWH_78_Hbox ) * CiHbox / LambdaNP2
                 +1792020. * (1. + eWH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -159689. * (1. + eWH_78_HD ) * CiHD / LambdaNP2
-                +881065. * (1. + eWH_78_HW ) * CHW / LambdaNP2
-                -283895. * (1. + eWH_78_HWB ) * CHWB / LambdaNP2
-                +168173. * (1. + eWH_78_DHW ) * CDHW / LambdaNP2
+                +881065. * (1. + eWH_78_HW ) * CiHW / LambdaNP2
+                -283895. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
+                +168173. * (1. + eWH_78_DHW ) * CiDHW / LambdaNP2
                 -3.273 * (1. + eWH_78_DeltaGF ) * DeltaGF()
                 -2.143 * deltaMwd6()
                 ;
@@ -6589,9 +6604,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 +121226. * (1. + eWH_78_Hbox ) * CiHbox / LambdaNP2
                 +1830192. * (1. + eWH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -159543. * (1. + eWH_78_HD ) * CiHD / LambdaNP2
-                +884671. * (1. + eWH_78_HW ) * CHW / LambdaNP2
-                -283662. * (1. + eWH_78_HWB ) * CHWB / LambdaNP2
-                +174061. * (1. + eWH_78_DHW ) * CDHW / LambdaNP2
+                +884671. * (1. + eWH_78_HW ) * CiHW / LambdaNP2
+                -283662. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
+                +174061. * (1. + eWH_78_DHW ) * CiDHW / LambdaNP2
                 -3.278 * (1. + eWH_78_DeltaGF ) * DeltaGF()
                 -2.147 * deltaMwd6()
                 ;
@@ -6610,9 +6625,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 +120439. * (1. + eWH_1314_Hbox ) * CiHbox / LambdaNP2
                 +1953200. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -159847. * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
-                +892264. * (1. + eWH_1314_HW ) * CHW / LambdaNP2
-                -283830. * (1. + eWH_1314_HWB ) * CHWB / LambdaNP2
-                +192168. * (1. + eWH_1314_DHW ) * CDHW / LambdaNP2
+                +892264. * (1. + eWH_1314_HW ) * CiHW / LambdaNP2
+                -283830. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
+                +192168. * (1. + eWH_1314_DHW ) * CiDHW / LambdaNP2
                 -3.269 * (1. + eWH_1314_DeltaGF ) * DeltaGF()
                 -2.101 * deltaMwd6()
                 ;
@@ -6631,9 +6646,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 +120284. * (1. + eWH_1314_Hbox ) * CiHbox / LambdaNP2
                 +1971011. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -159830. * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
-                +893216. * (1. + eWH_1314_HW ) * CHW / LambdaNP2
-                -283818. * (1. + eWH_1314_HWB ) * CHWB / LambdaNP2
-                +194877. * (1. + eWH_1314_DHW ) * CDHW / LambdaNP2
+                +893216. * (1. + eWH_1314_HW ) * CiHW / LambdaNP2
+                -283818. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
+                +194877. * (1. + eWH_1314_DHW ) * CiDHW / LambdaNP2
                 -3.272 * (1. + eWH_1314_DeltaGF ) * DeltaGF()
                 -2.103 * deltaMwd6()
                 ;
@@ -6652,9 +6667,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 +120696. * CiHbox / LambdaNP2
                 +2105646. * CiHQ3_11 / LambdaNP2
                 -159695. * CiHD / LambdaNP2
-                +900162. * CHW / LambdaNP2
-                -283257. * CHWB / LambdaNP2
-                +215592. * CDHW / LambdaNP2
+                +900162. * CiHW / LambdaNP2
+                -283257. * CiHWB / LambdaNP2
+                +215592. * CiDHW / LambdaNP2
                 -3.256 * DeltaGF()
                 -2.063 * deltaMwd6()
                 ;
@@ -6673,9 +6688,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 +121319. * CiHbox / LambdaNP2
                 +2294991. * CiHQ3_11 / LambdaNP2
                 -159242. * CiHD / LambdaNP2
-                +908130. * CHW / LambdaNP2
-                -282574. * CHWB / LambdaNP2
-                +245406. * CDHW / LambdaNP2
+                +908130. * CiHW / LambdaNP2
+                -282574. * CiHWB / LambdaNP2
+                +245406. * CiDHW / LambdaNP2
                 -3.259 * DeltaGF()
                 -2.047 * deltaMwd6()
                 ;
@@ -6719,11 +6734,11 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
                 -69410.3 * (1. + eZH_2_Hd_11 ) * CiHd_11 / LambdaNP2
                 +1567161. * (1. + eZH_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -16992.5 * (1. + eZH_2_HD ) * CiHD / LambdaNP2
-                +79314.5 * (1. + eZH_2_HB ) * CHB / LambdaNP2
-                +711710. * (1. + eZH_2_HW ) * CHW / LambdaNP2
-                +189054. * (1. + eZH_2_HWB ) * CHWB / LambdaNP2
-                +9774.73 * (1. + eZH_2_DHB ) * CDHB / LambdaNP2
-                +130777. * (1. + eZH_2_DHW ) * CDHW / LambdaNP2
+                +79314.5 * (1. + eZH_2_HB ) * CiHB / LambdaNP2
+                +711710. * (1. + eZH_2_HW ) * CiHW / LambdaNP2
+                +189054. * (1. + eZH_2_HWB ) * CiHWB / LambdaNP2
+                +9774.73 * (1. + eZH_2_DHB ) * CiDHB / LambdaNP2
+                +130777. * (1. + eZH_2_DHW ) * CiDHW / LambdaNP2
                 -2.535 * (1. + eZH_2_DeltaGF ) * DeltaGF()
                 ;
         
@@ -6744,11 +6759,11 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
                 -139169. * (1. + eZH_78_Hd_11 ) * CiHd_11 / LambdaNP2
                 +1712111. * (1. + eZH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -15395.4 * (1. + eZH_78_HD ) * CiHD / LambdaNP2
-                +87094.9 * (1. + eZH_78_HB ) * CHB / LambdaNP2
-                +717388. * (1. + eZH_78_HW ) * CHW / LambdaNP2
-                +203105. * (1. + eZH_78_HWB ) * CHWB / LambdaNP2
-                +17532.4 * (1. + eZH_78_DHB ) * CDHB / LambdaNP2
-                +152950. * (1. + eZH_78_DHW ) * CDHW / LambdaNP2
+                +87094.9 * (1. + eZH_78_HB ) * CiHB / LambdaNP2
+                +717388. * (1. + eZH_78_HW ) * CiHW / LambdaNP2
+                +203105. * (1. + eZH_78_HWB ) * CiHWB / LambdaNP2
+                +17532.4 * (1. + eZH_78_DHB ) * CiDHB / LambdaNP2
+                +152950. * (1. + eZH_78_DHW ) * CiDHW / LambdaNP2
                 -2.502 * (1. + eZH_78_DeltaGF ) * DeltaGF()
                 ;
         
@@ -6769,11 +6784,11 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
                 -142508. * (1. + eZH_78_Hd_11 ) * CiHd_11 / LambdaNP2
                 +1747367. * (1. + eZH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -15002.7 * (1. + eZH_78_HD ) * CiHD / LambdaNP2
-                +87781.5 * (1. + eZH_78_HB ) * CHB / LambdaNP2
-                +721405. * (1. + eZH_78_HW ) * CHW / LambdaNP2
-                +204540. * (1. + eZH_78_HWB ) * CHWB / LambdaNP2
-                +18868.6 * (1. + eZH_78_DHB ) * CDHB / LambdaNP2
-                +158432. * (1. + eZH_78_DHW ) * CDHW / LambdaNP2
+                +87781.5 * (1. + eZH_78_HB ) * CiHB / LambdaNP2
+                +721405. * (1. + eZH_78_HW ) * CiHW / LambdaNP2
+                +204540. * (1. + eZH_78_HWB ) * CiHWB / LambdaNP2
+                +18868.6 * (1. + eZH_78_DHB ) * CiDHB / LambdaNP2
+                +158432. * (1. + eZH_78_DHW ) * CiDHW / LambdaNP2
                 -2.507 * (1. + eZH_78_DeltaGF ) * DeltaGF()
                 ;
         
@@ -6794,11 +6809,11 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
                 -155999. * (1. + eZH_1314_Hd_11 ) * CiHd_11 / LambdaNP2
                 +1862364. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -15185. * (1. + eZH_1314_HD ) * CiHD / LambdaNP2
-                +88937.9 * (1. + eZH_1314_HB ) * CHB / LambdaNP2
-                +728207. * (1. + eZH_1314_HW ) * CHW / LambdaNP2
-                +207857. * (1. + eZH_1314_HWB ) * CHWB / LambdaNP2
-                +21647.4 * (1. + eZH_1314_DHB ) * CDHB / LambdaNP2
-                +175015. * (1. + eZH_1314_DHW ) * CDHW / LambdaNP2
+                +88937.9 * (1. + eZH_1314_HB ) * CiHB / LambdaNP2
+                +728207. * (1. + eZH_1314_HW ) * CiHW / LambdaNP2
+                +207857. * (1. + eZH_1314_HWB ) * CiHWB / LambdaNP2
+                +21647.4 * (1. + eZH_1314_DHB ) * CiDHB / LambdaNP2
+                +175015. * (1. + eZH_1314_DHW ) * CiDHW / LambdaNP2
                 -2.506 * (1. + eZH_1314_DeltaGF ) * DeltaGF()
                 ;
 
@@ -6819,11 +6834,11 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
                 -157625. * (1. + eZH_1314_Hd_11 ) * CiHd_11 / LambdaNP2
                 +1878132. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
                 -15299.4 * (1. + eZH_1314_HD ) * CiHD / LambdaNP2
-                +88761.8 * (1. + eZH_1314_HB ) * CHB / LambdaNP2
-                +729243. * (1. + eZH_1314_HW ) * CHW / LambdaNP2
-                +207707. * (1. + eZH_1314_HWB ) * CHWB / LambdaNP2
-                +21958.9 * (1. + eZH_1314_DHB ) * CDHB / LambdaNP2
-                +177300. * (1. + eZH_1314_DHW ) * CDHW / LambdaNP2
+                +88761.8 * (1. + eZH_1314_HB ) * CiHB / LambdaNP2
+                +729243. * (1. + eZH_1314_HW ) * CiHW / LambdaNP2
+                +207707. * (1. + eZH_1314_HWB ) * CiHWB / LambdaNP2
+                +21958.9 * (1. + eZH_1314_DHB ) * CiDHB / LambdaNP2
+                +177300. * (1. + eZH_1314_DHW ) * CiDHW / LambdaNP2
                 -2.507 * (1. + eZH_1314_DeltaGF ) * DeltaGF()
                 ;
 
@@ -6844,11 +6859,11 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
                 -173377. * CiHd_11 / LambdaNP2
                 +2002478. * CiHQ3_11 / LambdaNP2
                 -15486.3 * CiHD / LambdaNP2
-                +89958. * CHB / LambdaNP2
-                +735013. * CHW / LambdaNP2
-                +211026. * CHWB / LambdaNP2
-                +25604. * CDHB / LambdaNP2
-                +196710. * CDHW / LambdaNP2
+                +89958. * CiHB / LambdaNP2
+                +735013. * CiHW / LambdaNP2
+                +211026. * CiHWB / LambdaNP2
+                +25604. * CiDHB / LambdaNP2
+                +196710. * CiDHW / LambdaNP2
                 -2.505 * DeltaGF()
                 ;
         
@@ -6869,11 +6884,11 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
                 -197878. * CiHd_11 / LambdaNP2
                 +2175601. * CiHQ3_11 / LambdaNP2
                 -14992.4 * CiHD / LambdaNP2
-                +91707.3 * CHB / LambdaNP2
-                +741805. * CHW / LambdaNP2
-                +215319. * CHWB / LambdaNP2
-                +31435.6 * CDHB / LambdaNP2
-                +223843. * CDHW / LambdaNP2
+                +91707.3 * CiHB / LambdaNP2
+                +741805. * CiHW / LambdaNP2
+                +215319. * CiHWB / LambdaNP2
+                +31435.6 * CiDHB / LambdaNP2
+                +223843. * CiDHW / LambdaNP2
                 -2.504 * DeltaGF()
                 ;
         
@@ -6914,11 +6929,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -767820. * CiHe_11 / LambdaNP2
                 +898682. * CiHL3_11 / LambdaNP2
                 -6046.36 * CiHD / LambdaNP2
-                +122439. * CHB / LambdaNP2
-                +540057. * CHW / LambdaNP2
-                +231063. * CHWB / LambdaNP2
-                +17593.2 * CDHB / LambdaNP2
-                +53409.5 * CDHW / LambdaNP2
+                +122439. * CiHB / LambdaNP2
+                +540057. * CiHW / LambdaNP2
+                +231063. * CiHWB / LambdaNP2
+                +17593.2 * CiDHB / LambdaNP2
+                +53409.5 * CiDHW / LambdaNP2
                 -2.2 * DeltaGF()
                 ;
         
@@ -6943,11 +6958,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -833750. * CiHe_11 / LambdaNP2
                 +975101. * CiHL3_11 / LambdaNP2
                 -6046.36 * CiHD / LambdaNP2
-                +128443. * CHB / LambdaNP2
-                +568273. * CHW / LambdaNP2
-                +244206. * CHWB / LambdaNP2
-                +19818.6 * CDHB / LambdaNP2
-                +60127.6 * CDHW / LambdaNP2
+                +128443. * CiHB / LambdaNP2
+                +568273. * CiHW / LambdaNP2
+                +244206. * CiHWB / LambdaNP2
+                +19818.6 * CiDHB / LambdaNP2
+                +60127.6 * CiDHW / LambdaNP2
                 -2.2 * DeltaGF()
                 ;
         
@@ -6972,11 +6987,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -1640958. * CiHe_11 / LambdaNP2
                 +1911340. * CiHL3_11 / LambdaNP2
                 -6009.52 * CiHD / LambdaNP2
-                +173183. * CHB / LambdaNP2
-                +785843. * CHW / LambdaNP2
-                +344494. * CHWB / LambdaNP2
-                +59158.7 * CDHB / LambdaNP2
-                +167954. * CDHW / LambdaNP2
+                +173183. * CiHB / LambdaNP2
+                +785843. * CiHW / LambdaNP2
+                +344494. * CiHWB / LambdaNP2
+                +59158.7 * CiDHB / LambdaNP2
+                +167954. * CiDHW / LambdaNP2
                 -2.201 * DeltaGF()
                 ;
         
@@ -7001,11 +7016,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -1785085. * CiHe_11 / LambdaNP2
                 +2078482. * CiHL3_11 / LambdaNP2
                 -6010.65 * CiHD / LambdaNP2
-                +178173. * CHB / LambdaNP2
-                +809806. * CHW / LambdaNP2
-                +355487. * CHWB / LambdaNP2
-                +67662.7 * CDHB / LambdaNP2
-                +190194. * CDHW / LambdaNP2
+                +178173. * CiHB / LambdaNP2
+                +809806. * CiHW / LambdaNP2
+                +355487. * CiHWB / LambdaNP2
+                +67662.7 * CiDHB / LambdaNP2
+                +190194. * CiDHW / LambdaNP2
                 -2.201 * DeltaGF()
                 ;
         
@@ -7030,11 +7045,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -1934557. * CiHe_11 / LambdaNP2
                 +2253013. * CiHL3_11 / LambdaNP2
                 -6026.37 * CiHD / LambdaNP2
-                +182674. * CHB / LambdaNP2
-                +832109. * CHW / LambdaNP2
-                +365819. * CHWB / LambdaNP2
-                +76742. * CDHB / LambdaNP2
-                +214030. * CDHW / LambdaNP2
+                +182674. * CiHB / LambdaNP2
+                +832109. * CiHW / LambdaNP2
+                +365819. * CiHWB / LambdaNP2
+                +76742. * CiDHB / LambdaNP2
+                +214030. * CiDHW / LambdaNP2
                 -2.202 * DeltaGF()
                 ;    
         
@@ -7059,11 +7074,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -3350136. * CiHe_11 / LambdaNP2
                 +3900384. * CiHL3_11 / LambdaNP2
                 -6019.22 * CiHD / LambdaNP2
-                +209229. * CHB / LambdaNP2
-                +959942. * CHW / LambdaNP2
-                +425112. * CHWB / LambdaNP2
-                +169841. * CDHB / LambdaNP2
-                +455437. * CDHW / LambdaNP2
+                +209229. * CiHB / LambdaNP2
+                +959942. * CiHW / LambdaNP2
+                +425112. * CiHWB / LambdaNP2
+                +169841. * CiDHB / LambdaNP2
+                +455437. * CiDHW / LambdaNP2
                 -2.202 * DeltaGF()
                 ;
         
@@ -7088,11 +7103,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -13395670. * CiHe_11 / LambdaNP2
                 +15601820. * CiHL3_11 / LambdaNP2
                 -6040.16 * CiHD / LambdaNP2
-                +243960. * CHB / LambdaNP2
-                +1128805. * CHW / LambdaNP2
-                +503138. * CHWB / LambdaNP2
-                +899357. * CDHB / LambdaNP2
-                +2321619. * CDHW / LambdaNP2
+                +243960. * CiHB / LambdaNP2
+                +1128805. * CiHW / LambdaNP2
+                +503138. * CiHWB / LambdaNP2
+                +899357. * CiDHB / LambdaNP2
+                +2321619. * CiDHW / LambdaNP2
                 -2.202 * DeltaGF()
                 ;
         
@@ -7117,11 +7132,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -26253064. * CiHe_11 / LambdaNP2
                 +30579278. * CiHL3_11 / LambdaNP2
                 -6010.77 * CiHD / LambdaNP2
-                +250804. * CHB / LambdaNP2
-                +1161208. * CHW / LambdaNP2
-                +518040. * CHWB / LambdaNP2
-                +1848758. * CDHB / LambdaNP2
-                +4747422. * CDHW / LambdaNP2
+                +250804. * CiHB / LambdaNP2
+                +1161208. * CiHW / LambdaNP2
+                +518040. * CiHWB / LambdaNP2
+                +1848758. * CiDHB / LambdaNP2
+                +4747422. * CiDHW / LambdaNP2
                 -2.203 * DeltaGF()
                 ;
         
@@ -7146,11 +7161,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -30135878. * CiHe_11 / LambdaNP2
                 +35102329. * CiHL3_11 / LambdaNP2
                 -6034.22 * CiHD / LambdaNP2
-                +251576. * CHB / LambdaNP2
-                +1165634. * CHW / LambdaNP2
-                +519954. * CHWB / LambdaNP2
-                +2132554. * CDHB / LambdaNP2
-                +5481906. * CDHW / LambdaNP2
+                +251576. * CiHB / LambdaNP2
+                +1165634. * CiHW / LambdaNP2
+                +519954. * CiHWB / LambdaNP2
+                +2132554. * CiDHB / LambdaNP2
+                +5481906. * CiDHW / LambdaNP2
                 -2.203 * DeltaGF()
                 ;
         
@@ -7175,11 +7190,11 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 -120540988. * CiHe_11 / LambdaNP2
                 +140413697. * CiHL3_11 / LambdaNP2
                 -6012.61 * CiHD / LambdaNP2
-                +257222. * CHB / LambdaNP2
-                +1188444. * CHW / LambdaNP2
-                +530503. * CHWB / LambdaNP2
-                +8839419. * CDHB / LambdaNP2
-                +22583370. * CDHW / LambdaNP2
+                +257222. * CiHB / LambdaNP2
+                +1188444. * CiHW / LambdaNP2
+                +530503. * CiHWB / LambdaNP2
+                +8839419. * CiDHB / LambdaNP2
+                +22583370. * CiDHW / LambdaNP2
                 -2.202 * DeltaGF()
                 ;
         
@@ -7272,11 +7287,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -1681596. * CiHe_11 / LambdaNP2
                 +117191. * CiHL3_11 / LambdaNP2
                 +74555.1 * CiHD / LambdaNP2
-                +528105. * CHB / LambdaNP2
-                +134403. * CHW / LambdaNP2
-                +872560. * CHWB / LambdaNP2
-                +137571. * CDHB / LambdaNP2
-                -12321.5 * CDHW / LambdaNP2
+                +528105. * CiHB / LambdaNP2
+                +134403. * CiHW / LambdaNP2
+                +872560. * CiHWB / LambdaNP2
+                +137571. * CiDHB / LambdaNP2
+                -12321.5 * CiDHW / LambdaNP2
                 +0.459 * DeltaGF()
                 ; 
             
@@ -7293,11 +7308,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -76567.2 * CiHe_11 / LambdaNP2
                 +1495015. * CiHL3_11 / LambdaNP2
                 -67582.1 * CiHD / LambdaNP2
-                -187104. * CHB / LambdaNP2
-                +849552. * CHW / LambdaNP2
-                -258537. * CHWB / LambdaNP2
-                -73970.1 * CDHB / LambdaNP2
-                +103582. * CDHW / LambdaNP2
+                -187104. * CiHB / LambdaNP2
+                +849552. * CiHW / LambdaNP2
+                -258537. * CiHWB / LambdaNP2
+                -73970.1 * CiDHB / LambdaNP2
+                +103582. * CiDHW / LambdaNP2
                 -4.23 * DeltaGF()
                 ; 
             
@@ -7314,11 +7329,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -1578998. * CiHe_11 / LambdaNP2
                 +204529. * CiHL3_11 / LambdaNP2
                 +65548.7 * CiHD / LambdaNP2
-                +482729. * CHB / LambdaNP2
-                +179733. * CHW / LambdaNP2
-                +800870. * CHWB / LambdaNP2
-                +124170. * CDHB / LambdaNP2
-                -5016.48 * CDHW / LambdaNP2
+                +482729. * CiHB / LambdaNP2
+                +179733. * CiHW / LambdaNP2
+                +800870. * CiHWB / LambdaNP2
+                +124170. * CiDHB / LambdaNP2
+                -5016.48 * CiDHW / LambdaNP2
                 +0.162 * DeltaGF()
                 ; 
             
@@ -7335,11 +7350,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -137405. * CiHe_11 / LambdaNP2
                 +1442776. * CiHL3_11 / LambdaNP2
                 -62167.6 * CiHD / LambdaNP2
-                -159988. * CHB / LambdaNP2
-                +822448. * CHW / LambdaNP2
-                -215639. * CHWB / LambdaNP2
-                -65950.1 * CDHB / LambdaNP2
-                +99206.1 * CDHW / LambdaNP2
+                -159988. * CiHB / LambdaNP2
+                +822448. * CiHW / LambdaNP2
+                -215639. * CiHWB / LambdaNP2
+                -65950.1 * CiDHB / LambdaNP2
+                +99206.1 * CiDHW / LambdaNP2
                 -4.052 * DeltaGF()
                 ; 
             
@@ -7364,11 +7379,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -1824910. * CiHe_11 / LambdaNP2
                 +127210. * CiHL3_11 / LambdaNP2
                 +74597.1 * CiHD / LambdaNP2
-                +560319. * CHB / LambdaNP2
-                +136129. * CHW / LambdaNP2
-                +902676. * CHWB / LambdaNP2
-                +154358. * CDHB / LambdaNP2
-                -13612.9 * CDHW / LambdaNP2
+                +560319. * CiHB / LambdaNP2
+                +136129. * CiHW / LambdaNP2
+                +902676. * CiHWB / LambdaNP2
+                +154358. * CiDHB / LambdaNP2
+                -13612.9 * CiDHW / LambdaNP2
                 +0.459 * DeltaGF()
                 ;      
             
@@ -7385,11 +7400,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -83107. * CiHe_11 / LambdaNP2
                 +1622228. * CiHL3_11 / LambdaNP2
                 -67554.3 * CiHD / LambdaNP2
-                -201409. * CHB / LambdaNP2
-                +898116. * CHW / LambdaNP2
-                -258306. * CHWB / LambdaNP2
-                -82898. * CDHB / LambdaNP2
-                +116421. * CDHW / LambdaNP2
+                -201409. * CiHB / LambdaNP2
+                +898116. * CiHW / LambdaNP2
+                -258306. * CiHWB / LambdaNP2
+                -82898. * CiDHB / LambdaNP2
+                +116421. * CiDHW / LambdaNP2
                 -4.23 * DeltaGF()
                 ; 
                     
@@ -7406,11 +7421,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -1714047. * CiHe_11 / LambdaNP2
                 +221930. * CiHL3_11 / LambdaNP2
                 +65599.6 * CiHD / LambdaNP2
-                +512136. * CHB / LambdaNP2
-                +184424. * CHW / LambdaNP2
-                +829145. * CHWB / LambdaNP2
-                +139369. * CDHB / LambdaNP2
-                -5351.17 * CDHW / LambdaNP2
+                +512136. * CiHB / LambdaNP2
+                +184424. * CiHW / LambdaNP2
+                +829145. * CiHWB / LambdaNP2
+                +139369. * CiDHB / LambdaNP2
+                -5351.17 * CiDHW / LambdaNP2
                 +0.162 * DeltaGF()
                 ; 
             
@@ -7427,11 +7442,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -148908. * CiHe_11 / LambdaNP2
                 +1565559. * CiHL3_11 / LambdaNP2
                 -62170. * CiHD / LambdaNP2
-                -172540. * CHB / LambdaNP2
-                +869218. * CHW / LambdaNP2
-                -214299. * CHWB / LambdaNP2
-                -73929.8 * CDHB / LambdaNP2
-                +111494. * CDHW / LambdaNP2
+                -172540. * CiHB / LambdaNP2
+                +869218. * CiHW / LambdaNP2
+                -214299. * CiHWB / LambdaNP2
+                -73929.8 * CiDHB / LambdaNP2
+                +111494. * CiDHW / LambdaNP2
                 -4.053 * DeltaGF()
                 ; 
             
@@ -7456,11 +7471,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -3576996. * CiHe_11 / LambdaNP2
                 +249309. * CiHL3_11 / LambdaNP2
                 +74596.5 * CiHD / LambdaNP2
-                +812491. * CHB / LambdaNP2
-                +146212. * CHW / LambdaNP2
-                +1135161. * CHWB / LambdaNP2
-                +395085. * CDHB / LambdaNP2
-                -16140.8 * CDHW / LambdaNP2
+                +812491. * CiHB / LambdaNP2
+                +146212. * CiHW / LambdaNP2
+                +1135161. * CiHWB / LambdaNP2
+                +395085. * CiDHB / LambdaNP2
+                -16140.8 * CiDHW / LambdaNP2
                 +0.458 * DeltaGF()
                 ;
             
@@ -7477,11 +7492,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -163347. * CiHe_11 / LambdaNP2
                 +3179548. * CiHL3_11 / LambdaNP2
                 -67524.8 * CiHD / LambdaNP2
-                -314653. * CHB / LambdaNP2
-                +1273817. * CHW / LambdaNP2
-                -258947. * CHWB / LambdaNP2
-                -197137. * CDHB / LambdaNP2
-                +308384. * CDHW / LambdaNP2
+                -314653. * CiHB / LambdaNP2
+                +1273817. * CiHW / LambdaNP2
+                -258947. * CiHWB / LambdaNP2
+                -197137. * CiDHB / LambdaNP2
+                +308384. * CiDHW / LambdaNP2
                 -4.231 * DeltaGF()
                 ; 
             
@@ -7498,11 +7513,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -3360980. * CiHe_11 / LambdaNP2
                 +434952. * CiHL3_11 / LambdaNP2
                 +65624.7 * CiHD / LambdaNP2
-                +741142. * CHB / LambdaNP2
-                +217654. * CHW / LambdaNP2
-                +1046799. * CHWB / LambdaNP2
-                +357606. * CDHB / LambdaNP2
-                +4440.1 * CDHW / LambdaNP2
+                +741142. * CiHB / LambdaNP2
+                +217654. * CiHW / LambdaNP2
+                +1046799. * CiHWB / LambdaNP2
+                +357606. * CiDHB / LambdaNP2
+                +4440.1 * CiDHW / LambdaNP2
                 +0.161 * DeltaGF()
                 ; 
             
@@ -7519,11 +7534,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -292427. * CiHe_11 / LambdaNP2
                 +3068356. * CiHL3_11 / LambdaNP2
                 -62160.7 * CiHD / LambdaNP2
-                -271962. * CHB / LambdaNP2
-                +1231171. * CHW / LambdaNP2
-                -206112. * CHWB / LambdaNP2
-                -174718. * CDHB / LambdaNP2
-                +296046. * CDHW / LambdaNP2
+                -271962. * CiHB / LambdaNP2
+                +1231171. * CiHW / LambdaNP2
+                -206112. * CiHWB / LambdaNP2
+                -174718. * CiDHB / LambdaNP2
+                +296046. * CiDHW / LambdaNP2
                 -4.053 * DeltaGF()
                 ; 
             
@@ -7548,11 +7563,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -3890169. * CiHe_11 / LambdaNP2
                 +271098. * CiHL3_11 / LambdaNP2
                 +74554. * CiHD / LambdaNP2
-                +840573. * CHB / LambdaNP2
-                +147108. * CHW / LambdaNP2
-                +1160947. * CHWB / LambdaNP2
-                +442125. * CDHB / LambdaNP2
-                -15038.8 * CDHW / LambdaNP2
+                +840573. * CiHB / LambdaNP2
+                +147108. * CiHW / LambdaNP2
+                +1160947. * CiHWB / LambdaNP2
+                +442125. * CiDHB / LambdaNP2
+                -15038.8 * CiDHW / LambdaNP2
                 +0.459 * DeltaGF()
                 ;     
             
@@ -7569,11 +7584,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -177584. * CiHe_11 / LambdaNP2
                 +3457848. * CiHL3_11 / LambdaNP2
                 -67578.3 * CiHD / LambdaNP2
-                -327391. * CHB / LambdaNP2
-                +1315671. * CHW / LambdaNP2
-                -259142. * CHWB / LambdaNP2
-                -218241. * CDHB / LambdaNP2
-                +346804. * CDHW / LambdaNP2
+                -327391. * CiHB / LambdaNP2
+                +1315671. * CiHW / LambdaNP2
+                -259142. * CiHWB / LambdaNP2
+                -218241. * CiDHB / LambdaNP2
+                +346804. * CiDHW / LambdaNP2
                 -4.231 * DeltaGF()
                 ; 
             
@@ -7590,11 +7605,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -3655203. * CiHe_11 / LambdaNP2
                 +472985. * CiHL3_11 / LambdaNP2
                 +65559.4 * CiHD / LambdaNP2
-                +766585. * CHB / LambdaNP2
-                +221202. * CHW / LambdaNP2
-                +1070933. * CHWB / LambdaNP2
-                +400293. * CDHB / LambdaNP2
-                +7914.02 * CDHW / LambdaNP2
+                +766585. * CiHB / LambdaNP2
+                +221202. * CiHW / LambdaNP2
+                +1070933. * CiHWB / LambdaNP2
+                +400293. * CiDHB / LambdaNP2
+                +7914.02 * CiDHW / LambdaNP2
                 +0.161 * DeltaGF()
                 ; 
             
@@ -7611,11 +7626,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -317944. * CiHe_11 / LambdaNP2
                 +3336984. * CiHL3_11 / LambdaNP2
                 -62188.9 * CiHD / LambdaNP2
-                -283174. * CHB / LambdaNP2
-                +1271272. * CHW / LambdaNP2
-                -205330. * CHWB / LambdaNP2
-                -193153. * CDHB / LambdaNP2
-                +333078. * CDHW / LambdaNP2
+                -283174. * CiHB / LambdaNP2
+                +1271272. * CiHW / LambdaNP2
+                -205330. * CiHWB / LambdaNP2
+                -193153. * CiDHB / LambdaNP2
+                +333078. * CiDHW / LambdaNP2
                 -4.053 * DeltaGF()
                 ; 
             
@@ -7640,11 +7655,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -4216491. * CiHe_11 / LambdaNP2
                 +293860. * CiHL3_11 / LambdaNP2
                 +74561.4 * CiHD / LambdaNP2
-                +866754. * CHB / LambdaNP2
-                +147982. * CHW / LambdaNP2
-                +1184912. * CHWB / LambdaNP2
-                +492018. * CDHB / LambdaNP2
-                -13596.5 * CDHW / LambdaNP2
+                +866754. * CiHB / LambdaNP2
+                +147982. * CiHW / LambdaNP2
+                +1184912. * CiHWB / LambdaNP2
+                +492018. * CiDHB / LambdaNP2
+                -13596.5 * CiDHW / LambdaNP2
                 +0.459 * DeltaGF()
                 ;           
             
@@ -7661,11 +7676,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -192650. * CiHe_11 / LambdaNP2
                 +3747707. * CiHL3_11 / LambdaNP2
                 -67608.3 * CiHD / LambdaNP2
-                -339193. * CHB / LambdaNP2
-                +1354040. * CHW / LambdaNP2
-                -259321. * CHWB / LambdaNP2
-                -240311. * CDHB / LambdaNP2
-                +387710. * CDHW / LambdaNP2
+                -339193. * CiHB / LambdaNP2
+                +1354040. * CiHW / LambdaNP2
+                -259321. * CiHWB / LambdaNP2
+                -240311. * CiDHB / LambdaNP2
+                +387710. * CiDHW / LambdaNP2
                 -4.23 * DeltaGF()
                 ; 
             
@@ -7682,11 +7697,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -3961665. * CiHe_11 / LambdaNP2
                 +512707. * CiHL3_11 / LambdaNP2
                 +65601.7 * CiHD / LambdaNP2
-                +790306. * CHB / LambdaNP2
-                +224394. * CHW / LambdaNP2
-                +1093297. * CHWB / LambdaNP2
-                +445530. * CDHB / LambdaNP2
-                +11860.4 * CDHW / LambdaNP2
+                +790306. * CiHB / LambdaNP2
+                +224394. * CiHW / LambdaNP2
+                +1093297. * CiHWB / LambdaNP2
+                +445530. * CiDHB / LambdaNP2
+                +11860.4 * CiDHW / LambdaNP2
                 +0.161 * DeltaGF()
                 ; 
             
@@ -7703,11 +7718,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -344629. * CiHe_11 / LambdaNP2
                 +3617032. * CiHL3_11 / LambdaNP2
                 -62148.3 * CiHD / LambdaNP2
-                -293491. * CHB / LambdaNP2
-                +1308558. * CHW / LambdaNP2
-                -204594. * CHWB / LambdaNP2
-                -212514. * CDHB / LambdaNP2
-                +372554. * CDHW / LambdaNP2
+                -293491. * CiHB / LambdaNP2
+                +1308558. * CiHW / LambdaNP2
+                -204594. * CiHWB / LambdaNP2
+                -212514. * CiDHB / LambdaNP2
+                +372554. * CiDHW / LambdaNP2
                 -4.053 * DeltaGF()
                 ; 
             
@@ -7732,11 +7747,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -7299333. * CiHe_11 / LambdaNP2
                 +508715. * CiHL3_11 / LambdaNP2
                 +74603.6 * CiHD / LambdaNP2
-                +1018069. * CHB / LambdaNP2
-                +151257. * CHW / LambdaNP2
-                +1323862. * CHWB / LambdaNP2
-                +985604. * CDHB / LambdaNP2
-                +8362.16 * CDHW / LambdaNP2
+                +1018069. * CiHB / LambdaNP2
+                +151257. * CiHW / LambdaNP2
+                +1323862. * CiHWB / LambdaNP2
+                +985604. * CiDHB / LambdaNP2
+                +8362.16 * CiDHW / LambdaNP2
                 +0.458 * DeltaGF()
                 ;    
             
@@ -7753,11 +7768,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -332950. * CiHe_11 / LambdaNP2
                 +6488707. * CiHL3_11 / LambdaNP2
                 -67530.9 * CiHD / LambdaNP2
-                -408101. * CHB / LambdaNP2
-                +1576859. * CHW / LambdaNP2
-                -260777. * CHWB / LambdaNP2
-                -452746. * CDHB / LambdaNP2
-                +796569. * CDHW / LambdaNP2
+                -408101. * CiHB / LambdaNP2
+                +1576859. * CiHW / LambdaNP2
+                -260777. * CiHWB / LambdaNP2
+                -452746. * CiDHB / LambdaNP2
+                +796569. * CiDHW / LambdaNP2
                 -4.231 * DeltaGF()
                 ; 
             
@@ -7774,11 +7789,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -6858533. * CiHe_11 / LambdaNP2
                 +887632. * CiHL3_11 / LambdaNP2
                 +65606.6 * CiHD / LambdaNP2
-                +927745. * CHB / LambdaNP2
-                +241619. * CHW / LambdaNP2
-                +1223535. * CHWB / LambdaNP2
-                +894441. * CDHB / LambdaNP2
-                +58317. * CDHW / LambdaNP2
+                +927745. * CiHB / LambdaNP2
+                +241619. * CiHW / LambdaNP2
+                +1223535. * CiHWB / LambdaNP2
+                +894441. * CiDHB / LambdaNP2
+                +58317. * CiDHW / LambdaNP2
                 +0.161 * DeltaGF()
                 ; 
             
@@ -7795,11 +7810,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -597046. * CiHe_11 / LambdaNP2
                 +6262095. * CiHL3_11 / LambdaNP2
                 -62148.8 * CiHD / LambdaNP2
-                -353914. * CHB / LambdaNP2
-                +1522841. * CHW / LambdaNP2
-                -200684. * CHWB / LambdaNP2
-                -398214. * CDHB / LambdaNP2
-                +766821. * CDHW / LambdaNP2
+                -353914. * CiHB / LambdaNP2
+                +1522841. * CiHW / LambdaNP2
+                -200684. * CiHWB / LambdaNP2
+                -398214. * CiDHB / LambdaNP2
+                +766821. * CiDHW / LambdaNP2
                 -4.054 * DeltaGF()
                 ; 
             
@@ -7824,11 +7839,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -29195703. * CiHe_11 / LambdaNP2
                 +2034785. * CiHL3_11 / LambdaNP2
                 +74612.7 * CiHD / LambdaNP2
-                +1218284. * CHB / LambdaNP2
-                +154779. * CHW / LambdaNP2
-                +1507673. * CHWB / LambdaNP2
-                +4701988. * CDHB / LambdaNP2
-                +239404. * CDHW / LambdaNP2
+                +1218284. * CiHB / LambdaNP2
+                +154779. * CiHW / LambdaNP2
+                +1507673. * CiHWB / LambdaNP2
+                +4701988. * CiDHB / LambdaNP2
+                +239404. * CiDHW / LambdaNP2
                 +0.458 * DeltaGF()
                 ;     
             
@@ -7845,11 +7860,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -1333713. * CiHe_11 / LambdaNP2
                 +25954994. * CiHL3_11 / LambdaNP2
                 -67536.7 * CiHD / LambdaNP2
-                -499699. * CHB / LambdaNP2
-                +1872177. * CHW / LambdaNP2
-                -263454. * CHWB / LambdaNP2
-                -1999387. * CDHB / LambdaNP2
-                +3910434. * CDHW / LambdaNP2
+                -499699. * CiHB / LambdaNP2
+                +1872177. * CiHW / LambdaNP2
+                -263454. * CiHWB / LambdaNP2
+                -1999387. * CiDHB / LambdaNP2
+                +3910434. * CiDHW / LambdaNP2
                 -4.233 * DeltaGF()
                 ; 
             
@@ -7866,11 +7881,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -27432206. * CiHe_11 / LambdaNP2
                 +3550656. * CiHL3_11 / LambdaNP2
                 +65607.4 * CiHD / LambdaNP2
-                +1109435. * CHB / LambdaNP2
-                +263679. * CHW / LambdaNP2
-                +1395519. * CHWB / LambdaNP2
-                +4277336. * CDHB / LambdaNP2
-                +472106. * CDHW / LambdaNP2
+                +1109435. * CiHB / LambdaNP2
+                +263679. * CiHW / LambdaNP2
+                +1395519. * CiHWB / LambdaNP2
+                +4277336. * CiDHB / LambdaNP2
+                +472106. * CiDHW / LambdaNP2
                 +0.159 * DeltaGF()
                 ; 
             
@@ -7887,11 +7902,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -2390358. * CiHe_11 / LambdaNP2
                 +25048839. * CiHL3_11 / LambdaNP2
                 -62132.7 * CiHD / LambdaNP2
-                -434824. * CHB / LambdaNP2
-                +1807095. * CHW / LambdaNP2
-                -196264. * CHWB / LambdaNP2
-                -1746222. * CDHB / LambdaNP2
-                +3771341. * CDHW / LambdaNP2
+                -434824. * CiHB / LambdaNP2
+                +1807095. * CiHW / LambdaNP2
+                -196264. * CiHWB / LambdaNP2
+                -1746222. * CiDHB / LambdaNP2
+                +3771341. * CiDHW / LambdaNP2
                 -4.056 * DeltaGF()
                 ; 
             
@@ -7916,11 +7931,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -57226150. * CiHe_11 / LambdaNP2
                 +3988231. * CiHL3_11 / LambdaNP2
                 +74608.5 * CiHD / LambdaNP2
-                +1256970. * CHB / LambdaNP2
-                +155358. * CHW / LambdaNP2
-                +1542655. * CHWB / LambdaNP2
-                +9506894. * CDHB / LambdaNP2
-                +553431. * CDHW / LambdaNP2
+                +1256970. * CiHB / LambdaNP2
+                +155358. * CiHW / LambdaNP2
+                +1542655. * CiHWB / LambdaNP2
+                +9506894. * CiDHB / LambdaNP2
+                +553431. * CiDHW / LambdaNP2
                 +0.457 * DeltaGF()
                 ;        
             
@@ -7937,11 +7952,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -2614134. * CiHe_11 / LambdaNP2
                 +50871646. * CiHL3_11 / LambdaNP2
                 -67535.5 * CiHD / LambdaNP2
-                -516385. * CHB / LambdaNP2
-                +1928805. * CHW / LambdaNP2
-                -264072. * CHWB / LambdaNP2
-                -3989947. * CDHB / LambdaNP2
-                +7948308. * CDHW / LambdaNP2
+                -516385. * CiHB / LambdaNP2
+                +1928805. * CiHW / LambdaNP2
+                -264072. * CiHWB / LambdaNP2
+                -3989947. * CiDHB / LambdaNP2
+                +7948308. * CiDHW / LambdaNP2
                 -4.233 * DeltaGF()
                 ; 
             
@@ -7958,11 +7973,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -53762500. * CiHe_11 / LambdaNP2
                 +6958750. * CiHL3_11 / LambdaNP2
                 +65589.3 * CiHD / LambdaNP2
-                +1144464. * CHB / LambdaNP2
-                +267732. * CHW / LambdaNP2
-                +1428214. * CHWB / LambdaNP2
-                +8650536. * CDHB / LambdaNP2
-                +1021964. * CDHW / LambdaNP2
+                +1144464. * CiHB / LambdaNP2
+                +267732. * CiHW / LambdaNP2
+                +1428214. * CiHWB / LambdaNP2
+                +8650536. * CiDHB / LambdaNP2
+                +1021964. * CiDHW / LambdaNP2
                 +0.16 * DeltaGF()
                 ; 
             
@@ -7979,11 +7994,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -4685522. * CiHe_11 / LambdaNP2
                 +49094486. * CiHL3_11 / LambdaNP2
                 -62150.9 * CiHD / LambdaNP2
-                -450090. * CHB / LambdaNP2
-                +1861602. * CHW / LambdaNP2
-                -195621. * CHWB / LambdaNP2
-                -3478338. * CDHB / LambdaNP2
-                +7668095. * CDHW / LambdaNP2
+                -450090. * CiHB / LambdaNP2
+                +1861602. * CiHW / LambdaNP2
+                -195621. * CiHWB / LambdaNP2
+                -3478338. * CiDHB / LambdaNP2
+                +7668095. * CiDHW / LambdaNP2
                 -4.055 * DeltaGF()
                 ; 
             
@@ -8008,11 +8023,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -65691823. * CiHe_11 / LambdaNP2
                 +4578315. * CiHL3_11 / LambdaNP2
                 +74595.2 * CiHD / LambdaNP2
-                +1262261. * CHB / LambdaNP2
-                +155435. * CHW / LambdaNP2
-                +1547379. * CHWB / LambdaNP2
-                +10961322. * CDHB / LambdaNP2
-                +649157. * CDHW / LambdaNP2
+                +1262261. * CiHB / LambdaNP2
+                +155435. * CiHW / LambdaNP2
+                +1547379. * CiHWB / LambdaNP2
+                +10961322. * CiDHB / LambdaNP2
+                +649157. * CiDHW / LambdaNP2
                 +0.457 * DeltaGF()
                 ;          
             
@@ -8029,11 +8044,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -3000385. * CiHe_11 / LambdaNP2
                 +58398883. * CiHL3_11 / LambdaNP2
                 -67535.8 * CiHD / LambdaNP2
-                -518798. * CHB / LambdaNP2
-                +1936613. * CHW / LambdaNP2
-                -264171. * CHWB / LambdaNP2
-                -4590136. * CDHB / LambdaNP2
-                +9169803. * CDHW / LambdaNP2
+                -518798. * CiHB / LambdaNP2
+                +1936613. * CiHW / LambdaNP2
+                -264171. * CiHWB / LambdaNP2
+                -4590136. * CiDHB / LambdaNP2
+                +9169803. * CiDHW / LambdaNP2
                 -4.233 * DeltaGF()
                 ; 
             
@@ -8050,11 +8065,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -61718691. * CiHe_11 / LambdaNP2
                 +7988570. * CiHL3_11 / LambdaNP2
                 +65599. * CiHD / LambdaNP2
-                +1149083. * CHB / LambdaNP2
-                +268317. * CHW / LambdaNP2
-                +1432777. * CHWB / LambdaNP2
-                +9972576. * CDHB / LambdaNP2
-                +1188554. * CDHW / LambdaNP2
+                +1149083. * CiHB / LambdaNP2
+                +268317. * CiHW / LambdaNP2
+                +1432777. * CiHWB / LambdaNP2
+                +9972576. * CiDHB / LambdaNP2
+                +1188554. * CiDHW / LambdaNP2
                 +0.16 * DeltaGF()
                 ; 
             
@@ -8071,11 +8086,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -5378233. * CiHe_11 / LambdaNP2
                 +56356946. * CiHL3_11 / LambdaNP2
                 -62168.7 * CiHD / LambdaNP2
-                -452149. * CHB / LambdaNP2
-                +1869136. * CHW / LambdaNP2
-                -195562. * CHWB / LambdaNP2
-                -4000306. * CDHB / LambdaNP2
-                +8846432. * CDHW / LambdaNP2
+                -452149. * CiHB / LambdaNP2
+                +1869136. * CiHW / LambdaNP2
+                -195562. * CiHWB / LambdaNP2
+                -4000306. * CiDHB / LambdaNP2
+                +8846432. * CiDHW / LambdaNP2
                 -4.055 * DeltaGF()
                 ; 
             
@@ -8100,11 +8115,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -262773345. * CiHe_11 / LambdaNP2
                 +18314161. * CiHL3_11 / LambdaNP2
                 +74663.6 * CiHD / LambdaNP2
-                +1289569. * CHB / LambdaNP2
-                +155612. * CHW / LambdaNP2
-                +1572580. * CHWB / LambdaNP2
-                +44806408. * CDHB / LambdaNP2
-                +2877519. * CDHW / LambdaNP2
+                +1289569. * CiHB / LambdaNP2
+                +155612. * CiHW / LambdaNP2
+                +1572580. * CiHWB / LambdaNP2
+                +44806408. * CiDHB / LambdaNP2
+                +2877519. * CiDHW / LambdaNP2
                 +0.456 * DeltaGF()
                 ;          
             
@@ -8121,11 +8136,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -12002450. * CiHe_11 / LambdaNP2
                 +233598342. * CiHL3_11 / LambdaNP2
                 -67507.7 * CiHD / LambdaNP2
-                -531387. * CHB / LambdaNP2
-                +1976750. * CHW / LambdaNP2
-                -264661. * CHWB / LambdaNP2
-                -18587969. * CDHB / LambdaNP2
-                +37618569. * CDHW / LambdaNP2
+                -531387. * CiHB / LambdaNP2
+                +1976750. * CiHW / LambdaNP2
+                -264661. * CiHWB / LambdaNP2
+                -18587969. * CiDHB / LambdaNP2
+                +37618569. * CiDHW / LambdaNP2
                 -4.233 * DeltaGF()
                 ; 
             
@@ -8142,11 +8157,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -246870182. * CiHe_11 / LambdaNP2
                 +31953446. * CiHL3_11 / LambdaNP2
                 +65576.5 * CiHD / LambdaNP2
-                +1173703. * CHB / LambdaNP2
-                +270983. * CHW / LambdaNP2
-                +1456032. * CHWB / LambdaNP2
-                +40783748. * CDHB / LambdaNP2
-                +5077924. * CDHW / LambdaNP2
+                +1173703. * CiHB / LambdaNP2
+                +270983. * CiHW / LambdaNP2
+                +1456032. * CiHWB / LambdaNP2
+                +40783748. * CiDHB / LambdaNP2
+                +5077924. * CiDHW / LambdaNP2
                 +0.16 * DeltaGF()
                 ; 
             
@@ -8163,11 +8178,11 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
                 -21505526. * CiHe_11 / LambdaNP2
                 +225427310. * CiHL3_11 / LambdaNP2
                 -62193.4 * CiHD / LambdaNP2
-                -463403. * CHB / LambdaNP2
-                +1907593. * CHW / LambdaNP2
-                -195017. * CHWB / LambdaNP2
-                -16188019. * CDHB / LambdaNP2
-                +36299719. * CDHW / LambdaNP2
+                -463403. * CiHB / LambdaNP2
+                +1907593. * CiHW / LambdaNP2
+                -195017. * CiHWB / LambdaNP2
+                -16188019. * CiDHB / LambdaNP2
+                +36299719. * CiDHW / LambdaNP2
                 -4.054 * DeltaGF()
                 ; 
             
@@ -8443,11 +8458,11 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 +84038.2 * CiHL3_11 / LambdaNP2
                 -121791. * CiuH_33r / LambdaNP2
                 -59467.6 * CiHD / LambdaNP2
-                +138929. * CHB / LambdaNP2
-                +130909. * CHW / LambdaNP2
-                -253030. * CHWB / LambdaNP2
-                -1757.66 * CDHB / LambdaNP2
-                +1501.34 * CDHW / LambdaNP2
+                +138929. * CiHB / LambdaNP2
+                +130909. * CiHW / LambdaNP2
+                -253030. * CiHWB / LambdaNP2
+                -1757.66 * CiDHB / LambdaNP2
+                +1501.34 * CiDHW / LambdaNP2
                 +1386027. * CuW_33r / LambdaNP2
                 +1698012. * CuB_33r / LambdaNP2
                 -1.965 * DeltaGF()
@@ -8478,11 +8493,11 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 +889282. * CiHL3_11 / LambdaNP2
                 -116099. * CiuH_33r / LambdaNP2
                 -60351.9 * CiHD / LambdaNP2
-                +352804. * CHB / LambdaNP2
-                +361918. * CHW / LambdaNP2
-                -397547. * CHWB / LambdaNP2
-                +37326.1 * CDHB / LambdaNP2
-                +113772. * CDHW / LambdaNP2
+                +352804. * CiHB / LambdaNP2
+                +361918. * CiHW / LambdaNP2
+                -397547. * CiHWB / LambdaNP2
+                +37326.1 * CiDHB / LambdaNP2
+                +113772. * CiDHW / LambdaNP2
                 +2758980. * CuW_33r / LambdaNP2
                 +3462941. * CuB_33r / LambdaNP2
                 -2.08 * DeltaGF()
@@ -8513,11 +8528,11 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 +2544832. * CiHL3_11 / LambdaNP2
                 -112208. * CiuH_33r / LambdaNP2
                 -60340.4 * CiHD / LambdaNP2
-                +464967. * CHB / LambdaNP2
-                +487659. * CHW / LambdaNP2
-                -471053. * CHWB / LambdaNP2
-                +134900. * CDHB / LambdaNP2
-                +371767. * CDHW / LambdaNP2
+                +464967. * CiHB / LambdaNP2
+                +487659. * CiHW / LambdaNP2
+                -471053. * CiHWB / LambdaNP2
+                +134900. * CiDHB / LambdaNP2
+                +371767. * CiDHW / LambdaNP2
                 +3804096. * CuW_33r / LambdaNP2
                 +4800265. * CuB_33r / LambdaNP2
                 -2.139 * DeltaGF()
@@ -8548,11 +8563,11 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 +3117293. * CiHL3_11 / LambdaNP2
                 -111274. * CiuH_33r / LambdaNP2
                 -60192. * CiHD / LambdaNP2
-                +487962. * CHB / LambdaNP2
-                +513503. * CHW / LambdaNP2
-                -485782. * CHWB / LambdaNP2
-                +170734. * CDHB / LambdaNP2
-                +462665. * CDHW / LambdaNP2
+                +487962. * CiHB / LambdaNP2
+                +513503. * CiHW / LambdaNP2
+                -485782. * CiHWB / LambdaNP2
+                +170734. * CiDHB / LambdaNP2
+                +462665. * CiDHW / LambdaNP2
                 +4068326. * CuW_33r / LambdaNP2
                 +5138930. * CuB_33r / LambdaNP2
                 -2.149 * DeltaGF()
@@ -8583,11 +8598,11 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 +19529668. * CiHL3_11 / LambdaNP2
                 -104011. * CiuH_33r / LambdaNP2
                 -58710.4 * CiHD / LambdaNP2
-                +697868. * CHB / LambdaNP2
-                +751003. * CHW / LambdaNP2
-                -625171. * CHWB / LambdaNP2
-                +1204441. * CDHB / LambdaNP2
-                +3111413. * CDHW / LambdaNP2
+                +697868. * CiHB / LambdaNP2
+                +751003. * CiHW / LambdaNP2
+                -625171. * CiHWB / LambdaNP2
+                +1204441. * CiDHB / LambdaNP2
+                +3111413. * CiDHW / LambdaNP2
                 +8604912. * CuW_33r / LambdaNP2
                 +10946841. * CuB_33r / LambdaNP2
                 -2.224 * DeltaGF()
@@ -8641,11 +8656,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +14207.9 * CiHL3_11 / LambdaNP2
                 -123399. * CiuH_33r / LambdaNP2
                 -12437.7 * CiHD / LambdaNP2
-                +249779. * CHB / LambdaNP2
-                +18912.8 * CHW / LambdaNP2
-                -109936. * CHWB / LambdaNP2
-                -5170.73 * CDHB / LambdaNP2
-                +3167.65 * CDHW / LambdaNP2
+                +249779. * CiHB / LambdaNP2
+                +18912.8 * CiHW / LambdaNP2
+                -109936. * CiHWB / LambdaNP2
+                -5170.73 * CiDHB / LambdaNP2
+                +3167.65 * CiDHW / LambdaNP2
                 +174267. * CuW_33r / LambdaNP2
                 +3032981. * CuB_33r / LambdaNP2
                 -0.388 * DeltaGF()
@@ -8668,11 +8683,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +116253. * CiHL3_11 / LambdaNP2
                 -121117. * CiuH_33r / LambdaNP2
                 -81321.2 * CiHD / LambdaNP2
-                +87352.2 * CHB / LambdaNP2
-                +182702. * CHW / LambdaNP2
-                -319427. * CHWB / LambdaNP2
-                -21.616 * CDHB / LambdaNP2
-                +799.81 * CDHW / LambdaNP2
+                +87352.2 * CiHB / LambdaNP2
+                +182702. * CiHW / LambdaNP2
+                -319427. * CiHWB / LambdaNP2
+                -21.616 * CiDHB / LambdaNP2
+                +799.81 * CiDHW / LambdaNP2
                 +1948272. * CuW_33r / LambdaNP2
                 +1078489. * CuB_33r / LambdaNP2
                 -2.697 * DeltaGF()
@@ -8695,11 +8710,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +24323.6 * CiHL3_11 / LambdaNP2
                 -123203. * CiuH_33r / LambdaNP2
                 -19404.2 * CiHD / LambdaNP2
-                +233452. * CHB / LambdaNP2
-                +35310.2 * CHW / LambdaNP2
-                -131019. * CHWB / LambdaNP2
-                -4810.06 * CDHB / LambdaNP2
-                +2842.31 * CDHW / LambdaNP2
+                +233452. * CiHB / LambdaNP2
+                +35310.2 * CiHW / LambdaNP2
+                -131019. * CiHWB / LambdaNP2
+                -4810.06 * CiDHB / LambdaNP2
+                +2842.31 * CiDHW / LambdaNP2
                 +351790. * CuW_33r / LambdaNP2
                 +2837005. * CuB_33r / LambdaNP2
                 -0.617 * DeltaGF()
@@ -8722,11 +8737,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +113858. * CiHL3_11 / LambdaNP2
                 -121180. * CiuH_33r / LambdaNP2
                 -79695. * CiHD / LambdaNP2
-                +91201.9 * CHB / LambdaNP2
-                +178853. * CHW / LambdaNP2
-                -314513. * CHWB / LambdaNP2
-                -137.642 * CDHB / LambdaNP2
-                +853.383 * CDHW / LambdaNP2
+                +91201.9 * CiHB / LambdaNP2
+                +178853. * CiHW / LambdaNP2
+                -314513. * CiHWB / LambdaNP2
+                -137.642 * CiDHB / LambdaNP2
+                +853.383 * CiDHW / LambdaNP2
                 +1906734. * CuW_33r / LambdaNP2
                 +1124181. * CuB_33r / LambdaNP2
                 -2.642 * DeltaGF()
@@ -8757,11 +8772,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +148925. * CiHL3_11 / LambdaNP2
                 -115721. * CiuH_33r / LambdaNP2
                 -9966.97 * CiHD / LambdaNP2
-                +648027. * CHB / LambdaNP2
-                +58990.6 * CHW / LambdaNP2
-                -166947. * CHWB / LambdaNP2
-                +258446. * CDHB / LambdaNP2
-                +27641. * CDHW / LambdaNP2
+                +648027. * CiHB / LambdaNP2
+                +58990.6 * CiHW / LambdaNP2
+                -166947. * CiHWB / LambdaNP2
+                +258446. * CiDHB / LambdaNP2
+                +27641. * CiDHW / LambdaNP2
                 +416063. * CuW_33r / LambdaNP2
                 +5771745. * CuB_33r / LambdaNP2
                 -0.426 * DeltaGF()
@@ -8784,11 +8799,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +1266376. * CiHL3_11 / LambdaNP2
                 -116193. * CiuH_33r / LambdaNP2
                 -85861. * CiHD / LambdaNP2
-                +202732. * CHB / LambdaNP2
-                +516612. * CHW / LambdaNP2
-                -514723. * CHWB / LambdaNP2
-                -75504.5 * CDHB / LambdaNP2
-                +158356. * CDHW / LambdaNP2
+                +202732. * CiHB / LambdaNP2
+                +516612. * CiHW / LambdaNP2
+                -514723. * CiHWB / LambdaNP2
+                -75504.5 * CiDHB / LambdaNP2
+                +158356. * CiDHW / LambdaNP2
                 +3954267. * CuW_33r / LambdaNP2
                 +2288387. * CuB_33r / LambdaNP2
                 -2.929 * DeltaGF()
@@ -8811,11 +8826,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +252265. * CiHL3_11 / LambdaNP2
                 -115358. * CiuH_33r / LambdaNP2
                 -16813.1 * CiHD / LambdaNP2
-                +607466. * CHB / LambdaNP2
-                +101359. * CHW / LambdaNP2
-                -198737. * CHWB / LambdaNP2
-                +227834. * CDHB / LambdaNP2
-                +39939.6 * CDHW / LambdaNP2
+                +607466. * CiHB / LambdaNP2
+                +101359. * CiHW / LambdaNP2
+                -198737. * CiHWB / LambdaNP2
+                +227834. * CiDHB / LambdaNP2
+                +39939.6 * CiDHW / LambdaNP2
                 +742520. * CuW_33r / LambdaNP2
                 +5453267. * CuB_33r / LambdaNP2
                 -0.659 * DeltaGF()
@@ -8838,11 +8853,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +1238124. * CiHL3_11 / LambdaNP2
                 -116044. * CiuH_33r / LambdaNP2
                 -83798.9 * CiHD / LambdaNP2
-                +214128. * CHB / LambdaNP2
-                +505118. * CHW / LambdaNP2
-                -505830. * CHWB / LambdaNP2
-                -66814.1 * CDHB / LambdaNP2
-                +155075. * CDHW / LambdaNP2
+                +214128. * CiHB / LambdaNP2
+                +505118. * CiHW / LambdaNP2
+                -505830. * CiHWB / LambdaNP2
+                -66814.1 * CiDHB / LambdaNP2
+                +155075. * CiDHW / LambdaNP2
                 +3863710. * CuW_33r / LambdaNP2
                 +2378351. * CuB_33r / LambdaNP2
                 -2.867 * DeltaGF()
@@ -8873,11 +8888,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +416437. * CiHL3_11 / LambdaNP2
                 -110413. * CiuH_33r / LambdaNP2
                 -8089.5 * CiHD / LambdaNP2
-                +852065. * CHB / LambdaNP2
-                +78915.7 * CHW / LambdaNP2
-                -191411. * CHWB / LambdaNP2
-                +881670. * CDHB / LambdaNP2
-                +72289.2 * CDHW / LambdaNP2
+                +852065. * CiHB / LambdaNP2
+                +78915.7 * CiHW / LambdaNP2
+                -191411. * CiHWB / LambdaNP2
+                +881670. * CiDHB / LambdaNP2
+                +72289.2 * CiDHW / LambdaNP2
                 +588296. * CuW_33r / LambdaNP2
                 +7812392. * CuB_33r / LambdaNP2
                 -0.441 * DeltaGF()
@@ -8900,11 +8915,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +3668482. * CiHL3_11 / LambdaNP2
                 -112775. * CiuH_33r / LambdaNP2
                 -87497.2 * CiHD / LambdaNP2
-                +261266. * CHB / LambdaNP2
-                +703789. * CHW / LambdaNP2
-                -618584. * CHWB / LambdaNP2
-                -257636. * CDHB / LambdaNP2
-                +530202. * CDHW / LambdaNP2
+                +261266. * CiHB / LambdaNP2
+                +703789. * CiHW / LambdaNP2
+                -618584. * CiHWB / LambdaNP2
+                -257636. * CiDHB / LambdaNP2
+                +530202. * CiDHW / LambdaNP2
                 +5501929. * CuW_33r / LambdaNP2
                 +3213842. * CuB_33r / LambdaNP2
                 -3.038 * DeltaGF()
@@ -8927,11 +8942,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +706068. * CiHL3_11 / LambdaNP2
                 -110672. * CiuH_33r / LambdaNP2
                 -15249.5 * CiHD / LambdaNP2
-                +798771. * CHB / LambdaNP2
-                +134415. * CHW / LambdaNP2
-                -229663. * CHWB / LambdaNP2
-                +779863. * CDHB / LambdaNP2
-                +112951. * CDHW / LambdaNP2
+                +798771. * CiHB / LambdaNP2
+                +134415. * CiHW / LambdaNP2
+                -229663. * CiHWB / LambdaNP2
+                +779863. * CiDHB / LambdaNP2
+                +112951. * CiDHW / LambdaNP2
                 +1026697. * CuW_33r / LambdaNP2
                 +7402171. * CuB_33r / LambdaNP2
                 -0.673 * DeltaGF()
@@ -8954,11 +8969,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +3581543. * CiHL3_11 / LambdaNP2
                 -112737. * CiuH_33r / LambdaNP2
                 -85431.2 * CiHD / LambdaNP2
-                +276629. * CHB / LambdaNP2
-                +687136. * CHW / LambdaNP2
-                -607155. * CHWB / LambdaNP2
-                -227375. * CDHB / LambdaNP2
-                +517945. * CDHW / LambdaNP2
+                +276629. * CiHB / LambdaNP2
+                +687136. * CiHW / LambdaNP2
+                -607155. * CiHWB / LambdaNP2
+                -227375. * CiDHB / LambdaNP2
+                +517945. * CiDHW / LambdaNP2
                 +5370183. * CuW_33r / LambdaNP2
                 +3335906. * CuB_33r / LambdaNP2
                 -2.969 * DeltaGF()
@@ -8989,11 +9004,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +507190. * CiHL3_11 / LambdaNP2
                 -109820. * CiuH_33r / LambdaNP2
                 -7568.59 * CiHD / LambdaNP2
-                +893094. * CHB / LambdaNP2
-                +82781.5 * CHW / LambdaNP2
-                -196556. * CHWB / LambdaNP2
-                +1099527. * CDHB / LambdaNP2
-                +87228. * CDHW / LambdaNP2
+                +893094. * CiHB / LambdaNP2
+                +82781.5 * CiHW / LambdaNP2
+                -196556. * CiHWB / LambdaNP2
+                +1099527. * CiDHB / LambdaNP2
+                +87228. * CiDHW / LambdaNP2
                 +630747. * CuW_33r / LambdaNP2
                 +8328477. * CuB_33r / LambdaNP2
                 -0.442 * DeltaGF()
@@ -9016,11 +9031,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +4501280. * CiHL3_11 / LambdaNP2
                 -112104. * CiuH_33r / LambdaNP2
                 -87805.6 * CiHD / LambdaNP2
-                +273106. * CHB / LambdaNP2
-                +741955. * CHW / LambdaNP2
-                -639545. * CHWB / LambdaNP2
-                -322155. * CDHB / LambdaNP2
-                +661931. * CDHW / LambdaNP2
+                +273106. * CiHB / LambdaNP2
+                +741955. * CiHW / LambdaNP2
+                -639545. * CiHWB / LambdaNP2
+                -322155. * CiDHB / LambdaNP2
+                +661931. * CiDHW / LambdaNP2
                 +5892414. * CuW_33r / LambdaNP2
                 +3448015. * CuB_33r / LambdaNP2
                 -3.057 * DeltaGF()
@@ -9043,11 +9058,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +861242. * CiHL3_11 / LambdaNP2
                 -109696. * CiuH_33r / LambdaNP2
                 -14806.7 * CiHD / LambdaNP2
-                +837632. * CHB / LambdaNP2
-                +141142. * CHW / LambdaNP2
-                -235907. * CHWB / LambdaNP2
-                +973107. * CDHB / LambdaNP2
-                +138331. * CDHW / LambdaNP2
+                +837632. * CiHB / LambdaNP2
+                +141142. * CiHW / LambdaNP2
+                -235907. * CiHWB / LambdaNP2
+                +973107. * CiDHB / LambdaNP2
+                +138331. * CiDHW / LambdaNP2
                 +1097452. * CuW_33r / LambdaNP2
                 +7895510. * CuB_33r / LambdaNP2
                 -0.673 * DeltaGF()
@@ -9070,11 +9085,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +4394189. * CiHL3_11 / LambdaNP2
                 -112024. * CiuH_33r / LambdaNP2
                 -85643.3 * CiHD / LambdaNP2
-                +289620. * CHB / LambdaNP2
-                +724463. * CHW / LambdaNP2
-                -627885. * CHWB / LambdaNP2
-                -284076. * CDHB / LambdaNP2
-                +646658. * CDHW / LambdaNP2
+                +289620. * CiHB / LambdaNP2
+                +724463. * CiHW / LambdaNP2
+                -627885. * CiHWB / LambdaNP2
+                -284076. * CiDHB / LambdaNP2
+                +646658. * CiDHW / LambdaNP2
                 +5753330. * CuW_33r / LambdaNP2
                 +3578793. * CuB_33r / LambdaNP2
                 -2.989 * DeltaGF()
@@ -9105,11 +9120,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +3092340. * CiHL3_11 / LambdaNP2
                 -100510. * CiuH_33r / LambdaNP2
                 -3230.01 * CiHD / LambdaNP2
-                +1267548. * CHB / LambdaNP2
-                +118886. * CHW / LambdaNP2
-                -247164. * CHWB / LambdaNP2
-                +7397753. * CDHB / LambdaNP2
-                +510206. * CDHW / LambdaNP2
+                +1267548. * CiHB / LambdaNP2
+                +118886. * CiHW / LambdaNP2
+                -247164. * CiHWB / LambdaNP2
+                +7397753. * CiDHB / LambdaNP2
+                +510206. * CiDHW / LambdaNP2
                 +1343630. * CuW_33r / LambdaNP2
                 +17234081. * CuB_33r / LambdaNP2
                 -0.459 * DeltaGF()
@@ -9132,11 +9147,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +28686134. * CiHL3_11 / LambdaNP2
                 -105858. * CiuH_33r / LambdaNP2
                 -89803.1 * CiHD / LambdaNP2
-                +381886. * CHB / LambdaNP2
-                +1102843. * CHW / LambdaNP2
-                -834821. * CHWB / LambdaNP2
-                -2237555. * CDHB / LambdaNP2
-                +4557030. * CDHW / LambdaNP2
+                +381886. * CiHB / LambdaNP2
+                +1102843. * CiHW / LambdaNP2
+                -834821. * CiHWB / LambdaNP2
+                -2237555. * CiDHB / LambdaNP2
+                +4557030. * CiDHW / LambdaNP2
                 +12639913. * CuW_33r / LambdaNP2
                 +7455995. * CuB_33r / LambdaNP2
                 -3.212 * DeltaGF()
@@ -9159,11 +9174,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +5271741. * CiHL3_11 / LambdaNP2
                 -100891. * CiuH_33r / LambdaNP2
                 -10526.3 * CiHD / LambdaNP2
-                +1192421. * CHB / LambdaNP2
-                +202915. * CHW / LambdaNP2
-                -296939. * CHWB / LambdaNP2
-                +6582510. * CDHB / LambdaNP2
-                +853895. * CDHW / LambdaNP2
+                +1192421. * CiHB / LambdaNP2
+                +202915. * CiHW / LambdaNP2
+                -296939. * CiHWB / LambdaNP2
+                +6582510. * CiDHB / LambdaNP2
+                +853895. * CiDHW / LambdaNP2
                 +2303644. * CuW_33r / LambdaNP2
                 +16407287. * CuB_33r / LambdaNP2
                 -0.693 * DeltaGF()
@@ -9186,11 +9201,11 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
                 +27966374. * CiHL3_11 / LambdaNP2
                 -105885. * CiuH_33r / LambdaNP2
                 -87600.3 * CiHD / LambdaNP2
-                +406305. * CHB / LambdaNP2
-                +1075086. * CHW / LambdaNP2
-                -818808. * CHWB / LambdaNP2
-                -1967062. * CDHB / LambdaNP2
-                +4442109. * CDHW / LambdaNP2
+                +406305. * CiHB / LambdaNP2
+                +1075086. * CiHW / LambdaNP2
+                -818808. * CiHWB / LambdaNP2
+                -1967062. * CiDHB / LambdaNP2
+                +4442109. * CiDHW / LambdaNP2
                 +12322125. * CuW_33r / LambdaNP2
                 +7728315. * CuB_33r / LambdaNP2
                 -3.134 * DeltaGF()
@@ -10126,9 +10141,9 @@ double NPSMEFTd6::deltaGammaHWlvRatio1() const
     dwidth = ( +121875. * CiHbox / LambdaNP2
                 +18351.9 * (1.0/2.0) * ( CiHL3_11 + CiHL3_22 ) / LambdaNP2
                 -159873. * CiHD / LambdaNP2
-                -91288.7 * CHW / LambdaNP2
-                -284689. * CHWB / LambdaNP2
-                +37703.7 * CDHW / LambdaNP2
+                -91288.7 * CiHW / LambdaNP2
+                -284689. * CiHWB / LambdaNP2
+                +37703.7 * CiDHW / LambdaNP2
                 -3.292 * DeltaGF()
                 -15.14 * deltaMwd6()  );
     
@@ -10182,9 +10197,9 @@ double NPSMEFTd6::deltaGammaHWW2l2vRatio1() const
     dwidth = ( +120742. * CiHbox / LambdaNP2
                 +131582. * (1.0/2.0) * ( CiHL3_11 + CiHL3_22 ) / LambdaNP2
                 -204043. * CiHD / LambdaNP2
-                -91463.9 * CHW / LambdaNP2
-                -379529. * CHWB / LambdaNP2
-                +36848.2 * CDHW / LambdaNP2
+                -91463.9 * CiHW / LambdaNP2
+                -379529. * CiHWB / LambdaNP2
+                +36848.2 * CiDHW / LambdaNP2
                 -4.705 * DeltaGF()
                 -13.735 * deltaMwd6()
                 -0.965 * deltaGwd6()
@@ -10243,9 +10258,9 @@ double NPSMEFTd6::deltaGammaHWjjRatio1() const
     dwidth = ( +121611. * CiHbox / LambdaNP2
                 +17701.4 * (1.0/2.0) * ( CiHQ3_11 + CiHQ3_22 ) / LambdaNP2
                 -159273. * CiHD / LambdaNP2
-                -91021.6 * CHW / LambdaNP2
-                -282574. * CHWB / LambdaNP2
-                +37917.5 * CDHW / LambdaNP2
+                -91021.6 * CiHW / LambdaNP2
+                -282574. * CiHWB / LambdaNP2
+                +37917.5 * CiDHW / LambdaNP2
                 -3.259 * DeltaGF()
                 -15.198 * deltaMwd6()  );
     
@@ -10299,9 +10314,9 @@ double NPSMEFTd6::deltaGammaHWW4jRatio1() const
     dwidth = ( +121936. * CiHbox / LambdaNP2
                 +138860. * (1.0/2.0) * ( CiHQ3_11 + CiHQ3_22 ) / LambdaNP2
                 -205023. * CiHD / LambdaNP2
-                -89938.5 * CHW / LambdaNP2
-                -383944. * CHWB / LambdaNP2
-                +38244.6 * CDHW / LambdaNP2
+                -89938.5 * CiHW / LambdaNP2
+                -383944. * CiHWB / LambdaNP2
+                +38244.6 * CiDHW / LambdaNP2
                 -4.816 * DeltaGF()
                 -13.647 * deltaMwd6()
                 -0.959 * deltaGwd6()  );
@@ -10360,9 +10375,9 @@ double NPSMEFTd6::deltaGammaHWffRatio1() const
                 +5395.21 * (1.0/3.0) * ( CiHL3_11 + CiHL3_22 + CiHL3_33 ) / LambdaNP2
                 +11680.9 * (1.0/2.0) * ( CiHQ3_11 + CiHQ3_22 ) / LambdaNP2
                 -159787. * CiHD / LambdaNP2
-                -91509.1 * CHW / LambdaNP2
-                -283092. * CHWB / LambdaNP2
-                +37845.1 * CDHW / LambdaNP2
+                -91509.1 * CiHW / LambdaNP2
+                -283092. * CiHWB / LambdaNP2
+                +37845.1 * CiDHW / LambdaNP2
                 -3.259 * DeltaGF()
                 -15.196 * deltaMwd6()  );
     
@@ -10425,9 +10440,9 @@ double NPSMEFTd6::deltaGammaHWW4fRatio1() const
     dwidth = ( +121886. * CiHbox / LambdaNP2
                 + sf* CWff
                 -204009. * CiHD / LambdaNP2
-                -91455.7 * CHW / LambdaNP2
-                -382903. * CHWB / LambdaNP2
-                +38314.9 * CDHW / LambdaNP2
+                -91455.7 * CiHW / LambdaNP2
+                -382903. * CiHWB / LambdaNP2
+                +38314.9 * CiDHW / LambdaNP2
                 -4.757 * DeltaGF()
                 -13.716 * deltaMwd6()
                 -0.963 * deltaGwd6()               
@@ -10536,11 +10551,11 @@ double NPSMEFTd6::deltaGammaHZllRatio1() const
                 -7315.2 * (1.0/2.0) * ( CiHe_11 + CiHe_22 ) / LambdaNP2
                 +8726.9 * (1.0/2.0) * ( CiHL3_11 + CiHL3_22 ) / LambdaNP2
                 -5544.15 * CiHD / LambdaNP2
-                -13560.9 * CHB / LambdaNP2
-                -45585.2 * CHW / LambdaNP2
-                -53507.9 * CHWB / LambdaNP2
-                +16829.2 * CDHB / LambdaNP2
-                +30766.6 * CDHW / LambdaNP2
+                -13560.9 * CiHB / LambdaNP2
+                -45585.2 * CiHW / LambdaNP2
+                -53507.9 * CiHWB / LambdaNP2
+                +16829.2 * CiDHB / LambdaNP2
+                +30766.6 * CiDHW / LambdaNP2
                 -2.204 * DeltaGF()  );
     
 //  Linear contribution from Higgs self-coupling
@@ -10597,11 +10612,11 @@ double NPSMEFTd6::deltaGammaHZeeRatio1() const
                 -7315.2 * CiHe_11 / LambdaNP2
                 +8726.9 * CiHL3_11 / LambdaNP2
                 -5544.15 * CiHD / LambdaNP2
-                -13560.9 * CHB / LambdaNP2
-                -45585.2 * CHW / LambdaNP2
-                -53507.9 * CHWB / LambdaNP2
-                +16829.2 * CDHB / LambdaNP2
-                +30766.6 * CDHW / LambdaNP2
+                -13560.9 * CiHB / LambdaNP2
+                -45585.2 * CiHW / LambdaNP2
+                -53507.9 * CiHWB / LambdaNP2
+                +16829.2 * CiDHB / LambdaNP2
+                +30766.6 * CiDHW / LambdaNP2
                 -2.204 * DeltaGF()  );
     
 //  Linear contribution from Higgs self-coupling
@@ -10658,11 +10673,11 @@ double NPSMEFTd6::deltaGammaHZmumuRatio1() const
                 -7315.2 * CiHe_22 / LambdaNP2
                 +8726.9 * CiHL3_22 / LambdaNP2
                 -5544.15 * CiHD / LambdaNP2
-                -13560.9 * CHB / LambdaNP2
-                -45585.2 * CHW / LambdaNP2
-                -53507.9 * CHWB / LambdaNP2
-                +16829.2 * CDHB / LambdaNP2
-                +30766.6 * CDHW / LambdaNP2
+                -13560.9 * CiHB / LambdaNP2
+                -45585.2 * CiHW / LambdaNP2
+                -53507.9 * CiHWB / LambdaNP2
+                +16829.2 * CiDHB / LambdaNP2
+                +30766.6 * CiDHW / LambdaNP2
                 -2.204 * DeltaGF()  );
     
 //  Linear contribution from Higgs self-coupling
@@ -10724,11 +10739,11 @@ double NPSMEFTd6::deltaGammaHZZ4lRatio1() const
     dwidth = ( +122273. * CiHbox / LambdaNP2
                 + sf*CZll
                 -44025.7 * CiHD / LambdaNP2
-                -13602.6 * CHB / LambdaNP2
-                -45248.6 * CHW / LambdaNP2
-                -88372.1 * CHWB / LambdaNP2
-                +16088.6 * CDHB / LambdaNP2
-                +29210.1 * CDHW / LambdaNP2
+                -13602.6 * CiHB / LambdaNP2
+                -45248.6 * CiHW / LambdaNP2
+                -88372.1 * CiHWB / LambdaNP2
+                +16088.6 * CiDHB / LambdaNP2
+                +29210.1 * CiDHW / LambdaNP2
                 -3.462 * DeltaGF()
                 -0.808 * deltaGzd6() );    
     
@@ -10787,11 +10802,11 @@ double NPSMEFTd6::deltaGammaHZZ4eRatio1() const
                 -103717. * CiHe_11 / LambdaNP2
                 +123413. * CiHL3_11 / LambdaNP2
                 -44056.9 * CiHD / LambdaNP2
-                -13385.3 * CHB / LambdaNP2
-                -45127.7 * CHW / LambdaNP2
-                -91708.7 * CHWB / LambdaNP2
-                +16138.9 * CDHB / LambdaNP2
-                +28759.4 * CDHW / LambdaNP2
+                -13385.3 * CiHB / LambdaNP2
+                -45127.7 * CiHW / LambdaNP2
+                -91708.7 * CiHWB / LambdaNP2
+                +16138.9 * CiDHB / LambdaNP2
+                +28759.4 * CiDHW / LambdaNP2
                 -3.462 * DeltaGF()
                 -0.769 * deltaGzd6() );
     
@@ -10850,11 +10865,11 @@ double NPSMEFTd6::deltaGammaHZZ2e2muRatio1() const
                 -109064. * (1.0/2.0) * ( CiHe_11 + CiHe_22 ) / LambdaNP2
                 +126374. * (1.0/2.0) * ( CiHL3_11 + CiHL3_22 ) / LambdaNP2
                 -42370.4 * CiHD / LambdaNP2
-                -14299. * CHB / LambdaNP2
-                -47298.2 * CHW / LambdaNP2
-                -83098.2 * CHWB / LambdaNP2
-                +16362.7 * CDHB / LambdaNP2
-                +29503.4 * CDHW / LambdaNP2
+                -14299. * CiHB / LambdaNP2
+                -47298.2 * CiHW / LambdaNP2
+                -83098.2 * CiHWB / LambdaNP2
+                +16362.7 * CiDHB / LambdaNP2
+                +29503.4 * CiDHW / LambdaNP2
                 -3.378 * DeltaGF()
                 -0.85 * deltaGzd6() );
     
@@ -10912,11 +10927,11 @@ double NPSMEFTd6::deltaGammaHZZ4muRatio1() const
                 -103862. * CiHe_22 / LambdaNP2
                 +123059. * CiHL3_22 / LambdaNP2
                 -43977.1 * CiHD / LambdaNP2
-                -13575.5 * CHB / LambdaNP2
-                -45200.8 * CHW / LambdaNP2
-                -91625.2 * CHWB / LambdaNP2
-                +15449.3 * CDHB / LambdaNP2
-                +28489.5 * CDHW / LambdaNP2
+                -13575.5 * CiHB / LambdaNP2
+                -45200.8 * CiHW / LambdaNP2
+                -91625.2 * CiHWB / LambdaNP2
+                +15449.3 * CiDHB / LambdaNP2
+                +28489.5 * CiDHW / LambdaNP2
                 -3.471 * DeltaGF()
                 -0.774 * deltaGzd6() );
     
@@ -10974,11 +10989,11 @@ double NPSMEFTd6::deltaGammaHZvvRatio1() const
                 -7943.34 * (1.0/3.0) * ( CiHL1_11 + CiHL1_22 + CiHL1_33 ) / LambdaNP2
                 +7943.34 * (1.0/3.0) * ( CiHL3_11 + CiHL3_22 + CiHL3_33 ) / LambdaNP2
                 -229.41 * CiHD / LambdaNP2
-                -13535.2 * CHB / LambdaNP2
-                -45480.6 * CHW / LambdaNP2
-                -24891. * CHWB / LambdaNP2
-                +16833. * CDHB / LambdaNP2
-                +30597.6 * CDHW / LambdaNP2
+                -13535.2 * CiHB / LambdaNP2
+                -45480.6 * CiHW / LambdaNP2
+                -24891. * CiHWB / LambdaNP2
+                +16833. * CiDHB / LambdaNP2
+                +30597.6 * CiDHW / LambdaNP2
                 -2. * DeltaGF()  );
     
 //  Linear contribution from Higgs self-coupling
@@ -11032,11 +11047,11 @@ double NPSMEFTd6::deltaGammaHZZ4vRatio1() const
                 -115532. * (1.0/3.0) * ( CiHL1_11 + CiHL1_22 + CiHL1_33 ) / LambdaNP2
                 +115532. * (1.0/3.0) * ( CiHL3_11 + CiHL3_22 + CiHL3_33 ) / LambdaNP2
                 -28744.1 * CiHD / LambdaNP2
-                -13816.7 * CHB / LambdaNP2
-                -44782.1 * CHW / LambdaNP2
-                -25256.6 * CHWB / LambdaNP2
-                +15982.5 * CDHB / LambdaNP2
-                +28910.7 * CDHW / LambdaNP2
+                -13816.7 * CiHB / LambdaNP2
+                -44782.1 * CiHW / LambdaNP2
+                -25256.6 * CiHWB / LambdaNP2
+                +15982.5 * CiDHB / LambdaNP2
+                +28910.7 * CiDHW / LambdaNP2
                 -3.013 * DeltaGF()
                 -0.787 * deltaGzd6()
                  );
@@ -11096,11 +11111,11 @@ double NPSMEFTd6::deltaGammaHZuuRatio1() const
                 +4218.6 * (1.0/2.0) * ( CiHu_11 + CiHu_22 ) / LambdaNP2
                 +9648.28 * (1.0/2.0) * ( CiHQ3_11 + CiHQ3_22 ) / LambdaNP2
                 -17762.5 * CiHD / LambdaNP2
-                -13473.3 * CHB / LambdaNP2
-                -45667.9 * CHW / LambdaNP2
-                -110057. * CHWB / LambdaNP2
-                +16854.2 * CDHB / LambdaNP2
-                +30781.7 * CDHW / LambdaNP2
+                -13473.3 * CiHB / LambdaNP2
+                -45667.9 * CiHW / LambdaNP2
+                -110057. * CiHWB / LambdaNP2
+                +16854.2 * CiDHB / LambdaNP2
+                +30781.7 * CiDHW / LambdaNP2
                 -2.6 * DeltaGF()  );
     
 //  Linear contribution from Higgs self-coupling
@@ -11155,11 +11170,11 @@ double NPSMEFTd6::deltaGammaHZddRatio1() const
                 -1471.03 * (1.0/3.0) * ( CiHd_11 + CiHd_22 + CiHd_33 ) / LambdaNP2
                 +9252.73 * (1.0/3.0) * ( CiHQ3_11 + CiHQ3_22 + CiHQ3_33 ) / LambdaNP2
                 -12714.3 * CiHD / LambdaNP2
-                -13589.3 * CHB / LambdaNP2
-                -45689.4 * CHW / LambdaNP2
-                -85582.3 * CHWB / LambdaNP2
-                +17007.1 * CDHB / LambdaNP2
-                +30733.1 * CDHW / LambdaNP2
+                -13589.3 * CiHB / LambdaNP2
+                -45689.4 * CiHW / LambdaNP2
+                -85582.3 * CiHWB / LambdaNP2
+                +17007.1 * CiDHB / LambdaNP2
+                +30733.1 * CiDHW / LambdaNP2
                 -2.427 * DeltaGF()  );
     
 //  Linear contribution from Higgs self-coupling
@@ -11218,11 +11233,11 @@ double NPSMEFTd6::deltaGammaHZffRatio1() const
                 +3164.56 * (1.0/3.0) * ( CiHL3_11 + CiHL3_22 + CiHL3_33 ) / LambdaNP2
                 +6413.99 * (-1.0/12.0) * ( CiHQ1_11 + CiHQ1_22 - 2.0 * CiHQ1_33 - 5.0 * CiHQ3_11 - 5.0 * CiHQ3_22 - 2.0 * CiHQ3_33) / LambdaNP2
                 -10839.5 * CiHD / LambdaNP2
-                -14222.3 * CHB / LambdaNP2
-                -45455.6 * CHW / LambdaNP2
-                -75343.1 * CHWB / LambdaNP2
-                +16804.9 * CDHB / LambdaNP2
-                +30421. * CDHW / LambdaNP2
+                -14222.3 * CiHB / LambdaNP2
+                -45455.6 * CiHW / LambdaNP2
+                -75343.1 * CiHWB / LambdaNP2
+                +16804.9 * CiDHB / LambdaNP2
+                +30421. * CiDHW / LambdaNP2
                 -2.356 * DeltaGF()  );
     
 //  Linear contribution from Higgs self-coupling
@@ -11299,11 +11314,11 @@ double NPSMEFTd6::deltaGammaHZZ4fRatio1() const
     dwidth = ( +121373. * CiHbox / LambdaNP2
                 + sf*CZff
                 -50927.1 * CiHD / LambdaNP2
-                -14137.9 * CHB / LambdaNP2
-                -46350.1 * CHW / LambdaNP2
-                -126336. * CHWB / LambdaNP2
-                +16558.7 * CDHB / LambdaNP2
-                +29628.7 * CDHW / LambdaNP2
+                -14137.9 * CiHB / LambdaNP2
+                -46350.1 * CiHW / LambdaNP2
+                -126336. * CiHWB / LambdaNP2
+                +16558.7 * CiDHB / LambdaNP2
+                +29628.7 * CiDHW / LambdaNP2
                 -3.715 * DeltaGF()
                 -0.834 * deltaGzd6()
                   );    
@@ -11364,11 +11379,11 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
 //  of delta_ZA (or deltaG1_hZA()) to account for variations of sw2 and cw2
 
     dwidth = ( -71769.02 * deltaG1_hZA() 
-//            +14894914. * CHB / LambdaNP2
-//            -14894913. * CHW / LambdaNP2
-//            +9508089. * CHWB / LambdaNP2
-//            -2869576. * CDHB / LambdaNP2
-//            +1572613. * CDHW / LambdaNP2            
+//            +14894914. * CiHB / LambdaNP2
+//            -14894913. * CiHW / LambdaNP2
+//            +9508089. * CiHWB / LambdaNP2
+//            -2869576. * CiDHB / LambdaNP2
+//            +1572613. * CiDHW / LambdaNP2            
             + cLHd6 * (
             +120002. * CiHbox / LambdaNP2
             +50.12 * CiHL1_33 / LambdaNP2
@@ -11383,7 +11398,7 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
             +6636.34 * CiuH_33r / LambdaNP2
             -6121.66 * CidH_33r / LambdaNP2
             -111254. * CiHD / LambdaNP2
-            -162538. * CHWB / LambdaNP2
+            -162538. * CiHWB / LambdaNP2
             -96076.1 * DeltaGF() / v() / v()
             -0.123 * deltaMwd6() )
              );
@@ -11449,9 +11464,9 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
 //  of delta_AA (or deltaG_hAA) to account for variations of sw2 and cw2
     
     dwidth = ( -255156.97*deltaG_hAA()            
-//            -48314158. * CHB / LambdaNP2
-//            -14510502. * CHW / LambdaNP2
-//            +26477588. * CHWB / LambdaNP2 
+//            -48314158. * CiHB / LambdaNP2
+//            -14510502. * CiHW / LambdaNP2
+//            +26477588. * CiHWB / LambdaNP2 
             + cLHd6 * (
             +119766. * CiHbox / LambdaNP2
             -42565.7 * CieH_33r / LambdaNP2
@@ -11459,7 +11474,7 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
             +32078.2 * CiuH_33r / LambdaNP2
             -18428.3 * CidH_33r / LambdaNP2
             -137452. * CiHD / LambdaNP2
-            -235677. * CHWB / LambdaNP2
+            -235677. * CiHWB / LambdaNP2
             -124462. * DeltaGF() / v() / v() 
             -1.257 * deltaMwd6() )
             );
@@ -11858,7 +11873,7 @@ double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
 //  Divided (linearized) by ttZ 100 TeV
     dsigmarat = dsigmarat - (
                 -40869.4 * CiHD / LambdaNP2
-                -52607.9 * CHWB / LambdaNP2
+                -52607.9 * CiHWB / LambdaNP2
                 -90424.9 * CHG / LambdaNP2
                 +432089. * CG / LambdaNP2
                 +326525. * CuG_33r / LambdaNP2
@@ -12210,11 +12225,11 @@ double NPSMEFTd6::deltag1ZNP() const
       
       /*    From own calculations. Agrees with with LHCHXWG-INT-2015-001 for common interactions */
       NPdirect = sW_tree / sqrt( 4.0 * M_PI * aleMz );
-      NPdirect = - NPdirect * (Mz * Mz / v () / v() ) * CDHW * v2_over_LambdaNP2;
+      NPdirect = - NPdirect * (Mz * Mz / v () / v() ) * CiDHW * v2_over_LambdaNP2;
       
       NPindirect = - 1.0 / (cW2_tree-sW2_tree);
       
-      NPindirect = NPindirect * (sW_tree * CHWB / cW_tree 
+      NPindirect = NPindirect * (sW_tree * CiHWB / cW_tree 
               + 0.25 * CiHD ) * v2_over_LambdaNP2
               + 0.5 * NPindirect * DeltaGF() ;
       
@@ -12228,9 +12243,9 @@ double NPSMEFTd6::deltaKgammaNP() const
       /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
       NPdirect = sqrt( 4.0 * M_PI * aleMz ) / 4.0 / sW2_tree;
       
-      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * aleMz ) ) * CHWB 
-              - sW_tree * CDHW 
-              - cW_tree * CDHB ) * v2_over_LambdaNP2;
+      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * aleMz ) ) * CiHWB 
+              - sW_tree * CiDHW 
+              - cW_tree * CiDHB ) * v2_over_LambdaNP2;
       
       return NPdirect + dKappaga ;
 }
@@ -12635,9 +12650,9 @@ double NPSMEFTd6::mueeWW(const double sqrt_s) const
                 -175.567 * CHe_11 / LambdaNP2
                 +242506. * CHL3_11 / LambdaNP2
                 -86570.7 * CHD / LambdaNP2
-                -189772. * CHWB / LambdaNP2
-                +12.769 * CDHB / LambdaNP2
-                +6.384 * CDHW / LambdaNP2
+                -189772. * CiHWB / LambdaNP2
+                +12.769 * CiDHB / LambdaNP2
+                +6.384 * CiDHW / LambdaNP2
                 +0. * CW / LambdaNP2
                 -2.858 * DeltaGF()
                 -70.01 * deltaMwd6();
@@ -12659,9 +12674,9 @@ double NPSMEFTd6::mueeWW(const double sqrt_s) const
                 -17485.4 * CHe_11 / LambdaNP2
                 +267456. * CHL3_11 / LambdaNP2
                 -83799.2 * CHD / LambdaNP2
-                -168074. * CHWB / LambdaNP2
-                +3199.72 * CDHB / LambdaNP2
-                +3401.93 * CDHW / LambdaNP2
+                -168074. * CiHWB / LambdaNP2
+                +3199.72 * CiDHB / LambdaNP2
+                +3401.93 * CiDHW / LambdaNP2
                 +6649.22 * CW / LambdaNP2
                 -2.812 * DeltaGF()
                 -0.993 * deltaMwd6();
@@ -12683,9 +12698,9 @@ double NPSMEFTd6::mueeWW(const double sqrt_s) const
                 -18494.5 * CHe_11 / LambdaNP2
                 +269747. * CHL3_11 / LambdaNP2
                 -83750.9 * CHD / LambdaNP2
-                -167811. * CHWB / LambdaNP2
-                +3401.99 * CDHB / LambdaNP2
-                +3624.67 * CDHW / LambdaNP2
+                -167811. * CiHWB / LambdaNP2
+                +3401.99 * CiDHB / LambdaNP2
+                +3624.67 * CiDHW / LambdaNP2
                 +7249.33 * CW / LambdaNP2
                 -2.812 * DeltaGF()
                 -0.959 * deltaMwd6();
@@ -12707,9 +12722,9 @@ double NPSMEFTd6::mueeWW(const double sqrt_s) const
                 -23798.8 * CHe_11 / LambdaNP2
                 +289379. * CHL3_11 / LambdaNP2
                 -83905.3 * CHD / LambdaNP2
-                -168326. * CHWB / LambdaNP2
-                +5979.05 * CDHB / LambdaNP2
-                +6520.95 * CDHW / LambdaNP2
+                -168326. * CiHWB / LambdaNP2
+                +5979.05 * CiDHB / LambdaNP2
+                +6520.95 * CiDHW / LambdaNP2
                 +10476.9 * CW / LambdaNP2
                 -2.832 * DeltaGF()
                 -0.781 * deltaMwd6();
@@ -12731,9 +12746,9 @@ double NPSMEFTd6::mueeWW(const double sqrt_s) const
                 -24520.1 * CHe_11 / LambdaNP2
                 +290743. * CHL3_11 / LambdaNP2
                 -84033.5 * CHD / LambdaNP2
-                -168466. * CHWB / LambdaNP2
-                +6310.59 * CDHB / LambdaNP2
-                +6842.81 * CDHW / LambdaNP2
+                -168466. * CiHWB / LambdaNP2
+                +6310.59 * CiDHB / LambdaNP2
+                +6842.81 * CiDHW / LambdaNP2
                 +10606.3 * CW / LambdaNP2
                 -2.828 * DeltaGF()
                 -0.775 * deltaMwd6();
@@ -12769,9 +12784,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -261092. * CHe_11 / LambdaNP2
                 +231526. * CHL3_11 / LambdaNP2
                 -72645.8 * CHD / LambdaNP2
-                -25084.5 * CHWB / LambdaNP2
-                +27060.4 * CDHB / LambdaNP2
-                -7822.83 * CDHW / LambdaNP2
+                -25084.5 * CiHWB / LambdaNP2
+                +27060.4 * CiDHB / LambdaNP2
+                -7822.83 * CiDHW / LambdaNP2
                 -587.63 * CW / LambdaNP2
                 -2.437 * DeltaGF()
                 -1.554 * deltaMwd6(); 
@@ -12787,9 +12802,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -564.392 * CHe_11 / LambdaNP2
                 +269600. * CHL3_11 / LambdaNP2
                 -84684.5 * CHD / LambdaNP2
-                -178168. * CHWB / LambdaNP2
-                +1539.25 * CDHB / LambdaNP2
-                +4130.32 * CDHW / LambdaNP2
+                -178168. * CiHWB / LambdaNP2
+                +1539.25 * CiDHB / LambdaNP2
+                +4130.32 * CiDHW / LambdaNP2
                 +7121.6 * CW / LambdaNP2
                 -2.838 * DeltaGF()
                 -0.949 * deltaMwd6(); 
@@ -12811,9 +12826,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -274633. * CHe_11 / LambdaNP2
                 +234621. * CHL3_11 / LambdaNP2
                 -72498.3 * CHD / LambdaNP2
-                -23308.5 * CHWB / LambdaNP2
-                +29321.9 * CDHB / LambdaNP2
-                -7518.62 * CDHW / LambdaNP2
+                -23308.5 * CiHWB / LambdaNP2
+                +29321.9 * CiDHB / LambdaNP2
+                -7518.62 * CiDHW / LambdaNP2
                 +314.876 * CW / LambdaNP2
                 -2.444 * DeltaGF()
                 -1.448 * deltaMwd6(); 
@@ -12829,9 +12844,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -693.518 * CHe_11 / LambdaNP2
                 +271032. * CHL3_11 / LambdaNP2
                 -84929.3 * CHD / LambdaNP2
-                -177727. * CHWB / LambdaNP2
-                +1648.44 * CDHB / LambdaNP2
-                +4443.85 * CDHW / LambdaNP2
+                -177727. * CiHWB / LambdaNP2
+                +1648.44 * CiDHB / LambdaNP2
+                +4443.85 * CiDHW / LambdaNP2
                 +7778.07 * CW / LambdaNP2
                 -2.829 * DeltaGF()
                 -0.914 * deltaMwd6(); 
@@ -12853,9 +12868,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -370403. * CHe_11 / LambdaNP2
                 +262809. * CHL3_11 / LambdaNP2
                 -76119.5 * CHD / LambdaNP2
-                -35565.5 * CHWB / LambdaNP2
-                +48488.8 * CDHB / LambdaNP2
-                -4519.05 * CDHW / LambdaNP2
+                -35565.5 * CiHWB / LambdaNP2
+                +48488.8 * CiDHB / LambdaNP2
+                -4519.05 * CiDHW / LambdaNP2
                 +6279.71 * CW / LambdaNP2
                 -2.571 * DeltaGF()
                 -1.059 * deltaMwd6(); 
@@ -12871,9 +12886,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -912.302 * CHe_11 / LambdaNP2
                 +290384. * CHL3_11 / LambdaNP2
                 -84475.3 * CHD / LambdaNP2
-                -177142. * CHWB / LambdaNP2
-                +3105.71 * CDHB / LambdaNP2
-                +7205.25 * CDHW / LambdaNP2
+                -177142. * CiHWB / LambdaNP2
+                +3105.71 * CiDHB / LambdaNP2
+                +7205.25 * CiDHW / LambdaNP2
                 +10660.4 * CW / LambdaNP2
                 -2.841 * DeltaGF()
                 -0.773 * deltaMwd6(); 
@@ -12895,9 +12910,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -382668. * CHe_11 / LambdaNP2
                 +265703. * CHL3_11 / LambdaNP2
                 -77085.4 * CHD / LambdaNP2
-                -38791. * CHWB / LambdaNP2
-                +51079.9 * CDHB / LambdaNP2
-                -3972.2 * CDHW / LambdaNP2
+                -38791. * CiHWB / LambdaNP2
+                +51079.9 * CiDHB / LambdaNP2
+                -3972.2 * CiDHW / LambdaNP2
                 +6727.91 * CW / LambdaNP2
                 -2.582 * DeltaGF()
                 -1.04 * deltaMwd6(); 
@@ -12913,9 +12928,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -1000.53 * CHe_11 / LambdaNP2
                 +291951. * CHL3_11 / LambdaNP2
                 -84657.2 * CHD / LambdaNP2
-                -177196. * CHWB / LambdaNP2
-                +3348.72 * CDHB / LambdaNP2
-                +7579.53 * CDHW / LambdaNP2
+                -177196. * CiHWB / LambdaNP2
+                +3348.72 * CiDHB / LambdaNP2
+                +7579.53 * CiDHW / LambdaNP2
                 +10879.2 * CW / LambdaNP2
                 -2.84 * DeltaGF()
                 -0.753 * deltaMwd6(); 
@@ -12937,9 +12952,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -221155. * CHe_11 / LambdaNP2
                 +280445. * CHL3_11 / LambdaNP2
                 -80550.4 * CHD / LambdaNP2
-                -101476. * CHWB / LambdaNP2
-                +31723.3 * CDHB / LambdaNP2
-                +1672.16 * CDHW / LambdaNP2
+                -101476. * CiHWB / LambdaNP2
+                +31723.3 * CiDHB / LambdaNP2
+                +1672.16 * CiDHW / LambdaNP2
                 +8838.57 * CW / LambdaNP2
                 -2.707 * DeltaGF()
                 -0.891 * deltaMwd6(); 
@@ -12955,9 +12970,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -2537.08 * CHe_11 / LambdaNP2
                 +294134. * CHL3_11 / LambdaNP2
                 -84922.5 * CHD / LambdaNP2
-                -176871. * CHWB / LambdaNP2
-                +3635.55 * CDHB / LambdaNP2
-                +7973.68 * CDHW / LambdaNP2
+                -176871. * CiHWB / LambdaNP2
+                +3635.55 * CiDHB / LambdaNP2
+                +7973.68 * CiDHW / LambdaNP2
                 +10984.7 * CW / LambdaNP2
                 -2.838 * DeltaGF()
                 -0.753 * deltaMwd6(); 
@@ -12979,9 +12994,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -1059495. * CHe_11 / LambdaNP2
                 +500666. * CHL3_11 / LambdaNP2
                 -84992.3 * CHD / LambdaNP2
-                -144925. * CHWB / LambdaNP2
-                +205215. * CDHB / LambdaNP2
-                +38777.5 * CDHW / LambdaNP2
+                -144925. * CiHWB / LambdaNP2
+                +205215. * CiDHB / LambdaNP2
+                +38777.5 * CiDHW / LambdaNP2
                 +7857.84 * CW / LambdaNP2
                 -2.817 * DeltaGF()
                 -0.471 * deltaMwd6(); 
@@ -12997,9 +13012,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -13002.4 * CHe_11 / LambdaNP2
                 +507924. * CHL3_11 / LambdaNP2
                 -86313.9 * CHD / LambdaNP2
-                -182113. * CHWB / LambdaNP2
-                +24953.6 * CDHB / LambdaNP2
-                +42429.8 * CDHW / LambdaNP2
+                -182113. * CiHWB / LambdaNP2
+                +24953.6 * CiDHB / LambdaNP2
+                +42429.8 * CiDHW / LambdaNP2
                 +8014.86 * CW / LambdaNP2
                 -2.857 * DeltaGF()
                 -0.429 * deltaMwd6(); 
@@ -13021,9 +13036,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -3168410. * CHe_11 / LambdaNP2
                 +1016120. * CHL3_11 / LambdaNP2
                 -85414.3 * CHD / LambdaNP2
-                -155729. * CHWB / LambdaNP2
-                +628130. * CDHB / LambdaNP2
-                +123368. * CDHW / LambdaNP2
+                -155729. * CiHWB / LambdaNP2
+                +628130. * CiDHB / LambdaNP2
+                +123368. * CiDHW / LambdaNP2
                 +6454.34 * CW / LambdaNP2
                 -2.831 * DeltaGF()
                 -0.352 * deltaMwd6(); 
@@ -13039,9 +13054,9 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
                 -39533. * CHe_11 / LambdaNP2
                 +1027322. * CHL3_11 / LambdaNP2
                 -86621.7 * CHD / LambdaNP2
-                -184516. * CHWB / LambdaNP2
-                +75975.5 * CDHB / LambdaNP2
-                +127086. * CDHW / LambdaNP2
+                -184516. * CiHWB / LambdaNP2
+                +75975.5 * CiDHB / LambdaNP2
+                +127086. * CiDHW / LambdaNP2
                 +6519.78 * CW / LambdaNP2
                 -2.86 * DeltaGF()
                 -0.328 * deltaMwd6(); 
@@ -13078,10 +13093,10 @@ double NPSMEFTd6::ppZHprobe(const double sqrt_s) const
     // In the Warsaw basis the contact interactions are generated only by CHF ops but
     // in the modified basis ODHB, ODHW also contribute
     
-    ghZuL = -(eeMz/sW_tree/cW_tree)*(CiHQ1_11 - CiHQ3_11 + g1_tree * (1.0/12.0) * CDHB - (g2_tree/4.0) * CDHW) * v2_over_LambdaNP2;
-    ghZdL = -(eeMz/sW_tree/cW_tree)*(CiHQ1_11 + CiHQ3_11 + g1_tree * (1.0/12.0) * CDHB + (g2_tree/4.0) * CDHW) * v2_over_LambdaNP2;
-    ghZuR = -(eeMz/sW_tree/cW_tree)*(CiHu_11 + g1_tree * (1.0/3.0) * CDHB) * v2_over_LambdaNP2;
-    ghZdR = -(eeMz/sW_tree/cW_tree)*(CiHd_11 - g1_tree * (1.0/6.0) * CDHB) * v2_over_LambdaNP2;   
+    ghZuL = -(eeMz/sW_tree/cW_tree)*(CiHQ1_11 - CiHQ3_11 + g1_tree * (1.0/12.0) * CiDHB - (g2_tree/4.0) * CiDHW) * v2_over_LambdaNP2;
+    ghZdL = -(eeMz/sW_tree/cW_tree)*(CiHQ1_11 + CiHQ3_11 + g1_tree * (1.0/12.0) * CiDHB + (g2_tree/4.0) * CiDHW) * v2_over_LambdaNP2;
+    ghZuR = -(eeMz/sW_tree/cW_tree)*(CiHu_11 + g1_tree * (1.0/3.0) * CiDHB) * v2_over_LambdaNP2;
+    ghZdR = -(eeMz/sW_tree/cW_tree)*(CiHd_11 - g1_tree * (1.0/6.0) * CiDHB) * v2_over_LambdaNP2;   
     
     if (sqrt_s == 14.0) {
          
@@ -13115,7 +13130,7 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     // Master Equations below are for cHWp = Ci/Lambda^2 in units of TeV^{-2}, 
     // but LambdaNP is in GeV. Add conversion factor.
     
-    cHWp = 4.0 * (sW2_tree/eeMz2) * (CiHQ3_11 + (g2_tree/4.0) * CDHW) * 1000000.0 / LambdaNP2;
+    cHWp = 4.0 * (sW2_tree/eeMz2) * (CiHQ3_11 + (g2_tree/4.0) * CiDHW) * 1000000.0 / LambdaNP2;
 
 //  Bin dependences assuming cutoff of the EFT at 5 TeV
 //  Normalize to the total number of events to remove the dependence on Lumi
@@ -13323,7 +13338,7 @@ double NPSMEFTd6::cZBox_HB() const
     
     ciHB = (sW2_tree/eeMz2)*( DeltaGF() + 0.5*CiHD*v2_over_LambdaNP2 );
     
-    ciHB = ciHB + 0.5*(sW2_tree/eeMz)*(CDHB / cW_tree + CDHW / sW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
+    ciHB = ciHB + 0.5*(sW2_tree/eeMz)*(CiDHB / cW_tree + CiDHW / sW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
     
     return ciHB;
 }
@@ -13333,9 +13348,9 @@ double NPSMEFTd6::cZZ_HB() const
 {
     double ciHB;
     
-    ciHB = (4.0*sW2_tree*cW2_tree/eeMz2)*( cW2_tree*CHW + sW2_tree*CHB + sW_tree*cW_tree*CHWB )*v2_over_LambdaNP2;
+    ciHB = (4.0*sW2_tree*cW2_tree/eeMz2)*( cW2_tree*CiHW + sW2_tree*CiHB + sW_tree*cW_tree*CiHWB )*v2_over_LambdaNP2;
     
-    ciHB = ciHB - (sW2_tree*cW2_tree/eeMz)*(CDHB / cW_tree + CDHW / sW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
+    ciHB = ciHB - (sW2_tree*cW2_tree/eeMz)*(CiDHB / cW_tree + CiDHW / sW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
     
     return ciHB;
 }
@@ -13345,9 +13360,9 @@ double NPSMEFTd6::cZga_HB() const
 {
     double ciHB;
     
-    ciHB = (sW2_tree*cW2_tree/eeMz2)*( 4.0*CHW - 4.0*CHB - (2.0*(cW2_tree-sW2_tree)/sW_tree/cW_tree)*CHWB )*v2_over_LambdaNP2;
+    ciHB = (sW2_tree*cW2_tree/eeMz2)*( 4.0*CiHW - 4.0*CiHB - (2.0*(cW2_tree-sW2_tree)/sW_tree/cW_tree)*CiHWB )*v2_over_LambdaNP2;
     
-    ciHB = ciHB + 0.5*(sW_tree*cW_tree/eeMz)*(CDHB / sW_tree - CDHW / cW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
+    ciHB = ciHB + 0.5*(sW_tree*cW_tree/eeMz)*(CiDHB / sW_tree - CiDHW / cW_tree)*v2_over_LambdaNP2; // Extra, not in Warsaw basis
     
     return ciHB;
 }
@@ -13357,7 +13372,7 @@ double NPSMEFTd6::cgaga_HB() const
 {
     double ciHB;
     
-    ciHB = (4.0/eeMz2)*( sW2_tree*CHW + cW2_tree*CHB - sW_tree*cW_tree*CHWB )*v2_over_LambdaNP2;
+    ciHB = (4.0/eeMz2)*( sW2_tree*CiHW + cW2_tree*CiHB - sW_tree*cW_tree*CiHWB )*v2_over_LambdaNP2;
     
     return ciHB;
 }
