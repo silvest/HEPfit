@@ -9,7 +9,8 @@
 #define	HIGGSTHOBSERVABLES_H
 
 #include "ThObservable.h"
-#include "NPbase.h"
+
+class NPbase;
 
 /**
  * @class muggH
@@ -28,21 +29,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muggH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggH called with a class whose parent is not NPbase");
-    }
+    muggH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{ggH}@f$ in the current model.
      * @return @f$\mu_{ggH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muggH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -66,22 +59,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muVBF(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBF called with a class whose parent is not NPbase");
-
-    }
+    muVBF(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{VBF}@f$ in the current model.
      * @return @f$\mu_{VBF}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muVBF(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -106,22 +90,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muVBFgamma(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFgamma called with a class whose parent is not NPbase");
-
-    }
+    muVBFgamma(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{VBF+\gamma}@f$ in the current model.
      * @return @f$\mu_{VBF+\gamma}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muVBFgamma(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -146,22 +121,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBF(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBF called with a class whose parent is not NPbase");
-
-    }
+    mueeWBF(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{eeWBF}@f$ in the current model.
      * @return @f$\mu_{eeWBF}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeWBF(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -187,21 +153,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeWBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFPol called with a class whose parent is not NPbase");
-    }
+    mueeWBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{eeWBF}@f$ in the current model.
      * @return @f$\mu_{eeWBF}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeWBFPol(sqrt_s,Pol_em, Pol_ep);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -228,21 +186,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvv(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvv called with a class whose parent is not NPbase");
-    }
+    mueeHvv(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeHvv(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -269,21 +219,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvPol called with a class whose parent is not NPbase");
-    }
+    mueeHvvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -308,22 +250,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZBF(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZBF called with a class whose parent is not NPbase");
-
-    }
+    mueeZBF(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$ in the current model.
      * @return @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeZBF(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -350,21 +283,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZBFPol called with a class whose parent is not NPbase");
-    }
+    mueeZBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$ in the current model.
      * @return @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeZBFPol(sqrt_s,Pol_em, Pol_ep);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -389,22 +314,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepWBF(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepWBF called with a class whose parent is not NPbase");
-
-    }
+    muepWBF(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{epWBF}@f$ in the current model.
      * @return @f$\mu_{epWBF}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muepWBF(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -429,22 +345,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepZBF(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepZBF called with a class whose parent is not NPbase");
-
-    }
+    muepZBF(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{epZBF}@f$ in the current model.
      * @return @f$\mu_{epZBF}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muepZBF(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -468,21 +375,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muWH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWH called with a class whose parent is not NPbase");
-    }
+    muWH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{WH}@f$ in the current model.
      * @return @f$\mu_{WH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muWH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -506,21 +405,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muZH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZH called with a class whose parent is not NPbase");
-    }
+    muZH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{ZH}@f$ in the current model.
      * @return @f$\mu_{ZH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muZH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -545,21 +436,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZH called with a class whose parent is not NPbase");
-    }
+    mueeZH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeZH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -585,21 +468,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHPol called with a class whose parent is not NPbase");
-    }
+    mueeZHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -624,21 +499,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZllH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZllH called with a class whose parent is not NPbase");
-    }
+    mueeZllH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeZllH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -664,21 +531,12 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZllHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZllHPol called with a class whose parent is not NPbase");
-    }
-
+    mueeZllHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeZllHPol(sqrt_s,Pol_em, Pol_ep);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -703,21 +561,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZqqH called with a class whose parent is not NPbase");
-    }
+    mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeZqqH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -743,21 +593,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZqqHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZqqHPol called with a class whose parent is not NPbase");
-    }
+    mueeZqqHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeZqqHPol(sqrt_s,Pol_em, Pol_ep);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -781,21 +623,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muVH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVH called with a class whose parent is not NPbase");
-    }
+    muVH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{VH}@f$ in the current model.
      * @return @f$\mu_{VH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muVH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -820,21 +654,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muVBFpVH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFpVH called with a class whose parent is not NPbase");
-    }
+    muVBFpVH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{VBF+VH}@f$ in the current model.
      * @return @f$\mu_{VBF+VH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muVBFpVH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -858,21 +684,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muttH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttH called with a class whose parent is not NPbase");
-    }
+    muttH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{ttH}@f$ in the current model. 
      * @return @f$\mu_{ttH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muttH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -897,21 +715,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muggHpttH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHpttH called with a class whose parent is not NPbase");
-    }
+    muggHpttH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{ggH+ttH}@f$ in the current model. 
      * @return @f$\mu_{ggH+ttH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->muggHpttH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -936,22 +746,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueettH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueettH called with a class whose parent is not NPbase");
-
-    }
+    mueettH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{eettH}@f$ in the current model.
      * @return @f$\mu_{eettH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueettH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -978,21 +779,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueettHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueettHPol called with a class whose parent is not NPbase");
-    }
+    mueettHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{eettH}@f$ in the current model.
      * @return @f$\mu_{eettH}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueettHPol(sqrt_s,Pol_em, Pol_ep);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1017,21 +810,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mummH(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mummH called with a class whose parent is not NPbase");
-    }
+    mummH(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{\mu\mu H}@f$ in the current model.
      * @return @f$\mu_{\mu\mu H}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mummH(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1055,22 +840,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    GammaHRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("GammaHRatio called with a class whose parent is not NPbase");
-    }
+    GammaHRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Higgs width
      * in the current model and in the Standard Model.
      * @return @f$\Gamma_{H}/\Gamma_{H}^{SM}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->computeGammaTotalRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1093,21 +870,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoinvRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoinvRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoinvRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to invisible)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to invisible)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHtoinvRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1130,22 +900,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHinvisible(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHinvisible called with a class whose parent is not NPbase");
-    }
+    BrHinvisible(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the branching ratio of Higgs decays into
      * invisible particles.
      * @return Br@f$(H\to invisible)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->Br_H_inv();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1168,22 +930,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHinvisibleNP(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHinvisibleNP called with a class whose parent is not NPbase");
-    }
+    BrHinvisibleNP(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the branching ratio of Higgs decays into
      * invisible particles (only decays into new invisible particles).
      * @return Br@f$(H\to invisible, NP)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->Br_H_inv_NP();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1206,22 +960,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHexotic(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHexotic called with a class whose parent is not NPbase");
-    }
+    BrHexotic(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the branching ratio of Higgs decays into
      * exotics (invisible or not).
      * @return Br@f$(H\to exotic)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->Br_H_exo();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1244,22 +990,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtovisRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtovisRatio called with a class whose parent is not NPbase");
-    }
+    BrHtovisRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to visible)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to visible)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHvisRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1282,22 +1020,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoggRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoggRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoggRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to gg)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to gg)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHggRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1319,22 +1049,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoWWRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoWWRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoWWRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to WW\to 4f)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to WW\to 4f)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHWWRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1357,22 +1079,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoWW2l2vRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoWW2l2vRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoWW2l2vRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to WW\to 2l2\nu)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to WW\to 2l2\nu)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHWW2l2vRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1394,22 +1108,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
      */
-    BrHtoZZRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZZRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZZRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to ZZ\to 4f)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to ZZ\to 4f)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZZRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1431,22 +1137,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
      */
-    BrHtoZZ4lRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZZ4lRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZZ4lRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to ZZ\to 4l)@f$ with @f$l=e,\mu@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to ZZ\to 4l)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZZ4lRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1469,22 +1167,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
      */
-    BrHtoZZ4eRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZZ4eRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZZ4eRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to ZZ\to 4e)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to ZZ\to 4e)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZZ4eRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1506,22 +1196,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
      */
-    BrHtoZZ2e2muRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZZ2e2muRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZZ2e2muRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to ZZ\to 2e 2\mu)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to ZZ\to 2e 2\mu)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZZ2e2muRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1543,22 +1225,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
      */
-    BrHtoZZ4muRatio(const StandardModel& SM_i)
-    : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZZ4muRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZZ4muRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to ZZ\to 4\mu)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to ZZ\to 4\mu)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZZ4muRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1580,21 +1254,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoZgaRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZgaRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZgaRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to Z\gamma)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZgaRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1616,21 +1283,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoZgallRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZgallRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZgallRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to ll\gamma)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZgallRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1653,21 +1313,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoZgaeeRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZgaeeRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZgaeeRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma\to ee\gamma)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to ee\gamma)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZgaeeRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1690,21 +1343,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoZgamumuRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZgamumuRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoZgamumuRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma\to \mu\mu\gamma)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to \mu\mu\gamma)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHZgamumuRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1727,21 +1373,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtogagaRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtogagaRatio called with a class whose parent is not NPbase");
-    }
+    BrHtogagaRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \gamma\gamma)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHgagaRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1763,21 +1402,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtomumuRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtomumuRatio called with a class whose parent is not NPbase");
-    }
+    BrHtomumuRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \mu^+\mu^-)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \mu^+\mu^-)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHmumuRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1799,21 +1431,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtotautauRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtotautauRatio called with a class whose parent is not NPbase");
-    }
+    BrHtotautauRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \tau^+\tau^-)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \tau^+\tau^-)@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHtautauRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1835,21 +1460,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoccRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoccRatio called with a class whose parent is not NPbase");
-    }
+    BrHtoccRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to c\bar{c})@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to c\bar{c})@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHccRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1871,21 +1489,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtobbRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtobbRatio called with a class whose parent is not NPbase");
-    }
+    BrHtobbRatio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to b\bar{b})@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to b\bar{b})@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->BrHbbRatio();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1907,25 +1518,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtogaga_over_mumu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtogaga_over_mumu_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtogaga_over_mumu_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHmumuRatio()) );
-        } else {
-            return (myNPbase->BrHgagaRatio())/(myNPbase->BrHmumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1948,25 +1548,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoZga_over_mumu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZga_over_mumu_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtoZga_over_mumu_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrHmumuRatio()) );
-        } else {
-            return (myNPbase->BrHZgaRatio())/(myNPbase->BrHmumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -1989,25 +1578,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoZmumuga_over_mumu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZmumuga_over_mumu_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtoZmumuga_over_mumu_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to\mu\mu \gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHZgamumuRatio()) - (myNPbase->BrHmumuRatio()) );
-        } else {
-            return (myNPbase->BrHZgamumuRatio())/(myNPbase->BrHmumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2030,25 +1608,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtogaga_over_4l_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtogaga_over_4l_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtogaga_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return (myNPbase->BrHgagaRatio())/(myNPbase->BrHZZ4lRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2072,25 +1639,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtogaga_over_2e2mu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtogaga_over_2e2mu_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtogaga_over_2e2mu_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 2e 2\mu)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 2e 2\mu)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHZZ2e2muRatio()) );
-        } else {
-            return (myNPbase->BrHgagaRatio())/(myNPbase->BrHZZ2e2muRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2113,25 +1669,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoZga_over_4l_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZga_over_4l_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtoZga_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return (myNPbase->BrHZgaRatio())/(myNPbase->BrHZZ4lRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2155,25 +1700,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtomumu_over_4l_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtogaga_over_4l_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtomumu_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return (myNPbase->BrHmumuRatio())/(myNPbase->BrHZZ4lRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2196,25 +1730,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtomumu_over_4mu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtogaga_over_4mu_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtomumu_over_4mu_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\mu)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\mu)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrHZZ4muRatio()) );
-        } else {
-            return (myNPbase->BrHmumuRatio())/(myNPbase->BrHZZ4muRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2238,25 +1761,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHto4l_over_gaga_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHto4l_over_gaga_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHto4l_over_gaga_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to 4\ell)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to 4\ell)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHZZ4lRatio()) - (myNPbase->BrHgagaRatio()) );
-        } else {
-            return (myNPbase->BrHZZ4lRatio())/(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2279,25 +1791,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtoZga_over_gaga_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtoZga_over_gaga_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtoZga_over_gaga_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to Z \gamma)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to Z \gamma)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrHgagaRatio()) );
-        } else {
-            return (myNPbase->BrHZgaRatio())/(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2320,25 +1821,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    BrHtomumu_over_gaga_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrHtomumu_over_gaga_Ratio called with a class whose parent is not NPbase");
-    }
+    BrHtomumu_over_gaga_Ratio(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model.
      * @return Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrHgagaRatio()) );
-        } else {
-            return (myNPbase->BrHmumuRatio())/(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2360,25 +1850,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHgaga called with a class whose parent is not NPbase");
-    }
+    muggHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHgagaRatio()) );
-        } else {
-            return myNPbase->muggHgaga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2403,21 +1881,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHgagaInt(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHgagaInt called with a class whose parent is not NPbase");
-    }
+    muggHgagaInt(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        return (myNPbase->muggHgagaInt(sqrt_s))/(myNPbase->BrHgagaRatio());
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2440,25 +1910,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHgaga called with a class whose parent is not NPbase");
-    }
+    muVBFHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHgagaRatio()) );
-        } else {
-            return myNPbase->muVBFHgaga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2480,25 +1938,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHgaga called with a class whose parent is not NPbase");
-    }
+    muZHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHgagaRatio()) );
-        } else {
-            return myNPbase->muZHgaga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2520,25 +1966,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHgaga called with a class whose parent is not NPbase");
-    }
+    muWHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHgagaRatio()) );
-        } else {
-            return myNPbase->muWHgaga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2560,25 +1994,12 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHgaga called with a class whose parent is not NPbase");
-    }
-
+    muVHgaga(const StandardModel& SM_i, const double sqrt_s_i);
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHgagaRatio()) );
-        } else {
-            return myNPbase->muVHgaga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2600,25 +2021,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHgaga called with a class whose parent is not NPbase");
-    }
+    muttHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHgagaRatio()) );
-        } else {
-            return myNPbase->muttHgaga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2640,25 +2049,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHZga called with a class whose parent is not NPbase");
-    }
+    muggHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZgaRatio()) );
-        } else {
-            return myNPbase->muggHZga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2682,25 +2079,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHZgamumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHZgamumu called with a class whose parent is not NPbase");
-    }
+    muggHZgamumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZgamumuRatio()) );
-        } else {
-            return (myNPbase->muggH(sqrt_s))*(myNPbase->BrHZgamumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2723,25 +2108,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHZga called with a class whose parent is not NPbase");
-    }
+    muVBFHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHZgaRatio()) );
-        } else {
-            return myNPbase->muVBFHZga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2763,26 +2136,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHZga called with a class whose parent is not NPbase");
-    }
+    muZHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHZgaRatio()) );
-        } else {
-            return myNPbase->muZHZga(sqrt_s);
-        }
-    }
-
+    double computeThValue();
 private:
     const NPbase* myNPbase;
     const double sqrt_s;
@@ -2803,25 +2163,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHZga called with a class whose parent is not NPbase");
-    }
+    muWHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHZgaRatio()) );
-        } else {
-            return myNPbase->muWHZga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2843,25 +2191,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHZga called with a class whose parent is not NPbase");
-    }
+    muVHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHZgaRatio()) );
-        } else {
-            return myNPbase->muVHZga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2883,25 +2219,12 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHZga called with a class whose parent is not NPbase");
-    }
-
+    muttHZga(const StandardModel& SM_i, const double sqrt_s_i);
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHZgaRatio()) );
-        } else {
-            return myNPbase->muttHZga(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2923,25 +2246,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHZZ called with a class whose parent is not NPbase");
-    }
+    muggHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZZRatio()) );
-        } else {
-            return myNPbase->muggHZZ(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -2963,25 +2274,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHZZ called with a class whose parent is not NPbase");
-    }
+    muVBFHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHZZRatio()) );
-        } else {
-            return myNPbase->muVBFHZZ(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3003,25 +2302,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHZZ called with a class whose parent is not NPbase");
-    }
+    muZHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHZZRatio()) );
-        } else {
-            return myNPbase->muZHZZ(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3043,25 +2330,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHZZ called with a class whose parent is not NPbase");
-    }
+    muWHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHZZRatio()) );
-        } else {
-            return myNPbase->muWHZZ(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3083,25 +2358,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHZZ called with a class whose parent is not NPbase");
-    }
+    muVHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHZZRatio()) );
-        } else {
-            return myNPbase->muVHZZ(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3123,25 +2386,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHZZ called with a class whose parent is not NPbase");
-    }
+    muttHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHZZRatio()) );
-        } else {
-            return myNPbase->muttHZZ(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3164,25 +2415,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHZZ4l called with a class whose parent is not NPbase");
-    }
+    muggHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return myNPbase->muggHZZ4l(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3206,25 +2445,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHZZ4mu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHZZ4mu called with a class whose parent is not NPbase");
-    }
+    muggHZZ4mu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZZ4muRatio()) );
-        } else {
-            return (myNPbase->muggH(sqrt_s))*(myNPbase->BrHZZ4muRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3247,25 +2474,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHZZ4l called with a class whose parent is not NPbase");
-    }
+    muVBFHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return myNPbase->muVBFHZZ4l(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3287,25 +2502,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHZZ4l called with a class whose parent is not NPbase");
-    }
+    muZHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return myNPbase->muZHZZ4l(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3327,25 +2530,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHZZ4l called with a class whose parent is not NPbase");
-    }
+    muWHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return myNPbase->muWHZZ4l(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3367,25 +2558,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHZZ4l called with a class whose parent is not NPbase");
-    }
+    muVHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return myNPbase->muVHZZ4l(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3407,25 +2586,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHZZ4l called with a class whose parent is not NPbase");
-    }
+    muttHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) );
-        } else {
-            return myNPbase->muttHZZ4l(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3448,25 +2615,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHWW called with a class whose parent is not NPbase");
-    }
+    muggHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHWWRatio()) );
-        } else {
-            return myNPbase->muggHWW(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3488,25 +2643,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHWW called with a class whose parent is not NPbase");
-    }
+    muVBFHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHWWRatio()) );
-        } else {
-            return myNPbase->muVBFHWW(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3528,25 +2671,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHWW called with a class whose parent is not NPbase");
-    }
+    muZHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHWWRatio()) );
-        } else {
-            return myNPbase->muZHWW(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3568,25 +2699,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHWW called with a class whose parent is not NPbase");
-    }
+    muWHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHWWRatio()) );
-        } else {
-            return myNPbase->muWHWW(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3608,25 +2727,12 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHWW called with a class whose parent is not NPbase");
-    }
-
+    muVHWW(const StandardModel& SM_i, const double sqrt_s_i);
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHWWRatio()) );
-        } else {
-            return myNPbase->muVHWW(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3648,25 +2754,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHWW called with a class whose parent is not NPbase");
-    }
+    muttHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHWWRatio()) );
-        } else {
-            return myNPbase->muttHWW(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3689,25 +2783,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHWW2l2v called with a class whose parent is not NPbase");
-    }
+    muggHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
-        } else {
-            return myNPbase->muggHWW2l2v(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3729,25 +2811,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHWW2l2v called with a class whose parent is not NPbase");
-    }
+    muVBFHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
-        } else {
-            return myNPbase->muVBFHWW2l2v(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3769,25 +2839,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHWW2l2v called with a class whose parent is not NPbase");
-    }
+    muZHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
-        } else {
-            return myNPbase->muZHWW2l2v(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3809,25 +2867,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHWW2l2v called with a class whose parent is not NPbase");
-    }
+    muWHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
-        } else {
-            return myNPbase->muWHWW2l2v(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3849,25 +2895,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHWW2l2v called with a class whose parent is not NPbase");
-    }
+    muVHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
-        } else {
-            return myNPbase->muVHWW2l2v(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3889,25 +2923,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHWW2l2v called with a class whose parent is not NPbase");
-    }
+    muttHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) );
-        } else {
-            return myNPbase->muttHWW2l2v(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3930,25 +2952,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHmumu called with a class whose parent is not NPbase");
-    }
+    muggHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHmumuRatio()) );
-        } else {
-            return myNPbase->muggHmumu(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -3970,25 +2980,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHmumu called with a class whose parent is not NPbase");
-    }
+    muVBFHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHmumuRatio()) );
-        } else {
-            return myNPbase->muVBFHmumu(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4010,25 +3008,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHmumu called with a class whose parent is not NPbase");
-    }
+    muZHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHmumuRatio()) );
-        } else {
-            return myNPbase->muZHmumu(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4050,25 +3036,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHmumu called with a class whose parent is not NPbase");
-    }
+    muWHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHmumuRatio()) );
-        } else {
-            return myNPbase->muWHmumu(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4090,25 +3064,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHmumu called with a class whose parent is not NPbase");
-    }
+    muVHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHmumuRatio()) );
-        } else {
-            return myNPbase->muVHmumu(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4130,25 +3092,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHmumu called with a class whose parent is not NPbase");
-    }
+    muttHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHmumuRatio()) );
-        } else {
-            return myNPbase->muttHmumu(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4170,25 +3120,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHtautau called with a class whose parent is not NPbase");
-    }
+    muggHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHtautauRatio()) );
-        } else {
-            return myNPbase->muggHtautau(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4210,25 +3148,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHtautau called with a class whose parent is not NPbase");
-    }
+    muVBFHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHtautauRatio()) );
-        } else {
-            return myNPbase->muVBFHtautau(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4250,25 +3176,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHtautau called with a class whose parent is not NPbase");
-    }
+    muZHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHtautauRatio()) );
-        } else {
-            return myNPbase->muZHtautau(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4290,25 +3204,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHtautau called with a class whose parent is not NPbase");
-    }
-
+    muWHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+    
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHtautauRatio()) );
-        } else {
-            return myNPbase->muWHtautau(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4330,25 +3232,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHtautau called with a class whose parent is not NPbase");
-    }
+    muVHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHtautauRatio()) );
-        } else {
-            return myNPbase->muVHtautau(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4370,25 +3260,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHtautau called with a class whose parent is not NPbase");
-    }
+    muttHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHtautauRatio()) );
-        } else {
-            return myNPbase->muttHtautau(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4410,25 +3288,12 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muggHbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggHbb called with a class whose parent is not NPbase");
-    }
-
+    muggHbb(const StandardModel& SM_i, const double sqrt_s_i);
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHbbRatio()) );
-        } else {
-            return myNPbase->muggHbb(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4450,25 +3315,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVBFHbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVBFHbb called with a class whose parent is not NPbase");
-    }
+    muVBFHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHbbRatio()) );
-        } else {
-            return myNPbase->muVBFHbb(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4490,25 +3343,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muZHbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muZHbb called with a class whose parent is not NPbase");
-    }
+    muZHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHbbRatio()) );
-        } else {
-            return myNPbase->muZHbb(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4530,25 +3371,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muWHbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muWHbb called with a class whose parent is not NPbase");
-    }
+    muWHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHbbRatio()) );
-        } else {
-            return myNPbase->muWHbb(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4570,25 +3399,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muVHbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muVHbb called with a class whose parent is not NPbase");
-    }
+    muVHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHbbRatio()) );
-        } else {
-            return myNPbase->muVHbb(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4610,25 +3427,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muttHbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHbb called with a class whose parent is not NPbase");
-    }
+    muttHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHbbRatio()) );
-        } else {
-            return myNPbase->muttHbb(sqrt_s);
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4650,21 +3455,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muppHmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muppHmumu called with a class whose parent is not NPbase");
-    }
+    muppHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->muppHmumu(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4686,21 +3483,13 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      */
-    muppHZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muppHZga called with a class whose parent is not NPbase");
-    }
+    muppHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->muppHZga(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4726,25 +3515,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muggHH2ga2b(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggH called with a class whose parent is not NPbase");
-    }
+    muggHH2ga2b(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{ggH}@f$ in the current model.
      * @return @f$\mu_{ggH}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return (-2.0 + (myNPbase->muggHH(sqrt_s)) + (myNPbase->BrHgagaRatio()) + (myNPbase->BrHbbRatio()) );
-        } else {
-            return (myNPbase->muggHH(sqrt_s))*(myNPbase->BrHgagaRatio())*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4769,22 +3546,14 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muttHZbbboost(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muttHZbbboost called with a class whose parent is not NPbase");
-    }
+    muttHZbbboost(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\sigma(ttH)/\sigma(ttZ)@f$ 
      * in the @f$H,Z\to b\bar{b}@f$ channel in the current model.
      * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM.
      */
-    double computeThValue()
-    {
-        return (myNPbase->muttHZbbboost(sqrt_s));
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4806,21 +3575,14 @@ public:
     /**
      * @brief Constructor.
      */
-    UpperLimit_ppHZgammaA(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("UpperLimit_ppHZgammaA called with a class whose parent is not NPbase");
-    }
+    UpperLimit_ppHZgammaA(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->UpperLimitZgammaA(sqrt_s);
-    }
-
+    double computeThValue();
+    
 private:
     const NPbase* myNPbase;
     const double sqrt_s;
@@ -4840,20 +3602,13 @@ public:
     /**
      * @brief Constructor.
      */
-    UpperLimit_ppHZgammaA13(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("UpperLimit_ppHZgammaA13 called with a class whose parent is not NPbase");
-    }
-
+    UpperLimit_ppHZgammaA13(const StandardModel& SM_i, const double sqrt_s_i);
+    
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->UpperLimitZgammaA13(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4874,20 +3629,13 @@ public:
     /**
      * @brief Constructor.
      */
-    UpperLimit_ppHZgammaC13(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("UpperLimit_ppHZgammaC13 called with a class whose parent is not NPbase");
-    }
+    UpperLimit_ppHZgammaC13(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->UpperLimitZgammaC13(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4908,20 +3656,13 @@ public:
     /**
      * @brief Constructor.
      */
-    UpperLimit_ppHZgammaC(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("UpperLimit_ppHZgammaC called with a class whose parent is not NPbase");
-    }
+    UpperLimit_ppHZgammaC(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->UpperLimitZgammaC(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -4942,21 +3683,13 @@ public:
     /**
      * @brief Constructor.
      */
-    cg_plus_ct(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("cg_plus_ct called with a class whose parent is not NPbase");
-    }
+    cg_plus_ct(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->cgplusct();
-    }
-
+    double computeThValue();
 private:
     const NPbase* myNPbase;
 };
@@ -4975,20 +3708,13 @@ public:
     /**
      * @brief Constructor.
      */
-    cga_plus_ct(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("cga_plus_ct called with a class whose parent is not NPbase");
-    }
+    cga_plus_ct(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->cgaplusct();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5008,20 +3734,13 @@ public:
     /**
      * @brief Constructor.
      */
-    cg_minus_cga(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("cg_minus_cga called with a class whose parent is not NPbase");
-    }
+    cg_minus_cga(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->cgminuscga();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5041,20 +3760,13 @@ public:
     /**
      * @brief Constructor.
      */
-    cV_plus_cb(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("cV_plus_cb called with a class whose parent is not NPbase");
-    }
+    cV_plus_cb(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->cVpluscb();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5074,20 +3786,13 @@ public:
     /**
      * @brief Constructor.
      */
-    cV_plus_ctau(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("cV_plus_ctau called with a class whose parent is not NPbase");
-    }
+    cV_plus_ctau(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->cVplusctau();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5107,20 +3812,13 @@ public:
     /**
      * @brief Constructor.
      */
-    cb_minus_cc(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("cb_minus_cc called with a class whose parent is not NPbase");
-    }
+    cb_minus_cc(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->cbminuscc();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5140,20 +3838,13 @@ public:
     /**
      * @brief Constructor.
      */
-    cb_minus_ctau(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("cb_minus_ctau called with a class whose parent is not NPbase");
-    }
+    cb_minus_ctau(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->cbminusctau();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5173,20 +3864,13 @@ public:
     /**
      * @brief Constructor.
      */
-    cc_minus_ctau(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("cc_minus_ctau called with a class whose parent is not NPbase");
-    }
+    cc_minus_ctau(const StandardModel& SM_i);
 
     /**
      * @brief A method to compute 
      * @return 
      */
-    double computeThValue()
-    {
-        return myNPbase->ccminusctau();
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5214,25 +3898,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHbb called with a class whose parent is not NPbase");
-    }
+    mueeZHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to bb}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5258,25 +3930,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHcc(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHcc called with a class whose parent is not NPbase");
-    }
+    mueeZHcc(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to cc}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to cc}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHccRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5302,25 +3962,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHgg(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHgg called with a class whose parent is not NPbase");
-    }
+    mueeZHgg(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to gg}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to gg}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHggRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5346,25 +3994,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHcc called with a class whose parent is not NPbase");
-    }
-
+    mueeZHWW(const StandardModel& SM_i, const double sqrt_s_i);
+    
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to WW}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to WW}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHWWRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5390,25 +4026,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHtautau called with a class whose parent is not NPbase");
-    }
+    mueeZHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to \tau\tau}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to \tau\tau}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHtautauRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5434,25 +4058,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHZZ called with a class whose parent is not NPbase");
-    }
+    mueeZHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to ZZ}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to ZZ}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHZZRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5478,25 +4090,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHZga called with a class whose parent is not NPbase");
-    }
+    mueeZHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to Z\gamma}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to Z\gamma}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHZgaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHZgaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5522,25 +4122,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHgaga called with a class whose parent is not NPbase");
-    }
+    mueeZHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to \gamma\gamma}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to \gamma\gamma}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5566,25 +4154,12 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHmumu called with a class whose parent is not NPbase");
-    }
-
+    mueeZHmumu(const StandardModel& SM_i, const double sqrt_s_i);
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to \mu\mu}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to \mu\mu}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHmumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5611,23 +4186,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHBRinv(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHBRinv called with a class whose parent is not NPbase");
-    }
+    mueeZHBRinv(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$
      */
-    double computeThValue()
-    {
-        
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->Br_H_inv());
-            
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5653,27 +4218,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZHinv(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHinv called with a class whose parent is not NPbase");
-    }
+    mueeZHinv(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$
      */
-    double computeThValue()
-    {    
-        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHtoinvRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHtoinvRatio());
-        } 
-        
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5700,25 +4251,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHbbPol called with a class whose parent is not NPbase");
-    }
+    mueeZHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to bb}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5745,26 +4284,14 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHccPol called with a class whose parent is not NPbase");
-    }
+    mueeZHccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to cc}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to cc}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
-        }
-    }
-
+    double computeThValue();
+    
 private:
     const NPbase* myNPbase;
     const double sqrt_s, Pol_em, Pol_ep;
@@ -5790,25 +4317,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHggPol called with a class whose parent is not NPbase");
-    }
+    mueeZHggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to gg}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to gg}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5835,25 +4350,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHccPol called with a class whose parent is not NPbase");
-    }
+    mueeZHWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to WW}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to WW}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5880,25 +4383,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHtautauPol called with a class whose parent is not NPbase");
-    }
+    mueeZHtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to \tau\tau}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to \tau\tau}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5925,25 +4416,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHZZPol called with a class whose parent is not NPbase");
-    }
+    mueeZHZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to ZZ}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to ZZ}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -5970,25 +4449,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHZgaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHZgaPol called with a class whose parent is not NPbase");
-    }
+    mueeZHZgaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to Z\gamma}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to Z\gamma}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHZgaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6015,25 +4482,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHgagaPol called with a class whose parent is not NPbase");
-    }
+    mueeZHgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to \gamma\gamma}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to \gamma\gamma}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6060,25 +4515,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHmumuPol called with a class whose parent is not NPbase");
-    }
+    mueeZHmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to \mu\mu}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to \mu\mu}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6105,22 +4548,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHBRinvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHBRinvPol called with a class whose parent is not NPbase");
-    }
+    mueeZHBRinvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$
      */
-    double computeThValue()
-    {  
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->Br_H_inv());
-            
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6147,27 +4581,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZHinvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZHinvPol called with a class whose parent is not NPbase");
-    }
+    mueeZHinvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$
      */
-    double computeThValue()
-    {  
-        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHtoinvRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHtoinvRatio());
-        }
-            
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6193,26 +4613,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFbb called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to bb@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to bb@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6239,26 +4646,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeWBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFbbPol called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to bb@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to bb@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBFPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBFPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6284,26 +4678,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFcc(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFcc called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFcc(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to cc@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to cc@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHccRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6329,26 +4710,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFgg(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFgg called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFgg(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to gg@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to gg@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHggRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6374,26 +4742,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFWW called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFWW(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to WW@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to WW@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHWWRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6419,26 +4774,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFtautau called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHtautauRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6464,26 +4806,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFZZ called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ZZ@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to ZZ@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHZZRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6509,26 +4838,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFZga called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFZga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHZgaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHZgaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6554,26 +4870,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFgaga called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6599,26 +4902,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWBFmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWBFmumu called with a class whose parent is not NPbase");
-
-    }
+    mueeWBFmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHmumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6645,26 +4935,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvbb called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to bb@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to bb@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6692,26 +4969,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvbbPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to bb@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to bb@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6738,26 +5002,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvcc(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvcc called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvcc(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to cc@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to cc@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHccRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6785,26 +5036,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvccPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to cc@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to cc@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6831,26 +5069,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvgg called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to gg@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to gg@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHggRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6878,26 +5103,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvggPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to gg@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to bb@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6924,26 +5136,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvWW called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvWW(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to WW@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to WW@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHWWRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -6971,26 +5170,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvWWPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to WW@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to WW@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7017,26 +5203,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvtautau called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHtautauRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7064,26 +5237,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvtautauPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7110,26 +5270,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvZZ(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvZZ called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ZZ@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to ZZ@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHZZRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7157,26 +5304,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvZZPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ZZ@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to ZZ@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7203,26 +5337,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvZga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvZga called with a class whose parent is not NPbase");
-
-    }
-
+    mueeHvvZga(const StandardModel& SM_i, const double sqrt_s_i);
+    
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHZgaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHZgaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7250,26 +5371,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvZgaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvZgaPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvZgaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHZgaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7296,26 +5404,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvgaga called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7343,26 +5438,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvgagaPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7389,26 +5471,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeHvvmumu(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvmumu called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHmumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7436,26 +5505,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeHvvmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeHvvmumuPol called with a class whose parent is not NPbase");
-
-    }
+    mueeHvvmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeHvvPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7482,25 +5538,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeZBFbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZBFbb called with a class whose parent is not NPbase");
-    }
+    mueeZBFbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to bb}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZBF(sqrt_s))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7527,25 +5571,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeZBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeZBFbbPol called with a class whose parent is not NPbase");
-    }
+    mueeZBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to bb}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueeZBFPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueeZBFPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7571,25 +5603,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueettHbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueettHbb called with a class whose parent is not NPbase");
-    }
+    mueettHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to bb}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueettH(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueettH(sqrt_s))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7616,25 +5636,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueettHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueettHbbPol called with a class whose parent is not NPbase");
-    }
+    mueettHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to bb}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->mueettHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->mueettHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7661,26 +5669,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepWBFbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepWBFbb called with a class whose parent is not NPbase");
-
-    }
+    muepWBFbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (WBF), H \to bb}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (WBF), H \to bb}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepWBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepWBF(sqrt_s))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7706,26 +5701,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepWBFcc(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepWBFcc called with a class whose parent is not NPbase");
-
-    }
+    muepWBFcc(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (WBF), H \to cc}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (WBF), H \to cc}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepWBF(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepWBF(sqrt_s))*(myNPbase->BrHccRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7751,26 +5733,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepWBFgg(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepWBFgg called with a class whose parent is not NPbase");
-
-    }
+    muepWBFgg(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (WBF), H \to gg}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (WBF), H \to gg}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepWBF(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepWBF(sqrt_s))*(myNPbase->BrHggRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7796,26 +5765,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepWBFWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepWBFWW2l2v called with a class whose parent is not NPbase");
-
-    }
+    muepWBFWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (WBF), H \to WW\to 2l2v}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (WBF), H \to WW\to 2l2v}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepWBF(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepWBF(sqrt_s))*(myNPbase->BrHWW2l2vRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7841,26 +5797,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepWBFZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepWBFZZ4l called with a class whose parent is not NPbase");
-
-    }
+    muepWBFZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (WBF), H \to ZZ\to 4l}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (WBF), H \to ZZ\to 4l}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepWBF(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepWBF(sqrt_s))*(myNPbase->BrHZZ4lRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7886,26 +5829,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepWBFgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepWBFgaga called with a class whose parent is not NPbase");
-
-    }
+    muepWBFgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (WBF), H \to \gamma\gamma}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (WBF), H \to \gamma\gamma}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepWBF(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepWBF(sqrt_s))*(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7931,26 +5861,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepWBFtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepWBFtautau called with a class whose parent is not NPbase");
-
-    }
+    muepWBFtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (WBF), H \to \tau\tau}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (WBF), H \to \tau\tau}@f$
      */
-    double computeThValue()
-    {
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepWBF(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepWBF(sqrt_s))*(myNPbase->BrHtautauRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -7976,26 +5893,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepZBFbb(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepZBFbb called with a class whose parent is not NPbase");
-
-    }
+    muepZBFbb(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (ZBF), H \to bb}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (ZBF), H \to bb}@f$
      */
-    double computeThValue()
-    {        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepZBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepZBF(sqrt_s))*(myNPbase->BrHbbRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -8021,26 +5925,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepZBFcc(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepZBFcc called with a class whose parent is not NPbase");
-
-    }
+    muepZBFcc(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (ZBF), H \to cc}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (ZBF), H \to cc}@f$
      */
-    double computeThValue()
-    {        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepZBF(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepZBF(sqrt_s))*(myNPbase->BrHccRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -8066,26 +5957,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepZBFgg(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepZBFgg called with a class whose parent is not NPbase");
-
-    }
+    muepZBFgg(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (ZBF), H \to gg}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (ZBF), H \to gg}@f$
      */
-    double computeThValue()
-    {        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepZBF(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepZBF(sqrt_s))*(myNPbase->BrHggRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -8111,26 +5989,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepZBFWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepZBFWW2l2v called with a class whose parent is not NPbase");
-
-    }
+    muepZBFWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (ZBF), H \to WW\to 2l2v}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (ZBF), H \to WW\to 2l2v}@f$
      */
-    double computeThValue()
-    {        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepZBF(sqrt_s)) + (myNPbase->BrHWW2l2vRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepZBF(sqrt_s))*(myNPbase->BrHWW2l2vRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -8156,26 +6021,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepZBFZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepZBFZZ4l called with a class whose parent is not NPbase");
-
-    }
+    muepZBFZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (ZBF), H \to ZZ\to 4l}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (ZBF), H \to ZZ\to 4l}@f$
      */
-    double computeThValue()
-    {        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepZBF(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepZBF(sqrt_s))*(myNPbase->BrHZZ4lRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -8201,26 +6053,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepZBFgaga(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepZBFgaga called with a class whose parent is not NPbase");
-
-    }
+    muepZBFgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (ZBF), H \to \gamma\gamma}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (ZBF), H \to \gamma\gamma}@f$
      */
-    double computeThValue()
-    {        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepZBF(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepZBF(sqrt_s))*(myNPbase->BrHgagaRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -8246,26 +6085,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muepZBFtautau(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muepZBFtautau called with a class whose parent is not NPbase");
-
-    }
+    muepZBFtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^- p \to H (ZBF), H \to \tau\tau}@f$ in the current model.
      * @return @f$\mu_{e^- p \to H (ZBF), H \to \tau\tau}@f$
      */
-    double computeThValue()
-    {        
-        if ( (this->getModel()).isModelLinearized() ) {
-            return ((myNPbase->muepZBF(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
-        } else {
-            return (myNPbase->muepZBF(sqrt_s))*(myNPbase->BrHtautauRatio());
-        }
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;

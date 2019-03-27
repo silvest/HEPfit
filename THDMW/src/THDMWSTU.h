@@ -9,12 +9,11 @@
 #ifndef THDMWSTU_H
 #define THDMWSTU_H
 
-#include <stdexcept>
-#include "ThObservable.h"
-#include "THDMW.h"
-#include "THDMWcache.h"
-#include "gslpp.h"
 
+#include "ThObservable.h"
+
+class THDMW;
+class THDMWcache;
 /**
  * @class THDMWSTU
  * @ingroup THDMW 

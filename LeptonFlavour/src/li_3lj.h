@@ -8,9 +8,8 @@
 #ifndef LI_3LJ_H
 #define	LI_3LJ_H
 
-#include "gslpp.h"
 #include "ThObservable.h"
-#include "LeptonFlavour.h"
+
 ////
 ////class li_3lj : public ThObservable {
 ////public:
@@ -56,10 +55,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -84,10 +80,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -114,10 +107,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -142,10 +132,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -172,10 +159,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -200,10 +184,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 

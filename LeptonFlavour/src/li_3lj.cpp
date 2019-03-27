@@ -6,7 +6,7 @@
  */
 
 #include "li_3lj.h"
-#include "StandardModel.h"
+#include "LeptonFlavour.h"
 
 //li_3lj::li_3lj(const StandardModel& SM_i): ThObservable(SM_i)
 //{
@@ -18,16 +18,16 @@
 //}
 
 mu_3e::mu_3e(const StandardModel& SM_i)
-: ThObservable(SM_i), mySM(SM_i)
+: ThObservable(SM_i)
 {}
 
 double mu_3e::computeThValue()
 {
-    double alph = mySM.getAle();
-    double mE = mySM.getLeptons(StandardModel::ELECTRON).getMass();
-    double mMU = mySM.getLeptons(StandardModel::MU).getMass();
+    double alph = SM.getAle();
+    double mE = SM.getLeptons(StandardModel::ELECTRON).getMass();
+    double mMU = SM.getLeptons(StandardModel::MU).getMass();
     double GammaMU = 2.99598e-19;
-    gslpp::vector<gslpp::complex> ** allcoeff_m3e = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(1);
+    gslpp::vector<gslpp::complex> ** allcoeff_m3e = SM.getMyLeptonFlavour()->ComputeCoeffli_3lj(1);
 //    C_7 = (*(allcoeff_m3e[LO]))(0);
 //    C_7p = (*(allcoeff_m3e[LO]))(1);
 //    C_9 = (*(allcoeff_m3e[LO]))(2);
@@ -125,16 +125,16 @@ double mu_3e::computeThValue()
 }
 
 Robs_mu_3e::Robs_mu_3e(const StandardModel& SM_i)
-: ThObservable(SM_i), mySM(SM_i)
+: ThObservable(SM_i)
 {}
 
 double Robs_mu_3e::computeThValue()
 {
-    double alph = mySM.getAle();
-    double mE = mySM.getLeptons(StandardModel::ELECTRON).getMass();
-    double mMU = mySM.getLeptons(StandardModel::MU).getMass();
+    double alph = SM.getAle();
+    double mE = SM.getLeptons(StandardModel::ELECTRON).getMass();
+    double mMU = SM.getLeptons(StandardModel::MU).getMass();
     double GammaMU = 2.99598e-19;
-    gslpp::vector<gslpp::complex> ** allcoeff_m3e = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(1);
+    gslpp::vector<gslpp::complex> ** allcoeff_m3e = SM.getMyLeptonFlavour()->ComputeCoeffli_3lj(1);
 
     double Brmu3e = alph*alph/(32.0*M_PI) * pow(mMU,5.0)
                     * ((*(allcoeff_m3e[LO]))(1).abs2()+(*(allcoeff_m3e[LO]))(0).abs2()
@@ -165,26 +165,26 @@ double Robs_mu_3e::computeThValue()
 }
 
 tau_3mu::tau_3mu(const StandardModel& SM_i)
-: ThObservable(SM_i), mySM(SM_i)
+: ThObservable(SM_i)
 {}
 
 //double tau_3mu::computeThValue()
 //{
-////    double alph = mySM.getAle();
-////    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
-////    gslpp::vector<gslpp::complex> ** allcoeff_tm = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(2);
+////    double alph = SM.getAle();
+////    double mTAU = SM.getLeptons(StandardModel::TAU).getMass();
+////    gslpp::vector<gslpp::complex> ** allcoeff_tm = SM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(2);
 ////    double BR_tau_mu_gamma = (alph*pow(mTAU,5.0) * ((*(allcoeff_tm[LO])) * (*(allcoeff_tm[LO])).conjugate()).abs() / (2.26e-12) );
 //    return 0.0;
 //}
 
 double tau_3mu::computeThValue()
 {
-    double alph = mySM.getAle();
-    double mMU = mySM.getLeptons(StandardModel::MU).getMass();
-    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
+    double alph = SM.getAle();
+    double mMU = SM.getLeptons(StandardModel::MU).getMass();
+    double mTAU = SM.getLeptons(StandardModel::TAU).getMass();
     double GammaTAU = 2.26735e-12;
 
-    gslpp::vector<gslpp::complex> ** allcoeff_t3m = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(2);
+    gslpp::vector<gslpp::complex> ** allcoeff_t3m = SM.getMyLeptonFlavour()->ComputeCoeffli_3lj(2);
 
     double Brtau3mu = alph*alph/(32.0*M_PI) * pow(mTAU,5.0)
                     * ((*(allcoeff_t3m[LO]))(1).abs2()+(*(allcoeff_t3m[LO]))(0).abs2()
@@ -212,17 +212,17 @@ double tau_3mu::computeThValue()
 }
 
 Robs_tau_3mu::Robs_tau_3mu(const StandardModel& SM_i)
-: ThObservable(SM_i), mySM(SM_i)
+: ThObservable(SM_i)
 {}
 
 double Robs_tau_3mu::computeThValue()
 {
-    double alph = mySM.getAle();
-    double mMU = mySM.getLeptons(StandardModel::MU).getMass();
-    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
+    double alph = SM.getAle();
+    double mMU = SM.getLeptons(StandardModel::MU).getMass();
+    double mTAU = SM.getLeptons(StandardModel::TAU).getMass();
     double GammaTAU = 2.26735e-12;
 
-    gslpp::vector<gslpp::complex> ** allcoeff_t3m = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(2);
+    gslpp::vector<gslpp::complex> ** allcoeff_t3m = SM.getMyLeptonFlavour()->ComputeCoeffli_3lj(2);
 
     double Brtau3mu = alph*alph/(32.0*M_PI) * pow(mTAU,5.0)
                     * ((*(allcoeff_t3m[LO]))(1).abs2()+(*(allcoeff_t3m[LO]))(0).abs2()
@@ -253,26 +253,26 @@ double Robs_tau_3mu::computeThValue()
 }
 
 tau_3e::tau_3e(const StandardModel& SM_i)
-: ThObservable(SM_i), mySM(SM_i)
+: ThObservable(SM_i)
 {}
 
 //double tau_3e::computeThValue()
 //{
-////    double alph = mySM.getAle();
-////    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
-////    gslpp::vector<gslpp::complex> ** allcoeff_te = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(3);
+////    double alph = SM.getAle();
+////    double mTAU = SM.getLeptons(StandardModel::TAU).getMass();
+////    gslpp::vector<gslpp::complex> ** allcoeff_te = SM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(3);
 ////    double BR_tau_e_gamma = (alph*pow(mTAU,5.0) * ((*(allcoeff_te[LO])) * (*(allcoeff_te[LO])).conjugate()).abs() / (2.26e-12) );
 //    return 0.0;
 //}
 
 double tau_3e::computeThValue()
 {
-    double alph = mySM.getAle();
-    double mE = mySM.getLeptons(StandardModel::ELECTRON).getMass();
-    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
+    double alph = SM.getAle();
+    double mE = SM.getLeptons(StandardModel::ELECTRON).getMass();
+    double mTAU = SM.getLeptons(StandardModel::TAU).getMass();
     double GammaTAU = 2.26735e-12;
 
-    gslpp::vector<gslpp::complex> ** allcoeff_t3e = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(3);
+    gslpp::vector<gslpp::complex> ** allcoeff_t3e = SM.getMyLeptonFlavour()->ComputeCoeffli_3lj(3);
 
     double Brtau3e = alph*alph/(32.0*M_PI) * pow(mTAU,5.0)
                     * ((*(allcoeff_t3e[LO]))(1).abs2()+(*(allcoeff_t3e[LO]))(0).abs2()
@@ -300,17 +300,17 @@ double tau_3e::computeThValue()
 }
 
 Robs_tau_3e::Robs_tau_3e(const StandardModel& SM_i)
-: ThObservable(SM_i), mySM(SM_i)
+: ThObservable(SM_i)
 {}
 
 double Robs_tau_3e::computeThValue()
 {
-    double alph = mySM.getAle();
-    double mE = mySM.getLeptons(StandardModel::ELECTRON).getMass();
-    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
+    double alph = SM.getAle();
+    double mE = SM.getLeptons(StandardModel::ELECTRON).getMass();
+    double mTAU = SM.getLeptons(StandardModel::TAU).getMass();
     double GammaTAU = 2.26735e-12;
 
-    gslpp::vector<gslpp::complex> ** allcoeff_t3e = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(3);
+    gslpp::vector<gslpp::complex> ** allcoeff_t3e = SM.getMyLeptonFlavour()->ComputeCoeffli_3lj(3);
 
     double Brtau3e = alph*alph/(32.0*M_PI) * pow(mTAU,5.0)
                     * ((*(allcoeff_t3e[LO]))(1).abs2()+(*(allcoeff_t3e[LO]))(0).abs2()

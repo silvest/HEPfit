@@ -6,8 +6,8 @@
  */
 
 #include "positivity.h"
-#include "StandardModel.h"
-#include <math.h>
+#include "THDM.h"
+#include "THDMquantities.h"
 
 positivity::positivity(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))

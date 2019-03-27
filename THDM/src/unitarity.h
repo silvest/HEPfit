@@ -8,10 +8,10 @@
 #ifndef UNITARITY_H
 #define	UNITARITY_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDM.h"
-#include "THDMcache.h"
+
+class THDM;
+class THDMcache;
 
 /**
  * @class unitarity

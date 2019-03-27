@@ -8,10 +8,10 @@
 #ifndef GMDIRECTSEARCHES_H
 #define	GMDIRECTSEARCHES_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "GeorgiMachacek.h"
-#include "GMcache.h"
+
+class GeorgiMachacek;
+
 
 /**
  * @class GMDirectSearches

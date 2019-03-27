@@ -8,9 +8,8 @@
 #ifndef GENERALTHDMGMINUS2_H
 #define	GENERALTHDMGMINUS2_H
 
-#include "gslpp.h"
 #include "ThObservable.h"
-#include "LeptonFlavour.h"
+
 
 /**
  * @class GeneralTHDMgminus2_mu
@@ -34,10 +33,6 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
 
 };
 

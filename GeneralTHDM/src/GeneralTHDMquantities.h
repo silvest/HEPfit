@@ -8,10 +8,11 @@
 #ifndef GENERALTHDMQUANTITIES_H
 #define	GENERALTHDMQUANTITIES_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "GeneralTHDM.h"
-#include "GeneralTHDMcache.h"
+
+
+class GeneralTHDM;
+class GeneralTHDMcache;
 
 /**
  * @class tanbeta_GTHDM

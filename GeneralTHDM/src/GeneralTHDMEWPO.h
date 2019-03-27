@@ -9,10 +9,9 @@
 #define	GENERALTHDMEWPO_H
 
 #include "ThObservable.h"
-#include "GeneralTHDM.h"
-#include "GeneralTHDMcache.h"
-#include "StandardModel.h"
-//#include "gslpp.h"
+
+class GeneralTHDM;
+class GeneralTHDMcache;
 
 /**
  * @class GeneralTHDMEWPO

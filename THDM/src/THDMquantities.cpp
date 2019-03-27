@@ -6,6 +6,7 @@
  */
 
 #include "THDMquantities.h"
+#include "THDM.h"
 
 tanbeta::tanbeta(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))

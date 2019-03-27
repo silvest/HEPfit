@@ -6,7 +6,8 @@
  */
 
 #include "GeneralTHDMHeavyHiggs.h"
-#include "StandardModel.h"
+#include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 
 Hobs_tt_phi2_tt_ATLAS13::Hobs_tt_phi2_tt_ATLAS13(const StandardModel& SM_i)

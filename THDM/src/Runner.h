@@ -9,8 +9,15 @@
 #define	RUNNER_H
 
 #include "ThObservable.h"
-#include "THDM.h"
-#include "THDMquantities.h"
+
+class THDM;
+class lambda1;
+class lambda2;
+class lambda3;
+class lambda4;
+class lambda5;
+class m11_2;
+class m22_2;
 
 /**
  * @class Runner

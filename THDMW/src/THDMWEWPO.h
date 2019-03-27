@@ -10,9 +10,8 @@
 #define THDMWEWPO_H
 
 #include "ThObservable.h"
-#include "THDMW.h"
-#include "THDMWcache.h"
-#include "StandardModel.h"
+
+class THDMW;
 
 /**
  * @class Rb0

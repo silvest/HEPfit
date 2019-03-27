@@ -8,10 +8,10 @@
 #ifndef THDMWQUANTITIESATQ_H
 #define	THDMWQUANTITIESATQ_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDMW.h"
-#include "THDMWcache.h"
+
+class THDMW;
+class THDMWcache;
 
 /**
  * @class Q_stTHDMW

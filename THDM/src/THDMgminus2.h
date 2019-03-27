@@ -8,9 +8,7 @@
 #ifndef THDMGMINUS2_H
 #define	THDMGMINUS2_H
 
-#include "gslpp.h"
 #include "ThObservable.h"
-#include "LeptonFlavour.h"
 
 /**
  * @class THDMgminus2_mu
@@ -34,7 +32,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
 
 };
 

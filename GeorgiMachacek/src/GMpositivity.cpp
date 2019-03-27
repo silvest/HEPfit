@@ -6,7 +6,8 @@
  */
 
 #include "GMpositivity.h"
-#include "StandardModel.h"
+#include "GMcache.h"
+#include "GeorgiMachacek.h"
 
 GMpositivity1::GMpositivity1(const StandardModel& SM_i)
 : ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))

@@ -8,10 +8,10 @@
 #ifndef BSGAMMATHDM_H
 #define	BSGAMMATHDM_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDM.h"
-#include "THDMcache.h"
+
+class THDMcache;
+class THDM;
 
 /**
  * @class bsgammaTHDM

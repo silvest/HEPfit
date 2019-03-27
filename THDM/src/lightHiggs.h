@@ -8,10 +8,10 @@
 #ifndef LIGHTHIGGS_H
 #define	LIGHTHIGGS_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDM.h"
-#include "THDMcache.h"
+
+class THDM;
+class THDMcache;
 
 /**
  * @class THDM_BR_h_bb

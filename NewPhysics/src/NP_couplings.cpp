@@ -6,6 +6,7 @@
  */
 
 #include "NP_couplings.h"
+#include "NPbase.h"
 
 
 //-----  Zff couplings observables  ----------

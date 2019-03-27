@@ -9,9 +9,10 @@
 #define GENERALTHDMUNITARITY_H
 
 #include "ThObservable.h"
-#include "GeneralTHDM.h"
-#include "GeneralTHDMcache.h"
 #include <gslpp.h>
+
+class GeneralTHDM;
+class GeneralTHDMcache;
 
 /**
  * 

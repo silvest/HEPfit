@@ -8,11 +8,10 @@
 #ifndef GeneralTHDMSTU_H
 #define	GeneralTHDMSTU_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "GeneralTHDM.h"
-#include "GeneralTHDMcache.h"
-#include "gslpp.h"
+
+class GeneralTHDM;
+class GeneralTHDMcache;
 
 
 /**

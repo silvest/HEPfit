@@ -6,6 +6,9 @@
  */
 
 #include "THDMWSignalStrengths.h"
+#include "THDMW.h"
+#include "THDMWcache.h"
+
 
 THDMWSignalStrengths::THDMWSignalStrengths(const StandardModel& SM_i)
 : myTHDMW(static_cast<const THDMW&> (SM_i))

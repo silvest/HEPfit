@@ -9,8 +9,9 @@
 #define	GMPOSITIVITY_H
 
 #include "ThObservable.h"
-#include "GeorgiMachacek.h"
-#include "GMcache.h"
+
+
+class GeorgiMachacek;
 
 /**
  * @class GMpositivity

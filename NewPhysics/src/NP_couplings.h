@@ -10,10 +10,12 @@
 
 #include "gslpp.h"
 #include "StandardModel.h"
-#include "NPbase.h"
+
 #include <ThObservable.h>
 #include <string.h>
 #include <stdexcept>
+
+class NPbase;
 
 //-----  Zff couplings observables  ----------
 

@@ -8,9 +8,9 @@
 #ifndef THDMQUANTITIES_H
 #define	THDMQUANTITIES_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDM.h"
+
+class THDM;
 
 /**
  * @class tanbeta

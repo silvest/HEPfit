@@ -18,9 +18,7 @@
 
 #include "GeneralTHDMcache.h"
 #include "GeneralTHDMEWPO.h"
-#include "StandardModel.h"
 #include <gsl/gsl_sf_dilog.h>
-#include <math.h>
 #include "GeneralTHDM.h"
 
 
@@ -76,7 +74,7 @@ double Rb0GTHDM::computeThValue()
     
     
     double Qb = myGTHDM.getQuarks(QCD::BOTTOM).getCharge();
-    double Qt = myGTHDM.getQuarks(QCD::TOP).getCharge();
+//    double Qt = myGTHDM.getQuarks(QCD::TOP).getCharge();
     
 
        

@@ -9,7 +9,8 @@
 #define	DIBOSONTHOBSERVABLES_H
 
 #include "ThObservable.h"
-#include "NPbase.h"
+
+class NPbase;
 
 /**
  * @class mueeWW
@@ -29,21 +30,13 @@ public:
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    mueeWW(const StandardModel& SM_i, const double sqrt_s_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWW called with a class whose parent is not NPbase");
-    }
+    mueeWW(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to W^+ W^-}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to W^+ W^-}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeWW(sqrt_s);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
@@ -69,21 +62,13 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
      * are the polarization of electrons and positrons, respectively
      */
-    mueeWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-    : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("mueeWWPol called with a class whose parent is not NPbase");
-    }
+    mueeWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to W^+ W^-}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to W^+ W^-}@f$
      */
-    double computeThValue()
-    {
-        return myNPbase->mueeWWPol(sqrt_s,Pol_em, Pol_ep);
-    }
+    double computeThValue();
 
 private:
     const NPbase* myNPbase;
