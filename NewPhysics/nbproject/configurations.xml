@@ -41,6 +41,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/DiBosonThObservables.cpp</itemPath>
       <itemPath>src/EW_ABC.cpp</itemPath>
       <itemPath>src/EW_BURGESS.cpp</itemPath>
       <itemPath>src/EW_CHMN.cpp</itemPath>
@@ -50,6 +51,7 @@
       <itemPath>src/HiggsKvKf.cpp</itemPath>
       <itemPath>src/HiggsKvKfgen.cpp</itemPath>
       <itemPath>src/HiggsKvgenKfgen.cpp</itemPath>
+      <itemPath>src/HiggsThObservables.cpp</itemPath>
       <itemPath>src/NPEffectiveBS.cpp</itemPath>
       <itemPath>src/NPEffectiveGIMR.cpp</itemPath>
       <itemPath>src/NPEffectiveGIMRprime.cpp</itemPath>
@@ -107,6 +109,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/DiBosonThObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
@@ -144,6 +148,8 @@
       <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -255,6 +261,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/DiBosonThObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
@@ -292,6 +300,8 @@
       <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -403,6 +413,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/DiBosonThObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
@@ -440,6 +452,8 @@
       <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -542,6 +556,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/DiBosonThObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
@@ -579,6 +595,8 @@
       <item path="src/HiggsKvgenKfgen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvgenKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
