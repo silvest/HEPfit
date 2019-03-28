@@ -6,6 +6,8 @@
  */
 
 #include "THDMWunitarity.h"
+#include "THDMW.h"
+#include "THDMWcache.h"
 
 THDMWunitarityLO::THDMWunitarityLO(const StandardModel& SM_i, unsigned int index_i)
 : ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))

@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
- * File:   GeneralTHDMLightHiggs.cpp
- * Author: Ana
- * 
- * Created on 31 / de maig / 2018, 15:58
+ * Copyright (C) 2018 HEPfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "GeneralTHDMLightHiggs.h"
-#include "StandardModel.h"
+#include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 
 

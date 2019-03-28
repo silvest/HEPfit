@@ -8,9 +8,9 @@
 #ifndef BDTAUNU_H
 #define	BDTAUNU_H
 
-#include <stdexcept>
 #include <ThObservable.h>
-#include "THDM.h"
+
+class THDM;
 
 /**
  * @addtogroup THDM

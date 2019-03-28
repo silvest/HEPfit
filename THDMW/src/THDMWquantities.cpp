@@ -6,6 +6,8 @@
  */
 
 #include "THDMWquantities.h"
+#include "THDMW.h"
+#include "THDMWcache.h"
 
 m12sqTHDMW::m12sqTHDMW(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))

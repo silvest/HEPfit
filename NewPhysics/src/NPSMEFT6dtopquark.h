@@ -667,4 +667,60 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
+    //OPTIMIZED OBSERVABLES
+
+
+class op1 : public ThObservable {
+public:   
+
+    op1(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+class op2 : public ThObservable {
+public:   
+
+    op2(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class op3 : public ThObservable {
+public:   
+
+    op3(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op4 : public ThObservable {
+public:   
+
+    op4(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
 #endif /* NPSMEFT6DTOPQUARK_H */

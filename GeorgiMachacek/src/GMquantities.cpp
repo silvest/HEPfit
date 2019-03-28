@@ -6,6 +6,8 @@
  */
 
 #include "GMquantities.h"
+#include "GMcache.h"
+#include "GeorgiMachacek.h"
 
 tanbetaGM::tanbetaGM(const StandardModel& SM_i)
 : ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek&> (SM_i))

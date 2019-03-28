@@ -409,6 +409,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["cZga_HB"] = boost::factory<cZgaHB*>();
     obsThFactory["cgaga_HB"] = boost::factory<cgagaHB*>();
     obsThFactory["cgg_HB"] = boost::factory<cggHB*>();
+    obsThFactory["cggEff_HB"] = boost::factory<cggEffHB*>();
     obsThFactory["lambz_HB"] = boost::factory<lambzHB*>();
     //-----  Other useful observables to work with new physics  ----------
     //-----  Z couplings with leptons ---------
@@ -2241,6 +2242,16 @@ ThObsFactory::ThObsFactory()
     obsThFactory["a_500_tt_eRpL"] = boost::factory<a_500_tt_eRpL*>();
     obsThFactory["pt_500_tt_eLpR"] = boost::factory<pt_500_tt_eLpR*>();
     obsThFactory["pt_500_tt_eRpL"] = boost::factory<pt_500_tt_eRpL*>();
+    
+    //OPTIMIZED OBSERVABLES
+    
+    obsThFactory["op1"] = boost::factory<op1*>();
+    obsThFactory["op2"] = boost::factory<op2*>();
+    obsThFactory["op3"] = boost::factory<op3*>();
+    obsThFactory["op4"] = boost::factory<op4*>();
+
+            
+
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
     //-----  LEP-II two-fermion processes  -----

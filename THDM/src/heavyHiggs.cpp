@@ -6,7 +6,8 @@
  */
 
 #include "heavyHiggs.h"
-#include "StandardModel.h"
+#include "THDM.h"
+#include "THDMcache.h"
 
 
 

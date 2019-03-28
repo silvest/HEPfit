@@ -6,7 +6,8 @@
  */
 
 #include "THDMWpositivity.h"
-#include "StandardModel.h"
+#include "THDMW.h"
+#include "THDMWcache.h"
 
 THDMWpositivity1::THDMWpositivity1(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))

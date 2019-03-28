@@ -10,7 +10,9 @@
 
 #include <stdexcept>
 #include "ThObservable.h"
-#include "LeftRightSymmetricModel.h"
+#include "gslpp.h"
+
+class LeftRightSymmetricModel;
 
 //class LeftRightSymmetricModel;
 
@@ -271,28 +273,9 @@ public:
 class MH0_LRSM : public ThObservable {
 public:
 
-    MH0_LRSM(const StandardModel& SM_i, const int ind)
-    : ThObservable(SM_i), index(ind), myLRSM(static_cast<const LeftRightSymmetricModel*> (&SM_i))
-    {
-    };
+    MH0_LRSM(const StandardModel& SM_i, const int ind);
 
-    double computeThValue()
-    {
-        switch(index) {
-            case 0:
-                return sqrt(myLRSM->getmH0sq1());
-            case 1:
-                return sqrt(myLRSM->getmH0sq2());
-            case 2:
-                return sqrt(myLRSM->getmH0sq3());
-            case 3:
-                return sqrt(myLRSM->getmH0sq4());
-            case 4:
-                return sqrt(myLRSM->getmH0sq5());
-            default:
-                throw std::runtime_error("MH0_LRSM::computeThValue(): undefined index");
-        }
-    };
+    double computeThValue();
 
 private:
     const int index;
@@ -310,26 +293,9 @@ private:
 class MH0_app : public ThObservable {
 public:
 
-    MH0_app(const StandardModel& SM_i, const int ind)
-    : ThObservable(SM_i), index(ind), myLRSM(static_cast<const LeftRightSymmetricModel*> (&SM_i))
-    {
-    };
+    MH0_app(const StandardModel& SM_i, const int ind);
 
-    double computeThValue()
-    {
-        switch(index) {
-            case 0:
-                return sqrt(myLRSM->getmH0sq1_app());
-            case 1:
-                return sqrt(myLRSM->getmH0sq2_app());
-            case 2:
-                return sqrt(myLRSM->getmH0sq3_app());
-            case 3:
-                return sqrt(myLRSM->getmH0sq4_app());
-            default:
-                throw std::runtime_error("MH0_app::computeThValue(): undefined index");
-        }
-    };
+    double computeThValue();
 
 private:
     const int index;

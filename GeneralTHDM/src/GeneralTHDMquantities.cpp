@@ -6,6 +6,8 @@
  */
 
 #include "GeneralTHDMquantities.h"
+#include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 tanbeta_GTHDM::tanbeta_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))

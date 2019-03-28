@@ -8,9 +8,8 @@
 #ifndef GMINUS2_H
 #define	GMINUS2_H
 
-#include "gslpp.h"
 #include "ThObservable.h"
-#include "LeptonFlavour.h"
+
 
 
 
@@ -59,10 +58,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 

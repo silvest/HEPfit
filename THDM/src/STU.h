@@ -8,10 +8,10 @@
 #ifndef STU_H
 #define	STU_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDM.h"
-#include "THDMcache.h"
+
+class THDM;
+class THDMcache;
 
 /**
  * @class STU

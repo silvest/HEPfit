@@ -8,10 +8,11 @@
 #ifndef EWPO_H
 #define	EWPO_H
 
-#include <stdexcept>
 #include <ThObservable.h>
-#include "THDM.h"
-#include "THDMcache.h"
+
+class THDM;
+class THDMcache;
+
 
 /**
  * @class EWPO

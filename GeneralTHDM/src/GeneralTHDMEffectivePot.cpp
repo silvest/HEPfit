@@ -9,6 +9,8 @@
 #include <Math/Minimizer.h>
 #include <Math/Factory.h>
 #include <Math/Functor.h>
+#include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 EffectivePot_GTHDM::EffectivePot_GTHDM(const StandardModel& SM_i)
 //: myGTHDM(static_cast<const GeneralTHDM&> (SM_i)),

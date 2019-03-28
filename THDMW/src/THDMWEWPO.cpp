@@ -9,10 +9,9 @@
 
 #include "THDMWEWPO.h"
 #include "THDMWcache.h"
-#include "StandardModel.h"
+#include "THDMW.h"
 #include <gsl/gsl_sf_dilog.h>
 #include <math.h>
-#include "THDMW.h"
 
 
 Rb0THDMW::Rb0THDMW(const StandardModel& SM_i)
@@ -103,28 +102,28 @@ double Rb0THDMW::computeThValue()
     
     
     //Values taken from https://arxiv.org/pdf/hep-ex/0509008.pdf
-    double gLu=0.34674;
-    double gRu = -0.15470;
+//    double gLu=0.34674;
+//    double gRu = -0.15470;
+//    
+//    double gLd=-0.42434;
+//    double gRd =0.077345;
+//    
+//    double gLc=0.34674;
+//    double gRc = -0.15470;
+//
+//    double gLs=-0.42434;
+//    double gRs =0.077345;
     
-    double gLd=-0.42434;
-    double gRd =0.077345;
-    
-    double gLc=0.34674;
-    double gRc = -0.15470;
 
-    double gLs=-0.42434;
-    double gRs =0.077345;
-    
-
     
     
     
     
     
-    double su= (pow(gLu,2)+pow(gRu,2))*(1.+pow(myTHDMW.getQuarks(QCD::UP).getCharge(),2)*3.*a/(4.*M_PI));
-    double sd= (pow(gLd,2)+pow(gRd,2))*(1.+pow(myTHDMW.getQuarks(QCD::DOWN).getCharge(),2)*3.*a/(4.*M_PI));
-    double sc= (pow(gLc,2)+pow(gRc,2))*(1.+pow(myTHDMW.getQuarks(QCD::CHARM).getCharge(),2)*3.*a/(4.*M_PI));
-    double ss= (pow(gLs,2)+pow(gRs,2))*(1.+pow(myTHDMW.getQuarks(QCD::STRANGE).getCharge(),2)*3.*a/(4.*M_PI));
+//    double su= (pow(gLu,2)+pow(gRu,2))*(1.+pow(myTHDMW.getQuarks(QCD::UP).getCharge(),2)*3.*a/(4.*M_PI));
+//    double sd= (pow(gLd,2)+pow(gRd,2))*(1.+pow(myTHDMW.getQuarks(QCD::DOWN).getCharge(),2)*3.*a/(4.*M_PI));
+//    double sc= (pow(gLc,2)+pow(gRc,2))*(1.+pow(myTHDMW.getQuarks(QCD::CHARM).getCharge(),2)*3.*a/(4.*M_PI));
+//    double ss= (pow(gLs,2)+pow(gRs,2))*(1.+pow(myTHDMW.getQuarks(QCD::STRANGE).getCharge(),2)*3.*a/(4.*M_PI));
     //double Sb=su+sd+sc+ss;
     //std::cout<<"glu= "<< gLu << std::endl;
     //std::cout<<"gru= "<< gRu << std::endl;

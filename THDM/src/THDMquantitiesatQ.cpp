@@ -6,6 +6,8 @@
  */
 
 #include "THDMquantitiesatQ.h"
+#include "THDM.h"
+#include "THDMcache.h"
 
 Q_st::Q_st(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM&> (SM_i))

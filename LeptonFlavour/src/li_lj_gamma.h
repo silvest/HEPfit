@@ -8,9 +8,7 @@
 #ifndef LI_LJ_GAMMA_H
 #define	LI_LJ_GAMMA_H
 
-#include "gslpp.h"
 #include "ThObservable.h"
-#include "LeptonFlavour.h"
 
 /**
  * @class mu_e_gamma
@@ -35,10 +33,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -65,10 +60,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -93,10 +85,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -123,10 +112,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -153,10 +139,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -181,10 +164,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -209,10 +189,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -239,10 +216,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -269,10 +243,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 
@@ -297,10 +268,7 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
+
 
 };
 

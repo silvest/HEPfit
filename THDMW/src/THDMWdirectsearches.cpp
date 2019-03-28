@@ -6,7 +6,8 @@
  */
 
 #include "THDMWdirectsearches.h"
-#include "StandardModel.h"
+#include "THDMW.h"
+#include "THDMWcache.h"
 
 
 
