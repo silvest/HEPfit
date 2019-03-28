@@ -446,6 +446,8 @@ private:
     TColor * HEPfit_green; /// < The colour green for HEPfit.
     TColor * HEPfit_red; /// < The colour red for HEPfit.
     unsigned int histogramBufferSize; /// < The size of the buffer used for the histograms.
+    std::vector<double> par_at_LL_max; /// < vector to store the value of the parameters at maximum LogLikelihood;
+    double LogLikelihood_max; /// < Maximum value of LogLikelihood
 };
 
 #endif

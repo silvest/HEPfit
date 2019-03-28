@@ -24,6 +24,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <iomanip>
+#include <limits>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -48,6 +49,7 @@ MonteCarloEngine::MonteCarloEngine(
     nBins2D = NBINS2D;
     significants = 0;
     histogramBufferSize = 0;
+    LogLikelihood_max = std::numeric_limits<double>::lowest();
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
@@ -558,6 +560,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
 #endif
     for (unsigned int i = 0; i < fMCMCNChains; i++) {
         double LogLikelihood = fMCMCStates.at(i).log_likelihood;
+        if (LogLikelihood > LogLikelihood_max) {
+            LogLikelihood_max = std::max(LogLikelihood, LogLikelihood_max);
+            par_at_LL_max = Getx(i); // NOTE: Unrotated, to be rotated later.
+        }
         Histo1D["LogLikelihood"].GetHistogram()->Fill(LogLikelihood);
         if (PrintLoglikelihoodPlots) {
             for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it != ModPars.end(); it++) {
@@ -1134,6 +1140,8 @@ std::string MonteCarloEngine::computeStatistics() {
     const std::string par_line = sep + std::string(par_width + value_width + sep.size() * 2 - 1, '-') + '|';
     const std::string obs_line = sep + std::string(obs_width + value_width + sep.size() * 2 - 1, '-') + '|';
     StatsLog << std::setprecision(5);
+    
+    StatsLog << "\n*** Statistical details using global mode ***\n" << std::endl;
 
     StatsLog << "\nValue of the parameters at the global mode:" << std::endl;
     StatsLog << std::endl;
@@ -1157,7 +1165,9 @@ std::string MonteCarloEngine::computeStatistics() {
     StatsLog << obs_line << '\n';
     StatsLog << std::endl;
     
-    StatsLog << "LogLikelihood at mode: " << LogLikelihood(mode) << "\n\n" << std::endl;
+    StatsLog << "LogProbability at mode: " << LogLikelihood(mode) + LogAPrioriProbability(mode) << std::endl;
+    StatsLog << "LogLikelihood at mode: " << LogLikelihood(mode) << std::endl;
+    StatsLog << "LogAPrioriProbability at mode: " << LogAPrioriProbability(mode) << "\n\n" << std::endl;
     
     double llika = Histo1D["LogLikelihood"].GetHistogram()->GetMean();
     StatsLog << "LogLikelihood mean value: " << llika << std::endl;
@@ -1168,6 +1178,8 @@ std::string MonteCarloEngine::computeStatistics() {
     double pd = 2.*llikv; //Wikipedia notation...
     StatsLog << "IC value: " << dbar + 2.*pd << std::endl; 
     StatsLog << "DIC value: " << dbar + pd << std::endl; 
+    StatsLog << std::endl;
+    StatsLog << std::endl;
     
     
     //For testing purposes:
@@ -1177,6 +1189,8 @@ std::string MonteCarloEngine::computeStatistics() {
     
     setDParsFromParameters(parmeans,DPars);
     Mod->Update(DPars);
+    
+    StatsLog << "*** Statistical details using mean values of parameters ***\n" << std::endl;
     
     StatsLog << "\nMean value of the parameters:" << std::endl;
     StatsLog << std::endl;
@@ -1189,6 +1203,11 @@ std::string MonteCarloEngine::computeStatistics() {
     StatsLog << par_line << '\n';
     StatsLog << std::endl;
     
+    StatsLog << "Mean of LogProbability: " << st.probability_mean << std::endl; 
+    StatsLog << "Variance of LogProbability: " << st.probability_variance << std::endl; 
+    StatsLog << "LogProbability at mode: " << st.probability_at_mode << std::endl; 
+    StatsLog << std::endl;
+    
     double llonmean = LogLikelihood(parmeans);
     StatsLog << "LogLikelihood on mean value of parameters: " << llonmean << std::endl;
     StatsLog << "pD computed using variance: " << pd << std::endl; 
@@ -1196,6 +1215,38 @@ std::string MonteCarloEngine::computeStatistics() {
     StatsLog << "pD computed using 2LL(thetabar) - 2LLbar: " << pd << std::endl; 
     StatsLog << "IC value computed from BAT with alternate pD definition: " << dbar + 2.*pd << std::endl; 
     StatsLog << "DIC value computed from BAT with alternate pD definition: " << dbar + pd << std::endl;
+    StatsLog << std::endl;
+    StatsLog << std::endl;
+   
+    
+    setDParsFromParameters(par_at_LL_max,DPars);
+    Mod->Update(DPars);
+    
+    StatsLog << "*** Statistical details using parameter values at maximum LogLikelihood ***\n" << std::endl;
+    
+    StatsLog << "\nValue of the parameters at maximum LogLikelihood:" << std::endl;
+    StatsLog << std::endl;
+    StatsLog << par_line << '\n' << sep
+                 << std::left << std::setw(par_width) << "parameter" << sep << std::right << std::setw(value_width) << "value at max." << sep << '\n' << par_line << '\n';
+
+    for (std::map<std::string,double>::iterator it = DPars.begin(); it != DPars.end(); it++)
+        StatsLog << sep << std::left << std::setw(par_width) << it->first << sep << std::right << std::setw(value_width) << it->second << sep << '\n';
+    
+    StatsLog << par_line << '\n';
+    StatsLog << std::endl;
+    
+    StatsLog << "\nValue of the observables at the maximum LogLikelihood:" << std::endl;
+    StatsLog << std::endl;
+    StatsLog << obs_line << '\n' << sep
+                 << std::left << std::setw(obs_width) << "observable" << sep << std::right << std::setw(value_width) << "value at max." << sep << '\n' << obs_line << '\n';
+
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++)
+        StatsLog << sep << std::left << std::setw(obs_width) << it->getName() << sep << std::right << std::setw(value_width) << it->computeTheoryValue() << sep << '\n';
+    
+    StatsLog << obs_line << '\n';
+    StatsLog << std::endl;
+    
+    StatsLog << "Maximum LogLikelihood: " << LogLikelihood_max << std::endl;
     
     StatsLog << std::endl;
 
