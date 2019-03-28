@@ -1364,6 +1364,14 @@ public:
      * @param parameters Parameter set to evaluate at.
      * @return natural logarithm of the function to map with MCMC */
     virtual double LogEval(const std::vector<double>& parameters) = 0;
+    
+    /* Begin MPI MOD */
+    /**
+     * Needs to be overloaded in the derived class.
+     * @param parameters Parameter set to evaluate at.
+     * @return natural logarithm of the APrioriProbability. */
+    virtual double LogAPrioriProbability(const std::vector<double>& parameters) = 0;
+    /* End MPI MOD */
 
     /**
      * Runs Metropolis algorithm.

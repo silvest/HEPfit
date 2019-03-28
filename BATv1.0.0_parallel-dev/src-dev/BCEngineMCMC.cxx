@@ -1660,7 +1660,11 @@ bool BCEngineMCMC::AcceptOrRejectPoint(unsigned parameter)
                 // if the new point is more probable, keep it; or else throw dice
                 if (std::isfinite(*buff[j]) && (*buff[j] >= p0[j] || log(fMCMCThreadLocalStorage[index_chain[j]].rng->Rndm()) < (*buff[j] - p0[j]))) {
                     // accept point
-                    fMCMCThreadLocalStorage[index_chain[j]].log_probability = *buff[j]; // Not in vanilla BAT. Somehow this works automagically in single core runs.
+                    // The next three lines are not in vanilla BAT. This update is done by LogEval (LogProbabilityNN in BCModel) but that does not work for MPI.
+                    fMCMCThreadLocalStorage[index_chain[j]].log_probability = *buff[j]; 
+                    fMCMCThreadLocalStorage[index_chain[j]].log_prior = LogAPrioriProbability(fMCMCThreadLocalStorage[index_chain[j]].parameters);
+                    fMCMCThreadLocalStorage[index_chain[j]].log_likelihood = fMCMCThreadLocalStorage[index_chain[j]].log_probability - fMCMCThreadLocalStorage[index_chain[j]].log_prior;
+                    // Copy everything into the States.
                     fMCMCStates[index_chain[j]] = fMCMCThreadLocalStorage[index_chain[j]];
                     // increase efficiency
                     fMCMCStatistics[index_chain[j]].efficiency[parameter] += (1. - fMCMCStatistics[index_chain[j]].efficiency[parameter]) / (fMCMCStatistics[index_chain[j]].n_samples_efficiency + 1.);
