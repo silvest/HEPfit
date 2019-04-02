@@ -13086,17 +13086,39 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
         
         if (Pol_em == 80. && Pol_ep == -30.){
             mu += 
-                0.0; 
+                -64264.6 * CHL1_11 / LambdaNP2
+                -495727. * CHe_11 / LambdaNP2
+                +289682. * CHL3_11 / LambdaNP2
+                -80108.8 * CHD / LambdaNP2
+                -61678. * CHWB / LambdaNP2
+                +75403.3 * CDHB / LambdaNP2
+                +458.146 * CDHW / LambdaNP2
+                +8723.87 * CW / LambdaNP2
+                -2.664 * DeltaGF()
+                -0.849 * deltaMwd6(); 
             
     // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * ( 0.0 );
+            mu += cHSM * ( +4.362 * deltaMz()
+                -0.496 * deltaaMZ()
+                +2.591 * deltaGmu() );
     
         } else if (Pol_em == -80. && Pol_ep == 30.){
             mu += 
-                0.0; 
+                -68310.7 * CHL1_11 / LambdaNP2
+                -1341.22 * CHe_11 / LambdaNP2
+                +311528. * CHL3_11 / LambdaNP2
+                -84984.5 * CHD / LambdaNP2
+                -178260. * CHWB / LambdaNP2
+                +5206.37 * CDHB / LambdaNP2
+                +10705.4 * CDHW / LambdaNP2
+                +11071.1 * CW / LambdaNP2
+                -2.855 * DeltaGF()
+                -0.671 * deltaMwd6(); 
             
     // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * ( 0.0 );
+            mu += cHSM * ( +4.728 * deltaMz()
+                -0.698 * deltaaMZ()
+                +2.817 * deltaGmu() );
     
         } else if (Pol_em == 80. && Pol_ep == 0.){
             mu += 
