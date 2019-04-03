@@ -21,7 +21,7 @@ BXqll::BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i)
 {    
     lep = lep_i;
     quark = quark_i;    
-    w_Rquark = gsl_integration_cquad_workspace_alloc(100);
+    w_H = gsl_integration_cquad_workspace_alloc(100);
     CF = mySM.getCF();
     phi1 = 50./3. - 8. * MPI2 / 3.; // functions for Phi_u at nh = 2 and nl = 3 
     phi2 = 2. * (- 2048. / 9. * gslpp_special_functions::zeta(3) + 16987. / 54. -340. / 81. * MPI2)
@@ -167,13 +167,13 @@ double BXqll::integrate_Rquark(double q_min, double q_max, q2regions q2region)
         case LOWQ2:
             FR = convertToGslFunction(boost::bind(&BXqll::getR_LOWQ2, &(*this), _1));
     
-            if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-5, 1.e-4, w_Rquark, &avaRquark, &errRquark, NULL) != 0)
+            if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-5, 1.e-4, w_H, &avaRquark, &errRquark, NULL) != 0)
                 return std::numeric_limits<double>::quiet_NaN();
             return avaRquark;
         case HIGHQ2:
             FR = convertToGslFunction(boost::bind(&BXqll::getR_HIGHQ2, &(*this), _1));
     
-            if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-5, 1.e-4, w_Rquark, &avaRquark, &errRquark, NULL) != 0)
+            if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-5, 1.e-4, w_H, &avaRquark, &errRquark, NULL) != 0)
                 return std::numeric_limits<double>::quiet_NaN();
             return avaRquark;
         default:
@@ -189,11 +189,11 @@ double BXqll::getR_LOWQ2(double sh)
     updateParameters();
     
     //To test HeffDF1 Wilson coefficients and Expanded multiplications 
-    Test_WC_DF1();
-    return 0.;
+//    Test_WC_DF1();
+//    return 0.;
     
-//    computeMi(sh);
-//    return H_A(sh);
+    computeMi(sh);
+    return H_A(sh);
 }
 
 double BXqll::getR_HIGHQ2(double sh)
@@ -726,6 +726,40 @@ double BXqll::DeltaF_29im(double muh, double z, double sh, int maxpow)
 /*
  * Implementation of the notation of @cite Huber:2015sra
  */
+
+double BXqll::integrateH(std::string obs, double q_min, double q_max)
+{
+    updateParameters();
+
+    old_handler = gsl_set_error_handler_off();
+    
+    double sh_min = q_min/Mb/Mb, sh_max = q_max/Mb/Mb;
+    
+    FH = convertToGslFunction(boost::bind(&BXqll::getH, &(*this), obs, _1));
+    
+    if (gsl_integration_cquad(&FH, sh_min, sh_max, 1.e-5, 1.e-4, w_H, &aveH, &errH, NULL) != 0)
+        return std::numeric_limits<double>::quiet_NaN();
+    return aveH;
+        
+    gsl_set_error_handler(old_handler);
+}
+
+double BXqll::getH(std::string obs, double sh)
+{
+    updateParameters();
+    computeMi(sh);
+    
+    if (obs == "T")
+        return H_T(sh);
+    else if (obs == "L")
+        return H_L(sh);
+    else if (obs == "A")
+        return H_A(sh);
+    else if (obs == "TL")
+        return (H_T(sh) + H_L(sh));
+    else
+        throw std::runtime_error("BXqll::getH: Angular observable not implemented");
+}
 
 double BXqll::H_T(double sh)
 {

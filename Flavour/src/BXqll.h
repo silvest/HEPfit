@@ -83,6 +83,21 @@ public:
     * @param[in] q_max maximum \f$q^2\f$ of the integral
     */
     double integrate_Rquark(double q_min, double q_max, q2regions q2region);
+    
+    /**
+    * @brief Method to obtain each observable \f$H_I\f$ as defined in @cite Huber:2015sra
+    * @param[in] obs the observable in question
+    * @param[in] sh normalized dilepton invariant mass @f$q^2/m_b^2@f$
+    */
+    double getH(std::string obs, double sh);
+    
+    /**
+    * @brief The integral of each observable \f$H_I\f$ as defined in @cite Huber:2015sra
+    * @param[in] obs the observable in question
+    * @param[in] q_min minimum \f$q^2\f$ of the integral
+    * @param[in] q_max maximum \f$q^2\f$ of the integral
+    */
+    double integrateH(std::string obs, double q_min, double q_max);
 
 private:
     const StandardModel& mySM;/**< Model type */
@@ -144,10 +159,12 @@ private:
     
     gsl_function FR;/**< Gsl integral variable */
     
-    gsl_integration_cquad_workspace * w_Rquark;/**< Gsl integral variable */
-    
+    double aveH;/**< Gsl integral variable */
+    double errH;/**< Gsl integral variable */
+    gsl_function FH;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_H;/**< Gsl integral variable */
     gsl_error_handler_t * old_handler; /**< GSL error handler store */
-    
+
     /**
      * @brief The update parameter method for BXqll.
      */
