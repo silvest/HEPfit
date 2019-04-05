@@ -1640,12 +1640,12 @@ bool BCEngineMCMC::AcceptOrRejectPoint(unsigned parameter)
                 mychain++;
                 if (iproc < procnum && mychain < fMCMCNChains) continue;
             } else if (iproc == 0) break;
-            for(unsigned int il = 0; il < iproc ; il++) {
+            for(int il = 0; il < iproc ; il++) {
                 //The first entry of the array specifies the task to be executed.
                 sendbuff[il][0] = 1.; // 1 = likelihood calculation
                 for (int im = 1; im < buffsize; im++) sendbuff[il][im] = fMCMCThreadLocalStorage[index_chain[il]].parameters.at(im-1);//fMCMCxvect[il][im-1];
             }
-            for(unsigned int il = iproc ; il < procnum; il++) sendbuff[il][0] = 0.; // 0 = nothing to execute
+            for(int il = iproc ; il < procnum; il++) sendbuff[il][0] = 0.; // 0 = nothing to execute
             
             MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             
@@ -1656,7 +1656,7 @@ bool BCEngineMCMC::AcceptOrRejectPoint(unsigned parameter)
             
             MPI_Gather(&ll, 1, MPI_DOUBLE, buff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-            for (unsigned int j = 0; j < iproc; j++) {
+            for (int j = 0; j < iproc; j++) {
                 // if the new point is more probable, keep it; or else throw dice
                 if (std::isfinite(*buff[j]) && (*buff[j] >= p0[j] || log(fMCMCThreadLocalStorage[index_chain[j]].rng->Rndm()) < (*buff[j] - p0[j]))) {
                     // accept point
