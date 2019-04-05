@@ -50,7 +50,8 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
     std::string line;
     bool IsEOF;
     bool readCorrelations = false;
-    int i = 0, nrows = 0;
+    unsigned int i = 0; 
+    unsigned int nrows = 0;
     do {
         IsEOF = getline(ifile, line).eof();
         if (line.compare(0, 11, "MEASUREMENT") == 0) nrows++;
@@ -94,7 +95,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
             if (readCorrelations && (i == nrows)) {
                 gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nrows));
                 int ni = 0;
-                for (int irow = 0; irow < nrows; irow++) {
+                for (unsigned int irow = 0; irow < nrows; irow++) {
                     IsEOF = getline(ifile, line).eof();
                     if (line.empty() || line.at(0) == '#') {
                         if (rank == 0) throw std::runtime_error("ERROR: no comments or empty lines in CorrelatedHiggsObservables please! In file " + filename + " at line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n");
@@ -104,7 +105,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
                     boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
                     beg = mytok.begin();
                     int nj = 0;
-                    for (int jcol = 0; jcol < nrows; jcol++) {
+                    for (unsigned int jcol = 0; jcol < nrows; jcol++) {
                         if ((*beg).compare(0, 1, "0") == 0
                                 || (*beg).compare(0, 1, "1") == 0
                                 || (*beg).compare(0, 1, "-") == 0 || (covarianceFromConfig == true)) {

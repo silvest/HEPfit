@@ -9,6 +9,7 @@
 #define	HIGGSOBSERVABLE_H
 
 #include "Observable.h"
+#include <TMatrixD.h>
 #include "gslpp.h"
 #include <boost/tokenizer.hpp>
 

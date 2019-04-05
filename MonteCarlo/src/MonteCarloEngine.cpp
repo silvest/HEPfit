@@ -15,7 +15,6 @@
 #include <mpi.h>
 #endif
 #include <TF1.h>
-#include <TMath.h>
 #include <TTree.h>
 #include <TROOT.h>
 #include <TPaveText.h>
