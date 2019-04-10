@@ -362,7 +362,7 @@ sigmatqZ::sigmatqZ(const StandardModel& SM_i)
 
 double sigmatqZ::computeThValue()
 {
-    double smxztq = 0.8;
+    double smxztq = 0.0942;
     double xztq_madgraph = 0.48;
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
