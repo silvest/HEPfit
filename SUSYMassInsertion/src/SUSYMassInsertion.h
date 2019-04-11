@@ -130,7 +130,7 @@ public:
      * @brief set \f$ \delta^{u}_LR \f$ mass insertion
      * @param delta^u_LR a matrix<complex> for the up-type left-right mass insertion parameters
      */
-    void setDu_LR(gslpp::matrix<gslpp::complex> Du_LL) {
+    void setDu_LR(gslpp::matrix<gslpp::complex> Du_LR) {
         this->Du_LR = Du_LR;
     }
 
@@ -146,7 +146,7 @@ public:
      * @brief set \f$ \delta^{u}_RL \f$ mass insertion
      * @param delta^u_RL a matrix<complex> for the up-type right-left mass insertion parameters
      */
-    void setDu_RL(gslpp::matrix<gslpp::complex> Du_LL) {
+    void setDu_RL(gslpp::matrix<gslpp::complex> Du_RL) {
         this->Du_RL = Du_RL;
     }
 
@@ -162,7 +162,7 @@ public:
      * @brief set \f$ \delta^{u}_RR \f$ mass insertion
      * @param delta^u_RR a matrix<complex> for the up-type right-right mass insertion parameters
      */
-    void setDu_RR(gslpp::matrix<gslpp::complex> Du_LL) {
+    void setDu_RR(gslpp::matrix<gslpp::complex> Du_RR) {
         this->Du_RR = Du_RR;
     }
 
@@ -194,7 +194,7 @@ public:
      * @brief set \f$ \delta^{d}_LR \f$ mass insertion
      * @param delta^d_LR a matrix<complex> for the down-type left-right mass insertion parameters
      */
-    void setDd_LR(gslpp::matrix<gslpp::complex> Dd_LL) {
+    void setDd_LR(gslpp::matrix<gslpp::complex> Dd_LR) {
         this->Dd_LR = Dd_LR;
     }
 
@@ -210,7 +210,7 @@ public:
      * @brief set \f$ \delta^{d}_RL \f$ mass insertion
      * @param delta^d_RL a matrix<complex> for the down-type right-left mass insertion parameters
      */
-    void setDd_RL(gslpp::matrix<gslpp::complex> Dd_LL) {
+    void setDd_RL(gslpp::matrix<gslpp::complex> Dd_RL) {
         this->Dd_RL = Dd_RL;
     }
 
@@ -226,7 +226,7 @@ public:
      * @brief set \f$ \delta^{d}_RR \f$ mass insertion
      * @param delta^d_RR a matrix<complex> for the down-type right-right mass insertion parameters
      */
-    void setDd_RR(gslpp::matrix<gslpp::complex> Dd_LL) {
+    void setDd_RR(gslpp::matrix<gslpp::complex> Dd_RR) {
         this->Dd_RR = Dd_RR;
     }
 
