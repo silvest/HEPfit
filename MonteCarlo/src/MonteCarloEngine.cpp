@@ -106,7 +106,7 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
             thMax[it->getName()] = -std::numeric_limits<double>::max();
         }
         if (it1->isPrediction()) {
-            CorrelationMap[it1->getName()] = new TPrincipal(it1->getObs().size());
+            CorrelationMap[it1->getName()] = new TPrincipal(it1->getObs().size(), "N");
         }
     }
     kmax = k;
