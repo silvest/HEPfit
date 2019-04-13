@@ -88,6 +88,20 @@
  *  (Implemented via EOM.)</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%C2BS </td>
+ *   <td class="mod_symb">\f$C_{2B}^{SILH} \f$</td>
+ *   <td class="mod_desc">The coefficient of the SILH operator
+ *   \f${\cal O}_{2B}^{SILH}=\frac 12 (\partial^\mu B_{\mu\nu})(\partial_\rho B^{\rho\nu})\f$. 
+ *   (Implemented via EOM.) </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C2WS </td>
+ *   <td class="mod_symb">\f$C_{2W}^{SILH} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{2W}^{SILH}=\frac 12 (D_\mu W^{a~\!\mu\nu})(D^\rho W_{\rho\nu}^{a})\f$. 
+ *   (Implemented via EOM.) </td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CHG </td>
  *   <td class="mod_symb">\f$C_{HG} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -142,6 +156,12 @@
  *   <td class="mod_symb">\f$C_{HD}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CT </td>
+ *   <td class="mod_symb">\f$C_{T}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{T}=\frac{1}{2} \big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)^2\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHbox </td>
@@ -445,6 +465,20 @@
  *   (Implemented via EOM.) </td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%C2BS </td>
+ *   <td class="mod_symb">\f$C_{2B}^{SILH} \f$</td>
+ *   <td class="mod_desc">The coefficient of the SILH operator
+ *   \f${\cal O}_{2B}^{SILH}=\frac 12 (\partial^\mu B_{\mu\nu})(\partial_\rho B^{\rho\nu})\f$. 
+ *   (Implemented via EOM.) </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C2WS </td>
+ *   <td class="mod_symb">\f$C_{2W}^{SILH} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{2W}^{SILH}=\frac 12 (D_\mu W^{a~\!\mu\nu})(D^\rho W_{\rho\nu}^{a})\f$. 
+ *   (Implemented via EOM.) </td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CHG </td>
  *   <td class="mod_symb">\f$C_{HG} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -499,6 +533,12 @@
  *   <td class="mod_symb">\f$C_{HD}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CT </td>
+ *   <td class="mod_symb">\f$C_{T}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{T}=\frac{1}{2} \big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)^2\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHbox </td>
@@ -788,7 +828,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 402;
+    static const int NNPSMEFTd6Vars = 405;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -806,7 +846,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 206;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 209;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -3558,6 +3598,8 @@ protected:
     double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
     double C2B; ///< The dimension-6 operator coefficient \f$C_{2W}\f$.
     double C2W; ///< The dimension-6 operator coefficient \f$C_{2B}\f$.
+    double C2BS; ///< The dimension-6 operator coefficient \f$C_{2W}^{SILH}\f$.
+    double C2WS; ///< The dimension-6 operator coefficient \f$C_{2B}^{SILH}\f$.
     double CHG; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
     double CHW; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
     double CHB; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
@@ -3569,6 +3611,7 @@ protected:
     double CDW; ///< The dimension-6 operator coefficient \f$C_{DW}\f$.
     double CHWB; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
     double CHD; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
+    double CT; ///< The dimension-6 operator coefficient \f$C_{T}\f$.
     double CHbox; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
     double CH; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
     double CHL1_11; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{11}\f$.

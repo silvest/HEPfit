@@ -12,7 +12,7 @@
 #include "gslpp_function_adapter.h"
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
-        = {"CG", "CW", "C2B", "C2W", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -94,7 +94,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
-        = {"CG", "CW", "C2B", "C2W", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -176,7 +176,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
-        = {"CG", "CW", "C2B", "C2W", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
@@ -213,7 +213,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
-        = {"CG", "CW", "C2B", "C2W", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
@@ -274,6 +274,8 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::make_pair("CW", std::cref(CW)));
     ModelParamMap.insert(std::make_pair("C2B", std::cref(C2B)));
     ModelParamMap.insert(std::make_pair("C2W", std::cref(C2W)));
+    ModelParamMap.insert(std::make_pair("C2BS", std::cref(C2BS)));
+    ModelParamMap.insert(std::make_pair("C2WS", std::cref(C2WS)));
     ModelParamMap.insert(std::make_pair("CHG", std::cref(CHG)));
     ModelParamMap.insert(std::make_pair("CHW", std::cref(CHW)));
     ModelParamMap.insert(std::make_pair("CHB", std::cref(CHB)));
@@ -285,6 +287,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::make_pair("CDW", std::cref(CDW)));
     ModelParamMap.insert(std::make_pair("CHWB", std::cref(CHWB)));
     ModelParamMap.insert(std::make_pair("CHD", std::cref(CHD)));
+    ModelParamMap.insert(std::make_pair("CT", std::cref(CT)));
     ModelParamMap.insert(std::make_pair("CHbox", std::cref(CHbox)));
     ModelParamMap.insert(std::make_pair("CH", std::cref(CH)));
     if (FlagLeptonUniversal) {
@@ -907,7 +910,7 @@ bool NPSMEFTd6::PostUpdate()
         CuB_33r = Yukt * CuB_33r;
     }    
         
-//  C2B, C2W, CDB, CDW are incorporated by change of basis transformation:
+//  C2B, C2W, C2WS, C2BS, CDB, CDW, CT are incorporated by change of basis transformation:
 //  Write here, before working with the dim 6 interactions,
 //  the contributions from O2W and O2B to the other operators.
 //  WARNING: Ignoring contributions to 4 fermion-processes for the moment. IMPORTANT FOR LEP2
@@ -920,52 +923,52 @@ bool NPSMEFTd6::PostUpdate()
 //  of each model relevant model par. Those then have to be used in the calculations.
 //  Comment out the following lines until this is resolved
     
-//  Contributionsfrom C2W, C2B
-    CiHL1_11 = CHL1_11 - (g1_tree*g1_tree/2.0) * C2B;
-    CiHL1_22 = CHL1_22 - (g1_tree*g1_tree/2.0) * C2B;
-    CiHL1_33 = CHL1_33 - (g1_tree*g1_tree/2.0) * C2B;
-    CiHL3_11 = CHL3_11 + (g2_tree*g2_tree/2.0) * C2W;
-    CiHL3_22 = CHL3_22 + (g2_tree*g2_tree/2.0) * C2W;
-    CiHL3_33 = CHL3_33 + (g2_tree*g2_tree/2.0) * C2W;
+//  Contributionsfrom C2W, C2B, C2WS, C2BS, CT
+    CiHL1_11 = CHL1_11 - (g1_tree*g1_tree/2.0) * (C2B + 0.5 * C2BS);
+    CiHL1_22 = CHL1_22 - (g1_tree*g1_tree/2.0) * (C2B + 0.5 * C2BS);
+    CiHL1_33 = CHL1_33 - (g1_tree*g1_tree/2.0) * (C2B + 0.5 * C2BS);
+    CiHL3_11 = CHL3_11 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
+    CiHL3_22 = CHL3_22 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
+    CiHL3_33 = CHL3_33 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
     
-    CiHQ1_11 = CHQ1_11 + (g1_tree*g1_tree/6.0) * C2B;
-    CiHQ1_22 = CHQ1_22 + (g1_tree*g1_tree/6.0) * C2B;
-    CiHQ1_33 = CHQ1_33 + (g1_tree*g1_tree/6.0) * C2B;
-    CiHQ3_11 = CHQ3_11 + (g2_tree*g2_tree/2.0) * C2W;
-    CiHQ3_22 = CHQ3_22 + (g2_tree*g2_tree/2.0) * C2W;
-    CiHQ3_33 = CHQ3_33 + (g2_tree*g2_tree/2.0) * C2W;
+    CiHQ1_11 = CHQ1_11 + (g1_tree*g1_tree/6.0) * (C2B + 0.5 * C2BS);
+    CiHQ1_22 = CHQ1_22 + (g1_tree*g1_tree/6.0) * (C2B + 0.5 * C2BS);
+    CiHQ1_33 = CHQ1_33 + (g1_tree*g1_tree/6.0) * (C2B + 0.5 * C2BS);
+    CiHQ3_11 = CHQ3_11 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
+    CiHQ3_22 = CHQ3_22 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
+    CiHQ3_33 = CHQ3_33 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
     
-    CiHe_11 = CHe_11 - (g1_tree*g1_tree) * C2B;
-    CiHe_22 = CHe_22 - (g1_tree*g1_tree) * C2B;
-    CiHe_33 = CHe_33 - (g1_tree*g1_tree) * C2B;
+    CiHe_11 = CHe_11 - (g1_tree*g1_tree) * (C2B + 0.5 * C2BS);
+    CiHe_22 = CHe_22 - (g1_tree*g1_tree) * (C2B + 0.5 * C2BS);
+    CiHe_33 = CHe_33 - (g1_tree*g1_tree) * (C2B + 0.5 * C2BS);
     
-    CiHu_11 = CHu_11 + (2.0*g1_tree*g1_tree/3.0) * C2B;
-    CiHu_22 = CHu_22 + (2.0*g1_tree*g1_tree/3.0) * C2B;
-    CiHu_33 = CHu_33 + (2.0*g1_tree*g1_tree/3.0) * C2B;
+    CiHu_11 = CHu_11 + (2.0*g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
+    CiHu_22 = CHu_22 + (2.0*g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
+    CiHu_33 = CHu_33 + (2.0*g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
     
-    CiHd_11 = CHd_11 - (g1_tree*g1_tree/3.0) * C2B;
-    CiHd_22 = CHd_22 - (g1_tree*g1_tree/3.0) * C2B;
-    CiHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * C2B;
+    CiHd_11 = CHd_11 - (g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
+    CiHd_22 = CHd_22 - (g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
+    CiHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
     
     CiW = CW + g2_tree * C2W;
         
-    CiHbox = CHbox + (g1_tree*g1_tree/4.0) * C2B + (3.0*g2_tree*g2_tree/4.0) * C2W;
-    CiHD = CHD + (g1_tree*g1_tree/4.0) * C2B;
-    CiH = CH + (2.0*g2_tree*g2_tree*lambdaH_tree) * C2W;
+    CiHbox = CHbox - 0.5 * CT + (g1_tree*g1_tree/4.0) * (C2B + 0.5 * C2BS) + (3.0*g2_tree*g2_tree/4.0) * (C2W + 0.5 * C2WS);
+    CiHD = CHD - 2.0 * CT + (g1_tree*g1_tree/4.0) * (C2B + 0.5 * C2BS);
+    CiH = CH + (2.0*g2_tree*g2_tree*lambdaH_tree) * (C2W + 0.5 * C2WS);
     
-    CieH_11r = CeH_11r + (g2_tree*g2_tree*Yuke) * C2W;
-    CieH_22r = CeH_22r + (g2_tree*g2_tree*Yukmu) * C2W;
-    CieH_33r = CeH_33r + (g2_tree*g2_tree*Yuktau) * C2W;
+    CieH_11r = CeH_11r + (g2_tree*g2_tree*Yuke) * (C2W + 0.5 * C2WS);
+    CieH_22r = CeH_22r + (g2_tree*g2_tree*Yukmu) * (C2W + 0.5 * C2WS);
+    CieH_33r = CeH_33r + (g2_tree*g2_tree*Yuktau) * (C2W + 0.5 * C2WS);
     
-    CiuH_11r = CuH_11r + (g2_tree*g2_tree*Yuku) * C2W;
-    CiuH_22r = CuH_22r + (g2_tree*g2_tree*Yukc) * C2W;
-    CiuH_33r = CuH_33r + (g2_tree*g2_tree*Yukt) * C2W;
+    CiuH_11r = CuH_11r + (g2_tree*g2_tree*Yuku) * (C2W + 0.5 * C2WS);
+    CiuH_22r = CuH_22r + (g2_tree*g2_tree*Yukc) * (C2W + 0.5 * C2WS);
+    CiuH_33r = CuH_33r + (g2_tree*g2_tree*Yukt) * (C2W + 0.5 * C2WS);
     
-    CidH_11r = CdH_11r + (g2_tree*g2_tree*Yukd) * C2W;
-    CidH_22r = CdH_22r + (g2_tree*g2_tree*Yuks) * C2W;
-    CidH_33r = CdH_33r + (g2_tree*g2_tree*Yukb) * C2W;
+    CidH_11r = CdH_11r + (g2_tree*g2_tree*Yukd) * (C2W + 0.5 * C2WS);
+    CidH_22r = CdH_22r + (g2_tree*g2_tree*Yuks) * (C2W + 0.5 * C2WS);
+    CidH_33r = CdH_33r + (g2_tree*g2_tree*Yukb) * (C2W + 0.5 * C2WS);
     
-    CiLL_1221 = CLL_1221 + (g2_tree*g2_tree/2.0) * C2W;
+    CiLL_1221 = CLL_1221 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
     CiLL_2112 = CiLL_1221;
     
 //  Contributionsfrom CDW, DB    
@@ -1014,6 +1017,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         C2B = value;
     else if (name.compare("C2W") == 0)
         C2W = value;
+    else if (name.compare("C2BS") == 0)
+        C2BS = value;
+    else if (name.compare("C2WS") == 0)
+        C2WS = value;
     else if (name.compare("CHG") == 0)
         CHG = value;
     else if (name.compare("CHW") == 0)
@@ -1036,6 +1043,8 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CHWB = value;
     else if (name.compare("CHD") == 0)
         CHD = value;
+    else if (name.compare("CT") == 0)
+        CT = value;
     else if (name.compare("CHbox") == 0)
         CHbox = value;
     else if (name.compare("CH") == 0)
@@ -2396,12 +2405,12 @@ double NPSMEFTd6::obliqueU() const
 
 double NPSMEFTd6::obliqueW() const
 {
-    return (- g2_tree * g2_tree * C2W * v2_over_LambdaNP2 / 2.0);
+    return (- g2_tree * g2_tree * (C2W + 0.5 * C2WS) * v2_over_LambdaNP2 / 2.0);
 }
 
 double NPSMEFTd6::obliqueY() const
 {
-    return (- g2_tree * g2_tree * C2B * v2_over_LambdaNP2 / 2.0);
+    return (- g2_tree * g2_tree * (C2B + 0.5 * C2BS) * v2_over_LambdaNP2 / 2.0);
 }
 
 /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
@@ -14078,19 +14087,112 @@ double NPSMEFTd6::AuxObs_NP6() const
 double NPSMEFTd6::AuxObs_NP7() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // CLIC STWY using difermion production at all energies: 380, 1500 and 3000 GeV
+    double Spar, Tpar, Wpar, Ypar, Spar2, Tpar2, Wpar2, Ypar2;
+    double Chi2Tot;
+
+    Spar = obliqueS();
+    Tpar = obliqueT();
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+
+    Spar2 = Spar*Spar;
+    Tpar2 = Tpar*Tpar;    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2Tot = 442.84977653097394 * Spar2 
+            - 728.5215604181935 * Spar * Tpar 
+            + 404.15957807101813 * Tpar2 
+            + 400.03987723904224 * Spar * Wpar 
+            - 639.6154242400826 * Tpar * Wpar 
+            + 4337.791457515823 * Wpar2  
+            - 106.87313892453362 * Spar * Ypar 
+            - 72.94355609762007 * Tpar * Ypar 
+            + 3002.848116515672 * Wpar * Ypar 
+            + 3040.1630882458923 * Ypar2;
+    return Chi2Tot;
 }
 
 double NPSMEFTd6::AuxObs_NP8() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // CLIC DiHiggs: exclusive analysis. Full CLIC run   
+    double Chi2Tot;
+
+//  Higgs basis parameters
+    double dKlambda;
+        
+    dKlambda = deltaG_hhhRatio();
+    
+    Chi2Tot = dKlambda * dKlambda * (50.04473972806045  
+            - 104.47283225861888 * dKlambda 
+            + 84.48333683635175 * dKlambda*dKlambda );
+    
+    return Chi2Tot;
 }
 
 double NPSMEFTd6::AuxObs_NP9() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // ILC DiHiggs at 500 GeV: 2/ab per polarization (+-80,-+30) 
+    
+    double Chi2p80m30, Chi2m80p30, Chi2Tot;
+
+//  Higgs basis parameters
+    double dcZHB,cZboxHB,cZZHB,cZgaHB,cgagaHB;
+    double dKlambda;
+    
+    dcZHB = deltacZ_HB();
+    cZboxHB = cZBox_HB();
+    cZZHB = cZZ_HB(); 
+    cZgaHB = cZga_HB();
+    cgagaHB = cgaga_HB();
+    
+    dKlambda = deltaG_hhhRatio();
+
+//  The signal strength -1    
+    Chi2p80m30 = 13.6982 * cZZHB 
+            - 7.58943 * cZgaHB 
+            + 14.6843 * cZboxHB 
+            - 1.51882 * cgagaHB 
+            + 5.46836 * dcZHB 
+            + 0.565585 * dKlambda 
+            + 0.000631004 * cZZHB * dKlambda 
+            - 0.195079 * cZgaHB * dKlambda 
+            + 0.064441 * cZboxHB * dKlambda 
+            + 0.440061 * cgagaHB * dKlambda 
+            + 2.13192 * dcZHB * dKlambda 
+            + 0.0968208 * dKlambda * dKlambda;
+    
+//  ILC report (1903.01629) gives total cross section a 4/ab: 16.8%. 
+// Assume the precision for each polarization is the same as they do for single Higgs in ZH...    
+    Chi2p80m30 = Chi2p80m30 * Chi2p80m30 / 0.168 / 0.168 / 2.0;
+
+//  The signal strength -1 
+    Chi2m80p30 = - 2.57112 * cZZHB 
+            + 6.97966 * cZgaHB 
+            - 10.2626 * cZboxHB 
+            + 1.39647 * cgagaHB 
+            + 5.4684 * dcZHB 
+            + 0.565577 * dKlambda 
+            + 4.71916 * cZZHB * dKlambda 
+            + 0.179045 * cZgaHB * dKlambda 
+            + 7.28766 * cZboxHB * dKlambda 
+            - 0.405166 * cgagaHB * dKlambda 
+            + 2.13189 * dcZHB * dKlambda 
+            + 0.0968201 * dKlambda * dKlambda;
+
+//  ILC report (1903.01629) gives total cross section a 4/ab: 16.8%. 
+// Assume the precision for each polarization is the same as they do for single Higgs in ZH...        
+    Chi2m80p30 = Chi2m80p30 * Chi2m80p30 / 0.168 / 0.168 / 2.0;
+    
+    Chi2Tot = Chi2p80m30 + Chi2m80p30;
+    
+    return Chi2Tot;
 }
 
 double NPSMEFTd6::AuxObs_NP10() const
