@@ -293,7 +293,7 @@ if(BAT_INSTALL)
     message(STATUS "Not found BAT in ${BAT_INSTALL_DIR}")
     message(STATUS "${RedBold}I'll download and install BAT into ${BAT_INSTALL_DIR}.${ColReset}")
     include(ExternalProject)
-    set(BAT_VERSION "1.0.0-RC1")
+    set(BAT_VERSION "1.0.0")
     set(BAT_FILENAME "BAT-${BAT_VERSION}.tar.gz")
     find_file(BAT_URL ${BAT_FILENAME} PATHS ${CMAKE_CURRENT_BINARY_DIR} NO_DEFAULT_PATH)
     if(NOT BAT_URL)
@@ -301,7 +301,7 @@ if(BAT_INSTALL)
     else()
       message(STATUS "Found ${BAT_FILENAME} in the current directory")
     endif()
-    set(BAT_MD5 8655c961b1bb44905eccc05ed652dc25)
+    set(BAT_SHA256 620e8069d85f18f8504137823621cbb578fa5b159e3074f0f2379ac295dd1482)
     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/BAT_make_wrapper.sh.in"
                    "${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh" @ONLY)
     # The make command to the top-level make will be inherited to the BAT make. 
@@ -326,7 +326,7 @@ if(BAT_INSTALL)
         INSTALL_DIR BATBUILD/src
         DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
         URL ${BAT_URL}
-        URL_MD5 ${BAT_MD5}
+        URL_HASH SHA256=${BAT_SHA256}
         PATCH_COMMAND ${PATCH}
         CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE} ${MPI_CXX_COMPILER}
         BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
@@ -344,7 +344,7 @@ if(BAT_INSTALL)
         INSTALL_DIR BATBUILD/src
         DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
         URL ${BAT_URL}
-        URL_MD5 ${BAT_MD5}
+        URL_HASH SHA256=${BAT_SHA256}
         PATCH_COMMAND ${PATCH}
         CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE}
         BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
@@ -478,7 +478,7 @@ if(DEBUG_MODE)
   message("  MPI_LIB_PATH=${MPI_LIB_PATH}")
   message("  BAT_FILENAME = ${BAT_FILENAME}")
   message("  BAT_URL = ${BAT_URL}")
-  message("  BAT_MD5 = ${BAT_MD5}")
+  message("  BAT_SHA256 = ${BAT_SHA256}")
   message("  BAT_CONFIGURE = ${BAT_CONFIGURE}")
   message("  BAT_MAKE = ${BAT_MAKE}")
   message("  BAT_INCLUDE_PATH = ${BAT_INCLUDE_PATH}")
@@ -491,20 +491,11 @@ endif(DEBUG_MODE)
 
 ##############################
 
-set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM GeorgiMachacek LeftRightSymmetricModel HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
-
-# set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour NewPhysics THDM Observables HiggsExtensions StandardModel LoopFunctions gslpp)
+set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour Observables StandardModel LoopFunctions gslpp)
 
 if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
 endif(NOT NOMCMC)
-
-##########  THDM file modification  ##########
-
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp.in"
-               "${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp" @ONLY)
-
-##########  THDM file modification  ##########
 
 ##########  c++11  ##########
 if (NOT ROOT_CFLAGS MATCHES "-std=")
@@ -598,7 +589,7 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/HEPfit.h
 #endif()
 
 # example programs
-set(EXAMPLE_CXXFLAGS "-I${BOOST_INC}")
+set(EXAMPLE_CXXFLAGS "-I${BOOST_INC} -std=c++11")
 set(EXAMPLE_LIBS " ")
 set(EXAMPLE_RPATHS "-Wl,-rpath,${GSL_LIB_PATH}")
 set(EXAMPLE_RPATHS "-Wl,-rpath,${ROOT_LIB_PATH} ${EXAMPLE_RPATHS}")
