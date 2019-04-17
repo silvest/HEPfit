@@ -1,9 +1,0 @@
-BR_Bdmumu: 99.9998% within the range, 0% underflow, 0.0002% overflow
-  [min, max]=[7.821499542e-11, 1.472301272e-10]
-BR_Bsmumu: 99.9975% within the range, 0.00072% underflow, 0.0018% overflow
-  [min, max]=[2.671339795e-09, 4.092738163e-09]
-BRbar_Bsmumu: 99.9972% within the range, 0.00072% underflow, 0.00204% overflow
-  [min, max]=[2.872574222e-09, 4.391027293e-09]
-Bd_Bs_mumu: 99.9973% within the ranges
-Bd_Bsbar_mumu: 99.997% within the ranges
-LogLikelihood: 100% within the range, 0% underflow, 0% overflow

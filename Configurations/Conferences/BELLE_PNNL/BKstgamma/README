@@ -1,7 +1,0 @@
-This folder contains the configuration files necessary to do a B to K* gamma analysis.
-The files in this folder are:
-
-Bsgamma_input.conf: The input that can be varied in a B to s gamma analysis.
-Flavour.conf: The variable realted to flavlour.
-FlavourWC.conf: The FlavourWilsonCoefficient model prarameters for generalized WC analysis.
-StandardModel.conf: The configuration file with the SM paramters.

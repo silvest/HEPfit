@@ -1,8 +1,0 @@
-The configutation files for a B to mu mu analysis.
-The files are:
-
-Bmumu_input.conf: The parameters that are varied in this analysis
-Flavour.conf: The flavour parameters that are not varied in this analysis
-MonteCarlo.conf: The Monte Carlo settings file
-Observables.conf: The list of observables (note: new implementation fo Obs2D)
-StandardModel.conf: The SM parameters that are not varied

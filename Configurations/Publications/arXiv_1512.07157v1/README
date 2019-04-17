@@ -1,8 +1,0 @@
-Configuration files for arXiv:1512.07157v1
-
-1. arXiv_1512.05157v1.zip contains all the files in this folder zipped together
-2. Run "sh master" to create all the variations of all the configurations
-3. The soft linking to the executable and the submission commands are commented out in the file called makerun
-4. run_long is a sample submission file for a SGE cluster
-5. A similar setup for a PBS cluster is easy to make by modifying the makerun file and creating a submission script like submit_analysis.sh. Please make sure to modify makerun accordingly. (run_long -> submit_analysis) 
-6. The script "extract" can be used to extract data from the runs and is stored in a folder called "data" at the same level.
