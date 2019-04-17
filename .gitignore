@@ -44,6 +44,7 @@ Analysis/*.sh
 Analysis/*.zip
 
 #BAT
+BAT_parallel
 BAT-0.9.*/
 BAT_parallel*/
 *.libs
@@ -72,7 +73,7 @@ Analysis/Observables/
 *.spl
 
 #Packaging
-Packaging/HEPfit*
+Packaging/HEPfit-core-1.0-*
 
 #ZFitter
 ZFitter*

@@ -211,7 +211,7 @@ if [ $CUSTOM -gt 0 ]; then
     git diff -- '../*/src/*.cpp' ../*/src/*.h > HEPfit-${VERSION}-${COMMIT}/${VERSION}-${COMMIT}.diff
     echo "\nDiff printed in ${VERSION}-${COMMIT}.diff" >> HEPfit-${VERSION}-${COMMIT}/VERSION
 fi
-echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}-${COMMIT}"
+echo "tar zcf HEPfit-${VERSION}-${COMMIT}.tar.gz HEPfit-${VERSION}-${COMMIT}"
 tar zcf HEPfit-${VERSION}-${COMMIT}.tar.gz HEPfit-${VERSION}-${COMMIT}
 
 ###########################################################
