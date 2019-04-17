@@ -8,7 +8,7 @@
 #include "GeneralTHDM.h"
 #include "GeneralTHDMcache.h"
 
-const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", "Relambda5", "Imlambda5", "Relambda6", "Relambda7",
+std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", "Relambda5", "Imlambda5", "Relambda6", "Relambda7",
 "Nu_11r", "Nu_11i", "Nu_12r", "Nu_12i", "Nu_13r", "Nu_13i", 
 "Nu_21r", "Nu_21i", "Nu_22r", "Nu_22i", "Nu_23r", "Nu_23i", 
 "Nu_31r", "Nu_31i", "Nu_32r", "Nu_32i", "Nu_33r", "Nu_33i", 
@@ -24,6 +24,9 @@ GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
 
     SMM.setObj((StandardModelMatching&) GTHDMM.getObj());
     ModelParamMap.insert(std::make_pair("logtb", std::cref(logtb)));
+    ModelParamMap.insert(std::make_pair("mHp1", std::cref(mHp1)));
+    ModelParamMap.insert(std::make_pair("mH21", std::cref(mH21)));
+    ModelParamMap.insert(std::make_pair("mH31", std::cref(mH31)));
     ModelParamMap.insert(std::make_pair("mHp2", std::cref(mHp2)));
     ModelParamMap.insert(std::make_pair("mH2sq", std::cref(mH2sq)));
     ModelParamMap.insert(std::make_pair("mH3sq", std::cref(mH3sq)));
@@ -91,6 +94,8 @@ GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
     ModelParamMap.insert(std::make_pair("Q_GTHDM", std::cref(Q_GTHDM)));
     ModelParamMap.insert(std::make_pair("RpepsGTHDM", std::cref(RpepsGTHDM)));
     ModelParamMap.insert(std::make_pair("NLOuniscaleGTHDM", std::cref(NLOuniscaleGTHDM)));
+    flag_use_sq_masses=true;
+
 }
 
 GeneralTHDM::~GeneralTHDM(){
@@ -159,12 +164,18 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             throw std::runtime_error("error in GeneralTHDM::SetParameter, tanb < 0!");
           }
         }
-    else if(name.compare("mHp2") == 0)
-        mHp2 = value;
-    else if(name.compare("mH2sq") == 0)
+    else if(name.compare("mH21") == 0 && !flag_use_sq_masses)
+        mH21 = value;
+    else if(name.compare("mH31") == 0 && !flag_use_sq_masses)
+        mH31 = value;
+    else if(name.compare("mHp1") == 0 && !flag_use_sq_masses)
+        mHp1 = value;
+    else if(name.compare("mH2sq") == 0 && flag_use_sq_masses)
         mH2sq = value;
-    else if(name.compare("mH3sq") == 0)
+    else if(name.compare("mH3sq") == 0 && flag_use_sq_masses)
         mH3sq = value;
+    else if(name.compare("mHp2") == 0 && flag_use_sq_masses)
+        mHp2 = value;
     else if(name.compare("alpha1") == 0) {
         alpha1 = value;
         cosalpha1 = cos(alpha1);
@@ -350,7 +361,16 @@ bool GeneralTHDM::setFlagStr(const std::string name, const std::string value)
 bool GeneralTHDM::setFlag(const std::string name, const bool value)
 {
     bool res = false;
-    if(name.compare("ATHDMflag") == 0) {
+    if(name.compare("use_sq_masses") == 0) {
+        flag_use_sq_masses = value;
+        res = true;
+        if (!flag_use_sq_masses) {
+           GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mH2sq"))] = "mH21";
+           GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mH3sq"))] = "mH31";
+           GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mHp2"))] = "mHp1";
+        }
+    }
+    else if(name.compare("ATHDMflag") == 0) {
     std::cout<<"ATHDMflag = "<< value<<std::endl;
         flag_ATHDM = value;
         res = true;
@@ -358,7 +378,7 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
     else if(name.compare("CPconservation") == 0) {
     std::cout<<"CPconservation = "<< value<<std::endl;
         flag_CPconservation = value;
-        res = true;
+        res = true;  
     }
     else
         res = StandardModel::setFlag(name,value);
