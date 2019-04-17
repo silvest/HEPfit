@@ -58,21 +58,9 @@
       </logicalFolder>
     </logicalFolder>
     <itemPath>Flavour.conf</itemPath>
-    <itemPath>FlavourWC.conf</itemPath>
-    <itemPath>GeneralSUSY.conf</itemPath>
-    <itemPath>HiggsKi.conf</itemPath>
-    <itemPath>HiggsKvKf.conf</itemPath>
-    <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
-    <itemPath>NPEffectiveGIMR.conf</itemPath>
-    <itemPath>NPEffectiveGIMR_LFU_QFU.conf</itemPath>
-    <itemPath>NPEffectiveGIMRprime_LFU_QFU.conf</itemPath>
-    <itemPath>NPSMEFTd6.conf</itemPath>
-    <itemPath>NPSMEFTd6_LFU_QFU.conf</itemPath>
-    <itemPath>SUSYMassInsertion.conf</itemPath>
     <itemPath>StandardModel.conf</itemPath>
-    <itemPath>pMSSM.conf</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -251,31 +239,9 @@
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -332,8 +298,6 @@
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -516,31 +480,9 @@
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -603,8 +545,6 @@
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="main_libmode_header_example.cpp" ex="true" tool="1" flavor2="8">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -783,31 +723,9 @@
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -860,8 +778,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1046,31 +962,9 @@
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1123,8 +1017,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
