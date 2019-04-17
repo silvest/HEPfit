@@ -1224,7 +1224,7 @@ private:
     mutable bool computeBd; ///< Switch for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
     mutable bool computeBs; ///< Switch for computing \f$B_{B_s}\f$ from \f$F_{B_s}\sqrt{B_{B_s}}\f$.
     static const int CacheSize = 5; ///< Defines the depth of the cache.
-    mutable double als_cache[8][CacheSize]; ///< Cache for \f$\alpha_s\f$.
+    mutable double als_cache[9][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double logLambda5_cache[4][CacheSize];
     mutable double logLambdaNLO_cache[9][CacheSize];
     mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.

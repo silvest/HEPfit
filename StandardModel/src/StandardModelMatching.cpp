@@ -3015,8 +3015,6 @@ double StandardModelMatching::Delta_t(double mu, double x) // from hep-ph/970724
 WilsonCoefficientNew& StandardModelMatching::mc_L() {
 //    double sW2 = (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw() ); // ******* FOR TEST *********
     double xt = x_t(Muw);
-    double xht = SM.getMHl() * SM.getMHl() / Mt_muw / Mt_muw;
-
     
     switch (mcL.getScheme()) {
         case NDR:

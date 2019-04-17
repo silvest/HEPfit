@@ -24,7 +24,6 @@ class EWSMThreeLoopQCD;
 class EWSMThreeLoopEW2QCD;
 class EWSMThreeLoopEW;
 class EWSMApproximateFormulae;
-class LeptonFlavour;
 /* BEGIN: REMOVE FROM THE PACKAGE */
 class EWSMTwoFermionsLEP2;
 /* END: REMOVE FROM THE PACKAGE */
@@ -1048,11 +1047,6 @@ public:
     const Flavour& getFlavour() const
     {
         return SMFlavour;
-    }
-
-    LeptonFlavour* getMyLeptonFlavour() const
-    {
-        return myLeptonFlavour;
     }
     ////////////////////////////////////////////////////////////////////////
     // QED coupling
@@ -3125,7 +3119,6 @@ private:
     EWSMThreeLoopEW2QCD* myThreeLoopEW2QCD; ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
     EWSMThreeLoopEW* myThreeLoopEW; ///< A pointer to an object of type EWSMThreeLoopEW.
     EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
-    LeptonFlavour* myLeptonFlavour; ///< A pointer to an object of the type LeptonFlavour.
     /* BEGIN: REMOVE FROM THE PACKAGE */
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
     /* END: REMOVE FROM THE PACKAGE */

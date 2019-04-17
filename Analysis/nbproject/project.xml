@@ -11,28 +11,15 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../Flavour</make-dep-project>
-                <make-dep-project>../LeptonFlavour</make-dep-project>
-                <make-dep-project>../THDMW</make-dep-project>
+                <make-dep-project>../EventGeneration</make-dep-project>
+                <make-dep-project>../gslpp</make-dep-project>
                 <make-dep-project>../StandardModel</make-dep-project>
                 <make-dep-project>../MonteCarlo</make-dep-project>
                 <make-dep-project>../LoopFunctions</make-dep-project>
-                <make-dep-project>../GeneralSUSY</make-dep-project>
-                <make-dep-project>../SUSY</make-dep-project>
+                <make-dep-project>../EW</make-dep-project>
                 <make-dep-project>../ComputeObservables</make-dep-project>
                 <make-dep-project>../Observables</make-dep-project>
-                <make-dep-project>../GeorgiMachacek</make-dep-project>
-                <make-dep-project>../SUSYMassInsertion</make-dep-project>
-                <make-dep-project>../MFV</make-dep-project>
-                <make-dep-project>../pMSSM</make-dep-project>
-                <make-dep-project>../EventGeneration</make-dep-project>
-                <make-dep-project>../THDM</make-dep-project>
-                <make-dep-project>../GeneralTHDM</make-dep-project>
-                <make-dep-project>../gslpp</make-dep-project>
-                <make-dep-project>../LeftRightSymmetricModel</make-dep-project>
-                <make-dep-project>../FlavourWilsonCoefficient</make-dep-project>
-                <make-dep-project>../EW</make-dep-project>
                 <make-dep-project>../InputParser</make-dep-project>
-                <make-dep-project>../NewPhysics</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>
@@ -50,22 +37,6 @@
                 </confElem>
                 <confElem>
                     <name>Release</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Cluster</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Cluster_MPI</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Schwinger_MPI</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>ArchLinux_MPI</name>
                     <type>1</type>
                 </confElem>
             </confList>
