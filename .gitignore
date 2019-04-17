@@ -31,7 +31,7 @@
 
 *~
 */*.dep.inc
-*.tar.gz
+BAT*.tar.gz
 *.tgz
 */src/*~
 Analysis/*.ps
@@ -71,9 +71,6 @@ Analysis/Observables/
 *.blg
 *.toc
 *.spl
-
-#Packaging
-Packaging/HEPfit-core-1.0-*
 
 #ZFitter
 ZFitter*
