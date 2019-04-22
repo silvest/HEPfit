@@ -13742,7 +13742,8 @@ double NPSMEFTd6::AuxObs_NP4() const
     dchi2 = ( Bin5 * BrHZZ4lRatio() - 1.0 ) * ( Bin5 * BrHZZ4lRatio() - 1.0 )/(0.07*0.07 + 0.48*0.48)
             + ( Bin5 * BrHgagaRatio() - 1.0 ) * ( Bin5 * BrHgagaRatio() - 1.0 )/(0.08*0.08 + 0.54*0.54)
             + ( Bin5 * BrHbbRatio() - 1.0 ) * ( Bin5 * BrHbbRatio() - 1.0 )/(0.33*0.33 + 0.61*0.61);
-        
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(dchi2);
 }
 
@@ -13812,7 +13813,8 @@ double NPSMEFTd6::AuxObs_NP5() const
     dchi2 = ( Bin5 * BrHZZ4lRatio() - 1.0 ) * ( Bin5 * BrHZZ4lRatio() - 1.0 )/(0.09*0.09 + 0.65*0.65)
             + ( Bin5 * BrHgagaRatio() - 1.0 ) * ( Bin5 * BrHgagaRatio() - 1.0 )/(0.03*0.03 + 0.99*0.99)
             + ( Bin5 * BrHbbRatio() - 1.0 ) * ( Bin5 * BrHbbRatio() - 1.0 )/(0.10*0.10 + 0.34*0.34);
-        
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(dchi2);
 }
 
@@ -14112,7 +14114,9 @@ double NPSMEFTd6::AuxObs_NP7() const
             - 72.94355609762007 * Tpar * Ypar 
             + 3002.848116515672 * Wpar * Ypar 
             + 3040.1630882458923 * Ypar2;
-    return Chi2Tot;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP8() const
@@ -14131,7 +14135,8 @@ double NPSMEFTd6::AuxObs_NP8() const
             - 104.47283225861888 * dKlambda 
             + 84.48333683635175 * dKlambda*dKlambda );
     
-    return Chi2Tot;
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP9() const
@@ -14191,8 +14196,9 @@ double NPSMEFTd6::AuxObs_NP9() const
     Chi2m80p30 = Chi2m80p30 * Chi2m80p30 / 0.168 / 0.168 / 2.0;
     
     Chi2Tot = Chi2p80m30 + Chi2m80p30;
-    
-    return Chi2Tot;
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP10() const
