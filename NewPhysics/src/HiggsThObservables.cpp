@@ -1666,6 +1666,73 @@ double muttHbb::computeThValue()
     }
 }
 
+
+muVBFBRinv::muVBFBRinv(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muVBFBRinv called with a class whose parent is not NPbase");
+}
+
+double muVBFBRinv::computeThValue()
+{
+
+    return (myNPbase->muVBF(sqrt_s))*(myNPbase->Br_H_inv());
+
+}
+
+muVBFHinv::muVBFHinv(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muVBFHinv called with a class whose parent is not NPbase");
+}
+
+double muVBFHinv::computeThValue()
+{
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHtoinvRatio()) - 1.0);
+    } else {
+        return (myNPbase->muVBF(sqrt_s))*(myNPbase->BrHtoinvRatio());
+    }
+
+}
+
+
+muVHBRinv::muVHBRinv(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muVHBRinv called with a class whose parent is not NPbase");
+}
+
+double muVHBRinv::computeThValue()
+{
+
+    return (myNPbase->muVH(sqrt_s))*(myNPbase->Br_H_inv());
+
+}
+
+muVHinv::muVHinv(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muVHinv called with a class whose parent is not NPbase");
+}
+
+double muVHinv::computeThValue()
+{
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->muVH(sqrt_s)) + (myNPbase->BrHtoinvRatio()) - 1.0);
+    } else {
+        return (myNPbase->muVH(sqrt_s))*(myNPbase->BrHtoinvRatio());
+    }
+
+}
+
+
 muppHmumu::muppHmumu(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {

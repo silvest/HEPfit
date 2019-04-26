@@ -3440,6 +3440,137 @@ private:
     const double sqrt_s;
 };
 
+
+/**
+ * @class muVBFBRinv
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the quantity @f$\mu_{VBF}\times BR(H \to invisible}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the quantity @f$\mu_{VBF}\times BR(H \to invisible}@f$, i.e.
+ * the ratio between the @f$pp \to jjH@f$ 
+ * production cross-section in the current model and 
+ * the SM, times the total invisible branching ratio.
+ */
+class muVBFBRinv : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVBFBRinv(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{VBF}\times BR(H \to invisible}@f$ in the current model.
+     * @return @f$\mu_{VBF}\times BR(H \to invisible}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class muVBFHinv
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{VBF, H \to invisible}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{VBF, H \to invisible}@f$ between the 
+ * @f$pp \to jjH, H \to invisible@f$ 
+ * production cross-section in the current model and the SM.
+ */
+class muVBFHinv : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVBFHinv(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{VBF, H \to invisible}@f$ in the current model.
+     * @return @f$\mu_{VBF, H \to invisible}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class muVHBRinv
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the quantity @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the quantity @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$, i.e.
+ * the ratio between the @f$pp \to VH@f$ 
+ * associated production cross-section in the current model and 
+ * the SM, times the total invisible branching ratio.
+ */
+class muVHBRinv : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVHBRinv(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$ in the current model.
+     * @return @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class muVHinv
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{pp \to VH, H \to invisible}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{pp \to VH, H \to invisible}@f$ between the 
+ * @f$pp \to VH, H \to invisible@f$ 
+ * associated production cross-section in the current model and the SM.
+ */
+class muVHinv : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVHinv(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{pp \to VH, H \to invisible}@f$ in the current model.
+     * @return @f$\mu_{pp \to VH, H \to invisible}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
 /**
  * @class muppHmumu
  * @ingroup HiggsExtensions

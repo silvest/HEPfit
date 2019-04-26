@@ -12,6 +12,7 @@ const std::string HiggsKigen::HKvKfgenvars[NHKvKfgenvars] = {
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
+    "eepWBFint","eepWBFpar","eepZBFint","eepZBFpar",
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar"
@@ -59,6 +60,10 @@ HiggsKigen::HiggsKigen()
     ModelParamMap.insert(std::make_pair("eeeZHpar", std::cref(eeeZHpar)));
     ModelParamMap.insert(std::make_pair("eeettHint", std::cref(eeettHint)));
     ModelParamMap.insert(std::make_pair("eeettHpar", std::cref(eeettHpar)));
+    ModelParamMap.insert(std::make_pair("eepWBFint", std::cref(eepWBFint)));
+    ModelParamMap.insert(std::make_pair("eepWBFpar", std::cref(eepWBFpar)));
+    ModelParamMap.insert(std::make_pair("eepZBFint", std::cref(eepZBFint)));
+    ModelParamMap.insert(std::make_pair("eepZBFpar", std::cref(eepZBFpar)));
     ModelParamMap.insert(std::make_pair("eHggint", std::cref(eHggint)));
     ModelParamMap.insert(std::make_pair("eHggpar", std::cref(eHggpar)));
     ModelParamMap.insert(std::make_pair("eHWWint", std::cref(eHWWint)));
@@ -245,6 +250,14 @@ void HiggsKigen::setParameter(const std::string name, const double& value)
         eeettHint = value;
     } else if (name.compare("eeettHpar") == 0) {
         eeettHpar = value;
+    } else if (name.compare("eepWBFint") == 0) {
+        eepWBFint = value;
+    } else if (name.compare("eepWBFpar") == 0) {
+        eepWBFpar = value;
+    } else if (name.compare("eepZBFint") == 0) {
+        eepZBFint = value;
+    } else if (name.compare("eepZBFpar") == 0) {
+        eepZBFpar = value;
     } else if (name.compare("eHggint") == 0) {
         eHggint = value;
     } else if (name.compare("eHggpar") == 0) {
@@ -445,15 +458,15 @@ double HiggsKigen::mueeZBFPol(const double sqrt_s, const double Pol_em, const do
 double HiggsKigen::muepWBF(const double sqrt_s) const
 {
     double mu = 1.0;
-    mu = (computeKW() * computeKW());
-    return mu;
+    mu = (computeKW() * computeKW());    
+    return (mu*(1.0 + eepWBFint + eepWBFpar));
 }
 
 double HiggsKigen::muepZBF(const double sqrt_s) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());
-    return mu;
+    return (mu*(1.0 + eepZBFint + eepZBFpar));
 }
 
 double HiggsKigen::muWH(const double sqrt_s) const

@@ -198,7 +198,7 @@
 class HiggsKigen : public NPbase {
 public:
 
-    static const int NHKvKfgenvars = 51; ///< The number of the model parameters in %HiggsKigen: 17 modelpars + 34 th. err. pars.
+    static const int NHKvKfgenvars = 55; ///< The number of the model parameters in %HiggsKigen: 17 modelpars + 38 th. err. pars.
 
     /**
      * @brief A string array containing the labels of the model parameters in %HiggsKigen.
@@ -1700,6 +1700,10 @@ private:
     double eeeZHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
     double eeettHint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
     double eeettHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
+    double eepWBFint; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)
+    double eepWBFpar; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)    
+    double eepZBFint; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
+    double eepZBFpar; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
     double eHggint; ///< Intrinsic relative theoretical error in \f$H \to g g\f$.
     double eHggpar; ///< Parametric relative theoretical error in \f$H \to g g\f$.
     double eHWWint; ///< Intrinsic relative theoretical error in \f$H \to W W\f$.

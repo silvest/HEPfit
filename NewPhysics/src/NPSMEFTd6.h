@@ -828,7 +828,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 405;
+    static const int NNPSMEFTd6Vars = 409;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -846,7 +846,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 209;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 213;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -3822,6 +3822,10 @@ protected:
     double eeeZHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
     double eeettHint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
     double eeettHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
+    double eepWBFint; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)
+    double eepWBFpar; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)    
+    double eepZBFint; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
+    double eepZBFpar; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
     double eHggint; ///< Intrinsic relative theoretical error in \f$H \to g g\f$.
     double eHggpar; ///< Parametric relative theoretical error in \f$H \to g g\f$.
     double eHWWint; ///< Intrinsic relative theoretical error in \f$H \to W W\f$.

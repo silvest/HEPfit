@@ -71,6 +71,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
+    "eepWBFint","eepWBFpar","eepZBFint","eepZBFpar",
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
@@ -153,6 +154,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
+    "eepWBFint","eepWBFpar","eepZBFint","eepZBFpar",
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
@@ -190,6 +192,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
+    "eepWBFint","eepWBFpar","eepZBFint","eepZBFpar",
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
@@ -227,6 +230,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
+    "eepWBFint","eepWBFpar","eepZBFint","eepZBFpar",
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
@@ -602,7 +606,11 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::make_pair("eeeZHint", std::cref(eeeZHint)));
     ModelParamMap.insert(std::make_pair("eeeZHpar", std::cref(eeeZHpar)));
     ModelParamMap.insert(std::make_pair("eeettHint", std::cref(eeettHint)));
-    ModelParamMap.insert(std::make_pair("eeettHpar", std::cref(eeettHpar)));
+    ModelParamMap.insert(std::make_pair("eeettHpar", std::cref(eeettHpar)));    
+    ModelParamMap.insert(std::make_pair("eepWBFint", std::cref(eepWBFint)));
+    ModelParamMap.insert(std::make_pair("eepWBFpar", std::cref(eepWBFpar)));
+    ModelParamMap.insert(std::make_pair("eepZBFint", std::cref(eepZBFint)));
+    ModelParamMap.insert(std::make_pair("eepZBFpar", std::cref(eepZBFpar)));        
     ModelParamMap.insert(std::make_pair("eHggint", std::cref(eHggint)));
     ModelParamMap.insert(std::make_pair("eHggpar", std::cref(eHggpar)));
     ModelParamMap.insert(std::make_pair("eHWWint", std::cref(eHWWint)));
@@ -1858,6 +1866,14 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         eeettHint = value;
     } else if (name.compare("eeettHpar") == 0) {
         eeettHpar = value;
+    } else if (name.compare("eepWBFint") == 0) {
+        eepWBFint = value;
+    } else if (name.compare("eepWBFpar") == 0) {
+        eepWBFpar = value;
+    } else if (name.compare("eepZBFint") == 0) {
+        eepZBFint = value;
+    } else if (name.compare("eepZBFpar") == 0) {
+        eepZBFpar = value;
     } else if (name.compare("eHggint") == 0) {
         eHggint = value;
     } else if (name.compare("eHggpar") == 0) {
@@ -6439,6 +6455,9 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::muepWBF()");
+        
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eepWBFint + eepWBFpar;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -6551,6 +6570,9 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::muepZBF()");
+    
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eepZBFint + eepZBFpar;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     

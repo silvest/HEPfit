@@ -1025,6 +1025,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muVHbb13"] = boost::bind(boost::factory<muVHbb*>(), _1, sqrt_s_LHC13);
     obsThFactory["muttHbb13"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_LHC13);
     //
+    obsThFactory["muVBFBRinv13"] = boost::bind(boost::factory<muVBFBRinv*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVHBRinv13"] = boost::bind(boost::factory<muVHBRinv*>(), _1, sqrt_s_LHC13);
+    //
+    obsThFactory["muVBFHinv13"] = boost::bind(boost::factory<muVBFHinv*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVHinv13"] = boost::bind(boost::factory<muVHinv*>(), _1, sqrt_s_LHC13);
+    //
     obsThFactory["muggHgaga14"] = boost::bind(boost::factory<muggHgaga*>(), _1, sqrt_s_LHC14);
     obsThFactory["muVBFHgaga14"] = boost::bind(boost::factory<muVBFHgaga*>(), _1, sqrt_s_LHC14);
     obsThFactory["muZHgaga14"] = boost::bind(boost::factory<muZHgaga*>(), _1, sqrt_s_LHC14);
@@ -1084,6 +1090,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muVHbb14"] = boost::bind(boost::factory<muVHbb*>(), _1, sqrt_s_LHC14);
     obsThFactory["muttHbb14"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_LHC14);
     //
+    obsThFactory["muVBFBRinv14"] = boost::bind(boost::factory<muVBFBRinv*>(), _1, sqrt_s_LHC14);
+    obsThFactory["muVHBRinv14"] = boost::bind(boost::factory<muVHBRinv*>(), _1, sqrt_s_LHC14);
+    //
+    obsThFactory["muVBFHinv14"] = boost::bind(boost::factory<muVBFHinv*>(), _1, sqrt_s_LHC14);
+    obsThFactory["muVHinv14"] = boost::bind(boost::factory<muVHinv*>(), _1, sqrt_s_LHC14);
+    //
     obsThFactory["muggHgaga27"] = boost::bind(boost::factory<muggHgaga*>(), _1, sqrt_s_LHC27);
     obsThFactory["muVBFHgaga27"] = boost::bind(boost::factory<muVBFHgaga*>(), _1, sqrt_s_LHC27);
     obsThFactory["muZHgaga27"] = boost::bind(boost::factory<muZHgaga*>(), _1, sqrt_s_LHC27);
@@ -1142,6 +1154,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muWHbb27"] = boost::bind(boost::factory<muWHbb*>(), _1, sqrt_s_LHC27);
     obsThFactory["muVHbb27"] = boost::bind(boost::factory<muVHbb*>(), _1, sqrt_s_LHC27);
     obsThFactory["muttHbb27"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_LHC27);
+    //
+    obsThFactory["muVBFBRinv27"] = boost::bind(boost::factory<muVBFBRinv*>(), _1, sqrt_s_LHC27);
+    obsThFactory["muVHBRinv27"] = boost::bind(boost::factory<muVHBRinv*>(), _1, sqrt_s_LHC27);
+    //
+    obsThFactory["muVBFHinv27"] = boost::bind(boost::factory<muVBFHinv*>(), _1, sqrt_s_LHC27);
+    obsThFactory["muVHinv27"] = boost::bind(boost::factory<muVHinv*>(), _1, sqrt_s_LHC27);
     //
     obsThFactory["muggHgaga100"] = boost::bind(boost::factory<muggHgaga*>(), _1, sqrt_s_FCC100);
     obsThFactory["muVBFHgaga100"] = boost::bind(boost::factory<muVBFHgaga*>(), _1, sqrt_s_FCC100);
@@ -1203,6 +1221,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muWHbb100"] = boost::bind(boost::factory<muWHbb*>(), _1, sqrt_s_FCC100);
     obsThFactory["muVHbb100"] = boost::bind(boost::factory<muVHbb*>(), _1, sqrt_s_FCC100);
     obsThFactory["muttHbb100"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_FCC100);
+    //
+    obsThFactory["muVBFBRinv100"] = boost::bind(boost::factory<muVBFBRinv*>(), _1, sqrt_s_FCC100);
+    obsThFactory["muVHBRinv100"] = boost::bind(boost::factory<muVHBRinv*>(), _1, sqrt_s_FCC100);
+    //
+    obsThFactory["muVBFHinv100"] = boost::bind(boost::factory<muVBFHinv*>(), _1, sqrt_s_FCC100);
+    obsThFactory["muVHinv100"] = boost::bind(boost::factory<muVHinv*>(), _1, sqrt_s_FCC100);
     //
     obsThFactory["muppHmumu8"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC8);
     obsThFactory["muppHmumu13"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC13);
