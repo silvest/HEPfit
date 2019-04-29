@@ -1,0 +1,9 @@
+##################
+# arXiv: 1807.08639 (VBFgamma)
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBFgamma fraction, WH fraction, ZH fraction|
+##################
+CATEGORIES ggH13 ttH13 VBFgamma13 WH13 ZH13
+MEASUREMENT VBF_Photon |0. 0. 1. 0. 0.| 2.5 -1.9 2.
+##################

@@ -1,0 +1,9 @@
+##################
+# arXiv: 1303.0823 (see also CDF+D0 combination 1303.6346)
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, VH fraction|
+##################
+CATEGORIES ggH196 ttH196 VBF196 VH196
+MEASUREMENT VH |0. 0. 0. 1.| 1.23 -1.17 1.24
+##################

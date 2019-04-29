@@ -1,0 +1,10 @@
+##################
+CMS-PAS-HIG-18-007 (WH,ZH)
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, WH fraction, ZH fraction|
+##################
+CATEGORIES ggH13 ttH13 VBF13 WH13 ZH13
+MEASUREMENT WH |0. 0. 0. 1. 0.| 3.39 -1.54 1.68
+MEASUREMENT ZH |0. 0. 0. 0. 1.| 1.23 -1.35 1.62
+##################

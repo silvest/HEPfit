@@ -1,0 +1,11 @@
+##################
+# ATLAS-CONF-2016-112 (WH), arXiv: 1808.09054 (ggF,VBF)
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, VBF fraction, WH fraction, ZH fraction|
+##################
+CATEGORIES ggH13 VBF13 WH13 ZH13
+MEASUREMENT ggF |1. 0. 0. 0.| 1.21 -0.21 0.22
+MEASUREMENT VBF |0. 1. 0. 0.| 0.62 -0.36 0.37
+MEASUREMENT WH |0. 0. 1. 0.| 3.2 -4.2 4.4
+##################
