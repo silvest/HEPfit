@@ -1,0 +1,11 @@
+##################
+# arXiv: 1708.00373 (0jet, VBF, Boosted)
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, VH fraction|
+##################
+CATEGORIES ggH13 ttH13 VBF13 VH13
+MEASUREMENT 0jet |1. 0. 0. 0.| 0.84 -0.89 0.89
+MEASUREMENT VBF |0.43 0. 0.57 0.| 1.11 -0.35 0.34
+MEASUREMENT Boosted |0.8 0. 0.12 0.08| 1.17 -0.4 0.47
+##################

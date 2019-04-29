@@ -1,0 +1,12 @@
+##################
+# ATLAS-CONF-2018-018
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, VH fraction|
+##################
+CATEGORIES ggH13 ttH13 VBF13 VH13
+MEASUREMENT ggF |1. 0. 0. 0.| 1.04 -0.155 0.155
+MEASUREMENT VBF |0. 0. 1. 0.| 2.8 -0.943 0.943
+MEASUREMENT VH |0. 0. 0. 1.| 0.9 -1.01 1.01
+MEASUREMENT ttH |0. 1. 0. 0.| 0. -0. 2.061
+##################
