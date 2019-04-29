@@ -3203,6 +3203,7 @@ ThObsFactory::ThObsFactory()
 
     //----- B to K* gamma  -----
     obsThFactory["BR_BKstgamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
+    obsThFactory["R_BVgamma"] = boost::bind(boost::factory<R_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::B_S, StandardModel::PHI);
     obsThFactory["C_BKstgamma"] = boost::bind(boost::factory<C_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["S_BKstgamma"] = boost::bind(boost::factory<S_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["ADG_BKstgamma"] = boost::bind(boost::factory<ADG_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);

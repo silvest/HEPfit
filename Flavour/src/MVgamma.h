@@ -427,7 +427,9 @@ public:
     * @brief The @f$BR@f$ in @f$M \to V \gamma@f$.
     * @return @f$BR@f$
     */
-    double computeThValue ();
+    double computeBR_MVgamma(QCD::meson meson, QCD::meson vector);
+    
+    double computeThValue();
 
 private:
     QCD::meson meson; /**< Initial meson type. */
@@ -437,6 +439,45 @@ private:
     double ADG; /**< @f$A_{\Delta\Gamma}@f$ */
     double ys; /** @f$\frac{\Delta\Gamma}{\Gamma}@f$ */
     double t_int; /** The factor that comes into CP averaged measurements due to finite lifetime differences. */
+};
+
+
+
+/**
+ * @class BR_MVgamma
+ * @ingroup Flavour
+ * @brief A class for the @f$BR@f$ in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$BR@f$ in @f$M \to V \gamma@f$ 
+ * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 
+ * computed in the MVgamma class:
+ * @f[
+ * BR = \frac {\alpha_e G_F^2 M_b^2 M_M \lambda}{(4\pi)^2 4 w_M} ( |H_V^+|^2 + |H_A^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_A^-|^2) \,.
+ * @f]
+ */
+class R_MVgamma : public BR_MVgamma {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    R_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson vector_1, QCD::meson meson_2, QCD::meson vector_2);
+    
+    /**
+    * @brief The @f$BR@f$ in @f$M \to V \gamma@f$.
+    * @return @f$BR@f$
+    */
+    double computeThValue();
+
+private:
+    QCD::meson meson1; /**< First initial meson type. */
+    QCD::meson meson2; /**< Second initial meson type. */
+    QCD::meson vector1; /**< First final vector meson type. */
+    QCD::meson vector2; /**< Second final vector meson type. */
 };
 
 
