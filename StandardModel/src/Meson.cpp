@@ -143,8 +143,8 @@ void Meson::ModelParameterMapInsert(std::map< std::string, std::reference_wrappe
     } 
     if (name.compare("RHO_P") == 0) {
         ModelParamMap.insert(std::make_pair("MrhoP", std::cref(mass)));
-        ModelParamMap.insert(std::make_pair("trhoP", std::cref(lifetime)));
-        ModelParamMap.insert(std::make_pair("FrhoP", std::cref(decayconst)));
+        ModelParamMap.insert(std::make_pair("trho", std::cref(lifetime)));
+        ModelParamMap.insert(std::make_pair("Frho", std::cref(decayconst)));
         return;
     } 
     if (name.compare("OMEGA") == 0) {
@@ -172,7 +172,7 @@ std::vector<std::string> Meson::parameterList(std::string name_i)
     if (name_i.compare("K_star_P") == 0) return make_vector<std::string>() << "MKstarP" << "tKstar" << "FKstar" << "FKstarp" << "alpha1kst" << "alpha2kst";
     if (name_i.compare("D_star_P") == 0) return make_vector<std::string>() << "MDstarP"  << "tDstarP"  << "FDstarP";
     if (name_i.compare("RHO") == 0) return make_vector<std::string>() << "Mrho"  << "trho"  << "Frho";
-    if (name_i.compare("RHO_P") == 0) return make_vector<std::string>() << "MrhoP"  << "trhoP"  << "FrhoP";
+    if (name_i.compare("RHO_P") == 0) return make_vector<std::string>() << "MrhoP"  << "trho"  << "Frho";
     if (name_i.compare("OMEGA") == 0) return make_vector<std::string>() << "Momega"  << "tomega"  << "Fomega";
     else throw std::runtime_error(name_i + " is not implemented in Meson class");
 }
@@ -450,11 +450,11 @@ bool Meson::setParameter(std::string name_i, double value)
             mass = value;
             return true;
         }
-        if (name_i.compare("trhoP") == 0) {
+        if (name_i.compare("trho") == 0) {
             lifetime = value;
             return true;
         }
-        if (name_i.compare("FrhoP") == 0) {
+        if (name_i.compare("Frho") == 0) {
             decayconst = value;
             return true;
         }
