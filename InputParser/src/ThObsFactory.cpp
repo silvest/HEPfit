@@ -3236,7 +3236,7 @@ ThObsFactory::ThObsFactory()
 
     //----- B to K* gamma  -----
     obsThFactory["BR_BKstgamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
-    obsThFactory["R_BVgamma"] = boost::bind(boost::factory<R_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ACP_BKstgamma"] = boost::bind(boost::factory<ACP_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["C_BKstgamma"] = boost::bind(boost::factory<C_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["S_BKstgamma"] = boost::bind(boost::factory<S_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["ADG_BKstgamma"] = boost::bind(boost::factory<ADG_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
@@ -3271,6 +3271,27 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ImDC7_QCDF_Bp"] = boost::bind(boost::factory<ImDC7_QCDF*>(), _1, StandardModel::B_P, StandardModel::K_star_P);
     obsThFactory["ImDC7_QCDF_Bp_bar"] = boost::bind(boost::factory<ImDC7_QCDF_bar*>(), _1, StandardModel::B_P, StandardModel::K_star_P);
 
+    //----- B to PHI gamma  -----
+    obsThFactory["BR_Bsphigamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["C_Bsphigamma"] = boost::bind(boost::factory<C_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["S_Bsphigamma"] = boost::bind(boost::factory<S_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ADG_Bsphigamma"] = boost::bind(boost::factory<ADG_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ReDC7_L_Bs"] = boost::bind(boost::factory<ReDC7_L*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ReDC7_R_Bs"] = boost::bind(boost::factory<ReDC7_R*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ImDC7_L_Bs"] = boost::bind(boost::factory<ImDC7_L*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ImDC7_R_Bs"] = boost::bind(boost::factory<ImDC7_R*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["AbsDC7_QCDF_Bs"] = boost::bind(boost::factory<AbsDC7_QCDF*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["AbsDC7_QCDF_Bs_bar"] = boost::bind(boost::factory<AbsDC7_QCDF_bar*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ReDC7_QCDF_Bs"] = boost::bind(boost::factory<ReDC7_QCDF*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ReDC7_QCDF_Bs_bar"] = boost::bind(boost::factory<ReDC7_QCDF_bar*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ImDC7_QCDF_Bs"] = boost::bind(boost::factory<ImDC7_QCDF*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["ImDC7_QCDF_Bs_bar"] = boost::bind(boost::factory<ImDC7_QCDF_bar*>(), _1, StandardModel::B_S, StandardModel::PHI);
+
+    //----- B to V gamma  -----
+    obsThFactory["R_BVgamma"] = boost::bind(boost::factory<R_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::B_S, StandardModel::PHI);
+    obsThFactory["D0p_BKstgamma"] = boost::bind(boost::factory<D0p_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::B_P, StandardModel::K_star_P);
+    obsThFactory["DACP_BKstgamma"] = boost::bind(boost::factory<DACP_MVgamma*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::B_D, StandardModel::K_star);
+    
     //----- B to phi ll  -----
     obsThFactory["P_1_Bsphimu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
     obsThFactory["P_2_Bsphimu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
@@ -3302,22 +3323,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["A_6c_Bsphimu"] = boost::bind(boost::factory<A_6c*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
     obsThFactory["A_8_Bsphimu"] = boost::bind(boost::factory<A_8*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
     obsThFactory["A_9_Bsphimu"] = boost::bind(boost::factory<A_9*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
-
-    //----- B to PHI gamma  -----
-    obsThFactory["BR_Bsphigamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["C_Bsphigamma"] = boost::bind(boost::factory<C_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["S_Bsphigamma"] = boost::bind(boost::factory<S_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ADG_Bsphigamma"] = boost::bind(boost::factory<ADG_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ReDC7_L_Bs"] = boost::bind(boost::factory<ReDC7_L*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ReDC7_R_Bs"] = boost::bind(boost::factory<ReDC7_R*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ImDC7_L_Bs"] = boost::bind(boost::factory<ImDC7_L*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ImDC7_R_Bs"] = boost::bind(boost::factory<ImDC7_R*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["AbsDC7_QCDF_Bs"] = boost::bind(boost::factory<AbsDC7_QCDF*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["AbsDC7_QCDF_Bs_bar"] = boost::bind(boost::factory<AbsDC7_QCDF_bar*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ReDC7_QCDF_Bs"] = boost::bind(boost::factory<ReDC7_QCDF*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ReDC7_QCDF_Bs_bar"] = boost::bind(boost::factory<ReDC7_QCDF_bar*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ImDC7_QCDF_Bs"] = boost::bind(boost::factory<ImDC7_QCDF*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    obsThFactory["ImDC7_QCDF_Bs_bar"] = boost::bind(boost::factory<ImDC7_QCDF_bar*>(), _1, StandardModel::B_S, StandardModel::PHI);
 
     //----- B+ to K+ ll  -----
     obsThFactory["BR_BpKmu"] = boost::bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::MU);

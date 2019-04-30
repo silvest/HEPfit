@@ -483,7 +483,124 @@ private:
 
 
 /**
+ * @class BR_MVgamma
+ * @ingroup Flavour
+ * @brief A class for the @f$BR@f$ in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$BR@f$ in @f$M \to V \gamma@f$ 
+ * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 
+ * computed in the MVgamma class:
+ * @f[
+ * BR = \frac {\alpha_e G_F^2 M_b^2 M_M \lambda}{(4\pi)^2 4 w_M} ( |H_V^+|^2 + |H_A^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_A^-|^2) \,.
+ * @f]
+ */
+class D0p_MVgamma : public BR_MVgamma {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    D0p_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson vector_1, QCD::meson meson_2, QCD::meson vector_2);
+    
+    /**
+    * @brief The @f$BR@f$ in @f$M \to V \gamma@f$.
+    * @return @f$BR@f$
+    */
+    double computeThValue();
+
+private:
+    QCD::meson meson1; /**< First initial meson type. */
+    QCD::meson meson2; /**< Second initial meson type. */
+    QCD::meson vector1; /**< First final vector meson type. */
+    QCD::meson vector2; /**< Second final vector meson type. */
+};
+
+
+
+/**
  * @class ACP_MVgamma
+ * @ingroup Flavour
+ * @brief A class for the @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$ 
+ * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 
+ * computed in the MVgamma class:
+ * @f[
+ * C = \frac {( |H_V^+|^2 + |H_V^-|^2 - |\overline{H}_V^+|^2 - |\overline{H}_V^-|^2)}{( |H_V^+|^2 + |H_V^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_V^-|^2)} \,.
+ * @f]
+ */
+class ACP_MVgamma : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    ACP_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
+    
+    /**
+    * @brief The @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$.
+    * @return @f$C@f$
+    */
+    double computeACP_MVgamma(QCD::meson meson, QCD::meson vector);
+    
+    double computeThValue();
+
+private:
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+};
+
+
+
+/**
+ * @class DACP_MVgamma
+ * @ingroup Flavour
+ * @brief A class for the @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$ 
+ * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 
+ * computed in the MVgamma class:
+ * @f[
+ * C = \frac {( |H_V^+|^2 + |H_V^-|^2 - |\overline{H}_V^+|^2 - |\overline{H}_V^-|^2)}{( |H_V^+|^2 + |H_V^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_V^-|^2)} \,.
+ * @f]
+ */
+class DACP_MVgamma : public ACP_MVgamma {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    DACP_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson vector_1, QCD::meson meson_2, QCD::meson vector_2);
+    
+    /**
+    * @brief The @f$BR@f$ in @f$M \to V \gamma@f$.
+    * @return @f$BR@f$
+    */
+    double computeThValue();
+
+private:
+    QCD::meson meson1; /**< First initial meson type. */
+    QCD::meson meson2; /**< Second initial meson type. */
+    QCD::meson vector1; /**< First final vector meson type. */
+    QCD::meson vector2; /**< Second final vector meson type. */
+};
+
+
+
+/**
+ * @class C_MVgamma
  * @ingroup Flavour
  * @brief A class for the @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$ decay. 
  * @author HEPfit Collaboration

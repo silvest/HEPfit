@@ -443,7 +443,7 @@ double BR_MVgamma::computeBR_MVgamma(QCD::meson meson, QCD::meson vector)
     QCD::meson meson_i = meson;
     QCD::meson vector_i = vector;
     
-    SM.getFlavour().getMVgamma(meson, vectorM).updateParameters();
+    SM.getFlavour().getMVgamma(meson_i, vector_i).updateParameters();
     
     gslpp::complex HVm = SM.getFlavour().getMVgamma(meson_i, vector_i).H_V_m();
     gslpp::complex HVm_bar = SM.getFlavour().getMVgamma(meson_i, vector_i).H_V_m_bar();
@@ -503,6 +503,70 @@ R_MVgamma::R_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson v
 double R_MVgamma::computeThValue()
 {
     return computeBR_MVgamma(meson1, vector1)/computeBR_MVgamma(meson2, vector2);
+}
+
+D0p_MVgamma::D0p_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson vector_1, QCD::meson meson_2, QCD::meson vector_2)
+: BR_MVgamma(SM_i, meson_1, vector_1)
+{
+    meson1 = meson_1;
+    meson2 = meson_2;
+    vector1 = vector_1;
+    vector2 = vector_2;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson1, vector1).initializeMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson2, vector2).initializeMVgammaParameters());
+}
+
+double D0p_MVgamma::computeThValue()
+{
+    return (computeBR_MVgamma(meson1, vector1) - computeBR_MVgamma(meson2, vector2)) / 
+            (computeBR_MVgamma(meson1, vector1) + computeBR_MVgamma(meson2, vector2));
+}
+
+ACP_MVgamma::ACP_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) 
+: ThObservable(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
+}
+
+double ACP_MVgamma::computeACP_MVgamma(QCD::meson meson, QCD::meson vector)
+{
+    QCD::meson meson_i = meson;
+    QCD::meson vector_i = vector;
+    
+    SM.getFlavour().getMVgamma(meson_i, vector_i).updateParameters();
+    
+    gslpp::complex HVm = SM.getFlavour().getMVgamma(meson_i, vector_i).H_V_m();
+    gslpp::complex HVm_bar = SM.getFlavour().getMVgamma(meson_i, vector_i).H_V_m_bar();
+    gslpp::complex HVp = SM.getFlavour().getMVgamma(meson_i, vector_i).H_V_p();
+    gslpp::complex HVp_bar = SM.getFlavour().getMVgamma(meson_i, vector_i).H_V_p_bar();
+    double CC = ((HVp.abs2() + HVm.abs2() - HVp_bar.abs2() - HVm_bar.abs2())) / (HVp.abs2() + HVm.abs2() + HVp_bar.abs2() + HVm_bar.abs2());
+    return -CC;          
+}
+
+double ACP_MVgamma::computeThValue()
+{
+    return computeACP_MVgamma(meson, vectorM);
+}
+
+DACP_MVgamma::DACP_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson vector_1, QCD::meson meson_2, QCD::meson vector_2)
+: ACP_MVgamma(SM_i, meson_1, vector_1)
+{
+    meson1 = meson_1;
+    meson2 = meson_2;
+    vector1 = vector_1;
+    vector2 = vector_2;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson1, vector1).initializeMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson2, vector2).initializeMVgammaParameters());
+}
+
+double DACP_MVgamma::computeThValue()
+{
+    return (computeACP_MVgamma(meson1, vector1) - computeACP_MVgamma(meson2, vector2));
 }
 
 C_MVgamma::C_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) 
