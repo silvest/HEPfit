@@ -134,6 +134,24 @@ void Meson::ModelParameterMapInsert(std::map< std::string, std::reference_wrappe
         ModelParamMap.insert(std::make_pair("tDstarP", std::cref(lifetime)));
         ModelParamMap.insert(std::make_pair("FDstarP", std::cref(decayconst)));
         return;
+    } 
+    if (name.compare("RHO") == 0) {
+        ModelParamMap.insert(std::make_pair("MRHO", std::cref(mass)));
+        ModelParamMap.insert(std::make_pair("tRHO", std::cref(lifetime)));
+        ModelParamMap.insert(std::make_pair("FRHO", std::cref(decayconst)));
+        return;
+    } 
+    if (name.compare("RHO_P") == 0) {
+        ModelParamMap.insert(std::make_pair("MRHO_P", std::cref(mass)));
+        ModelParamMap.insert(std::make_pair("tRHO_P", std::cref(lifetime)));
+        ModelParamMap.insert(std::make_pair("FRHO_P", std::cref(decayconst)));
+        return;
+    } 
+    if (name.compare("OMEGA") == 0) {
+        ModelParamMap.insert(std::make_pair("MOMEGA", std::cref(mass)));
+        ModelParamMap.insert(std::make_pair("tOMEGA", std::cref(lifetime)));
+        ModelParamMap.insert(std::make_pair("FOMEGA", std::cref(decayconst)));
+        return;
     } else throw std::runtime_error(name + " is not implemented in Meson class");
 }
 
@@ -153,6 +171,9 @@ std::vector<std::string> Meson::parameterList(std::string name_i)
     if (name_i.compare("K_star") == 0) return make_vector<std::string>() << "MKstar"  << "tKstar"  << "FKstar" << "FKstarp" << "alpha1kst" << "alpha2kst";
     if (name_i.compare("K_star_P") == 0) return make_vector<std::string>() << "MKstarP" << "tKstar" << "FKstar" << "FKstarp" << "alpha1kst" << "alpha2kst";
     if (name_i.compare("D_star_P") == 0) return make_vector<std::string>() << "MDstarP"  << "tDstarP"  << "FDstarP";
+    if (name_i.compare("RHO") == 0) return make_vector<std::string>() << "MRHO"  << "tRHO"  << "FRHO";
+    if (name_i.compare("RHO_P") == 0) return make_vector<std::string>() << "MRHO_P"  << "tRHO_P"  << "FRHO_P";
+    if (name_i.compare("OMEGA") == 0) return make_vector<std::string>() << "MOMEGA"  << "tOMEGA"  << "FOMEGA";
     else throw std::runtime_error(name_i + " is not implemented in Meson class");
 }
 
@@ -406,6 +427,48 @@ bool Meson::setParameter(std::string name_i, double value)
             return true;
         }
         if (name_i.compare("FDstarP") == 0) {
+            decayconst = value;
+            return true;
+        }
+    }
+    if (name.compare("RHO") == 0) {
+        if (name_i.compare("MRHO") == 0) {
+            mass = value;
+            return true;
+        }
+        if (name_i.compare("tRHO") == 0) {
+            lifetime = value;
+            return true;
+        }
+        if (name_i.compare("FRHO") == 0) {
+            decayconst = value;
+            return true;
+        }
+    }
+    if (name.compare("RHO_P") == 0) {
+        if (name_i.compare("MRHO_P") == 0) {
+            mass = value;
+            return true;
+        }
+        if (name_i.compare("tRHO_P") == 0) {
+            lifetime = value;
+            return true;
+        }
+        if (name_i.compare("FRHO_P") == 0) {
+            decayconst = value;
+            return true;
+        }
+    }
+    if (name.compare("OMEGA") == 0) {
+        if (name_i.compare("MOMEGA") == 0) {
+            mass = value;
+            return true;
+        }
+        if (name_i.compare("tOMEGA") == 0) {
+            lifetime = value;
+            return true;
+        }
+        if (name_i.compare("FOMEGA") == 0) {
             decayconst = value;
             return true;
         }

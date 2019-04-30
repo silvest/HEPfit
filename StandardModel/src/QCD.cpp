@@ -251,6 +251,9 @@ void QCD::initializeMeson(const QCD::meson meson_i) const
     else if (meson_i == QCD::K_star) mesonsMap.at(meson_i).setName("K_star");
     else if (meson_i == QCD::K_star_P) mesonsMap.at(meson_i).setName("K_star_P");
     else if (meson_i == QCD::D_star_P) mesonsMap.at(meson_i).setName("D_star_P");
+    else if (meson_i == QCD::RHO) mesonsMap.at(meson_i).setName("RHO");
+    else if (meson_i == QCD::RHO_P) mesonsMap.at(meson_i).setName("RHO_P");
+    else if (meson_i == QCD::OMEGA) mesonsMap.at(meson_i).setName("OMEGA");
     else {
         std::stringstream out;
         out << meson_i;

@@ -632,6 +632,9 @@ public:
         K_star, /**< @f$K^*@f$ meson */
         K_star_P, /**< @f$K^{*,\pm}@f$ meson */
         D_star_P, /**< @f$D^{*,\pm}@f$ meson */
+        RHO, /**< @f$\rho@f$ meson */
+        RHO_P, /**< @f$\rho@f$ meson */
+        OMEGA, /**< @f$\omega@f$ meson */
         MESON_END /**< The size of this enum. */
     };
     
