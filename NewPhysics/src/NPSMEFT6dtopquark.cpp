@@ -440,7 +440,15 @@ double sigma_250_bb_eLpR::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    if(flag_Quadratic){
+        return 0.31*C_phiQ3+0.31*C_phiQ1+0.05*C_phib-0.11*(-0.653228500107*0.99*C_bW)+0.28*(-0.653228500107*0.99*C_bW)*(-0.653228500107*0.99*C_bW)+0.052*(-0.349192873528*0.99*C_bB)
+        +0.084*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB)-0.25*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB);
+    }
+    else
+    {
         return (0.31*C_phiQ3+0.31*C_phiQ1+0.05*C_phib+0.11*(-0.653228500107*0.99*C_bW)+0.052*(-0.349192873528*0.99*C_bB));
+    }
 }
 
 
@@ -457,8 +465,14 @@ double a_250_bb_eLpR::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    if(flag_Quadratic){
+        return ((0.4*C_phiQ3+0.3*C_phiQ1-2.2*C_phib+1.15*(-0.653228500107*0.99*C_bW)-5*(-0.653228500107*0.99*C_bW)*(-0.653228500107*0.99*C_bW)-0.6504*(-0.349192873528*0.99*C_bB)-1.35*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB)+4.3*(-0.653228500107*0.99*C_bW)*(-0.349192873528*0.99*C_bB)));
+    }
+    else{
         return ((0.4*C_phiQ3+0.3*C_phiQ1-2.2*C_phib
                 -1.15*(-0.653228500107*0.99*C_bW)-0.6504*(-0.349192873528*0.99*C_bB)));
+    }
 }
 
 
@@ -474,9 +488,14 @@ double sigma_250_bb_eRpL::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    if(flag_Quadratic){
+        return (0.094*C_phiQ3+0.094*C_phiQ1-0.11*C_phib-0.006*(-0.653228500107*0.99*C_bW)+0.018*(-0.653228500107*0.99*C_bW)*(-0.653228500107*0.99*C_bW)+0.017*(-0.349192873528*0.99*C_bB)+0.31*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB)+0.023*(-0.653228500107*0.99*C_bW)*(-0.349192873528*0.99*C_bB));
+    }
+    else{
         return (0.094*C_phiQ3+0.094*C_phiQ1-0.11*C_phib+0.006*(-0.653228500107*0.99*C_bW)+0.017*(-0.349192873528*0.99*C_bB));
+    }
 }
-
 
 
 
@@ -492,9 +511,14 @@ double a_250_bb_eRpL::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    if(flag_Quadratic){
+        return ((-7.8*C_phiQ3-7.7*C_phiQ1-4.5*C_phib+0.3*(-0.653228500107*0.99*C_bW)-0.5*(-0.653228500107*0.99*C_bW)*(-0.653228500107*0.99*C_bW)+2.4304*(-0.349192873528*0.99*C_bB)-7.64*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB)-0.27*(-0.653228500107*0.99*C_bW)*(-0.349192873528*0.99*C_bB)));
+    }
+    else{
         return (-7.8*C_phiQ3-7.7*C_phiQ1-4.5*C_phib-0.3*(-0.653228500107*0.99*C_bW)+2.4304*(-0.349192873528*0.99*C_bB));
+    }
 }
-
 
 //Prospects of Linear Colders at 500 GeV
 //500 bb observables
@@ -512,9 +536,15 @@ double sigma_500_bb_eLpR::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    if(flag_Quadratic){
+        return (0.064*C_phiQ3+0.064*C_phiQ1+0.012*C_phib-0.02*(-0.653228500107*0.99*C_bW)+0.24*(-0.653228500107*0.99*C_bW)*(-0.653228500107*0.99*C_bW)+0.0132856*(-0.349192873528*0.99*C_bB)+0.085*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB)-0.255*(-0.653228500107*0.99*C_bW)*(-0.349192873528*0.99*C_bB));
+    }
+    else{
         return (0.064*C_phiQ3+0.064*C_phiQ1+0.012*C_phib+0.02*(-0.653228500107*0.99*C_bW)+0.0132856*(-0.349192873528*0.99*C_bB));
+    }
+    
 }
-
 
 
 a_500_bb_eLpR::a_500_bb_eLpR(const StandardModel& SM_i)
@@ -529,7 +559,13 @@ double a_500_bb_eLpR::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    if(flag_Quadratic){
+        return ((0.2*C_phiQ3+0.2*C_phiQ1-2.3*C_phib+0.6*(-0.653228500107*0.99*C_bW)-13.4*(-0.653228500107*0.99*C_bW)*(-0.653228500107*0.99*C_bW)-0.5204*(-0.349192873528*0.99*C_bB)-4.2*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB)+13.6*(-0.653228500107*0.99*C_bW)*(-0.349192873528*0.99*C_bB)));
+    }
+    else{
         return (0.2*C_phiQ3+0.2*C_phiQ1-2.3*C_phib-0.6*(-0.653228500107*0.99*C_bW)-0.5204*(-0.349192873528*0.99*C_bB));
+    }
 }
 
 
@@ -545,9 +581,14 @@ double sigma_500_bb_eRpL::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    if(flag_Quadratic){
+        return (0.02*C_phiQ3+0.02*C_phiQ1-0.024*C_phib-0.0014*(-0.653228500107*0.99*C_bW)+0.0145*(-0.653228500107*0.99*C_bW)*(-0.653228500107*0.99*C_bW)+0.00530063*(-0.653228500107*0.99*C_bW)+0.29*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB)-0.007*(-0.653228500107*0.99*C_bW)*(-0.349192873528*0.99*C_bB));
+    }
+    else{
         return (0.02*C_phiQ3+0.02*C_phiQ1-0.024*C_phib+0.0014*(-0.653228500107*0.99*C_bW)+0.00530063*(-0.349192873528*0.99*C_bB));
+    }
 }
-
 
 
 
@@ -563,9 +604,14 @@ double a_500_bb_eRpL::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    if(flag_Quadratic){
+        return (-6.9*C_phiQ3-7.1*C_phiQ1-3.5*C_phib+0.1*(-0.653228500107*0.99*C_bW)-1.63*(-0.653228500107*0.99*C_bW)*(-0.653228500107*0.99*C_bW)+1.256*(-0.349192873528*0.99*C_bB)-23*(-0.349192873528*0.99*C_bB)*(-0.349192873528*0.99*C_bB)+0.29*(-0.653228500107*0.99*C_bW)*(-0.349192873528*0.99*C_bB));
+    }
+    else{
         return (-6.9*C_phiQ3-7.1*C_phiQ1-3.5*C_phib-0.1*(-0.653228500107*0.99*C_bW)+1.256*(-0.349192873528*0.99*C_bB));
+    }
 }
-
 
 
 //500 tt observables
