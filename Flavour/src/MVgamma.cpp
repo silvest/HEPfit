@@ -39,16 +39,31 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
     FixedWCbtos = SM.getFlavour().getFlagFixedWCbtos();
     
 #if NFPOLARBASIS_MVGAMMA
-    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
+    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << 
+            "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
             "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
-        mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
-        
+        mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << 
+            "absh_p" << "absh_m" << "argh_p" << "argh_m";
+    else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
+        mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
+            "absh_p" << "absh_m" << "argh_p" << "argh_m";  // Temporary, here and below
+    else if (vectorM == StandardModel::OMEGA) 
+        mVgammaParameters = make_vector<std::string>() << "a_0T1omega" << "a_0A1omega" << "a_0Vomega" << 
+            "absh_p" << "absh_m" << "argh_p" << "argh_m";  // Temporary, here and below
 #else
-    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
+    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << 
+            "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
             "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
-        mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << "reh_p" << "reh_m" << "imh_p" << "imh_m";
+        mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << 
+            "reh_p" << "reh_m" << "imh_p" << "imh_m";
+    else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
+        mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
+            "reh_p" << "reh_m" << "imh_p" << "imh_m";
+    else if (vectorM == StandardModel::OMEGA) 
+        mVgammaParameters = make_vector<std::string>() << "a_0T1omega" << "a_0A1omega" << "a_0Vomega" << 
+            "reh_p" << "reh_m" << "imh_p" << "imh_m";
 #endif
     else {
         std::stringstream out;
@@ -58,11 +73,18 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 
     if (dispersion) {
         mVgammaParameters.clear();
-        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
+        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << 
+                "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
                 "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2" << "SU3_breaking_abs" << "SU3_breaking_arg";
         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
             mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" <<
                 "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2";
+        else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
+            mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
+                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"; // Temporary
+        else if (vectorM == StandardModel::OMEGA) 
+            mVgammaParameters = make_vector<std::string>() << "a_0T1omega" << "a_0A1omega" << "a_0Vomega" << 
+                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"; // Temporary
         else {
             std::stringstream out;
             out << vectorM;
@@ -122,6 +144,27 @@ void MVgamma::updateParameters()
             spectator_charge = SM.getQuarks(QCD::STRANGE).getCharge();
             SU3_breaking = gslpp::complex(1. + SM.getOptionalParameter("SU3_breaking_abs"),
                     SM.getOptionalParameter("SU3_breaking_arg"), true);
+            break;
+        case StandardModel::RHO:
+            a_0T1 = SM.getOptionalParameter("a_0T1rho");
+            a_0A1 = SM.getOptionalParameter("a_0A1rho");
+            a_0V = SM.getOptionalParameter("a_0Vrho");
+            spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
+            SU3_breaking = 0.; // Temporary
+            break;
+        case StandardModel::RHO_P:
+            a_0T1 = SM.getOptionalParameter("a_0T1rho");
+            a_0A1 = SM.getOptionalParameter("a_0A1rho");
+            a_0V = SM.getOptionalParameter("a_0Vrho");
+            spectator_charge = SM.getQuarks(QCD::UP).getCharge();
+            SU3_breaking = 0.; // Temporary
+            break;
+        case StandardModel::OMEGA:
+            a_0T1 = SM.getOptionalParameter("a_0T1omega");
+            a_0A1 = SM.getOptionalParameter("a_0A1omega");
+            a_0V = SM.getOptionalParameter("a_0Vomega");
+            spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
+            SU3_breaking = 0.; // Temporary
             break;
         default:
             std::stringstream out;
@@ -377,6 +420,7 @@ gslpp::complex MVgamma::T_perp(double u, bool conjugate)
 
 gslpp::complex MVgamma::T_QCDF_minus(bool conjugate)
 {
+    if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P || vectorM == StandardModel::OMEGA) return 0.; // Temporary
     if (!conjugate) return (T_perp_real + gslpp::complex::i() * T_perp_imag);
     else return (T_perp_bar_real + gslpp::complex::i() * T_perp_bar_imag);
 }
@@ -453,6 +497,9 @@ double BR_MVgamma::computeBR_MVgamma(QCD::meson meson, QCD::meson vector)
     switch (vector_i) {
         case StandardModel::K_star:
         case StandardModel::K_star_P:
+        case StandardModel::RHO:
+        case StandardModel::RHO_P:
+        case StandardModel::OMEGA:
             arg = myAmpDB2.getAmpBd(FULLNLO).arg();
             t_int = 1.;
             break;
@@ -613,6 +660,7 @@ double S_MVgamma::computeThValue()
     
     switch (vectorM) {
         case StandardModel::K_star:
+        case StandardModel::RHO:
             arg = myAmpDB2.getAmpBd(FULLNLO).arg();
             break;
         case StandardModel::PHI:
