@@ -606,6 +606,71 @@ private:
     const double sqrt_s, Pol_em, Pol_ep;
 };
 
+
+/**
+ * @class aPsk
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the angular parameter @f$a@f$ from 
+ * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the angular parameter @f$a@f$ from @f$\mu_{e^+e^- \to ZH}@f$.
+ */
+class aPsk : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
+     */
+    aPsk(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+
+    /**
+     * @brief A method to compute the value of the angular parameter @f$a@f$ from @f$\mu_{e^+e^- \to ZH}@f$ in the current model.
+     * @return @f$a_{e^+e^- \to ZH}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s, Pol_em, Pol_ep;
+};
+
+
+/**
+ * @class bPsk
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the angular parameter @f$b@f$ from 
+ * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the angular parameter @f$b@f$ from @f$\mu_{e^+e^- \to ZH}@f$.
+ */
+class bPsk : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
+     */
+    bPsk(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+
+    /**
+     * @brief A method to compute the value of the angular parameter @f$b@f$ from @f$\mu_{e^+e^- \to ZH}@f$ in the current model.
+     * @return @f$a_{e^+e^- \to ZH}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s, Pol_em, Pol_ep;
+};
+
+
 /**
  * @class muVH
  * @ingroup HiggsExtensions

@@ -242,6 +242,33 @@ double mueeZqqHPol::computeThValue()
     return myNPbase->mueeZqqHPol(sqrt_s, Pol_em, Pol_ep);
 }
 
+
+aPsk::aPsk(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("aPsk called with a class whose parent is not NPbase");
+}
+
+double aPsk::computeThValue()
+{
+    return myNPbase->aPskPol(sqrt_s, Pol_em, Pol_ep);
+}
+
+
+bPsk::bPsk(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("bPsk called with a class whose parent is not NPbase");
+}
+
+double bPsk::computeThValue()
+{
+    return myNPbase->bPskPol(sqrt_s, Pol_em, Pol_ep);
+}
+
+
 muVH::muVH(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {

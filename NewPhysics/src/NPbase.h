@@ -868,7 +868,34 @@ public:
     {
         return 1.0;
     }
+    
+    
+    /**
+     * @brief the angular parameter @f$a@f$ from 
+     * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$a_{eeZH}@f$
+     */
+    virtual double aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+    {
+        return 0.0;
+    }
+    
+    
+    /**
+     * @brief the angular parameter @f$b@f$ from 
+     * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$b_{eeZH}@f$
+     */
+    virtual double bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+    {
+        return 0.0;
+    }
 
+    
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
@@ -2015,6 +2042,78 @@ public:
      * @return AuxObs_NP12
      */
     virtual double AuxObs_NP12() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP13
+     * @return AuxObs_NP13
+     */
+    virtual double AuxObs_NP13() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP14
+     * @return AuxObs_NP14
+     */
+    virtual double AuxObs_NP14() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP15
+     * @return AuxObs_NP15
+     */
+    virtual double AuxObs_NP15() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP16
+     * @return AuxObs_NP16
+     */
+    virtual double AuxObs_NP16() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP17
+     * @return AuxObs_NP17
+     */
+    virtual double AuxObs_NP17() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP18
+     * @return AuxObs_NP18
+     */
+    virtual double AuxObs_NP18() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP19
+     * @return AuxObs_NP19
+     */
+    virtual double AuxObs_NP19() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP20
+     * @return AuxObs_NP20
+     */
+    virtual double AuxObs_NP20() const
     {
         return 0.0;
     }

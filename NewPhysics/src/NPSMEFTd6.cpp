@@ -8288,6 +8288,16 @@ double NPSMEFTd6::mueeZqqHPol(const double sqrt_s, const double Pol_em, const do
     return mu + deltaBRratio;
 }
 
+double NPSMEFTd6::aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return 0.0;
+}
+
+double NPSMEFTd6::bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return 0.0;
+}
+
 double NPSMEFTd6::muVH(const double sqrt_s) const
 {
     double sigmaWH_SM = computeSigmaWH(sqrt_s);
@@ -14225,17 +14235,115 @@ double NPSMEFTd6::AuxObs_NP9() const
 
 double NPSMEFTd6::AuxObs_NP10() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // CLIC STWY using difermion production at all energies: 380 and 1500 GeV
+    double Spar, Tpar, Wpar, Ypar, Spar2, Tpar2, Wpar2, Ypar2;
+    double Chi2Tot;
+
+    Spar = obliqueS();
+    Tpar = obliqueT();
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+
+    Spar2 = Spar*Spar;
+    Tpar2 = Tpar*Tpar;    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2Tot = 375.63808963031073 * Spar2 
+            - 617.8864704052573 * Spar * Tpar 
+            + 353.1650032169891 * Tpar2 
+            + 215.96605851087603 * Spar * Wpar 
+            - 309.3469843690006 * Tpar * Wpar 
+            + 518.10263970583244 * Wpar2 
+            - 45.972763923203014 * Spar * Ypar 
+            - 40.670385844305705 * Tpar * Ypar 
+            + 340.56677318671185 * Wpar * Ypar 
+            + 364.5290176991845 * Ypar2;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP11() const
+{
+    // CLIC STWY using difermion production at all energies: 380 GeV
+    double Spar, Tpar, Wpar, Ypar, Spar2, Tpar2, Wpar2, Ypar2;
+    double Chi2Tot;
+
+    Spar = obliqueS();
+    Tpar = obliqueT();
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+
+    Spar2 = Spar*Spar;
+    Tpar2 = Tpar*Tpar;    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2Tot = 282.9842573293628 * Spar2 
+            - 462.32090035841725 * Spar * Tpar 
+            + 276.2496928300019 * Tpar2 
+            + 66.08702076419566 * Spar * Wpar 
+            - 87.95794393624075 * Tpar * Wpar 
+            + 9.5435699879102 * Wpar2 
+            - 26.170009941328716 * Spar * Ypar 
+            - 9.695238064023518 * Tpar * Ypar 
+            + 6.519573295893438 * Wpar * Ypar 
+            + 12.858593910798793 * Ypar2;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
+}
+
+double NPSMEFTd6::AuxObs_NP12() const
 {
     // To be used for some temporary observable
     return 0.0;
 }
 
-double NPSMEFTd6::AuxObs_NP12() const
+double NPSMEFTd6::AuxObs_NP13() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP14() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP15() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP16() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP17() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP18() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP19() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+}
+
+double NPSMEFTd6::AuxObs_NP20() const
 {
     // To be used for some temporary observable
     return 0.0;
