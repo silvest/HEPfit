@@ -47,10 +47,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
             "absh_p" << "absh_m" << "argh_p" << "argh_m";
     else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
         mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
-            "absh_p" << "absh_m" << "argh_p" << "argh_m";  // Temporary, here and below
+            "absh_p" << "absh_m" << "argh_p" << "argh_m";
     else if (vectorM == StandardModel::OMEGA) 
         mVgammaParameters = make_vector<std::string>() << "a_0T1omega" << "a_0A1omega" << "a_0Vomega" << 
-            "absh_p" << "absh_m" << "argh_p" << "argh_m";  // Temporary, here and below
+            "absh_p" << "absh_m" << "argh_p" << "argh_m";
 #else
     if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << 
             "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
@@ -81,10 +81,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
                 "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2";
         else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
             mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
-                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"; // Temporary
+                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2";
         else if (vectorM == StandardModel::OMEGA) 
             mVgammaParameters = make_vector<std::string>() << "a_0T1omega" << "a_0A1omega" << "a_0Vomega" << 
-                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"; // Temporary
+                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2";
         else {
             std::stringstream out;
             out << vectorM;
@@ -113,8 +113,6 @@ void MVgamma::updateParameters()
     mc_pole = SM.Mbar2Mp(SM.getQuarks(QCD::CHARM).getMass()); /* Conversion to pole mass*/
     Ms = SM.getQuarks(QCD::STRANGE).getMass();
     MW = SM.Mw();
-    lambda_t = SM.getCKM().computelamt_s();
-    lambda_u = SM.getCKM().computelamu_s();
     mu_b = SM.getMub();
     mu_h = sqrt(mu_b * .5); // From Beneke Neubert
     fB = SM.getMesons(meson).getDecayconst();
@@ -127,6 +125,8 @@ void MVgamma::updateParameters()
             a_0T1 = SM.getOptionalParameter("a_0T1");
             a_0A1 = SM.getOptionalParameter("a_0A1");
             a_0V = SM.getOptionalParameter("a_0V");
+            lambda_t = SM.getCKM().computelamt_s();
+            lambda_u = SM.getCKM().computelamu_s();
             spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
             SU3_breaking = 1.;
             break;
@@ -134,6 +134,8 @@ void MVgamma::updateParameters()
             a_0T1 = SM.getOptionalParameter("a_0T1");
             a_0A1 = SM.getOptionalParameter("a_0A1");
             a_0V = SM.getOptionalParameter("a_0V");
+            lambda_t = SM.getCKM().computelamt_s();
+            lambda_u = SM.getCKM().computelamu_s();
             spectator_charge = SM.getQuarks(QCD::UP).getCharge();
             SU3_breaking = 1.;
             break;
@@ -141,6 +143,8 @@ void MVgamma::updateParameters()
             a_0T1 = SM.getOptionalParameter("a_0T1phi");
             a_0A1 = SM.getOptionalParameter("a_0A1phi");
             a_0V = SM.getOptionalParameter("a_0Vphi");
+            lambda_t = SM.getCKM().computelamt_s();
+            lambda_u = SM.getCKM().computelamu_s();
             spectator_charge = SM.getQuarks(QCD::STRANGE).getCharge();
             SU3_breaking = gslpp::complex(1. + SM.getOptionalParameter("SU3_breaking_abs"),
                     SM.getOptionalParameter("SU3_breaking_arg"), true);
@@ -149,22 +153,28 @@ void MVgamma::updateParameters()
             a_0T1 = SM.getOptionalParameter("a_0T1rho");
             a_0A1 = SM.getOptionalParameter("a_0A1rho");
             a_0V = SM.getOptionalParameter("a_0Vrho");
+            lambda_t = SM.getCKM().computelamt_d();
+            lambda_u = SM.getCKM().computelamu_d();
             spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
-            SU3_breaking = 0.; // Temporary
+            SU3_breaking = 1.;
             break;
         case StandardModel::RHO_P:
             a_0T1 = SM.getOptionalParameter("a_0T1rho");
             a_0A1 = SM.getOptionalParameter("a_0A1rho");
             a_0V = SM.getOptionalParameter("a_0Vrho");
+            lambda_t = SM.getCKM().computelamt_d();
+            lambda_u = SM.getCKM().computelamu_d();
             spectator_charge = SM.getQuarks(QCD::UP).getCharge();
-            SU3_breaking = 0.; // Temporary
+            SU3_breaking = 1.;
             break;
         case StandardModel::OMEGA:
             a_0T1 = SM.getOptionalParameter("a_0T1omega");
             a_0A1 = SM.getOptionalParameter("a_0A1omega");
             a_0V = SM.getOptionalParameter("a_0Vomega");
+            lambda_t = SM.getCKM().computelamt_d();
+            lambda_u = SM.getCKM().computelamu_d();
             spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
-            SU3_breaking = 0.; // Temporary
+            SU3_breaking = 1.;
             break;
         default:
             std::stringstream out;
