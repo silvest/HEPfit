@@ -8290,12 +8290,113 @@ double NPSMEFTd6::mueeZqqHPol(const double sqrt_s, const double Pol_em, const do
 
 double NPSMEFTd6::aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
-    return 0.0;
+    
+    // Expression missing CLL contributions!
+    
+    double aL, aR, aPol;
+    double sM = sqrt_s * sqrt_s;
+    double Mz2 = Mz*Mz;
+    double MH2 = mHl*mHl;
+    double dMz = 0.0;
+    double dMH = 0.0;
+    double dv,dg,dgp,dgL,dgR;
+    double kCM, kCM2, EZ, EZ2, kZ, kH;
+    double EtaZ;
+    double CH, CT,CHL,CHLp, CHE;
+    double CWB, CBB, CWW;
+    
+    // Convention for dim 6 operators
+    CWB = g2_tree*g2_tree/(8.0*g2_tree*g1_tree) * CHWB * v2_over_LambdaNP2;
+    CBB = 0.25 * (g2_tree*g2_tree/g1_tree/g1_tree) * CHB * v2_over_LambdaNP2;
+    CWW = 0.25 * CHW * v2_over_LambdaNP2;
+
+    CH = ( -2.0 * CHbox + 0.25 * CHD ) * v2_over_LambdaNP2;    
+    CT = -0.5 * CHD * v2_over_LambdaNP2;    
+    CHL = CHL1_11 * v2_over_LambdaNP2;     
+    CHLp = CHL3_11 * v2_over_LambdaNP2; 
+    CHE = CHe_11 * v2_over_LambdaNP2;
+    
+    //  Other parameters (1): Missing CLL!!!
+    dv = 0.5 * ( CHL3_11 + CHL3_22 )* v2_over_LambdaNP2;
+    
+    // WFR
+    EtaZ = -(1.0/2.0)*CH + 2.0*dMz - dv - CT;
+    
+    // Kinematics
+    kCM = sqrt( (sM*sM + (MH2 - Mz2)*(MH2 - Mz2) - 2.0*sM*(MH2 + Mz2))/(4.0*sM) );   
+    kCM2 = kCM*kCM;
+    
+    EZ = sqrt( Mz2 + kCM2);
+    EZ2 = EZ*EZ;
+    
+    kZ = 2.0*Mz2/(sM - Mz2) + (EZ*Mz2)/(2*kCM2*sqrt_s) - Mz2/(2*kCM2) - (EZ2/Mz2)/(2.0 + EZ2/Mz2)*(1.0 - Mz2/(EZ*sqrt_s));
+   
+    kH = -((EZ*MH2)/(2*kCM2*sqrt_s)) - (EZ2/Mz2)/(2 + EZ2/Mz2)*MH2/(EZ*sqrt_s); 
+    
+    //  Other parameters (2): Missing CLL!!!
+    dg = -(1.0/(g1_tree * ( cW2_tree*cW2_tree - sW2_tree*sW2_tree))) * ( dv * cW2_tree * g1_tree 
+            - cW2_tree * dMz * g1_tree + 0.25 * CHD * cW2_tree * g1_tree * v2_over_LambdaNP2 
+            + CHW * cW2_tree*cW2_tree * g1_tree * v2_over_LambdaNP2 + CHWB * cW2_tree * g2_tree * sW2_tree * v2_over_LambdaNP2 
+            - CHW * g1_tree * sW2_tree*sW2_tree * v2_over_LambdaNP2 + CHWB * g2_tree * sW2_tree*sW2_tree * v2_over_LambdaNP2);
+    
+    
+    dgp = -(1.0/(cW2_tree * g1_tree * g1_tree * (-cW2_tree*cW2_tree + sW2_tree*sW2_tree))) * ( dv * cW2_tree * g1_tree * g1_tree * sW2_tree 
+            - cW2_tree * dMz * g1_tree * g1_tree * sW2_tree + 0.25 * CHD * cW2_tree * g1_tree*g1_tree * sW2_tree * v2_over_LambdaNP2 
+            + CHWB * cW2_tree * cW2_tree * g1_tree * g2_tree * sW2_tree * v2_over_LambdaNP2 
+            - CHB * cW2_tree * cW2_tree * g2_tree * g2_tree * sW2_tree * v2_over_LambdaNP2 
+            + CHWB * cW2_tree * g1_tree * g2_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2 
+            + CHB * g2_tree* g2_tree * sW2_tree*sW2_tree*sW2_tree * v2_over_LambdaNP2 );
+    
+    dgL = (1.0/(0.5 - sW2_tree))*(cW2_tree*(0.5 + sW2_tree)*dg 
+            - sW2_tree*(0.5 + cW2_tree)*dgp 
+            + 0.5*(CHL + CHLp) 
+            + 0.25*cW2_tree*(1.0 + 2.0*sW2_tree)*8.0*CWW 
+            - 0.5*sW2_tree*(1.0 - 2.0*sW2_tree)*8.0*CWB 
+            - 0.25*sW2_tree*sW2_tree/cW2_tree*(1.0 + 2.0*cW2_tree)*8.0*CBB);
+    
+    dgR = -cW2_tree*dg + (1.0 + cW2_tree)*dgp 
+            - 1.0/(2.0*sW2_tree)*CHE - 0.5*cW2_tree*8*CWW 
+            + cW2_tree*8.0*CWB + 0.5*sW2_tree/cW2_tree*(1.0 + cW2_tree)*8.0*CBB;
+    
+            
+    //  LH and RH pars            
+    
+    aL = dgL + 2*dMz - dv + EtaZ + (sM - Mz2)/(2*Mz2)*(CHL + CHLp)/(0.5 - sW2_tree) + kZ*dMz + kH*dMH;
+    aR = dgR + 2*dMz - dv + EtaZ - (sM - Mz2)/(2*Mz2)*CHE/sW2_tree + kZ*dMz + kH*dMH;
+    
+    //  Polarized a parameter
+    aPol = 0.25 * ( (1.0 - Pol_em/100.0)*(1.0 + Pol_ep/100.0) * aL
+            + (1.0 + Pol_em/100.0)*(1.0 - Pol_ep/100.0) * aR );
+    
+    return aPol;
 }
 
 double NPSMEFTd6::bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
-    return 0.0;
+    double bL, bR, bPol;
+    double sM = sqrt_s * sqrt_s;
+    double Mz2 = Mz*Mz;
+    
+    double ZetaZ, ZetaAZ;
+    double CWB, CBB, CWW;
+    
+    // Convention for dim 6 operators
+    CWB = g2_tree*g2_tree/(8.0*g2_tree*g1_tree) * CHWB * v2_over_LambdaNP2;
+    CBB = 0.25 * (g2_tree*g2_tree/g1_tree/g1_tree) * CHB * v2_over_LambdaNP2;
+    CWW = 0.25 * CHW * v2_over_LambdaNP2;
+ 
+    ZetaZ = cW2_tree*8.0*CWW + 2.0*sW2_tree*8*CWB + (sW2_tree*sW2_tree/cW2_tree)*8.0*CBB;
+    ZetaAZ = sW_tree*cW_tree*(8.0*CWW - (1.0 - sW2_tree/cW2_tree)*8*CWB - (sW2_tree/cW2_tree)*8.0*CBB);
+    
+    //  LH and RH pars 
+    bL = ZetaZ + (sW_tree*cW_tree)/(0.5 - sW2_tree)*(sM - Mz2)/sM*ZetaAZ;
+    bR = ZetaZ - (cW_tree/sW_tree)*(sM - Mz2)/sM*ZetaAZ;
+    
+    //  Polarized b parameter
+    bPol = 0.25 * ( (1.0 - Pol_em/100.0)*(1.0 + Pol_ep/100.0) * bL
+            + (1.0 + Pol_em/100.0)*(1.0 - Pol_ep/100.0) * bR );
+    
+    return bPol;
 }
 
 double NPSMEFTd6::muVH(const double sqrt_s) const
@@ -8466,6 +8567,102 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
     
     return mu;
 }
+
+
+double NPSMEFTd6::mutHq(const double sqrt_s) const
+{
+    double mu = 1.0;
+    
+     double C1 = 0.0;
+    
+    if (sqrt_s == 7.0) {
+        
+        C1 = 0.0;
+
+        mu +=  0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+        
+    } else if (sqrt_s == 8.0) {
+        
+        C1 = 0.0;
+
+        mu +=  0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+        
+    } else if (sqrt_s == 13.0) {
+        
+        C1 = 0.0;
+
+        mu +=  0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+        
+    } else if (sqrt_s == 14.0) {
+        
+        C1 = 0.0;
+
+        mu +=  0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+
+    } else if (sqrt_s == 27.0) {
+        
+        C1 = 0.0;
+
+        mu +=  0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+            
+    } else if (sqrt_s == 100.0) {
+        
+        C1 = 0.0;
+
+        mu +=  0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mutHq()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    //mu += etHqint + etHqpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 
 double NPSMEFTd6::muggHpttH(const double sqrt_s) const
 {

@@ -774,6 +774,13 @@ public:
      * @return @f$\mu_{ttH}@f$
      */
     virtual double muttH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{tHq}@f$ between the t-q-Higgs associated 
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{tHq}@f$
+     */
+    virtual double mutHq(const double sqrt_s) const;
      /**
      * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
      * production cross-section in the current model and in the Standard Model.

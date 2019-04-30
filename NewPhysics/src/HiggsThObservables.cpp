@@ -305,6 +305,18 @@ double muttH::computeThValue()
     return myNPbase->muttH(sqrt_s);
 }
 
+mutHq::mutHq(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mutHq called with a class whose parent is not NPbase");
+}
+
+double mutHq::computeThValue()
+{
+    return myNPbase->mutHq(sqrt_s);
+}
+
 muggHpttH::muggHpttH(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {

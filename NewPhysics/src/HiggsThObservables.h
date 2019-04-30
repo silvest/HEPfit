@@ -762,6 +762,38 @@ private:
     const double sqrt_s;
 };
 
+
+/**
+ * @class mutHq
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{tHq}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{tHq}@f$ between the t-q-Higgs 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mutHq : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mutHq(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{tHq}@f$ in the current model. 
+     * @return @f$\mu_{tHq}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
 /**
  * @class muggHpttH
  * @ingroup HiggsExtensions

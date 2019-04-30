@@ -264,6 +264,18 @@ double HiggsChiral::muttH(const double sqrt_s) const
     return computect() * computect();
 }
 
+double HiggsChiral::mutHq(const double sqrt_s) const
+{
+    double mu = 1.0;
+    double Kt = computect();
+    double Kw = computecV();
+    
+//  From ATLAS parametrization of the K-framework (at 14 TeV?)     
+    mu = 2.63 * Kt * Kt + 3.58 * Kw * Kw - 5.21 * Kt * Kw;
+    
+    return mu;
+}
+
 double HiggsChiral::muggHpttH(const double sqrt_s) const
 {
     double sigmaggH_SM = trueSM.computeSigmaggH(sqrt_s);

@@ -557,6 +557,18 @@ double HiggsKigen::muttH(const double sqrt_s) const
     return (mu*(1.0 + ettHint + ettHpar));
 }
 
+double HiggsKigen::mutHq(const double sqrt_s) const
+{
+    double mu = 1.0;
+    double Kt = computeKt();
+    double Kw = computeKW();
+    
+//  From ATLAS parametrization of the K-framework (at 14 TeV?)   
+    mu = 2.63 * Kt * Kt + 3.58 * Kw * Kw - 5.21 * Kt * Kw;
+    
+    return mu;
+}
+
 double HiggsKigen::muggHpttH(const double sqrt_s) const
 {
     double sigmaggH_SM = trueSM.computeSigmaggH(sqrt_s);
