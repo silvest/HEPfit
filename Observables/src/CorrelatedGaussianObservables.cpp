@@ -63,7 +63,7 @@ void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr)
     } else {
         for (unsigned int i = 0; i < size; i++) {
             for (unsigned int j = 0; j < size; j++) {
-                if (Corr(i, j) != Corr(j, i)) throw std::runtime_error("Invalid correlation matrix for " + name + ". The matrix is not symmetric.");
+                if (Corr(i, j) != Corr(j, i)) throw std::runtime_error("Invalid correlation matrix for " + name + ". The matrix is not symmetric: for elements [" + boost::lexical_cast<std::string>(i) + ", " + boost::lexical_cast<std::string>(j) + "]");
                 (*InvCov)(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
             }
         }
