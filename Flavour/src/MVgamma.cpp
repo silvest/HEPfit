@@ -356,6 +356,11 @@ gslpp::complex MVgamma::Cq34(bool conjugate)
     gslpp::complex T_u = 0.; /* 0 for K*0, phi*/
     if (meson == QCD::B_P) T_u = -3.*C_2;
     else if (vectorM == QCD::PHI) T_t = T_t + 6.*(C_3 + 10.*C_5);
+    else if (vectorM == QCD::RHO) T_u = 4./3.*C_1 + C_2;
+    else if (vectorM == QCD::OMEGA) {
+        T_u = -4./3.*C_1 + C_2;
+        T_t = T_t + 6.*2.*(C_3 + 10.*C_5);
+    }
     if (!conjugate) return T_t + lambda_u / lambda_t * T_u;
     else return T_t + (lambda_u / lambda_t).conjugate() * T_u;
 }
