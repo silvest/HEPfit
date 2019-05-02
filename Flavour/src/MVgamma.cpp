@@ -435,7 +435,6 @@ gslpp::complex MVgamma::T_perp(double u, bool conjugate)
 
 gslpp::complex MVgamma::T_QCDF_minus(bool conjugate)
 {
-    if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P || vectorM == StandardModel::OMEGA) return 0.; // Temporary
     if (!conjugate) return (T_perp_real + gslpp::complex::i() * T_perp_imag);
     else return (T_perp_bar_real + gslpp::complex::i() * T_perp_bar_imag);
 }
