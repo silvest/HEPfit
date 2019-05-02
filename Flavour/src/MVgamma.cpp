@@ -352,7 +352,7 @@ gslpp::complex MVgamma::deltaC7_QCDF(bool conjugate)
 
 gslpp::complex MVgamma::Cq34(bool conjugate)
 {
-    gslpp::complex T_t = -C_3 + 4./3.*(C_4 + 12.*C_5 + 16.*C_6);
+    gslpp::complex T_t = C_3 + 4./3.*(C_4 + 12.*C_5 + 16.*C_6);
     gslpp::complex T_u = 0.; /* 0 for K*0, phi*/
     if (meson == QCD::B_P) T_u = -3.*C_2;
     else if (vectorM == QCD::PHI) T_t = T_t + 6.*(C_3 + 10.*C_5);
@@ -399,15 +399,15 @@ gslpp::complex MVgamma::T_perp_plus_QSS(double u, bool conjugate)
 #if FULLNLOQCDF_MVGAMMA     
     gslpp::complex t_perp_0 = t_perp(u, 0.);    
     double ed = -1./3.;
-    gslpp::complex T_t = (alpha_s_mub/(3.*M_PI))*MM/(2.*mb_pole)*(eu * t_perp_mc * (C_1/6. + C_2 + 6.*C_6)
-        + ed * t_perp(u, mb_pole) * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3. + mb_pole/MM*(C_3 + C_4/6. - 4.*C_5 + 2.*C_6/3.))
+    gslpp::complex T_t = (alpha_s_mub/(3.*M_PI))*MM/(2.*mb_pole)*(eu * t_perp_mc * (-C_1/6. + C_2 + 6.*C_6)
+        + ed * t_perp(u, mb_pole) * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3. + 4.*mb_pole/MM*(-C_3 + C_4/6. - 4.*C_5 + 2.*C_6/3.))
         + ed * t_perp_0  * (-C_3 + C_4/6. - 16.*C_5 + 8.*C_6/3.));
     
     gslpp::complex T_u = ((alpha_s_mub/(3.*M_PI))*eu*MM/(2.*mb_pole)*(t_perp_mc - t_perp_0)*(C_2 - C_1/6.));
     if (!conjugate) return T_t + lambda_u / lambda_t * T_u;
     else return T_t + (lambda_u / lambda_t).conjugate() * T_u;
 #else        
-    return (alpha_s_mub/(3.*M_PI))*MM/(2.*mb_pole)*(eu * t_perp_mc * (C_1/6. + C_2 + 6.*C_6));
+    return (alpha_s_mub/(3.*M_PI))*MM/(2.*mb_pole)*(eu * t_perp_mc * (-C_1/6. + C_2 + 6.*C_6));
 #endif    
 }
 
