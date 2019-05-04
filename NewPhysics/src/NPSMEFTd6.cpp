@@ -14494,20 +14494,146 @@ double NPSMEFTd6::AuxObs_NP11() const
 
 double NPSMEFTd6::AuxObs_NP12() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // CLIC dim6 Top fit 1500 GeV: only for SVF operators
+    double CHqminus, CHt;
+    double Chi2Tot;
+    
+    // The chi2 is given assuming C/Lambda^2 is in units of TeV^-2
+    CHqminus= 0.5 * (CHQ1_33 - CHQ3_33) * (1000000.0 / LambdaNP2);
+    CHt= 0.5 * CHu_33 * (1000000.0 / LambdaNP2);
+    
+    Chi2Tot= 1203.58 * CHqminus * CHqminus + 1661.59 * CHqminus * CHt + 1257.83 * CHt * CHt;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP13() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // CLIC dim6 Top fit 3000 GeV: only for SVF operators
+    double CHqminus, CHt;
+    double Chi2Tot;
+    
+    // The chi2 is given assuming C/Lambda^2 is in units of TeV^-2
+    CHqminus= 0.5 * (CHQ1_33 - CHQ3_33) * (1000000.0 / LambdaNP2);
+    CHt= 0.5 * CHu_33 * (1000000.0 / LambdaNP2);
+    
+    Chi2Tot= 5756.01 * CHqminus * CHqminus + 8013.79 * CHqminus * CHt + 3380.7 * CHt * CHt;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP14() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // Test chi2 for HH production at 100 TeV: only the first two bins in 1704.01953 are included,
+    // with the same coefficients (including ratios of cross sections in each bin) its table 4.  The EFT parameterization of Higgs decays are not included.
+    double Chi2Tot;
+    
+//  Higgs basis parameters
+    double dcZHB,cggHB;
+    double dytHB;
+    double dKlambda;
+    
+    dcZHB = deltacZ_HB();
+    cggHB = cgg_HB();
+    dytHB = deltayt_HB();
+    dKlambda = deltaG_hhhRatio();
+    
+    double dcZHB2,dcZHB3,dcZHB4;
+    double cggHB2,cggHB3,cggHB4;
+    double dytHB2,dytHB3,dytHB4,dytHB5,dytHB6,dytHB7,dytHB8;
+    double dKlambda2,dKlambda3,dKlambda4;
+    
+    dcZHB2 = dcZHB * dcZHB;
+    dcZHB3 = dcZHB2 * dcZHB;
+    dcZHB4 = dcZHB3 * dcZHB;
+    
+    cggHB2 = cggHB * cggHB;
+    cggHB3 = cggHB2 * cggHB;
+    cggHB4 = cggHB3 * cggHB;
+
+    dytHB2 = dytHB * dytHB;
+    dytHB3 = dytHB2 * dytHB;
+    dytHB4 = dytHB3 * dytHB;
+    dytHB5 = dytHB4 * dytHB;
+    dytHB6 = dytHB5 * dytHB;
+    dytHB7 = dytHB6 * dytHB;
+    dytHB8 = dytHB7 * dytHB;
+    
+    dKlambda2 = dKlambda * dKlambda;
+    dKlambda3 = dKlambda2 * dKlambda;
+    dKlambda4 = dKlambda3 * dKlambda;
+
+    // The Chi2
+    
+    Chi2Tot = 2.0595082782796297e7 * cggHB2 - 3.6971136499764752e9 * cggHB3 + 1.7583900534677216e11 * cggHB4 
+            - 630035.4483047676 * cggHB * dcZHB + 1.3588174266991532e8 * cggHB2 * dcZHB - 7.10364464231958e9 * cggHB3 * dcZHB 
+            + 5311.651853836387 * dcZHB2 - 1.7067170379207395e6 * cggHB * dcZHB2 +  1.1851653627034137e8 * cggHB2 * dcZHB2 
+            + 8180.119549200313 * dcZHB3 - 943018.2335425722 * cggHB * dcZHB3 + 3159.9135213745994 * dcZHB4 
+            + 180518.97210352542 * cggHB * dKlambda - 2.8949546963646576e7 * cggHB2 * dKlambda - 5.501576225306801e8 * cggHB3 * dKlambda 
+            + 1.5079027448500854e11 * cggHB4 * dKlambda - 2846.9365320948145 * dcZHB * dKlambda + 797208.485191074 * cggHB * dcZHB * dKlambda 
+            - 4.978486710457227e6 * cggHB2 * dcZHB * dKlambda - 4.586348042437428e9 * cggHB3 * dcZHB * dKlambda - 6485.875373880575 * dcZHB2 * dKlambda 
+            + 390177.86145601963 * cggHB * dcZHB2 * dKlambda + 5.056678567468029e7 * cggHB2 * dcZHB2 * dKlambda - 3291.6842405815532 * dcZHB3 * dKlambda 
+            - 198301.99217208195 * cggHB * dcZHB3 * dKlambda + 399.29685823653153 * dKlambda2 - 95580.41780509672 * cggHB * dKlambda2 
+            - 7.430874086734321e6 * cggHB2 * dKlambda2 + 7.720064658809748e8 * cggHB3 * dKlambda2 + 5.089872992160051e10 * cggHB4 * dKlambda2 
+            + 1809.9095844013955 * dcZHB * dKlambda2 - 1150.4119995786175 * cggHB * dcZHB * dKlambda2 - 2.2786176268418655e7 * cggHB2 * dcZHB * dKlambda2 
+            - 1.0351049455121036e9 * cggHB3 * dcZHB * dKlambda2 + 1362.5781363223641 * dcZHB2 * dKlambda2 + 170792.06609378837 * cggHB * dcZHB2 * dKlambda2 
+            + 5.658917948194164e6 * cggHB2 * dcZHB2 * dKlambda2 - 178.77181321253659 * dKlambda3 - 11443.938844928987 * cggHB * dKlambda3 
+            + 2.461878722072089e6 * cggHB2 * dKlambda3 + 2.821167791764089e8 * cggHB3 * dKlambda3 + 7.998289700049803e9 * cggHB4 * dKlambda3 
+            - 267.7615464146533 * dcZHB * dKlambda3 - 52488.33374581051 * cggHB * dcZHB * dKlambda3 - 3.555711022595523e6 * cggHB2 * dcZHB * dKlambda3 
+            - 8.149153208622633e7 * cggHB3 * dcZHB * dKlambda3 + 21.07398490236267 * dKlambda4 + 5735.3996792942135 * cggHB * dKlambda4 
+            + 596986.3215027236 * cggHB2 * dKlambda4 + 2.773647081412465e7 * cggHB3 * dKlambda4 + 4.915460918180312e8 * cggHB4 * dKlambda4 
+            + 740876.8879497008 * cggHB * dytHB - 1.938279550686329e8 * cggHB2 * dytHB + 1.1944585224312653e10 * cggHB3 * dytHB 
+            - 12947.635844899749 * dcZHB * dytHB + 4.908519506685015e6 * cggHB * dcZHB * dytHB - 3.742271337006843e8 * cggHB2 * dcZHB * dytHB 
+            - 33546.241370498166 * dcZHB2 * dytHB + 4.3134482870087875e6 * cggHB * dcZHB2 * dytHB - 18267.038917513022 * dcZHB3 * dytHB 
+            + 3387.385955080094 * dKlambda * dytHB - 963072.1570381082 * cggHB * dKlambda * dytHB - 2.3453010760683898e7 * cggHB2 * dKlambda * dytHB 
+            + 9.317798790237669e9 * cggHB3 * dKlambda * dytHB + 14461.190498065112 * dcZHB * dKlambda * dytHB - 276210.0620250288 * cggHB * dcZHB * dKlambda * dytHB 
+            - 2.1850896154428744e8 * cggHB2 * dcZHB * dKlambda * dytHB + 7442.375770947524 * dcZHB2 * dKlambda * dytHB 
+            + 1.6339998473341048e6 * cggHB * dcZHB2 * dKlambda * dytHB - 3291.6842405815532 * dcZHB3 * dKlambda * dytHB - 1559.6600507789517 * dKlambda2 * dytHB 
+            - 212800.20942464058 * cggHB * dKlambda2 * dytHB + 3.499621075016396e7 * cggHB2 * dKlambda2 * dytHB + 2.9495867407085886e9 * cggHB3 * dKlambda2 * dytHB 
+            - 132.54584108464164 * dcZHB * dKlambda2 * dytHB - 704650.5551856682 * cggHB * dcZHB * dKlambda2 * dytHB 
+            - 4.6230021860231325e7 * cggHB2 * dcZHB * dKlambda2 * dytHB + 2725.1562726447282 * dcZHB2 * dKlambda2 * dytHB 
+            + 170792.06609378837 * cggHB * dcZHB2 * dKlambda2 * dytHB - 174.87036642817392 * dKlambda3 * dytHB + 72002.66692264378 * cggHB * dKlambda3 * dytHB 
+            + 1.2160354917437742e7 * cggHB2 * dKlambda3 * dytHB + 4.500393455278235e8 * cggHB3 * dKlambda3 * dytHB - 803.2846392439599 * dcZHB * dKlambda3 * dytHB 
+            - 104976.66749162102 * cggHB * dcZHB * dKlambda3 * dytHB - 3.555711022595523e6 * cggHB2 * dcZHB * dKlambda3 * dytHB 
+            + 84.29593960945068 * dKlambda4 * dytHB + 17206.19903788264 * cggHB * dKlambda4 * dytHB + 1.1939726430054472e6 * cggHB2 * dKlambda4 * dytHB 
+            + 2.773647081412465e7 * cggHB3 * dKlambda4 * dytHB + 7985.615632692477 * dytHB2 - 4.312707242837639e6 * cggHB * dytHB2 
+            + 4.446488644358661e8 * cggHB2 * dytHB2 - 5.669235052669609e9 * cggHB3 * dytHB2 + 59322.05816648064 * dcZHB * dytHB2 
+            - 1.0048203483978426e7 * cggHB * dcZHB * dytHB2 + 2.009903412514487e8 * cggHB2 * dcZHB * dytHB2 + 64971.66315898899 * dcZHB2 * dytHB2 
+            - 2.4669987769536236e6 * cggHB * dcZHB2 * dytHB2 + 11471.803789781865 * dcZHB3 * dytHB2 - 11811.249755773804 * dKlambda * dytHB2 
+            + 431747.7364057698 * cggHB * dKlambda * dytHB2 + 2.2358583287946397e8 * cggHB2 * dKlambda * dytHB2 - 3.8910877145439386e9 * cggHB3 * dKlambda * dytHB2 
+            - 16029.606555240167 * dcZHB * dKlambda * dytHB2 - 2.9253661324121524e6 * cggHB * dcZHB * dKlambda * dytHB2 
+            + 8.987023921425158e7 * cggHB2 * dcZHB * dKlambda * dytHB2 + 4717.219498302798 * dcZHB2 * dKlambda * dytHB2 
+            - 540895.9436706528 * cggHB * dcZHB2 * dKlambda * dytHB2 + 214.81067429237223 * dKlambda2 * dytHB2 + 567954.341114266 * cggHB * dKlambda2 * dytHB2 
+            + 4.5123619667514816e7 * cggHB2 * dKlambda2 * dytHB2 - 9.277345617086976e8 * cggHB3 * dKlambda2 * dytHB2 
+            - 3081.626211728115 * dcZHB * dKlambda2 * dytHB2 - 381097.4778098703 * cggHB * dcZHB * dKlambda2 * dytHB2 
+            + 1.050966209735231e7 * cggHB2 * dcZHB * dKlambda2 * dytHB2 + 1362.5781363223641 * dcZHB2 * dKlambda2 * dytHB2 
+            + 284.9520271687106 * dKlambda3 * dytHB2 + 127206.63260007375 * cggHB * dKlambda3 * dytHB2 + 6.267940600872645e6 * cggHB2 * dKlambda3 * dytHB2 
+            - 7.655202990726441e7 * cggHB3 * dKlambda3 * dytHB2 - 803.2846392439599 * dcZHB * dKlambda3 * dytHB2 - 52488.33374581051 * cggHB * dcZHB * dKlambda3 * dytHB2 
+            + 126.44390941417602 * dKlambda4 * dytHB2 + 17206.19903788264 * cggHB * dKlambda4 * dytHB2 + 596986.3215027236 * cggHB2 * dKlambda4 * dytHB2 
+            - 37223.626257417236 * dytHB3 + 8.269994128894571e6 * cggHB * dytHB3 - 2.9221928856272686e8 * cggHB2 * dytHB3 - 105038.22976459829 * dcZHB * dytHB3 
+            + 7.149383019204844e6 * cggHB * dcZHB * dytHB3 - 47474.492515326274 * dcZHB2 * dytHB3 + 11656.27418420629 * dKlambda * dytHB3 
+            + 2.385352845620739e6 * cggHB * dKlambda * dytHB3 - 1.8438201632292444e8 * cggHB2 * dKlambda * dytHB3 - 8524.8765354653 * dcZHB * dKlambda * dytHB3 
+            + 2.8867300035650665e6 * cggHB * dcZHB * dKlambda * dytHB3 - 9211.031646525304 * dcZHB2 * dKlambda * dytHB3 + 3263.1999469874036 * dKlambda2 * dytHB3 
+            + 44138.45406924717 * cggHB * dKlambda2 * dytHB3 - 4.193837918690795e7 * cggHB2 * dKlambda2 * dytHB3 + 1474.023437403278 * dcZHB * dKlambda2 * dytHB3 
+            + 322402.6653762193 * cggHB * dcZHB * dKlambda2 * dytHB3 + 116.36014794980927 * dKlambda3 * dytHB3 - 7370.4909474997985 * cggHB * dKlambda3 * dytHB3 
+            - 3.4305355944930054e6 * cggHB2 * dKlambda3 * dytHB3 - 267.7615464146533 * dcZHB * dKlambda3 * dytHB3 + 84.29593960945068 * dKlambda4 * dytHB3 
+            + 5735.3996792942135 * cggHB * dKlambda4 * dytHB3 + 66652.27308402126 * dytHB4 - 6.871040436399154e6 * cggHB * dytHB4 
+            + 9.22099747455498e7 * cggHB2 * dytHB4 + 92021.78032189047 * dcZHB * dytHB4 - 2.257899878309953e6 * cggHB * dcZHB * dytHB4 
+            + 16245.693309808961 * dcZHB2 * dytHB4 + 2838.4331580144003 * dKlambda * dytHB4 - 2.731422853592693e6 * cggHB * dKlambda * dytHB4 
+            + 4.274439860749665e7 * cggHB2 * dKlambda * dytHB4 + 15892.926730807862 * dcZHB * dKlambda * dytHB4 - 515009.5486394962 * cggHB * dcZHB * dKlambda * dytHB4 
+            - 1056.6073875703482 * dKlambda2 * dytHB4 - 482475.3464808796 * cggHB * dKlambda2 * dytHB4 + 5.170468004804585e6 * cggHB2 * dKlambda2 * dytHB4 
+            + 2613.194223645355 * dcZHB * dKlambda2 * dytHB4 - 427.75818525652596 * dKlambda3 * dytHB4 - 51130.51778000078 * cggHB * dKlambda3 * dytHB4 
+            + 21.07398490236267 * dKlambda4 * dytHB4 - 63203.969008703876 * dytHB5 + 3.151938475204292e6 * cggHB * dytHB5 - 42834.09620756765 * dcZHB * dytHB5 
+            - 12524.979109927113 * dKlambda * dytHB5 + 1.3421161655790398e6 * cggHB * dKlambda * dytHB5 - 8919.930319126936 * dcZHB * dKlambda * dytHB5 
+            - 849.49051561947 * dKlambda2 * dytHB5 + 158560.3321836832 * cggHB * dKlambda2 * dytHB5 - 263.0677528219873 * dKlambda3 * dytHB5 
+            + 37913.4502786983 * dytHB6 - 712582.2268647491 * cggHB * dytHB6 + 10593.332328402174 * dcZHB * dytHB6 + 8514.598993531516 * dKlambda * dytHB6 
+            - 169200.83566434312 * cggHB * dKlambda * dytHB6 + 1296.5492356304262 * dKlambda2 * dytHB6 - 13281.426292006341 * dytHB7 
+            - 2976.898633587163 * dKlambda * dytHB7 + 2684.433665848417 * dytHB8;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP15() const
