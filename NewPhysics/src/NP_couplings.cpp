@@ -1891,6 +1891,40 @@ double delgZqR::computeThValue()
 
 /* -------------------------------------*/
 
+oblS::oblS(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+oblS::~oblS()
+{}
+
+double oblS::computeThValue()
+{    
+    return (myNPbase->obliqueS());
+}
+
+/* -------------------------------------*/
+
+oblT::oblT(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+oblT::~oblT()
+{}
+
+double oblT::computeThValue()
+{    
+    return (myNPbase->obliqueT());
+}
+
+/* -------------------------------------*/
+
 oblW::oblW(const StandardModel& SM_i):
 
         ThObservable(SM_i), 

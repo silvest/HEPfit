@@ -444,6 +444,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["delgZbL"] = boost::bind(boost::factory<delgZqL*>(), _1, StandardModel::BOTTOM);
     obsThFactory["delgZbR"] = boost::bind(boost::factory<delgZqR*>(), _1, StandardModel::BOTTOM);
     obsThFactory["deltaMW"] = boost::factory<deltaMW*>();
+    //-----  Oblique Parameters ---------    
+    obsThFactory["oblSpar"] = boost::factory<oblS*>();
+    obsThFactory["oblTpar"] = boost::factory<oblT*>();
     obsThFactory["oblWpar"] = boost::factory<oblW*>();
     obsThFactory["oblYpar"] = boost::factory<oblY*>();
     //-----  Auxiliary observables to work with new physics  ----------

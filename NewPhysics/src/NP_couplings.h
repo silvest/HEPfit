@@ -3336,6 +3336,75 @@ private:
 //-----  Oblique parameters  ----------
 
 /**
+ * @class oblS
+ * @brief An observable class for the oblique parameter @f$S@f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the oblique parameter @f$S@f$.
+ *
+ */
+class oblS : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    oblS(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~oblS();
+
+    /**
+     * @brief The oblique parameter @f$S@f$.
+     * @return @f$S@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+/**
+ * @class oblT
+ * @brief An observable class for the oblique parameter @f$T@f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the oblique parameter @f$T@f$.
+ *
+ */
+class oblT : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    oblT(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblT class.
+     */
+    virtual ~oblT();
+
+    /**
+     * @brief The oblique parameter @f$T@f$.
+     * @return @f$T@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
  * @class oblW
  * @brief An observable class for the oblique parameter @f$W@f$
  * @author HEPfit Collaboration
