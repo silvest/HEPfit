@@ -7,5 +7,6 @@
 CATEGORIES ggH13 VBF13 WH13 ZH13
 MEASUREMENT ggF |1. 0. 0. 0.| 1.21 -0.21 0.22
 MEASUREMENT VBF |0. 1. 0. 0.| 0.62 -0.36 0.37
-MEASUREMENT WH |0. 0. 1. 0.| 3.2 -4.2 4.4
+#MEASUREMENT WH |0. 0. 1. 0.| 3.2 -4.2 4.4
 ##################
+#removed WH since superseded by arXiv:1903.10052 
