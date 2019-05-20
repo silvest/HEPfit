@@ -8,7 +8,7 @@
 #include "GeneralTHDM.h"
 #include "GeneralTHDMcache.h"
 
-const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", "Relambda5", "Imlambda5", "Relambda6", "Relambda7",
+std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", "Relambda5", "Imlambda5", "Relambda6", "Relambda7",
 "Nu_11r", "Nu_11i", "Nu_12r", "Nu_12i", "Nu_13r", "Nu_13i", 
 "Nu_21r", "Nu_21i", "Nu_22r", "Nu_22i", "Nu_23r", "Nu_23i", 
 "Nu_31r", "Nu_31i", "Nu_32r", "Nu_32i", "Nu_33r", "Nu_33i", 
@@ -23,74 +23,79 @@ const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mH
 GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
 
     SMM.setObj((StandardModelMatching&) GTHDMM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp2", boost::cref(mHp2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH2sq", boost::cref(mH2sq)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH3sq", boost::cref(mH3sq)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1", boost::cref(alpha1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2", boost::cref(alpha2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha3", boost::cref(alpha3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Relambda5", boost::cref(Relambda5)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Imlambda5", boost::cref(Imlambda5)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Relambda6", boost::cref(Relambda6)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Relambda7", boost::cref(Relambda7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_11r", boost::cref(Nu_11r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_11i", boost::cref(Nu_11i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_12r", boost::cref(Nu_12r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_12i", boost::cref(Nu_12i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_13r", boost::cref(Nu_13r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_13i", boost::cref(Nu_13i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_21r", boost::cref(Nu_21r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_21i", boost::cref(Nu_21i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_22r", boost::cref(Nu_22r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_22i", boost::cref(Nu_22i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_23r", boost::cref(Nu_23r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_23i", boost::cref(Nu_23i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_31r", boost::cref(Nu_31r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_31i", boost::cref(Nu_31i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_32r", boost::cref(Nu_32r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_32i", boost::cref(Nu_32i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_33r", boost::cref(Nu_33r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_33i", boost::cref(Nu_33i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_11r", boost::cref(Nd_11r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_11i", boost::cref(Nd_11i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_12r", boost::cref(Nd_12r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_12i", boost::cref(Nd_12i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_13r", boost::cref(Nd_13r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_13i", boost::cref(Nd_13i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_21r", boost::cref(Nd_21r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_21i", boost::cref(Nd_21i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_22r", boost::cref(Nd_22r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_22i", boost::cref(Nd_22i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_23r", boost::cref(Nd_23r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_23i", boost::cref(Nd_23i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_31r", boost::cref(Nd_31r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_31i", boost::cref(Nd_31i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_32r", boost::cref(Nd_32r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_32i", boost::cref(Nd_32i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_33r", boost::cref(Nd_33r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_33i", boost::cref(Nd_33i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_11r", boost::cref(Nl_11r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_11i", boost::cref(Nl_11i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_12r", boost::cref(Nl_12r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_12i", boost::cref(Nl_12i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_13r", boost::cref(Nl_13r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_13i", boost::cref(Nl_13i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_21r", boost::cref(Nl_21r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_21i", boost::cref(Nl_21i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_22r", boost::cref(Nl_22r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_22i", boost::cref(Nl_22i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_23r", boost::cref(Nl_23r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_23i", boost::cref(Nl_23i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_31r", boost::cref(Nl_31r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_31i", boost::cref(Nl_31i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_32r", boost::cref(Nl_32r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_32i", boost::cref(Nl_32i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_33r", boost::cref(Nl_33r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_33i", boost::cref(Nl_33i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_GTHDM", boost::cref(Q_GTHDM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("RpepsGTHDM", boost::cref(RpepsGTHDM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("NLOuniscaleGTHDM", boost::cref(NLOuniscaleGTHDM)));
+    ModelParamMap.insert(std::make_pair("logtb", std::cref(logtb)));
+    ModelParamMap.insert(std::make_pair("mHp1", std::cref(mHp1)));
+    ModelParamMap.insert(std::make_pair("mH21", std::cref(mH21)));
+    ModelParamMap.insert(std::make_pair("mH31", std::cref(mH31)));
+    ModelParamMap.insert(std::make_pair("mHp2", std::cref(mHp2)));
+    ModelParamMap.insert(std::make_pair("mH2sq", std::cref(mH2sq)));
+    ModelParamMap.insert(std::make_pair("mH3sq", std::cref(mH3sq)));
+    ModelParamMap.insert(std::make_pair("alpha1", std::cref(alpha1)));
+    ModelParamMap.insert(std::make_pair("alpha2", std::cref(alpha2)));
+    ModelParamMap.insert(std::make_pair("alpha3", std::cref(alpha3)));
+    ModelParamMap.insert(std::make_pair("Relambda5", std::cref(Relambda5)));
+    ModelParamMap.insert(std::make_pair("Imlambda5", std::cref(Imlambda5)));
+    ModelParamMap.insert(std::make_pair("Relambda6", std::cref(Relambda6)));
+    ModelParamMap.insert(std::make_pair("Relambda7", std::cref(Relambda7)));
+    ModelParamMap.insert(std::make_pair("Nu_11r", std::cref(Nu_11r)));
+    ModelParamMap.insert(std::make_pair("Nu_11i", std::cref(Nu_11i)));
+    ModelParamMap.insert(std::make_pair("Nu_12r", std::cref(Nu_12r)));
+    ModelParamMap.insert(std::make_pair("Nu_12i", std::cref(Nu_12i)));
+    ModelParamMap.insert(std::make_pair("Nu_13r", std::cref(Nu_13r)));
+    ModelParamMap.insert(std::make_pair("Nu_13i", std::cref(Nu_13i)));
+    ModelParamMap.insert(std::make_pair("Nu_21r", std::cref(Nu_21r)));
+    ModelParamMap.insert(std::make_pair("Nu_21i", std::cref(Nu_21i)));
+    ModelParamMap.insert(std::make_pair("Nu_22r", std::cref(Nu_22r)));
+    ModelParamMap.insert(std::make_pair("Nu_22i", std::cref(Nu_22i)));
+    ModelParamMap.insert(std::make_pair("Nu_23r", std::cref(Nu_23r)));
+    ModelParamMap.insert(std::make_pair("Nu_23i", std::cref(Nu_23i)));
+    ModelParamMap.insert(std::make_pair("Nu_31r", std::cref(Nu_31r)));
+    ModelParamMap.insert(std::make_pair("Nu_31i", std::cref(Nu_31i)));
+    ModelParamMap.insert(std::make_pair("Nu_32r", std::cref(Nu_32r)));
+    ModelParamMap.insert(std::make_pair("Nu_32i", std::cref(Nu_32i)));
+    ModelParamMap.insert(std::make_pair("Nu_33r", std::cref(Nu_33r)));
+    ModelParamMap.insert(std::make_pair("Nu_33i", std::cref(Nu_33i)));
+    ModelParamMap.insert(std::make_pair("Nd_11r", std::cref(Nd_11r)));
+    ModelParamMap.insert(std::make_pair("Nd_11i", std::cref(Nd_11i)));
+    ModelParamMap.insert(std::make_pair("Nd_12r", std::cref(Nd_12r)));
+    ModelParamMap.insert(std::make_pair("Nd_12i", std::cref(Nd_12i)));
+    ModelParamMap.insert(std::make_pair("Nd_13r", std::cref(Nd_13r)));
+    ModelParamMap.insert(std::make_pair("Nd_13i", std::cref(Nd_13i)));
+    ModelParamMap.insert(std::make_pair("Nd_21r", std::cref(Nd_21r)));
+    ModelParamMap.insert(std::make_pair("Nd_21i", std::cref(Nd_21i)));
+    ModelParamMap.insert(std::make_pair("Nd_22r", std::cref(Nd_22r)));
+    ModelParamMap.insert(std::make_pair("Nd_22i", std::cref(Nd_22i)));
+    ModelParamMap.insert(std::make_pair("Nd_23r", std::cref(Nd_23r)));
+    ModelParamMap.insert(std::make_pair("Nd_23i", std::cref(Nd_23i)));
+    ModelParamMap.insert(std::make_pair("Nd_31r", std::cref(Nd_31r)));
+    ModelParamMap.insert(std::make_pair("Nd_31i", std::cref(Nd_31i)));
+    ModelParamMap.insert(std::make_pair("Nd_32r", std::cref(Nd_32r)));
+    ModelParamMap.insert(std::make_pair("Nd_32i", std::cref(Nd_32i)));
+    ModelParamMap.insert(std::make_pair("Nd_33r", std::cref(Nd_33r)));
+    ModelParamMap.insert(std::make_pair("Nd_33i", std::cref(Nd_33i)));
+    ModelParamMap.insert(std::make_pair("Nl_11r", std::cref(Nl_11r)));
+    ModelParamMap.insert(std::make_pair("Nl_11i", std::cref(Nl_11i)));
+    ModelParamMap.insert(std::make_pair("Nl_12r", std::cref(Nl_12r)));
+    ModelParamMap.insert(std::make_pair("Nl_12i", std::cref(Nl_12i)));
+    ModelParamMap.insert(std::make_pair("Nl_13r", std::cref(Nl_13r)));
+    ModelParamMap.insert(std::make_pair("Nl_13i", std::cref(Nl_13i)));
+    ModelParamMap.insert(std::make_pair("Nl_21r", std::cref(Nl_21r)));
+    ModelParamMap.insert(std::make_pair("Nl_21i", std::cref(Nl_21i)));
+    ModelParamMap.insert(std::make_pair("Nl_22r", std::cref(Nl_22r)));
+    ModelParamMap.insert(std::make_pair("Nl_22i", std::cref(Nl_22i)));
+    ModelParamMap.insert(std::make_pair("Nl_23r", std::cref(Nl_23r)));
+    ModelParamMap.insert(std::make_pair("Nl_23i", std::cref(Nl_23i)));
+    ModelParamMap.insert(std::make_pair("Nl_31r", std::cref(Nl_31r)));
+    ModelParamMap.insert(std::make_pair("Nl_31i", std::cref(Nl_31i)));
+    ModelParamMap.insert(std::make_pair("Nl_32r", std::cref(Nl_32r)));
+    ModelParamMap.insert(std::make_pair("Nl_32i", std::cref(Nl_32i)));
+    ModelParamMap.insert(std::make_pair("Nl_33r", std::cref(Nl_33r)));
+    ModelParamMap.insert(std::make_pair("Nl_33i", std::cref(Nl_33i)));
+    ModelParamMap.insert(std::make_pair("Q_GTHDM", std::cref(Q_GTHDM)));
+    ModelParamMap.insert(std::make_pair("RpepsGTHDM", std::cref(RpepsGTHDM)));
+    ModelParamMap.insert(std::make_pair("NLOuniscaleGTHDM", std::cref(NLOuniscaleGTHDM)));
+    flag_use_sq_masses=true;
+
 }
 
 GeneralTHDM::~GeneralTHDM(){
@@ -159,12 +164,18 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             throw std::runtime_error("error in GeneralTHDM::SetParameter, tanb < 0!");
           }
         }
-    else if(name.compare("mHp2") == 0)
-        mHp2 = value;
-    else if(name.compare("mH2sq") == 0)
+    else if(name.compare("mH21") == 0 && !flag_use_sq_masses)
+        mH21 = value;
+    else if(name.compare("mH31") == 0 && !flag_use_sq_masses)
+        mH31 = value;
+    else if(name.compare("mHp1") == 0 && !flag_use_sq_masses)
+        mHp1 = value;
+    else if(name.compare("mH2sq") == 0 && flag_use_sq_masses)
         mH2sq = value;
-    else if(name.compare("mH3sq") == 0)
+    else if(name.compare("mH3sq") == 0 && flag_use_sq_masses)
         mH3sq = value;
+    else if(name.compare("mHp2") == 0 && flag_use_sq_masses)
+        mHp2 = value;
     else if(name.compare("alpha1") == 0) {
         alpha1 = value;
         cosalpha1 = cos(alpha1);
@@ -350,7 +361,16 @@ bool GeneralTHDM::setFlagStr(const std::string name, const std::string value)
 bool GeneralTHDM::setFlag(const std::string name, const bool value)
 {
     bool res = false;
-    if(name.compare("ATHDMflag") == 0) {
+    if(name.compare("use_sq_masses") == 0) {
+        flag_use_sq_masses = value;
+        res = true;
+        if (!flag_use_sq_masses) {
+           GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mH2sq"))] = "mH21";
+           GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mH3sq"))] = "mH31";
+           GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mHp2"))] = "mHp1";
+        }
+    }
+    else if(name.compare("ATHDMflag") == 0) {
     std::cout<<"ATHDMflag = "<< value<<std::endl;
         flag_ATHDM = value;
         res = true;
@@ -358,7 +378,7 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
     else if(name.compare("CPconservation") == 0) {
     std::cout<<"CPconservation = "<< value<<std::endl;
         flag_CPconservation = value;
-        res = true;
+        res = true;  
     }
     else
         res = StandardModel::setFlag(name,value);

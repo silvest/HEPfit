@@ -11,6 +11,7 @@
 #include <TFile.h>
 #include <TROOT.h>
 #include <TMath.h>
+#include <TH1D.h>
 #include <limits>
 
 

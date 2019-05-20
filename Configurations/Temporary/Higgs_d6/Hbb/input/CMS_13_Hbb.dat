@@ -1,0 +1,13 @@
+##################
+# CMS-PAS-HIG-16-003 (VBF), arXiv: 1804.03682 (ttH-lept), arXiv: 1803.06986 (ttH-all jet), arXiv: 1808.08242 (VH), arXiv: 1709.0554 (Boosted)
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, VH fraction|
+##################
+CATEGORIES ggH13 ttH13 VBF13 VH13
+MEASUREMENT VBF |0. 0. 1. 0.| -3.7 -2.5 2.4
+MEASUREMENT ttH_lept |0. 1. 0. 0.| 0.72 -0.45 0.45
+MEASUREMENT ttH_alljet |0. 1. 0. 0.| 0.9 -1.5 1.5
+MEASUREMENT VH |0. 0. 0. 1.| 1.06 -0.26 0.26
+MEASUREMENT Boosted |0.75 0.05 0.12 0.08| 2.3 -1.5524 1.8028
+##################

@@ -9,6 +9,8 @@
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_odeiv2.h>
+#include "THDM.h"
+#include "THDMquantities.h"
 
 Runner::Runner(const StandardModel& SM_i) : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
 {

@@ -14,25 +14,25 @@ std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma",/*"mHh1","mA1","mHp1",*/"
 
 THDM::THDM() : StandardModel(), THDMM(*this) {
     SMM.setObj((StandardModelMatching&) THDMM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bma", boost::cref(bma)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh1", boost::cref(mHh1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA1", boost::cref(mA1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp1", boost::cref(mHp1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh2", boost::cref(mHh2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA2", boost::cref(mA2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp2", boost::cref(mHp2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m12_2", boost::cref(m12_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_SM", boost::cref(BDtaunu_SM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_A", boost::cref(BDtaunu_A)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_B", boost::cref(BDtaunu_B)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_SM", boost::cref(BDstartaunu_SM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_A", boost::cref(BDstartaunu_A)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_B", boost::cref(BDstartaunu_B)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_theoryerror", boost::cref(bsgamma_theoryerror)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_THDM", boost::cref(Q_THDM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Rpeps", boost::cref(Rpeps)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("NLOuniscale", boost::cref(NLOuniscale)));
+    ModelParamMap.insert(std::make_pair("logtb", std::cref(logtb)));
+    ModelParamMap.insert(std::make_pair("bma", std::cref(bma)));
+    ModelParamMap.insert(std::make_pair("mHh1", std::cref(mHh1)));
+    ModelParamMap.insert(std::make_pair("mA1", std::cref(mA1)));
+    ModelParamMap.insert(std::make_pair("mHp1", std::cref(mHp1)));
+    ModelParamMap.insert(std::make_pair("mHh2", std::cref(mHh2)));
+    ModelParamMap.insert(std::make_pair("mA2", std::cref(mA2)));
+    ModelParamMap.insert(std::make_pair("mHp2", std::cref(mHp2)));
+    ModelParamMap.insert(std::make_pair("m12_2", std::cref(m12_2)));
+    ModelParamMap.insert(std::make_pair("BDtaunu_SM", std::cref(BDtaunu_SM)));
+    ModelParamMap.insert(std::make_pair("BDtaunu_A", std::cref(BDtaunu_A)));
+    ModelParamMap.insert(std::make_pair("BDtaunu_B", std::cref(BDtaunu_B)));
+    ModelParamMap.insert(std::make_pair("BDstartaunu_SM", std::cref(BDstartaunu_SM)));
+    ModelParamMap.insert(std::make_pair("BDstartaunu_A", std::cref(BDstartaunu_A)));
+    ModelParamMap.insert(std::make_pair("BDstartaunu_B", std::cref(BDstartaunu_B)));
+    ModelParamMap.insert(std::make_pair("bsgamma_theoryerror", std::cref(bsgamma_theoryerror)));
+    ModelParamMap.insert(std::make_pair("Q_THDM", std::cref(Q_THDM)));
+    ModelParamMap.insert(std::make_pair("Rpeps", std::cref(Rpeps)));
+    ModelParamMap.insert(std::make_pair("NLOuniscale", std::cref(NLOuniscale)));
     flag_use_sq_masses=true;
 }
 

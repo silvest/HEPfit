@@ -131,7 +131,7 @@ Expanded<gslpp::vector<gslpp::complex> > HeffDF1::ComputeCoeff(double mu, scheme
 
     for (i = 0; i < mc.size(); i++)
     {
-        Vmu_cache[i] = mc[i].getMu();
+        Vmu_cache.push_back(mc[i].getMu());
         coeff.setCoeff(coeff.getCoeff() + evolDF1.DF1Evol(mu, mc[i].getMu(), mc[i].getScheme()) * mc[i].getCoeff()); // multiple matching scales wrong for EW corrections *** TO BE FIXED 
     }
 

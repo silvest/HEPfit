@@ -125,10 +125,51 @@ public:
     
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to Sr b b\bar \to b\bar b  b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr b\bar b}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
      */
     double pp_Srbb_bbbb_TH13;
     
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr b b\bar \to b\bar b  b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr b\bar b}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     */
+    double pp_Srbb_bbbb_TH8;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Si b b\bar \to b\bar b  b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si b\bar b}\cdot BR^{\text{THDMW}}(Si \to b\bar b)@f$
+     */
+    double pp_Sibb_bbbb_TH13;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Si b b\bar \to b\bar b  b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si b\bar b}\cdot BR^{\text{THDMW}}(Si \to b\bar b)@f$
+     */
+    double pp_Sibb_bbbb_TH8;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr \to  b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     */
+    double pp_Sr_bb_TH13;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Sr \to  b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     */
+    double pp_Sr_bb_TH8;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Si  \to b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si }\cdot BR^{\text{THDMW}}(Si \to b\bar b)@f$
+     */
+    double pp_Si_bb_TH13;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to Si  \to b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to Si }\cdot BR^{\text{THDMW}}(Si \to b\bar b)@f$
+     */
+    double pp_Si_bb_TH8;
     
     /**
      * @brief log of cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
@@ -152,6 +193,19 @@ public:
     
     double THoEX_pp_Srbb_bbbb;
     
+    double THoEX_pp_Srbb_bbbb_8TeV;
+    
+    double THoEX_pp_Sibb_bbbb;
+    
+    double THoEX_pp_Sibb_bbbb_8TeV;
+    
+    double THoEX_pp_Sr_bb;
+    
+    double THoEX_pp_Sr_bb_8TeV;
+    
+    double THoEX_pp_Si_bb;
+    
+    double THoEX_pp_Si_bb_8TeV;
 
     
     
@@ -306,7 +360,14 @@ private:
     
     
     //mutable double logip_th_pp_SrSr_jjjj_cache[5][CacheSize];
+    mutable double ip_th_pp_Si_bb_8TeV_cache[4][CacheSize];
+    mutable double ip_th_pp_Si_bb_cache[4][CacheSize];
+    mutable double ip_th_pp_Sr_bb_8TeV_cache[5][CacheSize];
+    mutable double ip_th_pp_Sr_bb_cache[5][CacheSize];
+    mutable double ip_th_pp_Sibb_bbbb_cache[4][CacheSize];
+    mutable double ip_th_pp_Sibb_bbbb_8TeV_cache[4][CacheSize];
     mutable double ip_th_pp_Srbb_bbbb_cache[5][CacheSize];
+    mutable double ip_th_pp_Srbb_bbbb_8TeV_cache[5][CacheSize];
     mutable double ip_th_pp_Sitt_tttt_cache[4][CacheSize];
     mutable double ip_th_pp_Stb_tbtb_cache[4][CacheSize];
     mutable double ip_th_pp_SrSr_jjjj_cache[5][CacheSize];
@@ -326,6 +387,7 @@ private:
     mutable double ip_ex_pp_H_hh_bbbb_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bbbb_ATLAS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_phi_bb_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_bb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_bb_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bbbb_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bbbb_CMS13_cache_e[2][CacheSize];
@@ -407,6 +469,11 @@ private:
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
      */
     gslpp::matrix<double> CMS13_pp_phi_bb, CMS13_pp_H_hh_bbbb, CMS13_ggF_H_hh_bbbb;
+    
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> CMS8_pp_phi_bb;
 
     /**
      * @brief CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
@@ -511,6 +578,41 @@ private:
      * @brief Table for xsection times branching ratio for p p -> Sr bbar b -> b bbar b bbar  generated with Madgraph
      */
     gslpp::matrix<double> MadGraph_pp_Srbb_bbbb;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Sr bbar b -> b bbar b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Srbb_bbbb_8TeV;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Si bbar b -> b bbar b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Sibb_bbbb;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Si bbar b -> b bbar b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Sibb_bbbb_8TeV;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Si -> b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Si_bb;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Si -> b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Si_bb_8TeV;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Sr  -> b bbar  generated with Madgraph
+     */
+    gslpp::matrix<double> MadGraph_pp_Sr_bb;
+    
+    /**
+     * @brief Table for xsection times branching ratio for p p -> Sr  -> b bbar  generated with Madgraph at 8 TeV
+     */
+    gslpp::matrix<double> MadGraph_pp_Sr_bb_8TeV;
     
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -629,12 +731,20 @@ private:
      */
     double ip_ex_pp_H_hh_bbbb_ATLAS13_e(double mass);
     
-        /**
+    /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to a b quark pair.
      * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi \to b\bar b)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-PAS-HIG-16-025, Figure 5 @cite CMS:2016ncz.
      */
     double ip_ex_pp_phi_bb_CMS13(double mass);
+    
+    
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to a b quark pair.
+     * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi \to b\bar b)]_{\text{CMS,95\%}}@f$
+     * @details Taken from 180206149.
+     */
+    double ip_ex_pp_phi_bb_CMS8(double mass);
 
     /**
      * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to a b quark pair.
@@ -763,51 +873,103 @@ private:
      * @return xsection times branching ratio of pp -> Sr -> t tbar
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Sr_tt(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_Sr_tt(double etaD, double etaU, double Lambda4, double mSr);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr t tbar -> t tbar t tbar
      * @return xsection times branching ratio of pp -> Sr t tbar-> t tbar t tbar
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Srtt_tttt(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_Srtt_tttt(double etaD, double etaU, double Lambda4, double mSr);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr   -> j j 
      * @return xsection times branching ratio of pp -> Sr -> j j
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Sr_jj(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_Sr_jj(double etaD, double etaU, double Lambda4, double mSr);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr  Sr ->j j j j 
      * @return xsection times branching ratio of pp -> Sr Sr -> j j j j
      * @details Generated with MadGraph
      */
-    double ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mSr);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> S+ tbar b -> t bbar tbar b 
      * @return xsection times branching ratio of p p -> S+ tbar b -> t bbar tbar b 
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Stb_tbtb(double etaD, double etaU, double mass);
+    double ip_th_pp_Stb_tbtb(double etaD, double etaU, double mS);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Si tbar t -> t tbar tbar t 
      * @return xsection times branching ratio of p p -> Si tbar t -> t tbar tbar t 
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Sitt_tttt(double etaD, double etaU, double mass);
+    double ip_th_pp_Sitt_tttt(double etaD, double etaU, double mS);
     
     /**
      * @brief Interpolating function for the theoretical value of p p -> Sr b bbar -> b bbar b bbar
      * @return xsection times branching ratio of pp -> Sr b bbar-> b bbar b bbar
      * @details Generated with MadGraph
      */
-    double ip_th_pp_Srbb_bbbb(double etaD, double etaU, double Lambda4, double mass);
+    double ip_th_pp_Srbb_bbbb(double etaD, double etaU, double Lambda4, double mSr);
+    
+        /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr b bbar -> b bbar b bbar
+     * @return xsection times branching ratio of pp -> Sr b bbar-> b bbar b bbar
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Srbb_bbbb_8TeV(double etaD, double etaU, double Lambda4, double mSr);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Si bbar b -> b bbar bbar b 
+     * @return xsection times branching ratio of p p -> Si bbar b -> b bbar bbar b 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sibb_bbbb(double etaD, double etaU, double mS);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Si bbar b -> b bbar bbar b 
+     * @return xsection times branching ratio of p p -> Si bbar b -> b bbar bbar b 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sibb_bbbb_8TeV(double etaD, double etaU, double mS);
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr  ->  b bbar
+     * @return xsection times branching ratio of pp -> Sr -> b bbar
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sr_bb(double etaD, double etaU, double Lambda4, double mSr);
+    
+        
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Sr  ->  b bbar at 8 TeV
+     * @return xsection times branching ratio of pp -> Sr -> b bbar
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Sr_bb_8TeV(double etaD, double etaU, double Lambda4, double mSr);
     
     
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Si -> b bbar 
+     * @return xsection times branching ratio of p p -> Si  -> b bbar 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Si_bb(double etaD, double etaU, double mS);
+    
+    
+    
+    
+    /**
+     * @brief Interpolating function for the theoretical value of p p -> Si -> b bbar 
+     * @return xsection times branching ratio of p p -> Si  -> b bbar 
+     * @details Generated with MadGraph
+     */
+    double ip_th_pp_Si_bb_8TeV(double etaD, double etaU, double mS);
     
     
     /**

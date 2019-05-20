@@ -9,8 +9,9 @@
 #define	THDMWPOSITIVITY_H
 
 #include "ThObservable.h"
-#include "THDMW.h"
-#include "THDMWcache.h"
+
+class THDMW;
+class THDMWcache;
 
 /**
  * @class THDMWpositivity

@@ -80,6 +80,8 @@ namespace gslpp
       matrix<double> transpose() const;
       /** Inverse matrix */
       matrix<double> inverse();
+      /** Check is matrix is singular to avoid errors in lu.c **/
+      bool isSingular();
       /** Determinant matrix */
       double determinant();
       /** Eigenvalues and eigenvectors */

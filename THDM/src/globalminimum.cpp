@@ -6,7 +6,12 @@
  */
 
 #include "globalminimum.h"
-#include "StandardModel.h"
+#include "THDM.h"
+
+globalminimum::globalminimum(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+{
+};
 
 double globalminimum::computeThValue()
 {

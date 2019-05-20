@@ -6,6 +6,8 @@
  */
 
 #include "GeneralTHDMstability.h"
+#include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 stability_GTHDM::stability_GTHDM(const StandardModel& SM_i)
 : myGTHDM(static_cast<const GeneralTHDM&> (SM_i)), vecMinus1(4,-1.), vecStability(4,0.)

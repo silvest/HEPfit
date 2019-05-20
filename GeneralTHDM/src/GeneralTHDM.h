@@ -37,7 +37,7 @@ class GeneralTHDM: public NPbase {
 public:
 
     static const int NGeneralTHDMvars = 68;
-    static const std::string GeneralTHDMvars[NGeneralTHDMvars];
+    static std::string GeneralTHDMvars[NGeneralTHDMvars];
 
     /**
      * @brief GeneralTHDM constructor
@@ -128,41 +128,71 @@ public:
         return cosb;
     }
 
-    /**
-     * @return mass squared of the charged Higgs
+/**
+     *
+     * @return squared charged Higgs mass
      */
     double getmHp2() const {
-        return mHp2;
+        if(flag_use_sq_masses) {
+            return mHp2;
+        }
+        else
+        {
+            return mHp1*mHp1;
+        }
     }
 
-    /**
-     * @return mass of the charged Higgs
+     /**
+     *
+     * @return charged Higgs mass
      */
     double getmHp() const {
-    if(mHp2 < 0.) {
-            throw std::runtime_error("error in GeneralTHDM: mHp2 < 0!");
+        if(flag_use_sq_masses) {
+            if(mHp2 < 0.) {
+                throw std::runtime_error("error in GeneralTHDM: mHp2 < 0!");
+            }
+            else
+            {
+                return sqrt(mHp2);
+            }
+        }
+        else
+        {
+                return mHp1;
+        }
     }
-        return sqrt(mHp2);
-    }
+
 
     /**
      * @return Second neutral mass eigenvalue
      */
     double getmH2sq() const {
-    if(mH2sq < 0.) {
-            throw std::runtime_error("error in GeneralTHDM: mH2sq < 0!");
-    }
-        return mH2sq;
+        if(flag_use_sq_masses) {
+             if(mH2sq < 0.) {
+                throw std::runtime_error("error in GeneralTHDM: mH2sq < 0!");
+            }
+                return mH2sq;
+            }
+         else
+        {
+            return mH21*mH21;
+        }
     }
 
-    /**
+      /**
      * @return Third neutral mass eigenvalue
      */
-    double getmH3sq() const {
-    if(mH3sq < 0.) {
-            throw std::runtime_error("error in GeneralTHDM: mH3sq < 0!");
-    }
-        return mH3sq;
+      double getmH3sq() const {
+        if(flag_use_sq_masses) {
+             if(mH3sq < 0.) {
+                throw std::runtime_error("error in GeneralTHDM: mH3sq < 0!");
+            }
+                return mH3sq;
+            }
+         else
+        {
+            return mH31*mH31;
+        }
     }
 
     /**
@@ -580,6 +610,15 @@ public:
     std::string getRGEorderflag() const {
         return flag_RGEorder;
     }
+    
+     /**
+     *
+     * @return Choose if you want to use the THDM masses or rather their squares
+     */
+    bool getsqmassesflag() const {
+        return flag_use_sq_masses;
+    }
+
 
     virtual double muggH(const double sqrt_s) const;
     virtual double muVBF(const double sqrt_s) const;
@@ -669,7 +708,7 @@ private:
 
     GeneralTHDMcache* myGTHDMcache;
 
-    double logtb, tanb, sinb, cosb, mHp2, mH2sq, mH3sq, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
+    double logtb, tanb, sinb, cosb, mHp2, mH2sq, mH3sq, mHp1, mH21, mH31, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
             alpha3, cosalpha3, sinalpha3, Relambda5, Imlambda5, Relambda6, Relambda7,
             Nu_11r, Nu_11i, Nu_12r, Nu_12i, Nu_13r, Nu_13i, 
             Nu_21r, Nu_21i, Nu_22r, Nu_22i, Nu_23r, Nu_23i, 
@@ -681,7 +720,7 @@ private:
             Nl_21r, Nl_21i, Nl_22r, Nl_22i, Nl_23r, Nl_23i, 
             Nl_31r, Nl_31i, Nl_32r, Nl_32i, Nl_33r, Nl_33i, 
             Q_GTHDM, RpepsGTHDM, NLOuniscaleGTHDM;
-    bool flag_ATHDM, flag_CPconservation;
+    bool flag_ATHDM, flag_CPconservation, flag_use_sq_masses;
     std::string flag_RGEorder;
 };
 

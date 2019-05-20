@@ -18,9 +18,7 @@
 
 #include "GeneralTHDMcache.h"
 #include "GeneralTHDMEWPO.h"
-#include "StandardModel.h"
 #include <gsl/gsl_sf_dilog.h>
-#include <math.h>
 #include "GeneralTHDM.h"
 
 
@@ -76,43 +74,16 @@ double Rb0GTHDM::computeThValue()
     
     
     double Qb = myGTHDM.getQuarks(QCD::BOTTOM).getCharge();
-    double Qt = myGTHDM.getQuarks(QCD::TOP).getCharge();
+//    double Qt = myGTHDM.getQuarks(QCD::TOP).getCharge();
     
 
        
-    double gAb = SM.getQuarks(QCD::BOTTOM).getIsospin();
-    double gVb = SM.getQuarks(QCD::BOTTOM).getIsospin()-2.0*SM.getQuarks(QCD::BOTTOM).getCharge()*SM.sW2();
-    double gbRSM = (gVb - gAb)/2.;
-    double gbLSM = (gVb + gAb)/2.;
+    /*double gAb = SM.getQuarks(QCD::BOTTOM).getIsospin();
+    double gVb = SM.getQuarks(QCD::BOTTOM).getIsospin()-2.0*SM.getQuarks(QCD::BOTTOM).getCharge()*SM.sW2();*/
+    double gbRSM = -0.42112;
+    double gbLSM = 0.07744;
 
-    double gVU = SM.getQuarks(QCD::UP).getIsospin();
-    double gAU = SM.getQuarks(QCD::UP).getIsospin()-2.0*SM.getQuarks(QCD::UP).getCharge()*SM.sW2();
-    double gbLSMU = (1.0/2.0)*(gVU+gAU);
-    double gbRSMU = (1.0/2.0)*(gVU-gAU);
-    
-    double gVD = SM.getQuarks(QCD::DOWN).getIsospin();
-    double gAD = SM.getQuarks(QCD::DOWN).getIsospin()-2.0*SM.getQuarks(QCD::DOWN).getCharge()*SM.sW2();
-    double gbLSMD = (1.0/2.0)*(gVD+gAD);
-    double gbRSMD = (1.0/2.0)*(gVD-gAD);
-    
-    double gVC = SM.getQuarks(QCD::CHARM).getIsospin();
-    double gAC = SM.getQuarks(QCD::CHARM).getIsospin()-2.0*SM.getQuarks(QCD::CHARM).getCharge()*SM.sW2();
-    double gbLSMC = (1.0/2.0)*(gVC+gAC);
-    double gbRSMC = (1.0/2.0)*(gVC-gAC);
-    
-    double gVS = SM.getQuarks(QCD::STRANGE).getIsospin();
-    double gAS = SM.getQuarks(QCD::STRANGE).getIsospin()-2.0*SM.getQuarks(QCD::STRANGE).getCharge()*SM.sW2();
-    double gbLSMS = (1.0/2.0)*(gVS+gAS);
-    double gbRSMS = (1.0/2.0)*(gVS-gAS);
-    
-
-    
-    double su = ((gbLSMU - gbRSMU)*(gbLSMU - gbRSMU)+ (gbLSMU+ gbRSMU)*(gbLSMU+ gbRSMU))*(1.0 + 3.0*a*Qt*Qt/(4*pi));
-    double sd = ((gbLSMD- gbRSMD)*(gbLSMD- gbRSMD)+ (gbLSMD+ gbRSMD)*(gbLSMD+ gbRSMD))*(1.0 + 3.0*a*Qb*Qb/(4*pi));
-    double sc = ((gbLSMC- gbRSMC)*(gbLSMC- gbRSMC)+ (gbLSMC+ gbRSMC)* (gbLSMC+ gbRSMC))*(1.0 + 3.0*a*Qt*Qt/(4*pi));
-    double ss = ((gbLSMS- gbRSMS)*(gbLSMS- gbRSMS)+ (gbLSMS+ gbRSMS)* (gbLSMS+ gbRSMS))*(1.0 + 3.0*a*Qb*Qb/(4*pi));
-    
-    double Sb = su+sd+sc+ss;
+    double Sb = 1.3214;
     
   
         

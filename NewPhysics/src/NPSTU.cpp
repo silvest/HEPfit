@@ -16,9 +16,9 @@ const std::string NPSTU::STUvars[NSTUvars]
 NPSTU::NPSTU()
 : NPbase()
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueS", boost::cref(myObliqueS)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueT", boost::cref(myObliqueT)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueU", boost::cref(myObliqueU)));
+    ModelParamMap.insert(std::make_pair("obliqueS", std::cref(myObliqueS)));
+    ModelParamMap.insert(std::make_pair("obliqueT", std::cref(myObliqueT)));
+    ModelParamMap.insert(std::make_pair("obliqueU", std::cref(myObliqueU)));
 }
 
 void NPSTU::setParameter(const std::string name, const double& value)

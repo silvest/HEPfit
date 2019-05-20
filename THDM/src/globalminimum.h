@@ -8,9 +8,9 @@
 #ifndef GLOBALMINIMUM_H
 #define	GLOBALMINIMUM_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDM.h"
+
+class THDM;
 
 /**
  * @class globalminimum 
@@ -28,10 +28,7 @@ public:
      * @brief Constructor.
      * @param[in] ?
      */
-    globalminimum(const StandardModel& SM_i) 
-    : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
-    {
-    };
+    globalminimum(const StandardModel& SM_i);
 
     /**
      * @brief A condition to assure that our vacuum is global.

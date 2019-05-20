@@ -20,6 +20,7 @@
 #include <stdexcept>
 #include <ctime>
 #include <iostream>
+#include <iomanip>
 
 
 MonteCarlo::MonteCarlo(
@@ -174,7 +175,6 @@ void MonteCarlo::Run(const int rank) {
             if (rank == 0) throw std::runtime_error("No relevant parameters being varied. Aborting MCMC run.\n");
             else sleep(2);
         }
-        if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
 
         /* create a directory for outputs */
         if (rank == 0) {
@@ -203,8 +203,7 @@ void MonteCarlo::Run(const int rank) {
                 obsbuffsize += it1->getObs().size();
 
             while (true) {
-                MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
-                        recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+                MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
                 if (recvbuff[0] == 0.) { // do nothing and return ll
                     double ll = log(0.);
@@ -249,8 +248,9 @@ void MonteCarlo::Run(const int rank) {
             delete [] sendbuff;
 #endif
         } else {
-
-            std::cout << std::endl;
+            ParseMCMCConfig(MCMCConf);
+            if (!RunMinuitOnly) std::cout << std::endl << "\nRunning in MonteCarlo mode...\n" << std::endl;
+            else std::cout << std::endl << "\nRunning Minuit Minimizer..." << std::endl;
             std::cout << std::endl;
             if (ModPars.size() > 0) std::cout << ModPars.size() - unknownParameters.size() << " parameters defined." << std::endl;
             if (Obs.size() > 0) std::cout << Obs.size() << " observables defined." << std::endl;
@@ -260,23 +260,45 @@ void MonteCarlo::Run(const int rank) {
                     it1 != CGO.end(); ++it1)
                 std::cout << "  " << it1->getName() << " containing "
                 << it1->getObs().size() << " observables." << std::endl;
-            ParseMCMCConfig(MCMCConf);
-            char mbstr[100];
-            std::time_t ti = std::time(NULL); 
-            std::time_t tf = std::time(NULL);
+            std::cout << std::endl;
                                   
-            if (RunMinuitOnly) { 
-                if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) std::cout << "\nMinuit Minimization started at " <<  mbstr << std::endl; 
+            if (RunMinuitOnly) {
                 BCLog::OpenLog(("MinuitMinimizationResults" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
+                RedirectHandle_t * rHandle = NULL;
+                gSystem->RedirectOutput(("MinuitMinimizationResults" + JobTag + ".txt").c_str(), "a", rHandle);
+                std::time_t ti = std::time(NULL);
+#if __GNUC__ >= 5 || defined __clang__
+                std::cout << "\nMinuit Minimization started at " << std::put_time(std::localtime(&ti), "%c %Z") << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
+#else
+                char mitime[128];
+                strftime(mitime,sizeof(mitime),"%c %Z", std::localtime(&ti));
+                std::cout << "\nMinuit Minimization started at " << mitime << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
+#endif      
+                std::cout << "          " <<std::endl;
+                std::cout << "\t\t*** Minimizer Options ***" << std::endl;
+                MCEngine.GetMinuit().Options().Print();
+                std::cout << "          " <<std::endl;
                 MCEngine.FindMode();
-                if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) std::cout << "\nMinuit Minimization ended at " <<  mbstr << std::endl;
+                std::time_t tf = std::time(NULL);
+#if __GNUC__ >= 5 || defined __clang__
+                std::cout << "\nMinuit Minimization ended at " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
+#else
+                char mftime[128];
+                strftime(mitime,sizeof(mftime),"%c %Z", std::localtime(&tf));
+                std::cout << "\nMinuit Minimization ended at " << mftime << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
+#endif                
+                gSystem->RedirectOutput(0);
+                BCLog::OutSummary(("Minuit results printed in MinuitMinimizationResults" + JobTag + ".txt").c_str());
+                BCLog::SetPrefix(false);
+                BCLog::OutSummary("");
+                BCLog::SetPrefix(true);
+                BCLog::CloseLog();               
+                MCEngine.GetMinuit().PrintResults();
+                std::cout << std::endl;
                 return;
             }
   
             MCEngine.CreateHistogramMaps();
-            
-            if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
-                throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
             
             /* Open root file for storing data. */
             if (writechains) {
@@ -290,17 +312,37 @@ void MonteCarlo::Run(const int rank) {
                 if (MCEngine.getchainedObsSize() > 0) MCEngine.AddChains();
             }
             // set nicer style for drawing than the ROOT default
-            BCAux::SetStyle();
-
+//            BCAux::SetStyle();
+            
+            std::time_t ti = std::time(NULL);
+#if __GNUC__ >= 5 || defined __clang__
+            std::cout << "\nMCMC run started at " << std::put_time(std::localtime(&ti), "%c %Z") << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
+#else
+            char mitime[128];
+            strftime(mitime,sizeof(mitime),"%c %Z", std::localtime(&ti));
+            std::cout << "\nMCMC run started at " << mitime << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
+#endif
             // open log file
             BCLog::OpenLog(("log" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
-
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
-            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) std::cout << "MCMC Run started at " <<  mbstr << std::endl; 
             MCEngine.MarginalizeAll();
-            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) std::cout << "MCMC Run ended at " <<  mbstr << std::endl; 
+            std::time_t tf = std::time(NULL);
+#if __GNUC__ >= 5 || defined __clang__
+            std::cout << "\nMCMC run ended at  " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << std::endl;
+#else
+            char mftime[128];
+            strftime(mftime,sizeof(mftime),"%c %Z", std::localtime(&tf));
+            std::cout << "\nMCMC run ended at " << mftime << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
+#endif            
+            int hour = (tf-ti)/3600;
+            int min = ((tf-ti)%3600) / 60;
+            int sec = ((tf-ti)%3600) % 60;
+            std::cout << "Time taken by the MCMC run: ";
+            std::cout << std::setfill('0') << std::setw(2) << hour << ":"; 
+            std::cout << std::setfill('0') << std::setw(2) << min  << ":" ;
+            std::cout << std::setfill('0') << std::setw(2) << sec   << "\n" << std::endl;
 
             // find mode using the best fit parameters as start values
             if (FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
@@ -349,16 +391,21 @@ void MonteCarlo::Run(const int rank) {
 
             /* Number of events */
             std::stringstream ss;
+            ss << ""; 
+            BCLog::SetPrefix(false);
+            BCLog::OutSummary(ss.str().c_str());
+            BCLog::SetPrefix(true);
             ss << "Number of used events: " << MCEngine.getNumOfUsedEvents();
             BCLog::OutSummary(ss.str().c_str());
             ss.str("");
-            ss << "Number of discarded events: " << MCEngine.getNumOfDiscardedEvents();
+            ss << "Number of discarded events: " << MCEngine.getNumOfDiscardedEvents() << "\n";
             BCLog::OutSummary(ss.str().c_str());
             // close log file
             BCLog::CloseLog();
             
             // print results of the analysis into a text file
-            BCLog::OpenLog(("MonteCarlo_results" + JobTag + ".txt").c_str(), BCLog::results, BCLog::nothing);
+            BCLog::SetPrefix(false);
+            BCLog::OpenLog(("MonteCarlo_results" + JobTag + ".txt").c_str(), BCLog::summary, BCLog::nothing);
             MCEngine.PrintSummary();
             BCLog::CloseLog();
             
@@ -398,8 +445,7 @@ void MonteCarlo::Run(const int rank) {
                 sendbuff[il] = sendbuff[il - 1] + buffsize;
                 sendbuff[il][0] = -1.; //Exit command
             }
-            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
-                    recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             delete sendbuff[0];
             delete [] sendbuff;
 #endif
@@ -591,30 +637,39 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
                 throw std::runtime_error("\nERROR: Histogram2DAlpha in the MonteCarlo configuration file: " + MCMCConf + " can only be a real number greater than 0.0 and less than or equal to 1.0.\n");
         } else if (beg->compare("NBinsHistogram1D") == 0) {
             ++beg;
-            double nBins1D = atoi((*beg).c_str());
+            unsigned int nBins1D = atoi((*beg).c_str());
             if (nBins1D >= 0) MCEngine.setNBins1D(nBins1D);
             else throw std::runtime_error("\nERROR: NBinsHistogram1D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
         } else if (beg->compare("NBinsHistogram2D") == 0) {
             ++beg;
-            double nBins2D = atoi((*beg).c_str());
+            unsigned int nBins2D = atoi((*beg).c_str());
             if (nBins2D >= 0) MCEngine.setNBins2D(nBins2D);
             else throw std::runtime_error("\nERROR: NBinsHistogram2D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
+        } else if (beg->compare("InitialPositionAttemptLimit") == 0) {
+            ++beg;
+            unsigned int max_tries = atoi((*beg).c_str());
+            if (max_tries > 0) MCEngine.SetInitialPositionAttemptLimit(max_tries);
+            else if (max_tries == 0) MCEngine.SetInitialPositionAttemptLimit(100);
+            else throw std::runtime_error("\nERROR: InitialPositionAttemptLimit in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
         } else if (beg->compare("SignificantDigits") == 0) {
             ++beg;
-            int significants = atoi((*beg).c_str());
+            unsigned int significants = atoi((*beg).c_str());
             if (significants >= 0) MCEngine.setSignificants(significants);
             else throw std::runtime_error("\nERROR: SignificantDigits in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
         } else if (beg->compare("HistogramBufferSize") == 0) {
             ++beg;
-            int histogramBufferSize = atoi((*beg).c_str());
+            unsigned int histogramBufferSize = atoi((*beg).c_str());
             if (histogramBufferSize >= 0) MCEngine.setHistogramBufferSize(histogramBufferSize);
             else throw std::runtime_error("\nERROR: HistogramBufferSize in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
     } while (!IsEOF);
-    
+    if (FindModeWithMinuit || RunMinuitOnly) 
+        MCEngine.SetOptimizationMethod(BCIntegrate::kOptMinuit);
     if (MCEngine.GetMaximumEfficiency() <= MCEngine.GetMinimumEfficiency()) 
-                throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
+        throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
+     if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
+        throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
 }
 
 void MonteCarlo::ReadPreRunData(std::string file)

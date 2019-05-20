@@ -9,8 +9,9 @@
 #define THDMWSIGNALSTRENGTHS_H
 
 #include "NPbase.h"
-#include "THDMW.h"
-#include "THDMWcache.h"
+
+class THDMW;
+class THDMWcache;
 
 class THDMWSignalStrengths : public NPbase {
 public:

@@ -15,8 +15,8 @@ const std::string NPSTUZbbbarLR::STUZbbbarLRvars[NSTUZbbbarLRvars]
 NPSTUZbbbarLR::NPSTUZbbbarLR()
 : NPSTU()
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGLb", boost::cref(myDeltaGLb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGRb", boost::cref(myDeltaGRb)));
+    ModelParamMap.insert(std::make_pair("deltaGLb", std::cref(myDeltaGLb)));
+    ModelParamMap.insert(std::make_pair("deltaGRb", std::cref(myDeltaGRb)));
 }
 
 void NPSTUZbbbarLR::setParameter(const std::string name, const double& value)

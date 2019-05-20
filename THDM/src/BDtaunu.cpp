@@ -6,7 +6,7 @@
  */
 
 #include "BDtaunu.h"
-#include "StandardModel.h"
+#include "THDM.h"
 
 BDtaunu::BDtaunu(const StandardModel& SM_i): 
 

@@ -12,8 +12,6 @@
 #include "Meson.h"
 #include "BParameter.h"
 #include "OrderScheme.h"
-#include <boost/functional/factory.hpp>
-#include <boost/function.hpp>
 #define MEPS 1.e-10 // mass precision
 
 /**
@@ -231,11 +229,6 @@
  *   <td class="mod_desc">The decay constant of the \f$ B_s \f$ meson in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FBsoFBd</td>
- *   <td class="mod_symb">@f$F_{B_d}/F_{B_d}@f$</td>
- *   <td class="mod_desc">The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.</td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%BK1 - %BK5</td>
  *   <td class="mod_symb">@f$B^1_{K} - B^5_{K}@f$</td>
  *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta s = 2 \f$ processes in \f$ K^0 \f$.</td>
@@ -398,7 +391,7 @@
  * <tr>
  *   <td class="mod_name">%Gambino_mupi2, %Gambino_rhoD3, %Gambino_muG2, %Gambino_rhoLS3</td>
  *   <td class="mod_symb">@f$\mu_{\pi}^{2,\,\rm Gambino}, \rho_{D}^{3,\,\rm Gambino}, \mu_{G}^{2,\,\rm Gambino}, \rho_{LS}^{3,\,\rm Gambino}@f$</td>
- *   <td class="mod_desc">The B meson expecation values for the relevant dim. 5 and 6 operators fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
+ *   <td class="mod_desc">The B meson expectation values for the relevant dim. 5 and 6 operators fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
  * </tr>
  * </table>
  *
@@ -472,7 +465,7 @@
  *  \right)\ln L + \frac{\beta_1^{'2}}{\beta_0^{'2}}-\frac{\beta_1^2}{\beta_0^2}-\frac{\beta_2^{'2}}{\beta_0^{'2}}
  *  +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{'}}{\beta_0^{'}}C_1-C_1^2-C_2\right]+
  *  O\left(\frac{\ln^2L}{L^2}\right),
- * @f}
+ * @f{eqnarray}
  * where the primed (unprimed) quantities refer to those pertaining to \f$N_f-1\f$ \f$(N_f)\f$. 
  * The terms \f$C_1\f$ and \f$C_2\f$ are given by
  * @f[
@@ -519,7 +512,7 @@
  *  {\beta_0^{'}}\right)\ln L^{'}+\frac{\beta_1^{2}}{\beta_0^{2}}-\frac{\beta_1^{'2}}{\beta_0^{'2}}-
  *  \frac{\beta_2^{2}}{\beta_0^{2}}+\frac{\beta_2^{'2}}{\beta_0^{'2}}+\frac{\beta_1}{\beta_0}C_1^{'}-C_1^{'2}-
  *  C_2^{'}\right]+O\left(\frac{\ln^2L}{L^2}\right),
- * @f}
+ * @f{eqnarray}
  * where
  * @f[
  *  C_1^{'} = -\frac{2}{3}\ln\frac{\mu^2}{m_t^2},\qquad
@@ -639,6 +632,9 @@ public:
         K_star, /**< @f$K^*@f$ meson */
         K_star_P, /**< @f$K^{*,\pm}@f$ meson */
         D_star_P, /**< @f$D^{*,\pm}@f$ meson */
+        RHO, /**< @f$\rho@f$ meson */
+        RHO_P, /**< @f$\rho@f$ meson */
+        OMEGA, /**< @f$\omega@f$ meson */
         MESON_END /**< The size of this enum. */
     };
     
@@ -982,19 +978,20 @@ public:
     double Nf(const double mu) const;
 
     /**
-     * @brief Threshold corrections in matching als(nf+1) with als(nf) from eq. (34) of hep-ph/0512060
+     * @brief Threshold corrections in matching \f$\alpha_s(n_f+1)\f$ with \f$\alpha_s(n_f)\f$ 
+     * from eq. (34) of hep-ph/0512060
      * @param[in] mu the matching scale
      * @param[in] M the running quark mass
-     * @param[in] als value of als(mu) in the nf flavour theory
+     * @param[in] als value of \f$\alpha_s(\mu)\f$  in the \f$n_f\f$ flavour theory
      * @param[in] nf number of active flavour
-     * @param[in] order order of the expansion in als 
+     * @param[in] order order of the expansion in  \f$\alpha_s\f$
      * @return Threshold correction (without the leading term equal to 1)
      */
     double NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const;
     
     /**
      * @brief Return the FULLORDER enum corresponding to order
-     * @param[in] order of the expansion in als 
+     * @param[in] order of the expansion in \f$\alpha_s\f$
      * @return the FULLORDER enum corresponding to order
      */
     orders FullOrder(orders order) const;
@@ -1083,7 +1080,7 @@ public:
      * @param[in] mu the scale at which \f$\alpha_s\f$ has to be computed
      * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\f$
      *
-     * @attention Temporary function waiting for the implementation of NNLO etact.
+     * @attention Temporary function waiting for the implementation of NNLO exact.
      */
     double Als4(const double mu) const;
 
@@ -1094,7 +1091,7 @@ public:
      * @param[in] m the mass at the scale \f$\mu_i\f$
      * @return the mass at the scale \f$\mu_f\f$ with \f$n_f = 4\f$
      *
-     * @attention Temporary function waiting for the implementation of NNLO etact.
+     * @attention Temporary function waiting for the implementation of NNLO exact.
      */
     double Mrun4(const double mu_f, const double mu_i, const double m) const;
 
@@ -1215,7 +1212,6 @@ protected:
     double mut; ///< The threshold between six- and five-flavour theory in GeV. 
     double mub; ///< The threshold between five- and four-flavour theory in GeV. 
     double muc; ///< The threshold between four- and three-flavour theory in GeV. 
-    double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     
     double Nc; ///< The number of colours.
     double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
@@ -1300,10 +1296,10 @@ private:
 
     /**
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNLO.
-     * @param[in] nfNEW the number of flavours after crossing the flavour threshold
-     * @param[in] nfORG the number of flavours before crossing the flavour threshold
-     * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = nfORG\f$
-     * @return \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = nfNEW\f$
+     * @param[in] nfNEW the number of flavours after crossing the flavour threshold, \f$n_{f}^{\mathrm{NEW}}\f$ 
+     * @param[in] nfORG the number of flavours before crossing the flavour threshold, \f$n_{f}^{\mathrm{ORG}}\f$
+     * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = n_{f}^{\mathrm{ORG}}\f$
+     * @return \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = n_{f}^{\mathrm{NEW}}\f$
      */
     double logLambdaNLO(const double nfNEW, const double nfORG, const double logLambdaORG) const;
 
@@ -1311,11 +1307,11 @@ private:
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNNLO.
      * @param[in] muMatching the scale at which the matching is done during crossing a flavour threshold
      * @param[in] mf the mass of the quark sitting at the flavour threshold being crossed
-     * @param[in] nfNEW the number of flavours after crossing the flavour threshold
-     * @param[in] nfORG the number of flavours before crossing the flavour threshold
-     * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = nfORG\f$
+     * @param[in] nfNEW the number of flavours after crossing the flavour threshold, \f$n_{f}^{\mathrm{NEW}}\f$ 
+     * @param[in] nfORG the number of flavours before crossing the flavour threshold, \f$n_{f}^{\mathrm{ORG}}\f$
+     * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = n_{f}^{\mathrm{ORG}}\f$
      * @param[in] order the %QCD order of the calculation
-     * @return \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = nfNEW\f$
+     * @return \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = n_{f}^{\mathrm{NEW}}\f$
      */
     double logLambda(const double muMatching, const double mf,
             const double nfNEW, const double nfORG,
@@ -1325,7 +1321,7 @@ private:
      * @brief The threshold correction for running of a mass when crossing a flavour threshold.
      * @param[in] nf_f the number of flavours \f$n_f\f$ after crossing the threshold
      * @param[in] nf_i the number of flavours \f$n_i\f$ before crossing the threshold
-     * @return the threshold correction factoe
+     * @return the threshold correction factor
      */
     double threCorrForMass(const double nf_f, const double nf_i) const;
 

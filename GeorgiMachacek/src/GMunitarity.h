@@ -9,9 +9,8 @@
 #define	GMUNITARITY_H
 
 #include "ThObservable.h"
-#include "GeorgiMachacek.h"
-#include "GMcache.h"
-//#include <gslpp.h>
+
+class GeorgiMachacek;
 
 /**
  * @class GMunitarityLO

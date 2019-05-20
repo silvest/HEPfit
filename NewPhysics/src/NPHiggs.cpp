@@ -15,14 +15,14 @@ const std::string NPHiggs::NPHIGGSvars[NNPHIGGSvars]
 NPHiggs::NPHiggs()
 : NPbase(), LambdaNP_in(0.0)
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a", boost::cref(a)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("b", boost::cref(b)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c_u", boost::cref(c_u)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c_d", boost::cref(c_d)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c_e", boost::cref(c_e)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("d_3", boost::cref(d_3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("d_4", boost::cref(d_4)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("LambdaNP", boost::cref(LambdaNP_in)));
+    ModelParamMap.insert(std::make_pair("a", std::cref(a)));
+    ModelParamMap.insert(std::make_pair("b", std::cref(b)));
+    ModelParamMap.insert(std::make_pair("c_u", std::cref(c_u)));
+    ModelParamMap.insert(std::make_pair("c_d", std::cref(c_d)));
+    ModelParamMap.insert(std::make_pair("c_e", std::cref(c_e)));
+    ModelParamMap.insert(std::make_pair("d_3", std::cref(d_3)));
+    ModelParamMap.insert(std::make_pair("d_4", std::cref(d_4)));
+    ModelParamMap.insert(std::make_pair("LambdaNP", std::cref(LambdaNP_in)));
 
 }
 

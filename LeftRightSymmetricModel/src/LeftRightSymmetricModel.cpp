@@ -21,31 +21,31 @@ LeftRightSymmetricModel::LeftRightSymmetricModel() : StandardModel(),
 U(5, 5, 0.), LRSMM(*this)
 {
     SMM.setObj((StandardModelMatching&) LRSMM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH1p_2", boost::cref(mH1p_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH2p_2", boost::cref(mH2p_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mdeltappR_2", boost::cref(mdeltappR_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("xi_LRSM", boost::cref(xi_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mWR", boost::cref(mWR)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda1_LRSM", boost::cref(lambda1_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda2_LRSM", boost::cref(lambda2_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda3_LRSM", boost::cref(lambda3_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda4_LRSM", boost::cref(lambda4_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rho1_LRSM", boost::cref(rho1_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rho4_LRSM", boost::cref(rho4_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1_LRSM", boost::cref(alpha1_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2_LRSM", boost::cref(alpha2_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha_LRSM", boost::cref(alpha_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delta2_LRSM", boost::cref(delta2_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("thetaR12_LRSM", boost::cref(thetaR12_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("thetaR13_LRSM", boost::cref(thetaR13_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("thetaR23_LRSM", boost::cref(thetaR23_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR1_LRSM", boost::cref(phiR1_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR2_LRSM", boost::cref(phiR2_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR3_LRSM", boost::cref(phiR3_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR4_LRSM", boost::cref(phiR4_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR5_LRSM", boost::cref(phiR5_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR6_LRSM", boost::cref(phiR6_LRSM)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_LRSM", boost::cref(Q_LRSM)));
+    ModelParamMap.insert(std::make_pair("mH1p_2", std::cref(mH1p_2)));
+    ModelParamMap.insert(std::make_pair("mH2p_2", std::cref(mH2p_2)));
+    ModelParamMap.insert(std::make_pair("mdeltappR_2", std::cref(mdeltappR_2)));
+    ModelParamMap.insert(std::make_pair("xi_LRSM", std::cref(xi_LRSM)));
+    ModelParamMap.insert(std::make_pair("mWR", std::cref(mWR)));
+    ModelParamMap.insert(std::make_pair("lambda1_LRSM", std::cref(lambda1_LRSM)));
+    ModelParamMap.insert(std::make_pair("lambda2_LRSM", std::cref(lambda2_LRSM)));
+    ModelParamMap.insert(std::make_pair("lambda3_LRSM", std::cref(lambda3_LRSM)));
+    ModelParamMap.insert(std::make_pair("lambda4_LRSM", std::cref(lambda4_LRSM)));
+    ModelParamMap.insert(std::make_pair("rho1_LRSM", std::cref(rho1_LRSM)));
+    ModelParamMap.insert(std::make_pair("rho4_LRSM", std::cref(rho4_LRSM)));
+    ModelParamMap.insert(std::make_pair("alpha1_LRSM", std::cref(alpha1_LRSM)));
+    ModelParamMap.insert(std::make_pair("alpha2_LRSM", std::cref(alpha2_LRSM)));
+    ModelParamMap.insert(std::make_pair("alpha_LRSM", std::cref(alpha_LRSM)));
+    ModelParamMap.insert(std::make_pair("delta2_LRSM", std::cref(delta2_LRSM)));
+    ModelParamMap.insert(std::make_pair("thetaR12_LRSM", std::cref(thetaR12_LRSM)));
+    ModelParamMap.insert(std::make_pair("thetaR13_LRSM", std::cref(thetaR13_LRSM)));
+    ModelParamMap.insert(std::make_pair("thetaR23_LRSM", std::cref(thetaR23_LRSM)));
+    ModelParamMap.insert(std::make_pair("phiR1_LRSM", std::cref(phiR1_LRSM)));
+    ModelParamMap.insert(std::make_pair("phiR2_LRSM", std::cref(phiR2_LRSM)));
+    ModelParamMap.insert(std::make_pair("phiR3_LRSM", std::cref(phiR3_LRSM)));
+    ModelParamMap.insert(std::make_pair("phiR4_LRSM", std::cref(phiR4_LRSM)));
+    ModelParamMap.insert(std::make_pair("phiR5_LRSM", std::cref(phiR5_LRSM)));
+    ModelParamMap.insert(std::make_pair("phiR6_LRSM", std::cref(phiR6_LRSM)));
+    ModelParamMap.insert(std::make_pair("Q_LRSM", std::cref(Q_LRSM)));
 }
 
 LeftRightSymmetricModel::~LeftRightSymmetricModel(){

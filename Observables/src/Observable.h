@@ -11,9 +11,9 @@
 #include "ThObservable.h"
 #include <string>
 #include <iostream>
-#include <TH1D.h>
-#include <TMatrixD.h>
 #include <boost/tokenizer.hpp>
+
+class TH1D;
 
 /**
  * @class Observable

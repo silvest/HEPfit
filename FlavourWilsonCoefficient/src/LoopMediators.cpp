@@ -13,6 +13,7 @@ LoopMediators::LoopMediators() : StandardModel(), LoopMediatorsM(*this)
 {   
 
     SMM.setObj((StandardModelMatching&) LoopMediatorsM.getObj());
+<<<<<<< HEAD
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("GammaL", boost::cref(GammaL)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("GammaR", boost::cref(GammaR)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("GammamuL", boost::cref(GammamuL)));
@@ -22,8 +23,16 @@ LoopMediators::LoopMediators() : StandardModel(), LoopMediatorsM(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("yD", boost::cref(yD)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("yE", boost::cref(yE)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("charge", boost::cref(charge)));
+=======
+    ModelParamMap.insert(std::make_pair("GammaL", std::cref(GammaL)));
+    ModelParamMap.insert(std::make_pair("GammaR", std::cref(GammaR)));
+    ModelParamMap.insert(std::make_pair("Gammamu", std::cref(Gammamu)));
+    ModelParamMap.insert(std::make_pair("mphi", std::cref(mphi)));
+    ModelParamMap.insert(std::make_pair("yQ", std::cref(yQ)));
+    ModelParamMap.insert(std::make_pair("yL", std::cref(yL)));
+>>>>>>> 6bb408aa8f85e3f2cd52d16d85b7b05008afaa9e
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("WCscale", boost::cref(WCscale)));
+    ModelParamMap.insert(std::make_pair("WCscale", std::cref(WCscale)));
 }
 
 LoopMediators::~LoopMediators()

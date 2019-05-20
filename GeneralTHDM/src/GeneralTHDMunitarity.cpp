@@ -6,6 +6,8 @@
  */
 
 #include "GeneralTHDMunitarity.h"
+#include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 unitarity_GTHDM::unitarity_GTHDM(const StandardModel& SM_i)
 : myGTHDM(static_cast<const GeneralTHDM&> (SM_i)), Smat21(3,3,0.), Smat01(4,4,0.), Smat00(4,4,0.),

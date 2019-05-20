@@ -22,11 +22,11 @@
 #include "EWSMApproximateFormulae.h"
 #include "LeptonFlavour.h"
 #include "gslpp_function_adapter.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
 #include "EWSMTwoFermionsLEP2.h"
 #include <functional>
 #include <boost/bind.hpp>
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
   
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", 
@@ -91,9 +91,9 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     myThreeLoopEW2QCD = NULL;
     myThreeLoopEW = NULL;
     myApproximateFormulae = NULL;
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     myTwoFermionsLEP2 = NULL;
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
 
     // Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
     leptons[NEUTRINO_1] = Particle("NEUTRINO_1", 0., 0., 0., 0., .5);
@@ -103,32 +103,32 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     leptons[MU] = Particle("MU", 0., 0., 0., -1., -.5);
     leptons[TAU] = Particle("TAU", 0., 0., 0., -1., -.5);
 
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mz", boost::cref(Mz)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("AlsMz", boost::cref(AlsMz)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("GF", boost::cref(GF)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ale", boost::cref(ale)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dAle5Mz", boost::cref(dAle5Mz)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHl", boost::cref(mHl)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delMw", boost::cref(delMw)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delSin2th_l", boost::cref(delSin2th_l)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delSin2th_q", boost::cref(delSin2th_q)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delSin2th_b", boost::cref(delSin2th_b)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delGammaZ", boost::cref(delGammaZ)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delsigma0H", boost::cref(delsigma0H)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0l", boost::cref(delR0l)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0c", boost::cref(delR0c)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0b", boost::cref(delR0b)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_1", boost::cref(leptons[NEUTRINO_1].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_2", boost::cref(leptons[NEUTRINO_2].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_3", boost::cref(leptons[NEUTRINO_3].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("melectron", boost::cref(leptons[ELECTRON].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mmu", boost::cref(leptons[MU].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mtau", boost::cref(leptons[TAU].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda", boost::cref(lambda)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("A", boost::cref(A)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rhob", boost::cref(rhob)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("etab", boost::cref(etab)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muw", boost::cref(muw)));
+    ModelParamMap.insert(std::make_pair("Mz", std::cref(Mz)));
+    ModelParamMap.insert(std::make_pair("AlsMz", std::cref(AlsMz)));
+    ModelParamMap.insert(std::make_pair("GF", std::cref(GF)));
+    ModelParamMap.insert(std::make_pair("ale", std::cref(ale)));
+    ModelParamMap.insert(std::make_pair("dAle5Mz", std::cref(dAle5Mz)));
+    ModelParamMap.insert(std::make_pair("mHl", std::cref(mHl)));
+    ModelParamMap.insert(std::make_pair("delMw", std::cref(delMw)));
+    ModelParamMap.insert(std::make_pair("delSin2th_l", std::cref(delSin2th_l)));
+    ModelParamMap.insert(std::make_pair("delSin2th_q", std::cref(delSin2th_q)));
+    ModelParamMap.insert(std::make_pair("delSin2th_b", std::cref(delSin2th_b)));
+    ModelParamMap.insert(std::make_pair("delGammaZ", std::cref(delGammaZ)));
+    ModelParamMap.insert(std::make_pair("delsigma0H", std::cref(delsigma0H)));
+    ModelParamMap.insert(std::make_pair("delR0l", std::cref(delR0l)));
+    ModelParamMap.insert(std::make_pair("delR0c", std::cref(delR0c)));
+    ModelParamMap.insert(std::make_pair("delR0b", std::cref(delR0b)));
+    ModelParamMap.insert(std::make_pair("mneutrino_1", std::cref(leptons[NEUTRINO_1].getMass())));
+    ModelParamMap.insert(std::make_pair("mneutrino_2", std::cref(leptons[NEUTRINO_2].getMass())));
+    ModelParamMap.insert(std::make_pair("mneutrino_3", std::cref(leptons[NEUTRINO_3].getMass())));
+    ModelParamMap.insert(std::make_pair("melectron", std::cref(leptons[ELECTRON].getMass())));
+    ModelParamMap.insert(std::make_pair("mmu", std::cref(leptons[MU].getMass())));
+    ModelParamMap.insert(std::make_pair("mtau", std::cref(leptons[TAU].getMass())));
+    ModelParamMap.insert(std::make_pair("lambda", std::cref(lambda)));
+    ModelParamMap.insert(std::make_pair("A", std::cref(A)));
+    ModelParamMap.insert(std::make_pair("rhob", std::cref(rhob)));
+    ModelParamMap.insert(std::make_pair("etab", std::cref(etab)));
+    ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
     
     iterationNo = 0;
     realorder = LO;
@@ -148,9 +148,9 @@ StandardModel::~StandardModel()
         if (myThreeLoopEW != NULL) delete(myThreeLoopEW);
         if (myApproximateFormulae != NULL) delete(myApproximateFormulae);
         if (myLeptonFlavour != NULL) delete(myLeptonFlavour);
-        /** BEGIN: REMOVE FROM THE PACKAGE **/
+        /* BEGIN: REMOVE FROM THE PACKAGE */
         if (myTwoFermionsLEP2 != NULL) delete(myTwoFermionsLEP2);
-        /** END: REMOVE FROM THE PACKAGE **/
+        /* END: REMOVE FROM THE PACKAGE */
     }
 }
 
@@ -169,9 +169,9 @@ bool StandardModel::InitializeModel()
     myThreeLoopEW = new EWSMThreeLoopEW(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopEW.
     myApproximateFormulae = new EWSMApproximateFormulae(*myEWSMcache); ///< A pointer to an object of type EWSMApproximateFormulae.
     myLeptonFlavour = new LeptonFlavour(*this);
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(*myEWSMcache); ///< A pointer to an object of type EWSMTwoFermionsLEP2.
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
     setModelInitialized(true);
     return (true);
 }
@@ -2229,7 +2229,7 @@ double StandardModel::RVh() const
     return ( gV_sum.abs2()*(-0.4132 * AlsMzPi3 - 4.9841 * AlsMzPi4));
 }
 
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
 ////////////////////////////////////////////////////////////////////////////////////
 //LEP2 Observables
 
@@ -7705,4 +7705,4 @@ double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207(double x) const
     double s = 207. * 207.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */

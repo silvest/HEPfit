@@ -6,6 +6,7 @@
  */
 
 #include "NP_couplings.h"
+#include "NPbase.h"
 
 
 //-----  Zff couplings observables  ----------
@@ -1484,7 +1485,44 @@ double deltalHHH::computeThValue()
 
 //-----  VVV couplings observables  ----------
 
-// See aTGC in EW
+// See aTGC in EW. Here we define only the Effective couplings used in arXiv: 1708.09079 [hep-ph]
+
+/* -------------------------------------*/
+
+deltag1ZEff::deltag1ZEff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltag1ZEff::~deltag1ZEff()
+{}
+
+double deltag1ZEff::computeThValue()
+{
+    return myNPbase->deltag1ZNPEff();
+}
+
+/* -------------------------------------*/
+
+deltaKgammaEff::deltaKgammaEff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+deltaKgammaEff::~deltaKgammaEff()
+{}
+
+double deltaKgammaEff::computeThValue()
+{
+    return myNPbase->deltaKgammaNPEff();
+}
+
+/* -------------------------------------*/
 
 //-----  Basic interactions of the so-called Higgs basis  ----------
 
@@ -1688,6 +1726,24 @@ double cggHB::computeThValue()
 
 /* -------------------------------------*/
 
+cggEffHB::cggEffHB(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+cggEffHB::~cggEffHB()
+{}
+
+double cggEffHB::computeThValue()
+{
+    return myNPbase->cggEff_HB();
+}
+
+/* -------------------------------------*/
+
 lambzHB::lambzHB(const StandardModel& SM_i):
 
         ThObservable(SM_i), 
@@ -1740,40 +1796,88 @@ double deltaMW::computeThValue()
 
 /* -------------------------------------*/
 
-delgZeL::delgZeL(const StandardModel& SM_i):
+delgZlL::delgZlL(const StandardModel& SM_i, const StandardModel::lepton lepton):
 
         ThObservable(SM_i), 
         myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
-
-
-delgZeL::~delgZeL()
-{}
-
-double delgZeL::computeThValue()
 {
-    double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::ELECTRON));
-    double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::ELECTRON));
+    this->lepton = lepton;
+}
+
+
+delgZlL::~delgZlL()
+{}
+
+double delgZlL::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getLeptons(lepton));
+    double dgA = myNPbase->deltaGA_f(SM.getLeptons(lepton));
     
     return 0.5*(dgV + dgA);
 }
 
 /* -------------------------------------*/
 
-delgZeR::delgZeR(const StandardModel& SM_i):
+delgZlR::delgZlR(const StandardModel& SM_i, const StandardModel::lepton lepton):
 
         ThObservable(SM_i), 
         myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
-
-
-delgZeR::~delgZeR()
-{}
-
-double delgZeR::computeThValue()
 {
-    double dgV = myNPbase->deltaGV_f(SM.getLeptons(StandardModel::ELECTRON));
-    double dgA = myNPbase->deltaGA_f(SM.getLeptons(StandardModel::ELECTRON));
+    this->lepton = lepton;
+}
+
+
+delgZlR::~delgZlR()
+{}
+
+double delgZlR::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getLeptons(lepton));
+    double dgA = myNPbase->deltaGA_f(SM.getLeptons(lepton));
+
+    return 0.5*(dgV - dgA);
+}
+
+/* -------------------------------------*/
+
+delgZqL::delgZqL(const StandardModel& SM_i, const StandardModel::quark quark):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+    this->quark = quark;
+}
+
+
+delgZqL::~delgZqL()
+{}
+
+double delgZqL::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getQuarks(quark));
+    double dgA = myNPbase->deltaGA_f(SM.getQuarks(quark));
+    
+    return 0.5*(dgV + dgA);
+}
+
+/* -------------------------------------*/
+
+delgZqR::delgZqR(const StandardModel& SM_i, const StandardModel::quark quark):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+    this->quark = quark;
+}
+
+
+delgZqR::~delgZqR()
+{}
+
+double delgZqR::computeThValue()
+{
+    double dgV = myNPbase->deltaGV_f(SM.getQuarks(quark));
+    double dgA = myNPbase->deltaGA_f(SM.getQuarks(quark));
 
     return 0.5*(dgV - dgA);
 }
@@ -1784,6 +1888,40 @@ double delgZeR::computeThValue()
 //-----  Oblique parameters  ----------
 
 /* -------------------------------------*/
+
+/* -------------------------------------*/
+
+oblS::oblS(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+oblS::~oblS()
+{}
+
+double oblS::computeThValue()
+{    
+    return (myNPbase->obliqueS());
+}
+
+/* -------------------------------------*/
+
+oblT::oblT(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+oblT::~oblT()
+{}
+
+double oblT::computeThValue()
+{    
+    return (myNPbase->obliqueT());
+}
 
 /* -------------------------------------*/
 
@@ -1926,6 +2064,258 @@ AuxObsNP6::~AuxObsNP6()
 double AuxObsNP6::computeThValue()
 {    
     return (myNPbase->AuxObs_NP6());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP7::AuxObsNP7(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP7::~AuxObsNP7()
+{}
+
+double AuxObsNP7::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP7());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP8::AuxObsNP8(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP8::~AuxObsNP8()
+{}
+
+double AuxObsNP8::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP8());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP9::AuxObsNP9(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP9::~AuxObsNP9()
+{}
+
+double AuxObsNP9::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP9());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP10::AuxObsNP10(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP10::~AuxObsNP10()
+{}
+
+double AuxObsNP10::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP10());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP11::AuxObsNP11(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP11::~AuxObsNP11()
+{}
+
+double AuxObsNP11::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP11());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP12::AuxObsNP12(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP12::~AuxObsNP12()
+{}
+
+double AuxObsNP12::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP12());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP13::AuxObsNP13(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP13::~AuxObsNP13()
+{}
+
+double AuxObsNP13::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP13());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP14::AuxObsNP14(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP14::~AuxObsNP14()
+{}
+
+double AuxObsNP14::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP14());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP15::AuxObsNP15(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP15::~AuxObsNP15()
+{}
+
+double AuxObsNP15::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP15());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP16::AuxObsNP16(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP16::~AuxObsNP16()
+{}
+
+double AuxObsNP16::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP16());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP17::AuxObsNP17(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP17::~AuxObsNP17()
+{}
+
+double AuxObsNP17::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP17());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP18::AuxObsNP18(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP18::~AuxObsNP18()
+{}
+
+double AuxObsNP18::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP18());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP19::AuxObsNP19(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP19::~AuxObsNP19()
+{}
+
+double AuxObsNP19::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP19());
+}
+
+/* -------------------------------------*/
+
+
+AuxObsNP20::AuxObsNP20(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+AuxObsNP20::~AuxObsNP20()
+{}
+
+double AuxObsNP20::computeThValue()
+{    
+    return (myNPbase->AuxObs_NP20());
 }
 
 /* -------------------------------------*/

@@ -339,7 +339,7 @@ void MVll::updateParameters()
             etaV = -1;
             angmomV = 1.;
 
-            b = 0.489;
+            b = 1.; //0.489;
 
             SU3_breaking = 1. + gslpp::complex(mySM.getOptionalParameter("SU3_breaking_abs"),
                     mySM.getOptionalParameter("SU3_breaking_arg"), true);
@@ -1134,7 +1134,7 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate, bool spline)
 
 gslpp::complex MVll::Cq34(bool conjugate)
 {
-    gslpp::complex T_t = -C_3 + 4. / 3. * (C_4 + 12. * C_5 + 16. * C_6);
+    gslpp::complex T_t = C_3 + 4. / 3. * (C_4 + 12. * C_5 + 16. * C_6);
     gslpp::complex T_u = 0.; /* 0 for K*0, phi*/
     if (meson == QCD::B_P) T_u = -3. * C_2;
     else if (vectorM == QCD::PHI) T_t = T_t + 6. * (C_3 + 10. * C_5);
@@ -1242,8 +1242,8 @@ gslpp::complex MVll::T_perp_plus_QSS(double q2, double u, bool conjugate)
     gslpp::complex t_perp_0 = t_perp(q2, u, 0.);
     double ed = -0.333333333;   
 
-    gslpp::complex T_t = (eu * t_perp_mc * (C_1 / 6. + C_2 + 6. * C_6)
-            + ed * t_perp_mb * (C_3 - C_4/6. + 16. * C_5 + 10. * C_6/3. + mb_pole / MM * (-C_3 + C_4/6. - 4. * C_5 + 2. * C_6/3.))
+    gslpp::complex T_t = (eu * t_perp_mc * (-C_1 / 6. + C_2 + 6. * C_6)
+            + ed * t_perp_mb * (C_3 - C_4/6. + 16. * C_5 + 10. * C_6/3. + 4. * mb_pole / MM * (-C_3 + C_4/6. - 4. * C_5 + 2. * C_6/3.))
             + ed * t_perp_0 * (C_3 - C_4/6. + 16. * C_5 - 8. * C_6/3.));
 
     gslpp::complex T_u = eu * (t_perp_mc - t_perp_0)*(C_2 - C_1 / 6.);
@@ -1251,7 +1251,7 @@ gslpp::complex MVll::T_perp_plus_QSS(double q2, double u, bool conjugate)
     if (!conjugate) return alpha_s_mub / (3. * M_PI) * MM / (2. * mb_pole)*(T_t + lambda_u / lambda_t * T_u);
     else return alpha_s_mub / (3. * M_PI) * MM / (2. * mb_pole)*(T_t + (lambda_u / lambda_t).conjugate() * T_u);
 #else
-    return alpha_s_mub / (3. * M_PI) * MM / (2. * mb_pole)*(eu * t_perp_mc * (C_1 / 6. + C_2 + 6. * C_6));
+    return alpha_s_mub / (3. * M_PI) * MM / (2. * mb_pole)*(eu * t_perp_mc * (-C_1 / 6. + C_2 + 6. * C_6));
 #endif    
 }
 

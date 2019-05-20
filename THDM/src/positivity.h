@@ -8,10 +8,12 @@
 #ifndef POSITIVITY_H
 #define	POSITIVITY_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDM.h"
-#include "THDMquantities.h"
+
+
+class THDM;
+class lambda1;
+class lambda2;
 
 /**
  * @class positivity

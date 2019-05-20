@@ -6,7 +6,8 @@
  */
 
 #include "unitarity.h"
-#include "StandardModel.h"
+#include "THDM.h"
+#include "THDMcache.h"
 
 unitarity::unitarity(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))

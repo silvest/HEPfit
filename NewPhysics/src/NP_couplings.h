@@ -10,10 +10,12 @@
 
 #include "gslpp.h"
 #include "StandardModel.h"
-#include "NPbase.h"
+
 #include <ThObservable.h>
 #include <string.h>
 #include <stdexcept>
+
+class NPbase;
 
 //-----  Zff couplings observables  ----------
 
@@ -2562,9 +2564,82 @@ private:
 
 //-----  VVV couplings observables  ----------
 
-// See aTGC in EW
+// See aTGC in EW. Here we define only the Effective couplings used in arXiv: 1708.09079 [hep-ph]
+
+/**
+ * @class deltag1ZEff
+ * @brief An observable class for the effective anomalous triple gauge coupling
+ * @f$\delta g_{1,Z}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective anomalous triple gauge coupling
+ * @f$\delta g_{1,Z}^{Eff}@f$.
+ *
+ */
+class deltag1ZEff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltag1ZEff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltag1ZEff class.
+     */
+    virtual ~deltag1ZEff();
+
+    /**
+     * @brief The anomalous triple gauge coupling @f$\delta g_{1,Z}^{Eff}@f$.
+     * @return @f$\delta g_{1,Z}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
 
 
+};
+
+
+/**
+ * @class deltaKgammaEff
+ * @brief An observable class for the effective anomalous triple gauge coupling
+ * @f$\delta \kappa_{\gamma}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective anomalous triple gauge coupling
+ * @f$\delta \kappa_{\gamma}^{Eff}@f$.
+ *
+ */
+class deltaKgammaEff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltaKgammaEff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltaKgammaEff class.
+     */
+    virtual ~deltaKgammaEff();
+
+    /**
+     * @brief The anomalous triple gauge coupling @f$\delta \kappa_{\gamma}^{Eff}@f$.
+     * @return @f$\delta \kappa_{\gamma}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
 
 
 //-----  Basic interactions of the so-called Higgs basis  ----------
@@ -2985,6 +3060,45 @@ private:
 
 
 /**
+ * @class cggEffHB
+ * @brief An observable class for the Higgs-basis coupling @f$c_{gg}^{Eff}@f$.
+ * (Similar to cgg_HB but including modifications of SM loops.)
+ * (See arXiv: 1505.00046 [hep-ph] document.)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Higgs-basis coupling
+ * @f$c_{gg}^{Eff}@f$.
+ *
+ */
+class cggEffHB : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    cggEffHB(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the cggEffHB class.
+     */
+    virtual ~cggEffHB();
+
+    /**
+     * @brief The Higgs-basis coupling @f$c_{gg}^{Eff}@f$.
+     * @return @f$c_{gg}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
  * @class lambzHB
  * @brief An observable class for the Higgs-basis coupling @f$\lambda_{z}@f$.
  * (See LHCHXSWG-INT-2015-001 document.)
@@ -3067,83 +3181,228 @@ private:
 //-----  Absolute correction to some EW couplings (factoring e/sc or e/sqrt(2)s  ----------
 
 /**
- * @class delgZeL
- * @brief An observable class for the absolute deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
- * @f$\delta g_{Zee}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @class delgZlL
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z l_{L} l_{L}@f$ coupling
+ * @f$\delta g_{Zll}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the absolute deviation from the SM on the @f$Z e_{L} e_{L}@f$ coupling
- * @f$\delta g_{Zee}^{L}@f$.
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z l_{L} l_{L}@f$ coupling
+ * @f$\delta g_{Zll}^{L}@f$.
  *
  */
-class delgZeL : public ThObservable {
+class delgZlL : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] lepton a lepton
      */
-    delgZeL(const StandardModel& SM_i);
+    delgZlL(const StandardModel& SM_i, const StandardModel::lepton lepton);
       
     /**
-     * @brief Destructor of the delgZeL class.
+     * @brief Destructor of the delgZlL class.
      */
-    virtual ~delgZeL();
+    virtual ~delgZlL();
 
     /**
-     * @brief The absolute deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
-     * @f$\delta g_{Zee}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
-     * @return @f$\delta g_{Zee}^{L}@f$
+     * @brief The absolute deviation from the SM of the @f$Z l_{L} l_{L}@f$ coupling
+     * @f$\delta g_{Zll}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zll}^{L}@f$
      */
-    double computeThValue();
-      
-    const NPbase * myNPbase;
+    double computeThValue();    
     
 private:
-
+    const NPbase * myNPbase;
+    StandardModel::lepton lepton;
 
 };
 
 /**
- * @class delgZeR
- * @brief An observable class for the absolute deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
- * @f$\delta g_{Zee}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @class delgZlR
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z l_{R} l_{R}@f$ coupling
+ * @f$\delta g_{Zll}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the absolute deviation from the SM on the @f$Z e_{R} e_{R}@f$ coupling
- * @f$\delta g_{Zee}^{R}@f$.
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z l_{R} l_{R}@f$ coupling
+ * @f$\delta g_{Zll}^{R}@f$.
  *
  */
-class delgZeR : public ThObservable {
+class delgZlR : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] lepton a lepton
      */
-    delgZeR(const StandardModel& SM_i);
+    delgZlR(const StandardModel& SM_i, const StandardModel::lepton lepton);
       
     /**
-     * @brief Destructor of the delgZeL class.
+     * @brief Destructor of the delgZlR class.
      */
-    virtual ~delgZeR();
+    virtual ~delgZlR();
 
     /**
-     * @brief The absolute deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
-     * @f$\delta g_{Zee}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
-     * @return @f$\delta g_{Zee}^{R}@f$
+     * @brief The absolute deviation from the SM of the @f$Z l_{R} l_{R}@f$ coupling
+     * @f$\delta g_{Zll}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zll}^{R}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
     
 private:
+    const NPbase * myNPbase;
+    StandardModel::lepton lepton;
 
+};
+
+/**
+ * @class delgZqL
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z q_{L} q_{L}@f$ coupling
+ * @f$\delta g_{Zqq}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z q_{L} q_{L}@f$ coupling
+ * @f$\delta g_{Zqq}^{L}@f$.
+ *
+ */
+class delgZqL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] quark a quark
+     */
+    delgZqL(const StandardModel& SM_i, const StandardModel::quark quark);
+      
+    /**
+     * @brief Destructor of the delgZqL class.
+     */
+    virtual ~delgZqL();
+
+    /**
+     * @brief The absolute deviation from the SM of the @f$Z q_{L} q_{L}@f$ coupling
+     * @f$\delta g_{Zqq}^{L}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zqq}^{L}@f$
+     */
+    double computeThValue();    
+    
+private:
+    const NPbase * myNPbase;
+    StandardModel::quark quark;
+
+};
+
+/**
+ * @class delgZqR
+ * @brief An observable class for the absolute deviation from the SM of the @f$Z q_{R} q_{R}@f$ coupling
+ * @f$\delta g_{Zqq}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute deviation from the SM on the @f$Z q_{R} q_{R}@f$ coupling
+ * @f$\delta g_{Zqq}^{R}@f$.
+ *
+ */
+class delgZqR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] quark a quark
+     */
+    delgZqR(const StandardModel& SM_i, const StandardModel::quark quark);
+      
+    /**
+     * @brief Destructor of the delgZqR class.
+     */
+    virtual ~delgZqR();
+
+    /**
+     * @brief The absolute deviation from the SM of the @f$Z q_{R} q_{R}@f$ coupling
+     * @f$\delta g_{Zqq}^{R}@f$, factoring out the @f$e/sc@f$ overall coupling.
+     * @return @f$\delta g_{Zqq}^{R}@f$
+     */
+    double computeThValue();
+    
+private:
+    const NPbase * myNPbase;
+    StandardModel::quark quark;
 
 };
 
 
 //-----  Oblique parameters  ----------
+
+/**
+ * @class oblS
+ * @brief An observable class for the oblique parameter @f$S@f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the oblique parameter @f$S@f$.
+ *
+ */
+class oblS : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    oblS(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~oblS();
+
+    /**
+     * @brief The oblique parameter @f$S@f$.
+     * @return @f$S@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+/**
+ * @class oblT
+ * @brief An observable class for the oblique parameter @f$T@f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the oblique parameter @f$T@f$.
+ *
+ */
+class oblT : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    oblT(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblT class.
+     */
+    virtual ~oblT();
+
+    /**
+     * @brief The oblique parameter @f$T@f$.
+     * @return @f$T@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
 
 /**
  * @class oblW
@@ -3425,6 +3684,500 @@ public:
 private:
 
 };
+
+
+/**
+ * @class AuxObsNP7
+ * @brief An observable class for the auxiliary observable AuxObsNP7
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP7.
+ *
+ */
+class AuxObsNP7 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP7(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP7();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP7.
+     * @return AuxObsNP7
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP8
+ * @brief An observable class for the auxiliary observable AuxObsNP8
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP8.
+ *
+ */
+class AuxObsNP8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP8(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP8();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP8.
+     * @return AuxObsNP8
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP9
+ * @brief An observable class for the auxiliary observable AuxObsNP9
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP9.
+ *
+ */
+class AuxObsNP9 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP9(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP9();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP9.
+     * @return AuxObsNP9
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP10
+ * @brief An observable class for the auxiliary observable AuxObsNP10
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP10.
+ *
+ */
+class AuxObsNP10 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP10(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP10();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP10.
+     * @return AuxObsNP10
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP11
+ * @brief An observable class for the auxiliary observable AuxObsNP11
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP11.
+ *
+ */
+class AuxObsNP11 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP11(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP11();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP11.
+     * @return AuxObsNP11
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP12
+ * @brief An observable class for the auxiliary observable AuxObsNP12
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP12.
+ *
+ */
+class AuxObsNP12 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP12(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP12();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP12.
+     * @return AuxObsNP12
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+
+/**
+ * @class AuxObsNP13
+ * @brief An observable class for the auxiliary observable AuxObsNP13
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP13.
+ *
+ */
+class AuxObsNP13 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP13(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP13();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP13.
+     * @return AuxObsNP13
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP14
+ * @brief An observable class for the auxiliary observable AuxObsNP14
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP14.
+ *
+ */
+class AuxObsNP14 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP14(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP14();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP14.
+     * @return AuxObsNP14
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP15
+ * @brief An observable class for the auxiliary observable AuxObsNP15
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP15.
+ *
+ */
+class AuxObsNP15 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP15(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP15();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP15.
+     * @return AuxObsNP15
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP16
+ * @brief An observable class for the auxiliary observable AuxObsNP16
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP16.
+ *
+ */
+class AuxObsNP16 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP16(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP16();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP16.
+     * @return AuxObsNP16
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP17
+ * @brief An observable class for the auxiliary observable AuxObsNP17
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP17.
+ *
+ */
+class AuxObsNP17 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP17(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP17();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP17.
+     * @return AuxObsNP17
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP18
+ * @brief An observable class for the auxiliary observable AuxObsNP18
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP18.
+ *
+ */
+class AuxObsNP18 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP18(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP18();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP18.
+     * @return AuxObsNP18
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP19
+ * @brief An observable class for the auxiliary observable AuxObsNP19
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP19.
+ *
+ */
+class AuxObsNP19 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP19(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP19();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP19.
+     * @return AuxObsNP19
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+/**
+ * @class AuxObsNP20
+ * @brief An observable class for the auxiliary observable AuxObsNP20
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the auxiliary observable AuxObsNP20.
+ *
+ */
+class AuxObsNP20 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    AuxObsNP20(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the oblW class.
+     */
+    virtual ~AuxObsNP20();
+
+    /**
+     * @brief The auxiliary observable AuxObsNP20.
+     * @return AuxObsNP20
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+};
+
+
+
 
 #endif	/* NPCOUPLINGS_H */
 

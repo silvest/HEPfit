@@ -6,7 +6,8 @@
  */
 
 #include "GeneralTHDMSTU.h"
-#include "StandardModel.h"
+#include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 GeneralTHDMSTU::GeneralTHDMSTU(const StandardModel& SM_i)
 : ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))

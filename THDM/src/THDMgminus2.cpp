@@ -6,16 +6,17 @@
  */
 
 #include "THDMgminus2.h"
-#include "StandardModel.h"
+#include "LeptonFlavour.h"
+#include "gslpp.h"
 
 THDMgminus2_mu::THDMgminus2_mu(const StandardModel& SM_i)
-: ThObservable(SM_i), mySM(SM_i)
+: ThObservable(SM_i)
 {}
 
 double THDMgminus2_mu::computeThValue()
 {
 
-    gslpp::vector<gslpp::complex> ** allcoeff_gminus2mu = mySM.getMyLeptonFlavour()->ComputeCoeffgminus2mu();
+    gslpp::vector<gslpp::complex> ** allcoeff_gminus2mu = SM.getMyLeptonFlavour()->ComputeCoeffgminus2mu();
 
     return ((*(allcoeff_gminus2mu[NLO]))(0)+(*(allcoeff_gminus2mu[NLO]))(1)).real();
 }

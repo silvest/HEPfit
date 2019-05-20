@@ -7,7 +7,8 @@
 
 
 #include "THDMWSTU.h"
-#include "StandardModel.h"
+#include "THDMW.h"
+#include "THDMWcache.h"
 
 //Theoretical formulae taken from https://arxiv.org/pdf/0907.2696.pdf
 

@@ -35,8 +35,8 @@
  * @f]
  * The implementation is written in the basis of \cite Grzadkowski:2010es.
  * For convenience, the parameterization also includes operators appearing in
- * other common bases. In particular, the complete set of parameters containts 2
- * redundancies, given by coefficients \f$C_{DHB} \f$ and \f$C_{DHW} \f$,
+ * other common bases. In particular, the complete set of parameters containts 4
+ * redundancies, given by the coefficients \f$C_{2B,2W,DHB,DHW,DB,DW} \f$,
  * which correspond to operators not included in the basis of \cite Grzadkowski:2010es.
  * For meaningful physical results one must make sure to include only
  * a complete set of interactions in a given analysis.
@@ -77,13 +77,29 @@
  *   <td class="mod_name">%C2B </td>
  *   <td class="mod_symb">\f$C_{2B} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. </td>
+ *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. 
+ *  (Implemented via EOM.)</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%C2W </td>
  *   <td class="mod_symb">\f$C_{2W} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. </td>
+ *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. 
+ *  (Implemented via EOM.)</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C2BS </td>
+ *   <td class="mod_symb">\f$C_{2B}^{SILH} \f$</td>
+ *   <td class="mod_desc">The coefficient of the SILH operator
+ *   \f${\cal O}_{2B}^{SILH}=\frac 12 (\partial^\mu B_{\mu\nu})(\partial_\rho B^{\rho\nu})\f$. 
+ *   (Implemented via EOM.) </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C2WS </td>
+ *   <td class="mod_symb">\f$C_{2W}^{SILH} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{2W}^{SILH}=\frac 12 (D_\mu W^{a~\!\mu\nu})(D^\rho W_{\rho\nu}^{a})\f$. 
+ *   (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHG </td>
@@ -113,19 +129,39 @@
  *   <td class="mod_name">%CDHW </td>
  *   <td class="mod_symb">\f$C_{DHW}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \tau^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
+ *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \sigma^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CDB </td>
+ *   <td class="mod_symb">\f$C_{DB} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{DB}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
+ *   (Implemented via EOM.)</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CDW </td>
+ *   <td class="mod_symb">\f$C_{DW}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{DW}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^{a~\!\mu} H\big) D^\nu W_{\mu\nu}^a\f$.
+ *  (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CWB </td>
  *   <td class="mod_symb">\f$C_{WB} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HWB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
+ *   \f${\cal O}_{HWB}=\big(H^\dagger\sigma^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHD </td>
  *   <td class="mod_symb">\f$C_{HD}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CT </td>
+ *   <td class="mod_symb">\f$C_{T}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{T}=\frac{1}{2} \big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)^2\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHbox </td>
@@ -151,7 +187,7 @@
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{kk}, \mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{L^i}\,\gamma^\mu \tau^a L^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \big(\overline{L^i}\,\gamma^\mu \sigma^a L^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHe_kk, CHe_klr, CHe_kli </td>
@@ -172,7 +208,7 @@
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{kk}, \mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{Q^i}\,\gamma^\mu \tau^a Q^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \big(\overline{Q^i}\,\gamma^\mu \sigma^a Q^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHu_kk, CHu_klr, CHu_kli </td>
@@ -226,7 +262,7 @@
  *   <td class="mod_name">%CuW_klr, CuW_kli </td>
  *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{kl}\big], \mbox{Im}\big[(C_{uW})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \tau_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \sigma_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CuB_klr, CuB_kli </td>
@@ -252,8 +288,8 @@
  *   <td class="mod_name">%CLQ3 </td>
  *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \tau_a L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu \tau_a Q^l\big)\f$. </td>
+ *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \sigma_a L^j\big)
+ *   \big(\overline{Q^k}\,\gamma_\mu \sigma_a Q^l\big)\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Cee </td>
@@ -388,7 +424,7 @@
  * @f]
  * and
  * @f[
- * H^\dagger i \overset{\leftrightarrow}{D^a_\mu} H\equiv H^\dagger i (\tau^a D_\mu - \overset{\leftarrow}{D}_\mu \tau^a)H.  
+ * H^\dagger i \overset{\leftrightarrow}{D^a_\mu} H\equiv H^\dagger i (\sigma^a D_\mu - \overset{\leftarrow}{D}_\mu \sigma^a)H.  
  * @f]
  *
  * Alternatively, when using the model name "NPSMEFTd6_LFU_QFU", where lepton
@@ -418,13 +454,29 @@
  *   <td class="mod_name">%C2B </td>
  *   <td class="mod_symb">\f$C_{2B} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. </td>
+ *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. 
+ *   (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%C2W </td>
  *   <td class="mod_symb">\f$C_{2W} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. </td>
+ *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. 
+ *   (Implemented via EOM.) </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C2BS </td>
+ *   <td class="mod_symb">\f$C_{2B}^{SILH} \f$</td>
+ *   <td class="mod_desc">The coefficient of the SILH operator
+ *   \f${\cal O}_{2B}^{SILH}=\frac 12 (\partial^\mu B_{\mu\nu})(\partial_\rho B^{\rho\nu})\f$. 
+ *   (Implemented via EOM.) </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C2WS </td>
+ *   <td class="mod_symb">\f$C_{2W}^{SILH} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{2W}^{SILH}=\frac 12 (D_\mu W^{a~\!\mu\nu})(D^\rho W_{\rho\nu}^{a})\f$. 
+ *   (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHG </td>
@@ -454,19 +506,39 @@
  *   <td class="mod_name">%CDHW </td>
  *   <td class="mod_symb">\f$C_{DHW}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \tau^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
+ *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \sigma^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CDB </td>
+ *   <td class="mod_symb">\f$C_{DB} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{DB}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
+ *   (Implemented via EOM.)</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CDW </td>
+ *   <td class="mod_symb">\f$C_{DW}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{DW}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^{a~\!\mu} H\big) D^\nu W_{\mu\nu}^a\f$.
+ *  (Implemented via EOM.) </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CWB </td>
  *   <td class="mod_symb">\f$C_{WB} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HWB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
+ *   \f${\cal O}_{HWB}=\big(H^\dagger\sigma^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHD </td>
  *   <td class="mod_symb">\f$C_{HD}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CT </td>
+ *   <td class="mod_symb">\f$C_{T}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{T}=\frac{1}{2} \big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)^2\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHbox </td>
@@ -492,7 +564,7 @@
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{HL}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{L^i}\,\gamma^\mu \tau^a L^i\big)\f$ (flavor universal). </td>
+ *   \big(\overline{L^i}\,\gamma^\mu \sigma^a L^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHe </td>
@@ -513,7 +585,7 @@
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{ii}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{HQ}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{Q^i}\,\gamma^\mu \tau^a Q^i\big)\f$ (flavor universal). </td>
+ *   \big(\overline{Q^i}\,\gamma^\mu \sigma^a Q^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHu </td>
@@ -567,7 +639,7 @@
  *   <td class="mod_name">%CuW_klr, CuW_kli </td>
  *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{kl}\big], \mbox{Im}\big[(C_{uW})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \tau_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \sigma_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CuB_klr, CuB_kli </td>
@@ -593,8 +665,8 @@
  *   <td class="mod_name">%CLQ3 </td>
  *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \tau_a L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu \tau_a Q^l\big)\f$. </td>
+ *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \sigma_a L^j\big)
+ *   \big(\overline{Q^k}\,\gamma_\mu \sigma_a Q^l\big)\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Cee </td>
@@ -756,7 +828,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 400;
+    static const int NNPSMEFTd6Vars = 409;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -774,7 +846,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 204;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 213;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -1756,6 +1828,22 @@ public:
      */
     virtual double mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
+     * @brief the angular parameter @f$a@f$ from 
+     * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$a_{eeZH}@f$
+     */
+    virtual double aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    /**
+     * @brief the angular parameter @f$b@f$ from 
+     * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$b_{eeZH}@f$
+     */
+    virtual double bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -1776,6 +1864,13 @@ public:
      * @return @f$\mu_{ttH}@f$
      */
     virtual double muttH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{tHq}@f$ between the t-q-Higgs associated 
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{tHq}@f$
+     */
+    virtual double mutHq(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH+ttH}@f$ between the sum of gluon-gluon fusion
      * and t-tbar-Higgs associated 
@@ -2642,6 +2737,13 @@ public:
     virtual double Br_H_inv() const;
     
     /**
+     * @brief The branching ratio of the of the Higgs into invisible particles 
+     * (only invisible new particles).
+     * @return Br@f$(H\to invisible,NP)@f$
+     */
+    virtual double Br_H_inv_NP() const;
+    
+    /**
      * @brief The ratio of the Br@f$(H\to visible)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to visible)@f$/Br@f$(H\to visible)_{\mathrm{SM}}@f$
@@ -3129,6 +3231,22 @@ public:
     virtual double lambdaZNP() const;
     
     ////////////////////////////////////////////////////////////////////////
+      
+    /**
+     * @brief The new physics contribution to the effective anomalous triple 
+     * gauge coupling @f$g_{1,Z}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
+     * @return @f$\delta g_{1,Z}@f$
+     */
+    virtual double deltag1ZNPEff() const;
+      
+    /**
+     * @brief The new physics contribution to the effective anomalous triple 
+     * gauge coupling @f$\kappa_{\gamma}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
+     * @return @f$\delta \kappa_{\gamma}@f$
+     */
+    virtual double deltaKgammaNPEff() const;
+    
+    ////////////////////////////////////////////////////////////////////////
     /**
      * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
      * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.
@@ -3149,6 +3267,25 @@ public:
      * @return @f$\sigma(e^+ e^- \to W^+ W^- \to jj \ell \nu) @f$
      */
     virtual double xseeWW(const double sqrt_s) const;
+    
+    /**
+     * @brief The ratio @f$\mu_{eeWW}@f$ between the 
+     * @f$ e^{+}e^{-}\to W^{+}W^{-} @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeWW}@f$
+     */
+    virtual double mueeWW(const double sqrt_s) const;
+    
+    /**
+     * @brief The ratio @f$\mu_{eeWW}@f$ between the 
+     * @f$ e^{+}e^{-}\to W^{+}W^{-} @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$\mu_{eeWW}@f$
+     */
+    virtual double mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     
     ////////////////////////////////////////////////////////////////////////
     
@@ -3361,6 +3498,18 @@ public:
     virtual double cgg_HB() const;
     
     /**
+     * @brief The effective Higgs-basis coupling @f$c_{gg}^{Eff}@f$. (Similar to cgg_HB but including modifications of SM loops.)
+     * (See arXiv: 1505.00046 [hep-ph] document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$c_{gg}^{Eff}@f$
+     */
+    virtual double cggEff_HB() const;
+    
+    /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
      * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
@@ -3416,6 +3565,96 @@ public:
      */
     virtual double AuxObs_NP6() const;
     
+    /**
+     * @brief Auxiliary observable AuxObs_NP7
+     * (See code for details.)
+     * @return AuxObs_NP7
+     */
+    virtual double AuxObs_NP7() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP8
+     * (See code for details.)
+     * @return AuxObs_NP8
+     */
+    virtual double AuxObs_NP8() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP9
+     * (See code for details.)
+     * @return AuxObs_NP9
+     */
+    virtual double AuxObs_NP9() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP10
+     * (See code for details.)
+     * @return AuxObs_NP10
+     */
+    virtual double AuxObs_NP10() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP11
+     * (See code for details.)
+     * @return AuxObs_NP11
+     */
+    virtual double AuxObs_NP11() const;
+        
+    /**
+     * @brief Auxiliary observable AuxObs_NP12
+     * (See code for details.)
+     * @return AuxObs_NP12
+     */
+    virtual double AuxObs_NP12() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP13
+     * @return AuxObs_NP13
+     */
+    virtual double AuxObs_NP13() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP14
+     * @return AuxObs_NP14
+     */
+    virtual double AuxObs_NP14() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP15
+     * @return AuxObs_NP15
+     */
+    virtual double AuxObs_NP15() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP16
+     * @return AuxObs_NP16
+     */
+    virtual double AuxObs_NP16() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP17
+     * @return AuxObs_NP17
+     */
+    virtual double AuxObs_NP17() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP18
+     * @return AuxObs_NP18
+     */
+    virtual double AuxObs_NP18() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP19
+     * @return AuxObs_NP19
+     */
+    virtual double AuxObs_NP19() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP20
+     * @return AuxObs_NP20
+     */
+    virtual double AuxObs_NP20() const;
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -3430,6 +3669,8 @@ protected:
     double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
     double C2B; ///< The dimension-6 operator coefficient \f$C_{2W}\f$.
     double C2W; ///< The dimension-6 operator coefficient \f$C_{2B}\f$.
+    double C2BS; ///< The dimension-6 operator coefficient \f$C_{2W}^{SILH}\f$.
+    double C2WS; ///< The dimension-6 operator coefficient \f$C_{2B}^{SILH}\f$.
     double CHG; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
     double CHW; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
     double CHB; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
@@ -3437,8 +3678,11 @@ protected:
     double CHWHB_gagaorth; ///< The combination of dimension-6 operator coefficients \f$-c_W^2 C_{HW} + s_W^2 C_{HW}\f$.
     double CDHB; ///< The dimension-6 operator coefficient \f$C_{DHB}\f$.
     double CDHW; ///< The dimension-6 operator coefficient \f$C_{DHW}\f$.
+    double CDB; ///< The dimension-6 operator coefficient \f$C_{DB}\f$.
+    double CDW; ///< The dimension-6 operator coefficient \f$C_{DW}\f$.
     double CHWB; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
     double CHD; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
+    double CT; ///< The dimension-6 operator coefficient \f$C_{T}\f$.
     double CHbox; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
     double CH; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
     double CHL1_11; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{11}\f$.
@@ -3649,6 +3893,10 @@ protected:
     double eeeZHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
     double eeettHint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
     double eeettHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
+    double eepWBFint; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)
+    double eepWBFpar; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)    
+    double eepZBFint; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
+    double eepZBFpar; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
     double eHggint; ///< Intrinsic relative theoretical error in \f$H \to g g\f$.
     double eHggpar; ///< Parametric relative theoretical error in \f$H \to g g\f$.
     double eHWWint; ///< Intrinsic relative theoretical error in \f$H \to W W\f$.
@@ -3787,15 +4035,73 @@ protected:
     double ettH_1314_G;///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{G}\f$ to ttH production at Tevatron (13 & 14 TeV).
     double ettH_1314_uG_33r;///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{uG})_{33}\f$ to ttH production at the LHC (13 & 14 TeV).
     double ettH_1314_DeltagHt;///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta g_{Htt}\f$ to ttH production at the LHC (13 & 14 TeV).
-
-    double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
-    
+        
     double BrHinv; ///< The branching ratio of invisible Higgs decays.
     double BrHexo; ///< The branching ratio of exotic (not invisible) Higgs decays.
     
     double dg1Z; ///< Independent contribution to aTGC.
     double dKappaga; ///< Independent contribution to aTGC.    
     double lambZ; ///< Independent contribution to aTGC.
+
+//  ----------------------------------------------------------------------------
+//  Internal parameters    
+//  ----------------------------------------------------------------------------
+    
+    double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
+    
+    // Internal values for some of the dimension-6 coefficients (to allow changes of bases in Post-Update)
+    double CiHL1_11;
+    double CiHL1_22;
+    double CiHL1_33;
+    double CiHL3_11;
+    double CiHL3_22;
+    double CiHL3_33;
+    
+    double CiHQ1_11;
+    double CiHQ1_22;
+    double CiHQ1_33;
+    double CiHQ3_11;
+    double CiHQ3_22;
+    double CiHQ3_33;
+    
+    double CiHe_11;
+    double CiHe_22;
+    double CiHe_33;
+    
+    double CiHu_11;
+    double CiHu_22;
+    double CiHu_33;
+    
+    double CiHd_11;
+    double CiHd_22;
+    double CiHd_33;
+    
+    double CiW;
+    
+    double CiHW;
+    double CiHB; 
+    double CiDHB; 
+    double CiDHW;
+    double CiHWB;
+    
+    double CiHbox;
+    double CiHD;
+    double CiH;
+    
+    double CieH_11r;
+    double CieH_22r;
+    double CieH_33r;
+    
+    double CiuH_11r;
+    double CiuH_22r;
+    double CiuH_33r;
+    
+    double CidH_11r;
+    double CidH_22r;
+    double CidH_33r;
+    
+    double CiLL_1221;
+    double CiLL_2112;    
     
     double v2;///< The square of the EW vev.
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.

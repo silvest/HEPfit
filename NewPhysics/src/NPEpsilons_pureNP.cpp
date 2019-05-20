@@ -14,10 +14,10 @@ const std::string NPEpsilons_pureNP::EPSILONpureNPvars[NEPSILONpureNPvars]
 NPEpsilons_pureNP::NPEpsilons_pureNP()
 : NPbase()
 {
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_1", boost::cref(deltaEps_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_2", boost::cref(deltaEps_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_3", boost::cref(deltaEps_3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_b", boost::cref(deltaEps_b)));
+    ModelParamMap.insert(std::make_pair("delEps_1", std::cref(deltaEps_1)));
+    ModelParamMap.insert(std::make_pair("delEps_2", std::cref(deltaEps_2)));
+    ModelParamMap.insert(std::make_pair("delEps_3", std::cref(deltaEps_3)));
+    ModelParamMap.insert(std::make_pair("delEps_b", std::cref(deltaEps_b)));
 }
 
 void NPEpsilons_pureNP::setParameter(const std::string name, const double& value)

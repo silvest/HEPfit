@@ -8,9 +8,8 @@
 #ifndef MUECONVERSION_H
 #define	MUECONVERSION_H
 
-#include "gslpp.h"
 #include "ThObservable.h"
-#include "LeptonFlavour.h"
+
 
 //class mueconversion : public ThObservable {
 //public:
@@ -56,10 +55,6 @@ public:
     double computeThValue();
     
 private:
-    /**
-     * @brief Constructor containing the Wilson coefficient 
-     */
-    const StandardModel& mySM;
 
 };
 

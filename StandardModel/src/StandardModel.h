@@ -25,9 +25,9 @@ class EWSMThreeLoopEW2QCD;
 class EWSMThreeLoopEW;
 class EWSMApproximateFormulae;
 class LeptonFlavour;
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
 class EWSMTwoFermionsLEP2;
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
 
 
 /**
@@ -1009,7 +1009,7 @@ public:
         return myApproximateFormulae;
     }
 
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     /**
      * @brief A get method to retrieve the member pointer of type EWSMTwoFermionsLEP2.
      * @return the pointer #myTwoFermionsLEP2
@@ -1018,7 +1018,7 @@ public:
     {
         return myTwoFermionsLEP2;
     }
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
 
     EWSMThreeLoopEW* getMyThreeLoopEW() const
     {
@@ -1886,7 +1886,9 @@ public:
 
     /**
      * @brief The ggH cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa and the updates in
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * for 7 and 8 TeV
      * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
@@ -1898,11 +1900,9 @@ public:
     double computeSigmaggH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 15.11; // in pb for Mh=125.1 GeV
-            //return 14.99; // in pb for Mh=125.6 GeV
+            return 16.83; // in pb for Mh=125.1 GeV
         } else if (sqrt_s == 8.0) {
-            return 19.24; // in pb for Mh=125.1 GeV
-            //return 19.09; // in pb for Mh=125.6 GeV
+            return 21.40; // in pb for Mh=125.1 GeV
         } else if (sqrt_s == 13.0) {
             return 48.61; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 14.0) {
@@ -1919,87 +1919,75 @@ public:
 
     /**
      * @brief The square of the top-quark contribution to the ggH cross section in the Standard Model.
-     * @details The values have been obtained from  M. Spira. See also Table 38
-     * in ref. @cite Heinemeyer:2013tqa, which are calculated with a scale choice of Mh.
+     * @details The values have been obtained from:
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{tt}@f$ in pb
      */
     double computeSigmaggH_tt(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            //return 14.355; // in pb for Mh=125 GeV with a scale choice of Mh (corrected from the value in 1307.1347v2)
-            return 15.89; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            //return 15.76; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return 16.69; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 8.0) {
-            //return 18.31; // in pb for Mh=125 GeV with a scale choice of Mh
-            return 20.18; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            //return 20.02; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return 21.20; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 13.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return 47.94; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 14.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return 53.93; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_tt(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else if (sqrt_s == 100.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_tt(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt()");
     }
 
     /**
      * @brief The square of the bottom-quark contribution to the ggH cross section in the Standard Model.
-     * @details The values have been obtained from  M. Spira. See also Table 38
-     * in ref. @cite Heinemeyer:2013tqa, which are calculated with a scale choice of Mh.
+     * @details The values have been obtained from:
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{bb}@f$ in pb
      */
     double computeSigmaggH_bb(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            //return 0.09528; // in pb for Mh=125 GeV with a scale choice of Mh
-            return 0.1079; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            //return 0.1057; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return 0.04; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 8.0) {
-            //return 0.1206; // in pb for Mh=125 GeV with a scale choice of Mh
-            return 0.1357; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            //return 0.1330; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return 0.05; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 13.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return 0.10; // in pb for Mh=125.09 GeV             
         } else if (sqrt_s == 14.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return 0.11; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_bb(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else if (sqrt_s == 100.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_bb(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb()");
     }
 
     /**
      * @brief The top-bottom interference contribution to the ggH cross section in the Standard Model.
-     * @details The values have been obtained from  M. Spira. See also Table 38
-     * in ref. @cite Heinemeyer:2013tqa, which are calculated with a scale choice of Mh.
+     * @details The values have been obtained from:
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{tb}@f$ in pb
      */
     double computeSigmaggH_tb(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            //return -0.8970; // in pb for Mh=125 GeV with a scale choice of Mh
-            return -0.9726; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            //return -0.9609; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return -0.66; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 8.0) {
-            //return -1.125; // in pb for Mh=125 GeV with a scale choice of Mh
-            return -1.206; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            //return -1.192; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return -0.82; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 13.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return -1.73; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 14.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return -1.92; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 27.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_tb(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else if (sqrt_s == 100.0) {
-            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_tb(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb()");
     }
@@ -2038,24 +2026,25 @@ public:
     /**
      * @brief The W fusion contribution @f$\sigma_{WF}@f$ to higgs-production
      * cross section in the Standard Model.
-     * @details Currently it returns the value of tab 37 in ref. @cite Heinemeyer:2013tqa
+     * @details The values have been obtained from:
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return W fusion contribution @f$\sigma_{WF}@f$ to cross section in pb
      */
     double computeSigmaWF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 0.938; // in pb for Mh=125 GeV
+            return 0.946; // in pb for Mh=125 GeV
         } else if (sqrt_s == 8.0) {
-            return 1.210; // in pb for Mh=125 GeV
+            return 1.220; // in pb for Mh=125 GeV
         } else if (sqrt_s == 13.0) {
-            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return 2.882; // in pb for Mh=125 GeV            
         } else if (sqrt_s == 14.0) {
-            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return 3.260; // in pb for Mh=125 GeV            
         } else if (sqrt_s == 27.0) {
-            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(14.) * computeSigmaWF(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else if (sqrt_s == 100.0) {
-            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV 
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(14.) * computeSigmaWF(14.); // in the absence of this value we rescale the LHC result at 14 TeV 
         } else if (sqrt_s == 1.96) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(7.) * computeSigmaWF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
         } else
@@ -2065,24 +2054,25 @@ public:
     /**
      * @brief The Z fusion contribution @f$\sigma_{ZF}@f$ to higgs-production
      * cross section in the Standard Model.
-     * @details Currently it returns the value of tab 37 in ref. @cite Heinemeyer:2013tqa
+     * @details The values have been obtained from:
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return W fusion contribution @f$\sigma_{ZF}@f$ to cross section in pb
      */
     double computeSigmaZF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 0.321; // in pb for Mh=125 GeV
+            return 0.333; // in pb for Mh=125 GeV
         } else if (sqrt_s == 8.0) {
-            return 0.417; // in pb for Mh=125 GeV
+            return 0.432; // in pb for Mh=125 GeV
         } else if (sqrt_s == 13.0) {
-            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return 1.049; // in pb for Mh=125 GeV
         } else if (sqrt_s == 14.0) {
-            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+            return 1.191; // in pb for Mh=125 GeV
         } else if (sqrt_s == 27.0) {
-            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(14.) * computeSigmaZF(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else if (sqrt_s == 100.0) {
-            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV 
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(14.) * computeSigmaZF(14.); // in the absence of this value we rescale the LHC result at 14 TeV 
         } else if (sqrt_s == 1.96) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(7.) * computeSigmaZF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
         } else
@@ -2305,6 +2295,17 @@ public:
         return 2.883e-2; // Mh=125.1 GeV
         //return 2.86e-2; // Mh=125.6 GeV
     }
+    
+    /**
+     * @brief The Br@f$(H\to ss)@f$ in the Standard Model.
+     * @details From Table 7 in
+     * http://cdsweb.cern.ch/record/2629412/files/ATLAS-CONF-2018-031.pdf
+     * @return Br@f$(H\to ss)@f$ in the Standard Model
+     */
+    double computeBrHtoss() const
+    {
+        return 4.0e-4;
+    }
 
     /**
      * @brief The Br@f$(H\to bb)@f$ in the Standard Model.
@@ -2483,7 +2484,7 @@ public:
         return 0.;
     }
     
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////
     //LEP2 Observables
     
@@ -2499,7 +2500,7 @@ public:
     virtual double LEP2AFBbottom(const double s) const;
     virtual double LEP2Rcharm(const double s) const;
     virtual double LEP2Rbottom(const double s) const;
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
     
 bool setFlagSigmaForAFB(const bool flagSigmaForAFB_i)
 {
@@ -2824,7 +2825,7 @@ protected:
 
     Flavour SMFlavour; ///< An object of type Flavour.
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     //////////////////////////////////////////////////////////////////////// 
     //Migrated from LEP2ThObservables.h
     
@@ -3113,7 +3114,7 @@ protected:
     double getIntegrand_AFBnumeratorWithISR_bottom205(double x) const; 
     double getIntegrand_AFBnumeratorWithISR_bottom207(double x) const; 
     
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////    
 private:
     EWSMcache* myEWSMcache; ///< A pointer to an object of type EWSMcache.
@@ -3125,9 +3126,9 @@ private:
     EWSMThreeLoopEW* myThreeLoopEW; ///< A pointer to an object of type EWSMThreeLoopEW.
     EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
     LeptonFlavour* myLeptonFlavour; ///< A pointer to an object of the type LeptonFlavour.
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    /* BEGIN: REMOVE FROM THE PACKAGE */
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
-    /** END: REMOVE FROM THE PACKAGE **/
+    /* END: REMOVE FROM THE PACKAGE */
 
     bool FlagWithoutNonUniversalVC; ///< A boolean for the model flag %WithoutNonUniversalVC.
     bool FlagNoApproximateGammaZ; ///< A boolean for the model flag %NoApproximateGammaZ.
@@ -3154,7 +3155,7 @@ private:
     mutable bool useRhoZ_f_cache[12];
     mutable bool useKappaZ_f_cache[12];
     
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/* BEGIN: REMOVE FROM THE PACKAGE */
     // caches for the SM prediction of LEP2 Obs
 //    mutable double SMparams_cache[NumSMParamsForEWPO+3];
     mutable double SMresult_cache; 
@@ -3165,7 +3166,7 @@ private:
     mutable double error;/**< GSL integral variable */    
     mutable gsl_function f_GSL;/**< GSL integral variable */
     gsl_integration_workspace * w_GSL1;/**< GSL integral variable */
-/** END: REMOVE FROM THE PACKAGE **/
+/* END: REMOVE FROM THE PACKAGE */
     
     int iterationNo;
     

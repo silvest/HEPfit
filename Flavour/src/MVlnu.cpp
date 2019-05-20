@@ -1156,6 +1156,21 @@ double MVlnu::getDeltaGammaDeltachi(double chi_min, double chi_max)
             (cos(2. * chi_max) - cos(2. * chi_min)) / 2. * intJ9) / (2. * M_PI);
 }
 
+double MVlnu::getFL()
+{
+    updateParameters();
+
+    double intJ1s = integrateJ(1, q2min, q2max);
+    double intJ1c = integrateJ(2, q2min, q2max);
+    double intJ2s = integrateJ(3, q2min, q2max);
+    double intJ2c = integrateJ(4, q2min, q2max);
+    
+    double DeltaJL = (3. * intJ1c - intJ2c) / 4.;
+    double DeltaJ = 3. / 4. * (2. * intJ1s + intJ1c) - 1. / 4. * (2. * intJ2s + intJ2c);
+    return DeltaJL/DeltaJ;
+    
+}
+
 double MVlnu::get_unitarity_V_BGL()
 {
     updateParameters();
@@ -1223,4 +1238,84 @@ double MVlnu::get_R0(double w)
 
     if (CLNflag) return R0(q2);
     else return A0(q2) * RV / hA1(q2);
+}
+
+
+/***************************************************************************
+ * SM computation  ... lep hel asymmetry, see 1203.2654, 1707.09509        *
+ * ************************************************************************/
+
+double MVlnu::Hplus(double q2){
+    double abs_p = lambda_half(MM*MM,MV*MV,q2);
+    return (MM+MV)*A1(q2)-2.*MM/(MM+MV)*abs_p*V(q2);
+}
+
+double MVlnu::Hminus(double q2){
+    double abs_p = lambda_half(MM*MM,MV*MV,q2);
+    return (MM+MV)*A1(q2)+2.*MM/(MM+MV)*abs_p*V(q2);
+}
+
+double MVlnu::H0(double q2){
+    double abs_p = lambda_half(MM*MM,MV*MV,q2);
+    return ((MM*MM-MV*MV-q2)*(MM+MV)*A1(q2)-4.*MM*MM*abs_p*abs_p/(MM+MV)*A2(q2))/(2.*MV*sqrt(q2));
+}
+
+double MVlnu::H0t(double q2){
+    double abs_p = lambda_half(MM*MM,MV*MV,q2);
+    return 2.*MM*abs_p*A0(q2)/sqrt(q2);
+}
+
+double MVlnu::dGpdq2(double q2){
+        
+    updateParameters();
+        
+    double abs_p = lambda_half(MM*MM,MV*MV,q2);
+    double lep_factor = (1.-Mlep*Mlep/q2)*(1.-Mlep*Mlep/q2)*Mlep*Mlep/(2.*q2);
+    return 2./3.*amplsq_factor*abs_p*q2*lep_factor*(Hplus(q2)*Hplus(q2)+Hminus(q2)*Hminus(q2)+H0(q2)*H0(q2)
+            +3.*H0t(q2)*H0t(q2));
+}
+
+double MVlnu::dGmdq2(double q2){
+    
+    updateParameters(); 
+    
+    double abs_p = lambda_half(MM*MM,MV*MV,q2);
+    double lep_factor = (1.-Mlep*Mlep/q2)*(1.-Mlep*Mlep/q2);
+    return 2./3.*amplsq_factor*abs_p*q2*lep_factor*(Hplus(q2)*Hplus(q2)+Hminus(q2)*Hminus(q2)+H0(q2)*H0(q2));
+}
+
+double MVlnu::integrateGpm(int i, double q2_min, double q2_max)
+{
+    old_handler = gsl_set_error_handler_off();
+
+    switch (i) {
+        case 1:
+            FJ = convertToGslFunction(boost::bind(&MVlnu::dGpdq2, &(*this), _1));
+            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
+            gsl_set_error_handler(old_handler);
+            return J_res;
+            break;
+        case 2:
+            FJ = convertToGslFunction(boost::bind(&MVlnu::dGmdq2, &(*this), _1));
+            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
+            gsl_set_error_handler(old_handler);
+            return J_res;
+            break;
+        default:
+            gsl_set_error_handler(old_handler);
+            std::stringstream out;
+            out << i;
+            throw std::runtime_error("MVlnu::integrateGpm: index " + out.str() + " not implemented");
+    }
+}
+
+double MVlnu::getPlep()
+{
+    updateParameters();
+     
+    double DeltaGammaPlus = integrateGpm(1,q2min,q2max);
+    double DeltaGammaMinus = integrateGpm(2,q2min,q2max);
+    
+    return (DeltaGammaPlus-DeltaGammaMinus)/(DeltaGammaPlus+DeltaGammaMinus);
+    
 }

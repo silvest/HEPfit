@@ -6,7 +6,8 @@
  */
 
 #include "bsgammaTHDM.h"
-#include "StandardModel.h"
+#include "THDM.h"
+#include "THDMcache.h"
 
 bsgammaTHDM::bsgammaTHDM(const StandardModel& SM_i): 
 

@@ -30,6 +30,7 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         ATLAS13_tt_phi_tt_e(61,2,0.),
         ATLAS13_pp_H_hh_bbbb_e(271,2,0.),
         CMS13_pp_phi_bb(66,2,0.),
+        CMS8_pp_phi_bb(88,2,0.),
         CMS13_pp_H_hh_bbbb(95,2,0.),
         CMS13_ggF_H_hh_bbbb(226,2,0.),
         CMS13_pp_phi_bb_e(66,2,0.),
@@ -56,6 +57,13 @@ THDMWcache::THDMWcache(const StandardModel& SM_i)
         MadGraph_pp_Stb_tbtb(4332,4,0.),
         MadGraph_pp_Sitt_tttt(9360,4,0.),
         MadGraph_pp_Srbb_bbbb(15960,5,0.),
+        MadGraph_pp_Srbb_bbbb_8TeV(15960,5,0.),
+        MadGraph_pp_Sibb_bbbb(8892,4,0.),
+        MadGraph_pp_Sibb_bbbb_8TeV(8892,4,0.),
+        MadGraph_pp_Sr_bb(15960,5,0.),
+        MadGraph_pp_Sr_bb_8TeV(15960,5,0.),
+        MadGraph_pp_Si_bb(8892,4,0.),
+        MadGraph_pp_Si_bb_8TeV(8892,4,0.),
         arraybsgamma(1111, 3, 0.),
         betaeigenvalues(11, 0.)
         //myTHDMW(static_cast<const THDMW*> (&SM_i))
@@ -1253,38 +1261,127 @@ void THDMWcache::computeUnitarity()
     if( THDMWmodel == "ManoharWise")
     {
         double pi=M_PI;
-        gslpp::matrix<gslpp::complex> Smatrix1(4,4,0.), Smatrix2(4,4,0.);
-//        gslpp::matrix<gslpp::complex> Sbmatrix1(4,4,0.), Sbmatrix2(4,4,0.);
-        gslpp::matrix<gslpp::complex> Seigenvectors1(4,4,0.), Seigenvectors2(4,4,0.);
-//        gslpp::matrix<gslpp::complex> Seigenvectors1T(4,4,0.), Seigenvectors2T(4,4,0.);
-        gslpp::vector<double> Seigenvalues1(4,0.), Seigenvalues2(4,0.);
-//        gslpp::vector<gslpp::complex> Sbeigenvalues1(4,0.), Sbeigenvalues2(4,0.);
 
         /*
         *******   LO part   *************
         */
 
-        // Definition of the blocks of the S-matrix, taken from 1303.4848
-        Smatrix1.assign(0,0, 3.0*lambda1/(16.0*pi));
-        Smatrix1.assign(0,3, (2.0*nu1+nu2)/(8.0*sqrt(2.0)*pi));
-        Smatrix1.assign(3,0, Smatrix1(0,3));
-        Smatrix1.assign(3,3, (26.0*mu1+17.0*mu3+13.0*mu4)/(32.0*pi));
+        // Eigenvalues of the S-matrix, calculated by Li Cheng and Victor Miralles
+        double muA = 4.0*mu1+4.0*mu2+8.5*mu3+5.0*mu4+1.5*mu5+2.5*mu6;
+        double muB = (4.0*mu1+4.0*mu2+1.5*mu3+12.0*mu4+1.5*mu5-0.5*mu6)/3.0;
+        double muC = (-0.5*mu1-0.5*mu2+1.5*mu3+1.5*mu4+12.0*mu5+4.0*mu6)/3.0;
+        double MA1 = 3.0*lambda1 + muA - sqrt(9.0*lambda1*lambda1-6.0*lambda1*muA+muA*muA+32.0*nu1*nu1+32.0*nu1*nu2+8.0*nu2*nu2);
+        double MA2 = 3.0*lambda1 + muA + sqrt(9.0*lambda1*lambda1-6.0*lambda1*muA+muA*muA+32.0*nu1*nu1+32.0*nu1*nu2+8.0*nu2*nu2);
+        double MB1 = lambda1 + muB - sqrt(lambda1*lambda1-2.0*lambda1*muB+muB*muB+8.0*nu2*nu2);
+        double MB2 = lambda1 + muB + sqrt(lambda1*lambda1-2.0*lambda1*muB+muB*muB+8.0*nu2*nu2);
+        double MC1 = lambda1 + muC - sqrt(lambda1*lambda1-2.0*lambda1*muC+muC*muC+32.0*nu3*nu3);
+        double MC2 = lambda1 + muC + sqrt(lambda1*lambda1-2.0*lambda1*muC+muC*muC+32.0*nu3*nu3);
+        unitarityeigenvalues.assign(0, MA1/(32.0*pi));
+        unitarityeigenvalues.assign(1, MA2/(32.0*pi));
+        unitarityeigenvalues.assign(2, MB1/(32.0*pi));
+        unitarityeigenvalues.assign(3, MB2/(32.0*pi));
+        unitarityeigenvalues.assign(4, MC1/(32.0*pi));
+        unitarityeigenvalues.assign(5, MC2/(32.0*pi));
+        unitarityeigenvalues.assign(6, lambda1/(16.0*pi));
+        unitarityeigenvalues.assign(7, sqrt(15.0)*(nu4+nu5)/(64.0*pi));
+        
+        /*
+        *******   NLO part   *************
+        */
+        
+            //beta_lambda1
+        double betalambda1 = (12.0*lambda1*lambda1 + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 4.0*nu2*nu2 + 16.0*nu3*nu3)/(16.0*pi*pi);
+        //beta_nu1
+        double betanu1 = (2.0*nu1*nu1 + nu2*nu2 + 4.0*nu3*nu3 + 2.0*lambda1*(3.0*nu1+nu2)
+               + (7.0*nu4*nu4 - 4.0*nu4*nu5 + 7.0*nu5*nu5)/3.0
+               + nu1*(8.0*mu1 + 8.0*mu2 + 17.0*mu3 + 10.0*mu4 + 3.0*mu5 + 5.0*mu6)
+               + nu2*(8.0*mu1 + 8.0*mu2 + 24.0*mu3 + 3.0*mu4
+                      + 3.0*mu5 + 8.0*mu6)/3.0)/(16.0*pi*pi);
+        //beta_nu2
+        double betanu2 = (2.0*nu2*nu2 + 4.0*nu1*nu2 + 16.0*nu3*nu3 + 2.0*lambda1*nu2
+               + (4.0*nu4*nu4 + 17.0*nu4*nu5 + 4.0*nu5*nu5)/3.0
+               + nu2*(8.0*mu1 + 8.0*mu2 + 3.0*mu3 + 24.0*mu4
+                      + 3.0*mu5 - mu6)/3.0)/(16.0*pi*pi);
+        //beta_nu3
+        double betanu3 = (2.0*nu3*(lambda1 + 2.0*nu1 + 3.0*nu2)
+               + (17.0*nu4*nu4 + 16.0*nu4*nu5 + 17.0*nu5*nu5)/12.0
+               + nu3*(-mu1 - mu2 + 3.0*mu3 + 3.0*mu4
+                      + 24.0*mu5 + 8.0*mu6)/3.0)/(16.0*pi*pi);
+        //beta_nu4
+        double betanu4 = (8.0*nu3*nu4 + 2.0*nu3*nu5
+               + nu5*(2.0*nu2 - mu2 + 2.0*mu4 + 4.0*mu5 + mu6)
+               + nu4*(3.0*nu1 + 2.0*nu2 + 6.0*mu1 + 2.0*mu2 + 3.0*mu3
+                      + 2.0*mu4 + mu5 + mu6))/(16.0*pi*pi);
+        //beta_nu5
+        double betanu5 = (2.0*nu3*nu4 + 8.0*nu3*nu5
+               + nu4*(2.0*nu2 - mu1 + 2.0*mu4 + 4.0*mu5 + mu6)
+               + nu5*(3.0*nu1 + 2.0*nu2 + 6.0*mu1 + 2.0*mu2 + 3.0*mu3
+                      + 2.0*mu4 + mu5 + mu6))/(16.0*pi*pi);
+        //beta_mu1
+        double betamu1 = (3.0*nu4*nu4 + 7.0*mu1*mu1
+               + mu1*(6.0*mu2 + 6.0*mu3 + 4.0*mu4 - mu5 - 2.0*mu6)
+               + mu2*(4.0*mu4 - mu5)
+               - 2.0*mu4*mu6 + 2.0*mu5*mu6 + mu6*mu6)/(16.0*pi*pi);
+        //beta_mu2
+        double betamu2 = (3.0*nu5*nu5 + 7.0*mu2*mu2
+               + mu2*(6.0*mu1 + 6.0*mu3 + 4.0*mu4 - mu5 - 2.0*mu6)
+               + mu1*(4.0*mu4 - mu5)
+               - 2.0*mu4*mu6 + 2.0*mu5*mu6 + mu6*mu6)/(16.0*pi*pi);
+        //beta_mu3
+        double betamu3 = (20.0*mu3*mu3
+               + mu3*(288.0*mu1 + 288.0*mu2 + 360.0*mu4 + 108.0*mu5 + 180.0*mu6)/18.0
+               + (36.0*nu1*nu1 + 36.0*nu1*nu2 - 24.0*nu4*nu4 - 12.0*nu4*nu5
+                  - 24.0*nu5*nu5 + 62.0*mu1*mu1 + 64.0*mu1*mu2 + 62.0*mu2*mu2
+                  + (96.0*mu4 + 18.0*mu5 + 58.0*mu6)*(mu1 + mu2)
+                  + 54.0*mu4*mu4 + 36.0*mu4*mu5 + 132.0*mu4*mu6 + 18.0*mu5*mu5
+                  + 18.0*mu5*mu6 + 29.0*mu6*mu6)/18.0)/(16.0*pi*pi);
+        //beta_mu4
+        double betamu4 = (nu2*nu2 - (nu4*nu4 - 4.0*nu4*nu5 + nu5*nu5)/3.0 + 10.0*mu4*mu4 /*mu4??*/
+               + mu5*(mu1 + mu2 + mu6)
+               + mu4*(4.0*(4.0*mu1 + 4.0*mu2 + mu6)/3.0 + 2.0*mu5 + 6.0*mu4)
+               + 4.0*mu5*mu5
+               + (mu1*mu1 + mu2*mu2 - 4.0*mu6*(mu1+mu2) - 2.0*mu6*mu6)/9.0
+               + 26.0/9.0*mu1*mu2)/(16.0*pi*pi);
+        //beta_mu5
+        double betamu5 = (4.0*nu3*nu3 - (nu4*nu4 - 4.0*nu4*nu5 + nu5*nu5)/3.0
+               + mu5*((mu1 + mu2 + 19.0*mu6)/3.0 + 8.0*mu4 + 6.0*mu3)
+               + 2.0*mu4*mu6 + 8.0*mu5*mu5
+               + (mu1*mu1 + mu2*mu2 - 4.0*mu6*(mu1+mu2) + 7.0*mu6*mu6)/9.0
+               - 10.0/9.0*mu1*mu2)/(16.0*pi*pi);
+        //beta_mu6
+        double betamu6 = (0.5*mu6*mu6 + 3.0*nu4*nu4 + 3.0*nu5*nu5
+               - 2.0*(mu1*mu1 + mu2*mu2) + 6.0*mu5*(mu1 + mu2)
+               + 7.0*mu6*(mu1 + mu2 + mu3))/(16.0*pi*pi);
+        
+        
+        double betamuA = 4.0*betamu1+4.0*betamu2+8.5*betamu3+5.0*betamu4+1.5*betamu5+2.5*betamu6;
+        double betamuB = (4.0*betamu1+4.0*betamu2+1.5*betamu3+12.0*betamu4+1.5*betamu5-0.5*betamu6)/3.0;
+        double betamuC = (-0.5*betamu1-0.5*betamu2+1.5*betamu3+1.5*betamu4+12.0*betamu5+4.0*betamu6)/3.0;
+        double betaMA1 = 3.0*betalambda1 + betamuA 
+                         - sqrt(9.0*betalambda1*betalambda1-6.0*betalambda1*betamuA+betamuA*betamuA
+                                +32.0*betanu1*betanu1+32.0*betanu1*betanu2+8.0*betanu2*betanu2);
+        double betaMA2 = 3.0*betalambda1 + betamuA 
+                         + sqrt(9.0*betalambda1*betalambda1-6.0*betalambda1*betamuA+betamuA*betamuA
+                                +32.0*betanu1*betanu1+32.0*betanu1*betanu2+8.0*betanu2*betanu2);
+        double betaMB1 = betalambda1 + betamuB - sqrt(betalambda1*betalambda1-2.0*betalambda1*betamuB+betamuB*betamuB+8.0*betanu2*betanu2);
+        double betaMB2 = betalambda1 + betamuB + sqrt(betalambda1*betalambda1-2.0*betalambda1*betamuB+betamuB*betamuB+8.0*betanu2*betanu2);
+        double betaMC1 = betalambda1 + betamuC - sqrt(betalambda1*betalambda1-2.0*betalambda1*betamuC+betamuC*betamuC+32.0*betanu3*betanu3);
+        double betaMC2 = betalambda1 + betamuC + sqrt(betalambda1*betalambda1-2.0*betalambda1*betamuC+betamuC*betamuC+32.0*betanu3*betanu3);
 
-        Smatrix2.assign(0,0, lambda1/(16.0*pi));
-        Smatrix2.assign(0,3, nu3/(4.0*sqrt(2.0)*pi));
-        Smatrix2.assign(3,0, Smatrix2(0,3));
-        Smatrix2.assign(3,3, (14.0*mu1+3.0*mu3+27.0*mu4)/(96.0*pi)); //??
-
-        Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
-        Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
-
-        for (int i=0; i < 4; i++) {
-            unitarityeigenvalues.assign(i, Seigenvalues1(i));
-            unitarityeigenvalues.assign(4+i, Seigenvalues2(i));
+        betaeigenvalues.assign(0, -1.5 * betaMA1/(32.0*pi));
+        betaeigenvalues.assign(1, -1.5 * betaMA2/(32.0*pi));
+        betaeigenvalues.assign(2, -1.5 * betaMB1/(32.0*pi));
+        betaeigenvalues.assign(3, -1.5 * betaMB2/(32.0*pi));
+        betaeigenvalues.assign(4, -1.5 * betaMC1/(32.0*pi));
+        betaeigenvalues.assign(5, -1.5 * betaMC2/(32.0*pi));
+        betaeigenvalues.assign(6, -1.5 * betalambda1/(16.0*pi));
+        betaeigenvalues.assign(7, -1.5 * sqrt(15.0)*(betanu4+betanu5)/(64.0*pi));
+        
+        
+        for (int i=0; i < 8; i++) {
+            NLOunitarityeigenvalues.assign(i, -(gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
         }
-//        unitarityeigenvalues.assign(8, (lambda3-lambda4)/(16.0*pi));
-        unitarityeigenvalues.assign(9, sqrt(15.0)*(nu4+nu5)/(64.0*pi)); //non-custodial limit from 1606.01298
-//        unitarityeigenvalues.assign(10, sqrt(15.0)*omega4/(16.0*pi));
+        
     }//End of the ManoharWise case
     if( THDMWmodel == "custodialMW")
     {
@@ -1390,7 +1487,6 @@ double THDMWcache::interpolate(gslpp::matrix<double> arrayTab, double x){
 double THDMWcache::interpolate3D(gslpp::matrix<double> arrayTab, double x, double y, double z){
 
     int rowN=arrayTab.size_i();
-
     double xmin = arrayTab(0,0);
     double xmax = arrayTab(rowN-1,0);
     double ymin = arrayTab(0,1);
@@ -1409,17 +1505,26 @@ double THDMWcache::interpolate3D(gslpp::matrix<double> arrayTab, double x, doubl
     int Nintervalsx = (x-xmin)/intervalx;
     int Nintervalsy = (y-ymin)/intervaly;
     int Nintervalsz = (z-zmin)/intervalz;  
-    //std::cout<<"intervalx="<<intervalx<<std::endl;
-    //std::cout<<"intervaly="<<intervaly<<std::endl;
-    //std::cout<<"intervalz="<<intervalz<<std::endl;
-    if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax){
-        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
-        std::cout<<"x="<<x<<std::endl;
-        std::cout<<"y="<<y<<std::endl;
-        std::cout<<"z="<<z<<std::endl;
+    int MaxNintervalx = round((xmax-xmin)/intervalx);
+    int MaxNintervaly = round((ymax-ymin)/intervaly);
+    int MaxNintervalz = round((zmax-zmin)/intervalz);
+    //std::cout<<"MaxNintervalx="<<MaxNintervalx<<std::endl;
+    //std::cout<<"MaxNintervaly="<<MaxNintervaly<<std::endl;
+    //std::cout<<"MaxNintervalz="<<MaxNintervalz<<std::endl;
+    //std::cout<<"imax="<<iz*Nintervalsz+iy*Nintervalsy+Nintervalsx<<std::endl;
+    //std::cout<<"imax+1="<<(iz)*(Nintervalsz+1)+(iy)*(Nintervalsy+1)+Nintervalsx+1<<std::endl;
+    //std::cout<<"Nintervalx="<<Nintervalsx<<std::endl;
+    //std::cout<<"Nintervaly="<<Nintervalsy<<std::endl;
+    //std::cout<<"Nintervalz="<<Nintervalsz<<std::endl;
+    if(x<xmin||Nintervalsx>MaxNintervalx||y<ymin||Nintervalsy>MaxNintervaly||z<zmin||Nintervalsz>MaxNintervalz){
+        //std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        //std::cout<<"x="<<x<<std::endl;
+        //std::cout<<"y="<<y<<std::endl;
+        //std::cout<<"z="<<z<<std::endl;
         return 0.;
     }
     else{
+    
     double x1=arrayTab(iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,0);
     double x2=arrayTab(iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx+1,0);
     double y1=arrayTab(iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,1);
@@ -1435,6 +1540,7 @@ double THDMWcache::interpolate3D(gslpp::matrix<double> arrayTab, double x, doubl
             +arrayTab(iz*(Nintervalsz+1)+iy*Nintervalsy+Nintervalsx+1,3) * (x-x1) * (y2-y) * (z-z1)
             +arrayTab(iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx,3) * (x2-x) * (y-y1) * (z-z1)
             +arrayTab(iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1,3) * (x-x1) * (y-y1) * (z-z1))/((x2-x1)*(y2-y1)*(z2-z1));
+    
     }
 }
 
@@ -1470,7 +1576,11 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     int Nintervalsx = (x-xmin)/intervalx;
     int Nintervalsy = (y-ymin)/intervaly;
     int Nintervalsz = (z-zmin)/intervalz;
-    int Nintervalsv = (v-vmin)/intervalv;       
+    int Nintervalsv = (v-vmin)/intervalv;  
+    int MaxNintervalx = round((xmax-xmin)/intervalx);
+    int MaxNintervaly = round((ymax-ymin)/intervaly);
+    int MaxNintervalz = round((zmax-zmin)/intervalz);
+    int MaxNintervalv = round((vmax-vmin)/intervalv);
     //std::cout<<"xmin="<<xmin<<std::endl;
     //std::cout<<"xmax="<<xmax<<std::endl;
     //std::cout<<"ymin="<<ymin<<std::endl;
@@ -1488,12 +1598,12 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     //std::cout<<"Nintervalsz="<<Nintervalsz<<std::endl;
     //std::cout<<"Nintervalsv="<<Nintervalsv<<std::endl;
     
-    if(x<xmin||x>xmax||y<ymin||y>ymax||z<zmin||z>zmax||v<vmin||v>vmax){
-        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
-        std::cout<<"x="<<x<<std::endl;
-        std::cout<<"y="<<y<<std::endl;
-        std::cout<<"z="<<z<<std::endl;
-        std::cout<<"v="<<v<<std::endl;
+    if(x<xmin||Nintervalsx>MaxNintervalx||y<ymin||Nintervalsy>MaxNintervaly||z<zmin||Nintervalsz>MaxNintervalz||v<vmin||Nintervalsv>MaxNintervalv){
+        //std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        //std::cout<<"x="<<x<<std::endl;
+        //std::cout<<"y="<<y<<std::endl;
+        //std::cout<<"z="<<z<<std::endl;
+        //std::cout<<"v="<<v<<std::endl;
         return 0.;
     }
     else{
@@ -1505,6 +1615,7 @@ double THDMWcache::interpolate4D(gslpp::matrix<double> arrayTab, double x, doubl
     double z2=arrayTab(iv*(Nintervalsv)+iz*(Nintervalsz+1)+iy*(Nintervalsy)+Nintervalsx,2);
     double v1=arrayTab(iv*Nintervalsv+iz*Nintervalsz+iy*Nintervalsy+Nintervalsx,3);
     double v2=arrayTab(iv*(Nintervalsv+1)+iz*(Nintervalsz)+iy*(Nintervalsy)+Nintervalsx,3);
+    //std::cout<<"Nmax="<<iv*(Nintervalsv+1)+iz*(Nintervalsz+1)+iy*(Nintervalsy+1)+Nintervalsx+1<<std::endl;
     //std::cout<<"x1="<<x1<<std::endl;
     //std::cout<<"x2="<<x2<<std::endl;
     //std::cout<<"y1="<<y1<<std::endl;
@@ -1698,8 +1809,8 @@ void THDMWcache::read(){
     std::stringstream ex4e,ex5e,ex6e,ex7e,ex8e;
     std::stringstream ex9,ex10,ex13;
     std::stringstream ex9e,ex10e,ex13e;
-    std::stringstream ex14, ex15,ex16,ex17,ex18;
-    std::stringstream th1,th2,th3,th4,th5,th6,th7;
+    std::stringstream ex14, ex15,ex16,ex17,ex18,ex19;
+    std::stringstream th1,th2,th3,th4,th5,th6,th7,th8,th9,th10,th11,th12,th13,th14;
 
     std::stringstream bsg1;
 
@@ -1809,6 +1920,9 @@ void THDMWcache::read(){
     CMS13_pp_R_gg = readTable(ex15.str(),241,2);
     ex16 << tablepath << "171007171.dat";
     ATLAS13_pp_SS_jjjj = readTable(ex16.str(),126,2);
+    
+    ex19 << tablepath << "180206149.dat";
+    CMS8_pp_phi_bb = readTable(ex19.str(),88,2); 
 
     th1 << tablepath << "Generated_data_S2t_Fixed_Steps.dat";
     MadGraph_pp_Sr_tt = readTable(th1.str(),22800,5);
@@ -1827,8 +1941,31 @@ void THDMWcache::read(){
     
     th6 << tablepath << "Generated_data_Soddtt_tttt_Fixed_Steps.dat";
     MadGraph_pp_Sitt_tttt = readTable(th6.str(),9360,4);
+    
     th7 << tablepath << "Generated_data_Srbb_bbbb_Fixed_Steps.dat";
     MadGraph_pp_Srbb_bbbb = readTable(th7.str(),15960,5);
+    
+    th8 << tablepath << "Generated_data_Sibb_bbbb_Fixed_Steps.dat";
+    MadGraph_pp_Sibb_bbbb = readTable(th8.str(),8892,4);
+    
+    th9 << tablepath << "Generated_data_Sr_bb_Fixed_Steps.dat";
+    MadGraph_pp_Sr_bb = readTable(th9.str(),15960,5);
+    
+    th10 << tablepath << "Generated_data_Sr_bb_8TeV_Fixed_Steps.dat";
+    MadGraph_pp_Sr_bb_8TeV = readTable(th10.str(),15960,5);
+    
+    th11 << tablepath << "Generated_data_Si_bb_Fixed_Steps.dat";
+    MadGraph_pp_Si_bb = readTable(th11.str(),8892,4);
+    
+    th12 << tablepath << "Generated_data_Si_bb_8TeV_Fixed_Steps.dat";
+    MadGraph_pp_Si_bb_8TeV = readTable(th12.str(),8892,4);
+    
+    th13 << tablepath << "Generated_data_Srbb_bbbb_8TeV_Fixed_Steps.dat";
+    MadGraph_pp_Srbb_bbbb_8TeV = readTable(th13.str(),15960,5);
+    
+    th14 << tablepath << "Generated_data_Sibb_bbbb_8TeV_Fixed_Steps.dat";
+    MadGraph_pp_Sibb_bbbb_8TeV = readTable(th14.str(),8892,4);
+    
     
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
@@ -2028,6 +2165,22 @@ double THDMWcache::ip_ex_pp_phi_bb_CMS13(double mass){
         return newResult;
     }
 }
+
+double THDMWcache::ip_ex_pp_phi_bb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_bb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_bb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_phi_bb,mass);
+        CacheShiftReal(ip_ex_pp_phi_bb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
 
 
 
@@ -2346,6 +2499,125 @@ double THDMWcache::ip_th_pp_Srbb_bbbb(double etaD, double etaU, double Lambda4, 
     }
 }
 
+
+double THDMWcache::ip_th_pp_Srbb_bbbb_8TeV(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
+
+    int i = CacheCheckReal(ip_th_pp_Srbb_bbbb_8TeV_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Srbb_bbbb_8TeV_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate4D (MadGraph_pp_Srbb_bbbb_8TeV,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(ip_th_pp_Srbb_bbbb_8TeV_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double THDMWcache::ip_th_pp_Sibb_bbbb(double etaD, double etaU, double mS){
+    int NumPar = 3;
+    double params[] = {etaD, etaU, mS};
+
+    int i = CacheCheckReal(ip_th_pp_Sibb_bbbb_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Sibb_bbbb_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate3D (MadGraph_pp_Sibb_bbbb,etaD,etaU,mS);
+        //std::cout<<"check"<<std::endl;
+        CacheShiftReal(ip_th_pp_Sibb_bbbb_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_th_pp_Sibb_bbbb_8TeV(double etaD, double etaU, double mS){
+    int NumPar = 3;
+    double params[] = {etaD, etaU, mS};
+
+    int i = CacheCheckReal(ip_th_pp_Sibb_bbbb_8TeV_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Sibb_bbbb_8TeV_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate3D (MadGraph_pp_Sibb_bbbb_8TeV,etaD,etaU,mS);
+        //std::cout<<"check"<<std::endl;
+        CacheShiftReal(ip_th_pp_Sibb_bbbb_8TeV_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+
+
+double THDMWcache::ip_th_pp_Sr_bb(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
+
+    int i = CacheCheckReal(ip_th_pp_Sr_bb_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Sr_bb_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate4D (MadGraph_pp_Sr_bb,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(ip_th_pp_Sr_bb_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMWcache::ip_th_pp_Sr_bb_8TeV(double etaD, double etaU, double Lambda4, double mSr){
+    int NumPar = 4;
+    double params[] = {etaD, etaU, Lambda4, mSr};
+
+    int i = CacheCheckReal(ip_th_pp_Sr_bb_8TeV_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Sr_bb_8TeV_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate4D (MadGraph_pp_Sr_bb_8TeV,etaD,etaU,Lambda4,mSr);
+        CacheShiftReal(ip_th_pp_Sr_bb_8TeV_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double THDMWcache::ip_th_pp_Si_bb(double etaD, double etaU, double mS){
+    int NumPar = 3;
+    double params[] = {etaD, etaU, mS};
+
+    int i = CacheCheckReal(ip_th_pp_Si_bb_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Si_bb_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate3D (MadGraph_pp_Si_bb,etaD,etaU,mS);
+        //std::cout<<"check"<<std::endl;
+        CacheShiftReal(ip_th_pp_Si_bb_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+
+double THDMWcache::ip_th_pp_Si_bb_8TeV(double etaD, double etaU, double mS){
+    int NumPar = 3;
+    double params[] = {etaD, etaU, mS};
+
+    int i = CacheCheckReal(ip_th_pp_Si_bb_8TeV_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_th_pp_Si_bb_8TeV_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate3D (MadGraph_pp_Si_bb_8TeV,etaD,etaU,mS);
+        //std::cout<<"check"<<std::endl;
+        CacheShiftReal(ip_th_pp_Si_bb_8TeV_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+
 /*
 double THDMWcache::logip_th_pp_SrSr_jjjj(double etaD, double etaU, double Lambda4, double mSr){
     int NumPar = 4;
@@ -2382,6 +2654,13 @@ void THDMWcache::computeHHlimits()
     THoEX_pp_Stb_tbtb=0.;
     THoEX_pp_Sitt_tttt=0.;
     THoEX_pp_Srbb_bbbb=0.;
+    THoEX_pp_Srbb_bbbb_8TeV=0.;
+    THoEX_pp_Sibb_bbbb=0.;
+    THoEX_pp_Sibb_bbbb_8TeV=0.;
+    THoEX_pp_Sr_bb=0.;
+    THoEX_pp_Sr_bb_8TeV=0.;
+    THoEX_pp_Si_bb=0.;
+    THoEX_pp_Si_bb_8TeV=0.;
     
     pp_Sr_tt_TH13 = 1.0e-15;
     pp_Srtt_tttt_TH13 = 1.0e-15;
@@ -2391,6 +2670,13 @@ void THDMWcache::computeHHlimits()
     pp_Srtt_tttt_TH13 = 1.0e-15;
     pp_Sitt_tttt_TH13 = 1.0e-15;
     pp_Srbb_bbbb_TH13= 1.0e-15;
+    pp_Srbb_bbbb_TH8= 1.0e-15;
+    pp_Sibb_bbbb_TH13= 1.0e-15;
+    pp_Sibb_bbbb_TH8= 1.0e-15;
+    pp_Sr_bb_TH13= 1.0e-15;
+    pp_Sr_bb_TH8= 1.0e-15;
+    pp_Si_bb_TH13= 1.0e-15;
+    pp_Si_bb_TH8= 1.0e-15;
     //logpp_SrSr_jjjj_TH13=-15;
     
     
@@ -2405,12 +2691,22 @@ void THDMWcache::computeHHlimits()
     if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_tt_TH13=ip_th_pp_Sr_tt(SqrtEtaD,SqrtEtaU,nu45,mSr);
     if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Srtt_tttt_TH13=ip_th_pp_Srtt_tttt(SqrtEtaD,SqrtEtaU,nu45,mSr);
     if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_jj_TH13=ip_th_pp_Sr_jj(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6&& etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_SrSr_jjjj_TH13=ip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
-    if(mSpsq > 1.6001e5 && mSpsq<2.2499e6 && etaD*etaD<399.99  && etaU*etaU<56.2499 && mSpsq<(mSRsq+MW*MW) && mSp<=(mSIsq+MW*MW)) pp_Stb_tbtb_TH13=ip_th_pp_Stb_tbtb(SqrtEtaD,SqrtEtaU,mSp);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_SrSr_jjjj_TH13=ip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSpsq > 1.6001e5 && mSpsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && mSpsq<(mSRsq+MW*MW) && mSp<=(mSIsq+MW*MW)) pp_Stb_tbtb_TH13=ip_th_pp_Stb_tbtb(SqrtEtaD,SqrtEtaU,mSp);
     if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<56.2499 && mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Sitt_tttt_TH13=ip_th_pp_Sitt_tttt(SqrtEtaD,SqrtEtaU,mSi);
     if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Srbb_bbbb_TH13=ip_th_pp_Srbb_bbbb(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Srbb_bbbb_TH8=ip_th_pp_Srbb_bbbb_8TeV(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.999 &&  mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Sibb_bbbb_TH13=ip_th_pp_Sibb_bbbb(SqrtEtaD,SqrtEtaU,mSi);
+    if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.999 &&  mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Sibb_bbbb_TH8=ip_th_pp_Sibb_bbbb_8TeV(SqrtEtaD,SqrtEtaU,mSi);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_bb_TH13=ip_th_pp_Sr_bb(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSRsq > 1.6001e5 && mSRsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.9999 && nu45*nu45<168.999 &&  mSRsq<(mSpsq+MW*MW) && mSRsq<=(mSIsq+MZ*MZ)) pp_Sr_bb_TH8 =ip_th_pp_Sr_bb_8TeV(SqrtEtaD,SqrtEtaU,nu45,mSr);
+    if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.999 &&  mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Si_bb_TH13=ip_th_pp_Si_bb(SqrtEtaD,SqrtEtaU,mSi);
+    if(mSIsq > 1.6001e5 && mSIsq<2.2499e6 && etaD*etaD<399.99 && etaU*etaU<3.999 &&  mSIsq<(mSpsq+MW*MW) && mSIsq<=(mSRsq+MZ*MZ)) pp_Si_bb_TH8=ip_th_pp_Si_bb_8TeV(SqrtEtaD,SqrtEtaU,mSi);
 
-    
+
+
+    //std::cout<<"Sibb2="<< interpolate3D(MadGraph_pp_Sibb_bbbb,4.47213,1.4141,1450)<<std::endl;
+    //std::cout<<"Sibb="<< interpolate3D(MadGraph_pp_Sibb_bbbb,-4.47214,-1.4142,350)<<std::endl;
     //std::cout<<"Sitt="<< interpolate3D(MadGraph_pp_Sitt_tttt,SqrtEtaD,SqrtEtaU,mSi)<<std::endl;
     //std::cout<<"Sitt="<<ip_th_pp_Sitt_tttt(SqrtEtaD,0,mSi)<<std::endl;
     //if(mSr>= 400 && mSr<=1500) logpp_SrSr_jjjj_TH13=logip_th_pp_SrSr_jjjj(SqrtEtaD,SqrtEtaU,nu45,mSr);
@@ -2424,9 +2720,16 @@ void THDMWcache::computeHHlimits()
     if(mSp>= 400 && mSp<=1500) THoEX_pp_Stb_tbtb=pp_Stb_tbtb_TH13/ip_ex_pp_Hp_tb_ATLAS13(mSp);
     if(mSi>= 400 && mSi<=1000) THoEX_pp_Sitt_tttt=pp_Sitt_tttt_TH13/ip_ex_tt_phi_tt_ATLAS13(mSi);
     if(mSr>= 400 && mSr<=1300) THoEX_pp_Srbb_bbbb=pp_Srbb_bbbb_TH13/ip_ex_bb_H_bb_CMS13(mSr);
-    
-    
-    
+    if(mSr>= 400 && mSr<=900) THoEX_pp_Srbb_bbbb_8TeV=pp_Srbb_bbbb_TH8/ip_ex_bb_phi_bb_CMS8(mSr);
+    if(mSi>= 400 && mSi<=1300) THoEX_pp_Sibb_bbbb=pp_Sibb_bbbb_TH13/ip_ex_bb_H_bb_CMS13(mSi);
+    if(mSi>= 400 && mSi<=900) THoEX_pp_Sibb_bbbb_8TeV=pp_Sibb_bbbb_TH8/ip_ex_bb_phi_bb_CMS8(mSi);
+    if(mSr>= 550 && mSr<=1200) THoEX_pp_Sr_bb=pp_Sr_bb_TH13/ip_ex_pp_phi_bb_CMS13(mSr);
+    if(mSr>= 400 && mSr<=1200) THoEX_pp_Sr_bb_8TeV=pp_Sr_bb_TH8/ip_ex_pp_phi_bb_CMS8(mSr);
+    if(mSi>= 550 && mSi<=1200) THoEX_pp_Si_bb=pp_Si_bb_TH13/ip_ex_pp_phi_bb_CMS13(mSi);
+    if(mSr>= 400 && mSr<=1200) THoEX_pp_Si_bb_8TeV=pp_Si_bb_TH8/ip_ex_pp_phi_bb_CMS8(mSr);
+    //std::cout<<"ip_ex_pp_phi_bb_CMS13(mSi)="<< ip_ex_pp_phi_bb_CMS13(550) <<std::endl;
+    //std::cout<<"pp_Si_bb_TH13="<< ip_th_pp_Si_bb(4.469,0,550) <<std::endl;
+    //std::cout<<"pp_Si_bb_TH13="<< ip_th_pp_Si_bb(4.469,1.41,550) <<std::endl;
 }
 
 

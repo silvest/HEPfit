@@ -82,7 +82,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -122,7 +122,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

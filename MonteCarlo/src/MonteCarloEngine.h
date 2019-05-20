@@ -374,7 +374,7 @@ public:
      * @brief A set method to set the size of the buffer used by the histograms
      * @param[in] histogramBufferSize_i the size of the buffer used by the histograms
      */
-    void setHistogramBufferSize(int histogramBufferSize_i)
+    void setHistogramBufferSize(unsigned int histogramBufferSize_i)
     {
         histogramBufferSize = histogramBufferSize_i;
     };
@@ -445,7 +445,9 @@ private:
     unsigned int significants; /// < The number of significant digits in the Statistics File.
     TColor * HEPfit_green; /// < The colour green for HEPfit.
     TColor * HEPfit_red; /// < The colour red for HEPfit.
-    int histogramBufferSize; /// < The size of the buffer used for the histograms.
+    unsigned int histogramBufferSize; /// < The size of the buffer used for the histograms.
+    std::vector<double> par_at_LL_max; /// < vector to store the value of the parameters at maximum LogLikelihood;
+    double LogLikelihood_max; /// < Maximum value of LogLikelihood
 };
 
 #endif

@@ -9,9 +9,9 @@
 #define	THDMWUNITARITY_H
 
 #include "ThObservable.h"
-#include "THDMW.h"
-#include "THDMWcache.h"
-#include <gslpp.h>
+
+class THDMW;
+class THDMWcache;
 
 /**
  * @class THDMWunitarityLO

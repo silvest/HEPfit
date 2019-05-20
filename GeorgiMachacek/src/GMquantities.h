@@ -8,10 +8,9 @@
 #ifndef GMQUANTITIES_H
 #define	GMQUANTITIES_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "GeorgiMachacek.h"
-#include "GMcache.h"
+
+class GeorgiMachacek;
 
 /**
  * @class tanbetaGM

@@ -16,48 +16,48 @@ const std::string FlavourWilsonCoefficient::FlavourWilsonCoefficientvars[NFlavou
 FlavourWilsonCoefficient::FlavourWilsonCoefficient() : StandardModel(), FWCM(*this) {   
 
     SMM.setObj((StandardModelMatching&) FWCM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC1", boost::cref(reDC1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC2", boost::cref(reDC2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC3", boost::cref(reDC3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC4", boost::cref(reDC4)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC5", boost::cref(reDC5)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC6", boost::cref(reDC6)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC7", boost::cref(reDC7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC8", boost::cref(reDC8)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC9", boost::cref(reDC9)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC10", boost::cref(reDC10)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC7g", boost::cref(reDC7g)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC8g", boost::cref(reDC8g)));
+    ModelParamMap.insert(std::make_pair("reDC1", std::cref(reDC1)));
+    ModelParamMap.insert(std::make_pair("reDC2", std::cref(reDC2)));
+    ModelParamMap.insert(std::make_pair("reDC3", std::cref(reDC3)));
+    ModelParamMap.insert(std::make_pair("reDC4", std::cref(reDC4)));
+    ModelParamMap.insert(std::make_pair("reDC5", std::cref(reDC5)));
+    ModelParamMap.insert(std::make_pair("reDC6", std::cref(reDC6)));
+    ModelParamMap.insert(std::make_pair("reDC7", std::cref(reDC7)));
+    ModelParamMap.insert(std::make_pair("reDC8", std::cref(reDC8)));
+    ModelParamMap.insert(std::make_pair("reDC9", std::cref(reDC9)));
+    ModelParamMap.insert(std::make_pair("reDC10", std::cref(reDC10)));
+    ModelParamMap.insert(std::make_pair("reDC7g", std::cref(reDC7g)));
+    ModelParamMap.insert(std::make_pair("reDC8g", std::cref(reDC8g)));
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC1", boost::cref(imDC1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC2", boost::cref(imDC2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC3", boost::cref(imDC3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC4", boost::cref(imDC4)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC5", boost::cref(imDC5)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC6", boost::cref(imDC6)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC7", boost::cref(imDC7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC8", boost::cref(imDC8)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC9", boost::cref(imDC9)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC10", boost::cref(imDC10)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC7g", boost::cref(imDC7g)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC8g", boost::cref(imDC8g)));
+    ModelParamMap.insert(std::make_pair("imDC1", std::cref(imDC1)));
+    ModelParamMap.insert(std::make_pair("imDC2", std::cref(imDC2)));
+    ModelParamMap.insert(std::make_pair("imDC3", std::cref(imDC3)));
+    ModelParamMap.insert(std::make_pair("imDC4", std::cref(imDC4)));
+    ModelParamMap.insert(std::make_pair("imDC5", std::cref(imDC5)));
+    ModelParamMap.insert(std::make_pair("imDC6", std::cref(imDC6)));
+    ModelParamMap.insert(std::make_pair("imDC7", std::cref(imDC7)));
+    ModelParamMap.insert(std::make_pair("imDC8", std::cref(imDC8)));
+    ModelParamMap.insert(std::make_pair("imDC9", std::cref(imDC9)));
+    ModelParamMap.insert(std::make_pair("imDC10", std::cref(imDC10)));
+    ModelParamMap.insert(std::make_pair("imDC7g", std::cref(imDC7g)));
+    ModelParamMap.insert(std::make_pair("imDC8g", std::cref(imDC8g)));
     
 
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC7p", boost::cref(reDC7p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC8p", boost::cref(reDC8p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC9p", boost::cref(reDC9p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC10p", boost::cref(reDC10p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC7gp", boost::cref(reDC7gp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC8gp", boost::cref(reDC8gp)));
+    ModelParamMap.insert(std::make_pair("reDC7p", std::cref(reDC7p)));
+    ModelParamMap.insert(std::make_pair("reDC8p", std::cref(reDC8p)));
+    ModelParamMap.insert(std::make_pair("reDC9p", std::cref(reDC9p)));
+    ModelParamMap.insert(std::make_pair("reDC10p", std::cref(reDC10p)));
+    ModelParamMap.insert(std::make_pair("reDC7gp", std::cref(reDC7gp)));
+    ModelParamMap.insert(std::make_pair("reDC8gp", std::cref(reDC8gp)));
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC7p", boost::cref(imDC7p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC8p", boost::cref(imDC8p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC9p", boost::cref(imDC9p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC10p", boost::cref(imDC10p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC7gp", boost::cref(imDC7gp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC8gp", boost::cref(imDC8gp)));
+    ModelParamMap.insert(std::make_pair("imDC7p", std::cref(imDC7p)));
+    ModelParamMap.insert(std::make_pair("imDC8p", std::cref(imDC8p)));
+    ModelParamMap.insert(std::make_pair("imDC9p", std::cref(imDC9p)));
+    ModelParamMap.insert(std::make_pair("imDC10p", std::cref(imDC10p)));
+    ModelParamMap.insert(std::make_pair("imDC7gp", std::cref(imDC7gp)));
+    ModelParamMap.insert(std::make_pair("imDC8gp", std::cref(imDC8gp)));
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("WCscale", boost::cref(WCscale)));
+    ModelParamMap.insert(std::make_pair("WCscale", std::cref(WCscale)));
 }
 
 FlavourWilsonCoefficient::~FlavourWilsonCoefficient(){

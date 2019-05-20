@@ -8,10 +8,10 @@
 #ifndef CHARGEDHIGGS_H
 #define	CHARGEDHIGGS_H
 
-#include <stdexcept>
 #include "ThObservable.h"
-#include "THDM.h"
-#include "THDMcache.h"
+
+class THDM;
+class THDMcache;
 
 /**
  * @class chargedHiggs

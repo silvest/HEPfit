@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
- * File:   GeneralTHDMLightHiggs.cpp
- * Author: Ana
- * 
- * Created on 31 / de maig / 2018, 15:58
+ * Copyright (C) 2018 HEPfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "GeneralTHDMLightHiggs.h"
-#include "StandardModel.h"
+#include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 
 
@@ -369,6 +364,34 @@ GTHDM_mu_htoZga::GTHDM_mu_htoZga(const StandardModel& SM_i)
 double GTHDM_mu_htoZga::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->pph13*myGTHDM.getMyGTHDMCache()->rh_Zga/myGTHDM.getMyGTHDMCache()->sumModBRs;
+}
+
+yu1R_GTHDM::yu1R_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double yu1R_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->yu1R;
+}
+
+yd1R_GTHDM::yd1R_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double yd1R_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->yd1R;
+}
+
+
+yl1R_GTHDM::yl1R_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double yl1R_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->yl1R;
 }
 
 

@@ -97,6 +97,8 @@ namespace gslpp
       /** Hermitean conjugate matrix */
       matrix<complex> hconjugate() const;
       matrix<complex> inverse() const;
+      /** Check is matrix is singular to avoid errors in luc.c **/
+      bool isSingular();
       /** Get matrix of real parts */
       matrix<double> real() const;
       /** Get matrix of imaginary parts */

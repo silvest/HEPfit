@@ -1,24 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
- * File:   GeneralTHDMLightHiggs.h
- * Author: Ana
+ * Copyright (C) 2018 HEPfit Collaboration
+ * All rights reserved.
  *
- * Created on 31 / de maig / 2018, 15:58
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef GENERALTHDMLIGHTHIGGS_H
 #define GENERALTHDMLIGHTHIGGS_H
 
-
-#include <stdexcept>
 #include "ThObservable.h"
-#include "GeneralTHDM.h"
-#include "GeneralTHDMcache.h"
+
+class GeneralTHDM;
+class GeneralTHDMcache;
 
 /**
  * @class GTHDM_BR_h_bb
@@ -737,7 +730,68 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+/**
+ * @class yu1R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of the SM-Higgs to up quarks real part
+ */
+class yu1R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yu1R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yu1R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+}; 
 
+/**
+ * @class yd1R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of the SM-Higgs to down quarks  real part
+ */
+class yd1R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yd1R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yd1R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class yl1R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of the SM-Higgs to leptons  real part
+ */
+class yl1R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yl1R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yl1R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
 
 /**
  * @class rh_gg_GTHDM

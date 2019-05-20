@@ -10,7 +10,6 @@
             <header-extensions/>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
-                <make-dep-project>../HiggsExtensions</make-dep-project>
                 <make-dep-project>../Flavour</make-dep-project>
                 <make-dep-project>../LeptonFlavour</make-dep-project>
                 <make-dep-project>../THDMW</make-dep-project>
@@ -42,15 +41,15 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
+                    <name>Release_MPI</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
                     <name>Debug</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
                     <name>Release</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Release_MPI</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
