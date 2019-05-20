@@ -5,12 +5,13 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef FOURTHGEN_H
-#define FOURTHGEN_H
+#ifndef LOOPMEDIATORS_H
+#define LOOPMEDIATORS_H
 
 #include "StandardModel.h"
 #include "gslpp.h"
 #include "LoopMediatorsMatching.h"
+#include "ThObservable.h"
 
 /**
  * @class LoopMediators
@@ -19,7 +20,7 @@
 class LoopMediators: public StandardModel {
 public:
 
-    static const int NLoopMediatorsvars = 7;
+    static const int NLoopMediatorsvars = 10;
 
     static const std::string LoopMediatorsvars[NLoopMediatorsvars];
     
@@ -48,6 +49,10 @@ public:
     virtual bool setFlag(const std::string name, const bool value);
     
     double F9(double x, double y);
+    double F7(double x);
+    double F7t(double x);
+    double G7(double x);
+    double G7t(double x);
     
     virtual LoopMediatorsMatching& getMatching() const
     {
@@ -216,6 +221,14 @@ public:
     
     /**
      *
+     * @return \f$ \Delta(a_\mu) $\f
+     */
+    double getDeltaamu() const {
+        return Deltaamu;
+    }
+    
+    /**
+     *
      * @return the matching scale of the Wilson coefficients
      */
     double getWCscale() const {
@@ -253,17 +266,41 @@ private:
     gslpp::complex CSp;
     gslpp::complex CPp;
     
+    double Deltaamu;
+    
     double GammaL;
     double GammaR;
-    double Gammamu;
+    double GammamuL;
+    double GammamuR;
+    double lambdaE;
     double mphi;
-    double yQ;
-    double yL;
+    double yD;
+    double yE;
+    double charge;
     
     double WCscale;
     
       
 };
 
-#endif /* FOURTHGEN_H */
+
+
+class Deltaamu : public ThObservable {
+public:
+    /**
+     * @brief Constructor.
+     */
+   Deltaamu(const StandardModel& SM_i);
+     
+   ~Deltaamu();
+
+   /**
+     * @brief Two positivity conditions of the Higgs potential.
+     * @return
+     */
+    double computeThValue();
+    const LoopMediators * myLM;
+};
+
+#endif /* LOOPMEDIATORS_H */
 

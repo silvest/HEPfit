@@ -230,6 +230,13 @@ std::vector<WilsonCoefficient>& LoopMediatorsMatching::CMdbs2()
     }
 
     mcdbs2.setMu(WCscale);
+    
+    /*std::cout << "high scale :" << std::endl;
+    std::cout << "C1 :" << C1NP + C1pNP << std::endl;
+    std::cout << "C2 :" << C2NP + C2pNP << std::endl;
+    std::cout << "C3 :" << C3NP + C3pNP << std::endl;
+    std::cout << "C4 :" << C4NP << std::endl;
+    std::cout << "C5 :" << C5NP << std::endl << std::endl;*/
 
     switch (mcdbs2.getOrder()) {
         case NNLO:
