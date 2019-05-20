@@ -33,23 +33,22 @@ gslpp::complex AmpDB2::RBs(orders order)
             mySM.getBBs().getMu(),
             mySM.getBBs().getScheme());
 
-    gslpp::vector<double> me(mySM.getBBd().getBpars());
-    double MBd = mySM.getMesons(QCD::B_D).getMass();
-    double Mb = mySM.Mrun(mySM.getBBd().getMu(),
-                mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
-    double Md = mySM.Mrun(mySM.getBBd().getMu(),
-                mySM.getQuarks(QCD::DOWN).getMass_scale(),
-                mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
-    double KBd = MBd/(Mb+Md)*MBd/(Mb+Md);
-    double Fb = mySM.getMesons(QCD::B_D).getDecayconst();
-    me(0) *= 1./3.*MBd*Fb*Fb;
-    me(1) *= -5./24.*KBd*MBd*Fb*Fb;
-    me(2) *= 1./24.*KBd*MBd*Fb*Fb;
-    me(3) *= 1./4.*KBd*MBd*Fb*Fb;
-    me(4) *= 1./12.*KBd*MBd*Fb*Fb;
+    gslpp::vector<double> me(mySM.getBBs().getBpars());
+    double MBs = mySM.getMesons(QCD::B_S).getMass();
+    double Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    double Ms = mySM.Mrun(mySM.getBBs().getMu(),
+                mySM.getQuarks(QCD::STRANGE).getMass_scale(),
+                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+    double KBs = MBs/(Mb+Ms)*MBs/(Mb+Ms);
+    double Fbs = mySM.getMesons(QCD::B_S).getDecayconst();
+    me(0) *= 1./3.*MBs*Fbs*Fbs;
+    me(1) *= -5./24.*KBs*MBs*Fbs*Fbs;
+    me(2) *= 1./24.*KBs*MBs*Fbs*Fbs;
+    me(3) *= 1./4.*KBs*MBs*Fbs*Fbs;
+    me(4) *= 1./12.*KBs*MBs*Fbs*Fbs;
 
-    /*std::cout << "C1_SM :" << C_1_SM << std::endl << std::endl;
+    /*std::cout << "low scale :" << std::endl << std::endl;
+    std::cout << "C1_SM :" << C_1_SM << std::endl << std::endl;
     
     std::cout << "C1 :" << ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0)) << std::endl;
     std::cout << "C2 :" << ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1)) << std::endl;
@@ -64,7 +63,7 @@ gslpp::complex AmpDB2::RBs(orders order)
         case LO:
             return((*(allcoeff[LO])) * me / HCUT);
         default:
-            throw std::runtime_error("AmpDB2::AmpBs(): order not implemented");
+            throw std::runtime_error("RBs::RBs(): order not implemented");
     }
 }
 
