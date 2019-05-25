@@ -14,10 +14,10 @@ myModel::myModel()
 :   StandardModel()
 {
     /* Define all the parameters here and port them as observables too */
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c1", boost::cref(c1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c2", boost::cref(c2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c3", boost::cref(c3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c4", boost::cref(c4)));
+    ModelParamMap.insert(std::make_pair("c1", std::cref(c1)));
+    ModelParamMap.insert(std::make_pair("c2", std::cref(c2)));
+    ModelParamMap.insert(std::make_pair("c3", std::cref(c3)));
+    ModelParamMap.insert(std::make_pair("c4", std::cref(c4)));
 }
 
 myModel::~myModel()
