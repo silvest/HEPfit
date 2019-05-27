@@ -24,6 +24,21 @@ Flavour::Flavour(const StandardModel& SM_i)
     btocNPpmflag = false;
 };
 
+HeffDF2& Flavour::getHDF2() const
+{
+    return *getPtr<HeffDF2>(HDF2);
+}
+
+HeffDS1& Flavour::getHDS1() const
+{
+    return *getPtr<HeffDS1>(HDS1);
+}
+
+HeffDB1& Flavour::getHDB1() const
+{
+    return *getPtr<HeffDB1>(HDB1);
+}
+
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme) const
 {
     return getPtr<HeffDF2>(HDF2)->ComputeCoeffBd(mu, scheme);
