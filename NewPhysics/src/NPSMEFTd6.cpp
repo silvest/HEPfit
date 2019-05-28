@@ -836,6 +836,7 @@ bool NPSMEFTd6::PostUpdate()
     
     g1_tree = eeMz/cW_tree;
     g2_tree = eeMz/sW_tree;
+    g3_tree = sqrt( 4.0 * M_PI * AlsMz );
     
     lambdaH_tree = mHl*mHl/2.0/v2;
     
@@ -1009,6 +1010,30 @@ bool NPSMEFTd6::PostUpdate()
     
 //  Total: to be used in BR functions to check positivity
     GammaHTotR = 1.0 + dGammaHTotR1 + dGammaHTotR2;
+      
+//  Dimension-6 coefficients used in the STXS parameterization
+    aiG = 16.0 * M_PI * M_PI * CHG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / LambdaNP2;
+    ai3G = CG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / g3_tree / LambdaNP2;
+    ai2G =0.0; // Add
+    aiT = 2.0 * CiHD * v2_over_LambdaNP2;
+    aiH = - 2.0 * CiHbox * v2_over_LambdaNP2;
+    aiWW = 0.0; // Add
+    aiB = 0.0; // Add
+    aiHW = CiDHW * Mw_tree() * Mw_tree() / 2.0 / g2_tree / LambdaNP2;
+    aiHB = CiDHB * Mw_tree() * Mw_tree() / 2.0 / g1_tree / LambdaNP2;
+    aiA = CiHB * Mw_tree() * Mw_tree() / g1_tree / g1_tree / LambdaNP2;
+    aiHQ = CiHQ1_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aipHQ = CiHQ3_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHL = CiHL1_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aipHL = CiHL3_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP. From HEL Lagrangian. Not in original note
+    aiHu = CiHu_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHd = CiHd_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHe = CiHe_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiu = - CiuH_33r * v2_over_LambdaNP2 / Yukt;
+    aiuG = CuG_33r * Mw_tree() * Mw_tree() / g3_tree / LambdaNP2 / Yukt / 4.0; // From HEL.fr Lagrangian. Not in original note
+    
+   
+//  Dim 6 SMEFT matching
     
     NPSMEFTd6M.getObj().updateNPSMEFTd6Parameters();
 
@@ -13627,6 +13652,133 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     return mu;
 
 }
+
+
+
+    ////////////////////////////////////////////////////////////////////////
+    
+    //----- Simplified Template Cross Sections Bins
+    
+
+double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_ggH1j_pTH_0_60(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_ggH1j_pTH_60_120(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_ggH1j_pTH_120_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_ggH1j_pTH_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_ggH2j_pTH_0_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_qqHqq_VHtopo(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_qqHqq_pTj_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_qqHlv_pTV_0_250(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_qqHlv_pTV_250(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_qqHll_pTV_0_150(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_qqHll_pTV_150_250(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS_qqHll_pTV_250(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
+    
+double NPSMEFTd6::STXS_ttHtH(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+    
 
 ///////////////////////////////////////////////////////////////////////////////
 

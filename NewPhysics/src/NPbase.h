@@ -1730,6 +1730,149 @@ public:
     {
         return 1.0;
     }
+    
+    
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    //----- Simplified Template Cross Sections Bins
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH0j(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH1j_pTH_0_60(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH1j_pTH_60_120(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH1j_pTH_120_200(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH1j_pTH_200(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH2j_pTH_0_200(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_VHtopo(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_pTj_200(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHlv_pTV_0_250(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHlv_pTV_250(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHll_pTV_0_150(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHll_pTV_150_250(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHll_pTV_250(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
+    /**
+     * @brief The STXS bin @f$ ttH + tH @f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ttHtH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
  
     ////////////////////////////////////////////////////////////////////////
     

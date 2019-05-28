@@ -3307,6 +3307,103 @@ public:
      */
     virtual double mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const;
     
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    //----- Simplified Template Cross Sections Bins
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH0j(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH1j_pTH_0_60(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH1j_pTH_60_120(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH1j_pTH_120_200(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH1j_pTH_200(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH2j_pTH_0_200(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_VHtopo(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_pTj_200(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHlv_pTV_0_250(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHlv_pTV_250(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHll_pTV_0_150(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHll_pTV_150_250(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHll_pTV_250(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$ ttH + tH @f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ttHtH(const double sqrt_s) const;
+    
+    
     ////////////////////////////////////////////////////////////////////////
     
     /**
@@ -4115,6 +4212,7 @@ protected:
     
     double g1_tree;///< The tree level value of the \f$U(1)_Y\f$ gauge coupling contant (at the \f$Z\f$ pole).
     double g2_tree;///< The tree level value of the \f$SU(2)_L\f$ gauge coupling contant (at the \f$Z\f$ pole).
+    double g3_tree;///< The tree level value of the \f$SU(3)_c\f$ gauge coupling contant (at the \f$Z\f$ pole).
     
     double gZvL;///< The tree level value of the \f$Z\bar{\nu}\nu\f$ couplings in the SM.
     double gZlL,gZlR;///< The tree level value of the \f$Z\ell^+\ell^-\f$ couplings in the SM.
@@ -4142,7 +4240,14 @@ protected:
     double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
     double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
     double Yukd,Yuks,Yukb;///< SM d-quark Yukawas
-
+    
+    // STXS ci: denote them as ai to separate from the normal conventions 
+    double aiG,ai3G,ai2G;
+    double aiT,aiH,aiWW,aiB,aiHW,aiHB;
+    double aiA;
+    double aiHQ,aipHQ,aiHL,aipHL,aiHu,aiHd,aiHe;
+    double aiu,aiuG;
+    
     // Cache variables
     double dGammaHTotR1,dGammaHTotR2,GammaHTotR;///< NP contributions and Total to Higgs width ratio with SM
     
