@@ -13658,6 +13658,20 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     ////////////////////////////////////////////////////////////////////////
     
     //----- Simplified Template Cross Sections Bins
+
+double NPSMEFTd6::STXS_ggH_VBFtopo_j3v(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+double NPSMEFTd6::STXS_ggH_VBFtopo_j3(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
     
 
 double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const{
@@ -13706,6 +13720,35 @@ double NPSMEFTd6::STXS_ggH2j_pTH_0_200(const double sqrt_s) const{
     
     return STXSb;
 }
+
+
+double NPSMEFTd6::STXS_ggH2j_pTH_0_60(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+double NPSMEFTd6::STXS_ggH2j_pTH_60_120(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+double NPSMEFTd6::STXS_ggH2j_pTH_120_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+double NPSMEFTd6::STXS_ggH2j_pTH_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
     
 
 double NPSMEFTd6::STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const{
@@ -13714,9 +13757,32 @@ double NPSMEFTd6::STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const{
     
     return STXSb;
 }
+
+
+double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
     
 
 double NPSMEFTd6::STXS_qqHqq_VHtopo(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS_qqHqq_rest(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
@@ -13733,6 +13799,30 @@ double NPSMEFTd6::STXS_qqHqq_pTj_200(const double sqrt_s) const{
     
 
 double NPSMEFTd6::STXS_qqHlv_pTV_0_250(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS_qqHlv_pTV_0_150(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
@@ -13757,6 +13847,22 @@ double NPSMEFTd6::STXS_qqHll_pTV_0_150(const double sqrt_s) const{
     
 
 double NPSMEFTd6::STXS_qqHll_pTV_150_250(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const{
     
     double STXSb = 1.0;
     

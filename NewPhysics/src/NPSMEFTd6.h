@@ -3316,6 +3316,19 @@ public:
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
+    virtual double STXS_ggH_VBFtopo_j3v(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH_VBFtopo_j3(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
     virtual double STXS_ggH0j(const double sqrt_s) const;
     
     /**
@@ -3349,16 +3362,63 @@ public:
     virtual double STXS_ggH2j_pTH_0_200(const double sqrt_s) const;
     
     /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH2j_pTH_0_60(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH2j_pTH_60_120(const double sqrt_s) const;
+    
+        
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH2j_pTH_120_200(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_ggH2j_pTH_200(const double sqrt_s) const;
+    
+    /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
     virtual double STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const;
     
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
     virtual double STXS_qqHqq_VHtopo(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHqq_rest(const double sqrt_s) const;
     
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
@@ -3371,6 +3431,28 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
     virtual double STXS_qqHlv_pTV_0_250(const double sqrt_s) const;
+    
+ 
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHlv_pTV_0_150(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const;
+    
     
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
@@ -3389,6 +3471,20 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
     virtual double STXS_qqHll_pTV_150_250(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const;
+    
+    
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const;
     
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
