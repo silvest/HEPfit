@@ -1294,7 +1294,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["STXSqqHqq_VBFtopo_j3v_4l_13"] = boost::bind(boost::factory<STXSqqHqq_VBFtopo_j3v_4l*>(), _1, sqrt_s_LHC13);
     obsThFactory["STXSqqHqq_VBFtopo_j3_4l_13"] = boost::bind(boost::factory<STXSqqHqq_VBFtopo_j3_4l*>(), _1, sqrt_s_LHC13);
     obsThFactory["STXSqqHqq_VHtopo_4l_13"] = boost::bind(boost::factory<STXSqqHqq_VHtopo_4l*>(), _1, sqrt_s_LHC13); 
-    obsThFactory["STXSqqHqq_rest_4l_13"] = boost::bind(boost::factory<STXSqqHqq_rest_4l*>(), _1, sqrt_s_LHC13);      
+    obsThFactory["STXSqqHqq_Rest_4l_13"] = boost::bind(boost::factory<STXSqqHqq_Rest_4l*>(), _1, sqrt_s_LHC13);      
     obsThFactory["STXSqqHqq_pTj_200_4l_13"] = boost::bind(boost::factory<STXSqqHqq_pTj_200_4l*>(), _1, sqrt_s_LHC13);    
     //
     obsThFactory["STXSqqHlv_pTV_0_250_4l_13"] = boost::bind(boost::factory<STXSqqHlv_pTV_0_250_4l*>(), _1, sqrt_s_LHC13);
@@ -1310,6 +1310,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["STXSqqHll_pTV_250_4l_13"] = boost::bind(boost::factory<STXSqqHll_pTV_250_4l*>(), _1, sqrt_s_LHC13);     
     //
     obsThFactory["STXSttHtH4l"] = boost::bind(boost::factory<STXSttHtH4l*>(), _1, sqrt_s_LHC13);     
+    //
+    obsThFactory["STXSWHqqHqq_VBFtopo_j3v_2b"] = boost::bind(boost::factory<STXSWHqqHqq_VBFtopo_j3v_2b*>(), _1, sqrt_s_LHC13);     
+    obsThFactory["STXSWHqqHqq_VBFtopo_j3_2b"] = boost::bind(boost::factory<STXSWHqqHqq_VBFtopo_j3_2b*>(), _1, sqrt_s_LHC13);     
+    obsThFactory["STXSWHqqHqq_VH2j_2b"] = boost::bind(boost::factory<STXSWHqqHqq_VH2j_2b*>(), _1, sqrt_s_LHC13);     
+    obsThFactory["STXSWHqqHqq_Rest_2b"] = boost::bind(boost::factory<STXSWHqqHqq_Rest_2b*>(), _1, sqrt_s_LHC13);     
+    obsThFactory["STXSWHqqHqq_pTj1_200_2b"] = boost::bind(boost::factory<STXSWHqqHqq_pTj1_200_2b*>(), _1, sqrt_s_LHC13);     
+    //
+    obsThFactory["STXSZHqqHqq_VBFtopo_j3v_2b"] = boost::bind(boost::factory<STXSZHqqHqq_VBFtopo_j3v_2b*>(), _1, sqrt_s_LHC13);     
+    obsThFactory["STXSZHqqHqq_VBFtopo_j3_2b"] = boost::bind(boost::factory<STXSZHqqHqq_VBFtopo_j3_2b*>(), _1, sqrt_s_LHC13);     
+    obsThFactory["STXSZHqqHqq_VH2j_2b"] = boost::bind(boost::factory<STXSZHqqHqq_VH2j_2b*>(), _1, sqrt_s_LHC13);     
+    obsThFactory["STXSZHqqHqq_Rest_2b"] = boost::bind(boost::factory<STXSZHqqHqq_Rest_2b*>(), _1, sqrt_s_LHC13);     
+    obsThFactory["STXSZHqqHqq_pTj1_200_2b"] = boost::bind(boost::factory<STXSZHqqHqq_pTj1_200_2b*>(), _1, sqrt_s_LHC13);         
     //
     //-----  Full Signal strengths per prod and decay: Lepton colliders  ----------
     //

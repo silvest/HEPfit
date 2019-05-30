@@ -13658,10 +13658,13 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     ////////////////////////////////////////////////////////////////////////
     
     //----- Simplified Template Cross Sections Bins
+    // NOTE: Not our own calculations. From https://twiki.cern.ch/twiki/bin/view/LHCPhysics/STXStoEFT
 
 double NPSMEFTd6::STXS_ggH_VBFtopo_j3v(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 56.6*aiG + 5.5*ai3G + 4.36*ai2G;
     
     return STXSb;
 }
@@ -13669,6 +13672,8 @@ double NPSMEFTd6::STXS_ggH_VBFtopo_j3v(const double sqrt_s) const{
 double NPSMEFTd6::STXS_ggH_VBFtopo_j3(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 55.9*aiG + 9.04*ai3G + 8.1*ai2G;
     
     return STXSb;
 }
@@ -13678,6 +13683,8 @@ double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 + 55.2*aiG + 0.362*ai3G + 0.276*ai2G;
+    
     return STXSb;
 }
     
@@ -13685,6 +13692,8 @@ double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const{
 double NPSMEFTd6::STXS_ggH1j_pTH_0_60(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 56.0*aiG + 1.52*ai3G + 1.19*ai2G;
     
     return STXSb;
 }
@@ -13694,6 +13703,8 @@ double NPSMEFTd6::STXS_ggH1j_pTH_60_120(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 + 55.5*aiG + 4.12*ai3G + 2.76*ai2G;
+    
     return STXSb;
 }
     
@@ -13702,6 +13713,8 @@ double NPSMEFTd6::STXS_ggH1j_pTH_120_200(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 + 56.5*aiG + 17.8*ai3G + 11.2*ai2G;
+    
     return STXSb;
 }
     
@@ -13709,6 +13722,8 @@ double NPSMEFTd6::STXS_ggH1j_pTH_120_200(const double sqrt_s) const{
 double NPSMEFTd6::STXS_ggH1j_pTH_200(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 55.0*aiG + 52.0*ai3G + 34.0*ai2G;
     
     return STXSb;
 }
@@ -13726,12 +13741,16 @@ double NPSMEFTd6::STXS_ggH2j_pTH_0_60(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 + 55.6*aiG + 3.66*ai3G + 4.23*ai2G;
+    
     return STXSb;
 }
 
 double NPSMEFTd6::STXS_ggH2j_pTH_60_120(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 56.1*aiG + 7.73*ai3G + 6.81*ai2G;
     
     return STXSb;
 }
@@ -13740,6 +13759,8 @@ double NPSMEFTd6::STXS_ggH2j_pTH_120_200(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 + 55.8*aiG + 23.0*ai3G + 17.5*ai2G;
+    
     return STXSb;
 }
 
@@ -13747,15 +13768,15 @@ double NPSMEFTd6::STXS_ggH2j_pTH_200(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 + 56.0*aiG + 89.8*ai3G + 68.1*ai2G;
+    
     return STXSb;
 }
     
 
 double NPSMEFTd6::STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const{
     
-    double STXSb = 1.0;
-    
-    return STXSb;
+    return STXS_qqHqq_Rest(sqrt_s);
 }
 
 
@@ -13763,12 +13784,16 @@ double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 + 1.256*aiWW - 0.02319*aiB - 4.31*aiHW - 0.2907*aiHB;
+    
     return STXSb;
 }
 
 double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 1.204*aiWW - 0.02692*aiB - 5.76*aiHW - 0.4058*aiHB;
     
     return STXSb;
 }
@@ -13778,13 +13803,17 @@ double NPSMEFTd6::STXS_qqHqq_VHtopo(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 + 1.389*aiWW - 0.0284*aiB - 6.23*aiHW - 0.417*aiHB;
+    
     return STXSb;
 }
 
 
-double NPSMEFTd6::STXS_qqHqq_rest(const double sqrt_s) const{
+double NPSMEFTd6::STXS_qqHqq_Rest(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 1.546*aiWW - 0.02509*aiB - 3.631*aiHW - 0.2361*aiHB;
     
     return STXSb;
 }
@@ -13793,6 +13822,8 @@ double NPSMEFTd6::STXS_qqHqq_rest(const double sqrt_s) const{
 double NPSMEFTd6::STXS_qqHqq_pTj_200(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 7.82*aiWW - 0.1868*aiB - 30.65*aiHW - 2.371*aiHB;
     
     return STXSb;
 }
@@ -13810,6 +13841,8 @@ double NPSMEFTd6::STXS_qqHlv_pTV_0_150(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 - 1.001*aiH + 33.63*aiWW + 11.49*aiHW + 23.62*aipHQ + 2.013*aipHL;
+    
     return STXSb;
 }
 
@@ -13817,6 +13850,8 @@ double NPSMEFTd6::STXS_qqHlv_pTV_0_150(const double sqrt_s) const{
 double NPSMEFTd6::STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 - 0.998*aiH + 76.3*aiWW + 50.7*aiHW + 66.5*aipHQ + 2.03*aipHL;
     
     return STXSb;
 }
@@ -13826,6 +13861,8 @@ double NPSMEFTd6::STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 - 1.006*aiH + 70.9*aiWW + 45.5*aiHW + 60.8*aipHQ + 2.04*aipHL;
+    
     return STXSb;
 }
     
@@ -13834,6 +13871,8 @@ double NPSMEFTd6::STXS_qqHlv_pTV_250(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 - 1.001*aiH + 196.5*aiWW + 169.4*aiHW + 186.3*aipHQ + 2.03*aipHL;
+    
     return STXSb;
 }
     
@@ -13841,6 +13880,10 @@ double NPSMEFTd6::STXS_qqHlv_pTV_250(const double sqrt_s) const{
 double NPSMEFTd6::STXS_qqHll_pTV_0_150(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 - 1.0*aiH - 4.001*aiT + 29.82*aiWW + 8.43*aiB + 8.5*aiHW 
+            + 2.545*aiHB + 0.0315*aiA - 1.89*aiHQ + 22.84*aipHQ + 5.247*aiHu 
+            - 2.0*aiHd - 0.963*aiHL + 2.042*aipHL - 0.2307*aiHe;
     
     return STXSb;
 }
@@ -13858,6 +13901,10 @@ double NPSMEFTd6::STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 - 0.993*aiH - 4.0*aiT + 62.4*aiWW + 18.08*aiB + 37.6*aiHW 
+            + 11.22*aiHB - 5.03*aiHQ + 61.0*aipHQ + 14.39*aiHu - 5.17*aiHd 
+            - 0.977*aiHL + 2.08*aipHL - 0.234*aiHe;
+    
     return STXSb;
 }
 
@@ -13865,6 +13912,10 @@ double NPSMEFTd6::STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const{
 double NPSMEFTd6::STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 - 1.002*aiH - 4.01*aiT + 57.9*aiWW + 16.78*aiB + 32.8*aiHW 
+            + 9.86*aiHB - 4.58*aiHQ + 55.6*aipHQ + 13.54*aiHu - 4.56*aiHd 
+            - 0.989*aiHL + 2.09*aipHL - 0.235*aiHe;
     
     return STXSb;
 }
@@ -13874,6 +13925,10 @@ double NPSMEFTd6::STXS_qqHll_pTV_250(const double sqrt_s) const{
     
     double STXSb = 1.0;
     
+    STXSb = 1.0 - 0.998*aiH - 4.0*aiT + 153.1*aiWW + 45.6*aiB + 126.4*aiHW 
+            + 37.9*aiHB - 13.85*aiHQ + 168.6*aipHQ + 41.7*aiHu - 13.48*aiHd 
+            - 0.977*aiHL + 2.09*aipHL - 0.238*aiHe;
+    
     return STXSb;
 }
     
@@ -13881,6 +13936,104 @@ double NPSMEFTd6::STXS_qqHll_pTV_250(const double sqrt_s) const{
 double NPSMEFTd6::STXS_ttHtH(const double sqrt_s) const{
     
     double STXSb = 1.0;
+    
+    STXSb = 1.0 - 0.983*aiH + 2.949*aiu + 0.928*aiG + 313.6*aiuG 
+            + 27.48*ai3G - 13.09*ai2G;
+    
+    return STXSb;
+}
+
+double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 0.94*aiH + 39.5*aiWW + 13.8*aiHW + 32.1*aipHQ;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 1.04*aiH + 44.9*aiWW + 20.3*aiHW + 36.8*aipHQ;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_WHqqHqq_VH2j(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 0.996*aiH + 45.57*aiWW + 23.66*aiHW + 37.55*aipHQ;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_WHqqHqq_Rest(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 1.002*aiH + 34.29*aiWW + 11.56*aiHW + 26.27*aipHQ;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_WHqqHqq_pTj1_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 1.003*aiH + 181.2*aiWW + 152.3*aiHW + 173.7*aipHQ;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 0.94*aiH - 4.0*aiT + 34.8*aiWW + 10.0*aiB + 9.9*aiHW 
+            + 3.04*aiHB - 2.14*aiHQ + 31.1*aipHQ + 7.6*aiHu - 2.59*aiHd;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 0.97*aiH - 3.98*aiT + 38.1*aiWW + 10.5*aiB + 14.2*aiHW 
+            + 4.15*aiHB - 2.36*aiHQ + 34.5*aipHQ + 8.4*aiHu - 2.79*aiHd;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_ZHqqHqq_VH2j(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 0.998*aiH - 4.002*aiT + 37.99*aiWW + 10.47*aiB + 16.45*aiHW 
+            + 4.927*aiHB - 2.401*aiHQ + 34.45*aipHQ + 7.94*aiHu - 2.993*aiHd;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_ZHqqHqq_Rest(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 1.001*aiH - 3.998*aiT + 30.89*aiWW + 8.35*aiB + 8.71*aiHW 
+            + 2.616*aiHB - 1.782*aiHQ + 26.1*aipHQ + 5.942*aiHu - 2.305*aiHd;
+    
+    return STXSb;
+}
+    
+double NPSMEFTd6::STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    STXSb = 1.0 - 1.003*aiH - 4.03*aiT + 141.5*aiWW + 41.6*aiB + 112.5*aiHW 
+            + 33.6*aiHB - 11.52*aiHQ + 156.2*aipHQ + 38.9*aiHu - 12.53*aiHd;
     
     return STXSb;
 }
