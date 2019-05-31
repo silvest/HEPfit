@@ -7270,6 +7270,299 @@ private:
 };
 
 
+
+/**
+ * @class STXSqqHlv_pTV_0_250_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ */
+class STXSqqHlv_pTV_0_250_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHlv_pTV_0_250_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class STXSqqHlv_pTV_0_150_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ */
+class STXSqqHlv_pTV_0_150_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHlv_pTV_0_150_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class STXSqqHlv_pTV_150_250_0j_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ */
+class STXSqqHlv_pTV_150_250_0j_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHlv_pTV_150_250_0j_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class STXSqqHlv_pTV_150_250_1j_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ */
+class STXSqqHlv_pTV_150_250_1j_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHlv_pTV_150_250_1j_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class STXSqqHlv_pTV_250_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
+ */
+class STXSqqHlv_pTV_250_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHlv_pTV_250_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class STXSqqHll_pTV_0_150_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ */
+class STXSqqHll_pTV_0_150_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHll_pTV_0_150_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class STXSqqHll_pTV_150_250_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ */
+class STXSqqHll_pTV_150_250_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHll_pTV_150_250_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class STXSqqHll_pTV_150_250_0j_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ */
+class STXSqqHll_pTV_150_250_0j_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHll_pTV_150_250_0j_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+
+/**
+ * @class STXSqqHll_pTV_150_250_1j_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ */
+class STXSqqHll_pTV_150_250_1j_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHll_pTV_150_250_1j_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+
+/**
+ * @class STXSqqHll_pTV_250_bb
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
+ */
+class STXSqqHll_pTV_250_bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHll_pTV_250_bb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
 /**
  * @class STXSWHqqHqq_VBFtopo_j3v_2b
  * @ingroup HiggsExtensions

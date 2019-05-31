@@ -3657,6 +3657,186 @@ double STXSttHtH4l::computeThValue()
 }
 
 
+STXSqqHlv_pTV_0_250_bb::STXSqqHlv_pTV_0_250_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHlv_pTV_0_250_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHlv_pTV_0_250_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHlv_pTV_0_250(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHlv_pTV_0_250(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+
+STXSqqHlv_pTV_0_150_bb::STXSqqHlv_pTV_0_150_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHlv_pTV_0_150_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHlv_pTV_0_150_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHlv_pTV_0_150(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHlv_pTV_0_150(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+
+
+STXSqqHlv_pTV_150_250_0j_bb::STXSqqHlv_pTV_150_250_0j_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHlv_pTV_150_250_0j_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHlv_pTV_150_250_0j_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHlv_pTV_150_250_0j(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHlv_pTV_150_250_0j(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+
+
+STXSqqHlv_pTV_150_250_1j_bb::STXSqqHlv_pTV_150_250_1j_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHlv_pTV_150_250_1j_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHlv_pTV_150_250_1j_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHlv_pTV_150_250_1j(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHlv_pTV_150_250_1j(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+
+STXSqqHlv_pTV_250_bb::STXSqqHlv_pTV_250_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHlv_pTV_250_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHlv_pTV_250_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHlv_pTV_250(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHlv_pTV_250(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+STXSqqHll_pTV_0_150_bb::STXSqqHll_pTV_0_150_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHll_pTV_0_150_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHll_pTV_0_150_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHll_pTV_0_150(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHll_pTV_0_150(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+STXSqqHll_pTV_150_250_bb::STXSqqHll_pTV_150_250_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHll_pTV_150_250_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHll_pTV_150_250_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHll_pTV_150_250(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHll_pTV_150_250(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+
+STXSqqHll_pTV_150_250_0j_bb::STXSqqHll_pTV_150_250_0j_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHll_pTV_150_250_0j_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHll_pTV_150_250_0j_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHll_pTV_150_250_0j(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHll_pTV_150_250_0j(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+
+STXSqqHll_pTV_150_250_1j_bb::STXSqqHll_pTV_150_250_1j_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHll_pTV_150_250_1j_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHll_pTV_150_250_1j_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHll_pTV_150_250_1j(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHll_pTV_150_250_1j(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+
+STXSqqHll_pTV_250_bb::STXSqqHll_pTV_250_bb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHll_pTV_250_bb called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHll_pTV_250_bb::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHll_pTV_250(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHll_pTV_250(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+
 STXSWHqqHqq_VBFtopo_j3v_2b::STXSWHqqHqq_VBFtopo_j3v_2b(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
