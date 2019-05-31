@@ -1309,7 +1309,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["STXSqqHll_pTV_150_250_1j_4l_13"] = boost::bind(boost::factory<STXSqqHll_pTV_150_250_1j_4l*>(), _1, sqrt_s_LHC13);         
     obsThFactory["STXSqqHll_pTV_250_4l_13"] = boost::bind(boost::factory<STXSqqHll_pTV_250_4l*>(), _1, sqrt_s_LHC13);     
     //
-    obsThFactory["STXSttHtH4l"] = boost::bind(boost::factory<STXSttHtH4l*>(), _1, sqrt_s_LHC13);   
+    obsThFactory["STXSttHtH4l_13"] = boost::bind(boost::factory<STXSttHtH4l*>(), _1, sqrt_s_LHC13);   
     // bb
     obsThFactory["STXSqqHlv_pTV_0_250_bb_13"] = boost::bind(boost::factory<STXSqqHlv_pTV_0_250_bb*>(), _1, sqrt_s_LHC13);
     obsThFactory["STXSqqHlv_pTV_0_150_bb_13"] = boost::bind(boost::factory<STXSqqHlv_pTV_0_150_bb*>(), _1, sqrt_s_LHC13);
