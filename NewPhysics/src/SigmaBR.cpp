@@ -7,8 +7,12 @@
 #include "SigmaBR.h"
 
 const std::string SigmaBR::SigmaBRVars[NSigmaBRVars]
-        = {"ggH", "VBF", "WH", "ZH", "ttH", "BrHggRatio", "BrHWWRatio", "BrHZZRatio",
-    "BrHZgaRatio", "BrHgagaRatio", "BrHtautauRatio", "BrHccRatio", "BrHbbRatio"};
+        = {"ggH", "VBF", "WH", "ZH", "ttH", 
+        "eeZH240","eeZH250","eeZH350","eeZH365","eeZH380","eeZH500","eeZH1000","eeZH1500","eeZH3000",
+        "eeHvv240","eeHvv250","eeHvv350","eeHvv365","eeHvv380","eeHvv500","eeHvv1000","eeHvv1500","eeHvv3000",
+        "eeHee240","eeHee250","eeHee350","eeHee365","eeHee380","eeHee500","eeHee1000","eeHee1500","eeHee3000",
+        "eettH500","eettH1000","eettH1500","eettH3000",
+        "BrHggRatio", "BrHWWRatio", "BrHZZRatio","BrHZgaRatio", "BrHgagaRatio", "BrHtautauRatio", "BrHmumuRatio", "BrHccRatio", "BrHbbRatio"};
 
 SigmaBR::SigmaBR()
 : NPbase()
@@ -19,12 +23,44 @@ SigmaBR::SigmaBR()
     ModelParamMap.insert(std::make_pair("WH", std::cref(wh)));
     ModelParamMap.insert(std::make_pair("ZH", std::cref(zh)));
     ModelParamMap.insert(std::make_pair("ttH", std::cref(tth)));
+    ModelParamMap.insert(std::make_pair("eeZH240", std::cref(eeZH240)));
+    ModelParamMap.insert(std::make_pair("eeZH250", std::cref(eeZH250)));
+    ModelParamMap.insert(std::make_pair("eeZH350", std::cref(eeZH350)));
+    ModelParamMap.insert(std::make_pair("eeZH365", std::cref(eeZH365)));
+    ModelParamMap.insert(std::make_pair("eeZH380", std::cref(eeZH380)));    
+    ModelParamMap.insert(std::make_pair("eeZH500", std::cref(eeZH500)));
+    ModelParamMap.insert(std::make_pair("eeZH1000", std::cref(eeZH1000)));
+    ModelParamMap.insert(std::make_pair("eeZH1500", std::cref(eeZH1500)));
+    ModelParamMap.insert(std::make_pair("eeZH3000", std::cref(eeZH3000)));
+    ModelParamMap.insert(std::make_pair("eeHvv240", std::cref(eeHvv240)));
+    ModelParamMap.insert(std::make_pair("eeHvv250", std::cref(eeHvv250)));
+    ModelParamMap.insert(std::make_pair("eeHvv350", std::cref(eeHvv350)));
+    ModelParamMap.insert(std::make_pair("eeHvv365", std::cref(eeHvv365)));
+    ModelParamMap.insert(std::make_pair("eeHvv380", std::cref(eeHvv380)));    
+    ModelParamMap.insert(std::make_pair("eeHvv500", std::cref(eeHvv500)));
+    ModelParamMap.insert(std::make_pair("eeHvv1000", std::cref(eeHvv1000)));
+    ModelParamMap.insert(std::make_pair("eeHvv1500", std::cref(eeHvv1500)));
+    ModelParamMap.insert(std::make_pair("eeHvv3000", std::cref(eeHvv3000)));   
+    ModelParamMap.insert(std::make_pair("eeHee240", std::cref(eeHee240)));
+    ModelParamMap.insert(std::make_pair("eeHee250", std::cref(eeHee250)));
+    ModelParamMap.insert(std::make_pair("eeHee350", std::cref(eeHee350)));
+    ModelParamMap.insert(std::make_pair("eeHee365", std::cref(eeHee365)));
+    ModelParamMap.insert(std::make_pair("eeHee380", std::cref(eeHee380)));    
+    ModelParamMap.insert(std::make_pair("eeHee500", std::cref(eeHee500)));
+    ModelParamMap.insert(std::make_pair("eeHee1000", std::cref(eeHee1000)));
+    ModelParamMap.insert(std::make_pair("eeHee1500", std::cref(eeHee1500)));
+    ModelParamMap.insert(std::make_pair("eeHee3000", std::cref(eeHee3000))); 
+    ModelParamMap.insert(std::make_pair("eettH500", std::cref(eettH500)));
+    ModelParamMap.insert(std::make_pair("eettH1000", std::cref(eettH1000)));
+    ModelParamMap.insert(std::make_pair("eettH1500", std::cref(eettH1500)));
+    ModelParamMap.insert(std::make_pair("eettH3000", std::cref(eeHee3000)));
     ModelParamMap.insert(std::make_pair("BrHggRatio", std::cref(brhggratio)));
     ModelParamMap.insert(std::make_pair("BrHWWRatio", std::cref(brhwwratio)));
     ModelParamMap.insert(std::make_pair("BrHZZRatio", std::cref(brhzzratio)));
     ModelParamMap.insert(std::make_pair("BrHZgaRatio", std::cref(brhzgaratio)));
     ModelParamMap.insert(std::make_pair("BrHgagaRatio", std::cref(brhgagaratio)));
     ModelParamMap.insert(std::make_pair("BrHtautauRatio", std::cref(brhtautauratio)));
+    ModelParamMap.insert(std::make_pair("BrHmumuRatio", std::cref(brhmumuratio)));
     ModelParamMap.insert(std::make_pair("BrHccRatio", std::cref(brhccratio)));
     ModelParamMap.insert(std::make_pair("BrHbbRatio", std::cref(brhbbratio)));
 }
@@ -41,6 +77,68 @@ void SigmaBR::setParameter(const std::string name, const double& value)
         zh = value;
     else if (name.compare("ttH") == 0)
         tth = value;
+    else if (name.compare("eeZH240") == 0)
+        eeZH240 = value; 
+    else if (name.compare("eeZH250") == 0)
+        eeZH250 = value; 
+    else if (name.compare("eeZH350") == 0)
+        eeZH350 = value;     
+    else if (name.compare("eeZH365") == 0)
+        eeZH365 = value; 
+    else if (name.compare("eeZH380") == 0)
+        eeZH380 = value; 
+    else if (name.compare("eeZH500") == 0)
+        eeZH500 = value; 
+    else if (name.compare("eeZH1000") == 0)
+        eeZH1000 = value; 
+    else if (name.compare("eeZH1500") == 0)
+        eeZH1500 = value; 
+    else if (name.compare("eeZH3000") == 0)
+        eeZH3000 = value; 
+    else if (name.compare("eeHvv240") == 0)
+        eeHvv240 = value; 
+    else if (name.compare("eeHvv250") == 0)
+        eeHvv250 = value; 
+    else if (name.compare("eeHvv350") == 0)
+        eeHvv350 = value;     
+    else if (name.compare("eeHvv365") == 0)
+        eeHvv365 = value; 
+    else if (name.compare("eeHvv380") == 0)
+        eeHvv380 = value; 
+    else if (name.compare("eeHvv500") == 0)
+        eeHvv500 = value; 
+    else if (name.compare("eeHvv1000") == 0)
+        eeHvv1000 = value; 
+    else if (name.compare("eeHvv1500") == 0)
+        eeHvv1500 = value; 
+    else if (name.compare("eeHvv3000") == 0)
+        eeHvv3000 = value;
+    else if (name.compare("eeHee240") == 0)
+        eeHee240 = value; 
+    else if (name.compare("eeHee250") == 0)
+        eeHee250 = value; 
+    else if (name.compare("eeHee350") == 0)
+        eeHee350 = value;     
+    else if (name.compare("eeHee365") == 0)
+        eeHee365 = value; 
+    else if (name.compare("eeHee380") == 0)
+        eeHee380 = value; 
+    else if (name.compare("eeHee500") == 0)
+        eeHee500 = value; 
+    else if (name.compare("eeHee1000") == 0)
+        eeHee1000 = value; 
+    else if (name.compare("eeHee1500") == 0)
+        eeHee1500 = value; 
+    else if (name.compare("eeHee3000") == 0)
+        eeHee3000 = value;
+    else if (name.compare("eettH500") == 0)
+        eettH500 = value; 
+    else if (name.compare("eettH1000") == 0)
+        eettH1000 = value; 
+    else if (name.compare("eettH1500") == 0)
+        eettH1500 = value; 
+    else if (name.compare("eettH3000") == 0)
+        eettH3000 = value; 
     else if (name.compare("BrHggRatio") == 0)
         brhggratio = value;
     else if (name.compare("BrHWWRatio") == 0)
@@ -53,6 +151,8 @@ void SigmaBR::setParameter(const std::string name, const double& value)
         brhgagaratio = value;
     else if (name.compare("BrHtautauRatio") == 0)
         brhtautauratio = value;
+    else if (name.compare("BrHmumuRatio") == 0)
+        brhmumuratio = value;
     else if (name.compare("BrHccRatio") == 0)
         brhccratio = value;
     else if (name.compare("BrHbbRatio") == 0)
@@ -133,11 +233,188 @@ double SigmaBR::muggHpttH(const double sqrt_s) const
     return mu;
 } 
 
-double SigmaBR::BrHggRatio() const
+double SigmaBR::mueeZH(const double sqrt_s) const
 {
     
-    return brhggratio;
+    if (sqrt_s == 0.240) {
+        
+        return eeZH240;
+        
+    } else if (sqrt_s == 0.250) {
+        
+        return eeZH250;
+        
+    } else if (sqrt_s == 0.350) {
 
+        return eeZH350;        
+        
+    } else if (sqrt_s == 0.365) {
+        
+        return eeZH365;
+        
+    } else if (sqrt_s == 0.380) {
+        
+        return eeZH380;
+        
+    } else if (sqrt_s == 0.500) {
+        
+        return eeZH500;
+        
+    } else if (sqrt_s == 1.0) {
+        
+        return eeZH1000;
+        
+    } else if (sqrt_s == 1.5) {
+        
+        return eeZH1500;
+        
+    } else if (sqrt_s == 3.0) {
+        
+        return eeZH3000;
+        
+    } else
+        throw std::runtime_error("Bad argument in SigmaBR::mueeZH()");
+    
+    return 1.0;
+
+}
+
+double SigmaBR::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return mueeZH(sqrt_s);
+}
+
+
+double SigmaBR::mueeHvv(const double sqrt_s) const
+{
+    if (sqrt_s == 0.240) {
+        
+        return eeHvv240;
+        
+    } else if (sqrt_s == 0.250) {
+        
+        return eeHvv250;
+        
+    } else if (sqrt_s == 0.350) {
+
+        return eeHvv350;        
+        
+    } else if (sqrt_s == 0.365) {
+        
+        return eeHvv365;
+        
+    } else if (sqrt_s == 0.380) {
+        
+        return eeHvv380;
+        
+    } else if (sqrt_s == 0.500) {
+        
+        return eeHvv500;
+        
+    } else if (sqrt_s == 1.0) {
+        
+        return eeHvv1000;
+        
+    } else if (sqrt_s == 1.5) {
+        
+        return eeHvv1500;
+        
+    } else if (sqrt_s == 3.0) {
+        
+        return eeHvv3000;
+        
+    } else
+        throw std::runtime_error("Bad argument in SigmaBR::mueeHvv()");
+    
+    return 1.0;
+}
+
+double SigmaBR::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return mueeHvv(sqrt_s);
+}
+
+double SigmaBR::mueeZBF(const double sqrt_s) const
+{
+    if (sqrt_s == 0.240) {
+        
+        return eeHee240;
+        
+    } else if (sqrt_s == 0.250) {
+        
+        return eeHee250;
+        
+    } else if (sqrt_s == 0.350) {
+
+        return eeHee350;        
+        
+    } else if (sqrt_s == 0.365) {
+        
+        return eeHee365;
+        
+    } else if (sqrt_s == 0.380) {
+        
+        return eeHee380;
+        
+    } else if (sqrt_s == 0.500) {
+        
+        return eeHee500;
+        
+    } else if (sqrt_s == 1.0) {
+        
+        return eeHee1000;
+        
+    } else if (sqrt_s == 1.5) {
+        
+        return eeHee1500;
+        
+    } else if (sqrt_s == 3.0) {
+        
+        return eeHee3000;
+        
+    } else
+        throw std::runtime_error("Bad argument in SigmaBR::mueeHee()");
+    
+    return 1.0;
+}
+
+double SigmaBR::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return mueeZBF(sqrt_s);
+}
+
+double SigmaBR::mueettH(const double sqrt_s) const
+{
+    if (sqrt_s == 0.500) {
+        
+        return eettH500;
+        
+    } else if (sqrt_s == 1.0) {
+        
+        return eettH1000;
+        
+    } else if (sqrt_s == 1.5) {
+        
+        return eettH1500;
+        
+    } else if (sqrt_s == 3.0) {
+        
+        return eettH3000;
+        
+    } else
+        throw std::runtime_error("Bad argument in SigmaBR::mueettH()");
+    
+    return 1.0;
+}
+
+double SigmaBR::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return mueettH(sqrt_s);
+}
+
+double SigmaBR::BrHggRatio() const
+{
+    return brhggratio;
 }
 
 double SigmaBR::BrHWWRatio() const
@@ -163,6 +440,11 @@ double SigmaBR::BrHgagaRatio() const
 double SigmaBR::BrHtautauRatio() const
 {
     return brhtautauratio;
+}
+
+double SigmaBR::BrHmumuRatio() const
+{
+    return brhmumuratio;
 }
 
 double SigmaBR::BrHccRatio() const

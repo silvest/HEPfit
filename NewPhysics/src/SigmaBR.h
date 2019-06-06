@@ -17,7 +17,7 @@ public:
     /**
      *　@brief The number of the model parameters in %SigmaBR. 
      */
-    static const int NSigmaBRVars = 13;
+    static const int NSigmaBRVars = 45;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -95,6 +95,74 @@ public:
      */
     virtual double muggHpttH(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
+     * @f$e^{+}e^{-}\to ZH@f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZH}@f$
+     */
+    virtual double mueeZH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
+     * @f$ e^{+}e^{-}\to ZH @f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$\mu_{eeZH}@f$
+     */
+    virtual double mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const; 
+    /**
+     * @brief The ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
+     * @f$ e^+e^- \to H\nu\bar{\nu} @f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
+     */
+    virtual double mueeHvv(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
+     * @f$ e^+e^- \to H\nu\bar{\nu} @f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
+     */
+    virtual double mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    /**
+     * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
+     * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZBF}@f$
+     */
+    virtual double mueeZBF(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
+     * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$\mu_{eeZBF}@f$
+     */
+    virtual double mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;    
+    /**
+     * @brief The ratio @f$\mu_{eettH}@f$ between the 
+     * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eettH}@f$
+     */
+    virtual double mueettH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{eettH}@f$ between the 
+     * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
+     * @return @f$\mu_{eettH}@f$
+     */
+    virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;             
+    /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to gg)@f$/Br@f$(H\to gg)_{\mathrm{SM}}@f$
@@ -130,6 +198,12 @@ public:
      * @return Br@f$(H\to \tau^+\tau^-)@f$/Br@f$(H\to \tau^+\tau^-)_{\mathrm{SM}}@f$
      */
     virtual double BrHtautauRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to \mu^+\mu^-)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to \mu^+\mu^-)@f$/Br@f$(H\to \mu^+\mu^-)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHmumuRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to c\bar{c})@f$ in the current model
      * and in the Standard Model.
@@ -1089,12 +1163,17 @@ public:
     double wh; ///< The WH cross section
     double zh; ///< The ZH cross section
     double tth; ///< The ttH cross section
+    double eeZH240,eeZH250,eeZH350,eeZH365,eeZH380,eeZH500,eeZH1000,eeZH1500,eeZH3000; ///< The eeZH cross section
+    double eeHvv240,eeHvv250,eeHvv350,eeHvv365,eeHvv380,eeHvv500,eeHvv1000,eeHvv1500,eeHvv3000; ///< The eeHvv cross section
+    double eeHee240,eeHee250,eeHee350,eeHee365,eeHee380,eeHee500,eeHee1000,eeHee1500,eeHee3000; ///< The eeHee cross section
+    double eettH500,eettH1000,eettH1500,eettH3000; ///< The eettH cross section
     double brhggratio; ///< The ratio of the Hgg BR in the current model w.r.t. the SM
     double brhwwratio; ///< The ratio of the HWW BR in the current model w.r.t. the SM
     double brhzzratio; ///< The ratio of the HZZ BR in the current model w.r.t. the SM
     double brhzgaratio; ///< The ratio of the HZga BR in the current model w.r.t. the SM
     double brhgagaratio; ///< The ratio of the Hgaga BR in the current model w.r.t. the SM
     double brhtautauratio; ///< The ratio of the Htautau BR in the current model w.r.t. the SM
+    double brhmumuratio; ///< The ratio of the Hmumu BR in the current model w.r.t. the SM
     double brhccratio; ///< The ratio of the Hcc BR in the current model w.r.t. the SM
     double brhbbratio; ///< The ratio of the Hbb BR in the current model w.r.t. the SM
 
