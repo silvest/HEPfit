@@ -1596,6 +1596,265 @@ public:
     {
         return 0.0;
     }
+    
+    
+    
+////////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------------------
+//-- Special Hadron collider signal strengths with separate full TH unc U(prod x decay) ---
+//-----------------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////
+    
+    virtual double muTHUggHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+        
+    virtual double muTHUVBFHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUWHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }   
+    virtual double muTHUggHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVBFHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muTHUWHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }  
+    virtual double muTHUggHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVBFHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muTHUWHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    virtual double muTHUggHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVBFHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muTHUWHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    virtual double muTHUggHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVBFHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUWHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUggHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVBFHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUWHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }   
+    virtual double muTHUggHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVBFHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUWHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUggHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVBFHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUWHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUggHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVBFHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUZHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUWHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUVHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muTHUttHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    virtual double muTHUVBFBRinv(const double sqrt_s) const
+    {
+        return 0.0;
+    }
+    
+    virtual double muTHUVBFHinv(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    virtual double muTHUVHBRinv(const double sqrt_s) const
+    {
+        return 0.0;
+    }
+    
+    virtual double muTHUVHinv(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+       
+    virtual double muTHUggHZZ4mu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    virtual double muTHUggHZgamumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
 
     ////////////////////////////////////////////////////////////////////////
       

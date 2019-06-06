@@ -4015,3 +4015,740 @@ double STXSZHqqHqq_pTj1_200_2b::computeThValue()
         return (myNPbase->STXS_ZHqqHqq_pTj1_200(sqrt_s))*(myNPbase->BrHbbRatio());
     }
 }
+
+
+
+//-----------------------------------------------------------------------------------------
+//-- Special Hadron collider signal strengths with separate full TH unc U(prod x decay) ---
+//-----------------------------------------------------------------------------------------
+
+
+muTHUggHgaga::muTHUggHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHgaga called with a class whose parent is not NPbase");
+}
+
+double muTHUggHgaga::computeThValue()
+{
+        return myNPbase->muTHUggHgaga(sqrt_s);
+}
+
+
+muTHUVBFHgaga::muTHUVBFHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHgaga called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHgaga::computeThValue()
+{
+        return myNPbase->muTHUVBFHgaga(sqrt_s);
+}
+
+muTHUZHgaga::muTHUZHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHgaga called with a class whose parent is not NPbase");
+}
+
+double muTHUZHgaga::computeThValue()
+{
+        return myNPbase->muTHUZHgaga(sqrt_s);
+}
+
+muTHUWHgaga::muTHUWHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHgaga called with a class whose parent is not NPbase");
+}
+
+double muTHUWHgaga::computeThValue()
+{
+        return myNPbase->muTHUWHgaga(sqrt_s);
+}
+
+muTHUVHgaga::muTHUVHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHgaga called with a class whose parent is not NPbase");
+}
+
+double muTHUVHgaga::computeThValue()
+{
+        return myNPbase->muTHUVHgaga(sqrt_s);
+}
+
+muTHUttHgaga::muTHUttHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHgaga called with a class whose parent is not NPbase");
+}
+
+double muTHUttHgaga::computeThValue()
+{
+        return myNPbase->muTHUttHgaga(sqrt_s);
+}
+
+muTHUggHZga::muTHUggHZga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHZga called with a class whose parent is not NPbase");
+}
+
+double muTHUggHZga::computeThValue()
+{
+        return myNPbase->muTHUggHZga(sqrt_s);
+}
+
+muTHUggHZgamumu::muTHUggHZgamumu(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHZgamumu called with a class whose parent is not NPbase");
+}
+
+double muTHUggHZgamumu::computeThValue()
+{
+        return (myNPbase->muTHUggHZgamumu(sqrt_s));
+}
+
+muTHUVBFHZga::muTHUVBFHZga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHZga called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHZga::computeThValue()
+{
+
+        return myNPbase->muTHUVBFHZga(sqrt_s);
+}
+
+muTHUZHZga::muTHUZHZga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHZga called with a class whose parent is not NPbase");
+}
+
+double muTHUZHZga::computeThValue()
+{
+        return myNPbase->muTHUZHZga(sqrt_s);
+}
+
+muTHUWHZga::muTHUWHZga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHZga called with a class whose parent is not NPbase");
+}
+
+double muTHUWHZga::computeThValue()
+{
+        return myNPbase->muTHUWHZga(sqrt_s);
+}
+
+muTHUVHZga::muTHUVHZga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHZga called with a class whose parent is not NPbase");
+}
+
+double muTHUVHZga::computeThValue()
+{
+        return myNPbase->muTHUVHZga(sqrt_s);
+}
+
+muTHUttHZga::muTHUttHZga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHZga called with a class whose parent is not NPbase");
+}
+
+double muTHUttHZga::computeThValue()
+{
+        return myNPbase->muTHUttHZga(sqrt_s);
+}
+
+muTHUggHZZ::muTHUggHZZ(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHZZ called with a class whose parent is not NPbase");
+}
+
+double muTHUggHZZ::computeThValue()
+{
+        return myNPbase->muTHUggHZZ(sqrt_s);
+}
+
+muTHUVBFHZZ::muTHUVBFHZZ(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHZZ called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHZZ::computeThValue()
+{
+        return myNPbase->muTHUVBFHZZ(sqrt_s);
+}
+
+muTHUZHZZ::muTHUZHZZ(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHZZ called with a class whose parent is not NPbase");
+}
+
+double muTHUZHZZ::computeThValue()
+{
+        return myNPbase->muTHUZHZZ(sqrt_s);
+}
+
+muTHUWHZZ::muTHUWHZZ(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHZZ called with a class whose parent is not NPbase");
+}
+
+double muTHUWHZZ::computeThValue()
+{
+        return myNPbase->muTHUWHZZ(sqrt_s);
+}
+
+muTHUVHZZ::muTHUVHZZ(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHZZ called with a class whose parent is not NPbase");
+}
+
+double muTHUVHZZ::computeThValue()
+{
+        return myNPbase->muTHUVHZZ(sqrt_s);
+}
+
+muTHUttHZZ::muTHUttHZZ(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHZZ called with a class whose parent is not NPbase");
+}
+
+double muTHUttHZZ::computeThValue()
+{
+        return myNPbase->muTHUttHZZ(sqrt_s);
+}
+
+muTHUggHZZ4l::muTHUggHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHZZ4l called with a class whose parent is not NPbase");
+}
+
+double muTHUggHZZ4l::computeThValue()
+{
+        return myNPbase->muTHUggHZZ4l(sqrt_s);
+}
+
+muTHUggHZZ4mu::muTHUggHZZ4mu(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHZZ4mu called with a class whose parent is not NPbase");
+}
+
+double muTHUggHZZ4mu::computeThValue()
+{
+        return (myNPbase->muTHUggHZZ4mu(sqrt_s));
+}
+
+muTHUVBFHZZ4l::muTHUVBFHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHZZ4l called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHZZ4l::computeThValue()
+{
+        return myNPbase->muTHUVBFHZZ4l(sqrt_s);
+}
+
+muTHUZHZZ4l::muTHUZHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHZZ4l called with a class whose parent is not NPbase");
+}
+
+double muTHUZHZZ4l::computeThValue()
+{
+        return myNPbase->muTHUZHZZ4l(sqrt_s);
+}
+
+muTHUWHZZ4l::muTHUWHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHZZ4l called with a class whose parent is not NPbase");
+}
+
+double muTHUWHZZ4l::computeThValue()
+{
+        return myNPbase->muTHUWHZZ4l(sqrt_s);
+}
+
+muTHUVHZZ4l::muTHUVHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHZZ4l called with a class whose parent is not NPbase");
+}
+
+double muTHUVHZZ4l::computeThValue()
+{
+        return myNPbase->muTHUVHZZ4l(sqrt_s);
+}
+
+muTHUttHZZ4l::muTHUttHZZ4l(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHZZ4l called with a class whose parent is not NPbase");
+}
+
+double muTHUttHZZ4l::computeThValue()
+{
+        return myNPbase->muTHUttHZZ4l(sqrt_s);
+}
+
+muTHUggHWW::muTHUggHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHWW called with a class whose parent is not NPbase");
+}
+
+double muTHUggHWW::computeThValue()
+{
+        return myNPbase->muTHUggHWW(sqrt_s);
+}
+
+muTHUVBFHWW::muTHUVBFHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHWW called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHWW::computeThValue()
+{
+        return myNPbase->muTHUVBFHWW(sqrt_s);
+}
+
+muTHUZHWW::muTHUZHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHWW called with a class whose parent is not NPbase");
+}
+
+double muTHUZHWW::computeThValue()
+{
+        return myNPbase->muTHUZHWW(sqrt_s);
+}
+
+muTHUWHWW::muTHUWHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHWW called with a class whose parent is not NPbase");
+}
+
+double muTHUWHWW::computeThValue()
+{
+        return myNPbase->muTHUWHWW(sqrt_s);
+}
+
+muTHUVHWW::muTHUVHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHWW called with a class whose parent is not NPbase");
+}
+
+double muTHUVHWW::computeThValue()
+{
+        return myNPbase->muTHUVHWW(sqrt_s);
+}
+
+muTHUttHWW::muTHUttHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHWW called with a class whose parent is not NPbase");
+}
+
+double muTHUttHWW::computeThValue()
+{
+        return myNPbase->muTHUttHWW(sqrt_s);
+}
+
+muTHUggHWW2l2v::muTHUggHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHWW2l2v called with a class whose parent is not NPbase");
+}
+
+double muTHUggHWW2l2v::computeThValue()
+{
+        return myNPbase->muTHUggHWW2l2v(sqrt_s);
+}
+
+muTHUVBFHWW2l2v::muTHUVBFHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHWW2l2v called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHWW2l2v::computeThValue()
+{
+        return myNPbase->muTHUVBFHWW2l2v(sqrt_s);
+}
+
+muTHUZHWW2l2v::muTHUZHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHWW2l2v called with a class whose parent is not NPbase");
+}
+
+double muTHUZHWW2l2v::computeThValue()
+{
+        return myNPbase->muTHUZHWW2l2v(sqrt_s);
+}
+
+muTHUWHWW2l2v::muTHUWHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHWW2l2v called with a class whose parent is not NPbase");
+}
+
+double muTHUWHWW2l2v::computeThValue()
+{
+        return myNPbase->muTHUWHWW2l2v(sqrt_s);
+}
+
+muTHUVHWW2l2v::muTHUVHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHWW2l2v called with a class whose parent is not NPbase");
+}
+
+double muTHUVHWW2l2v::computeThValue()
+{
+        return myNPbase->muTHUVHWW2l2v(sqrt_s);
+}
+
+muTHUttHWW2l2v::muTHUttHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHWW2l2v called with a class whose parent is not NPbase");
+}
+
+double muTHUttHWW2l2v::computeThValue()
+{
+        return myNPbase->muTHUttHWW2l2v(sqrt_s);
+}
+
+muTHUggHmumu::muTHUggHmumu(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHmumu called with a class whose parent is not NPbase");
+}
+
+double muTHUggHmumu::computeThValue()
+{
+        return myNPbase->muTHUggHmumu(sqrt_s);
+}
+
+muTHUVBFHmumu::muTHUVBFHmumu(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHmumu called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHmumu::computeThValue()
+{
+        return myNPbase->muTHUVBFHmumu(sqrt_s);
+}
+
+muTHUZHmumu::muTHUZHmumu(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHmumu called with a class whose parent is not NPbase");
+}
+
+double muTHUZHmumu::computeThValue()
+{
+        return myNPbase->muTHUZHmumu(sqrt_s);
+}
+
+muTHUWHmumu::muTHUWHmumu(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHmumu called with a class whose parent is not NPbase");
+}
+
+double muTHUWHmumu::computeThValue()
+{
+        return myNPbase->muTHUWHmumu(sqrt_s);
+}
+
+muTHUVHmumu::muTHUVHmumu(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHmumu called with a class whose parent is not NPbase");
+}
+
+double muTHUVHmumu::computeThValue()
+{
+        return myNPbase->muTHUVHmumu(sqrt_s);
+}
+
+muTHUttHmumu::muTHUttHmumu(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHmumu called with a class whose parent is not NPbase");
+}
+
+double muTHUttHmumu::computeThValue()
+{
+        return myNPbase->muTHUttHmumu(sqrt_s);
+}
+
+muTHUggHtautau::muTHUggHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHtautau called with a class whose parent is not NPbase");
+}
+
+double muTHUggHtautau::computeThValue()
+{
+        return myNPbase->muTHUggHtautau(sqrt_s);
+}
+
+muTHUVBFHtautau::muTHUVBFHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHtautau called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHtautau::computeThValue()
+{
+        return myNPbase->muTHUVBFHtautau(sqrt_s);
+}
+
+muTHUZHtautau::muTHUZHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHtautau called with a class whose parent is not NPbase");
+}
+
+double muTHUZHtautau::computeThValue()
+{
+        return myNPbase->muTHUZHtautau(sqrt_s);
+}
+
+muTHUWHtautau::muTHUWHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHtautau called with a class whose parent is not NPbase");
+}
+
+double muTHUWHtautau::computeThValue()
+{
+        return myNPbase->muTHUWHtautau(sqrt_s);
+}
+
+muTHUVHtautau::muTHUVHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHtautau called with a class whose parent is not NPbase");
+}
+
+double muTHUVHtautau::computeThValue()
+{
+        return myNPbase->muTHUVHtautau(sqrt_s);
+}
+
+muTHUttHtautau::muTHUttHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHtautau called with a class whose parent is not NPbase");
+}
+
+double muTHUttHtautau::computeThValue()
+{
+        return myNPbase->muTHUttHtautau(sqrt_s);
+}
+
+muTHUggHbb::muTHUggHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUggHbb called with a class whose parent is not NPbase");
+}
+
+double muTHUggHbb::computeThValue()
+{
+        return myNPbase->muTHUggHbb(sqrt_s);
+}
+
+muTHUVBFHbb::muTHUVBFHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHbb called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHbb::computeThValue()
+{
+        return myNPbase->muTHUVBFHbb(sqrt_s);
+}
+
+muTHUZHbb::muTHUZHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUZHbb called with a class whose parent is not NPbase");
+}
+
+double muTHUZHbb::computeThValue()
+{
+        return myNPbase->muTHUZHbb(sqrt_s);
+}
+
+muTHUWHbb::muTHUWHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUWHbb called with a class whose parent is not NPbase");
+}
+
+double muTHUWHbb::computeThValue()
+{
+        return myNPbase->muTHUWHbb(sqrt_s);
+}
+
+muTHUVHbb::muTHUVHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHbb called with a class whose parent is not NPbase");
+}
+
+double muTHUVHbb::computeThValue()
+{
+        return myNPbase->muTHUVHbb(sqrt_s);
+}
+
+muTHUttHbb::muTHUttHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUttHbb called with a class whose parent is not NPbase");
+}
+
+double muTHUttHbb::computeThValue()
+{
+        return myNPbase->muTHUttHbb(sqrt_s);
+}
+
+
+muTHUVBFBRinv::muTHUVBFBRinv(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFBRinv called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFBRinv::computeThValue()
+{
+
+    return (myNPbase->muTHUVBFBRinv(sqrt_s));
+
+}
+
+muTHUVBFHinv::muTHUVBFHinv(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVBFHinv called with a class whose parent is not NPbase");
+}
+
+double muTHUVBFHinv::computeThValue()
+{
+
+        return (myNPbase->muTHUVBFHinv(sqrt_s));
+
+}
+
+
+muTHUVHBRinv::muTHUVHBRinv(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHBRinv called with a class whose parent is not NPbase");
+}
+
+double muTHUVHBRinv::computeThValue()
+{
+
+    return (myNPbase->muTHUVHBRinv(sqrt_s));
+
+}
+
+muTHUVHinv::muTHUVHinv(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muTHUVHinv called with a class whose parent is not NPbase");
+}
+
+double muTHUVHinv::computeThValue()
+{
+        return (myNPbase->muTHUVHinv(sqrt_s));
+}

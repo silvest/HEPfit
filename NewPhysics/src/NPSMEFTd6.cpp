@@ -75,6 +75,12 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
+    "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
+    "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
+    "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
+    "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
+    "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
+    "eVBFHinv","eVHinv",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -158,6 +164,12 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
+    "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
+    "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
+    "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
+    "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
+    "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
+    "eVBFHinv","eVHinv",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -196,6 +208,12 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
+    "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
+    "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
+    "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
+    "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
+    "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
+    "eVBFHinv","eVHinv",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -234,6 +252,12 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
+    "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
+    "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
+    "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
+    "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
+    "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
+    "eVBFHinv","eVHinv",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -629,6 +653,43 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::make_pair("eHccpar", std::cref(eHccpar)));
     ModelParamMap.insert(std::make_pair("eHbbint", std::cref(eHbbint)));
     ModelParamMap.insert(std::make_pair("eHbbpar", std::cref(eHbbpar)));
+    ModelParamMap.insert(std::make_pair("eggFHgaga", std::cref(eggFHgaga)));
+    ModelParamMap.insert(std::make_pair("eggFHZga", std::cref(eggFHZga)));
+    ModelParamMap.insert(std::make_pair("eggFHZZ", std::cref(eggFHZZ)));
+    ModelParamMap.insert(std::make_pair("eggFHWW", std::cref(eggFHWW)));
+    ModelParamMap.insert(std::make_pair("eggFHtautau", std::cref(eggFHtautau)));
+    ModelParamMap.insert(std::make_pair("eggFHbb", std::cref(eggFHbb)));
+    ModelParamMap.insert(std::make_pair("eggFHmumu", std::cref(eggFHmumu)));   
+    ModelParamMap.insert(std::make_pair("eVBFHgaga", std::cref(eVBFHgaga)));
+    ModelParamMap.insert(std::make_pair("eVBFHZga", std::cref(eVBFHZga)));
+    ModelParamMap.insert(std::make_pair("eVBFHZZ", std::cref(eVBFHZZ)));
+    ModelParamMap.insert(std::make_pair("eVBFHWW", std::cref(eVBFHWW)));
+    ModelParamMap.insert(std::make_pair("eVBFHtautau", std::cref(eVBFHtautau)));
+    ModelParamMap.insert(std::make_pair("eVBFHbb", std::cref(eVBFHbb)));
+    ModelParamMap.insert(std::make_pair("eVBFHmumu", std::cref(eVBFHmumu)));   
+    ModelParamMap.insert(std::make_pair("eWHgaga", std::cref(eWHgaga)));
+    ModelParamMap.insert(std::make_pair("eWHZga", std::cref(eWHZga)));
+    ModelParamMap.insert(std::make_pair("eWHZZ", std::cref(eWHZZ)));
+    ModelParamMap.insert(std::make_pair("eWHWW", std::cref(eWHWW)));
+    ModelParamMap.insert(std::make_pair("eWHtautau", std::cref(eWHtautau)));
+    ModelParamMap.insert(std::make_pair("eWHbb", std::cref(eWHbb)));
+    ModelParamMap.insert(std::make_pair("eWHmumu", std::cref(eWHmumu)));    
+    ModelParamMap.insert(std::make_pair("eZHgaga", std::cref(eZHgaga)));
+    ModelParamMap.insert(std::make_pair("eZHZga", std::cref(eZHZga)));
+    ModelParamMap.insert(std::make_pair("eZHZZ", std::cref(eZHZZ)));
+    ModelParamMap.insert(std::make_pair("eZHWW", std::cref(eZHWW)));
+    ModelParamMap.insert(std::make_pair("eZHtautau", std::cref(eZHtautau)));
+    ModelParamMap.insert(std::make_pair("eZHbb", std::cref(eZHbb)));
+    ModelParamMap.insert(std::make_pair("eZHmumu", std::cref(eZHmumu)));
+    ModelParamMap.insert(std::make_pair("ettHgaga", std::cref(ettHgaga)));
+    ModelParamMap.insert(std::make_pair("ettHZga", std::cref(ettHZga)));
+    ModelParamMap.insert(std::make_pair("ettHZZ", std::cref(ettHZZ)));
+    ModelParamMap.insert(std::make_pair("ettHWW", std::cref(ettHWW)));
+    ModelParamMap.insert(std::make_pair("ettHtautau", std::cref(ettHtautau)));
+    ModelParamMap.insert(std::make_pair("ettHbb", std::cref(ettHbb)));
+    ModelParamMap.insert(std::make_pair("ettHmumu", std::cref(ettHmumu)));
+    ModelParamMap.insert(std::make_pair("eVBFHinv", std::cref(eVBFHinv)));
+    ModelParamMap.insert(std::make_pair("eVHinv", std::cref(eVHinv)));
     ModelParamMap.insert(std::make_pair("eVBF_2_Hbox", std::cref(eVBF_2_Hbox)));
     ModelParamMap.insert(std::make_pair("eVBF_2_HQ1_11", std::cref(eVBF_2_HQ1_11)));
     ModelParamMap.insert(std::make_pair("eVBF_2_Hu_11", std::cref(eVBF_2_Hu_11)));
@@ -1010,6 +1071,9 @@ bool NPSMEFTd6::PostUpdate()
     
 //  Total: to be used in BR functions to check positivity
     GammaHTotR = 1.0 + dGammaHTotR1 + dGammaHTotR2;
+    
+    // The total theory error in the H width: set to 0.0 for the moment
+    eHwidth = deltaGammaTotalRatio1() - deltaGammaTotalRatio1noError();
       
 //  Dimension-6 coefficients used in the STXS parameterization
     aiG = 16.0 * M_PI * M_PI * CHG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / LambdaNP2;
@@ -1935,6 +1999,80 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         eHbbint = value;
     } else if (name.compare("eHbbpar") == 0) {
         eHbbpar = value;
+    } else if (name.compare("eggFHgaga") == 0) {
+        eggFHgaga = value;
+    } else if (name.compare("eggFHZga") == 0) {
+        eggFHZga = value;
+    } else if (name.compare("eggFHZZ") == 0) {
+        eggFHZZ = value;
+    } else if (name.compare("eggFHWW") == 0) {
+        eggFHWW = value;
+    } else if (name.compare("eggFHtautau") == 0) {
+        eggFHtautau = value;
+    } else if (name.compare("eggFHbb") == 0) {
+        eggFHbb = value;
+    } else if (name.compare("eggFHmumu") == 0) {
+        eggFHmumu = value;     
+    } else if (name.compare("eVBFHgaga") == 0) {
+        eVBFHgaga = value;
+    } else if (name.compare("eVBFHZga") == 0) {
+        eVBFHZga = value;
+    } else if (name.compare("eVBFHZZ") == 0) {
+        eVBFHZZ = value;
+    } else if (name.compare("eVBFHWW") == 0) {
+        eVBFHWW = value;
+    } else if (name.compare("eVBFHtautau") == 0) {
+        eVBFHtautau = value;
+    } else if (name.compare("eVBFHbb") == 0) {
+        eVBFHbb = value;
+    } else if (name.compare("eVBFHmumu") == 0) {
+        eVBFHmumu = value;  
+    } else if (name.compare("eWHgaga") == 0) {
+        eWHgaga = value;
+    } else if (name.compare("eWHZga") == 0) {
+        eWHZga = value;
+    } else if (name.compare("eWHZZ") == 0) {
+        eWHZZ = value;
+    } else if (name.compare("eWHWW") == 0) {
+        eWHWW = value;
+    } else if (name.compare("eWHtautau") == 0) {
+        eWHtautau = value;
+    } else if (name.compare("eWHbb") == 0) {
+        eWHbb = value;
+    } else if (name.compare("eWHmumu") == 0) {
+        eWHmumu = value; 
+    } else if (name.compare("eZHgaga") == 0) {
+        eZHgaga = value;
+    } else if (name.compare("eZHZga") == 0) {
+        eZHZga = value;
+    } else if (name.compare("eZHZZ") == 0) {
+        eZHZZ = value;
+    } else if (name.compare("eZHWW") == 0) {
+        eZHWW = value;
+    } else if (name.compare("eZHtautau") == 0) {
+        eZHtautau = value;
+    } else if (name.compare("eZHbb") == 0) {
+        eZHbb = value;
+    } else if (name.compare("eZHmumu") == 0) {
+        eZHmumu = value; 
+    } else if (name.compare("ettHgaga") == 0) {
+        ettHgaga = value;
+    } else if (name.compare("ettHZga") == 0) {
+        ettHZga = value;
+    } else if (name.compare("ettHZZ") == 0) {
+        ettHZZ = value;
+    } else if (name.compare("ettHWW") == 0) {
+        ettHWW = value;
+    } else if (name.compare("ettHtautau") == 0) {
+        ettHtautau = value;
+    } else if (name.compare("ettHbb") == 0) {
+        ettHbb = value;
+    } else if (name.compare("ettHmumu") == 0) {
+        ettHmumu = value;
+    } else if (name.compare("eVBFHinv") == 0) {
+        eVBFHinv = value;
+    } else if (name.compare("eVHinv") == 0) {
+        eVHinv = value;
     } else if (name.compare("eVBF_2_Hbox") == 0) {
          eVBF_2_Hbox = value;
     } else if (name.compare("eVBF_2_HQ1_11") == 0) {
@@ -10251,6 +10389,28 @@ double NPSMEFTd6::deltaGammaTotalRatio1() const
     return deltaGammaRatio;
 }
 
+double NPSMEFTd6::deltaGammaTotalRatio1noError() const
+{
+    double deltaGammaRatio;
+    
+//  The change in the ratio asumming only SM decays
+    deltaGammaRatio = ( trueSM.computeBrHtogg() * (deltaGammaHggRatio1() - eHggint - eHggpar )
+            + trueSM.computeBrHtoWW() * (deltaGammaHWWRatio1() - eHWWint - eHWWpar )
+            + trueSM.computeBrHtoZZ() * (deltaGammaHZZRatio1() - eHZZint - eHZZpar )
+            + trueSM.computeBrHtoZga() * (deltaGammaHZgaRatio1() - eHZgaint - eHZgapar )
+            + trueSM.computeBrHtogaga() * (deltaGammaHgagaRatio1() - eHgagaint - eHgagapar )
+            + trueSM.computeBrHtomumu() * (deltaGammaHmumuRatio1() - eHmumuint - eHmumupar )
+            + trueSM.computeBrHtotautau() * (deltaGammaHtautauRatio1() - eHtautauint - eHtautaupar )
+            + trueSM.computeBrHtocc() * (deltaGammaHccRatio1() - eHccint - eHccpar )
+            + trueSM.computeBrHtobb() * (deltaGammaHbbRatio1() - eHbbint - eHbbpar ) );
+    
+//  Add the effect of the invisible and exotic BR. Include also here the
+//  pure contribution from BrHinv and BrHexo even in case of no dim 6 contibutions    
+    deltaGammaRatio = -1.0 + (1.0 + deltaGammaRatio) / (1.0 - BrHinv - BrHexo);
+    
+    return deltaGammaRatio;
+}
+
 double NPSMEFTd6::deltaGammaTotalRatio2() const
 {
     double deltaGammaRatio;
@@ -12479,6 +12639,546 @@ double NPSMEFTd6::muttHbb(const double sqrt_s) const
     return muttH(sqrt_s) * BrHbbRatio();
     
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------------------
+//-- Special Hadron collider signal strengths with separate full TH unc U(prod x decay) ---
+//-----------------------------------------------------------------------------------------
+//////////////////////////////////////////////////////////////////////////////////////////// 
+
+double NPSMEFTd6::muTHUggHgaga(const double sqrt_s) const
+{   
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHgagaRatio() * (1.0 + eggFHgaga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHgagaint + eHgagapar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHgagaRatio() - 1.0 + eggFHgaga - eggFint - eggFpar - eHgagaint - eHgagapar + eHwidth );
+    }    
+}
+   
+double NPSMEFTd6::muTHUVBFHgaga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHgagaRatio() * (1.0 + eVBFHgaga ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHgagaint + eHgagapar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHgagaRatio() - 1.0 + eVBFHgaga - eVBFint - eVBFpar - eHgagaint - eHgagapar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUZHgaga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHgagaRatio() * (1.0 + eZHgaga ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHgagaint + eHgagapar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHgagaRatio() - 1.0 + eZHgaga - eZHint - eZHpar - eHgagaint - eHgagapar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUWHgaga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHgagaRatio() * (1.0 + eWHgaga ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHgagaint + eHgagapar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHgagaRatio() - 1.0 + eWHgaga - eWHint - eWHpar - eHgagaint - eHgagapar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUVHgaga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHgagaRatio() * (1.0 + eWHgaga ) * (1.0 + eHwidth)/(1.0 + eHgagaint + eHgagapar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHgagaRatio() - 1.0 + eWHgaga - eHgagaint - eHgagapar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUttHgaga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHgagaRatio() * (1.0 + ettHgaga ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHgagaint + eHgagapar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHgagaRatio() - 1.0 + ettHgaga - eeettHint - eeettHpar - eHgagaint - eHgagapar + eHwidth );
+    }      
+}
+
+double NPSMEFTd6::muTHUggHZga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHZgaRatio() * (1.0 + ettHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZgaint + eHZgapar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHZgaRatio() - 1.0 + ettHZga - eggFint - eggFpar - eHZgaint - eHZgapar + eHwidth );
+    }     
+}
+
+double NPSMEFTd6::muTHUVBFHZga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHZgaRatio() * (1.0 + eVBFHZga ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHZgaint + eHZgapar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHZgaRatio() - 1.0 + eVBFHZga - eVBFint - eVBFpar - eHZgaint - eHZgapar + eHwidth );
+    }     
+}
+
+double NPSMEFTd6::muTHUZHZga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHZgaRatio() * (1.0 + eZHZga ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHZgaint + eHZgapar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHZgaRatio() - 1.0 + eZHZga - eZHint - eZHpar - eHZgaint - eHZgapar + eHwidth );
+    }     
+}
+
+double NPSMEFTd6::muTHUWHZga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHZgaRatio() * (1.0 + eWHZga ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHZgaint + eHZgapar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHZgaRatio() - 1.0 + eWHZga - eWHint - eWHpar - eHZgaint - eHZgapar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUVHZga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHZgaRatio() * (1.0 + eWHZga ) * (1.0 + eHwidth)/(1.0 + eHZgaint + eHZgapar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHZgaRatio() - 1.0 + eWHZga - eHZgaint - eHZgapar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUttHZga(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHZgaRatio() * (1.0 + ettHZga ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHZgaint + eHZgapar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHZgaRatio() - 1.0 + ettHZga - eeettHint - eeettHpar - eHZgaint - eHZgapar + eHwidth );
+    }    
+}
+
+double NPSMEFTd6::muTHUggHZZ(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHZZRatio() * (1.0 + eggFHZZ ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHZZRatio()  - 1.0 + eggFHZZ - eggFint - eggFpar - eHZZint - eHZZpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUVBFHZZ(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHZZRatio() * (1.0 + eVBFHZZ ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHZZRatio() - 1.0 + eVBFHZZ - eVBFint - eVBFpar - eHZZint - eHZZpar + eHwidth );
+    }    
+}
+
+double NPSMEFTd6::muTHUZHZZ(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHZZRatio() * (1.0 + eZHZZ ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHZZRatio() - 1.0 + eZHZZ - eZHint - eZHpar - eHZZint - eHZZpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUWHZZ(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHZZRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHZZRatio() - 1.0 + eWHZZ - eWHint - eWHpar - eHZZint - eHZZpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUVHZZ(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHZZRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHZZRatio() - 1.0 + eWHZZ - eHZZint - eHZZpar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUttHZZ(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHZZRatio() * (1.0 + ettHZZ ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHZZRatio() - 1.0 + ettHZZ - eeettHint - eeettHpar - eHZZint - eHZZpar + eHwidth );
+    }    
+}
+
+double NPSMEFTd6::muTHUggHZZ4l(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eggFHZZ ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHZZ4lRatio() - 1.0 + eggFHZZ - eggFint - eggFpar - eHZZint - eHZZpar + eHwidth );
+    }  
+}
+
+double NPSMEFTd6::muTHUVBFHZZ4l(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHZZ4lRatio() * (1.0 + eVBFHZZ ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHZZ4lRatio() - 1.0 + eVBFHZZ - eVBFint - eVBFpar - eHZZint - eHZZpar + eHwidth );
+    }  
+}
+
+double NPSMEFTd6::muTHUZHZZ4l(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eZHZZ ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHZZ4lRatio() - 1.0 + eZHZZ - eZHint - eZHpar - eHZZint - eHZZpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUWHZZ4l(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHZZ4lRatio() - 1.0 + eWHZZ - eWHint - eWHpar - eHZZint - eHZZpar + eHwidth );
+    }  
+}
+
+double NPSMEFTd6::muTHUVHZZ4l(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHZZ4lRatio() - 1.0 + eWHZZ - eHZZint - eHZZpar + eHwidth );
+    }  
+}
+
+double NPSMEFTd6::muTHUttHZZ4l(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHZZ4lRatio() * (1.0 + ettHZZ ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHZZ4lRatio() - 1.0 + ettHZZ - eeettHint - eeettHpar - eHZZint - eHZZpar + eHwidth );
+    }  
+}
+
+double NPSMEFTd6::muTHUggHWW(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHWWRatio() * (1.0 + eggFHWW ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHWWRatio() - 1.0 + eggFHWW - eggFint - eggFpar - eHWWint - eHWWpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUVBFHWW(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHWWRatio() * (1.0 + eVBFHWW ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHWWRatio() - 1.0 + eVBFHWW - eVBFint - eVBFpar - eHWWint - eHWWpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUZHWW(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHWWRatio() * (1.0 + eZHWW ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHWWRatio() - 1.0 + eZHWW - eZHint - eZHpar - eHWWint - eHWWpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUWHWW(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHWWRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHWWRatio() - 1.0 + eWHWW - eWHint - eWHpar - eHWWint - eHWWpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUVHWW(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHWWRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHWWRatio() - 1.0 + eWHWW - eHWWint - eHWWpar + eHwidth );
+    }    
+}
+
+double NPSMEFTd6::muTHUttHWW(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHWWRatio() * (1.0 + ettHWW ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHWWRatio() - 1.0 + ettHWW - eeettHint - eeettHpar - eHWWint - eHWWpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUggHWW2l2v(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eggFHWW ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + eggFHWW - eggFint - eggFpar - eHWWint - eHWWpar + eHwidth );
+    }      
+}
+
+double NPSMEFTd6::muTHUVBFHWW2l2v(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eVBFHWW ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHWW2l2vRatio() - 1.0 + eVBFHWW - eVBFint - eVBFpar - eHWWint - eHWWpar + eHwidth );
+    }   
+}
+
+double NPSMEFTd6::muTHUZHWW2l2v(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eZHWW ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + eZHWW - eZHint - eZHpar - eHWWint - eHWWpar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUWHWW2l2v(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + eWHWW - eWHint - eWHpar - eHWWint - eHWWpar + eHwidth );
+    }        
+}
+
+double NPSMEFTd6::muTHUVHWW2l2v(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + eWHWW - eHWWint - eHWWpar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUttHWW2l2v(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + ettHWW ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHWWint + eHWWpar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + ettHWW - eeettHint - eeettHpar - eHWWint - eHWWpar + eHwidth );
+    }        
+}
+
+double NPSMEFTd6::muTHUggHmumu(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHmumuRatio() * (1.0 + eggFHmumu ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHmumuint + eHmumupar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHmumuRatio() - 1.0 + eggFHmumu - eggFint - eggFpar - eHmumuint - eHmumupar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUVBFHmumu(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHmumuRatio() * (1.0 + eVBFHmumu ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHmumuint + eHmumupar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHmumuRatio() - 1.0 + eVBFHmumu - eVBFint - eVBFpar - eHmumuint - eHmumupar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUZHmumu(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHmumuRatio() * (1.0 + eZHmumu ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHmumuint + eHmumupar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHmumuRatio() - 1.0 + eZHmumu - eZHint - eZHpar - eHmumuint - eHmumupar + eHwidth );
+    }      
+}
+
+double NPSMEFTd6::muTHUWHmumu(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHmumuRatio() * (1.0 + eWHmumu ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHmumuint + eHmumupar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHmumuRatio() - 1.0 + eWHmumu - eWHint - eWHpar - eHmumuint - eHmumupar + eHwidth );
+    }      
+}
+
+double NPSMEFTd6::muTHUVHmumu(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHmumuRatio() * (1.0 + eWHmumu ) * (1.0 + eHwidth)/(1.0 + eHmumuint + eHmumupar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHmumuRatio() - 1.0 + eWHmumu - eHmumuint - eHmumupar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUttHmumu(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHmumuRatio() * (1.0 + ettHmumu ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHmumuint + eHmumupar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHmumuRatio() - 1.0 + ettHmumu - eeettHint - eeettHpar - eHmumuint - eHmumupar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUggHtautau(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHtautauRatio() * (1.0 + eggFHtautau ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHtautauint + eHtautaupar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHtautauRatio() - 1.0 + eggFHtautau - eggFint - eggFpar - eHtautauint - eHtautaupar + eHwidth );
+    }      
+}
+
+double NPSMEFTd6::muTHUVBFHtautau(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHtautauRatio() * (1.0 + eVBFHtautau ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHtautauint + eHtautaupar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHtautauRatio() - 1.0 + eVBFHtautau - eVBFint - eVBFpar - eHtautauint - eHtautaupar + eHwidth );
+    }        
+}
+
+double NPSMEFTd6::muTHUZHtautau(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHtautauRatio() * (1.0 + eZHtautau ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHtautauint + eHtautaupar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHtautauRatio() - 1.0 + eZHtautau - eZHint - eZHpar - eHtautauint - eHtautaupar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUWHtautau(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHtautauRatio() * (1.0 + eWHtautau ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHtautauint + eHtautaupar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHtautauRatio() - 1.0 + eWHtautau - eWHint - eWHpar - eHtautauint - eHtautaupar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUVHtautau(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHtautauRatio() * (1.0 + eWHtautau ) * (1.0 + eHwidth)/(1.0 + eHtautauint + eHtautaupar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHtautauRatio() - 1.0 + eWHtautau - eHtautauint - eHtautaupar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUttHtautau(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHtautauRatio() * (1.0 + ettHtautau ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHtautauint + eHtautaupar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHtautauRatio() - 1.0 + ettHtautau - eeettHint - eeettHpar - eHtautauint - eHtautaupar + eHwidth );
+    }        
+}
+
+double NPSMEFTd6::muTHUggHbb(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHbbRatio() * (1.0 + eggFHbb ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHbbint + eHbbpar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHbbRatio() - 1.0 + eggFHbb - eggFint - eggFpar - eHbbint - eHbbpar + eHwidth );
+    }        
+}
+
+double NPSMEFTd6::muTHUVBFHbb(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHbbRatio() * (1.0 + eVBFHbb ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHbbint + eHbbpar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHbbRatio() - 1.0 + eVBFHbb - eVBFint - eVBFpar - eHbbint - eHbbpar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUZHbb(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muZH(sqrt_s)*BrHbbRatio() * (1.0 + eZHbb ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHbbint + eHbbpar) );
+    } else {
+        return ( muZH(sqrt_s) + BrHbbRatio() - 1.0 + eZHbb - eZHint - eZHpar - eHbbint - eHbbpar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUWHbb(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muWH(sqrt_s)*BrHbbRatio() * (1.0 + eWHbb ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHbbint + eHbbpar) );
+    } else {
+        return ( muWH(sqrt_s) + BrHbbRatio() - 1.0 + eWHbb - eWHint - eWHpar - eHbbint - eHbbpar + eHwidth );
+    }        
+}
+
+double NPSMEFTd6::muTHUVHbb(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHbbRatio() * (1.0 + eWHbb ) * (1.0 + eHwidth)/(1.0 + eHbbint + eHbbpar) );
+    } else {
+        return ( muVH(sqrt_s) + BrHbbRatio() - 1.0 + eWHbb - eHbbint - eHbbpar + eHwidth );
+    }       
+}
+
+double NPSMEFTd6::muTHUttHbb(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muttH(sqrt_s)*BrHbbRatio() * (1.0 + ettHbb ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHbbint + eHbbpar) );
+    } else {
+        return ( muttH(sqrt_s) + BrHbbRatio() - 1.0 + ettHbb - eeettHint - eeettHpar - eHbbint - eHbbpar + eHwidth );
+    }        
+}
+
+double NPSMEFTd6::muTHUVBFBRinv(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*Br_H_inv() * (1.0 + eVBFHinv )/(1.0 + eVBFint + eVBFpar) );   
+}
+
+double NPSMEFTd6::muTHUVBFHinv(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVBF(sqrt_s)*BrHtoinvRatio() * (1.0 + eVBFHinv )/(1.0 + eVBFint + eVBFpar) );
+    } else {
+        return ( muVBF(sqrt_s) + BrHtoinvRatio() - 1.0 + eVBFHinv - eVBFint - eVBFpar );
+    }        
+}
+
+double NPSMEFTd6::muTHUVHBRinv(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*Br_H_inv() * (1.0 + eVHinv ) );   
+}
+
+double NPSMEFTd6::muTHUVHinv(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muVH(sqrt_s)*BrHtoinvRatio() * (1.0 + eVHinv ) );
+    } else {
+        return ( muVH(sqrt_s) + BrHtoinvRatio() - 1.0 + eVHinv );
+    }        
+}
+
+
+double NPSMEFTd6::muTHUggHZZ4mu(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHZZ4muRatio() * (1.0 + eggFHZZ ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHZZ4muRatio() - 1.0 + eggFHZZ - eggFint - eggFpar - eHZZint - eHZZpar + eHwidth );
+    } 
+}
+
+double NPSMEFTd6::muTHUggHZgamumu(const double sqrt_s) const
+{
+    if (FlagQuadraticTerms) {
+        return ( muggH(sqrt_s)*BrHZgamumuRatio() * (1.0 + eggFHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+    } else {
+        return ( muggH(sqrt_s) + BrHZgamumuRatio() - 1.0 + eggFHZga - eggFint - eggFpar - eHZZint - eHZZpar + eHwidth );
+    } 
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 

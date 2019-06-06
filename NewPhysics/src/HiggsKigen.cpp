@@ -15,7 +15,13 @@ const std::string HiggsKigen::HKvKfgenvars[NHKvKfgenvars] = {
     "eepWBFint","eepWBFpar","eepZBFint","eepZBFpar",
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
-    "eHccint","eHccpar","eHbbint","eHbbpar"
+    "eHccint","eHccpar","eHbbint","eHbbpar",
+    "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
+    "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
+    "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
+    "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
+    "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
+    "eVBFHinv","eVHinv"
 };
 
 HiggsKigen::HiggsKigen()
@@ -81,7 +87,44 @@ HiggsKigen::HiggsKigen()
     ModelParamMap.insert(std::make_pair("eHccint", std::cref(eHccint)));
     ModelParamMap.insert(std::make_pair("eHccpar", std::cref(eHccpar)));
     ModelParamMap.insert(std::make_pair("eHbbint", std::cref(eHbbint)));
-    ModelParamMap.insert(std::make_pair("eHbbpar", std::cref(eHbbpar)));
+    ModelParamMap.insert(std::make_pair("eHbbpar", std::cref(eHbbpar)));    
+    ModelParamMap.insert(std::make_pair("eggFHgaga", std::cref(eggFHgaga)));
+    ModelParamMap.insert(std::make_pair("eggFHZga", std::cref(eggFHZga)));
+    ModelParamMap.insert(std::make_pair("eggFHZZ", std::cref(eggFHZZ)));
+    ModelParamMap.insert(std::make_pair("eggFHWW", std::cref(eggFHWW)));
+    ModelParamMap.insert(std::make_pair("eggFHtautau", std::cref(eggFHtautau)));
+    ModelParamMap.insert(std::make_pair("eggFHbb", std::cref(eggFHbb)));
+    ModelParamMap.insert(std::make_pair("eggFHmumu", std::cref(eggFHmumu)));   
+    ModelParamMap.insert(std::make_pair("eVBFHgaga", std::cref(eVBFHgaga)));
+    ModelParamMap.insert(std::make_pair("eVBFHZga", std::cref(eVBFHZga)));
+    ModelParamMap.insert(std::make_pair("eVBFHZZ", std::cref(eVBFHZZ)));
+    ModelParamMap.insert(std::make_pair("eVBFHWW", std::cref(eVBFHWW)));
+    ModelParamMap.insert(std::make_pair("eVBFHtautau", std::cref(eVBFHtautau)));
+    ModelParamMap.insert(std::make_pair("eVBFHbb", std::cref(eVBFHbb)));
+    ModelParamMap.insert(std::make_pair("eVBFHmumu", std::cref(eVBFHmumu)));   
+    ModelParamMap.insert(std::make_pair("eWHgaga", std::cref(eWHgaga)));
+    ModelParamMap.insert(std::make_pair("eWHZga", std::cref(eWHZga)));
+    ModelParamMap.insert(std::make_pair("eWHZZ", std::cref(eWHZZ)));
+    ModelParamMap.insert(std::make_pair("eWHWW", std::cref(eWHWW)));
+    ModelParamMap.insert(std::make_pair("eWHtautau", std::cref(eWHtautau)));
+    ModelParamMap.insert(std::make_pair("eWHbb", std::cref(eWHbb)));
+    ModelParamMap.insert(std::make_pair("eWHmumu", std::cref(eWHmumu)));    
+    ModelParamMap.insert(std::make_pair("eZHgaga", std::cref(eZHgaga)));
+    ModelParamMap.insert(std::make_pair("eZHZga", std::cref(eZHZga)));
+    ModelParamMap.insert(std::make_pair("eZHZZ", std::cref(eZHZZ)));
+    ModelParamMap.insert(std::make_pair("eZHWW", std::cref(eZHWW)));
+    ModelParamMap.insert(std::make_pair("eZHtautau", std::cref(eZHtautau)));
+    ModelParamMap.insert(std::make_pair("eZHbb", std::cref(eZHbb)));
+    ModelParamMap.insert(std::make_pair("eZHmumu", std::cref(eZHmumu)));
+    ModelParamMap.insert(std::make_pair("ettHgaga", std::cref(ettHgaga)));
+    ModelParamMap.insert(std::make_pair("ettHZga", std::cref(ettHZga)));
+    ModelParamMap.insert(std::make_pair("ettHZZ", std::cref(ettHZZ)));
+    ModelParamMap.insert(std::make_pair("ettHWW", std::cref(ettHWW)));
+    ModelParamMap.insert(std::make_pair("ettHtautau", std::cref(ettHtautau)));
+    ModelParamMap.insert(std::make_pair("ettHbb", std::cref(ettHbb)));
+    ModelParamMap.insert(std::make_pair("ettHmumu", std::cref(ettHmumu)));
+    ModelParamMap.insert(std::make_pair("eVBFHinv", std::cref(eVBFHinv)));
+    ModelParamMap.insert(std::make_pair("eVHinv", std::cref(eVHinv)));
 }
 
 bool HiggsKigen::PostUpdate()
@@ -142,6 +185,9 @@ bool HiggsKigen::PostUpdate()
         GammaHTotR = KH*KH;  
         GammaHTotSMR = computeGammaTotalSMRatio();
         
+        GammaHTotnoER = KH*KH;  
+        GammaHTotSMnoER = computeGammaTotalSMnoErrorRatio();
+        
         //  Compute BrHexo from KH
         BrHexo = 1.0 - BrHinv - GammaHTotSMR/GammaHTotR;     
         
@@ -175,7 +221,13 @@ bool HiggsKigen::PostUpdate()
     } else {
         GammaHTotR = computeGammaTotalRatio();
         GammaHTotSMR = computeGammaTotalSMRatio();
+        
+        GammaHTotnoER = computeGammaTotalnoErrorRatio();
+        GammaHTotSMnoER = computeGammaTotalSMnoErrorRatio();
     }
+    
+    // The total theory error in the H width
+    eHwidth = ( GammaHTotR - GammaHTotnoER ) / GammaHTotnoER;
 
     return (true);
 }
@@ -293,7 +345,81 @@ void HiggsKigen::setParameter(const std::string name, const double& value)
     } else if (name.compare("eHbbint") == 0) {
         eHbbint = value;
     } else if (name.compare("eHbbpar") == 0) {
-        eHbbpar = value;
+        eHbbpar = value;   
+    } else if (name.compare("eggFHgaga") == 0) {
+        eggFHgaga = value;
+    } else if (name.compare("eggFHZga") == 0) {
+        eggFHZga = value;
+    } else if (name.compare("eggFHZZ") == 0) {
+        eggFHZZ = value;
+    } else if (name.compare("eggFHWW") == 0) {
+        eggFHWW = value;
+    } else if (name.compare("eggFHtautau") == 0) {
+        eggFHtautau = value;
+    } else if (name.compare("eggFHbb") == 0) {
+        eggFHbb = value;
+    } else if (name.compare("eggFHmumu") == 0) {
+        eggFHmumu = value;     
+    } else if (name.compare("eVBFHgaga") == 0) {
+        eVBFHgaga = value;
+    } else if (name.compare("eVBFHZga") == 0) {
+        eVBFHZga = value;
+    } else if (name.compare("eVBFHZZ") == 0) {
+        eVBFHZZ = value;
+    } else if (name.compare("eVBFHWW") == 0) {
+        eVBFHWW = value;
+    } else if (name.compare("eVBFHtautau") == 0) {
+        eVBFHtautau = value;
+    } else if (name.compare("eVBFHbb") == 0) {
+        eVBFHbb = value;
+    } else if (name.compare("eVBFHmumu") == 0) {
+        eVBFHmumu = value;  
+    } else if (name.compare("eWHgaga") == 0) {
+        eWHgaga = value;
+    } else if (name.compare("eWHZga") == 0) {
+        eWHZga = value;
+    } else if (name.compare("eWHZZ") == 0) {
+        eWHZZ = value;
+    } else if (name.compare("eWHWW") == 0) {
+        eWHWW = value;
+    } else if (name.compare("eWHtautau") == 0) {
+        eWHtautau = value;
+    } else if (name.compare("eWHbb") == 0) {
+        eWHbb = value;
+    } else if (name.compare("eWHmumu") == 0) {
+        eWHmumu = value; 
+    } else if (name.compare("eZHgaga") == 0) {
+        eZHgaga = value;
+    } else if (name.compare("eZHZga") == 0) {
+        eZHZga = value;
+    } else if (name.compare("eZHZZ") == 0) {
+        eZHZZ = value;
+    } else if (name.compare("eZHWW") == 0) {
+        eZHWW = value;
+    } else if (name.compare("eZHtautau") == 0) {
+        eZHtautau = value;
+    } else if (name.compare("eZHbb") == 0) {
+        eZHbb = value;
+    } else if (name.compare("eZHmumu") == 0) {
+        eZHmumu = value; 
+    } else if (name.compare("ettHgaga") == 0) {
+        ettHgaga = value;
+    } else if (name.compare("ettHZga") == 0) {
+        ettHZga = value;
+    } else if (name.compare("ettHZZ") == 0) {
+        ettHZZ = value;
+    } else if (name.compare("ettHWW") == 0) {
+        ettHWW = value;
+    } else if (name.compare("ettHtautau") == 0) {
+        ettHtautau = value;
+    } else if (name.compare("ettHbb") == 0) {
+        ettHbb = value;
+    } else if (name.compare("ettHmumu") == 0) {
+        ettHmumu = value;
+    } else if (name.compare("eVBFHinv") == 0) {
+        eVBFHinv = value;
+    } else if (name.compare("eVHinv") == 0) {
+        eVHinv = value;
     } else
         NPbase::setParameter(name, value);
 }
@@ -529,8 +655,8 @@ double HiggsKigen::muVH(const double sqrt_s) const
 {
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
     double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
-    return ((computeKW() * computeKW() * sigmaWH_SM
-            + computeKZ() * computeKZ() * sigmaZH_SM)
+    return ((computeKW() * computeKW()*(1.0 + eWHint + eWHpar) * sigmaWH_SM
+            + computeKZ() * computeKZ()*(1.0 + eZHint + eZHpar) * sigmaZH_SM)
             / (sigmaWH_SM + sigmaZH_SM));
 }
 
@@ -1039,11 +1165,333 @@ double HiggsKigen::muttHbb(const double sqrt_s) const
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------------------
+//-- Special Hadron collider signal strengths with separate full TH unc U(prod x decay) ---
+//-----------------------------------------------------------------------------------------
+//////////////////////////////////////////////////////////////////////////////////////////// 
+
+double HiggsKigen::muTHUggHgaga(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHgagaRatio() * (1.0 + eggFHgaga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHgagaint + eHgagapar) );
+}
+   
+double HiggsKigen::muTHUVBFHgaga(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHgagaRatio() * (1.0 + eVBFHgaga ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHgagaint + eHgagapar) );
+}
+
+double HiggsKigen::muTHUZHgaga(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHgagaRatio() * (1.0 + eZHgaga ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHgagaint + eHgagapar) );
+}
+
+double HiggsKigen::muTHUWHgaga(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHgagaRatio() * (1.0 + eWHgaga ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHgagaint + eHgagapar) );
+}
+
+double HiggsKigen::muTHUVHgaga(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHgagaRatio() * (1.0 + eWHgaga ) * (1.0 + eHwidth)/(1.0 + eHgagaint + eHgagapar) );
+}
+
+double HiggsKigen::muTHUttHgaga(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHgagaRatio() * (1.0 + ettHgaga ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHgagaint + eHgagapar) );
+}
+
+double HiggsKigen::muTHUggHZga(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHZgaRatio() * (1.0 + ettHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZgaint + eHZgapar) );
+}
+
+double HiggsKigen::muTHUVBFHZga(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHZgaRatio() * (1.0 + eVBFHZga ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHZgaint + eHZgapar) );
+}
+
+double HiggsKigen::muTHUZHZga(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHZgaRatio() * (1.0 + eZHZga ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHZgaint + eHZgapar) );
+}
+
+double HiggsKigen::muTHUWHZga(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHZgaRatio() * (1.0 + eWHZga ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHZgaint + eHZgapar) );
+}
+
+double HiggsKigen::muTHUVHZga(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHZgaRatio() * (1.0 + eWHZga ) * (1.0 + eHwidth)/(1.0 + eHZgaint + eHZgapar) );
+}
+
+double HiggsKigen::muTHUttHZga(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHZgaRatio() * (1.0 + ettHZga ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHZgaint + eHZgapar) );
+}
+
+double HiggsKigen::muTHUggHZZ(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHZZRatio() * (1.0 + eggFHZZ ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUVBFHZZ(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHZZRatio() * (1.0 + eVBFHZZ ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUZHZZ(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHZZRatio() * (1.0 + eZHZZ ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUWHZZ(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHZZRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUVHZZ(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHZZRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUttHZZ(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHZZRatio() * (1.0 + ettHZZ ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUggHZZ4l(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eggFHZZ ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUVBFHZZ4l(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHZZ4lRatio() * (1.0 + eVBFHZZ ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUZHZZ4l(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eZHZZ ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUWHZZ4l(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUVHZZ4l(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUttHZZ4l(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHZZ4lRatio() * (1.0 + ettHZZ ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUggHWW(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHWWRatio() * (1.0 + eggFHWW ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUVBFHWW(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHWWRatio() * (1.0 + eVBFHWW ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUZHWW(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHWWRatio() * (1.0 + eZHWW ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUWHWW(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHWWRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUVHWW(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHWWRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUttHWW(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHWWRatio() * (1.0 + ettHWW ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUggHWW2l2v(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eggFHWW ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUVBFHWW2l2v(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eVBFHWW ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUZHWW2l2v(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eZHWW ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUWHWW2l2v(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUVHWW2l2v(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUttHWW2l2v(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + ettHWW ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHWWint + eHWWpar) );
+}
+
+double HiggsKigen::muTHUggHmumu(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHmumuRatio() * (1.0 + eggFHmumu ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHmumuint + eHmumupar) );
+}
+
+double HiggsKigen::muTHUVBFHmumu(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHmumuRatio() * (1.0 + eVBFHmumu ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHmumuint + eHmumupar) );
+}
+
+double HiggsKigen::muTHUZHmumu(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHmumuRatio() * (1.0 + eZHmumu ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHmumuint + eHmumupar) );
+}
+
+double HiggsKigen::muTHUWHmumu(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHmumuRatio() * (1.0 + eWHmumu ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHmumuint + eHmumupar) );
+}
+
+double HiggsKigen::muTHUVHmumu(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHmumuRatio() * (1.0 + eWHmumu ) * (1.0 + eHwidth)/(1.0 + eHmumuint + eHmumupar) );
+}
+
+double HiggsKigen::muTHUttHmumu(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHmumuRatio() * (1.0 + ettHmumu ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHmumuint + eHmumupar) );
+}
+
+double HiggsKigen::muTHUggHtautau(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHtautauRatio() * (1.0 + eggFHtautau ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHtautauint + eHtautaupar) );
+}
+
+double HiggsKigen::muTHUVBFHtautau(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHtautauRatio() * (1.0 + eVBFHtautau ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHtautauint + eHtautaupar) );
+}
+
+double HiggsKigen::muTHUZHtautau(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHtautauRatio() * (1.0 + eZHtautau ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHtautauint + eHtautaupar) );
+}
+
+double HiggsKigen::muTHUWHtautau(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHtautauRatio() * (1.0 + eWHtautau ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHtautauint + eHtautaupar) );
+}
+
+double HiggsKigen::muTHUVHtautau(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHtautauRatio() * (1.0 + eWHtautau ) * (1.0 + eHwidth)/(1.0 + eHtautauint + eHtautaupar) );
+}
+
+double HiggsKigen::muTHUttHtautau(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHtautauRatio() * (1.0 + ettHtautau ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHtautauint + eHtautaupar) );
+}
+
+double HiggsKigen::muTHUggHbb(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHbbRatio() * (1.0 + eggFHbb ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHbbint + eHbbpar) );
+}
+
+double HiggsKigen::muTHUVBFHbb(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHbbRatio() * (1.0 + eVBFHbb ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar)/(1.0 + eHbbint + eHbbpar) );
+}
+
+double HiggsKigen::muTHUZHbb(const double sqrt_s) const
+{
+    return ( muZH(sqrt_s)*BrHbbRatio() * (1.0 + eZHbb ) * (1.0 + eHwidth)/(1.0 + eZHint + eZHpar)/(1.0 + eHbbint + eHbbpar) );
+}
+
+double HiggsKigen::muTHUWHbb(const double sqrt_s) const
+{
+    return ( muWH(sqrt_s)*BrHbbRatio() * (1.0 + eWHbb ) * (1.0 + eHwidth)/(1.0 + eWHint + eWHpar)/(1.0 + eHbbint + eHbbpar) );
+}
+
+double HiggsKigen::muTHUVHbb(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHbbRatio() * (1.0 + eWHbb ) * (1.0 + eHwidth)/(1.0 + eHbbint + eHbbpar) );
+}
+
+double HiggsKigen::muTHUttHbb(const double sqrt_s) const
+{
+    return ( muttH(sqrt_s)*BrHbbRatio() * (1.0 + ettHbb ) * (1.0 + eHwidth)/(1.0 + eeettHint + eeettHpar)/(1.0 + eHbbint + eHbbpar) );
+}
+
+double HiggsKigen::muTHUVBFBRinv(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*Br_H_inv() * (1.0 + eVBFHinv ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar) );
+}
+
+double HiggsKigen::muTHUVBFHinv(const double sqrt_s) const
+{
+    return ( muVBF(sqrt_s)*BrHtoinvRatio() * (1.0 + eVBFHinv ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar) );
+}
+
+double HiggsKigen::muTHUVHBRinv(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*Br_H_inv() * (1.0 + eVHinv ) );
+}
+
+double HiggsKigen::muTHUVHinv(const double sqrt_s) const
+{
+    return ( muVH(sqrt_s)*BrHtoinvRatio() * (1.0 + eVHinv ) );
+}
+
+double HiggsKigen::muTHUggHZZ4mu(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHZZ4muRatio() * (1.0 + eggFHZZ ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+double HiggsKigen::muTHUggHZgamumu(const double sqrt_s) const
+{
+    return ( muggH(sqrt_s)*BrHZgamumuRatio() * (1.0 + eggFHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------------------
+//-- Decays ---
+//-----------------------------------------------------------------------------------------
+//////////////////////////////////////////////////////////////////////////////////////////// 
+
 double HiggsKigen::computeGammaTotalRatio() const
 {
     double GammaRatioSMmodes;
 
     GammaRatioSMmodes = computeGammaTotalSMRatio();
+        
+    return (GammaRatioSMmodes/(1.0 - BrHinv - BrHexo));
+
+}
+
+double HiggsKigen::computeGammaTotalnoErrorRatio() const
+{
+    double GammaRatioSMmodes;
+
+    GammaRatioSMmodes = computeGammaTotalSMnoErrorRatio();
         
     return (GammaRatioSMmodes/(1.0 - BrHinv - BrHexo));
 
@@ -1062,6 +1510,33 @@ double HiggsKigen::computeGammaTotalSMRatio() const
             + computeKtau() * computeKtau() * (1.0 + eHtautauint + eHtautaupar) * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * (1.0 + eHccint + eHccpar) * trueSM.computeBrHtocc()
             + computeKb() * computeKb() * (1.0 + eHbbint + eHbbpar) * trueSM.computeBrHtobb())
+            / (trueSM.computeBrHtogg()
+            + trueSM.computeBrHtoWW()
+            + trueSM.computeBrHtoZZ()
+            + trueSM.computeBrHtoZga()
+            + trueSM.computeBrHtogaga()
+            + trueSM.computeBrHtomumu()
+            + trueSM.computeBrHtotautau()
+            + trueSM.computeBrHtocc()
+            + trueSM.computeBrHtobb()));
+        
+    return GammaRatioSMmodes;
+
+}
+
+double HiggsKigen::computeGammaTotalSMnoErrorRatio() const
+{
+    double GammaRatioSMmodes;
+
+    GammaRatioSMmodes = ((computeKg() * computeKg() * trueSM.computeBrHtogg()
+            + computeKW() * computeKW() * trueSM.computeBrHtoWW()
+            + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
+            + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
+            + computeKgaga() * computeKgaga() * trueSM.computeBrHtogaga()
+            + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
+            + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
+            + computeKc() * computeKc() * trueSM.computeBrHtocc()
+            + computeKb() * computeKb() * trueSM.computeBrHtobb())
             / (trueSM.computeBrHtogg()
             + trueSM.computeBrHtoWW()
             + trueSM.computeBrHtoZZ()
