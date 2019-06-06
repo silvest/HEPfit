@@ -3025,15 +3025,20 @@ ThObsFactory::ThObsFactory()
     obsThFactory["pt_500_tt_eLpR"] = boost::factory<pt_500_tt_eLpR*>();
     obsThFactory["pt_500_tt_eRpL"] = boost::factory<pt_500_tt_eRpL*>();
     
+    obsThFactory["sigma_1000_bb_eLpR"] = boost::factory<sigma_1000_bb_eLpR*>();
+    obsThFactory["a_1000_bb_eLpR"] = boost::factory<a_1000_bb_eLpR*>();
+    obsThFactory["sigma_1000_bb_eRpL"] = boost::factory<sigma_1000_bb_eRpL*>();
+    obsThFactory["a_1000_bb_eRpL"] = boost::factory<a_1000_bb_eRpL*>();   
+   
+    
     //OPTIMIZED OBSERVABLES
     
     obsThFactory["op1"] = boost::factory<op1*>();
     obsThFactory["op2"] = boost::factory<op2*>();
     obsThFactory["op3"] = boost::factory<op3*>();
     obsThFactory["op4"] = boost::factory<op4*>();
-
     
-        //OPTIMIZED OBSERVABLES 1000 GeV
+    //OPTIMIZED OBSERVABLES 1000 GeV
     
     obsThFactory["op_1000_1"] = boost::factory<op_1000_1*>();
     obsThFactory["op_1000_2"] = boost::factory<op_1000_2*>();
@@ -4226,14 +4231,14 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GTHDM_mu_htotautau"] = boost::factory<GTHDM_mu_htotautau*>();
     obsThFactory["GTHDM_mu_htoZga"] = boost::factory<GTHDM_mu_htoZga*>();
 
-   obsThFactory["yu1R_GTHDM"] = boost::factory<yu1R_GTHDM*>();
+  obsThFactory["yu1R_GTHDM"] = boost::factory<yu1R_GTHDM*>();
    obsThFactory["yd1R_GTHDM"] = boost::factory<yd1R_GTHDM*>();
    obsThFactory["yl1R_GTHDM"] = boost::factory<yl1R_GTHDM*>();
    
-   obsThFactory["yu2R_GTHDM"] = boost::factory<yu2R_GTHDM*>();
+  /* obsThFactory["yu2R_GTHDM"] = boost::factory<yu2R_GTHDM*>();
    obsThFactory["yd2R_GTHDM"] = boost::factory<yd2R_GTHDM*>();
    obsThFactory["yl2R_GTHDM"] = boost::factory<yl2R_GTHDM*>();
-
+*/
    obsThFactory["rh_gg_GTHDM"] = boost::factory<rh_gg_GTHDM*>();
    obsThFactory["rh_gaga_GTHDM"] = boost::factory<rh_gaga_GTHDM*>();
    obsThFactory["rh_Zga_GTHDM"] = boost::factory<rh_Zga_GTHDM*>();
