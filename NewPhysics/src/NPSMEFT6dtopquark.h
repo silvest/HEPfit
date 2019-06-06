@@ -21,7 +21,7 @@ public:
 /**
 *　@brief The number of the model parameters in %NPSMEFT6dtopquarkVars. 
 */
-static const int NNPSMEFT6dtopquarkVars = 9;
+static const int NNPSMEFT6dtopquarkVars = 17;
    
 /*
 @brief A string array containing the labels of the model parameters in NPSMEFT6dtopquark 
@@ -80,6 +80,38 @@ static const int NNPSMEFT6dtopquarkVars = 9;
         return C_bB;
     }
     
+    double getNPSMEFT6dtopquark_C_phitb() const {
+        return C_phitb;
+    }
+    
+    double getNPSMEFT6dtopquark_C_ed() const {
+        return C_ed;
+    }
+    
+    double getNPSMEFT6dtopquark_C_eq() const {
+        return C_eq;
+    }
+    
+    double getNPSMEFT6dtopquark_C_ld() const {
+        return C_ld;
+    }
+    
+    double getNPSMEFT6dtopquark_C_lqP() const {
+        return C_lqP;
+    }
+    
+    double getNPSMEFT6dtopquark_C_eu() const {
+        return C_eu;
+    }
+    
+    double getNPSMEFT6dtopquark_C_lu() const {
+        return C_lu;
+    }
+    
+    double getNPSMEFT6dtopquark_C_lqM() const {
+        return C_lqM;
+    }
+    
     double getNPSMEFT6dtopquark_flag_Quadratic() const {
         return flag_Quadratic;
     }
@@ -100,7 +132,16 @@ static const int NNPSMEFT6dtopquarkVars = 9;
     double C_phib; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double C_bW; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double C_bB; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phitb; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_ed; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_eq; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_ld; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_lqP; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_eu; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_lu; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_lqM; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
 
+    
     virtual bool setFlag(const std::string, const bool);
 
         
@@ -325,6 +366,227 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
+
+
+
+
+/**
+ * @class C_phitb
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_phitb
+ */
+class C_phitb: public ThObservable {
+public:
+
+    /**
+     * @brief C_phitb constructor.
+     */
+    C_phitb(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+
+
+/**
+ * @class C_ed
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_ed
+ */
+class C_ed: public ThObservable {
+public:
+
+    /**
+     * @brief C_ed constructor.
+     */
+    C_ed(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+
+
+
+/**
+ * @class C_eq
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_eq
+ */
+class C_eq: public ThObservable {
+public:
+
+    /**
+     * @brief C_eq constructor.
+     */
+    C_eq(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+
+
+
+
+/**
+ * @class C_ld
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_ld
+ */
+class C_ld: public ThObservable {
+public:
+
+    /**
+     * @brief C_ld constructor.
+     */
+    C_ld(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @class C_lqP
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_lqP
+ */
+class C_lqP: public ThObservable {
+public:
+
+    /**
+     * @brief C_lqP constructor.
+     */
+    C_lqP(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+/**
+ * @class C_eu
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_eu
+ */
+class C_eu: public ThObservable {
+public:
+
+    /**
+     * @brief C_eu constructor.
+     */
+    C_eu(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_lu
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_lu
+ */
+class C_lu: public ThObservable {
+public:
+
+    /**
+     * @brief C_lu constructor.
+     */
+    C_lu(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+/**
+ * @class C_lqM
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_lqM
+ */
+class C_lqM: public ThObservable {
+public:
+
+    /**
+     * @brief C_lqP constructor.
+     */
+    C_lqM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mH1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
 
 
 //Observables from LEP1
@@ -667,6 +929,91 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+//Prospects of Linear Colders at 1000 GeV
+//1000 bb observables
+
+
+class sigma_1000_bb_eLpR : public ThObservable {
+public:   
+
+    sigma_1000_bb_eLpR(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class a_1000_bb_eLpR : public ThObservable {
+public:   
+
+    a_1000_bb_eLpR(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class sigma_1000_bb_eRpL : public ThObservable {
+public:   
+
+    sigma_1000_bb_eRpL(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+class a_1000_bb_eRpL : public ThObservable {
+public:   
+
+    a_1000_bb_eRpL(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //OPTIMIZED OBSERVABLES
 
 
@@ -720,6 +1067,113 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
+
+
+
+    //OPTIMIZED OBSERVABLES 1000TeV
+
+
+class op_1000_1 : public ThObservable {
+public:   
+
+    op_1000_1(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+class op_1000_2 : public ThObservable {
+public:   
+
+    op_1000_2(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_3 : public ThObservable {
+public:   
+
+    op_1000_3(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+class op_1000_4 : public ThObservable {
+public:   
+
+    op_1000_4(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_5 : public ThObservable {
+public:   
+
+    op_1000_5(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_6 : public ThObservable {
+public:   
+
+    op_1000_6(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_7 : public ThObservable {
+public:   
+
+    op_1000_7(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_8 : public ThObservable {
+public:   
+
+    op_1000_8(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
 
 
 
