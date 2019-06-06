@@ -3032,6 +3032,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["op3"] = boost::factory<op3*>();
     obsThFactory["op4"] = boost::factory<op4*>();
 
+    
+        //OPTIMIZED OBSERVABLES 1000 GeV
+    
+    obsThFactory["op_1000_1"] = boost::factory<op_1000_1*>();
+    obsThFactory["op_1000_2"] = boost::factory<op_1000_2*>();
+    obsThFactory["op_1000_3"] = boost::factory<op_1000_3*>();
+    obsThFactory["op_1000_4"] = boost::factory<op_1000_4*>();
+    obsThFactory["op_1000_5"] = boost::factory<op_1000_5*>();
+    obsThFactory["op_1000_6"] = boost::factory<op_1000_6*>();
+    obsThFactory["op_1000_7"] = boost::factory<op_1000_7*>();
+    obsThFactory["op_1000_8"] = boost::factory<op_1000_8*>();
+
             
 
 
@@ -4217,6 +4229,10 @@ ThObsFactory::ThObsFactory()
    obsThFactory["yu1R_GTHDM"] = boost::factory<yu1R_GTHDM*>();
    obsThFactory["yd1R_GTHDM"] = boost::factory<yd1R_GTHDM*>();
    obsThFactory["yl1R_GTHDM"] = boost::factory<yl1R_GTHDM*>();
+   
+   obsThFactory["yu2R_GTHDM"] = boost::factory<yu2R_GTHDM*>();
+   obsThFactory["yd2R_GTHDM"] = boost::factory<yd2R_GTHDM*>();
+   obsThFactory["yl2R_GTHDM"] = boost::factory<yl2R_GTHDM*>();
 
    obsThFactory["rh_gg_GTHDM"] = boost::factory<rh_gg_GTHDM*>();
    obsThFactory["rh_gaga_GTHDM"] = boost::factory<rh_gaga_GTHDM*>();

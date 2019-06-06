@@ -1078,6 +1078,95 @@ double op4::computeThValue()
 }
 
 
+op_1000_1::op_1000_1(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op_1000_1::computeThValue()
+{
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+        return C_eu;
+}
+
+
+op_1000_2::op_1000_2(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op_1000_2::computeThValue()
+{
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+        return C_eq;
+}
+
+
+op_1000_3::op_1000_3(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op_1000_3::computeThValue()
+{
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+        return C_lu;
+}
+
+
+op_1000_4::op_1000_4(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op_1000_4::computeThValue()
+{
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+        return C_lqM;
+}
+
+
+op_1000_5::op_1000_5(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op_1000_5::computeThValue()
+{
+    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+
+        return C_phiQ1-C_phiQ3;
+}
+
+op_1000_6::op_1000_6(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op_1000_6::computeThValue()
+{
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+        return C_phit;
+}
+
+
+op_1000_7::op_1000_7(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op_1000_7::computeThValue()
+{
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+        return C_tW;
+}
+
+
+op_1000_8::op_1000_8(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{};
+
+double op_1000_8::computeThValue()
+{
+    double C_tB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+        return C_tB;
+}
+
+
 
 
 //double NPSMEFT6dtopquark::sigmattbarZ(const double sqrt_s) const

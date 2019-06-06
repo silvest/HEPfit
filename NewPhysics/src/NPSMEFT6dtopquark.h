@@ -1070,4 +1070,111 @@ private:
 
 
 
+    //OPTIMIZED OBSERVABLES 1000TeV
+
+
+class op_1000_1 : public ThObservable {
+public:   
+
+    op_1000_1(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+class op_1000_2 : public ThObservable {
+public:   
+
+    op_1000_2(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_3 : public ThObservable {
+public:   
+
+    op_1000_3(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+class op_1000_4 : public ThObservable {
+public:   
+
+    op_1000_4(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_5 : public ThObservable {
+public:   
+
+    op_1000_5(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_6 : public ThObservable {
+public:   
+
+    op_1000_6(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_7 : public ThObservable {
+public:   
+
+    op_1000_7(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class op_1000_8 : public ThObservable {
+public:   
+
+    op_1000_8(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
 #endif /* NPSMEFT6DTOPQUARK_H */
