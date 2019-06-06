@@ -12703,9 +12703,9 @@ double NPSMEFTd6::muTHUttHgaga(const double sqrt_s) const
 double NPSMEFTd6::muTHUggHZga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
-        return ( muggH(sqrt_s)*BrHZgaRatio() * (1.0 + ettHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZgaint + eHZgapar) );
+        return ( muggH(sqrt_s)*BrHZgaRatio() * (1.0 + eggFHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZgaint + eHZgapar) );
     } else {
-        return ( muggH(sqrt_s) + BrHZgaRatio() - 1.0 + ettHZga - eggFint - eggFpar - eHZgaint - eHZgapar + eHwidth );
+        return ( muggH(sqrt_s) + BrHZgaRatio() - 1.0 + eggFHZga - eggFint - eggFpar - eHZgaint - eHZgapar + eHwidth );
     }     
 }
 

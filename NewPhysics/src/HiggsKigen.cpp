@@ -1203,7 +1203,7 @@ double HiggsKigen::muTHUttHgaga(const double sqrt_s) const
 
 double HiggsKigen::muTHUggHZga(const double sqrt_s) const
 {
-    return ( muggH(sqrt_s)*BrHZgaRatio() * (1.0 + ettHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZgaint + eHZgapar) );
+    return ( muggH(sqrt_s)*BrHZgaRatio() * (1.0 + eggFHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZgaint + eHZgapar) );
 }
 
 double HiggsKigen::muTHUVBFHZga(const double sqrt_s) const
