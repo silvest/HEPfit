@@ -12684,10 +12684,19 @@ double NPSMEFTd6::muTHUWHgaga(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHgaga(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHgaga;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHgaga = (eWHgaga * sigmaWH_SM + eZHgaga * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHgagaRatio() * (1.0 + eWHgaga ) * (1.0 + eHwidth)/(1.0 + eHgagaint + eHgagapar) );
+        return ( muVH(sqrt_s)*BrHgagaRatio() * (1.0 + eVHgaga ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHgagaint + eHgagapar) );
     } else {
-        return ( muVH(sqrt_s) + BrHgagaRatio() - 1.0 + eWHgaga - eHgagaint - eHgagapar + eHwidth );
+        return ( muVH(sqrt_s) + BrHgagaRatio() - 1.0 + eVHgaga - eVHtot - eHgagaint - eHgagapar + eHwidth );
     }   
 }
 
@@ -12738,10 +12747,19 @@ double NPSMEFTd6::muTHUWHZga(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHZga(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHZga;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHZga = (eWHZga * sigmaWH_SM + eZHZga * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHZgaRatio() * (1.0 + eWHZga ) * (1.0 + eHwidth)/(1.0 + eHZgaint + eHZgapar) );
+        return ( muVH(sqrt_s)*BrHZgaRatio() * (1.0 + eVHZga ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHZgaint + eHZgapar) );
     } else {
-        return ( muVH(sqrt_s) + BrHZgaRatio() - 1.0 + eWHZga - eHZgaint - eHZgapar + eHwidth );
+        return ( muVH(sqrt_s) + BrHZgaRatio() - 1.0 + eVHZga - eVHtot - eHZgaint - eHZgapar + eHwidth );
     }   
 }
 
@@ -12792,10 +12810,19 @@ double NPSMEFTd6::muTHUWHZZ(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHZZ(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHZZ;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHZZ = (eWHZZ * sigmaWH_SM + eZHZZ * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHZZRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eHZZint + eHZZpar) );
+        return ( muVH(sqrt_s)*BrHZZRatio() * (1.0 + eVHZZ ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHZZint + eHZZpar) );
     } else {
-        return ( muVH(sqrt_s) + BrHZZRatio() - 1.0 + eWHZZ - eHZZint - eHZZpar + eHwidth );
+        return ( muVH(sqrt_s) + BrHZZRatio() - 1.0 + eVHZZ - eVHtot - eHZZint - eHZZpar + eHwidth );
     }       
 }
 
@@ -12846,10 +12873,19 @@ double NPSMEFTd6::muTHUWHZZ4l(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHZZ4l(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHZZ;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHZZ = (eWHZZ * sigmaWH_SM + eZHZZ * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eWHZZ ) * (1.0 + eHwidth)/(1.0 + eHZZint + eHZZpar) );
+        return ( muVH(sqrt_s)*BrHZZ4lRatio() * (1.0 + eVHZZ ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHZZint + eHZZpar) );
     } else {
-        return ( muVH(sqrt_s) + BrHZZ4lRatio() - 1.0 + eWHZZ - eHZZint - eHZZpar + eHwidth );
+        return ( muVH(sqrt_s) + BrHZZ4lRatio() - 1.0 + eVHZZ - eVHtot - eHZZint - eHZZpar + eHwidth );
     }  
 }
 
@@ -12900,10 +12936,19 @@ double NPSMEFTd6::muTHUWHWW(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHWW(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHWW;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHWW = (eWHWW * sigmaWH_SM + eZHWW * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHWWRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eHWWint + eHWWpar) );
+        return ( muVH(sqrt_s)*BrHWWRatio() * (1.0 + eVHWW ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHWWint + eHWWpar) );
     } else {
-        return ( muVH(sqrt_s) + BrHWWRatio() - 1.0 + eWHWW - eHWWint - eHWWpar + eHwidth );
+        return ( muVH(sqrt_s) + BrHWWRatio() - 1.0 + eVHWW - eVHtot - eHWWint - eHWWpar + eHwidth );
     }    
 }
 
@@ -12954,10 +12999,19 @@ double NPSMEFTd6::muTHUWHWW2l2v(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHWW2l2v(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHWW;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHWW = (eWHWW * sigmaWH_SM + eZHWW * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eWHWW ) * (1.0 + eHwidth)/(1.0 + eHWWint + eHWWpar) );
+        return ( muVH(sqrt_s)*BrHWW2l2vRatio() * (1.0 + eVHWW ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHWWint + eHWWpar) );
     } else {
-        return ( muVH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + eWHWW - eHWWint - eHWWpar + eHwidth );
+        return ( muVH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + eVHWW - eVHtot - eHWWint - eHWWpar + eHwidth );
     }       
 }
 
@@ -13008,10 +13062,19 @@ double NPSMEFTd6::muTHUWHmumu(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHmumu(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHmumu;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHmumu = (eWHmumu * sigmaWH_SM + eZHmumu * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHmumuRatio() * (1.0 + eWHmumu ) * (1.0 + eHwidth)/(1.0 + eHmumuint + eHmumupar) );
+        return ( muVH(sqrt_s)*BrHmumuRatio() * (1.0 + eVHmumu ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHmumuint + eHmumupar) );
     } else {
-        return ( muVH(sqrt_s) + BrHmumuRatio() - 1.0 + eWHmumu - eHmumuint - eHmumupar + eHwidth );
+        return ( muVH(sqrt_s) + BrHmumuRatio() - 1.0 + eVHmumu - eVHtot - eHmumuint - eHmumupar + eHwidth );
     }       
 }
 
@@ -13062,10 +13125,19 @@ double NPSMEFTd6::muTHUWHtautau(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHtautau(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHtautau;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHtautau = (eWHtautau * sigmaWH_SM + eZHtautau * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHtautauRatio() * (1.0 + eWHtautau ) * (1.0 + eHwidth)/(1.0 + eHtautauint + eHtautaupar) );
+        return ( muVH(sqrt_s)*BrHtautauRatio() * (1.0 + eVHtautau ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHtautauint + eHtautaupar) );
     } else {
-        return ( muVH(sqrt_s) + BrHtautauRatio() - 1.0 + eWHtautau - eHtautauint - eHtautaupar + eHwidth );
+        return ( muVH(sqrt_s) + BrHtautauRatio() - 1.0 + eVHtautau - eVHtot - eHtautauint - eHtautaupar + eHwidth );
     }       
 }
 
@@ -13116,10 +13188,19 @@ double NPSMEFTd6::muTHUWHbb(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHbb(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot,eVHbb;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    eVHbb = (eWHbb * sigmaWH_SM + eZHbb * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHbbRatio() * (1.0 + eWHbb ) * (1.0 + eHwidth)/(1.0 + eHbbint + eHbbpar) );
+        return ( muVH(sqrt_s)*BrHbbRatio() * (1.0 + eVHbb ) * (1.0 + eHwidth)/(1.0 + eVHtot)/(1.0 + eHbbint + eHbbpar) );
     } else {
-        return ( muVH(sqrt_s) + BrHbbRatio() - 1.0 + eWHbb - eHbbint - eHbbpar + eHwidth );
+        return ( muVH(sqrt_s) + BrHbbRatio() - 1.0 + eVHbb - eVHtot - eHbbint - eHbbpar + eHwidth );
     }       
 }
 
@@ -13148,15 +13229,29 @@ double NPSMEFTd6::muTHUVBFHinv(const double sqrt_s) const
 
 double NPSMEFTd6::muTHUVHBRinv(const double sqrt_s) const
 {
-    return ( muVH(sqrt_s)*Br_H_inv() * (1.0 + eVHinv ) );   
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
+    return ( muVH(sqrt_s)*Br_H_inv() * (1.0 + eVHinv )/(1.0 + eVHtot) );   
 }
 
 double NPSMEFTd6::muTHUVHinv(const double sqrt_s) const
 {
+    //  Theory uncertainty in VH production, from the WH and ZH ones
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);    
+    double eVHtot;
+    
+    eVHtot = ((eWHint + eWHpar) * sigmaWH_SM + (eZHint + eZHpar) * sigmaZH_SM) / (sigmaWH_SM + sigmaZH_SM);
+    
     if (FlagQuadraticTerms) {
-        return ( muVH(sqrt_s)*BrHtoinvRatio() * (1.0 + eVHinv ) );
+        return ( muVH(sqrt_s)*BrHtoinvRatio() * (1.0 + eVHinv )/(1.0 + eVHtot) );
     } else {
-        return ( muVH(sqrt_s) + BrHtoinvRatio() - 1.0 + eVHinv );
+        return ( muVH(sqrt_s) + BrHtoinvRatio() - 1.0 + eVHinv - eVHtot );
     }        
 }
 
@@ -13173,9 +13268,9 @@ double NPSMEFTd6::muTHUggHZZ4mu(const double sqrt_s) const
 double NPSMEFTd6::muTHUggHZgamumu(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
-        return ( muggH(sqrt_s)*BrHZgamumuRatio() * (1.0 + eggFHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZZint + eHZZpar) );
+        return ( muggH(sqrt_s)*BrHZgamumuRatio() * (1.0 + eggFHZga ) * (1.0 + eHwidth)/(1.0 + eggFint + eggFpar)/(1.0 + eHZgaint + eHZgapar) );
     } else {
-        return ( muggH(sqrt_s) + BrHZgamumuRatio() - 1.0 + eggFHZga - eggFint - eggFpar - eHZZint - eHZZpar + eHwidth );
+        return ( muggH(sqrt_s) + BrHZgamumuRatio() - 1.0 + eggFHZga - eggFint - eggFpar - eHZgaint - eHZgapar + eHwidth );
     } 
 }
 

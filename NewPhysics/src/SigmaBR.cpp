@@ -422,14 +422,54 @@ double SigmaBR::BrHWWRatio() const
     return brhwwratio;
 }
 
+double SigmaBR::BrHWW2l2vRatio() const
+{
+    return BrHWWRatio();
+}
+
 double SigmaBR::BrHZZRatio() const
 {
     return brhzzratio;
 }
 
+double SigmaBR::BrHZZ4lRatio() const
+{
+    return BrHZZRatio();
+}
+
+double SigmaBR::BrHZZ4eRatio() const
+{
+    return BrHZZRatio();
+}
+
+double SigmaBR::BrHZZ2e2muRatio() const
+{
+    return BrHZZRatio();
+}
+
+double SigmaBR::BrHZZ4muRatio() const
+{
+    return BrHZZRatio();
+}
+
 double SigmaBR::BrHZgaRatio() const
 {
     return brhzgaratio;
+}
+
+double SigmaBR::BrHZgallRatio() const
+{
+    return BrHZgaRatio();
+}
+
+double SigmaBR::BrHZgaeeRatio() const
+{
+    return BrHZgaRatio();
+}
+
+double SigmaBR::BrHZgamumuRatio() const
+{
+    return BrHZgaRatio();
 }
 
 double SigmaBR::BrHgagaRatio() const
@@ -549,32 +589,32 @@ double SigmaBR::muttHZZ(const double sqrt_s) const
 
 double SigmaBR::muggHZZ4l(const double sqrt_s) const
 {
-    return muggH(sqrt_s)*BrHZZRatio();
+    return muggH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muVBFHZZ4l(const double sqrt_s) const
 {
-    return muVBF(sqrt_s)*BrHZZRatio();
+    return muVBF(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muZHZZ4l(const double sqrt_s) const
 {
-    return muZH(sqrt_s)*BrHZZRatio();
+    return muZH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muWHZZ4l(const double sqrt_s) const
 {
-    return muWH(sqrt_s)*BrHZZRatio();
+    return muWH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muVHZZ4l(const double sqrt_s) const
 {
-    return muVH(sqrt_s)*BrHZZRatio();
+    return muVH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muttHZZ4l(const double sqrt_s) const
 {
-    return muttH(sqrt_s)*BrHZZRatio();
+    return muttH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muggHWW(const double sqrt_s) const
@@ -825,32 +865,32 @@ double SigmaBR::muTHUttHZZ(const double sqrt_s) const
 
 double SigmaBR::muTHUggHZZ4l(const double sqrt_s) const
 {
-    return muggH(sqrt_s)*BrHZZRatio();
+    return muggH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muTHUVBFHZZ4l(const double sqrt_s) const
 {
-    return muVBF(sqrt_s)*BrHZZRatio();
+    return muVBF(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muTHUZHZZ4l(const double sqrt_s) const
 {
-    return muZH(sqrt_s)*BrHZZRatio();
+    return muZH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muTHUWHZZ4l(const double sqrt_s) const
 {
-    return muWH(sqrt_s)*BrHZZRatio();
+    return muWH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muTHUVHZZ4l(const double sqrt_s) const
 {
-    return muVH(sqrt_s)*BrHZZRatio();
+    return muVH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muTHUttHZZ4l(const double sqrt_s) const
 {
-    return muttH(sqrt_s)*BrHZZRatio();
+    return muttH(sqrt_s)*BrHZZ4lRatio();
 }
 
 double SigmaBR::muTHUggHWW(const double sqrt_s) const
@@ -1025,10 +1065,10 @@ double SigmaBR::muTHUVHinv(const double sqrt_s) const
 
 double SigmaBR::muTHUggHZZ4mu(const double sqrt_s) const
 {
-    return muggH(sqrt_s)*BrHZZRatio();
+    return muggH(sqrt_s)*BrHZZ4muRatio();
 }
 
 double SigmaBR::muTHUggHZgamumu(const double sqrt_s) const
 {
-    return muggH(sqrt_s)*BrHZgaRatio();
+    return muggH(sqrt_s)*BrHZgamumuRatio();
 }
