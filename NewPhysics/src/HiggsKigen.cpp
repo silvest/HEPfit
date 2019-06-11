@@ -1524,12 +1524,12 @@ double HiggsKigen::muTHUttHbb(const double sqrt_s) const
 
 double HiggsKigen::muTHUVBFBRinv(const double sqrt_s) const
 {
-    return ( muVBF(sqrt_s)*Br_H_inv() * (1.0 + eVBFHinv ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar) );
+    return ( muVBF(sqrt_s)*Br_H_inv() * (1.0 + eVBFHinv ) /(1.0 + eVBFint + eVBFpar) );
 }
 
 double HiggsKigen::muTHUVBFHinv(const double sqrt_s) const
 {
-    return ( muVBF(sqrt_s)*BrHtoinvRatio() * (1.0 + eVBFHinv ) * (1.0 + eHwidth)/(1.0 + eVBFint + eVBFpar) );
+    return ( muVBF(sqrt_s)*BrHtoinvRatio() * (1.0 + eVBFHinv ) /(1.0 + eVBFint + eVBFpar) );
 }
 
 double HiggsKigen::muTHUVHBRinv(const double sqrt_s) const
