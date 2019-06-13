@@ -5995,6 +5995,13 @@ double GeneralTHDMcache::computephi2quantities()
     gslpp::complex yu2 = R21 + (R22 - i*R23)*su.conjugate();
     gslpp::complex yd2 = R21 + (R22 + i*R23)*sd;
     gslpp::complex yl2 = R21 + (R22 + i*R23)*sl;
+    
+    
+    yu2R = R21_GTHDM + (R22_GTHDM)*su.real();
+    yd2R = R21_GTHDM + (R22_GTHDM)*sd.real();
+    yl2R = R21_GTHDM + (R22_GTHDM)*sl.real();
+   
+     
 
     //These cross sections ratios are necessary for rphi2_gg
     //At 8 TeV
@@ -6240,6 +6247,11 @@ double GeneralTHDMcache::computephi3quantities()
     gslpp::complex yu3 = R31 + (R32 - i*R33)*su.conjugate();
     gslpp::complex yd3 = R31 + (R32 + i*R33)*sd;
     gslpp::complex yl3 = R31 + (R32 + i*R33)*sl;
+    
+    yu3R = R31_GTHDM + (R32_GTHDM)*su.real();
+    yd3R = R31_GTHDM + (R32_GTHDM)*sd.real();
+    yl3R = R31_GTHDM + (R32_GTHDM)*sl.real();
+   
     
     
     //These cross sections ratios are necessary for rphi3_gg

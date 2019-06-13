@@ -5787,4 +5787,138 @@ private:
 };
 
 
+
+
+
+/**
+ * @class yu2R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of H to up quarks real part
+ */
+class yu2R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yu2R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yu2R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+}; 
+
+/**
+ * @class yd2R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of H to down quarks  real part
+ */
+class yd2R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yd2R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yd2R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class yl2R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of H to leptons  real part
+ */
+class yl2R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yl2R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yl2R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+
+
+
+/**
+ * @class yu3R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of A to up quarks real part
+ */
+class yu3R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yu3R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yu3R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+}; 
+
+/**
+ * @class yd3R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of A to down quarks  real part
+ */
+class yd3R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yd3R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yd3R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class yl3R_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Coupling of A to leptons  real part
+ */
+class yl3R_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    yl3R_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$yl3R_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
 #endif	/*GENERALTHDMHEAVYHIGGS_H*/

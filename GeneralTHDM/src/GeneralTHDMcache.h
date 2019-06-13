@@ -793,6 +793,43 @@ public:
      */
     double yl1R;
     
+         /**
+     * @brief Coupling of H to up quarks real part.
+     * @return @y_{u2}@f$
+     */
+    double yu2R;
+    
+      /**
+     * @brief Coupling of H to down quarks real part.
+     * @return @y_{d2}@f$
+     */
+    double yd2R;
+    
+         /**
+     * @brief Coupling of H to leptons real part.
+     * @return @y_{l2}@f$
+     */
+    double yl2R;
+    
+    
+            /**
+     * @brief Coupling of A to up quarks real part.
+     * @return @y_{u3}@f$
+     */
+    double yu3R;
+    
+      /**
+     * @brief Coupling of A to down quarks real part.
+     * @return @y_{d3}@f$
+     */
+    double yd3R;
+    
+         /**
+     * @brief Coupling of A to leptons real part.
+     * @return @y_{l3}@f$
+     */
+    double yl3R;
+    
         /**
      * @brief Squared relative coupling of @f$h@f$ to two up quarks, odd part.
      * @return @f$r^{(h)}_{Q_uQ_u}@f$
