@@ -4855,6 +4855,18 @@ protected:
     double CidH_22r;
     double CidH_33r;
     
+    double CiuG_11r;
+    double CiuG_22r;
+    double CiuG_33r;
+    
+    double CiuW_11r;
+    double CiuW_22r;
+    double CiuW_33r;
+    
+    double CiuB_11r;
+    double CiuB_22r;
+    double CiuB_33r;
+    
     double CiLL_1221;
     double CiLL_2112;    
     
