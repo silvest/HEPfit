@@ -594,5 +594,7 @@ private:
     * @brief Temporary method to test Wilson coefficients with C10_OS1 matching and HeffDF1 evolution 
     */
     void Test_WC_DF1();
+    
+    friend double gslpp_special_functions::dilog(double x);
 };
 #endif	/* BXqLL_H */
