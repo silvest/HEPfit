@@ -344,6 +344,21 @@ public:
     virtual double Gamma_Z() const;
     
     /**
+     * @brief The new physics contribution to the hadronic decay width of the @f$Z@f$ boson, @f$\delta \Gamma_{Z,had}@f$.
+     * @return @f$\delta \Gamma_{Z,had}@f$ in GeV
+     */
+    virtual double deltaGamma_Zhad() const;
+
+    /**
+     * @brief The hadronic decay width of the @f$Z@f$ boson, @f$\Gamma_{Z,had}@f$.
+     * @return @f$\Gamma_{Z,had}@f$ in GeV, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double Gamma_had() const;
+    
+    /**
      * @brief The Branching ratio of the @f$Z@f$ boson into a given fermion pair, @f$BR_Z^{f}@f$.
      * @param[in] f a lepton or quark
      * @return @f$BR_Z^{f}@f$ including SM plus NP contributions

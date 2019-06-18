@@ -219,6 +219,46 @@ double NPbase::Gamma_Z() const
     return (trueSM.Gamma_Z() + deltaGamma_Z());
 }
 
+double NPbase::deltaGamma_Zhad() const
+{
+    double deltaGamma_Zhad = 0.;
+    bool nonZeroNP = false;
+
+    double delGVq[6], delGAq[6];
+    for (int p = 0; p < 6; ++p) {
+        delGVq[p] = deltaGV_f(quarks[p]);
+        delGAq[p] = deltaGA_f(quarks[p]);
+        if (delGVq[p] != 0.0 || delGAq[p] != 0.0)
+            nonZeroNP = true;
+    }
+
+    if (nonZeroNP) {
+        double gVf, gAf;
+        double deltaGq[6];
+        double delGammaZhad = 0.0;
+        for (int p = 0; p < 6; ++p) {
+
+            gVf = trueSM.gV_f(quarks[p]).real();
+            gAf = trueSM.gA_f(quarks[p]).real();
+            deltaGq[p] = 2.0 * (gVf * delGVq[p] + gAf * delGAq[p]);
+
+            delGammaZhad += 3.0 * deltaGq[p];
+        }
+
+        double sW2_SM = trueSM.sW2();
+        double cW2_SM = trueSM.cW2();
+        deltaGamma_Zhad = alphaMz() * Mz / 12.0 / sW2_SM / cW2_SM
+                * delGammaZhad;
+    }
+
+    return deltaGamma_Zhad;
+}
+
+double NPbase::Gamma_had() const
+{
+    return (trueSM.Gamma_had() + deltaGamma_Zhad());
+}
+
 double NPbase::BR_Zf(const Particle f) const
 {
     double delGammaZTot = deltaGamma_Z();

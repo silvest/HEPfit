@@ -23,6 +23,7 @@
 #include "BrW.h"
 #include "RWc.h"
 #include "GammaZ.h"
+#include "GammaZhad.h"
 #include "sigmaHadron.h"
 #include "sin2thetaEff.h"
 #include "PtauPol.h"

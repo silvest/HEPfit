@@ -1277,14 +1277,23 @@ double StandardModel::Gamma_inv() const
 
 double StandardModel::Gamma_had() const
 {
-    double Gamma_had_tmp = GammaZ(quarks[UP]) + GammaZ(quarks[DOWN]) + GammaZ(quarks[CHARM])
+    double Gamma_had_tmp = 0.0;
+    
+    if (!IsFlagNoApproximateGammaZ()){
+        /* SM contribution with the approximate formula */
+        return myApproximateFormulae->X_full_2_loop("Gamma_had");
+    
+    } else {
+    
+        Gamma_had_tmp = GammaZ(quarks[UP]) + GammaZ(quarks[DOWN]) + GammaZ(quarks[CHARM])
             + GammaZ(quarks[STRANGE]) + GammaZ(quarks[BOTTOM]);
 
     /* Singlet vector contribution (not included in the approximate formula) */
-    double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
-    Gamma_had_tmp += 4.0 * 3.0 * G0 * RVh();
+        double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
+        Gamma_had_tmp += 4.0 * 3.0 * G0 * RVh();
 
-    return Gamma_had_tmp;
+        return Gamma_had_tmp;
+    }
 }
 
 double StandardModel::Gamma_Z() const
