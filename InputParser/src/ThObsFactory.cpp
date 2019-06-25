@@ -148,6 +148,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Relectron"] = boost::factory<Relectron*>();
     obsThFactory["Rmuon"] = boost::factory<Rmuon*>();
     obsThFactory["Rtau"] = boost::factory<Rtau*>();
+    obsThFactory["Rneutrinos"] = boost::factory<Rneutrinos*>();
     obsThFactory["Rinv"] = boost::factory<Rinv*>();
     obsThFactory["Ruc"] = boost::factory<Ruc*>();
     obsThFactory["Rcharm"] = boost::factory<Rcharm*>();

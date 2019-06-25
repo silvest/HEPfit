@@ -1117,6 +1117,10 @@ double EWSMApproximateFormulae::X_full_2_loop(const std::string observable) cons
         ThError = mycache.getSM().getDelR0l();        
         return X_full_2_loop("Gamma_had")/X_full_2_loop("Gamma_tau") + ThError;
 
+    } else if (observable.compare("R0_neutrino") == 0) {
+        ThError = 0.0;        
+        return X_full_2_loop("Gamma_nu")/X_full_2_loop("Gamma_had") + ThError;
+
     } else if (observable.compare("R0_up") == 0) {
         ThError = 0.0; // Set to zero for the moment        
         return X_full_2_loop("Gamma_u")/X_full_2_loop("Gamma_had") + ThError;

@@ -463,7 +463,11 @@ double NPbase::deltaR0_f(const Particle f) const
             delGq_sum += CF * deltaGq[q];
         }
         if (f.is("LEPTON"))
-            dR0_f = delGq_sum / Gl - Gq_sum * deltaGl / Gl / Gl;
+            if ( f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3")  ) {
+                dR0_f = deltaGl / Gq_sum - Gl * delGq_sum / Gq_sum / Gq_sum;                
+            } else {
+                dR0_f = delGq_sum / Gl - Gq_sum * deltaGl / Gl / Gl;
+            }
         else
             dR0_f = deltaGq[f.getIndex() - 6] / Gq_sum
                 - Gq[f.getIndex() - 6] * delGq_sum / Gq_sum / Gq_sum;

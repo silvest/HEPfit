@@ -37,6 +37,7 @@
 #include "AFBbottom.h"
 #include "Nneutrinos.h"
 #include "Rlepton.h"
+#include "Rneutrinos.h"
 #include "Rinv.h"
 #include "Ruc.h"
 #include "Rcharm.h"
