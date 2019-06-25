@@ -8625,7 +8625,7 @@ double NPSMEFTd6::aPskPol(const double sqrt_s, const double Pol_em, const double
     double dv,dg,dgp,dgL,dgR;
     double kCM, kCM2, EZ, EZ2, kZ, kH;
     double EtaZ;
-    double CH, CT,CHL,CHLp, CHE;
+    double CHpsk, CTpsk,CHL,CHLp, CHE;
     double CWB, CBB, CWW;
     
     // Convention for dim 6 operators
@@ -8633,8 +8633,8 @@ double NPSMEFTd6::aPskPol(const double sqrt_s, const double Pol_em, const double
     CBB = 0.25 * (g2_tree*g2_tree/g1_tree/g1_tree) * CiHB * v2_over_LambdaNP2;
     CWW = 0.25 * CiHW * v2_over_LambdaNP2;
 
-    CH = ( -2.0 * CiHbox + 0.25 * CiHD ) * v2_over_LambdaNP2;    
-    CT = -0.5 * CiHD * v2_over_LambdaNP2;    
+    CHpsk = ( -2.0 * CiHbox + 0.25 * CiHD ) * v2_over_LambdaNP2;    
+    CTpsk = -0.5 * CiHD * v2_over_LambdaNP2;    
     CHL = CiHL1_11 * v2_over_LambdaNP2;     
     CHLp = CiHL3_11 * v2_over_LambdaNP2; 
     CHE = CiHe_11 * v2_over_LambdaNP2;
@@ -8643,7 +8643,7 @@ double NPSMEFTd6::aPskPol(const double sqrt_s, const double Pol_em, const double
     dv = 0.5 * ( CiHL3_11 + CiHL3_22 )* v2_over_LambdaNP2;
     
     // WFR
-    EtaZ = -(1.0/2.0)*CH + 2.0*dMz - dv - CT;
+    EtaZ = -(1.0/2.0)*CHpsk + 2.0*dMz - dv - CTpsk;
     
     // Kinematics
     kCM = sqrt( (sM*sM + (MH2 - Mz2)*(MH2 - Mz2) - 2.0*sM*(MH2 + Mz2))/(4.0*sM) );   
