@@ -5929,10 +5929,16 @@ void GeneralTHDMcache::computeSignalStrengths()
     /*Decay to gluons*/
 
     double Gamma_hggSM=GF*Als*Als*m1*m1*m1/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2();
-
+    
     double Gamma_hgg=rh_gg*GF*Als*Als*m1*m1*m1/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2();
+    double lambda122 = (2.0)*(lambdaijk(R11, R21, R31, R12, R22, R32, R11, R21, R31, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) +  lambdaijk(R12, R22, R32, R11, R21, R31, R11, R21, R31,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R12, R22, R32, R11, R21, R31, R11, R21, R31,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) );
+    double Gamma_hHH = HSTheta(m1 - 2.0*m2)*(KaellenFunction(m1_2,m2_2,m2_2)*lambda122*lambda122)/(32.0*M_PI);
+      
+   double lambda133 = (vev)*(Relambda7H*R21 - (2.0*Relambda5H - lambda3H - lambda4H)*R11);
+   double Gamma_hAA = HSTheta(m1 - 2.0*m3)*(KaellenFunction(m1_2,m3_2,m3_2)*lambda133*lambda133)/(32.0*M_PI);;
 
-  //  /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF or tth production at 8 TeV*/
+   
+   //  /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF or tth production at 8 TeV*/
   //  ggF_tth8 = (SigmaggF8*rh_ggE + SigmagghO_8*rh_ggO + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF8 + Sigmatth8);
   //  /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF or tth production at 13 TeV */
   //  ggF_tth13 = (SigmaggF13*rh_ggE + SigmagghO_13*rh_ggO + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF13 + Sigmatth13);
@@ -5957,8 +5963,8 @@ void GeneralTHDMcache::computeSignalStrengths()
             + BrSM_htogg*rh_gg
             + BrSM_htoZga*rh_Zga
             + BrSM_htocc*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2)));
-    Gamma_h = sumModBRs*myGTHDM->computeGammaHTotal();
-  
+    Gamma_h = sumModBRs*myGTHDM->computeGammaHTotal() + Gamma_hHH + Gamma_hAA;
+   
     GTHDM_BR_h_bb=(rh_QdQdE + rh_QdQdO/(beta(Mb, m1_2)*beta(Mb, m1_2)))*BrSM_htobb/sumModBRs;
     GTHDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
     GTHDM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
@@ -7153,7 +7159,7 @@ double GeneralTHDMcache::updateCache()
     M11_2 = -0.5*(mH1sq*cosa1*cosa1*cosa2*cosa2
                   +mH2sq*sina1*sina1*cosa2*cosa2 + mH3sq*sina2*sina2);
     M12_2 = 0.5*cosa2*((mH1sq-mH2sq)*cosa1*cosa3*sina1
-                       +(-mH3sq+mH1sq*cosa1*cosa1+mH2sq*sina1*sina1)*sina2*sina3);
+                       +(-mH3sq+mH1sq*cosa1*cosa1+mH2sq*sina1*sina1)*sina2*sina3);    
     M13_2 = 0.5*cosa2*(cosa3*(-mH3sq+mH1sq*cosa1*cosa1+mH2sq*sina1*sina1)*sina2
                        +(mH2sq-mH1sq)*cosa1*sina1*sina3);
     M22_2 = -0.5*(mH3sq*cosa2*cosa2*sina3*sina3
