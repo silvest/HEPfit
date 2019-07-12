@@ -517,6 +517,19 @@ private:
     gslpp::complex g_Huber(double y);
     
     /**
+    * @brief Kruger-Sehgal factorizable non-perturbative charm contributions following @cite Huber:2007vv 
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    */
+    gslpp::complex KS_cc(double sh);
+    
+    /**
+    * @brief Auxiliary function for the Kruger-Sehgal charm contributions
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    * @param[in] a,b,c,d,e,m,mG coefficients that follow from the integration defined in @cite Kruger:1996cv
+    */
+    gslpp::complex KS_aux(double sh, double a, double b, double c, double d, double e, double m, double mG);
+    
+    /**
     * @brief Auxiliary function \f$F(r)\f$ from @cite Buchalla:1997ky
     * @param[in] r normalized dilepton invariant mass \f$q^2/{4 m_c^2}\f$
     */
