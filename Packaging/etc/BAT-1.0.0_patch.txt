@@ -1,0 +1,118 @@
+diff -Naur BAT-1.0.0/src/BCEngineMCMC.cxx BAT-1.0.0_DBG/src/BCEngineMCMC.cxx
+--- BAT-1.0.0/src/BCEngineMCMC.cxx	2018-05-18 22:42:00.000000000 +0200
++++ BAT-1.0.0_DBG/src/BCEngineMCMC.cxx	2019-04-17 04:09:25.000000000 +0200
+@@ -236,7 +236,7 @@
+         fInitialPositionAttemptLimit = other.fInitialPositionAttemptLimit;
+         fMCMCProposeMultivariate = other.fMCMCProposeMultivariate;
+         fMCMCPhase = other.fMCMCPhase;
+-        fMCMCStates = fMCMCStates;
++        fMCMCStates = other.fMCMCStates;
+         fMCMCStatistics = other.fMCMCStatistics;
+         fMCMCStatistics_AllChains = other.fMCMCStatistics_AllChains;
+         fCorrectRValueForSamplingVariability = other.fCorrectRValueForSamplingVariability;
+@@ -1600,13 +1600,13 @@
+     fMCMCStatistics[chain].efficiency[parameter] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
+ 
+     // if log(likelihood) of proposed point was not a finite number
+-    if (!std::isfinite(p1)) {
++/*    if (!std::isfinite(p1)) {
+         if (fMCMCProposeMultivariate) {
+             BCLog::OutDebug(Form("log(probability) evaluated to nan or inf in chain %i while at ", chain));
+             PrintParameters(fMCMCThreadLocalStorage[chain].parameters, BCLog::OutDebug);
+         } else
+             BCLog::OutDebug(Form("log(probability) evaluated to nan or inf in chain %i while varying parameter %s to %.3e", chain, GetParameter(parameter).GetName().data(), fMCMCThreadLocalStorage[chain].parameters[parameter]));
+-    }
++    } HEPfit NOTE: Output suppressed since it is printed too often for flat weights. */
+ 
+     // execute user code and return
+     MCMCCurrentPointInterface(fMCMCThreadLocalStorage[chain].parameters, chain, false);
+@@ -1767,7 +1767,7 @@
+     // initialize Markov chain
+     MCMCInitialize();
+ 
+-    if (fMCMCFlagWritePreRunToFile)
++    if (!fMCMCOutputFile && fMCMCFlagWritePreRunToFile) // HEPfit Note: Modification required to access Root tree from HEPfit consistently.
+         InitializeMarkovChainTree();
+ 
+     // perform run
+@@ -2201,7 +2201,7 @@
+         for (unsigned c = 0; c < fMCMCStates.size(); ++c)
+             fMCMCStates[c].iteration = 0;
+     }
+-    if (fMCMCFlagWriteChainToFile)
++    if (!fMCMCOutputFile && fMCMCFlagWriteChainToFile) // HEPfit Note: Modification required to access Root tree from HEPfit consistently.
+         InitializeMarkovChainTree(false, false);
+ 
+     // check that correct objects of correct size have been created
+diff -Naur BAT-1.0.0/src/BCH2D.cxx BAT-1.0.0_DBG/src/BCH2D.cxx
+--- BAT-1.0.0/src/BCH2D.cxx	2018-05-18 22:42:00.000000000 +0200
++++ BAT-1.0.0_DBG/src/BCH2D.cxx	2019-04-17 04:09:25.000000000 +0200
+@@ -143,15 +143,39 @@
+ 
+     // set contour levels
+     GetHistogram()->SetContour(levels.size(), &levels[0]);
+-
+-    if (fBandFillStyle <= 0) {
++    
++    /* Begin MPI MOD */
++    // if (fBandFillStyle <= 0) {
++    //     GetHistogram()->SetLineColor(GetLineColor());
++    //     GetHistogram()->Draw(Form("%scont%d", options.data(), static_cast<int>(std::abs(fBandFillStyle))));
++    // } else {
++    //     gStyle->SetPalette(colors.size(), &colors[0]);
++    //     GetHistogram()->SetFillStyle(fBandFillStyle);
++    //     GetHistogram()->Draw((options + "cont").data());
++    // }
++    /* HEPfit Note: Custom band styles for HEPfit. */
++    if (fBandFillStyle < 0) {
+         GetHistogram()->SetLineColor(GetLineColor());
+-        GetHistogram()->Draw(Form("%scont%d", options.data(), static_cast<int>(std::abs(fBandFillStyle))));
+-    } else {
++        GetHistogram()->Draw((options + "cont2").data());
++    } else if (fBandFillStyle == 1001) {
+         gStyle->SetPalette(colors.size(), &colors[0]);
+         GetHistogram()->SetFillStyle(fBandFillStyle);
+-        GetHistogram()->Draw((options + "cont").data());
++        GetHistogram()->Draw((options + "col").data());
++    } else if (fBandFillStyle == 101) {
++        gStyle->SetPalette(colors.size(), &colors[0]);
++        // GetHistogram()->SetFillStyle(1001);
++        GetHistogram()->DrawClone("cont4");
++    } else if (fBandFillStyle == 1) {
++        gStyle->SetPalette(colors.size(), &colors[0]);
++        GetHistogram()->SetFillStyle(0);
++        GetHistogram()->Draw((options + "cont1").data());
++    } else {
++        gStyle->SetPalette(colors.size(), &colors[0]);
++        GetHistogram()->SetFillStyle(1001);
++        GetHistogram()->Draw((options + "cont0").data());
+     }
++    /* End MPI MOD */
++    
+     gPad->Update();
+ 
+     // Set legend entries
+diff -Naur BAT-1.0.0/src/BCHistogramBase.cxx BAT-1.0.0_DBG/src/BCHistogramBase.cxx
+--- BAT-1.0.0/src/BCHistogramBase.cxx	2018-05-18 22:42:00.000000000 +0200
++++ BAT-1.0.0_DBG/src/BCHistogramBase.cxx	2019-04-17 04:09:25.000000000 +0200
+@@ -201,7 +201,7 @@
+         return;
+     }
+ 
+-    fHistogram = BCAux::OwnClone(hist, Form("%s_bch", hist->GetName()));
++    fHistogram = BCAux::OwnClone(hist, Form("%s", hist->GetName()));
+     fHistogram->SetStats(false);
+     fHistogram->SetDirectory(0);
+     fDimension = fHistogram->GetDimension();
+diff -Naur BAT-1.0.0/src/BCLog.cxx BAT-1.0.0_DBG/src/BCLog.cxx
+--- BAT-1.0.0/src/BCLog.cxx	2018-05-18 11:21:56.000000000 +0200
++++ BAT-1.0.0_DBG/src/BCLog.cxx	2019-04-17 04:09:25.000000000 +0200
+@@ -62,7 +62,7 @@
+     BCLog::SetLogLevelFile(loglevelfile);
+     BCLog::SetLogLevelScreen(loglevelscreen);
+ 
+-    BCLog::Out(BCLog::summary, BCLog::summary, "Opening logfile " + filename);
++    if (fPrefix) BCLog::Out(BCLog::summary, BCLog::summary, "Opening logfile " + filename);
+ }
+ 
+ // ---------------------------------------------------------
