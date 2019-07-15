@@ -305,6 +305,7 @@ private:
     gslpp::complex lambda_t;     /**<Vckm factor */
     gslpp::complex h_0;          /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_1;        /**<parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex h_2;        /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex r_1;
     gslpp::complex r_2;
     gslpp::complex Delta_C9;
@@ -576,7 +577,7 @@ private:
     
     unsigned int H_V0updated;/**< Cache variable */
     gslpp::vector<double> H_V0cache;/**< Cache variable */
-    gslpp::complex H_V0Ccache[2];/**< Cache variable */
+    gslpp::complex H_V0Ccache[3];/**< Cache variable */
     gslpp::complex H_V0Ccache_dispersion[4];/**< Cache variable */
     
     unsigned int H_A0updated;/**< Cache variable */

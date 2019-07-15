@@ -219,6 +219,46 @@ double NPbase::Gamma_Z() const
     return (trueSM.Gamma_Z() + deltaGamma_Z());
 }
 
+double NPbase::deltaGamma_Zhad() const
+{
+    double deltaGamma_Zhad = 0.;
+    bool nonZeroNP = false;
+
+    double delGVq[6], delGAq[6];
+    for (int p = 0; p < 6; ++p) {
+        delGVq[p] = deltaGV_f(quarks[p]);
+        delGAq[p] = deltaGA_f(quarks[p]);
+        if (delGVq[p] != 0.0 || delGAq[p] != 0.0)
+            nonZeroNP = true;
+    }
+
+    if (nonZeroNP) {
+        double gVf, gAf;
+        double deltaGq[6];
+        double delGammaZhad = 0.0;
+        for (int p = 0; p < 6; ++p) {
+
+            gVf = trueSM.gV_f(quarks[p]).real();
+            gAf = trueSM.gA_f(quarks[p]).real();
+            deltaGq[p] = 2.0 * (gVf * delGVq[p] + gAf * delGAq[p]);
+
+            delGammaZhad += 3.0 * deltaGq[p];
+        }
+
+        double sW2_SM = trueSM.sW2();
+        double cW2_SM = trueSM.cW2();
+        deltaGamma_Zhad = alphaMz() * Mz / 12.0 / sW2_SM / cW2_SM
+                * delGammaZhad;
+    }
+
+    return deltaGamma_Zhad;
+}
+
+double NPbase::Gamma_had() const
+{
+    return (trueSM.Gamma_had() + deltaGamma_Zhad());
+}
+
 double NPbase::BR_Zf(const Particle f) const
 {
     double delGammaZTot = deltaGamma_Z();
@@ -423,7 +463,11 @@ double NPbase::deltaR0_f(const Particle f) const
             delGq_sum += CF * deltaGq[q];
         }
         if (f.is("LEPTON"))
-            dR0_f = delGq_sum / Gl - Gq_sum * deltaGl / Gl / Gl;
+            if ( f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3")  ) {
+                dR0_f = deltaGl / Gq_sum - Gl * delGq_sum / Gq_sum / Gq_sum;                
+            } else {
+                dR0_f = delGq_sum / Gl - Gq_sum * deltaGl / Gl / Gl;
+            }
         else
             dR0_f = deltaGq[f.getIndex() - 6] / Gq_sum
                 - Gq[f.getIndex() - 6] * delGq_sum / Gq_sum / Gq_sum;

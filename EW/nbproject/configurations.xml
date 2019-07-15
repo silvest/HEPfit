@@ -21,6 +21,7 @@
       <itemPath>src/Epsilonb.h</itemPath>
       <itemPath>src/GammaW.h</itemPath>
       <itemPath>src/GammaZ.h</itemPath>
+      <itemPath>src/GammaZhad.h</itemPath>
       <itemPath>src/LEP2AFBbottom.h</itemPath>
       <itemPath>src/LEP2AFBcharm.h</itemPath>
       <itemPath>src/LEP2AFBmu.h</itemPath>
@@ -45,6 +46,7 @@
       <itemPath>src/Rcharm.h</itemPath>
       <itemPath>src/Rinv.h</itemPath>
       <itemPath>src/Rlepton.h</itemPath>
+      <itemPath>src/Rneutrinos.h</itemPath>
       <itemPath>src/Ruc.h</itemPath>
       <itemPath>src/aTGC.h</itemPath>
       <itemPath>src/ee_WW.h</itemPath>
@@ -71,6 +73,7 @@
       <itemPath>src/BrW.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>
+      <itemPath>src/GammaZhad.cpp</itemPath>
       <itemPath>src/LEP2AFBbottom.cpp</itemPath>
       <itemPath>src/LEP2AFBcharm.cpp</itemPath>
       <itemPath>src/LEP2AFBmu.cpp</itemPath>
@@ -94,6 +97,7 @@
       <itemPath>src/Rcharm.cpp</itemPath>
       <itemPath>src/Rinv.cpp</itemPath>
       <itemPath>src/Rlepton.cpp</itemPath>
+      <itemPath>src/Rneutrinos.cpp</itemPath>
       <itemPath>src/Ruc.cpp</itemPath>
       <itemPath>src/aTGC.cpp</itemPath>
       <itemPath>src/sigmaHadron.cpp</itemPath>
@@ -338,6 +342,10 @@
       </item>
       <item path="src/GammaZ.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GammaZhad.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GammaZhad.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LEP2AFBbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2AFBbottom.h" ex="false" tool="3" flavor2="0">
@@ -431,6 +439,10 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Rneutrinos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Rneutrinos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Ruc.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -568,6 +580,10 @@
       </item>
       <item path="src/GammaZ.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GammaZhad.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GammaZhad.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LEP2AFBbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2AFBbottom.h" ex="false" tool="3" flavor2="0">
@@ -661,6 +677,10 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Rneutrinos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Rneutrinos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Ruc.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -798,6 +818,10 @@
       </item>
       <item path="src/GammaZ.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GammaZhad.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GammaZhad.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LEP2AFBbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2AFBbottom.h" ex="false" tool="3" flavor2="0">
@@ -891,6 +915,10 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Rneutrinos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Rneutrinos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Ruc.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1135,6 +1163,10 @@
       </item>
       <item path="src/GammaZ.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GammaZhad.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GammaZhad.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LEP2AFBbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2AFBbottom.h" ex="false" tool="3" flavor2="0">
@@ -1228,6 +1260,10 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Rneutrinos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Rneutrinos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Ruc.cpp" ex="false" tool="1" flavor2="0">
       </item>

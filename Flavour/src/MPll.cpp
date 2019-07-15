@@ -87,7 +87,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
 #else
         << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
 #endif            
-        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
+        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP" << "absh_2_MP" << "argh_2_MP";
 #else
     if (pseudoscalar == StandardModel::K_P || pseudoscalar == StandardModel::K_0) mpllParameters = make_vector<std::string>()
 #if LATTICE            
@@ -97,7 +97,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
 #else            
         << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
 #endif            
-        << "reh_0_MP" << "imh_0_MP" << "reh_1_MP" << "imh_1_MP";
+        << "reh_0_MP" << "imh_0_MP" << "reh_1_MP" << "imh_1_MP" << "reh_2_MP" << "imh_2_MP";
 #endif
     else {
         std::stringstream out;
@@ -191,6 +191,7 @@ void MPll::updateParameters()
 #if NFPOLARBASIS_MPLL
         h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"), mySM.getOptionalParameter("argh_0_MP"), true);
         h_1 = gslpp::complex(mySM.getOptionalParameter("absh_1_MP"), mySM.getOptionalParameter("argh_1_MP"), true);
+        h_2 = gslpp::complex(mySM.getOptionalParameter("absh_2_MP"), mySM.getOptionalParameter("argh_2_MP"), true);
 
         r_1 = 0.;
         r_2 = 0.;
@@ -199,6 +200,7 @@ void MPll::updateParameters()
 #else
         h_0 = gslpp::complex(mySM.getOptionalParameter("reh_0_MP"), mySM.getOptionalParameter("imh_0_MP"), false);
         h_1 = gslpp::complex(mySM.getOptionalParameter("reh_1_MP"), mySM.getOptionalParameter("imh_1_MP"), false);
+        h_2 = gslpp::complex(mySM.getOptionalParameter("reh_2_MP"), mySM.getOptionalParameter("imh_2_MP"), false);
 
         r_1 = 0.;
         r_2 = 0.;
@@ -208,6 +210,7 @@ void MPll::updateParameters()
     } else {
         h_0 = 0.;
         h_1 = 0.;
+        h_2 = 0.;
 
         r_1 = mySM.getOptionalParameter("r1_BK");
         r_2 = mySM.getOptionalParameter("r2_BK");
@@ -596,7 +599,7 @@ void MPll::checkCache()
     }
 
     if (!dispersion) {
-        if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1]) {
+        if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1] && h_2 == H_V0Ccache[2]) {
             H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated;
         } else {
             H_V0updated = 0;
@@ -604,6 +607,7 @@ void MPll::checkCache()
             H_V0cache(1) = Mb;
             H_V0Ccache[0] = h_0;
             H_V0Ccache[1] = h_1;
+            H_V0Ccache[2] = h_2;
         }
     } else {
         if (MM == H_V0cache(0) && Mb == H_V0cache(1) && r_1 == H_V0Ccache_dispersion[0] && r_2 == H_V0Ccache_dispersion[1] && Delta_C9 == H_V0Ccache_dispersion[2] && exp_Phase == H_V0Ccache_dispersion[3]) {
@@ -1095,7 +1099,7 @@ gslpp::complex MPll::DeltaC9_KD(double q2)
 gslpp::complex MPll::h_lambda(double q2)
 {
     if (!dispersion) {
-        return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2;
+        return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * q2;
     } else {
         return -q2 / (MM2 * sixteenM_PI2) * V_L(q2) * DeltaC9_KD(q2);
     }

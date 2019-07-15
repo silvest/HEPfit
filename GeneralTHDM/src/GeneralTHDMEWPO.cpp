@@ -64,13 +64,21 @@ double Rb0GTHDM::computeThValue()
     
     double mu = MW;
     double mtMZ = myGTHDM.Mrun(mu, myGTHDM.getQuarks(QCD::TOP).getMass_scale(),
-                              myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+                              myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);   
     double mbMZ = myGTHDM.Mrun(mu, myGTHDM.getQuarks(QCD::BOTTOM).getMass_scale(),
                               myGTHDM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+   /* std::cout << "mtMZ = " << mtMZ << std::endl;
+    std::cout << "mbMZ = " << mbMZ << std::endl;
+    std::cout << "GF = " << GF << std::endl;
+    std::cout << "MZ = " << MZ << std::endl;
+    std::cout << "MW = " << MW << std::endl;
+    std::cout << "as = " << as << std::endl;
+    std::cout << "a = " << a << std::endl;*/
 
+ 
 
     double xH = (mtMZ*mtMZ)/(mHp2);
-    double pi=M_PI;
+    double pi = M_PI;
     
     
     double Qb = myGTHDM.getQuarks(QCD::BOTTOM).getCharge();
@@ -80,8 +88,8 @@ double Rb0GTHDM::computeThValue()
        
     /*double gAb = SM.getQuarks(QCD::BOTTOM).getIsospin();
     double gVb = SM.getQuarks(QCD::BOTTOM).getIsospin()-2.0*SM.getQuarks(QCD::BOTTOM).getCharge()*SM.sW2();*/
-    double gbRSM = -0.42112;
-    double gbLSM = 0.07744;
+    double gbLSM = -0.42112;
+    double gbRSM = 0.07744;
 
     double Sb = 1.3214;
     
@@ -100,9 +108,19 @@ double Rb0GTHDM::computeThValue()
         double gbR = gbRSM - (sqrt(2.0)*GF*mbMZ*mbMZ*(d).abs2())/(16.*pi*pi)*(f1+ (as/(3.0*pi))*f2);
         double sb = ((gbL- gbR)*(gbL- gbR)+ (gbL+ gbR)*(gbL+ gbR))*(1.0 + 3.0*a*Qb*Qb/(4.0*pi));
         
+        
+   /* std::cout << "f1 = " << f1 << std::endl;
+    std::cout << "f2 = " << f2 << std::endl;
+    std::cout << "gbL = " << gbL << std::endl;
+    std::cout << "gbR = " << gbR << std::endl;
+    std::cout << "sb = " << sb << std::endl;*/
+
+        
         /*Rb*/
         
         double Rb0GGTHDM = 1.0/(1.0 + (Sb*Cb)/sb);
+        // std::cout << "Rb0GGTHDM = " << Rb0GGTHDM << std::endl;
+
         return Rb0GGTHDM;
 
        

@@ -1277,14 +1277,23 @@ double StandardModel::Gamma_inv() const
 
 double StandardModel::Gamma_had() const
 {
-    double Gamma_had_tmp = GammaZ(quarks[UP]) + GammaZ(quarks[DOWN]) + GammaZ(quarks[CHARM])
+    double Gamma_had_tmp = 0.0;
+    
+    if (!IsFlagNoApproximateGammaZ()){
+        /* SM contribution with the approximate formula */
+        return myApproximateFormulae->X_full_2_loop("Gamma_had");
+    
+    } else {
+    
+        Gamma_had_tmp = GammaZ(quarks[UP]) + GammaZ(quarks[DOWN]) + GammaZ(quarks[CHARM])
             + GammaZ(quarks[STRANGE]) + GammaZ(quarks[BOTTOM]);
 
     /* Singlet vector contribution (not included in the approximate formula) */
-    double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
-    Gamma_had_tmp += 4.0 * 3.0 * G0 * RVh();
+        double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
+        Gamma_had_tmp += 4.0 * 3.0 * G0 * RVh();
 
-    return Gamma_had_tmp;
+        return Gamma_had_tmp;
+    }
 }
 
 double StandardModel::Gamma_Z() const
@@ -1328,6 +1337,24 @@ double StandardModel::R0_f(const Particle f) const
             return (myApproximateFormulae->X_full_2_loop("R0_tau"));
         else
             return (Gamma_had() / GammaZ(leptons[TAU]));
+    } else if (f.is("NEUTRINO_1")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_full_2_loop("R0_neutrino"));
+        else
+            return (GammaZ(leptons[NEUTRINO_1]) / Gamma_had());
+    } else if (f.is("NEUTRINO_2")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_full_2_loop("R0_neutrino"));
+        else
+            return (GammaZ(leptons[NEUTRINO_2]) / Gamma_had());
+    } else if (f.is("NEUTRINO_3")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_full_2_loop("R0_neutrino"));
+        else
+            return (GammaZ(leptons[NEUTRINO_3]) / Gamma_had());
     }  else if (f.is("UP")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
