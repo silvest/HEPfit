@@ -491,11 +491,18 @@ endif(DEBUG_MODE)
 
 ##############################
 
-set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour Observables StandardModel LoopFunctions gslpp)
+set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM GeorgiMachacek LeftRightSymmetricModel StandardModel LoopFunctions SUSYMassInsertion gslpp)
 
 if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
 endif(NOT NOMCMC)
+
+##########  THDM file modification  ##########	
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp.in"	
+               "${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp" @ONLY)	
+
+##########  THDM file modification  ##########	
 
 ##########  c++11  ##########
 if (NOT ROOT_CFLAGS MATCHES "-std=")
@@ -589,7 +596,11 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/HEPfit.h
 #endif()
 
 # example programs
-set(EXAMPLE_CXXFLAGS "-I${BOOST_INC} -std=c++11")
+if (NOT ROOT_CFLAGS MATCHES "-std=")
+	set(EXAMPLE_CXXFLAGS "-I${BOOST_INC} -std=c++11")
+else ()
+	set(EXAMPLE_CXXFLAGS "-I${BOOST_INC}")
+endif ()
 set(EXAMPLE_LIBS " ")
 set(EXAMPLE_RPATHS "-Wl,-rpath,${GSL_LIB_PATH}")
 set(EXAMPLE_RPATHS "-Wl,-rpath,${ROOT_LIB_PATH} ${EXAMPLE_RPATHS}")
