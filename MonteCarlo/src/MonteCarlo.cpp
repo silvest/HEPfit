@@ -309,7 +309,7 @@ void MonteCarlo::Run(const int rank) {
                 MCEngine.InitializeMarkovChainTree();
                 MCEngine.WriteMarkovChainRun(false);
                 MCEngine.WriteMarkovChainPreRun(false);
-                if (MCEngine.getchainedObsSize() > 0) MCEngine.AddChains();
+                if (MCEngine.getchainedObsSize() > 0 || MCEngine.getWriteLogLikelihoodChain()) MCEngine.AddChains();
             }
             // set nicer style for drawing than the ROOT default
 //            BCAux::SetStyle();
@@ -629,6 +629,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             else
                 throw std::runtime_error("\nERROR: PrintLoglikelihoodPlots in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
             if (beg->compare("true") == 0) gSystem->MakeDirectory((ObsDirName + "/LogLikelihoodPlots").c_str());
+        } else if (beg->compare("WriteLogLikelihoodChain") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setWriteLogLikelihoodChain((beg->compare("true") == 0));
+            else
+                throw std::runtime_error("\nERROR: WriteLogLikelihoodChain in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
         } else if (beg->compare("Histogram2DAlpha") == 0) {
             ++beg;
             double alpha = atof((*beg).c_str());

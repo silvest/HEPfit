@@ -300,7 +300,7 @@ public:
     
     /**
      * @brief A set method to toggle the printing of legends in 1D and 2D histograms.
-     * @param[in] legend a boolean to toggle the the printing of legends
+     * @param[in] legend a boolean to toggle the printing of legends
      */
     void setNoLegend(bool legend)
     {
@@ -309,11 +309,28 @@ public:
     
     /**
      * @brief A set method to toggle the printing of Parameters vs. Loglikelihood
-     * @param[in] legend a boolean to toggle the the printing of the 2D plots
+     * @param[in] legend a boolean to toggle the printing of the 2D plots
      */
     void setPrintLoglikelihoodPlots(bool plot)
     {
         PrintLoglikelihoodPlots = plot;
+    };
+    
+    /**
+     * @brief A set method to toggle the writing of  Loglikelihood in the ROOT tree
+     * @param[in] LL a boolean to toggle the writing of  Loglikelihood in the ROOT tree
+     */
+    void setWriteLogLikelihoodChain(bool LL)
+    {
+        WriteLogLikelihoodChain = LL;
+    };
+    
+    /**
+     * @brief A get method to get the value of the bool the writing of  Loglikelihood in the ROOT tree
+     */
+    bool getWriteLogLikelihoodChain()
+    {
+        return WriteLogLikelihoodChain;
     };
     
     /**
@@ -429,6 +446,7 @@ private:
     std::vector<std::vector<double> > hMCMCObservables_weight; ///< A vector of vectors containing the observables weight of all the chains to be put into the ROOT tree.
     std::vector<double> hMCMCTree_Observables; ///< A vector containing the observables values to be put into the ROOT tree.
     std::vector<double> hMCMCTree_Observables_weight; ///< A vector containing the observables weight to be put into the ROOT tree.
+    double hMCMCLogLikelihood; ///< A variable containing the LogLikelihood values to be put into the ROOT tree.
     unsigned int cindex;///< An index to distinguish between succesive canvases used to draw histograms.
     std::ofstream ofi;
     std::vector<std::string> unknownParameters; ///< A vector to contain the unkenown parameters passed in the configuration file.
@@ -437,6 +455,7 @@ private:
     int histogram2Dtype; ///< Type of 2D Histogram 1001 -> box pixel, 101 -> filled, 1 -> contour.
     bool noLegend; ///< A flag to toggle the histogram legends.
     bool PrintLoglikelihoodPlots; ///< A flag to toggle the printing of Parameters vs. Loglikelihood.
+    bool WriteLogLikelihoodChain; ///< A flag to toggle the writing of Loglikelihood chains in the ROOT tree.
     double alpha2D;///< A number between 0. and 1. that sets the opacity level of 2D Histograms, 1. being fully opaque.
     int gIdx;
     int rIdx;
