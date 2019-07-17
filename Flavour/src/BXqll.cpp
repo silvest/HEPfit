@@ -2008,14 +2008,13 @@ gslpp::complex BXqll::KS_cc(double sh)
     gslpp::complex kscc;
     
     // Contributions of J/Psi, Psi(2S), Psi(3770), Psi(4040), Psi(4160), Psi(4415)
-    // Branching ratios and total decay widths taken from Kruger:1996cv
-    // MUST CHANGE VALUES FOR UPDATED SOURCE
-    kscc  = KS_aux(sh, 1.1e-6,     0.171621, 3.22506, 0.173301, 0.832588, 0.416294, 1.39921e-10);
-    kscc += KS_aux(sh, 4.78979e-7, 2.32457,  7.31692, 0.347741, 1.17939,  0.589696, 1.96384e-9);
-    kscc += KS_aux(sh, 5.40833e-8, 3.42064,  9.12978, 0.380555, 1.23376,  0.616879, 1.49122e-5);
-    kscc += KS_aux(sh, 1.51667e-7, 32.5884,  51.5149, 0.501918, 1.41681,  0.708403, 8.31389e-5);
-    kscc += KS_aux(sh, 1.625e-7,   131.804,  81.343,  0.558422, 1.49429,  0.747144, 1.97293e-4);
-    kscc += KS_aux(sh, 9.85417e-8, 313.381,  372.926, 0.715812, 1.69203,  0.846017, 6.78943e-5);
+    // Masses, branching fractions, and total decay widths taken from Kruger:1996cv
+    kscc  = KS_aux(sh, 3.097, 0.088e-3, 6.0e-2);
+    kscc += KS_aux(sh, 3.686, 0.277e-3, 8.3e-3);
+    kscc += KS_aux(sh, 3.770,  23.6e-3, 1.1e-5);
+    kscc += KS_aux(sh, 4.040,    52e-3, 1.4e-5);
+    kscc += KS_aux(sh, 4.159,    78e-3, 1.0e-5);
+    kscc += KS_aux(sh, 4.415,    43e-3, 1.1e-5);
     
     kscc  = pre * kscc;
     
@@ -2027,13 +2026,18 @@ gslpp::complex BXqll::KS_cc(double sh)
     return (kscc);
 }
 
-gslpp::complex BXqll::KS_aux(double sh, double a, double b, double c, double d, double e, double m, double mG)
+gslpp::complex BXqll::KS_aux(double sh, double m, double Gamma, double Br)
 {
     gslpp::complex i = gslpp::complex::i();
-    double m2 = m * m;
+    double a = m * m / Mb_pole / Mb_pole;
+    double b = a * Gamma * Gamma / Mb_pole / Mb_pole;
+    double sqrtb = sqrt(b);
+    double amsh = a - sh;
+    double am4z = a - 4. * z;
     
-    return (a * ((b - c * sh - log(4. * z - sh)) / (d - e * sh + sh * sh) +
-            i * M_PI * 1. / ((sh - m2) * (sh - m2) + m2 * mG * mG)));
+    return (Br * Gamma / Mb_pole * ((M_PI * amsh + 2. * amsh * atan(am4z / sqrtb) +
+            sqrtb * (log(b + am4z * am4z) - 2. * log(4. * z - sh))) /
+            (2. * sqrtb * (b + amsh * amsh)) + i * M_PI / (amsh * amsh + b)));
 }
 
 gslpp::complex BXqll::F_BIR(double r)

@@ -525,9 +525,11 @@ private:
     /**
     * @brief Auxiliary function for the Kruger-Sehgal charm contributions
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    * @param[in] a,b,c,d,e,m,mG coefficients that follow from the integration defined in @cite Kruger:1996cv
+    * @param[in] m charmonium mass
+    * @param[in] Gamma charmonium total decay width
+    * @param[in] Br branching fraction of the decay mode \f$V \to l^+ l^-\f$
     */
-    gslpp::complex KS_aux(double sh, double a, double b, double c, double d, double e, double m, double mG);
+    gslpp::complex KS_aux(double sh, double m, double Gamma, double Br);
     
     /**
     * @brief Auxiliary function \f$F(r)\f$ from @cite Buchalla:1997ky
