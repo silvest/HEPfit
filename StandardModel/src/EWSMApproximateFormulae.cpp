@@ -1472,3 +1472,105 @@ double EWSMApproximateFormulae::X_full(const std::string observable) const
             + a13 * Dal + a14 * Dal * DH + a15 * Dal * Dt 
             + a16 * DZ ) + ThError);
 }
+
+
+double EWSMApproximateFormulae::sin2thetaEff_b_full() const
+{
+    // applicable for 25 GeV <= mHl <= 225 GeV
+    if (mycache.getSM().getMHl() < 25.0 || mycache.getSM().getMHl() > 225.0) {
+        std::stringstream out;
+        out << mycache.getSM().getMHl();
+        throw std::runtime_error("ApproximateFormulae::sin2thetaEff_b_full(): mh=" + out.str() + " is out of range");
+    }
+
+//  Full 2-loop implementation
+    
+    double LH = log(mycache.getSM().getMHl() / 125.7);
+    double LH2 = LH * LH;
+    
+    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
+    
+    double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
+    
+    double Das = mycache.getSM().getAlsMz() / 0.1184 - 1.0;
+    
+    double Dal = mycache.getSM().DeltaAlphaL5q() / 0.059 - 1.0;
+    
+    double DZ = mycache.getSM().getMz() / 91.1876 - 1.0;
+
+    double X0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+    
+    double ThError = 0.0; // Theoretical uncertainty
+    
+    X0 = 2327.04;
+    d1 = 4.638;
+    d2 = 0.558;
+    d3 = -0.0700;
+    d4 = 207.0;
+    d5 = -9.554;
+    d6 = 3.83;
+    d7 = 0.179;
+    d8 = 2.41;
+    d9 = -8.24;
+    d10 = -6630.0;
+    
+    ThError = mycache.getSM().getDelSin2th_b();
+    
+    return ( 0.0001*( X0 + d1 * LH + d2 * LH2 + d3 * LH2 * LH2 
+            + d4 * Dal
+            + d5 * Dt + d6 * Dt * Dt 
+            + d7 * Dt * LH
+            + d8 * Das + d9 * Das * Dt
+            + d10 * DZ ) + ThError);
+}
+
+
+double EWSMApproximateFormulae::sin2thetaEff_l_full() const
+{
+    // applicable for 25 GeV <= mHl <= 225 GeV
+    if (mycache.getSM().getMHl() < 25.0 || mycache.getSM().getMHl() > 225.0) {
+        std::stringstream out;
+        out << mycache.getSM().getMHl();
+        throw std::runtime_error("ApproximateFormulae::sin2thetaEff_l_full(): mh=" + out.str() + " is out of range");
+    }
+
+//  Full 2-loop implementation
+    
+    double LH = log(mycache.getSM().getMHl() / 125.7);
+    double LH2 = LH * LH;
+    
+    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
+    
+    double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
+    
+    double Das = mycache.getSM().getAlsMz() / 0.1184 - 1.0;
+    
+    double Dal = mycache.getSM().DeltaAlphaL5q() / 0.059 - 1.0;
+    
+    double DZ = mycache.getSM().getMz() / 91.1876 - 1.0;
+
+    double X0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+    
+    double ThError = 0.0; // Theoretical uncertainty
+    
+    X0 = 2314.64;
+    d1 = 4.616;
+    d2 = 0.539;
+    d3 = -0.0737;
+    d4 = 206.0;
+    d5 = -25.71;
+    d6 = 4.00;
+    d7 = 0.288;
+    d8 = 3.88;
+    d9 = -6.49;
+    d10 = -6560.0;
+    
+    ThError = mycache.getSM().getDelSin2th_l();
+    
+    return ( 0.0001*( X0 + d1 * LH + d2 * LH2 + d3 * LH2 * LH2 
+            + d4 * Dal
+            + d5 * Dt + d6 * Dt * Dt 
+            + d7 * Dt * LH
+            + d8 * Das + d9 * Das * Dt
+            + d10 * DZ ) + ThError);
+}

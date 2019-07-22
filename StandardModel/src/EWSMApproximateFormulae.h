@@ -319,6 +319,45 @@ public:
      *
      */
     double X_full(const std::string observable) const;
+    
+    
+    /**
+     * @brief @f$\sin^2\theta_{\rm eff}^b@f$ with the full two-loop %EW
+     * corrections.
+     * @details This function is based on the approximate formulae for 
+     * presented in arXiv: 1906.08815, which include the complete
+     * two-loop %EW corrections as well as leading three-loop
+     * corrections.
+     * The approximate formulae reproduce the full results to be better than
+     * 0.0025 * 10^-4, if inputs vary within the ranges
+     * @f$\alpha_s(M_Z^2) = 0.1184\pm 0.0050@f$,
+     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.0590\pm 0.0005@f$,
+     * @f$M_Z = 91.1876\pm 0.0084@f$ GeV,
+     * @f$155 < m_t < 192@f$ GeV and
+     * @f$25 < m_h < 225@f$ GeV.
+     * @return @f$\sin^2\theta_{\rm eff}^b@f$
+     *
+     */
+    double sin2thetaEff_b_full() const;
+    
+    /**
+     * @brief @f$\sin^2\theta_{\rm eff}^l@f$ with the full two-loop %EW
+     * corrections.
+     * @details This function is based on the approximate formulae for 
+     * presented in arXiv: 1906.08815, which include the complete
+     * two-loop %EW corrections as well as leading three-loop
+     * corrections.
+     * The approximate formulae reproduce the full results to be better than
+     * 0.0056 * 10^-4, if inputs vary within the ranges
+     * @f$\alpha_s(M_Z^2) = 0.1184\pm 0.0050@f$,
+     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.0590\pm 0.0005@f$,
+     * @f$M_Z = 91.1876\pm 0.0084@f$ GeV,
+     * @f$155 < m_t < 192@f$ GeV and
+     * @f$25 < m_h < 225@f$ GeV.
+     * @return @f$\sin^2\theta_{\rm eff}^l@f$
+     *
+     */
+    double sin2thetaEff_l_full() const;
 
 
     ////////////////////////////////////////////////////////////////////////
