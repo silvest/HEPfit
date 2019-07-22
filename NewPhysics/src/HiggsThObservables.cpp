@@ -4752,3 +4752,19 @@ double muTHUVHinv::computeThValue()
 {
         return (myNPbase->muTHUVHinv(sqrt_s));
 }
+
+
+BrHto2l2v_over_gaga_Ratio::BrHto2l2v_over_gaga_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHto2l2v_over_gaga_Ratio called with a class whose parent is not NPbase");
+}
+
+double BrHto2l2v_over_gaga_Ratio::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return (1.0 + (myNPbase->BrHWW2l2vRatio()) - (myNPbase->BrHgagaRatio()));
+    } else {
+        return (myNPbase->BrHWW2l2vRatio()) / (myNPbase->BrHgagaRatio());
+    }
+}
