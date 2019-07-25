@@ -85,3 +85,39 @@ double HA_BXqll::computeThValue()
     double q_max = getBinMax();
     return (myBXqll.integrateH("A", q_min, q_max));
 }
+
+
+BR_BXqll::BR_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i) 
+: ThObservable(SM_i), myBXqll(SM_i, quark_i, lep_i) 
+{  
+//    if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to Xq l+ l-: Rlow_BXqll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
+//    lep = lep_i;
+//    quark = quark_i;
+//    
+    setParametersForObservable(myBXqll.initializeBXqllParameters());
+}
+
+double BR_BXqll::computeThValue()
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    return (myBXqll.integrateH("TL", q_min, q_max));
+}
+
+
+AFB_BXqll::AFB_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i) 
+: ThObservable(SM_i), myBXqll(SM_i, quark_i, lep_i) 
+{  
+//    if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to Xq l+ l-: Rlow_BXqll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
+//    lep = lep_i;
+//    quark = quark_i;
+//    
+    setParametersForObservable(myBXqll.initializeBXqllParameters());
+}
+
+double AFB_BXqll::computeThValue()
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    return (3. * myBXqll.integrateH("A", q_min, q_max) / 4.);
+}

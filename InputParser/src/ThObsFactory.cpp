@@ -3533,6 +3533,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["HT_BXsee"] = boost::bind(boost::factory<HT_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["HL_BXsee"] = boost::bind(boost::factory<HL_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["HA_BXsee"] = boost::bind(boost::factory<HA_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
+    obsThFactory["BR_BXsee"] = boost::bind(boost::factory<BR_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
+    obsThFactory["AFB_BXsee"] = boost::bind(boost::factory<AFB_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
 /* END: REMOVE FROM THE PACKAGE */
 
     //----- B to K* gamma  -----

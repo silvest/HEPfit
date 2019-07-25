@@ -21,17 +21,6 @@ class StandardModel;
 #include "F_2.h"
 
 /**
-* @enum q2regions
-* @ingroup BXqll
-* @brief An enum type for \f$ q^2 \f$ regions in @f$B \to X_q l^+ l^-@f$.
-*/
-enum q2regions
-{
-    LOWQ2 = 0, /**< Dilepton invariant mass region \f$ 1 < q^2 < 6 \mathrm{GeV}^2 \f$ */
-    HIGHQ2, /**< Dilepton invariant mass region \f$ q^2 > 14.4 \mathrm{GeV}^2 \f$  */
-};
-
-/**
  * @class BXqll
  * @ingroup Flavour
  * @brief A class for the @f$B \to X_q l^+ l^-@f$ decay.  
@@ -108,8 +97,8 @@ private:
 
     std::vector<std::string> BXqllParameters;/**< The string of mandatory BXqll parameters */
 
-//    gslpp::vector<gslpp::complex> ** allcoeff_smm;/**<Vector that contains the primed Wilson coeffients */
-    Expanded<gslpp::vector<gslpp::complex> > allcoeffDF1;/**<Vector that contains the Wilson coeffients */
+//    gslpp::vector<gslpp::complex> ** allcoeff_smm;/**<Vector that contains the Wilson coeffients */
+    Expanded<gslpp::vector<gslpp::complex> > allcoeff;/**<Vector that contains the Wilson coeffients */
     
     gslpp::matrix<gslpp::complex> WC;/**<Matrix that contains the Wilson coeffients for each order */
     
@@ -373,9 +362,8 @@ private:
     /**
     * @brief The finite bremsstrahlung corrections to dGamma/ds for @f$B \to X_q l^+ l^-@f$ from @cite Asatryan:2002iy
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    * @param[in] q2region allowed region of dilepton invariant mass @f$q^2@f$
     */
-    double R_bremsstrahlung(double sh, q2regions q2region);
+    double Phi_brems(double sh);
     
     /**
     * @brief The modified coefficient \f${\tilde C}_9^{0,\mathrm{mod}}\f$ from @cite Asatryan:2002iy.
@@ -418,49 +406,49 @@ private:
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{22}(\hat s)\f$
     */
-    double tau22fit(double sh, q2regions q2region);
+    double tau22fit(double sh);
     
     /**
     * @brief The fit of the real part of finite bremsstrahlung correction \f$tau_{27}(\hat s)\f$ from @cite Asatryan:2002iy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{27}(\hat s)\f$
     */
-    double tau27fit_Re(double sh, q2regions q2region);
+    double tau27fit_Re(double sh);
     
     /**
     * @brief The fit of the imaginary part of finite bremsstrahlung correction \f$tau_{27}(\hat s)\f$ from @cite Asatryan:2002iy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{27}(\hat s)\f$
     */
-    double tau27fit_Im(double sh, q2regions q2region);
+    double tau27fit_Im(double sh);
     
     /**
     * @brief The fit of the real part of finite bremsstrahlung correction \f$tau_{28}(\hat s)\f$ from @cite Asatryan:2002iy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{28}(\hat s)\f$
     */
-    double tau28fit_Re(double sh, q2regions q2region);
+    double tau28fit_Re(double sh);
     
     /**
     * @brief The fit of the imaginary part of finite bremsstrahlung correction \f$tau_{28}(\hat s)\f$ from @cite Asatryan:2002iy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{28}(\hat s)\f$
     */
-    double tau28fit_Im(double sh, q2regions q2region);
+    double tau28fit_Im(double sh);
     
     /**
     * @brief The fit of the real part of finite bremsstrahlung correction \f$tau_{29}(\hat s)\f$ from @cite Asatryan:2002iy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{29}(\hat s)\f$
     */
-    double tau29fit_Re(double sh, q2regions q2region);
+    double tau29fit_Re(double sh);
     
     /**
     * @brief The fit of the imaginary part of finite bremsstrahlung correction \f$tau_{29}(\hat s)\f$ from @cite Asatryan:2002iy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{29}(\hat s)\f$
     */
-    double tau29fit_Im(double sh, q2regions q2region);
+    double tau29fit_Im(double sh);
     
     /**
     * @brief Auxiliary function that matches orders_qed to an integer

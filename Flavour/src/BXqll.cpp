@@ -46,17 +46,16 @@ void BXqll::updateParameters()
 {
     GF = mySM.getGF();
     Mlep = mySM.getLeptons(lep).getMass();
-//    mu_b = mySM.getMub();
+    mu_b = mySM.getMub();
     
     //RYOUTARO'S VALUES
-    mu_b = 5.0;
-    alstilde = 0.0170686027;
-    ale = 0.00757373;
-    aletilde = ale / 4. / M_PI;
-    kappa = aletilde / alstilde;
-    Mb_pole = 4.8;
-    Mc_pole = 2.04545;
-    Lbl = 2. * log(Mb_pole / Mlep);
+//    mu_b = 5.0;
+//    alstilde = 0.0170686027;
+//    ale = 0.00757373;
+//    aletilde = ale / 4. / M_PI;
+//    kappa = aletilde / alstilde;
+//    Mb_pole = 4.8;
+//    Mc_pole = 2.04545;
     
     mu_c = mySM.getMuc();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
@@ -64,20 +63,19 @@ void BXqll::updateParameters()
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
     MW = mySM.Mw();
     abslambdat_over_Vcb = mySM.getCKM().computelamt_s().abs()/mySM.getCKM().getV_cb().abs();
-    Vts_over_Vcb = mySM.getCKM().getV_ts().abs()/mySM.getCKM().getV_cb().abs();
     alsmu = mySM.Als(mu_b, FULLNNNLO, true);
     alsmuc = mySM.Als(mu_c, FULLNNNLO, true);
-//    ale = mySM.Ale(mu_b, FULLNLO);
-//    alstilde = alsmu / 4. / M_PI;
-//    aletilde = ale / 4. / M_PI;
-//    kappa = ale / alsmu;
+    ale = mySM.Ale(mu_b, FULLNLO);
+    alstilde = alsmu / 4. / M_PI;
+    aletilde = ale / 4. / M_PI;
+    kappa = ale / alsmu;
     Mtau = mySM.getLeptons(QCD::TAU).getMass(); // pole mass?
-//    Mb_pole = mySM.Mbar2Mp(Mb, FULLNNLO);
+    Mb_pole = mySM.Mbar2Mp(Mb, FULLNNLO);
     //Mc_pole = mySM.Mbar2Mp(Mc, FULLNNLO); //*** Mbar2Mp does not receive Mc ***/
-//    Mc_pole = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
+    Mc_pole = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
     muh = mu_b/Mb_pole; // log(muh) uses the pole mass as stated in hep-ph/9910220
     z = Mc_pole*Mc_pole/Mb_pole/Mb_pole; //****** Must be pole masses ****/
-//    Lbl = 2.*log(Mb/Mlep);
+    Lbl = 2. *  log(Mb_pole / Mlep); // Mb,pole ?
     
     BR_BXcenu = 0.1051; // Branching ratio of B -> Xc e nu
     C_ratio = 0.574; // Ratio of branching ratios as defined by Gambino, Misiak, arXiv:hep-ph/0104034
@@ -99,7 +97,7 @@ void BXqll::updateParameters()
 //    alsmu = 0.215;
 
 //    allcoeff_smm = mySM.getFlavour().ComputeCoeffsmumu(mu_b, NDR);
-    allcoeffDF1 = myHeff.ComputeCoeff(mu_b); // TO BE CHANGED TO ALLCOEFF ONLY
+    allcoeff = myHeff.ComputeCoeff(mu_b);
 
     double alpha_kappa;
     
@@ -267,7 +265,8 @@ double BXqll::getH(std::string obs, double sh)
     else if (obs == "A")
         return H_A(sh);
     else if (obs == "TL")
-        return (H_T(sh) + H_L(sh));
+//        return (H_T(sh) + H_L(sh));
+        return (H_T(sh) + H_L(sh) + pre * Phi_brems(sh) / Phi_u(FULLNLO_QED));
     else
         throw std::runtime_error("BXqll::getH: Angular observable not implemented");
 }
@@ -1912,10 +1911,17 @@ void BXqll::Test_WC_DF1()
 //    std::cout << wilson910*wilson910 << std::endl;
     
     //PRINT OF AUXILIARY FUNCTIONS
-    std::cout << "alstilde = " << alstilde << std::endl;
-    std::cout << "aletilde = " << aletilde << std::endl;
+    std::cout << "mu_b     = " << mu_b << std::endl;
+    std::cout << "mu_c     = " << mu_c << std::endl;
+    std::cout << "Mb       = " << Mb << std::endl;
+    std::cout << "Mc       = " << Mc << std::endl;
     std::cout << "Mb_pole  = " << Mb_pole << std::endl;
     std::cout << "Mc_pole  = " << Mc_pole << std::endl;
+    std::cout << "Ms       = " << Ms << std::endl;
+    std::cout << "m_e      = " << Mlep << std::endl;
+    std::cout << "alstilde = " << alstilde << std::endl;
+    std::cout << "aletilde = " << aletilde << std::endl;
+    
     std::cout << std::endl;
     
     double s = 0.15;
@@ -2076,12 +2082,12 @@ void BXqll::Test_WC_DF1()
  * Finite bremsstrahlung corrections in the notation of Asatryan:2002iy *
  ************************************************************************/
 
-double BXqll::R_bremsstrahlung(double sh, q2regions q2region)
+double BXqll::Phi_brems(double sh)
 {
     gslpp::complex c78, c89, c17, c27, c18, c28, c19, c29;
     double c88, c11, c12, c22;
-    double Brem_a;
-    double Brem_b;
+    double Brems_a;
+    double Brems_b;
     double ctau1 = (3. * 3. - 1.) / 8. / 3. / 3. / 3.;
     double ctau2 = - (3. * 3. - 1.) / 4. / 3. / 3.;
    
@@ -2100,17 +2106,14 @@ double BXqll::R_bremsstrahlung(double sh, q2regions q2region)
     c28 = CF * WC(1, LO) * WC(7, LO).conjugate();
     c29 = CF * WC(1, LO) * C9mod(sh).conjugate();
     
-    Brem_a = 2.*(c78*tau78(sh)+c89*tau89(sh)).real() + c88*tau88(sh);
+    Brems_a = 2. * (c78 * tau78(sh) + c89 * tau89(sh)).real() + c88 * tau88(sh);
+
+    Brems_b = (c11 + c12 + c22) * tau22fit(sh) + 2. * (c17 + c27).real() * tau27fit_Re(sh) -
+        2. * (c17 + c27).imag() * tau27fit_Im(sh) + 2. * (c18 + c28).real() * tau28fit_Re(sh) -
+        2. * (c18 + c28).imag() * tau28fit_Im(sh) + 2. * (c19 + c29).real() * tau29fit_Re(sh) -
+        2. * (c19 + c29).imag() * tau29fit_Im(sh);
     
-    if(q2region <= HIGHQ2)
-        Brem_b = (c11 + c12 + c22)*tau22fit(sh,q2region)+2.*(c17 + c27).real()*tau27fit_Re(sh,q2region)-
-            2.*(c17 + c27).imag()*tau27fit_Im(sh,q2region)+2.*(c18 + c28).real()*tau28fit_Re(sh,q2region)-
-            2.*(c18 + c28).imag()*tau28fit_Im(sh,q2region)+2.*(c19 + c29).real()*tau29fit_Re(sh,q2region)-
-            2.*(c19 + c29).imag()*tau29fit_Im(sh,q2region);
-    else
-        throw std::runtime_error("BXqll::R_bremsstrahlung: q2 region not implemented");
-    
-    return (Brem_a + Brem_b);
+    return (aletilde * aletilde * alstilde * (Brems_a + Brems_b));
 }
 
 gslpp::complex BXqll::C9mod(double sh)
@@ -2187,161 +2190,112 @@ double BXqll::tau88(double sh)
             -8.*M_PI+8.*atan(sqrt(qmsh/sh)))*(atan(sqrt(qmsh/sh))-atan(sqrt(sh)*sqrt(qmsh)/(2.-sh)))));
 }
 
-double BXqll::tau22fit(double sh, q2regions q2region)
+double BXqll::tau22fit(double sh)
 {
-    double fit;
+    double q2 = sh * Mb_pole * Mb_pole;
     
-    switch(q2region)
-    {
-        case LOWQ2:
-            fit = -186.96738127 + 1313.45792139*sh - 8975.40399683*sh*sh + 47018.56440838*sh*sh*sh -
-                    159603.3217871*sh*sh*sh*sh + 309228.13379963*sh*sh*sh*sh*sh - 258317.14719949*sh*sh*sh*sh*sh*sh -
-                    51.2467544*log(sh);
-            break;
-        case HIGHQ2:
-            fit = -322.73989723 + 4.75813656/sh/sh - 80.36414222/sh + 687.70415138*sh - 491.08241967*sh*sh +
-                    303.28125994*sh*sh*sh - 132.82124268*sh*sh*sh*sh + 35.63127394*sh*sh*sh*sh*sh -
-                    4.36712003*sh*sh*sh*sh*sh*sh - 306.899641*log(sh);
-            break;
-        default:
-            throw std::runtime_error("BXqll::tau22fit: region of q^2 not implemented");
-    }
-    
-    return (fit);
+    if (q2 <= 6.)
+        return (-186.96738127 + 1313.45792139*sh - 8975.40399683*sh*sh + 47018.56440838*sh*sh*sh -
+                159603.3217871*sh*sh*sh*sh + 309228.13379963*sh*sh*sh*sh*sh - 258317.14719949*sh*sh*sh*sh*sh*sh -
+                51.2467544*log(sh));
+    else if (q2 >= 14.4)
+        return (-322.73989723 + 4.75813656/sh/sh - 80.36414222/sh + 687.70415138*sh - 491.08241967*sh*sh +
+                303.28125994*sh*sh*sh - 132.82124268*sh*sh*sh*sh + 35.63127394*sh*sh*sh*sh*sh -
+                4.36712003*sh*sh*sh*sh*sh*sh - 306.899641*log(sh));
+    else
+        throw std::runtime_error("BXqll::tau22fit: region of q^2 not implemented");
 }
 
-double BXqll::tau27fit_Re(double sh, q2regions q2region)
+double BXqll::tau27fit_Re(double sh)
 {
-    double fit;
+    double q2 = sh * Mb_pole * Mb_pole;
     
-    switch(q2region)
-    {
-        case LOWQ2:
-            fit = -45.40905903+334.92509492*sh-2404.69181358*sh*sh+12847.93973401*sh*sh*sh-
-                    44421.35127703*sh*sh*sh*sh+87786.54536182*sh*sh*sh*sh*sh-75574.96266083*sh*sh*sh*sh*sh*sh-
-                    13.79251644*log(sh);
-            break;
-        case HIGHQ2:
-            fit = 87.43391175-196.67646862*sh+219.51106756*sh*sh-184.44868587*sh*sh*sh+
-                    103.59892754*sh*sh*sh*sh-34.56056777*sh*sh*sh*sh*sh+5.14181565*sh*sh*sh*sh*sh*sh+
-                    38.55667004*log(sh);
-            break;
-        default:
-            throw std::runtime_error("BXqll::tau27fit_Re: region of q^2 not implemented");
-    }
-    
-    return (fit);
+    if (q2 <= 6.)
+        return (-45.40905903+334.92509492*sh-2404.69181358*sh*sh+12847.93973401*sh*sh*sh-
+                44421.35127703*sh*sh*sh*sh+87786.54536182*sh*sh*sh*sh*sh-75574.96266083*sh*sh*sh*sh*sh*sh-
+                13.79251644*log(sh));
+    else if (q2 >= 14.4)
+        return (87.43391175-196.67646862*sh+219.51106756*sh*sh-184.44868587*sh*sh*sh+
+                103.59892754*sh*sh*sh*sh-34.56056777*sh*sh*sh*sh*sh+5.14181565*sh*sh*sh*sh*sh*sh+
+                38.55667004*log(sh));
+    else
+        throw std::runtime_error("BXqll::tau27fit_Re: region of q^2 not implemented");
 }
 
-double BXqll::tau27fit_Im(double sh, q2regions q2region)
+double BXqll::tau27fit_Im(double sh)
 {
-    double fit;
+    double q2 = sh * Mb_pole * Mb_pole;
     
-    switch(q2region)
-    {
-        case LOWQ2:
-            fit = -189.61083508+1349.85607262*sh-9198.62227938*sh*sh+48104.40980548*sh*sh*sh-
-                    162998.75872037*sh*sh*sh*sh+315224.375522*sh*sh*sh*sh*sh-262649.64320483*sh*sh*sh*sh*sh*sh-
-                    52.52183304*log(sh);
-            break;
-        case HIGHQ2:
-            fit = 523.76263422+49.97156504/sh-1120.42920341*sh+1024.46949612*sh*sh-767.28958612*sh*sh*sh+
-                    393.62561539*sh*sh*sh*sh-120.74162898*sh*sh*sh*sh*sh+16.63110789*sh*sh*sh*sh*sh*sh+
-                    352.74960196*log(sh);
-            break;
-        default:
-            throw std::runtime_error("BXqll::tau27fit_Im: region of q^2 not implemented");
-    }
-    
-    return (fit);
+    if (q2 <= 6.)
+        return (-189.61083508+1349.85607262*sh-9198.62227938*sh*sh+48104.40980548*sh*sh*sh-
+                162998.75872037*sh*sh*sh*sh+315224.375522*sh*sh*sh*sh*sh-262649.64320483*sh*sh*sh*sh*sh*sh-
+                52.52183304*log(sh));
+    else if (q2 >= 14.4)
+        return (523.76263422+49.97156504/sh-1120.42920341*sh+1024.46949612*sh*sh-767.28958612*sh*sh*sh+
+                393.62561539*sh*sh*sh*sh-120.74162898*sh*sh*sh*sh*sh+16.63110789*sh*sh*sh*sh*sh*sh+
+                352.74960196*log(sh));
+    else
+        throw std::runtime_error("BXqll::tau27fit_Im: region of q^2 not implemented");
 }
 
-double BXqll::tau28fit_Re(double sh, q2regions q2region)
+double BXqll::tau28fit_Re(double sh)
 {
-    double fit;
+    double q2 = sh * Mb_pole * Mb_pole;
     
-    switch(q2region)
-    {
-        case LOWQ2:
-            fit = 8.67757227-85.91172547*sh+666.57779497*sh*sh-3619.65234448*sh*sh*sh+
-                    12475.74303361*sh*sh*sh*sh-24365.45545631*sh*sh*sh*sh*sh+20446.33269814*sh*sh*sh*sh*sh*sh+
-                    1.54278226*log(sh);
-            break;
-        case HIGHQ2:
-            fit = -4.11234905-0.52681762/sh+8.21844628*sh-6.04601107*sh*sh+3.67099354*sh*sh*sh-
-                    1.57120958*sh*sh*sh*sh+0.41975346*sh*sh*sh*sh*sh-0.05280596*sh*sh*sh*sh*sh*sh-
-                    3.16331567*log(sh);
-            break;
-        default:
-            throw std::runtime_error("BXqll::tau28fit_Re: region of q^2 not implemented");
-    }
-    
-    return (fit);
+    if (q2 <= 6.)
+        return (8.67757227-85.91172547*sh+666.57779497*sh*sh-3619.65234448*sh*sh*sh+
+                12475.74303361*sh*sh*sh*sh-24365.45545631*sh*sh*sh*sh*sh+20446.33269814*sh*sh*sh*sh*sh*sh+
+                1.54278226*log(sh));
+    else if (q2 >= 14.4)
+        return (-4.11234905-0.52681762/sh+8.21844628*sh-6.04601107*sh*sh+3.67099354*sh*sh*sh-
+                1.57120958*sh*sh*sh*sh+0.41975346*sh*sh*sh*sh*sh-0.05280596*sh*sh*sh*sh*sh*sh-
+                3.16331567*log(sh));
+    else
+        throw std::runtime_error("BXqll::tau28fit_Re: region of q^2 not implemented");
 }
 
-double BXqll::tau28fit_Im(double sh, q2regions q2region)
+double BXqll::tau28fit_Im(double sh)
 {
-    double fit;
+    double q2 = sh * Mb_pole * Mb_pole;
     
-    switch(q2region)
-    {
-        case LOWQ2:
-            fit = 57.88258299-430.77957254*sh+3002.9999511*sh*sh-15808.63980887*sh*sh*sh+
+    if (q2 <= 6.)
+        return (57.88258299-430.77957254*sh+3002.9999511*sh*sh-15808.63980887*sh*sh*sh+
                     53787.08410769*sh*sh*sh*sh-104360.60205475*sh*sh*sh*sh*sh+87294.84251167*sh*sh*sh*sh*sh*sh+
-                    14.61062129*log(sh);
-            break;
-        case HIGHQ2:
-            fit = -24.92802842+0.3842418/sh/sh-6.38294139/sh+53.15600599*sh-37.59024636*sh*sh+
-                    23.04316804*sh*sh*sh-10.03556518*sh*sh*sh*sh+2.68088049*sh*sh*sh*sh*sh-
-                    0.32751495*sh*sh*sh*sh*sh*sh-24.01652729*log(sh);
-            break;
-        default:
-            throw std::runtime_error("BXqll::tau28fit_Im: region of q^2 not implemented");
-    }
-    
-    return (fit);
+                    14.61062129*log(sh));
+    else if (q2 >= 14.4)
+        return (-24.92802842+0.3842418/sh/sh-6.38294139/sh+53.15600599*sh-37.59024636*sh*sh+
+                23.04316804*sh*sh*sh-10.03556518*sh*sh*sh*sh+2.68088049*sh*sh*sh*sh*sh-
+                0.32751495*sh*sh*sh*sh*sh*sh-24.01652729*log(sh));
+    else
+        throw std::runtime_error("BXqll::tau28fit_Im: region of q^2 not implemented");
 }
 
-double BXqll::tau29fit_Re(double sh, q2regions q2region)
+double BXqll::tau29fit_Re(double sh)
 {
-    double fit;
+    double q2 = sh * Mb_pole * Mb_pole;
     
-    switch(q2region)
-    {
-        case LOWQ2:
-            fit = 0.53834924+0.47775224*sh-16.20063604*sh*sh+101.36668267*sh*sh*sh-
-                    466.94537092*sh*sh*sh*sh+1224.77742613*sh*sh*sh*sh*sh-1469.41817323*sh*sh*sh*sh*sh*sh-
-                    0.01686348*log(sh);
-            break; 
-        case HIGHQ2:
-            fit = 4.46985355-6.16130742*sh+0.84917331*sh*sh+1.7696124*sh*sh*sh-1.14453916*sh*sh*sh*sh+
-                    0.24261178*sh*sh*sh*sh*sh-0.02540446*sh*sh*sh*sh*sh*sh+2.67164817*log(sh);
-            break;
-        default:
-            throw std::runtime_error("BXqll::tau29fit_Re: region of q^2 not implemented");
-    }
-    
-    return (fit);
+    if (q2 <= 6.)
+        return (0.53834924+0.47775224*sh-16.20063604*sh*sh+101.36668267*sh*sh*sh-
+                466.94537092*sh*sh*sh*sh+1224.77742613*sh*sh*sh*sh*sh-1469.41817323*sh*sh*sh*sh*sh*sh-
+                0.01686348*log(sh));
+    else if (q2 >= 14.4)
+        return (4.46985355-6.16130742*sh+0.84917331*sh*sh+1.7696124*sh*sh*sh-1.14453916*sh*sh*sh*sh+
+                0.24261178*sh*sh*sh*sh*sh-0.02540446*sh*sh*sh*sh*sh*sh+2.67164817*log(sh));
+    else
+        throw std::runtime_error("BXqll::tau29fit_Re: region of q^2 not implemented");
 }
 
-double BXqll::tau29fit_Im(double sh, q2regions q2region)
+double BXqll::tau29fit_Im(double sh)
 {
-    double fit;
+    double q2 = sh * Mb_pole * Mb_pole;
     
-    switch(q2region)
-    {
-        case LOWQ2:
-            fit = 0.7688748-0.21680402*sh-1.16934757*sh*sh+8.31833871*sh*sh*sh-4.81289468*sh*sh*sh*sh-
-                    51.53765482*sh*sh*sh*sh*sh+158.06040784*sh*sh*sh*sh*sh*sh-0.00485643*log(sh);
-            break;
-        case HIGHQ2:
-            fit = -38.80905455+95.60697233*sh-124.04368889*sh*sh+118.64599185*sh*sh*sh-
-                    73.76081228*sh*sh*sh*sh+26.55080999*sh*sh*sh*sh*sh-4.19021877*sh*sh*sh*sh*sh*sh-
-                    16.02711369*log(sh);
-            break;
-        default:
-            throw std::runtime_error("BXqll::tau29fit_Im: region of q^2 not implemented");
-    }
-    
-    return (fit);
+    if (q2 <= 6.)
+        return (0.7688748-0.21680402*sh-1.16934757*sh*sh+8.31833871*sh*sh*sh-4.81289468*sh*sh*sh*sh-
+                51.53765482*sh*sh*sh*sh*sh+158.06040784*sh*sh*sh*sh*sh*sh-0.00485643*log(sh));
+    else if (q2 >= 14.4)
+        return (-38.80905455+95.60697233*sh-124.04368889*sh*sh+118.64599185*sh*sh*sh-
+                73.76081228*sh*sh*sh*sh+26.55080999*sh*sh*sh*sh*sh-4.19021877*sh*sh*sh*sh*sh*sh-
+                16.02711369*log(sh));
+    else
+        throw std::runtime_error("BXqll::tau29fit_Im: region of q^2 not implemented");
 }

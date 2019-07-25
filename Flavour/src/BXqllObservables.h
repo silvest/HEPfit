@@ -50,7 +50,7 @@ private:
 /**
  * @class HT_BXqll
  * @ingroup Flavour
- * @brief A class for @f$H_T@f$ in @f$B \to X_q l^+l^-@f$. 
+ * @brief A class for the binned observable @f$H_T@f$ in @f$B \to X_q l^+l^-@f$. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the integral of @f$H_T(q^2)@f$
@@ -87,7 +87,7 @@ private:
 /**
  * @class HL_BXqll
  * @ingroup Flavour
- * @brief A class for @f$H_L@f$ in @f$B \to X_q l^+l^-@f$. 
+ * @brief A class for the binned observable @f$H_L@f$ in @f$B \to X_q l^+l^-@f$. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the integral of @f$H_L(q^2)@f$
@@ -124,7 +124,7 @@ private:
 /**
  * @class HA_BXqll
  * @ingroup Flavour
- * @brief A class for @f$H_A@f$ in @f$B \to X_q l^+l^-@f$. 
+ * @brief A class for the binned observable @f$H_A@f$ in @f$B \to X_q l^+l^-@f$. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the integral of @f$H_A(q^2)@f$
@@ -157,5 +157,77 @@ private:
     BXqll myBXqll;
 };
 
+
+/**
+ * @class BR_BXqll
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$BR(B \to X_q l^+l^-)@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the integral of @f$H_T(q^2) + H_L(q^2)@f$
+ * in bins of @f$q^2@f$ for @f$B \to X_q l^+l^-@f$ :
+ * @f[
+ * BR(B \to X_q l^+l^-) = \int{q_m^2}{q_M^2} dq^2 \int{-1}{+1} dz \frac{d^2\Gamma}{dq^2 dz^2}\,.
+ * @f]
+ */
+class BR_BXqll : public ThObservable{
+public:
+    
+     /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] quark_i quark defining the inclusive final hadronic state @f$X_q@f$ of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    BR_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The binned observable @f$BR(B \to X_q l^+l^-)@f$.
+    * @return @f$H_T + H_L@f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::quark quark; /**< Final quark type. */
+    BXqll myBXqll;
+};
+
+
+/**
+ * @class AFB_BXqll
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$A_{\rm FB}(B \to X_q l^+l^-)@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the integral of @f$\frac{3}{4} H_A(q^2)@f$
+ * in bins of @f$q^2@f$ for @f$B \to X_q l^+l^-@f$ :
+ * @f[
+ * A_{\rm FB}(B \to X_q l^+l^-) = \int{q_m^2}{q_M^2} dq^2 \int{-1}{+1} dz \frac{d^2\Gamma}{dq^2 dz^2}
+ * {\rm sign}(z) \,.
+ * @f]
+ */
+class AFB_BXqll : public ThObservable{
+public:
+    
+     /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] quark_i quark defining the inclusive final hadronic state @f$X_q@f$ of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    AFB_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The binned observable @f$A_{\rm FB}(B \to X_q l^+l^-)@f$.
+    * @return @f$\frac{3}{4} H_A@f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::quark quark; /**< Final quark type. */
+    BXqll myBXqll;
+};
 
 #endif	/* BXQLLOBSERVABLES_H */
