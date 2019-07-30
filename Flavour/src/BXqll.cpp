@@ -37,7 +37,7 @@ BXqll::~BXqll()
 
 std::vector<std::string> BXqll::initializeBXqllParameters()
 {
-    BXqllParameters = make_vector<std::string>() << "BI_lambda1" << "BI_lambda2";
+    BXqllParameters = make_vector<std::string>() << "BR_BXcenu" << "C_ratio" << "BI_lambda1" << "BI_lambda2";
     
     return (BXqllParameters);
 }
@@ -46,17 +46,7 @@ void BXqll::updateParameters()
 {
     GF = mySM.getGF();
     Mlep = mySM.getLeptons(lep).getMass();
-    mu_b = mySM.getMub();
-    
-    //RYOUTARO'S VALUES
-//    mu_b = 5.0;
-//    alstilde = 0.0170686027;
-//    ale = 0.00757373;
-//    aletilde = ale / 4. / M_PI;
-//    kappa = aletilde / alstilde;
-//    Mb_pole = 4.8;
-//    Mc_pole = 2.04545;
-    
+    mu_b = mySM.getMub();   
     mu_c = mySM.getMuc();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass();
@@ -77,13 +67,13 @@ void BXqll::updateParameters()
     z = Mc_pole*Mc_pole/Mb_pole/Mb_pole; //****** Must be pole masses ****/
     Lbl = 2. *  log(Mb_pole / Mlep); // Mb,pole ?
     
-    BR_BXcenu = 0.1051; // Branching ratio of B -> Xc e nu
-    C_ratio = 0.574; // Ratio of branching ratios as defined by Gambino, Misiak, arXiv:hep-ph/0104034
-//    pre = BR_BXcenu * abslambdat_over_Vcb * abslambdat_over_Vcb * 4. / C_ratio;
-    pre = BR_BXcenu * 0.9621 * 4. / C_ratio;
+    BR_BXcenu = mySM.getOptionalParameter("BR_BXcenu"); // Branching ratio of B -> Xc e nu
+    C_ratio = mySM.getOptionalParameter("C_ratio"); // Ratio of branching ratios as defined by Gambino, Misiak, arXiv:hep-ph/0104034
     
-    lambda_1 = -0.362; //mySM.getOptionalParameter("BI_lambda1");
-    lambda_2 = 0.12; //mySM.getOptionalParameter("BI_lambda2");
+    pre = BR_BXcenu * abslambdat_over_Vcb * abslambdat_over_Vcb * 4. / C_ratio;
+    
+    lambda_1 = mySM.getOptionalParameter("BI_lambda1");
+    lambda_2 = mySM.getOptionalParameter("BI_lambda2");
     
     //ISIDORI VALUES
 //    z = 0.29*0.29;
@@ -95,6 +85,15 @@ void BXqll::updateParameters()
 //    abslambdat_over_Vcb = 0.97;
 //    Vts_over_Vcb = 0.97;
 //    alsmu = 0.215;
+    
+    //RYOUTARO'S VALUES
+//    mu_b = 5.0;
+//    alstilde = 0.0170686027;
+//    ale = 0.00757373;
+//    aletilde = ale / 4. / M_PI;
+//    kappa = aletilde / alstilde;
+//    Mb_pole = 4.8;
+//    Mc_pole = 2.04545;
 
 //    allcoeff_smm = mySM.getFlavour().ComputeCoeffsmumu(mu_b, NDR);
     allcoeff = myHeff.ComputeCoeff(mu_b);
@@ -1921,6 +1920,12 @@ void BXqll::Test_WC_DF1()
     std::cout << "m_e      = " << Mlep << std::endl;
     std::cout << "alstilde = " << alstilde << std::endl;
     std::cout << "aletilde = " << aletilde << std::endl;
+    std::cout << "1/ale_MZ = " << 1./mySM.alphaMz() << std::endl;
+    std::cout << "lt/Vcb^2 = " << abslambdat_over_Vcb * abslambdat_over_Vcb << std::endl;
+    std::cout << "BXcenu   = " << BR_BXcenu << std::endl;
+    std::cout << "C        = " << C_ratio << std::endl;
+    std::cout << "lambda_1 = " << lambda_1 << std::endl;
+    std::cout << "lambda_2 = " << lambda_2 << std::endl;
     
     std::cout << std::endl;
     
@@ -1929,32 +1934,32 @@ void BXqll::Test_WC_DF1()
     
     std::cout << "H_T = " << getH("T", s) << std::endl;
     std::cout << "H_L = " << getH("L", s) << std::endl;
-    
-    std::cout << std::endl;    
-    std::cout << "KS_cc = " << KS_cc(s) << std::endl;
-    
-    std::cout << std::endl;
-    for (unsigned int i = 0; i < 10; i++)
-    {
-        std::cout << "M_" << i+1 << "^7 = " << M_7[LO](i) + M_7[NLO](i) + M_7[NNLO](i) + M_7[int_qed(LO_QED)](i) +
-                M_7[int_qed(NLO_QED11)](i) + M_7[int_qed(NLO_QED21)](i) << std::endl;
-        std::cout << "M_" << i+1 << "^9 = " << M_9[LO](i) + M_9[NLO](i) + M_9[NNLO](i) + M_9[int_qed(LO_QED)](i) +
-                M_9[int_qed(NLO_QED11)](i) + M_9[int_qed(NLO_QED21)](i) << std::endl;
-    }
-    
-    for (unsigned int i = 10; i < 14; i++)
-    {
-        std::cout << "M_" << i-7 << "Q^7 = " << M_7[LO](i) + M_7[NLO](i) + M_7[NNLO](i) + M_7[int_qed(LO_QED)](i) +
-                M_7[int_qed(NLO_QED11)](i) + M_7[int_qed(NLO_QED21)](i) << std::endl;
-        std::cout << "M_" << i-7 << "Q^9 = " << M_9[LO](i) + M_9[NLO](i) + M_9[NNLO](i) + M_9[int_qed(LO_QED)](i) +
-                M_9[int_qed(NLO_QED11)](i) + M_9[int_qed(NLO_QED21)](i) << std::endl;
-    }
-    
-    std::cout << "M_b^7 = " << M_7[LO](14) + M_7[NLO](14) + M_7[NNLO](14) + M_7[int_qed(LO_QED)](14) +
-                M_7[int_qed(NLO_QED11)](14) + M_7[int_qed(NLO_QED21)](14) << std::endl;
-    std::cout << "M_b^9 = " << M_9[LO](14) + M_9[NLO](14) + M_9[NNLO](14) + M_9[int_qed(LO_QED)](14) +
-                M_9[int_qed(NLO_QED11)](14) + M_9[int_qed(NLO_QED21)](14) << std::endl;
-    
+
+//    std::cout << std::endl;    
+//    std::cout << "KS_cc = " << KS_cc(s) << std::endl;
+//    
+//    std::cout << std::endl;
+//    for (unsigned int i = 0; i < 10; i++)
+//    {
+//        std::cout << "M_" << i+1 << "^7 = " << M_7[LO](i) + M_7[NLO](i) + M_7[NNLO](i) + M_7[int_qed(LO_QED)](i) +
+//                M_7[int_qed(NLO_QED11)](i) + M_7[int_qed(NLO_QED21)](i) << std::endl;
+//        std::cout << "M_" << i+1 << "^9 = " << M_9[LO](i) + M_9[NLO](i) + M_9[NNLO](i) + M_9[int_qed(LO_QED)](i) +
+//                M_9[int_qed(NLO_QED11)](i) + M_9[int_qed(NLO_QED21)](i) << std::endl;
+//    }
+//    
+//    for (unsigned int i = 10; i < 14; i++)
+//    {
+//        std::cout << "M_" << i-7 << "Q^7 = " << M_7[LO](i) + M_7[NLO](i) + M_7[NNLO](i) + M_7[int_qed(LO_QED)](i) +
+//                M_7[int_qed(NLO_QED11)](i) + M_7[int_qed(NLO_QED21)](i) << std::endl;
+//        std::cout << "M_" << i-7 << "Q^9 = " << M_9[LO](i) + M_9[NLO](i) + M_9[NNLO](i) + M_9[int_qed(LO_QED)](i) +
+//                M_9[int_qed(NLO_QED11)](i) + M_9[int_qed(NLO_QED21)](i) << std::endl;
+//    }
+//    
+//    std::cout << "M_b^7 = " << M_7[LO](14) + M_7[NLO](14) + M_7[NNLO](14) + M_7[int_qed(LO_QED)](14) +
+//                M_7[int_qed(NLO_QED11)](14) + M_7[int_qed(NLO_QED21)](14) << std::endl;
+//    std::cout << "M_b^9 = " << M_9[LO](14) + M_9[NLO](14) + M_9[NNLO](14) + M_9[int_qed(LO_QED)](14) +
+//                M_9[int_qed(NLO_QED11)](14) + M_9[int_qed(NLO_QED21)](14) << std::endl;
+//    
 //    std::cout << std::endl;
 //    std::cout << "S_77^T   = " << S77_T(s, LO) + S77_T(s, NLO) << std::endl;
 //    std::cout << "S_99^T   = " << S99_T(s, LO) + S99_T(s, NLO) + S99_T(s, NNLO) << std::endl;
@@ -1971,19 +1976,19 @@ void BXqll::Test_WC_DF1()
 //    std::cout << "S_710^A   = " << S710_A(s, LO) + S710_A(s, NLO) << std::endl;
 //    std::cout << "S_910^A   = " << S910_A(s, LO) + S910_A(s, NLO) + S910_A(s, NNLO) << std::endl;
 //    
-    std::cout << std::endl;
-    std::cout << "f_1  = " << f_Huber(s,   -32./27., 4./3.,      0.,        0.,   -16./27.) << std::endl;
-    std::cout << "f_2  = " << f_Huber(s,     -8./9.,    1.,      0.,        0.,     -4./9.) << std::endl;
-    std::cout << "f_3  = " << f_Huber(s,    -16./9.,    6.,  -7./2.,     2./9.,     2./27.) << std::endl;
-    std::cout << "f_4  = " << f_Huber(s,    32./27.,    0.,  -2./3.,    8./27.,     8./81.) << std::endl;
-    std::cout << "f_5  = " << f_Huber(s,   -112./9.,   60.,    -38.,    32./9.,  -136./27.) << std::endl;
-    std::cout << "f_6  = " << f_Huber(s,   512./27.,    0., -32./3.,  128./27.,   320./81.) << std::endl;
-    std::cout << "f_9  = " << f9pen_Huber(s) << std::endl;
-    std::cout << "f_3Q = " << f_Huber(s,  -272./27.,    4.,   7./6.,  -74./27.,   358./81.) << std::endl;
-    std::cout << "f_4Q = " << f_Huber(s,   -32./81.,    0.,   2./9.,   -8./81.,   -8./243.) << std::endl;
-    std::cout << "f_5Q = " << f_Huber(s, -2768./27.,   40.,  38./3., -752./27.,  1144./81.) << std::endl;
-    std::cout << "f_6Q = " << f_Huber(s,  -512./81.,    0.,  32./9., -128./81., -320./243.) << std::endl;
-    std::cout << "f_b  = " << f_Huber(s,     16./9.,    0.,     -2.,        0.,    26./27.) << std::endl;
+//    std::cout << std::endl;
+//    std::cout << "f_1  = " << f_Huber(s,   -32./27., 4./3.,      0.,        0.,   -16./27.) << std::endl;
+//    std::cout << "f_2  = " << f_Huber(s,     -8./9.,    1.,      0.,        0.,     -4./9.) << std::endl;
+//    std::cout << "f_3  = " << f_Huber(s,    -16./9.,    6.,  -7./2.,     2./9.,     2./27.) << std::endl;
+//    std::cout << "f_4  = " << f_Huber(s,    32./27.,    0.,  -2./3.,    8./27.,     8./81.) << std::endl;
+//    std::cout << "f_5  = " << f_Huber(s,   -112./9.,   60.,    -38.,    32./9.,  -136./27.) << std::endl;
+//    std::cout << "f_6  = " << f_Huber(s,   512./27.,    0., -32./3.,  128./27.,   320./81.) << std::endl;
+//    std::cout << "f_9  = " << f9pen_Huber(s) << std::endl;
+//    std::cout << "f_3Q = " << f_Huber(s,  -272./27.,    4.,   7./6.,  -74./27.,   358./81.) << std::endl;
+//    std::cout << "f_4Q = " << f_Huber(s,   -32./81.,    0.,   2./9.,   -8./81.,   -8./243.) << std::endl;
+//    std::cout << "f_5Q = " << f_Huber(s, -2768./27.,   40.,  38./3., -752./27.,  1144./81.) << std::endl;
+//    std::cout << "f_6Q = " << f_Huber(s,  -512./81.,    0.,  32./9., -128./81., -320./243.) << std::endl;
+//    std::cout << "f_b  = " << f_Huber(s,     16./9.,    0.,     -2.,        0.,    26./27.) << std::endl;
 //    
 //    std::cout << std::endl;
 //    std::cout << "F_1^7 = " << F17(s) << std::endl;
