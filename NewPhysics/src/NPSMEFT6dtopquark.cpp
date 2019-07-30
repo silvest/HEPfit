@@ -310,7 +310,8 @@ sigmattZ::sigmattZ(const StandardModel& SM_i)
 
 double sigmattZ::computeThValue()
 {
-    double smxttz = 0.88;
+    /*Old value, ATLAS double smxttz = 0.88;*/
+    double smxttz = 0.84;
     double xttz_madgraph = 0.5887;
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
