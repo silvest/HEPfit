@@ -354,6 +354,12 @@ class EWSMTwoFermionsLEP2;
  *   @f$Zf\bar{f}@f$ couplings @f$\kappa_Z^f@f$. The default flag is APPROXIMATEFORMULA.
  *   See EWSM::kappaZ_l_SM(), EWSM::kappaZ_q_SM() and EWSM::resumKappaZ() for detail.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%SMAux</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This auxiliary flag is used for testing new options. 
+ * The default value is FALSE.</td>
+ * </tr>
  * </table>
  *
  * These flags can be set via the method setFlag() or setFlagStr(), where the
@@ -3136,6 +3142,8 @@ private:
     std::string FlagRhoZ; ///< A string for the model flag %RhoZ.
     std::string FlagKappaZ; ///< A string for the model flag %KappaZ.
     bool FlagWolfenstein; ///< A boolean for the model flag %Wolfenstein.
+    
+    bool FlagSMAux; ///< A boolean for the model flag %SMAux.
 
     ////////////////////////////////////////////////////////////////////////     
     // Caches for EWPO
