@@ -1476,12 +1476,12 @@ double EWSMApproximateFormulae::X_full(const std::string observable) const
 
 double EWSMApproximateFormulae::sin2thetaEff_b_full() const
 {
-    // applicable for 25 GeV <= mHl <= 225 GeV
-    if (mycache.getSM().getMHl() < 25.0 || mycache.getSM().getMHl() > 225.0) {
-        std::stringstream out;
-        out << mycache.getSM().getMHl();
-        throw std::runtime_error("ApproximateFormulae::sin2thetaEff_b_full(): mh=" + out.str() + " is out of range");
-    }
+    // applicable for 25 GeV <= mHl <= 225 GeV. Remove boundaries for the moment
+    //if (mycache.getSM().getMHl() < 25.0 || mycache.getSM().getMHl() > 225.0) {
+    //    std::stringstream out;
+    //    out << mycache.getSM().getMHl();
+    //    throw std::runtime_error("ApproximateFormulae::sin2thetaEff_b_full(): mh=" + out.str() + " is out of range");
+    //}
 
 //  Full 2-loop implementation
     
@@ -1527,12 +1527,12 @@ double EWSMApproximateFormulae::sin2thetaEff_b_full() const
 
 double EWSMApproximateFormulae::sin2thetaEff_l_full() const
 {
-    // applicable for 25 GeV <= mHl <= 225 GeV
-    if (mycache.getSM().getMHl() < 25.0 || mycache.getSM().getMHl() > 225.0) {
-        std::stringstream out;
-        out << mycache.getSM().getMHl();
-        throw std::runtime_error("ApproximateFormulae::sin2thetaEff_l_full(): mh=" + out.str() + " is out of range");
-    }
+    // applicable for 25 GeV <= mHl <= 225 GeV. Remove boundaries for the moment
+    //if (mycache.getSM().getMHl() < 25.0 || mycache.getSM().getMHl() > 225.0) {
+    //    std::stringstream out;
+    //    out << mycache.getSM().getMHl();
+    //    throw std::runtime_error("ApproximateFormulae::sin2thetaEff_l_full(): mh=" + out.str() + " is out of range");
+    //}
 
 //  Full 2-loop implementation
     
