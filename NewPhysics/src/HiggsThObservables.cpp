@@ -1593,6 +1593,25 @@ double muVBFHtautau::computeThValue()
     }
 }
 
+
+
+muVBFpVHtautau::muVBFpVHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muVBFpVHtautau called with a class whose parent is not NPbase");
+}
+
+double muVBFpVHtautau::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ( -1.0 + (myNPbase->muVBFpVH(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+    } else {
+        return (myNPbase->muVBFpVH(sqrt_s))*(myNPbase->BrHtautauRatio());
+    }
+}
+
+
 muZHtautau::muZHtautau(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {

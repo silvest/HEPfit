@@ -1075,6 +1075,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muttHmumu13"] = boost::bind(boost::factory<muttHmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["muggHtautau13"] = boost::bind(boost::factory<muggHtautau*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVBFHtautau13"] = boost::bind(boost::factory<muVBFHtautau*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVBFpVHtautau13"] = boost::bind(boost::factory<muVBFpVHtautau*>(), _1, sqrt_s_LHC13);
     obsThFactory["muZHtautau13"] = boost::bind(boost::factory<muZHtautau*>(), _1, sqrt_s_LHC13);
     obsThFactory["muWHtautau13"] = boost::bind(boost::factory<muWHtautau*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVHtautau13"] = boost::bind(boost::factory<muVHtautau*>(), _1, sqrt_s_LHC13);
