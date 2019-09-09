@@ -200,9 +200,10 @@ private:
     * @brief \f$\mathcal{O}(\Lambda_{QCD}^2/m_c^2)\f$ contributions \f$c_{ij}^I\f$ as defined in @cite Huber:2015sra
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     * @param[in] i,j indices in eq. (4.10) in @cite Huber:2015sra
+    * @param[in] ord possible QCD,QED orders: 11, 22, 32
     */
-    gslpp::complex cij_T(unsigned int i, unsigned int j, double sh);
-    gslpp::complex cij_L(unsigned int i, unsigned int j, double sh);
+    gslpp::complex cij_T(unsigned int i, unsigned int j, double sh, unsigned int ord);
+    gslpp::complex cij_L(unsigned int i, unsigned int j, double sh, unsigned int ord);
     gslpp::complex cij_A(unsigned int i, unsigned int j, double sh);
     
     /**
