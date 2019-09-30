@@ -46,6 +46,7 @@
       <itemPath>src/HeffDF1bsg.h</itemPath>
       <itemPath>src/HeffDF2.h</itemPath>
       <itemPath>src/HeffDS1.h</itemPath>
+      <itemPath>src/ImADC2.h</itemPath>
       <itemPath>src/M12D.h</itemPath>
       <itemPath>src/MPll.h</itemPath>
       <itemPath>src/MPllObservables.h</itemPath>
@@ -347,6 +348,8 @@
       </item>
       <item path="src/HeffDS1.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ImADC2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/M12D.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MPll.cpp" ex="false" tool="1" flavor2="0">
@@ -614,6 +617,8 @@
       <item path="src/HeffDS1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/HeffDS1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ImADC2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/M12D.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -883,6 +888,8 @@
       </item>
       <item path="src/HeffDS1.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ImADC2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/M12D.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MPll.cpp" ex="false" tool="1" flavor2="0">
@@ -1148,6 +1155,8 @@
       <item path="src/HeffDS1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HeffDS1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ImADC2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/M12D.h" ex="false" tool="3" flavor2="0">
       </item>
