@@ -286,6 +286,78 @@ public:
      *
      */
     double X_full_2_loop(const std::string observable) const;
+    
+    
+    /**
+     * @brief @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$, @f$\Gamma_\nu@f$, 
+     * @f$\Gamma_u@f$, @f$\Gamma_c@f$, @f$\Gamma_{d,s}@f$, @f$\Gamma_b@f$,
+     * @f$\Gamma_Z@f$, @f$R^0_\ell@f$, @f$R^0_c@f$, @f$R^0_b@f$, or @f$\sigma^0_h@f$.
+     * @details This function is based on the approximate formulae for partial
+     * and total widths of the @f$Z@f$ boson and hadronic @f$Z@f$-pole cross
+     * section presented in arXiv: 1906.08815, which include the complete
+     * two-loop %EW corrections as well as leading three-loop
+     * corrections.
+     * The approximate formulae reproduce the full results to be better than
+     * 0.0015 MeV, 0.0015 MeV, 0.002 MeV, 0.006 MeV, 0.006 MeV, 0.007 MeV, 0.007 MeV,
+     * 0.04 MeV, @f$ 0.12\times 10^{-3}@f$, @f$ 0.1\times 10^{-3}@f$, @f$ 0.12\times 10^{-3}@f$,
+     * and 0.15 pb,
+     * for @f$\Gamma_{e,\mu,\tau,\nu}@f$, @f$\Gamma_{q\not = b}@f$,
+     * @f$\Gamma_{b}@f$, @f$\Gamma_Z@f$, @f$R^0_{l}@f$, @f$R^0_{c,b}@f$ and
+     * @f$\sigma^0_h@f$, respectively,
+     * if inputs vary within the ranges
+     * @f$\alpha_s(M_Z^2) = 0.1184\pm 0.0050@f$,
+     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.0590\pm 0.0005@f$,
+     * @f$M_Z = 91.1876\pm 0.0084@f$ GeV,
+     * @f$155 < m_t < 192@f$ GeV and
+     * @f$25 < m_h < 225@f$ GeV.
+     * @param[in] observable name of the observable to be computed:
+     * "Gamma_nu", "Gamma_e_mu", "Gamma_tau", "Gamma_u", "Gamma_c", "Gamma_d_s",
+     * "Gamma_b", "GammaZ", "sigmaHadron", "R0_lepton", "R0_charm", "R0_bottom"
+     * @return @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
+     * @f$\Gamma_u@f$, @f$\Gamma_c@f$, @f$\Gamma_{d,s}@f$, @f$\Gamma_b@f$,
+     * @f$\Gamma_Z@f$, @f$\sigma^0_h@f$, @f$R^0_\ell@f$,  @f$R^0_c@f$, or @f$R^0_b@f$
+     *
+     */
+    double X_full(const std::string observable) const;
+    
+    
+    /**
+     * @brief @f$\sin^2\theta_{\rm eff}^b@f$ with the full two-loop %EW
+     * corrections.
+     * @details This function is based on the approximate formulae for 
+     * presented in arXiv: 1906.08815, which include the complete
+     * two-loop %EW corrections as well as leading three-loop
+     * corrections.
+     * The approximate formulae reproduce the full results to be better than
+     * 0.0025 * 10^-4, if inputs vary within the ranges
+     * @f$\alpha_s(M_Z^2) = 0.1184\pm 0.0050@f$,
+     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.0590\pm 0.0005@f$,
+     * @f$M_Z = 91.1876\pm 0.0084@f$ GeV,
+     * @f$155 < m_t < 192@f$ GeV and
+     * @f$25 < m_h < 225@f$ GeV.
+     * @return @f$\sin^2\theta_{\rm eff}^b@f$
+     *
+     */
+    double sin2thetaEff_b_full() const;
+    
+    /**
+     * @brief @f$\sin^2\theta_{\rm eff}^l@f$ with the full two-loop %EW
+     * corrections.
+     * @details This function is based on the approximate formulae for 
+     * presented in arXiv: 1906.08815, which include the complete
+     * two-loop %EW corrections as well as leading three-loop
+     * corrections.
+     * The approximate formulae reproduce the full results to be better than
+     * 0.0056 * 10^-4, if inputs vary within the ranges
+     * @f$\alpha_s(M_Z^2) = 0.1184\pm 0.0050@f$,
+     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.0590\pm 0.0005@f$,
+     * @f$M_Z = 91.1876\pm 0.0084@f$ GeV,
+     * @f$155 < m_t < 192@f$ GeV and
+     * @f$25 < m_h < 225@f$ GeV.
+     * @return @f$\sin^2\theta_{\rm eff}^l@f$
+     *
+     */
+    double sin2thetaEff_l_full() const;
 
 
     ////////////////////////////////////////////////////////////////////////

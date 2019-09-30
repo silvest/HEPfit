@@ -1001,6 +1001,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHto4l_over_gaga_Ratio"] = boost::factory<BrHto4l_over_gaga_Ratio*>();
     obsThFactory["BrHtoZga_over_gaga_Ratio"] = boost::factory<BrHtoZga_over_gaga_Ratio*>();
     obsThFactory["BrHtomumu_over_gaga_Ratio"] = boost::factory<BrHtomumu_over_gaga_Ratio*>();
+    obsThFactory["BrHto2l2v_over_gaga_Ratio"] = boost::factory<BrHto2l2v_over_gaga_Ratio*>();
     //-----  Special observables --------
     obsThFactory["muttHZbb_boost100"] = boost::bind(boost::factory<muttHZbbboost*>(), _1, sqrt_s_FCC100);
     obsThFactory["ggHgagaInt14"] = boost::bind(boost::factory<muggHgagaInt*>(), _1, sqrt_s_LHC14);
@@ -1074,6 +1075,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muttHmumu13"] = boost::bind(boost::factory<muttHmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["muggHtautau13"] = boost::bind(boost::factory<muggHtautau*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVBFHtautau13"] = boost::bind(boost::factory<muVBFHtautau*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muVBFpVHtautau13"] = boost::bind(boost::factory<muVBFpVHtautau*>(), _1, sqrt_s_LHC13);
     obsThFactory["muZHtautau13"] = boost::bind(boost::factory<muZHtautau*>(), _1, sqrt_s_LHC13);
     obsThFactory["muWHtautau13"] = boost::bind(boost::factory<muWHtautau*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVHtautau13"] = boost::bind(boost::factory<muVHtautau*>(), _1, sqrt_s_LHC13);
@@ -3300,6 +3302,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Betas_JPsiPhi"] = boost::factory<Betas_JPsiPhi*>();
     obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>();
     obsThFactory["DmK"] = boost::factory<DmK*>();
+    obsThFactory["ImADC2"] = boost::factory<ImADC2*>();
     /* BEGIN: REMOVE FROM THE PACKAGE */
     obsThFactory["M12D"] = boost::factory<M12D*>();
     obsThFactory["ArgD"] = boost::factory<ArgD*>();
@@ -3529,10 +3532,11 @@ ThObsFactory::ThObsFactory()
 /* BEGIN: REMOVE FROM THE PACKAGE */
     //----- B to X_q ll -----
     obsThFactory["R_BXsee"] = boost::bind(boost::factory<R_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
-    obsThFactory["Rhigh_BXsee"] = boost::bind(boost::factory<Rhigh_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["HT_BXsee"] = boost::bind(boost::factory<HT_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["HL_BXsee"] = boost::bind(boost::factory<HL_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["HA_BXsee"] = boost::bind(boost::factory<HA_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
+    obsThFactory["BR_BXsee"] = boost::bind(boost::factory<BR_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
+    obsThFactory["AFB_BXsee"] = boost::bind(boost::factory<AFB_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
 /* END: REMOVE FROM THE PACKAGE */
 
     //----- B to K* gamma  -----

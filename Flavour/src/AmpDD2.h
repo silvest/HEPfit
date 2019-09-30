@@ -12,6 +12,12 @@ class StandardModel;
 #include "OrderScheme.h"
 #include "gslpp.h"
 
+/**
+ * @addtogroup Flavour
+ * @brief A module for flavour observables.
+ * @{
+ */
+
 class AmpDD2 {
 /**
  * @brief \f$ | \Delta C = 2 | \f$ Amplitude Class

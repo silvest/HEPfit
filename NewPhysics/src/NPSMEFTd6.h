@@ -25,7 +25,7 @@
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
  * associated with the general dimension-six effective Lagrangian.
- * (Use the model name "NPSMEFTd6_LFU_QFU" to asumme lepton and quark flavour universality)
+ * (Use the model name "NPSMEFTd6_LFU_QFU" to assume lepton and quark flavour universality)
  *
  * In this class we consider the dimension-six effective Lagrangian
  * @f[
@@ -35,7 +35,7 @@
  * @f]
  * The implementation is written in the basis of \cite Grzadkowski:2010es.
  * For convenience, the parameterization also includes operators appearing in
- * other common bases. In particular, the complete set of parameters containts 4
+ * other common bases. In particular, the complete set of parameters contains 4
  * redundancies, given by the coefficients \f$C_{2B,2W,DHB,DHW,DB,DW} \f$,
  * which correspond to operators not included in the basis of \cite Grzadkowski:2010es.
  * For meaningful physical results one must make sure to include only

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+#######################################################################################
+## Create a directory called WORK (or anything) at the level of the Configurations   ##
+## folder and put this script there and run it. It is both Linux and Mac compatible. ##
+## Comment out the sbatch sbatch.sh line to suppress the submission command.         ##
+##                                                                                   ##
+## -- Ayan Paul (Nov 2018, Berlin)                                                   ##
+#######################################################################################
+
+# This one is for HLLHC only #
+
+vCOL=$1
+DOM=""
+BATCH="CONDOR"
+if [ ${BATCH} == 'SLURM' ]; then
+    EXE="/home/apaul/NetBeansProjects/HEPfit-B1/Analysis/dist/Debug_MPI/GNU-Linux/analysis"
+elif [ ${BATCH} == 'CONDOR' ]; then
+    EXE="/afs/desy.de/user/a/apaul/NetBeansProjects/HEPfit/Analysis/dist/Release_MPI/Intel-Linux/analysis"
+fi
+	
+mkdir -p HLLHC${vCOL}
+cd HLLHC${vCOL}
+mkdir -p Fit_HLLHC_{noZpole,ExactEW}_{S1,S2}
+
+for j in S1 S2
+do
+    for i in Fit_HLLHC_noZpole_${j} Fit_HLLHC_ExactEW_${j}
+    do
+	cd ${i}
+	rm -rf config && mkdir config
+	cp ../../../Configurations/config_HLLHC/*.conf config/.
+	mv config/MonteCarlo-${BATCH}.conf config/MonteCarlo.conf
+	rm config/MonteCarlo-*
+	sed -i.bak -e "/_${j}.conf/s/^# //" -e "/HLLHC_Full.conf/s/aTGC/aTGC${DOM}/" config/model.conf	
+	case ${i} in 
+	    Fit_HLLHC_noZpole_${j})
+		sed -i.bak -e "s/#QUARK# //" -e "s/QUARK_L/3.0/" -e "s/QUARK/1.0/" config/model.conf
+		sed -i.bak -e "s/#ZPOLE# //" -e "/CHe_/s/ZPOLE/2.0e-1/" -e "s/ZPOLE/6.0e-1/" -e "s/#EWP# //" config/model.conf
+		sed -i.bak -e "s/#EW# //" -e "s/12/27/" config/NPcouplings.conf
+		;;
+            Fit_HLLHC_ExactEW_${j})
+		sed -i.bak -e "s/#QUARK# //" -e "s/QUARK_L/0./" -e "s/QUARK/0./" config/model.conf
+		sed -i.bak -e "s/#ZPOLE# //" -e "s/ZPOLE_L/0./" -e "s/ZPOLE/0./" config/model.conf
+		sed -i.bak -e "/ObservablesEW/s/^/# /" config/model.conf
+		mv config/SMparameters-noerror.conf config/SMparameters.conf
+		;;
+	esac
+	rm -f config/*.bak config/SMparameters-noerror.conf analysis *.out *.err
+	ln -s ${EXE} .
+	# ./analysis config/model.conf --noMC
+	if [ ${BATCH} == 'SLURM' ]; then
+	    sed -e "s/NAME/${i}/" ../../../Configurations/sbatch.sh > sbatch.sh
+	    sbatch sbatch.sh
+	elif [ ${BATCH} == 'CONDOR' ]; then
+	    sed -e "/FAME/s/NAME/${i}/" ../../../Configurations/submit_condor.sh > submit_condor.sh
+	    sed -e "s#WORK_DIR#HLLHC${vCOL}/${i}#" ../../../Configurations/mpi-wrap.sh > mpi-wrap.sh
+	    condor_submit submit_condor.sh
+	fi
+	cd ..
+    done
+done
