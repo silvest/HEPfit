@@ -913,7 +913,7 @@ double a_1000_bb_eLpR::computeThValue()
     double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double C_bW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bW();
     double C_bB = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_bB();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+//    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
     double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
     double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
     double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();

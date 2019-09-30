@@ -20,10 +20,6 @@
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
 #include "EWSMOneLoopEW_HV.h"
-/* BEGIN: REMOVE FROM THE PACKAGE */
-#include "FeynHiggsWrapper.h"
-#include "EWSMTwoFermionsLEP2.h"
-/* END: REMOVE FROM THE PACKAGE */
 
 
 const double EWSUSY::Mw_unphysical = 2.0;
@@ -1317,14 +1313,8 @@ double EWSUSY::Mw_MSSM() const
     /* initial value for Mw */
     double Mw_org; 
     Mw_org = mySUSY.Mw_tree(); /** This is kep this way for packaging: MUST BE INSPECTED **/
-    /* BEGIN: REMOVE FROM THE PACKAGE */
-    if(mySUSY.IsFlag_FH()) Mw_org = mySUSY.getMyFH()->getMw_FHinput(); /** This is kep this way for packaging: MUST BE INSPECTED **/
-    /* END: REMOVE FROM THE PACKAGE */
     
     double Mw = Mw_MSSM_TMP(Mw_org);
-    //std::cout << std::endl << std::setprecision(12)
-    //          << "EWSUSY::Mw_MSSM(): Mw_org = " << Mw_org
-    //          << "  Mw_new = " << Mw << std::endl;
 
     if (Mw == Mw_unphysical) return Mw_unphysical;
 
@@ -1332,9 +1322,6 @@ double EWSUSY::Mw_MSSM() const
     while (fabs(Mw - Mw_org) > StandardModel::Mw_error) {
         Mw_org = Mw;
         Mw = Mw_MSSM_TMP(Mw);
-        //std::cout << std::setprecision(12)
-        //          << "EWSUSY::Mw_MSSM(): Mw_org = " << Mw_org
-        //          << "  Mw_new = " << Mw << std::endl;
 
         if (Mw == Mw_unphysical) return Mw_unphysical;
     }

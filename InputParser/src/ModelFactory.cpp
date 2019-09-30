@@ -24,8 +24,6 @@
 #include "HiggsKvgenKfgen.h"
 #include "HiggsKigen.h"
 #include "HiggsChiral.h"
-#include "GeneralSUSY.h"
-#include "SUSYMassInsertion.h"
 #include "SUSY.h"
 #include "THDM.h"
 #include "FlavourWilsonCoefficient.h"
@@ -35,11 +33,7 @@
 #include "NPDF2.h"
 #include "CMFV.h"
 #include "GeorgiMachacek.h"
-#include "LeftRightSymmetricModel.h"
 /* BEGIN: REMOVE FROM THE PACKAGE */
-#include "pMSSM.h"
-#include "MFV.h"
-#include "NPSTUVWXY.h"
 #include "GeneralTHDM.h"
 #include "THDMW.h"
 /* END: REMOVE FROM THE PACKAGE */
@@ -64,13 +58,8 @@ ModelFactory::ModelFactory()
     modelFactory["NPEffectiveGIMR"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), false, false);
     modelFactory["NPEffectiveGIMRprime"] = boost::bind(boost::factory<NPEffectiveGIMRprime*>(), false, false);
     modelFactory["NPSMEFTd6"] = boost::bind(boost::factory<NPSMEFTd6*>(), false, false);
-    
     modelFactory["NPSMEFT6dtopquark"] = boost::factory<NPSMEFT6dtopquark*>();
-
-    //modelFactory["NPSMEFT6dtopquark"] = boost::bind(boost::factory<NPSMEFT6dtopquark*>(), false, false);
     modelFactory["SigmaBR"] = boost::factory<SigmaBR*>();
-    //modelFactory["NPEffectiveGIMR_LFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), true, false);
-    //modelFactory["NPEffectiveGIMR_QFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), false, true);
     modelFactory["NPEffectiveGIMR_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), true, true);
     modelFactory["NPEffectiveGIMRprime_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveGIMRprime*>(), true, true);
     modelFactory["NPSMEFTd6_LFU_QFU"] = boost::bind(boost::factory<NPSMEFTd6*>(), true, true);
@@ -85,15 +74,9 @@ ModelFactory::ModelFactory()
     modelFactory["FlavourWilsonCoefficient_DF2"] = boost::factory<FlavourWilsonCoefficient_DF2*>();
     modelFactory["RealWeakEFTLFV"] = boost::factory<RealWeakEFTLFV*>();
     modelFactory["LoopMediators"] = boost::factory<LoopMediators*>();
-    modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
-    modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
-    modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
 /* BEGIN: REMOVE FROM THE PACKAGE */
-    modelFactory["MFV"] = boost::factory<MFV*>();
-    modelFactory["pMSSM"] = boost::factory<pMSSM*>();
-    modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
     modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
     modelFactory["THDMW"] = boost::factory<THDMW*>();
 /* END: REMOVE FROM THE PACKAGE */

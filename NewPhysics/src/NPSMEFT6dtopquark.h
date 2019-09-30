@@ -32,7 +32,7 @@ static const int NNPSMEFT6dtopquarkVars = 17;
    NPSMEFT6dtopquark();
    
    
-       /**
+    /**
      * @brief The parameter \f$\varepsilon_1\f$.
      * @return the SM value (FlagEpsilon1SM=true) or the SM plus new physics
      * value (FlagEpsilon1SM=false) of \f$\varepsilon_1\f$
@@ -148,12 +148,7 @@ static const int NNPSMEFT6dtopquarkVars = 17;
 ////////////////////////////////////////////////////////////////////////
 private:
 
-    bool flag_Quadratic;
-
-
-
-    
-
+    bool flag_Quadratic;   
 };
 
 
@@ -202,7 +197,6 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
-
 /**
  * @class C_phiQ1
  * @ingroup NPSMEFT6dtopquark 
@@ -224,8 +218,6 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
-
-
 
 /**
  * @class C_tW
@@ -249,8 +241,6 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
-
-
 /**
  * @class C_tB
  * @ingroup NPSMEFT6dtopquark 
@@ -273,8 +263,6 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
-
-
 /**
  * @class C_tphi
  * @ingroup NPSMEFT6dtopquark 
@@ -296,8 +284,6 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
-
-
 
 /**
  * @class C_phib
@@ -367,9 +353,6 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
-
-
-
 /**
  * @class C_phitb
  * @ingroup NPSMEFT6dtopquark 
@@ -391,13 +374,6 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
-
-
-
-
-
-
-
 
 /**
  * @class C_ed
@@ -421,14 +397,6 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
-
-
-
-
-
-
-
-
 /**
  * @class C_eq
  * @ingroup NPSMEFT6dtopquark 
@@ -451,15 +419,6 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
-
-
-
-
-
-
-
-
-
 /**
  * @class C_ld
  * @ingroup NPSMEFT6dtopquark 
@@ -481,18 +440,6 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * @class C_lqP
@@ -929,18 +876,6 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 //Prospects of Linear Colders at 1000 GeV
 //1000 bb observables
 
@@ -995,25 +930,6 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //OPTIMIZED OBSERVABLES
 
 
@@ -1040,8 +956,6 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
-
-
 
 class op3 : public ThObservable {
 public:   

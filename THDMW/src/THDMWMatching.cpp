@@ -80,29 +80,6 @@ std::vector<WilsonCoefficient>& THDMWMatching::CMBMll(QCD::lepton lepton)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 gslpp::complex THDMWMatching::C10NP(double xt, double xS , gslpp::complex etaU) {
     
     gslpp::complex C10 = etaU.abs2()*(pow(xt,2)/6)*(1/(xS-xt)+(xS/pow(xS-xt,2))*(log(xt)-log(xS)));
@@ -130,16 +107,6 @@ gslpp::complex THDMWMatching::CPNP(double xt, double xS, gslpp::complex etaU, gs
     +etaU.abs2()*(1-sW2)*pow(xt,2)*(xS*(log(xS)-log(xt))+xt-xS)/(3*pow(xS-xt,2));
     return CP;
     }
-
-
-
-
-
-
-
-
-
-
 
 
 //For including the contribution to DelB_s we'll use the result of 1504.00839. 

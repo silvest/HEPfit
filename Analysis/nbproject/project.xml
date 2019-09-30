@@ -16,14 +16,10 @@
                 <make-dep-project>../StandardModel</make-dep-project>
                 <make-dep-project>../MonteCarlo</make-dep-project>
                 <make-dep-project>../LoopFunctions</make-dep-project>
-                <make-dep-project>../GeneralSUSY</make-dep-project>
                 <make-dep-project>../SUSY</make-dep-project>
                 <make-dep-project>../ComputeObservables</make-dep-project>
                 <make-dep-project>../Observables</make-dep-project>
                 <make-dep-project>../GeorgiMachacek</make-dep-project>
-                <make-dep-project>../SUSYMassInsertion</make-dep-project>
-                <make-dep-project>../MFV</make-dep-project>
-                <make-dep-project>../pMSSM</make-dep-project>
                 <make-dep-project>../EventGeneration</make-dep-project>
                 <make-dep-project>../THDM</make-dep-project>
                 <make-dep-project>../GeneralTHDM</make-dep-project>
@@ -37,35 +33,11 @@
             <sourceRootList/>
             <confList>
                 <confElem>
-                    <name>Debug_MPI</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
                     <name>Release_MPI</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Debug</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
                     <name>Release</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Cluster</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Cluster_MPI</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Schwinger_MPI</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>ArchLinux_MPI</name>
                     <type>1</type>
                 </confElem>
             </confList>

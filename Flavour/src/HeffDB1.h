@@ -10,7 +10,6 @@
 
 class StandardModel;
 class StandardModelMatching;
-class EvolDF1nlep;
 class EvolDB1Mll;
 class EvolDB1bsg;
 class EvolBsmm;
@@ -191,14 +190,6 @@ public:
         return *evolbd;
     }
     
-    EvolDF1nlep& getUDF1() const {
-        return *u;
-    }
-    
-    EvolDB1Mll& getUDF1BMll() const {
-        return *evolDF1BMll;
-    }
-    
     EvolDB1bsg& getUDB1bsg() const {
         return *evolDB1bsg;
     }
@@ -221,11 +212,9 @@ private :
     WilsonCoefficient coeffBMll, coeffprimeBMll;
     std::unique_ptr<EvolDB1Mll> evolDF1BMll;
     std::unique_ptr<EvolDB1bsg> evolDB1bsg;
-    std::unique_ptr<EvolDF1nlep> u;
     std::unique_ptr<EvolBsmm> evolbs;
     std::unique_ptr<EvolBsmm> evolbd;
     
-    //StandardModelMatching& standardmodelmatching;
     
     double Bsgamma_mu_cache;
     unsigned int Bsgamma_order_ini_cache;

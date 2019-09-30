@@ -12,9 +12,6 @@
 #include "SUSY.h"
 #include "SUSYSpectrum.h"
 #include "EWSUSY.h"
-/* BEGIN: REMOVE FROM THE PACKAGE */
-#include "FeynHiggsWrapper.h"
-/* END: REMOVE FROM THE PACKAGE */
 
 
 const std::string SUSY::SUSYvars[NSUSYvars] = {
@@ -51,9 +48,6 @@ SUSY::SUSY()
 SUSY::~SUSY() 
 {
     if (IsModelInitialized()) {
-/* BEGIN: REMOVE FROM THE PACKAGE */
-        if (myFH != NULL) delete(myFH);
-/* END: REMOVE FROM THE PACKAGE */
         if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
         if (myEWSUSY != NULL) delete(myEWSUSY);
     }
@@ -65,10 +59,6 @@ bool SUSY::InitializeModel()
 {
     if (!flag_h) mySUSYSpectrum = new SUSYSpectrum(*this);
     else mySUSYSpectrum = NULL;
-/* BEGIN: REMOVE FROM THE PACKAGE */
-    if (flag_h) myFH = new FeynHiggsWrapper(*this);
-    else myFH = NULL;
-/* END: REMOVE FROM THE PACKAGE */
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
     setModelInitialized(StandardModel::InitializeModel());
@@ -122,11 +112,6 @@ bool SUSY::PostUpdate()
     
     /* Compute Higgs and sparticle spectra with FeynHiggs */
     if (IsFlag_FH()) {
-/* BEGIN: REMOVE FROM THE PACKAGE */
-        if(!myFH->SetFeynHiggsPars()) return (false);
-        if(!myFH->CalcHiggsSpectrum()) return (false);
-        if(!myFH->CalcSpectrum()) return (false); /* FH does not calculate Sneutrino masses. */
-/* END: REMOVE FROM THE PACKAGE */
     }
     else {
     /* Compute Higgs and sparticle spectra without FeynHiggs */
@@ -180,8 +165,6 @@ bool SUSY::PostUpdate()
     if(!mySUSYSpectrum->CalcSelectron(Rl,m_se2)) return (false);
     mySUSYSpectrum->SortSfermionMasses(m_se2, Rl);
     }
-
-//    std::cout<<"muH S = "<<muH<<std::endl;
 
     /* Set the mass of the SM-like Higgs */
     /* allowed range for the use of EWSMApproximateFormulae class */
@@ -379,9 +362,6 @@ double SUSY::v2() const
 
 double SUSY::getMGl() const
 {
-/* BEGIN: REMOVE FROM THE PACKAGE */
-    if (IsFlag_FH()) return myFH->getMGl();
-/* END: REMOVE FROM THE PACKAGE */
     return m3;
 }
 
@@ -396,16 +376,5 @@ double SUSY::Mw() const
 
 double SUSY::Mw_dRho() const
 {
-/* BEGIN: REMOVE FROM THE PACKAGE */
-    //double delRho = myFH->getFHdeltarho();
-    //std::cout << "DeltaRho = " << delRho << std::endl;
-
-    /* Delta rho approximation */
-    double Mw_SM = StandardModel::Mw();
-    double cW2_SM = Mw_SM*Mw_SM/Mz/Mz;
-    double sW2_SM = 1.0 - cW2_SM;
-    if (IsFlag_FH()) return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
-    throw std::runtime_error("SUSY::Mw_dRho(): set Flag_FH to true to use Mw_dRho()");
-/* END: REMOVE FROM THE PACKAGE */
     return 0.;
 }

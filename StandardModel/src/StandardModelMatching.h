@@ -642,13 +642,6 @@ public:
 
     virtual double S0(double, double) const;
 
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: L (2)
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    virtual std::vector<WilsonCoefficientNew>& CMDF1(std::string blocks, unsigned int nops);
-
     double getMt_mut() const {
         return Mt_mut;
     }
@@ -658,7 +651,6 @@ protected:
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu;
     std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j, vmcmueconv, vmcgminus2mu;
-    std::vector<WilsonCoefficientNew> vmcDF1;
 
     
 private:    
@@ -671,7 +663,6 @@ private:
     WilsonCoefficient mcbsg, mcprimebsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mcbtaunu;
     WilsonCoefficient mcDLij, mcDLi3j, mcmueconv, mcgminus2mu;
-    WilsonCoefficientNew mcC, mcP, mcM, mcL, mcQ, mcB;
     
     double Mut, Muw, Ale, GF, Mw_tree, Nc, CF, Mt_muw, Mt_mut;
     double gamma0, J5, BtNDR, Mw, sW2, mu_b;
@@ -842,8 +833,6 @@ private:
      */
     double C8funLO(double x);
 
-    unsigned int setCMDF1(WilsonCoefficientNew& CMDF1, WilsonCoefficientNew& DF1block, unsigned int tot, schemes scheme, qcd_orders order_qcd, qed_orders order_qed);
-
     /**
      * 
      * @brief auxiliary function for mc_L() 
@@ -876,51 +865,6 @@ private:
      * @return return the function  \f$ \Delta_t(\mu, x) \f$ from hep-ph/9707243 
      */    
     double Delta_t(double mu, double x);
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: C (2)
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    WilsonCoefficientNew& mc_C();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: P (4)
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    WilsonCoefficientNew& mc_P();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: M (2)
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     * QED only available at NLO and in approximate formulas
-     * QED ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058
-     */
-    WilsonCoefficientNew& mc_M();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: L (2)
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    WilsonCoefficientNew& mc_L();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: Q (4)
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     * QED_NLO ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058 - COULD BE CHANGED TO X,Y,W
-     */
-    WilsonCoefficientNew& mc_Q();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: B (1)
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    WilsonCoefficientNew& mc_B();
 
     friend double gslpp_special_functions::dilog(double x);
     friend double gslpp_special_functions::clausen(double x);

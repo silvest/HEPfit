@@ -11,7 +11,6 @@
 #include "MVll.h"
 #include "MPll.h"
 #include "HeffDF2.h"
-#include "HeffDS1.h"
 #include "HeffDB1.h"
 #include "MVgamma.h"
 #include "MVlnu.h"
@@ -28,11 +27,6 @@ Flavour::Flavour(const StandardModel& SM_i)
 HeffDF2& Flavour::getHDF2() const
 {
     return *getPtr<HeffDF2>(HDF2);
-}
-
-HeffDS1& Flavour::getHDS1() const
-{
-    return *getPtr<HeffDS1>(HDS1);
 }
 
 HeffDB1& Flavour::getHDB1() const
@@ -63,21 +57,6 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffK(double mu, schemes scheme
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffmK(double mu, schemes scheme) const
 {
     return getPtr<HeffDF2>(HDF2)->ComputeCoeffmK(mu, scheme);
-}
-
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1PP(double mu, schemes scheme) const
-{
-    return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1PP(mu, scheme);
-}
-
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1pnunu() const
-{
-    return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1pnunu();
-}
-
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1mumu() const
-{
-    return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1mumu();
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsmumu(double mu, schemes scheme) const

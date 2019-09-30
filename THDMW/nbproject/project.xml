@@ -12,15 +12,7 @@
             <sourceRootList/>
             <confList>
                 <confElem>
-                    <name>Debug</name>
-                    <type>3</type>
-                </confElem>
-                <confElem>
                     <name>Release</name>
-                    <type>3</type>
-                </confElem>
-                <confElem>
-                    <name>ArchLinux</name>
                     <type>3</type>
                 </confElem>
             </confList>

@@ -8,9 +8,6 @@
 #ifndef SUSYOBSERVABLES_H
 #define	SUSYOBSERVABLES_H
 
-/* BEGIN: REMOVE FROM THE PACKAGE */
-#include "OutputSLHAfromFH.h"
-/* END: REMOVE FROM THE PACKAGE */
 #include "Mhiggs.h"
 #include "Msup.h"
 #include "Msdown.h"
