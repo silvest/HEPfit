@@ -5,7 +5,7 @@
 #   sh makePackage.sh --doxygen : generate Doxygen documentations
 #
 
-VERSION="master"
+VERSION="v1.0"
 
 ###########################################################
 # Original source codes
@@ -219,6 +219,7 @@ if [ $CUSTOM -gt 0 ]; then
 fi
 echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}-${COMMIT}"
 tar zcf HEPfit-${VERSION}-${COMMIT}.tar.gz HEPfit-${VERSION}-${COMMIT}
+rm -rf HEPfit-${VERSION}-${COMMIT}
 
 ###########################################################
 # Documentation

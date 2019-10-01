@@ -31,7 +31,7 @@
 
 *~
 */*.dep.inc
-*.tar.gz
+# *.tar.gz
 *.tgz
 */src/*~
 Analysis/*.ps
@@ -71,8 +71,8 @@ Analysis/Observables/
 *.toc
 *.spl
 
-#Packaging
-Packaging/HEPfit*
+# Packaging
+# Packaging/HEPfit*
 
 #ZFitter
 ZFitter*
