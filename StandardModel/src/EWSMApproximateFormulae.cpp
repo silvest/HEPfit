@@ -1488,7 +1488,7 @@ double EWSMApproximateFormulae::sin2thetaEff_b_full() const
     double LH = log(mycache.getSM().getMHl() / 125.7);
     double LH2 = LH * LH;
     
-    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
+//    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
     
     double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
     
@@ -1539,7 +1539,7 @@ double EWSMApproximateFormulae::sin2thetaEff_l_full() const
     double LH = log(mycache.getSM().getMHl() / 125.7);
     double LH2 = LH * LH;
     
-    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
+//    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
     
     double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
     

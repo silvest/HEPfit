@@ -22,10 +22,8 @@
 #include "GeorgiMachacekObservables.h"
 #include "LoopMediators.h"
 #include "THDMObservables.h"
-/* BEGIN: REMOVE FROM THE PACKAGE */
 #include "GeneralTHDMObservables.h"
 #include "THDMWObservables.h"
-/* END: REMOVE FROM THE PACKAGE */
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 
@@ -4259,7 +4257,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitaritya11oddRe"] = boost::factory<unitaritya11oddRe*>();
     obsThFactory["unitaritya11oddIm"] = boost::factory<unitaritya11oddIm*>();
 
-    /* BEGIN: REMOVE FROM THE PACKAGE */
     //-----  GeneralTHDM observables  -----
     obsThFactory["mH1"] = boost::factory<mH1_GTHDM*>();
     obsThFactory["mH2"] = boost::factory<mH2_GTHDM*>();
@@ -4702,10 +4699,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_Hp_tb_TH8_GTHDM"] = boost::factory<log10_pp_Hp_tb_TH8_GTHDM*>();
     obsThFactory["log10_pp_Hpm_tb_TH13_GTHDM"] = boost::factory<log10_pp_Hpm_tb_TH13_GTHDM*>();
 
-        /* END: REMOVE FROM THE PACKAGE */
-
-
-    /* BEGIN: REMOVE FROM THE PACKAGE */
     //-----  THDMW model observables  -----
     obsThFactory["Q_stTHDMW"] = boost::factory<Q_stTHDMW*>();
     obsThFactory["DeltaQ_THDMW"] = boost::factory<DeltaQ_THDMW*>();
@@ -4864,8 +4857,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DeltaS_THDMW"] = boost::factory<THDMWDeltaS*>();
     obsThFactory["DeltaT_THDMW"] = boost::factory<THDMWDeltaT*>();
     obsThFactory["DeltaU_THDMW"] = boost::factory<THDMWDeltaU*>();
-
-    /* END: REMOVE FROM THE PACKAGE */
 
     //-----  GeorgiMachacek observables  -----
     //-----  GeorgiMachacek quantities -----

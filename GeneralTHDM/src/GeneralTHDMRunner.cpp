@@ -42,7 +42,7 @@ int RGEsGTHDM(double t, const double y[], double beta[], void *flags)
     double la6=y[19];
     double la7=y[20];
 
-    double pi=M_PI;
+//    double pi=M_PI;
 
     //beta_g1
     beta[0] = 7.*g1*g1*g1;
@@ -230,11 +230,11 @@ int RGEcheckGTHDM(const double InitialValues[], const double t1, const double Rp
 
     double la1Q = InitialValues[14];
     double la2Q = InitialValues[15];
-    double la3Q = InitialValues[16];
-    double la4Q = InitialValues[17];
-    double la5Q = InitialValues[18];
-    double la6Q = InitialValues[19];
-    double la7Q = InitialValues[20];
+//    double la3Q = InitialValues[16];
+//    double la4Q = InitialValues[17];
+//    double la5Q = InitialValues[18];
+//    double la6Q = InitialValues[19];
+//    double la7Q = InitialValues[20];
 
     //positivity checks
     if(la1Q<0.0) check=1;

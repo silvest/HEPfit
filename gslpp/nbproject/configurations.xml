@@ -10,7 +10,6 @@
       <itemPath>src/gslpp_matrix_base.h</itemPath>
       <itemPath>src/gslpp_matrix_complex.h</itemPath>
       <itemPath>src/gslpp_matrix_double.h</itemPath>
-      <itemPath>src/gslpp_rgerunner.h</itemPath>
       <itemPath>src/gslpp_special_functions.h</itemPath>
       <itemPath>src/gslpp_vector_base.h</itemPath>
       <itemPath>src/gslpp_vector_complex.h</itemPath>
@@ -27,7 +26,6 @@
       <itemPath>src/gslpp_complex.cpp</itemPath>
       <itemPath>src/gslpp_matrix_complex.cpp</itemPath>
       <itemPath>src/gslpp_matrix_double.cpp</itemPath>
-      <itemPath>src/gslpp_rgerunner.cpp</itemPath>
       <itemPath>src/gslpp_special_functions.cpp</itemPath>
       <itemPath>src/gslpp_vector_complex.cpp</itemPath>
       <itemPath>src/gslpp_vector_double.cpp</itemPath>
@@ -75,6 +73,7 @@
           <developmentMode>6</developmentMode>
           <standard>8</standard>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -145,10 +144,6 @@
       <item path="src/gslpp_matrix_double.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gslpp_matrix_double.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/gslpp_rgerunner.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/gslpp_rgerunner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_special_functions.cpp" ex="false" tool="1" flavor2="0">
       </item>

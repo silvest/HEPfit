@@ -5,10 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/DiBosonThObservables.h</itemPath>
-      <itemPath>src/EW_ABC.h</itemPath>
-      <itemPath>src/EW_BURGESS.h</itemPath>
-      <itemPath>src/EW_CHMN.h</itemPath>
-      <itemPath>src/EW_TEST.h</itemPath>
       <itemPath>src/HiggsChiral.h</itemPath>
       <itemPath>src/HiggsKigen.h</itemPath>
       <itemPath>src/HiggsKvKf.h</itemPath>
@@ -41,10 +37,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/DiBosonThObservables.cpp</itemPath>
-      <itemPath>src/EW_ABC.cpp</itemPath>
-      <itemPath>src/EW_BURGESS.cpp</itemPath>
-      <itemPath>src/EW_CHMN.cpp</itemPath>
-      <itemPath>src/EW_TEST.cpp</itemPath>
       <itemPath>src/HiggsChiral.cpp</itemPath>
       <itemPath>src/HiggsKigen.cpp</itemPath>
       <itemPath>src/HiggsKvKf.cpp</itemPath>
@@ -94,6 +86,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
+          <developmentMode>6</developmentMode>
           <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
@@ -105,6 +98,7 @@
             <pElem>../Flavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -118,22 +112,6 @@
       <item path="src/DiBosonThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/DiBosonThObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -21,30 +21,24 @@ fi
 # List of Netbeans projects
 
 PROJECTARRAY=()
-#PROJECTARRAY+=( "Analysis" )
 PROJECTARRAY+=( "ComputeObservables" )
 PROJECTARRAY+=( "EventGeneration" )
 PROJECTARRAY+=( "EW" )
 PROJECTARRAY+=( "Flavour" )
 PROJECTARRAY+=( "FlavourWilsonCoefficient" )	
-PROJECTARRAY+=( "GeneralSUSY" )	
+PROJECTARRAY+=( "GeneralTHDM" )	
 PROJECTARRAY+=( "GeorgiMachacek" )	
 PROJECTARRAY+=( "gslpp" )
 PROJECTARRAY+=( "InputParser" )
 PROJECTARRAY+=( "LeptonFlavour" )	
 PROJECTARRAY+=( "LoopFunctions" )
-#PROJECTARRAY+=( "MFV" )	
 PROJECTARRAY+=( "MonteCarlo" )
 PROJECTARRAY+=( "NewPhysics" )	
 PROJECTARRAY+=( "Observables" )
-#PROJECTARRAY+=( "pMSSM" )	
 PROJECTARRAY+=( "StandardModel" )
 PROJECTARRAY+=( "SUSY" )	
-PROJECTARRAY+=( "SUSYMassInsertion" )	
-PROJECTARRAY+=( "THDM" )	
-PROJECTARRAY+=( "LeftRightSymmetricModel" )	
-#PROJECTARRAY+=( "Utils" )	
-#PROJECTARRAY+=( "ZFitterWrapper" )
+PROJECTARRAY+=( "THDM" )
+PROJECTARRAY+=( "THDMW" )	
 
 ###########################################################
 # input and output directories
@@ -110,25 +104,25 @@ cp -af ${ORGDIR}/doc/LICENSE ${OUTDIR}/doc/
 # rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2_Hollik.*
 # rm -f ${OUTDIR}/StandardModel/src/EWSM_Output.*
 # rm -f ${OUTDIR}/EW/src/LEP2*
-rm -f ${OUTDIR}/NewPhysics/src/EW_ABC.*
-rm -f ${OUTDIR}/NewPhysics/src/EW_BURGESS.*
-rm -f ${OUTDIR}/NewPhysics/src/EW_CHMN.*
-rm -f ${OUTDIR}/NewPhysics/src/EW_TEST.*
-rm -f ${OUTDIR}/NewPhysics/src/NPSTUVWXY.*
+# rm -f ${OUTDIR}/NewPhysics/src/EW_ABC.*
+# rm -f ${OUTDIR}/NewPhysics/src/EW_BURGESS.*
+# rm -f ${OUTDIR}/NewPhysics/src/EW_CHMN.*
+# rm -f ${OUTDIR}/NewPhysics/src/EW_TEST.*
+# rm -f ${OUTDIR}/NewPhysics/src/NPSTUVWXY.*
 
 #FLAVORFILES="AmpDD2.cpp AmpDD2.h AmpDS1.cpp AmpDS1.h ArgD.h BR_Bdnunu.cpp BR_Bdnunu.h BR_Bsnunu.cpp BR_Bsnunu.h BR_Kmumu.cpp BR_Kmumu.h BR_Kp0nunu.cpp BR_Kp0nunu.h BR_Kppnunu.cpp BR_Kppnunu.h CPenguinBox.cpp CPenguinBox.h CPenguinBoxMu.cpp CPenguinBoxMu.h Charm_Kpnunu.cpp Charm_Kpnunu.h EpsilonP_O_Epsilon.cpp EpsilonP_O_Epsilon.h EvolDC1.cpp EvolDC1.h EvolDC1Buras.cpp EvolDC1Buras.h EvolDF1nlep.cpp EvolDF1nlep.h HeffDC1.cpp HeffDC1.h HeffDF1bnlep.cpp HeffDF1bnlep.h HeffDS1.cpp HeffDS1.h M12D.h"
-SUSYFILES="FeynHiggsWrapper.cpp FeynHiggsWrapper.h OutputSLHAfromFH.h"
+# SUSYFILES="FeynHiggsWrapper.cpp FeynHiggsWrapper.h OutputSLHAfromFH.h"
 # FLAVOURFILES="F_1.h F_2.h hpl.h BXqll.cpp BXqll.h BXqllObservables.cpp BXqllObservables.h"
 
-for SUSY in $SUSYFILES
-do
-rm -f ${OUTDIR}/SUSY/src/${SUSY}
-done
-
-for FLAVOUR in $FLAVOURFILES
-do
-    rm -f ${OUTDIR}/Flavour/src/${FLAVOUR}
-done
+# for SUSY in $SUSYFILES
+# do
+# rm -f ${OUTDIR}/SUSY/src/${SUSY}
+# done
+#
+# for FLAVOUR in $FLAVOURFILES
+# do
+#     rm -f ${OUTDIR}/Flavour/src/${FLAVOUR}
+# done
 
 ###########################################################
 # generate CMakeLists.txt in each project
@@ -202,7 +196,6 @@ eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/EventGeneration/EventGen
 # Modify source codes
 
 echo "modifying source codes..."
-#MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h ${OUTDIR}/Flavour/src/FlavourObservables.h ${OUTDIR}/SUSY/src/SUSY.cpp ${OUTDIR}/SUSY/src/SUSY.h ${OUTDIR}/SUSY/src/SUSYObservables.h ${OUTDIR}/SUSY/src/EWSUSY.cpp"
 MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/Flavour/src/FlavourObservables.h ${OUTDIR}/SUSY/src/SUSY.cpp ${OUTDIR}/SUSY/src/SUSY.h ${OUTDIR}/SUSY/src/SUSYObservables.h ${OUTDIR}/SUSY/src/EWSUSY.cpp"
 for MODFILE in $MODFILELIST
 do

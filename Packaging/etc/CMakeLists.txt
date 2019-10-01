@@ -11,8 +11,6 @@
 #   -DMPIBAT:BOOL=<ON or OFF>
 #   -DBAT_INSTALL:BOOL=<ON or OFF>
 #   -DBAT_INSTALL_DIR:PATH=<BAT installation directory>
-#   -DLOOPTOOLS:BOOL=<ON or OFF>
-#   -DLOOPTOOLS_DIR:PATH=<LoopTools directory>
 #   -DINTEL_FORTRAN:BOOL=<ON or OFF>
 #--------------------------------------------------------------------
 cmake_minimum_required(VERSION 2.6)
@@ -36,7 +34,6 @@ option(NOMCMC "No MCMC mode" OFF)
 option(MPICXX "Use MPI" OFF)
 option(MPIBAT "Use MPI BAT" OFF)
 option(BAT_INSTALL "Download and install BAT" OFF)
-option(LOOPTOOLS "Use LoopTools library" OFF)
 option(INTEL_FORTRAN "Use ifort libraries" OFF)
 
 # Local installation option
@@ -361,85 +358,6 @@ unset(LBAT CACHE)
 
 endif(NOT NOMCMC)
 
-##########  LoopTools  ##########
-
-if(LOOPTOOLS)
-  add_definitions(-DUSE_LOOPTOOLS)
-  if(NOT LOOPTOOLS_DIR)
-    find_path(TMP_INC "clooptools.h")
-    find_library(TMP_LIB ooptools)
-  else()
-    set(LOOPTOOLS_DIR ${LOOPTOOLS_DIR} CACHE PATH "LoopTools directory" FORCE)
-    find_path(TMP_INC "clooptools.h" PATHS ${LOOPTOOLS_DIR}/include NO_DEFAULT_PATH)
-    find_library(TMP_LIB ooptools PATHS ${LOOPTOOLS_DIR} NO_DEFAULT_PATH PATH_SUFFIXES lib lib32 lib64)
-  endif()
-  if(TMP_INC AND TMP_LIB)
-    if(NOT LOOPTOOLS_DIR)
-      string(REGEX REPLACE "/include$" "" TMP_INC_PATH ${TMP_INC})
-      set(LOOPTOOLS_DIR "${TMP_INC_PATH}" CACHE PATH "LoopTools directory")
-    endif()
-    string(REGEX REPLACE "/libooptools.*$" "" TMP_LIB_PATH ${TMP_LIB})
-    set(LOOPTOOLS_LIB_PATH ${TMP_LIB_PATH})
-    unset(TMP_LIB_PATH)
-    message(STATUS "Found LoopTools headers in ${LOOPTOOLS_DIR}/include and libs in ${LOOPTOOLS_LIB_PATH}")
-  else()
-    message(FATAL_ERROR "LoopTools headers and/or libs could not be found. Please specify the LoopTools path with ${RedBold}-DLOOPTOOLS_DIR=<LoopTools installation path>${ColReset}.")
-  endif()
-  unset(TMP_INC CACHE)
-  unset(TMP_LIB CACHE)
-endif(LOOPTOOLS)
-
-##########  FeynHiggs  ##########
-#
-#option(FH_INSTALL "Install FeynHiggs" OFF)
-#if(NOT FH_INSTALL_DIR)
-#  set(FH_INSTALL_DIR /usr/local)
-#endif()
-#if(NOT IS_ABSOLUTE ${FH_INSTALL_DIR})
-#   set(FH_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/${FH_INSTALL_DIR})
-#endif()
-#STRING(REGEX REPLACE "^~" "$ENV{HOME}" FH_INSTALL_DIR ${FH_INSTALL_DIR})
-#
-#message(STATUS "looking for FeynHiggs in ${FH_INSTALL_DIR}")
-#find_path(IFH "CFeynHiggs.h" PATHS ${FH_INSTALL_DIR}/include NO_DEFAULT_PATH)
-#find_library(LFH NAMES libFH.a FH PATHS ${FH_INSTALL_DIR} NO_DEFAULT_PATH PATH_SUFFIXES lib lib32 lib64)
-#if(IFH AND LFH)
-#  set(FH_INC ${IFH})
-#  string(REGEX REPLACE "/libFH.*$" "" FH_LIB ${LFH})
-#  message(STATUS "Found FeynHiggs include in ${FH_INC}")
-#  message("   and libs in ${FH_LIB}")
-#else(IFH AND LFH)
-#  if(NOT FH_INSTALL)
-#    message(FATAL_ERROR "FeynHiggs include files and libs could not be found. Please specify the correct path to FeynHiggs with -DFH_INSTALL_DIR=<FeynHiggs installation path> or install FeynHiggs with the option -DFH_INSTALL=on, where I'll download and install FeynHiggs at the default location /usr/local/. If you want me to install FeynHiggs at a custom location, you can specify it with -DFH_INSTALL_DIR=<FeynHiggs installation path>")
-#  endif()
-#endif(IFH AND LFH)
-#
-#if(FH_INSTALL)
-#  if(NOT IFH OR NOT LFH)
-#    message(STATUS "${MagentaBold}I'll download and install FeynHiggs into ${FH_INSTALL_DIR}.${ColReset}")
-#    set(CONFIGURE_FH ./configure --prefix=${FH_INSTALL_DIR})
-#    set(FH_INC ${FH_INSTALL_DIR}/include)
-#    set(FH_LIB ${FH_INSTALL_DIR}/lib ${FH_INSTALL_DIR}/lib32 ${FH_INSTALL_DIR}/lib64)
-#    include(ExternalProject)
-#    ExternalProject_Add(
-#      FHBUILD
-#      PREFIX FHBUILD
-#      SOURCE_DIR FHBUILD/src
-#      STAMP_DIR FHBUILD/src
-#      BINARY_DIR FHBUILD/src
-#      INSTALL_DIR FHBUILD/src
-#      URL http://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.10.0.tar.gz
-#      CONFIGURE_COMMAND ${CONFIGURE_FH}
-#      BUILD_COMMAND make
-#      INSTALL_COMMAND make install
-#      )
-#  endif()
-#endif()
-#
-##message("FH_INC: ${FH_INC}")
-##message("FH_LIB: ${FH_LIB}")
-##message("LFH: ${LFH}")
-
 ##########  DEBUG  ##########
 
 if(DEBUG_MODE)
@@ -458,8 +376,6 @@ if(DEBUG_MODE)
   message("  MPIBAT:BOOL = ${MPIBAT}")
   message("  BAT_INSTALL:BOOL = ${BAT_INSTALL}")
   message("  BAT_INSTALL_DIR:PATH = ${BAT_INSTALL_DIR}")
-  message("  LOOPTOOLS:BOOL = ${LOOPTOOLS}")
-  message("  LOOPTOOLS_DIR:PATH = ${LOOPTOOLS_DIR}")
   message("  INTEL_FORTRAN:BOOL = ${INTEL_FORTRAN}")
 
   message("\nNormal variables:")
@@ -483,7 +399,6 @@ if(DEBUG_MODE)
   message("  BAT_MAKE = ${BAT_MAKE}")
   message("  BAT_INCLUDE_PATH = ${BAT_INCLUDE_PATH}")
   message("  BAT_LIB_PATH = ${BAT_LIB_PATH}")
-  message("  LOOPTOOLS_LIB_PATH = ${LOOPTOOLS_LIB_PATH}")
   message("  LFORTRAN = ${LFORTRAN}")
   message("")
 
@@ -491,7 +406,7 @@ endif(DEBUG_MODE)
 
 ##############################
 
-set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM GeorgiMachacek LeftRightSymmetricModel StandardModel LoopFunctions SUSYMassInsertion gslpp)
+set(PROJECTLIST ComputeObservables EventGeneration EW Flavour FlavourWilsonCoefficient GeneralTHDM GeorgiMachacek gslpp InputParser LeptonFlavour LoopFunctions NewPhysics Observables StandardModel SUSY THDM THDMW)
 
 if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
@@ -544,9 +459,6 @@ else()
   if(NOT NOMCMC)
     include_directories(${BAT_INCLUDE_PATH})
   endif(NOT NOMCMC)
-  if(LOOPTOOLS)
-    include_directories(${LOOPTOOLS_DIR}/include)
-  endif(LOOPTOOLS)
   include_directories(${BOOST_INC})
   foreach(_project ${PROJECTLIST})
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/${_project}/src)
@@ -607,16 +519,7 @@ set(EXAMPLE_RPATHS "-Wl,-rpath,${ROOT_LIB_PATH} ${EXAMPLE_RPATHS}")
 if(MPI_LIB_PATH)
   set(EXAMPLE_RPATHS "-Wl,-rpath,${MPI_LIB_PATH} ${EXAMPLE_RPATHS}")
 endif(MPI_LIB_PATH)
-if(LOOPTOOLS)
-  set(EXAMPLE_CXXFLAGS "-I${LOOPTOOLS_DIR}/include ${EXAMPLE_CXXFLAGS}")
-  set(EXAMPLE_LIBS "-L${LOOPTOOLS_LIB_PATH} -looptools -l${LFORTRAN} ${EXAMPLE_LIBS}")
-  set(EXAMPLE_RPATHS "-Wl,-rpath,${LOOPTOOLS_LIB_PATH} ${EXAMPLE_RPATHS}")
-endif(LOOPTOOLS)
-#
-#set(EXAMPLE_CXXFLAGS "-I${FH_INC} ${EXAMPLE_CXXFLAGS}")
-#set(EXAMPLE_LIBS "-L${FH_LIB} -lFH ${EXAMPLE_LIBS}")
-#set(EXAMPLE_RPATHS "-Wl,-rpath,${FH_LIB} ${EXAMPLE_RPATHS}")
-#
+
 set(EXAMPLE_NOMCMC_CXXFLAGS "${EXAMPLE_CXXFLAGS}")
 set(EXAMPLE_NOMCMC_LIBS "${EXAMPLE_LIBS}")
 set(EXAMPLE_NOMCMC_RPATHS "${EXAMPLE_RPATHS}")

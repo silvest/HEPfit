@@ -33,10 +33,8 @@
 #include "NPDF2.h"
 #include "CMFV.h"
 #include "GeorgiMachacek.h"
-/* BEGIN: REMOVE FROM THE PACKAGE */
 #include "GeneralTHDM.h"
 #include "THDMW.h"
-/* END: REMOVE FROM THE PACKAGE */
 #include <boost/bind.hpp>
 
 ModelFactory::ModelFactory()
@@ -76,10 +74,8 @@ ModelFactory::ModelFactory()
     modelFactory["LoopMediators"] = boost::factory<LoopMediators*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
-/* BEGIN: REMOVE FROM THE PACKAGE */
     modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
     modelFactory["THDMW"] = boost::factory<THDMW*>();
-/* END: REMOVE FROM THE PACKAGE */
 }
 
 void ModelFactory::addModelToFactory(const std::string name, boost::function<StandardModel*() > funct)
