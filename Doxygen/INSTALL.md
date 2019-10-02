@@ -1,7 +1,7 @@
 Installation   {#PageInstallation}
 ===================================================================
 
-version VERSIONNUMBER
+version 1.0
 -----------
 
 You can find here a short description of what to do to be able to compile 
