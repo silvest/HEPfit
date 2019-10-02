@@ -1,4 +1,4 @@
-HEPfit - a Code for the Combination of Indirect and Direct Constraints on High Energy Physics Models.
+Overview
 ===================================================================
 
 version 1.0
