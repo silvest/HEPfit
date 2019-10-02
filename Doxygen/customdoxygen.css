@@ -254,12 +254,6 @@ div.groupText {
 	font-style: italic;
 }
 
-/*body {*/
-/*	background-color: white;*/
-/*	color: black;*/
-/*        margin: 0;*/
-/*}*/
-
 div.contents {
 	margin-top: 10px;
 	margin-left: 12px;
@@ -891,15 +885,16 @@ table.fieldtable {
 
 .navpath li.footer
 {
-        list-style-type:none;
-        float:right;
-        padding-left:10px;
-        padding-right:15px;
-        background-image:none;
-        background-repeat:no-repeat;
-        background-position:right;
-        color:#182642;
-        font-size: 8pt;
+	list-style-type:none;
+	float:right;
+	padding-left:10px;
+	padding-right:15px;
+	background-image:none;
+	background-repeat:no-repeat;
+	background-position:right;
+	font-size: 8pt;
+	font-weight: 900;
+	color: #3b6f74;
 }
 
 
@@ -1374,6 +1369,10 @@ a, a.el, a.elRef, a.el:visited, a.elRef:visited {
 	color: #3b6f74;
 	font-weight: bold;
 	font-size: 16px;
+}
+
+#main-nav a:hover{
+	color: #dff1f1;
 }
 
 #nav-tree .selected {

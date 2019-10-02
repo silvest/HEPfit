@@ -356,6 +356,13 @@ if(!(copy("images/background.jpg", "html/"))){
     exit(1)
 }
 
+if(!(copy("images/collision.png", "html/"))){
+    print colored ['Red'], "\n\tERROR:";
+    print " images/background.jpg file not found.\n";
+    unlink(@tmpfiles);
+    exit(1)
+}
+
 print colored ['Green'], "\n\tPatching _page_models.html...\n";
 chomp(my $page_model_path = `find ./html -name "_page_models.html"`);
 if (!(-e $page_model_path)){
