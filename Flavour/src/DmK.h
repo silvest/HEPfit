@@ -20,10 +20,8 @@
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
- * @f$\Delta M_K@f$. While the short distance contributions to this 
- * parameter is calculable both in the SM and in NP models, the long distance
- * contribution can only be estimated and might contribute to as much as half the
- * value of the parameter. This long distance contribution is put in as an
+ * @f$\Delta M_K@f$. The Standard Model contribution can only be estimated 
+ * non-perturbatively and therefore it is implemented as an
  * input parameter in this code through SM.getDMK().
  */
 class DmK : public ThObservable, AmpDK2 {

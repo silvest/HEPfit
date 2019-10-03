@@ -217,40 +217,6 @@ class LeptonFlavour;
  * </tr>
  * </table>
  * 
- * The parameters below, associated with flavour observables, may be removed
- * from the current class later:
- * <table class="model">
- * <tr>
- *   <td class="mod_name">%EpsK</td>
- *   <td class="mod_symb">@f$\varepsilon_{K}@f$</td>
- *   <td class="mod_desc">The experimental value of @f$\varepsilon_{K}@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%phiEpsK</td>
- *   <td class="mod_symb"></td>
- *   <td class="mod_desc"></td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%KbarEpsK</td>
- *   <td class="mod_symb"></td>
- *   <td class="mod_desc"></td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%DeltaMK</td>
- *   <td class="mod_symb">@f$\Delta m_{K}@f$</td>
- *   <td class="mod_desc">The experimental value of @f$\Delta m_{K}@f$ in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Dmk</td>
- *   <td class="mod_symb">@f$\Delta m_{K}@f$</td>
- *   <td class="mod_desc">The SM contribution to @f$\Delta m_{K}@f$ in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%SM_M12D</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The SM amplitude of the @f$D^{0}-\bar{D}^{0}@f$ mixing.</td>
- * </tr>
- * </table>
  *
  * The set of the model parameters are initialized and updated with the methods
  * Init() and Update(), respectively, where the former calls the latter actually.

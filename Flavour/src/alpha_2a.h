@@ -9,6 +9,7 @@
 #define	ALPHA_2A_H
 
 #include "ThObservable.h"
+#include "AmpDB2.h"
 
 /**
 * @class Alpha_2a

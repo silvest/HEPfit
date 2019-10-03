@@ -11,6 +11,7 @@
       <itemPath>src/BdmumuOBsmumu.h</itemPath>
       <itemPath>src/Betas_JPsiPhi.h</itemPath>
       <itemPath>src/Btaunu.h</itemPath>
+      <itemPath>src/C2beta.h</itemPath>
       <itemPath>src/DmBd.h</itemPath>
       <itemPath>src/DmBs.h</itemPath>
       <itemPath>src/DmK.h</itemPath>
@@ -59,6 +60,7 @@
       <itemPath>src/BdmumuOBsmumu.cpp</itemPath>
       <itemPath>src/Betas_JPsiPhi.cpp</itemPath>
       <itemPath>src/Btaunu.cpp</itemPath>
+      <itemPath>src/C2beta.cpp</itemPath>
       <itemPath>src/DmBd.cpp</itemPath>
       <itemPath>src/DmBs.cpp</itemPath>
       <itemPath>src/DmK.cpp</itemPath>
