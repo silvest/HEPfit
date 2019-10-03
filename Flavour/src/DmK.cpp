@@ -11,10 +11,10 @@
 
 DmK::DmK(const StandardModel& SM_i) : ThObservable(SM_i), AmpDK2(SM_i) 
 {
-    setParametersForObservable(make_vector<std::string>() << "Dmk");
+    setParametersForObservable(make_vector<std::string>() << "DmkSM");
 };
 
 double DmK::computeThValue() 
 {
-    return(SM.getCDMK()* (2.*AmpMK(FULLNLO).real() + SM.getOptionalParameter("Dmk")));
+    return(SM.getCDMK()* (2.*AmpDMKNP(FULLNLO).real() + SM.getOptionalParameter("DmkSM")));
 }

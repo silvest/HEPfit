@@ -8,11 +8,12 @@
 #include "alpha.h"
 #include "StandardModel.h"
 
-Alpha::Alpha(const StandardModel& SM_i) : ThObservable(SM_i) 
+Alpha::Alpha(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) 
 {}
 
 double Alpha::computeThValue() 
 {
-    double alpha = (SM.getCKM().computeAlpha() - SM.getPhiBd())/M_PI*180.;
+    // alpha is really extracted as pi + 1/2 arg AmpDB2 - gamma 
+    double alpha = (M_PI + AmpBd(FULLNLO).arg()/2. - SM.getCKM().computeGamma() - SM.getPhiBd())/M_PI*180.;
     return(remainder(alpha,360.));
 }

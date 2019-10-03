@@ -59,10 +59,10 @@ gslpp::complex AmpDK2::AmpDK(orders order)
     }
 }
 
-gslpp::complex AmpDK2::AmpMK(orders order) 
+gslpp::complex AmpDK2::AmpDMKNP(orders order) 
 {
     if (mySM.getFlavour().getHDF2().getCoeffmK().getOrder() < order % 3)
-        throw std::runtime_error("AmpDK::computeThValue(): requires cofficient of order not computed");
+        throw std::runtime_error("AmpDMKNP::computeThValue(): requires cofficient of order not computed");
 
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffmK(
             mySM.getBK().getMu(),
@@ -92,7 +92,7 @@ gslpp::complex AmpDK2::AmpMK(orders order)
         case LO:
             return((*(allcoeff[LO])) * me);
         default:
-            throw "AmpDM2::AmpDK(): order not implemented";
+            throw "AmpDM2::AmpDMKNP(): order not implemented";
     }
 }
 

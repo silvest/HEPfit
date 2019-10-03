@@ -19,6 +19,7 @@
       <itemPath>src/BdmumuOBsmumu.h</itemPath>
       <itemPath>src/Betas_JPsiPhi.h</itemPath>
       <itemPath>src/Btaunu.h</itemPath>
+      <itemPath>src/C2beta.h</itemPath>
       <itemPath>src/CPenguinBox.h</itemPath>
       <itemPath>src/CPenguinBoxMu.h</itemPath>
       <itemPath>src/Charm_Kpnunu.h</itemPath>
@@ -88,6 +89,7 @@
       <itemPath>src/BdmumuOBsmumu.cpp</itemPath>
       <itemPath>src/Betas_JPsiPhi.cpp</itemPath>
       <itemPath>src/Btaunu.cpp</itemPath>
+      <itemPath>src/C2beta.cpp</itemPath>
       <itemPath>src/CPenguinBox.cpp</itemPath>
       <itemPath>src/CPenguinBoxMu.cpp</itemPath>
       <itemPath>src/Charm_Kpnunu.cpp</itemPath>
@@ -241,6 +243,10 @@
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/C2beta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/C2beta.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -512,6 +518,10 @@
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/C2beta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/C2beta.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/CPenguinBox.h" ex="false" tool="3" flavor2="0">
@@ -782,6 +792,10 @@
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/C2beta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/C2beta.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPenguinBox.h" ex="false" tool="3" flavor2="0">
@@ -1049,6 +1063,10 @@
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/C2beta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/C2beta.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>

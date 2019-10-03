@@ -38,8 +38,8 @@ public:
 
 protected:
     gslpp::complex AmpDK(orders order);
-    gslpp::complex AmpMK(orders order);
-    
+    gslpp::complex AmpDMKNP(orders order);
+
 private:
     
     const StandardModel& mySM;

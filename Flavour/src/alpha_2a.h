@@ -9,12 +9,11 @@
 #define	ALPHA_2A_H
 
 #include "ThObservable.h"
+#include "AmpDB2.h"
 
-
-
-class Alpha_2a : public ThObservable {
+class Alpha_2a : public ThObservable, AmpDB2 {
 public:
-    Alpha_2a(const StandardModel& SM_i) : ThObservable(SM_i) {};
+    Alpha_2a(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
 
     double computeThValue();
 };

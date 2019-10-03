@@ -10,7 +10,8 @@
 
 double Alpha_2a::computeThValue() 
 { 
-    double a_2a = (SM.getCKM().computeAlpha()-SM.getPhiBd())/M_PI*180.;
+    // alpha is really extracted as pi + 1/2 arg AmpDB2 - gamma 
+    double a_2a = (M_PI + AmpBd(FULLNLO).arg()/2. - SM.getCKM().computeGamma() - SM.getPhiBd())/M_PI*180.;
     if (a_2a < 0.)
         a_2a += 180.;
     else if (a_2a > 180.)
