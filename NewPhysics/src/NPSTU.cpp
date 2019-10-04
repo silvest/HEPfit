@@ -39,7 +39,8 @@ bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
         if (DPars.find(STUvars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPSTU parameter "
                     << STUvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(STUvars[i]);
         }
     }
     return (NPbase::CheckParameters(DPars));

@@ -89,6 +89,14 @@ void MonteCarlo::TestRun(int rank) {
         }
         
         if (!myInputParser.getModel()->Init(DP)) {
+            if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
+                std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
+                for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                    std::cout << "ModelParameter\t" << *it << std::endl;
+                }
+                std::cout << std::endl;
+                myInputParser.getModel()->getmissingModelParameters().clear();
+            }
             if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
             else sleep (2);
         }
@@ -156,7 +164,16 @@ void MonteCarlo::Run(const int rank) {
             else sleep(2);
         }
         buffsize++;
-        if (!myInputParser.getModel()->Init(DP)){
+        if (!myInputParser.getModel()->Init(DP)) {
+            if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
+                if (rank == 0) std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
+                for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                    if (rank == 0) std::cout << "ModelParameter\t" << *it << std::endl;
+                }
+                std::cout << std::endl;
+                myInputParser.getModel()->getmissingModelParameters().clear();
+            }
+        
             if (rank == 0) throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized.\n");
             else sleep(2);
         }

@@ -35,7 +35,8 @@ bool NPSTUZbbbarLR::CheckParameters(const std::map<std::string, double>& DPars)
         if (DPars.find(STUZbbbarLRvars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPSTUZbbbarLR parameter "
                     << STUZbbbarLRvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(STUZbbbarLRvars[i]);
         }
     }
     return (NPSTU::CheckParameters(DPars));

@@ -340,8 +340,9 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NSMvars; i++) {
         if (DPars.find(SMvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory SM parameter " << SMvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory SM parameter " << SMvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(SMvars[i]);
         }
     }
     return (QCD::CheckParameters(DPars));

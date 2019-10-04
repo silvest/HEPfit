@@ -197,8 +197,9 @@ void FlavourWilsonCoefficient_DF2::setParameter(const std::string name, const do
 bool FlavourWilsonCoefficient_DF2::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NFlavourWilsonCoefficient_DF2vars; i++) {
         if (DPars.find(FlavourWilsonCoefficient_DF2vars[i]) == DPars.end()) {
-            std::cout << "missing mandatory FlavourWilsonCoefficient_DF2 parameter " << FlavourWilsonCoefficient_DF2vars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory FlavourWilsonCoefficient_DF2 parameter " << FlavourWilsonCoefficient_DF2vars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(FlavourWilsonCoefficient_DF2vars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

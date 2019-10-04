@@ -111,8 +111,9 @@ bool HiggsChiral::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NHChiralvars; i++) {
         if (DPars.find(HChiralvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory HiggsChiral parameter " << HChiralvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory HiggsChiral parameter " << HChiralvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(HChiralvars[i]);
         }
     }
     return (NPbase::CheckParameters(DPars));

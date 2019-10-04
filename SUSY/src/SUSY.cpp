@@ -265,8 +265,9 @@ bool SUSY::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for(int i=0; i<NSUSYvars; i++)
         if(DPars.find(SUSYvars[i])==DPars.end()) {
-            std::cout << "missing mandatory SUSY parameter " << SUSYvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory SUSY parameter " << SUSYvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(SUSYvars[i]);
         }
     return(StandardModel::CheckParameters(DPars));
 }

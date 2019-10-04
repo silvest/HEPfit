@@ -1166,7 +1166,8 @@ bool NPEffectiveGIMRprime::CheckParameters(const std::map<std::string, double>& 
         if (FlagMwInput) {
             if (DPars.find("MwInput") == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime_LFU_QFU parameter MwInput" << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter("MwInput");
             }
         }
         if (FlagRotateCHWCHB) {
@@ -1174,7 +1175,8 @@ bool NPEffectiveGIMRprime::CheckParameters(const std::map<std::string, double>& 
                     if (DPars.find(NPEffectiveGIMRprimeVarsRot_LFU_QFU[i]) == DPars.end()) {
                           std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime_LFU_QFU parameter "
                           << NPEffectiveGIMRprimeVarsRot_LFU_QFU[i] << std::endl;
-                          return false;
+                          raiseMissingModelParameterCount();
+                          addMissingModelParameter(NPEffectiveGIMRprimeVarsRot_LFU_QFU[i]);
                     }
               }
         } else {
@@ -1182,7 +1184,8 @@ bool NPEffectiveGIMRprime::CheckParameters(const std::map<std::string, double>& 
                     if (DPars.find(NPEffectiveGIMRprimeVars_LFU_QFU[i]) == DPars.end()) {
                           std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime_LFU_QFU parameter "
                           << NPEffectiveGIMRprimeVars_LFU_QFU[i] << std::endl;
-                          return false;
+                          raiseMissingModelParameterCount();
+                          addMissingModelParameter(NPEffectiveGIMRprimeVars_LFU_QFU[i]);
                     }
               }
         }
@@ -1193,7 +1196,8 @@ bool NPEffectiveGIMRprime::CheckParameters(const std::map<std::string, double>& 
         if (FlagMwInput) {
             if (DPars.find("MwInput") == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime parameter MwInput" << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter("MwInput");
             }
         }
         if (FlagRotateCHWCHB) {
@@ -1201,7 +1205,8 @@ bool NPEffectiveGIMRprime::CheckParameters(const std::map<std::string, double>& 
                     if (DPars.find(NPEffectiveGIMRprimeVarsRot[i]) == DPars.end()) {
                           std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime parameter"
                           << NPEffectiveGIMRprimeVarsRot[i] << std::endl;
-                          return false;
+                          raiseMissingModelParameterCount();
+                          addMissingModelParameter(NPEffectiveGIMRprimeVarsRot[i]);
                     }
               }
         } else {
@@ -1209,7 +1214,8 @@ bool NPEffectiveGIMRprime::CheckParameters(const std::map<std::string, double>& 
                     if (DPars.find(NPEffectiveGIMRprimeVars[i]) == DPars.end()) {
                           std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime parameter"
                           << NPEffectiveGIMRprimeVars[i] << std::endl;
-                          return false;
+                          raiseMissingModelParameterCount();
+                          addMissingModelParameter(NPEffectiveGIMRprimeVars[i]);
                     }
               }
         }

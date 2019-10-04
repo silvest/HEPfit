@@ -143,8 +143,9 @@ void RealWeakEFTLFV::setParameter(const std::string name, const double& value){
 bool RealWeakEFTLFV::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NRealWeakEFTLFVvars; i++) {
         if (DPars.find(RealWeakEFTLFVvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory FlavourWilsonCoefficient parameter " << RealWeakEFTLFVvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory FlavourWilsonCoefficient parameter " << RealWeakEFTLFVvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(RealWeakEFTLFVvars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));
