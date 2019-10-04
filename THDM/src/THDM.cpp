@@ -147,8 +147,9 @@ void THDM::setParameter(const std::string name, const double& value){
 bool THDM::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NTHDMvars; i++) {
         if (DPars.find(THDMvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory THDM parameter " << THDMvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory THDM parameter " << THDMvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(THDMvars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

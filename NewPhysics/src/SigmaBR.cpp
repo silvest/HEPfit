@@ -167,7 +167,8 @@ bool SigmaBR::CheckParameters(const std::map<std::string, double>& DPars)
             if (DPars.find(SigmaBRVars[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory SigmaBR parameter"
                         << SigmaBRVars[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(SigmaBRVars[i]);
             }
     return (NPbase::CheckParameters(DPars));
 }

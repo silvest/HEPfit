@@ -38,8 +38,9 @@ void NPDF2::setParameter(const std::string name, const double& value){
 bool NPDF2::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NNPDF2vars; i++) {
         if (DPars.find(NPDF2vars[i]) == DPars.end()) {
-            std::cout << "missing mandatory NPDF2 parameter " << NPDF2vars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory NPDF2 parameter " << NPDF2vars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(NPDF2vars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

@@ -324,8 +324,9 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
 bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NGeneralTHDMvars; i++) {
         if (DPars.find(GeneralTHDMvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory GeneralTHDM parameter " << GeneralTHDMvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory GeneralTHDM parameter " << GeneralTHDMvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(GeneralTHDMvars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

@@ -38,8 +38,17 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     }
     
     Mod = myInputParser.getModel();
-    if (!Mod->Init(DP)) 
+    if (!Mod->Init(DP)) {
+        if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
+            std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
+            for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                std::cout << "ModelParameter\t" << *it << std::endl;
+            }
+            std::cout << std::endl;
+            myInputParser.getModel()->getmissingModelParameters().clear();
+        }
         throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
+    }
     
     unknownParameters = Mod->getUnknownParameters();
     if (unknownParameters.size() > 0 && rank == 0) {
@@ -68,8 +77,17 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
         throw std::runtime_error("\nERROR: " + ModelName + " not initialized successfully.\n");
     }
     setFlags(DFlags_i);
-    if (!Mod->Init(DPars_i))
+    if (!Mod->Init(DPars_i)) {
+        if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
+            std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
+            for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                std::cout << "ModelParameter\t" << *it << std::endl;
+            }
+            std::cout << std::endl;
+            myInputParser.getModel()->getmissingModelParameters().clear();
+        }
         throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized.\n");
+    }
    
     unknownParameters = Mod->getUnknownParameters();
     if (unknownParameters.size() > 0 && rank == 0) {

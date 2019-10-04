@@ -60,7 +60,8 @@ bool NPEpsilons::CheckParameters(const std::map<std::string, double>& DPars)
         if (DPars.find(EPSILONvars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPEpsilons parameter "
                     << EPSILONvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(EPSILONvars[i]);
         }
     }
     return (NPbase::CheckParameters(DPars));
