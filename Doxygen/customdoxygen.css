@@ -159,7 +159,7 @@ dl.el {
 
 pre.fragment {
         border: 1px solid #C4CFE5;
-        background-color: #FBFCFD;
+        background-color: #dff1f1;
         padding: 4px 6px;
         margin: 4px 8px 4px 2px;
         overflow: auto;
@@ -173,8 +173,10 @@ pre.fragment {
 div.fragment {
         padding: 4px;
         margin: 4px;
-	background-color: #F9FAFC;
-	border: 1px solid #9FB3DC;
+	/*color: #dff1f1;*/
+	background-color: #f1f9f9;
+	border-radius: 4px;
+	border: 1px solid #3b6f74;
 }
 
 div.line {
@@ -926,8 +928,8 @@ div.ingroups a
 
 div.header
 {
-        background-image:url('nav_h.png');
-        background-repeat:repeat-x;
+	background-image:url('nav_h.png');
+    background-repeat:repeat-x;
 	background-color: #F5F7FB;
 	margin:  0px;
 	border-bottom: 1px solid #9FB3DC;
@@ -1093,12 +1095,11 @@ dl.citelist dd {
         margin:2px 0;
         padding:5px 0;
 }
-
 div.toc {
         padding: 14px 25px;
-        background-color: #EDF1F8;
-        border: 1px solid #BECCE7;
-        border-radius: 7px 7px 7px 7px;
+        color: #f1f9f9;
+        border: 1px solid #3b6f74;
+        border-radius: 4px;
         float: right;
         height: auto;
         margin: 0 20px 10px 10px;
@@ -1106,7 +1107,7 @@ div.toc {
 }
 
 div.toc li {
-        background: url("bdwn.png") no-repeat scroll 0 5px transparent;
+        /*background: url("bdwn.png") no-repeat scroll 0 5px transparent;*/
         font: 10px/1.2 Verdana,DejaVu Sans,Geneva,sans-serif;
         margin-top: 5px;
         padding-left: 10px;
@@ -1114,32 +1115,40 @@ div.toc li {
 }
 
 div.toc h3 {
-        font: bold 12px/1.2 Arial,FreeSans,sans-serif;
-	color: #253B67;
-        border-bottom: 0 none;
-        margin: 0;
+	font: bold 12px Arial,FreeSans,sans-serif;
+	color: #3b6f74;
+    border-bottom: 0 none;
+    margin: 0;
 }
 
 div.toc ul {
-        list-style: none outside none;
-        border: medium none;
-        padding: 0px;
-}       
+	list-style: none outside none;
+	color: #3b6f74;
+    border: medium none;
+    padding: 0px;
+}
+
+div.toc ul li a {
+	color: #3b6f74;
+	text-decoration: none;
+	font-size: 10px;
+}
 
 div.toc li.level1 {
-        margin-left: 0px;
+	color: #3b6f74;
+	margin-left: 0px;
 }
 
 div.toc li.level2 {
-        margin-left: 15px;
+    margin-left: 15px;
 }
 
 div.toc li.level3 {
-        margin-left: 30px;
+	margin-left: 30px;
 }
 
 div.toc li.level4 {
-        margin-left: 45px;
+	margin-left: 45px;
 }
 
 .inherit_header {

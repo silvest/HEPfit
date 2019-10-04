@@ -228,7 +228,7 @@
           </incDir>
         </cTool>
         <ccTool>
-          <developmentMode>2</developmentMode>
+          <developmentMode>6</developmentMode>
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>

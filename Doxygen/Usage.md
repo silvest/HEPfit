@@ -1,6 +1,8 @@
 Usage   {#PageUsage}
 =============================================
 
+[TOC]
+
 The HEPfit installer generates the 
 library `"libSufyFit.a"` along with header files including a combined
 header file, HEPfit.h. To perform a Bayesian statistical analysis with the

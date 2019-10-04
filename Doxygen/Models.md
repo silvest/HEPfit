@@ -1,6 +1,8 @@
 Models   {#PageModels}
 ==========================================================
 
+[TOC]
+
 Here is a list of all available models with links to the summary
 tables of model parameters and flags. The parameters and flags 
 are inherited from a parent model class to a child model class: 

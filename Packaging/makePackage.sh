@@ -5,7 +5,7 @@
 #   sh makePackage.sh --doxygen : generate Doxygen documentations
 #
 
-VERSION="v1.0"
+VERSION="1.0"
 
 ###########################################################
 # Original source codes
@@ -153,6 +153,7 @@ SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
 SED_ARG2="-e 's/{#PageInstallation}//g'"
 eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${OUTDIR}/README.md
 eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md |eval sed "$SED_ARG2" > ${OUTDIR}/INSTALL.md
+eval sed "$SED_ARG" ${ORGDIR}/Doxygen/Usage.md |eval sed "$SED_ARG2" > ${OUTDIR}/Usage.md
 
 cp ${SCRIPTPATH}/etc/CMakeLists.txt ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/HEPfit_noMCMC.h.in ${OUTDIR}/
@@ -219,8 +220,9 @@ if [ $CUSTOM -gt 0 ]; then
 fi
 echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}-${COMMIT}"
 tar zcf HEPfit-${VERSION}-${COMMIT}.tar.gz HEPfit-${VERSION}-${COMMIT}
-rm -rf HEPfit-${VERSION}-${COMMIT}
-
+if [ "$1" != "--doxygen" ]; then
+    rm -rf HEPfit-${VERSION}-${COMMIT}
+fi
 ###########################################################
 # Documentation
 
@@ -236,19 +238,20 @@ if [ "$1" == "--doxygen" ]; then
 	echo "mkdir ${DOXYGENDIR}/images"
 	mkdir ${DOXYGENDIR}/images
     fi
-    DOXYFILELIST="Doxyfile-${VERSION} DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
+    DOXYFILELIST="Doxyfile-v${VERSION} DoxygenLayout.xml customdoxygen.css footer.html header.html *.md *.bib *.png bibconversion.pl"
     for DOXYFILE in $DOXYFILELIST
     do
 	cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
     done
-    cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
+    cp -af ${ORGDIR}/Doxygen/images/* ${DOXYGENDIR}/images/
     
     SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
     eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${DOXYGENDIR}/MainPage.md
     eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md > ${DOXYGENDIR}/INSTALL.md    
+	eval sed "$SED_ARG" ${ORGDIR}/Doxygen/Usage.md > ${DOXYGENDIR}/Usage.md    
 
     cd ${OUTDIR}/Doxygen
     cp -rp ${OUTDIR}/examples-src ${OUTDIR}/Doxygen/
-    perl bibconversion.pl EW.bib Higgs.bib QCD.bib -of HEPfit.bib -dox Doxyfile-${VERSION}
+    perl bibconversion.pl EW.bib Higgs.bib QCD.bib -of HEPfit.bib -dox Doxyfile-v${VERSION}
     rm -rf ${OUTDIR}/Doxygen/examples-src
 fi

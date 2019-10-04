@@ -4,14 +4,16 @@ Installation   {#PageInstallation}
 version 1.0
 -----------
 
+[TOC]
+
 The installation of `HEPfit` requires the availability of `CMake` 
 in the system. A description of `CMake` and the details of how to 
-install it can be found at https://cmake.org/. 
+install it can be found in the [`CMake` webpage](https://cmake.org/). 
 Most package managers for linux distributions should have a `CMake` 
 package available for installation. For Mac users, it can be either installed 
-from source or from a Unix port like Darwin Ports (https://www.macports.org/) 
-or Fink (https://www.finkproject.org/) or the installation package can 
-be downloaded from the `CMake` website (https://cmake.org/). 
+from source or from a Unix port like [Darwin Ports](https://www.macports.org/) 
+or [Fink](https://www.finkproject.org/) or the installation package can 
+be downloaded from the [`CMake` website](https://cmake.org/). 
 There are several dependencies that need to be satisfied to successfully install `HEPfit`. 
 These we list below.
 
@@ -20,7 +22,7 @@ Dependencies
 ------------
     
    * `GSL`:  The GNU Scientific Library (`GSL`) is a library for numerical computation. 
-   It can be found on the `GSL` website (https://www.gnu.org/software/gsl/). Most linux 
+   It can be found on the [`GSL` website](https://www.gnu.org/software/gsl/). Most linux 
    package managers will have a stable version as will any ports for Mac. 
    **NOTE:** If `GSL` is installed before `ROOT` is compiled from source, then `ROOT`
    builds the `MathMore` library by default which depends on `GSL`. Hence it is recommended
@@ -28,11 +30,11 @@ Dependencies
    is compatible with `GSL` v1.16 or greater.
 
    * `ROOT v5` or greater:  `ROOT` is an object oriented data analysis framework. 
-   You can obtain it from the `ROOT` website (https://root.cern.ch/). `BA` requires 
+   You can obtain it from the [`ROOT` website](https://root.cern.ch/). `BA` requires 
    `ROOT` v5.34.19 or greater. Both `HEPfit` and `BAT` are compatible with `ROOT v6`.
 
    * `BOOST`:  `BOOST` is a `C++` library with a multitude of header based implementations. 
-   You can obtain it from the `BOOST` website (https://www.boost.org) or from linux package managers 
+   You can obtain it from the [`BOOST` website](https://www.boost.org) or from linux package managers 
    or Mac ports. While `HEPfit` does not require the `BOOST` libraries, it does need the headers, 
    so one should make sure the headers are installed and not the libraries only. `HEPfit` has been 
    tested to work with `BOOST v1.53` and greater.
@@ -40,11 +42,11 @@ Dependencies
    * `MPI`: Optionally, `HEPfit` can be compiled with `MPI` for usage in parallelized  
     clusters and processors supporting multi-threading. In this case,
     the `HEPfit` installer will patch and compile `BAT` with `MPI` support as described below. 
-    For this one needs openMPI (https://www.open-mpi.org/) which is also available through package 
+    For this one needs [openMPI](https://www.open-mpi.org/) which is also available through package 
     managers in Linux and ports on Mac.
 
    * `BAT v1.0` (not required for the Library mode): Optionally, `BA` (Bayesian Analysis Toolkit) 
-   can be obtained from the `BAT` website (https://www.mppmu.mpg.de/bat/) for a Monte Carlo run. 
+   can be obtained from the [`BAT` website](https://www.mppmu.mpg.de/bat/) for a Monte Carlo run. 
    With the compilation option `-DBAT_INSTALL=ON` explained below, the `HEPfit` installation package 
    will download and install `BAT`. **NOTE:** At present `HEPfit` is not compatible with `BAT`
    compiled with the `--enable-parallel` option. The parallelized version of `BAT` compatible with 
@@ -52,15 +54,14 @@ Dependencies
     
 Build System
 ------------    
-`HEPfit` uses the `CMake` build system (https://cmake.org/) to compile all the codes and package 
+`HEPfit` uses the [`CMake` build system](https://cmake.org/) to compile all the codes and package 
 it into a library (`libHEPfit.a`) and a header file (`HEPfit.h`)
 
 QUICK Installation
 ----------------------
 
 In a nutshell, if all dependencies are satisfied, for a fully `MPI` compatible MCMC capable 
-`HEPfit` installation from the tarball downloaded from the `HEPfit` website 
-(https://hepfit.roma1.infn.it/):
+`HEPfit` installation from the tarball downloaded from the [`HEPfit` website](https://hepfit.roma1.infn.it/):
 
 ~~~~~~~~~~~~~~~~~~~~~~
   $ tar xvzf HEPfit-1.0.tar.gz
@@ -87,7 +88,7 @@ Other Installation Procedures
 ----------------------
 
 Unpack the tarball containing the `HEPfit` source which you can obtain from the 
-`HEPfit` website (https://hepfit.roma1.infn.it/). A directory called 
+[`HEPfit` website](https://hepfit.roma1.infn.it/). A directory called 
 `HEPfit-1.0` will be created containing the source code. To generate 
 Makefiles, enter the source directory and run `CMake`:
 
@@ -210,9 +211,9 @@ Post Install
 A `hepfit-config` script can be found in the `<CMAKE_INSTALL_PREFIX>/bin/`
 directory, which can be invoked with the following options:
 
-   * `--cflags` to obtain the include path needed for compilation against the `HEPfit` library
+   * `--cflags`: to obtain the include path needed for compilation against the `HEPfit` library
 
-   * `--libs` to obtain the flags needed for linking against the `HEPfit` library
+   * `--libs`: to obtain the flags needed for linking against the `HEPfit` library
 
 **Examples:**  
 The example programs can be found in the `HEPfit` build directory:  
@@ -236,44 +237,7 @@ run these examples:
 ~~~~~~~~~~~~~~~~~~~~~~
 
 This will produce an executable called `analysis` in the current directory that can be used 
-to run `HEPfit`. The details are elaborated on in the next section.
-
-
-
-
-
-**Executable:** `<CMAKE_INSTALL_PREFIX>/bin/hepfit-config`  
-
-**Library:** `<CMAKE_INSTALL_PREFIX>/lib/libHEPfit.a`  
-
-**Combined Header:** `<CMAKE_INSTALL_PREFIX>/include/HEPfit/HEPfit.h`  
-
-### Using hepfit-config
-
-A `hepfit-config` script can be found in the `<CMAKE_INSTALL_PREFIX>/bin/`
-directory, which can be invoked with the following options:
-
-  * `--cflags`  
-
-    to obtain the include path needed for compilation against the `HEPfit` library
-
-  * `--libs`  
-
-    to obtain the flags needed for linking against the `HEPfit` library
-
-### Examples
-
-The example programs can be found in the `HEPfit` build directory:  
-
-  * `examples/LibMode_config/`  
-  * `examples/LibMode_header/` 
-  * `examples/MonteCarloMode/`
-  * `examples/myModel/`
-
-where the first two demonstrate the usage of the `HEPfit` library, while 
-the last one can be used for testing a Monte Carlo run with the `HEPfit` 
-executable. The fourth one is an example implementation of a custom 
-model and custom observables.
+to run `HEPfit`. The details are elaborated on in the [Usage Page](Usage.md).
 
 
 
