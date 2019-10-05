@@ -458,7 +458,8 @@ bool GeneralSUSY::CheckParameters(const std::map<std::string, double>& DPars)
     for (int i = 0; i < NGeneralSUSYvars; i++) {
         if (DPars.find(GeneralSUSYvars[i]) == DPars.end()) {
             std::cout << "missing mandatory GeneralSUSY parameter " << GeneralSUSYvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(GeneralSUSYvars[i]);
         }
     }
     return(SUSY::CheckParameters(DPars));

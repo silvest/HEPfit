@@ -1,0 +1,152 @@
+#!/bin/bash
+
+#######################################################################################
+## Create a directory called WORK (or anything) at the level of the Configurations   ##
+## folder and put this script there and run it. It is both Linux and Mac compatible. ##
+## Comment out the sbatch sbatch.sh line to suppress the submission command.         ##
+##                                                                                   ##
+## -- Ayan Paul (Nov 2018, Berlin)                                                   ##
+#######################################################################################
+
+# This works for CLIC only #
+
+col="CLIC"
+vCOL=$1
+DOM=""
+BATCH="CONDOR"
+if [ ${BATCH} == 'SLURM' ]; then
+    EXE="/home/apaul/NetBeansProjects/HEPfit-B1/Analysis/dist/Debug_MPI/GNU-Linux/analysis"
+elif [ ${BATCH} == 'CONDOR' ]; then
+    EXE="/afs/desy.de/user/a/apaul/NetBeansProjects/HEPfit/Analysis/dist/Release_MPI/Intel-Linux/analysis"
+fi
+
+mkdir -p ${col}${vCOL}
+cd ${col}${vCOL}
+
+mkdir -p Fit_${col}_HLLHC_{noZpole,ExactEW}_{S1,S2}_{E1,E2,E3}
+for k in E1 E2 E3
+do
+    for j in S1 S2
+    do
+	for i in Fit_${col}_HLLHC_noZpole_${j}_${k} Fit_${col}_HLLHC_ExactEW_${j}_${k}
+	do
+	    cd ${i}
+	    rm -rf config && mkdir config
+	    cp ../../../Configurations/config_${col}/*.conf config/.
+	    cp ../../../Configurations/config_HLLHC/*_${j}.conf config/.
+	    cp ../../../Configurations/config_HLLHC/aTGC${DOM}_observables_HLLHC_Full.conf config/.
+	    mv config/MonteCarlo-${BATCH}.conf config/MonteCarlo.conf
+	    rm -f config/MonteCarlo-*.conf	    
+	    sed -i.bak -e "/_${j}.conf/s/^# //" -e "/HLLHC_Full.conf/s/^# //" -e "/HLLHC_Full.conf/s/aTGC/aTGC${DOM}/" -e "/observables_CLIC/s/aTGC/aTGC${DOM}/" config/model.conf
+	    sed -i.bak -e "s/#HLLHC# //" -e "/CuH_33r/s/HLLHC/5.0/" config/model.conf
+	    if [ ${k} == 'E2' ]
+	    then
+		sed -i.bak -e "/CLIC_1500/s/^# //" config/model.conf
+		rm config/*_3000*.conf
+	    elif [ ${k} == 'E3' ]
+	    then
+	    	sed -i.bak -e "/CLIC_1500/s/^# //" config/model.conf
+		sed -i.bak -e "/CLIC_3000/s/^# //" config/model.conf
+	    elif [ ${k} == 'E1' ]
+	    then
+		    rm config/*_1500*.conf config/*_3000*.conf
+	    fi
+	    case ${i} in 
+		Fit_${col}_HLLHC_Zpole_${j}_${k})
+		    cp ../../../Configurations/config_HLLHC/ObservablesEW_HLLHC.conf config/.
+		    sed -i.bak -e "s/#QUARK# //" -e "/CHd_/s/QUARK/3.0/" -e "s/QUARK/1.0/" config/model.conf
+		    sed -i.bak -e "s/#ZPOLE# //" -e "s/ZPOLE_L/2.0e-2/" -e "s/ZPOLE/3.0e-2/" -e "s/#EWP# //" config/model.conf
+		    sed -i.bak -e "s/#EW# //" -e "s/13/28/" config/NPcouplings.conf
+		    ;;
+		Fit_${col}_HLLHC_noZpole_${j}_${k})
+		    cp ../../../Configurations/config_HLLHC/ObservablesEW_HLLHC.conf config/.
+		    sed -i.bak -e "s/#QUARK# //" -e "s/QUARK_L/3.0/" -e "s/QUARK/1.0/" config/model.conf
+		    sed -i.bak -e "s/#ZPOLE# //" -e "s/ZPOLE_L/1.5e-1/" -e "s/ZPOLE/4.0e-2/" -e "s/#EWP# //" -e "/_${col}_Zpole/s/^/# /" config/model.conf
+		    sed -i.bak -e "s/#EW# //" -e "s/13/28/" config/NPcouplings.conf
+		    ;;
+		Fit_${col}_HLLHC_ExactEW_${j}_${k})
+		    sed -i.bak -e "s/#QUARK# //" -e "s/QUARK_L/0./" -e "s/QUARK/0./" config/model.conf
+		    sed -i.bak -e "s/#ZPOLE# //" -e "s/ZPOLE_L/0./" -e "s/ZPOLE/0./" config/model.conf
+		    sed -i.bak -e "/ObservablesEW/s/^/# /" config/model.conf
+		    mv config/SMparameters-noerror.conf config/SMparameters.conf
+		    ;;
+		esac
+	    rm -f config/*.bak config/SMparameters-noerror.conf analysis *.out *.err
+	    ln -s ${EXE} .
+	    #./analysis config/model.conf --noMC
+	    if [ ${BATCH} == 'SLURM' ]; then
+            	sed -e "s/NAME/${i}/" ../../../Configurations/sbatch.sh > sbatch.sh
+            	sbatch sbatch.sh
+            elif [ ${BATCH} == 'CONDOR' ]; then
+            	sed -e "/FAME/s/NAME/${i}/" ../../../Configurations/submit_condor.sh > submit_condor.sh
+            	sed -e "s#WORK_DIR#CLIC${vCOL}/${i}#" ../../../Configurations/mpi-wrap.sh > mpi-wrap.sh
+            	condor_submit submit_condor.sh
+            fi
+	    cd ..
+	done
+    done
+done
+
+mkdir -p Fit_${col}_{noZpole,ExactEW}_{E1,E2,E3}
+for k in E1 E2 E3
+do
+    for i in Fit_${col}_noZpole_${k} Fit_${col}_ExactEW_${k} 
+    do
+	cd ${i}
+	rm -rf config && mkdir config
+	cp ../../../Configurations/config_${col}/*.conf config/.
+	mv config/MonteCarlo-${BATCH}.conf config/MonteCarlo.conf
+	rm -f config/MonteCarlo-*.conf
+	if [ ${k} == 'E2' ]
+	then
+	    sed -i.bak -e "/CLIC_1500/s/^# //" config/model.conf
+	    rm config/*_3000*.conf
+	elif [ ${k} == 'E3' ]
+	then
+	    sed -i.bak -e "/CLIC_1500/s/^# //" config/model.conf
+	    sed -i.bak -e "/CLIC_3000/s/^# //" config/model.conf
+	elif [ ${k} == 'E1' ]
+	then
+	    rm config/*_1500*.conf config/*_3000*.conf
+	fi
+	sed -i.bak -e "/CuH_33r/s/#HLLHC# //" -e "/CuH_33r/s/HLLHC/0./" -e "/observables_CLIC/s/aTGC/aTGC${DOM}/" config/model.conf
+	case ${i} in
+	    Fit_${col}_Zpole_${k})
+		sed -i.bak -e "s/#QUARK# //" -e "s/QUARK_L/3.0/" -e "s/QUARK/1.0/" config/model.conf
+		sed -i.bak -e "s/#ZPOLE# //" -e "s/ZPOLE_L/6.0e-2/" -e "s/ZPOLE/3.0e-2/" -e "s/#EWP# //" config/model.conf
+		;;
+	    Fit_${col}_noZpole_${k})
+		sed -i.bak -e "s/#QUARK# //" -e "s/QUARK_L/3.0/" -e "s/QUARK/1.0/" config/model.conf
+		sed -i.bak -e "s/#ZPOLE# //" -e "s/ZPOLE_L/1.5e-1/" -e "s/ZPOLE/1.5e-1/" -e "s/#EWP# //" -e "/_${col}_Zpole/s/^/# /" config/model.conf
+		if [ ${k} == 'E1' ]
+		then
+		    sed -i.bak -e "/deltagHmumu/d" -e "s/#EW# //" -e "s/13/27/" config/NPcouplings.conf
+		else
+		    sed -i.bak -e "s/#EW# //" -e "s/13/28/" config/NPcouplings.conf
+		fi
+		;;
+	    Fit_${col}_ExactEW_${k})
+		sed -i.bak -e "s/#ZPOLE# //" -e "s/ZPOLE_L/0./" -e "s/ZPOLE/0./" config/model.conf
+		sed -i.bak -e "s/#QUARK# //" -e "s/QUARK_L/0./" -e "s/QUARK/0./" config/model.conf
+		if [ ${k} == 'E1' ]
+		then
+		    sed -i.bak -e "/deltagHmumu/d" -e "s/13/12/" config/NPcouplings.conf
+		fi
+		sed -i.bak -e "/ObservablesEW/s/^/# /" config/model.conf
+		mv config/SMparameters-noerror.conf config/SMparameters.conf
+		;;
+	esac
+	rm -f config/*.bak config/SMparameters-noerror.conf analysis *.out *.err
+	ln -s ${EXE} .
+	#./analysis config/model.conf --noMC
+	if [ ${BATCH} == 'SLURM' ]; then
+            sed -e "s/NAME/${i}/" ../../../Configurations/sbatch.sh > sbatch.sh
+            sbatch sbatch.sh
+        elif [ ${BATCH} == 'CONDOR' ]; then
+            sed -e "/FAME/s/NAME/${i}/" ../../../Configurations/submit_condor.sh > submit_condor.sh
+            sed -e "s#WORK_DIR#CLIC${vCOL}/${i}#" ../../../Configurations/mpi-wrap.sh > mpi-wrap.sh
+            condor_submit submit_condor.sh
+        fi
+	cd ..
+    done
+done

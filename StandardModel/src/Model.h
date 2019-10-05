@@ -11,6 +11,7 @@
 #include <map>
 #include <functional>
 #include <string>
+#include <vector>
 
 /**
  * @class Model
@@ -227,6 +228,26 @@ public:
     {
         isSliced = Sliced;
     }
+    
+    void addMissingModelParameter(const std::string& missingParameterName) 
+    {
+        missingModelParameters.push_back(missingParameterName);
+    }
+    
+    std::vector<std::string> getmissingModelParameters()
+    {
+        return missingModelParameters;
+    }
+    
+    void raiseMissingModelParameterCount() 
+    {
+        missingModelParametersCount++;
+    }
+    
+    unsigned int getMissingModelParametersCount()
+    {
+        return missingModelParametersCount;
+    }
 
 protected:
 
@@ -251,6 +272,8 @@ private:
     bool flagTHDMWmodel;///< A flag identifying the model as a THDMW model
     bool flagGMmodel;///< A flag identifying the model as a GeorgiMachacek model
     bool flagLinearized; ///< A flag to identify models where the NP contribution to Higgs observables is linearized
+    unsigned int missingModelParametersCount = 0;
+    std::vector<std::string> missingModelParameters;
 
 };
 

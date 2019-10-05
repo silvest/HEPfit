@@ -136,7 +136,8 @@ bool MFV::CheckParameters(const std::map<std::string, double>& DPars)
     for (int i = 0; i < NMFVvars; i++) {
         if (DPars.find(MFVvars[i]) == DPars.end()) {
             std::cout << "missing mandatory MFV parameter " << MFVvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(MFVvars[i]);
         }
     }
     return(SUSY::CheckParameters(DPars));

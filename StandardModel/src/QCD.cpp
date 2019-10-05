@@ -334,13 +334,15 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NQCDvars; i++)
         if (DPars.find(QCDvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory QCD parameter " << QCDvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory QCD parameter " << QCDvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(QCDvars[i]);
         }
     for (std::map<std::string, double>::iterator it = optionalParameters.begin(); it != optionalParameters.end(); it++) {
         if (DPars.find(it->first) == DPars.end()) {
-            std::cout << "missing optional parameter " << it->first << std::endl;
-            return false;
+            std::cout << "ERROR: missing optional parameter " << it->first << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(it->first);
         }
     }
     if (!BParameterMap.empty()) {
@@ -348,8 +350,9 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
             std::vector<std::string> parameters = it->second.parameterList(it->first);
             for (std::vector<std::string>::iterator it1 = parameters.begin(); it1 != parameters.end(); it1++) {
                 if (DPars.find(*it1) == DPars.end()) {
-                    std::cout << "missing parameter for " << it->first << ": " << *it1 << std::endl;
-                    return false;
+                    std::cout << "ERROR: missing parameter for " << it->first << ": " << *it1 << std::endl;
+                    raiseMissingModelParameterCount();
+                    addMissingModelParameter(*it1);
                 }
             }
         }
@@ -359,13 +362,15 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
             std::vector<std::string> parameters = it->second.parameterList(it->second.getName());
             for (std::vector<std::string>::iterator it1 = parameters.begin(); it1 != parameters.end(); it1++) {
                 if (DPars.find(*it1) == DPars.end()) {
-                    std::cout << "missing parameter for " << it->first << ": " << *it1 << std::endl;
-                    return false;
+                    std::cout << "ERROR: missing parameter for " << mesonsMap.at(it->first).getName() << ": " << *it1 << std::endl;
+                    raiseMissingModelParameterCount();
+                    addMissingModelParameter(*it1);
                 }
             }
         }
     }
-    return true;
+    if (getMissingModelParametersCount() > 0) return false;
+    else return true;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -713,13 +718,13 @@ double QCD::AlsByOrder(const double mu, const orders order, bool Nf_thr) const
 
 double QCD::AlsOLD(const double mu, const orders order) const
 {
-//    int i;
-//    for (i = 0; i < CacheSize; ++i)
-//        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
-//                (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
-//                (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
-//                (muc == als_cache[6][i]))
-//            return als_cache[7][i];
+    int i;
+    for (i = 0; i < CacheSize; ++i)
+        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
+                (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
+                (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
+                (muc == als_cache[6][i]))
+            return als_cache[7][i];
 
     double nfmu = Nf(mu), nfz = Nf(MAls), mu_thre1, mu_thre2, Als_tmp, mf;
     double als;
@@ -783,15 +788,15 @@ double QCD::AlsOLD(const double mu, const orders order) const
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Als(mu,order).");
     }
 
-//    CacheShift(als_cache, 8);
-//    als_cache[0][0] = mu;
-//    als_cache[1][0] = (double) order;
-//    als_cache[2][0] = AlsM;
-//    als_cache[3][0] = MAls;
-//    als_cache[4][0] = mut;
-//    als_cache[5][0] = mub;
-//    als_cache[6][0] = muc;
-//    als_cache[7][0] = als;
+    CacheShift(als_cache, 8);
+    als_cache[0][0] = mu;
+    als_cache[1][0] = (double) order;
+    als_cache[2][0] = AlsM;
+    als_cache[3][0] = MAls;
+    als_cache[4][0] = mut;
+    als_cache[5][0] = mub;
+    als_cache[6][0] = muc;
+    als_cache[7][0] = als;
 
     return als;
 }

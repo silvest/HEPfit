@@ -214,8 +214,9 @@ void FlavourWilsonCoefficient::setParameter(const std::string name, const double
 bool FlavourWilsonCoefficient::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NFlavourWilsonCoefficientvars; i++) {
         if (DPars.find(FlavourWilsonCoefficientvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory FlavourWilsonCoefficient parameter " << FlavourWilsonCoefficientvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory FlavourWilsonCoefficient parameter " << FlavourWilsonCoefficientvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(FlavourWilsonCoefficientvars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

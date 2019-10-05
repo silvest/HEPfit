@@ -29,11 +29,11 @@ public:
     };
     /**
      * @brief a method returning the argument of the complex amplitude for 
-     * the absorptive part of the \f$ | \Delta C = 2 | \f$ mixing
+     * the dispersive part of the \f$ | \Delta C = 2 | \f$ mixing
      * @return the argument of the complex amplitude of \f$ D^{0} \f$ oscillations 
      */
     double computeThValue() {   
-       return(AmpDD(NLO).arg() / M_PI * 180. );
+       return((AmpDD(FULLNLO) + SM.getOptionalParameter("SM_M12D")).arg() / M_PI * 180. );
     };
 };
 

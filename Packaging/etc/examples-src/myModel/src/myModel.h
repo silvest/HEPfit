@@ -52,7 +52,7 @@ public:
     double getc1() const
     {
         return c1;
-    };
+    }
 
     /**
      *
@@ -61,7 +61,7 @@ public:
     double getc2() const
     {
         return c2;
-    };
+    }
     
     /**
      *
@@ -70,7 +70,7 @@ public:
     double getc3() const
     {
         return c3;
-    };
+    }
     
     /**
      *
@@ -79,7 +79,7 @@ public:
     double getc4() const
     {
         return c4;
-    };
+    }
     
     /**
      *
@@ -88,7 +88,7 @@ public:
     bool get_condition_flag() const
     {
         return condition;
-    };
+    }
 
 
 protected:

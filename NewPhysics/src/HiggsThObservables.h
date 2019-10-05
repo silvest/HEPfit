@@ -3351,6 +3351,36 @@ private:
     const double sqrt_s;
 };
 
+
+/**
+ * @class muVBFpVHtautau
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muVBFpVHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muVBFpVHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
 /**
  * @class muZHtautau
  * @ingroup HiggsExtensions
@@ -9566,6 +9596,37 @@ public:
 private:
     const NPbase* myNPbase;
     const double sqrt_s;
+};
+
+
+
+/**
+ * @class BrHto2l2v_over_gaga_Ratio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto2l2v_over_gaga_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHto2l2v_over_gaga_Ratio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
 };
 
 

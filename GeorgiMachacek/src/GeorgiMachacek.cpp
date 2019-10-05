@@ -115,8 +115,9 @@ void GeorgiMachacek::setParameter(const std::string name, const double& value){
 bool GeorgiMachacek::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NGMvars; i++) {
         if (DPars.find(GMvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory GeorgiMachacek parameter " << GMvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory GeorgiMachacek parameter " << GMvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(GMvars[i]);
         }
     }
     return(NPbase::CheckParameters(DPars));

@@ -89,6 +89,14 @@ void MonteCarlo::TestRun(int rank) {
         }
         
         if (!myInputParser.getModel()->Init(DP)) {
+            if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
+                std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
+                for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                    std::cout << "ModelParameter\t" << *it << std::endl;
+                }
+                std::cout << std::endl;
+                myInputParser.getModel()->getmissingModelParameters().clear();
+            }
             if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
             else sleep (2);
         }
@@ -156,7 +164,16 @@ void MonteCarlo::Run(const int rank) {
             else sleep(2);
         }
         buffsize++;
-        if (!myInputParser.getModel()->Init(DP)){
+        if (!myInputParser.getModel()->Init(DP)) {
+            if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
+                if (rank == 0) std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
+                for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                    if (rank == 0) std::cout << "ModelParameter\t" << *it << std::endl;
+                }
+                std::cout << std::endl;
+                myInputParser.getModel()->getmissingModelParameters().clear();
+            }
+        
             if (rank == 0) throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized.\n");
             else sleep(2);
         }
@@ -309,10 +326,8 @@ void MonteCarlo::Run(const int rank) {
                 MCEngine.InitializeMarkovChainTree();
                 MCEngine.WriteMarkovChainRun(false);
                 MCEngine.WriteMarkovChainPreRun(false);
-                if (MCEngine.getchainedObsSize() > 0 || MCEngine.getWriteLogLikelihoodChain()) MCEngine.AddChains();
+                if (MCEngine.getchainedObsSize() > 0 || MCEngine.getWriteLogLikelihoodChain() || MCEngine.getWriteParametersChain()) MCEngine.AddChains();
             }
-            // set nicer style for drawing than the ROOT default
-//            BCAux::SetStyle();
             
             std::time_t ti = std::time(NULL);
 #if __GNUC__ >= 5 || defined __clang__
@@ -634,6 +649,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setWriteLogLikelihoodChain((beg->compare("true") == 0));
             else
                 throw std::runtime_error("\nERROR: WriteLogLikelihoodChain in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("WriteParametersChain") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setWriteParametersChain((beg->compare("true") == 0));
+            else
+                throw std::runtime_error("\nERROR: WriteParametersChain in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
         } else if (beg->compare("Histogram2DAlpha") == 0) {
             ++beg;
             double alpha = atof((*beg).c_str());
@@ -654,7 +674,7 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             ++beg;
             unsigned int max_tries = atoi((*beg).c_str());
             if (max_tries > 0) MCEngine.SetInitialPositionAttemptLimit(max_tries);
-            else if (max_tries == 0) MCEngine.SetInitialPositionAttemptLimit(100);
+            else if (max_tries == 0) MCEngine.SetInitialPositionAttemptLimit(10000);
             else throw std::runtime_error("\nERROR: InitialPositionAttemptLimit in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
         } else if (beg->compare("SignificantDigits") == 0) {
             ++beg;
@@ -675,6 +695,7 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
      if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
         throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
+     MCEngine.SetInitialPositionAttemptLimit(10000);   
 }
 
 void MonteCarlo::ReadPreRunData(std::string file)

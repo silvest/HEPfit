@@ -32,7 +32,7 @@ public:
      * @return the absolute value of the complex amplitude of \f$ D^{0} \f$ oscillations
      */
     double computeThValue() {
-        return(AmpDD(NLO).abs());
+        return((AmpDD(FULLNLO) + SM.getOptionalParameter("SM_M12D")).abs());
          
     };
 };

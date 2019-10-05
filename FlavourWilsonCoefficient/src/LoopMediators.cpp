@@ -153,8 +153,9 @@ bool LoopMediators::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NLoopMediatorsvars; i++) {
         if (DPars.find(LoopMediatorsvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory LoopMediators parameter " << LoopMediatorsvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory LoopMediators parameter " << LoopMediatorsvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(LoopMediatorsvars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

@@ -1447,14 +1447,16 @@ bool NPEffectiveGIMR::CheckParameters(const std::map<std::string, double>& DPars
         if (FlagMwInput) {
             if (DPars.find("MwInput") == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveGIMR_LFU_QFU parameter MwInput" << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter("MwInput");
             }
         }
         for (int i = 0; i < NNPEffectiveGIMRVars_LFU_QFU; i++) {
             if (DPars.find(NPEffectiveGIMRVars_LFU_QFU[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveGIMR_LFU_QFU parameter "
                         << NPEffectiveGIMRVars_LFU_QFU[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(NPEffectiveGIMRVars_LFU_QFU[i]);
             }
         }
         //} else if (FlagLeptonUniversal && !FlagQuarkUniversal) {
@@ -1463,14 +1465,16 @@ bool NPEffectiveGIMR::CheckParameters(const std::map<std::string, double>& DPars
         if (FlagMwInput) {
             if (DPars.find("MwInput") == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveGIMR parameter MwInput" << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter("MwInput");
             }
         }
         for (int i = 0; i < NNPEffectiveGIMRVars; i++) {
             if (DPars.find(NPEffectiveGIMRVars[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveGIMR parameter"
                         << NPEffectiveGIMRVars[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(NPEffectiveGIMRVars[i]);
             }
         }
     } else

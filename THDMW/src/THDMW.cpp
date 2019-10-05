@@ -199,8 +199,9 @@ void THDMW::setParameter(const std::string name, const double& value){
 bool THDMW::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NTHDMWvars; i++) {
         if (DPars.find(THDMWvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory THDMW parameter " << THDMWvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory THDMW parameter " << THDMWvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(THDMWvars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

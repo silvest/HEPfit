@@ -318,6 +318,7 @@ void GenerateEvent::createDirectories()
         
         std::cout << "\nRunning in Event Generation mode..." /*\nWARNING: The output should not be used for any statistical analysis. \n         Neither randomness or completness of the sample is gauranteed!!\n"*/ << std::endl;
     } else if(nIteration > 0 && outputTerm == 0) {
+        std::cout.precision(16);
         std::cout << "\nRunning in Event Generation mode... \nWARNING: Output being sent to terminal, no data written to disk!!" /* \nWARNING: The output should not be used for any statistical analysis. \n         Neither randomness or completness of the sample is gauranteed!!\n "*/ << std::endl;
     } else {
         std::cout.precision(16);
@@ -350,6 +351,14 @@ void GenerateEvent::initModel() {
         } else DP[it->getname()] = it->getave();
     }
     if (!myInputParser.getModel()->Init(DP)) {
+        if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
+            if (rank == 0) std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
+            for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                if (rank == 0) std::cout << "ModelParameter\t" << *it << std::endl;
+            }
+            std::cout << std::endl;
+            myInputParser.getModel()->getmissingModelParameters().clear();
+        }
         if (rank == 0) throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized");
         else sleep(2);
     }

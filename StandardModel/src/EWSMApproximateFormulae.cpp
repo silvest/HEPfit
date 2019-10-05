@@ -917,6 +917,10 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         ThError = mycache.getSM().getDelR0l();        
         return X_extended("Gamma_had")/X_extended("Gamma_tau") + ThError;
 
+    } else if (observable.compare("R0_neutrino") == 0) {
+        ThError = 0.0;        
+        return X_extended("Gamma_nu")/X_extended("Gamma_had") + ThError;
+
     } else if (observable.compare("R0_up") == 0) {
         ThError = 0.0; // Set to zero for the moment       
         return X_extended("Gamma_u")/X_extended("Gamma_had") + ThError;
@@ -1158,4 +1162,417 @@ double EWSMApproximateFormulae::X_full_2_loop(const std::string observable) cons
             * (X0 + c1 * LH + c2 * Dt 
             + c3 * Das + c4 * Das * Das
             + c5 * Das * Dt + c6 * Dal + c7 * DZ) + ThError);
+}
+
+
+
+double EWSMApproximateFormulae::X_full(const std::string observable) const
+{
+    
+//  Full 2-loop implementation
+    
+    double LH = log(mycache.getSM().getMHl() / 125.7);
+    double LH2 = LH * LH;
+    
+    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
+    
+    double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
+    
+    double Das = mycache.getSM().getAlsMz() / 0.1184 - 1.0;
+    
+    double Dal = mycache.getSM().DeltaAlphaL5q() / 0.059 - 1.0;
+    
+    double DZ = mycache.getSM().getMz() / 91.1876 - 1.0;
+
+    double X0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16;
+    
+    double ThError = 0.0; // Theoretical uncertainty
+    
+    if (observable.compare("Gamma_e_mu") == 0) {
+        X0 = 83.983;
+        a1 = -0.1202;
+        a2 = -0.06919;
+        a3 = 0.00383;
+        a4 = 0.0597;
+        a5 = 0.8037;
+        a6 = -0.015;
+        a7 = -0.0195;
+        a8 = 0.0032;
+        a9 = -0.0956;
+        a10 = -0.0078;
+        a11 = -0.0095;
+        a12 = 0.25;
+        a13 = -1.08;
+        a14 = 0.056;
+        a15 = -0.37;
+        a16 = 286.0;
+
+    } else if (observable.compare("Gamma_tau") == 0) {
+        X0 = 83.793;
+        a1 = -0.1200;
+        a2 = -0.06905;
+        a3 = 0.00382;
+        a4 = 0.0596;
+        a5 = 0.8023;
+        a6 = -0.015;
+        a7 = -0.0195;
+        a8 = 0.0032;
+        a9 = -0.0954;
+        a10 = -0.0078;
+        a11 = -0.0094;
+        a12 = 0.25;
+        a13 = -1.08;
+        a14 = 0.056;
+        a15 = -0.37;
+        a16 = 285.0;
+
+    } else if (observable.compare("Gamma_nu") == 0) {
+        X0 = 167.176;
+        a1 = -0.1752;
+        a2 = -0.1249;
+        a3 = 0.00595;
+        a4 = 0.1046;
+        a5 = 1.253;
+        a6 = -0.110;
+        a7 = -0.0232;
+        a8 = 0.0064;
+        a9 = -0.187;
+        a10 = -0.014;
+        a11 = -0.014;
+        a12 = 0.37;
+        a13 = -0.085;
+        a14 = 0.054;
+        a15 = -0.30;
+        a16 = 503.0;
+
+    } else if (observable.compare("Gamma_u") == 0) {
+        X0 = 299.994;
+        a1 = -0.6152;
+        a2 = -0.2771;
+        a3 = 0.0174;
+        a4 = 0.2341;
+        a5 = 4.051;
+        a6 = -0.467;
+        a7 = -0.0676;
+        a8 = 0.017;
+        a9 = 14.26;
+        a10 = 1.6;
+        a11 = -0.046;
+        a12 = 1.82;
+        a13 = -11.1;
+        a14 = 0.16;
+        a15 = -1.0;
+        a16 = 1253.0;
+
+    } else if (observable.compare("Gamma_c") == 0) {
+        X0 = 299.918;
+        a1 = -0.6152;
+        a2 = -0.2771;
+        a3 = 0.0174;
+        a4 = 0.2340;
+        a5 = 4.051;
+        a6 = -0.467;
+        a7 = -0.0676;
+        a8 = 0.017;
+        a9 = 14.26;
+        a10 = 1.6;
+        a11 = -0.046;
+        a12 = 1.82;
+        a13 = -11.1;
+        a14 = 0.16;
+        a15 = -1.0;
+        a16 = 1252.0;
+
+    } else if (observable.compare("Gamma_d_s") == 0) {
+        X0 = 382.829;
+        a1 = -0.6685;
+        a2 = -0.3322;
+        a3 = 0.0193;
+        a4 = 0.2792;
+        a5 = 3.792;
+        a6 = -0.18;
+        a7 = -0.0706;
+        a8 = 0.020;
+        a9 = 10.20;
+        a10 = -2.4;
+        a11 = -0.052;
+        a12 = 0.71;
+        a13 = -10.1;
+        a14 = 0.16;
+        a15 = -0.92;
+        a16 = 1469.0;
+
+    } else if (observable.compare("Gamma_b") == 0) {
+        X0 = 375.890;
+        a1 = -0.6017;
+        a2 = -0.3158;
+        a3 = 0.0190;
+        a4 = 0.227;
+        a5 = -2.174;
+        a6 = 0.042;
+        a7 = -0.027;
+        a8 = 0.021;
+        a9 = 10.53;
+        a10 = -2.4;
+        a11 = -0.056;
+        a12 = 1.2;
+        a13 = -10.1;
+        a14 = 0.15;
+        a15 = -0.95;
+        a16 = 1458.0;
+
+    } else if (observable.compare("Gamma_had") == 0) {
+
+//  Removing leptonic contributions from the total Z witdh        
+        X0 = 1741.46;
+        a1 = -3.169;
+        a2 = -1.53487;
+        a3 = 0.09267;
+        a4 = 1.2532;
+        a5 = 13.5113;
+        a6 = -1.255;
+        a7 = -0.3039;
+        a8 = 0.0912;
+        a9 = 59.4576;
+        a10 = -3.9346;
+        a11 = -0.2496;
+        a12 = 6.24;
+        a13 = -52.605;
+        a14 = 0.77;
+        a15 = -4.79;
+        a16 = 6901.0;       
+        
+    } else if (observable.compare("GammaZ") == 0) {
+        X0 = 2494.75;
+        a1 = -4.055;
+        a2 = -2.117;
+        a3 = 0.122;
+        a4 = 1.746;
+        a5 = 19.68;
+        a6 = -1.63;
+        a7 = -0.432;
+        a8 = 0.12;
+        a9 = 58.61;
+        a10 = -4.0;
+        a11 = -0.32;
+        a12 = 8.1;
+        a13 = -56.1;
+        a14 = 1.1;
+        a15 = -6.8;
+        a16 = 9267.0;
+
+        ThError = mycache.getSM().getDelGammaZ();
+    } else if (observable.compare("sigmaHadron") == 0) {
+        X0 = 41489.6;
+        a1 = 0.408;
+        a2 = -0.320;
+        a3 = 0.0424;
+        a4 = 1.32;
+        a5 = 60.17;
+        a6 = 16.3;
+        a7 = -2.31;
+        a8 = -0.19;
+        a9 = -579.58;
+        a10 = 38.0;
+        a11 = 0.010;
+        a12 = 7.5;
+        a13 = 85.2;
+        a14 = 9.1;
+        a15 = -68.0;
+        a16 = -85957.0;
+
+        ThError = mycache.getSM().getDelSigma0H();
+    } else if (observable.compare("R0_lepton") == 0) {
+        X0 = 20751.6;
+        a1 = -8.112;
+        a2 = -1.174;
+        a3 = 0.155;
+        a4 = 0.16;
+        a5 = -37.59;
+        a6 = -10.9;
+        a7 = 1.27;
+        a8 = 0.29;
+        a9 = 732.30;
+        a10 = -44.0;
+        a11 = -0.61;
+        a12 = 5.7;
+        a13 = -358.0;
+        a14 = -4.7;
+        a15 = 37;
+        a16 = 11649.0;
+
+        ThError = mycache.getSM().getDelR0l();
+    } else if (observable.compare("R0_electron") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_full("Gamma_had")/X_full("Gamma_e_mu") + ThError;
+
+    } else if (observable.compare("R0_muon") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_full("Gamma_had")/X_full("Gamma_e_mu") + ThError;
+
+    } else if (observable.compare("R0_tau") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_full("Gamma_had")/X_full("Gamma_tau") + ThError;
+
+    } else if (observable.compare("R0_neutrino") == 0) {
+        ThError = 0.0;        
+        return X_full("Gamma_nu")/X_full("Gamma_had") + ThError;
+
+    } else if (observable.compare("R0_up") == 0) {
+        ThError = 0.0; // Set to zero for the moment        
+        return X_full("Gamma_u")/X_full("Gamma_had") + ThError;
+
+    } else if (observable.compare("R0_strange") == 0) {
+        ThError = 0.0; // Set to zero for the moment        
+        return X_full("Gamma_d_s")/X_full("Gamma_had") + ThError;
+
+    } else if (observable.compare("R0_charm") == 0) {
+        X0 = 172.222;
+        a1 = -0.04049;
+        a2 = -0.00749;
+        a3 = 0.000832;
+        a4 = 0.0108;
+        a5 = 0.98956;
+        a6 = -0.151;
+        a7 = -0.00761;
+        a8 = 0.00080;
+        a9 = 2.309;
+        a10 = 1.25;
+        a11 = 0.00045;
+        a12 = 0.369;
+        a13 = -1.20;
+        a14 = 0.012;
+        a15 = -0.062;
+        a16 = 36.67;
+
+        ThError = mycache.getSM().getDelR0c();
+    } else if (observable.compare("R0_bottom") == 0) {
+        X0 = 215.850;
+        a1 = 0.04904;
+        a2 = 0.009149;
+        a3 = -0.000535;
+        a4 = -0.02676;
+        a5 = -2.9221;
+        a6 = 0.200;
+        a7 = 0.0197;
+        a8 = -0.0011;
+        a9 = -1.319;
+        a10 = -0.84;
+        a11 = -0.0027;
+        a12 = 0.044;
+        a13 = 0.719;
+        a14 = -0.0077;
+        a15 = -0.044;
+        a16 = -17.90;
+
+        ThError = mycache.getSM().getDelR0b();
+    } else
+        throw std::runtime_error("ApproximateFormulae::X_full(): " + observable + " is not defined");
+
+    return ( 0.001
+            * ( X0 + a1 * LH + a2 * LH2 + a3 * LH2 * LH2 + a4 *DH  
+            + a5 * Dt + a6 * Dt*Dt + a7 * Dt*LH + a8 * Dt * LH2  
+            + a9 * Das + a10 * Das * Das + a11 * Das*DH + a12*Das*Dt
+            + a13 * Dal + a14 * Dal * DH + a15 * Dal * Dt 
+            + a16 * DZ ) + ThError);
+}
+
+
+double EWSMApproximateFormulae::sin2thetaEff_b_full() const
+{
+    // applicable for 25 GeV <= mHl <= 225 GeV. Remove boundaries for the moment
+    //if (mycache.getSM().getMHl() < 25.0 || mycache.getSM().getMHl() > 225.0) {
+    //    std::stringstream out;
+    //    out << mycache.getSM().getMHl();
+    //    throw std::runtime_error("ApproximateFormulae::sin2thetaEff_b_full(): mh=" + out.str() + " is out of range");
+    //}
+
+//  Full 2-loop implementation
+    
+    double LH = log(mycache.getSM().getMHl() / 125.7);
+    
+    double LH2 = LH * LH;    
+    
+    double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
+    
+    double Das = mycache.getSM().getAlsMz() / 0.1184 - 1.0;
+    
+    double Dal = mycache.getSM().DeltaAlphaL5q() / 0.059 - 1.0;
+    
+    double DZ = mycache.getSM().getMz() / 91.1876 - 1.0;
+
+    double X0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+    
+    double ThError = 0.0; // Theoretical uncertainty
+    
+    X0 = 2327.04;
+    d1 = 4.638;
+    d2 = 0.558;
+    d3 = -0.0700;
+    d4 = 207.0;
+    d5 = -9.554;
+    d6 = 3.83;
+    d7 = 0.179;
+    d8 = 2.41;
+    d9 = -8.24;
+    d10 = -6630.0;
+    
+    ThError = mycache.getSM().getDelSin2th_b();
+    
+    return ( 0.0001*( X0 + d1 * LH + d2 * LH2 + d3 * LH2 * LH2 
+            + d4 * Dal
+            + d5 * Dt + d6 * Dt * Dt 
+            + d7 * Dt * LH
+            + d8 * Das + d9 * Das * Dt
+            + d10 * DZ ) + ThError);
+}
+
+
+double EWSMApproximateFormulae::sin2thetaEff_l_full() const
+{
+    // applicable for 25 GeV <= mHl <= 225 GeV. Remove boundaries for the moment
+    //if (mycache.getSM().getMHl() < 25.0 || mycache.getSM().getMHl() > 225.0) {
+    //    std::stringstream out;
+    //    out << mycache.getSM().getMHl();
+    //    throw std::runtime_error("ApproximateFormulae::sin2thetaEff_l_full(): mh=" + out.str() + " is out of range");
+    //}
+
+//  Full 2-loop implementation
+    
+    double LH = log(mycache.getSM().getMHl() / 125.7);
+    
+    double LH2 = LH * LH;
+    
+    double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
+    
+    double Das = mycache.getSM().getAlsMz() / 0.1184 - 1.0;
+    
+    double Dal = mycache.getSM().DeltaAlphaL5q() / 0.059 - 1.0;
+    
+    double DZ = mycache.getSM().getMz() / 91.1876 - 1.0;
+
+    double X0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+    
+    double ThError = 0.0; // Theoretical uncertainty
+    
+    X0 = 2314.64;
+    d1 = 4.616;
+    d2 = 0.539;
+    d3 = -0.0737;
+    d4 = 206.0;
+    d5 = -25.71;
+    d6 = 4.00;
+    d7 = 0.288;
+    d8 = 3.88;
+    d9 = -6.49;
+    d10 = -6560.0;
+    
+    ThError = mycache.getSM().getDelSin2th_l();
+    
+    return ( 0.0001*( X0 + d1 * LH + d2 * LH2 + d3 * LH2 * LH2 
+            + d4 * Dal
+            + d5 * Dt + d6 * Dt * Dt 
+            + d7 * Dt * LH
+            + d8 * Das + d9 * Das * Dt
+            + d10 * DZ ) + ThError);
 }
