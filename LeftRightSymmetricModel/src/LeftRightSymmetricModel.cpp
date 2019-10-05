@@ -167,7 +167,8 @@ bool LeftRightSymmetricModel::CheckParameters(const std::map<std::string, double
     for (int i = 0; i < NLeftRightSymmetricModelvars; i++) {
         if (DPars.find(LeftRightSymmetricModelvars[i]) == DPars.end()) {
             std::cout << "missing mandatory GeneralTHDM parameter " << LeftRightSymmetricModelvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(LeftRightSymmetricModelvars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

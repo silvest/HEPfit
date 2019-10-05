@@ -639,7 +639,8 @@ bool SUSYMassInsertion::CheckParameters(const std::map<std::string, double>& DPa
     for(int i=0; i<NSusyMIvars; i++)
         if(DPars.find(SusyMIvars[i])==DPars.end()) {
             std::cout << "missing mandatory SUSY MIA parameter " << SusyMIvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(SusyMIvars[i]);
         }
     return(StandardModel::CheckParameters(DPars));
 }
