@@ -176,6 +176,8 @@ public:
     void AddChains();
     
     void InChainFillObservablesTree();
+    
+    void InChainFillParametersTree();
 
     /**
      * @brief A get method to access the stream that stores the log messages coming from histogram printing and checking.
@@ -334,6 +336,23 @@ public:
     };
     
     /**
+     * @brief A set method to toggle the writing of  parameters in the ROOT tree
+     * @param[in] LL a boolean to toggle the writing of parameters in the ROOT tree
+     */
+    void setWriteParametersChain(bool LL)
+    {
+        WriteParametersChain = LL;
+    };
+    
+    /**
+     * @brief A get method to get the value of the bool the writing of parameters in the ROOT tree
+     */
+    bool getWriteParametersChain()
+    {
+        return WriteParametersChain;
+    };
+    
+    /**
      * @brief A set method to toggle the printing of legends in 1D and 2D histograms.
      * @param[in] legend a boolean to toggle the the printing of legends
      */
@@ -442,10 +461,13 @@ private:
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
     int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
     TTree * hMCMCObservableTree; ///< A ROOT tree that contains the observables values and weight when the chains are written.
+    TTree * hMCMCParameterTree; ///< A ROOT tree that contains the parameter values when the chains are written.
     std::vector<std::vector<double> > hMCMCObservables; ///< A vector of vectors containing the observables values of all the chains to be put into the ROOT tree.
     std::vector<std::vector<double> > hMCMCObservables_weight; ///< A vector of vectors containing the observables weight of all the chains to be put into the ROOT tree.
+    std::vector<std::vector<double> > hMCMCParameters; ///< A vector of vectors containing the parameter values of all the chains to be put into the ROOT tree.
     std::vector<double> hMCMCTree_Observables; ///< A vector containing the observables values to be put into the ROOT tree.
     std::vector<double> hMCMCTree_Observables_weight; ///< A vector containing the observables weight to be put into the ROOT tree.
+    std::vector<double> hMCMCTree_Parameters; ///< A vector containing the parameter values to be put into the ROOT tree.
     double hMCMCLogLikelihood; ///< A variable containing the LogLikelihood values to be put into the ROOT tree.
     unsigned int cindex;///< An index to distinguish between succesive canvases used to draw histograms.
     std::ofstream ofi;
@@ -456,6 +478,7 @@ private:
     bool noLegend; ///< A flag to toggle the histogram legends.
     bool PrintLoglikelihoodPlots; ///< A flag to toggle the printing of Parameters vs. Loglikelihood.
     bool WriteLogLikelihoodChain; ///< A flag to toggle the writing of Loglikelihood chains in the ROOT tree.
+    bool WriteParametersChain; ///< A flag to toggle the writing of parameters chains in the ROOT tree.
     double alpha2D;///< A number between 0. and 1. that sets the opacity level of 2D Histograms, 1. being fully opaque.
     int gIdx;
     int rIdx;

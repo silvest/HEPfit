@@ -42,7 +42,8 @@ MonteCarloEngine::MonteCarloEngine(
     histogram2Dtype = 1001;
     noLegend = true;
     PrintLoglikelihoodPlots = false;
-    WriteLogLikelihoodChain = true;
+    WriteLogLikelihoodChain = false;
+    WriteParametersChain = false;
     alpha2D = 1.;
     kchainedObs = 0;
     nBins1D = NBINS1D;
@@ -191,9 +192,11 @@ MonteCarloEngine::~MonteCarloEngine()
         delete HEPfit_green;
         HEPfit_red = NULL;
         HEPfit_green = NULL;
-        for (std::map<std::string, TPrincipal *>::iterator it = CorrelationMap.begin(); it != CorrelationMap.end(); it++) {
-            delete it->second;
-            it->second = NULL;
+        if (CorrelationMap.size() > 0) {
+            for (std::map<std::string, TPrincipal *>::iterator it = CorrelationMap.begin(); it != CorrelationMap.end(); it++) {
+                delete it->second;
+                it->second = NULL;
+            }
         }
     }
 };
@@ -383,11 +386,16 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         pars.clear();
         pars = fMCMCStates.at(mychain).parameters;
 
-        if (PrintLoglikelihoodPlots) {
+        if (PrintLoglikelihoodPlots || WriteParametersChain) {
             std::map<std::string, double> tmpDPars;
             setDParsFromParameters(pars, tmpDPars);
-            DPars_allChains.push_back(tmpDPars);
+            if (PrintLoglikelihoodPlots) DPars_allChains.push_back(tmpDPars);
+            if (WriteParametersChain) {
+                int k = 0;
+                for (std::map<std::string, double>::iterator it = tmpDPars.begin(); it != tmpDPars.end(); it++) hMCMCParameters[mychain][k++] = it->second;
+            }
         }
+
         index_chain[iproc] = mychain;
         iproc++;
         mychain++;
@@ -414,7 +422,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             pars.assign(recvbuff + 1, recvbuff + buffsize);
             setDParsFromParameters(pars,DPars);
             Mod->Update(DPars);
-          
+                
             int k = 0;
             for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
                 sbuff[k++] = it->computeTheoryValue();
@@ -490,6 +498,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         iproc = 0;
     }
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0 || WriteLogLikelihoodChain) InChainFillObservablesTree();
+    if (WriteParametersChain) InChainFillParametersTree();
     delete sendbuff[0];
     delete [] sendbuff;
     delete [] recvbuff;
@@ -503,6 +512,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         std::vector<double> currvec(first, last);
         setDParsFromParameters(currvec,DPars);
         if (PrintLoglikelihoodPlots) DPars_allChains.push_back(DPars);
+        if (WriteParametersChain) {
+            int k = 0;
+            for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) hMCMCParameters[mychain][k++] = it->second;
+        }
 
         Mod->Update(DPars);
         // fill the histograms for observables
@@ -557,6 +570,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     }
     
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0  || WriteLogLikelihoodChain) InChainFillObservablesTree();
+    if (WriteParametersChain) InChainFillParametersTree();
 #endif
     for (unsigned int i = 0; i < fMCMCNChains; i++) {
         double LogLikelihood = fMCMCStates.at(i).log_likelihood;
@@ -908,6 +922,23 @@ void MonteCarloEngine::AddChains() {
     }
     hMCMCObservableTree->SetAutoSave(10 * fMCMCNIterationsPreRunCheck);
     hMCMCObservableTree->AutoSave("SelfSave");
+    
+    hMCMCParameterTree = new TTree(TString::Format("%s_Parameters", GetSafeName().data()), TString::Format("%s_Parameters", GetSafeName().data()));
+    hMCMCParameterTree->Branch("Chain", &fMCMCTree_Chain, "chain/i");
+    hMCMCParameterTree->Branch("Iteration", &fMCMCCurrentIteration, "iteration/i");
+    if (WriteParametersChain) {
+        hMCMCParameters.assign(fMCMCNChains, std::vector<double>(DPars.size(), 0.));
+        hMCMCTree_Parameters.assign(DPars.size(), 0.);
+        int k = 0;
+        for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) {
+            hMCMCParameterTree->Branch(it->first.data(), &hMCMCTree_Parameters[k], (it->first + "/D").data());
+            hMCMCParameterTree->SetAlias(TString::Format("HEPfit_Parameters%i", k), it->first.data());
+            k++;
+        }
+    }
+    hMCMCParameterTree->SetAutoSave(10 * fMCMCNIterationsPreRunCheck);
+    hMCMCParameterTree->AutoSave("SelfSave");
+    
     gDirectory = dir;
 }
 
@@ -919,6 +950,15 @@ void MonteCarloEngine::InChainFillObservablesTree()
         if (WriteLogLikelihoodChain) hMCMCLogLikelihood = fMCMCStates.at(fMCMCTree_Chain).log_likelihood;
         if (kwmax > 0 && fMCMCFlagWriteChainToFile) hMCMCTree_Observables_weight = hMCMCObservables_weight[fMCMCTree_Chain];
         hMCMCObservableTree->Fill();
+    }
+}
+
+void MonteCarloEngine::InChainFillParametersTree()
+{
+    if (!hMCMCParameterTree) return;
+    for (fMCMCTree_Chain = 0; fMCMCTree_Chain < fMCMCNChains; ++fMCMCTree_Chain) {
+        hMCMCTree_Parameters = hMCMCParameters[fMCMCTree_Chain];
+        hMCMCParameterTree->Fill();
     }
 }
 
