@@ -1213,6 +1213,31 @@ double MVlnu::get_hA1(double w)
     return hA1(q2);
 }
 
+double MVlnu::get_hA2(double w)
+{
+    updateParameters();
+    double q2 = (2. * MM * MV)*(w0 - w);
+
+    return (hA1(q2) * (1. + w) - RV * (A0(q2) * (1. + MV_o_MM) - A2(q2) * (MV_o_MM - w))) /  (1. + MV_o_MM*MV_o_MM - 2.* MV_o_MM * w);
+    // return (hA1(q2) * (1. + w) - A0(q2) * RV * (1. + MV_o_MM) - A2(q2) * RV * (w - MV_o_MM)) / (1. + MV_o_MM*MV_o_MM - 2.*MV_o_MM*w) ;
+}
+
+double MVlnu::get_hA3(double w)
+{
+    updateParameters();
+    double q2 = (2. * MM * MV)*(w0 - w);
+
+    return A2(q2) * RV - MV_o_MM * get_hA2(w) ;
+}
+
+double MVlnu::get_hV(double w)
+{
+    updateParameters();
+    double q2 = (2. * MM * MV)*(w0 - w);
+
+    return V(q2) * RV;
+}
+
 double MVlnu::get_R1(double w)
 {
     updateParameters();

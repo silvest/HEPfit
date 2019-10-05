@@ -99,6 +99,24 @@ public:
     double get_hA1(double w);
     
     /**
+    * @brief return \f$ h_{A2} \f$ at \f$ w = w \f$
+    * @return \f$ h_{A2}(w) \f$ 
+    */
+    double get_hA2(double w);
+    
+    /**
+    * @brief return \f$ h_{A3} \f$ at \f$ w = w \f$
+    * @return \f$ h_{A3}(w) \f$ 
+    */
+    double get_hA3(double w);
+    
+    /**
+    * @brief return \f$ h_{V} \f$ at \f$ w = w \f$
+    * @return \f$ h_{V}(w) \f$ 
+    */
+    double get_hV(double w);
+    
+    /**
     * @brief return \f$ R_1 \f$ at \f$ w = w \f$
     * @return \f$ R_{1}(w) \f$ 
     */

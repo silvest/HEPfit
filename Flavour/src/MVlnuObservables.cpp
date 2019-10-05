@@ -262,13 +262,14 @@ FF_hA2::FF_hA2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_
 double FF_hA2::computeThValue()  
 {
     double w = getBinMin();
-    double rD = SM.getMesons(vectorM).getMass()/SM.getMesons(meson).getMass();
-    double hA1 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA1(w);
-    double R2 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R2(w);
-    double R0 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R0(w);
-    double R3 = (R2 * (1. -rD) + rD * (R0 * (1. + rD) - 2.))/(1. - rD)/(1. - rD);
+//    double rD = SM.getMesons(vectorM).getMass()/SM.getMesons(meson).getMass();
+//    double hA1 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA1(w);
+//    double R2 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R2(w);
+//    double R0 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R0(w);
+//    double R3 = (R2 * (1. - rD) + rD * (R0 * (1. + rD) - 2.))/(1. - rD)/(1. - rD);
     
-    return (R2 - R3) * hA1/2./rD;
+//    return (R2 - R3) * hA1/2./rD;
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA2(w);
 }
 
 FF_hA3::FF_hA3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
@@ -284,13 +285,14 @@ FF_hA3::FF_hA3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_
 double FF_hA3::computeThValue()  
 {
     double w = getBinMin();
-    double rD = SM.getMesons(vectorM).getMass()/SM.getMesons(meson).getMass();
-    double hA1 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA1(w);
-    double R2 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R2(w);
-    double R0 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R0(w);
-    double R3 = (R2 * (1. -rD) + rD * (R0 * (1. + rD) - 2.))/(1. - rD)/(1. - rD);
-    
-    return (R2 + R3) * hA1/2.;
+//    double rD = SM.getMesons(vectorM).getMass()/SM.getMesons(meson).getMass();
+//    double hA1 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA1(w);
+//    double R2 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R2(w);
+//    double R0 = SM.getFlavour().getMVlnu(meson, vectorM, lep).get_R0(w);
+//    double R3 = (R2 * (1. - rD) + rD * (R0 * (1. + rD) - 2.))/(1. - rD)/(1. - rD);
+//    
+//    return (R2 + R3) * hA1/2.;
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_hA3(w);
 }
 
 FF_R1::FF_R1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
