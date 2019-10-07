@@ -54,7 +54,8 @@ bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars)
         if (DPars.find(NPHIGGSvars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPHiggs parameter "
                     << NPHIGGSvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(NPHIGGSvars[i]);
         }
     }
     return (NPbase::CheckParameters(DPars));

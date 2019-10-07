@@ -65,13 +65,15 @@ bool NPZbbbarLinearized::CheckParameters(const std::map<std::string, double>& DP
             if (DPars.find(ZbbbarLRVars[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPZbbbarLinearizedLR parameter "
                         << ZbbbarLRVars[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(ZbbbarLRVars[i]);
             }
         } else {
             if (DPars.find(ZbbbarVAVars[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPZbbbarLinearized parameter "
                         << ZbbbarVAVars[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(ZbbbarVAVars[i]);
             }
         }
     }

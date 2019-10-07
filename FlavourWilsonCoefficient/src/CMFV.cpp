@@ -27,8 +27,9 @@ void CMFV::setParameter(const std::string name, const double& value){
 bool CMFV::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NCMFVvars; i++) {
         if (DPars.find(CMFVvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory CMFV parameter " << CMFVvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory CMFV parameter " << CMFVvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(CMFVvars[i]);
         }
     }
     return(StandardModel::CheckParameters(DPars));

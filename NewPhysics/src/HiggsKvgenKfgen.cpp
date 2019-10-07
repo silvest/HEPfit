@@ -44,8 +44,9 @@ bool HiggsKvgenKfgen::CheckParameters(const std::map<std::string, double>& DPars
 {
     for (int i = 0; i < NHKvgenKfgenvars; i++) {
         if (DPars.find(HKvgenKfgenvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory HiggsKvgenKfgen parameter " << HKvgenKfgenvars[i] << std::endl;
-            return false;
+            std::cout << "ERROR: missing mandatory HiggsKvgenKfgen parameter " << HKvgenKfgenvars[i] << std::endl;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(HKvgenKfgenvars[i]);
         }
     }
     return (NPbase::CheckParameters(DPars));

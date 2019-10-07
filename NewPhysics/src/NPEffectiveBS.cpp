@@ -188,7 +188,8 @@ bool NPEffectiveBS::CheckParameters(const std::map<std::string, double>& DPars)
             if (DPars.find(NPEffectiveBSVars_LFU_QFU[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveBS_LFU_QFU parameter "
                         << NPEffectiveBSVars_LFU_QFU[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(NPEffectiveBSVars_LFU_QFU[i]);
             }
         }
     } else if (FlagLeptonUniversal && !FlagQuarkUniversal) {
@@ -196,7 +197,8 @@ bool NPEffectiveBS::CheckParameters(const std::map<std::string, double>& DPars)
             if (DPars.find(NPEffectiveBSVars_LFU[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveBS_LFU parameter "
                         << NPEffectiveBSVars_LFU[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(NPEffectiveBSVars_LFU[i]);
             }
         }
     } else if (!FlagLeptonUniversal && FlagQuarkUniversal) {
@@ -204,7 +206,8 @@ bool NPEffectiveBS::CheckParameters(const std::map<std::string, double>& DPars)
             if (DPars.find(NPEffectiveBSVars_QFU[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveBS_QFU parameter "
                         << NPEffectiveBSVars_QFU[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(NPEffectiveBSVars_QFU[i]);
             }
         }
     } else if (!FlagLeptonUniversal && !FlagQuarkUniversal) {
@@ -212,7 +215,8 @@ bool NPEffectiveBS::CheckParameters(const std::map<std::string, double>& DPars)
             if (DPars.find(NPEffectiveBSVars[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveBS parameter "
                         << NPEffectiveBSVars[i] << std::endl;
-                return false;
+                raiseMissingModelParameterCount();
+                addMissingModelParameter(NPEffectiveBSVars[i]);
             }
         }
     } else

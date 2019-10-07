@@ -917,6 +917,10 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         ThError = mycache.getSM().getDelR0l();        
         return X_extended("Gamma_had")/X_extended("Gamma_tau") + ThError;
 
+    } else if (observable.compare("R0_neutrino") == 0) {
+        ThError = 0.0;        
+        return X_extended("Gamma_nu")/X_extended("Gamma_had") + ThError;
+
     } else if (observable.compare("R0_up") == 0) {
         ThError = 0.0; // Set to zero for the moment       
         return X_extended("Gamma_u")/X_extended("Gamma_had") + ThError;
@@ -1486,9 +1490,8 @@ double EWSMApproximateFormulae::sin2thetaEff_b_full() const
 //  Full 2-loop implementation
     
     double LH = log(mycache.getSM().getMHl() / 125.7);
-    double LH2 = LH * LH;
     
-    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
+    double LH2 = LH * LH;    
     
     double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
     
@@ -1537,9 +1540,8 @@ double EWSMApproximateFormulae::sin2thetaEff_l_full() const
 //  Full 2-loop implementation
     
     double LH = log(mycache.getSM().getMHl() / 125.7);
-    double LH2 = LH * LH;
     
-    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
+    double LH2 = LH * LH;
     
     double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
     

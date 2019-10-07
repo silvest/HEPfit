@@ -95,7 +95,8 @@ bool pMSSM::CheckParameters(const std::map<std::string, double>& DPars)
     for (int i = 0; i < NpMSSMvars; i++) {
         if (DPars.find(pMSSMvars[i]) == DPars.end()) {
             std::cout << "missing mandatory pMSSM parameter " << pMSSMvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(pMSSMvars[i]);
         }
     }
     return(SUSY::CheckParameters(DPars));

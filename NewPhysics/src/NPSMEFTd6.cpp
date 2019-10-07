@@ -2657,7 +2657,8 @@ bool NPSMEFTd6::CheckParameters(const std::map<std::string, double>& DPars)
                     if (DPars.find(NPSMEFTd6VarsRot_LFU_QFU[i]) == DPars.end()) {
                           std::cout << "ERROR: Missing mandatory NPSMEFTd6_LFU_QFU parameter "
                           << NPSMEFTd6VarsRot_LFU_QFU[i] << std::endl;
-                          return false;
+                          raiseMissingModelParameterCount();
+                          addMissingModelParameter(NPSMEFTd6VarsRot_LFU_QFU[i]);
                     }
               }
         } else {
@@ -2665,28 +2666,28 @@ bool NPSMEFTd6::CheckParameters(const std::map<std::string, double>& DPars)
                     if (DPars.find(NPSMEFTd6Vars_LFU_QFU[i]) == DPars.end()) {
                           std::cout << "ERROR: Missing mandatory NPSMEFTd6_LFU_QFU parameter "
                           << NPSMEFTd6Vars_LFU_QFU[i] << std::endl;
-                          return false;
+                          raiseMissingModelParameterCount();
+                          addMissingModelParameter(NPSMEFTd6Vars_LFU_QFU[i]);
                     }
               }
         }
-          
-        //} else if (FlagLeptonUniversal && !FlagQuarkUniversal) {
-        //} else if (!FlagLeptonUniversal && FlagQuarkUniversal) {
     } else if (!FlagLeptonUniversal && !FlagQuarkUniversal) {
         if (FlagRotateCHWCHB) {
               for (int i = 0; i < NNPSMEFTd6Vars; i++) {
                     if (DPars.find(NPSMEFTd6VarsRot[i]) == DPars.end()) {
-                          std::cout << "ERROR: Missing mandatory NPSMEFTd6 parameter"
+                          std::cout << "ERROR: Missing mandatory NPSMEFTd6 parameter "
                           << NPSMEFTd6VarsRot[i] << std::endl;
-                          return false;
+                          raiseMissingModelParameterCount();
+                          addMissingModelParameter(NPSMEFTd6VarsRot[i]);
                     }
               }
         } else {
               for (int i = 0; i < NNPSMEFTd6Vars; i++) {
                     if (DPars.find(NPSMEFTd6Vars[i]) == DPars.end()) {
-                          std::cout << "ERROR: Missing mandatory NPSMEFTd6 parameter"
+                          std::cout << "ERROR: Missing mandatory NPSMEFTd6 parameter "
                           << NPSMEFTd6Vars[i] << std::endl;
-                          return false;
+                          raiseMissingModelParameterCount();
+                          addMissingModelParameter(NPSMEFTd6Vars[i]);
                     }
               }
         }

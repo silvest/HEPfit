@@ -52,7 +52,8 @@ bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars)
         if (DPars.find(STUVWXYvars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPSTUVWXY parameter "
                     << STUVWXYvars[i] << std::endl;
-            return false;
+            raiseMissingModelParameterCount();
+            addMissingModelParameter(STUVWXYvars[i]);
         }
     }
     return (NPbase::CheckParameters(DPars));
