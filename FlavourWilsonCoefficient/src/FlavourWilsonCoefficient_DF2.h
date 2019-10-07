@@ -33,185 +33,25 @@ public:
     {
         return FWCM.getObj();
     }
-    
-    /**
-     * 
-     * @return \f $C_{1}^{bd}$ \f
-     */
-    gslpp::complex GetC1_bd() const
+        
+    gslpp::vector<gslpp::complex> GetC_bd() const
     {
-        return C1_bd;
+        return C_bd;
     }
 
-    /**
-     * 
-     * @return  \f $C_{1}^{bs}$ \f
-     */
-    gslpp::complex GetC1_bs() const
+    gslpp::vector<gslpp::complex> GetC_bs() const
     {
-        return C1_bs;
+        return C_bs;
     }
 
-    /**
-     * 
-     * @return  \f $C_{1}^{cu}$ \f
-     */
-    gslpp::complex GetC1_c() const
+    gslpp::vector<gslpp::complex> GetC_c() const
     {
-        return C1_c;
+        return C_c;
     }
 
-    /**
-     * 
-     * @return  \f $C_{1}^{sd}$ \f
-     */
-    gslpp::complex GetC1_s() const
+    gslpp::vector<gslpp::complex> GetC_s() const
     {
-        return C1_s;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{2}^{bd}$ \f
-     */
-    gslpp::complex GetC2_bd() const
-    {
-        return C2_bd;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{2}^{bs}$ \f
-     */
-    gslpp::complex GetC2_bs() const
-    {
-        return C2_bs;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{2}^{cu}$ \f
-     */
-    gslpp::complex GetC2_c() const
-    {
-        return C2_c;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{2}^{sd}$ \f
-     */
-    gslpp::complex GetC2_s() const
-    {
-        return C2_s;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{3}^{bd}$ \f
-     */
-    gslpp::complex GetC3_bd() const
-    {
-        return C3_bd;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{3}^{bs}$ \f
-     */
-    gslpp::complex GetC3_bs() const
-    {
-        return C3_bs;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{3}^{cu}$ \f
-     */
-    gslpp::complex GetC3_c() const
-    {
-        return C3_c;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{3}^{sd}$ \f
-     */
-    gslpp::complex GetC3_s() const
-    {
-        return C3_s;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{4}^{bd}$ \f
-     */
-    gslpp::complex GetC4_bd() const
-    {
-        return C4_bd;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{4}^{bs}$ \f
-     */
-    gslpp::complex GetC4_bs() const
-    {
-        return C4_bs;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{4}^{cu}$ \f
-     */
-    gslpp::complex GetC4_c() const
-    {
-        return C4_c;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{4}^{sd}$ \f
-     */
-    gslpp::complex GetC4_s() const
-    {
-        return C4_s;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{5}^{bd}$ \f
-     */
-    gslpp::complex GetC5_bd() const
-    {
-        return C5_bd;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{5}^{bs}$ \f
-     */
-    gslpp::complex GetC5_bs() const
-    {
-        return C5_bs;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{5}^{cu}$ \f
-     */
-    gslpp::complex GetC5_c() const
-    {
-        return C5_c;
-    }
-
-    /**
-     * 
-     * @return  \f $C_{5}^{sd}$ \f
-     */
-    gslpp::complex GetC5_s() const
-    {
-        return C5_s;
+        return C_s;
     }
 
     /**
@@ -264,10 +104,7 @@ private:
     double imC1_c, imC2_c, imC3_c, imC4_c, imC5_c;
     double imC1_bd, imC2_bd, imC3_bd, imC4_bd, imC5_bd;
     double imC1_bs, imC2_bs, imC3_bs, imC4_bs, imC5_bs;
-    gslpp::complex C1_s, C2_s, C3_s, C4_s, C5_s;
-    gslpp::complex C1_c, C2_c, C3_c, C4_c, C5_c;
-    gslpp::complex C1_bd, C2_bd, C3_bd, C4_bd, C5_bd;
-    gslpp::complex C1_bs, C2_bs, C3_bs, C4_bs, C5_bs;
+    gslpp::vector<gslpp::complex> C_s, C_c, C_bd, C_bs;
     double WCscale_s, WCscale_c, WCscale_bd, WCscale_bs;
 
 };
