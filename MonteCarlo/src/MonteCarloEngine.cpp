@@ -514,7 +514,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         if (PrintLoglikelihoodPlots) DPars_allChains.push_back(DPars);
         if (WriteParametersChain) {
             int k = 0;
-            for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) hMCMCParameters[mychain][k++] = it->second;
+            for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) hMCMCParameters[i][k++] = it->second;
         }
 
         Mod->Update(DPars);
