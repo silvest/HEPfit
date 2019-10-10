@@ -221,6 +221,8 @@ public:
      *
      */
     void setSMupdated() const;
+    
+    bool setFlag(const std::string name, const bool value);
 
     bool setFlagUseDispersionRelation(bool dispersion)
     {

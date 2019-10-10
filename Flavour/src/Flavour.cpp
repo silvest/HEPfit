@@ -24,6 +24,26 @@ Flavour::Flavour(const StandardModel& SM_i)
     btocNPpmflag = false;
 };
 
+bool Flavour::setFlag(const std::string name, const bool value) 
+{
+    
+    if (name.compare("UseDispersionRelation") == 0) {
+        setFlagUseDispersionRelation(value);
+        return true;
+    } else if (name.compare("CLNflag") == 0) {
+        setFlagCLN(value);
+        return true;
+    } else if (name.compare("btocNPpmflag") == 0) {
+        setFlagbtocNPpm(value);
+        return true;
+    } else if (name.compare("FixedWCbtos") == 0) {
+        setFlagFixedWCbtos(value);
+        return true;
+    } else
+        return false;
+}
+
+
 HeffDF2& Flavour::getHDF2() const
 {
     return *getPtr<HeffDF2>(HDF2);
