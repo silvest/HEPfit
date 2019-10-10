@@ -271,6 +271,36 @@
  *   \f$({\cal O}_{uB})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} U^j\big)\widetilde{H} B_{\mu\nu}\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%CdG_klr, CdG_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dG})_{kl}\big], \mbox{Im}\big[(C_{dG})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{dG})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} T_A D^j\big)H G_{\mu\nu}^A\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CdW_klr, CdW_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dW})_{kl}\big], \mbox{Im}\big[(C_{dW})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{dW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \sigma_a D^j\big)H W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CdB_klr, CdB_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dB})_{kl}\big], \mbox{Im}\big[(C_{dB})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{dB})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} D^j\big)H B_{\mu\nu}\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CeW_klr, CeW_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eW})_{kl}\big], \mbox{Im}\big[(C_{eW})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{eW})_{ij} =\big(\overline{L^i}\sigma^{\mu\nu} \sigma_a E^j\big)H W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CeB_klr, CeB_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eB})_{kl}\big], \mbox{Im}\big[(C_{eB})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{eB})_{ij} =\big(\overline{L^i}\sigma^{\mu\nu} E^j\big)H B_{\mu\nu}\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CLL_1221, CLL_2112 </td>
  *   <td class="mod_symb">\f$(C_{LL})_{1221,2112}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -630,22 +660,52 @@
  *   \big(\overline{Q^j}\,H D^j\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CuG_klr, CuG_kli </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uG})_{kl}\big], \mbox{Im}\big[(C_{uG})_{kl}\big] \f$</td>
+ *   <td class="mod_name">%CuG_jjr, CuG_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uG})_{jj}\big], \mbox{Im}\big[(C_{uG})_{jj}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uG})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} T_A U^j\big)\widetilde{H} G_{\mu\nu}^A\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \f$({\cal O}_{uG})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} T_A U^j\big)\widetilde{H} G_{\mu\nu}^A\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CuW_klr, CuW_kli </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{kl}\big], \mbox{Im}\big[(C_{uW})_{kl}\big] \f$</td>
+ *   <td class="mod_name">%CuW_jjr, CuW_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{jj}\big], \mbox{Im}\big[(C_{uW})_{jj}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \sigma_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \f$({\cal O}_{uW})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} \sigma_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CuB_klr, CuB_kli </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uB})_{kl}\big], \mbox{Im}\big[(C_{uB})_{kl}\big] \f$</td>
+ *   <td class="mod_name">%CuB_jjr, CuB_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uB})_{jj}\big], \mbox{Im}\big[(C_{uB})_{jj}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uB})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} U^j\big)\widetilde{H} B_{\mu\nu}\f$, for \f$i,j=1,2,3\f$. </td>
+ *   \f$({\cal O}_{uB})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} U^j\big)\widetilde{H} B_{\mu\nu}\f$ (flavor universal). </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CdG_jjr, CdG_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dG})_{jj}\big], \mbox{Im}\big[(C_{dG})_{jj}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{dG})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} T_A D^j\big)H G_{\mu\nu}^A\f$ (flavor universal). </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CdW_jjr, CdW_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dW})_{jj}\big], \mbox{Im}\big[(C_{dW})_{jj}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{dW})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} \sigma_a D^j\big)H W_{\mu\nu}^a\f$ (flavor universal). </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CdB_jjr, CdB_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dB})_{jj}\big], \mbox{Im}\big[(C_{dB})_{jj}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{dB})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} D^j\big)H B_{\mu\nu}\f$ (flavor universal). </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CeW_jjr, CeW_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eW})_{jj}\big], \mbox{Im}\big[(C_{eW})_{jj}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{eW})_{jj} =\big(\overline{L^j}\sigma^{\mu\nu} \sigma_a E^j\big)H W_{\mu\nu}^a\f$ (flavor universal). </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CeB_jjr, CeB_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eB})_{jj}\big], \mbox{Im}\big[(C_{eB})_{jj}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{eB})_{jj} =\big(\overline{L^j}\sigma^{\mu\nu} E^j\big)H B_{\mu\nu}\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CLL </td>
@@ -828,7 +888,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 446;
+    static const int NNPSMEFTd6Vars = 506;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -846,7 +906,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 250;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 260;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -4577,6 +4637,66 @@ protected:
     double CuB_22i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{22}\f$ (imaginary part).
     double CuB_23i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{23}\f$ (imaginary part).
     double CuB_33i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{33}\f$ (imaginary part).
+    double CdG_11r; ///< The dimension-6 operator coefficient \f$(C_{dG})_{11}\f$ (real part).
+    double CdG_12r; ///< The dimension-6 operator coefficient \f$(C_{dG})_{12}\f$ (real part).
+    double CdG_13r; ///< The dimension-6 operator coefficient \f$(C_{dG})_{13}\f$ (real part).
+    double CdG_22r; ///< The dimension-6 operator coefficient \f$(C_{dG})_{22}\f$ (real part).
+    double CdG_23r; ///< The dimension-6 operator coefficient \f$(C_{dG})_{23}\f$ (real part).
+    double CdG_33r; ///< The dimension-6 operator coefficient \f$(C_{dG})_{33}\f$ (real part).
+    double CdG_11i; ///< The dimension-6 operator coefficient \f$(C_{dG})_{11}\f$ (imaginary part).
+    double CdG_12i; ///< The dimension-6 operator coefficient \f$(C_{dG})_{12}\f$ (imaginary part).
+    double CdG_13i; ///< The dimension-6 operator coefficient \f$(C_{dG})_{13}\f$ (imaginary part).
+    double CdG_22i; ///< The dimension-6 operator coefficient \f$(C_{dG})_{22}\f$ (imaginary part).
+    double CdG_23i; ///< The dimension-6 operator coefficient \f$(C_{dG})_{23}\f$ (imaginary part).
+    double CdG_33i; ///< The dimension-6 operator coefficient \f$(C_{dG})_{33}\f$ (imaginary part).
+    double CdW_11r; ///< The dimension-6 operator coefficient \f$(C_{dW})_{11}\f$ (real part).
+    double CdW_12r; ///< The dimension-6 operator coefficient \f$(C_{dW})_{12}\f$ (real part).
+    double CdW_13r; ///< The dimension-6 operator coefficient \f$(C_{dW})_{13}\f$ (real part).
+    double CdW_22r; ///< The dimension-6 operator coefficient \f$(C_{dW})_{22}\f$ (real part).
+    double CdW_23r; ///< The dimension-6 operator coefficient \f$(C_{dW})_{23}\f$ (real part).
+    double CdW_33r; ///< The dimension-6 operator coefficient \f$(C_{dW})_{33}\f$ (real part).
+    double CdW_11i; ///< The dimension-6 operator coefficient \f$(C_{dW})_{11}\f$ (imaginary part).
+    double CdW_12i; ///< The dimension-6 operator coefficient \f$(C_{dW})_{12}\f$ (imaginary part).
+    double CdW_13i; ///< The dimension-6 operator coefficient \f$(C_{dW})_{13}\f$ (imaginary part).
+    double CdW_22i; ///< The dimension-6 operator coefficient \f$(C_{dW})_{22}\f$ (imaginary part).
+    double CdW_23i; ///< The dimension-6 operator coefficient \f$(C_{dW})_{23}\f$ (imaginary part).
+    double CdW_33i; ///< The dimension-6 operator coefficient \f$(C_{dW})_{33}\f$ (imaginary part).
+    double CdB_11r; ///< The dimension-6 operator coefficient \f$(C_{dB})_{11}\f$ (real part).
+    double CdB_12r; ///< The dimension-6 operator coefficient \f$(C_{dB})_{12}\f$ (real part).
+    double CdB_13r; ///< The dimension-6 operator coefficient \f$(C_{dB})_{13}\f$ (real part).
+    double CdB_22r; ///< The dimension-6 operator coefficient \f$(C_{dB})_{22}\f$ (real part).
+    double CdB_23r; ///< The dimension-6 operator coefficient \f$(C_{dB})_{23}\f$ (real part).
+    double CdB_33r; ///< The dimension-6 operator coefficient \f$(C_{dB})_{33}\f$ (real part).
+    double CdB_11i; ///< The dimension-6 operator coefficient \f$(C_{dB})_{11}\f$ (imaginary part).
+    double CdB_12i; ///< The dimension-6 operator coefficient \f$(C_{dB})_{12}\f$ (imaginary part).
+    double CdB_13i; ///< The dimension-6 operator coefficient \f$(C_{dB})_{13}\f$ (imaginary part).
+    double CdB_22i; ///< The dimension-6 operator coefficient \f$(C_{dB})_{22}\f$ (imaginary part).
+    double CdB_23i; ///< The dimension-6 operator coefficient \f$(C_{dB})_{23}\f$ (imaginary part).
+    double CdB_33i; ///< The dimension-6 operator coefficient \f$(C_{dB})_{33}\f$ (imaginary part).
+    double CeW_11r; ///< The dimension-6 operator coefficient \f$(C_{eW})_{11}\f$ (real part).
+    double CeW_12r; ///< The dimension-6 operator coefficient \f$(C_{eW})_{12}\f$ (real part).
+    double CeW_13r; ///< The dimension-6 operator coefficient \f$(C_{eW})_{13}\f$ (real part).
+    double CeW_22r; ///< The dimension-6 operator coefficient \f$(C_{eW})_{22}\f$ (real part).
+    double CeW_23r; ///< The dimension-6 operator coefficient \f$(C_{eW})_{23}\f$ (real part).
+    double CeW_33r; ///< The dimension-6 operator coefficient \f$(C_{eW})_{33}\f$ (real part).
+    double CeW_11i; ///< The dimension-6 operator coefficient \f$(C_{eW})_{11}\f$ (imaginary part).
+    double CeW_12i; ///< The dimension-6 operator coefficient \f$(C_{eW})_{12}\f$ (imaginary part).
+    double CeW_13i; ///< The dimension-6 operator coefficient \f$(C_{eW})_{13}\f$ (imaginary part).
+    double CeW_22i; ///< The dimension-6 operator coefficient \f$(C_{eW})_{22}\f$ (imaginary part).
+    double CeW_23i; ///< The dimension-6 operator coefficient \f$(C_{eW})_{23}\f$ (imaginary part).
+    double CeW_33i; ///< The dimension-6 operator coefficient \f$(C_{eW})_{33}\f$ (imaginary part).
+    double CeB_11r; ///< The dimension-6 operator coefficient \f$(C_{eB})_{11}\f$ (real part).
+    double CeB_12r; ///< The dimension-6 operator coefficient \f$(C_{eB})_{12}\f$ (real part).
+    double CeB_13r; ///< The dimension-6 operator coefficient \f$(C_{eB})_{13}\f$ (real part).
+    double CeB_22r; ///< The dimension-6 operator coefficient \f$(C_{eB})_{22}\f$ (real part).
+    double CeB_23r; ///< The dimension-6 operator coefficient \f$(C_{eB})_{23}\f$ (real part).
+    double CeB_33r; ///< The dimension-6 operator coefficient \f$(C_{eB})_{33}\f$ (real part).
+    double CeB_11i; ///< The dimension-6 operator coefficient \f$(C_{eB})_{11}\f$ (imaginary part).
+    double CeB_12i; ///< The dimension-6 operator coefficient \f$(C_{eB})_{12}\f$ (imaginary part).
+    double CeB_13i; ///< The dimension-6 operator coefficient \f$(C_{eB})_{13}\f$ (imaginary part).
+    double CeB_22i; ///< The dimension-6 operator coefficient \f$(C_{eB})_{22}\f$ (imaginary part).
+    double CeB_23i; ///< The dimension-6 operator coefficient \f$(C_{eB})_{23}\f$ (imaginary part).
+    double CeB_33i; ///< The dimension-6 operator coefficient \f$(C_{eB})_{33}\f$ (imaginary part).
     double CLL_1111;
     double CLL_1221, CLL_2112, CLL_1122, CLL_2211;
     double CLL_1331, CLL_3113, CLL_1133, CLL_3311;

@@ -14,7 +14,8 @@ const std::string FlavourWilsonCoefficient_DF2::FlavourWilsonCoefficient_DF2vars
 "imC1_c","imC2_c","imC3_c","imC4_c","imC5_c","imC1_bd","imC2_bd","imC3_bd","imC4_bd","imC5_bd",
 "imC1_bs","imC2_bs","imC3_bs","imC4_bs","imC5_bs","WCscale_s","WCscale_c","WCscale_bd","WCscale_bs"};
 
-FlavourWilsonCoefficient_DF2::FlavourWilsonCoefficient_DF2() : StandardModel(), FWCM(*this) {   
+FlavourWilsonCoefficient_DF2::FlavourWilsonCoefficient_DF2() : StandardModel(), 
+        FWCM(*this), C_s(5,0.), C_c(5,0.), C_bd(5,0.), C_bs(5,0.) {   
 
     SMM.setObj((StandardModelMatching&) FWCM.getObj());
     ModelParamMap.insert(std::make_pair("reC1_s", std::cref(reC1_s)));
@@ -69,6 +70,7 @@ FlavourWilsonCoefficient_DF2::FlavourWilsonCoefficient_DF2() : StandardModel(), 
 
 bool FlavourWilsonCoefficient_DF2::InitializeModel()
 {
+    setModelFWC_DF2();
     setModelInitialized(StandardModel::InitializeModel());
     return(true);
 }
@@ -77,26 +79,26 @@ bool FlavourWilsonCoefficient_DF2::PostUpdate()
 {
     if(!StandardModel::PostUpdate()) return (false);
     
-    C1_s = gslpp::complex(reC1_s, imC1_s);
-    C2_s = gslpp::complex(reC2_s, imC2_s);
-    C3_s = gslpp::complex(reC3_s, imC3_s);
-    C4_s = gslpp::complex(reC4_s, imC4_s);
-    C5_s = gslpp::complex(reC5_s, imC5_s);
-    C1_c = gslpp::complex(reC1_c, imC1_c);
-    C2_c = gslpp::complex(reC2_c, imC2_c);
-    C3_c = gslpp::complex(reC3_c, imC3_c);
-    C4_c = gslpp::complex(reC4_c, imC4_c);
-    C5_c = gslpp::complex(reC5_c, imC5_c);
-    C1_bd = gslpp::complex(reC1_bd, imC1_bd);
-    C2_bd = gslpp::complex(reC2_bd, imC2_bd);
-    C3_bd = gslpp::complex(reC3_bd, imC3_bd);
-    C4_bd = gslpp::complex(reC4_bd, imC4_bd);
-    C5_bd = gslpp::complex(reC5_bd, imC5_bd);
-    C1_bs = gslpp::complex(reC1_bs, imC1_bs);
-    C2_bs = gslpp::complex(reC2_bs, imC2_bs);
-    C3_bs = gslpp::complex(reC3_bs, imC3_bs);
-    C4_bs = gslpp::complex(reC4_bs, imC4_bs);
-    C5_bs = gslpp::complex(reC5_bs, imC5_bs);
+    C_s.assign(0,gslpp::complex(reC1_s, imC1_s));
+    C_s.assign(1,gslpp::complex(reC2_s, imC2_s));
+    C_s.assign(2,gslpp::complex(reC3_s, imC3_s));
+    C_s.assign(3,gslpp::complex(reC4_s, imC4_s));
+    C_s.assign(4,gslpp::complex(reC5_s, imC5_s));
+    C_c.assign(0,gslpp::complex(reC1_c, imC1_c));
+    C_c.assign(1,gslpp::complex(reC2_c, imC2_c));
+    C_c.assign(2,gslpp::complex(reC3_c, imC3_c));
+    C_c.assign(3,gslpp::complex(reC4_c, imC4_c));
+    C_c.assign(4,gslpp::complex(reC5_c, imC5_c));
+    C_bd.assign(0,gslpp::complex(reC1_bd, imC1_bd));
+    C_bd.assign(1,gslpp::complex(reC2_bd, imC2_bd));
+    C_bd.assign(2,gslpp::complex(reC3_bd, imC3_bd));
+    C_bd.assign(3,gslpp::complex(reC4_bd, imC4_bd));
+    C_bd.assign(4,gslpp::complex(reC5_bd, imC5_bd));
+    C_bs.assign(0,gslpp::complex(reC1_bs, imC1_bs));
+    C_bs.assign(1,gslpp::complex(reC2_bs, imC2_bs));
+    C_bs.assign(2,gslpp::complex(reC3_bs, imC3_bs));
+    C_bs.assign(3,gslpp::complex(reC4_bs, imC4_bs));
+    C_bs.assign(4,gslpp::complex(reC5_bs, imC5_bs));
 
     return (true);
 }

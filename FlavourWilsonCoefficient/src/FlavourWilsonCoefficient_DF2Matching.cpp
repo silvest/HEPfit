@@ -18,12 +18,9 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficient_DF2Matching::CMdbd2() {
     vmcdbd2 = StandardModelMatching::CMdbd2();
     
     mcdbd2.setMu(FWC.GetWCscale_bd());
-    mcdbd2.setCoeff(0, FWC.GetC1_bd(), LO);
-    mcdbd2.setCoeff(1, FWC.GetC2_bd(), LO);
-    mcdbd2.setCoeff(2, FWC.GetC3_bd(), LO);
-    mcdbd2.setCoeff(3, FWC.GetC4_bd(), LO);
-    mcdbd2.setCoeff(4, FWC.GetC5_bd(), LO);
-    
+    for (int k = 0; k < 5; k++) 
+        mcdbd2.setCoeff(k, FWC.GetC_bd()(k), LO);
+   
     vmcdbd2.push_back(mcdbd2);
     
     return(vmcdbd2);
@@ -34,11 +31,8 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficient_DF2Matching::CMdbs2() {
     vmcdbs2 = StandardModelMatching::CMdbs2();
     
     mcdbs2.setMu(FWC.GetWCscale_bs());
-    mcdbs2.setCoeff(0, FWC.GetC1_bs(), LO);
-    mcdbs2.setCoeff(1, FWC.GetC2_bs(), LO);
-    mcdbs2.setCoeff(2, FWC.GetC3_bs(), LO);
-    mcdbs2.setCoeff(3, FWC.GetC4_bs(), LO);
-    mcdbs2.setCoeff(4, FWC.GetC5_bs(), LO);
+    for (int k = 0; k < 5; k++) 
+        mcdbs2.setCoeff(k, FWC.GetC_bs()(k), LO);
     
     vmcdbs2.push_back(mcdbs2);
     
@@ -50,11 +44,8 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficient_DF2Matching::CMdd2() {
     vmcdc2 = StandardModelMatching::CMdd2();
     
     mcdc2.setMu(FWC.GetWCscale_c());
-    mcdc2.setCoeff(0, FWC.GetC1_c(), LO);
-    mcdc2.setCoeff(1, FWC.GetC2_c(), LO);
-    mcdc2.setCoeff(2, FWC.GetC3_c(), LO);
-    mcdc2.setCoeff(3, FWC.GetC4_c(), LO);
-    mcdc2.setCoeff(4, FWC.GetC5_c(), LO);
+    for (int k = 0; k < 5; k++) 
+        mcdc2.setCoeff(k, FWC.GetC_c()(k), LO);
     
     vmcdc2.push_back(mcdc2);
     
@@ -66,11 +57,8 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficient_DF2Matching::CMdk2() {
     vmcds2 = StandardModelMatching::CMdk2();
     
     mcds2.setMu(FWC.GetWCscale_s());
-    mcds2.setCoeff(0, FWC.GetC1_s(), LO);
-    mcds2.setCoeff(1, FWC.GetC2_s(), LO);
-    mcds2.setCoeff(2, FWC.GetC3_s(), LO);
-    mcds2.setCoeff(3, FWC.GetC4_s(), LO);
-    mcds2.setCoeff(4, FWC.GetC5_s(), LO);
+    for (int k = 0; k < 5; k++) 
+        mcds2.setCoeff(k, FWC.GetC_s()(k), LO);
     
     vmcds2.push_back(mcds2);
     

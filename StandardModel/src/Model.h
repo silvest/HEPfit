@@ -183,6 +183,14 @@ public:
         return flagSUSYmodel;
     }
     
+    void setModelFWC_DF2(){
+        flagFWCDF2model = true;
+    }
+    
+    bool isModelFWC_DF2() const{
+        return flagFWCDF2model;
+    }
+    
     void setModelTHDM(){
         flagTHDMmodel = true;
     }
@@ -267,6 +275,7 @@ private:
     std::string name; ///< The name of the model.
     bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
     bool flagSUSYmodel;///< A flag identifying the model as a SUSY model
+    bool flagFWCDF2model;///< A flag identifying the model as a FlavourWilsonCoefficient_DF2 model
     bool flagTHDMmodel;///< A flag identifying the model as a THDM model
     bool flagGTHDMmodel;///< A flag identifying the model as a GeneralTHDM model
     bool flagTHDMWmodel;///< A flag identifying the model as a THDMW model

@@ -10,6 +10,7 @@
       <itemPath>src/FlavourWilsonCoefficientMatching.h</itemPath>
       <itemPath>src/FlavourWilsonCoefficient_DF2.h</itemPath>
       <itemPath>src/FlavourWilsonCoefficient_DF2Matching.h</itemPath>
+      <itemPath>src/FlavourWilsonCoefficient_DF2_Observables.h</itemPath>
       <itemPath>src/LoopMediators.h</itemPath>
       <itemPath>src/LoopMediatorsMatching.h</itemPath>
       <itemPath>src/NPDF2.h</itemPath>
@@ -110,6 +111,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/FlavourWilsonCoefficient_DF2_Observables.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/LoopMediators.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LoopMediators.h" ex="false" tool="3" flavor2="0">
@@ -188,6 +194,11 @@
             flavor2="0">
       </item>
       <item path="src/FlavourWilsonCoefficient_DF2Matching.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/FlavourWilsonCoefficient_DF2_Observables.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -283,6 +294,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/FlavourWilsonCoefficient_DF2_Observables.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/LoopMediators.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LoopMediators.h" ex="false" tool="3" flavor2="0">
@@ -360,6 +376,11 @@
             flavor2="0">
       </item>
       <item path="src/FlavourWilsonCoefficient_DF2Matching.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/FlavourWilsonCoefficient_DF2_Observables.h"
             ex="false"
             tool="3"
             flavor2="0">

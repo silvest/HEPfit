@@ -9,10 +9,9 @@
 #define	ALPHA_H
 
 #include "ThObservable.h"
+#include "AmpDB2.h"
 
-
-
-class Alpha : public ThObservable {
+class Alpha : public ThObservable, AmpDB2 {
 public:
     Alpha(const StandardModel& SM_i);
 

@@ -41,6 +41,16 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "CuW_11i", "CuW_12i", "CuW_13i", "CuW_22i", "CuW_23i", "CuW_33i",
     "CuB_11r", "CuB_12r", "CuB_13r", "CuB_22r", "CuB_23r", "CuB_33r",
     "CuB_11i", "CuB_12i", "CuB_13i", "CuB_22i", "CuB_23i", "CuB_33i",
+    "CdG_11r", "CdG_12r", "CdG_13r", "CdG_22r", "CdG_23r", "CdG_33r",
+    "CdG_11i", "CdG_12i", "CdG_13i", "CdG_22i", "CdG_23i", "CdG_33i",
+    "CdW_11r", "CdW_12r", "CdW_13r", "CdW_22r", "CdW_23r", "CdW_33r",
+    "CdW_11i", "CdW_12i", "CdW_13i", "CdW_22i", "CdW_23i", "CdW_33i",
+    "CdB_11r", "CdB_12r", "CdB_13r", "CdB_22r", "CdB_23r", "CdB_33r",
+    "CdB_11i", "CdB_12i", "CdB_13i", "CdB_22i", "CdB_23i", "CdB_33i",
+    "CeW_11r", "CeW_12r", "CeW_13r", "CeW_22r", "CeW_23r", "CeW_33r",
+    "CeW_11i", "CeW_12i", "CeW_13i", "CeW_22i", "CeW_23i", "CeW_33i",
+    "CeB_11r", "CeB_12r", "CeB_13r", "CeB_22r", "CeB_23r", "CeB_33r",
+    "CeB_11i", "CeB_12i", "CeB_13i", "CeB_22i", "CeB_23i", "CeB_33i",
     "CLL_1111","CLL_1221","CLL_1122",
     "CLL_1133","CLL_1331",
     "CLQ1_1111","CLQ1_1122","CLQ1_2211","CLQ1_1221","CLQ1_2112",
@@ -130,6 +140,16 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "CuW_11i", "CuW_12i", "CuW_13i", "CuW_22i", "CuW_23i", "CuW_33i",
     "CuB_11r", "CuB_12r", "CuB_13r", "CuB_22r", "CuB_23r", "CuB_33r",
     "CuB_11i", "CuB_12i", "CuB_13i", "CuB_22i", "CuB_23i", "CuB_33i",
+    "CdG_11r", "CdG_12r", "CdG_13r", "CdG_22r", "CdG_23r", "CdG_33r",
+    "CdG_11i", "CdG_12i", "CdG_13i", "CdG_22i", "CdG_23i", "CdG_33i",
+    "CdW_11r", "CdW_12r", "CdW_13r", "CdW_22r", "CdW_23r", "CdW_33r",
+    "CdW_11i", "CdW_12i", "CdW_13i", "CdW_22i", "CdW_23i", "CdW_33i",
+    "CdB_11r", "CdB_12r", "CdB_13r", "CdB_22r", "CdB_23r", "CdB_33r",
+    "CdB_11i", "CdB_12i", "CdB_13i", "CdB_22i", "CdB_23i", "CdB_33i",
+    "CeW_11r", "CeW_12r", "CeW_13r", "CeW_22r", "CeW_23r", "CeW_33r",
+    "CeW_11i", "CeW_12i", "CeW_13i", "CeW_22i", "CeW_23i", "CeW_33i",
+    "CeB_11r", "CeB_12r", "CeB_13r", "CeB_22r", "CeB_23r", "CeB_33r",
+    "CeB_11i", "CeB_12i", "CeB_13i", "CeB_22i", "CeB_23i", "CeB_33i",
     "CLL_1111","CLL_1221","CLL_1122",
     "CLL_1133","CLL_1331",
     "CLQ1_1111","CLQ1_1122","CLQ1_2211","CLQ1_1221","CLQ1_2112",
@@ -196,6 +216,8 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
     "CdH_11r", "CdH_22r", "CdH_33r", "CdH_11i", "CdH_22i", "CdH_33i",
     "CuG_r", "CuG_i", "CuW_r", "CuW_i", "CuB_r", "CuB_i",
+    "CdG_r", "CdG_i", "CdW_r", "CdW_i", "CdB_r", "CdB_i",
+    "CeW_r", "CeW_i", "CeB_r", "CeB_i",
     "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe",
     "Lambda_NP",
@@ -240,6 +262,8 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
     "CdH_11r", "CdH_22r", "CdH_33r", "CdH_11i", "CdH_22i", "CdH_33i",
     "CuG_r", "CuG_i", "CuW_r", "CuW_i", "CuB_r", "CuB_i",
+    "CdG_r", "CdG_i", "CdW_r", "CdW_i", "CdB_r", "CdB_i",
+    "CeW_r", "CeW_i", "CeB_r", "CeB_i",
     "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe",
     "Lambda_NP",
@@ -410,6 +434,16 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::make_pair("CuW_i", std::cref(CuW_11i)));
         ModelParamMap.insert(std::make_pair("CuB_r", std::cref(CuB_11r)));
         ModelParamMap.insert(std::make_pair("CuB_i", std::cref(CuB_11i)));
+        ModelParamMap.insert(std::make_pair("CdG_r", std::cref(CdG_11r)));
+        ModelParamMap.insert(std::make_pair("CdG_i", std::cref(CdG_11i)));
+        ModelParamMap.insert(std::make_pair("CdW_r", std::cref(CdW_11r)));
+        ModelParamMap.insert(std::make_pair("CdW_i", std::cref(CdW_11i)));
+        ModelParamMap.insert(std::make_pair("CdB_r", std::cref(CdB_11r)));
+        ModelParamMap.insert(std::make_pair("CdB_i", std::cref(CdB_11i)));
+        ModelParamMap.insert(std::make_pair("CeW_r", std::cref(CeW_11r)));
+        ModelParamMap.insert(std::make_pair("CeW_i", std::cref(CeW_11i)));
+        ModelParamMap.insert(std::make_pair("CeB_r", std::cref(CeB_11r)));
+        ModelParamMap.insert(std::make_pair("CeB_i", std::cref(CeB_11i)));
     } else {
         ModelParamMap.insert(std::make_pair("CHQ1_11", std::cref(CHQ1_11)));
         ModelParamMap.insert(std::make_pair("CHQ1_12r", std::cref(CHQ1_12r)));
@@ -519,6 +553,66 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::make_pair("CuB_22i", std::cref(CuB_22i)));
         ModelParamMap.insert(std::make_pair("CuB_23i", std::cref(CuB_23i)));
         ModelParamMap.insert(std::make_pair("CuB_33i", std::cref(CuB_33i)));
+        ModelParamMap.insert(std::make_pair("CdG_11r", std::cref(CdG_11r)));
+        ModelParamMap.insert(std::make_pair("CdG_12r", std::cref(CdG_12r)));
+        ModelParamMap.insert(std::make_pair("CdG_13r", std::cref(CdG_13r)));
+        ModelParamMap.insert(std::make_pair("CdG_22r", std::cref(CdG_22r)));
+        ModelParamMap.insert(std::make_pair("CdG_23r", std::cref(CdG_23r)));
+        ModelParamMap.insert(std::make_pair("CdG_33r", std::cref(CdG_33r)));
+        ModelParamMap.insert(std::make_pair("CdG_11i", std::cref(CdG_11i)));
+        ModelParamMap.insert(std::make_pair("CdG_12i", std::cref(CdG_12i)));
+        ModelParamMap.insert(std::make_pair("CdG_13i", std::cref(CdG_13i)));
+        ModelParamMap.insert(std::make_pair("CdG_22i", std::cref(CdG_22i)));
+        ModelParamMap.insert(std::make_pair("CdG_23i", std::cref(CdG_23i)));
+        ModelParamMap.insert(std::make_pair("CdG_33i", std::cref(CdG_33i)));
+        ModelParamMap.insert(std::make_pair("CdW_11r", std::cref(CdW_11r)));
+        ModelParamMap.insert(std::make_pair("CdW_12r", std::cref(CdW_12r)));
+        ModelParamMap.insert(std::make_pair("CdW_13r", std::cref(CdW_13r)));
+        ModelParamMap.insert(std::make_pair("CdW_22r", std::cref(CdW_22r)));
+        ModelParamMap.insert(std::make_pair("CdW_23r", std::cref(CdW_23r)));
+        ModelParamMap.insert(std::make_pair("CdW_33r", std::cref(CdW_33r)));
+        ModelParamMap.insert(std::make_pair("CdW_11i", std::cref(CdW_11i)));
+        ModelParamMap.insert(std::make_pair("CdW_12i", std::cref(CdW_12i)));
+        ModelParamMap.insert(std::make_pair("CdW_13i", std::cref(CdW_13i)));
+        ModelParamMap.insert(std::make_pair("CdW_22i", std::cref(CdW_22i)));
+        ModelParamMap.insert(std::make_pair("CdW_23i", std::cref(CdW_23i)));
+        ModelParamMap.insert(std::make_pair("CdW_33i", std::cref(CdW_33i)));
+        ModelParamMap.insert(std::make_pair("CdB_11r", std::cref(CdB_11r)));
+        ModelParamMap.insert(std::make_pair("CdB_12r", std::cref(CdB_12r)));
+        ModelParamMap.insert(std::make_pair("CdB_13r", std::cref(CdB_13r)));
+        ModelParamMap.insert(std::make_pair("CdB_22r", std::cref(CdB_22r)));
+        ModelParamMap.insert(std::make_pair("CdB_23r", std::cref(CdB_23r)));
+        ModelParamMap.insert(std::make_pair("CdB_33r", std::cref(CdB_33r)));
+        ModelParamMap.insert(std::make_pair("CdB_11i", std::cref(CdB_11i)));
+        ModelParamMap.insert(std::make_pair("CdB_12i", std::cref(CdB_12i)));
+        ModelParamMap.insert(std::make_pair("CdB_13i", std::cref(CdB_13i)));
+        ModelParamMap.insert(std::make_pair("CdB_22i", std::cref(CdB_22i)));
+        ModelParamMap.insert(std::make_pair("CdB_23i", std::cref(CdB_23i)));
+        ModelParamMap.insert(std::make_pair("CdB_33i", std::cref(CdB_33i)));
+        ModelParamMap.insert(std::make_pair("CeW_11r", std::cref(CeW_11r)));
+        ModelParamMap.insert(std::make_pair("CeW_12r", std::cref(CeW_12r)));
+        ModelParamMap.insert(std::make_pair("CeW_13r", std::cref(CeW_13r)));
+        ModelParamMap.insert(std::make_pair("CeW_22r", std::cref(CeW_22r)));
+        ModelParamMap.insert(std::make_pair("CeW_23r", std::cref(CeW_23r)));
+        ModelParamMap.insert(std::make_pair("CeW_33r", std::cref(CeW_33r)));
+        ModelParamMap.insert(std::make_pair("CeW_11i", std::cref(CeW_11i)));
+        ModelParamMap.insert(std::make_pair("CeW_12i", std::cref(CeW_12i)));
+        ModelParamMap.insert(std::make_pair("CeW_13i", std::cref(CeW_13i)));
+        ModelParamMap.insert(std::make_pair("CeW_22i", std::cref(CeW_22i)));
+        ModelParamMap.insert(std::make_pair("CeW_23i", std::cref(CeW_23i)));
+        ModelParamMap.insert(std::make_pair("CeW_33i", std::cref(CeW_33i)));
+        ModelParamMap.insert(std::make_pair("CeB_11r", std::cref(CeB_11r)));
+        ModelParamMap.insert(std::make_pair("CeB_12r", std::cref(CeB_12r)));
+        ModelParamMap.insert(std::make_pair("CeB_13r", std::cref(CeB_13r)));
+        ModelParamMap.insert(std::make_pair("CeB_22r", std::cref(CeB_22r)));
+        ModelParamMap.insert(std::make_pair("CeB_23r", std::cref(CeB_23r)));
+        ModelParamMap.insert(std::make_pair("CeB_33r", std::cref(CeB_33r)));
+        ModelParamMap.insert(std::make_pair("CeB_11i", std::cref(CeB_11i)));
+        ModelParamMap.insert(std::make_pair("CeB_12i", std::cref(CeB_12i)));
+        ModelParamMap.insert(std::make_pair("CeB_13i", std::cref(CeB_13i)));
+        ModelParamMap.insert(std::make_pair("CeB_22i", std::cref(CeB_22i)));
+        ModelParamMap.insert(std::make_pair("CeB_23i", std::cref(CeB_23i)));
+        ModelParamMap.insert(std::make_pair("CeB_33i", std::cref(CeB_33i)));
     }
     if(FlagLeptonUniversal && FlagQuarkUniversal){
         ModelParamMap.insert(std::make_pair("CLQ1", std::cref(CLQ1_1111)));  
@@ -1676,6 +1770,236 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CuB_22i = value;
         CuB_23i = 0.0;
         CuB_33i = value;
+    } else if (name.compare("CdG_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CdG_11r = value;
+        }
+    } else if (name.compare("CdG_12r") == 0)
+        CdG_12r = value;
+    else if (name.compare("CdG_13r") == 0)
+        CdG_13r = value;
+    else if (name.compare("CdG_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CdG_22r = value;
+        }
+    } else if (name.compare("CdG_23r") == 0)
+        CdG_23r = value;
+    else if (name.compare("CdG_33r") == 0){
+        CdG_33r = value;
+        if (FlagFlavU3OfX){
+            CdG_11r = value;  
+            CdG_22r = value;
+        }
+    } else if (name.compare("CdG_r") == 0) {
+        CdG_11r = value;
+        CdG_12r = 0.0;
+        CdG_13r = 0.0;
+        CdG_22r = value;
+        CdG_23r = 0.0;
+        CdG_33r = value;
+    } else if (name.compare("CdG_11i") == 0)
+        CdG_11i = value;
+    else if (name.compare("CdG_12i") == 0)
+        CdG_12i = value;
+    else if (name.compare("CdG_13i") == 0)
+        CdG_13i = value;
+    else if (name.compare("CdG_22i") == 0)
+        CdG_22i = value;
+    else if (name.compare("CdG_23i") == 0)
+        CdG_23i = value;
+    else if (name.compare("CdG_33i") == 0)
+        CdG_33i = value;
+    else if (name.compare("CdG_i") == 0) {
+        CdG_11i = value;
+        CdG_12i = 0.0;
+        CdG_13i = 0.0;
+        CdG_22i = value;
+        CdG_23i = 0.0;
+        CdG_33i = value;
+    } else if (name.compare("CdW_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CdW_11r = value;
+        }
+    } else if (name.compare("CdW_12r") == 0)
+        CdW_12r = value;
+    else if (name.compare("CdW_13r") == 0)
+        CdW_13r = value;
+    else if (name.compare("CdW_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CdW_22r = value;
+        }
+    } else if (name.compare("CdW_23r") == 0)
+        CdW_23r = value;
+    else if (name.compare("CdW_33r") == 0){
+        CdW_33r = value;
+        if (FlagFlavU3OfX){
+            CdW_11r = value;
+            CdW_22r = value;
+        }
+    } else if (name.compare("CdW_r") == 0) {
+        CdW_11r = value;
+        CdW_12r = 0.0;
+        CdW_13r = 0.0;
+        CdW_22r = value;
+        CdW_23r = 0.0;
+        CdW_33r = value;
+    } else if (name.compare("CdW_11i") == 0)
+        CdW_11i = value;
+    else if (name.compare("CdW_12i") == 0)
+        CdW_12i = value;
+    else if (name.compare("CdW_13i") == 0)
+        CdW_13i = value;
+    else if (name.compare("CdW_22i") == 0)
+        CdW_22i = value;
+    else if (name.compare("CdW_23i") == 0)
+        CdW_23i = value;
+    else if (name.compare("CdW_33i") == 0)
+        CdW_33i = value;
+    else if (name.compare("CdW_i") == 0) {
+        CdW_11i = value;
+        CdW_12i = 0.0;
+        CdW_13i = 0.0;
+        CdW_22i = value;
+        CdW_23i = 0.0;
+        CdW_33i = value;
+    } else if (name.compare("CdB_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CdB_11r = value;
+        }
+    } else if (name.compare("CdB_12r") == 0)
+        CdB_12r = value;
+    else if (name.compare("CdB_13r") == 0)
+        CdB_13r = value;
+    else if (name.compare("CdB_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CdB_22r = value;
+        }
+    } else if (name.compare("CdB_23r") == 0)
+        CdB_23r = value;
+    else if (name.compare("CdB_33r") == 0){
+        CdB_33r = value;
+        if (FlagFlavU3OfX){
+            CdB_11r = value;
+            CdB_22r = value;            
+        }
+    } else if (name.compare("CdB_r") == 0) {
+        CdB_11r = value;
+        CdB_12r = 0.0;
+        CdB_13r = 0.0;
+        CdB_22r = value;
+        CdB_23r = 0.0;
+        CdB_33r = value;
+    } else if (name.compare("CdB_11i") == 0)
+        CdB_11i = value;
+    else if (name.compare("CdB_12i") == 0)
+        CdB_12i = value;
+    else if (name.compare("CdB_13i") == 0)
+        CdB_13i = value;
+    else if (name.compare("CdB_22i") == 0)
+        CdB_22i = value;
+    else if (name.compare("CdB_23i") == 0)
+        CdB_23i = value;
+    else if (name.compare("CdB_33i") == 0)
+        CdB_33i = value;
+    else if (name.compare("CdB_i") == 0) {
+        CdB_11i = value;
+        CdB_12i = 0.0;
+        CdB_13i = 0.0;
+        CdB_22i = value;
+        CdB_23i = 0.0;
+        CdB_33i = value;
+    } else if (name.compare("CeW_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CeW_11r = value;
+        }
+    } else if (name.compare("CeW_12r") == 0)
+        CeW_12r = value;
+    else if (name.compare("CeW_13r") == 0)
+        CeW_13r = value;
+    else if (name.compare("CeW_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CeW_22r = value;
+        }
+    } else if (name.compare("CeW_23r") == 0)
+        CeW_23r = value;
+    else if (name.compare("CeW_33r") == 0){
+        CeW_33r = value;
+        if (FlagFlavU3OfX){
+            CeW_11r = value;
+            CeW_22r = value;
+        }
+    } else if (name.compare("CeW_r") == 0) {
+        CeW_11r = value;
+        CeW_12r = 0.0;
+        CeW_13r = 0.0;
+        CeW_22r = value;
+        CeW_23r = 0.0;
+        CeW_33r = value;
+    } else if (name.compare("CeW_11i") == 0)
+        CeW_11i = value;
+    else if (name.compare("CeW_12i") == 0)
+        CeW_12i = value;
+    else if (name.compare("CeW_13i") == 0)
+        CeW_13i = value;
+    else if (name.compare("CeW_22i") == 0)
+        CeW_22i = value;
+    else if (name.compare("CeW_23i") == 0)
+        CeW_23i = value;
+    else if (name.compare("CeW_33i") == 0)
+        CeW_33i = value;
+    else if (name.compare("CeW_i") == 0) {
+        CeW_11i = value;
+        CeW_12i = 0.0;
+        CeW_13i = 0.0;
+        CeW_22i = value;
+        CeW_23i = 0.0;
+        CeW_33i = value;
+    } else if (name.compare("CeB_11r") == 0){
+        if (!FlagFlavU3OfX){
+            CeB_11r = value;
+        }
+    } else if (name.compare("CeB_12r") == 0)
+        CeB_12r = value;
+    else if (name.compare("CeB_13r") == 0)
+        CeB_13r = value;
+    else if (name.compare("CeB_22r") == 0){
+        if (!FlagFlavU3OfX){
+            CeB_22r = value;
+        }
+    } else if (name.compare("CeB_23r") == 0)
+        CeB_23r = value;
+    else if (name.compare("CeB_33r") == 0){
+        CeB_33r = value;
+        if (FlagFlavU3OfX){
+            CeB_11r = value;
+            CeB_22r = value;            
+        }
+    } else if (name.compare("CeB_r") == 0) {
+        CeB_11r = value;
+        CeB_12r = 0.0;
+        CeB_13r = 0.0;
+        CeB_22r = value;
+        CeB_23r = 0.0;
+        CeB_33r = value;
+    } else if (name.compare("CeB_11i") == 0)
+        CeB_11i = value;
+    else if (name.compare("CeB_12i") == 0)
+        CeB_12i = value;
+    else if (name.compare("CeB_13i") == 0)
+        CeB_13i = value;
+    else if (name.compare("CeB_22i") == 0)
+        CeB_22i = value;
+    else if (name.compare("CeB_23i") == 0)
+        CeB_23i = value;
+    else if (name.compare("CeB_33i") == 0)
+        CeB_33i = value;
+    else if (name.compare("CeB_i") == 0) {
+        CeB_11i = value;
+        CeB_12i = 0.0;
+        CeB_13i = 0.0;
+        CeB_22i = value;
+        CeB_23i = 0.0;
+        CeB_33i = value;
 //  Several redundancies for the 4-fermionn operators below
     } else if (name.compare("CLL_1111") == 0) {
         CLL_1111 = value;

@@ -86,6 +86,7 @@ private:
     double Mlep, mu_b, mu_c, Mb, Mc, Mtau, Mb_pole, Mc_pole, Ms, MW;
     double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl, phi1, phi2;
     double BR_BXcenu, C_ratio, pre;
+    unsigned int QCD_max, QED_max;
    
     std::vector< gslpp::vector<gslpp::complex> > M_7;
     std::vector< gslpp::vector<gslpp::complex> > M_9;
@@ -359,6 +360,12 @@ private:
     */
     double Phi_u(orders ord);
     double Phi_u(orders_qed ord_qed);
+    
+    /**
+    * @brief Inverse of the normalization function for \f$B\to X_s\ell\ell\f$ from eq. (4.8) of 1503.04849
+    * @param[in] (ord_qcd, ord_qed) order to be returned
+    */
+    double Phi_u_inv(unsigned int ord_qcd, unsigned int ord_qed);
     
     /**
     * @brief The finite bremsstrahlung corrections to dGamma/ds for @f$B \to X_q l^+ l^-@f$ from @cite Asatryan:2002iy
