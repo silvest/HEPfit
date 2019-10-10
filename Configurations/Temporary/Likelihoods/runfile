@@ -1,0 +1,96 @@
+#!/bin/bash
+############################################################################
+# This is a script to create the runs necessary for Project Silent Night   #
+# This one script will cover both SMEFT and WEFT both in KD and dispersion #
+# Classification Level: For Her Majesty's eyes ONLY.                       #
+# -- Ayan Paul (October 2019, Berlin)                                      #
+############################################################################
+
+EXEPATH=/home/apaul/NetBeansProjects/HEPfit/Analysis/dist/Release_MPI/GNU-Linux/analysis
+## BATCH is SLURM or CONDOR
+BATCH="SLURM"
+
+## BSM
+## First lets make the ones in both KD and dispersion
+## Directory Structure:
+## -- WEFT                    --SMEFT                    --SM
+##    |-- KD   --dispersion     |-- KD   --dispersion      |-- KD   --dispersion
+## Modified for getting LogLikelihood chains. (dispersion and WEFT is being ignored for now)
+
+# rm -rf SMEFT
+mkdir -p  SMEFT
+
+# Then SMEFT
+cd SMEFT
+for hads in KD #dispersion
+do
+    mkdir -p ${hads} && cd ${hads}
+    for run in C_all_1 C_all_2 C_all_3
+    do
+	mkdir -p ${run} && cd ${run}
+	cp -r ../../../config .
+	sed -i.bak -e "s/## NPD6 ## //" config/StandardModel.conf
+	rm config/*WEFT.conf
+	if [ ${hads} == 'KD' ]; then
+	    rm config/dispersion.conf
+	    sed -i.bak -e "s/USEDISP/false/" -e "s/## KD ## //" config/StandardModel.conf
+	elif [ ${hads} == 'dispersion' ]; then
+	    rm config/*h_lambda.conf 
+	    sed -i.bak -e "s/USEDISP/true/" -e "s/## DISP ## //" config/StandardModel.conf
+	fi
+	sed -i.bak -e "/CLQ1_2223/s/RANGE_2/5./;/CLd_2223/s/RANGE_2/2./;/CLd_2223/s/0./-0.5/;s/RANGE_1/10./;s/RANGE_2/10./;/CLQ1_1123/s/0./5./" config/NPSMEFTd6.conf
+	sed -i.bak -e "24,36s/^# //" config/Observables_NP_NPSMEFTd6.conf
+	rm -rf analysis *.txt *.out *.err analysis Observables *.pdf *.tex config/*.bak
+	ln -s ${EXEPATH} .
+        #./analysis config/StandardModel.conf --noMC
+	if [ ${BATCH} == 'SLURM' ]; then
+	    sed -e "s/NAME/${run}-${hads}/" ../../../sbatch.sh > sbatch.sh
+	    sbatch sbatch.sh
+	elif [ ${BATCH} == 'CONDOR' ]; then
+	    sed -e "/FAME/s/NAME/${run}-${hads}/" ../../../submit_condor.sh > submit_condor.sh
+	    cp ../../../mpi-wrap.sh .
+	    condor_submit submit_condor.sh
+	fi
+	cd ..
+    done
+    cd ..
+done
+cd ..
+
+# SM
+mkdir SM
+cd SM
+for hads in KD #dispersion
+do
+    mkdir -p ${hads} && cd ${hads}
+    for run in SM_1 SM_2 SM_3
+    do
+	mkdir -p ${run} && cd ${run}
+	cp -r ../../../config .
+	sed -i.bak -e "s/## StandardModel/StandardModel/" config/StandardModel.conf
+	rm config/*NPSMEFTd6.conf
+	rm config/*WEFT.conf
+	if [ ${hads} == 'KD' ]; then
+	    rm config/dispersion.conf
+	    sed -i.bak -e "s/USEDISP/false/" -e "s/## KD ## //" config/StandardModel.conf
+	elif [ ${hads} == 'dispersion' ]; then
+	    rm config/*h_lambda.conf 
+	    sed -i.bak -e "s/USEDISP/true/" -e "s/## DISP ## //" config/StandardModel.conf
+	fi
+	rm -rf analysis *.txt *.out *.err analysis Observables *.pdf *.tex config/*.bak
+	ln -s ${EXEPATH} .
+        #./analysis config/StandardModel.conf --noMC
+	if [ ${BATCH} == 'SLURM' ]; then
+	    sed -e "s/NAME/${run}-${hads}/" ../../../sbatch.sh > sbatch.sh
+	    sbatch sbatch.sh
+	elif [ ${BATCH} == 'CONDOR' ]; then
+	    sed -e "/FAME/s/NAME/${run}-${hads}/" ../../../submit_condor.sh > submit_condor.sh
+	    cp ../../../mpi-wrap.sh .
+	    condor_submit submit_condor.sh
+	fi
+	cd ..
+    done
+    cd ..
+done
+cd ..
+
