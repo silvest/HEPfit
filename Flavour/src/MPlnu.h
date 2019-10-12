@@ -105,8 +105,9 @@ private:
     QCD::meson meson;/**< Initial meson type */
     QCD::meson pseudoscalarM;/**< Final vector meson type */
     std::vector<std::string> mplnuParameters;/**< The string of mandatory MPlnu parameters */
-    bool CLNflag;
-    bool btocNPpmflag;
+    bool CLNflag; /**< A flag for switching to CLN parameterization */
+    bool btocNPpmflag; /**< A flag for switching to the +/- basis for NP Wilson coefficients */
+    bool NPanalysis; /**< A flag to switch to BSM analysis */
     
     double GF;            /**<Fermi constant */
     double Mlep;          /**<Lepton mass */

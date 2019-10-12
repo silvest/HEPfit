@@ -13,6 +13,7 @@
       <itemPath>src/LoopMediators.h</itemPath>
       <itemPath>src/LoopMediatorsMatching.h</itemPath>
       <itemPath>src/NPDF2.h</itemPath>
+      <itemPath>src/RealWeakEFTCC.h</itemPath>
       <itemPath>src/RealWeakEFTLFV.h</itemPath>
       <itemPath>src/RealWeakEFTLFVMatching.h</itemPath>
     </logicalFolder>
@@ -32,6 +33,7 @@
       <itemPath>src/LoopMediators.cpp</itemPath>
       <itemPath>src/LoopMediatorsMatching.cpp</itemPath>
       <itemPath>src/NPDF2.cpp</itemPath>
+      <itemPath>src/RealWeakEFTCC.cpp</itemPath>
       <itemPath>src/RealWeakEFTLFV.cpp</itemPath>
       <itemPath>src/RealWeakEFTLFVMatching.cpp</itemPath>
     </logicalFolder>
@@ -122,6 +124,10 @@
       <item path="src/NPDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPDF2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/RealWeakEFTCC.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RealWeakEFTCC.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/RealWeakEFTLFV.cpp" ex="false" tool="1" flavor2="0">
       </item>

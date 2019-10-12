@@ -8,9 +8,9 @@
 #include "RealWeakEFTLFV.h"
 
 const std::string RealWeakEFTLFV::RealWeakEFTLFVvars[NRealWeakEFTLFVvars] = {"C7", "C7p", "C8", "C8p", 
-                                                                                                                        "C9_11", "C9p_11", "C10_11", "C10p_11", "CS_11", "CSp_11", "CP_11", "CPp_11", 
-                                                                                                                        "C9_22", "C9p_22", "C10_22", "C10p_22", "CS_22", "CSp_22", "CP_22", "CPp_22",
-                                                                                                                        "WCscale"};
+                                                                             "C9_11", "C9p_11", "C10_11", "C10p_11", "CS_11", "CSp_11", "CP_11", "CPp_11", 
+                                                                             "C9_22", "C9p_22", "C10_22", "C10p_22", "CS_22", "CSp_22", "CP_22", "CPp_22",
+                                                                             "WCscale"};
 
 RealWeakEFTLFV::RealWeakEFTLFV() : StandardModel(), ReWEFTM(*this) {   
 
@@ -143,7 +143,7 @@ void RealWeakEFTLFV::setParameter(const std::string name, const double& value){
 bool RealWeakEFTLFV::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NRealWeakEFTLFVvars; i++) {
         if (DPars.find(RealWeakEFTLFVvars[i]) == DPars.end()) {
-            std::cout << "ERROR: missing mandatory FlavourWilsonCoefficient parameter " << RealWeakEFTLFVvars[i] << std::endl;
+            std::cout << "ERROR: missing mandatory RealWeakEFTLFV parameter " << RealWeakEFTLFVvars[i] << std::endl;
             raiseMissingModelParameterCount();
             addMissingModelParameter(RealWeakEFTLFVvars[i]);
         }
@@ -156,10 +156,6 @@ bool RealWeakEFTLFV::CheckParameters(const std::map<std::string, double>& DPars)
 
 bool RealWeakEFTLFV::setFlag(const std::string name, const bool value)
 {
-    bool res = false;
-    
-    res = StandardModel::setFlag(name,value);
-
-    return(res);
+    return StandardModel::setFlag(name,value);
 }
 

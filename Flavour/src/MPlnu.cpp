@@ -72,52 +72,27 @@ MPlnu::~MPlnu()
 std::vector<std::string> MPlnu::initializeMPlnuParameters()
 {
     CLNflag = mySM.getFlavour().getFlagCLN();
-    btocNPpmflag = mySM.getFlavour().getbtocNPpmflag();
+    btocNPpmflag = (mySM.getModelName().compare("RealWeakEFTCCPM") == 0);
+    NPanalysis = (mySM.getModelName().compare("RealWeakEFTCCPM") == 0 || mySM.getModelName().compare("RealWeakEFTCC") == 0);
 
-    if (btocNPpmflag) {
-        if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
-            << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2"
+    if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
+        << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2"
 #if NBGL == 3
-            << "af0_3" << "afplus_3"
+        << "af0_3" << "afplus_3"
 #endif                
-            << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
-            << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI"
-            << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
-        else {
-            std::stringstream out;
-            out << pseudoscalarM;
-            throw std::runtime_error("MPlnu: vector " + out.str() + " not implemented");
-        }
+        << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
+        << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI";
+    else {
+        std::stringstream out;
+        out << pseudoscalarM;
+        throw std::runtime_error("MPlnu: vector " + out.str() + " not implemented");
+    }
 
-        if (CLNflag) {
-            mplnuParameters.clear();
-            if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
-                << "fplusz0" << "rho1to2"
-                << "N_0" << "alpha_0" << "alpha_p" << "beta_0" << "beta_p" << "gamma_0" << "gamma_p"
-                << "CS_NP" << "CP_NP" << "CV_NP" << "CA_NP" << "CT_NP";
-        }
-    } else {
+    if (CLNflag) {
+        mplnuParameters.clear();
         if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
-            << "af0_1" << "af0_2" << "afplus_0" << "afplus_1" << "afplus_2"
-#if NBGL == 3
-            << "af0_3" << "afplus_3"
-#endif                
-            << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
-            << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI"
-            << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
-        else {
-            std::stringstream out;
-            out << pseudoscalarM;
-            throw std::runtime_error("MPlnu: vector " + out.str() + " not implemented");
-        }
-
-        if (CLNflag) {
-            mplnuParameters.clear();
-            if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()
-                << "fplusz0" << "rho1to2" 
-                << "N_0" << "alpha_0" << "alpha_p" << "beta_0" << "beta_p" << "gamma_0" << "gamma_p"
-                << "CSL_NP" << "CSR_NP" << "CVL_NP" << "CVR_NP" << "CT_NP";
-        }
+            << "fplusz0" << "rho1to2"
+            << "N_0" << "alpha_0" << "alpha_p" << "beta_0" << "beta_p" << "gamma_0" << "gamma_p";
     }
 
     mySM.initializeMeson(meson);
@@ -164,27 +139,29 @@ void MPlnu::updateParameters()
     CTp = 0.;
 
     /* SM + NP Wilson coefficients */
-    if (lep == StandardModel::TAU) {
-        if (btocNPpmflag) {
-            CV += (mySM.getOptionalParameter("CV_NP") - mySM.getOptionalParameter("CA_NP")) / 2. / M_SQRT2;
-            CVp = (mySM.getOptionalParameter("CV_NP") + mySM.getOptionalParameter("CA_NP")) / 2. / M_SQRT2;
-            CA -= (mySM.getOptionalParameter("CV_NP") - mySM.getOptionalParameter("CA_NP")) / 2. / M_SQRT2;
-            CAp = -(mySM.getOptionalParameter("CV_NP") + mySM.getOptionalParameter("CA_NP")) / 2. / M_SQRT2;
-            CS = (mySM.getOptionalParameter("CS_NP") - mySM.getOptionalParameter("CP_NP")) / 2. / M_SQRT2;
-            CSp = (mySM.getOptionalParameter("CS_NP") + mySM.getOptionalParameter("CP_NP")) / 2. / M_SQRT2;
-            CP = -(mySM.getOptionalParameter("CS_NP") - mySM.getOptionalParameter("CP_NP")) / 2. / M_SQRT2;
-            CPp = -(mySM.getOptionalParameter("CS_NP") + mySM.getOptionalParameter("CP_NP")) / 2. / M_SQRT2;
-            CTp = mySM.getOptionalParameter("CT_NP");
-        } else {
-            CV += mySM.getOptionalParameter("CVL_NP") / 2.;
-            CVp = mySM.getOptionalParameter("CVR_NP") / 2.;
-            CA -= mySM.getOptionalParameter("CVL_NP") / 2.;
-            CAp = -mySM.getOptionalParameter("CVR_NP") / 2.;
-            CS = mySM.getOptionalParameter("CSL_NP") / 2.;
-            CSp = mySM.getOptionalParameter("CSR_NP") / 2.;
-            CP = -mySM.getOptionalParameter("CSL_NP") / 2.;
-            CPp = -mySM.getOptionalParameter("CSR_NP") / 2.;
-            CTp = mySM.getOptionalParameter("CT_NP");
+    if (NPanalysis) {
+        if (lep == StandardModel::TAU) {
+            if (btocNPpmflag) {
+                CV += (mySM.getCCC3() - mySM.getCCC4()) / 2. / M_SQRT2;
+                CVp = (mySM.getCCC3() + mySM.getCCC4()) / 2. / M_SQRT2;
+                CA -= (mySM.getCCC3() - mySM.getCCC4()) / 2. / M_SQRT2;
+                CAp = -(mySM.getCCC3() + mySM.getCCC4()) / 2. / M_SQRT2;
+                CS = (mySM.getCCC1() - mySM.getCCC2()) / 2. / M_SQRT2;
+                CSp = (mySM.getCCC1() + mySM.getCCC2()) / 2. / M_SQRT2;
+                CP = -(mySM.getCCC1() - mySM.getCCC2()) / 2. / M_SQRT2;
+                CPp = -(mySM.getCCC1() + mySM.getCCC2()) / 2. / M_SQRT2;
+                CTp = mySM.getCCC5();
+            } else {
+                CV += mySM.getCCC3() / 2.;
+                CVp = mySM.getCCC4() / 2.;
+                CA -= mySM.getCCC3() / 2.;
+                CAp = -mySM.getCCC4() / 2.;
+                CS = mySM.getCCC1() / 2.;
+                CSp = mySM.getCCC2() / 2.;
+                CP = -mySM.getCCC1() / 2.;
+                CPp = -mySM.getCCC2() / 2.;
+                CTp = mySM.getCCC5();
+            }
         }
     }
     
