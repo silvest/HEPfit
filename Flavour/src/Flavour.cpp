@@ -22,7 +22,6 @@ Flavour::Flavour(const StandardModel& SM_i)
 {
     dispersion = false;
     CLNflag = false;
-    btocNPpmflag = false;
 };
 
 bool Flavour::setFlag(const std::string name, const bool value) 
@@ -33,9 +32,6 @@ bool Flavour::setFlag(const std::string name, const bool value)
         return true;
     } else if (name.compare("CLNflag") == 0) {
         setFlagCLN(value);
-        return true;
-    } else if (name.compare("btocNPpmflag") == 0) {
-        setFlagbtocNPpm(value);
         return true;
     } else if (name.compare("FixedWCbtos") == 0) {
         setFlagFixedWCbtos(value);

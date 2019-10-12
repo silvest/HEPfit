@@ -1151,6 +1151,31 @@ public:
      * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\5$
      */
     double Alstilde5(const double mu) const;
+    
+    /**
+     * @brief A virtual implementation for the RealWeakEFTCC class
+     */
+    virtual double getCCC1() const { return 0.; };
+    
+    /**
+     * @brief A virtual implementation for the RealWeakEFTCC class
+     */
+    virtual double getCCC2() const { return 0.; };
+    
+    /**
+     * @brief A virtual implementation for the RealWeakEFTCC class
+     */
+    virtual double getCCC3() const { return 0.; };
+    
+    /**
+     * @brief A virtual implementation for the RealWeakEFTCC class
+     */
+    virtual double getCCC4() const { return 0.; };
+    
+    /**
+     * @brief A virtual implementation for the RealWeakEFTCC class
+     */
+    virtual double getCCC5() const { return 0.; };
 
 
 

@@ -155,8 +155,9 @@ private:
     QCD::meson meson;/**< Initial meson type */
     QCD::meson vectorM;/**< Final vector meson type */
     std::vector<std::string> mvlnuParameters;/**< The string of mandatory MVlnu parameters */
-    bool CLNflag;
-    bool btocNPpmflag;
+    bool CLNflag; /**< A flag for switching to CLN parameterization */
+    bool btocNPpmflag; /**< A flag for switching to the +/- basis for NP Wilson coefficients */
+    bool NPanalysis; /**< A flag to switch to BSM analysis */
     
     double MV_o_MM;
     double sqrtMV_o_MM;

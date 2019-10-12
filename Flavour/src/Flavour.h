@@ -242,11 +242,6 @@ public:
         return (this->CLNflag = CLNflag);
     }
 
-    bool setFlagbtocNPpm(bool btocNPpmflag)
-    {
-        return (this->btocNPpmflag = btocNPpmflag);
-    }
-
     bool setFlagFixedWCbtos(bool FixedWCbtosflag)
     {
         return (this->FixedWCbtosflag = FixedWCbtosflag);
@@ -260,11 +255,6 @@ public:
     bool getFlagCLN() const
     {
         return CLNflag;
-    }
-
-    bool getbtocNPpmflag() const
-    {
-        return btocNPpmflag;
     }
 
     bool getFlagFixedWCbtos() const
@@ -288,7 +278,6 @@ private:
     
     mutable bool dispersion;
     mutable bool CLNflag;
-    mutable bool btocNPpmflag;
     mutable bool FixedWCbtosflag;
 };
 
