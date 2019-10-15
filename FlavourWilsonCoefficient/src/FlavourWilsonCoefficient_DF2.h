@@ -34,22 +34,22 @@ public:
         return FWCM.getObj();
     }
         
-    gslpp::vector<gslpp::complex> GetC_bd() const
+    gslpp::vector<gslpp::complex> getC_bd() const
     {
         return C_bd;
     }
 
-    gslpp::vector<gslpp::complex> GetC_bs() const
+    gslpp::vector<gslpp::complex> getC_bs() const
     {
         return C_bs;
     }
 
-    gslpp::vector<gslpp::complex> GetC_c() const
+    gslpp::vector<gslpp::complex> getC_c() const
     {
         return C_c;
     }
 
-    gslpp::vector<gslpp::complex> GetC_s() const
+    gslpp::vector<gslpp::complex> getC_s() const
     {
         return C_s;
     }
@@ -58,7 +58,7 @@ public:
      * 
      * @return the scale at which the NP Wilson coefficients in the \f$bd$\f sector are defined
      */
-    double GetWCscale_bd() const
+    double getWCscale_bd() const
     {
         return WCscale_bd;
     }
@@ -67,7 +67,7 @@ public:
      * 
      * @return the scale at which the NP Wilson coefficients in the \f$bs$\f sector are defined
      */
-    double GetWCscale_bs() const
+    double getWCscale_bs() const
     {
         return WCscale_bs;
     }
@@ -76,7 +76,7 @@ public:
      * 
      * @return the scale at which the NP Wilson coefficients in the \f$cu$\f sector are defined
      */
-    double GetWCscale_c() const
+    double getWCscale_c() const
     {
         return WCscale_c;
     }
@@ -85,7 +85,7 @@ public:
      * 
      * @return the scale at which the NP Wilson coefficients in the \f$sd$\f sector are defined
      */
-    double GetWCscale_s() const
+    double getWCscale_s() const
     {
         return WCscale_s;
     }
