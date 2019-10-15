@@ -269,7 +269,7 @@ double BXqll::getH(std::string obs, double sh)
         return H_A(sh);
     else if (obs == "TL")
 //        return (H_T(sh) + H_L(sh));
-        return (H_T(sh) + H_L(sh) + pre * Phi_brems(sh) / Phi_u(FULLNLO_QED));
+        return (H_T(sh) + H_L(sh) + pre * Phi_brems(sh) / (Phi_u_inv(QCD0, QED0) + Phi_u_inv(QCD0, QED1)));
     else
         throw std::runtime_error("BXqll::getH: Angular observable not implemented");
 }
@@ -278,28 +278,16 @@ double BXqll::H_T(double sh)
 {
     computeHij_T(sh);
     
-    double Phi_ll_u = CCH_multiplication(Hij_T);
-    
     // 1/mc^2 corrections
     for(unsigned int i = 0; i < 2; i++)
         for(unsigned int j = 0; j < 15; j++)
-            for(unsigned int qcd_i = QCD0; qcd_i <= QCD2; qcd_i++)
-                for(unsigned int qed_i = QED0; qed_i <= QED2; qed_i++)
-                    for(unsigned int qcd_j = QCD0; qcd_j <= QCD2; qcd_j++)
-                        for(unsigned int qed_j = QED0; qed_j <= QED2; qed_j++)
-                            for(unsigned int qcd_u = QCD0; qcd_u <= QCD2; qcd_u++)
-                                for(unsigned int qed_u = QED0; qed_u <= QED1; qed_u++)
-                                {
-                                    if (qcd_i + qcd_j + 1 + qcd_u <= QCD_max && qed_i + qed_j + 1 + qed_u <= QED_max)
-                                        Phi_ll_u += (WC(i, qcd_i + 3*qed_i).conjugate() * WC(j, qcd_j + 3*qed_j) *
-                                                    cij_T(i, j, sh, 11) ).real() * Phi_u_inv(qcd_u, qed_u);
-                                    if (qcd_i + qcd_j + 2 + qcd_u <= QCD_max && qed_i + qed_j + 2 + qed_u <= QED_max)
-                                        Phi_ll_u += (WC(i, qcd_i + 3*qed_i).conjugate() * WC(j, qcd_j + 3*qed_j) *
-                                                    cij_T(i, j, sh, 22) ).real() * Phi_u_inv(qcd_u, qed_u);
-                                    if (qcd_i + qcd_j + 3 + qcd_u <= QCD_max && qed_i + qed_j + 2 + qed_u <= QED_max)
-                                        Phi_ll_u += (WC(i, qcd_i + 3*qed_i).conjugate() * WC(j, qcd_j + 3*qed_j) *
-                                                    cij_T(i, j, sh, 32) ).real() * Phi_u_inv(qcd_u, qed_u);
-                                }
+        {
+            Hij_T[QCD1 + 3*QED1].assign(i, j, Hij_T[QCD1 + 3*QED1](i, j) + cij_T(i, j, sh, 11));
+            Hij_T[QCD2 + 3*QED2].assign(i, j, Hij_T[QCD2 + 3*QED2](i, j) + cij_T(i, j, sh, 22));
+            Hij_T[QCD2 + 3*QED2 + 1].assign(i, j, cij_T(i, j, sh, 32));
+        }
+    
+    double Phi_ll_u = CCH_multiplication(Hij_T);
     
     // log-enhanced electromagnetic corrections
     gslpp::complex C9 = WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11));
@@ -322,28 +310,16 @@ double BXqll::H_L(double sh)
 {
     computeHij_L(sh);
     
-    double Phi_ll_u = CCH_multiplication(Hij_L);
-    
     // 1/mc^2 corrections
     for(unsigned int i = 0; i < 2; i++)
         for(unsigned int j = 0; j < 15; j++)
-            for(unsigned int qcd_i = QCD0; qcd_i <= QCD2; qcd_i++)
-                for(unsigned int qed_i = QED0; qed_i <= QED2; qed_i++)
-                    for(unsigned int qcd_j = QCD0; qcd_j <= QCD2; qcd_j++)
-                        for(unsigned int qed_j = QED0; qed_j <= QED2; qed_j++)
-                            for(unsigned int qcd_u = QCD0; qcd_u <= QCD2; qcd_u++)
-                                for(unsigned int qed_u = QED0; qed_u <= QED1; qed_u++)
-                                {
-                                    if (qcd_i + qcd_j + 1 + qcd_u <= QCD_max && qed_i + qed_j + 1 + qed_u <= QED_max)
-                                        Phi_ll_u += (WC(i, qcd_i + 3*qed_i).conjugate() * WC(j, qcd_j + 3*qed_j) *
-                                                    cij_L(i, j, sh, 11) ).real() * Phi_u_inv(qcd_u, qed_u);
-                                    if (qcd_i + qcd_j + 2 + qcd_u <= QCD_max && qed_i + qed_j + 2 + qed_u <= QED_max)
-                                        Phi_ll_u += (WC(i, qcd_i + 3*qed_i).conjugate() * WC(j, qcd_j + 3*qed_j) *
-                                                    cij_L(i, j, sh, 22) ).real() * Phi_u_inv(qcd_u, qed_u);
-                                    if (qcd_i + qcd_j + 3 + qcd_u <= QCD_max && qed_i + qed_j + 2 + qed_u <= QED_max)
-                                        Phi_ll_u += (WC(i, qcd_i + 3*qed_i).conjugate() * WC(j, qcd_j + 3*qed_j) *
-                                                    cij_L(i, j, sh, 32) ).real() * Phi_u_inv(qcd_u, qed_u);
-                                }
+        {
+            Hij_L[QCD1 + 3*QED1].assign(i, j, Hij_L[QCD1 + 3*QED1](i, j) + cij_L(i, j, sh, 11));
+            Hij_L[QCD2 + 3*QED2].assign(i, j, Hij_L[QCD2 + 3*QED2](i, j) + cij_L(i, j, sh, 22));
+            Hij_L[QCD2 + 3*QED2 + 1].assign(i, j, cij_L(i, j, sh, 32));
+        }
+    
+    double Phi_ll_u = CCH_multiplication(Hij_L);
     
     // log-enhanced electromagnetic corrections
     gslpp::complex C9 = WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11));
@@ -366,24 +342,11 @@ double BXqll::H_A(double sh)
 {
     computeHij_A(sh);
     
-    double Phi_ll_u = CCH_multiplication(Hij_A);
-
     // 1/mc^2 corrections associated with C10
-    for(unsigned int qcd_i = QCD0; qcd_i <= QCD2; qcd_i++)
-        for(unsigned int qed_i = QED0; qed_i <= QED2; qed_i++)
-            for(unsigned int qcd_9 = QCD0; qcd_9 <= QCD2; qcd_9++)
-                for(unsigned int qed_9 = QED0; qed_9 <= QED2; qed_9++)
-                    for(unsigned int qcd_u = QCD0; qcd_u <= QCD2; qcd_u++)
-                        for(unsigned int qed_u = QED0; qed_u <= QED1; qed_u++)
-                        {
-                            if (qcd_i + qcd_9 + 1 + qcd_u <= QCD_max && qed_i + qed_9 + 1 + qed_u <= QED_max)
-                            {
-                                Phi_ll_u += (WC(0, qcd_i + 3*qed_i).conjugate() * WC(9, qcd_9 + 3*qed_9) *
-                                            cij_A(0, 9, sh) ).real() * Phi_u_inv(qcd_u, qed_u);
-                                Phi_ll_u += (WC(1, qcd_i + 3*qed_i).conjugate() * WC(9, qcd_9 + 3*qed_9) *
-                                            cij_A(1, 9, sh) ).real() * Phi_u_inv(qcd_u, qed_u);;
-                            }
-                        }
+    Hij_A[QCD1 + 3*QED1].assign(0, 9, Hij_A[QCD1 + 3*QED1](0, 9) + cij_A(0, 9, sh));
+    Hij_A[QCD1 + 3*QED1].assign(1, 9, Hij_A[QCD1 + 3*QED1](1, 9) + cij_A(1, 9, sh));
+    
+    double Phi_ll_u = CCH_multiplication(Hij_A);
     
     // log-enhanced electromagnetic corrections
     Phi_ll_u += (WC(0, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(0, 9, sh) +
@@ -549,6 +512,10 @@ void BXqll::computeHij_T(double sh)
     }
     
     Hij_T.push_back(Hij);
+    
+    // Extra empty entry for 32
+    Hij.reset(); // To clear Hij
+    Hij_T.push_back(Hij);
 }
 
 void BXqll::computeHij_L(double sh)
@@ -705,6 +672,10 @@ void BXqll::computeHij_L(double sh)
     }
     
     Hij_L.push_back(Hij);
+    
+    // Extra empty entry for 32
+    Hij.reset(); // To clear Hij
+    Hij_L.push_back(Hij);
 }
 
 void BXqll::computeHij_A(double sh)
@@ -798,10 +769,12 @@ void BXqll::computeHij_A(double sh)
     Hij_A.push_back(Hij);
     
     
-//    // NLO_QED02 -> NLO_QED22
+    // NLO_QED02 -> NLO_QED22
     Hij.reset(); // To clear Hij
     Hij_A.push_back(Hij);
     Hij_A.push_back(Hij);    
+    Hij_A.push_back(Hij);
+    // Extra empty entry for 32
     Hij_A.push_back(Hij);
 }
 
@@ -1673,19 +1646,25 @@ double BXqll::CCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& H
     
     for(unsigned int j = 0; j < 15; j++)
         for(unsigned int i = 0; i <= j; i++)
-            for(unsigned int qcd_a = QCD0; qcd_a <= QCD2; qcd_a++)
-                for(unsigned int qed_a = QED0; qed_a <= QED2; qed_a++)
-                    for(unsigned int qcd_b = QCD0; qcd_b <= QCD2; qcd_b++)
-                        for(unsigned int qed_b = QED0; qed_b <= QED2; qed_b++)
-                            for(unsigned int qcd_c = QCD0; qcd_c <= QCD2; qcd_c++)
-                                for(unsigned int qed_c = QED0; qed_c <= QED2; qed_c++)
-                                    for(unsigned int qcd_u = QCD0; qcd_u <= QCD2; qcd_u++)
-                                        for(unsigned int qed_u = QED0; qed_u <= QED1; qed_u++)
+            for(unsigned int qcd_u = QCD0; qcd_u <= QCD2; qcd_u++)
+                for(unsigned int qed_u = QED0; qed_u <= QED1; qed_u++)
+                    for(unsigned int qcd_a = QCD0; qcd_a <= QCD2; qcd_a++)
+                        for(unsigned int qed_a = QED0; qed_a <= QED2; qed_a++)
+                            for(unsigned int qcd_b = QCD0; qcd_b <= QCD2; qcd_b++)
+                                for(unsigned int qed_b = QED0; qed_b <= QED2; qed_b++)
+                                {
+                                    for(unsigned int qcd_c = QCD0; qcd_c <= QCD2; qcd_c++)
+                                        for(unsigned int qed_c = QED0; qed_c <= QED2; qed_c++)
                                         {
                                             if (qcd_a + qcd_b + qcd_c + qcd_u <= QCD_max && qed_a + qed_b + qed_c + qed_u <= QED_max)
                                                 Phi_ll_u += (WC(i, qcd_a + 3*qed_a).conjugate() * WC(j, qcd_b + 3*qed_b) *
                                                             Hij[qcd_c + 3*qed_c](i,j) ).real() * Phi_u_inv(qcd_u, qed_u);
                                         }
+                                    
+                                    if (qcd_a + qcd_b + 3 + qcd_u <= QCD_max && qed_a + qed_b + 2 + qed_u <= QED_max)
+                                        Phi_ll_u += (WC(i, qcd_a + 3*qed_a).conjugate() * WC(j, qcd_b + 3*qed_b) *
+                                                    Hij[QCD2 + 3*QED2 + 1](i,j) ).real() * Phi_u_inv(qcd_u, qed_u);
+                                }
     
     return Phi_ll_u;
 }
@@ -1893,6 +1872,9 @@ void BXqll::Test_WC_DF1()
     std::cout << "H_L = " << getH("L", 0.05) << std::endl;
     std::cout << "H_L = " << getH("L", 0.15) << std::endl;
     std::cout << "H_L = " << getH("L", 0.25) << std::endl;
+    std::cout << "H_A = " << getH("A", 0.05) << std::endl;
+    std::cout << "H_A = " << getH("A", 0.15) << std::endl;
+    std::cout << "H_A = " << getH("A", 0.25) << std::endl;
     
 //    double s = 0.15;
 //    computeMi(s);
