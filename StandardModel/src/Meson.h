@@ -90,14 +90,9 @@ class QCD;
  *   <td class="mod_desc">The decay constant of the \f$ K^{0,\pm} \f$ meson in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%alpha1kp</td>
- *   <td class="mod_symb">@f$\alpha_1^{K^\pm}@f$</td>
- *   <td class="mod_desc">The first Gegenbauer moment of the \f$ K^\pm \f$ meson.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%alpha2kp</td>
- *   <td class="mod_symb">@f$\alpha_2^{K^\pm}@f$</td>
- *   <td class="mod_desc">The second Gegenbauer moment of the \f$ K^\pm \f$ meson.</td>
+ *   <td class="mod_name">%alpha1kp, %alpha2kp</td>
+ *   <td class="mod_symb">@f$\alpha_1(K^+), \alpha_2(K^+)@f$</td>
+ *   <td class="mod_desc">The Gegenbauer coefficients for the @f$K^+@f$ meson.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%MD</td>
@@ -171,8 +166,8 @@ class QCD;
  * </tr>
  * <tr>
  *   <td class="mod_name">%lambdaB</td>
- *   <td class="mod_symb">@f$ \lambda_B @f$</td>
- *   <td class="mod_desc">The moment of the \f$B\f$ meson light-cone distribution amplitude.</td>
+ *   <td class="mod_symb">@f$\Lambda_{B,+}@f$</td>
+ *   <td class="mod_desc">The integrated leading twist light-cone distribution amplitudes of the B meson divided by the integral variable.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%DGs_Gs</td>
@@ -216,8 +211,8 @@ class QCD;
  * </tr>
  * <tr>
  *   <td class="mod_name">%alpha2phi</td>
- *   <td class="mod_symb">@f$\alpha_2^{\phi}@f$</td>
- *   <td class="mod_desc">The second Gegenbauer moment of the \f$ \phi \f$ meson.</td>
+ *   <td class="mod_symb">@f$\alpha_2(\phi)@f$</td>
+ *   <td class="mod_desc">The Gegenbauer coefficient for the @f$\phi@f$ meson.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%MKstar</td>
@@ -245,14 +240,9 @@ class QCD;
  *   <td class="mod_desc">The decay constant of a transversely polarized \f$ K^* \f$ meson in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%alpha1kst</td>
- *   <td class="mod_symb">@f$\alpha_1^{K^*}@f$</td>
- *   <td class="mod_desc">The first Gegenbauer moment of the \f$ K^* \f$ meson.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%alpha2kst</td>
- *   <td class="mod_symb">@f$\alpha_2^{K^*}@f$</td>
- *   <td class="mod_desc">The second Gegenbauer moment of the \f$ K^* \f$ meson.</td>
+ *   <td class="mod_name">%alpha1kst, %alpha2kst</td>
+ *   <td class="mod_symb">@f$\alpha_1(\bar{K}^*), \alpha_2(\bar{K}^*)@f$</td>
+ *   <td class="mod_desc">The Gegenbauer coefficients for the @f$\bar{K}^*@f$ meson.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%MDstarP</td>
