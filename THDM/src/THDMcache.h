@@ -1854,28 +1854,137 @@ public:
     double ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const;
     double g_HH_HpHm(const double mHp2, const double mHh2, const double tanb, const double m12_2, const double bma, const double vev) const;
 
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the up-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including the charm and top quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_HH_U(const double mHh2, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including the charm and top quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_A_U(const double mA2, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the down-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_HH_D(const double mHh2, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_A_D(const double mA2, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the leptons in the loop.
+     * @details 
+     */
     gslpp::complex I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex I_HH_L(const double mHh2, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex I_A_L(const double mA2, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to diphotons including the W boson in the loop.
+     * @details
+     */
     gslpp::complex I_H_W(const double mH, const double MW) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to diphotons including the charged Higgs boson in the loop.
+     * @details
+     */
     gslpp::complex I_H_Hp(const double mHp2, const double mH) const;
 
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the up-type quarks in the loop.
+     * @details
+     */
     gslpp::complex A_h_U(const double mHl2, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including the charm and top quarks in the loop.
+     * @details
+     */
     gslpp::complex A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including the charm and top quarks in the loop.
+     * @details
+     */
     gslpp::complex A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the down-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including the strange and bottom quarks in the loop.
+     * @details
+     */
     gslpp::complex A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+   
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the leptons in the loop.
+     * @details 
+     */
     gslpp::complex A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
+    
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to a photon and a Z boson including the W boson in the loop.
+     * @details
+     */
     gslpp::complex A_H_W(const double mH, const double cW2, const double MW, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to a photon and a Z boson including the charged Higgs boson in the loop.
+     * @details
+     */
     gslpp::complex A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const;
 
     /**
@@ -2408,18 +2517,34 @@ public:
      * @return @f$BR(H\to hh)@f$
      */
     double Br_HtoHpW;
-
+    
+    
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$gg\to H\to \tau\tau@f$ at 8 TeV.
+     * @return @f$\frac{\sigma^{\text{THDM}}_{\text{theo}}(gg\to H)BR^{\text{THDM}}_{\text{theo}}(H\to \tau\tau)}{\sigma^{\text{THDM}}_{\text{exp}}(gg\to H)BR^{\text{THDM}}_{\text{exp}}(H\to \tau\tau)}@f$.
+     */
     double THoEX_ggF_H_tautau_ATLAS8;
+    
     double R_ggF_H_tautau_ATLAS8;
+    
     double THoEX_ggF_H_tautau_CMS8;
+    
     double R_ggF_H_tautau_CMS8;
+    
     double THoEX_bbF_H_tautau_ATLAS8;
+    
     double R_bbF_H_tautau_ATLAS8;
+    
     double THoEX_bbF_H_tautau_CMS8;
+    
     double R_bbF_H_tautau_CMS8;
+    
     double THoEX_pp_H_gaga_ATLAS8;
+    
     double R_pp_H_gaga_ATLAS8;
+    
     double THoEX_ggF_H_gaga_CMS8;
+    
     double R_ggF_H_gaga_CMS8;
 //    double LIMIT_ggF_H_gaga_CMS8;
 //    double LIMEST_ggF_H_gaga_CMS8;

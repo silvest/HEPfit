@@ -85,27 +85,27 @@ public:
 
     
      /**
-     * @brief Cross section times branching ratio for the process @f$pp\to Sr\to t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr\to t\bar t)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to S_{R}\to t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R}}\cdot BR^{\text{THDMW}}(S_{R}\to t\bar t)@f$
      */
     double pp_Sr_tt_TH13;
     
     
      /**
-     * @brief Cross section times branching ratio for the process @f$pp\to Sr t t\bar \to t\bar t  t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr t\bar t\to t\bar t  t\bar t)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to S_{R} t t\bar \to t\bar t  t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R}}\cdot BR^{\text{THDMW}}(S_{R} t\bar t\to t\bar t  t\bar t)@f$
      */
     double pp_Srtt_tttt_TH13;
     
      /**
-     * @brief Cross section times branching ratio for the process @f$pp\to Sr \to j j @f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr \to j j)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to S_{R} \to j j @f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R}}\cdot BR^{\text{THDMW}}(S_{R} \to j j)@f$
      */
     double pp_Sr_jj_TH13;
     
      /**
-     * @brief Cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(Sr \to j j)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to S_{R} S_{R} \to j j j j @f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R} S_{R}}\cdot BR^{\text{THDMW}}(S_{R} \to j j)@f$
      */
     double pp_SrSr_jjjj_TH13;
     
@@ -124,14 +124,14 @@ public:
     
     
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to Sr b b\bar \to b\bar b  b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr b\bar b}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to S_{R} b b\bar \to b\bar b  b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R} b\bar b}\cdot BR^{\text{THDMW}}(S_{R} \to b\bar b)@f$
      */
     double pp_Srbb_bbbb_TH13;
     
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to Sr b b\bar \to b\bar b  b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr b\bar b}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to S_{R} b b\bar \to b\bar b  b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R} b\bar b}\cdot BR^{\text{THDMW}}(S_{R} \to b\bar b)@f$
      */
     double pp_Srbb_bbbb_TH8;
     
@@ -148,14 +148,14 @@ public:
     double pp_Sibb_bbbb_TH8;
     
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to Sr \to  b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to S_{R} \to  b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R}}\cdot BR^{\text{THDMW}}(S_{R} \to b\bar b)@f$
      */
     double pp_Sr_bb_TH13;
     
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to Sr \to  b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr}\cdot BR^{\text{THDMW}}(Sr \to b\bar b)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to S_{R} \to  b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R}}\cdot BR^{\text{THDMW}}(S_{R} \to b\bar b)@f$
      */
     double pp_Sr_bb_TH8;
     
@@ -172,39 +172,94 @@ public:
     double pp_Si_bb_TH8;
     
     /**
-     * @brief log of cross section times branching ratio for the process @f$pp\to Sr Sr \to j j j j @f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDMW}}_{pp\to Sr Sr}\cdot BR^{\text{THDMW}}(Sr \to j j)@f$
+//     * @brief log of cross section times branching ratio for the process @f$pp\to S_{R} S_{R} \to j j j j @f$ at the LHC with 13 TeV.
+//     * @return @f$\sigma^{\text{THDMW}}_{pp\to S_{R} S_{R}}\cdot BR^{\text{THDMW}}(S_{R} \to j j)@f$
      */
     //double logpp_SrSr_jjjj_TH13;
     
     
-    
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{R}\to t\bar t@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{R}\to t\bar t)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{R}\to t\bar t)}@f$.
+     */
     double THoEX_pp_Sr_tt;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{R} t\bar t \to t\bar t t\bar t@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{R} t\bar t \to t\bar t t\bar t)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{R} t\bar t \to t\bar t t\bar t)}@f$.
+     */
     double THoEX_pp_Srtt_tttt;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{R}\to j j@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{R}\to j j)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{R}\to j j)}@f$.
+     */
     double THoEX_pp_Sr_jj;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{R} S_{R} \to j j j j@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{R} S_{R} \to j j j j)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{R} S_{R} \to j j j j)}@f$.
+     */
     double THoEX_pp_SrSr_jjjj;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S^{+} t\bar b \to t\bar b b\bar t@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S^{+} t\bar b \to t\bar b b\bar t)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S^{+} t\bar b \to t\bar b b\bar t)}@f$.
+     */
     double THoEX_pp_Stb_tbtb;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{I} t\bar t \to t\bar t t\bar t@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{I} t\bar t \to t\bar t t\bar t)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{I} t\bar t \to t\bar t t\bar t)}@f$.
+     */
     double THoEX_pp_Sitt_tttt;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{R} b\bar b \to b\bar b b\bar b@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{R} b\bar b \to b\bar b b\bar b)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{R} b\bar b \to b\bar b b\bar b)}@f$.
+     */
     double THoEX_pp_Srbb_bbbb;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{R} b\bar b \to b\bar b b\bar b@f$ at 8 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{R} b\bar b \to b\bar b b\bar b)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{R} b\bar b \to b\bar b b\bar b)}@f$.
+     */
     double THoEX_pp_Srbb_bbbb_8TeV;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{I} b\bar b \to b\bar b b\bar b@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{I} b\bar b \to b\bar b b\bar b)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{I} b\bar b \to b\bar b b\bar b)}@f$.
+     */
     double THoEX_pp_Sibb_bbbb;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{I} b\bar b \to b\bar b b\bar b@f$ at 8 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{I} b\bar b \to b\bar b b\bar b)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{I} b\bar b \to b\bar b b\bar b)}@f$.
+     */
     double THoEX_pp_Sibb_bbbb_8TeV;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{R}\to b\bar b@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{R}\to b\bar b)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{R}\to b\bar b)}@f$.
+     */
     double THoEX_pp_Sr_bb;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{R}\to b\bar b@f$ at 8 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{R}\to b\bar b)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{R}\to b\bar b)}@f$.
+     */
     double THoEX_pp_Sr_bb_8TeV;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{I}\to b\bar b@f$ at 13 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{I}\to b\bar b)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{I}\to b\bar b)}@f$.
+     */
     double THoEX_pp_Si_bb;
     
+    /**
+     * @brief Ratio between the theoretical prediction and the experimental upper limit for the process @f$pp\to S_{I}\to b\bar b@f$ at 8 TeV.
+     * @return @f$\frac{\sigma^{\text{THDMW}}_{\text{theo}}(pp\to S_{I}\to b\bar b)}{\sigma^{\text{THDMW}}_{\text{exp}}(pp\to S_{I}\to b\bar b)}@f$.
+     */
     double THoEX_pp_Si_bb_8TeV;
 
     
@@ -290,28 +345,137 @@ private:
     void CacheShiftReal(double cache[][CacheSize], const int NumPar,
                     const double params[], const double newResult) const; 
 
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the up-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including the charm and top quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_HH_U(const double mHh2, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including the charm and top quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_A_U(const double mA2, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the down-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_HH_D(const double mHh2, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_A_D(const double mA2, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the leptons in the loop.
+     * @details 
+     */
     gslpp::complex I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex I_HH_L(const double mHh2, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex I_A_L(const double mA2, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to diphotons including the W boson in the loop.
+     * @details
+     */
     gslpp::complex I_H_W(const double mH, const double MW) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to diphotons including the charged Higgs boson in the loop.
+     * @details
+     */
     gslpp::complex I_H_Hp(const double mHp2, const double mH) const;
 
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the up-type quarks in the loop.
+     * @details
+     */
     gslpp::complex A_h_U(const double mHl2, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including the charm and top quarks in the loop.
+     * @details
+     */
     gslpp::complex A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including the charm and top quarks in the loop.
+     * @details
+     */
     gslpp::complex A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the down-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including the strange and bottom quarks in the loop.
+     * @details
+     */
     gslpp::complex A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+   
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the leptons in the loop.
+     * @details 
+     */
     gslpp::complex A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
+    
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to a photon and a Z boson including the W boson in the loop.
+     * @details
+     */
     gslpp::complex A_H_W(const double mH, const double cW2, const double MW, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to a photon and a Z boson including the charged Higgs boson in the loop.
+     * @details
+     */
     gslpp::complex A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const;
 
     
@@ -522,95 +686,95 @@ private:
     gslpp::matrix<double> ATLAS13_pp_Hp_tb;
 
     /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
+//     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
      */
 //    gslpp::matrix<double> ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2;
 
     /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
+//     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
      */
 //    gslpp::matrix<double> ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e;
 
 
     /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Kaluza-Klein Graviton mass. Process pp -> Gkk -> t tbar.
+     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Kaluza-Klein Graviton mass. Process @f$pp\to G_{kk}  \to t\bar t @f$.
      */
     gslpp::matrix<double> ATLAS13_pp_Gkk_tt;
     
     /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the scalar gluon mass. Process pp -> rho rho -> j j j j.
+     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the scalar gluon mass. Process @f$pp\to \rho \rho  \to  j j j j @f$.
      */
     gslpp::matrix<double> ATLAS13_pp_SS_jjjj;
     
    
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Sr -> t tbar generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{R}  \to  t\bar t@f$ generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Sr_tt;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Sr t tbar -> t tbar generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{R} t\bar t  \to  t\bar t t\bar t@f$ generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Srtt_tttt;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Sr -> j j generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{R}  \to  j j @f$ generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Sr_jj;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Sr Sr -> j j j j generated with Madgraph
+     * @brief Table for cross section ratio for @f$pp\to S_{R} S_{R}  \to  j j j j @f$ generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_SrSr_jjjj;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> S+ tbar b -> t tbar b bbar  generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S^+ t\bar b  \to  t\bar b t b\bar  @f$ generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Stb_tbtb;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Si tbar t -> t tbar t tbar  generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{I} t\bar t  \to  t\bar t t\bar t@f$ generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Sitt_tttt;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Sr bbar b -> b bbar b bbar  generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{R} b\bar b  \to  b\bar b b\bar b@f$ generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Srbb_bbbb;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Sr bbar b -> b bbar b bbar  generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{R} b\bar b  \to  b\bar b b\bar b@f$  generated with Madgraph5 at 8 TeV
      */
     gslpp::matrix<double> MadGraph_pp_Srbb_bbbb_8TeV;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Si bbar b -> b bbar b bbar  generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{I} b\bar b  \to  b\bar b b\bar b@f$  generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Sibb_bbbb;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Si bbar b -> b bbar b bbar  generated with Madgraph
+     * @brief Table for cross section ratio for @f$pp\to S_{I} b\bar b  \to  b\bar b b\bar b@f$  generated with Madgraph5 at 8 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Sibb_bbbb_8TeV;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Si -> b bbar  generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{I}  \to b\bar b@f$  generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Si_bb;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Si -> b bbar  generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{I}  \to b\bar b@f$  generated with Madgraph5 at 8 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Si_bb_8TeV;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Sr  -> b bbar  generated with Madgraph
+     * @brief Table for cross section for @f$pp\to S_{R}  \to b\bar b@f$  generated with Madgraph5 at 13 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Sr_bb;
     
     /**
-     * @brief Table for xsection times branching ratio for p p -> Sr  -> b bbar  generated with Madgraph at 8 TeV
+     * @brief Table for cross section for @f$pp\to S_{R}  \to b\bar b@f$  generated with Madgraph5 at 8 TeV.
      */
     gslpp::matrix<double> MadGraph_pp_Sr_bb_8TeV;
     
