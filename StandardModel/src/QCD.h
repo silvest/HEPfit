@@ -158,36 +158,6 @@
  *   <td class="mod_symb">@f$@f$</td>
  *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
  * </tr>
- * <tr>
- *   <td class="mod_name">%BLNPcorr</td>
- *   <td class="mod_symb">@f$N_{b\to s\gamma}@f$</td>
- *   <td class="mod_desc">The non perturbative uncertainty associated to the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_mukin</td>
- *   <td class="mod_symb">@f$\mu^{\rm kin}@f$</td>
- *   <td class="mod_desc">The mass scale for the b quark in the kinetic scheme, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_BRsem</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(B\to X_ce\nu)^{\rm Gambino}@f$</td>
- *   <td class="mod_desc">The branching ratio of \f$B\to X_c e\nu\f$ fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_Mbkin</td>
- *   <td class="mod_symb">@f$m_b^{\rm kin,\,Gambino}@f$</td>
- *   <td class="mod_desc">The b quark mass in the kinetic scheme fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_Mcatmuc</td>
- *   <td class="mod_symb">@f$m_c(\mu_c)^{\rm Gambino}@f$</td>
- *   <td class="mod_desc">The c quark at \f$\mu_c\f$ fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_mupi2, %Gambino_rhoD3, %Gambino_muG2, %Gambino_rhoLS3</td>
- *   <td class="mod_symb">@f$\mu_{\pi}^{2,\,\rm Gambino}, \rho_{D}^{3,\,\rm Gambino}, \mu_{G}^{2,\,\rm Gambino}, \rho_{LS}^{3,\,\rm Gambino}@f$</td>
- *   <td class="mod_desc">The B meson expectation values for the relevant dim. 5 and 6 operators fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
  * </table>
  *
  * The set of the model parameters are initialized and updated with the methods
