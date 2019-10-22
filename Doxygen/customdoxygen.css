@@ -1096,14 +1096,14 @@ dl.citelist dd {
         padding:5px 0;
 }
 div.toc {
-        padding: 14px 25px;
-        color: #f1f9f9;
+	color: #f1f9f9;
         border: 1px solid #3b6f74;
         border-radius: 4px;
         float: right;
         height: auto;
-        margin: 0 20px 10px 10px;
-        width: 200px;
+        margin: 10px 10px 10px 30px;
+        width: 180px;
+	padding: 15px 15px 15px 15px;
 }
 
 div.toc li {
