@@ -46,13 +46,13 @@ public:
 
     /**
      * @brief Computes the covariance matrix for the Doxygen set.
-     * @param Corr the correlation matrix for the Doxygen set
+     * @param[in] Corr the correlation matrix for the Doxygen set
      */
     void ComputeCov(gslpp::matrix<double> Corr);
 
     /**
      * @brief A method to add observables to the list of Doxygen.
-     * @param obs_i reference to an object of type Observable()
+     * @param[in] obs_i reference to an object of type Observable()
      */
     void AddObs(Observable& Obs_i);
 
@@ -77,7 +77,7 @@ public:
 
     /**
      * @brief A set method to fix the name of the set of Doxygen.
-     * @param name the name
+     * @param[in] name the name
      */
     void setName(std::string name)
     {
@@ -86,7 +86,7 @@ public:
 
     /**
      * @brief A get method to access the covariance matrix of the Doxygen.
-     * @param the covariance matrix
+     * @return the covariance matrix
      */
     gslpp::matrix<double> getCov() const
     {
