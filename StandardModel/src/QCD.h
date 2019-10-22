@@ -229,26 +229,6 @@
  *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%alpha1kst, %alpha2kst</td>
- *   <td class="mod_symb">@f$\alpha_1(\bar{K}^*), \alpha_2(\bar{K}^*)@f$</td>
- *   <td class="mod_desc">The Gegenbauer coefficients for the @f$\bar{K}^*@f$ meson.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%alpha2phi</td>
- *   <td class="mod_symb">@f$\alpha_2(\phi)@f$</td>
- *   <td class="mod_desc">The Gegenbauer coefficient for the @f$\phi@f$ meson.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%alpha1kp, %alpha2kp</td>
- *   <td class="mod_symb">@f$\alpha_1(K^+), \alpha_2(K^+)@f$</td>
- *   <td class="mod_desc">The Gegenbauer coefficients for the @f$K^+@f$ meson.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%lambdaB</td>
- *   <td class="mod_symb">@f$\Lambda_{B,+}@f$</td>
- *   <td class="mod_desc">The integrated leading twist light-cone distribution amplitudes of the B meson divided by the integral variable.</td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%BLNPcorr</td>
  *   <td class="mod_symb">@f$N_{b\to s\gamma}@f$</td>
  *   <td class="mod_desc">The non perturbative uncertainty associated to the @f$b\to s\gamma@f$ BR.</td>
