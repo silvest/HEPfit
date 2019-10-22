@@ -29,10 +29,10 @@ class QCD;
  * This class inherits the public access members of the Particle class.
  * 
  *
- * @anchor QCDParameters
+ * @anchor MesonParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of %QCD are summarized below:
+ * The model parameters of %Meson are summarized below:
  * <table class="model">
  * <tr>
  *   <td class="mod_name">%MP0</td>
