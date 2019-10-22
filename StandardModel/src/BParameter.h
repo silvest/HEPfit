@@ -15,18 +15,122 @@
 #include "OrderScheme.h"
 
 /**
- * @addtogroup StandardModel
- * @brief A module for the Standard %Model.
- * @{
- */
-
-/**
  * @class BParameter
+ * @ingroup StandardModel
  * @brief A class for the bag parameters.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is the class for defining bag parameters, which depend on
  * a specified scale and scheme. 
+ * 
+ *
+ * @anchor BParameterParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %BParameter are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <td class="mod_name">%BBs1 - %BBs5</td>
+ *   <td class="mod_symb">@f$B^1_{B_s} - B^5_{B_s}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FBsSqrtBBs1 - %FBsSqrtBBs5</td>
+ *   <td class="mod_symb">@f$f_{B_s}\sqrt{B^1_{B_s}} - f_{B_s}\sqrt{B^5_{B_s}}@f$</td>
+ *   <td class="mod_desc">The decay constant times the square root of the bag parameter for \f$ O_1 - O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBsscale</td>
+ *   <td class="mod_symb">@f$\mu_{B_{s}}@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ B_s \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBsscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ B_s \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBsoBBd</td>
+ *   <td class="mod_symb">@f$B^1_{B_s}/B^1_{B_d}@f$</td>
+ *   <td class="mod_desc">The ratio \f$ B^1_{B_s}/B^1_{B_d} \f$ necessary to compute \f$ B^1_{B_d} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBd2 - %BBd5</td>
+ *   <td class="mod_symb">@f$B^2_{B_d} - B^5_{B_d}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_2 - O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_d \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%csi</td>
+ *   <td class="mod_symb">@f$\frac{f_{B_s}\sqrt{B^1_{B_s}}}{f_{B_d}\sqrt{B^1_{B_d}}}@f$</td>
+ *   <td class="mod_desc">The ratio \f$ \frac{f_{B_s}\sqrt{B^1_{B_s}}}{f_{B_d}\sqrt{B^1_{B_d}}} \f$ necessary to compute \f$ f_{B_d}\sqrt{B^1_{B_d}} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FBdSqrtBBd2 - %FBdSqrtBBd5</td>
+ *   <td class="mod_symb">@f$f_{B_d}\sqrt{B^2_{B_d}} - f_{B_d}\sqrt{B^5_{B_d}}@f$</td>
+ *   <td class="mod_desc">The decay constant times the square root of the bag parameter for \f$ O_2 - O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_d \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBdscale</td>
+ *   <td class="mod_symb">@f$\mu_{B_{d}}@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ B_d \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBdscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ B_d \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BK1 - %BK5</td>
+ *   <td class="mod_symb">@f$B^1_{K} - B^5_{K}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta s = 2 \f$ processes in \f$ K^0 \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKscale</td>
+ *   <td class="mod_symb">@f$\mu_K@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BD1 - %BD5</td>
+ *   <td class="mod_symb">@f$B^1_{D} - B^5_{D}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BDscale</td>
+ *   <td class="mod_symb">@f$\mu_D@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BDscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BK(1/2)1 - %BK(1/2)10</td>
+ *   <td class="mod_symb">@f$B^1_{K(1/2)} - B^{10}_{K(1/2)}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_{10}\f$ in \f$ K_L \f$ decay in 2 pion with 0 isospin change.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BK(3/2)1 - %BK(3/2)10</td>
+ *   <td class="mod_symb">@f$B^1_{K(3/2)} - B^{10}_{K(3/2)}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_{10}\f$ in \f$ K_L \f$ decay in 2 pion with double isospin change.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKd_scale</td>
+ *   <td class="mod_symb">@f$\mu_{K_L}@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ K_L \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKd_scheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ K_L \f$ system.</td>
+ * </tr>
+ * </table>
+ * 
  */
 class BParameter {
 public:
