@@ -455,7 +455,7 @@
  * @f]
  * For \f$N_f < 5\f$, \f$\Lambda_{QCD}\f$ can be obtained by solving the following 
  * matching condition at \f$\mu\f$ @cite Chetyrkin:1997sg @cite Chetyrkin:2000yt :
- * @f{eqnarray}
+ * \f{eqnarray}{
  *  \beta_0^{'}\ln\frac{\Lambda^{'2}}{\Lambda^2}
  *  &=& (\beta_0^{'}-\beta_0)L+\left(\frac{\beta_1^{'}}{\beta_0^{'}}-
  *  \frac{\beta_1}{\beta_0}\right)\ln L-\frac{\beta_1^{'}}{\beta_0^{'}}\ln\frac{\beta_0^{'}}{\beta_0} - C_1
@@ -465,7 +465,7 @@
  *  \right)\ln L + \frac{\beta_1^{'2}}{\beta_0^{'2}}-\frac{\beta_1^2}{\beta_0^2}-\frac{\beta_2^{'2}}{\beta_0^{'2}}
  *  +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{'}}{\beta_0^{'}}C_1-C_1^2-C_2\right]+
  *  O\left(\frac{\ln^2L}{L^2}\right),
- * @f{eqnarray}
+ * \f}
  * where the primed (unprimed) quantities refer to those pertaining to \f$N_f-1\f$ \f$(N_f)\f$. 
  * The terms \f$C_1\f$ and \f$C_2\f$ are given by
  * @f[
@@ -502,7 +502,7 @@
  * @f]
  * Besides, \f$\Lambda_{QCD}\f$ for \f$N_f=6\f$ is derived from that for
  * \f$N_f=5\f$ with the relation:
- * @f{eqnarray}
+ * \f{eqnarray}{
  *  \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{'2}} 
  *  &=& (\beta_0-\beta_0^{'})L^{'}+\left(\frac{\beta_1}{\beta_0}-
  *  \frac{\beta_1^{'}}{\beta_0^{'}}\right)\ln L^{'}-\frac{\beta_1}{\beta_0}\ln\frac{\beta_0}{\beta_0^{'}}-C_1^{'}
@@ -512,7 +512,7 @@
  *  {\beta_0^{'}}\right)\ln L^{'}+\frac{\beta_1^{2}}{\beta_0^{2}}-\frac{\beta_1^{'2}}{\beta_0^{'2}}-
  *  \frac{\beta_2^{2}}{\beta_0^{2}}+\frac{\beta_2^{'2}}{\beta_0^{'2}}+\frac{\beta_1}{\beta_0}C_1^{'}-C_1^{'2}-
  *  C_2^{'}\right]+O\left(\frac{\ln^2L}{L^2}\right),
- * @f{eqnarray}
+ * \f}
  * where
  * @f[
  *  C_1^{'} = -\frac{2}{3}\ln\frac{\mu^2}{m_t^2},\qquad
