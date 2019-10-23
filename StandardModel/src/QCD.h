@@ -890,7 +890,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the running quark mass @f$m(\mu)@f$ in GeV
      */
-    double Mrun(const double mu, const double m, const orders order = FULLNLO) const;
+    double Mrun(const double mu, const double m, const orders order = FULLNNLO) const;
 
     /**
      * @brief Runs a quark mass from @f$\mu_i@f$ to @f$\mu_f@f$.
@@ -901,7 +901,7 @@ public:
      * @return the running quark mass @f$m(\mu_f)@f$ in GeV
      */
     double Mrun(const double mu_f, const double mu_i, const double m,
-            const orders order = FULLNLO) const;
+            const orders order = FULLNNLO) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -913,7 +913,7 @@ public:
      *
      * @attention Can only be used for conversion of mass of the top and bottom quarks.
      */
-    double Mbar2Mp(const double mbar, const orders order = FULLNLO) const;
+    double Mbar2Mp(const double mbar, const orders order = FULLNNLO) const;
 
     /**
      * @brief Converts a quark pole mass to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$.
