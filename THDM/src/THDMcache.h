@@ -105,196 +105,94 @@ public:
      */
     void read();
 
-    /**
-     * @brief SM Higgs branching ratio tables (obtained with HDECAY 6.10), depending on the Higgs mass.
-     */
-    gslpp::matrix<double> br_tt, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW;
+    gslpp::matrix<double> br_tt, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW; /**< SM Higgs branching ratio tables (obtained with HDECAY 6.10), depending on the Higgs mass. */
 
-    /**
-     * @brief Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass.
-     */
-    gslpp::matrix<double> GammaHtot_SM;
+    gslpp::matrix<double> GammaHtot_SM; /**< Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section tables at 8 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ggH_8, log_cs_VBF_8, log_cs_WH_8, log_cs_ZH_8;
+    gslpp::matrix<double> log_cs_ggH_8, log_cs_VBF_8, log_cs_WH_8, log_cs_ZH_8; /**< SM Higgs production cross section tables at 8 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section tables at 13 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ggH_13, log_cs_VBF_13, log_cs_WH_13, log_cs_ZH_13;
+    gslpp::matrix<double> log_cs_ggH_13, log_cs_VBF_13, log_cs_WH_13, log_cs_ZH_13; /**< SM Higgs production cross section tables at 13 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section table at 8 TeV obtained with MadGraph 5, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ttH_8;
+    gslpp::matrix<double> log_cs_ttH_8; /**< SM Higgs production cross section table at 8 TeV obtained with MadGraph 5, depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section table at 13 TeV obtained with MadGraph 5, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ttH_13;
+    gslpp::matrix<double> log_cs_ttH_13; /**< SM Higgs production cross section table at 13 TeV obtained with MadGraph 5, depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section table at 8 TeV obtained with SusHi 1.5, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_bbH_8;
+    gslpp::matrix<double> log_cs_bbH_8; /**< SM Higgs production cross section table at 8 TeV obtained with SusHi 1.5, depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section table at 13 TeV obtained with SusHi 1.5, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_bbH_13;
+    gslpp::matrix<double> log_cs_bbH_13; /**< SM Higgs production cross section table at 13 TeV obtained with SusHi 1.5, depending on the Higgs mass. */
 
-    /**
-     * @brief CP-odd Higgs production cross section tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ggA_8, log_cs_ttA_8, log_cs_bbA_8;
+    gslpp::matrix<double> log_cs_ggA_8, log_cs_ttA_8, log_cs_bbA_8; /**< CP-odd Higgs production cross section tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass. */
 
-    /**
-     * @brief CP-odd Higgs production cross section tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ggA_13, log_cs_ttA_13, log_cs_bbA_13;
+    gslpp::matrix<double> log_cs_ggA_13, log_cs_ttA_13, log_cs_bbA_13; /**< CP-odd Higgs production cross section tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass. */
 
-    /**
-     * @brief Charged Higgs production cross section table at 8 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb.
-     */
-    gslpp::matrix<double> log_cs_ggHp_8;
+    gslpp::matrix<double> log_cs_ggHp_8; /**< Charged Higgs production cross section table at 8 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb. */
 
-    /**
-     * @brief Charged Higgs production cross section table at 13 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb.
-     */
-    gslpp::matrix<double> log_cs_ggHp_13;
+    gslpp::matrix<double> log_cs_ggHp_13; /**< Charged Higgs production cross section table at 13 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb. */
 
-    /**
-     * @brief Production cross section ratio tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> csrH_top_8, csrH_bottom_8, csrA_top_8, csrA_bottom_8;
+    gslpp::matrix<double> csrH_top_8, csrH_bottom_8, csrA_top_8, csrA_bottom_8; /**< Production cross section ratio tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass. */
 
-    /**
-     * @brief Production cross section ratio tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> csrH_top_13, csrH_bottom_13, csrA_top_13, csrA_bottom_13;
+    gslpp::matrix<double> csrH_top_13, csrH_bottom_13, csrA_top_13, csrA_bottom_13; /**< Production cross section ratio tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass. */
 
-    /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> ATLAS8_pp_phi_gaga, ATLAS8_pp_phi_Zga_llga, ATLAS8_gg_phi_tautau, ATLAS8_bb_phi_tautau, ATLAS8_gg_A_hZ_tautauZ, ATLAS8_gg_A_hZ_bbZ, ATLAS8_gg_phi_tt, ATLAS8_gg_H_WW, ATLAS8_VBF_H_WW, ATLAS8_gg_H_ZZ, ATLAS8_VBF_H_ZZ, ATLAS8_gg_H_hh;
+    gslpp::matrix<double> ATLAS8_pp_phi_gaga, ATLAS8_pp_phi_Zga_llga, ATLAS8_gg_phi_tautau, ATLAS8_bb_phi_tautau, ATLAS8_gg_A_hZ_tautauZ, ATLAS8_gg_A_hZ_bbZ, ATLAS8_gg_phi_tt, ATLAS8_gg_H_WW, ATLAS8_VBF_H_WW, ATLAS8_gg_H_ZZ, ATLAS8_VBF_H_ZZ, ATLAS8_gg_H_hh; /**< ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> ATLAS8_pp_phi_gaga_e, ATLAS8_pp_phi_Zga_llga_e, ATLAS8_gg_phi_tautau_e, ATLAS8_bb_phi_tautau_e, ATLAS8_gg_A_hZ_tautauZ_e, ATLAS8_gg_A_hZ_bbZ_e, ATLAS8_gg_phi_tt_e, ATLAS8_gg_H_WW_e, ATLAS8_VBF_H_WW_e, ATLAS8_gg_H_ZZ_e, ATLAS8_VBF_H_ZZ_e, ATLAS8_gg_H_hh_e;
+    gslpp::matrix<double> ATLAS8_pp_phi_gaga_e, ATLAS8_pp_phi_Zga_llga_e, ATLAS8_gg_phi_tautau_e, ATLAS8_bb_phi_tautau_e, ATLAS8_gg_A_hZ_tautauZ_e, ATLAS8_gg_A_hZ_bbZ_e, ATLAS8_gg_phi_tt_e, ATLAS8_gg_H_WW_e, ATLAS8_VBF_H_WW_e, ATLAS8_gg_H_ZZ_e, ATLAS8_VBF_H_ZZ_e, ATLAS8_gg_H_hh_e; /**< ATLAS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief CMS observed @f$95\%@f$ upper signal strength limits at 8 TeV, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> CMS8_mu_pp_H_VV;
+    gslpp::matrix<double> CMS8_mu_pp_H_VV; /**< CMS observed @f$95\%@f$ upper signal strength limits at 8 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief CMS expected @f$95\%@f$ upper signal strength limits at 8 TeV, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> CMS8_mu_pp_H_VV_e;
+    gslpp::matrix<double> CMS8_mu_pp_H_VV_e; /**< CMS expected @f$95\%@f$ upper signal strength limits at 8 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> CMS8_gg_A_hZ_bbll, CMS8_pp_H_hh, CMS8_pp_H_hh_gagabb, CMS8_pp_H_hh_bbbb, CMS8_bb_phi_bb, CMS8_gg_phi_tautau, CMS8_bb_phi_tautau, CMS8_gg_phi_gaga, CMS8_pp_A_Zga_llga, CMS8_pp_phi_Zga, CMS8_gg_H_hh_bbtautau, CMS8_gg_A_hZ_tautaull, CMS8_pp_A_HZ_bbll, CMS8_pp_H_AZ_bbll, CMS8_pp_A_HZ_tautaull, CMS8_pp_H_AZ_tautaull;
+    gslpp::matrix<double> CMS8_gg_A_hZ_bbll, CMS8_pp_H_hh, CMS8_pp_H_hh_gagabb, CMS8_pp_H_hh_bbbb, CMS8_bb_phi_bb, CMS8_gg_phi_tautau, CMS8_bb_phi_tautau, CMS8_gg_phi_gaga, CMS8_pp_A_Zga_llga, CMS8_pp_phi_Zga, CMS8_gg_H_hh_bbtautau, CMS8_gg_A_hZ_tautaull, CMS8_pp_A_HZ_bbll, CMS8_pp_H_AZ_bbll, CMS8_pp_A_HZ_tautaull, CMS8_pp_H_AZ_tautaull; /**< CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> CMS8_gg_A_hZ_bbll_e, CMS8_pp_H_hh_e, CMS8_pp_H_hh_gagabb_e, CMS8_pp_H_hh_bbbb_e, CMS8_bb_phi_bb_e, CMS8_gg_phi_tautau_e, CMS8_bb_phi_tautau_e, CMS8_gg_phi_gaga_e, CMS8_pp_A_Zga_llga_e, CMS8_gg_H_hh_bbtautau_e, CMS8_gg_A_hZ_tautaull_e;
+    gslpp::matrix<double> CMS8_gg_A_hZ_bbll_e, CMS8_pp_H_hh_e, CMS8_pp_H_hh_gagabb_e, CMS8_pp_H_hh_bbbb_e, CMS8_bb_phi_bb_e, CMS8_gg_phi_tautau_e, CMS8_bb_phi_tautau_e, CMS8_gg_phi_gaga_e, CMS8_pp_A_Zga_llga_e, CMS8_gg_H_hh_bbtautau_e, CMS8_gg_A_hZ_tautaull_e; /**< CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass. */
 
 //    gslpp::matrix<double> CMS_ggF_phi_gaga_ep2, CMS_ggF_phi_gaga_em2;
 
-    /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-     */
     gslpp::matrix<double> ATLAS13_bb_phi_tt, ATLAS13_tt_phi_tt, ATLAS13_gg_phi_tautau, ATLAS13_bb_phi_tautau,\
                           ATLAS13_pp_phi_gaga, ATLAS13_pp_phi_Zga, ATLAS13_gg_phi_Zga_llga, ATLAS13_gg_H_ZZ_llllnunu, ATLAS13_VBF_H_ZZ_llllnunu, ATLAS13_gg_H_ZZ_llnunu, ATLAS13_gg_H_ZZ_llll,\
                           ATLAS13_VBF_H_ZZ_llll, ATLAS13_gg_H_ZZ_qqllnunu, ATLAS13_VBF_H_ZZ_qqllnunu, ATLAS13_gg_H_ZZ_llqq, ATLAS13_VBF_H_ZZ_llqq, ATLAS13_gg_H_ZZ_nunuqq,\
                           ATLAS13_gg_H_WW_enumumu, ATLAS13_VBF_H_WW_enumumu, ATLAS13_gg_H_WW_lnuqq, ATLAS13_VBF_H_WW_lnuqq, ATLAS13_pp_H_VV_qqqq, ATLAS13_pp_H_hh_bbbb,\
-                          ATLAS13_pp_H_hh_gagabb, ATLAS13_pp_H_hh_gagaWW, ATLAS13_gg_A_Zh_Zbb, ATLAS13_bb_A_Zh_Zbb;
+                          ATLAS13_pp_H_hh_gagabb, ATLAS13_pp_H_hh_gagaWW, ATLAS13_gg_A_Zh_Zbb, ATLAS13_bb_A_Zh_Zbb; /**< ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-     */
     gslpp::matrix<double> ATLAS13_bb_phi_tt_e, ATLAS13_tt_phi_tt_e, ATLAS13_gg_phi_tautau_e, ATLAS13_bb_phi_tautau_e,\
                           ATLAS13_pp_phi_gaga_e, ATLAS13_pp_phi_Zga_e, ATLAS13_gg_phi_Zga_llga_e, ATLAS13_gg_H_ZZ_llllnunu_e, ATLAS13_VBF_H_ZZ_llllnunu_e, ATLAS13_gg_H_ZZ_llnunu_e, ATLAS13_gg_H_ZZ_llll_e,\
                           ATLAS13_VBF_H_ZZ_llll_e, ATLAS13_gg_H_ZZ_qqllnunu_e, ATLAS13_VBF_H_ZZ_qqllnunu_e, ATLAS13_gg_H_ZZ_llqq_e, ATLAS13_VBF_H_ZZ_llqq_e, ATLAS13_gg_H_ZZ_nunuqq_e,\
                           ATLAS13_gg_H_WW_enumumu_e, ATLAS13_VBF_H_WW_enumumu_e, ATLAS13_gg_H_WW_lnuqq_e, ATLAS13_VBF_H_WW_lnuqq_e, ATLAS13_pp_H_VV_qqqq_e, ATLAS13_pp_H_hh_bbbb_e,\
-                          ATLAS13_pp_H_hh_gagabb_e, ATLAS13_pp_H_hh_gagaWW_e, ATLAS13_gg_A_Zh_Zbb_e, ATLAS13_bb_A_Zh_Zbb_e;
+                          ATLAS13_pp_H_hh_gagabb_e, ATLAS13_pp_H_hh_gagaWW_e, ATLAS13_gg_A_Zh_Zbb_e, ATLAS13_bb_A_Zh_Zbb_e; /**< ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-     */
     gslpp::matrix<double> CMS13_pp_phi_bb, CMS13_gg_phi_tautau, CMS13_bb_phi_tautau, CMS13_gg_phi_gaga, CMS13_pp_phi_Zga_llga,\
                           CMS13_pp_phi_Zga_qqga, CMS13_ggF_phi_Zga, CMS13_pp_H_ZZ_llnunu, CMS13_gg_H_ZZ_llnunu, CMS13_VBF_H_ZZ_llnunu, CMS13_pp_H_ZZ_llll, CMS13_VBFVH_H_ZZ_llll, CMS13_pp_H_ZZ_llqq, CMS13_ggFVBF_H_WW_lnulnu,\
-                          CMS13_pp_H_hh_bbbb, CMS13_ggF_H_hh_bbbb, CMS13_pp_H_hh_gagabb, CMS13_pp_H_hh_bbtautau, CMS13_pp_H_hh_bbtautau1, CMS13_pp_H_hh_bblnulnu, CMS13_pp_H_hh_bbVV;
+                          CMS13_pp_H_hh_bbbb, CMS13_ggF_H_hh_bbbb, CMS13_pp_H_hh_gagabb, CMS13_pp_H_hh_bbtautau, CMS13_pp_H_hh_bbtautau1, CMS13_pp_H_hh_bblnulnu, CMS13_pp_H_hh_bbVV; /**< CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-     */
     gslpp::matrix<double> CMS13_pp_phi_bb_e, CMS13_gg_phi_tautau_e, CMS13_bb_phi_tautau_e, CMS13_gg_phi_gaga_e, CMS13_pp_phi_Zga_llga_e,\
                           CMS13_pp_phi_Zga_qqga_e, CMS13_ggF_phi_Zga_e, CMS13_pp_H_ZZ_llnunu_e, CMS13_gg_H_ZZ_llnunu_e, CMS13_VBF_H_ZZ_llnunu_e, CMS13_pp_H_ZZ_llll_e, CMS13_VBFVH_H_ZZ_llll_e, CMS13_pp_H_ZZ_llqq_e, CMS13_ggFVBF_H_WW_lnulnu_e,\
-                          CMS13_pp_H_hh_bbbb_e, CMS13_ggF_H_hh_bbbb_e, CMS13_pp_H_hh_gagabb_e, CMS13_pp_H_hh_bbtautau_e, CMS13_pp_H_hh_bbtautau1_e, CMS13_pp_H_hh_bblnulnu_e, CMS13_pp_H_hh_bbVV_e;
+                          CMS13_pp_H_hh_bbbb_e, CMS13_ggF_H_hh_bbbb_e, CMS13_pp_H_hh_gagabb_e, CMS13_pp_H_hh_bbtautau_e, CMS13_pp_H_hh_bbtautau1_e, CMS13_pp_H_hh_bblnulnu_e, CMS13_pp_H_hh_bbVV_e; /**< ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass. */
 
-    /**
-     * @brief data templates
-     */
-    gslpp::matrix<double> temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10;
-    gslpp::matrix<double> temp11, temp12, temp13, temp14, temp15, temp16, temp17, temp18, temp19, temp20;
-    gslpp::matrix<double> temp21, temp22, temp23, temp24, temp25, temp26, temp27, temp28, temp29, temp30;
-    gslpp::matrix<double> temp31, temp32, temp33, temp34, temp35, temp36, temp37, temp38, temp39, temp40;
-    gslpp::matrix<double> temp1e, temp2e, temp3e, temp4e, temp5e, temp6e, temp7e, temp8e, temp9e, temp10e;
-    gslpp::matrix<double> temp11e, temp12e, temp13e, temp14e, temp15e, temp16e, temp17e, temp18e, temp19e, temp20e;
-    gslpp::matrix<double> temp21e, temp22e, temp23e, temp24e, temp25e, temp26e, temp27e, temp28e, temp29e, temp30e;
-    gslpp::matrix<double> temp31e, temp32e, temp33e, temp34e, temp35e, temp36e, temp37e, temp38e, temp39e, temp40e;
+    gslpp::matrix<double> temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10; /**< data templates */
+    gslpp::matrix<double> temp11, temp12, temp13, temp14, temp15, temp16, temp17, temp18, temp19, temp20; /**< data templates */
+    gslpp::matrix<double> temp21, temp22, temp23, temp24, temp25, temp26, temp27, temp28, temp29, temp30; /**< data templates */
+    gslpp::matrix<double> temp31, temp32, temp33, temp34, temp35, temp36, temp37, temp38, temp39, temp40; /**< data templates */
+    gslpp::matrix<double> temp1e, temp2e, temp3e, temp4e, temp5e, temp6e, temp7e, temp8e, temp9e, temp10e; /**< data templates */
+    gslpp::matrix<double> temp11e, temp12e, temp13e, temp14e, temp15e, temp16e, temp17e, temp18e, temp19e, temp20e; /**< data templates */
+    gslpp::matrix<double> temp21e, temp22e, temp23e, temp24e, temp25e, temp26e, temp27e, temp28e, temp29e, temp30e; /**< data templates */
+    gslpp::matrix<double> temp31e, temp32e, temp33e, temp34e, temp35e, temp36e, temp37e, temp38e, temp39e, temp40e; /**< data templates */
 
-    /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
-     */
-    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu, ATLAS8_pp_Hpm_tb;
+    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu, ATLAS8_pp_Hpm_tb; /**< ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass. */
 
-    /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
-     */
-    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu_e, ATLAS8_pp_Hpm_tb_e;
+    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu_e, ATLAS8_pp_Hpm_tb_e; /**< ATLAS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass. */
 
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
-     */
-    gslpp::matrix<double> CMS8_pp_Hp_taunu, CMS8_pp_Hp_tb;
+    gslpp::matrix<double> CMS8_pp_Hp_taunu, CMS8_pp_Hp_tb; /**< CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass. */
 
-    /**
-     * @brief CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
-     */
-    gslpp::matrix<double> CMS8_pp_Hp_taunu_e, CMS8_pp_Hp_tb_e;
+    gslpp::matrix<double> CMS8_pp_Hp_taunu_e, CMS8_pp_Hp_tb_e; /**< CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass. */
 
-    /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
-     */
-    gslpp::matrix<double> ATLAS13_pp_Hpm_taunu, ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2;
+    gslpp::matrix<double> ATLAS13_pp_Hpm_taunu, ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2; /**< ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass. */
 
-    /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
-     */
-    gslpp::matrix<double> ATLAS13_pp_Hpm_taunu_e, ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e;
+    gslpp::matrix<double> ATLAS13_pp_Hpm_taunu_e, ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e; /**< ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass. */
 
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
-     */
-    gslpp::matrix<double> CMS13_pp_Hpm_taunu;
+    gslpp::matrix<double> CMS13_pp_Hpm_taunu; /**< CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass. */
 
-    /**
-     * @brief CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
-     */
-    gslpp::matrix<double> CMS13_pp_Hpm_taunu_e;
+    gslpp::matrix<double> CMS13_pp_Hpm_taunu_e; /**< CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass. */
 
-    /**
-     * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
-     */
-    gslpp::matrix<double> arraybsgamma;
+    gslpp::matrix<double> arraybsgamma; /**< @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass. */
 
     /**
      * @brief Interpolating function for the SM branching ratio to two top quarks.
@@ -1854,28 +1752,137 @@ public:
     double ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const;
     double g_HH_HpHm(const double mHp2, const double mHh2, const double tanb, const double m12_2, const double bma, const double vev) const;
 
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the up-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including the charm and top quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_HH_U(const double mHh2, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including the charm and top quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_A_U(const double mA2, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the down-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_HH_D(const double mHh2, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_A_D(const double mA2, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the leptons in the loop.
+     * @details 
+     */
     gslpp::complex I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex I_HH_L(const double mHh2, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex I_A_L(const double mA2, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to diphotons including the W boson in the loop.
+     * @details
+     */
     gslpp::complex I_H_W(const double mH, const double MW) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to diphotons including the charged Higgs boson in the loop.
+     * @details
+     */
     gslpp::complex I_H_Hp(const double mHp2, const double mH) const;
 
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the up-type quarks in the loop.
+     * @details
+     */
     gslpp::complex A_h_U(const double mHl2, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including the charm and top quarks in the loop.
+     * @details
+     */
     gslpp::complex A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including the charm and top quarks in the loop.
+     * @details
+     */
     gslpp::complex A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the down-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including the strange and bottom quarks in the loop.
+     * @details
+     */
     gslpp::complex A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+   
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the leptons in the loop.
+     * @details 
+     */
     gslpp::complex A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
+    
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to a photon and a Z boson including the W boson in the loop.
+     * @details
+     */
     gslpp::complex A_H_W(const double mH, const double cW2, const double MW, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to a photon and a Z boson including the charged Higgs boson in the loop.
+     * @details
+     */
     gslpp::complex A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const;
 
     /**
@@ -1908,148 +1915,51 @@ public:
     ////////////////////////////////////////////////////////////////////////////
     double updateCache();
 
-    /**
-     * @brief SM branching ratio of @f$h\to b \bar b@f$.
-     * @return @f$BR{\text SM}(h\to b \bar b)@f$
-     */
-    double BrSM_htobb;
+    double BrSM_htobb; /**< SM branching ratio of @f$h\to b \bar b@f$. This is @f$BR{\text SM}(h\to b \bar b)@f$*/
 
-    /**
-     * @brief SM branching ratio of @f$h\to \gamma \gamma@f$.
-     * @return @f$BR{\text SM}(h\to \gamma \gamma)@f$
-     */
-    double BrSM_htogaga;
+    double BrSM_htogaga; /**< SM branching ratio of @f$h\to \gamma \gamma@f$. This is @f$BR{\text SM}(h\to \gamma \gamma)@f$*/
 
-    /**
-     * @brief SM branching ratio of @f$h\to \tau \tau@f$.
-     * @return @f$BR{\text SM}(h\to \tau \tau)@f$
-     */
-    double BrSM_htotautau;
+    double BrSM_htotautau; /**< SM branching ratio of @f$h\to \tau \tau@f$. This is @f$BR{\text SM}(h\to \tau \tau)@f$*/
 
-    /**
-     * @brief Squared relative coupling of @f$h@f$ to two down type quarks.
-     * @return @f$r^{(h)}_{Q_dQ_d}@f$
-     * @details Depends on the type of @f$Z_2@f$ symmetry.
-     */
-    double rh_QdQd;
+    double rh_QdQd; /**< quared relative coupling of @f$h@f$ to two down type quarks. This is @f$r^{(h)}_{Q_dQ_d}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry.*/
 
-    /**
-     * @brief Squared relative coupling of @f$h@f$ to two massive vector bosons.
-     * @return @f$r^{(h)}_{WW}=r^{(h)}_{ZZ}@f$
-     */
-    double rh_VV;
+    double rh_VV; /**< Squared relative coupling of @f$h@f$ to two massive vector bosons. This is @f$r^{(h)}_{WW}=r^{(h)}_{ZZ}@f$*/
 
-    /**
-     * @brief Squared relative coupling of @f$h@f$ to two charged leptons.
-     * @return @f$r^{(h)}_{\ell \ell}@f$
-     * @details Depends on the type of @f$Z_2@f$ symmetry.
-     */
-    double rh_ll;
+    double rh_ll; /**< Squared relative coupling of @f$h@f$ to two charged leptons. This is @f$r^{(h)}_{\ell \ell}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry.*/
 
-    /**
-     * @brief Squared relative coupling of @f$h@f$ to two photons.
-     * @return @f$r^{(h)}_{\gamma \gamma}@f$
-     * @details Depends on the type of @f$Z_2@f$ symmetry.
-     */
-    double rh_gaga;
+    double rh_gaga; /**< Squared relative coupling of @f$h@f$ to two photons. This is @f$r^{(h)}_{\gamma \gamma}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry.*/
 
-    /**
-     * @brief Squared relative coupling of @f$h@f$ to a @f$Z@f$ boson and a photon.
-     * @return @f$r^{(h)}_{Z\gamma}@f$
-     * @details Depends on the type of @f$Z_2@f$ symmetry.
-     */
-    double rh_Zga;
+    double rh_Zga; /**< Squared relative coupling of @f$h@f$ to a @f$Z@f$ boson and a photon. This is @f$r^{(h)}_{Z\gamma}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry.*/
 
-    /**
-     * @brief Squared relative coupling of @f$h@f$ to two gluons.
-     * @return @f$r^{(h)}_{gg}@f$
-     * @details Depends on the type of @f$Z_2@f$ symmetry.
-     */
-    double rh_gg;
+    double rh_gg; /**< Squared relative coupling of @f$h@f$ to two gluons. This is @f$r^{(h)}_{gg}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry.*/
 
-    /**
-     * @brief Ratio of THDM and SM cross sections for ggF and tth production of h at 8 TeV.
-     * @return @f$\sigma^{\text THDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$
-     */
-    double ggF_tth8;
+    double ggF_tth8; /**<  Ratio of THDM and SM cross sections for ggF and tth production of h at 8 TeV. This is @f$\sigma^{\text THDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$*/
 
-    /**
-     * @brief Ratio of THDM and SM cross sections for ggF and tth production of h at 13 TeV.
-     * @return @f$\sigma^{\text THDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$
-     */
-    double ggF_tth13;
+    double ggF_tth13; /**< Ratio of THDM and SM cross sections for ggF and tth production of h at 13 TeV. This is @f$\sigma^{\text THDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$*/
 
-    /**
-     * @brief Ratio of THDM and SM cross sections for the production of h at 13 TeV.
-     * @return @f$\sigma^{\text THDM}_{\text ggF+VBF+Vh+tth}/\sigma^{\text SM}_{\text ggF+VBF+Vh+tth}@f$
-     */
-    double pph13;
+    double pph13; /**< Ratio of THDM and SM cross sections for the production of h at 13 TeV. This is @f$\sigma^{\text THDM}_{\text ggF+VBF+Vh+tth}/\sigma^{\text SM}_{\text ggF+VBF+Vh+tth}@f$ */
 
-    /**
-     * @brief Ratio of THDM and SM cross sections for VBF and Vh production of h.
-     * @return @f$\sigma^{\text THDM}_{\text VBF+Vh}/\sigma^{\text SM}_{\text VBF+Vh}@f$
-     */
-    double VBF_Vh;
+    double VBF_Vh; /**< Ratio of THDM and SM cross sections for VBF and Vh production of h. This is @f$\sigma^{\text THDM}_{\text VBF+Vh}/\sigma^{\text SM}_{\text VBF+Vh}@f$*/
 
-    /**
-     * @brief Sum of the modified branching ratios.
-     * @return @f$\sum _i r^{(h)}_{i} BR^{\text SM}(h\to i)@f$
-     */
-    double sumModBRs;
+    double sumModBRs; /**< Sum of the modified branching ratios. This is @f$\sum _i r^{(h)}_{i} BR^{\text SM}(h\to i)@f$*/
 
-    /**
-     * @brief Total h decay rate in the THDM.
-     * @return @f$\Gamma_h@f$
-     */
-    double Gamma_h;
+    double Gamma_h; /**< Total h decay rate in the THDM. This is @f$\Gamma_h@f$*/
 
-    /**
-     * @brief Squared relative coupling of @f$h@f$ to two up type quarks.
-     * @return @f$r^{(h)}_{Q_uQ_u}@f$
-     */
-    double rh_QuQu;
+    double rh_QuQu; /**< Squared relative coupling of @f$h@f$ to two up type quarks. This is @f$r^{(h)}_{Q_uQ_u}@f$*/
 
-    /**
-     * @brief @f$h@f$ branching ratio to two @f$b@f$ quarks in the %THDM.
-     * @return @f$BR^{\text{THDM}}(h\to b \bar b)@f$
-     */
-    double THDM_BR_h_bb;
+    double THDM_BR_h_bb; /**< @f$h@f$ branching ratio to two @f$b@f$ quarks in the %THDM. This is @f$BR^{\text{THDM}}(h\to b \bar b)@f$*/
 
-    /**
-     * @brief @f$h@f$ branching ratio to two photons in the %THDM.
-     * @return @f$BR^{\text{THDM}}(h\to \gamma \gamma)@f$
-     */
-    double THDM_BR_h_gaga;
+    double THDM_BR_h_gaga; /**< branching ratio to two photons in the %THDM. This is @f$BR^{\text{THDM}}(h\to \gamma \gamma)@f$*/
 
-    /**
-     * @brief @f$h@f$ branching ratio to two @f$\tau@f$ leptons in the %THDM.
-     * @return @f$BR^{\text{THDM}}(h\to \tau\tau )@f$
-     */
-    double THDM_BR_h_tautau;
+    double THDM_BR_h_tautau; /**< @f$h@f$ branching ratio to two @f$\tau@f$ leptons in the %THDM. This is @f$BR^{\text{THDM}}(h\to \tau\tau )@f$*/
 
-    /**
-     * @brief @f$h@f$ branching ratio to two @f$W@f$ bosons in the %THDM.
-     * @return @f$BR^{\text{THDM}}(h\to WW)@f$
-     */
-    double THDM_BR_h_WW;
+    double THDM_BR_h_WW; /**<  @f$h@f$ branching ratio to two @f$W@f$ bosons in the %THDM. This is @f$BR^{\text{THDM}}(h\to WW)@f$*/
 
-    /**
-     * @brief @f$h@f$ branching ratio to two @f$Z@f$ bosons in the %THDM.
-     * @return @f$BR^{\text{THDM}}(h\to ZZ)@f$
-     */
-    double THDM_BR_h_ZZ;
+    double THDM_BR_h_ZZ; /**< @f$h@f$ branching ratio to two @f$Z@f$ bosons in the %THDM. This is @f$BR^{\text{THDM}}(h\to ZZ)@f$*/
 
-    /**
-     * @brief @f$h@f$ branching ratio to two gluons in the %THDM.
-     * @return @f$BR^{\text{THDM}}(h\to gg)@f$
-     */
-    double THDM_BR_h_gg;
+    double THDM_BR_h_gg; /**< @f$h@f$ branching ratio to two gluons in the %THDM. This is @f$BR^{\text{THDM}}(h\to gg)@f$*/
 
-    /**
-     * @brief @f$h@f$ branching ratio to two @f$c@f$ quarks in the %THDM.
-     * @return @f$BR^{\text{THDM}}(h\to c\bar c)@f$
-     */
-    double THDM_BR_h_cc;
+    double THDM_BR_h_cc; /**< @f$h@f$ branching ratio to two @f$c@f$ quarks in the %THDM. This is @f$BR^{\text{THDM}}(h\to c\bar c)@f$*/
 
     double SigmaSumH8;
     double SigmaTotSM_H8;
@@ -2071,355 +1981,141 @@ public:
     double Br_Htobb;
     double GammaHtotSM;
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
-     */
-    double ggF_H_tautau_TH8;
+    double ggF_H_tautau_TH8; /**< Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
-     */
-    double bbF_H_tautau_TH8;
+    double bbF_H_tautau_TH8; /**< Cross section times branching ratio for the process @f$b\bar b\to H\to \tau\tau@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to \gamma\gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
-     */
-    double pp_H_gaga_TH8;
+    double pp_H_gaga_TH8; /**< Cross section times branching ratio for the process @f$pp\to H\to \gamma\gamma@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to \gamma\gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
-     */
-    double ggF_H_gaga_TH8;
+    double ggF_H_gaga_TH8; /**< Cross section times branching ratio for the process @f$gg\to H\to \gamma\gamma@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)@f$
-     */
-    double pp_H_Zga_llga_TH8;
+    double pp_H_Zga_llga_TH8; /**< Cross section times branching ratio for the process @f$pp\to H\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)@f$*/
 
-    /**
-     * @brief Signal strength for the process @f$pp\to H\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
-     * @return @f$\mu_H^{\text{THDM}}(H\to VV)=[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to VV)] / [\sigma^{\text{SM}}_{pp\to H}\cdot BR^{\text{SM}}(H\to VV)]@f$
-     */
-    double mu_pp_H_VV_TH8;
+    double mu_pp_H_VV_TH8; /**< Signal strength for the process @f$pp\to H\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV. This is @f$\mu_H^{\text{THDM}}(H\to VV)=[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to VV)] / [\sigma^{\text{SM}}_{pp\to H}\cdot BR^{\text{SM}}(H\to VV)]@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to ZZ@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
-     */
-    double ggF_H_ZZ_TH8;
+    double ggF_H_ZZ_TH8; /**< Cross section times branching ratio for the process @f$gg\to H\to ZZ@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to H\to ZZ@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
-     */
-    double VBF_H_ZZ_TH8;
+    double VBF_H_ZZ_TH8; /**< Cross section times branching ratio for the process @f$VV\to H\to ZZ@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to WW@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
-     */
-    double ggF_H_WW_TH8;
+    double ggF_H_WW_TH8; /**< Cross section times branching ratio for the process @f$gg\to H\to WW@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to H\to WW@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
-     */
-    double VBF_H_WW_TH8;
+    double VBF_H_WW_TH8; /**< Cross section times branching ratio for the process @f$VV\to H\to WW@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to hh@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
-     */
-    double ggF_H_hh_TH8;
+    double ggF_H_hh_TH8; /**< Cross section times branching ratio for the process @f$gg\to H\to hh@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
-     */
-    double pp_H_hh_TH8;
+    double pp_H_hh_TH8; /**< Cross section times branching ratio for the process @f$pp\to H\to hh@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to hh\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)@f$
-     */
-    double ggF_H_hh_bbtautau_TH8;
+    double ggF_H_hh_bbtautau_TH8; /**< Cross section times branching ratio for the process @f$gg\to H\to hh\to b\bar b \tau\tau@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
-     */
-    double pp_H_hh_bbbb_TH8;
+    double pp_H_hh_bbbb_TH8; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)@f$
-     */
-    double pp_H_hh_gagabb_TH8;
+    double pp_H_hh_gagabb_TH8; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to t\bar t@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
-     */
-    double ggF_H_tt_TH8;
+    double ggF_H_tt_TH8; /**< Cross section times branching ratio for the process @f$gg\to H\to t\bar t@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)@f$
-     */
-    double bbF_H_bb_TH8;
+    double bbF_H_bb_TH8; /**< Cross section times branching ratio for the process @f$b\bar b\to H\to b\bar b@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to AZ\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to b\bar b \ell \ell)@f$
-     */
-    double pp_H_AZ_bbll_TH8;
+    double pp_H_AZ_bbll_TH8; /**< Cross section times branching ratio for the process @f$pp\to H\to AZ\to b\bar b \ell \ell@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to b\bar b \ell \ell)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to AZ\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to \tau\tau \ell \ell)@f$
-     */
-    double pp_H_AZ_tautaull_TH8;
+    double pp_H_AZ_tautaull_TH8; /**< Cross section times branching ratio for the process @f$pp\to H\to AZ\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to \tau\tau \ell \ell)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
-     */
-    double ggF_H_tautau_TH13;
+    double ggF_H_tautau_TH13; /**< Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
-     */
-    double bbF_H_tautau_TH13;
+    double bbF_H_tautau_TH13; /**< Cross section times branching ratio for the process @f$b\bar b\to H\to \tau\tau@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to \gamma\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
-     */
-    double pp_H_gaga_TH13;
+    double pp_H_gaga_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to \gamma\gamma@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to \gamma\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
-     */
-    double ggF_H_gaga_TH13;
+    double ggF_H_gaga_TH13; /**<  Cross section times branching ratio for the process @f$gg\to H\to \gamma\gamma@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to Z\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)@f$
-     */
-    double pp_H_Zga_TH13;
+    double pp_H_Zga_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to Z\gamma@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to Z\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)@f$
-     */
-    double ggF_H_Zga_TH13;
+    double ggF_H_Zga_TH13; /**< Cross section times branching ratio for the process @f$gg\to H\to Z\gamma@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to ZZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
-     */
-    double pp_H_ZZ_TH13;
+    double pp_H_ZZ_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to ZZ@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to ZZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
-     */
-    double ggF_H_ZZ_TH13;
+    double ggF_H_ZZ_TH13; /**< Cross section times branching ratio for the process @f$gg\to H\to ZZ@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to H\to ZZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
-     */
-    double VBF_H_ZZ_TH13;
+    double VBF_H_ZZ_TH13; /**< Cross section times branching ratio for the process @f$VV\to H\to ZZ@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$
-     */
-    double ggF_H_ZZ_llll_TH13;
+    double ggF_H_ZZ_llll_TH13; /**< Cross section times branching ratio for the process @f$gg\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$
-     */
-    double VBF_H_ZZ_llll_TH13;
+    double VBF_H_ZZ_llll_TH13; /**< Cross section times branching ratio for the process @f$VV\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$
-     */
-    double pp_H_ZZ_llll_TH13;
+    double pp_H_ZZ_llll_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV. This is @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV+VH\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{VV+VH\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$
-     */
-    double VBF_VH_H_ZZ_llll_TH13;
+    double VBF_VH_H_ZZ_llll_TH13; /**< Cross section times branching ratio for the process @f$VV+VH\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{VV+VH\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to WW@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
-     */
-    double ggF_H_WW_TH13;
+    double ggF_H_WW_TH13; /**< Cross section times branching ratio for the process @f$gg\to H\to WW@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$VV\to H\to WW@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
-     */
-    double VBF_H_WW_TH13;
+    double VBF_H_WW_TH13; /**< Cross section times branching ratio for the process @f$VV\to H\to WW@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$(gg+VV)\to H\to WW\to \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{(gg+VV)\to H}\cdot BR^{\text{THDM}}(H\to WW\to \ell \nu \ell \nu)@f$
-     */
-    double ggF_VBF_H_WW_lnulnu_TH13;
+    double ggF_VBF_H_WW_lnulnu_TH13; /**< Cross section times branching ratio for the process @f$(gg+VV)\to H\to WW\to \ell \nu \ell \nu@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{(gg+VV)\to H}\cdot BR^{\text{THDM}}(H\to WW\to \ell \nu \ell \nu)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to (WW+ZZ)@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot [BR^{\text{THDM}}(H\to WW)+BR^{\text{THDM}}(H\to ZZ)]@f$
-     */
-    double pp_H_VV_TH13;
+    double pp_H_VV_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to (WW+ZZ)@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot [BR^{\text{THDM}}(H\to WW)+BR^{\text{THDM}}(H\to ZZ)]@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to hh@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
-     */
-    double ggF_H_hh_TH13;
+    double ggF_H_hh_TH13; /**< Cross section times branching ratio for the process @f$gg\to H\to hh@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
-     */
-    double pp_H_hh_TH13;
+    double pp_H_hh_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
-     */
-    double pp_H_hh_bbbb_TH13;
+    double pp_H_hh_bbbb_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
-     */
-    double ggF_H_hh_bbbb_TH13;
+    double ggF_H_hh_bbbb_TH13; /**< Cross section times branching ratio for the process @f$gg\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)@f$
-     */
-    double pp_H_hh_gagabb_TH13;
+    double pp_H_hh_gagabb_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)@f$
-     */
-    double pp_H_hh_bbtautau_TH13;
+    double pp_H_hh_bbtautau_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b \tau\tau@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
-     */
-    double pp_H_hh_bblnulnu_TH13;
+    double pp_H_hh_bblnulnu_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}[H\to hh\to b\bar b VV(\ell\ell \nu\nu)]@f$
-     */
-    double pp_H_hh_bbVV_TH13;
+    double pp_H_hh_bbVV_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}[H\to hh\to b\bar b VV(\ell\ell \nu\nu)]@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$t\bar t\to H\to t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{t\bar t\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
-     */
-    double ttF_H_tt_TH13;
+    double ttF_H_tt_TH13; /**< Cross section times branching ratio for the process @f$t\bar t\to H\to t\bar t@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{t\bar t\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
-     */
-    double bbF_H_tt_TH13;
+    double bbF_H_tt_TH13; /**< Cross section times branching ratio for the process @f$b\bar b\to H\to t\bar t@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)@f$
-     */
-    double pp_H_bb_TH13;
+    double pp_H_bb_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to b\bar b@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)@f$*/
 
-    /**
-     * @brief Total decay width of the heavy CP-even Higgs @f$H@f$.
-     * @return @f$\Gamma_H@f$
-     */
-    double GammaHtot;
+    double GammaHtot; /**< Total decay width of the heavy CP-even Higgs @f$H@f$. This is @f$\Gamma_H@f$*/
 
-//    /**
-//     * @brief Squared relative coupling of @f$H@f$ to two photons.
-//     * @return @f$r^{(H)}_{\gamma \gamma}@f$
-//     * @details Depends on the type of @f$Z_2@f$ symmetry.
-//     */
-//    double rHH_gaga;
+//    double rHH_gaga; /**< Squared relative coupling of @f$H@f$ to two photons. This is @f$r^{(H)}_{\gamma \gamma}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry.*/
 
-    /**
-     * @brief Squared relative coupling of @f$H@f$ to two gluons.
-     * @return @f$r^{(H)}_{gg}@f$
-     * @details Depends on the type of @f$Z_2@f$ symmetry.
-     */
-    double rHH_gg;
 
-    /**
-     * @brief Squared relative coupling of @f$H@f$ to two massive vector bosons.
-     * @return @f$r^{(H)}_{VV}@f$
-     */
-    double rHH_VV;
+    double rHH_gg; /**< Squared relative coupling of @f$H@f$ to two gluons. This is @f$r^{(H)}_{gg}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry.*/
 
-    /**
-     * @brief @f$H@f$ branching ratio to two light Higgs bosons.
-     * @return @f$BR(H\to hh)@f$
-     */
-    double Br_Htohh;
+    double rHH_VV; /**< Squared relative coupling of @f$H@f$ to two massive vector bosons. This is @f$r^{(H)}_{VV}@f$*/
 
-    /**
-     * @brief @f$H@f$ branching ratio to two CP-odd Higgs bosons.
-     * @return @f$BR(H\to AA)@f$
-     */
-    double Br_HtoAA;
+    double Br_Htohh; /**<  @f$H@f$ branching ratio to two light Higgs bosons. This is @f$BR(H\to hh)@f$*/
 
-    /**
-     * @brief @f$H@f$ branching ratio to two charged Higgs bosons.
-     * @return @f$BR(H\to H^\pm H^\mp)@f$
-     */
-    double Br_HtoHpHm;
+    double Br_HtoAA; /**< @f$H@f$ branching ratio to two CP-odd Higgs bosons. This is @f$BR(H\to AA)@f$*/
 
-    /**
-     * @brief @f$H@f$ branching ratio to two light Higgs bosons.
-     * @return @f$BR(H\to hh)@f$
-     */
-    double Br_HtoAZ;
+    double Br_HtoHpHm; /**< @f$H@f$ branching ratio to two charged Higgs bosons. This is @f$BR(H\to H^\pm H^\mp)@f$*/
 
-    /**
-     * @brief @f$H@f$ branching ratio to two light Higgs bosons.
-     * @return @f$BR(H\to hh)@f$
-     */
-    double Br_HtoHpW;
+    double Br_HtoAZ; /**< @f$H@f$ branching ratio to two light Higgs bosons. This is @f$BR(H\to hh)@f$*/
 
-    double THoEX_ggF_H_tautau_ATLAS8;
+    double Br_HtoHpW; /**< @f$H@f$ branching ratio to two light Higgs bosons. This is @f$BR(H\to hh)@f$*/
+    
+    double THoEX_ggF_H_tautau_ATLAS8; /**< Ratio between the theoretical prediction and the experimental upper limit for the process @f$gg\to H\to \tau\tau@f$ at 8 TeV. This is @f$\frac{\sigma^{\text{THDM}}_{\text{theo}}(gg\to H)BR^{\text{THDM}}_{\text{theo}}(H\to \tau\tau)}{\sigma^{\text{THDM}}_{\text{exp}}(gg\to H)BR^{\text{THDM}}_{\text{exp}}(H\to \tau\tau)}@f$.*/
+    
     double R_ggF_H_tautau_ATLAS8;
+    
     double THoEX_ggF_H_tautau_CMS8;
+    
     double R_ggF_H_tautau_CMS8;
+    
     double THoEX_bbF_H_tautau_ATLAS8;
+    
     double R_bbF_H_tautau_ATLAS8;
+    
     double THoEX_bbF_H_tautau_CMS8;
+    
     double R_bbF_H_tautau_CMS8;
+    
     double THoEX_pp_H_gaga_ATLAS8;
+    
     double R_pp_H_gaga_ATLAS8;
+    
     double THoEX_ggF_H_gaga_CMS8;
+    
     double R_ggF_H_gaga_CMS8;
 //    double LIMIT_ggF_H_gaga_CMS8;
 //    double LIMEST_ggF_H_gaga_CMS8;
@@ -2564,193 +2260,72 @@ public:
     double Br_Atobb;
     double Gamma_AZga;
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
-     */
-    double ggF_A_tautau_TH8;
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
-     */
-    double bbF_A_tautau_TH8;
+    double ggF_A_tautau_TH8; /**< Cross section times branching ratio for the process @f$gg\to A\to \tau\tau@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
-     */
-    double pp_A_gaga_TH8;
+    double bbF_A_tautau_TH8; /**<  Cross section times branching ratio for the process @f$b\bar b\to A\to \tau\tau@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
-     */
-    double ggF_A_gaga_TH8;
+    double pp_A_gaga_TH8; /**< Cross section times branching ratio for the process @f$pp\to A\to \gamma\gamma@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma \to \ell \ell \gamma)@f$
-     */
-    double pp_A_Zga_llga_TH8;
+    double ggF_A_gaga_TH8; /**< Cross section times branching ratio for the process @f$gg\to A\to \gamma\gamma@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ)@f$
-     */
-    double ggF_A_hZ_TH8;
+    double pp_A_Zga_llga_TH8; /**< Cross section times branching ratio for the process @f$pp\to A\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma \to \ell \ell \gamma)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b \ell \ell)@f$
-     */
-    double ggF_A_hZ_bbll_TH8;
+    double ggF_A_hZ_TH8; /**< Cross section times branching ratio for the process @f$gg\to A\to hZ@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b Z@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b Z)@f$
-     */
-    double ggF_A_hZ_bbZ_TH8;
+    double ggF_A_hZ_bbll_TH8; /**< Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b \ell \ell@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b \ell \ell)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau \ell \ell)@f$
-     */
-    double ggF_A_hZ_tautaull_TH8;
+    double ggF_A_hZ_bbZ_TH8; /**< Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b Z@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b Z)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau Z@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau Z)@f$
-     */
-    double ggF_A_hZ_tautauZ_TH8;
+    double ggF_A_hZ_tautaull_TH8; /**< Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau \ell \ell@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau \ell \ell)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to t\bar t@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
-     */
-    double ggF_A_tt_TH8;
+    double ggF_A_hZ_tautauZ_TH8; /**< Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau Z@f$ at the LHC with 8 TeV. This is @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau Z)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$
-     */
-    double bbF_A_bb_TH8;
+    double ggF_A_tt_TH8; /**< Cross section times branching ratio for the process @f$gg\to A\to t\bar t@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to HZ\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to HZ\to b\bar b \ell \ell)@f$
-     */
-    double pp_A_HZ_bbll_TH8;
+    double bbF_A_bb_TH8; /**< Cross section times branching ratio for the process @f$b\bar b\to A\to b\bar b@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to HZ\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to HZ\to \tau\tau \ell \ell)@f$
-     */
-    double pp_A_HZ_tautaull_TH8;
+    double pp_A_HZ_bbll_TH8; /**< Cross section times branching ratio for the process @f$pp\to A\to HZ\to b\bar b \ell \ell@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to HZ\to b\bar b \ell \ell)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau \tauZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau \tau)@f$
-     */
-    double ggF_A_tautau_TH13;
+    double pp_A_HZ_tautaull_TH8; /**< Cross section times branching ratio for the process @f$pp\to A\to HZ\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to HZ\to \tau\tau \ell \ell)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to \tau \tauZ@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau \tau)@f$
-     */
-    double bbF_A_tautau_TH13;
+    double ggF_A_tautau_TH13; /**< Cross section times branching ratio for the process @f$gg\to A\to \tau \tauZ@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau \tau)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to \gamma \gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma \gamma)@f$
-     */
-    double pp_A_gaga_TH13;
+    double bbF_A_tautau_TH13; /**< Cross section times branching ratio for the process @f$b\bar b\to A\to \tau \tauZ@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau \tau)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to \gamma \gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma \gamma)@f$
-     */
-    double ggF_A_gaga_TH13;
+    double pp_A_gaga_TH13; /**< Cross section times branching ratio for the process @f$pp\to A\to \gamma \gamma@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma \gamma)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to Z\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)@f$
-     */
-    double pp_A_Zga_TH13;
+    double ggF_A_gaga_TH13; /**< Cross section times branching ratio for the process @f$gg\to A\to \gamma \gamma@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma \gamma)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to Z\gamma@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)@f$
-     */
-    double ggF_A_Zga_TH13;
+    double pp_A_Zga_TH13; /**< Cross section times branching ratio for the process @f$pp\to A\to Z\gamma@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ\to b\bar b Z@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ\to b\bar b Z)@f$
-     */
-    double ggF_A_hZ_bbZ_TH13;
+    double ggF_A_Zga_TH13; /**< Cross section times branching ratio for the process @f$gg\to A\to Z\gamma@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to hZ\to b\bar b Z@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to hZ\to b\bar b Z)@f$
-     */
-    double bbF_A_hZ_bbZ_TH13;
+    double ggF_A_hZ_bbZ_TH13; /**< Cross section times branching ratio for the process @f$gg\to A\to hZ\to b\bar b Z@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ\to b\bar b Z)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$t\bar t\to A\to t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{t\bar t\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
-     */
-    double ttF_A_tt_TH13;
+    double bbF_A_hZ_bbZ_TH13; /**< Cross section times branching ratio for the process @f$b\bar b\to A\to hZ\to b\bar b Z@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to hZ\to b\bar b Z)@f$*/
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to t\bar t@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
-     */
-    double bbF_A_tt_TH13;
+    double ttF_A_tt_TH13; /**< Cross section times branching ratio for the process @f$t\bar t\to A\to t\bar t@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{t\bar t\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$ */
+
+    double bbF_A_tt_TH13; /**< Cross section times branching ratio for the process @f$b\bar b\to A\to t\bar t@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$ */
     
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to b\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$
-     */
-    double pp_A_bb_TH13;
+    double pp_A_bb_TH13; /**< Cross section times branching ratio for the process @f$pp\to A\to b\bar b@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$ */
 
-    /**
-     * @brief Total decay width of the CP-odd Higgs @f$A@f$.
-     * @return @f$\Gamma_A@f$
-     */
-    double GammaAtot;
+    double GammaAtot; /**< Total decay width of the CP-odd Higgs @f$A@f$. This is @f$\Gamma_A@f$ */
 
-//    /**
-//     * @brief Squared relative coupling of @f$A@f$ to two photons.
-//     * @return @f$r^{(A)}_{\gamma \gamma}@f$
-//     * @details Depends on the type of @f$Z_2@f$ symmetry.
-//     */
-//    double rA_gaga;
+//    double rA_gaga; /**< Squared relative coupling of @f$A@f$ to two photons. This is@f$r^{(A)}_{\gamma \gamma}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry. */
 
-    /**
-     * @brief Squared relative coupling of @f$A@f$ to two gluons.
-     * @return @f$r^{(A)}_{gg}@f$
-     * @details Depends on the type of @f$Z_2@f$ symmetry.
-     */
-    double rA_gg;
+    double rA_gg; /**< Squared relative coupling of @f$A@f$ to two gluons. This is @f$r^{(A)}_{gg}@f$. Note that this depends on the type of @f$Z_2@f$ symmetry. */
 
-    /**
-     * @brief @f$A@f$ branching ratio to an @f$H@f$ and a @f$Z@f$ boson.
-     * @return @f$BR(A\to HZ)@f$
-     */
-    double Br_AtoHZ;
+    double Br_AtoHZ; /**< @f$A@f$ branching ratio to an @f$H@f$ and a @f$Z@f$ boson. This is @f$BR(A\to HZ)@f$ */
 
-    /**
-     * @brief @f$A@f$ branching ratio to an @f$h@f$ and a @f$Z@f$ boson.
-     * @return @f$BR(A\to hZ)@f$
-     */
-    double Br_AtohZ;
+    double Br_AtohZ; /**< @f$A@f$ branching ratio to an @f$h@f$ and a @f$Z@f$ boson. This is @f$BR(A\to hZ)@f$ */
 
     /**
      * @brief @f$A@f$ branching ratio to a charged Higgs and a @f$W^\mp@f$ boson.
      * @return @f$BR(A\to H^\pm W^\mp)@f$
      */
-    double Br_AtoHpW;
+    double Br_AtoHpW; /**< @f$A@f$ branching ratio to a charged Higgs and a @f$W^\mp@f$ boson. This is @f$BR(A\to H^\pm W^\mp)@f$ */
 
     double THoEX_ggF_A_tautau_ATLAS8;
     double R_ggF_A_tautau_ATLAS8;
@@ -2818,41 +2393,17 @@ public:
     double THoEX_pp_A_HZ_tautaull_CMS8;
     double R_pp_A_HZ_tautaull_CMS8;
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm\to \tau^\pm \nu)@f$
-     */
-    double pp_Hpm_taunu_TH8;
+    double pp_Hpm_taunu_TH8; /**< Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm\to \tau^\pm \nu)@f$ */
 
-    /**
-     * @brief Cross section for the process @f$pp\to H^+\to \tau^+ \nu@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+\to \tau^+ \nu}@f$
-     */
-    double pp_Hp_taunu_TH8;
+    double pp_Hp_taunu_TH8; /**< Cross section for the process @f$pp\to H^+\to \tau^+ \nu@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H^+\to \tau^+ \nu}@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to t b@f$ at the LHC with 8 TeV.
-     * @return @f$2 \sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$
-     */
-    double pp_Hpm_tb_TH8;
+    double pp_Hpm_tb_TH8; /**< Cross section times branching ratio for the process @f$pp\to H^\pm\to t b@f$ at the LHC with 8 TeV. This is @f$2 \sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H^+\to t\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$
-     */
-    double pp_Hp_tb_TH8;
+    double pp_Hp_tb_TH8; /**< Cross section times branching ratio for the process @f$pp\to H^+\to t\bar b@f$ at the LHC with 8 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm\to \tau^\pm \nu)@f$
-     */
-    double pp_Hpm_taunu_TH13;
+    double pp_Hpm_taunu_TH13; /**< Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm\to \tau^\pm \nu)@f$ */
 
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H^+\to t\bar b@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$
-     */
-    double pp_Hp_tb_TH13;
+    double pp_Hp_tb_TH13; /**< Cross section times branching ratio for the process @f$pp\to H^+\to t\bar b@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$ */
 
     double THoEX_pp_Hpm_taunu_ATLAS8;
     double R_pp_Hpm_taunu_ATLAS8;
@@ -2877,7 +2428,7 @@ public:
      * @brief Total decay width of the charged Higgs @f$H^+@f$.
      * @return @f$\Gamma_{H^+}@f$
      */
-    double GammaHptot;
+    double GammaHptot; /**<  */
 
     double Q_cutoff;
     double g1_at_Q;

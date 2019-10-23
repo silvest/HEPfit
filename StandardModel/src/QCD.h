@@ -114,191 +114,6 @@
  * The parameters below are associated with flavour observables
  * <table class="model">
  * <tr>
- *   <td class="mod_name">%MK0</td>
- *   <td class="mod_symb">@f$M_{K^0}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ K^0 \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%MKp</td>
- *   <td class="mod_symb">@f$M_{K^\pm}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ K^\pm \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%MKstar</td>
- *   <td class="mod_symb">@f$M_{K^*}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ K^* \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Mphi</td>
- *   <td class="mod_symb">@f$M_{\phi}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ \phi \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%MD</td>
- *   <td class="mod_symb">@f$M_{D^0}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ D^0 \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%MBd</td>
- *   <td class="mod_symb">@f$M_{B_d}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ B_d \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%MBp</td>
- *   <td class="mod_symb">@f$M_{B^\pm}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ B^\pm \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%MBs</td>
- *   <td class="mod_symb">@f$M_{B_s}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ B_s \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tKl</td>
- *   <td class="mod_symb">@f$\tau_{K_L}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ K_L \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tKp</td>
- *   <td class="mod_symb">@f$\tau_{K^\pm}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ K^\pm \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tKstar</td>
- *   <td class="mod_symb">@f$\tau_{K^*}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ K^* \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tphi</td>
- *   <td class="mod_symb">@f$\tau_{\phi}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ \phi \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tBd</td>
- *   <td class="mod_symb">@f$\tau_{B_d}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tBp</td>
- *   <td class="mod_symb">@f$\tau_{B^\pm}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ B^\pm \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tBs</td>
- *   <td class="mod_symb">@f$\tau_{B_s}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ B_s \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%DGs_Gs</td>
- *   <td class="mod_symb"></td>
- *   <td class="mod_desc"></td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FK</td>
- *   <td class="mod_symb">@f$F_{K^-}@f$</td>
- *   <td class="mod_desc">The decay constant of the \f$ K^- \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FKstar</td>
- *   <td class="mod_symb">@f$F_{K^*}@f$</td>
- *   <td class="mod_desc">The decay constant of the \f$ K^* \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FKstarp</td>
- *   <td class="mod_symb">@f$F_{K^*}^{\perp}@f$</td>
- *   <td class="mod_desc">The decay constant of a transversely polarized \f$ K^* \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Fphi</td>
- *   <td class="mod_symb">@f$F_{\phi}@f$</td>
- *   <td class="mod_desc">The decay constant of the \f$ \phi \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FKstarp</td>
- *   <td class="mod_symb">@f$F_{K^*}^{\perp}@f$</td>
- *   <td class="mod_desc">The decay constant of a transversely polarized \f$ \phi \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FD</td>
- *   <td class="mod_symb">@f$F_{D^0}@f$</td>
- *   <td class="mod_desc">The decay constant of the \f$ D^0 \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FBs</td>
- *   <td class="mod_symb">@f$F_{B_s}@f$</td>
- *   <td class="mod_desc">The decay constant of the \f$ B_s \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BK1 - %BK5</td>
- *   <td class="mod_symb">@f$B^1_{K} - B^5_{K}@f$</td>
- *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta s = 2 \f$ processes in \f$ K^0 \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BKscale</td>
- *   <td class="mod_symb">@f$\mu_K@f$</td>
- *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BKscheme</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BD1 - %BD5</td>
- *   <td class="mod_symb">@f$B^1_{D} - B^5_{D}@f$</td>
- *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BDscale</td>
- *   <td class="mod_symb">@f$\mu_D@f$</td>
- *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BDscheme</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BBsoBBd</td>
- *   <td class="mod_symb">@f$B_{B_s}/B_{B_d}@f$</td>
- *   <td class="mod_desc">The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BBs1 - %BBs5</td>
- *   <td class="mod_symb">@f$B^1_{B_s} - B^5_{B_s}@f$</td>
- *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BBsscale</td>
- *   <td class="mod_symb">@f$\mu_{B_{s}}@f$</td>
- *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ B_s \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BBsscheme</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ B_s \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BK(1/2)1 - %BK(1/2)10</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc"></td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BK(3/2)1 - %BK(3/2)10</td>
- *   <td class="mod_symb"></td>
- *   <td class="mod_desc"></td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BKd_scale</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc"></td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BKd_scheme</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc"></td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%ReA0_Kd</td>
  *   <td class="mod_symb">@f${\cal Re}(A_0(K\to\pi\pi))@f$</td>
  *   <td class="mod_desc">The experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=0\f$.</td>
@@ -342,56 +157,6 @@
  *   <td class="mod_name">%IB_Kp</td>
  *   <td class="mod_symb">@f$@f$</td>
  *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%alpha1kst, %alpha2kst</td>
- *   <td class="mod_symb">@f$\alpha_1(\bar{K}^*), \alpha_2(\bar{K}^*)@f$</td>
- *   <td class="mod_desc">The Gegenbauer coefficients for the @f$\bar{K}^*@f$ meson.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%alpha2phi</td>
- *   <td class="mod_symb">@f$\alpha_2(\phi)@f$</td>
- *   <td class="mod_desc">The Gegenbauer coefficient for the @f$\phi@f$ meson.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%alpha1kp, %alpha2kp</td>
- *   <td class="mod_symb">@f$\alpha_1(K^+), \alpha_2(K^+)@f$</td>
- *   <td class="mod_desc">The Gegenbauer coefficients for the @f$K^+@f$ meson.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%lambdaB</td>
- *   <td class="mod_symb">@f$\Lambda_{B,+}@f$</td>
- *   <td class="mod_desc">The integrated leading twist light-cone distribution amplitudes of the B meson divided by the integral variable.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BLNPcorr</td>
- *   <td class="mod_symb">@f$N_{b\to s\gamma}@f$</td>
- *   <td class="mod_desc">The non perturbative uncertainty associated to the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_mukin</td>
- *   <td class="mod_symb">@f$\mu^{\rm kin}@f$</td>
- *   <td class="mod_desc">The mass scale for the b quark in the kinetic scheme, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_BRsem</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(B\to X_ce\nu)^{\rm Gambino}@f$</td>
- *   <td class="mod_desc">The branching ratio of \f$B\to X_c e\nu\f$ fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_Mbkin</td>
- *   <td class="mod_symb">@f$m_b^{\rm kin,\,Gambino}@f$</td>
- *   <td class="mod_desc">The b quark mass in the kinetic scheme fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_Mcatmuc</td>
- *   <td class="mod_symb">@f$m_c(\mu_c)^{\rm Gambino}@f$</td>
- *   <td class="mod_desc">The c quark at \f$\mu_c\f$ fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Gambino_mupi2, %Gambino_rhoD3, %Gambino_muG2, %Gambino_rhoLS3</td>
- *   <td class="mod_symb">@f$\mu_{\pi}^{2,\,\rm Gambino}, \rho_{D}^{3,\,\rm Gambino}, \mu_{G}^{2,\,\rm Gambino}, \rho_{LS}^{3,\,\rm Gambino}@f$</td>
- *   <td class="mod_desc">The B meson expectation values for the relevant dim. 5 and 6 operators fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
  * </tr>
  * </table>
  *
@@ -455,7 +220,7 @@
  * @f]
  * For \f$N_f < 5\f$, \f$\Lambda_{QCD}\f$ can be obtained by solving the following 
  * matching condition at \f$\mu\f$ @cite Chetyrkin:1997sg @cite Chetyrkin:2000yt :
- * @f{eqnarray}
+ * \f{eqnarray}{
  *  \beta_0^{'}\ln\frac{\Lambda^{'2}}{\Lambda^2}
  *  &=& (\beta_0^{'}-\beta_0)L+\left(\frac{\beta_1^{'}}{\beta_0^{'}}-
  *  \frac{\beta_1}{\beta_0}\right)\ln L-\frac{\beta_1^{'}}{\beta_0^{'}}\ln\frac{\beta_0^{'}}{\beta_0} - C_1
@@ -465,7 +230,7 @@
  *  \right)\ln L + \frac{\beta_1^{'2}}{\beta_0^{'2}}-\frac{\beta_1^2}{\beta_0^2}-\frac{\beta_2^{'2}}{\beta_0^{'2}}
  *  +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{'}}{\beta_0^{'}}C_1-C_1^2-C_2\right]+
  *  O\left(\frac{\ln^2L}{L^2}\right),
- * @f{eqnarray}
+ * \f}
  * where the primed (unprimed) quantities refer to those pertaining to \f$N_f-1\f$ \f$(N_f)\f$. 
  * The terms \f$C_1\f$ and \f$C_2\f$ are given by
  * @f[
@@ -502,7 +267,7 @@
  * @f]
  * Besides, \f$\Lambda_{QCD}\f$ for \f$N_f=6\f$ is derived from that for
  * \f$N_f=5\f$ with the relation:
- * @f{eqnarray}
+ * \f{eqnarray}{
  *  \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{'2}} 
  *  &=& (\beta_0-\beta_0^{'})L^{'}+\left(\frac{\beta_1}{\beta_0}-
  *  \frac{\beta_1^{'}}{\beta_0^{'}}\right)\ln L^{'}-\frac{\beta_1}{\beta_0}\ln\frac{\beta_0}{\beta_0^{'}}-C_1^{'}
@@ -512,7 +277,7 @@
  *  {\beta_0^{'}}\right)\ln L^{'}+\frac{\beta_1^{2}}{\beta_0^{2}}-\frac{\beta_1^{'2}}{\beta_0^{'2}}-
  *  \frac{\beta_2^{2}}{\beta_0^{2}}+\frac{\beta_2^{'2}}{\beta_0^{'2}}+\frac{\beta_1}{\beta_0}C_1^{'}-C_1^{'2}-
  *  C_2^{'}\right]+O\left(\frac{\ln^2L}{L^2}\right),
- * @f{eqnarray}
+ * \f}
  * where
  * @f[
  *  C_1^{'} = -\frac{2}{3}\ln\frac{\mu^2}{m_t^2},\qquad
@@ -1236,7 +1001,7 @@ private:
     std::map<std::string, double> optionalParameters; ///< A map for containing the list and values of the parameters that are used only by a specific set of observables.
     std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.
     mutable std::map<const QCD::meson, Meson> mesonsMap;///< The map of defined mesons.
-    bool FlagCsi; ///< A flag to determine whether \f$B_{B_s}\f$ and \f$B_{B_s}/B_{B_d}\f$ or \f$F_{B_s}\sqrt{B_{B_s}}\f$ (false) and \f$\csi \equiv F_{B_s}\sqrt{B_{B_s}}/(F_{B_d}\sqrt{B_{B_d}})\f$ (default, true) are used as inputs.
+    bool FlagCsi; ///< A flag to determine whether \f$B_{B_s}\f$ and \f$B_{B_s}/B_{B_d}\f$ or \f$F_{B_s}\sqrt{B_{B_s}}\f$ (false) and \f$\xi \equiv F_{B_s}\sqrt{B_{B_s}}/(F_{B_d}\sqrt{B_{B_d}})\f$ (default, true) are used as inputs.
     mutable orders realorder;
 
     /**

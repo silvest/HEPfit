@@ -21,8 +21,47 @@
  * @copyright GNU General Public License
  * @details This class is used to build all the functions needed in order to
  * compute the observables relative to the @f$\bar{B} \to X_s\gamma@f$ decay, following
- * the prescriptions of @cite Misiak:2006zs and @cite Misiak:2015xwa. In general,
- * the decay rate can be expressed as
+ * the prescriptions of @cite Misiak:2006zs and @cite Misiak:2015xwa. 
+ * 
+ *
+ * @anchor bsgammaParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %bsgamma are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <td class="mod_name">%BLNPcorr</td>
+ *   <td class="mod_symb">@f$N_{b\to s\gamma}@f$</td>
+ *   <td class="mod_desc">The non perturbative uncertainty associated to the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_mukin</td>
+ *   <td class="mod_symb">@f$\mu^{\rm kin}@f$</td>
+ *   <td class="mod_desc">The mass scale for the b quark in the kinetic scheme, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_BRsem</td>
+ *   <td class="mod_symb">@f$\mathrm{BR}(B\to X_ce\nu)^{\rm Gambino}@f$</td>
+ *   <td class="mod_desc">The branching ratio of \f$B\to X_c e\nu\f$ fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_Mbkin</td>
+ *   <td class="mod_symb">@f$m_b^{\rm kin,\,Gambino}@f$</td>
+ *   <td class="mod_desc">The b quark mass in the kinetic scheme fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_Mcatmuc</td>
+ *   <td class="mod_symb">@f$m_c(\mu_c)^{\rm Gambino}@f$</td>
+ *   <td class="mod_desc">The c quark at \f$\mu_c\f$ fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_mupi2, %Gambino_rhoD3, %Gambino_muG2, %Gambino_rhoLS3</td>
+ *   <td class="mod_symb">@f$\mu_{\pi}^{2,\,\rm Gambino}, \rho_{D}^{3,\,\rm Gambino}, \mu_{G}^{2,\,\rm Gambino}, \rho_{LS}^{3,\,\rm Gambino}@f$</td>
+ *   <td class="mod_desc">The B meson expectation values for the relevant dim. 5 and 6 operators fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * </table>
+ * 
+ * In general, the decay rate can be expressed as
  * @f[
  * \Gamma(\bar{B} \to X_s^p \gamma)_{{E_\gamma > E_0}} = \frac{\left|V_{ts}^\star V_{tb}\right|^2 
  * G_F^2 m_b^5 \alpha_{\rm em}}{32\pi^4} \sum_{i,j=1}^8 C_i(\mu_b)C_j(\mu_b) G_{ij}(E_0,\mu_b)\,.
