@@ -2534,7 +2534,7 @@ gslpp::complex StandardModelMatching::S0c() const
     double xc = x_c(SM.getMuc());
     gslpp::complex co = GF / 2. / M_PI * Mw * SM.getCKM().computelamc().conjugate();
 #if SUSYFIT_DEBUG & 2
-    std::cout << "im lambdac = " << (SM.computelamc()*SM.computelamc()).imag() << std::endl;
+    std::cout << "im lambdac = " << (SM.getCKM().computelamc()*SM.getCKM().computelamc()).imag() << std::endl;
 #endif
     return(co * co * S0(xc, xc));
 }
@@ -2547,7 +2547,7 @@ gslpp::complex StandardModelMatching::S0ct() const
     xt *= xt;
     double co = GF / 2. / M_PI * Mw;
 #if SUSYFIT_DEBUG & 2
-    std::cout << "im lamc lamt = " << (SM.computelamc()*SM.computelamt()).imag() << std::endl;
+    std::cout << "im lamc lamt = " << (SM.getCKM().computelamc()*SM.getCKM().computelamt()).imag() << std::endl;
 #endif
     
     return( co * co * 2. * SM.getCKM().computelamc().conjugate() * lam_t.conjugate() * S0(xc, xt) );
@@ -2558,13 +2558,13 @@ gslpp::complex StandardModelMatching::S0tt() const
     double xt = x_t(Mut);
     gslpp::complex co = GF / 2. / M_PI * Mw * lam_t.conjugate();
 #if SUSYFIT_DEBUG & 2
-    double pino = SM.Mrun(Mut, SM.Mp2Mbar(SM.getMtpole(),FULLNLO), 
-                        SM.Mp2Mbar(SM.getMtpole(),FULLNLO), FULLNLO);
+    double pino = SM.Mrun(Mut, SM.Mp2Mbar(SM.getMtpole(),FULLNNLO), 
+                        SM.Mp2Mbar(SM.getMtpole(),FULLNNLO), FULLNNLO);
     std::cout << "mt(" << Mut<< ")" << pino << std::endl;
     double poldo = pino*pino/SM.Mw()/SM.Mw() ;
     std::cout << "S0(" << poldo << ") = " << S0(poldo,poldo) << std::endl;
     std::cout << "S0(" << xt << ") = " << S0(xt,xt) << std::endl;
-    std::cout << "im lamt = " << (SM.computelamt()*SM.computelamt()).imag() << std::endl;
+    std::cout << "im lamt = " << (SM.getCKM().computelamt()*SM.getCKM().computelamt()).imag() << std::endl;
 #endif
 
     return ( co * co * S0(xt, xt) );
