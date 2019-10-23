@@ -1156,7 +1156,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      */
-    double Mp2Mbar(const double mp, const orders order = FULLNLO) const;
+    double Mp2Mbar(const double mp, const orders order = FULLNNLO) const;
 
     /**
      * @brief Converts a quark mass from the @f$\overline{\mathrm{MS}}@f$ scheme to
