@@ -1024,10 +1024,10 @@ double StandardModelMatching::phi_xy(double x, double y) const
             mcdbd2.setCoeff(0, co * co * 4. * (SM.Als(Mut, FULLNLO) / 4. / M_PI * (S1(xt) + //* CHECK ORDER *//
                     (Bt + gamma0 * log(Mut / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Mut / Mw))), NLO);
 #if SUSYFIT_DEBUG & 1
-    std::cout << "Mw = " << Mw << " xt(muw=" << Muw << ")= " << xt << "matching of DB=2: S0(xt) = " << S0(xt) << 
+    std::cout << "Mw = " << Mw << " mt(mut=" << Mut << ")= " << Mt_mut << " xt(mut=" << Mut << ")= " << xt << "matching of DB=2: S0(xt) = " << S0(xt) << 
                 ", S1(xt) = " << S1(xt) +
                     (Bt + gamma0 * log(Muw / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Muw / Mw) 
-            << ", lambdat_d^2 = " << SM.getlamt_d()*SM.getlamt_d() << std::endl;
+            << ", lambdat_d^2 = " << SM.getCKM().computelamt_d()*SM.getCKM().computelamt_d() << std::endl;
 #endif
         case LO:
             mcdbd2.setCoeff(0, co * co * 4. * (S0(xt, xt)), LO);
