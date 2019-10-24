@@ -11,7 +11,7 @@
 
 /**
  * @class HiggsChiral
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A model class extending the %StandardModel Higgs sector with 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License

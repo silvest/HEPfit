@@ -14,12 +14,6 @@ class THDM;
 class THDMcache;
 
 /**
- * @addtogroup THDM
- * @brief A module for the @f$Z_2@f$ symmetric Two-Higgs-Doublet models.
- * @{
- */
-
-/**
  * @class CPoddHiggs
  * @ingroup THDM
  * @brief Base class for direct CP-odd Higgs search observables.
@@ -2000,9 +1994,5 @@ public:
 private:
     const THDM& myTHDM;
 };
-
-/**
- * @}
- */
 
 #endif	/* CPODDHIGGS_H */

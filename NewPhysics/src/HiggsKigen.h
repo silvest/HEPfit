@@ -11,7 +11,7 @@
 
 /**
  * @class HiggsKigen
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A model class extending the %StandardModel Higgs sector with seven flavour-universal couplings.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
