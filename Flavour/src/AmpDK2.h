@@ -37,17 +37,17 @@ public:
 
 protected:
     /**
-     * 
-     * @brief compute the amplitude for kaon oscillations
+    * 
+    * @brief compute the amplitude for kaon oscillations
     * @param[in] order the %QCD order of the computation
-     */
+    */
     gslpp::complex AmpDK(orders order);
     
     /**
-     * 
-     * @brief compute the NP part of the amplitude for kaon oscillations
+    * 
+    * @brief compute the NP part of the amplitude for kaon oscillations
     * @param[in] order the %QCD order of the computation
-     */
+    */
     gslpp::complex AmpDMKNP(orders order);
 
 private:
