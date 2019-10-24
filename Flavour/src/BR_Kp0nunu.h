@@ -18,11 +18,11 @@ class StandardModel;
 /**
  * @class BR_Kp0nunu
  * @ingroup Flavour
- * @brief A class for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$
+ * @brief A class for the branching ratio of \f$K_L\to\pi^0\nu\bar{\nu}\f$
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
- * the branching ratio of \f$K^+\to\pi^0e^+\nu\f$.
+ * the branching ratio of \f$K_L\to\pi^0\nu\bar{\nu}\f$.
  * 
  * 
  *
