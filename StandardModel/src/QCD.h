@@ -114,11 +114,6 @@
  * The parameters below are associated with flavour observables
  * <table class="model">
  * <tr>
- *   <td class="mod_name">%Br_Kp_P0enu</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\pi^0e^+\nu)@f$</td>
- *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$.</td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%Br_Kp_munu</td>
  *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\mu^+\nu)@f$</td>
  *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\mu^+\nu\f$.</td>
@@ -127,21 +122,6 @@
  *   <td class="mod_name">%Br_B_Xcenu</td>
  *   <td class="mod_symb">@f$\mathrm{BR}(B\to X_ce\nu)@f$</td>
  *   <td class="mod_desc">The experimental value for the branching ratio of \f$B\to X_c e\nu\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%DeltaP_cu</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The long-distance correction to the charm contribution of \f$K^+\to\pi^+\nu\bar{\nu}\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%IB_Kl</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">the isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%IB_Kp</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
  * </tr>
  * </table>
  *
