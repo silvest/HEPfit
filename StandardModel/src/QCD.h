@@ -114,21 +114,6 @@
  * The parameters below are associated with flavour observables
  * <table class="model">
  * <tr>
- *   <td class="mod_name">%ReA0_Kd</td>
- *   <td class="mod_symb">@f${\cal Re}(A_0(K\to\pi\pi))@f$</td>
- *   <td class="mod_desc">The experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=0\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%ReA2_Kd</td>
- *   <td class="mod_symb">@f${\cal Re}(A_2(K\to\pi\pi))@f$</td>
- *   <td class="mod_desc">the experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=2\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Omega_eta_etap</td>
- *   <td class="mod_symb">@f$\Omega_{\eta/\eta'}@f$</td>
- *   <td class="mod_desc">The isospin breaking contribution in \f$K^0\to\pi\pi\f$.</td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%Br_Kp_P0enu</td>
  *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\pi^0e^+\nu)@f$</td>
  *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$.</td>
