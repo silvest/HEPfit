@@ -14,7 +14,7 @@ class NPbase;
 
 /**
  * @class mueeWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to W^+ W^- }@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -45,7 +45,7 @@ private:
 
 /**
  * @class mueeWWPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to W^+ W^-}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License

@@ -10,12 +10,6 @@
 #include "NPbase.h"
 
 /**
- * @addtogroup HiggsExtensions
- * @brief A module for extending the %StandardModel Higgs sector with rescaled couplings.
- * @{
- */
-
-/**
  * @class HiggsKvKf
  * @brief A model class extending the %StandardModel Higgs sector with three universal couplings.
  * @author HEPfit Collaboration
@@ -377,10 +371,6 @@ private:
     double Kf; ///< The factor rescaling all Higgs couplings to fermions with respect to the SM.
     double BrHinv; ///< The branching ratio of invisible Higgs decays.
 };
-
-/**
- * @}
- */
 
 #endif	/* HIGGSKVKF_H */
 

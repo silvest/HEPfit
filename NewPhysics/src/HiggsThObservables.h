@@ -14,7 +14,7 @@ class NPbase;
 
 /**
  * @class muggH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{ggH}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -44,7 +44,7 @@ private:
 
 /**
  * @class muVBF
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{VBF}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -74,7 +74,7 @@ private:
 
 /**
  * @class muVBFgamma
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{VBF+\gamma}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -105,7 +105,7 @@ private:
 
 /**
  * @class mueeWBF
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{eeWBF}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -136,7 +136,7 @@ private:
 
 /**
  * @class mueeWBFPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{eeWBF}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -169,7 +169,7 @@ private:
 
 /**
  * @class mueeHvv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$, 
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit CollaborationH
@@ -201,7 +201,7 @@ private:
 
 /**
  * @class mueeHvvPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$, 
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit CollaborationH
@@ -234,7 +234,7 @@ private:
 
 /**
  * @class mueeZBF
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -266,7 +266,7 @@ private:
 
 /**
  * @class mueeZBFPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -298,7 +298,7 @@ private:
 
 /**
  * @class muepWBF
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{epWBF}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -329,7 +329,7 @@ private:
 
 /**
  * @class muepZBF
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{epZBF}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -360,7 +360,7 @@ private:
 
 /**
  * @class muWH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{WH}@f$
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -390,7 +390,7 @@ private:
 
 /**
  * @class muZH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{ZH}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -420,7 +420,7 @@ private:
 
 /**
  * @class mueeZH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -451,7 +451,7 @@ private:
 
 /**
  * @class mueeZHPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -483,7 +483,7 @@ private:
 
 /**
  * @class mueeZllH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^- }@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -514,7 +514,7 @@ private:
 
 /**
  * @class mueeZllHPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -545,7 +545,7 @@ private:
 
 /**
  * @class mueeZqqH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -576,7 +576,7 @@ private:
 
 /**
  * @class mueeZqqHPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -609,7 +609,7 @@ private:
 
 /**
  * @class aPsk
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the angular parameter @f$a@f$ from 
  * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
  * @author HEPfit CollaborationH
@@ -641,7 +641,7 @@ private:
 
 /**
  * @class bPsk
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the angular parameter @f$b@f$ from 
  * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
  * @author HEPfit CollaborationH
@@ -673,7 +673,7 @@ private:
 
 /**
  * @class muVH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{VH}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -703,7 +703,7 @@ private:
 
 /**
  * @class muVBFpVH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{VBF+VH}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -734,7 +734,7 @@ private:
 
 /**
  * @class muttH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{ttH}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -765,7 +765,7 @@ private:
 
 /**
  * @class mutHq
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{tHq}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -796,7 +796,7 @@ private:
 
 /**
  * @class muggHpttH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{ggH+ttH}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -827,7 +827,7 @@ private:
 
 /**
  * @class mueettH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{eettH}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -859,7 +859,7 @@ private:
 
 /**
  * @class mueettHPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{eettH}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -892,7 +892,7 @@ private:
 
 /**
  * @class mummH
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{\mu\mu H}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -923,7 +923,7 @@ private:
 
 /**
  * @class GammaHRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\Gamma_{H}/\Gamma_{H}^{SM}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -953,7 +953,7 @@ private:
 
 /**
  * @class BrHtoinvRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to invisible)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -983,7 +983,7 @@ private:
 
 /**
  * @class BrHinvisible
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the branching ratio of Higgs decays into 
  * invisible particles.
  * @author HEPfit Collaboration
@@ -1013,7 +1013,7 @@ private:
 
 /**
  * @class BrHinvisibleNP
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the branching ratio of Higgs decays into 
  * invisible particles (only decays into new invisible particles).
  * @author HEPfit Collaboration
@@ -1043,7 +1043,7 @@ private:
 
 /**
  * @class BrHexotic
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the branching ratio of Higgs decays into 
  * exotics (invisible or not).
  * @author HEPfit Collaboration
@@ -1073,7 +1073,7 @@ private:
 
 /**
  * @class BrHtovisRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to visible)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1103,7 +1103,7 @@ private:
 
 /**
  * @class BrHtoggRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to gg)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1132,7 +1132,7 @@ private:
 
 /**
  * @class BrHtoWWRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to WW\to 4f)@f$ with @f$f@f$ any fermion.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1162,7 +1162,7 @@ private:
 
 /**
  * @class BrHtoWW2l2vRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to WW\to 2l2\nu)@f$ with @f$l=e,\mu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1191,7 +1191,7 @@ private:
 
 /**
  * @class BrHtoZZRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to ZZ \to 4f)@f$ with @f$f@f$ any fermion.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1220,7 +1220,7 @@ private:
 
 /**
  * @class BrHtoZZ4lRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to ZZ\to 4l)@f$ with @f$l=e,\mu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1250,7 +1250,7 @@ private:
 
 /**
  * @class BrHtoZZ4eRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to ZZ\to 4e)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1279,7 +1279,7 @@ private:
 
 /**
  * @class BrHtoZZ2e2muRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to ZZ\to 2e 2\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1308,7 +1308,7 @@ private:
 
 /**
  * @class BrHtoZZ4muRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to ZZ\to 4\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1337,7 +1337,7 @@ private:
 
 /**
  * @class BrHtoZgaRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1366,7 +1366,7 @@ private:
 
 /**
  * @class BrHtoZgallRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$ with @f$l=e,\mu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1396,7 +1396,7 @@ private:
 
 /**
  * @class BrHtoZgaeeRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma\to ee\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1426,7 +1426,7 @@ private:
 
 /**
  * @class BrHtoZgamumuRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma\to \mu\mu\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1456,7 +1456,7 @@ private:
 
 /**
  * @class BrHtogagaRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to\gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1485,7 +1485,7 @@ private:
 
 /**
  * @class BrHtomumuRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \mu^+\mu^-)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1514,7 +1514,7 @@ private:
 
 /**
  * @class BrHtotautauRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \tau^+\tau^-)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1543,7 +1543,7 @@ private:
 
 /**
  * @class BrHtoccRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to c\bar{c})@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1572,7 +1572,7 @@ private:
 
 /**
  * @class BrHtobbRatio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to b\bar{b})@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1601,7 +1601,7 @@ private:
 
 /**
  * @class BrHtogaga_over_mumu_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1631,7 +1631,7 @@ private:
 
 /**
  * @class BrHtoZga_over_mumu_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1661,7 +1661,7 @@ private:
 
 /**
  * @class BrHtoZmumuga_over_mumu_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1691,7 +1691,7 @@ private:
 
 /**
  * @class BrHtogaga_over_4l_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1722,7 +1722,7 @@ private:
 
 /**
  * @class BrHtobb_over_4l_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to bb)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1753,7 +1753,7 @@ private:
 
 /**
  * @class BrHto2l2v_over_4l_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1784,7 +1784,7 @@ private:
 
 /**
  * @class BrHtotautau_over_4l_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \tau\tau)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1815,7 +1815,7 @@ private:
 
 /**
  * @class BrHtogaga_over_2e2mu_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 2e 2\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1845,7 +1845,7 @@ private:
 
 /**
  * @class BrHtoZga_over_4l_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1876,7 +1876,7 @@ private:
 
 /**
  * @class BrHtomumu_over_4l_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1906,7 +1906,7 @@ private:
 
 /**
  * @class BrHtomumu_over_4mu_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1937,7 +1937,7 @@ private:
 
 /**
  * @class BrHto4l_over_gaga_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to 4\ell)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1967,7 +1967,7 @@ private:
 
 /**
  * @class BrHtoZga_over_gaga_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z \gamma)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -1997,7 +1997,7 @@ private:
 
 /**
  * @class BrHtomumu_over_gaga_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2027,7 +2027,7 @@ private:
 
 /**
  * @class muggHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2056,7 +2056,7 @@ private:
 
 /**
  * @class muggHgagaInt
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief To be used ONLY in Higgs Observables and for the diphoton decay. Replaces the 
  * narrow width approximation for the result including finite width effects of interference
  * with the background. Do NOT use for models with linearized expressions (e.g. NPSMEFTd6)
@@ -2087,7 +2087,7 @@ private:
 
 /**
  * @class muVBFHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2115,7 +2115,7 @@ private:
 
 /**
  * @class muZHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2143,7 +2143,7 @@ private:
 
 /**
  * @class muWHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2171,7 +2171,7 @@ private:
 
 /**
  * @class muVHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2198,7 +2198,7 @@ private:
 
 /**
  * @class muttHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2226,7 +2226,7 @@ private:
 
 /**
  * @class muggHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2256,7 +2256,7 @@ private:
 
 /**
  * @class muggHZgamumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2285,7 +2285,7 @@ private:
 
 /**
  * @class muVBFHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2313,7 +2313,7 @@ private:
 
 /**
  * @class muZHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2340,7 +2340,7 @@ private:
 
 /**
  * @class muWHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2368,7 +2368,7 @@ private:
 
 /**
  * @class muVHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2396,7 +2396,7 @@ private:
 
 /**
  * @class muttHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2423,7 +2423,7 @@ private:
 
 /**
  * @class muggHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2451,7 +2451,7 @@ private:
 
 /**
  * @class muVBFHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2479,7 +2479,7 @@ private:
 
 /**
  * @class muZHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2507,7 +2507,7 @@ private:
 
 /**
  * @class muWHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2535,7 +2535,7 @@ private:
 
 /**
  * @class muVHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2563,7 +2563,7 @@ private:
 
 /**
  * @class muttHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2592,7 +2592,7 @@ private:
 
 /**
  * @class muggHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2622,7 +2622,7 @@ private:
 
 /**
  * @class muggHZZ4mu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2651,7 +2651,7 @@ private:
 
 /**
  * @class muVBFHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2679,7 +2679,7 @@ private:
 
 /**
  * @class muZHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2707,7 +2707,7 @@ private:
 
 /**
  * @class muWHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2735,7 +2735,7 @@ private:
 
 /**
  * @class muVHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2763,7 +2763,7 @@ private:
 
 /**
  * @class muttHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2792,7 +2792,7 @@ private:
 
 /**
  * @class muggHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2820,7 +2820,7 @@ private:
 
 /**
  * @class muVBFHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2848,7 +2848,7 @@ private:
 
 /**
  * @class muZHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2876,7 +2876,7 @@ private:
 
 /**
  * @class muWHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2904,7 +2904,7 @@ private:
 
 /**
  * @class muVHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2931,7 +2931,7 @@ private:
 
 /**
  * @class muttHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2960,7 +2960,7 @@ private:
 
 /**
  * @class muggHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -2988,7 +2988,7 @@ private:
 
 /**
  * @class muVBFHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3016,7 +3016,7 @@ private:
 
 /**
  * @class muZHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3044,7 +3044,7 @@ private:
 
 /**
  * @class muWHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3072,7 +3072,7 @@ private:
 
 /**
  * @class muVHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3100,7 +3100,7 @@ private:
 
 /**
  * @class muttHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3129,7 +3129,7 @@ private:
 
 /**
  * @class muggHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3157,7 +3157,7 @@ private:
 
 /**
  * @class muVBFHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3185,7 +3185,7 @@ private:
 
 /**
  * @class muZHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3213,7 +3213,7 @@ private:
 
 /**
  * @class muWHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3241,7 +3241,7 @@ private:
 
 /**
  * @class muVHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3269,7 +3269,7 @@ private:
 
 /**
  * @class muttHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3297,7 +3297,7 @@ private:
 
 /**
  * @class muggHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3325,7 +3325,7 @@ private:
 
 /**
  * @class muVBFHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3354,7 +3354,7 @@ private:
 
 /**
  * @class muVBFpVHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3383,7 +3383,7 @@ private:
 
 /**
  * @class muZHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3411,7 +3411,7 @@ private:
 
 /**
  * @class muWHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3439,7 +3439,7 @@ private:
 
 /**
  * @class muVHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3467,7 +3467,7 @@ private:
 
 /**
  * @class muttHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3495,7 +3495,7 @@ private:
 
 /**
  * @class muggHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3522,7 +3522,7 @@ private:
 
 /**
  * @class muVBFHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3550,7 +3550,7 @@ private:
 
 /**
  * @class muZHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3578,7 +3578,7 @@ private:
 
 /**
  * @class muWHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3606,7 +3606,7 @@ private:
 
 /**
  * @class muVHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3634,7 +3634,7 @@ private:
 
 /**
  * @class muttHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3663,7 +3663,7 @@ private:
 
 /**
  * @class muVBFBRinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the quantity @f$\mu_{VBF}\times BR(H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -3696,7 +3696,7 @@ private:
 
 /**
  * @class muVBFHinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{VBF, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -3728,7 +3728,7 @@ private:
 
 /**
  * @class muVHBRinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the quantity @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -3761,7 +3761,7 @@ private:
 
 /**
  * @class muVHinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{pp \to VH, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -3793,7 +3793,7 @@ private:
 
 /**
  * @class muppHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3821,7 +3821,7 @@ private:
 
 /**
  * @class muppHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3850,7 +3850,7 @@ private:
 
 /**
  * @class muggHH2ga2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the signal strength for di-Higgs production via
  * gluon fusion in the @f$\gamma\gamma b b@f$ channel.
  * @author HEPfit Collaboration
@@ -3881,7 +3881,7 @@ private:
 
 /**
  * @class muttHZbbboost
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
  * in the @f$H,Z\to b\bar{b}@f$ channel in the boosted region. Normalized to the SM.
  * @author HEPfit Collaboration
@@ -3914,7 +3914,7 @@ private:
 
 /**
  * @class UpperLimit_ppHZgammaA
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3941,7 +3941,7 @@ private:
 
 /**
  * @class UpperLimit_ppHZgammaA13
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3968,7 +3968,7 @@ private:
 
 /**
  * @class UpperLimit_ppHZgammaC13
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -3995,7 +3995,7 @@ private:
 
 /**
  * @class UpperLimit_ppHZgammaC
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4022,7 +4022,7 @@ private:
 
 /**
  * @class cg_plus_ct
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4047,7 +4047,7 @@ private:
 
 /**
  * @class cga_plus_ct
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4073,7 +4073,7 @@ private:
 
 /**
  * @class cg_minus_cga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4099,7 +4099,7 @@ private:
 
 /**
  * @class cV_plus_cb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4125,7 +4125,7 @@ private:
 
 /**
  * @class cV_plus_ctau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4151,7 +4151,7 @@ private:
 
 /**
  * @class cb_minus_cc
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4177,7 +4177,7 @@ private:
 
 /**
  * @class cb_minus_ctau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4203,7 +4203,7 @@ private:
 
 /**
  * @class cc_minus_ctau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4233,7 +4233,7 @@ private:
 
 /**
  * @class mueeZHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4265,7 +4265,7 @@ private:
 
 /**
  * @class mueeZHcc
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to cc}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4297,7 +4297,7 @@ private:
 
 /**
  * @class mueeZHgg
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to gg}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4329,7 +4329,7 @@ private:
 
 /**
  * @class mueeZHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to WW}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4361,7 +4361,7 @@ private:
 
 /**
  * @class mueeZHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to \tau\tau}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4393,7 +4393,7 @@ private:
 
 /**
  * @class mueeZHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to ZZ}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4425,7 +4425,7 @@ private:
 
 /**
  * @class mueeZHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to Z\gamma}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4457,7 +4457,7 @@ private:
 
 /**
  * @class mueeZHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to \gamma\gamma}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4489,7 +4489,7 @@ private:
 
 /**
  * @class mueeZHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to \mu\mu}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4520,7 +4520,7 @@ private:
 
 /**
  * @class mueeZHBRinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the quantity @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4553,7 +4553,7 @@ private:
 
 /**
  * @class mueeZHinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4585,7 +4585,7 @@ private:
 
 /**
  * @class mueeZHbbPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4618,7 +4618,7 @@ private:
 
 /**
  * @class mueeZHccPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to cc}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4651,7 +4651,7 @@ private:
 
 /**
  * @class mueeZHggPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to gg}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4684,7 +4684,7 @@ private:
 
 /**
  * @class mueeZHWWPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to WW}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4717,7 +4717,7 @@ private:
 
 /**
  * @class mueeZHtautauPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to \tau\tau}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4750,7 +4750,7 @@ private:
 
 /**
  * @class mueeZHZZPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to ZZ}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4783,7 +4783,7 @@ private:
 
 /**
  * @class mueeZHZgaPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to Z\gamma}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4816,7 +4816,7 @@ private:
 
 /**
  * @class mueeZHgagaPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to \gamma\gamma}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4849,7 +4849,7 @@ private:
 
 /**
  * @class mueeZHmumuPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to \mu\mu}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4881,7 +4881,7 @@ private:
 
 /**
  * @class mueeZHBRinvPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the quantity @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4915,7 +4915,7 @@ private:
 
 /**
  * @class mueeZHinvPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -4948,7 +4948,7 @@ private:
 
 /**
  * @class mueeWBFbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -4980,7 +4980,7 @@ private:
 
 /**
  * @class mueeWBFbbPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5013,7 +5013,7 @@ private:
 
 /**
  * @class mueeWBFcc
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5045,7 +5045,7 @@ private:
 
 /**
  * @class mueeWBFgg
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5077,7 +5077,7 @@ private:
 
 /**
  * @class mueeWBFWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5109,7 +5109,7 @@ private:
 
 /**
  * @class mueeWBFtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5141,7 +5141,7 @@ private:
 
 /**
  * @class mueeWBFZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5173,7 +5173,7 @@ private:
 
 /**
  * @class mueeWBFZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5205,7 +5205,7 @@ private:
 
 /**
  * @class mueeWBFgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5237,7 +5237,7 @@ private:
 
 /**
  * @class mueeWBFmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5269,7 +5269,7 @@ private:
 
 /**
  * @class mueeHvvbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5302,7 +5302,7 @@ private:
 
 /**
  * @class mueeHvvbbPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5336,7 +5336,7 @@ private:
 
 /**
  * @class mueeHvvcc
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5369,7 +5369,7 @@ private:
 
 /**
  * @class mueeHvvccPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5403,7 +5403,7 @@ private:
 
 /**
  * @class mueeHvvgg
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5436,7 +5436,7 @@ private:
 
 /**
  * @class mueeHvvggPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5470,7 +5470,7 @@ private:
 
 /**
  * @class mueeHvvWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5503,7 +5503,7 @@ private:
 
 /**
  * @class mueeHvvWWPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5537,7 +5537,7 @@ private:
 
 /**
  * @class mueeHvvtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5570,7 +5570,7 @@ private:
 
 /**
  * @class mueeHvvtautauPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5604,7 +5604,7 @@ private:
 
 /**
  * @class mueeHvvZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5637,7 +5637,7 @@ private:
 
 /**
  * @class mueeHvvZZPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5671,7 +5671,7 @@ private:
 
 /**
  * @class mueeHvvZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5704,7 +5704,7 @@ private:
 
 /**
  * @class mueeHvvZgaPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5738,7 +5738,7 @@ private:
 
 /**
  * @class mueeHvvgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5771,7 +5771,7 @@ private:
 
 /**
  * @class mueeHvvgagaPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5805,7 +5805,7 @@ private:
 
 /**
  * @class mueeHvvmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5838,7 +5838,7 @@ private:
 
 /**
  * @class mueeHvvmumuPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
@@ -5873,7 +5873,7 @@ private:
 
 /**
  * @class mueeZBFbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -5905,7 +5905,7 @@ private:
 
 /**
  * @class mueeZBFbbPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -5938,7 +5938,7 @@ private:
 
 /**
  * @class mueettHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -5970,7 +5970,7 @@ private:
 
 /**
  * @class mueettHbbPol
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -6004,7 +6004,7 @@ private:
 
 /**
  * @class muepWBFbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (WBF), H \to bb}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6036,7 +6036,7 @@ private:
 
 /**
  * @class muepWBFcc
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (WBF), H \to cc}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6068,7 +6068,7 @@ private:
 
 /**
  * @class muepWBFgg
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (WBF), H \to gg}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6100,7 +6100,7 @@ private:
 
 /**
  * @class muepWBFWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (WBF), H \to WW\to 2l2v}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6132,7 +6132,7 @@ private:
 
 /**
  * @class muepWBFZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (WBF), H \to ZZ\to 4l}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6164,7 +6164,7 @@ private:
 
 /**
  * @class muepWBFgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (WBF), H \to \gamma\gamma}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6196,7 +6196,7 @@ private:
 
 /**
  * @class muepWBFtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (WBF), H \to \tau\tau}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6228,7 +6228,7 @@ private:
 
 /**
  * @class muepZBFbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (ZBF), H \to bb}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6260,7 +6260,7 @@ private:
 
 /**
  * @class muepZBFcc
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (ZBF), H \to cc}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6292,7 +6292,7 @@ private:
 
 /**
  * @class muepZBFgg
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (ZBF), H \to gg}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6324,7 +6324,7 @@ private:
 
 /**
  * @class muepZBFWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (ZBF), H \to WW\to 2l2v}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6356,7 +6356,7 @@ private:
 
 /**
  * @class muepZBFZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (ZBF), H \to ZZ\to 4l}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6388,7 +6388,7 @@ private:
 
 /**
  * @class muepZBFgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (ZBF), H \to \gamma\gamma}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6420,7 +6420,7 @@ private:
 
 /**
  * @class muepZBFtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^- p \to H (ZBF), H \to \tau\tau}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6456,7 +6456,7 @@ private:
 
 /**
  * @class STXSggH_VBFtopo_j3v_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6485,7 +6485,7 @@ private:
 
 /**
  * @class STXSggH_VBFtopo_j3_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6514,7 +6514,7 @@ private:
 
 /**
  * @class STXSggH0j4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6543,7 +6543,7 @@ private:
 
 /**
  * @class STXSggH1j_pTH_0_60_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6572,7 +6572,7 @@ private:
 
 /**
  * @class STXSggH1j_pTH_60_120_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6601,7 +6601,7 @@ private:
 
 /**
  * @class STXSggH1j_pTH_120_200_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6630,7 +6630,7 @@ private:
 
 /**
  * @class STXSggH1j_pTH_200_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6659,7 +6659,7 @@ private:
 
 /**
  * @class STXSggH2j_pTH_0_200_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6688,7 +6688,7 @@ private:
 
 /**
  * @class STXSggH2j_pTH_0_60_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6717,7 +6717,7 @@ private:
 
 /**
  * @class STXSggH2j_pTH_60_120_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6746,7 +6746,7 @@ private:
 
 /**
  * @class STXSggH2j_pTH_120_200_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6775,7 +6775,7 @@ private:
 
 /**
  * @class STXSggH2j_pTH_200_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$gg \to H@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6805,7 +6805,7 @@ private:
 
 /**
  * @class STXSqqHqq_VBFtopo_Rest_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6835,7 +6835,7 @@ private:
 
 /**
  * @class STXSqqHqq_VBFtopo_j3v_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6864,7 +6864,7 @@ private:
 
 /**
  * @class STXSqqHqq_VBFtopo_j3_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6893,7 +6893,7 @@ private:
 
 /**
  * @class STXSqqHqq_VHtopo_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6922,7 +6922,7 @@ private:
 
 /**
  * @class STXSqqHqq_Rest_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6951,7 +6951,7 @@ private:
 
 /**
  * @class STXSqqHqq_pTj_200_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -6980,7 +6980,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_0_250_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7009,7 +7009,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_0_150_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7038,7 +7038,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_150_250_0j_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7067,7 +7067,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_150_250_1j_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7096,7 +7096,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_250_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7125,7 +7125,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_0_150_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7154,7 +7154,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_150_250_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7183,7 +7183,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_150_250_0j_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7213,7 +7213,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_150_250_1j_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7243,7 +7243,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_250_4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7273,7 +7273,7 @@ private:
 
 /**
  * @class STXSttHtH4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$ttH + tH@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7303,7 +7303,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_0_250_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7332,7 +7332,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_0_150_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7361,7 +7361,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_150_250_0j_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7390,7 +7390,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_150_250_1j_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7419,7 +7419,7 @@ private:
 
 /**
  * @class STXSqqHlv_pTV_250_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \nu@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7448,7 +7448,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_0_150_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7477,7 +7477,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_150_250_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7506,7 +7506,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_150_250_0j_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7536,7 +7536,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_150_250_1j_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7566,7 +7566,7 @@ private:
 
 /**
  * @class STXSqqHll_pTV_250_bb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H \ell \ell@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7595,7 +7595,7 @@ private:
 
 /**
  * @class STXSWHqqHqq_VBFtopo_j3v_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to WH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7625,7 +7625,7 @@ private:
 
 /**
  * @class STXSWHqqHqq_VBFtopo_j3_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to WH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7655,7 +7655,7 @@ private:
 
 /**
  * @class STXSWHqqHqq_VH2j_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to WH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7685,7 +7685,7 @@ private:
 
 /**
  * @class STXSWHqqHqq_Rest_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to WH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7715,7 +7715,7 @@ private:
 
 /**
  * @class STXSWHqqHqq_pTj1_200_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to WH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7744,7 +7744,7 @@ private:
 
 /**
  * @class STXSZHqqHqq_VBFtopo_j3v_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to ZH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7774,7 +7774,7 @@ private:
 
 /**
  * @class STXSZHqqHqq_VBFtopo_j3_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to ZH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7803,7 +7803,7 @@ private:
 
 /**
  * @class STXSZHqqHqq_VH2j_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to ZH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7832,7 +7832,7 @@ private:
 
 /**
  * @class STXSZHqqHqq_Rest_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to ZH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7862,7 +7862,7 @@ private:
 
 /**
  * @class STXSZHqqHqq_pTj1_200_2b
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to ZH  \to H qq@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7897,7 +7897,7 @@ private:
 
 /**
  * @class muTHUggHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7925,7 +7925,7 @@ private:
 
 /**
  * @class muTHUVBFHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7953,7 +7953,7 @@ private:
 
 /**
  * @class muTHUZHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -7981,7 +7981,7 @@ private:
 
 /**
  * @class muTHUWHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8009,7 +8009,7 @@ private:
 
 /**
  * @class muTHUVHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8036,7 +8036,7 @@ private:
 
 /**
  * @class muTHUttHgaga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8064,7 +8064,7 @@ private:
 
 /**
  * @class muTHUggHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8094,7 +8094,7 @@ private:
 
 /**
  * @class muTHUggHZgamumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8123,7 +8123,7 @@ private:
 
 /**
  * @class muTHUVBFHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8151,7 +8151,7 @@ private:
 
 /**
  * @class muTHUZHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8178,7 +8178,7 @@ private:
 
 /**
  * @class muTHUWHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8206,7 +8206,7 @@ private:
 
 /**
  * @class muTHUVHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8234,7 +8234,7 @@ private:
 
 /**
  * @class muTHUttHZga
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8261,7 +8261,7 @@ private:
 
 /**
  * @class muTHUggHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8289,7 +8289,7 @@ private:
 
 /**
  * @class muTHUVBFHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8317,7 +8317,7 @@ private:
 
 /**
  * @class muTHUZHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8345,7 +8345,7 @@ private:
 
 /**
  * @class muTHUWHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8373,7 +8373,7 @@ private:
 
 /**
  * @class muTHUVHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8401,7 +8401,7 @@ private:
 
 /**
  * @class muTHUttHZZ
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8430,7 +8430,7 @@ private:
 
 /**
  * @class muTHUggHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8460,7 +8460,7 @@ private:
 
 /**
  * @class muTHUggHZZ4mu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8489,7 +8489,7 @@ private:
 
 /**
  * @class muTHUVBFHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8517,7 +8517,7 @@ private:
 
 /**
  * @class muTHUZHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8545,7 +8545,7 @@ private:
 
 /**
  * @class muTHUWHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8573,7 +8573,7 @@ private:
 
 /**
  * @class muTHUVHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8601,7 +8601,7 @@ private:
 
 /**
  * @class muTHUttHZZ4l
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8630,7 +8630,7 @@ private:
 
 /**
  * @class muTHUggHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8658,7 +8658,7 @@ private:
 
 /**
  * @class muTHUVBFHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8686,7 +8686,7 @@ private:
 
 /**
  * @class muTHUZHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8714,7 +8714,7 @@ private:
 
 /**
  * @class muTHUWHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8742,7 +8742,7 @@ private:
 
 /**
  * @class muTHUVHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8769,7 +8769,7 @@ private:
 
 /**
  * @class muTHUttHWW
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8798,7 +8798,7 @@ private:
 
 /**
  * @class muTHUggHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8826,7 +8826,7 @@ private:
 
 /**
  * @class muTHUVBFHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8854,7 +8854,7 @@ private:
 
 /**
  * @class muTHUZHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8882,7 +8882,7 @@ private:
 
 /**
  * @class muTHUWHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8910,7 +8910,7 @@ private:
 
 /**
  * @class muTHUVHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8938,7 +8938,7 @@ private:
 
 /**
  * @class muTHUttHWW2l2v
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8967,7 +8967,7 @@ private:
 
 /**
  * @class muTHUggHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -8995,7 +8995,7 @@ private:
 
 /**
  * @class muTHUVBFHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9023,7 +9023,7 @@ private:
 
 /**
  * @class muTHUZHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9051,7 +9051,7 @@ private:
 
 /**
  * @class muTHUWHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9079,7 +9079,7 @@ private:
 
 /**
  * @class muTHUVHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9107,7 +9107,7 @@ private:
 
 /**
  * @class muTHUttHmumu
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9135,7 +9135,7 @@ private:
 
 /**
  * @class muTHUggHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9163,7 +9163,7 @@ private:
 
 /**
  * @class muTHUVBFHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9191,7 +9191,7 @@ private:
 
 /**
  * @class muTHUZHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9219,7 +9219,7 @@ private:
 
 /**
  * @class muTHUWHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9247,7 +9247,7 @@ private:
 
 /**
  * @class muTHUVHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9275,7 +9275,7 @@ private:
 
 /**
  * @class muTHUttHtautau
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9303,7 +9303,7 @@ private:
 
 /**
  * @class muTHUggHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9330,7 +9330,7 @@ private:
 
 /**
  * @class muTHUVBFHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9358,7 +9358,7 @@ private:
 
 /**
  * @class muTHUZHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9386,7 +9386,7 @@ private:
 
 /**
  * @class muTHUWHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9414,7 +9414,7 @@ private:
 
 /**
  * @class muTHUVHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9442,7 +9442,7 @@ private:
 
 /**
  * @class muTHUttHbb
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9471,7 +9471,7 @@ private:
 
 /**
  * @class muTHUVBFBRinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the quantity @f$\mu_{VBF}\times BR(H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -9504,7 +9504,7 @@ private:
 
 /**
  * @class muTHUVBFHinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{VBF, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -9536,7 +9536,7 @@ private:
 
 /**
  * @class muTHUVHBRinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the quantity @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -9569,7 +9569,7 @@ private:
 
 /**
  * @class muTHUVHinv
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{pp \to VH, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
@@ -9602,7 +9602,7 @@ private:
 
 /**
  * @class BrHto2l2v_over_gaga_Ratio
- * @ingroup HiggsExtensions
+ * @ingroup NewPhysics
  * @brief A class for computing the ratio Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License

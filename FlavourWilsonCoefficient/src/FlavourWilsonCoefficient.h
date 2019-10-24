@@ -13,6 +13,15 @@
 #include "FlavourWilsonCoefficientMatching.h"
 
 /**
+ * @addtogroup FlavourWilsonCoefficent
+ * @brief A module for EFT models for flavour observaqbles.
+ * @details This module has implementations of several EFTs for flavour
+ * analyses like the Weak Effective Theory at low energy and generalized
+ * EFT models for @f$\Delta F = 1@f$ and @f$\Delta F = 2@f$.
+ * @{
+ */
+
+/**
  * @class FlavourWilsonCoefficient
  * @brief Model for NP contributions to flavour.
  */
@@ -222,6 +231,10 @@ private:
     
       
 };
+
+/**
+ * @}
+ */
 
 #endif	/* FLAVOURWILSONCOEFFICIENT_H */
 
