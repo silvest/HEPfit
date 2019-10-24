@@ -16,15 +16,15 @@ class StandardModel;
 class BR_Bdnunu : public ThObservable {
 public:   
     /**
-     * constructor
-     * @param Flavour
-     */
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     BR_Bdnunu(StandardModel& SM_i): ThObservable(SM_i)//, mySM(SM_i)
     {};
     
     /**
      * 
-     * @return theoretical value of |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
+     * @return theoretical value of |\f$ BR(B_d \rightarrow \nu \bar{\nu}) \f$|
      */
     double computeThValue();
     
@@ -32,12 +32,10 @@ public:
 protected:
     
     /**
-     * 
-     * @param order
-     * @param order_qed
-     * @return the short distance contribution to the 
-     * |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
-     */
+    * @brief the short distance contribution to the 
+    * |\f$ BR(B_d \rightarrow \nu \bar{\nu}) \f$|
+    * @param[in] order the %QCD order of the computation
+    */
     gslpp::complex BRBdnunu(orders order);
     
 private:
