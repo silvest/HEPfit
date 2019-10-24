@@ -13,6 +13,15 @@
 #include "gslpp.h"
 class StandardModel;
 
+/**
+ * @class BR_Bdnunu
+ * @ingroup Flavour
+ * @brief A class for the branching ratio of \f$B_d\to \nu\nu\f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the theoretical value of
+ * the branching ratio of \f$B_d\to \nu\nu\f$.
+ */
 class BR_Bdnunu : public ThObservable {
 public:   
     /**
