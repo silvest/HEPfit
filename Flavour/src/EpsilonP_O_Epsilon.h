@@ -30,6 +30,11 @@
  * The model parameters of %EpsilonP_O_Epsilon are summarized below:
  * <table class="model">
  * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%ReA0_Kd</td>
  *   <td class="mod_symb">@f${\cal Re}(A_0(K\to\pi\pi))@f$</td>
  *   <td class="mod_desc">The experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=0\f$.</td>

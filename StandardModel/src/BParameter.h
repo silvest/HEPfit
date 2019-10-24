@@ -30,6 +30,11 @@
  * The model parameters of %BParameter are summarized below:
  * <table class="model">
  * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%BBs1 - %BBs5</td>
  *   <td class="mod_symb">@f$B^1_{B_s} - B^5_{B_s}@f$</td>
  *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$.</td>
