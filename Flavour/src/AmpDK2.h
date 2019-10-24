@@ -30,14 +30,24 @@ class StandardModel;
 class AmpDK2 {
 public:
     /**
-     * 
-     * @brief compute the amplitude for kaon oscillations
-     * @param[in] SM_i
-     */
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     AmpDK2(const StandardModel& SM_i);
 
 protected:
+    /**
+     * 
+     * @brief compute the amplitude for kaon oscillations
+    * @param[in] order the %QCD order of the computation
+     */
     gslpp::complex AmpDK(orders order);
+    
+    /**
+     * 
+     * @brief compute the NP part of the amplitude for kaon oscillations
+    * @param[in] order the %QCD order of the computation
+     */
     gslpp::complex AmpDMKNP(orders order);
 
 private:
