@@ -110,20 +110,6 @@
  * @attention The parameters %AlsM and %MAls are not used in StandardModel
  * and the model classes inherited from it.
  *
- * 
- * The parameters below are associated with flavour observables
- * <table class="model">
- * <tr>
- *   <td class="mod_name">%Br_Kp_munu</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\mu^+\nu)@f$</td>
- *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\mu^+\nu\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Br_B_Xcenu</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(B\to X_ce\nu)@f$</td>
- *   <td class="mod_desc">The experimental value for the branching ratio of \f$B\to X_c e\nu\f$.</td>
- * </tr>
- * </table>
  *
  * The set of the model parameters are initialized and updated with the methods
  * Init() and Update(), respectively, where the former calls the latter.
