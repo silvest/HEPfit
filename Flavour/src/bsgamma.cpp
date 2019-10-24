@@ -34,8 +34,8 @@ Intbc_cache(2, 0.)
     WET_NP_btos = false;
     SMEFT_NP_btos = false;
     
-    setParametersForObservable(make_vector<std::string>() << "Gambino_mukin" << "Gambino_BRsem" << "Gambino_Mbkin" << "Gambino_Mcatmuc" << "Gambino_mupi2" 
-                                                          << "Gambino_rhoD3" << "Gambino_muG2" << "Gambino_rhoLS3" << "BLNPcorr" << "mu_b_bsgamma" << "mu_c_bsgamma");
+    setParametersForObservable(make_vector<std::string>() << "mukin" << "BRsem" << "Mbkin" << "Mcatmuc" << "mupi2" 
+                                                          << "rhoD3" << "muG2" << "rhoLS3" << "BLNPcorr" << "mu_b_bsgamma" << "mu_c_bsgamma");
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -2332,14 +2332,14 @@ double Bsgamma::C_sem()
 
 void Bsgamma::updateParameters()
 {
-    mu_kin=SM.getOptionalParameter("Gambino_mukin");
-    BRsl=SM.getOptionalParameter("Gambino_BRsem")/100.;
-    Mb_kin=SM.getOptionalParameter("Gambino_Mbkin");
-    Mc=SM.getOptionalParameter("Gambino_Mcatmuc");
-    mu_pi2=SM.getOptionalParameter("Gambino_mupi2");
-    rho_D3=SM.getOptionalParameter("Gambino_rhoD3");
-    mu_G2=SM.getOptionalParameter("Gambino_muG2");
-    rho_LS3=SM.getOptionalParameter("Gambino_rhoLS3");
+    mu_kin=SM.getOptionalParameter("mukin");
+    BRsl=SM.getOptionalParameter("BRsem")/100.;
+    Mb_kin=SM.getOptionalParameter("Mbkin");
+    Mc=SM.getOptionalParameter("Mcatmuc");
+    mu_pi2=SM.getOptionalParameter("mupi2");
+    rho_D3=SM.getOptionalParameter("rhoD3");
+    mu_G2=SM.getOptionalParameter("muG2");
+    rho_LS3=SM.getOptionalParameter("rhoLS3");
     mu_b=SM.getOptionalParameter("mu_b_bsgamma");
     mu_c=SM.getOptionalParameter("mu_c_bsgamma");
     C=C_sem();
