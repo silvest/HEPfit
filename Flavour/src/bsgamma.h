@@ -30,6 +30,11 @@
  * The model parameters of %bsgamma are summarized below:
  * <table class="model">
  * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%BLNPcorr</td>
  *   <td class="mod_symb">@f$N_{b\to s\gamma}@f$</td>
  *   <td class="mod_desc">The non perturbative uncertainty associated to the @f$b\to s\gamma@f$ BR.</td>

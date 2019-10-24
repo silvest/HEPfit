@@ -35,6 +35,11 @@ class QCD;
  * The model parameters of %Meson are summarized below:
  * <table class="model">
  * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%MP0</td>
  *   <td class="mod_symb">@f$M_{\pi^0}@f$</td>
  *   <td class="mod_desc">The mass of the \f$ \pi^0 \f$ meson in GeV.</td>
