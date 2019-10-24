@@ -15,6 +15,45 @@ class StandardModel;
 #include "Charm_Kpnunu.h"
 
 
+/**
+ * @class BR_Kppnunu
+ * @ingroup Flavour
+ * @brief A class for the branching ratio of \f$K^+\to\pi^+\nu\bar{\nu}\f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the theoretical value of
+ * the branching ratio of \f$K^+\to\pi^+\nu\bar{\nu}\f$.
+ * 
+ * 
+ *
+ * @anchor BR_Kppnunu
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %BR_Kppnunu are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Br_Kp_P0enu</td>
+ *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\pi^0e^+\nu)@f$</td>
+ *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%DeltaP_cu</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The long-distance correction to the charm contribution of \f$K^+\to\pi^+\nu\bar{\nu}\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%IB_Kp</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
+ * </tr>
+ * </table>
+ * 
+ */
 class BR_Kppnunu : public ThObservable {
 public:   
     /**
