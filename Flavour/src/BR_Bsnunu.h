@@ -45,9 +45,9 @@
 class BR_Bsnunu : public ThObservable {
 public:   
     /**
-     * constructor
-     * @param Flavour
-     */
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     BR_Bsnunu(StandardModel& SM_i);
     
     /**
@@ -61,12 +61,10 @@ public:
 protected:
     
     /**
-     * 
-     * @param order
-     * @param order_qed
-     * @return the short distance contribution to the 
-     * |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
-     */
+    * @brief the short distance contribution to the 
+    * |\f$ BR(B_d \rightarrow \nu \bar{\nu}) \f$|
+    * @param[in] order the %QCD order of the computation
+    */
     gslpp::complex BRBsnunu(orders order);
     
 private:
