@@ -10,10 +10,26 @@
 
 #include "ThObservable.h"
 
+
+/**
+* @class CKMGamma
+* @ingroup Flavour
+* @brief A class for the CKM angle @f$\gamma @f$ in degrees. 
+* @author HEPfit Collaboration
+* @copyright GNU General Public License
+* @details This class is used to compute the CKM angle @f$\gamma @f$ in degrees.
+*/
 class CKMGamma : public ThObservable {
 public:
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     CKMGamma(const StandardModel& SM_i);
 
+    /**
+     * @return The CKM angle @f$\gamma @f$ in degrees
+     */
     double computeThValue();
 };
 
