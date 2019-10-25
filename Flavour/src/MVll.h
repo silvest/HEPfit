@@ -234,6 +234,12 @@ class F_2;
  * \tilde{T}_{L\pm}(q^2) = -\tilde{T}_{R\mp}(q^2)=\tilde{T}_\pm(q^2)\,,\\
  * \tilde{S}_L(q^2) = -\tilde{S}_R(q^2)=\tilde{S}(q^2)\,.
  * @f]
+ * The hadronic non-factorizable contribution has been parameterized in the following way:
+ * \f{eqnarray}{ 
+ * h_-(q^2) &=& -\frac{m_b}{8\pi^2 m_B} \tilde T_{L -}(q^2) h_-^{(0)} -\frac{\tilde V_{L -}(q^2)}{16\pi^2 m_B^2} h_-^{(1)} q^2 + h_-^{(2)} q^4+{\cal O}(q^6)\,,\\ 
+ * h_+(q^2) &=&  -\frac{m_b}{8\pi^2 m_B} \tilde T_{L +}(q^2) h_-^{(0)} -\frac{\tilde V_{L +}(q^2)}{16\pi^2 m_B^2}  h_-^{(1)} q^2 + h_+^{(0)} + h_+^{(1)}q^2 + h_+^{(2)} q^4+{\cal O}(q^6)\,,\\           
+ * h_0(q^2) &=& -\frac{m_b}{8\pi^2 m_B} \tilde T_{L 0}(q^2) h_-^{(0)} -\frac{\tilde V_{L 0}(q^2)}{16\pi^2 m_B^2}  h_-^{(1)} q^2 + h_0^{(0)}\sqrt{q^2} + h_0^{(1)}(q^2)^\frac{3}{2}  +{\cal O}((q^2)^\frac{5}{2})\,.         
+ * \f}
  * Squaring the amplitude and summing over the spins it is possible to obtain 
  * the fully differential decay rate, which is
  * @f[
