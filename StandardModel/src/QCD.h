@@ -110,55 +110,6 @@
  * @attention The parameters %AlsM and %MAls are not used in StandardModel
  * and the model classes inherited from it.
  *
- * 
- * The parameters below are associated with flavour observables
- * <table class="model">
- * <tr>
- *   <td class="mod_name">%ReA0_Kd</td>
- *   <td class="mod_symb">@f${\cal Re}(A_0(K\to\pi\pi))@f$</td>
- *   <td class="mod_desc">The experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=0\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%ReA2_Kd</td>
- *   <td class="mod_symb">@f${\cal Re}(A_2(K\to\pi\pi))@f$</td>
- *   <td class="mod_desc">the experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=2\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Omega_eta_etap</td>
- *   <td class="mod_symb">@f$\Omega_{\eta/\eta'}@f$</td>
- *   <td class="mod_desc">The isospin breaking contribution in \f$K^0\to\pi\pi\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Br_Kp_P0enu</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\pi^0e^+\nu)@f$</td>
- *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Br_Kp_munu</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\mu^+\nu)@f$</td>
- *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\mu^+\nu\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Br_B_Xcenu</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(B\to X_ce\nu)@f$</td>
- *   <td class="mod_desc">The experimental value for the branching ratio of \f$B\to X_c e\nu\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%DeltaP_cu</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The long-distance correction to the charm contribution of \f$K^+\to\pi^+\nu\bar{\nu}\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%IB_Kl</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">the isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%IB_Kp</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
- * </tr>
- * </table>
  *
  * The set of the model parameters are initialized and updated with the methods
  * Init() and Update(), respectively, where the former calls the latter.

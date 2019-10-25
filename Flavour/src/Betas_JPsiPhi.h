@@ -12,7 +12,7 @@
 #include "AmpDB2.h"
 
 /**
- * @class SJPsiPhi
+ * @class Betas_JPsiPhi
  * @ingroup Flavour
  * @brief A class for @f$S_{J/\psi\phi}@f$
  * @author HEPfit Collaboration
@@ -23,11 +23,10 @@
 class Betas_JPsiPhi : public ThObservable, AmpDB2 {
 public:
     
-    /**
-     * constructor
-     * @param Flavour
-     */
-    
+   /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     Betas_JPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
     
     /**

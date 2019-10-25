@@ -15,19 +15,38 @@ class StandardModel;
 
 
 /**
- * @addtogroup Flavour
- * @brief A module for flavour observables.
- * @{
+ * @class AmpDB2
+ * @ingroup Flavour
+ * @brief \f$ | \Delta B = 2 | \f$ Amplitude Class
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is related to the calculation of the \f$ B_{d,s}-\bar{B}_{d,s}\f$
+ * mixing.
+ *
  */
 
 class AmpDB2 {
 public:
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     AmpDB2(const StandardModel& SM_i);
 
+    /**
+    * @brief The value of @f$M_{12}^{bd}@f$.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$M_{12}^{bd}@f$
+    */
     gslpp::complex getAmpBd(orders order){
         return AmpBd(order);
     }
 
+    /**
+    * @brief The value of @f$M_{12}^{bs}@f$.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$M_{12}^{bs}@f$
+    */
     gslpp::complex getAmpBs(orders order){
         return AmpBs(order);
     }
@@ -41,15 +60,32 @@ public:
     }
 
 protected:
+    /**
+    * @brief A method to compute @f$M_{12}^{bd}@f$.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$M_{12}^{bd}@f$
+    */
     gslpp::complex AmpBd(orders order);
+    
+    /**
+    * @brief A method to compute @f$M_{12}^{bs}@f$.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$M_{12}^{bs}@f$
+    */
     gslpp::complex AmpBs(orders order);
+    
+    /**
+    * @brief A method to compute the ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$\vert (M_{12}^{bs})_\mathrm{full}/(M_{12}^{bs})_\mathrm{SM}\vert@f$
+    */
     gslpp::complex RBs(orders order);
     gslpp::complex PBd();
     gslpp::complex PBs();
 
 private:
 
-    const StandardModel& mySM;
+    const StandardModel& mySM;/**< Model type */
     
     gslpp::complex C_1_SM;/**<Wilson coeffients @f$C_1@f$*/
 

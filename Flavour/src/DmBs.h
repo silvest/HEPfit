@@ -29,10 +29,9 @@ class DmBs : public ThObservable, AmpDB2 {
 public:
 
     /**
-     * constructor
-     * @param Flavour
-     */
-
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     DmBs(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
 
     /**
@@ -62,10 +61,9 @@ class RmBs : public ThObservable, AmpDB2 {
 public:
 
     /**
-     * constructor
-     * @param Flavour
-     */
-
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     RmBs(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
 
     /**

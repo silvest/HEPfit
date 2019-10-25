@@ -14,6 +14,41 @@
 #include "CPenguinBoxMu.h"
 class StandardModel;
 
+
+/**
+ * @class BR_Kmumu
+ * @ingroup Flavour
+ * @brief A class for the branching ratio of \f$K\to\mu^+\mu^-\f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the theoretical value of
+ * the branching ratio of \f$K\to\mu^+\mu^-\f$.
+ * 
+ * 
+ *
+ * @anchor BR_Kmumu
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %BR_Kmumu are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Br_Kp_munu</td>
+ *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\mu^+\nu)@f$</td>
+ *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\mu^+\nu\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%DeltaP_cu</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The long-distance correction to the charm contribution of \f$K^+\to\pi^+\nu\bar{\nu}\f$.</td>
+ * </tr>
+ * </table>
+ * 
+ */
 class BR_Kmumu : public ThObservable {
 public:   
     /**

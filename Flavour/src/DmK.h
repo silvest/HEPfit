@@ -28,10 +28,9 @@ class DmK : public ThObservable, AmpDK2 {
 public:
 
     /**
-     * constructor
-     * @param Flavour
-     */
-
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     DmK(const StandardModel& SM_i);
 
     /**

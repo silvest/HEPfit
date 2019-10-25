@@ -25,7 +25,7 @@ public:
     
     /**
      * @brief Constructor. 
-     * @param[in] SM_i
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     
     SJPsiK(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};

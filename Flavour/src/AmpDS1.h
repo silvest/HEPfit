@@ -17,7 +17,7 @@ class AmpDS1 {
 public:
     /**
      * 
-     * @brief comupte the amplitude for K_L decay in 2 pion
+     * @brief compute the amplitude for \f$ K_L \f$ decay in 2 pion
      * @param Flavour
      */
     AmpDS1(const StandardModel& SM_i);
@@ -26,14 +26,14 @@ protected:
     /**
      * 
      * @param order
-     * @return the amplitude for K_L decay in 2 pion with 0 isospin change
+     * @return the amplitude for \f$ K_L \f$ decay in 2 pion with 0 isospin change
      */
     gslpp::complex AmpDS1pp0(orders order);
     
     /**
      * 
      * @param order
-     * @return the amplitude for K_L decay in 2 pion with double isospin change
+     * @return the amplitude for \f$ K_L \f$ decay in 2 pion with double isospin change
      */
     gslpp::complex AmpDS1pp2(orders order);
     
