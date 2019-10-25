@@ -28,10 +28,10 @@
 
 class EpsilonK : public ThObservable, AmpDK2 {
 public:   
-    /**
-     * constructor
-     * @param Flavour
-     */
+     /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
     EpsilonK(const StandardModel& SM_i);
     
     /**
