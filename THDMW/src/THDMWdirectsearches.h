@@ -222,7 +222,7 @@ private:
 /**
  * @class Hobs_pp_Stb_tbtb_ATLAS13
  * @ingroup THDMW
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp\to S^+ t\bar b \to t t\bar b \bar @f$.
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp\to S^+ t\bar b \to t t\bar b \bar b@f$.
  */
 class Hobs_pp_Stb_tbtb_ATLAS13: public ThObservable {
 public:
@@ -233,7 +233,7 @@ public:
     Hobs_pp_Stb_tbtb_ATLAS13(const StandardModel& SM_i);
 
     /**
-     * @return xsection times Br ratio for pp -> S+ tbar b -> t tbar b bbar
+     * @return xsection times Br ratio for @f$ pp \to S^+ \bar t b \to t \bar t b \bar b@f$
      */
     double computeThValue();
 private:
@@ -244,7 +244,7 @@ private:
 /**
  * @class log10_pp_Stb_tbtb_TH13
  * @ingroup THDMW
- * @brief Decadic logarithm of the cross section times branching ratio of the process pp -> S+ tbar b -> t tbar b bbar at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp \to S^+ \bar t b \to t \bar t b \bar b@f$ at 13 TeV.
  */
 class log10_pp_Stb_tbtb_TH13: public ThObservable {
 public:
