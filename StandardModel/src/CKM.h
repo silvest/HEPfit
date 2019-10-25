@@ -174,6 +174,10 @@ public:
 
     // J_CP
 
+    /**
+     * @brief A member for returning the value of the Jarlskog determinant
+     * @return the value of @f$ J @f$
+     */
     double getJcp() const
     {
         return Eta * pow(A * pow(Lambda, 3), 2);
