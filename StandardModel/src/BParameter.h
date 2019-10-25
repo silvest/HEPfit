@@ -373,19 +373,19 @@ private:
     gslpp::vector<double> bpars;///< A vector of bag parameters.
     double mu;///< The scale at which the bag parameters are defined. 
     schemes scheme;///< The scheme in which the bag parameters are defined.
-    std::string name;   
-    bool FlagCsi;
-    double BBsoBBd;
-    double csi;
-    double FBsSqrtBBs1;
-    double FBsSqrtBBs2;
-    double FBsSqrtBBs3;
-    double FBsSqrtBBs4;
-    double FBsSqrtBBs5;
-    double FBdSqrtBBd2;
-    double FBdSqrtBBd3;
-    double FBdSqrtBBd4;
-    double FBdSqrtBBd5;
+    std::string name;///< The meson for which the bag parameters are defined. 
+    bool FlagCsi;///< A flag to define, if true, a set of model parameters for the product of decay constant times square root of bag parameters.
+    double BBsoBBd;///< The ratio of the first bag parameters for \f$ B_s \f$ and \f$ B_d \f$.
+    double csi;///< The ratio of decay constant times square root of the first bag parameters for \f$ B_s \f$ and \f$ B_d \f$.
+    double FBsSqrtBBs1;///< The product of decay constant times square root of the first bag parameter for \f$ B_s \f$.
+    double FBsSqrtBBs2;///< The product of decay constant times square root of the second bag parameter for \f$ B_s \f$.
+    double FBsSqrtBBs3;///< The product of decay constant times square root of the third bag parameter for \f$ B_s \f$.
+    double FBsSqrtBBs4;///< The product of decay constant times square root of the fourth bag parameter for \f$ B_s \f$.
+    double FBsSqrtBBs5;///< The product of decay constant times square root of the fifth bag parameter for \f$ B_s \f$.
+    double FBdSqrtBBd2;///< The product of decay constant times square root of the second bag parameter for \f$ B_d \f$.
+    double FBdSqrtBBd3;///< The product of decay constant times square root of the third bag parameter for \f$ B_d \f$.
+    double FBdSqrtBBd4;///< The product of decay constant times square root of the fourth bag parameter for \f$ B_d \f$.
+    double FBdSqrtBBd5;///< The product of decay constant times square root of the fifth bag parameter for \f$ B_d \f$.
 };
 
 /**
