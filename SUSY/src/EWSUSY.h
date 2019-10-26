@@ -15,12 +15,6 @@
 class SUSY;
 
 /**
- * @addtogroup SUSY
- * @brief A module for a basis of %SUSY models.
- * @{
- */
-
-/**
  * @class EWSUSY
  * @brief A class for %SUSY contributions to the %EW precision observables.
  * @author HEPfit Collaboration
@@ -489,10 +483,6 @@ private:
     gslpp::complex f(const double m1, const double m2, const double m3) const;
 
 };
-
-/**
- * @}
- */
 
 #endif	/* EWSUSY_H */
 
