@@ -13,7 +13,15 @@
 #include "gslpp.h"
 #include "FlavourWilsonCoefficient_DF2Matching.h"
 
-
+/**
+ * @class FlavourWilsonCoefficient_DF2
+ * @ingroup FlavourWilsonCoefficent
+ * @brief %Model for NP contributions to @f$\Delta F=2@f$
+ * using modification to the Wilson coefficients.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+         
 class FlavourWilsonCoefficient_DF2: public StandardModel {
 public:
     

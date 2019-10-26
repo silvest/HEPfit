@@ -14,7 +14,11 @@
 
 /**
  * @class RealWeakEFTLFV
- * @brief Model for NP contributions to flavour.
+ * @ingroup FlavourWilsonCoefficent
+ * @brief Model for WEFT LFV contributions to @f$\Delta F=1@f$
+ * processes like @f$ b\to s@f$ decays.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
  */
 class RealWeakEFTLFV: public StandardModel {
 public:

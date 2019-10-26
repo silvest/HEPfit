@@ -11,7 +11,10 @@
 
 /**
  * @class NPDF2
- * @brief Model for general constraints NP contributions to Delta F=2 processes.
+ * @ingroup FlavourWilsonCoefficent
+ * @brief %Model for general constraints NP contributions to @f$ \Delta F=2 @f$ processes.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
  */
 class NPDF2 : public StandardModel {
 public:

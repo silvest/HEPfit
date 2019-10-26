@@ -13,6 +13,14 @@
 
 class FlavourWilsonCoefficient_DF2;
 
+/**
+ * @class FlavourWilsonCoefficient_DF2Matching
+ * @ingroup FlavourWilsonCoefficient
+ * @brief A class for the matching in the FlavourWilsonCoefficient_DF2Matching. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class FlavourWilsonCoefficient_DF2Matching : public StandardModelMatching {
 public:
     /**

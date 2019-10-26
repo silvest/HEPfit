@@ -14,9 +14,9 @@
 class RealWeakEFTLFV;
 
 /**
- * @class NPSMEFTd6Matching
- * @ingroup NewPhysics
- * @brief A class for the matching in the NPSMEFTd6.
+ * @class RealWeakEFTLFVMatching
+ * @ingroup FlavourWilsonCoefficient
+ * @brief A class for the matching in the RealWeakEFTLFVMatching. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details  
