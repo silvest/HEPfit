@@ -327,9 +327,15 @@ public:
      */
     gslpp::complex getNu_11() const {
         gslpp::complex i = gslpp::complex::i();
+         if(flag_sigma) {
         return (Nu_11r + i*Nu_11i);
+        }
+         else
+         {
+            return (yu1R_GTHDM - cosalpha1)/(sinalpha1);
+         }
     }
-    
+       
     /**
      * 
      * @return Nu matrix element 12
@@ -365,7 +371,7 @@ public:
         gslpp::complex i = gslpp::complex::i();
         return (Nu_22r + i*Nu_22i);
     }
-    
+      
     /**
      * 
      * @return Nu matrix element 23
@@ -408,9 +414,16 @@ public:
      */
     gslpp::complex getNd_11() const {
         gslpp::complex i = gslpp::complex::i();
+        if(flag_sigma) {
         return (Nd_11r + i*Nd_11i);
+        }
+     else
+         {
+             return (yd1R_GTHDM - cosalpha1)/(sinalpha1);
+         }
     }
     
+
     /**
      * 
      * @return Nd matrix element 12
@@ -489,7 +502,13 @@ public:
      */
     gslpp::complex getNl_11() const {
         gslpp::complex i = gslpp::complex::i();
+        if(flag_sigma) {
         return (Nl_11r + i*Nl_11i);
+        }
+        else
+         {
+             return (yl1R_GTHDM  -cosalpha1)/(sinalpha1);
+         }
     }
     
     /**
@@ -563,7 +582,91 @@ public:
         gslpp::complex i = gslpp::complex::i();
         return (Nl_33r + i*Nl_33i);
     }
-
+    
+    
+    
+    gslpp::complex getyu1() const {
+        if(!flag_sigma) {
+        return (yu1R_GTHDM);
+        }
+         else
+         {
+            gslpp::complex i = gslpp::complex::i();
+            double R11 = cosalpha1*cosalpha2;
+            double R12 = sinalpha1*cosalpha2;
+            double R13 = -sinalpha2;
+            return (R11 + (R12 - i*R13)*(Nu_11r + i*Nu_11i).conjugate());
+         }
+    }
+        
+     
+    double getyu1R() const {
+        if(!flag_sigma) {
+        return (yu1R_GTHDM);
+        }
+         else
+         {
+            double R11 = cosalpha1*cosalpha2;
+            double R12 = sinalpha1*cosalpha2;
+            return (R11 + R12*Nu_11r);
+         }
+    }    
+        
+        
+    gslpp::complex getyd1() const {
+        if(!flag_sigma) {
+        return (yd1R_GTHDM);
+        }
+         else
+         {
+            gslpp::complex i = gslpp::complex::i();
+            double R11 = cosalpha1*cosalpha2;
+            double R12 = sinalpha1*cosalpha2;
+            double R13 = -sinalpha2;
+            return (R11 + (R12 - i*R13)*(Nd_11r + i*Nd_11i));
+         }
+    }
+    
+    
+    double getyd1R() const {
+        if(!flag_sigma) {
+        return (yd1R_GTHDM);
+        }
+         else
+         {
+            double R11 = cosalpha1*cosalpha2;
+            double R12 = sinalpha1*cosalpha2;
+            return (R11 + R12*Nd_11r);
+         }
+    }
+    
+        gslpp::complex getyl1() const {
+         if(!flag_sigma) {
+        return (yl1R_GTHDM);
+        }
+         else
+         {
+            gslpp::complex i = gslpp::complex::i();
+            double R11 = cosalpha1*cosalpha2;
+            double R12 = sinalpha1*cosalpha2;
+            double R13 = -sinalpha2;
+            return (R11 + (R12 - i*R13)*(Nl_11r + i*Nl_11i));
+         }
+    }
+    
+    
+    double getyl1R() const {
+         if(!flag_sigma) {
+        return (yl1R_GTHDM);
+        }
+         else
+         {
+            double R11 = cosalpha1*cosalpha2;
+            double R12 = sinalpha1*cosalpha2;
+            return (R11 + R12*Nl_11r);
+         }
+    }
+    
     /**
      * @return General THDM scale
      */
@@ -710,6 +813,7 @@ private:
 
     double logtb, tanb, sinb, cosb, mHp2, mH2sq, mH3sq, mHp1, mH21, mH31, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
             alpha3, cosalpha3, sinalpha3, Relambda5, Imlambda5, Relambda6, Relambda7,
+            yu1R_GTHDM, yd1R_GTHDM, yl1R_GTHDM, 
             Nu_11r, Nu_11i, Nu_12r, Nu_12i, Nu_13r, Nu_13i, 
             Nu_21r, Nu_21i, Nu_22r, Nu_22i, Nu_23r, Nu_23i, 
             Nu_31r, Nu_31i, Nu_32r, Nu_32i, Nu_33r, Nu_33i, 
@@ -720,7 +824,7 @@ private:
             Nl_21r, Nl_21i, Nl_22r, Nl_22i, Nl_23r, Nl_23i, 
             Nl_31r, Nl_31i, Nl_32r, Nl_32i, Nl_33r, Nl_33i, 
             Q_GTHDM, RpepsGTHDM, NLOuniscaleGTHDM;
-    bool flag_ATHDM, flag_CPconservation, flag_use_sq_masses;
+    bool flag_ATHDM, flag_CPconservation, flag_use_sq_masses, flag_sigma;
     std::string flag_RGEorder;
 };
 

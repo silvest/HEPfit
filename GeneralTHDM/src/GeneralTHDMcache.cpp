@@ -5791,13 +5791,13 @@ void GeneralTHDMcache::computeSignalStrengths()
   
     //fermionic couplings for phi1
     
-    gslpp::complex yu1 = R11_GTHDM + (R12_GTHDM - i*R13_GTHDM)*su.conjugate();
-    gslpp::complex yd1 = R11_GTHDM + (R12_GTHDM + i*R13_GTHDM)*sd;
-    gslpp::complex yl1 = R11_GTHDM + (R12_GTHDM + i*R13_GTHDM)*sl;
+    gslpp::complex yu1 = myGTHDM->getyu1();
+    gslpp::complex yd1 = myGTHDM->getyd1();
+    gslpp::complex yl1 = myGTHDM->getyl1();
     
-    yu1R = R11_GTHDM + (R12_GTHDM)*su.real();
-    yd1R = R11_GTHDM + (R12_GTHDM)*sd.real();
-    yl1R = R11_GTHDM + (R12_GTHDM)*sl.real();
+    yu1R = myGTHDM->getyu1R();
+    yd1R = myGTHDM->getyd1R();
+    yl1R = myGTHDM->getyl1R();
    
         
      //The Standard Model h branching ratios
@@ -7398,6 +7398,12 @@ double GeneralTHDMcache::updateCache()
     su = myGTHDM->getNu_11();
     sd = myGTHDM->getNd_11();
     sl = myGTHDM->getNl_11();
+    
+  /*  std::cout << "su = " << su << std::endl;
+   std::cout << "yu1R_GTHDM = " << myGTHDM->getyu1() << std::endl;
+    std::cout << "cosa1 = " << cosa1 << std::endl;
+    std::cout << "sina1 = " << sina1 << std::endl;*/
+
     
     
         

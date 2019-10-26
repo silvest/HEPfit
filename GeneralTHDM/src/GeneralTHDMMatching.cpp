@@ -3034,9 +3034,9 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
    gslpp::complex sl = myGTHDM.getNl_11();
    gslpp::complex su = myGTHDM.getNu_11();
    gslpp::complex sd = myGTHDM.getNd_11();
-
-
     
+
+
     //Mass of the physical scalars
 
    double mH2_2 = myGTHDM.getmH2sq();
@@ -3053,8 +3053,8 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
     gslpp::complex yl2 = R21  + (R22 + i*R23)*sl;
     gslpp::complex yl3 = R31  + (R32 + i*R33)*sl;
     
-        
-   
+    
+      
     gslpp::complex CSboxU = CSboxBll(xt,  xHp, su, sd, sl);
     gslpp::complex CPboxU = CPboxBll(xt,  xHp, su, sd, sl);
     gslpp::complex CPZU = CPZUBll(xt,  xHp,  sW2, su, sd);
