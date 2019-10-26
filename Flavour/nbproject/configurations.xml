@@ -170,6 +170,8 @@
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/C2beta.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/DmBd.h" ex="false" tool="3" flavor2="0">
