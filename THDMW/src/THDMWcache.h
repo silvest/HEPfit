@@ -120,21 +120,102 @@ public:
     
     
     // Passarino Veltman Functions //
+   
     
+    /**
+     * @brief @f$A_0(mSp2)@f$.
+     * @details For more details look at @f$A_0(m^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mSp2, the charged coloured scalar mass squared
+     * @return the finite part of @f$A_0(mSp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass 
+     */
     gslpp::complex A0_MZ2_mSp2(const double MZ2, const double mSp2) const;
+    
+    /**
+     * @brief @f$A_0(mSr2)@f$.
+     * @details For more details look at @f$A_0(m^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mSr2, the CP-even neutral coloured scalar mass squared
+     * @return the finite part of @f$A_0(mSr2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass 
+     */
     gslpp::complex A0_MZ2_mSr2(const double MZ2, const double mSr2) const;
+
+    /**
+     * @brief @f$A_0(mSi2)@f$.
+     * @details For more details look at @f$A_0(m^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mSi2, the CP-even neutral coloured scalar mass squared
+     * @return the finite part of @f$A_0(mSi2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass 
+     */
     gslpp::complex A0_MZ2_mSi2(const double MZ2, const double mSr2) const;
+    
+    /**
+     * @brief @f$B_0(0; mSp2, mSp2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mSp2, the charged coloured scalar mass squared
+     * @return the finite part of @f$B_0(0; mSp2, mSp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_mSp2_mSp2(const double MZ2,const double mSp2) const;
+    
     //gslpp::complex B00_MZ2_0_mSr2_mSp2(const double MZ2,const double mSr2 ,const double mSp2) const;
     //gslpp::complex B00_MZ2_0_mSi2_mSp2(const double MZ2,const double mSi2 ,const double mSp2) const;
     //gslpp::complex B00_MZ2_0_mSp2_mSp2(const double MZ2,const double mSp2) const;
+    
+    
+    /**
+     * @brief @f$B_0(MZ2; mSr2, mSp2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass) and the momentum square
+     * @param[in] mSr2, the CP-even neutral coloured scalar mass squared
+     * @param[in] mSp2, the charged coloured scalar mass squared
+     * @return the finite part of @f$B_0(MZ2; mSp2, mSp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_mSr2_mSp2(const double MZ2,const double mSr2 ,const double mSp2) const;
+    
+    /**
+     * @brief @f$B_0(MZ2; mSr2, mSi2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass) and the momentum square
+     * @param[in] mSr2, the CP-even neutral coloured scalar mass squared
+     * @param[in] mSi2, the CP-odd neutral coloured scalar mass squared
+     * @return the finite part of @f$B_0(MZ2; mSp2, mSp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_mSr2_mSi2(const double MZ2,const double mSr2 ,const double mSi2) const;
+    
+    /**
+     * @brief @f$B_0(MZ2; mSr2, mSi2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass) and the momentum square
+     * @param[in] mSi2, the CP-odd neutral coloured scalar mass squared
+     * @param[in] mSp2, the charged coloured scalar mass squared
+     * @return the finite part of @f$B_0(MZ2; mSp2, mSp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_mSi2_mSp2(const double MZ2,const double mSi2 ,const double mSp2) const;
+    
+    /**
+     * @brief @f$B_0(MZ2; mSr2, mSi2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass) and the momentum square
+     * @param[in] mSp2, the charged coloured scalar mass squared
+     * @param[in] mSp2, the charged coloured scalar mass squared
+     * @return the finite part of @f$B_0(MZ2; mSp2, mSp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_mSp2_mSp2(const double MZ2,const double mSp2) const;
 
 
      // End Passarino Veltman Functions //
+    
+    
+    
     
     
     double RpepsTHDMW;

@@ -1653,102 +1653,1054 @@ public:
 
     /*One-loop functions*/
 
+    
+    /**
+     * @brief @f$B_0(0; MW2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] MW2, the W boson mass square
+     * @return the finite part of @f$B_0(0; MW2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_MW2_mHh2(const double MZ2, const double MW2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(0; MW2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] MW2, the W boson mass square
+     * @return the finite part of @f$B_0(0; MW2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_MW2_mHl2(const double MZ2, const double MW2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(0; MZ2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass) and the @f$ m_0^2 @f$ of @f$B_0(p^2; m_0^2, m_1^2)@f$
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(0; MZ2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_MZ2_mHh2(const double MZ2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(0; MZ2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass) and the @f$ m_0^2 @f$ of @f$B_0(p^2; m_0^2, m_1^2)@f$
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(0; MZ2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_MZ2_mHl2(const double MZ2, const double mHl2) const;
+    
+    
+    /**
+     * @brief @f$B_0(MW2; MW2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, squared mass of the Higgs boson
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(MW2; MW2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_MW2_MW2_mHh2(const double MZ2, const double MW2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(MW2; MW2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, squared mass of the Higgs boson
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(MW2; MW2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_MW2_MW2_mHl2(const double MZ2, const double MW2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(MZ2; MZ2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass) and the @f$ p^2 @f$ and @f$ m_0^2 @f$ of @f$B_0(p^2; m_0^2, m_1^2)@f$
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(MZ2; MZ2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_MZ2_MZ2_mHh2(const double MZ2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(MZ2; MZ2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass) and the @f$ p^2 @f$ and @f$ m_0^2 @f$ of @f$B_0(p^2; m_0^2, m_1^2)@f$
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(MZ2; MZ2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_MZ2_MZ2_mHl2(const double MZ2, const double mHl2) const;
-
+    
+   
+    
+    /**
+     * @brief @f$B_0(0; 0, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(0; 0, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_0_mHl2(const double MZ2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(0; 0, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(0; 0, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_0_mHh2(const double MZ2, const double mHh2) const;
+    
+    
+
+    /**
+     * @brief @f$B_0(0; mHp2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(0; mHp2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_mHp2_mHl2(const double MZ2, const double mHp2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(0; mHp2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(0; mHp2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_mHp2_mHh2(const double MZ2, const double mHp2, const double mHh2) const;
+    
+    
+    /**
+     * @brief @f$B_0(0; mA2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(0; mA2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_mA2_mHl2(const double MZ2, const double mA2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(0; mA2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(0; mA2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_0_mA2_mHh2(const double MZ2, const double mA2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(mHl2; 0, 0)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(mHl2; 0, 0)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHl2_0_0(const double MZ2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(mHl2; 0, mHp2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_0(mHl2; 0, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHl2_0_mHp2(const double MZ2, const double mHl2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_0(mHl2; 0, mHp2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_0(mHl2; 0, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHl2_0_mA2(const double MZ2, const double mHl2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_0(mHl2; mHl2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(mHl2; mHl2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHl2_mHl2_mHl2(const double MZ2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(mHl2; mHh2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(mHl2; mHh2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHl2_mHh2_mHl2(const double MZ2, const double mHl2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(mHl2; mHh2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(mHl2; mHh2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHl2_mHh2_mHh2(const double MZ2, const double mHl2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(mHl2; mHp2, mHp2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_0(mHl2; mHp2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHl2_mHp2_mHp2(const double MZ2, const double mHl2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_0(mHl2; mA2, mA2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_0(mHl2; mA2, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHl2_mA2_mA2(const double MZ2, const double mHl2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_0(mHh2; 0, 0)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(mHh2; 0, 0)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHh2_0_0(const double MZ2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(mHh2; 0, mHp2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_0(mHh2; 0, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHh2_0_mHp2(const double MZ2, const double mHh2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_0(mHh2; 0, mA2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_0(mHh2; 0, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHh2_0_mA2(const double MZ2, const double mHh2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_0(mHh2; mHl2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(mHh2; mHl2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHh2_mHl2_mHl2(const double MZ2, const double mHh2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(mHh2; mHh2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(mHh2; mHh2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHh2_mHh2_mHl2(const double MZ2, const double mHh2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(mHh2; mHh2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(mHh2; mHh2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHh2_mHh2_mHh2(const double MZ2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(mHh2; mHp2, mHp2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_0(mHh2; mHp2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHh2_mHp2_mHp2(const double MZ2, const double mHh2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_0(mHh2; mA2, mA2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_0(mHh2; mA2, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHh2_mA2_mA2(const double MZ2, const double mHh2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_0(mHp2; 0, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(mHp2; 0, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHp2_0_mHl2(const double MZ2, const double mHp2, const double mHl2) const;
+   
+    /**
+     * @brief @f$B_0(mHp2; 0, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(mHp2; 0, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHp2_0_mHh2(const double MZ2, const double mHp2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(mHp2; mHp2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(mHp2; mHp2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHp2_mHp2_mHl2(const double MZ2, const double mHp2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(mHp2; mHp2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(mHp2; mHp2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mHp2_mHp2_mHh2(const double MZ2, const double mHp2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(mA2; 0, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(mA2; 0, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mA2_0_mHl2(const double MZ2, const double mA2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(mA2; 0, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(mA2; 0, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mA2_0_mHh2(const double MZ2, const double mA2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_0(mA2; mA2, mHl2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_0(mA2; mA2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mA2_mA2_mHl2(const double MZ2, const double mA2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_0(mA2; mA2, mHh2)@f$.
+     * @details For more details look at @f$B_0(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_0(mA2; mA2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0_MZ2_mA2_mA2_mHh2(const double MZ2, const double mA2, const double mHh2) const;
 
+    
+    
+    
+    
+    
+    
+    
+
+    /**
+     * @brief @f$B_{0p}(0; 0, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(0; 0, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_0_0_mHl2(const double MZ2, const double mHl2) const;
+    
+    
+    
+    /**
+     * @brief @f$B_{0p}(0; 0, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(0; 0, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_0_0_mHh2(const double MZ2, const double mHh2) const;
+    
+
+    /**
+     * @brief @f$B_{0p}(0; mHp2, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(0; mHp2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_0_mHp2_mHl2(const double MZ2, const double mHp2, const double mHl2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(0; mHp2, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(0; mHp2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_0_mHp2_mHh2(const double MZ2, const double mHp2, const double mHh2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(0; mHp2, mHA2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{0p}(0; mHp2, mHA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_0_mHp2_mA2(const double MZ2, const double mHp2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_{0p}(0; mA2, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(0; mA2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_0_mA2_mHl2(const double MZ2, const double mA2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_{0p}(0; mA2, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(0; mA2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_0_mA2_mHh2(const double MZ2, const double mA2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHl2; 0, 0)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(mHl2; 0, 0)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHl2_0_0(const double MZ2, const double mHl2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHl2; 0, mHp2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{0p}(mHl2; 0, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHl2_0_mHp2(const double MZ2, const double mHl2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHl2; 0, mHp2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{0p}(mHl2; 0, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHl2_0_mA2(const double MZ2, const double mHl2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHl2; mHl2, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(mHl2; mHl2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHl2_mHl2_mHl2(const double MZ2, const double mHl2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHl2; mHh2, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(mHl2; mHh2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHl2_mHh2_mHl2(const double MZ2, const double mHl2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHl2; mHh2, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(mHl2; mHh2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHl2_mHh2_mHh2(const double MZ2, const double mHl2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHl2; mHp2, mHp2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{0p}(mHl2; mHp2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHl2_mHp2_mHp2(const double MZ2, const double mHl2, const double mHp2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHl2; mA2, mA2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{0p}(mHl2; mA2, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHl2_mA2_mA2(const double MZ2, const double mHl2, const double mA2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHh2; 0, 0)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(mHh2; 0, 0)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHh2_0_0(const double MZ2, const double mHh2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHh2; 0, mHp2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{0p}(mHh2; 0, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHh2_0_mHp2(const double MZ2, const double mHh2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHh2; 0, mA2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{0p}(mHh2; 0, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHh2_0_mA2(const double MZ2, const double mHh2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHh2; mHl2, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(mHh2; mHl2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHh2_mHl2_mHl2(const double MZ2, const double mHh2, const double mHl2) const;
+    
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHh2; mHh2, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(mHh2; mHh2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHh2_mHh2_mHl2(const double MZ2, const double mHh2, const double mHl2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHh2; mHh2, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(mHh2; mHh2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHh2_mHh2_mHh2(const double MZ2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHh2; mHp2, mHp2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{0p}(mHh2; mHp2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHh2_mHp2_mHp2(const double MZ2, const double mHh2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHh2; mA2, mA2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{0p}(mHh2; mA2, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHh2_mA2_mA2(const double MZ2, const double mHh2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHp2; 0, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(mHp2; 0, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHp2_0_mHl2(const double MZ2, const double mHp2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHp2; 0, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(mHp2; 0, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHp2_0_mHh2(const double MZ2, const double mHp2, const double mHh2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHp2; 0, mHA2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{0p}(mHp2; 0, mHA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHp2_0_mA2(const double MZ2, const double mHp2, const double mA2) const;
+    
+    
+    /**
+     * @brief @f$B_{0p}(mHp2; mHp2, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(mHp2; mHp2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHp2_mHp2_mHl2(const double MZ2, const double mHp2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mHp2; mHp2, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(mHp2; mHp2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mHp2_mHp2_mHh2(const double MZ2, const double mHp2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mA2; 0, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(mA2; 0, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mA2_0_mHl2(const double MZ2, const double mA2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mA2; 0, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(mA2; 0, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mA2_0_mHh2(const double MZ2, const double mA2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mA2; 0, mHp2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{0p}(mA2; 0, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mA2_0_mHp2(const double MZ2, const double mA2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mA2; mA2, mHl2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{0p}(mA2; mA2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mA2_mA2_mHl2(const double MZ2, const double mA2, const double mHl2) const;
+    
+    /**
+     * @brief @f$B_{0p}(mA2; mA2, mHh2)@f$.
+     * @details For more details look at @f$B_{0p}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared for the IR divergence (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{0p}(mA2; mA2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B0p_MZ2_mA2_mA2_mHh2(const double MZ2, const double mA2, const double mHh2) const;
 
+    
+
+    
+    
+    
+    
+    /**
+     * @brief @f$B_{00}(0; mA2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(0; mA2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_mA2_mHp2(const double MZ2, const double mA2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_{00}(0; mHh2, mA2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{00}(0; mHh2, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_mHh2_mA2(const double MZ2, const double mHh2, const double mA2) const;
+    
+    /**
+     * @brief @f$B_{00}(0; mHh2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(0; mHh2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_mHh2_mHp2(const double MZ2, const double mHh2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_{00}(0; mHl2, mA2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{00}(0; mHl2, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_mHl2_mA2(const double MZ2, const double mHl2, const double mA2) const;
+    
+    
+    /**
+     * @brief @f$B_{00}(0; mHl2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(0; mHl2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_mHl2_mHp2(const double MZ2, const double mHl2, const double mHp2) const;
+    
+    
+    /**
+     * @brief @f$B_{00}(0; mHl2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(0; mHl2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_mHp2_mHp2(const double MZ2, const double mHp2) const;
+    
+    /**
+     * @brief @f$B_{00}(0; MW2, mHh2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, the W boson mass square
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{00}(0; MW2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_MW2_mHh2(const double MZ2, const double MW2, const double mHh2) const;
+    
+    
+    /**
+     * @brief @f$B_{00}(0; MW2, mHl2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, the W boson mass square
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{00}(0; MW2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_MW2_mHl2(const double MZ2, const double MW2, const double mHl2) const;
+    
+    
+    /**
+     * @brief @f$B_{00}(0; MZ2, mHh2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{00}(0; MZ2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_MZ2_mHh2(const double MZ2, const double mHh2) const;
+    
+    /**
+     * @brief @f$B_{00}(0; MZ2, mHl2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{00}(0; MZ2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_0_MZ2_mHl2(const double MZ2, const double mHl2) const;
+    
+    
+    /**
+     * @brief @f$B_{00}(MW2; mA2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, the W boson mass square
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(MW2; mA2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MW2_mA2_mHp2(const double MZ2, const double MW2, const double mA2, const double mHp2) const;
+    
+    
+    /**
+     * @brief @f$B_{00}(MW2; mHh2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, the W boson mass square
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(MW2; mHh2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MW2_mHh2_mHp2(const double MZ2, const double MW2, const double mHh2, const double mHp2) const;
+    
+
+    
+    /**
+     * @brief @f$B_{00}(MW2; mHl2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, the W boson mass square
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(MW2; mHl2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MW2_mHl2_mHp2(const double MZ2, const double MW2, const double mHl2, const double mHp2) const;
+    
+    
+    
+    /**
+     * @brief @f$B_{00}(MW2; mHp2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, the W boson mass square
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(MW2; mHp2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MW2_mHp2_mHp2(const double MZ2, const double MW2, const double mHp2) const;
+    
+    
+    /**
+     * @brief @f$B_{00}(MW2; MW2, mHh2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, the W boson mass square
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{00}(MW2; MW2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MW2_MW2_mHh2(const double MZ2, const double MW2, const double mHh2) const;
+    
+    
+    /**
+     * @brief @f$B_{00}(MW2; MW2, mHl2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] MW2, the W boson mass square
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{00}(MW2; MW2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MW2_MW2_mHl2(const double MZ2, const double MW2, const double mHl2) const;
+    
+    
+    
+     /**
+     * @brief @f$B_{00}(MZ2; mHh2, mA2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{00}(MZ2; mHh2, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_mHh2_mA2(const double MZ2, const double mHh2, const double mA2) const;
+    
+     /**
+     * @brief @f$B_{00}(MZ2; mHh2, mA2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @param[in] mA2, squared CP-odd Higgs mass
+     * @return the finite part of @f$B_{00}(MZ2; mHh2, mA2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_mHl2_mA2(const double MZ2, const double mHl2, const double mA2) const;
+    
+    
+    
+     /**
+     * @brief @f$B_{00}(MZ2; mHp2, mHp2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHp2, squared charged Higgs mass
+     * @return the finite part of @f$B_{00}(MZ2; mHp2, mHp2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_mHp2_mHp2(const double MZ2, const double mHp2) const;
+    
+    
+     /**
+     * @brief @f$B_{00}(MZ2; MZ2, mHh2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHh2, squared mass of the "non-125 GeV" neutral scalar Higgs
+     * @return the finite part of @f$B_{00}(MZ2; MZ2, mHh2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_MZ2_mHh2(const double MZ2, const double mHh2) const;
+    
+     /**
+     * @brief @f$B_{00}(MZ2; MZ2, mHl2)@f$.
+     * @details For more details look at @f$B_{00}(p^2; m_0^2, m_1^2)@f$ in PVfunctions.h
+     * @param[in] MZ2 the renormalization scale squared (the Z boson mass)
+     * @param[in] mHl2, squared mass of the Higgs boson
+     * @return the finite part of @f$B_{00}(MZ2; MZ2, mHl2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme at the Z boson mass
+     */
     gslpp::complex B00_MZ2_MZ2_MZ2_mHl2(const double MZ2, const double mHl2) const;
 
+
+    
     double ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const;
     double g_HH_HpHm(const double mHp2, const double mHh2, const double tanb, const double m12_2, const double bma, const double vev) const;
 
