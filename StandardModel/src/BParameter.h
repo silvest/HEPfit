@@ -20,7 +20,7 @@
  * @details This module contain all the parameters and associated
  * code necessary to set up the SM. It also contains the computations
  * for the EW observables. ZThe running of the masses and the couplings
- * are computed by QCD for the strong corrections and in the StandardModel
+ * are computed by %QCD for the strong corrections and in the %StandardModel
  * for the EW corrections.
  * @{	
  */

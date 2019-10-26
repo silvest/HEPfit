@@ -12,13 +12,6 @@
 #include <string.h>
 #include <stdexcept>
 
-
-/**
- * @addtogroup NewPhysics
- * @brief A module for model-independent studies of new physics.
- * @{
- */
-
 /**
  * @class NPEffectiveBS
  * @brief A model class for new physics in the form the
@@ -556,10 +549,6 @@ private:
     double deltaGR_f_tmp(const Particle f) const;
 
 };
-
-/**
- * @}
- */
 
 #endif	/* NPEFFECTIVEBS_H */
 

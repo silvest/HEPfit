@@ -13,6 +13,12 @@
 class NPbase;
 
 /**
+ * @addtogroup NewPhysics
+ * @brief A module for model-independent studies of new physics.
+ * @{
+ */
+
+/**
  * @class mueeWW
  * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to W^+ W^- }@f$.
@@ -74,6 +80,10 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s, Pol_em, Pol_ep;
 };
+
+/**
+ * @}
+ */
 
 #endif	/* DIBOSONTHOBSERVABLES_H */
 

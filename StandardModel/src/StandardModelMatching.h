@@ -28,13 +28,12 @@ public:
 
     StandardModelMatching(const StandardModel & SM_i);
     
-    /**
-     *
-     * @brief Updates to new Standard Model parameter sets.
-     */
-    
     virtual ~StandardModelMatching();
     
+    /**
+     *
+     * @brief Updates to new Standard %Model parameter sets.
+     */
     void updateSMParameters();
     
     /**
@@ -157,13 +156,13 @@ public:
     virtual  std::vector<WilsonCoefficient>& CMkmm() ;
     
     /**
-     * 
+     * @brief Wilson coefficient for \f$ B_{s} \rightarrow \mu \mu \f$
      * @return Wilson coefficient for \f$ B_{s} \rightarrow \mu \mu \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMbsmm() ;
     
     /**
-     * 
+     * @brief Wilson coefficient for \f$ B_{d} \rightarrow \mu \mu \f$
      * @return Wilson coefficient for \f$ B_{d} \rightarrow \mu \mu \f$
      */
     virtual   std::vector<WilsonCoefficient>& CMbdmm() ;
@@ -662,7 +661,7 @@ protected:
 
     
 private:    
-    const StandardModel & SM;
+    const StandardModel & SM; ///< An object of the %StandardModel class.
     double S0(double) const;
     double S0p(double x) const;
     double S11(double x) const;

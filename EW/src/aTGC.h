@@ -13,13 +13,6 @@
 #include "NPbase.h"
 
 /**
- * @addtogroup EW
- * @brief A module for electroweak precision observables.
- * @details 
- * @{
- */
-
-/**
  * @class deltag1Z
  * @brief An observable class for the anomalous triple gauge coupling
  * @f$\delta g_{1,Z}@f$.
@@ -129,10 +122,6 @@ private:
 
 
 };
-
-/** 
- * @}
- */
 
 #endif	/* ATGC_H */
 
