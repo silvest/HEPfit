@@ -73,13 +73,13 @@ public:
     /** Calculates the NLO contribution to the muon g-2**/
     /**
      * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at approximate two-loop from \cite Broggio:2014mna.
-     * @return 
+     * @return \f$ (g-2)_{\mu} \f$ at LO
      */    
     virtual double gminus2muNLO();
 
     /**
      * @brief Wilson coefficient for \f$ (g-2)_{\mu} \f$.
-     * @return
+     * @return \f$ (g-2)_{\mu} \f$ at NLO
      */
     virtual std::vector<WilsonCoefficient>& CMgminus2mu();
 
