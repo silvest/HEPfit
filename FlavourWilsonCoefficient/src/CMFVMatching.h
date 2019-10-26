@@ -14,7 +14,7 @@ class CMFV;
 
 /**
  * @class CMFVMatching
- * @ingroup CMFV
+ * @ingroup FlavourWilsonCoefficent
  * @brief A class for the matching in the CMFV. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License

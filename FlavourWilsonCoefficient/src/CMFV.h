@@ -21,7 +21,10 @@
 
 /**
  * @class CMFV
- * @brief Model for CMFV contributions to flavour. 
+ * @ingroup FlavourWilsonCoefficent
+ * @brief %Model for CMFV contributions to flavour. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
  */
 
 class CMFV : public StandardModel {
@@ -73,6 +76,10 @@ private:
     double Ftt;
 
 };
+
+/**
+ * @}
+ */
 
 #endif /* CMFV_H */
 

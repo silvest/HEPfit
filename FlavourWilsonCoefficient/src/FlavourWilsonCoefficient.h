@@ -14,7 +14,11 @@
 
 /**
  * @class FlavourWilsonCoefficient
- * @brief Model for NP contributions to flavour.
+ * @ingroup FlavourWilsonCoefficent
+ * @brief %Model for NP contributions to flavour
+ * through shifts to Standard %Model Wilson coefficients.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
  */
 class FlavourWilsonCoefficient: public StandardModel {
 public:

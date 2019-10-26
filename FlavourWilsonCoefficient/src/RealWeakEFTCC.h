@@ -13,7 +13,11 @@
 
 /**
  * @class RealWeakEFTCC
- * @brief Model for NP contributions to flavour.
+ * @ingroup FlavourWilsonCoefficent
+ * @brief %Model for NP contributions to charged current
+ * processes like @f$b\to c@f$ decays.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
  */
 class RealWeakEFTCC: public StandardModel {
 public:
