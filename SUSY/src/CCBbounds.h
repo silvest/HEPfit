@@ -12,6 +12,13 @@
 #include "ThObservable.h"
 #include "SUSY.h"
 
+
+/**
+ * @addtogroup SUSY
+ * @brief A module for a basis of %SUSY models.
+ * @{
+ */
+
 /**
  * @class CCBu11
  * @ingroup SUSY
@@ -407,5 +414,9 @@ public:
 private:
     const SUSY& mySUSY;
 };
+
+/**
+ * @}
+ */
 
 #endif	/* CCBBOUNDS_H */
