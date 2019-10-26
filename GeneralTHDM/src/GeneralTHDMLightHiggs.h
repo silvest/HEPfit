@@ -793,6 +793,73 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+
+/**
+ * @class suR_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Real part Yukawa up coupling
+ */
+class suR_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    suR_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$suR_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class sdR_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Real part of Yukawa down coupling
+ */
+class sdR_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    sdR_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$sdR_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class slR_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief  Real part of Yukawa leptonic coupling
+ */
+class slR_GTHDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    slR_GTHDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$slR_GTHDM@f$
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
 /**
  * @class rh_gg_GTHDM
  * @ingroup GeneralTHDM

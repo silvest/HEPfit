@@ -20,21 +20,18 @@ class THDMcache;
  * @brief An observable class to calculate the electroweak precision observables in the %THDM.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details An observable class to calculate ??? in context of the 2HDM.
+ * @details An observable class to calculate EWPO in context of the 2HDM.
  */
 class EWPO : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
-     * @param[in] ?
+     * @brief EWPO constructor.
+     * @param[in] SM. A reference to a SM object
      */
     EWPO(const StandardModel& SM_i);
 
-    /**
-     * @brief EWPO.
-     * @return 
-     */
+
     double computeThValue();
     double dDelta_r();
     void computeTHDMcouplings();
@@ -49,12 +46,14 @@ class  AlTHDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief AlTHDM constructor.
      */
     AlTHDM(const StandardModel& SM_i);
 
     /**
-     * @return AlTHDM
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to e \bar{e}@f$ at the
+     * @f$Z@f$-pole in the THDM
+     * @return @f$\mathcal{A}_e@f$
      */
     double computeThValue ();
 private:
@@ -64,12 +63,15 @@ class  PpoltauTHDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief PpoltauTHDM constructor.
      */
     PpoltauTHDM(const StandardModel& SM_i);
 
     /**
-     * @return PpoltauTHDM
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to \tau \bar{\tau}@f$ at the
+     * @f$Z@f$-pole in the THDM
+     * @return @f$\mathcal{P}_\tau@f$
+
      */
     double computeThValue ();
 private:
@@ -79,12 +81,15 @@ class  AcTHDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief AcTHDM constructor.
      */
     AcTHDM(const StandardModel& SM_i);
 
-    /**
-     * @return AcTHDM
+     /**
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to c \bar{c}@f$ at the
+     * @f$Z@f$-pole in the THDM
+     * @return @f$\mathcal{A}_c@f$
+
      */
     double computeThValue ();
 private:
@@ -94,12 +99,14 @@ class  AbTHDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief AbTHDM constructor.
      */
     AbTHDM(const StandardModel& SM_i);
 
-    /**
-     * @return AbTHDM
+ /**
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to b \bar{b}@f$ at the
+     * @f$Z@f$-pole in the THDM
+     * @return @f$\mathcal{A}_b@f$
      */
     double computeThValue ();
 private:
@@ -109,12 +116,14 @@ class  AFBl0THDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief AFBl0THDM constructor.
      */
     AFBl0THDM(const StandardModel& SM_i);
 
     /**
-     * @return AFBl0THDM
+     * @brief The forward-backward assymetry for electrons at the
+     * @f$Z@f$-pole in the THDM
+     * @return @f$\mathcal{A}_{FB e}@f$
      */
     double computeThValue ();
 private:
@@ -124,12 +133,14 @@ class  AFBc0THDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief AFBc0THDM constructor.
      */
     AFBc0THDM(const StandardModel& SM_i);
 
     /**
-     * @return AFBc0THDM
+     * @brief The forward-backward assymetry for charm quarks at the
+     * @f$Z@f$-pole in the THDM
+     * @return @f$\mathcal{A}_{FB c}@f$
      */
     double computeThValue ();
 private:
@@ -139,12 +150,14 @@ class  AFBb0THDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief AFBb0THDM constructor.
      */
     AFBb0THDM(const StandardModel& SM_i);
 
     /**
-     * @return AFBb0THDM
+     * @brief The forward-backward assymetry for bottom quarks at the
+     * @f$Z@f$-pole in the THDM
+     * @return @f$\mathcal{A}_{FB b}@f$
      */
     double computeThValue ();
 private:
@@ -154,12 +167,14 @@ class  GammaZTHDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief GammaZTHDM constructor.
      */
     GammaZTHDM(const StandardModel& SM_i);
 
     /**
-     * @return GammaZTHDM
+     * @brief  The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$
+     * in the THDM
+     * @return @f$\Gamma_Z@f$ in GeV
      */
     double computeThValue ();
 private:
@@ -169,12 +184,14 @@ class  Rl0THDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Rl0THDM constructor.
      */
     Rl0THDM(const StandardModel& SM_i);
 
     /**
-     * @return Rl0THDM
+     * @brief Ratio between the decay width of  @f$Z@f$ to hadrons and 
+     * to electrons @f$R_\ell^0= \frac{\Gamma_h}{\Gamma_\ell}@f$ in the THDM.
+     * @return @f$R_\ell^0 @f$
      */
     double computeThValue ();
 private:
@@ -184,12 +201,14 @@ class  Rc0THDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Rc0THDM constructor.
      */
     Rc0THDM(const StandardModel& SM_i);
 
     /**
-     * @return Rc0THDM
+     * @brief Ratio between the decay width of  @f$Z@f$ to hadrons and 
+     * to charm quarks @f$R_\ell^0= \frac{\Gamma_h}{\Gamma_c}@f$ in the THDM.
+     * @return @f$R_c^0 @f$
      */
     double computeThValue ();
 private:
@@ -199,12 +218,14 @@ class  Rb0THDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Rb0THDM constructor.
      */
     Rb0THDM(const StandardModel& SM_i);
 
     /**
-     * @return Rb0THDM
+     * @brief Ratio between the decay width of  @f$Z@f$ to hadrons and 
+     * to bottom quarks @f$R_\ell^0= \frac{\Gamma_h}{\Gamma_b}@f$\ in the THDM.
+     * @return @f$R_b^0 @f$
      */
     double computeThValue ();
 private:
@@ -214,12 +235,14 @@ class  SigmahadTHDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief SigmahadTHDM constructor.
      */
     SigmahadTHDM(const StandardModel& SM_i);
 
-    /**
-     * @return SigmahadTHDM
+    /*
+     * @brief The hadronic cross section for @f$e^+e^- \to Z \to \mathrm{hadrons}@f$
+     * at the @f$Z@f$-pole, @f$\sigma_h^0@f$ in the THDM.
+     * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$
      */
     double computeThValue ();
 private:
@@ -229,12 +252,14 @@ class  GammaWTHDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief GammaWTHDM constructor.
      */
     GammaWTHDM(const StandardModel& SM_i);
 
     /**
-     * @return GammaWTHDM
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
+     * @f$\Gamma_W@f$ in GeV in the THDM.
+     * @return @f$\Gamma_W@f$ in GeV
      */
     double computeThValue ();
 private:
@@ -244,12 +269,14 @@ class  sinthetaeffl_2THDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief sinthetaeffl_2THDM constructor.
      */
     sinthetaeffl_2THDM(const StandardModel& SM_i);
 
     /**
-     * @return sinthetaeffl_2THDM
+     * @brief  The effective weak mixing angle @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
+     * for @f$Z\ell\bar{\ell}@f$ at the the @f$Z@f$-mass scale.
+     * @return @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
      */
     double computeThValue ();
 private:
@@ -259,13 +286,15 @@ class  MWTHDM: public EWPO {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief MWTHDM constructor.
      */
     MWTHDM(const StandardModel& SM_i);
 
     /**
-     * @return MWTHDM
-     */
+     * brief  @f$W@f$-boson mass in the on-shell scheme,
+     * @f$M_{W,\mathrm{SM}}@f$ in the THDM.
+     * @return  @f$M_{W,\mathrm{THDM}}@f$ in GeV
+     **/
     double computeThValue ();
 private:
 };

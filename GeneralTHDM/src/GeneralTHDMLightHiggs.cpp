@@ -395,6 +395,36 @@ double yl1R_GTHDM::computeThValue()
 }
 
 
+suR_GTHDM::suR_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double suR_GTHDM::computeThValue()
+{
+    return (myGTHDM.getMyGTHDMCache()->su).real();
+}
+
+
+sdR_GTHDM::sdR_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double sdR_GTHDM::computeThValue()
+{
+    return (myGTHDM.getMyGTHDMCache()->sd).real();
+}
+
+
+slR_GTHDM::slR_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double slR_GTHDM::computeThValue()
+{
+    return (myGTHDM.getMyGTHDMCache()->sl).real();
+}
+
+
 rh_gg_GTHDM::rh_gg_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}

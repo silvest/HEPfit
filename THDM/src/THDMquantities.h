@@ -782,7 +782,7 @@ class Z1_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Z1_THDM constructor.
      */
     Z1_THDM(const StandardModel& SM_i);
 
@@ -805,7 +805,7 @@ class Z2_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Z2_THDM constructor.
      */
     Z2_THDM(const StandardModel& SM_i);
 
@@ -828,7 +828,7 @@ class Z3_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Z3_THDM constructor.
      */
     Z3_THDM(const StandardModel& SM_i);
 
@@ -851,7 +851,7 @@ class Z4_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Z4_THDM constructor.
      */
     Z4_THDM(const StandardModel& SM_i);
 
@@ -874,7 +874,7 @@ class Z5_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Z5_THDM constructor.
      */
     Z5_THDM(const StandardModel& SM_i);
 
@@ -897,7 +897,7 @@ class Z6_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Z6_THDM constructor.
      */
     Z6_THDM(const StandardModel& SM_i);
 
@@ -920,7 +920,7 @@ class Z7_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief Z7_THDM constructor.
      */
     Z7_THDM(const StandardModel& SM_i);
 
@@ -943,7 +943,7 @@ class xi0_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief xi0_THDM constructor.
      */
     xi0_THDM(const StandardModel& SM_i);
 
@@ -966,7 +966,7 @@ class xi1_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief xi1_THDM constructor.
      */
     xi1_THDM(const StandardModel& SM_i);
 
@@ -989,7 +989,7 @@ class xi3_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief xi3_THDM constructor.
      */
     xi3_THDM(const StandardModel& SM_i);
 
@@ -1012,7 +1012,7 @@ class eta00_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief eta00_THDM constructor.
      */
     eta00_THDM(const StandardModel& SM_i);
 
@@ -1035,7 +1035,7 @@ class eta3_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief eta3_THDM constructor.
      */
     eta3_THDM(const StandardModel& SM_i);
 
@@ -1058,7 +1058,7 @@ class E11_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief E11_THDM constructor.
      */
     E11_THDM(const StandardModel& SM_i);
 
@@ -1081,7 +1081,7 @@ class E22_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief E22_THDM constructor.
      */
     E22_THDM(const StandardModel& SM_i);
 
@@ -1104,7 +1104,7 @@ class E33_THDM : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief E33_THDM constructor.
      */
     E33_THDM(const StandardModel& SM_i);
 
@@ -1127,7 +1127,7 @@ class HHlambda1 : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief HHlambda1 constructor.
      */
     HHlambda1(const StandardModel& SM_i);
 
@@ -1150,7 +1150,7 @@ class HHlambda2 : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief HHlambda2 constructor.
      */
     HHlambda2(const StandardModel& SM_i);
 
@@ -1173,7 +1173,7 @@ class HHlambda3 : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief HHlambda3 constructor.
      */
     HHlambda3(const StandardModel& SM_i);
 
@@ -1196,7 +1196,7 @@ class HHlambda4 : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief HHlambda4 constructor.
      */
     HHlambda4(const StandardModel& SM_i);
 
@@ -1219,7 +1219,7 @@ class HHlambda5 : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief HHlambda5 constructor.
      */
     HHlambda5(const StandardModel& SM_i);
 
@@ -1242,7 +1242,7 @@ class HHlambda6 : public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief HHlambda6 constructor.
      */
     HHlambda6(const StandardModel& SM_i);
 

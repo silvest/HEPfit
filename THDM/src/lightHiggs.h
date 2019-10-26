@@ -43,7 +43,7 @@ class THDM_BR_h_gaga : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief THDM_BR_h_gaga constructor.
      */
     THDM_BR_h_gaga(const StandardModel& SM_i);
     
@@ -64,7 +64,7 @@ class THDM_BR_h_tautau : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief THDM_BR_h_tautau constructor.
      */
     THDM_BR_h_tautau(const StandardModel& SM_i);
     
@@ -85,7 +85,7 @@ class ggF_tth_htobb8 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htobb8 constructor.
      */
     ggF_tth_htobb8(const StandardModel& SM_i);
     
@@ -106,7 +106,7 @@ class ggF_tth_htoWW8 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htoWW8 constructor.
      */
     ggF_tth_htoWW8(const StandardModel& SM_i);
     
@@ -127,7 +127,7 @@ class ggF_tth_htotautau8 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htotautau8 constructor.
      */
     ggF_tth_htotautau8(const StandardModel& SM_i);
     
@@ -148,7 +148,7 @@ class ggF_tth_htoZZ8 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htoZZ8 constructor.
      */
     ggF_tth_htoZZ8(const StandardModel& SM_i);
     
@@ -169,7 +169,7 @@ class ggF_tth_htogaga8 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htogaga8 constructor.
      */
     ggF_tth_htogaga8(const StandardModel& SM_i);
     
@@ -190,7 +190,7 @@ class ggF_tth_htobb13 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htobb13 constructor.
      */
     ggF_tth_htobb13(const StandardModel& SM_i);
     
@@ -211,7 +211,7 @@ class ggF_tth_htoWW13 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htoWW13 constructor.
      */
     ggF_tth_htoWW13(const StandardModel& SM_i);
     
@@ -232,7 +232,7 @@ class ggF_tth_htotautau13 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htotautau13 constructor.
      */
     ggF_tth_htotautau13(const StandardModel& SM_i);
     
@@ -253,7 +253,7 @@ class ggF_tth_htoZZ13 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htoZZ13 constructor.
      */
     ggF_tth_htoZZ13(const StandardModel& SM_i);
     
@@ -274,7 +274,7 @@ class ggF_tth_htogaga13 : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_tth_htogaga13 constructor.
      */
     ggF_tth_htogaga13(const StandardModel& SM_i);
     
@@ -295,7 +295,7 @@ class VBF_Vh_htobb : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief VBF_Vh_htobb constructor.
      */
     VBF_Vh_htobb(const StandardModel& SM_i);
     
@@ -316,7 +316,7 @@ class VBF_Vh_htoWW : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief VBF_Vh_htoWW constructor.
      */
     VBF_Vh_htoWW(const StandardModel& SM_i);
     
@@ -337,7 +337,7 @@ class VBF_Vh_htotautau : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief VBF_Vh_htotautau constructor.
      */
     VBF_Vh_htotautau(const StandardModel& SM_i);
     
@@ -358,7 +358,7 @@ class VBF_Vh_htoZZ : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief VBF_Vh_htoZZ constructor.
      */
     VBF_Vh_htoZZ(const StandardModel& SM_i);
     
@@ -379,7 +379,7 @@ class VBF_Vh_htogaga : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief VBF_Vh_htogaga constructor.
      */
     VBF_Vh_htogaga(const StandardModel& SM_i);
     
@@ -400,7 +400,7 @@ class VBF_Vh_htogg : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief VBF_Vh_htogg constructor.
      */
     VBF_Vh_htogg(const StandardModel& SM_i);
     
@@ -421,7 +421,7 @@ class VBF_Vh_htocc : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief VBF_Vh_htocc constructor.
      */
     VBF_Vh_htocc(const StandardModel& SM_i);
     
@@ -442,7 +442,7 @@ class ggF_htobb : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_htobb constructor.
      */
     ggF_htobb(const StandardModel& SM_i);
     
@@ -463,7 +463,7 @@ class ggF_htoWW : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_htoWW constructor.
      */
     ggF_htoWW(const StandardModel& SM_i);
     
@@ -484,7 +484,7 @@ class ggF_htotautau : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_htotautau constructor.
      */
     ggF_htotautau(const StandardModel& SM_i);
     
@@ -505,7 +505,7 @@ class ggF_htoZZ : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_htoZZ constructor.
      */
     ggF_htoZZ(const StandardModel& SM_i);
     
@@ -526,7 +526,7 @@ class ggF_htogaga : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief ggF_htogaga constructor.
      */
     ggF_htogaga(const StandardModel& SM_i);
     
@@ -547,7 +547,7 @@ class tth_htobb : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief tth_htobb constructor.
      */
     tth_htobb(const StandardModel& SM_i);
     
@@ -568,7 +568,7 @@ class tth_htoWW : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief tth_htoWW constructor.
      */
     tth_htoWW(const StandardModel& SM_i);
     
@@ -589,7 +589,7 @@ class tth_htotautau : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief tth_htotautau constructor.
      */
     tth_htotautau(const StandardModel& SM_i);
     
@@ -610,7 +610,7 @@ class tth_htoZZ : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief tth_htoZZ constructor.
      */
     tth_htoZZ(const StandardModel& SM_i);
     
@@ -631,7 +631,7 @@ class tth_htogaga : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief tth_htogaga constructor.
      */
     tth_htogaga(const StandardModel& SM_i);
     
@@ -652,7 +652,7 @@ class mu_htobb : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief mu_htobb constructor.
      */
     mu_htobb(const StandardModel& SM_i);
     
@@ -673,7 +673,7 @@ class mu_htoWW : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief mu_htoWW constructor.
      */
     mu_htoWW(const StandardModel& SM_i);
     
@@ -694,7 +694,7 @@ class mu_htotautau : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief mu_htotautau constructor.
      */
     mu_htotautau(const StandardModel& SM_i);
     
@@ -715,7 +715,7 @@ class mu_htoZga : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief mu_htoZga constructor.
      */
     mu_htoZga(const StandardModel& SM_i);
     
@@ -728,10 +728,6 @@ private:
 };
 
 
-
-
-
-
 /**
  * @class Gamma_h_THDM
  * @ingroup THDM
@@ -741,7 +737,7 @@ class Gamma_h_THDM : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief Gamma_h_THDM constructor.
      */
     Gamma_h_THDM(const StandardModel& SM_i);
     
@@ -762,7 +758,7 @@ class rh_gaga_THDM : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief rh_gaga_THDM constructor.
      */
     rh_gaga_THDM(const StandardModel& SM_i);
     
@@ -783,7 +779,7 @@ class rh_gg_THDM : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief rh_gg_THDM constructor.
      */
     rh_gg_THDM(const StandardModel& SM_i);
     
@@ -804,7 +800,7 @@ class rh_Zga_THDM : public ThObservable {
 public:
     
     /**
-     * @brief Constructor.
+     * @brief rh_Zga_THDM constructor.
      */
     rh_Zga_THDM(const StandardModel& SM_i);
     
