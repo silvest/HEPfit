@@ -12,6 +12,13 @@
 #include <ThObservable.h>
 
 /**
+ * @addtogroup EW
+ * @brief A module for electroweak precision observables.
+ * @details 
+ * @{
+ */
+
+/**
  * @class AFBbottom 
  * @ingroup EW
  * @brief An observable class for the forward-backward asymmetry in
@@ -53,5 +60,9 @@ private:
 
 
 };
+
+/** 
+ * @}
+ */
 
 #endif	/* AFBBOTTOM_H */

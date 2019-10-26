@@ -13,6 +13,14 @@
 class THDM;
 
 /**
+ * @addtogroup THDM
+ * @brief A module for the @f$Z_2@f$ symmetric Two-Higgs-Doublet models.
+ * @details This module contains code necessary for analyzing theoretical
+ * and experimental constraints on @f$Z_2@f$ symmetric Two-Higgs-Doublet models.
+ * @{
+ */
+
+/**
  * @class BDtaunu
  * @ingroup THDM
  * @brief A class for @f$B \to D^{(*)} \tau \nu@f$ decays in the THDM.
@@ -235,5 +243,9 @@ public:
     
 private:
 };
+
+/**
+ * @}
+ */
 
 #endif	/* BDTAUNU_H */

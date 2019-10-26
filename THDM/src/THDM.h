@@ -14,14 +14,6 @@
 class THDMcache; //forward reference to THDMcache class
 
 /**
- * @addtogroup THDM
- * @brief A module for the @f$Z_2@f$ symmetric Two-Higgs-Doublet models.
- * @details This module contains code necessary for analyzing theoretical
- * and experimental constraints on @f$Z_2@f$ symmetric Two-Higgs-Doublet models.
- * @{
- */
-
-/**
  * @class THDM
  * @ingroup THDM
  * @brief A base class for @f$Z_2@f$ symmetric Two-Higgs-Doublet models. 

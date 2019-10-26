@@ -12,13 +12,6 @@
 #include <ThObservable.h>
 #include "NPbase.h"
 
-/**
- * @addtogroup EW
- * @brief A module for electroweak precision observables.
- * @details 
- * @{
- */
-
 
 /**
  * @class ppZHprobe
@@ -96,10 +89,6 @@ private:
     const double sqrt_s;
     const double pTV1, pTV2;
 };
-
-/** 
- * @}
- */
 
 #endif	/* PP_DIBOSON_H */
 

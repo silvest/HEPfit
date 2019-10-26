@@ -16,12 +16,6 @@
 class StandardModel;
 
 /**
- * @addtogroup LeptonFlavour
- * @brief A module for calculating Lepton Flavor Violating observables.
- * @{
- */
-
-/**
  * @class LeptonFlavour
  * @ingroup LeptonFlavour
  * @brief The parent class in LeptonFlavour for calculating all the Wilson coefficients for various Lepton Flavor Violating (LFV) processes. 
@@ -132,9 +126,5 @@ private:
      */
     Heffgminus2 Hgminus2;
 };
-
-/**
- * @}
- */
 
 #endif	/* LEPTONFLAVOUR_H */

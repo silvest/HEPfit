@@ -24,29 +24,72 @@ public:
     static const std::string RealWeakEFTLFVvars[NRealWeakEFTLFVvars];
     
     /**
-     * @brief FlavourWilsonCoefficient constructor
+     * @brief RealWeakEFTLFV constructor
      */
     RealWeakEFTLFV();
     
     /**
-     * @brief FlavourWilsonCoefficient destructor
+     * @brief RealWeakEFTLFV destructor
      */
     ~RealWeakEFTLFV();
     
+    /**
+     * @brief The post-update method for %RealWeakEFTLFV.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool InitializeModel();
     
+    /**
+     * @brief Initializes the %RealWeakEFTLFV parameters found in the argument.
+     * @param[in] DPars a map containing the parameters (all as double) to be used in Monte Carlo
+     */
     virtual bool Init(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief The pre-update method for %RealWeakEFTLFV
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PreUpdate();
     
+    /**
+     * @brief The update method for %RealWeakEFTLFV.
+     * @details This method updates all the model parameters with given DPars.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief The post-update method for %RealWeakEFTLFV.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
     
+    /**
+     * @brief A method to check if all the mandatory parameters for %RealWeakEFTLFV
+     * have been provided in model initialization.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief A method to set a flag of %RealWeakEFTLFV.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool setFlag(const std::string name, const bool value);
     
+    /**
+     * @brief A get method to access the member reference of type %RealWeakEFTLFVMatching.
+     * @return a reference to a %RealWeakEFTLFVMatching object
+     */
     virtual RealWeakEFTLFVMatching& getMatching() const
     {
         return ReWEFTM.getObj();
@@ -54,7 +97,7 @@ public:
     
     /**
      *
-     * @return \f$ C_7 $\f
+     * @return \f$ C_7\f$
      */
     double getC7() const {
         return C7;
@@ -62,7 +105,7 @@ public:
     
     /**
      *
-     * @return \f$ C_7' $\f
+     * @return \f$ C_7'\f$
      */
     double getC7p() const {
         return C7p;
@@ -70,7 +113,7 @@ public:
     
     /**
      *
-     * @return \f$ C_8 $\f
+     * @return \f$ C_8\f$
      */
     double getC8() const {
         return C8;
@@ -86,7 +129,7 @@ public:
     
     /**
      *
-     * @return \f$ C_9^{11} $\f
+     * @return \f$ C_9^{11}\f$
      */
     double getC9_11() const {
         return C9_11;
@@ -94,7 +137,7 @@ public:
     
         /**
      *
-     * @return \f$ C_9'^{11} $\f
+     * @return \f$ C_9'^{11}\f$
      */
     double getC9p_11() const {
         return C9p_11;
@@ -102,7 +145,7 @@ public:
     
     /**
      *
-     * @return \f$ C_{10}^{11} $\f
+     * @return \f$ C_{10}^{11}\f$
      */
     double getC10_11() const {
         return C10_11;
@@ -110,7 +153,7 @@ public:
     
         /**
      *
-     * @return \f$ C_{10}'^{11} $\f
+     * @return \f$ C_{10}'^{11}\f$
      */
     double getC10p_11() const {
         return C10p_11;
@@ -118,7 +161,7 @@ public:
     
     /**
      *
-     * @return \f$ C_S^{11} $\f
+     * @return \f$ C_S^{11}\f$
      */
     double getCS_11() const {
         return CS_11;
@@ -126,7 +169,7 @@ public:
     
         /**
      *
-     * @return \f$ C_S'^{11} $\f
+     * @return \f$ C_S'^{11}\f$
      */
     double getCSp_11() const {
         return CSp_11;
@@ -134,7 +177,7 @@ public:
     
     /**
      *
-     * @return \f$ C_P^{11} $\f
+     * @return \f$ C_P^{11}\f$
      */
     double getCP_11() const {
         return CP_11;
@@ -142,7 +185,7 @@ public:
     
         /**
      *
-     * @return \f$ C_P'^{11} $\f
+     * @return \f$ C_P'^{11}\f$
      */
     double getCPp_11() const {
         return CPp_11;
@@ -150,7 +193,7 @@ public:
     
     /**
      *
-     * @return \f$ C_9^{22} $\f
+     * @return \f$ C_9^{22}\f$
      */
     double getC9_22() const {
         return C9_22;
@@ -158,7 +201,7 @@ public:
     
         /**
      *
-     * @return \f$ C_9'^{22} $\f
+     * @return \f$ C_9'^{22}\f$
      */
     double getC9p_22() const {
         return C9p_22;
@@ -166,7 +209,7 @@ public:
     
     /**
      *
-     * @return \f$ C_{10}^{22} $\f
+     * @return \f$ C_{10}^{22}\f$
      */
     double getC10_22() const {
         return C10_22;
@@ -174,7 +217,7 @@ public:
     
         /**
      *
-     * @return \f$ C_{10}'^{22} $\f
+     * @return \f$ C_{10}'^{22}\f$
      */
     double getC10p_22() const {
         return C10p_22;
@@ -182,7 +225,7 @@ public:
     
     /**
      *
-     * @return \f$ C_S^{22} $\f
+     * @return \f$ C_S^{22}\f$
      */
     double getCS_22() const {
         return CS_22;
@@ -190,7 +233,7 @@ public:
     
         /**
      *
-     * @return \f$ C_S'^{22} $\f
+     * @return \f$ C_S'^{22}\f$
      */
     double getCSp_22() const {
         return CSp_22;
@@ -198,7 +241,7 @@ public:
     
     /**
      *
-     * @return \f$ C_P^{22} $\f
+     * @return \f$ C_P^{22}\f$
      */
     double getCP_22() const {
         return CP_22;
@@ -206,7 +249,7 @@ public:
     
         /**
      *
-     * @return \f$ C_P'^{22} $\f
+     * @return \f$ C_P'^{22}\f$
      */
     double getCPp_22() const {
         return CPp_22;
@@ -222,16 +265,21 @@ public:
     
 protected: 
     
+    /**
+     * @brief A method to set the value of a parameter of %RealWeakEFTLFV.
+     * @param[in] name name of a model parameter
+     * @param[in] value the value to be assigned to the parameter specified by name
+     */
     virtual void setParameter(const std::string, const double&);
-    mutable Matching<RealWeakEFTLFVMatching,RealWeakEFTLFV> ReWEFTM;
+    mutable Matching<RealWeakEFTLFVMatching,RealWeakEFTLFV> ReWEFTM;///< The RealWeakEFTLFVMatching object.
 
 private:
 
-    double C7, C7p, C8, C8p;
-    double C9_11, C9p_11, C10_11, C10p_11, CS_11, CSp_11, CP_11, CPp_11;
-    double C9_22, C9p_22, C10_22, C10p_22, CS_22, CSp_22, CP_22, CPp_22;
+    double C7, C7p, C8, C8p;///< The real Wilson Coefficients.
+    double C9_11, C9p_11, C10_11, C10p_11, CS_11, CSp_11, CP_11, CPp_11;///< The real Wilson Coefficients for electrons.
+    double C9_22, C9p_22, C10_22, C10p_22, CS_22, CSp_22, CP_22, CPp_22;///< The real Wilson Coefficients for muons.
     
-    double WCscale;
+    double WCscale;///< The scale of the  Wilson Coefficients.
     
       
 };

@@ -12,13 +12,6 @@
 #include <ThObservable.h>
 
 /**
- * @addtogroup EW
- * @brief A module for electroweak precision observables.
- * @details 
- * @{
- */
-
-/**
  * @class AlphaEmMz 
  * @brief An observable class for the em constant evaluated at the @f$Z@f$ pole.
  * @author HEPfit Collaboration
@@ -49,10 +42,6 @@ private:
 
 
 };
-
-/** 
- * @}
- */
 
 #endif	/* ALPHAMZ_H */
 
