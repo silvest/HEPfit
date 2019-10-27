@@ -2770,6 +2770,12 @@ public:
      */
     gslpp::complex I_H_Hp(const double mHp2, const double mH) const;
 
+    
+    
+ 
+    
+    
+    
     /**
      * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the up-type quarks in the loop.
      * @details

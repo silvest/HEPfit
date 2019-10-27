@@ -58,65 +58,41 @@ public:
      */
     void read();
 
-    /**
-     * @brief SM Higgs branching ratio tables (obtained with HDECAY 6.10), depending on the Higgs mass.
-     */
-    gslpp::matrix<double> br_aa, br_tt, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW;
 
-    /**
-     * @brief Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass.
-     */
-    gslpp::matrix<double> GammaHtot_SM;
+    gslpp::matrix<double> br_aa, br_tt, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW; /**< SM Higgs branching ratio tables (obtained with HDECAY 6.10), depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section tables at 8 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ggH_8, log_cs_VBF_8, log_cs_WH_8, log_cs_ZH_8;
 
-    /**
-     * @brief SM Higgs production cross section tables at 13 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ggH_13, log_cs_VBF_13, log_cs_WH_13, log_cs_ZH_13;
+    gslpp::matrix<double> GammaHtot_SM; /**< Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section table at 8 TeV obtained with MadGraph 5, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ttH_8;
 
-    /**
-     * @brief SM Higgs production cross section table at 13 TeV obtained with MadGraph 5, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ttH_13;
+    gslpp::matrix<double> log_cs_ggH_8, log_cs_VBF_8, log_cs_WH_8, log_cs_ZH_8; /**< SM Higgs production cross section tables at 8 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section table at 8 TeV obtained with SusHi 1.5, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_bbH_8;
+    
+    gslpp::matrix<double> log_cs_ggH_13, log_cs_VBF_13, log_cs_WH_13, log_cs_ZH_13; /**< SM Higgs production cross section tables at 13 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass. */
 
-    /**
-     * @brief SM Higgs production cross section table at 13 TeV obtained with SusHi 1.5, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_bbH_13;
 
-    /**
-     * @brief CP-odd Higgs production cross section tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ggA_8, log_cs_ttA_8, log_cs_bbA_8;
+    gslpp::matrix<double> log_cs_ttH_8; /**< SM Higgs production cross section table at 8 TeV obtained with MadGraph 5, depending on the Higgs mass. */
 
-    /**
-     * @brief CP-odd Higgs production cross section tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
-     */
-    gslpp::matrix<double> log_cs_ggA_13, log_cs_ttA_13, log_cs_bbA_13;
 
-    /**
-     * @brief Charged Higgs production cross section table at 8 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb.
-     */
-    gslpp::matrix<double> log_cs_ggHp_8;
+    gslpp::matrix<double> log_cs_ttH_13; /**< SM Higgs production cross section table at 13 TeV obtained with MadGraph 5, depending on the Higgs mass. */
 
-    /**
-     * @brief Charged Higgs production cross section table at 13 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb.
-     */
-    gslpp::matrix<double> log_cs_ggHp_13;
+
+    gslpp::matrix<double> log_cs_bbH_8; /**< SM Higgs production cross section table at 8 TeV obtained with SusHi 1.5, depending on the Higgs mass. */
+
+
+    gslpp::matrix<double> log_cs_bbH_13; /**< SM Higgs production cross section table at 13 TeV obtained with SusHi 1.5, depending on the Higgs mass. */
+
+
+    gslpp::matrix<double> log_cs_ggA_8, log_cs_ttA_8, log_cs_bbA_8; /**< CP-odd Higgs production cross section tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass. */
+
+
+    gslpp::matrix<double> log_cs_ggA_13, log_cs_ttA_13, log_cs_bbA_13; /**< CP-odd Higgs production cross section tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass. */
+
+
+    gslpp::matrix<double> log_cs_ggHp_8; /**< Charged Higgs production cross section table at 8 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb. */
+
+
+    gslpp::matrix<double> log_cs_ggHp_13; /**< Charged Higgs production cross section table at 13 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb. */
 
     gslpp::matrix<double> log_cs_ppH5ppH5mm_8, log_cs_ppH5ppH5mm_13, log_cs_VBFH5_8, log_cs_VBFH5_13;
     gslpp::matrix<double> log_cs_VBFH5m_8, log_cs_VBFH5m_13, log_cs_VBFH5mm_8, log_cs_VBFH5mm_13;
@@ -124,9 +100,7 @@ public:
     gslpp::matrix<double> log_cs_VHH5_8, log_cs_VHH5_13;
     gslpp::matrix<double> log_cs_VHH5mm_8, log_cs_VHH5mm_13, log_cs_VHH5pp_8, log_cs_VHH5pp_13;
 
-    /**
-     * @brief Observed @f$95\%@f$ upper cross section limits, depending on the invariant mass.
-     */
+
     gslpp::matrix<double> ATLAS13_tt_phi_tt, ATLAS13_bb_phi_tt,
         CMS8_bb_phi_bb, CMS8_gg_phi_bb, CMS13_pp_phi_bb, CMS13_bb_phi_bb,
         ATLAS8_gg_phi_tautau, CMS8_gg_phi_tautau, ATLAS8_bb_phi_tautau, CMS8_bb_phi_tautau,
@@ -148,12 +122,10 @@ public:
         ATLAS8_pp_Hpm_tb, CMS8_pp_Hp_tb, ATLAS13_pp_Hpm_tb,
         ATLAS8_WZ_H5pm_WZ_qqll, ATLAS13_WZ_H5pm_WZ_lnull, CMS13_WZ_H5pm_WZ_lnull_1, CMS13_WZ_H5pm_WZ_lnull_2,
         ATLAS8_pp_H5ppmmH5mmpp_eeee, ATLAS8_pp_H5ppmmH5mmpp_emuemu, ATLAS8_pp_H5ppmmH5mmpp_mumumumu,
-        ATLAS13_pp_H5ppmmH5mmpp_llll, ATLAS13_pp_H5ppmmH5mmpp_WWWW, CMS8_VV_H5ppmm_WW_jjll, CMS13_VV_H5ppmm_WW_jjll;
+        ATLAS13_pp_H5ppmmH5mmpp_llll, ATLAS13_pp_H5ppmmH5mmpp_WWWW, CMS8_VV_H5ppmm_WW_jjll, CMS13_VV_H5ppmm_WW_jjll; /**< Observed @f$95\%@f$ upper cross section limits, depending on the invariant mass. */
 
-    /**
-     * @brief Expected @f$95\%@f$ upper cross section limits, depending on the invariant mass.
-     */
-    gslpp::matrix<double> ATLAS13_WZ_H5pm_WZ_lnull_e;
+
+    gslpp::matrix<double> ATLAS13_WZ_H5pm_WZ_lnull_e; /**< Expected @f$95\%@f$ upper cross section limits, depending on the invariant mass. */
 
     /**
      * @brief Interpolating function for the SM branching ratio to two top quarks.
@@ -1146,30 +1118,148 @@ private:
     void CacheShiftReal(double cache[][CacheSize], const int NumPar,
                     const double params[], const double newResult) const; 
 
+    
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the up-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including the charm and top quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_HH_U(const double mHh2, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including the charm and top quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_A_U(const double mA2, const double Mc, const double Mt) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the down-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_HH_D(const double mHh2, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex I_A_D(const double mA2, const double Ms, const double Mb) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to diphotons including the leptons in the loop.
+     * @details 
+     */
     gslpp::complex I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to diphotons including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex I_HH_L(const double mHh2, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to diphotons including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex I_A_L(const double mA2, const double Mmu, const double Mtau) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to diphotons including the W boson in the loop.
+     * @details
+     */
     gslpp::complex I_H_W(const double mH, const double MW) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to diphotons including the charged Higgs boson in the loop.
+     * @details
+     */
     gslpp::complex I_H_Hp(const double mHp2, const double mH) const;
 
+    
+    
+    
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the up-type quarks in the loop.
+     * @details
+     */
     gslpp::complex A_h_U(const double mHl2, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including the charm and top quarks in the loop.
+     * @details
+     */
     gslpp::complex A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including the charm and top quarks in the loop.
+     * @details
+     */
     gslpp::complex A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the down-type quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including the strange and bottom quarks in the loop.
+     * @details
+     */
     gslpp::complex A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+   
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including the strange and bottom quarks in the loop.
+     * @details This function can also be used for the gluon fusion production adding the appropriate factor
+     */
     gslpp::complex A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for the SM Higgs boson decay to a photon and a Z boson including the leptons in the loop.
+     * @details 
+     */
     gslpp::complex A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
+    
+    
+    /**
+     * @brief Amplitude for a heavy CP-even Higgs boson decay to a photon and a Z boson including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-odd Higgs boson decay to a photon and a Z boson including muons and taus in the loop.
+     * @details
+     */
     gslpp::complex A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to a photon and a Z boson including the W boson in the loop.
+     * @details
+     */
     gslpp::complex A_H_W(const double mH, const double cW2, const double MW, const double MZ) const;
+    
+    /**
+     * @brief Amplitude for a CP-even Higgs boson decay to a photon and a Z boson including the charged Higgs boson in the loop.
+     * @details
+     */
     gslpp::complex A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const;
 
+    
+    
+    
     mutable gslpp::complex I_h_U_cache[5][CacheSize];
     mutable gslpp::complex I_HH_U_cache[4][CacheSize];
     mutable gslpp::complex I_A_U_cache[4][CacheSize];

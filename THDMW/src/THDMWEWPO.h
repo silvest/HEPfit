@@ -14,9 +14,9 @@
 class THDMW;
 
 /**
- * @class Rb0
+ * @class Rb0THDMW
  * @ingroup THDMW
- * @brief 
+ * @brief An observable class to calculate the Rb0THDMW observable in the %THDMW.
  */
 class  Rb0THDMW: public ThObservable {
 public:
@@ -27,7 +27,7 @@ public:
     Rb0THDMW(const StandardModel& SM_i);
 
     /**
-     * @return Rb0GTHDM
+     * @return Rb0THDMW
      */
     double computeThValue ();
 private:

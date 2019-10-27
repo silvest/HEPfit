@@ -66,7 +66,7 @@ public:
     /** Calculates the muon g-2 at LO**/
     /**
      * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at one loop from \cite Broggio:2014mna.
-     * @return 
+     * @return \f$ (g-2)_{\mu} \f$ at LO
      */    
     virtual double gminus2muLO();
 
