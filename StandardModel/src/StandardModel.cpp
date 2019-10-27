@@ -52,16 +52,6 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     flag_order[EW2] = true;
     flag_order[EW2QCD1] = true;
     flag_order[EW3] = true;
-
-    //Flags for LEP2 observables
-    flagLEP2[Weak] = true;
-    flagLEP2[WeakBox] = true;
-    flagLEP2[ISR] = true;
-    flagLEP2[QEDFSR] = true;
-    flagLEP2[QCDFSR] = true;
-    
-    bSigmaForAFB = false;
-    bSigmaForR = false;
     
     // Caches for EWPO
     FlagCacheInStandardModel = true; // use caches in the current class
