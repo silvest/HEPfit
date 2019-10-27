@@ -17,6 +17,13 @@ class THDM;
  * @brief A module for the @f$Z_2@f$ symmetric Two-Higgs-Doublet models.
  * @details This module contains code necessary for analyzing theoretical
  * and experimental constraints on @f$Z_2@f$ symmetric Two-Higgs-Doublet models.
+ * The theoretical constraints are the positivity bounds (boundedness from below)
+ * and the requirement that the electroweak minimum be the global minimum of the
+ * scalar potential as well as the LO and NLO(+) unitarity conditions.
+ * The experimental constraints comprise electroweak precision observables (STU),
+ * Higgs signal strengths, direct searches for scalar particles and a set of flavour observables
+ * (B to Xs gamma, Bs mixing, B to tau nu, B to D(*) tau nu and the anomalous magnetic moment of the muon).
+ * Also the renormalization group equations are implemented at next-to-leading order.
  * @{
  */
 
