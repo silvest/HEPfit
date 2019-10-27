@@ -70,19 +70,19 @@ public:
 
     /**
     * @brief Vector unitarity constraint for BGL parameters
-    * @return \f$ \Sum_i ag_i^2 \f$ 
+    * @return \f$ \sum_i ag_i^2 \f$ 
     */
     double get_unitarity_V_BGL();
  
     /**
     * @brief Axial unitarity constraint for BGL parameters
-    * @return \f$ \Sum_i (af_i^2 + aF1_i^2) \f$ 
+    * @return \f$ \sum_i (af_i^2 + aF1_i^2) \f$ 
     */
     double get_unitarity_A_BGL();
 
     /**
     * @brief Pseudoscalar unitarity constraint for BGL parameters
-    * @return \f$ \Sum_i aF2_i^2 \f$ 
+    * @return \f$ \sum_i aF2_i^2 \f$ 
     */
     double get_unitarity_P_BGL();
  

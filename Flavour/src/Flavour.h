@@ -22,15 +22,6 @@ class MPlnu;
 #include <memory>
 
 /**
- * @addtogroup Flavour
- * @brief A module for all the flavour observables implemented in HEPfit.
- * @details This module has several flavour physics observables which include
- * quark flavour violation in the beauty, charm and strange sectors. This includes 
- * the evolutors, Hamiltonians and low energy observables.
- * @{
- */
-
-/**
  * @class Flavour
  * @ingroup Flavour
  * @brief The parent class in Flavour for calculating all the Wilson coefficients for various Flavor Violating processes.
@@ -289,9 +280,5 @@ private:
     mutable bool CLNflag;
     mutable bool FixedWCbtosflag;
 };
-
-/**
- * @}
- */
 
 #endif /* FLAVOUR_H */

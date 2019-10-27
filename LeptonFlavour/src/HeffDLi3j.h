@@ -13,6 +13,12 @@
 #include "WilsonCoefficient.h"
 
 /**
+ * @addtogroup LeptonFlavour
+ * @brief A module for calculating Lepton Flavor Violating observables.
+ * @{
+ */
+
+/**
  * @class HeffDLi3j
  * @ingroup LeptonFlavour
  * @brief A class for calculating all the Wilson coefficients for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$. 

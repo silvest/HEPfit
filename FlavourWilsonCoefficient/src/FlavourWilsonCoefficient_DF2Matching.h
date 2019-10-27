@@ -13,8 +13,20 @@
 
 class FlavourWilsonCoefficient_DF2;
 
+/**
+ * @class FlavourWilsonCoefficient_DF2Matching
+ * @ingroup FlavourWilsonCoefficient
+ * @brief A class for the matching in the FlavourWilsonCoefficient_DF2Matching. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class FlavourWilsonCoefficient_DF2Matching : public StandardModelMatching {
 public:
+    /**
+     * @brief FlavourWilsonCoefficient_DF2Matching constructor
+     * @param[in] An object of the FlavourWilsonCoefficient_DF2 class
+     */
     FlavourWilsonCoefficient_DF2Matching(const FlavourWilsonCoefficient_DF2& FWC_i);
     
         /**
@@ -50,7 +62,7 @@ protected:
 
 
 private:
-    const FlavourWilsonCoefficient_DF2& FWC;
+    const FlavourWilsonCoefficient_DF2& FWC;///< An object of the %FLAVOURWILSONCOEFFICIENT_DF2 class.
     WilsonCoefficient mcdbd2, mcdbs2, mcdc2, mcds2;
 
 };

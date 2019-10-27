@@ -13,6 +13,15 @@ class StandardModel;
 #include "OrderScheme.h"
 #include "gslpp.h"
 
+/**
+ * @addtogroup Flavour
+ * @brief A module for all the flavour observables implemented in HEPfit.
+ * @details This module has several flavour physics observables which include
+ * quark flavour violation in the beauty, charm and strange sectors. This includes 
+ * the evolutors, Hamiltonians and low energy observables.
+ * @{
+ */
+
 
 /**
  * @class AmpDB2

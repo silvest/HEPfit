@@ -11,7 +11,10 @@
 
 /**
  * @class NPDF2
- * @brief Model for general constraints NP contributions to Delta F=2 processes.
+ * @ingroup FlavourWilsonCoefficent
+ * @brief %Model for general constraints NP contributions to @f$ \Delta F=2 @f$ processes.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
  */
 class NPDF2 : public StandardModel {
 public:
@@ -23,9 +26,21 @@ public:
      * @brief NPDF2 constructor
      */
     NPDF2();
-
+    
+    /**
+     * @brief A method to set the value of a parameter of %NPDF2.
+     * @param[in] name name of a model parameter
+     * @param[in] value the value to be assigned to the parameter specified by name
+     */
     void setParameter(const std::string name, const double& value);
     
+    /**
+     * @brief A method to check if all the mandatory parameters for %NPDF2
+     * have been provided in model initialization.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful
+     */
     bool CheckParameters(const std::map<std::string, double>& DPars);
     
     /**
@@ -85,7 +100,7 @@ public:
     
 private:
 
-    double CepsK,CDMK,CBd,phiBd,CBs,PhiBs;
+    double CepsK,CDMK,CBd,phiBd,CBs,PhiBs;///< Modifications to the Standard %Model couplings.
     
 };
 

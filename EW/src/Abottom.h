@@ -12,13 +12,6 @@
 #include <ThObservable.h>
 
 /**
- * @addtogroup EW
- * @brief A module for electroweak precision observables.
- * @details 
- * @{
- */
-
-/**
  * @class Abottom 
  * @brief An observable class for the left-right asymmetry in
  * @f$e^+e^-\to Z\to b\bar{b}@f$ at the @f$Z@f$ pole.
@@ -55,10 +48,6 @@ private:
 
 
 };
-
-/** 
- * @}
- */
 
 #endif	/* ABOTTOM_H */
 
