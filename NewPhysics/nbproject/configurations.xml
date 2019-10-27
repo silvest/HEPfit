@@ -11,12 +11,8 @@
       <itemPath>src/HiggsKvKfgen.h</itemPath>
       <itemPath>src/HiggsKvgenKfgen.h</itemPath>
       <itemPath>src/HiggsThObservables.h</itemPath>
-      <itemPath>src/NPEffectiveBS.h</itemPath>
-      <itemPath>src/NPEffectiveGIMR.h</itemPath>
-      <itemPath>src/NPEffectiveGIMRprime.h</itemPath>
       <itemPath>src/NPEpsilons.h</itemPath>
       <itemPath>src/NPEpsilons_pureNP.h</itemPath>
-      <itemPath>src/NPHiggs.h</itemPath>
       <itemPath>src/NPSMEFT6dtopquark.h</itemPath>
       <itemPath>src/NPSMEFTd6.h</itemPath>
       <itemPath>src/NPSMEFTd6Matching.h</itemPath>
@@ -27,7 +23,6 @@
       <itemPath>src/NP_couplings.h</itemPath>
       <itemPath>src/NPbase.h</itemPath>
       <itemPath>src/OptimizedObservablesSMEFTd6.h</itemPath>
-      <itemPath>src/SigmaBR.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -43,12 +38,8 @@
       <itemPath>src/HiggsKvKfgen.cpp</itemPath>
       <itemPath>src/HiggsKvgenKfgen.cpp</itemPath>
       <itemPath>src/HiggsThObservables.cpp</itemPath>
-      <itemPath>src/NPEffectiveBS.cpp</itemPath>
-      <itemPath>src/NPEffectiveGIMR.cpp</itemPath>
-      <itemPath>src/NPEffectiveGIMRprime.cpp</itemPath>
       <itemPath>src/NPEpsilons.cpp</itemPath>
       <itemPath>src/NPEpsilons_pureNP.cpp</itemPath>
-      <itemPath>src/NPHiggs.cpp</itemPath>
       <itemPath>src/NPSMEFT6dtopquark.cpp</itemPath>
       <itemPath>src/NPSMEFTd6.cpp</itemPath>
       <itemPath>src/NPSMEFTd6Matching.cpp</itemPath>
@@ -59,7 +50,6 @@
       <itemPath>src/NP_couplings.cpp</itemPath>
       <itemPath>src/NPbase.cpp</itemPath>
       <itemPath>src/OptimizedObservablesSMEFTd6.cpp</itemPath>
-      <itemPath>src/SigmaBR.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -137,18 +127,6 @@
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPEffectiveBS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPEffectiveGIMR.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPEffectiveGIMR.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPEffectiveGIMRprime.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPEffectiveGIMRprime.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
@@ -156,10 +134,6 @@
       <item path="src/NPEpsilons_pureNP.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons_pureNP.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPHiggs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSMEFT6dtopquark.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -203,10 +177,6 @@
             flavor2="0">
       </item>
       <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/SigmaBR.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
