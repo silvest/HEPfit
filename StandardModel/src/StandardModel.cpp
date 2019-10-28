@@ -43,7 +43,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     FlagKappaZ = "APPROXIMATEFORMULA";
     FlagWolfenstein = true;
     
-    FlagSMAux = false;
+    FlagSMAux = true;
 
     /* Internal flags for EWPO (for debugging) */
     flag_order[EW1] = true;
