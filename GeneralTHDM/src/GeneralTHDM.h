@@ -12,7 +12,9 @@
 #include "GeneralTHDMMatching.h"
 #include "NPbase.h"
 
+
 /**
+<<<<<<< Updated upstream
  * @addtogroup GeneralTHDM
  * @brief A module for general Two-Higgs-Doublet models (without the assumption of a @f$Z_2@f$ symmetry).
  * @details This module contains code necessary for analyzing theoretical
@@ -22,6 +24,439 @@
  * are available in the most general case,
  * the Higgs and flavour observables are currently only implemented in the flavour aligned limiting case.
  * @{
+=======
+ * @class GeneralTHDM
+ * @ingroup GeneralTHDM
+ * @brief  A module for general Two-Higgs-Doublet models.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ *
+ * 
+ * @anchor GeneralTHDMParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %GeneralTHDM are summarized below.
+ * The current implementation allows for a Two-Higgs-Doublet model. The implementation allows for generañ
+ * Yukawa matrices (even not allowed) and CP violation in the potenaital and in the Yukawa sector.
+ * However some observables are only implemented in the aligned case (Aligned 2-Higgs doublet model).
+ * The scalar 125 GeV resonance is assumed to be the one of the CP-even Higgs states of the model; the other is attributed to mH_2 in the GeneralTHDM configuration.
+ * 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%logtb</td>
+ *   <td class="mod_symb">@f$\log_{10} \tan \beta@f$</td>
+ *   <td class="mod_desc">The decadic logarithm of the tangent of the mixing angle @f$\beta \equiv \arctan \frac{v_2}{v_1}@f$.</td>
+ * </tr>
+ * <tr>
+ * <td class="mod_name">%mHp2</td>
+ *   <td class="mod_symb">@f$m_{H^+}^2@f$</td>
+ *   <td class="mod_desc">The squared mass of the charged Higgs.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mH2sq</td>
+ *   <td class="mod_symb">@f$m_{H_2}^2@f$</td>
+ *   <td class="mod_desc">The squared mass of the second Higgs @f$H_2@f$. Only used if flag use_sq_masses is set to true. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mH3sq</td>
+ *   <td class="mod_symb">@f$m_{H_3}^2@f$</td>
+ *   <td class="mod_desc">The squared mass of the third Higgs @f$H_3@f$. Only used if flag use_sq_masses is set to true. </td></td>
+ * </tr>
+ * <tr>
+ * <td class="mod_name">%mH21</td>
+ *   <td class="mod_symb">@f$m_{H_2}@f$</td>
+ *   <td class="mod_desc">The masses of the second Higgs @f$H_2@f$. Only used if flag use_sq_masses is set to false. </td></td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mH31</td>
+ *   <td class="mod_symb">@f$m_{H_3}@f$</td>
+ *   <td class="mod_desc">The masses of the third Higgs @f$H_3@f$.Only used if flag use_sq_masses is set to false. </td></td>
+ * </tr>
+ * <tr>
+ *  <td class="mod_name">%alpha1</td>
+ *   <td class="mod_symb">@f$\alpha_1@f$</td>
+ *   <td class="mod_desc">The  mixing angle @f$\alpha_1@f$.</td>
+ * </tr>
+ * <tr>
+ * <td class="mod_name">%alpha2</td>
+ *   <td class="mod_symb">@f$\alpha_2@f$</td>
+ *   <td class="mod_desc">The  mixing angle @f$\alpha_2@f$.</td>
+ * </tr>
+ * <tr>
+ *  <td class="mod_name">%alpha3</td>
+ *   <td class="mod_symb">@f$\alpha_3@f$</td>
+ *   <td class="mod_desc">The  mixing angle @f$\alpha_3@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Relambda5</td>
+ *   <td class="mod_symb">@f$Re(\lambda_{5})@f$</td>
+ *   <td class="mod_desc">The real part of the potential paramter \lambda_{5}</td>
+ * </tr>
+ * <tr>
+ * <td class="mod_name">%Imlambda5</td>
+ *   <td class="mod_symb">@f$Im(\lambda_{5})@f$</td>
+ *   <td class="mod_desc">The imaginary part of the potential paramter \lambda_{5}</td>
+ * </tr>
+ * <tr>
+ * <td class="mod_name">%Relambda6</td>
+ *   <td class="mod_symb">@f$Re(\lambda_{6})@f$</td>
+ *   <td class="mod_desc">The real part of the potential paramter \lambda_{6}</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Relambda7</td>
+ *   <td class="mod_symb">@f$Re(\lambda_{7})@f$</td>
+ *   <td class="mod_desc">The real part of the potential paramter \lambda_{7}</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Q_GTHDM</td>
+ *   <td class="mod_symb">@f$Q_{\text{GTHDM}}@f$</td>
+ *   <td class="mod_desc">The GeneralTHDM scale.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%RpepsGTHDM</td>
+ *   <td class="mod_symb">@f$\varepsilon_{\text{R'}}_{\text{GTHDM}}@f$</td>
+ *   <td class="mod_desc">Minimal value for which the R' perturbativity criterion should be applied for the unitarity bounds.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%NLOuniscaleGTHDM</td>
+ *   <td class="mod_symb">@f$Q_{\text{min}}^{\text{NLOuni}}@f$</td>
+ *   <td class="mod_desc">Minimal scale at which the NLO unitarity conditions are checked.</td>
+ * </tr>
+ * 
+ * 
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_11r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,11})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,1) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_11i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,11})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,1) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_12r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,12})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,2) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_12i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,12})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,2) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_13r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,13})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,3) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_13i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,13})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,3) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_21r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,21})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,1) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_21i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,21})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,1) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_22r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,22})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,2) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_22i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,22})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,2) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_23r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,23})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,3) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_23i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,23})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,3) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_31r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,31})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,1) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_31i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,31})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,1) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_32r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,32})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,2) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_32i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,32})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,2) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_33r</td>
+ *   <td class="mod_symb">@f$Re(N_{u,33})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,3) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nu_33i</td>
+ *   <td class="mod_symb">@f$Im(N_{u,33})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,3) of the up-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_11r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,11})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,1) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_11i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,11})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,1) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_12r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,12})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,2) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_12i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,12})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,2) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_13r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,13})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,3) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_13i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,13})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,3) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_21r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,21})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,1) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_21i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,21})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,1) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_22r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,22})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,2) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_22i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,22})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,2) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_23r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,23})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,3) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_23i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,23})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,3) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_31r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,31})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,1) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_31i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,31})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,1) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_32r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,32})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,2) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_32i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,32})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,2) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_33r</td>
+ *   <td class="mod_symb">@f$Re(N_{d,33})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,3) of the down-Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nd_33i</td>
+ *   <td class="mod_symb">@f$Im(N_{d,33})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,3) of the down-Yukawa matrix. Used only if use_sigma is set to true</td> 
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_11r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,11})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,1) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_11i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,11})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,1) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_12r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,12})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,2) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_12i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,12})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,2) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_13r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,13})@f$</td>
+ *   <td class="mod_desc">Real part of the element (1,3) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_13i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,13})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (1,3) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_21r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,21})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,1) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_21i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,21})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,1) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_22r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,22})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,2) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_22i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,22})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,2) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_23r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,23})@f$</td>
+ *   <td class="mod_desc">Real part of the element (2,3) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_23i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,23})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (2,3) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_31r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,31})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,1) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_31i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,31})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,1) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ *  </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_32r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,32})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,2) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_32i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,32})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,2) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_33r</td>
+ *   <td class="mod_symb">@f$Re(N_{\ell,33})@f$</td>
+ *   <td class="mod_desc">Real part of the element (3,3) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Nl_33i</td>
+ *   <td class="mod_symb">@f$Im(N_{\ell,33})@f$</td>
+ *   <td class="mod_desc">Imaginary part of the element (3,3) of the leptonic Yukawa matrix. Used only if use_sigma is set to true</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%yu1R_GTHDM</td>
+ *   <td class="mod_symb">@f$y_{u}@f$</td>
+ *   <td class="mod_desc">Yukawa coupling for up-quarks. Valid only in the aligned case and in the CP-conserved limit. y_{u} = \cos \alpha_1 + \sin \alpha_1 Re(N_{u,11}). Used only if use_sigma is set to false</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%yd1R_GTHDM</td>
+ *   <td class="mod_symb">@f$y_{d}@f$</td>
+ *   <td class="mod_desc">Yukawa coupling for down-quarks. Valid only in the aligned case and in the CP-conserved limit. y_{d} = \cos \alpha_1 + \sin \alpha_1 Re(N{d,11}). Used only if use_sigma is set to false</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%yl1R_GTHDM</td>
+ *   <td class="mod_symb">@f$y_{\ell}@f$</td>
+ *   <td class="mod_desc">Yukawa coupling for leptons. Valid only in the aligned case and in the CP-conserved limit.  y_{\ell} = \cos \alpha_1 + \sin \alpha_1 Re(N_{\el,11l}=. Used only if use_sigma is set to false</td>
+ * </table>
+ * 
+ * 
+ * 
+ *
+ * @anchor GeneralTHDMFlags
+ * <h3>%Model flags</h3>
+ *
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>Value</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%ATHDMflag</td>
+ *   <td class="mod_valu">true / false</td>
+ *   <td class="mod_desc">This flag determines if the model is aligned (true) or not (false).</td>
+ * </tr>
+ * <tr>
+ *  <td class="mod_name">%CPconservation</td>
+ *   <td class="mod_valu">true / false</td>
+ *   <td class="mod_desc">This flag determines if the model is CP-conserving (true) or not (false).</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%RGEorder</td>
+ *   <td class="mod_valu">LO </td>
+ *   <td class="mod_desc">This flag determines the order in perturbation theory of the renormalization group equations.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%use_sq_masses</td>
+ *   <td class="mod_valu">true / false</td>
+ *   <td class="mod_desc">Whether to use the mass squared masses for the neutral scalars ot the mass.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%use_sigma</td>
+ *   <td class="mod_valu">true / false</td>
+ *   <td class="mod_desc">Whether to use the elements  of the Yukawa couplings Nf_ij or the couplings y_f. Valid only in the aligned case and in the CP-conserved limit</td>
+ * </tr>
+ * </table>
+ *
+>>>>>>> Stashed changes
  */
 
 
@@ -338,7 +773,10 @@ public:
         }
          else
          {
-            return (yu1R_GTHDM - cosalpha1)/(sinalpha1);
+             if(alpha1==0)
+               return 0 +i*0;
+             else
+                return (yu1R_GTHDM - cosalpha1)/(sinalpha1);
          }
     }
        
@@ -425,6 +863,9 @@ public:
         }
      else
          {
+            if(alpha1==0)
+                return 0 +i*0;
+            else
              return (yd1R_GTHDM - cosalpha1)/(sinalpha1);
          }
     }
@@ -513,6 +954,9 @@ public:
         }
         else
          {
+            if(alpha1==0)
+                return 0 +i*0;
+            else
              return (yl1R_GTHDM  -cosalpha1)/(sinalpha1);
          }
     }
