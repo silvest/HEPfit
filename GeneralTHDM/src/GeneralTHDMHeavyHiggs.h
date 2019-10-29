@@ -4346,7 +4346,7 @@ private:
 /**
  * @class log10_pp_phi2_WW_TH13
  * @ingroup GeneralTHDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(pp)\to \phi_{2}\to WWf$ at 13 TeV.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$(pp)\to \phi_{2}\to WW @f$ at 13 TeV.
  */
 class log10_pp_phi2_WW_TH13: public ThObservable {
 public:
@@ -4357,7 +4357,7 @@ public:
     log10_pp_phi2_WW_TH13(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to \phi_{2}}\cdot BR^{\text{GTHDM}}(\phi_{2}\to WW)]@f$
+     * @return @f$ \log_{10} \left[\sigma^{\text{GTHDM}}_{pp\to \phi_{2}}\cdot BR^{\text{GTHDM}}(\phi_{2}\to WW)\right]@f$
      */
     double computeThValue();
 private:

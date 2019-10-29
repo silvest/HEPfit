@@ -44,7 +44,7 @@ public:
 
     /**
      * @brief The ratio of the invisible and leptonic (electron) decay widths
-     * of the @f$Z@f$ boson, @f$\R_{inv}@f$.
+     * of the @f$Z@f$ boson, @f$R_{inv}@f$.
      * @return @f$R_{inv}@f$
      */
     double computeThValue();

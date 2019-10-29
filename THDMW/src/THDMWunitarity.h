@@ -21,7 +21,7 @@ class THDMWcache;
  * @copyright GNU General Public License
  * @details This class is used to require unitarity for all the tree level 
  * scalar-scalar scattering amplitudes.
- * The eigenvalues of the S-matrix can be found in @cite ?.
+ * The eigenvalues of the S-matrix can be found in ?.
  * They should be smaller than ? in magnitude to preserve the unitarity of the S-matrix.
  */
 class THDMWunitarityLO: public ThObservable {
@@ -54,7 +54,7 @@ private:
  * @copyright GNU General Public License
  * @details This class is used to require NLO unitarity for all the tree level 
  * scalar-scalar scattering amplitudes.
- * The eigenvalues of the S-matrix can be found in @cite ?.
+ * The eigenvalues of the S-matrix can be found in ?.
  * They should be smaller than ? in magnitude to preserve the unitarity of the S-matrix.
  */
 class THDMWunitarityNLO: public ThObservable {
@@ -85,7 +85,6 @@ private:
  * @brief Another observable class for the requirement of perturbative unitarity at next-to-leading order.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details .
  */
 class THDMWunitarityNLOp: public ThObservable {
 public:
@@ -115,7 +114,6 @@ private:
  * @brief An observable class for the requirement of perturbativity of the unitarity criteria.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details .
  */
 class THDMWunitarityRp: public ThObservable {
 public:

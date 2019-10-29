@@ -1602,10 +1602,10 @@ private:
 /**
  * @class BrHtogaga_over_mumu_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to \mu\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to \mu\mu)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtogaga_over_mumu_Ratio : public ThObservable {
@@ -1618,9 +1618,9 @@ public:
     BrHtogaga_over_mumu_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to \mu\mu)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     * @return Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to \mu\mu)@f$
      */
     double computeThValue();
 
@@ -1632,10 +1632,10 @@ private:
 /**
  * @class BrHtoZga_over_mumu_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to \mu\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to \mu\mu)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtoZga_over_mumu_Ratio : public ThObservable {
@@ -1648,9 +1648,9 @@ public:
     BrHtoZga_over_mumu_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to \mu\mu)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     * @return Br@f$(H\to Z\gamma)/@f$Br@f$(H\to \mu\mu)@f$
      */
     double computeThValue();
 
@@ -1662,10 +1662,10 @@ private:
 /**
  * @class BrHtoZmumuga_over_mumu_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)/@f$Br@f$(H\to \mu\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)/@f$Br@f$(H\to \mu\mu)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtoZmumuga_over_mumu_Ratio : public ThObservable {
@@ -1678,9 +1678,9 @@ public:
     BrHtoZmumuga_over_mumu_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)/@f$Br@f$(H\to \mu\mu)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to Z\gamma\to\mu\mu \gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     * @return Br@f$(H\to Z\gamma\to\mu\mu \gamma)/@f$Br@f$(H\to \mu\mu)@f$
      */
     double computeThValue();
 
@@ -1692,10 +1692,10 @@ private:
 /**
  * @class BrHtogaga_over_4l_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 4\ell)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtogaga_over_4l_Ratio : public ThObservable {
@@ -1708,9 +1708,9 @@ public:
     BrHtogaga_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @return Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 4\ell)@f$
      */
     double computeThValue();
 
@@ -1723,10 +1723,10 @@ private:
 /**
  * @class BrHtobb_over_4l_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to bb)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to bb)/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to bb)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to bb)/@f$Br@f$(H\to 4\ell)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtobb_over_4l_Ratio : public ThObservable {
@@ -1739,9 +1739,9 @@ public:
     BrHtobb_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to bb)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to bb)/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to bb)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @return Br@f$(H\to bb)/@f$Br@f$(H\to 4\ell)@f$
      */
     double computeThValue();
 
@@ -1754,10 +1754,10 @@ private:
 /**
  * @class BrHto2l2v_over_4l_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to 4\ell)@f$
  * in the current model and in the Standard Model.
  */
 class BrHto2l2v_over_4l_Ratio : public ThObservable {
@@ -1770,9 +1770,9 @@ public:
     BrHto2l2v_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @return Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to 4\ell)@f$
      */
     double computeThValue();
 
@@ -1785,10 +1785,10 @@ private:
 /**
  * @class BrHtotautau_over_4l_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to \tau\tau)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to \tau\tau)/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to \tau\tau)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to \tau\tau)/@f$Br@f$(H\to 4\ell)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtotautau_over_4l_Ratio : public ThObservable {
@@ -1801,9 +1801,9 @@ public:
     BrHtotautau_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to \tau\tau)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to \tau\tau)/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to \tau\tau)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @return Br@f$(H\to \tau\tau)/@f$Br@f$(H\to 4\ell)@f$
      */
     double computeThValue();
 
@@ -1816,10 +1816,10 @@ private:
 /**
  * @class BrHtogaga_over_2e2mu_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 2e 2\mu)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 2e 2\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 2e 2\mu)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 2e 2\mu)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtogaga_over_2e2mu_Ratio : public ThObservable {
@@ -1832,9 +1832,9 @@ public:
     BrHtogaga_over_2e2mu_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 2e 2\mu)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 2e 2\mu)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 2e 2\mu)@f$
+     * @return Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 2e 2\mu)@f$
      */
     double computeThValue();
 
@@ -1846,10 +1846,10 @@ private:
 /**
  * @class BrHtoZga_over_4l_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to 4\ell)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtoZga_over_4l_Ratio : public ThObservable {
@@ -1862,9 +1862,9 @@ public:
     BrHtoZga_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @return Br@f$(H\to Z\gamma)/@f$Br@f$(H\to 4\ell)@f$
      */
     double computeThValue();
 
@@ -1877,10 +1877,10 @@ private:
 /**
  * @class BrHtomumu_over_4l_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to 4\ell)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to 4\ell)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtomumu_over_4l_Ratio : public ThObservable {
@@ -1893,9 +1893,9 @@ public:
     BrHtomumu_over_4l_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to 4\ell)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * @return Br@f$(H\to \mu\mu)/@f$Br@f$(H\to 4\ell)@f$
      */
     double computeThValue();
 
@@ -1907,10 +1907,10 @@ private:
 /**
  * @class BrHtomumu_over_4mu_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\mu)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to 4\mu)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\mu)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to 4\mu)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtomumu_over_4mu_Ratio : public ThObservable {
@@ -1923,9 +1923,9 @@ public:
     BrHtomumu_over_4mu_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\mu)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to 4\mu)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\mu)@f$
+     * @return Br@f$(H\to \mu\mu)/@f$Br@f$(H\to 4\mu)@f$
      */
     double computeThValue();
 
@@ -1938,10 +1938,10 @@ private:
 /**
  * @class BrHto4l_over_gaga_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to 4\ell)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to 4\ell)/@f$Br@f$(H\to \gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to 4\ell)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to 4\ell)/@f$Br@f$(H\to \gamma\gamma)@f$
  * in the current model and in the Standard Model.
  */
 class BrHto4l_over_gaga_Ratio : public ThObservable {
@@ -1954,9 +1954,9 @@ public:
     BrHto4l_over_gaga_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to 4\ell)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to 4\ell)/@f$Br@f$(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to 4\ell)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+     * @return Br@f$(H\to 4\ell)/@f$Br@f$(H\to \gamma\gamma)@f$
      */
     double computeThValue();
 
@@ -1968,10 +1968,10 @@ private:
 /**
  * @class BrHtoZga_over_gaga_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to Z \gamma)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to Z \gamma)/@f$Br@f$(H\to \gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to Z \gamma)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to Z \gamma)/@f$Br@f$(H\to \gamma\gamma)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtoZga_over_gaga_Ratio : public ThObservable {
@@ -1984,9 +1984,9 @@ public:
     BrHtoZga_over_gaga_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to Z \gamma)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z \gamma)/@f$Br@f$(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to Z \gamma)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+     * @return Br@f$(H\to Z \gamma)/@f$Br@f$(H\to \gamma\gamma)@f$
      */
     double computeThValue();
 
@@ -1998,10 +1998,10 @@ private:
 /**
  * @class BrHtomumu_over_gaga_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$.
+ * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to \gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+ * @details A class for computing the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to \gamma\gamma)@f$
  * in the current model and in the Standard Model.
  */
 class BrHtomumu_over_gaga_Ratio : public ThObservable {
@@ -2014,9 +2014,9 @@ public:
     BrHtomumu_over_gaga_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+     * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)/@f$Br@f$(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to \gamma\gamma)@f$
+     * @return Br@f$(H\to \mu\mu)/@f$Br@f$(H\to \gamma\gamma)@f$
      */
     double computeThValue();
 
@@ -3683,8 +3683,8 @@ public:
     muVBFBRinv(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
-     * @brief A method to compute the value of @f$\mu_{VBF}\times BR(H \to invisible}@f$ in the current model.
-     * @return @f$\mu_{VBF}\times BR(H \to invisible}@f$
+     * @brief A method to compute the value of @f$\mu_{VBF, H \to invisible}@f$ in the current model.
+     * @return @f$\mu_{VBF, H \to invisible}@f$
      */
     double computeThValue();
 
@@ -3729,10 +3729,10 @@ private:
 /**
  * @class muVHBRinv
  * @ingroup NewPhysics
- * @brief A class for computing the quantity @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$.
+ * @brief A class for computing the quantity @f$\mu_{pp \to VH, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
- * @details A class for computing the quantity @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$, i.e.
+ * @details A class for computing the quantity @f$\mu_{pp \to VH, H \to invisible}@f$, i.e.
  * the ratio between the @f$pp \to VH@f$ 
  * associated production cross-section in the current model and 
  * the SM, times the total invisible branching ratio.
@@ -4521,10 +4521,10 @@ private:
 /**
  * @class mueeZHBRinv
  * @ingroup NewPhysics
- * @brief A class for computing the quantity @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$.
+ * @brief A class for computing the quantity @f$\mu_{e^+e^- \to ZH, H \to invisible)}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
- * @details A class for computing the quantity @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$, i.e.
+ * @details A class for computing the quantity @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$, i.e.
  * the ratio between the @f$e^+e^- \to ZH@f$ 
  * associated production cross-section in the current model and 
  * the SM, times the total invisible branching ratio.
@@ -4540,8 +4540,8 @@ public:
     mueeZHBRinv(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
-     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$ in the current model.
-     * @return @f$\mu_{e^+e^- \to ZH}\times BR(H \to invisible}@f$
+     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$ in the current model.
+     * @return @f$\mu_{e^+e^- \to ZH, H \to invisible}@f$
      */
     double computeThValue();
 
@@ -4949,7 +4949,7 @@ private:
 /**
  * @class mueeWBFbb
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$ between the 
@@ -4981,7 +4981,7 @@ private:
 /**
  * @class mueeWBFbbPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$ between the 
@@ -5014,7 +5014,7 @@ private:
 /**
  * @class mueeWBFcc
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$ between the 
@@ -5046,7 +5046,7 @@ private:
 /**
  * @class mueeWBFgg
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$ between the 
@@ -5078,7 +5078,7 @@ private:
 /**
  * @class mueeWBFWW
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$ between the 
@@ -5110,7 +5110,7 @@ private:
 /**
  * @class mueeWBFtautau
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$ between the 
@@ -5142,7 +5142,7 @@ private:
 /**
  * @class mueeWBFZZ
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$ between the 
@@ -5174,7 +5174,7 @@ private:
 /**
  * @class mueeWBFZga
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$ between the 
@@ -5206,7 +5206,7 @@ private:
 /**
  * @class mueeWBFgaga
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$ between the 
@@ -5238,7 +5238,7 @@ private:
 /**
  * @class mueeWBFmumu
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$@f$.
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$ between the 
@@ -5270,7 +5270,7 @@ private:
 /**
  * @class mueeHvvbb
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5303,7 +5303,7 @@ private:
 /**
  * @class mueeHvvbbPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5337,7 +5337,7 @@ private:
 /**
  * @class mueeHvvcc
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5370,7 +5370,7 @@ private:
 /**
  * @class mueeHvvccPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5404,7 +5404,7 @@ private:
 /**
  * @class mueeHvvgg
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5437,7 +5437,7 @@ private:
 /**
  * @class mueeHvvggPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5471,7 +5471,7 @@ private:
 /**
  * @class mueeHvvWW
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5504,7 +5504,7 @@ private:
 /**
  * @class mueeHvvWWPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5538,7 +5538,7 @@ private:
 /**
  * @class mueeHvvtautau
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5571,7 +5571,7 @@ private:
 /**
  * @class mueeHvvtautauPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5605,7 +5605,7 @@ private:
 /**
  * @class mueeHvvZZ
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5638,7 +5638,7 @@ private:
 /**
  * @class mueeHvvZZPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5672,7 +5672,7 @@ private:
 /**
  * @class mueeHvvZga
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5705,7 +5705,7 @@ private:
 /**
  * @class mueeHvvZgaPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5739,7 +5739,7 @@ private:
 /**
  * @class mueeHvvgaga
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5772,7 +5772,7 @@ private:
 /**
  * @class mueeHvvgagaPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5806,7 +5806,7 @@ private:
 /**
  * @class mueeHvvmumu
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -5839,7 +5839,7 @@ private:
 /**
  * @class mueeHvvmumuPol
  * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$@f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$@f$,
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$,
  * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
@@ -9472,10 +9472,10 @@ private:
 /**
  * @class muTHUVBFBRinv
  * @ingroup NewPhysics
- * @brief A class for computing the quantity @f$\mu_{VBF}\times BR(H \to invisible}@f$.
+ * @brief A class for computing the quantity @f$\mu_{VBF, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
- * @details A class for computing the quantity @f$\mu_{VBF}\times BR(H \to invisible}@f$, i.e.
+ * @details A class for computing the quantity @f$\mu_{VBF, H \to invisible}@f$, i.e.
  * the ratio between the @f$pp \to jjH@f$ 
  * production cross-section in the current model and 
  * the SM, times the total invisible branching ratio.
@@ -9537,10 +9537,10 @@ private:
 /**
  * @class muTHUVHBRinv
  * @ingroup NewPhysics
- * @brief A class for computing the quantity @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$.
+ * @brief A class for computing the quantity @f$\mu_{pp \to VH, H \to invisible}@f$.
  * @author HEPfit CollaborationH
  * @copyright GNU General Public License
- * @details A class for computing the quantity @f$\mu_{pp \to VH}\times BR(H \to invisible}@f$, i.e.
+ * @details A class for computing the quantity @f$\mu_{pp \to VH, H \to invisible}@f$, i.e.
  * the ratio between the @f$pp \to VH@f$ 
  * associated production cross-section in the current model and 
  * the SM, times the total invisible branching ratio.
@@ -9603,10 +9603,10 @@ private:
 /**
  * @class BrHto2l2v_over_gaga_Ratio
  * @ingroup NewPhysics
- * @brief A class for computing the ratio Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$.
+ * @brief A class for computing the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$
+ * @details A class for computing the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
  * in the current model and in the Standard Model.
  */
 class BrHto2l2v_over_gaga_Ratio : public ThObservable {
@@ -9619,9 +9619,9 @@ public:
     BrHto2l2v_over_gaga_Ratio(const StandardModel& SM_i);
 
     /**
-     * @brief A method to compute the the ratio Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$
+     * @brief A method to compute the the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
      * in the current model and in the Standard Model.
-     * @return Br@f$(H\to 2\ell 2\nu)@f$@f/@f$Br@f$(H\to\gamma\gamma)@f$
+     * @return Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
      */
     double computeThValue();
 
