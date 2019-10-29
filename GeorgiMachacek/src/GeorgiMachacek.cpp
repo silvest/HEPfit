@@ -24,12 +24,6 @@ GeorgiMachacek::GeorgiMachacek() : NPbase(), GMM(*this) {
     flag_use_sq_masses=false;
 }
 
-//GeorgiMachacek::~GeorgiMachacek(){
-//    if (IsModelInitialized()) {
-//            if (myGMcache != NULL) delete(myGMcache);
-//        }
-//}
-
 ///////////////////////////////////////////////////////////////////////////
 // Initialization
 

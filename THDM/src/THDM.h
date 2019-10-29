@@ -131,21 +131,54 @@ public:
      */
     ~THDM();
     
+    /**
+     * @brief A method to initialize the model.
+     * @details This method, called via InputParser::ReadParameters(), allocates
+     * memory to the pointers defined in the current class.
+     * @return a boolean that is true if model initialization is successful
+     */
     virtual bool InitializeModel();
     
+    /**
+     * @brief Initializes the %THDM parameters found in the argument.
+     * @param[in] DPars a map containing the parameters (all as double) to be used in Monte Carlo
+     */
     virtual bool Init(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief The pre-update method for %THDM
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PreUpdate();
     
+    /**
+     * @brief The update method for %THDM.
+     * @details This method updates all the model parameters with given DPars.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief The post-update method for %THDM.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
     
+    /**
+     * @brief A method to check if all the mandatory parameters for %THDM
+     * have been provided in model initialization.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A get method to access the member reference of type StandardModelMatching.
-     * @return a reference to a StandardModelMatching object
+     * @brief A get method to access the member reference of type THDMMatching.
+     * @return a reference to a THDMMatching object
      */
     virtual THDMMatching& getMatching() const
     {
@@ -155,9 +188,26 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
+    /**
+     * @brief A method to set a string flag of %THDM.
+     * @param[in] name name of a model flag
+     * @param[in] value the string to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool setFlagStr(const std::string name, const std::string value);
+    
+    /**
+     * @brief A method to set a flag of %THDM.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool setFlag(const std::string, const bool);
 
+    /**
+     * @brief A method get the THDMWCache
+     * @return a object of the type %THDMWCache
+     */
     THDMcache* getMyTHDMCache() const
     {
         return myTHDMcache;
@@ -166,7 +216,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     
     /**
-     * 
+     * @brief A method get the VEV @f$v_1@f$
      * @return the VEV @f$v_1@f$
      */
     double getv1() const {
@@ -174,7 +224,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the VEV @f$v_2@f$
      * @return the VEV @f$v_2@f$
      */
     double getv2() const {
@@ -184,7 +234,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     *
+     * @brief A method get the THDM model type
      * @return THDM model type
      */
     std::string getModelTypeflag() const {
@@ -192,7 +242,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get switch for NLO RGE and approximate NLO RGE
      * @return Switch for NLO RGE and approximate NLO RGE
      */
     std::string getRGEorderflag() const {
@@ -200,7 +250,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method choose if you want to use the THDM masses or rather their squares 
      * @return Choose if you want to use the THDM masses or rather their squares
      */
     bool getsqmassesflag() const {
@@ -208,7 +258,8 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the flag to switch on wavefunction 
+     * renormalization for the NLO unitarity conditions
      * @return Flag to switch on wavefunction renormalization for the NLO unitarity conditions
      */
     bool getWFRflag() const {
@@ -216,7 +267,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get @f$\log_{10}(\tan \beta)@f$
      * @return @f$\log_{10}(\tan \beta)@f$
      */
     double getlogtb() const {
@@ -224,7 +275,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get @f$\tan \beta@f$
      * @return @f$\tan \beta@f$
      */
     double gettanb() const {
@@ -232,7 +283,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get @f$\sin \beta@f$
      * @return @f$\sin \beta@f$
      */
     double getsinb() const {
@@ -240,7 +291,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get @f$\cos \beta@f$
      * @return @f$\cos \beta@f$
      */
     double getcosb() const {
@@ -248,7 +299,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get @f$\beta-\alpha@f$
      * @return @f$\beta-\alpha@f$
      */
     double getbma() const {
@@ -256,7 +307,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get @f$\sin(\beta-\alpha)@f$
      * @return @f$\sin(\beta-\alpha)@f$
      */
     double getsin_ba() const {
@@ -264,7 +315,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get @f$\cos \alpha@f$
      * @return @f$\cos \alpha@f$
      */
     double getcosa() const{
@@ -272,7 +323,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get @f$\sin \alpha@f$
      * @return @f$\sin \alpha@f$
      */
     double getsina() const{
@@ -280,7 +331,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the squared mass of the lighter neutral scalar Higgs
      * @return squared mass of the lighter neutral scalar Higgs
      */
     double getmHl2() const {
@@ -306,7 +357,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the squared mass of the "non-125 GeV" neutral scalar Higgs
      * @return squared mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh2() const {
@@ -335,7 +386,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the mass of the "non-125 GeV" neutral scalar Higgs
      * @return mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh() const {
@@ -364,7 +415,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the squared mass of the pseudoscalar Higgs A
      * @return squared mass of the pseudoscalar Higgs A
      */
     double getmA2() const {
@@ -378,7 +429,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the mass of the pseudoscalar Higgs A
      * @return mass of the pseudoscalar Higgs A
      */
     double getmA() const {
@@ -398,7 +449,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the squared charged Higgs mass
      * @return squared charged Higgs mass
      */
     double getmHp2() const {
@@ -412,7 +463,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the charged Higgs mass
      * @return charged Higgs mass
      */
     double getmHp() const {
@@ -432,7 +483,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the parameter of the Higgs potential @f$m_{12}^2@f$ 
      * @return parameter of the Higgs potential @f$m_{12}^2@f$ 
      */
     double getm12_2() const {
@@ -440,63 +491,63 @@ public:
     }
 
     /**
-     *
-     * @return BDtaunu SM expectation
+     * @brief A method get the \f$ B\to D \tau\nu\f$ SM expectation
+     * @return \f$ B\to D \tau\nu\f$ SM expectation
      */
     double getBDtaunu_SM() const {
         return BDtaunu_SM;
     }
 
     /**
-     *
-     * @return BDtaunu coefficient A
+     * @brief A method get the \f$ B\to D \tau\nu\f$ coefficient A
+     * @return \f$ B\to D \tau\nu\f$ coefficient A
      */
     double getBDtaunu_A() const {
         return BDtaunu_A;
     }
 
     /**
-     *
-     * @return BDtaunu coefficient B
+     * @brief A method get the \f$ B\to D \tau\nu\f$ coefficient B
+     * @return \f$ B\to D \tau\nu\f$ coefficient B
      */
     double getBDtaunu_B() const {
         return BDtaunu_B;
     }
 
     /**
-     *
-     * @return BDstartaunu SM expectation
+     * @brief A method get the \f$ B\to D^*\tau\nu \f$ SM expectation
+     * @return \f$ B\to D^*\tau\nu \f$ SM expectation
      */
     double getBDstartaunu_SM() const {
         return BDstartaunu_SM;
     }
 
     /**
-     *
-     * @return BDstartaunu coefficient A
+     * @brief A method get the \f$ B\to D^*\tau\nu \f$ coefficient A
+     * @return \f$ B\to D^*\tau\nu \f$ coefficient A
      */
     double getBDstartaunu_A() const {
         return BDstartaunu_A;
     }
 
     /**
-     *
-     * @return BDtaunu coefficient B
+     * @brief A method get the \f$ B\to D \tau\nu\f$ coefficient B
+     * @return \f$ B\to D \tau\nu\f$ coefficient B
      */
     double getBDstartaunu_B() const {
         return BDstartaunu_B;
     }
 
     /**
-     *
-     * @return nuisance parameter for the theoretical error on bsgamma
+     * @brief A method get the nuisance parameter for the theoretical error on \f$ b\to s\gamma\f$
+     * @return nuisance parameter for the theoretical error on \f$ b\to s\gamma\f$
      */
     double getbsgamma_theoryerror() const {
         return bsgamma_theoryerror;
     }
 
     /**
-     *
+     * @brief A method get the THDM scale
      * @return THDM scale
      */
     double getQ_THDM() const {
@@ -504,7 +555,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the minimal R' value
      * @return Minimal R' value
      */
     double getRpeps() const {
@@ -512,7 +563,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method get the minimal NLO unitarity check scale
      * @return Minimal NLO unitarity check scale
      */
     double getNLOuniscale() const {
@@ -555,11 +606,11 @@ protected:
             return false;
     }
 
-    mutable Matching<THDMMatching,THDM> THDMM; ///< An object of type Matching.
+    mutable Matching<THDMMatching,THDM> THDMM; ///< An object of type THDMMatching.
 
 private:
 
-    THDMcache* myTHDMcache;
+    THDMcache* myTHDMcache;///< An object of type THDMCache.
 
     double logtb, tanb, sinb, cosb, bma, sin_ba, mHh1, mA1, mHp1, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps, NLOuniscale;
     double mHl2;
