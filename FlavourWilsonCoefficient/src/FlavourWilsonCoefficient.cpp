@@ -42,7 +42,6 @@ FlavourWilsonCoefficient::FlavourWilsonCoefficient() : StandardModel(), FWCM(*th
     ModelParamMap.insert(std::make_pair("imDC7g", std::cref(imDC7g)));
     ModelParamMap.insert(std::make_pair("imDC8g", std::cref(imDC8g)));
     
-
     ModelParamMap.insert(std::make_pair("reDC7p", std::cref(reDC7p)));
     ModelParamMap.insert(std::make_pair("reDC8p", std::cref(reDC8p)));
     ModelParamMap.insert(std::make_pair("reDC9p", std::cref(reDC9p)));
