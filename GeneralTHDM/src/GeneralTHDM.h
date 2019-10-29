@@ -14,7 +14,6 @@
 
 
 /**
-<<<<<<< Updated upstream
  * @addtogroup GeneralTHDM
  * @brief A module for general Two-Higgs-Doublet models (without the assumption of a @f$Z_2@f$ symmetry).
  * @details This module contains code necessary for analyzing theoretical
@@ -24,7 +23,7 @@
  * are available in the most general case,
  * the Higgs and flavour observables are currently only implemented in the flavour aligned limiting case.
  * @{
-=======
+ * 
  * @class GeneralTHDM
  * @ingroup GeneralTHDM
  * @brief  A module for general Two-Higgs-Doublet models.
@@ -120,7 +119,7 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%RpepsGTHDM</td>
- *   <td class="mod_symb">@f$\varepsilon_{\text{R'}}_{\text{GTHDM}}@f$</td>
+ *   <td class="mod_symb">@f$\epsilon_{\text{R'}}^{\text{GTHDM}}@f$</td>
  *   <td class="mod_desc">Minimal value for which the R' perturbativity criterion should be applied for the unitarity bounds.</td>
  * </tr>
  * <tr>
@@ -490,16 +489,49 @@ public:
      */
     ~GeneralTHDM();
     
+    /**
+     * @brief A method to initialize the model.
+     * @details This method, called via InputParser::ReadParameters(), allocates
+     * memory to the pointers defined in the current class.
+     * @return a boolean that is true if model initialization is successful
+     */
     virtual bool InitializeModel();
     
+    /**
+     * @brief Initializes the %GeneralTHDM parameters found in the argument.
+     * @param[in] DPars a map containing the parameters (all as double) to be used in Monte Carlo
+     */
     virtual bool Init(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief The pre-update method for %GeneralTHDM
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PreUpdate();
     
+    /**
+     * @brief The update method for %GeneralTHDM.
+     * @details This method updates all the model parameters with given DPars.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief The post-update method for %GeneralTHDM.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
     
+    /**
+     * @brief A method to check if all the mandatory parameters for %GeneralTHDM
+     * have been provided in model initialization.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
     
      /**
@@ -514,24 +546,32 @@ public:
 
 
     /**
-     * @brief A get method to access the member reference of type StandardModelMatching.
-     * @return a reference to a StandardModelMatching object
+     * @brief A get method to access the member reference of type GeneralTHDMMatching.
+     * @return a reference to a GeneralTHDMMatching object
      */
     virtual GeneralTHDMMatching& getMatching() const
     {
         return GTHDMM.getObj();
     }
 
-//    virtual void setMatching(GeneralTHDMMatching& GTHDMMr)
-//    {
-//        GTHDMM.setObj(GTHDMMr);
-//    }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
+    /**
+     * @brief A method to set a string flag of %GeneralTHDM.
+     * @param[in] name name of a model flag
+     * @param[in] value the string to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool setFlagStr(const std::string name, const std::string value);
+    
+    /**
+     * @brief A method to set a flag of %GeneralTHDM.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool setFlag(const std::string, const bool);
 
     GeneralTHDMcache* getMyGTHDMCache() const
@@ -542,6 +582,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief A getter for @f$\log_{10}(\tan \beta)@f$
      * @return @f$\log_{10}(\tan \beta)@f$
      */
     double getlogtb() const {
@@ -549,6 +590,7 @@ public:
     }
 
     /**
+     * @brief A getter for @f$\tan \beta@f$
      * @return @f$\tan \beta@f$
      */
     double gettanb() const {
@@ -556,6 +598,7 @@ public:
     }
 
     /**
+     * @brief A getter for @f$\sin \beta@f$
      * @return @f$\sin \beta@f$
      */
     double getsinb() const {
@@ -563,14 +606,16 @@ public:
     }
 
     /**
+     * @brief A getter for @f$\cos \beta@f$
      * @return @f$\cos \beta@f$
      */
     double getcosb() const {
         return cosb;
     }
 
-/**
+    /**
      *
+     * @brief A getter for the squared charged Higgs mass
      * @return squared charged Higgs mass
      */
     double getmHp2() const {
@@ -585,6 +630,7 @@ public:
 
      /**
      *
+     * @brief A getter for the charged Higgs mass
      * @return charged Higgs mass
      */
     double getmHp() const {
@@ -605,6 +651,7 @@ public:
 
 
     /**
+     * @brief A getter for second neutral mass eigenvalue
      * @return Second neutral mass eigenvalue
      */
     double getmH2sq() const {
@@ -621,6 +668,7 @@ public:
     }
 
       /**
+     * @brief A getter for the third neutral mass eigenvalue
      * @return Third neutral mass eigenvalue
      */
       double getmH3sq() const {
@@ -637,6 +685,7 @@ public:
     }
 
     /**
+     * @brief A getter for the rotation angle between the first and second neutral mass eigenstate
      * @return rotation angle between the first and second neutral mass eigenstate
      */
     double getalpha1() const {
@@ -644,6 +693,7 @@ public:
     }
 
     /**
+     * @brief A getter for cos of the rotation angle between the first and second neutral mass eigenstate
      * @return cos of the rotation angle between the first and second neutral mass eigenstate
      */
     double getcosalpha1() const {
@@ -651,6 +701,7 @@ public:
     }
 
     /**
+     * @brief A getter for sin of the rotation angle between the first and second neutral mass eigenstate
      * @return sin of the rotation angle between the first and second neutral mass eigenstate
      */
     double getsinalpha1() const {
@@ -658,6 +709,7 @@ public:
     }
 
     /**
+     * @brief A getter for the rotation angle between the first and third neutral mass eigenstate
      * @return rotation angle between the first and third neutral mass eigenstate
      */
     double getalpha2() const {
@@ -670,6 +722,7 @@ public:
     }
 
     /**
+     * @brief A getter for cos of the rotation angle between the first and third neutral mass eigenstate
      * @return cos of the rotation angle between the first and third neutral mass eigenstate
      */
     double getcosalpha2() const {
@@ -682,6 +735,7 @@ public:
     }
 
     /**
+     * @brief A getter for sin of the rotation angle between the first and third neutral mass eigenstate
      * @return sin of the rotation angle between the first and third neutral mass eigenstate
      */
     double getsinalpha2() const {
@@ -694,6 +748,7 @@ public:
     }
 
     /**
+     * @brief A getter for the rotation angle between the second and third neutral mass eigenstate
      * @return rotation angle between the second and third neutral mass eigenstate
      */
     double getalpha3() const {
@@ -706,6 +761,7 @@ public:
     }
 
     /**
+     * @brief A getter for cos of the rotation angle between the second and third neutral mass eigenstate
      * @return cos of the rotation angle between the second and third neutral mass eigenstate
      */
     double getcosalpha3() const {
@@ -718,6 +774,7 @@ public:
     }
 
     /**
+     * @brief A getter for sin of the rotation angle between the second and third neutral mass eigenstate
      * @return sin of the rotation angle between the second and third neutral mass eigenstate
      */
     double getsinalpha3() const {
@@ -730,6 +787,7 @@ public:
     }
 
     /**
+     * @brief A getter for the Real part of the Higgs potential parameter @f$lambda_{5}@f$
      * @return Real part of the Higgs potential parameter @f$lambda_{5}@f$
      */
     double getRelambda5() const {
@@ -737,6 +795,7 @@ public:
     }
     
     /**
+     * @brief A getter for the Imaginary part of the Higgs potential parameter @f$lambda_{5}@f$
      * @return Imaginary part of the Higgs potential parameter @f$lambda_{5}@f$
      */
     double getImlambda5() const {
@@ -749,6 +808,7 @@ public:
     }
     
     /**
+     * @brief A getter for the Real part of the Higgs potential parameter @f$lambda_{6}@f$
      * @return Real part of the Higgs potential parameter @f$lambda_{6}@f$
      */
     double getRelambda6() const {
@@ -756,6 +816,7 @@ public:
     }
 
     /**
+     * @brief A getter for the Real part of the Higgs potential parameter @f$lambda_{7}@f$
      * @return Real part of the Higgs potential parameter @f$lambda_{7}@f$
      */
     double getRelambda7() const {
@@ -764,6 +825,7 @@ public:
 
     /**
      * 
+     * @brief A getter for Nu matrix element 11
      * @return Nu matrix element 11
      */
     gslpp::complex getNu_11() const {
@@ -782,6 +844,7 @@ public:
        
     /**
      * 
+     * @brief A getter for Nu matrix element 12
      * @return Nu matrix element 12
      */
     gslpp::complex getNu_12() const {
@@ -791,6 +854,7 @@ public:
     
     /**
      * 
+     * @brief A getter for Nu matrix element 13
      * @return Nu matrix element 13
      */
     gslpp::complex getNu_13() const {
@@ -799,7 +863,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nu matrix element 21
      * @return Nu matrix element 21
      */
     gslpp::complex getNu_21() const {
@@ -808,7 +872,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nu matrix element 22
      * @return Nu matrix element 22
      */
     gslpp::complex getNu_22() const {
@@ -817,7 +881,7 @@ public:
     }
       
     /**
-     * 
+     * @brief A getter for Nu matrix element 23
      * @return Nu matrix element 23
      */
     gslpp::complex getNu_23() const {
@@ -826,7 +890,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nu matrix element 31
      * @return Nu matrix element 31
      */
     gslpp::complex getNu_31() const {
@@ -835,7 +899,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nu matrix element 32
      * @return Nu matrix element 32
      */
     gslpp::complex getNu_32() const {
@@ -844,7 +908,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nu matrix element 33
      * @return Nu matrix element 33
      */
     gslpp::complex getNu_33() const {
@@ -853,7 +917,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nd matrix element 11
      * @return Nd matrix element 11
      */
     gslpp::complex getNd_11() const {
@@ -872,7 +936,7 @@ public:
     
 
     /**
-     * 
+     * @brief A getter for Nd matrix element 12
      * @return Nd matrix element 12
      */
     gslpp::complex getNd_12() const {
@@ -881,7 +945,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nd matrix element 13
      * @return Nd matrix element 13
      */
     gslpp::complex getNd_13() const {
@@ -890,7 +954,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nd matrix element 21
      * @return Nd matrix element 21
      */
     gslpp::complex getNd_21() const {
@@ -899,7 +963,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nd matrix element 22
      * @return Nd matrix element 22
      */
     gslpp::complex getNd_22() const {
@@ -908,7 +972,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nd matrix element 23
      * @return Nd matrix element 23
      */
     gslpp::complex getNd_23() const {
@@ -917,7 +981,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nd matrix element 31
      * @return Nd matrix element 31
      */
     gslpp::complex getNd_31() const {
@@ -926,7 +990,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nd matrix element 32
      * @return Nd matrix element 32
      */
     gslpp::complex getNd_32() const {
@@ -935,7 +999,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nd matrix element 33
      * @return Nd matrix element 33
      */
     gslpp::complex getNd_33() const {
@@ -944,7 +1008,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 11
      * @return Nl matrix element 11
      */
     gslpp::complex getNl_11() const {
@@ -962,7 +1026,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 12
      * @return Nl matrix element 12
      */
     gslpp::complex getNl_12() const {
@@ -971,7 +1035,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 13
      * @return Nl matrix element 13
      */
     gslpp::complex getNl_13() const {
@@ -980,7 +1044,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 21
      * @return Nl matrix element 21
      */
     gslpp::complex getNl_21() const {
@@ -989,7 +1053,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 22
      * @return Nl matrix element 22
      */
     gslpp::complex getNl_22() const {
@@ -998,7 +1062,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 23
      * @return Nl matrix element 23
      */
     gslpp::complex getNl_23() const {
@@ -1007,7 +1071,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 31
      * @return Nl matrix element 31
      */
     gslpp::complex getNl_31() const {
@@ -1016,7 +1080,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 32
      * @return Nl matrix element 32
      */
     gslpp::complex getNl_32() const {
@@ -1025,7 +1089,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for Nl matrix element 33
      * @return Nl matrix element 33
      */
     gslpp::complex getNl_33() const {
@@ -1118,6 +1182,7 @@ public:
     }
     
     /**
+     * @brief A getter for the General THDM scale
      * @return General THDM scale
      */
     double getQ_GTHDM() const {
@@ -1125,7 +1190,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for the minimal R' value
      * @return Minimal R' value
      */
     double getRpepsGTHDM() const {
@@ -1133,7 +1198,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for the minimal NLO unitarity check scale
      * @return Minimal NLO unitarity check scale
      */
     double getNLOuniscaleGTHDM() const {
@@ -1142,6 +1207,7 @@ public:
 
     /**
      *
+     * @brief A getter for the flag to switch on the Aligned Two Higgs Doublet Model
      * @return Flag to switch on the Aligned Two Higgs Doublet Model
      */
     bool getATHDMflag() const {
@@ -1150,6 +1216,7 @@ public:
 
     /**
      *
+     * @brief A getter for the flag to switch on CP conservation
      * @return Flag to switch on CP conservation
      */
     bool getCPconservationflag() const {
@@ -1158,6 +1225,7 @@ public:
 
     /**
      *
+     * @brief A switch for NLO RGE and approximate NLO RGE
      * @return Switch for NLO RGE and approximate NLO RGE
      */
     std::string getRGEorderflag() const {
@@ -1166,6 +1234,8 @@ public:
     
      /**
      *
+      * @brief A getter for the choice if you want to use the THDM masses or 
+      * rather their squares
      * @return Choose if you want to use the THDM masses or rather their squares
      */
     bool getsqmassesflag() const {
@@ -1224,22 +1294,6 @@ public:
 protected:
 
     virtual void setParameter(const std::string, const double&);
-
-//    /**
-//     * @brief A method to check if the model type name in string form is valid.
-//     * @param[in] THDM model type name
-//     * @return a boolean that is true if the model type name is valid
-//     */
-//    bool checkmodelType(const std::string modeltype) const
-//    {
-//        if (modeltype.compare("type1") == 0
-//                || modeltype.compare("type2") == 0
-//                || modeltype.compare("typeX") == 0
-//                || modeltype.compare("typeY") == 0)
-//            return true;
-//        else
-//            return false;
-//    }
 
     /**
      * @brief A method to check if the RGE order name in string form is valid.
