@@ -189,11 +189,14 @@ if [ $CUSTOM -gt 0 ]; then
     git diff -- '../*/src/*.cpp' ../*/src/*.h > HEPfit-${VERSION}-${COMMIT}/${VERSION}-${COMMIT}.diff
     echo "\nDiff printed in ${VERSION}-${COMMIT}.diff" >> HEPfit-${VERSION}-${COMMIT}/VERSION
 fi
-echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}-${COMMIT}"
-tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}-${COMMIT}
+echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}"
+mv HEPfit-${VERSION}-${COMMIT} HEPfit-${VERSION}
+tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}
 
 if [ "$1" != "--doxygen" ]; then
     rm -rf HEPfit-${VERSION}-${COMMIT}
+else
+	mv HEPfit-${VERSION} HEPfit-${VERSION}-${COMMIT}
 fi
 ###########################################################
 # Documentation
@@ -226,4 +229,6 @@ if [ "$1" == "--doxygen" ]; then
     cp -rp ${OUTDIR}/examples-src ${OUTDIR}/Doxygen/
     perl bibconversion.pl *.bib -of HEPfit.bib -dox Doxyfile-v${VERSION}
     rm -rf ${OUTDIR}/Doxygen/examples-src
+	cd - > /dev/null
+	mv HEPfit-${VERSION}-${COMMIT} HEPfit-${VERSION}
 fi

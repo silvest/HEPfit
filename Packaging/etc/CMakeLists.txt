@@ -33,7 +33,7 @@ option(LOCAL_INSTALL_ALL "Local installation" OFF)
 option(NOMCMC "No MCMC mode" OFF)
 option(MPICXX "Use MPI" OFF)
 option(MPIBAT "Use MPI BAT" OFF)
-option(BAT_INSTALL "Download and install BAT" OFF)
+option(BAT_INSTALL "Download and install BAT" ON)
 option(INTEL_FORTRAN "Use ifort libraries" OFF)
 
 # Local installation option
@@ -41,9 +41,9 @@ if(LOCAL_INSTALL_ALL)
   set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/HEPfit
       CACHE PATH "HEPfit installation directory" FORCE)
   set(BAT_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/BAT
-      CACHE PATH "BAT installation directory" FORCE)
+	  CACHE PATH "BAT installation directory" FORCE)      
   #set(MPIBAT ON CACHE BOOL "Use MPI BAT" FORCE)
-  set(BAT_INSTALL ON CACHE BOOL "Download and install BAT" FORCE)
+  # set(BAT_INSTALL ON CACHE BOOL "Download and install BAT" FORCE)
 endif()
 
 # MPIBAT forces use of MPI
@@ -53,7 +53,7 @@ endif()
 
 # ExternalProject module is available since 2.8.0
 if(BAT_INSTALL AND ${CMAKE_VERSION} VERSION_LESS 2.8.0)
-    message(FATAL_ERROR "The option -DBAT_INSTALL=ON is not applicable for CMake v${CMAKE_VERSION}.")
+    message(FATAL_ERROR "The option -DBAT_INSTALL=ON cannot be used for this versions of CMake v${CMAKE_VERSION} < 2.8.0.")
 endif()
 
 # HEPfit installation path
@@ -84,7 +84,6 @@ unset(TMP_DIR)
 # Fortran libraries 
 if(INTEL_FORTRAN)
   set(LFORTRAN "ifport;ifcore;imf;svml;irc")
-  #set(LFORTRAN "ifport;ifcore;imf;svml;irc;ipgo;irc_s")
 else()
   set(LFORTRAN "gfortran")
 endif()
@@ -270,12 +269,14 @@ if(IBAT AND LBAT)
   string(REGEX REPLACE "/libBAT.*$" "" BAT_LIB_PATH ${LBAT})
   message(STATUS "Found BAT headers in ${BAT_INCLUDE_PATH} and libs in ${BAT_LIB_PATH}")
   if(BAT_INSTALL)
-    message(STATUS "${RedBold}BAT will not be installed, since it's already installed in ${BAT_INSTALL_DIR}.${ColReset}")
+    message(STATUS "${RedBold}Your BAT installation in ${BAT_INSTALL_DIR} will be overwritten if you proceed.\n.  Set -DBAT_INSTALL=OFF if you wish to override this.${ColReset}")
+  else()
+	message(STATUS "${RedBold}Your BAT installation in ${BAT_INSTALL_DIR} will be preserved and used since you requested -DBAT_INSTALL=OFF. \n Make sure it is patched for use with HEPfit.${ColReset}")
   endif()
   if(MPIBAT)
-    message(STATUS "${RedBold}Please make sure that the installed BAT library has been compiled with our patch for MPI support.${ColReset}")
+    message(STATUS "${RedBold}Your BAT installation in ${BAT_INSTALL_DIR} will be overwritten with the MPI patched version.${ColReset}")
   else()
-    message(STATUS "${RedBold}Please make sure that the installed BAT library has been compiled with our patch for BAT.${ColReset}")
+    message(STATUS "${RedBold}BAT is being installed without MPI support since you did not request -DMPIBAT=ON.${ColReset}")
   endif()
 else(IBAT AND LBAT)
   if(NOT BAT_INSTALL)
@@ -286,71 +287,71 @@ else(IBAT AND LBAT)
 endif(IBAT AND LBAT)
 
 if(BAT_INSTALL)
-  if(NOT IBAT OR NOT LBAT)
-    message(STATUS "Not found BAT in ${BAT_INSTALL_DIR}")
-    message(STATUS "${RedBold}I'll download and install BAT into ${BAT_INSTALL_DIR}.${ColReset}")
-    include(ExternalProject)
-    set(BAT_VERSION "1.0.0")
-    set(BAT_FILENAME "BAT-${BAT_VERSION}.tar.gz")
-    find_file(BAT_URL ${BAT_FILENAME} PATHS ${CMAKE_CURRENT_BINARY_DIR} NO_DEFAULT_PATH)
-    if(NOT BAT_URL)
-      set(BAT_URL https://github.com/bat/bat/releases/download/v${BAT_VERSION}/${BAT_FILENAME})
-    else()
-      message(STATUS "Found ${BAT_FILENAME} in the current directory")
-    endif()
-    set(BAT_SHA256 620e8069d85f18f8504137823621cbb578fa5b159e3074f0f2379ac295dd1482)
-    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/BAT_make_wrapper.sh.in"
-                   "${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh" @ONLY)
-    # The make command to the top-level make will be inherited to the BAT make. 
-    set(BAT_MAKE $(MAKE))
-    set(BAT_CONFIGURE "./configure")
-    if(BAT_INSTALL_DIR)
-      set(BAT_CONFIGURE "${BAT_CONFIGURE} --prefix=${BAT_INSTALL_DIR}")
-    endif()
-    if(ROOT_SYS)
-      set(BAT_CONFIGURE "${BAT_CONFIGURE} --with-rootsys=${ROOT_SYS}")
-    endif()
-    if(MPIBAT)
-      message(STATUS "${RedBold}Enable MPI support${ColReset}")
-      set(PATCH patch -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/BAT-${BAT_VERSION}_mpi_patch.txt)
-      ExternalProject_Add(
-        BATBUILD
-        PREFIX BATBUILD
-        TMP_DIR BATBUILD/tmp
-        STAMP_DIR BATBUILD/stamp
-        SOURCE_DIR BATBUILD/src
-        BINARY_DIR BATBUILD/src
-        INSTALL_DIR BATBUILD/src
-        DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
-        URL ${BAT_URL}
-        URL_HASH SHA256=${BAT_SHA256}
-        PATCH_COMMAND ${PATCH}
-        CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE} ${MPI_CXX_COMPILER}
-        BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
-        INSTALL_COMMAND make install
-        )
-    else(MPIBAT)
-      set(PATCH patch -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/BAT-${BAT_VERSION}_patch.txt)
-      ExternalProject_Add(
-        BATBUILD
-        PREFIX BATBUILD
-        TMP_DIR BATBUILD/tmp
-        STAMP_DIR BATBUILD/stamp
-        SOURCE_DIR BATBUILD/src
-        BINARY_DIR BATBUILD/src
-        INSTALL_DIR BATBUILD/src
-        DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
-        URL ${BAT_URL}
-        URL_HASH SHA256=${BAT_SHA256}
-        PATCH_COMMAND ${PATCH}
-        CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE}
-        BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
-        INSTALL_COMMAND make install
-        )
-    endif(MPIBAT)
-    set(BAT_INCLUDE_PATH ${BAT_INSTALL_DIR}/include)
-    set(BAT_LIB_PATH ${BAT_INSTALL_DIR}/lib)
-  endif(NOT IBAT OR NOT LBAT)
+  	if(IBAT OR LBAT)
+    	message(STATUS "BAT found in ${BAT_INSTALL_DIR} will be overwritten!")
+  	endif(IBAT OR LBAT)
+	message(STATUS "${RedBold}I'll download and install BAT into ${BAT_INSTALL_DIR}.${ColReset}")
+	include(ExternalProject)
+	set(BAT_VERSION "1.0.0")
+	set(BAT_FILENAME "BAT-${BAT_VERSION}.tar.gz")
+	find_file(BAT_URL ${BAT_FILENAME} PATHS ${CMAKE_CURRENT_BINARY_DIR} NO_DEFAULT_PATH)
+	if(NOT BAT_URL)
+	  set(BAT_URL https://github.com/bat/bat/releases/download/v${BAT_VERSION}/${BAT_FILENAME})
+	else()
+	  message(STATUS "Found ${BAT_FILENAME} in the current directory")
+	endif()
+	set(BAT_SHA256 620e8069d85f18f8504137823621cbb578fa5b159e3074f0f2379ac295dd1482)
+	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/BAT_make_wrapper.sh.in"
+	               "${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh" @ONLY)
+	# The make command to the top-level make will be inherited to the BAT make. 
+	set(BAT_MAKE $(MAKE))
+	set(BAT_CONFIGURE "./configure")
+	if(BAT_INSTALL_DIR)
+	  set(BAT_CONFIGURE "${BAT_CONFIGURE} --prefix=${BAT_INSTALL_DIR}")
+	endif()
+	if(ROOT_SYS)
+	  set(BAT_CONFIGURE "${BAT_CONFIGURE} --with-rootsys=${ROOT_SYS}")
+	endif()
+	if(MPIBAT)
+	  message(STATUS "${RedBold}Enable MPI support${ColReset}")
+	  set(PATCH patch -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/BAT-${BAT_VERSION}_mpi_patch.txt)
+	  ExternalProject_Add(
+	    BATBUILD
+	    PREFIX BATBUILD
+	    TMP_DIR BATBUILD/tmp
+	    STAMP_DIR BATBUILD/stamp
+	    SOURCE_DIR BATBUILD/src
+	    BINARY_DIR BATBUILD/src
+	    INSTALL_DIR BATBUILD/src
+	    DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
+	    URL ${BAT_URL}
+	    URL_HASH SHA256=${BAT_SHA256}
+	    PATCH_COMMAND ${PATCH}
+	    CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE} ${MPI_CXX_COMPILER}
+	    BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
+	    INSTALL_COMMAND make install
+	    )
+	else(MPIBAT)
+	  set(PATCH patch -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/BAT-${BAT_VERSION}_patch.txt)
+	  ExternalProject_Add(
+	    BATBUILD
+	    PREFIX BATBUILD
+	    TMP_DIR BATBUILD/tmp
+	    STAMP_DIR BATBUILD/stamp
+	    SOURCE_DIR BATBUILD/src
+	    BINARY_DIR BATBUILD/src
+	    INSTALL_DIR BATBUILD/src
+	    DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
+	    URL ${BAT_URL}
+	    URL_HASH SHA256=${BAT_SHA256}
+	    PATCH_COMMAND ${PATCH}
+	    CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE}
+	    BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
+	    INSTALL_COMMAND make install
+	    )
+	endif(MPIBAT)
+	set(BAT_INCLUDE_PATH ${BAT_INSTALL_DIR}/include)
+	set(BAT_LIB_PATH ${BAT_INSTALL_DIR}/lib)
 endif(BAT_INSTALL)
 
 unset(IBAT CACHE)
