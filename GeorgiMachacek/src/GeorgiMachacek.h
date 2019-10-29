@@ -44,29 +44,32 @@
  *   <td class="mod_desc"> Rotation angle which diagonalizes the singlet subspace  </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%mHh</td>
+ *   <td class="mod_name">%mHh or %mHhsq</td>
  *   <td class="mod_symb">@f$m_{H_1}@f$</td>
- *   <td class="mod_desc">The mass of the "non-125 GeV" CP-even Higgs state.</td>
+ *   <td class="mod_desc">The mass of the "non-125 GeV" CP-even Higgs state.
+ *   mHhsq (not mHh) used when  flag %use_sq_masses is set to true</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%mA</td>
+ *   <td class="mod_name">%mA or %mAsq</td>
  *   <td class="mod_symb">@f$m_{H_3}@f$</td>
- *   <td class="mod_desc">The mass of the triplet Higgs states.</td>
+ *   <td class="mod_desc">The mass of the triplet Higgs states.
+ *   mAsq (not mA) used when  flag %use_sq_masses is set to true</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%mH5</td>
+ *   <td class="mod_name">%mH5 or %mH5sq</td>
  *   <td class="mod_symb">@f$m_{H_5}@f$</td>
  *   <td class="mod_desc">The mass of the quintet Higgs states.</td>
+ *   mH5sq (not mH5) used when  flag %use_sq_masses is set to true
  * </tr>
  * <tr>
  *   <td class="mod_name">%Mu1</td>
  *   <td class="mod_symb">@f$\mu_{1}@f$</td>
- *   <td class="mod_desc">The @f$\mu_{1}@f$ potential parameter according to arxiv:1511.00865  </td>
+ *   <td class="mod_desc">The @f$\mu_{1}@f$ potential parameter according to arxiv:1511.00865 @cite Chiang:2015amq </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Mu2</td>
  *   <td class="mod_symb">@f$\mu_{2}@f$</td>
- *   <td class="mod_desc">The @f$\mu_{2}@f$ potential parameter according to arxiv:1511.00865  </td>
+ *   <td class="mod_desc">The @f$\mu_{2}@f$ potential parameter according to arxiv:1511.00865 @cite Chiang:2015amq </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Q_GM</td>
@@ -75,6 +78,24 @@
  * </tr>
  * </table>
  * 
+ * 
+ * @anchor GeorgiMachacekFlags
+ * <h3>%Model flags</h3>
+ *
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>Value</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%use_sq_masses</td>
+ *   <td class="mod_valu">true/false</td>
+ *   <td class="mod_desc">This flag switched the parameters from mHh, mA, mH5
+ *   to mHhsq, mAsq, mH5sq when set to true. </td>
+ * </tr>
+ * </table>
+ *
  * 
  * 
  */
@@ -104,25 +125,53 @@ public:
     GeorgiMachacek();
     
     /**
-     * @brief GeorgiMachacek destructor
+     * @brief A method to initialize the model.
+     * @details This method, called via InputParser::ReadParameters(), allocates
+     * memory to the pointers defined in the current class.
+     * @return a boolean that is true if model initialization is successful
      */
-//    ~GeorgiMachacek();
-    
     virtual bool InitializeModel();
     
+    /**
+     * @brief Initializes the %GeorgiMachacek parameters found in the argument.
+     * @param[in] DPars a map containing the parameters (all as double) to be used in Monte Carlo
+     */
     virtual bool Init(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief The pre-update method for %GeorgiMachacek
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PreUpdate();
     
+    /**
+     * @brief The update method for %GeorgiMachacek.
+     * @details This method updates all the model parameters with given DPars.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
+    /**
+     * @brief The post-update method for %GeorgiMachacek.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
     
+    /**
+     * @brief A method to check if all the mandatory parameters for %GeorgiMachacek
+     * have been provided in model initialization.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A get method to access the member reference of type StandardModelMatching.
-     * @return a reference to a StandardModelMatching object
+     * @brief A get method to access the member reference of type GeorgiMachacekMatching.
+     * @return a reference to a GeorgiMachacekMatching object
      */
     virtual GMMatching& getMatching() const
     {
@@ -145,23 +194,23 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     *
-     * @return \f$\log(\tan \beta)$\f
+     * @brief A method to get \f$\log(\tan \beta)$\f$
+     * @return \f$\log(\tan \beta)$\f$
      */
     double getvDelta() const {
         return vDelta;
     }
 
     /**
-     *
-     * @return \f$\alpha$\f
+     * @brief A method to get \f$\alpha$\f$
+     * @return \f$\alpha$\f$
      */
     double getalpha() const {
         return alpha;
     }
 
     /**
-     *
+     * @brief A method to get @f$\cos \alpha@f$
      * @return @f$\cos \alpha@f$
      */
     double getcosa() const{
@@ -169,7 +218,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get @f$\sin \alpha@f$
      * @return @f$\sin \alpha@f$
      */
     double getsina() const{
@@ -177,7 +226,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the squared mass of the lighter singlet Higgs
      * @return squared mass of the lighter singlet Higgs
      */
     double getmHl2() const {
@@ -203,7 +252,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the squared mass of the heavier singlet Higgs
      * @return squared mass of the heavier singlet Higgs
      */
     double getmHh2() const {
@@ -232,7 +281,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the mass of the heavier singlet Higgs
      * @return mass of the heavier singlet Higgs
      */
     double getmHh() const {
@@ -261,7 +310,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the squared mass of the singlet Higgs input
      * @return squared mass of the singlet Higgs input
      */
     double getinputmHh2() const {
@@ -278,7 +327,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the squared triplet mass
      * @return squared triplet mass
      */
     double getmAsq() const {
@@ -292,7 +341,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the triplet mass
      * @return triplet mass
      */
     double getmA() const {
@@ -312,7 +361,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the squared quintet mass
      * @return squared quintet mass
      */
     double getmH5sq() const {
@@ -326,7 +375,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the quintet mass
      * @return quintet mass
      */
     double getmH5() const {
@@ -346,7 +395,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the massive parameter of the scalar potential \f$\mu_1$\f
      * @return massive parameter of the scalar potential \f$\mu_1$\f
      */
     double getMu1() const {
@@ -354,7 +403,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the massive parameter of the scalar potential \f$\mu_2$\f
      * @return massive parameter of the scalar potential \f$\mu_2$\f
      */
     double getMu2() const {
@@ -362,7 +411,7 @@ public:
     }
 
     /**
-     *
+     * @brief A method to get the Georgi-Machacek scale
      * @return Georgi-Machacek scale
      */
     double getQ_GM() const {

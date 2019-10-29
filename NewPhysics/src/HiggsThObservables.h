@@ -150,8 +150,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeWBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -216,8 +217,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -280,8 +282,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -465,8 +468,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -528,8 +532,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZllHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
     /**
@@ -590,8 +595,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZqqHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -622,8 +628,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     aPsk(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -654,8 +661,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     bPsk(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -873,8 +881,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueettHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -2039,6 +2048,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2070,6 +2080,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHgagaInt(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2099,6 +2110,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2127,6 +2139,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2155,6 +2168,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2183,6 +2197,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHgaga(const StandardModel& SM_i, const double sqrt_s_i);
     /**
@@ -2210,6 +2225,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2238,6 +2254,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2268,6 +2285,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHZgamumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2297,6 +2315,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2325,6 +2344,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2352,6 +2372,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2380,6 +2401,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2408,6 +2430,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHZga(const StandardModel& SM_i, const double sqrt_s_i);
     /**
@@ -2435,6 +2458,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2463,6 +2487,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2491,6 +2516,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2519,6 +2545,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2547,6 +2574,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2575,6 +2603,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2604,6 +2633,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2634,6 +2664,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHZZ4mu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2663,6 +2694,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2691,6 +2723,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2719,6 +2752,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2747,6 +2781,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2775,6 +2810,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2804,6 +2840,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2832,6 +2869,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2860,6 +2898,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2888,6 +2927,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2916,6 +2956,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHWW(const StandardModel& SM_i, const double sqrt_s_i);
     /**
@@ -2943,6 +2984,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -2972,6 +3014,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3000,6 +3043,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3028,6 +3072,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3056,6 +3101,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3084,6 +3130,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3112,6 +3159,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3141,6 +3189,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3169,6 +3218,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3197,6 +3247,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3225,6 +3276,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3253,6 +3305,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3281,6 +3334,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3309,6 +3363,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3337,6 +3392,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3366,6 +3422,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFpVHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3395,6 +3452,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3423,6 +3481,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHtautau(const StandardModel& SM_i, const double sqrt_s_i);
     
@@ -3451,6 +3510,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3479,6 +3539,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3507,6 +3568,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muggHbb(const StandardModel& SM_i, const double sqrt_s_i);
     /**
@@ -3534,6 +3596,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVBFHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3562,6 +3625,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muZHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3590,6 +3654,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muWHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3618,6 +3683,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muVHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3646,6 +3712,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3805,6 +3872,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muppHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3833,6 +3901,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muppHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3925,6 +3994,8 @@ public:
 
     /**
      * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     UpperLimit_ppHZgammaA(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -3952,6 +4023,8 @@ public:
 
     /**
      * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     UpperLimit_ppHZgammaA13(const StandardModel& SM_i, const double sqrt_s_i);
     
@@ -3979,6 +4052,8 @@ public:
 
     /**
      * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     UpperLimit_ppHZgammaC13(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -4006,6 +4081,8 @@ public:
 
     /**
      * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     UpperLimit_ppHZgammaC(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -4599,8 +4676,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4632,8 +4710,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4665,8 +4744,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4698,8 +4778,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4731,8 +4812,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4764,8 +4846,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4797,8 +4880,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHZgaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4830,8 +4914,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4863,8 +4948,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4896,8 +4982,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHBRinvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4929,8 +5016,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZHinvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -4994,8 +5082,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeWBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5317,8 +5406,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5384,8 +5474,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5451,8 +5542,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5518,8 +5610,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5585,8 +5678,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5652,8 +5746,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5719,8 +5814,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvZgaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5786,8 +5882,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5853,8 +5950,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeHvvmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5919,8 +6017,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueeZBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -5984,8 +6083,9 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
     mueettHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
@@ -7909,6 +8009,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -7937,6 +8038,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -7965,6 +8067,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -7993,6 +8096,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8021,6 +8125,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHgaga(const StandardModel& SM_i, const double sqrt_s_i);
     /**
@@ -8048,6 +8153,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHgaga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8076,6 +8182,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8106,6 +8213,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHZgamumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8135,6 +8243,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8163,6 +8272,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8190,6 +8300,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8218,6 +8329,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHZga(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8246,6 +8358,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHZga(const StandardModel& SM_i, const double sqrt_s_i);
     /**
@@ -8273,6 +8386,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8301,6 +8415,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8329,6 +8444,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8357,6 +8473,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8385,6 +8502,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8413,6 +8531,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHZZ(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8442,6 +8561,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8472,6 +8592,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHZZ4mu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8501,6 +8622,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8529,6 +8651,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8557,6 +8680,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8585,6 +8709,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8613,6 +8738,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHZZ4l(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8642,6 +8768,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8670,6 +8797,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8698,6 +8826,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8726,6 +8855,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8754,6 +8884,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHWW(const StandardModel& SM_i, const double sqrt_s_i);
     /**
@@ -8781,6 +8912,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHWW(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8810,6 +8942,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8838,6 +8971,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8866,6 +9000,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8894,6 +9029,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8922,6 +9058,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8950,6 +9087,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -8979,6 +9117,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9007,6 +9146,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9035,6 +9175,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9063,6 +9204,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9091,6 +9233,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9119,6 +9262,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHmumu(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9147,6 +9291,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9175,6 +9320,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9203,6 +9349,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9231,6 +9378,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHtautau(const StandardModel& SM_i, const double sqrt_s_i);
     
@@ -9259,6 +9407,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9287,6 +9436,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHtautau(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9315,6 +9465,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUggHbb(const StandardModel& SM_i, const double sqrt_s_i);
     /**
@@ -9342,6 +9493,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVBFHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9370,6 +9522,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUZHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9398,6 +9551,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUWHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9426,6 +9580,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUVHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
@@ -9454,6 +9609,7 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muTHUttHbb(const StandardModel& SM_i, const double sqrt_s_i);
 
