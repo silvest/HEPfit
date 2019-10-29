@@ -889,7 +889,11 @@ void MonteCarloEngine::AddChains() {
     hMCMCObservableTree = new TTree(TString::Format("%s_Observables", GetSafeName().data()), TString::Format("%s_Observables", GetSafeName().data()));
     hMCMCObservableTree->Branch("Chain", &fMCMCTree_Chain, "chain/i");
     hMCMCObservableTree->Branch("Iteration", &fMCMCCurrentIteration, "iteration/i");
-    if (WriteLogLikelihoodChain) hMCMCObservableTree->Branch("LogLikelihood", &hMCMCLogLikelihood, "loglikelihood/D");
+    if (WriteLogLikelihoodChain) {
+        hMCMCObservableTree->Branch("LogLikelihood", &hMCMCLogLikelihood, "loglikelihood/D");
+        hMCMCObservableTree->Branch("LogProbability", &hMCMCLogProbability, "logprobability/D");
+        hMCMCObservableTree->Branch("LogPriorProbability", &hMCMCLogPriorProbability, "logpriorprobability/D");
+    }
     if (fMCMCFlagWriteChainToFile) {
         hMCMCObservables.assign(fMCMCNChains, std::vector<double>(Obs_ALL.size(), 0.));
         hMCMCTree_Observables.assign(Obs_ALL.size(), 0.);
@@ -947,7 +951,11 @@ void MonteCarloEngine::InChainFillObservablesTree()
     if (!hMCMCObservableTree) return;
     for (fMCMCTree_Chain = 0; fMCMCTree_Chain < fMCMCNChains; ++fMCMCTree_Chain) {
         if (getchainedObsSize() > 0) hMCMCTree_Observables = hMCMCObservables[fMCMCTree_Chain];
-        if (WriteLogLikelihoodChain) hMCMCLogLikelihood = fMCMCStates.at(fMCMCTree_Chain).log_likelihood;
+        if (WriteLogLikelihoodChain) {
+            hMCMCLogLikelihood = fMCMCStates.at(fMCMCTree_Chain).log_likelihood;
+            hMCMCLogProbability = fMCMCStates.at(fMCMCTree_Chain).log_probability;
+            hMCMCLogPriorProbability = fMCMCStates.at(fMCMCTree_Chain).log_prior;
+        }
         if (kwmax > 0 && fMCMCFlagWriteChainToFile) hMCMCTree_Observables_weight = hMCMCObservables_weight[fMCMCTree_Chain];
         hMCMCObservableTree->Fill();
     }

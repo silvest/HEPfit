@@ -469,6 +469,8 @@ private:
     std::vector<double> hMCMCTree_Observables_weight; ///< A vector containing the observables weight to be put into the ROOT tree.
     std::vector<double> hMCMCTree_Parameters; ///< A vector containing the parameter values to be put into the ROOT tree.
     double hMCMCLogLikelihood; ///< A variable containing the LogLikelihood values to be put into the ROOT tree.
+    double hMCMCLogProbability; ///< A variable containing the LogProbability values to be put into the ROOT tree.
+    double hMCMCLogPriorProbability; ///< A variable containing the LogPriorProbability values to be put into the ROOT tree.
     unsigned int cindex;///< An index to distinguish between succesive canvases used to draw histograms.
     std::ofstream ofi;
     std::vector<std::string> unknownParameters; ///< A vector to contain the unkenown parameters passed in the configuration file.
