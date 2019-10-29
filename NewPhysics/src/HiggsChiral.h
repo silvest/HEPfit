@@ -159,7 +159,7 @@ public:
     }
     
     /**
-     * @brief a getter for the EFT coeff @f$c_c@f$
+     * @brief a getter for the EFT coeff @f$c_c@f$4
      * @return @f$c_c@f$
      */
     double getcc() const
