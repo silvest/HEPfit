@@ -22,7 +22,8 @@ class THDM;
  * scalar potential as well as the LO and NLO(+) unitarity conditions.
  * The experimental constraints comprise electroweak precision observables (STU),
  * Higgs signal strengths, direct searches for scalar particles and a set of flavour observables
- * (B to Xs gamma, Bs mixing, B to tau nu, B to D(*) tau nu and the anomalous magnetic moment of the muon).
+ * (@f$B \to X_s \gamma@f$, @f$B_s@f$ mixing, @f$B \to \tau \nu@f$, @f$B \to D^{(*)} \tau \nu@f$
+ * and the anomalous magnetic moment of the muon).
  * Also the renormalization group equations are implemented at next-to-leading order.
  * @{
  */

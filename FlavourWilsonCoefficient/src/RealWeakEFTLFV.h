@@ -15,11 +15,86 @@
 /**
  * @class RealWeakEFTLFV
  * @ingroup FlavourWilsonCoefficent
- * @brief Model for WEFT LFV contributions to @f$\Delta F=1@f$
+ * @brief %Model for WEFT LFV contributions to @f$\Delta F=1@f$
  * processes like @f$ b\to s@f$ decays.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
+ * 
+ * @anchor RealWeakEFTLFVParameters
+ * <h3>%Model parameters</h3>
+ *
+ * 
+ * 
+ * The model parameters of %FlavourWilsonCoefficient model are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C7, %C7p</td>
+ *   <td class="mod_symb">@f$C_7@f$ and @f$C_7^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the dipole operator
+ *   @f$O_7@f$ and the chirality flipped @f$O_7^\prime@f$</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C8, %C8p</td>
+ *   <td class="mod_symb">@f$C_8@f$ and @f$C_8^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the chromomagnetic operator
+ *   @f$O_8@f$ and the chirality flipped @f$O_8^\prime@f$</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C9_11, %C9p_11</td>
+ *   <td class="mod_symb">@f$C_{9,e}@f$ and @f$C_{9,e}^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the semileptonic operator
+ *   @f$O_{9,e}@f$ and the chirality flipped @f$O_{9,e}^\prime@f$ coupling to electrons</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C10_11, %C10p_11</td>
+ *   <td class="mod_symb">@f$C_{10,e}@f$ and @f$C_{10,e}^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the semileptonic operator
+ *   @f$O_{10,e}@f$ and the chirality flipped @f$O_{10,e}^\prime@f$ coupling to electrons</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CS_11, %CSp_11</td>
+ *   <td class="mod_symb">@f$C_{S,e}@f$ and @f$C_{S,e}^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the scalar operator
+ *   @f$O_{S,e}@f$ and the chirality flipped @f$O_{S,e}^\prime@f$ coupling to electrons</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CP_11, %CPp_11</td>
+ *   <td class="mod_symb">@f$C_{P,e}@f$ and @f$C_{P,e}^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the pseudo-scalar operator
+ *   @f$O_{P,e}@f$ and the chirality flipped @f$O_{P,e}^\prime@f$ coupling to electrons</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C9_22, %C9p_22</td>
+ *   <td class="mod_symb">@f$C_{9,\mu}@f$ and @f$C_{9,\mu}^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the semileptonic operator
+ *   @f$O_{9,\mu}@f$ and the chirality flipped @f$O_{9,\mu}^\prime@f$ coupling to muons</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%C10_22, %C10p_22</td>
+ *   <td class="mod_symb">@f$C_{10,\mu}@f$ and @f$C_{10,\mu}^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the semileptonic operator
+ *   @f$O_{10,\mu}@f$ and the chirality flipped @f$O_{10,\mu}^\prime@f$ coupling to muons</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CS_22, %CSp_22</td>
+ *   <td class="mod_symb">@f$C_{S,\mu}@f$ and @f$C_{S,\mu}^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the scalar operator
+ *   @f$O_{S,\mu}@f$ and the chirality flipped @f$O_{S,\mu}^\prime@f$ coupling to muons</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CP_22, %CPp_22</td>
+ *   <td class="mod_symb">@f$C_{P,\mu}@f$ and @f$C_{P,\mu}^\prime@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the pseudo-scalar operator
+ *   @f$O_{P,\mu}@f$ and the chirality flipped @f$O_{P,\mu}^\prime@f$ coupling to muons</td>
+ * </tr>
+ * </table>
  */
+ 
 class RealWeakEFTLFV: public StandardModel {
 public:
 
