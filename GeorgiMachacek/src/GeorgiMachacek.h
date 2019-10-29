@@ -13,12 +13,18 @@
 #include "NPbase.h"
 
 /**
- * @addtogroup GeorgiMachacek
- * @brief A module for the calculation of theoretical and experimental constraints of the Georgi-Machacek model.
+ * @class GeorgiMachacek
+ * @ingroup GeorgiMachacek
+ * @brief A base class for the GeorgiMachacek model. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
  * @details The Georgi-Machacek model extends the Standard Model by two scalar triplets.
- * Among the implemented theoretical constraints are positivity of the scalar potential and the unitarity conditions.
- * As experimental constraints, Higgs signal strengths and direct searches for neutral, singly and doubly charged scalars
+ * Among the implemented theoretical constraints are positivity of the scalar
+ * potential and the unitarity conditions.
+ * As experimental constraints, Higgs signal strengths and direct searches for 
+ * neutral, singly and doubly charged scalars
  * are available.
+ *
  * 
  * @anchor GeorgiMachacekParameters
  * <h3>%Model parameters</h3>
@@ -178,6 +184,10 @@ public:
         return GMM.getObj();
     }
 
+    /**
+     * @brief A method get the GeorgiMachacekCache
+     * @return a object of the type %GeorgiMachacekCache
+     */
     GMcache* getMyGMCache() const
     {
         return myGMcache;

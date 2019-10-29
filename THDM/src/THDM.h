@@ -205,8 +205,8 @@ public:
     virtual bool setFlag(const std::string, const bool);
 
     /**
-     * @brief A method get the THDMWCache
-     * @return a object of the type %THDMWCache
+     * @brief A method get the THDMCache
+     * @return a object of the type %THDMCache
      */
     THDMcache* getMyTHDMCache() const
     {
