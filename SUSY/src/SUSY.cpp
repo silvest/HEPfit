@@ -186,35 +186,6 @@ bool SUSY::PostUpdate()
     SUSYM.getObj().updateSMParameters();
     SUSYM.getObj().updateSUSYParameters();
 
-//    SUSYM.getObj().Comp_mySUSYMQ();
-//
-//    if (IsFlag_ne()) SUSYM.getObj().Comp_VdDNL(0);
-//    if (IsFlag_ne()) SUSYM.getObj().Comp_VdDNR(0);
-//    if (IsFlag_ch()) SUSYM.getObj().Comp_VdUCL();
-//    if (IsFlag_ch()) SUSYM.getObj().Comp_VdUCR(0);
-//
-//    SUSYM.getObj().Comp_DeltaMd();
-//    SUSYM.getObj().Comp_DeltaDL();
-//    SUSYM.getObj().Comp_Eps_J();
-//    SUSYM.getObj().Comp_Lambda0EpsY();
-//    SUSYM.getObj().Comp_mySUSY_CKM();
-//
-//    if (IsFlag_h()) {
-//        SUSYM.getObj().Comp_PHLR();
-//        SUSYM.getObj().Comp_VUDHH();
-//        SUSYM.getObj().Comp_PHRL();
-//    }
-//    if (IsFlag_ne()) {
-//        SUSYM.getObj().Comp_VdDNL(1);
-//        SUSYM.getObj().Comp_VdDNR(1);
-//        SUSYM.getObj().Comp_VuUN();
-//    }
-//    if (IsFlag_ch()) {
-//        SUSYM.getObj().Comp_VdUCR(1);
-//        SUSYM.getObj().Comp_VuDCL();
-//        SUSYM.getObj().Comp_VuDCR();
-//    }
-
     return (true);
 }
 
