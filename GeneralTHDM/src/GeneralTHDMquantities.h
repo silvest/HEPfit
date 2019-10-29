@@ -867,7 +867,7 @@ private:
 /**
  * @class Relambda5H_GTHDM
  * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Relambda_{5}@f$ in the Higgs basis
+ * @brief parameter of the Higgs potential @f$\Re\lambda_{5}@f$ in the Higgs basis
  */
 class Relambda5H_GTHDM: public ThObservable {
 public:
@@ -888,7 +888,7 @@ private:
 /**
  * @class Imlambda5H_GTHDM
  * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Imlambda_{5}@f$ in the Higgs basis
+ * @brief parameter of the Higgs potential @f$\Im\lambda_{5}@f$ in the Higgs basis
  */
 class Imlambda5H_GTHDM: public ThObservable {
 public:
@@ -910,7 +910,7 @@ private:
 /**
  * @class Relambda6H_GTHDM
  * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Relambda_{6}@f$ in the Higgs basis
+ * @brief parameter of the Higgs potential @f$\Re\lambda_{6}@f$ in the Higgs basis
  */
 class Relambda6H_GTHDM: public ThObservable {
 public:
@@ -931,7 +931,7 @@ private:
 /**
  * @class Imlambda6H_GTHDM
  * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Imlambda_{6}@f$ in the Higgs basis
+ * @brief parameter of the Higgs potential @f$\Im\lambda_{6}@f$ in the Higgs basis
  */
 class Imlambda6H_GTHDM: public ThObservable {
 public:
@@ -952,7 +952,7 @@ private:
 /**
  * @class Relambda7H_GTHDM
  * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Relambda_{7}@f$ in the Higgs basis
+ * @brief parameter of the Higgs potential @f$\Re\lambda_{7}@f$ in the Higgs basis
  */
 class Relambda7H_GTHDM: public ThObservable {
 public:
@@ -973,7 +973,7 @@ private:
 /**
  * @class Imlambda7H_GTHDM
  * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Imlambda_{7}@f$ in the Higgs basis
+ * @brief parameter of the Higgs potential @f$\Im\lambda_{7}@f$ in the Higgs basis
  */
 class Imlambda7H_GTHDM: public ThObservable {
 public:

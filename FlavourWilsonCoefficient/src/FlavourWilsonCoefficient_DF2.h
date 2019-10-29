@@ -70,7 +70,7 @@ public:
     
     /**
      * 
-     * @return \f $C_{1}^{bd}\f$
+     * @return \f$C_{1}^{bd}\f$
      */
     gslpp::complex GetC1_bd() const
     {
@@ -79,7 +79,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{1}^{bs}\f$
+     * @return  \f$C_{1}^{bs}\f$
      */
     gslpp::complex GetC1_bs() const
     {
@@ -88,7 +88,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{1}^{cu}\f$
+     * @return  \f$C_{1}^{cu}\f$
      */
     gslpp::complex GetC1_c() const
     {
@@ -97,7 +97,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{1}^{sd}\f$
+     * @return  \f$C_{1}^{sd}\f$
      */
     gslpp::complex GetC1_s() const
     {
@@ -106,7 +106,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{2}^{bd}\f$
+     * @return  \f$C_{2}^{bd}\f$
      */
     gslpp::complex GetC2_bd() const
     {
@@ -115,7 +115,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{2}^{bs}\f$
+     * @return  \f$C_{2}^{bs}\f$
      */
     gslpp::complex GetC2_bs() const
     {
@@ -124,7 +124,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{2}^{cu}\f$
+     * @return  \f$C_{2}^{cu}\f$
      */
     gslpp::complex GetC2_c() const
     {
@@ -133,7 +133,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{2}^{sd}\f$
+     * @return  \f$C_{2}^{sd}\f$
      */
     gslpp::complex GetC2_s() const
     {
@@ -142,7 +142,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{3}^{bd}\f$
+     * @return  \f$C_{3}^{bd}\f$
      */
     gslpp::complex GetC3_bd() const
     {
@@ -151,7 +151,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{3}^{bs}\f$
+     * @return  \f$C_{3}^{bs}\f$
      */
     gslpp::complex GetC3_bs() const
     {
@@ -160,7 +160,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{3}^{cu}\f$
+     * @return  \f$C_{3}^{cu}\f$
      */
     gslpp::complex GetC3_c() const
     {
@@ -169,7 +169,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{3}^{sd}\f$
+     * @return  \f$C_{3}^{sd}\f$
      */
     gslpp::complex GetC3_s() const
     {
@@ -178,7 +178,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{4}^{bd}\f$
+     * @return  \f$C_{4}^{bd}\f$
      */
     gslpp::complex GetC4_bd() const
     {
@@ -187,7 +187,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{4}^{bs}\f$
+     * @return  \f$C_{4}^{bs}\f$
      */
     gslpp::complex GetC4_bs() const
     {
@@ -196,7 +196,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{4}^{cu}\f$
+     * @return  \f$C_{4}^{cu}\f$
      */
     gslpp::complex GetC4_c() const
     {
@@ -205,7 +205,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{4}^{sd}\f$
+     * @return  \f$C_{4}^{sd}\f$
      */
     gslpp::complex GetC4_s() const
     {
@@ -214,7 +214,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{5}^{bd}\f$
+     * @return  \f$C_{5}^{bd}\f$
      */
     gslpp::complex GetC5_bd() const
     {
@@ -223,7 +223,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{5}^{bs}\f$
+     * @return  \f$C_{5}^{bs}\f$
      */
     gslpp::complex GetC5_bs() const
     {
@@ -232,7 +232,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{5}^{cu}\f$
+     * @return  \f$C_{5}^{cu}\f$
      */
     gslpp::complex GetC5_c() const
     {
@@ -241,7 +241,7 @@ public:
 
     /**
      * 
-     * @return  \f $C_{5}^{sd}\f$
+     * @return  \f$C_{5}^{sd}\f$
      */
     gslpp::complex GetC5_s() const
     {

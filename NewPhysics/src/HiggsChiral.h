@@ -132,7 +132,7 @@ public:
     virtual bool setFlag(const std::string name, const bool value);
 
     /**
-     * @brief .
+     * @brief a getter for @f$c_V@f$
      * @return @f$c_V@f$
      */
     double getcv() const
@@ -141,7 +141,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for @f$c_t@f$
      * @return @f$c_t@f$
      */
     double getct() const
@@ -150,7 +150,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for @f$c_b@f$
      * @return @f$c_b@f$
      */
     double getcb() const
@@ -159,7 +159,7 @@ public:
     }
     
     /**
-     * @brief .
+     * @brief a getter for @f$c_c@f$
      * @return @f$c_c@f$
      */
     double getcc() const
@@ -168,7 +168,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for @f$c_\tau@f$
      * @return @f$c_\tau@f$
      */
     double getctau() const
@@ -177,7 +177,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for @f$c_\mu@f$
      * @return @f$c_\mu@f$
      */
     double getcmu() const
@@ -186,7 +186,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for @f$c_g@f$
      * @return @f$c_g@f$
      */
     double getcg() const
@@ -195,7 +195,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for @f$c_\gamma@f$
      * @return @f$c_\gamma@f$
      */
     double getcga() const
@@ -204,7 +204,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for @f$c_{Z\gamma}@f$
      * @return @f$c_{Z\gamma}@f$
      */
     double getcZga() const
@@ -213,7 +213,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for
      * @return 
      */
     double getobsZgaLimitATLAS13() const
@@ -222,7 +222,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for
      * @return 
      */
     double getobsZgaLimitCMS13() const
@@ -231,7 +231,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for
      * @return 
      */
     double getobsZgaLimitATLAS() const
@@ -240,7 +240,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for
      * @return 
      */
     double getobsZgaLimitCMS() const
@@ -249,7 +249,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for
      * @return 
      */
     double getexpZgaLimitATLAS13() const
@@ -258,7 +258,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for
      * @return 
      */
     double getexpZgaLimitCMS13() const
@@ -267,7 +267,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for
      * @return 
      */
     double getexpZgaLimitATLAS() const
@@ -276,7 +276,7 @@ public:
     }
 
     /**
-     * @brief .
+     * @brief a getter for
      * @return 
      */
     double getexpZgaLimitCMS() const

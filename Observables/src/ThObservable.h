@@ -59,7 +59,7 @@ public:
 
     /**
      * @brief A set method to set the minimum value of the bin.
-     * @param[in] the minimum values of the bin
+     * @param[in] min the minimum values of the bin
      */
     void setBinMin(double min)
     {
@@ -68,7 +68,7 @@ public:
 
     /**
      * @brief A set method to set the maximum value of the bin.
-     * @param[in] the maximum values of the bin
+     * @param[in] max the maximum values of the bin
      */
     void setBinMax(double max)
     {
@@ -104,7 +104,7 @@ public:
     
     /**
      * @brief A set method to get the parameters for the specific observable
-     * @param a vector of parameter names
+     * @param[in] parametersForObservable_i a vector of parameter names
      */
     void setParametersForObservable(std::vector<std::string> parametersForObservable_i)
     {
