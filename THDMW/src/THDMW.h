@@ -303,9 +303,18 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
+    /**
+     * @brief A method to set a string flag of %THDMW.
+     * @param[in] name name of a model flag
+     * @param[in] value the string to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool setFlagStr(const std::string name, const std::string value);
-//    virtual bool setFlag(const std::string, const bool);
 
+    /**
+     * @brief A method get the THDMWCache
+     * @return a object of the type %THDMWCache
+     */
     THDMWcache* getMyTHDMWCache() const
     {
         return myTHDMWcache;
@@ -314,15 +323,15 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     *
-     * @return THDMW model type
+     * @brief A getter for the %THDMW model type
+     * @return %THDMW model type
      */
     std::string getModelTypeTHDMWflag() const {
         return flag_modelTHDMW;
     }
 
     /**
-     *
+     * @brief A getter for the switch for NLO RGE and approximate NLO RGE
      * @return Switch for NLO RGE and approximate NLO RGE
      */
     std::string getRGEorderflag() const {
@@ -330,7 +339,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\log_{10}(\tan \beta)@f$
      * @return @f$\log_{10}(\tan \beta)@f$
      */
     double getTHDMW_logtb() const {
@@ -338,7 +347,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\tan \beta@f$
      * @return @f$\tan \beta@f$
      */
     double getTHDMW_tanb() const {
@@ -346,7 +355,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\sin \beta@f$
      * @return @f$\sin \beta@f$
      */
     double getTHDMW_sinb() const {
@@ -354,7 +363,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\cos \beta@f$
      * @return @f$\cos \beta@f$
      */
     double getTHDMW_cosb() const {
@@ -362,7 +371,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\beta-\alpha@f$
      * @return @f$\beta-\alpha@f$
      */
     double getTHDMW_bma() const {
@@ -370,7 +379,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\sin(\beta-\alpha)@f$
      * @return @f$\sin(\beta-\alpha)@f$
      */
     double getTHDMW_sin_ba() const {
@@ -378,7 +387,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\cos \alpha@f$
      * @return @f$\cos \alpha@f$
      */
     double getTHDMW_cosa() const{
@@ -386,7 +395,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\sin \alpha@f$
      * @return @f$\sin \alpha@f$
      */
     double getTHDMW_sina() const{
@@ -394,7 +403,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\lambda_1@f$
      * @return @f$\lambda_1@f$
      */
     double getTHDMW_lambda1() const {
@@ -402,7 +411,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\lambda_2@f$
      * @return @f$\lambda_2@f$
      */
     double getTHDMW_lambda2() const {
@@ -415,7 +424,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\lambda_3@f$
      * @return @f$\lambda_3@f$
      */
     double getTHDMW_lambda3() const {
@@ -428,7 +437,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\lambda_4@f$
      * @return @f$\lambda_4@f$
      */
     double getTHDMW_lambda4() const {
@@ -441,7 +450,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\lambda_5@f$
      * @return @f$\lambda_5@f$
      */
     double getTHDMW_lambda5() const {
@@ -457,7 +466,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$m_S^2@f$
      * @return @f$m_S^2@f$
      */
     double getTHDMW_mS2() const {
@@ -465,7 +474,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\mu_1@f$
      * @return @f$\mu_1@f$
      */
     double getTHDMW_mu1() const {
@@ -473,7 +482,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\mu_2@f$
      * @return @f$\mu_2@f$
      */
     double getTHDMW_mu2() const {
@@ -486,14 +495,14 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\mu_3@f$
      * @return @f$\mu_3@f$
      */
     double getTHDMW_mu3() const {
         return THDMW_mu3;
     }
     /**
-     *
+     * @brief A getter for @f$\mu_4@f$
      * @return @f$\mu_4@f$
      */
     double getTHDMW_mu4() const {
@@ -501,7 +510,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\mu_5@f$
      * @return @f$\mu_5@f$
      */
     double getTHDMW_mu5() const {
@@ -514,7 +523,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\mu_6@f$
      * @return @f$\mu_6@f$
      */
     double getTHDMW_mu6() const {
@@ -527,7 +536,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\nu_1@f$
      * @return @f$\nu_1@f$
      */
     double getTHDMW_nu1() const {
@@ -535,7 +544,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\nu_2@f$
      * @return @f$\nu_2@f$
      */
     double getTHDMW_nu2() const {
@@ -543,7 +552,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\nu_3@f$
      * @return @f$\nu_3@f$
      */
     double getTHDMW_nu3() const {
@@ -555,7 +564,7 @@ public:
         }
     }
     /**
-     *
+     * @brief A getter for @f$\nu_4@f$
      * @return @f$\nu_4@f$
      */
     double getTHDMW_nu4() const {
@@ -563,7 +572,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\nu_5@f$
      * @return @f$\nu_5@f$
      */
     double getTHDMW_nu5() const {
@@ -576,7 +585,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\omega_1@f$
      * @return @f$\omega_1@f$
      */
     double getTHDMW_omega1() const {
@@ -589,7 +598,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\omega_2@f$
      * @return @f$\omega_2@f$
      */
     double getTHDMW_omega2() const {
@@ -602,7 +611,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\omega_3@f$
      * @return @f$\omega_3@f$
      */
     double getTHDMW_omega3() const {
@@ -618,7 +627,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\omega_4@f$
      * @return @f$\omega_4@f$
      */
     double getTHDMW_omega4() const {
@@ -631,7 +640,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for  @f$\omega_5@f$
      * @return @f$\omega_5@f$
      */
     double getTHDMW_omega5() const {
@@ -647,7 +656,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for  @f$\kappa_1@f$
      * @return @f$\kappa_1@f$
      */
     double getTHDMW_kappa1() const {
@@ -660,7 +669,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\kappa_2@f$
      * @return @f$\kappa_2@f$
      */
     double getTHDMW_kappa2() const {
@@ -673,7 +682,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\kappa_3@f$ 
      * @return @f$\kappa_3@f$
      */
     double getTHDMW_kappa3() const {
@@ -689,7 +698,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\eta_U@f$
      * @return @f$\eta_U@f$
      */
     double getTHDMW_etaU() const {
@@ -697,7 +706,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\eta_D@f$
      * @return @f$\eta_D@f$
      */
     double getTHDMW_etaD() const {
@@ -706,7 +715,7 @@ public:
     
     
     /**
-     *
+     * @brief A getter for @f$\eta_U@f$
      * @return @f$\eta_U@f$
      */
     double getTHDMW_rho_b() const {
@@ -714,7 +723,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for @f$\eta_D@f$
      * @return @f$\eta_D@f$
      */
     double getTHDMW_S_b() const {
@@ -724,15 +733,15 @@ public:
     
 
     /**
-     *
-     * @return THDMW scale
+     * @brief A getter for the %THDMW scale
+     * @return %THDMW scale
      */
     double getQ_THDMW() const {
         return Q_THDMW;
     }
 
     /**
-     *
+     * @brief A getter for the minimal R' value
      * @return Minimal R' value
      */
     double getRpepsTHDMW() const {
@@ -740,7 +749,7 @@ public:
     }
 
     /**
-     *
+     * @brief A getter for the minimal NLO unitarity check scale
      * @return Minimal NLO unitarity check scale
      */
     double getNLOuniscaleTHDMW() const {

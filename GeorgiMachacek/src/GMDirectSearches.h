@@ -12,8 +12,17 @@
 
 class GeorgiMachacek;
 
-
 /**
+ * @addtogroup GeorgiMachacek
+ * @brief A module for the calculation of theoretical and experimental constraints 
+ * of the Georgi-Machacek model.
+ * @details The Georgi-Machacek model extends the Standard Model by two scalar triplets.
+ * Among the implemented theoretical constraints are positivity of the scalar
+ * potential and the unitarity conditions.
+ * As experimental constraints, Higgs signal strengths and direct searches for 
+ * neutral, singly and doubly charged scalars
+ * are available.
+ *
  * @class GMDirectSearches
  * @ingroup GeorgiMachacek
  * @brief Contains several classes for direct searches constraining
