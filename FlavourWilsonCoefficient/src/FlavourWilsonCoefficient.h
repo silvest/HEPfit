@@ -19,6 +19,76 @@
  * through shifts to Standard %Model Wilson coefficients.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
+ * 
+ *
+ * @anchor FlavourWilsonCoefficientParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %FlavourWilsonCoefficient model are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reDC1 -  %reDC10</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(\Delta C_i), (i=1,\ldots,10)  @f$</td>
+ *   <td class="mod_desc">The real part of @f$ \Delta C_i, (i=1,\ldots,10) @f$.
+ *   (1-4) are current-current operators, (5-8) are electroweak penguin operators
+ *   (9-10) are semileptonic operators.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%imDC1 -  %imDC10</td>
+ *   <td class="mod_symb">@f$ \mathcal{I}(\Delta C_i), (i=1,\ldots,10)  @f$</td>
+ *   <td class="mod_desc">The imaginary part of @f$ \Delta C_i, (i=1,\ldots,10) @f$.
+ *   (1-4) are current-current operators, (5-8) are electroweak penguin operators
+ *   (9-10) are semileptonic operators.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reDC7g -  %reDC8g</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(\Delta C_i), (i=7g, 8g)  @f$</td>
+ *   <td class="mod_desc">The real part of @f$ \Delta C_i, (i=7g,8g) @f$,
+ *   7g being the electric dipole operator and 8g being the chromomagnetic 
+ *   dipole operator.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%imDC7g -  %imDC8g</td>
+ *   <td class="mod_symb">@f$ \mathcal{I}(\Delta C_i), (i=7g, 8g)  @f$</td>
+ *   <td class="mod_desc">The imaginary part of @f$ \Delta C_i, (i=7g,8g) @f$,
+ *   7g being the electric dipole operator and 8g being the chromomagnetic 
+ *   dipole operator.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reDC7p -  %reDC10p</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(\Delta C_i^\prime), (i=7,\ldots,10)  @f$</td>
+ *   <td class="mod_desc">The real part of @f$ \Delta C_i^\prime, (i=1,\ldots,10) @f$
+ *   which are the chirality flipped primed operators.</td>
+ * </tr>
+ *  <tr>
+ *   <td class="mod_name">%imDC7p -  %imDC10p</td>
+ *   <td class="mod_symb">@f$ \mathcal{I}(\Delta C_i^\prime), (i=7,\ldots,10)  @f$</td>
+ *   <td class="mod_desc">The imaginary part of @f$ \Delta C_i^\prime, (i=1,\ldots,10) @f$
+ *   which are the chirality flipped primed operators.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reDC7gp -  %reDC8gp</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(\Delta C_i^\prime), (i=7g, 8g)  @f$</td>
+ *   <td class="mod_desc">The real part of @f$ \Delta C_i^\prime, (i=7g,8g) @f$
+ *   which are the chirality flipped primed operators.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%imDC7gp -  %imDC8gp</td>
+ *   <td class="mod_symb">@f$ \mathcal{I}(\Delta C_i^\prime), (i=7g, 8g)  @f$</td>
+ *   <td class="mod_desc">The imaginary part of @f$ \Delta C_i^\prime, (i=7g,8g) @f$,
+ *   which are the chirality flipped primed operators.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale</td>
+ *   <td class="mod_symb">@f$ \mu_{matching} @f$</td>
+ *   <td class="mod_desc">The Matching scale of the Wilson coefficients</td>
+ * </tr>
+ * </table>
  */
 class FlavourWilsonCoefficient: public StandardModel {
 public:
@@ -28,12 +98,12 @@ public:
     static const std::string FlavourWilsonCoefficientvars[NFlavourWilsonCoefficientvars];
     
     /**
-     * @brief FlavourWilsonCoefficient constructor
+     * @brief %FlavourWilsonCoefficient constructor
      */
     FlavourWilsonCoefficient();
     
     /**
-     * @brief FlavourWilsonCoefficient destructor
+     * @brief %FlavourWilsonCoefficient destructor
      */
     ~FlavourWilsonCoefficient();
     
@@ -101,23 +171,25 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_1\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_1\f$
+     * @return gslpp::complex \f$\Delta C_1\f$
      */
     gslpp::complex getDC1() const {
         return DC1;
     }
     
     /**
-     *
-     * @return \f$\Delta C_2\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_2\f$
+     * @return gslpp::complex \f$\Delta C_2\f$
      */
     gslpp::complex getDC2() const {
         return DC2;
     }
     
     /**
-     *
-     * @return \f$\Delta C_3\f$
+     * 
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_3\f$
+     * @return gslpp::complex \f$\Delta C_3\f$
      */
     gslpp::complex getDC3() const {
         return DC3;
@@ -125,7 +197,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_4\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_4\f$
+     * @return gslpp::complex \f$\Delta C_4\f$
      */
     gslpp::complex getDC4() const {
         return DC4;
@@ -133,7 +206,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_5\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_5\f$
+     * @return gslpp::complex \f$\Delta C_5\f$
      */
     gslpp::complex getDC5() const {
         return DC5;
@@ -141,7 +215,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_6\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_6\f$
+     * @return gslpp::complex \f$\Delta C_6\f$
      */
     gslpp::complex getDC6() const {
         return DC6;
@@ -149,7 +224,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_7\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_7\f$
+     * @return gslpp::complex \f$\Delta C_7\f$
      */
     gslpp::complex getDC7() const {
         return DC7;
@@ -157,7 +233,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_8\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_8\f$
+     * @return gslpp::complex \f$\Delta C_8\f$
      */
     gslpp::complex getDC8() const {
         return DC8;
@@ -165,7 +242,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_9\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_9\f$
+     * @return gslpp::complex \f$\Delta C_9\f$
      */
     gslpp::complex getDC9() const {
         return DC9;
@@ -173,7 +251,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_10\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_10\f$
+     * @return gslpp::complex \f$\Delta C_10\f$
      */
     gslpp::complex getDC10() const {
         return DC10;
@@ -181,7 +260,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_{7\gamma}\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_{7\gamma}\f$
+     * @return gslpp::complex \f$\Delta C_{7\gamma}\f$
      */
     gslpp::complex getDC7g() const {
         return DC7g;
@@ -189,7 +269,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C_{8g}\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C_{8g}\f$
+     * @return gslpp::complex \f$\Delta C_{8g}\f$
      */
     gslpp::complex getDC8g() const {
         return DC8g;
@@ -197,7 +278,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C'_7\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C'_7\f$
+     * @return gslpp::complex \f$\Delta C'_7\f$
      */
     gslpp::complex getDC7p() const {
         return DC7p;
@@ -205,15 +287,17 @@ public:
     
     /**
      *
-     * @return \f$\Delta C'_8\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C'_8\f$
+     * @return gslpp::complex \f$\Delta C'_8\f$
      */
     gslpp::complex getDC8p() const {
         return DC8p;
     }
     
     /**
-     *
-     * @return \f$\Delta C'_9\f$
+     * 
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C'_9\f$
+     * @return gslpp::complex \f$\Delta C'_9\f$
      */
     gslpp::complex getDC9p() const {
         return DC9;
@@ -221,7 +305,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C'_10\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C'_10\f$
+     * @return gslpp::complex \f$\Delta C'_10\f$
      */
     gslpp::complex getDC10p() const {
         return DC10p;
@@ -229,7 +314,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C'_{7\gamma}\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C'_{7\gamma}\f$
+     * @return gslpp::complex \f$\Delta C'_{7\gamma}\f$
      */
     gslpp::complex getDC7gp() const {
         return DC7gp;
@@ -237,7 +323,8 @@ public:
     
     /**
      *
-     * @return \f$\Delta C'_{8g}\f$
+     * @brief A getter for the complex Wilson coefficient \f$\Delta C'_{8g}\f$
+     * @return gslpp::complex \f$\Delta C'_{8g}\f$
      */
     gslpp::complex getDC8gp() const {
         return DC8gp;
@@ -245,6 +332,7 @@ public:
     
     /**
      *
+     * @brief A getter for the scale of the Wilson coefficients
      * @return the matching scale of the Wilson coefficients
      */
     double getWCscale() const {
