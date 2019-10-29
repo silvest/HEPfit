@@ -25,7 +25,7 @@ class FlavourWilsonCoefficientMatching : public StandardModelMatching {
 public:
     /**
      * @brief FlavourWilsonCoefficient constructor
-     * @param[in] An object of the FlavourWilsonCoefficient class
+     * @param[in] FlavourWilsonCoefficient_i An object of the FlavourWilsonCoefficient class
      */
     FlavourWilsonCoefficientMatching(const FlavourWilsonCoefficient & FlavourWilsonCoefficient_i);
     

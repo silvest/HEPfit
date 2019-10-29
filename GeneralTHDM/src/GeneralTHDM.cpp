@@ -214,8 +214,12 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         Relambda7 = value;
     else if(name.compare("Nu_11r") == 0 && flag_sigma)
         Nu_11r = value;
-   else if(name.compare("yu1R_GTHDM") == 0 && !flag_sigma)
+   else if(name.compare("yu1R_GTHDM") == 0 && !flag_sigma){
+       if(alpha1==0)
+           yu1R_GTHDM=1;
+       else
          yu1R_GTHDM = value;
+   }
     else if(name.compare("Nu_11i") == 0)
         Nu_11i = value;
     else if(name.compare("Nu_12r") == 0)
@@ -253,6 +257,9 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
     else if(name.compare("Nd_11r") == 0 && flag_sigma)
         Nd_11r = value;
     else if(name.compare("yd1R_GTHDM") == 0 && !flag_sigma)
+        if(alpha1==0)
+           yd1R_GTHDM=1;
+       else
          yd1R_GTHDM = value;
     else if(name.compare("Nd_11i") == 0)
         Nd_11i = value;
@@ -291,6 +298,9 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
     else if(name.compare("Nl_11r") == 0 && flag_sigma)
         Nl_11r = value;
     else if(name.compare("yl1R_GTHDM") == 0 && !flag_sigma)
+        if(alpha1==0)
+           yl1R_GTHDM=1;
+       else
          yl1R_GTHDM = value;
     else if(name.compare("Nl_11i") == 0)
         Nl_11i = value;

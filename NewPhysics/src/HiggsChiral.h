@@ -132,7 +132,7 @@ public:
     virtual bool setFlag(const std::string name, const bool value);
 
     /**
-     * @brief Return the EFT coeff @f$c_V@f$
+     * @brief a getter for the EFT coeff @f$c_V@f$
      * @return @f$c_V@f$
      */
     double getcv() const
@@ -141,7 +141,7 @@ public:
     }
 
     /**
-     * @brief Return the EFT coeff @f$c_t@f$
+     * @brief a getter for the EFT coeff @f$c_t@f$
      * @return @f$c_t@f$
      */
     double getct() const
@@ -150,7 +150,7 @@ public:
     }
 
     /**
-     * @brief Return the EFT coeff @f$c_b@f$
+     * @brief a getter for the EFT coeff @f$c_b@f$
      * @return @f$c_b@f$
      */
     double getcb() const
@@ -159,7 +159,7 @@ public:
     }
     
     /**
-     * @brief Return the EFT coeff @f$c_c@f$
+     * @brief a getter for the EFT coeff @f$c_c@f$
      * @return @f$c_c@f$
      */
     double getcc() const
@@ -168,7 +168,7 @@ public:
     }
 
     /**
-     * @brief Return the EFT coeff @f$c_\tau@f$
+     * @brief a getter for the EFT coeff @f$c_\tau@f$
      * @return @f$c_\tau@f$
      */
     double getctau() const
@@ -177,7 +177,7 @@ public:
     }
 
     /**
-     * @brief Return the EFT coeff @f$c_\mu@f$
+     * @brief a getter for the EFT coeff @f$c_\mu@f$
      * @return @f$c_\mu@f$
      */
     double getcmu() const
@@ -186,7 +186,7 @@ public:
     }
 
     /**
-     * @brief Return the EFT coeff @f$c_g@f$
+     * @brief a getter for the EFT coeff @f$c_g@f$
      * @return @f$c_g@f$
      */
     double getcg() const
@@ -195,7 +195,7 @@ public:
     }
 
     /**
-     * @brief Return the EFT coeff @f$c_\gamma@f$
+     * @brief a getter for the EFT coeff @f$c_\gamma@f$
      * @return @f$c_\gamma@f$
      */
     double getcga() const
@@ -204,7 +204,7 @@ public:
     }
 
     /**
-     * @brief Return the EFT coeff @f$c_{Z\gamma}@f$
+     * @brief a getter for the EFT coeff @f$c_{Z\gamma}@f$
      * @return @f$c_{Z\gamma}@f$
      */
     double getcZga() const
@@ -213,7 +213,7 @@ public:
     }
 
     /**
-     * @brief Return the value of the observed upper limit in @f$pp \to H \to Z\gamma@f$ from ATLAS at 13 TeV 
+     * @brief a getter for the value of the observed upper limit in @f$pp \to H \to Z\gamma@f$ from ATLAS at 13 TeV 
      * @return The @f$H \to Z\gamma@f$ limit from ATLAS at 13 TeV 
      */
     double getobsZgaLimitATLAS13() const
@@ -222,7 +222,7 @@ public:
     }
 
     /**
-     * @brief Return the value of the observed upper limit in @f$pp \to H \to Z\gamma@f$ from CMS at 13 TeV 
+     * @brief a getter for the value of the observed upper limit in @f$pp \to H \to Z\gamma@f$ from CMS at 13 TeV 
      * @return The @f$H \to Z\gamma@f$ limit from CMS at 13 TeV 
      */
     double getobsZgaLimitCMS13() const
@@ -231,7 +231,7 @@ public:
     }
 
     /**
-     * @brief Return the value of the observed upper limit in @f$pp \to H \to Z\gamma@f$ from ATLAS
+     * @brief a getter for the value of the observed upper limit in @f$pp \to H \to Z\gamma@f$ from ATLAS
      * @return The @f$H \to Z\gamma@f$ limit from ATLAS
      */
     double getobsZgaLimitATLAS() const
@@ -240,7 +240,7 @@ public:
     }
 
     /**
-     * @brief Return the value of the observed upper limit in @f$pp \to H \to Z\gamma@f$ from CMS
+     * @brief a getter for the value of the observed upper limit in @f$pp \to H \to Z\gamma@f$ from CMS
      * @return The @f$H \to Z\gamma@f$ limit from CMS
      */
     double getobsZgaLimitCMS() const
@@ -249,7 +249,7 @@ public:
     }
 
     /**
-     * @brief Return the experimental value of the expected upper limit in @f$pp \to H \to Z\gamma@f$ from ATLAS at 13 TeV
+     * @brief a getter for the experimental value of the expected upper limit in @f$pp \to H \to Z\gamma@f$ from ATLAS at 13 TeV
      * @return The @f$H \to Z\gamma@f$ limit from ATLAS at 13 TeV 
      */
     double getexpZgaLimitATLAS13() const
@@ -258,7 +258,7 @@ public:
     }
 
     /**
-     * @brief Return the experimental value of the expected upper limit in @f$pp \to H \to Z\gamma@f$ from CMS at 13 TeV
+     * @brief a getter for the experimental value of the expected upper limit in @f$pp \to H \to Z\gamma@f$ from CMS at 13 TeV
      * @return The @f$H \to Z\gamma@f$ limit from CMS at 13 TeV
      */
     double getexpZgaLimitCMS13() const
@@ -267,7 +267,7 @@ public:
     }
 
     /**
-     * @brief Return the experimental value of the expected upper limit in @f$pp \to H \to Z\gamma@f$ from ATLAS
+     * @brief a getter for the experimental value of the expected upper limit in @f$pp \to H \to Z\gamma@f$ from ATLAS
      * @return The @f$H \to Z\gamma@f$ limit from ATLAS
      */
     double getexpZgaLimitATLAS() const
@@ -276,7 +276,7 @@ public:
     }
 
     /**
-     * @brief Return the experimental value of the expected upper limit in @f$pp \to H \to Z\gamma@f$ from CMS
+     * @brief a getter for the experimental value of the expected upper limit in @f$pp \to H \to Z\gamma@f$ from CMS
      * @return The @f$H \to Z\gamma@f$ limit from CMS
      */
     double getexpZgaLimitCMS() const

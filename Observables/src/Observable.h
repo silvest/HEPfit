@@ -61,7 +61,8 @@ public:
      * @param[in] tok the tokenizer containing the line being parsed
      * @param[in] beg the iterator that parses a line in the config file
      * @param[in] filepath the path to the config file being parsed
-     * @param[in] filename the name of the config file being parsed
+     * @param[in] infilename the name of the config file being parsed
+     * @param[in] rank the MPI rank of the process accessing the code
      * @return the line number (integer) after the parsing is done
      */
     boost::tokenizer<boost::char_separator<char> >::iterator &  ParseObservable(std::string& type,
@@ -197,7 +198,7 @@ public:
     
     /**
      * @brief A set method to fix the right Gaussian error of the observable.
-     * @param[in] errgl the right Gaussian error of the observable
+     * @param[in] errgr the right Gaussian error of the observable
      */
     void setErrgr(double errgr)
     {
@@ -407,7 +408,7 @@ public:
 
     /**
      * @brief A set method to fix the pointer to object of type ThObservable.
-     * @param[in] tho pointer to the object of type ThObservable
+     * @param[in] tho_i pointer to the object of type ThObservable
      */
     void setTho(ThObservable* tho_i)
     {
@@ -418,7 +419,9 @@ public:
     
     /**
      * @brief A set method to fix the pointer to object of type ThObservable.
-     * @param[in] tho pointer to the object of type ThObservable
+     * @param[in] tho_i pointer to the object of type ThObservable
+     * @param[in] bmin the lower limit of the bind
+     * @param[in] bmax the upper limit of the bin
      */
     void setTho(ThObservable* tho_i, double bmin, double bmax)
     {
@@ -430,18 +433,18 @@ public:
     /**
      * A method to compute the log of a split Gaussian likelihood
      * @param x the value of the split-Gaussian distributed variable
-     * @param ave the average value
-     * @param errl the left-side error
-     * @param errr the right-side error
+     * @param[in] ave the average value
+     * @param[in] errl the left-side error
+     * @param[in] errr the right-side error
      * @return the log likelihood at point x
      */
     double LogSplitGaussian(double x, double ave, double errl, double errr);
     
     /**
      * A method to compute the log of a Gaussian likelihood
-     * @param x the value of the Gaussian distributed variable
-     * @param ave the average value
-     * @param sigma the error
+     * @param[in] x the value of the Gaussian distributed variable
+     * @param[in] ave the average value
+     * @param[in] sigma the error
      * @return the log likelihood at point x
      */
     double LogGaussian(double x, double ave, double sigma);

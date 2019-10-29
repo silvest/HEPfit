@@ -26,7 +26,7 @@ class THDMWSTU : public ThObservable {
 public:
     /**
      * @brief Constructor.
-     * @param[in] ?
+     * @param[in] SM_i A referene to the StandardModel object
      */
    THDMWSTU(const StandardModel& SM_i);
      

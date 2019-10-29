@@ -25,7 +25,7 @@ class RealWeakEFTLFVMatching : public StandardModelMatching {
 public:
     /**
      * @brief FlavourWilsonCoefficient_DF2Matching constructor
-     * @param[in] An object of the RealWeakEFTLFV class
+     * @param[in] RealWeakEFTLFV_i An object of the RealWeakEFTLFV class
      */
     RealWeakEFTLFVMatching(const RealWeakEFTLFV & RealWeakEFTLFV_i);
     

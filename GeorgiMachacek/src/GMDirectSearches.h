@@ -16,7 +16,8 @@ class GeorgiMachacek;
 /**
  * @class GMDirectSearches
  * @ingroup GeorgiMachacek
- * @brief Base class for direct Georgi-Machacek Higgs search observables.
+ * @brief Contains several classes for direct searches constraining
+ * the Gerogi Machachek model.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  */
@@ -1788,7 +1789,7 @@ private:
  * @class Hobs_gg_H1_Zga_CMS13
  * @ingroup GeorgiMachacek
  * @brief Ratio of the prediction and CMS upper limit for the cross section 
- * times branching ratio of the process @gg \to H_1 \to Z \gamma@f$.
+ * times branching ratio of the process @f$gg \to H_1 \to Z \gamma@f$.
  */
 class Hobs_gg_H1_Zga_CMS13: public ThObservable {
 public:
@@ -1799,7 +1800,7 @@ public:
     Hobs_gg_H1_Zga_CMS13(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{GM}}_{gg \to H_1}\cdot BR^{\text{GM}}(H_1\to Z\gamma)]_{\text{theo}} / [\sigma_{gg \to H_1}\cdot BR(H_1\to Z\gamma)]_{\text{CMS,95\%}}@f$
+     * @return @f$\left[\sigma^{\text{GM}}_{gg \to H_1}\cdot BR^{\text{GM}}(H_1\to Z\gamma)\right]_{\text{theo}} / \left[\sigma_{gg \to H_1}\cdot BR(H_1\to Z\gamma)\right]_{\text{CMS,95\%}}@f$
      */
     double computeThValue();
 private:
@@ -1821,7 +1822,7 @@ public:
     Hobs_pp_H3_Zga_llga_ATLAS8(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{GM}}_{pp \to H_3}\cdot BR^{\text{GM}}(H_3\to Z\gamma \to \ell \ell \gamma)]_{\text{theo}} / [\sigma_{pp \to H_3}\cdot BR(H_3\to Z\gamma \to \ell \ell \gamma)]_{\text{ATLAS,95\%}}@f$
+     * @return @f$\left[\sigma^{\text{GM}}_{pp \to H_3}\cdot BR^{\text{GM}}(H_3\to Z\gamma \to \ell \ell \gamma)\right]_{\text{theo}} / \left[\sigma_{pp \to H_3}\cdot BR(H_3\to Z\gamma \to \ell \ell \gamma)\right]_{\text{ATLAS,95\%}}@f$
      */
     double computeThValue();
 private:

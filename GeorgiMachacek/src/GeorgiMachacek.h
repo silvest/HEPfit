@@ -20,7 +20,63 @@
  * As experimental constraints, Higgs signal strengths and direct searches for neutral, singly and doubly charged scalars
  * are available.
  * 
- * @{
+ * @anchor GeorgiMachacekParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %GeorgiMachacek are summarized below.
+ * 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * 
+ * 
+ * <tr>
+ *   <td class="mod_name">%vDelta</td>
+ *   <td class="mod_symb">@f$ v_{\Delta}  @f$</td>
+ *   <td class="mod_desc"> The vacuum expectation value of the electroweak-triplet </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%alpha</td>
+ *   <td class="mod_symb">@f$ \alpha  @f$</td>
+ *   <td class="mod_desc"> Rotation angle which diagonalizes the singlet subspace  </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mHh</td>
+ *   <td class="mod_symb">@f$m_{H_1}@f$</td>
+ *   <td class="mod_desc">The mass of the "non-125 GeV" CP-even Higgs state.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mA</td>
+ *   <td class="mod_symb">@f$m_{H_3}@f$</td>
+ *   <td class="mod_desc">The mass of the triplet Higgs states.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mH5</td>
+ *   <td class="mod_symb">@f$m_{H_5}@f$</td>
+ *   <td class="mod_desc">The mass of the quintet Higgs states.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Mu1</td>
+ *   <td class="mod_symb">@f$\mu_{1}@f$</td>
+ *   <td class="mod_desc">The @f$\mu_{1}@f$ potential parameter according to arxiv:1511.00865  </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Mu2</td>
+ *   <td class="mod_symb">@f$\mu_{2}@f$</td>
+ *   <td class="mod_desc">The @f$\mu_{2}@f$ potential parameter according to arxiv:1511.00865  </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Q_GM</td>
+ *   <td class="mod_symb">@f$Q_{\text{GM}}@f$</td>
+ *   <td class="mod_desc">The GM scale.</td>
+ * </tr>
+ * </table>
+ * 
+ * 
+ * 
  */
 
 class GMcache; //forward reference to GMcache class

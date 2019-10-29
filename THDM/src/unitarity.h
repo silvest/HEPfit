@@ -32,7 +32,7 @@ class unitarity : public ThObservable {
 public:
     /**
      * @brief Constructor.
-     * @param[in] ?
+     * @param[in] SM_i An reference to the StandarModel object
      */
    unitarity(const StandardModel& SM_i);
      

@@ -235,7 +235,7 @@ public:
 
     /**
      * @brief A set method to fix the average value of the second observable.
-     * @param[in] ave the average value of the observable
+     * @param[in] ave2 the average value of the observable
      */
     void setAve2(double ave2)
     {
@@ -253,7 +253,7 @@ public:
 
     /**
      * @brief A set method to fix the flat error of the second observable.
-     * @param[in] errf the flat error of the observable
+     * @param[in] errf2 the flat error of the observable
      */
     void setErrf2(double errf2)
     {
@@ -271,7 +271,7 @@ public:
 
     /**
      * @brief A set method to fix the gaussian error of the observable.
-     * @param[in] errg the Gaussian error of the observable
+     * @param[in] errg2 the Gaussian error of the observable
      */
     void setErrg2(double errg2)
     {

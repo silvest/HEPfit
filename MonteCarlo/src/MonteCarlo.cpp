@@ -204,6 +204,7 @@ void MonteCarlo::Run(const int rank) {
 
         MCEngine.SetName(ModelName.c_str());
         MCEngine.Initialize(myInputParser.getModel());
+        MCEngine.SetInitialPositionAttemptLimit(10000);   
 
 #ifdef _MPI
         double *recvbuff = new double[buffsize];
@@ -695,7 +696,6 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
      if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
         throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
-     MCEngine.SetInitialPositionAttemptLimit(10000);   
 }
 
 void MonteCarlo::ReadPreRunData(std::string file)
