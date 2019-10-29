@@ -18,6 +18,40 @@
  * processes like @f$b\to c@f$ decays.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
+ * 
+ * 
+ * @anchor RealWeakEFTCCParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %FlavourWilsonCoefficient model are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CSL, %CSR, %CVL, %CVR</td>
+ *   <td class="mod_symb">@f$C_S^L@f$, @f$C_S^R@f$, @f$C_V^L@f$
+ *   @f$C_V^R@f$</td>
+ *   <td class="mod_desc">The left and right handed scalar and
+ *   vector couplings for the RealWeakEFTCCPM %Model</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CS, %CP, %CV, %CA</td>
+ *   <td class="mod_symb">@f$C_S@f$, @f$C_P@f$, @f$C_V@f$
+ *   @f$C_A@f$</td>
+ *   <td class="mod_desc">The scalar, pseudo-scalar, vector,
+ *   and axialvector couplingsfor the %RealWeakEFTCC %Model</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CT</td>
+ *   <td class="mod_symb">@f$C_T@f$</td>
+ *   <td class="mod_desc">The tensor coupling for both
+ *   the %RealWeakEFTCC and RealWeakEFTCCPM %Model</td>
+ * </tr>
+ * </table>
+ * 
  */
 class RealWeakEFTCC: public StandardModel {
 public:
@@ -92,7 +126,7 @@ public:
     
     /**
      *
-     * @return \f$ C_S or C_{S}^{L}\f$
+     * @return \f$ C_S\f$ or \f$C_{S}^{L}\f$
      */
     double getCCC1() const {
         return C1;
@@ -100,7 +134,7 @@ public:
     
     /**
      *
-     * @return \f$ C_P or C_{S}^{R}\f$
+     * @return \f$ C_P\f$ or \f$C_{S}^{R}\f$
      */
     double getCCC2() const {
         return C2;
@@ -108,7 +142,7 @@ public:
     
     /**
      *
-     * @return \f$ C_V or C_{V}^{L}\f$
+     * @return \f$ C_V\f$ or \f$C_{V}^{L}\f$
      */
     double getCCC3() const {
         return C3;
@@ -116,7 +150,7 @@ public:
     
         /**
      *
-     * @return \f$ C_A or or C_{V}^{R}$\f
+     * @return \f$ C_A\f$ or or \f$C_{V}^{R}$\f
      */
     double getCCC4() const {
         return C4;
