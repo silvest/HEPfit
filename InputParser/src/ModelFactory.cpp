@@ -15,7 +15,7 @@
 #include "NPSMEFTd6.h"
 #include "NPSMEFT6dtopquark.h"
 #include "HiggsKvKf.h"
-#include "HiggsKvKfgen.h" //
+#include "HiggsKvKfgen.h"
 #include "HiggsKvgenKfgen.h"
 #include "HiggsKigen.h"
 #include "HiggsChiral.h"
