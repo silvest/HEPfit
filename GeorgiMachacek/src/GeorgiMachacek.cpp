@@ -127,6 +127,10 @@ bool GeorgiMachacek::setFlag(const std::string name, const bool value)
             GMvars[std::distance(GMvars,std::find(GMvars,GMvars+NGMvars,"mHh"))] = "mHhsq";
             GMvars[std::distance(GMvars,std::find(GMvars,GMvars+NGMvars,"mA"))] = "mAsq";
             GMvars[std::distance(GMvars,std::find(GMvars,GMvars+NGMvars,"mH5"))] = "mH5sq";
+            
+            ModelParamMap.insert(std::make_pair("mHhsq", std::cref(mHhsq)));
+            ModelParamMap.insert(std::make_pair("mAsq", std::cref(mAsq)));
+            ModelParamMap.insert(std::make_pair("mH5sq", std::cref(mH5sq)));
         }
     }
     else
