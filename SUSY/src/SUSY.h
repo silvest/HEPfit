@@ -18,10 +18,73 @@ class SUSYSpectrum; // forward reference to Spectrum class
 /**
  * @class SUSY
  * @ingroup SUSY
- * @brief A base class for SUSY models. 
+ * @brief A base class for SUSY models.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details  
+ * 
+ * @anchor SUSYParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %SUSY model are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%m1r, %m1i</td>
+ *   <td class="mod_symb">@f$\mathcal{R}(m_1)@f$, @f$\mathcal{I}(m_1)@f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the bino mass</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%m2r, %m2i</td>
+ *   <td class="mod_symb">@f$\mathcal{R}(m_2)@f$, @f$\mathcal{I}(m_2)@f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the wino mass</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%m3r</td>
+ *   <td class="mod_symb">@f$m_3@f$</td>
+ *   <td class="mod_desc">The gluino mass</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%muHr, %muHi</td>
+ *   <td class="mod_symb">@f$\mathcal{R}(\mu)@f$, @f$\mathcal{I}(\mu)@f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the @f$\mu@f$-parameter</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%muHptree</td>
+ *   <td class="mod_symb">@fm_H^{+,tree}@f$</td>
+ *   <td class="mod_desc">The tree level charged Higgs mass</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tanb</td>
+ *   <td class="mod_symb">@f$\tan\beta@f$</td>
+ *   <td class="mod_desc">@f$\tan\beta@f$</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Q_SUSY</td>
+ *   <td class="mod_symb">@f$Q^{SUSY}@f$</td>
+ *   <td class="mod_desc">The SUSY breaking scale</td>
+ * </tr>
+ * </table>
+ * 
+ * * @anchor SUSYFlags
+ * <h3>%Model flags</h3>
+ *
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>Value</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%flag_h</td>
+ *   <td class="mod_valu">true/false</td>
+ *   <td class="mod_desc">Toggles the computation of the spectrum. default: true</td>
+ * </tr>
+ * </table>
  */
 class SUSY: public StandardModel {
 public:
@@ -35,19 +98,29 @@ public:
     friend class SUSYSpectrum;
 
     /**
-     * @brief A SUSY constructor.
+     * @brief A %SUSY constructor.
      */
     SUSY();
 
     /**
-     * @brief A SUSY destructor. 
+     * @brief A %SUSY destructor. 
      */
     ~SUSY();
     ///////////////////////////////////////////////////////////////////////////
     // Initialization
 
+    /**
+     * @brief A method to initialize the model.
+     * @details This method, called via InputParser::ReadParameters(), allocates
+     * memory to the pointers defined in the current class.
+     * @return a boolean that is true if model initialization is successful
+     */
     virtual bool InitializeModel();   
 
+    /**
+     * @brief A get method to access the member reference of type %SUSYtMatching.
+     * @return a reference to a %SUSYMatching object
+     */
     virtual SUSYMatching& getMatching() const
     {
         return SUSYM.getObj();
@@ -56,45 +129,63 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Parameters 
 
+    /**
+     * @brief Initializes the %SUSY parameters found in the argument.
+     * @param[in] DPars a map containing the parameters (all as double) to be used in Monte Carlo
+     */
     virtual bool Init(const std::map<std::string, double>& DPars);
-
+    
+    /**
+     * @brief The pre-update method for %SUSY
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PreUpdate();
 
+    /**
+     * @brief The update method for %SUSY.
+     * @details This method updates all the model parameters with given DPars.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool Update(const std::map<std::string, double>& DPars);
 
+    /**
+     * @brief The post-update method for %SUSY.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
 
+    /**
+     * @brief A method to check if all the mandatory parameters for %SUSY
+     * have been provided in model initialization.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
+    /**
+     * @brief A method to set a flag of %SUSY.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool setFlag(const std::string, const bool);
 
+    /**
+     *
+     * @brief A getter the flag controlling the spectrum computation
+     * @return a boolean
+     */
     bool IsFlag_h() const
     {
         return flag_h;
-    }
-
-    bool IsFlag_g() const
-    {
-        return flag_g;
-    }
-
-    bool IsFlag_ch() const
-    {
-        return flag_ch;
-    }
-
-    bool IsFlag_ne() const
-    {
-        return flag_ne;
-    }
-    
-    bool IsFlag_FH() const
-    {
-        return flag_fh;
     }
 
 
@@ -557,7 +648,7 @@ protected:
     
     ///////////////////////////////////////////////////////////////////////////
 private:    
-    bool flag_h, flag_g, flag_ch, flag_ne, flag_fh;
+    bool flag_h;
     mutable Matching<SUSYMatching,SUSY>  SUSYM;
     EWSUSY* myEWSUSY;
 

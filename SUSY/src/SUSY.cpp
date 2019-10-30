@@ -38,11 +38,7 @@ SUSY::SUSY()
     ModelParamMap.insert(std::make_pair("tanb", std::cref(tanb)));
     ModelParamMap.insert(std::make_pair("Q_SUSY", std::cref(Q_SUSY)));
     
-    flag_fh = false;
-    flag_h = false;
-    flag_g = false;
-    flag_ch = false;
-    flag_ne = false;
+    flag_h = true;
 }
 
 SUSY::~SUSY() 
@@ -110,61 +106,56 @@ bool SUSY::PostUpdate()
         m2.real() = m3/3.;
     }
     
-    /* Compute Higgs and sparticle spectra with FeynHiggs */
-    if (IsFlag_FH()) {
-    }
-    else {
     /* Compute Higgs and sparticle spectra without FeynHiggs */
         /* sfermions */
-        for (int i = 0; i < 6; i++) {
-            m_sn2(i) = 0.;// heavy decoupled masses for i=3-5
-            m_se2(i) = 0.;
-            m_su2(i) = 0.;
-            m_sd2(i) = 0.;
-            m_sdresum2(i) = 0.;
-            for (int j = 0; j < 6; j++) {
-                /* R: first (second) index for mass (gauge) eigenstates */
-                /* UASf: second (third) index for gauge (mass) eigenstates */
-                Rn.assign(i,j, 0.);
-                Rl.assign(i,j, 0.);
-                Ru.assign(i,j, 0.);
-                Rd.assign(i,j, 0.);
-                Rdresum.assign(i,j, 0.);
-            }
+    for (int i = 0; i < 6; i++) {
+        m_sn2(i) = 0.; // heavy decoupled masses for i=3-5
+        m_se2(i) = 0.;
+        m_su2(i) = 0.;
+        m_sd2(i) = 0.;
+        m_sdresum2(i) = 0.;
+        for (int j = 0; j < 6; j++) {
+            /* R: first (second) index for mass (gauge) eigenstates */
+            /* UASf: second (third) index for gauge (mass) eigenstates */
+            Rn.assign(i, j, 0.);
+            Rl.assign(i, j, 0.);
+            Ru.assign(i, j, 0.);
+            Rd.assign(i, j, 0.);
+            Rdresum.assign(i, j, 0.);
         }
-
-        /* charginos */
-        for (int i = 0; i < 2; i++) {
-            mch(i) = 0.;
-            for (int j = 0; j < 2; j++) {
-                /* U and V: first (second) index for mass (gauge) eigenstates */
-                /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
-                U.assign(i,j, 0.);
-                V.assign(i,j, 0.);
-            }
-        }
-
-        /* neutralinos */
-        for (int i = 0; i < 4; i++) {
-            mneu(i) = 0.;
-            for (int j = 0; j < 4; j++)
-                /* N: first (second) index for mass (gauge) eigenstates */
-                /* Zneu: first (second) index for gauge (mass) eigenstates */
-                N.assign(i,j, 0.);
-        }
-        
-    if(!mySUSYSpectrum->CalcHiggs(mh,saeff)) return (false);
-    if(!mySUSYSpectrum->CalcChargino(U,V,mch)) return (false);
-    if(!mySUSYSpectrum->CalcNeutralino(N,mneu)) return (false);
-    if(!mySUSYSpectrum->CalcSup(Ru,m_su2)) return (false);
-    mySUSYSpectrum->SortSfermionMasses(m_su2, Ru);
-    if(!mySUSYSpectrum->CalcSdown(Rd,m_sd2)) return (false);
-    mySUSYSpectrum->SortSfermionMasses(m_sd2, Rd);
-    if(!mySUSYSpectrum->CalcSneutrino(Rn,m_sn2)) return (false);
-    mySUSYSpectrum->SortSfermionMasses(m_sn2, Rn);
-    if(!mySUSYSpectrum->CalcSelectron(Rl,m_se2)) return (false);
-    mySUSYSpectrum->SortSfermionMasses(m_se2, Rl);
     }
+
+    /* charginos */
+    for (int i = 0; i < 2; i++) {
+        mch(i) = 0.;
+        for (int j = 0; j < 2; j++) {
+            /* U and V: first (second) index for mass (gauge) eigenstates */
+            /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
+            U.assign(i, j, 0.);
+            V.assign(i, j, 0.);
+        }
+    }
+
+    /* neutralinos */
+    for (int i = 0; i < 4; i++) {
+        mneu(i) = 0.;
+        for (int j = 0; j < 4; j++)
+            /* N: first (second) index for mass (gauge) eigenstates */
+            /* Zneu: first (second) index for gauge (mass) eigenstates */
+            N.assign(i, j, 0.);
+    }
+
+    if (!mySUSYSpectrum->CalcHiggs(mh, saeff)) return (false);
+    if (!mySUSYSpectrum->CalcChargino(U, V, mch)) return (false);
+    if (!mySUSYSpectrum->CalcNeutralino(N, mneu)) return (false);
+    if (!mySUSYSpectrum->CalcSup(Ru, m_su2)) return (false);
+    mySUSYSpectrum->SortSfermionMasses(m_su2, Ru);
+    if (!mySUSYSpectrum->CalcSdown(Rd, m_sd2)) return (false);
+    mySUSYSpectrum->SortSfermionMasses(m_sd2, Rd);
+    if (!mySUSYSpectrum->CalcSneutrino(Rn, m_sn2)) return (false);
+    mySUSYSpectrum->SortSfermionMasses(m_sn2, Rn);
+    if (!mySUSYSpectrum->CalcSelectron(Rl, m_se2)) return (false);
+    mySUSYSpectrum->SortSfermionMasses(m_se2, Rl);
 
     /* Set the mass of the SM-like Higgs */
     /* allowed range for the use of EWSMApproximateFormulae class */
@@ -295,22 +286,6 @@ bool SUSY::setFlag(const std::string name, const bool value)
     bool res = false;
     if(name.compare("Flag_H") == 0) {
         flag_h = value;
-        res = true;
-    }
-    else if(name.compare("Flag_g") == 0) {
-        flag_g = value;
-        res = true;
-    }
-    else if(name.compare("Flag_Chi") == 0) {
-        flag_ch = value;
-        res = true;
-    }
-    else if(name.compare("Flag_Chi0") == 0) {
-        flag_ne = value;
-        res = true;
-    }
-    else if(name.compare("Flag_FH") == 0) {
-        flag_fh = value;
         res = true;
     }
     else

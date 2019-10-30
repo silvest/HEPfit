@@ -16,6 +16,9 @@
 /**
  * @addtogroup SUSY
  * @brief A module for a basis of %SUSY models.
+ * @details This is a module where the basic set of %SUSY parameters are implemented
+ * and inherited from by other models like GeneralSUSY. The spectrum is computed by the
+ * SUSYSpectrum code. 
  * @{
  */
 
