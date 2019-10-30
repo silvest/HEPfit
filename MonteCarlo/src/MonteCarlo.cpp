@@ -650,7 +650,7 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setWriteLogLikelihoodChain((beg->compare("true") == 0));
             else
                 throw std::runtime_error("\nERROR: WriteLogLikelihoodChain in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
-        } else if (beg->compare("WriteParametersChain") == 0) {
+        } else if (beg->compare("WriteParametersChains") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setWriteParametersChain((beg->compare("true") == 0));
             else
