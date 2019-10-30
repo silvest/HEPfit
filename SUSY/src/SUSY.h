@@ -541,6 +541,11 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 protected:
+    /**
+     * @brief A method to set the value of a parameter of %SUSY.
+     * @param[in] name name of a model parameter
+     * @param[in] value the value to be assigned to the parameter specified by name
+     */
     virtual void setParameter(const std::string name , const double& value);
     virtual void SetTanb(const double tanb);
     virtual void computeYukawas();

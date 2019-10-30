@@ -161,7 +161,16 @@ the available observables since the list is small.
   - %Model parameters: [@ref FlavourWilsonCoefficientParameters "Summary table"]
   - %Model flags: None
   - %Model description: A %Model for NP contributions to flavour
-    through shifts to Standard %Model Wilson coefficients.
+    through shifts to Standard %Model Wilson coefficients for @f$\Delta F=1@f$
+	processes.
+	
+## FlavourWilsonCoefficient_DF2
+
+  - %Model parameters: [@ref FlavourWilsonCoefficient_DF2Parameters "Summary table"]
+  - %Model flags: None
+  - %Model description: A %Model for NP contributions to flavour
+    through shifts to Standard %Model Wilson coefficients for @f$\Delta F=2@f$
+	processes.	
   
 ## RealWeakEFTLFV
 
@@ -222,3 +231,17 @@ the available observables since the list is small.
    A custodial limiting case of this model can be obtained setting the flag to "custodialMW".
    The THDM plus octet can be address by attributing "custodial1" to the THDMWmodel flag.
    The implemented observables are positivity, unitarity, Higgs signal strengths and electroweak precision measurements.
+   
+## SUSY
+  - %Model parameters: [@ref SUSYParameters "Summary table"]
+  - %Model flags: [@ref SUSYFlags "Summary table"]
+  - %Model description: This is a %Model for the basic set of %SUSY parameters.
+    These can be inherited by other SUSY models like GeneralSUSY. The spectrum is computed by the
+    %SUSYSpectrum code.
+
+## GeneralSUSY
+  - %Model parameters: [@ref GeneralSUSYParameters "Summary table"]
+  - %Model flags: None
+  - %Model description: This is a %Model for the full general SUSY with full complex
+    squark and slepton squared mass matrices and trilinear couplings
+
