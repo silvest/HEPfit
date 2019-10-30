@@ -394,6 +394,11 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
            GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mH2sq"))] = "mH21";
            GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mH3sq"))] = "mH31";
            GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"mHp2"))] = "mHp1";
+           
+           ModelParamMap.insert(std::make_pair("mH21", std::cref(mH21)));
+           ModelParamMap.insert(std::make_pair("mH31", std::cref(mH31)));
+           ModelParamMap.insert(std::make_pair("mHp1", std::cref(mHp1)));
+           
         }
     }
     else if(name.compare("use_sigma") == 0) {
@@ -404,6 +409,10 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
            GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"Nu_11r"))] = "yu1R_GTHDM";
            GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"Nd_11r"))] = "yd1R_GTHDM";
            GeneralTHDMvars[std::distance(GeneralTHDMvars,std::find(GeneralTHDMvars,GeneralTHDMvars+NGeneralTHDMvars,"Nl_11r"))] = "yl1R_GTHDM";
+           
+           ModelParamMap.insert(std::make_pair("yu1R_GTHDM", std::cref(yu1R_GTHDM)));
+           ModelParamMap.insert(std::make_pair("yd1R_GTHDM", std::cref(yd1R_GTHDM)));
+           ModelParamMap.insert(std::make_pair("yl1R_GTHDM", std::cref(yl1R_GTHDM)));
         }
         if(!flag_sigma && !flag_CPconservation){
            throw std::runtime_error("sigma flag different from true only in the CP-conserving");

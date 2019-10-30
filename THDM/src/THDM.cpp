@@ -204,6 +204,10 @@ bool THDM::setFlag(const std::string name, const bool value)
             THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mHh2"))] = "mHh1";
             THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mA2"))] = "mA1";
             THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mHp2"))] = "mHp1";
+            
+            ModelParamMap.insert(std::make_pair("mHh1", std::cref(mHh1)));
+            ModelParamMap.insert(std::make_pair("mA1", std::cref(mA1)));
+            ModelParamMap.insert(std::make_pair("mHp1", std::cref(mHp1)));
         }
     }
     else if(name.compare("wavefunctionrenormalization") == 0) {

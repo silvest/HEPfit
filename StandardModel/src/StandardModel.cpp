@@ -391,6 +391,11 @@ bool StandardModel::setFlag(const std::string name, const bool value)
             SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"A"))] = "V_cb";
             SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"rhob"))] = "V_ub";
             SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"etab"))] = "gamma";
+            
+            ModelParamMap.insert(std::make_pair("V_us", std::cref(Vus)));
+            ModelParamMap.insert(std::make_pair("V_cb", std::cref(Vcb)));
+            ModelParamMap.insert(std::make_pair("V_ub", std::cref(Vub)));
+            ModelParamMap.insert(std::make_pair("gamma", std::cref(gamma)));
         }
         res = true;
     } else if (name.compare("WithoutNonUniversalVC") == 0) {
