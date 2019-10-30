@@ -20,6 +20,81 @@
  * using modification to the Wilson coefficients.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
+ * @details
+ * 
+ * @anchor FlavourWilsonCoefficient_DF2Parameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %FlavourWilsonCoefficient_DF2 model are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reC1s, %reC2s, %reC3s, %reC4s, %reC5s</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(C_{1,s}) @f$, @f$ \mathcal{R}(C_{2,s}) @f$,
+ *   @f$ \mathcal{R}(C_{3,s}) @f$, @f$ \mathcal{R}(C_{4,s}) @f$, @f$ \mathcal{R}(C_{5,s}) @f$</td>
+ *   <td class="mod_desc">The real parts of the rescaling of the Wilson coefficient
+ *   @f$ C_{i,s}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$K^0-\bar{K}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale_s</td>
+ *   <td class="mod_symb">@f$ \mu_s @f$</td>
+ *   <td class="mod_desc">The scale of the Wilson coefficient
+ *   @f$ C_{i,s}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$K^0-\bar{K}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reC1c, %reC2c, %reC3c, %reC4c, %reC5s</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(C_{1,c}) @f$, @f$ \mathcal{R}(C_{2,c}) @f$,
+ *   @f$ \mathcal{R}(C_{3,c}) @f$, @f$ \mathcal{R}(C_{4,c}) @f$, @f$ \mathcal{R}(C_{5,c}) @f$</td>
+ *   <td class="mod_desc">The real parts of the rescaling of the Wilson coefficient
+ *   @f$ C_{i,c}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$D^0-\bar{D}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale_c</td>
+ *   <td class="mod_symb">@f$ \mu_c @f$</td>
+ *   <td class="mod_desc">The scale of the Wilson coefficient
+ *   @f$ C_{i,c}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$D^0-\bar{D}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reC1bd, %reC2bd, %reC3bd, %reC4bd, %reC5bd</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(C_{1,bd}) @f$, @f$ \mathcal{R}(C_{2,bd}) @f$,
+ *   @f$ \mathcal{R}(C_{3,bd}) @f$, @f$ \mathcal{R}(C_{4,bd}) @f$, @f$ \mathcal{R}(C_{5,bd}) @f$</td>
+ *   <td class="mod_desc">The real parts of the rescaling of the Wilson coefficient
+ *   @f$ C_{i,bd}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$B^0-\bar{B}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale_bd</td>
+ *   <td class="mod_symb">@f$ \mu_{bd} @f$</td>
+ *   <td class="mod_desc">The scale of the Wilson coefficient
+ *   @f$ C_{i,bd}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$B^0-\bar{B}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reC1bs, %reC2bs, %reC3bs, %reC4bs, %reC5bs</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(C_{1,bs}) @f$, @f$ \mathcal{R}(C_{2,bs}) @f$,
+ *   @f$ \mathcal{R}(C_{3,bs}) @f$, @f$ \mathcal{R}(C_{4,bs}) @f$, @f$ \mathcal{R}(C_{5,bs}) @f$</td>
+ *   <td class="mod_desc">The real parts of the rescaling of the Wilson coefficient
+ *   @f$ C_{i,bs}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$B_s-\bar{B}_s@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale_bs</td>
+ *   <td class="mod_symb">@f$ \mu_{bs} @f$</td>
+ *   <td class="mod_desc">The scale of the Wilson coefficient
+ *   @f$ C_{i,bs}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$B_s-\bar{B}_s@f$
+ *   mixing</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  */
          
 class FlavourWilsonCoefficient_DF2: public StandardModel {
@@ -69,7 +144,7 @@ public:
     }
     
     /**
-     * 
+     * @brief A getter for \f$C_{1}^{bd}\f$
      * @return \f$C_{1}^{bd}\f$
      */
     gslpp::complex GetC1_bd() const
@@ -78,7 +153,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{1}^{bs}\f$
      * @return  \f$C_{1}^{bs}\f$
      */
     gslpp::complex GetC1_bs() const
@@ -87,7 +162,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{1}^{cu}\f$
      * @return  \f$C_{1}^{cu}\f$
      */
     gslpp::complex GetC1_c() const
@@ -96,7 +171,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{1}^{sd}\f$
      * @return  \f$C_{1}^{sd}\f$
      */
     gslpp::complex GetC1_s() const
@@ -105,7 +180,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{2}^{bd}\f$
      * @return  \f$C_{2}^{bd}\f$
      */
     gslpp::complex GetC2_bd() const
@@ -114,7 +189,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{2}^{bs}\f$
      * @return  \f$C_{2}^{bs}\f$
      */
     gslpp::complex GetC2_bs() const
@@ -123,7 +198,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{2}^{cu}\f$ 
      * @return  \f$C_{2}^{cu}\f$
      */
     gslpp::complex GetC2_c() const
@@ -132,7 +207,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{2}^{sd}\f$
      * @return  \f$C_{2}^{sd}\f$
      */
     gslpp::complex GetC2_s() const
@@ -141,7 +216,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{3}^{bd}\f$
      * @return  \f$C_{3}^{bd}\f$
      */
     gslpp::complex GetC3_bd() const
@@ -150,7 +225,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{3}^{bs}\f$
      * @return  \f$C_{3}^{bs}\f$
      */
     gslpp::complex GetC3_bs() const
@@ -159,7 +234,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{3}^{cu}\f$
      * @return  \f$C_{3}^{cu}\f$
      */
     gslpp::complex GetC3_c() const
@@ -168,7 +243,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{3}^{sd}\f$
      * @return  \f$C_{3}^{sd}\f$
      */
     gslpp::complex GetC3_s() const
@@ -177,7 +252,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{4}^{bd}\f$
      * @return  \f$C_{4}^{bd}\f$
      */
     gslpp::complex GetC4_bd() const
@@ -186,7 +261,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{4}^{bs}\f$
      * @return  \f$C_{4}^{bs}\f$
      */
     gslpp::complex GetC4_bs() const
@@ -195,7 +270,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{4}^{cu}\f$
      * @return  \f$C_{4}^{cu}\f$
      */
     gslpp::complex GetC4_c() const
@@ -204,7 +279,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{4}^{sd}\f$
      * @return  \f$C_{4}^{sd}\f$
      */
     gslpp::complex GetC4_s() const
@@ -213,7 +288,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{5}^{bd}\f$
      * @return  \f$C_{5}^{bd}\f$
      */
     gslpp::complex GetC5_bd() const
@@ -222,7 +297,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{5}^{bs}\f$
      * @return  \f$C_{5}^{bs}\f$
      */
     gslpp::complex GetC5_bs() const
@@ -231,7 +306,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{5}^{cu}\f$
      * @return  \f$C_{5}^{cu}\f$
      */
     gslpp::complex GetC5_c() const
@@ -240,7 +315,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for \f$C_{5}^{sd}\f$
      * @return  \f$C_{5}^{sd}\f$
      */
     gslpp::complex GetC5_s() const
@@ -249,7 +324,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for the scale at which the NP Wilson coefficients in the \f$bd\f$ sector
      * @return the scale at which the NP Wilson coefficients in the \f$bd\f$ sector are defined
      */
     double GetWCscale_bd() const
@@ -258,7 +333,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for the scale at which the NP Wilson coefficients in the \f$bs\f$ sector
      * @return the scale at which the NP Wilson coefficients in the \f$bs\f$ sector are defined
      */
     double GetWCscale_bs() const
@@ -267,7 +342,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for the scale at which the NP Wilson coefficients in the \f$cu\f$
      * @return the scale at which the NP Wilson coefficients in the \f$cu\f$ sector are defined
      */
     double GetWCscale_c() const
@@ -276,7 +351,7 @@ public:
     }
 
     /**
-     * 
+     * @brief A getter for the scale at which the NP Wilson coefficients in the \f$sd\f$ sector
      * @return the scale at which the NP Wilson coefficients in the \f$sd\f$ sector are defined
      */
     double GetWCscale_s() const
