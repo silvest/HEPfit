@@ -97,20 +97,15 @@
             <pElem>../InputParser/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../MFV/src</pElem>
             <pElem>../MonteCarlo/src</pElem>
             <pElem>../NewPhysics/src</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>../pMSSM/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../BAT_parallel/include</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
-            <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -std=c++11</commandLine>
           <preprocessorList>
@@ -262,6 +257,18 @@
                             BC="${MAKE} -j 8 -f Makefile CONF=Release"
                             CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -476,20 +483,15 @@
             <pElem>../InputParser/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../MFV/src</pElem>
             <pElem>../MonteCarlo/src</pElem>
             <pElem>../NewPhysics/src</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>../pMSSM/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../BAT/include</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
-            <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -635,6 +637,30 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../THDM"
                             CT="3"
                             CN="Release"
@@ -724,18 +750,6 @@
             <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../LeftRightSymmetricModel"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../LeftRightSymmetricModel"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleftrightsymmetricmodel.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
           </linkerLibItems>
           <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit `gsl-config --libs`</commandLine>
         </linkerTool>
