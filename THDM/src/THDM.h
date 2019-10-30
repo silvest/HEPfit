@@ -26,8 +26,10 @@ class THDMcache; //forward reference to THDMcache class
  * <h3>%Model parameters</h3>
  *
  * The model parameters of %THDM are summarized below.
- * The current implementation only allows for a Two-Higgs-Doublet model with a softly broken @f$Z_2@f$ symmetry and without CP violation in the Higgs potential.
- * The scalar 125 GeV resonance is assumed to be the one of the CP-even Higgs states of the model; the other is attributed to mHh in the THDM configuration.
+ * The current implementation only allows for a Two-Higgs-Doublet model 
+ * with a softly broken @f$Z_2@f$ symmetry and without CP violation in the Higgs potential.
+ * The scalar 125 GeV resonance is assumed to be the one of the CP-even Higgs 
+ * states of the model; the other is attributed to mHh in the THDM configuration.
  * 
  * <table class="model">
  * <tr>

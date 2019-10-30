@@ -42,7 +42,8 @@ class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
  * The current implementation allows for a Two-Higgs-Doublet model. The implementation allows for generañ
  * Yukawa matrices (even not allowed) and CP violation in the potenaital and in the Yukawa sector.
  * However some observables are only implemented in the aligned case (Aligned 2-Higgs doublet model).
- * The scalar 125 GeV resonance is assumed to be the one of the CP-even Higgs states of the model; the other is attributed to mH_2 in the GeneralTHDM configuration.
+ * The scalar 125 GeV resonance is assumed to be the one of the CP-even 
+ * Higgs states of the model; the other is attributed to mH_2 in the GeneralTHDM configuration.
  * 
  * <table class="model">
  * <tr>
