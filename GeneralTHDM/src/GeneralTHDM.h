@@ -13,23 +13,21 @@
 #include "NPbase.h"
 
 
+
+class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
+
 /**
- * @addtogroup GeneralTHDM
+ * @class GeneralTHDM
+ * @ingroup GeneralTHDM
  * @brief A module for general Two-Higgs-Doublet models (without the assumption of a @f$Z_2@f$ symmetry).
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
  * @details This module contains code necessary for analyzing theoretical
  * and experimental constraints on general symmetric Two-Higgs-Doublet models.
  * While the theoretical bounds (positivity, unitarity and stability of the Higgs potential)
  * as well as the electroweak STU pseudo-observables
  * are available in the most general case,
  * the Higgs and flavour observables are currently only implemented in the flavour aligned limiting case.
- * @{
- * 
- * @class GeneralTHDM
- * @ingroup GeneralTHDM
- * @brief  A module for general Two-Higgs-Doublet models.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details 
  *
  * 
  * @anchor GeneralTHDMParameters
@@ -95,22 +93,22 @@
  * <tr>
  *   <td class="mod_name">%Relambda5</td>
  *   <td class="mod_symb">@f$Re(\lambda_{5})@f$</td>
- *   <td class="mod_desc">The real part of the potential paramter \lambda_{5}</td>
+ *   <td class="mod_desc">The real part of the potential paramter @f$\lambda_{5}@f$</td>
  * </tr>
  * <tr>
  * <td class="mod_name">%Imlambda5</td>
  *   <td class="mod_symb">@f$Im(\lambda_{5})@f$</td>
- *   <td class="mod_desc">The imaginary part of the potential paramter \lambda_{5}</td>
+ *   <td class="mod_desc">The imaginary part of the potential paramter @f$\lambda_{5}@f$</td>
  * </tr>
  * <tr>
  * <td class="mod_name">%Relambda6</td>
  *   <td class="mod_symb">@f$Re(\lambda_{6})@f$</td>
- *   <td class="mod_desc">The real part of the potential paramter \lambda_{6}</td>
+ *   <td class="mod_desc">The real part of the potential paramter @f$\lambda_{6}@f$</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Relambda7</td>
  *   <td class="mod_symb">@f$Re(\lambda_{7})@f$</td>
- *   <td class="mod_desc">The real part of the potential paramter \lambda_{7}</td>
+ *   <td class="mod_desc">The real part of the potential paramter @f$\lambda_{7}@f$</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Q_GTHDM</td>
@@ -403,17 +401,17 @@
  * <tr>
  *   <td class="mod_name">%yu1R_GTHDM</td>
  *   <td class="mod_symb">@f$y_{u}@f$</td>
- *   <td class="mod_desc">Yukawa coupling for up-quarks. Valid only in the aligned case and in the CP-conserved limit. y_{u} = \cos \alpha_1 + \sin \alpha_1 Re(N_{u,11}). Used only if use_sigma is set to false</td>
+ *   <td class="mod_desc">Yukawa coupling for up-quarks. Valid only in the aligned case and in the CP-conserved limit. @f$y_{u} = \cos \alpha_1 + \sin \alpha_1 Re(N_{u,11})@f$. Used only if use_sigma is set to false</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%yd1R_GTHDM</td>
  *   <td class="mod_symb">@f$y_{d}@f$</td>
- *   <td class="mod_desc">Yukawa coupling for down-quarks. Valid only in the aligned case and in the CP-conserved limit. y_{d} = \cos \alpha_1 + \sin \alpha_1 Re(N{d,11}). Used only if use_sigma is set to false</td>
+ *   <td class="mod_desc">Yukawa coupling for down-quarks. Valid only in the aligned case and in the CP-conserved limit. @f$y_{d} = \cos \alpha_1 + \sin \alpha_1 Re(N{d,11})@f$. Used only if use_sigma is set to false</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%yl1R_GTHDM</td>
  *   <td class="mod_symb">@f$y_{\ell}@f$</td>
- *   <td class="mod_desc">Yukawa coupling for leptons. Valid only in the aligned case and in the CP-conserved limit.  y_{\ell} = \cos \alpha_1 + \sin \alpha_1 Re(N_{\el,11l}=. Used only if use_sigma is set to false</td>
+ *   <td class="mod_desc">Yukawa coupling for leptons. Valid only in the aligned case and in the CP-conserved limit.  @f$y_{\ell} = \cos \alpha_1 + \sin \alpha_1 Re(N_{\el,11}@f$=. Used only if use_sigma is set to false</td>
  * </table>
  * 
  * 
@@ -451,28 +449,11 @@
  * <tr>
  *   <td class="mod_name">%use_sigma</td>
  *   <td class="mod_valu">true / false</td>
- *   <td class="mod_desc">Whether to use the elements  of the Yukawa couplings Nf_ij or the couplings y_f. Valid only in the aligned case and in the CP-conserved limit</td>
+ *   <td class="mod_desc">Whether to use the elements  of the Yukawa couplings @f$N_{f,ij}@f$ or the couplings @f$y_f@f$. Valid only in the aligned case and in the CP-conserved limit</td>
  * </tr>
  * </table>
- *
->>>>>>> Stashed changes
  */
 
-
-class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
-
-/**
- * @class GeneralTHDM
- * @ingroup GeneralTHDM
- * @brief A base class for generic Two-Higgs-Doublet models.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details 
- *
- * 
- * @anchor GeneralTHDMParameters
- * <h3>%Model parameters</h3>
- */
 class GeneralTHDM: public NPbase {
 public:
 
