@@ -17,17 +17,22 @@
 class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
 
 /**
- * @class GeneralTHDM
- * @ingroup GeneralTHDM
+ * @addtogroup GeneralTHDM
  * @brief A module for general Two-Higgs-Doublet models (without the assumption of a @f$Z_2@f$ symmetry).
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
  * @details This module contains code necessary for analyzing theoretical
  * and experimental constraints on general symmetric Two-Higgs-Doublet models.
  * While the theoretical bounds (positivity, unitarity and stability of the Higgs potential)
  * as well as the electroweak STU pseudo-observables
  * are available in the most general case,
  * the Higgs and flavour observables are currently only implemented in the flavour aligned limiting case.
+ * @{
+ * 
+ * @class GeneralTHDM
+ * @ingroup GeneralTHDM
+ * @brief  A class for general Two-Higgs-Doublet models.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
  *
  * 
  * @anchor GeneralTHDMParameters
