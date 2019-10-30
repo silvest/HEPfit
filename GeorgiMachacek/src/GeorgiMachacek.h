@@ -475,7 +475,11 @@ public:
 
 
 protected: 
-    
+    /**
+     * @brief A method to set the value of a parameter of %GeorgiMachacek.
+     * @param[in] name name of a model parameter
+     * @param[in] value the value to be assigned to the parameter specified by name
+     */
     virtual void setParameter(const std::string, const double&);
 
     mutable Matching<GMMatching,GeorgiMachacek> GMM; ///< An object of type Matching.
