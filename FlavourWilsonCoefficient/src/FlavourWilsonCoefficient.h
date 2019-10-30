@@ -19,6 +19,7 @@
  * through shifts to Standard %Model Wilson coefficients.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
+ * @details
  * 
  *
  * @anchor FlavourWilsonCoefficientParameters

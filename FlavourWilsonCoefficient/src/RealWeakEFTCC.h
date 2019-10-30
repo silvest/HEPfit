@@ -18,12 +18,13 @@
  * processes like @f$b\to c@f$ decays.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
+ * @details
  * 
  * 
  * @anchor RealWeakEFTCCParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of %FlavourWilsonCoefficient model are summarized below:
+ * The model parameters of %RealWeakEFTCC model are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
