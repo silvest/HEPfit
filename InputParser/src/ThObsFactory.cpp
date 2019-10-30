@@ -20,7 +20,6 @@
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
 #include "GeorgiMachacekObservables.h"
-#include "LoopMediators.h"
 #include "THDMObservables.h"
 #include "GeneralTHDMObservables.h"
 #include "THDMWObservables.h"
@@ -3309,10 +3308,6 @@ ThObsFactory::ThObsFactory()
     //----- B to tau nu  -----
     obsThFactory["btaunu"] = boost::bind(boost::factory<Btaunu*>(), _1, StandardModel::B_P);
     obsThFactory["bctaunu"] = boost::bind(boost::factory<Btaunu*>(), _1, StandardModel::B_C);
-    
-    /* BEGIN: REMOVE FROM THE PACKAGE */
-    obsThFactory["Deltaamu"] = boost::factory<Deltaamu*>();
-    /* END: REMOVE FROM THE PACKAGE */
 
     //-----  Lepton Flavour observables  -----
     obsThFactory["mu_e_gamma"] = boost::factory<mu_e_gamma*>();

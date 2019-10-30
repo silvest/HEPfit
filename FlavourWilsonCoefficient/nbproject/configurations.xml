@@ -10,8 +10,6 @@
       <itemPath>src/FlavourWilsonCoefficientMatching.h</itemPath>
       <itemPath>src/FlavourWilsonCoefficient_DF2.h</itemPath>
       <itemPath>src/FlavourWilsonCoefficient_DF2Matching.h</itemPath>
-      <itemPath>src/LoopMediators.h</itemPath>
-      <itemPath>src/LoopMediatorsMatching.h</itemPath>
       <itemPath>src/NPDF2.h</itemPath>
       <itemPath>src/RealWeakEFTCC.h</itemPath>
       <itemPath>src/RealWeakEFTLFV.h</itemPath>
@@ -30,8 +28,6 @@
       <itemPath>src/FlavourWilsonCoefficientMatching.cpp</itemPath>
       <itemPath>src/FlavourWilsonCoefficient_DF2.cpp</itemPath>
       <itemPath>src/FlavourWilsonCoefficient_DF2Matching.cpp</itemPath>
-      <itemPath>src/LoopMediators.cpp</itemPath>
-      <itemPath>src/LoopMediatorsMatching.cpp</itemPath>
       <itemPath>src/NPDF2.cpp</itemPath>
       <itemPath>src/RealWeakEFTCC.cpp</itemPath>
       <itemPath>src/RealWeakEFTLFV.cpp</itemPath>
@@ -112,14 +108,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/LoopMediators.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LoopMediators.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LoopMediatorsMatching.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LoopMediatorsMatching.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
