@@ -22,7 +22,7 @@ $(EXE): myModel_MCMC.o src/myModel.o src/myObservables.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	rm src/*.o *.o
+	rm -f src/*.o *.o
 
 distclean:
-	rm $(EXE) src/*.o *.o
+	rm -f $(EXE) src/*.o *.o

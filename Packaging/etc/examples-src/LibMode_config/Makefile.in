@@ -23,4 +23,4 @@ $(EXE): libmode_config.cpp Makefile
 	$(CXX) $(CXXFLAGS) -o $@ $< $(LIBS)
 
 clean:
-	rm $(EXE)
+	rm -r $(EXE)

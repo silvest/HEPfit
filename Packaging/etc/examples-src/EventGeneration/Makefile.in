@@ -21,4 +21,4 @@ $(EXE): EventGeneration.cpp Makefile
 	$(CXX) $(CXXFLAGS) -o $@ $< $(LIBS)
 
 clean:
-	rm $(EXE)
+	rm -f $(EXE)
