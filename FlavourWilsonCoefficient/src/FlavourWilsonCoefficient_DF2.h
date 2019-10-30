@@ -20,6 +20,81 @@
  * using modification to the Wilson coefficients.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
+ * @details
+ * 
+ * @anchor FlavourWilsonCoefficient_DF2Parameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of %FlavourWilsonCoefficient_DF2 model are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reC1s, %reC2s, %reC3s, %reC4s, %reC5s</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(C_{1,s}) @f$, @f$ \mathcal{R}(C_{2,s}) @f$,
+ *   @f$ \mathcal{R}(C_{3,s}) @f$, @f$ \mathcal{R}(C_{4,s}) @f$, @f$ \mathcal{R}(C_{5,s}) @f$</td>
+ *   <td class="mod_desc">The real parts of the rescaling of the Wilson coefficient
+ *   @f$ C_{i,s}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$K^0-\bar{K}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale_s</td>
+ *   <td class="mod_symb">@f$ \mu_s @f$</td>
+ *   <td class="mod_desc">The scale of the Wilson coefficient
+ *   @f$ C_{i,s}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$K^0-\bar{K}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reC1c, %reC2c, %reC3c, %reC4c, %reC5s</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(C_{1,c}) @f$, @f$ \mathcal{R}(C_{2,c}) @f$,
+ *   @f$ \mathcal{R}(C_{3,c}) @f$, @f$ \mathcal{R}(C_{4,c}) @f$, @f$ \mathcal{R}(C_{5,c}) @f$</td>
+ *   <td class="mod_desc">The real parts of the rescaling of the Wilson coefficient
+ *   @f$ C_{i,c}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$D^0-\bar{D}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale_c</td>
+ *   <td class="mod_symb">@f$ \mu_c @f$</td>
+ *   <td class="mod_desc">The scale of the Wilson coefficient
+ *   @f$ C_{i,c}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$D^0-\bar{D}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reC1bd, %reC2bd, %reC3bd, %reC4bd, %reC5bd</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(C_{1,bd}) @f$, @f$ \mathcal{R}(C_{2,bd}) @f$,
+ *   @f$ \mathcal{R}(C_{3,bd}) @f$, @f$ \mathcal{R}(C_{4,bd}) @f$, @f$ \mathcal{R}(C_{5,bd}) @f$</td>
+ *   <td class="mod_desc">The real parts of the rescaling of the Wilson coefficient
+ *   @f$ C_{i,bd}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$B^0-\bar{B}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale_bd</td>
+ *   <td class="mod_symb">@f$ \mu_{bd} @f$</td>
+ *   <td class="mod_desc">The scale of the Wilson coefficient
+ *   @f$ C_{i,bd}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$B^0-\bar{B}^0@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%reC1bs, %reC2bs, %reC3bs, %reC4bs, %reC5bs</td>
+ *   <td class="mod_symb">@f$ \mathcal{R}(C_{1,bs}) @f$, @f$ \mathcal{R}(C_{2,bs}) @f$,
+ *   @f$ \mathcal{R}(C_{3,bs}) @f$, @f$ \mathcal{R}(C_{4,bs}) @f$, @f$ \mathcal{R}(C_{5,bs}) @f$</td>
+ *   <td class="mod_desc">The real parts of the rescaling of the Wilson coefficient
+ *   @f$ C_{i,bs}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$B_s-\bar{B}_s@f$
+ *   mixing</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%WCscale_bs</td>
+ *   <td class="mod_symb">@f$ \mu_{bs} @f$</td>
+ *   <td class="mod_desc">The scale of the Wilson coefficient
+ *   @f$ C_{i,bs}, (i,1,\ldots,5) @f$ that modified the SM prediction to @f$B_s-\bar{B}_s@f$
+ *   mixing</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  */
          
 class FlavourWilsonCoefficient_DF2: public StandardModel {
