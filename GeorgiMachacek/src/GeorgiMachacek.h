@@ -204,16 +204,16 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief A method to get \f$\log(\tan \beta)$\f$
-     * @return \f$\log(\tan \beta)$\f$
+     * @brief A method to get \f$\log(\tan \beta)\f$
+     * @return \f$\log(\tan \beta)\f$
      */
     double getvDelta() const {
         return vDelta;
     }
 
     /**
-     * @brief A method to get \f$\alpha$\f$
-     * @return \f$\alpha$\f$
+     * @brief A method to get \f$\alpha\f$
+     * @return \f$\alpha\f$
      */
     double getalpha() const {
         return alpha;
@@ -405,16 +405,16 @@ public:
     }
 
     /**
-     * @brief A method to get the massive parameter of the scalar potential \f$\mu_1$\f
-     * @return massive parameter of the scalar potential \f$\mu_1$\f
+     * @brief A method to get the massive parameter of the scalar potential \f$\mu_1\f$
+     * @return massive parameter of the scalar potential \f$\mu_1\f$
      */
     double getMu1() const {
         return Mu1;
     }
 
     /**
-     * @brief A method to get the massive parameter of the scalar potential \f$\mu_2$\f
-     * @return massive parameter of the scalar potential \f$\mu_2$\f
+     * @brief A method to get the massive parameter of the scalar potential \f$\mu_2\f$
+     * @return massive parameter of the scalar potential \f$\mu_2\f$
      */
     double getMu2() const {
         return Mu2;

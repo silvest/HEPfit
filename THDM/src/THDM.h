@@ -70,7 +70,7 @@ class THDMcache; //forward reference to THDMcache class
  * <tr>
  *   <td class="mod_name">%bsgamma_theoryerror</td>
  *   <td class="mod_symb">@f$\theta_{b\to s\gamma}^{\text{theo}}@f$</td>
- *   <td class="mod_desc">A nuisance parameter between -1 and +1 for the theoretical error in the determination of BR(B\to X_s \gamma).</td>
+ *   <td class="mod_desc">A nuisance parameter between -1 and +1 for the theoretical error in the determination of @f$BR(B\to X_s \gamma)@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Q_THDM</td>
@@ -204,7 +204,7 @@ public:
      * @param[in] value the boolean to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool setFlag(const std::string, const bool);
+    virtual bool setFlag(const std::string name, const bool value);
 
     /**
      * @brief A method get the THDMCache
@@ -579,12 +579,12 @@ protected:
      * @param[in] name name of a model parameter
      * @param[in] value the value to be assigned to the parameter specified by name
      */
-    virtual void setParameter(const std::string, const double&);
+    virtual void setParameter(const std::string name, const double& value);
 //    THDMcache * mycache;
 
     /**
      * @brief A method to check if the model type name in string form is valid.
-     * @param[in] THDM model type name
+     * @param[in] modeltype THDM model type name
      * @return a boolean that is true if the model type name is valid
      */
     bool checkmodelType(const std::string modeltype) const
@@ -600,7 +600,7 @@ protected:
 
     /**
      * @brief A method to check if the RGE order name in string form is valid.
-     * @param[in] THDM RGE order
+     * @param[in] RGEorder THDM RGE order
      * @return a boolean that is true if the RGE order string is valid
      */
     bool checkRGEorder(const std::string RGEorder) const

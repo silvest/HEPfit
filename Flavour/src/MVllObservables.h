@@ -487,7 +487,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_1 first final leptons of the decay
-     * @param[in] lep_1 second final leptons of the decay
+     * @param[in] lep_2 second final leptons of the decay
      */
     R_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
@@ -528,7 +528,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_1 first final leptons of the decay
-     * @param[in] lep_1 second final leptons of the decay
+     * @param[in] lep_2 second final leptons of the decay
      */
     RL_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
@@ -569,7 +569,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_1 first final leptons of the decay
-     * @param[in] lep_1 second final leptons of the decay
+     * @param[in] lep_2 second final leptons of the decay
      */
     RT_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
@@ -610,7 +610,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_1 first final leptons of the decay
-     * @param[in] lep_1 second final leptons of the decay
+     * @param[in] lep_2 second final leptons of the decay
      */
     R_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     

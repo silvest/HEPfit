@@ -97,7 +97,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to fermions with respect to the SM @f$K_f@f$.
-     * @param[in] @f$K_f@f$ the factor rescaling the Higgs coupling to fermions.
+     * @param[in] Kf @f$K_f@f$ the factor rescaling the Higgs coupling to fermions.
      */
     void setKf(double Kf)
     {
@@ -117,7 +117,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to EW vector bosons with respect to the SM @f$K_V@f$.
-     * @param[in] @f$K_V@f$ the factor rescaling the Higgs coupling to EW vector bosons.
+     * @param[in] Kv @f$K_V@f$ the factor rescaling the Higgs coupling to EW vector bosons.
      */
     void setKv(double Kv)
     {

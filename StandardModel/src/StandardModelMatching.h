@@ -59,7 +59,7 @@ public:
     
     /**
      * 
-     * @brief \f$ \Delta S = 2 \f$ 
+     * @brief \f$\Delta S = 2@f$ \f$ 
      * @return return the vector of SM Wilson coefficients
      */
     virtual   std::vector<WilsonCoefficient>& CMdk2() ;
@@ -69,7 +69,7 @@ public:
      * @brief operator basis: 
      * @brief current current; qcd penguins; magnetic and chromomagnetic penguins; semileptonic  
      * @param[in] a a=0 deltaS=0 deltaC=0;  a=1 deltaS=1 deltaC=0;
-     * @return Wilson coefficients Buras base for non-leptonic B decays 
+     * @return Wilson coefficients Buras base for non-leptonic @f$B@f$ decays 
      */
     virtual   std::vector<WilsonCoefficient>& CMbnlep( int a) ;
     
@@ -77,7 +77,7 @@ public:
      * 
      * @brief operator basis: - current current opertors  
      * @param[in] a a=0 deltaS=0 deltaC=0;  a=1 1,0 ;  a=2 0,1 ; a=3 1,1
-     * @return Wilson coefficients, Buras basis, for non-leptonic B decays 
+     * @return Wilson coefficients, Buras basis, for non-leptonic @f$B@f$ decays 
      */
     virtual   std::vector<WilsonCoefficient>& CMbnlepCC( int a) ;
     
@@ -216,7 +216,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the magnetic operator
-     * in the non-effective Misiak basis, Bobeth et al hep-ph/9910220 
+     * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double A0t(double x)const;
@@ -224,7 +224,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the semileptonic operator
-     * in the non-effective Misiak basis, Bobeth et al hep-ph/9910220 
+     * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double B0t(double x)const;
@@ -232,7 +232,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the magnetic operator
-     * in the non-effective Misiak basis, Bobeth et al hep-ph/9910220 
+     * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double C0t(double x)const;
@@ -240,7 +240,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the magnetic operator
-     * in the non-effective Misiak basis, Bobeth et al hep-ph/9910220 
+     * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double D0t(double x)const;
@@ -248,7 +248,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the chromomagnetic operator
-     * in the non-effective Misiak basis, Bobeth et al hep-ph/9910220 
+     * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double F0t(double x)const;
@@ -256,7 +256,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the chromomagnetic operator
-     * in the Misiak basis, Chetyrkin et al hep-ph/9612313 
+     * in the Misiak basis, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double E0t(double x)const;
@@ -264,7 +264,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the semileptonic operator
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * in the non-effective Misiak basis, Misiak and Urban @cite Misiak:1999yg
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -273,7 +273,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the semileptonic operator
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * in the non-effective Misiak basis, Misiak and Urban @cite Misiak:1999yg
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -282,7 +282,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the magnetic operator
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * in the non-effective Misiak basis, Misiak and Urban @cite Misiak:1999yg
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -291,7 +291,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the magnetic operator
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * in the non-effective Misiak basis, Misiak and Urban @cite Misiak:1999yg
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -300,7 +300,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the semileptonic operator
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * in the non-effective Misiak basis, Misiak and Urban @cite Misiak:1999yg
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -309,7 +309,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * in the non-effective Misiak basis, Misiak and Urban @cite Bobeth:1999mk
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -318,7 +318,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * in the non-effective Misiak basis, Misiak and Urban @cite Bobeth:1999mk
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -327,25 +327,23 @@ public:
      /**
      * 
      * @brief power expansion appearing in the Wilson coefficient 
-     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @f$C_7@f$ at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
-     * @param[in] mu the matching scale of the Wilson coefficients
      */
     double C7c_3L_at_mW(double x) const;
     
      /**
      * 
      * @brief power expansion appearing in the Wilson coefficient 
-     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * C7 at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
-     * @param[in] mu the matching scale of the Wilson coefficients
      */
     double C7t_3L_at_mt(double x) const;
     
      /**
      * 
      * @brief loop function which appear in the Wilson coefficient 
-     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * C7 at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -354,25 +352,23 @@ public:
      /**
      * 
      * @brief power expansion appearing in the Wilson coefficient 
-     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * C8 at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
-     * @param[in] mu the matching scale of the Wilson coefficients
      */
     double C8c_3L_at_mW(double x) const;
     
      /**
      * 
      * @brief power expansion appearing in the Wilson coefficient 
-     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * C8 at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
-     * @param[in] mu the matching scale of the Wilson coefficients
      */
     double C8t_3L_at_mt(double x) const;
     
      /**
      * 
      * @brief loop function which appear in the Wilson coefficient 
-     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * C8 at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -381,34 +377,31 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * in the non-effective Misiak basis, Misiak and Urban @cite Bobeth:1999mk
      * @param[in] x the square of the ratio between top mass and W mass
-     * @param[in] mu the matching scale of the Wilson coefficients
      */
     double Tt(double x) const;
     
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/0512066
+     * in the non-effective Misiak basis, Misiak and Urban @cite Huber:2005ig
      * @param[in] x the square of the ratio between top mass and W mass
-     * @param[in] mu the matching scale of the Wilson coefficients
      */
     double Wt(double x) const;
     
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/0512066
+     * in the non-effective Misiak basis, Misiak and Urban @cite Huber:2005ig
      * @param[in] x the square of the ratio between top mass and W mass
-     * @param[in] mu the matching scale of the Wilson coefficients
      */
     double Eet(double x) const;
     
     /**
      * 
-     * @brief approximation of two-loops EW correction for Q_10 operator
-     * in the non-effective Misiak basis, Misiak and Urban hep-ph/1311.1348
+     * @brief approximation of two-loops EW correction for @f$Q_{10}@f$ operator
+     * in the non-effective Misiak basis, Misiak and Urban @cite Bobeth:2013tba
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -416,7 +409,7 @@ public:
 
     /**
      * 
-     * @brief approximation of two-loops EW correction for Q_10 operator from 1311.1348
+     * @brief approximation of two-loops EW correction for @f$Q_{10}@f$ operator from @cite Bobeth:2013tba
      * @param[in] x the ratio \f$ \frac{m_t^2}{M_W^2} \f$
      * @param[in] mu the matching scale
      * @return return the fit to the 22 matching of C10 in the OS1 scheme
@@ -424,24 +417,24 @@ public:
     double C10_OS1(double x, double mu);
     
     /**
-     *
+     * @breif the leading order loop function for the top contribution to @f$K_L \to \mu \mu@f$ decays
      * @param[in] x the square of the ratio between top mass and W mass
-     * @return 0th order loop function for the top contribution to K_L -> mu mu decays
+     * @return 0th order loop function for the top contribution to @f$K_L \to \mu \mu@f$ decays
      */
     double Y0(double x)const;
     
     /**
-     *
+     * @brief the NLO order in QCD loop function for the top contribution to @f$K_L \to \mu \mu@f$ decays
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
-     * @return first order in QCD loop function for the top contribution to K_L -> mu mu decays
+     * @return first order in QCD loop function for the top contribution to @f$K_L \to \mu \mu@f$ decays
      */
     double Y1(double x, double mu)const;
     
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the magnetic operator
-     * in the effective Misiak basis, LO term, Chetyrkin et al hep-ph/9612313 
+     * in the effective Misiak basis, LO term, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double C7LOeff(double x)const;
@@ -449,7 +442,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the magnetic operator
-     * in the effective Misiak basis, NLO term, Chetyrkin et al hep-ph/9612313 
+     * in the effective Misiak basis, NLO term, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double C7NLOeff(double x)const;
@@ -457,7 +450,7 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the chromomagnetic operator
-     * in the effective Misiak basis, LO term, Chetyrkin et al hep-ph/9612313 
+     * in the effective Misiak basis, LO term, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double C8LOeff(double x)const;
@@ -465,55 +458,55 @@ public:
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the chromomagnetic operator
-     * in the effective Misiak basis, LO term, Chetyrkin et al hep-ph/9612313 
+     * in the effective Misiak basis, LO term, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double C8NLOeff(double x)const;
 
     /**
      * 
-     * @brief loop functions for non-leptonic B decays, Buiras Basis
-     * Buras et al, hep-ph/9512380v1
+     * @brief loop functions for non-leptonic @f$B@f$ decays, Buiras Basis
+     * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double B0b(double x)const;
     
     /**
      * 
-     * @brief loop functions for non-leptonic B decays, Buiras Basis
-     * Buras et al, hep-ph/9512380v1
+     * @brief loop functions for non-leptonic @f$B@f$ decays, Buiras Basis
+     * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double C0b(double x)const;
     
     /**
      * 
-     * @brief loop functions for non-leptonic B decays, Buiras Basis
-     * Buras et al, hep-ph/9512380v1
+     * @brief loop functions for non-leptonic @f$B@f$ decays, Buiras Basis
+     * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double D0b(double x)const;
     
     /**
      * 
-     * @brief loop functions for non-leptonic B decays, Buras Basis
-     * Buras et al, hep-ph/9512380
+     * @brief loop functions for non-leptonic @f$B@f$ decays, Buras Basis
+     * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double D0b_tilde(double x)const;
     
     /**
      * 
-     * @brief loop functions for non-leptonic B decays, Buiras Basis
-     * Buras et al, hep-ph/9512380v1
+     * @brief loop functions for non-leptonic @f$B@f$ decays, Buiras Basis
+     * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double E0b(double x)const;
     
     /**
      * 
-     * @brief loop functions for QED corrections of Delta F = 1 decays
-     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @brief loop functions for QED corrections of @f$\Delta F = 1@f$ decays
+     * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -521,8 +514,8 @@ public:
     
     /**
      * 
-     * @brief loop functions for QED corrections of Delta F = 1 decays
-     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @brief loop functions for QED corrections of @f$\Delta F = 1@f$ decays
+     * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -530,8 +523,8 @@ public:
     
     /**
      * 
-     * @brief loop functions for QED corrections of Delta F = 1 decays
-     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @brief loop functions for QED corrections of @f$\Delta F = 1@f$ decays
+     * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -539,8 +532,8 @@ public:
     
     /**
      * 
-     * @brief loop functions for QED corrections of Delta F = 1 decays
-     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @brief loop functions for QED corrections of @f$\Delta F = 1@f$ decays
+     * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
@@ -548,16 +541,16 @@ public:
     
     /**
      * 
-     * @brief loop functions for QED corrections of Delta F = 1 decays
-     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @brief loop functions for QED corrections of @f$\Delta F = 1@f$ decays
+     * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double C1ew(double x)const;
     
     /**
      * 
-     * @brief auxiliary loop function for QED corrections of Delta F = 1 decays
-     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @brief auxiliary loop function for QED corrections of @f$\Delta F = 1@f$ decays
+     * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] xt the square of the ratio between top mass and W mass
      * @param[in] xz the square of the ratio between Z mass and W mass
      */
@@ -565,8 +558,8 @@ public:
         
     /**
      * 
-     * @brief loop functions for QED corrections of Delta F = 1 decays
-     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @brief loop functions for QED corrections of @f$\Delta F = 1@f$ decays
+     * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] xt the square of the ratio between top mass and W mass
      * @param[in] xz the square of the ratio between Z mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
@@ -575,8 +568,8 @@ public:
     
     /**
      * 
-     * @brief loop functions for QED corrections of Delta F = 1 decays
-     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @brief loop functions for QED corrections of @f$\Delta F = 1@f$ decays
+     * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] xt the square of the ratio between top mass and W mass
      * @param[in] xz the square of the ratio between Z mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
@@ -585,28 +578,28 @@ public:
     
     /**
      *  
-     * @brief hep-ph/9512380
-     * @return the loop function for the charm-charm contribution to the Delta S = 2 effective hamiltonian multiplied by the CKM element 
+     * @brief @cite Buchalla:1995vs
+     * @return the loop function for the charm-charm contribution to the @f$\Delta S = 2@f$ effective hamiltonian multiplied by the CKM element 
      */
     gslpp::complex S0c() const;
     
     /**
      *  
-     * @brief hep-ph/9512380
-     * @return the loop function for the charm-top contribution to the Delta S = 2 effective hamiltonian multiplied by the CKM element 
+     * @brief @cite Buchalla:1995vs
+     * @return the loop function for the charm-top contribution to the @f$\Delta S = 2@f$ effective hamiltonian multiplied by the CKM element 
      */
     gslpp::complex S0ct() const;
     
     /**
      *  
-     * @brief hep-ph/9512380v1
-     * @return the loop function for the top-top contribution to the Delta S = 2 effective hamiltonian
+     * @brief @cite Buchalla:1995vs
+     * @return the loop function for the top-top contribution to the @f$\Delta S = 2@f$ effective hamiltonian
      */
     gslpp::complex S0tt() const;
     
     /**
      *
-     * @brief hep-ph/9512380v1
+     * @brief @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      * @return 0th order loop function for the top contribution to K -> pi nu nu decays
      */
@@ -614,7 +607,7 @@ public:
     
     /**
      *
-     * @brief hep-ph/1009.0947v2
+     * @brief @cite Brod:2010hi
      * @param[in] x the square of the ratio between top mass and W mass
      * @return first order in QCD loop function for the top contribution to K -> pi nu nu decays
      */
@@ -622,7 +615,7 @@ public:
     
     /**
      *
-     * @brief hep-ph/1009.0947v2
+     * @brief @cite Brod:2010hi
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] a
      * @param[in] mu
@@ -739,7 +732,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the QCD contribution to the Wilson coefficients for non-leptonic B decays
+     * @return return the value of the QCD contribution to the Wilson coefficients for non-leptonic @f$B@f$ decays
      */
     double setWCbnlep (int i, double x, orders order);
     
@@ -747,14 +740,14 @@ private:
      * 
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
-     * @return return the value of the electroweak contribution to the Wilson coefficients for non-leptonic B decays
+     * @return return the value of the electroweak contribution to the Wilson coefficients for non-leptonic @f$B@f$ decays
      */
     double setWCbnlepEW (int i, double x);
 
     /**
      * 
      * @param z
-     * @return two loop EW loop functions for K-> P nu nu, hep-ph/1009.0947v2 
+     * @return two loop EW loop functions for K-> P nu nu, @cite Brod:2010hi 
      */
     double phi1(double z) const;
     
@@ -762,7 +755,7 @@ private:
      * 
      * @param x
      * @param y
-     * @return two loop EW loop functions for K-> P nu nu, hep-ph/1009.0947v2 
+     * @return two loop EW loop functions for K-> P nu nu, @cite Brod:2010hi 
      */
     double phi2 (double x, double y) const;
     
@@ -786,7 +779,7 @@ private:
     /**
      * 
      * @param z
-     * @return two loop EW loop functions, hep-ph/9911250 
+     * @return two loop EW loop functions, @cite Buras:1999st 
      */
     double phi_z(double z) const;
     
@@ -794,7 +787,7 @@ private:
      * 
      * @param x
      * @param y
-     * @return two loop EW loop functions, hep-ph/9911250 
+     * @return two loop EW loop functions, @cite Buras:1999st 
      */
     double phi_xy (double x, double y) const;
     
@@ -847,7 +840,7 @@ private:
      * 
      * @brief auxiliary function for mc_L() 
      * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
-     * @return return an approximation of the function \f$ f(x) \f$ from hep-ph/9707243 in the range x=(0,1)
+     * @return return an approximation of the function \f$ f(x) \f$ from @cite Buchalla:1997kz in the range x=(0,1)
      */    
     double fbb(double x);
     
@@ -855,7 +848,7 @@ private:
      * 
      * @brief auxiliary function for mc_L() 
      * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
-     * @return return the function  \f$ g(x) \f$ from hep-ph/9707243 
+     * @return return the function  \f$ g(x) \f$ from @cite Buchalla:1997kz 
      */    
     double gbb(double x);
 
@@ -863,7 +856,7 @@ private:
      * 
      * @brief auxiliary function for mc_L() 
      * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
-     * @return return the function  \f$ \tau_b^{(2)}(x) \f$ from hep-ph/9707243 
+     * @return return the function  \f$ \tau_b^{(2)}(x) \f$ from @cite Buchalla:1997kz 
      */    
     double taub2(double x);
 
@@ -872,7 +865,7 @@ private:
      * @brief auxiliary function for mc_L()
      * @param[in] mu matching scale 
      * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
-     * @return return the function  \f$ \Delta_t(\mu, x) \f$ from hep-ph/9707243 
+     * @return return the function  \f$ \Delta_t(\mu, x) \f$ from @cite Buchalla:1997kz 
      */    
     double Delta_t(double mu, double x);
 

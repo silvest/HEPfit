@@ -19,7 +19,8 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] meson_i initial meson of the decay
      * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
-     * @param[in] lep_i final leptons of the decay
+     * @param[in] lep_1 final leptons of the decay
+     * @param[in] lep_2 final leptons of the decay
      */
     Gammaw_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
@@ -45,7 +46,9 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] meson_i initial meson of the decay
      * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
-     * @param[in] lep_i final leptons of the decay
+     * @param[in] lep_1 final leptons of the decay
+     * @param[in] lep_2 final leptons of the decay
+     * @param[in] lep_3 final leptons of the decay
      */
     RD_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2, QCD::lepton lep_3);
     

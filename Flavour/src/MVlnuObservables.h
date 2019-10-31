@@ -25,7 +25,8 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
-     * @param[in] lep_i final leptons of the decay
+     * @param[in] lep_1 final leptons of the decay
+     * @param[in] lep_2 final leptons of the decay
      */
     Gammaw_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
@@ -51,7 +52,9 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
-     * @param[in] lep_i final leptons of the decay
+     * @param[in] lep_1 final leptons of the decay
+     * @param[in] lep_2 final leptons of the decay
+     * @param[in] lep_3 final leptons of the decay
      */
     RDstar_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2, QCD::lepton lep_3);
     
@@ -78,7 +81,8 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
-     * @param[in] lep_i final leptons of the decay
+     * @param[in] lep_1 final leptons of the decay
+     * @param[in] lep_2 final leptons of the decay
      */
     Gammacl_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
@@ -104,7 +108,8 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
-     * @param[in] lep_i final leptons of the decay
+     * @param[in] lep_1 final leptons of the decay
+     * @param[in] lep_2 final leptons of the decay
      */
     GammacV_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
@@ -130,7 +135,8 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
-     * @param[in] lep_i final leptons of the decay
+     * @param[in] lep_1 final leptons of the decay
+     * @param[in] lep_2 final leptons of the decay
      */
     Gammachi_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     

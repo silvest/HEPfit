@@ -462,8 +462,10 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
-     * @param[in] meson_i initial meson of the decay
-     * @param[in] vector_i final vector meson of the decay
+     * @param[in] meson_1 initial meson of the decay
+     * @param[in] meson_2 initial meson of the decay
+     * @param[in] vector_1 final vector meson of the decay
+     * @param[in] vector_2 final vector meson of the decay
      */
     R_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson vector_1, QCD::meson meson_2, QCD::meson vector_2);
     
@@ -501,8 +503,10 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
-     * @param[in] meson_i initial meson of the decay
-     * @param[in] vector_i final vector meson of the decay
+     * @param[in] meson_1 initial meson of the decay
+     * @param[in] meson_2 initial meson of the decay
+     * @param[in] vector_1 final vector meson of the decay
+     * @param[in] vector_2 final vector meson of the decay
      */
     D0p_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson vector_1, QCD::meson meson_2, QCD::meson vector_2);
     
@@ -579,8 +583,10 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
-     * @param[in] meson_i initial meson of the decay
-     * @param[in] vector_i final vector meson of the decay
+     * @param[in] meson_1 initial meson of the decay
+     * @param[in] meson_2 initial meson of the decay
+     * @param[in] vector_1 final vector meson of the decay
+     * @param[in] vector_2 final vector meson of the decay
      */
     DACP_MVgamma(const StandardModel& SM_i, QCD::meson meson_1, QCD::meson vector_1, QCD::meson meson_2, QCD::meson vector_2);
     
