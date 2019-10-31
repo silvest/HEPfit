@@ -28,6 +28,7 @@
 #include "NPDF2.h"
 #include "CMFV.h"
 #include "GeorgiMachacek.h"
+#include "GeneralSUSY.h"
 #include "GeneralTHDM.h"
 #include "THDMW.h"
 #include <boost/bind.hpp>
@@ -60,6 +61,7 @@ ModelFactory::ModelFactory()
     modelFactory["RealWeakEFTCCPM"] = boost::bind(boost::factory<RealWeakEFTCC*>(), 1);
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
+    modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
     modelFactory["THDMW"] = boost::factory<THDMW*>();
 }
