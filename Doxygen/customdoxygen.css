@@ -159,7 +159,7 @@ dl.el {
 
 pre.fragment {
         border: 1px solid #C4CFE5;
-        background-color: #FBFCFD;
+        background-color: #dff1f1;
         padding: 4px 6px;
         margin: 4px 8px 4px 2px;
         overflow: auto;
@@ -173,8 +173,10 @@ pre.fragment {
 div.fragment {
         padding: 4px;
         margin: 4px;
-	background-color: #F9FAFC;
-	border: 1px solid #9FB3DC;
+	/*color: #dff1f1;*/
+	background-color: #f1f9f9;
+	border-radius: 4px;
+	border: 1px solid #3b6f74;
 }
 
 div.line {
@@ -252,12 +254,6 @@ div.groupHeader {
 div.groupText {
 	margin-left: 16px;
 	font-style: italic;
-}
-
-body {
-	background-color: white;
-	color: black;
-        margin: 0;
 }
 
 div.contents {
@@ -891,15 +887,16 @@ table.fieldtable {
 
 .navpath li.footer
 {
-        list-style-type:none;
-        float:right;
-        padding-left:10px;
-        padding-right:15px;
-        background-image:none;
-        background-repeat:no-repeat;
-        background-position:right;
-        color:#182642;
-        font-size: 8pt;
+	list-style-type:none;
+	float:right;
+	padding-left:10px;
+	padding-right:15px;
+	background-image:none;
+	background-repeat:no-repeat;
+	background-position:right;
+	font-size: 8pt;
+	font-weight: 900;
+	color: #3b6f74;
 }
 
 
@@ -931,8 +928,8 @@ div.ingroups a
 
 div.header
 {
-        background-image:url('nav_h.png');
-        background-repeat:repeat-x;
+	background-image:url('nav_h.png');
+    background-repeat:repeat-x;
 	background-color: #F5F7FB;
 	margin:  0px;
 	border-bottom: 1px solid #9FB3DC;
@@ -1098,20 +1095,19 @@ dl.citelist dd {
         margin:2px 0;
         padding:5px 0;
 }
-
 div.toc {
-        padding: 14px 25px;
-        background-color: #EDF1F8;
-        border: 1px solid #BECCE7;
-        border-radius: 7px 7px 7px 7px;
+	color: #f1f9f9;
+        border: 1px solid #3b6f74;
+        border-radius: 4px;
         float: right;
         height: auto;
-        margin: 0 20px 10px 10px;
-        width: 200px;
+        margin: 10px 10px 10px 30px;
+        width: 180px;
+	padding: 15px 15px 15px 15px;
 }
 
 div.toc li {
-        background: url("bdwn.png") no-repeat scroll 0 5px transparent;
+        /*background: url("bdwn.png") no-repeat scroll 0 5px transparent;*/
         font: 10px/1.2 Verdana,DejaVu Sans,Geneva,sans-serif;
         margin-top: 5px;
         padding-left: 10px;
@@ -1119,32 +1115,40 @@ div.toc li {
 }
 
 div.toc h3 {
-        font: bold 12px/1.2 Arial,FreeSans,sans-serif;
-	color: #253B67;
-        border-bottom: 0 none;
-        margin: 0;
+	font: bold 12px Arial,FreeSans,sans-serif;
+	color: #3b6f74;
+    border-bottom: 0 none;
+    margin: 0;
 }
 
 div.toc ul {
-        list-style: none outside none;
-        border: medium none;
-        padding: 0px;
-}       
+	list-style: none outside none;
+	color: #3b6f74;
+    border: medium none;
+    padding: 0px;
+}
+
+div.toc ul li a {
+	color: #3b6f74;
+	text-decoration: none;
+	font-size: 10px;
+}
 
 div.toc li.level1 {
-        margin-left: 0px;
+	color: #3b6f74;
+	margin-left: 0px;
 }
 
 div.toc li.level2 {
-        margin-left: 15px;
+    margin-left: 15px;
 }
 
 div.toc li.level3 {
-        margin-left: 30px;
+	margin-left: 30px;
 }
 
 div.toc li.level4 {
-        margin-left: 45px;
+	margin-left: 45px;
 }
 
 .inherit_header {
@@ -1270,8 +1274,141 @@ td.obs_desc {
     border: 1px solid #000; 
 }
 
-#nav-tree {
-    background-color: #F5F7FB;
+
+body {
+	background-color: #ffffff;
+	background-image:url('background.jpg');
+	background-repeat:repeat;
 }
+
+div.contents {
+	padding: 12px;
+	margin: 0px auto 10px;
+	width: 1250px;
+	background-color: white;
+	border-bottom-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+}
+
+div.header
+{
+	background-image:url('nav_h.png');
+	background-repeat:repeat-x;
+	background-color: #FAFAFA;
+	border-bottom: 1px solid #D5D5D5;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	border-top-right-radius:8px;
+	border-top-left-radius:8px;
+	width: 1250px;
+	padding-left: 12px;
+	padding-right: 12px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+}
+
+div.headertitle {
+	padding-left: 0px;
+	font-size: 150%;
+}
+
+table.pageheader {
+	background-color: #2C4AA8;
+}
+
+#top {
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+div.ui-resizable-e {
+	box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+body, table, div, p, dl {
+	font-family: Lucida Grande, Verdana, Geneva, Arial, sans-serif;
+	font-size: 10pt;
+	line-height: 17pt;
+}
+
+SPAN.dlink { text-decoration: underline; color: #0000FF; cursor: pointer; }
+DIV.dlinfo { padding: 5px; margin-top: 10px; margin-bottom: 5px; background-color: #244fa7; color: #fff; }
+DIV.dl { margin-left: 20px; }
+
+h1 { font-size: 150%; }
+h2 { font-size: 135%; }
+h3 { font-size: 120%; }
+
+a, a.el, a.elRef, a.el:visited, a.elRef:visited {
+	color: #0050A0;
+}
+
+.contents a:visited {
+	color: #0050A0;
+}
+
+#titlearea {
+	background-color: #dff1f1;
+}
+
+#nav-tree {
+	background-image: url("");
+	background-color: #dff1f1;
+}
+
+#nav-tree ul {
+	padding:20px;
+}
+
+#nav-tree a {
+	color: #3b6f74;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+#main-nav ul a {
+	color: #3b6f74;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#main-nav a:hover{
+	color: #dff1f1;
+}
+
+#nav-tree .selected {
+	/*background-image: url('tab_a.png');*/
+	/*background-repeat:repeat-x;*/
+	background-color: #3b6f74;
+	color: #3b6f74;
+	background-blend-mode: lighten;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	vertical-align: center;
+	text-shadow: 0px 1px 1px rgba(0, 0, 0, 0);
+	padding: 2px 0 0 5px;
+}
+
+#nav-tree .selected a {
+	text-decoration:none;
+	color: #dff1f1;
+}
+
+/*#side-nav {*/
+/*	background-color: #dff1f1;*/
+/*}*/
+
+/* @end */
+
+
 
 

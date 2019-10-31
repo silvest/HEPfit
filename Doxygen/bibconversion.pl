@@ -349,6 +349,20 @@ if(!(copy("images/Model_inherit_graph.svg", "html/"))){
     exit(1)
 }
 
+if(!(copy("images/background.jpg", "html/"))){
+    print colored ['Red'], "\n\tERROR:";
+    print " images/background.jpg file not found.\n";
+    unlink(@tmpfiles);
+    exit(1)
+}
+
+if(!(copy("images/collision.png", "html/"))){
+    print colored ['Red'], "\n\tERROR:";
+    print " images/background.jpg file not found.\n";
+    unlink(@tmpfiles);
+    exit(1)
+}
+
 print colored ['Green'], "\n\tPatching _page_models.html...\n";
 chomp(my $page_model_path = `find ./html -name "_page_models.html"`);
 if (!(-e $page_model_path)){
@@ -375,13 +389,41 @@ while (<PAGEMODELIN>){
         unlink(@tmpfiles);
         exit(1)
     }
-    $_ =~ s/\<p\>MODEL\_GRAPH\_INHERITE\_SVG\<\/p\>/\<div class\=\"center\"\>\<iframe scrolling\=\"no\" frameborder\=\"0\" src\=\"\.\.\/\.\.\/Model\_inherit\_graph\.svg\" width\=\"544\" height\=\"396\"\>This browser is not able to show SVG\: try Firefox, Chrome, Safari, or Opera instead\.\<\/iframe\>\<\/div\>/;
+    $_ =~ s/\<p\>MODEL\_GRAPH\_INHERITE\_SVG\<\/p\>/\<div class\=\"center\"\>\<iframe scrolling\=\"no\" frameborder\=\"0\" src\=\"\.\.\/\.\.\/Model\_inherit\_graph\.svg\" width\=\"800px\" height\=\"496px\"\>This browser is not able to show SVG\: try Firefox, Chrome, Safari, or Opera instead\.\<\/iframe\>\<\/div\>/;
     print PAGEMODELOUT $_;
 }
 
 close PAGEMODELIN;
 close PAGEMODELOUT;
 move("_page_models.html", $page_model_path);
+
+print colored ['Green'], "\n\tPatching _page_installation.html...\n";
+chomp(my $page_installation_path = `find ./html -name "_page_installation.html"`);
+if (!(-e $page_installation_path)){
+    print colored ['Red'], "\n\tERROR:";
+    print " _page_installation.html file not found recursively in the html directory.\n";
+    unlink(@tmpfiles);
+    exit(1)
+} else {
+    print "\t_page_installation.html found at: $page_installation_path\n";
+}
+if(!(copy($page_installation_path,"_page_installation_temp.html"))){
+    print colored ['Red'], "\n\tERROR:";
+    print " _page_installation.html file not copied to the current directory.\n";
+    unlink(@tmpfiles);
+    exit(1)
+}
+open PAGEINSTALLATIONIN, "<_page_installation_temp.html";
+open PAGEINSTALLATIONOUT, ">_page_installation.html";
+push(@tmpfiles,"_page_installation_temp.html");
+while (<PAGEINSTALLATIONIN>){
+    $_ =~ s/a href\=/a target=\"_blank\" href\=/g;
+    print PAGEINSTALLATIONOUT $_;
+}
+
+close PAGEINSTALLATIONIN;
+close PAGEINSTALLATIONOUT;
+move("_page_installation.html", $page_installation_path);
 
 unlink(@tmpfiles);
 print colored ['Green'], "\n\tDONE!\n\n";
