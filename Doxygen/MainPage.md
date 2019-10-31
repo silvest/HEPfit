@@ -1,7 +1,7 @@
 Overview
 ===================================================================
 
-version VERSIONNUMBER
+version MASTER
 -----------
 
 [TOC]

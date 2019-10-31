@@ -1,7 +1,7 @@
 Installation   {#PageInstallation}
 ===================================================================
 
-version VERSIONNUMBER
+version MASTER
 -----------
 
 [TOC]
