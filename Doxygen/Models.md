@@ -6,8 +6,6 @@ Models   {#PageModels}
 Here is a list of all available models with links to the summary
 tables of model parameters and flags. The parameters and flags 
 are inherited from a parent model class to a child model class. 
-
-MODEL_GRAPH_INHERITE_SVG
   
 A complete list of observables are available in the function ThObsFactory::ThObsFactory(). 
 Not all the observables can be used in each model. For example, in `obsThFactory["MtMSbar"]`,
@@ -207,7 +205,7 @@ read the [Usage Page](@ref PageUsage).
 
   - %Model parameters: [@ref GeorgiMachacekParameters "Summary table"]
   - %Model flags: [@ref GeorgiMachacekFlags "Summary table"]
-  - %Model description: The Georgi-Machacek model extends the Standard Model by two scalar triplets.
+  - %Model description: The Georgi-Machacek model extends the Standard %Model by two scalar triplets.
    Among the implemented theoretical constraints are positivity of the scalar
    potential and the unitarity conditions.
    As experimental constraints, Higgs signal strengths and direct searches for 
@@ -229,7 +227,7 @@ read the [Usage Page](@ref PageUsage).
   - %Model parameters: [@ref THDMWParameters "Summary table"]
   - %Model flags: [@ref THDMWFlags "Summary table"]
   - %Model description: The extension of either the Standard %Model or the @f$Z_2@f$ symmetric Two-Higgs-Doublet model by a scalar octet.
-   The Standard Model extension by a scalar octet can be accessed setting the THDMWmodel flag to "ManoharWise".
+   The Standard %Model extension by a scalar octet can be accessed setting the THDMWmodel flag to "ManoharWise".
    A custodial limiting case of this model can be obtained setting the flag to "custodialMW".
    The THDM plus octet can be address by attributing "custodial1" to the THDMWmodel flag.
    The implemented observables are positivity, unitarity, Higgs signal strengths and electroweak precision measurements.
