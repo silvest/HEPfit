@@ -5,14 +5,14 @@ Models   {#PageModels}
 
 Here is a list of all available models with links to the summary
 tables of model parameters and flags. The parameters and flags 
-are inherited from a parent model class to a child model class: 
+are inherited from a parent model class to a child model class. 
 
 MODEL_GRAPH_INHERITE_SVG
   
-where Model is a template class of models, and NPbase is an auxiliary class.
-A complete list of observables are available in the function ThObsFactory::ThObsFactory(),
-where not all the observables can be used in each model. For some of the models below we list
-the available observables since the list is small.
+A complete list of observables are available in the function ThObsFactory::ThObsFactory(). 
+Not all the observables can be used in each model. For example, in `obsThFactory["MtMSbar"]`,
+`MtMSbar` is the name that should be used to call the observable. For details on usage please
+read the [Usage Page](@ref PageUsage).
 
 ## QCD:
 

@@ -62,6 +62,7 @@ Directories containing HEPfit source and header files:
   * EventGeneration/
   * Flavour/
   * FlavourWilsonCoefficient/
+  * GeneralSUSY/
   * GeneralTHDM/
   * GeorgiMachacek/
   * gslpp
@@ -78,7 +79,7 @@ Directories containing HEPfit source and header files:
 
 Installation:
 -------------
-See the %INSTALL.md file for installation instructions or the [`HEPfit` documentation website](http://hepfit.roma1.infn.it/doc/v1.0/).
+See the %INSTALL.md file for installation instructions or the `HEPfit` [Installation Page](@ref PageInstallation).
 
 Support:
 --------
