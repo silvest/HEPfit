@@ -25,7 +25,8 @@ PROJECTARRAY+=( "ComputeObservables" )
 PROJECTARRAY+=( "EventGeneration" )
 PROJECTARRAY+=( "EW" )
 PROJECTARRAY+=( "Flavour" )
-PROJECTARRAY+=( "FlavourWilsonCoefficient" )	
+PROJECTARRAY+=( "FlavourWilsonCoefficient" )
+PROJECTARRAY+=( "GeneralSUSY" )		
 PROJECTARRAY+=( "GeneralTHDM" )	
 PROJECTARRAY+=( "GeorgiMachacek" )	
 PROJECTARRAY+=( "gslpp" )
@@ -36,7 +37,7 @@ PROJECTARRAY+=( "MonteCarlo" )
 PROJECTARRAY+=( "NewPhysics" )	
 PROJECTARRAY+=( "Observables" )
 PROJECTARRAY+=( "StandardModel" )
-PROJECTARRAY+=( "SUSY" )	
+PROJECTARRAY+=( "SUSY" )
 PROJECTARRAY+=( "THDM" )
 PROJECTARRAY+=( "THDMW" )	
 
@@ -194,7 +195,7 @@ mv HEPfit-${VERSION}-${COMMIT} HEPfit-${VERSION}
 tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}
 
 if [ "$1" != "--doxygen" ]; then
-    rm -rf HEPfit-${VERSION}-${COMMIT}
+    rm -rf HEPfit-${VERSION}
 else
 	mv HEPfit-${VERSION} HEPfit-${VERSION}-${COMMIT}
 fi

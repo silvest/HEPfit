@@ -407,7 +407,7 @@ endif(DEBUG_MODE)
 
 ##############################
 
-set(PROJECTLIST ComputeObservables EventGeneration EW Flavour FlavourWilsonCoefficient GeneralTHDM GeorgiMachacek gslpp InputParser LeptonFlavour LoopFunctions NewPhysics Observables StandardModel SUSY THDM THDMW)
+set(PROJECTLIST ComputeObservables EventGeneration EW Flavour FlavourWilsonCoefficient GeneralSUSY GeneralTHDM GeorgiMachacek gslpp InputParser LeptonFlavour LoopFunctions NewPhysics Observables StandardModel SUSY THDM THDMW)
 
 if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
