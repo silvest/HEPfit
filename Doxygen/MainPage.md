@@ -6,7 +6,7 @@ version 1.0
 
 [TOC]
 
-`HEPfit` is a flexible tool which, given the Standard Model or any extension,
+`HEPfit` is a flexible tool which, given the Standard %Model or any extension,
 allows to:
 
   - fit the model parameters to a given set of experimental observables
