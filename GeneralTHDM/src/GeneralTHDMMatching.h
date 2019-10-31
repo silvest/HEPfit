@@ -48,14 +48,14 @@ public:
     
       /** Calculates the bosonic NLO contribution to the muon g-2**/
     /**
-     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at approximate two-loop from \citeCherchiglia:2016eui.
+     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at approximate two-loop from \cite Cherchiglia:2016eui.
      * @return 
      */    
     virtual double gminus2muNLOF();
     
      /** Calculates the bosonic NLO contribution to the muon g-2**/
     /**
-     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at approximate two-loop from \citeCherchiglia:2016eui.
+     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at approximate two-loop from \cite Cherchiglia:2016eui.
      * @return 
      */    
     virtual double gminus2muNLOB();
@@ -105,103 +105,103 @@ public:
     
     
     /**
-     * @return C10 Wilson coefficient of  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return C10 Wilson coefficient of  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual double C10Bll(double xt, double xHp, gslpp::complex su);
     
     /**
-     * @return Box CS Wilson coefficient of  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return Box CS Wilson coefficient of  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  gslpp::complex CSboxBll(double xt, double xHp, gslpp::complex su, gslpp::complex sd, gslpp::complex sl);
     
        /**
-     * @return Box CP Wilson coefficient of  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return Box CP Wilson coefficient of  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  gslpp::complex CPboxBll(double xt, double xHp, gslpp::complex su, gslpp::complex sd, gslpp::complex sl);
     
           /**
-     * @return Z-penguin in the unitary gauge CP Wilson coefficient of  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return Z-penguin in the unitary gauge CP Wilson coefficient of  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  gslpp::complex CPZUBll(double xt, double xHp, double sW2, gslpp::complex su, gslpp::complex sd);
     
    
     /**
-     * @return f1 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f1 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f1(double xHp, double xt);
     
         
     /**
-     * @return f2 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f2 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f2(double xHp, double xt);
     
         
     /**
-     * @return f3 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f3 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f3(double xHp, double xt);
     
         
     /**
-     * @return f4 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f4 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f4(double xHp, double xt);
     
         
     /**
-     * @return f5 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f5 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f5(double xHp, double xt);
     
         
     /**
-     * @return f6 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f6 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f6(double xHp, double xt);
     
         
     /**
-     * @return f7 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f7 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f7(double xHp, double xt);
     
         
     /**
-     * @return f8 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f8 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f8(double xHp, double xt);
    
     
         
     /**
-     * @return f9 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f9 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f9(double xHp, double xt);
     
       /**
-     * @return f10 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return f10 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual  double f10(double xHp, double xt);
     
     
      /**
-     * @return g0 needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return g0 needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual gslpp::complex  g0(double xHp, double xt, gslpp::complex su, gslpp::complex sd);
     
       /**
-     * @return g1a needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return g1a needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual gslpp::complex  g1a(double xHp, double xt, gslpp::complex su, gslpp::complex sd);
     
       /**
-     * @return g2a needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return g2a needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual gslpp::complex  g2a(double xHp, double xt, gslpp::complex su, gslpp::complex sd);
     
       /**
-     * @return g3a needed to calculate  B_q \to l \bar{l}\f$ according to @cite Li:2014fea
+     * @return g3a needed to calculate  \f$ B_q \to l \bar{l}\f$ according to @cite Li:2014fea
      */
     virtual gslpp::complex  g3a(double xHp, double xt, gslpp::complex su, gslpp::complex sd);
     

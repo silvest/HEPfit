@@ -113,7 +113,7 @@ public:
 
 //   /** Calculates the muon g-2**/
     /**
-     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at two-loop from \cite ?.
+     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at two-loop.
      * @return returns the vector of the two-loop contributions to the \f$ (g-2)_{\mu} \f$ amplitude
      */    
     virtual double gminus2muNLO();

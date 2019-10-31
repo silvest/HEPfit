@@ -246,7 +246,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to the W vector bosons with respect to the SM @f$K_W@f$.
-     * @param[in] @f$K_W@f$ the factor rescaling the Higgs coupling to the W vector bosons.
+     * @param[in] Kw @f$K_W@f$ the factor rescaling the Higgs coupling to the W vector bosons.
      */
     void setKw(double Kw)
     {
@@ -266,7 +266,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to the Z vector bosons with respect to the SM @f$K_Z@f$.
-     * @param[in] @f$K_Z@f$ the factor rescaling the Higgs coupling to the Z vector bosons.
+     * @param[in] Kz @f$K_Z@f$ the factor rescaling the Higgs coupling to the Z vector bosons.
      */
     void setKz(double Kz)
     {
@@ -286,7 +286,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to gluons with respect to the SM @f$K_g@f$.
-     * @param[in] @f$K_g@f$ the factor rescaling the Higgs coupling to gluons.
+     * @param[in] Kg @f$K_g@f$ the factor rescaling the Higgs coupling to gluons.
      */
     void setKg(double Kg)
     {
@@ -296,7 +296,7 @@ public:
     /**
      * @brief A get method to retrieve the factor rescaling the Higgs coupling
      * to photons with respect to the SM @f$K_ga@f$.
-     * @return @f$K_ga@f$
+     * @return Kga @f$K_ga@f$ the factor rescaling the Higgs coupling to photons.
      */
     double getKga() const
     {
@@ -306,7 +306,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to photons with respect to the SM @f$K_ga@f$.
-     * @param[in] @f$K_ga@f$ the factor rescaling the Higgs coupling to photons.
+     * @param[in] Kga @f$K_ga@f$ the factor rescaling the Higgs coupling to photons.
      */
     void setKga(double Kga)
     {
@@ -326,7 +326,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to Z and photon with respect to the SM @f$K_{zga}@f$.
-     * @param[in] @f$K_{zga}@f$ the factor rescaling the Higgs coupling to photons.
+     * @param[in] Kzga @f$K_{zga}@f$ the factor rescaling the Higgs coupling to photons.
      */
     void setKzga(double Kzga)
     {
@@ -346,7 +346,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to d quarks with respect to the SM @f$K_d@f$.
-     * @param[in] @f$K_d@f$ the factor rescaling the Higgs coupling to d quarks.
+     * @param[in] Kd @f$K_d@f$ the factor rescaling the Higgs coupling to d quarks.
      */
     void setKd(double Kd)
     {
@@ -366,7 +366,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to s quarks with respect to the SM @f$K_s@f$.
-     * @param[in] @f$K_s@f$ the factor rescaling the Higgs coupling to s quarks.
+     * @param[in] Ks @f$K_s@f$ the factor rescaling the Higgs coupling to s quarks.
      */
     void setKs(double Ks)
     {
@@ -386,7 +386,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to b quarks with respect to the SM @f$K_b@f$.
-     * @param[in] @f$K_b@f$ the factor rescaling the Higgs coupling to b quarks.
+     * @param[in] Kb @f$K_b@f$ the factor rescaling the Higgs coupling to b quarks.
      */
     void setKb(double Kb)
     {
@@ -406,7 +406,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to electrons with respect to the SM @f$K_e@f$.
-     * @param[in] @f$K_e@f$ the factor rescaling the Higgs coupling to electrons.
+     * @param[in] Ke @f$K_e@f$ the factor rescaling the Higgs coupling to electrons.
      */
     void setKe(double Ke)
     {
@@ -426,7 +426,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to muons with respect to the SM @f$K_\mu@f$.
-     * @param[in] @f$K_\mu@f$ the factor rescaling the Higgs coupling to muons.
+     * @param[in] Kmu @f$K_\mu@f$ the factor rescaling the Higgs coupling to muons.
      */
     void setKmu(double Kmu)
     {
@@ -446,7 +446,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to taus with respect to the SM @f$K_\tau@f$.
-     * @param[in] @f$K_\tau@f$ the factor rescaling the Higgs coupling to taus.
+     * @param[in] Ktau @f$K_\tau@f$ the factor rescaling the Higgs coupling to taus.
      */
     void setKtau(double Ktau)
     {
@@ -466,7 +466,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to u quarks with respect to the SM @f$K_u@f$.
-     * @param[in] @f$K_u@f$ the factor rescaling the Higgs coupling to u quarks.
+     * @param[in] Ku @f$K_u@f$ the factor rescaling the Higgs coupling to u quarks.
      */
     void setKu(double Ku)
     {
@@ -486,7 +486,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to c quarks with respect to the SM @f$K_c@f$.
-     * @param[in] @f$K_c@f$ the factor rescaling the Higgs coupling to c quarks.
+     * @param[in] Kc @f$K_c@f$ the factor rescaling the Higgs coupling to c quarks.
      */
     void setKc(double Kc)
     {
@@ -506,7 +506,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to t quarks with respect to the SM @f$K_t@f$.
-     * @param[in] @f$K_t@f$ the factor rescaling the Higgs coupling to t quarks.
+     * @param[in] Kt @f$K_t@f$ the factor rescaling the Higgs coupling to t quarks.
      */
     void setKt(double Kt)
     {
@@ -526,7 +526,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the total Higgs width
      * with respect to the SM @f$K_H@f$.
-     * @param[in] @f$K_H@f$ the factor rescaling the total Higgs width.
+     * @param[in] KH @f$K_H@f$ the factor rescaling the total Higgs width.
      */
     void setKH(double KH)
     {
@@ -545,7 +545,7 @@ public:
 
     /**
      * @brief A set method to change the invisible Higgs branching ratio.
-     * @param[in] @f$BR_{inv}@f$ the invisible Higgs branching ratio.
+     * @param[in] BrHinv @f$BR_{inv}@f$ the invisible Higgs branching ratio.
      */
     void setBrHinv(double BrHinv)
     {
@@ -563,7 +563,7 @@ public:
     
     /**
      * @brief A set method to change the exotic (not invisible) Higgs branching ratio.
-     * @param[in] @f$BR_{exo}@f$ the exotic (not invisible) Higgs branching ratio.
+     * @param[in] BrHexo @f$BR_{exo}@f$ the exotic (not invisible) Higgs branching ratio.
      */
     void setBrHexo(double BrHexo)
     {
@@ -633,8 +633,9 @@ public:
      * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
      * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s the center-of-mass energy in TeV,  
+     * @param[in] Pol_em polarization of electrons
+     * @param[in ]Pol_ep polarization of positrons
      * @return @f$\mu_{eeWBF}@f$
      */
     virtual double mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
@@ -650,8 +651,9 @@ public:
      * @brief The ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
      * @f$ e^+e^- \to H\nu\bar{\nu} @f$ associated production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively 
+     * @param[in] sqrt_s the center-of-mass energy in TeV, 
+     * @param[in] Pol_em polarization of electrons
+     * @param[in ]Pol_ep polarization of positrons
      * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
      */
     virtual double mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
@@ -667,8 +669,9 @@ public:
      * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
      * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively 
+     * @param[in] sqrt_s the center-of-mass energy in TeV,  
+     * @param[in] Pol_em polarization of electrons
+     * @param[in ]Pol_ep polarization of positrons
      * @return @f$\mu_{eeZBF}@f$
      */
     virtual double mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
@@ -730,8 +733,9 @@ public:
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH @f$ associated production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively 
+     * @param[in] sqrt_s the center-of-mass energy in TeV,  
+     * @param[in] Pol_em polarization of electrons
+     * @param[in ]Pol_ep polarization of positrons
      * @return @f$\mu_{eeZH}@f$
      */
     virtual double mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;  
@@ -739,8 +743,9 @@ public:
      * @brief The ratio @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to e^+ e^-, \mu^+ \mu^- @f$ associated production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively 
+     * @param[in] sqrt_s the center-of-mass energy in TeV,  
+     * @param[in] Pol_em polarization of electrons
+     * @param[in ]Pol_ep polarization of positrons
      * @return @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
      */
     virtual double mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;    
@@ -748,8 +753,9 @@ public:
      * @brief The ratio @f$\mu_{eeZH, Z \to q \bar{q}}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to q \bar{q} @f$ associated production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively 
+     * @param[in] sqrt_s the center-of-mass energy in TeV,  
+     * @param[in] Pol_em polarization of electrons
+     * @param[in ]Pol_ep polarization of positrons 
      * @return @f$\mu_{eeZH, Z \to q \bar{q}}@f$
      */
     virtual double mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;    
@@ -808,8 +814,9 @@ public:
      * @brief The ratio @f$\mu_{eettH}@f$ between the 
      * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively
+     * @param[in] sqrt_s the center-of-mass energy in TeV,  
+     * @param[in] Pol_em polarization of electrons
+     * @param[in ]Pol_ep polarization of positrons
      * @return @f$\mu_{eettH}@f$
      */
     virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;

@@ -1134,7 +1134,7 @@ public:
      * @brief The value of \f$\frac{\alpha_s^{\mathrm{FULLNLO}}}{4\pi}\f$ at any scale \f$\mu\f$ with the number of flavours
      * \f$n_f = 4\f$ and full EW corrections.
      * @param[in] mu the scale at which \f$\alpha_s\f$ has to be computed
-     * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\5$
+     * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\5\f$
      */
     double Alstilde5(const double mu) const;
     
@@ -1170,9 +1170,9 @@ public:
 
     /**
      * @brief The Higgs vacuum expectation value.
-     * @f[
+     * \f[
      *    v = \left(\frac{1}{\sqrt{2} G_\mu}\right)^{1/2},
-     * @f]
+     * \f]
      * where @f$G_\mu@f$ is the Fermi constant, measured through muon decays.
      * @return @f$v@f$ in GeV
      */

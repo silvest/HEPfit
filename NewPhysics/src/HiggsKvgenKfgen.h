@@ -115,7 +115,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling 
      * to the @f$W@f$ boson with respect to the SM @f$K_W@f$.
-     * @param[in] @f$K_W@f$ the factor rescaling the Higgs coupling to the @f$W@f$ boson.
+     * @param[in] KW @f$K_W@f$ the factor rescaling the Higgs coupling to the @f$W@f$ boson.
      */
     void setKW(double KW)
     {
@@ -135,7 +135,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to the @f$Z@f$ boson with respect to the SM @f$K_Z@f$.
-     * @param[in] @f$K_Z@f$ the factor rescaling the Higgs coupling to the @f$Z@f$ boson.
+     * @param[in] KZ @f$K_Z@f$ the factor rescaling the Higgs coupling to the @f$Z@f$ boson.
      */
     void setKZ(double KZ)
     {
@@ -155,7 +155,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to d quarks with respect to the SM @f$K_d@f$.
-     * @param[in] @f$K_d@f$ the factor rescaling the Higgs coupling to d quarks.
+     * @param[in] Kd @f$K_d@f$ the factor rescaling the Higgs coupling to d quarks.
      */
     void setKd(double Kd)
     {
@@ -175,7 +175,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to charged leptons with respect to the SM @f$K_l@f$.
-     * @param[in] @f$K_f@f$ the factor rescaling the Higgs coupling to charged leptons.
+     * @param[in] Kl @f$K_f@f$ the factor rescaling the Higgs coupling to charged leptons.
      */
     void setKl(double Kl)
     {
@@ -195,7 +195,7 @@ public:
     /**
      * @brief A set method to change the factor rescaling the Higgs coupling
      * to u quarks with respect to the SM @f$K_u@f$.
-     * @param[in] @f$K_u@f$ the factor rescaling the Higgs coupling to u quarks.
+     * @param[in] Ku @f$K_u@f$ the factor rescaling the Higgs coupling to u quarks.
      */
     void setKu(double Ku)
     {

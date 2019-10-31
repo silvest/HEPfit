@@ -810,7 +810,7 @@ protected:
 
     /**
      * @brief A method to check if the model type name in string form is valid.
-     * @param[in] THDMW model type name
+     * @param[in] modeltype THDMW model type name
      * @return a boolean that is true if the model type name is valid
      */
     bool checkmodelTypeTHDMW(const std::string modeltype) const
@@ -831,7 +831,7 @@ protected:
 
     /**
      * @brief A method to check if the RGE order name in string form is valid.
-     * @param[in] THDMW RGE order
+     * @param[in] RGEorder THDMW RGE order
      * @return a boolean that is true if the RGE order string is valid
      */
     bool checkRGEorder(const std::string RGEorder) const
