@@ -23,5 +23,14 @@ See doc/CREDITS file for list of contributors to HEPfit.
 
 Availability:
 -------------
-The HEPfit distribution package is available from [the HEPfit webpage](http://hepfit.roma1.infn.it/).
+The HEPfit distribution package is available from the [HEPfit webpage](https://hepfit.roma1.infn.it/).
 See doc/COPYING and doc/LICENSE for licensing terms.
+
+Documentation:
+--------------
+The documentation of the master branch is available from the [HEPfit webpage](https://hepfit.roma1.infn.it/doc/master/index.html). It is meant for the developers and is updated periodically. Documentation can also be generated from the master using the pacakging script in the `Packaging` directory by running
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$ cd Packaging
+$ sh makepackage.sh --doxygen
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The documentation will be generated in `Packaging/HEPfit-master-<commit no.>/Doxygen/html`. An installation of [Doxygen](https://www.doxygen.nl/) is necessary.
