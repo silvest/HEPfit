@@ -84,7 +84,9 @@ private:
     QCD::quark quark;/**< Initial meson type */
     double CF, GF, ale, alsmu, alsmuc, alstilde, aletilde, kappa;
     double Mlep, mu_b, mu_c, Mb, Mc, Mtau, Mb_pole, Mc_pole, Ms, MW;
-    double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl, phi1, phi2;
+    double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl;
+    double phi1, phi2, phi00, phi00_2, phi20, phi01;
+    double phinv00, phinv10, phinv20, phinv01, phinv11, phinv21;
     double BR_BXcenu, C_ratio, pre;
     unsigned int QCD_max, QED_max;
    
