@@ -4,7 +4,7 @@
 #   sh makePackage.sh
 #   sh makePackage.sh --doxygen : generate Doxygen documentations
 #
-
+export COPYFILE_DISABLE=false
 VERSION="master"
 
 ###########################################################
