@@ -6,6 +6,7 @@
 #
 
 VERSION="1.0"
+export COPYFILE_DISABLE=false
 
 ###########################################################
 # Original source codes
