@@ -165,7 +165,7 @@ private:
     gslpp::complex F87(double sh);
 
     /**
-    * @brief The correction \f$ F_{89} \f$ from @cite Asatrian:2001de.
+    * @brief The correction \f$ F_{89} \f$ from @cite Greub:2008cy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$ F_{89} \f$
     */

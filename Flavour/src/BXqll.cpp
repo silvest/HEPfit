@@ -298,7 +298,7 @@ double BXqll::H_T(double sh)
         {
             Hij_T[QCD1 + 3*QED1].assign(i, j, Hij_T[QCD1 + 3*QED1](i, j) + cij_T(i, j, sh, 11));
             Hij_T[QCD2 + 3*QED2].assign(i, j, Hij_T[QCD2 + 3*QED2](i, j) + cij_T(i, j, sh, 22));
-            Hij_T[QCD2 + 3*QED2 + 1].assign(i, j, cij_T(i, j, sh, 32));
+            Hij_T[QCD2 + 3*QED2 + 2].assign(i, j, cij_T(i, j, sh, 32));
         }
     
     double Phi_ll_u = CCH_multiplication(Hij_T);
@@ -330,7 +330,7 @@ double BXqll::H_L(double sh)
         {
             Hij_L[QCD1 + 3*QED1].assign(i, j, Hij_L[QCD1 + 3*QED1](i, j) + cij_L(i, j, sh, 11));
             Hij_L[QCD2 + 3*QED2].assign(i, j, Hij_L[QCD2 + 3*QED2](i, j) + cij_L(i, j, sh, 22));
-            Hij_L[QCD2 + 3*QED2 + 1].assign(i, j, cij_L(i, j, sh, 32));
+            Hij_L[QCD2 + 3*QED2 + 2].assign(i, j, cij_L(i, j, sh, 32));
         }
     
     double Phi_ll_u = CCH_multiplication(Hij_L);
@@ -380,20 +380,8 @@ void BXqll::computeHij_T(double sh)
     gslpp::matrix<gslpp::complex> Hij(15, 15, 0.);
 
     // LO
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-        {
-            if (i == j)
-                Hij.assign(i, j,
-                (M_9[LO])(i).abs2() * S99_T(sh, LO) +
-                (M_10[LO])(i).abs2() * S1010_T(sh, LO) );
-
-            else
-                Hij.assign(i, j,
-                2. * (M_9[LO])(i) * (M_9[LO])(j).conjugate() * S99_T(sh, LO) );
-        }
-    }
+    Hij.assign(8, 8, M_9[QCD0 + 3*QED0](8).abs2() * S99_T(sh, LO) );
+    Hij.assign(9, 9, M_10[QCD0 + 3*QED0](9).abs2() * S1010_T(sh, LO) );
     
     Hij_T.push_back(Hij);
     
@@ -401,20 +389,8 @@ void BXqll::computeHij_T(double sh)
     // NLO
     Hij.reset(); // To clear Hij
     
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-        {
-            if (i == j)
-                Hij.assign(i, j,
-                (M_9[LO])(i).abs2() * S99_T(sh, NLO) +
-                (M_10[LO])(i).abs2() * S1010_T(sh, NLO) );
-
-            else
-                Hij.assign(i, j,
-                2. * (M_9[LO])(i) * (M_9[LO])(j).conjugate() * S99_T(sh, NLO) );
-        }
-    }
+    Hij.assign(8, 8, M_9[QCD0 + 3*QED0](8).abs2() * S99_T(sh, NLO) );
+    Hij.assign(9, 9, M_10[QCD0 + 3*QED0](9).abs2() * S1010_T(sh, NLO) );
     
     Hij_T.push_back(Hij);
     
@@ -422,20 +398,8 @@ void BXqll::computeHij_T(double sh)
     // NNLO
     Hij.reset(); // To clear Hij
     
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-        {
-            if (i == j)
-                Hij.assign(i, j,
-                (M_9[LO])(i).abs2() * S99_T(sh, NNLO) +
-                (M_10[LO])(i).abs2() * S1010_T(sh, NNLO) );
-
-            else
-                Hij.assign(i, j,
-                2. * (M_9[LO])(i) * (M_9[LO])(j).conjugate() * S99_T(sh, NNLO) );
-        }
-    }
+    Hij.assign(8, 8, M_9[QCD0 + 3*QED0](8).abs2() * S99_T(sh, NNLO) );
+    Hij.assign(9, 9, M_10[QCD0 + 3*QED0](9).abs2() * S1010_T(sh, NNLO) );
     
     Hij_T.push_back(Hij);
     
@@ -452,15 +416,14 @@ void BXqll::computeHij_T(double sh)
         {
             if (i == j)
                 Hij.assign(i, j,
-                ((M_9[LO])(i) * (M_9[int_qed(NLO_QED11)])(i).conjugate()).real() * 2. * S99_T(sh, LO) +
-                ((M_7[LO])(i) * (M_9[int_qed(NLO_QED11)])(i).conjugate()).real() * S79_T(sh, LO) );
+                M_9[QCD0 + 3*QED0](i) * (M_9[QCD1 + 3*QED1](i).conjugate()).real() * 2. * S99_T(sh, LO) );
 
             else
                 Hij.assign(i, j,
-                2. * ((M_9[LO])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate() +
-                      (M_9[int_qed(NLO_QED11)])(i) * (M_9[LO])(j).conjugate()) * S99_T(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[LO])(j).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate()) * S79_T(sh, LO) );
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                      M_9[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_T(sh, LO) +
+                (M_7[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate() +
+                 M_9[QCD0 + 3*QED0](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S79_T(sh, LO) );
         }
     }
     
@@ -476,23 +439,18 @@ void BXqll::computeHij_T(double sh)
         {
             if (i == j)
                 Hij.assign(i, j,
-                ((M_9[LO])(i) * (M_9[int_qed(NLO_QED21)])(i).conjugate()).real() * 2. * S99_T(sh, LO) +
-                ((M_9[LO])(i) * (M_9[int_qed(NLO_QED11)])(i).conjugate()).real() * 2. * S99_T(sh, NLO) +
-                ((M_7[int_qed(NLO_QED21)])(i) * (M_9[LO])(i).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED21)])(i).conjugate()).real() * S79_T(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[LO])(i).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED11)])(i).conjugate()).real() * S79_T(sh, NLO) );
+                (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](i).conjugate()).real() * 2. * S99_T(sh, NLO) );
 
             else
                 Hij.assign(i, j,
-                2. * ((M_9[LO])(i) * (M_9[int_qed(NLO_QED21)])(j).conjugate() +
-                      (M_9[int_qed(NLO_QED21)])(i) * (M_9[LO])(j).conjugate()) * S99_T(sh, LO) +
-                2. * ((M_9[LO])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate() +
-                      (M_9[int_qed(NLO_QED11)])(i) * (M_9[LO])(j).conjugate()) * S99_T(sh, NLO) +
-                ((M_7[int_qed(NLO_QED21)])(i) * (M_9[LO])(j).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED21)])(j).conjugate()) * S79_T(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[LO])(j).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate()) * S79_T(sh, NLO) );
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD2 + 3*QED1](j).conjugate() +
+                      M_9[QCD2 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_T(sh, LO) +
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                      M_9[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_T(sh, NLO) +
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate() +
+                 M_9[QCD0 + 3*QED0](i) * M_7[QCD2 + 3*QED1](j).conjugate()) * S79_T(sh, LO) +
+                (M_7[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate() +
+                 M_9[QCD0 + 3*QED0](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S79_T(sh, NLO) );
         }
     }
     
@@ -512,23 +470,77 @@ void BXqll::computeHij_T(double sh)
         {
             if (i == j)
                 Hij.assign(i, j,
-                (M_7[int_qed(NLO_QED11)])(i).abs2() * S77_T(sh, LO) +
-                (M_9[int_qed(NLO_QED11)])(i).abs2() * S99_T(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[int_qed(NLO_QED11)])(i).conjugate()).real() * S79_T(sh, LO) );
+                M_7[QCD1 + 3*QED1](i).abs2() * S77_T(sh, LO) +
+                M_9[QCD1 + 3*QED1](i).abs2() * S99_T(sh, LO) );
 
             else
                 Hij.assign(i, j,
-                2. * (M_7[int_qed(NLO_QED11)])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate() * S77_T(sh, LO) +
-                2. * (M_9[int_qed(NLO_QED11)])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate() * S99_T(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate() +
-                 (M_9[int_qed(NLO_QED11)])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate()) * S79_T(sh, LO) );
+                2. * M_7[QCD1 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate() * S77_T(sh, LO) +
+                2. * M_9[QCD1 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() * S99_T(sh, LO) +
+                (M_7[QCD1 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                 M_9[QCD1 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S79_T(sh, LO) );
         }
     }
     
     Hij_T.push_back(Hij);
     
-    // Extra empty entry for 32
+    
+    // Additional entry for 31
     Hij.reset(); // To clear Hij
+    
+    for (unsigned int j = 0; j < 15; j++)
+    {
+        for (unsigned int i = 0; i <= j; i++)
+        {
+            if (i == j)
+                Hij.assign(i, j,
+                (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](i).conjugate()).real() * 2. * S99_T(sh, NNLO) );
+
+            else
+                Hij.assign(i, j,
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD2 + 3*QED1](j).conjugate() + 
+                      M_9[QCD2 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_T(sh, NLO) +
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                      M_9[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_T(sh, NNLO) +
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate() +
+                 M_9[QCD0 + 3*QED0](i) * M_7[QCD2 + 3*QED1](j).conjugate()) * S79_T(sh, NLO) );
+        }
+    }
+    
+    Hij_T.push_back(Hij);
+    
+    
+    // Additional entry for 32
+    Hij.reset(); // To clear Hij
+    
+    for (unsigned int j = 0; j < 15; j++)
+    {
+        for (unsigned int i = 0; i <= j; i++)
+        {
+            if (i == j)
+                Hij.assign(i, j,
+                M_7[QCD1 + 3*QED1](i).abs2() * S77_T(sh, NLO) +
+                M_9[QCD1 + 3*QED1](i).abs2() * S99_T(sh, NLO) +
+                (M_9[QCD1 + 3*QED1](i) * M_9[QCD2 + 3*QED1](i).conjugate()).real() * 2. * S99_T(sh, LO) +
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](i)).real() * S79_T(sh, LO));
+
+            else
+                Hij.assign(i, j,
+                2. * M_7[QCD1 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate() * S77_T(sh, NLO) +
+                2. * (M_7[QCD1 + 3*QED1](i) * M_7[QCD2 + 3*QED1](j).conjugate() +
+                      M_7[QCD2 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S77_T(sh, LO) +
+                2. * M_9[QCD1 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() * S99_T(sh, NLO) +
+                2. * (M_9[QCD1 + 3*QED1](i) * M_9[QCD2 + 3*QED1](j).conjugate() +
+                      M_9[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate()) * S99_T(sh, LO) +
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                 M_7[QCD1 + 3*QED1](i) * M_9[QCD2 + 3*QED1](j).conjugate() +
+                 M_9[QCD2 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate() +
+                 M_9[QCD1 + 3*QED1](i) * M_7[QCD2 + 3*QED1](j).conjugate()) * S79_T(sh, LO) +
+                (M_7[QCD1 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                 M_9[QCD1 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S79_T(sh, NLO) );
+        }
+    }
+    
     Hij_T.push_back(Hij);
 }
 
@@ -540,20 +552,8 @@ void BXqll::computeHij_L(double sh)
     gslpp::matrix<gslpp::complex> Hij(15, 15, 0.);
 
     // LO
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-        {
-            if (i == j)
-                Hij.assign(i, j,
-                (M_9[LO])(i).abs2() * S99_L(sh, LO) +
-                (M_10[LO])(i).abs2() * S1010_L(sh, LO) );
-
-            else
-                Hij.assign(i, j,
-                2. * (M_9[LO])(i) * (M_9[LO])(j).conjugate() * S99_L(sh, LO) );
-        }
-    }
+    Hij.assign(8, 8, M_9[QCD0 + 3*QED0](8).abs2() * S99_L(sh, LO) );
+    Hij.assign(9, 9, M_10[QCD0 + 3*QED0](9).abs2() * S1010_L(sh, LO) );
     
     Hij_L.push_back(Hij);
     
@@ -561,20 +561,8 @@ void BXqll::computeHij_L(double sh)
     // NLO
     Hij.reset(); // To clear Hij
     
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-        {
-            if (i == j)
-                Hij.assign(i, j,
-                (M_9[LO])(i).abs2() * S99_L(sh, NLO) +
-                (M_10[LO])(i).abs2() * S1010_L(sh, NLO) );
-
-            else
-                Hij.assign(i, j,
-                2. * (M_9[LO])(i) * (M_9[LO])(j).conjugate() * S99_L(sh, NLO) );
-        }
-    }
+    Hij.assign(8, 8, M_9[QCD0 + 3*QED0](8).abs2() * S99_L(sh, NLO) );
+    Hij.assign(9, 9, M_10[QCD0 + 3*QED0](9).abs2() * S1010_L(sh, NLO) );
     
     Hij_L.push_back(Hij);
     
@@ -582,20 +570,8 @@ void BXqll::computeHij_L(double sh)
     // NNLO
     Hij.reset(); // To clear Hij
     
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-        {
-            if (i == j)
-                Hij.assign(i, j,
-                (M_9[LO])(i).abs2() * S99_L(sh, NNLO) +
-                (M_10[LO])(i).abs2() * S1010_L(sh, NNLO) );
-
-            else
-                Hij.assign(i, j,
-                2. * (M_9[LO])(i) * (M_9[LO])(j).conjugate() * S99_L(sh, NNLO) );
-        }
-    }
+    Hij.assign(8, 8, M_9[QCD0 + 3*QED0](8).abs2() * S99_L(sh, NNLO) );
+    Hij.assign(9, 9, M_10[QCD0 + 3*QED0](9).abs2() * S1010_L(sh, NNLO) );
     
     Hij_L.push_back(Hij);
     
@@ -612,15 +588,14 @@ void BXqll::computeHij_L(double sh)
         {
             if (i == j)
                 Hij.assign(i, j,
-                ((M_9[LO])(i) * (M_9[int_qed(NLO_QED11)])(i).conjugate()).real() * 2. * S99_L(sh, LO) +
-                ((M_7[LO])(i) * (M_9[int_qed(NLO_QED11)])(i).conjugate()).real() * S79_L(sh, LO) );
+                M_9[QCD0 + 3*QED0](i) * (M_9[QCD1 + 3*QED1](i).conjugate()).real() * 2. * S99_L(sh, LO) );
 
             else
                 Hij.assign(i, j,
-                2. * ((M_9[LO])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate() +
-                      (M_9[int_qed(NLO_QED11)])(i) * (M_9[LO])(j).conjugate()) * S99_L(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[LO])(j).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate()) * S79_L(sh, LO) );
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                      M_9[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_L(sh, LO) +
+                (M_7[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate() +
+                 M_9[QCD0 + 3*QED0](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S79_L(sh, LO) );
         }
     }
     
@@ -636,23 +611,18 @@ void BXqll::computeHij_L(double sh)
         {
             if (i == j)
                 Hij.assign(i, j,
-                ((M_9[LO])(i) * (M_9[int_qed(NLO_QED21)])(i).conjugate()).real() * 2. * S99_L(sh, LO) +
-                ((M_9[LO])(i) * (M_9[int_qed(NLO_QED11)])(i).conjugate()).real() * 2. * S99_L(sh, NLO) +
-                ((M_7[int_qed(NLO_QED21)])(i) * (M_9[LO])(i).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED21)])(i).conjugate()).real() * S79_L(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[LO])(i).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED11)])(i).conjugate()).real() * S79_L(sh, NLO) );
+                (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](i).conjugate()).real() * 2. * S99_L(sh, NLO) );
 
             else
                 Hij.assign(i, j,
-                2. * ((M_9[LO])(i) * (M_9[int_qed(NLO_QED21)])(j).conjugate() +
-                      (M_9[int_qed(NLO_QED21)])(i) * (M_9[LO])(j).conjugate()) * S99_L(sh, LO) +
-                2. * ((M_9[LO])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate() +
-                      (M_9[int_qed(NLO_QED11)])(i) * (M_9[LO])(j).conjugate()) * S99_L(sh, NLO) +
-                ((M_7[int_qed(NLO_QED21)])(i) * (M_9[LO])(j).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED21)])(j).conjugate()) * S79_L(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[LO])(j).conjugate() +
-                 (M_9[LO])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate()) * S79_L(sh, NLO) );
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD2 + 3*QED1](j).conjugate() +
+                      M_9[QCD2 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_L(sh, LO) +
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                      M_9[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_L(sh, NLO) +
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate() +
+                 M_9[QCD0 + 3*QED0](i) * M_7[QCD2 + 3*QED1](j).conjugate()) * S79_L(sh, LO) +
+                (M_7[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate() +
+                 M_9[QCD0 + 3*QED0](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S79_L(sh, NLO) );
         }
     }
     
@@ -672,23 +642,77 @@ void BXqll::computeHij_L(double sh)
         {
             if (i == j)
                 Hij.assign(i, j,
-                (M_7[int_qed(NLO_QED11)])(i).abs2() * S77_L(sh, LO) +
-                (M_9[int_qed(NLO_QED11)])(i).abs2() * S99_L(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[int_qed(NLO_QED11)])(i).conjugate()).real() * S79_L(sh, LO) );
+                M_7[QCD1 + 3*QED1](i).abs2() * S77_L(sh, LO) +
+                M_9[QCD1 + 3*QED1](i).abs2() * S99_L(sh, LO) );
 
             else
                 Hij.assign(i, j,
-                2. * (M_7[int_qed(NLO_QED11)])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate() * S77_L(sh, LO) +
-                2. * (M_9[int_qed(NLO_QED11)])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate() * S99_L(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate() +
-                 (M_9[int_qed(NLO_QED11)])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate()) * S79_L(sh, LO) );
+                2. * M_7[QCD1 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate() * S77_L(sh, LO) +
+                2. * M_9[QCD1 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() * S99_L(sh, LO) +
+                (M_7[QCD1 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                 M_9[QCD1 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S79_L(sh, LO) );
         }
     }
     
     Hij_L.push_back(Hij);
     
-    // Extra empty entry for 32
+    
+    // Additional entry for 31
     Hij.reset(); // To clear Hij
+    
+    for (unsigned int j = 0; j < 15; j++)
+    {
+        for (unsigned int i = 0; i <= j; i++)
+        {
+            if (i == j)
+                Hij.assign(i, j,
+                (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](i).conjugate()).real() * 2. * S99_L(sh, NNLO) );
+
+            else
+                Hij.assign(i, j,
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD2 + 3*QED1](j).conjugate() + 
+                      M_9[QCD2 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_L(sh, NLO) +
+                2. * (M_9[QCD0 + 3*QED0](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                      M_9[QCD1 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate()) * S99_L(sh, NNLO) +
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD0 + 3*QED0](j).conjugate() +
+                 M_9[QCD0 + 3*QED0](i) * M_7[QCD2 + 3*QED1](j).conjugate()) * S79_L(sh, NLO) );
+        }
+    }
+    
+    Hij_L.push_back(Hij);
+    
+    
+    // Additional entry for 32
+    Hij.reset(); // To clear Hij
+    
+    for (unsigned int j = 0; j < 15; j++)
+    {
+        for (unsigned int i = 0; i <= j; i++)
+        {
+            if (i == j)
+                Hij.assign(i, j,
+                M_7[QCD1 + 3*QED1](i).abs2() * S77_L(sh, NLO) +
+                M_9[QCD1 + 3*QED1](i).abs2() * S99_L(sh, NLO) +
+                (M_9[QCD1 + 3*QED1](i) * M_9[QCD2 + 3*QED1](i).conjugate()).real() * 2. * S99_L(sh, LO) +
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](i)).real() * S79_L(sh, LO));
+
+            else
+                Hij.assign(i, j,
+                2. * M_7[QCD1 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate() * S77_L(sh, NLO) +
+                2. * (M_7[QCD1 + 3*QED1](i) * M_7[QCD2 + 3*QED1](j).conjugate() +
+                      M_7[QCD2 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S77_L(sh, LO) +
+                2. * M_9[QCD1 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() * S99_L(sh, NLO) +
+                2. * (M_9[QCD1 + 3*QED1](i) * M_9[QCD2 + 3*QED1](j).conjugate() +
+                      M_9[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate()) * S99_L(sh, LO) +
+                (M_7[QCD1 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                 M_9[QCD1 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate()) * S79_L(sh, NLO) +
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](j).conjugate() +
+                 M_7[QCD1 + 3*QED1](i) * M_9[QCD2 + 3*QED1](j).conjugate() +
+                 M_9[QCD2 + 3*QED1](i) * M_7[QCD1 + 3*QED1](j).conjugate() +
+                 M_9[QCD1 + 3*QED1](i) * M_7[QCD2 + 3*QED1](j).conjugate()) * S79_L(sh, LO) );
+        }
+    }
+    
     Hij_L.push_back(Hij);
 }
 
@@ -699,15 +723,9 @@ void BXqll::computeHij_A(double sh)
     
     gslpp::matrix<gslpp::complex> Hij(15, 15, 0.);
 
+    //REMINDER: M_10(i) = 1, for i = 9, zero otherwise
     // LO
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-            if (i != j)
-                Hij.assign(i, j,
-                ((M_9[LO])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_9[LO])(j).conjugate()) * S910_A(sh, LO) );
-    }
+    Hij.assign(8, 9, M_9[QCD0 + 3*QED0](8) * S910_A(sh, LO) );
     
     Hij_A.push_back(Hij);
     
@@ -715,14 +733,7 @@ void BXqll::computeHij_A(double sh)
     // NLO
     Hij.reset(); // To clear Hij
     
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-            if (i != j)
-                Hij.assign(i, j,
-                ((M_9[LO])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_9[LO])(j).conjugate()) * S910_A(sh, NLO) );
-    }
+    Hij.assign(8, 9, M_9[QCD0 + 3*QED0](8) * S910_A(sh, NLO) );
     
     Hij_A.push_back(Hij);
     
@@ -730,14 +741,7 @@ void BXqll::computeHij_A(double sh)
     // NNLO
     Hij.reset(); // To clear Hij
     
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-            if (i != j)
-                Hij.assign(i, j,
-                ((M_9[LO])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_9[LO])(j).conjugate()) * S910_A(sh, NNLO) );
-    }
+    Hij.assign(8, 9, M_9[QCD0 + 3*QED0](8) * S910_A(sh, NNLO) );
     
     Hij_A.push_back(Hij);
     
@@ -748,16 +752,14 @@ void BXqll::computeHij_A(double sh)
     
     
     // NLO_QED11
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-            if (i != j)
-                Hij.assign(i, j,
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate()) * S710_A(sh, LO) +
-                ((M_9[int_qed(NLO_QED11)])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate()) * S910_A(sh, LO) );
-    }
+    Hij.assign(6, 9, M_7[QCD1 + 3*QED1](6) * S710_A(sh, LO) );
+    
+    for (unsigned int i = 0; i < 9; i++)
+        if (i != 6)
+            Hij.assign(i, 9, M_9[QCD1 + 3*QED1](i) * S910_A(sh, LO) );
+    
+    for (unsigned int j = 10; j < 15; j++)
+            Hij.assign(9, j, M_9[QCD1 + 3*QED1](j).conjugate() * S910_A(sh, LO) );
     
     Hij_A.push_back(Hij);
     
@@ -765,20 +767,19 @@ void BXqll::computeHij_A(double sh)
     // NLO_QED21
     Hij.reset(); // To clear Hij
     
-    for (unsigned int j = 0; j < 15; j++)
-    {
-        for (unsigned int i = 0; i <= j; i++)
-            if (i != j)
-                Hij.assign(i, j,
-                ((M_7[int_qed(NLO_QED21)])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_7[int_qed(NLO_QED21)])(j).conjugate()) * S710_A(sh, LO) +
-                ((M_9[int_qed(NLO_QED21)])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_9[int_qed(NLO_QED21)])(j).conjugate()) * S910_A(sh, LO) +
-                ((M_7[int_qed(NLO_QED11)])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_7[int_qed(NLO_QED11)])(j).conjugate()) * S710_A(sh, NLO) +
-                ((M_9[int_qed(NLO_QED11)])(i) * (M_10[LO])(j).conjugate() +
-                 (M_10[LO])(i) * (M_9[int_qed(NLO_QED11)])(j).conjugate()) * S910_A(sh, NLO) );
-    }
+    Hij.assign(0, 9, M_7[QCD2 + 3*QED1](0) * S710_A(sh, LO) +
+                     M_9[QCD2 + 3*QED1](0) * S910_A(sh, LO) + M_9[QCD1 + 3*QED1](0) * S910_A(sh, NLO) );
+    Hij.assign(1, 9, M_7[QCD2 + 3*QED1](1) * S710_A(sh, LO) +
+                     M_9[QCD2 + 3*QED1](1) * S910_A(sh, LO) + M_9[QCD1 + 3*QED1](1) * S910_A(sh, NLO) );
+    Hij.assign(6, 9, M_7[QCD1 + 3*QED1](6) * S710_A(sh, NLO) );
+    Hij.assign(7, 9, M_7[QCD2 + 3*QED1](7) * S710_A(sh, LO) + M_9[QCD2 + 3*QED1](7) * S910_A(sh, LO) );
+    
+    for (unsigned int i = 2; i < 9; i++)
+        if (i != 6 && i != 7)
+            Hij.assign(i, 9, M_9[QCD1 + 3*QED1](i) * S910_A(sh, NLO) );
+    
+    for (unsigned int j = 10; j < 15; j++)
+            Hij.assign(9, j, M_9[QCD1 + 3*QED1](j).conjugate() * S910_A(sh, NLO) );
     
     Hij_A.push_back(Hij);
     
@@ -788,7 +789,25 @@ void BXqll::computeHij_A(double sh)
     Hij_A.push_back(Hij);
     Hij_A.push_back(Hij);    
     Hij_A.push_back(Hij);
-    // Extra empty entry for 32
+    
+    // Additional entry for 31
+    Hij.assign(0, 9, M_7[QCD2 + 3*QED1](0) * S710_A(sh, NLO) +
+                     M_9[QCD2 + 3*QED1](0) * S910_A(sh, NLO) + M_9[QCD1 + 3*QED1](0) * S910_A(sh, NNLO) );
+    Hij.assign(1, 9, M_7[QCD2 + 3*QED1](1) * S710_A(sh, NLO) +
+                     M_9[QCD2 + 3*QED1](1) * S910_A(sh, NLO) + M_9[QCD1 + 3*QED1](1) * S910_A(sh, NNLO) );
+    Hij.assign(7, 9, M_7[QCD2 + 3*QED1](7) * S710_A(sh, NLO) + M_9[QCD2 + 3*QED1](7) * S910_A(sh, NLO) );
+    
+    for (unsigned int i = 2; i < 9; i++)
+        if (i != 7)
+            Hij.assign(i, 9, M_9[QCD1 + 3*QED1](i) * S910_A(sh, NNLO) );
+    
+    for (unsigned int j = 10; j < 15; j++)
+            Hij.assign(9, j, M_9[QCD1 + 3*QED1](j).conjugate() * S910_A(sh, NNLO) );
+    
+    Hij_A.push_back(Hij);
+    
+    // Additional entry for 32
+    Hij.reset(); // To clear Hij
     Hij_A.push_back(Hij);
 }
 
@@ -1668,9 +1687,13 @@ double BXqll::CCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& H
                                                             Hij[qcd_c + 3*qed_c](i,j) ).real() * Phi_u_inv(qcd_u, qed_u);
                                         }
                                     
-                                    if (qcd_a + qcd_b + 3 + qcd_u <= QCD_max && qed_a + qed_b + 2 + qed_u <= QED_max)
+                                    if (qcd_a + qcd_b + 3 + qcd_u <= QCD_max && qed_a + qed_b + 1 + qed_u <= QED_max)
                                         Phi_ll_u += (WC(i, qcd_a + 3*qed_a).conjugate() * WC(j, qcd_b + 3*qed_b) *
                                                     Hij[QCD2 + 3*QED2 + 1](i,j) ).real() * Phi_u_inv(qcd_u, qed_u);
+                                    
+                                    if (qcd_a + qcd_b + 3 + qcd_u <= QCD_max && qed_a + qed_b + 2 + qed_u <= QED_max)
+                                        Phi_ll_u += (WC(i, qcd_a + 3*qed_a).conjugate() * WC(j, qcd_b + 3*qed_b) *
+                                                    Hij[QCD2 + 3*QED2 + 2](i,j) ).real() * Phi_u_inv(qcd_u, qed_u);
                                 }
     
     return Phi_ll_u;
@@ -1860,6 +1883,7 @@ void BXqll::Test_WC_DF1()
     std::cout << "Mc_pole  = " << Mc_pole << std::endl;
     std::cout << "Ms       = " << Ms << std::endl;
     std::cout << "m_e      = " << Mlep << std::endl;
+    std::cout << "m_tau    = " << Mtau << std::endl;
     std::cout << "alstilde = " << alstilde << std::endl;
     std::cout << "aletilde = " << aletilde << std::endl;
     std::cout << "1/ale_MZ = " << 1./mySM.alphaMz() << std::endl;
@@ -1901,20 +1925,32 @@ void BXqll::Test_WC_DF1()
 //                                        Hij_L[int_qed(NLO_QED22)]) << std::endl;
 //    
 //    std::cout << std::endl;
-//    std::cout << "Hij^T_00 = " << 1.0e7 * Hij_T[LO] << std::endl;
-//    std::cout << "Hij^T_10 = " << 1.0e7 * Hij_T[NLO] << std::endl;
-//    std::cout << "Hij^T_20 = " << 1.0e7 * Hij_T[NNLO] << std::endl;
-//    std::cout << "Hij^T_11 = " << 1.0e7 * Hij_T[int_qed(NLO_QED11)] << std::endl;
-//    std::cout << "Hij^T_21 = " << 1.0e7 * Hij_T[int_qed(NLO_QED21)] << std::endl;
-//    std::cout << "Hij^T_22 = " << 1.0e7 * Hij_T[int_qed(NLO_QED22)] << std::endl;
+//    std::cout << "Hij^T_00 = " << 1.0e7 * Hij_T[QCD0 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^T_10 = " << 1.0e7 * Hij_T[QCD1 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^T_20 = " << 1.0e7 * Hij_T[QCD2 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^T_11 = " << 1.0e7 * Hij_T[QCD1 + 3*QED1] << std::endl << std::endl;
+//    std::cout << "Hij^T_21 = " << 1.0e7 * Hij_T[QCD2 + 3*QED1] << std::endl << std::endl;
+//    std::cout << "Hij^T_22 = " << 1.0e7 * Hij_T[QCD2 + 3*QED2] << std::endl << std::endl;
+//    std::cout << "Hij^T_31 = " << 1.0e7 * Hij_T[QCD2 + 3*QED2 + 1] << std::endl << std::endl;
+//    std::cout << "Hij^T_32 = " << 1.0e7 * Hij_T[QCD2 + 3*QED2 + 2] << std::endl << std::endl;
+//
+//    std::cout << std::endl;
+//    std::cout << "Hij^L_00 = " << 1.0e7 * Hij_L[QCD0 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^L_10 = " << 1.0e7 * Hij_L[QCD1 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^L_20 = " << 1.0e7 * Hij_L[QCD2 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^L_11 = " << 1.0e7 * Hij_L[QCD1 + 3*QED1] << std::endl << std::endl;
+//    std::cout << "Hij^L_21 = " << 1.0e7 * Hij_L[QCD2 + 3*QED1] << std::endl << std::endl;
+//    std::cout << "Hij^L_22 = " << 1.0e7 * Hij_L[QCD2 + 3*QED2] << std::endl << std::endl;
+//    std::cout << "Hij^L_31 = " << 1.0e7 * Hij_L[QCD2 + 3*QED2 + 1] << std::endl << std::endl;
+//    std::cout << "Hij^L_32 = " << 1.0e7 * Hij_L[QCD2 + 3*QED2 + 2] << std::endl << std::endl;
 //    
 //    std::cout << std::endl;
-//    std::cout << "Hij^L_00 = " << 1.0e7 * Hij_L[LO] << std::endl;
-//    std::cout << "Hij^L_10 = " << 1.0e7 * Hij_L[NLO] << std::endl;
-//    std::cout << "Hij^L_20 = " << 1.0e7 * Hij_L[NNLO] << std::endl;
-//    std::cout << "Hij^L_11 = " << 1.0e7 * Hij_L[int_qed(NLO_QED11)] << std::endl;
-//    std::cout << "Hij^L_21 = " << 1.0e7 * Hij_L[int_qed(NLO_QED21)] << std::endl;
-//    std::cout << "Hij^L_22 = " << 1.0e7 * Hij_L[int_qed(NLO_QED22)] << std::endl;
+//    std::cout << "Hij^L_00 = " << 1.0e7 * Hij_A[QCD0 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^L_10 = " << 1.0e7 * Hij_A[QCD1 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^L_20 = " << 1.0e7 * Hij_A[QCD2 + 3*QED0] << std::endl << std::endl;
+//    std::cout << "Hij^L_11 = " << 1.0e7 * Hij_A[QCD1 + 3*QED1] << std::endl << std::endl;
+//    std::cout << "Hij^L_21 = " << 1.0e7 * Hij_A[QCD2 + 3*QED1] << std::endl << std::endl;
+//    std::cout << "Hij^L_31 = " << 1.0e7 * Hij_A[QCD2 + 3*QED2 + 1] << std::endl << std::endl;  
 //    
 //    std::cout << std::endl;
 //    std::cout << "H11^T   = ("; 
