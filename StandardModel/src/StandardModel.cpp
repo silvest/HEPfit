@@ -1230,10 +1230,6 @@ double StandardModel::GammaZ(const Particle f) const
         return 0.0;
     double Gamma;
     if (!IsFlagNoApproximateGammaZ()) {
-        
-        if (FlagSMAux) {
-
-//  New (Testing)
             
         /* SM contribution with the approximate formula */
         if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
@@ -1252,30 +1248,6 @@ double StandardModel::GammaZ(const Particle f) const
             Gamma = myApproximateFormulae->X_full("Gamma_b");
         else
             throw std::runtime_error("Error in StandardModel::GammaZ()");
-            
-        } else {
-
-//  Original
-            
-        /* SM contribution with the approximate formula */
-        if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_nu");
-        else if (f.is("ELECTRON") || f.is("MU"))
-            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_e_mu");
-        else if (f.is("TAU"))
-            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_tau");
-        else if (f.is("UP"))
-            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_u");
-        else if (f.is("CHARM"))
-            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_c");
-        else if (f.is("DOWN") || f.is("STRANGE"))
-            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_d_s");
-        else if (f.is("BOTTOM"))
-            Gamma = myApproximateFormulae->X_full_2_loop("Gamma_b");
-        else
-            throw std::runtime_error("Error in StandardModel::GammaZ()");
-        
-        }
         
     } else {
         gslpp::complex myrhoZ_f = rhoZ_f(f);
@@ -1311,22 +1283,9 @@ double StandardModel::Gamma_had() const
     double Gamma_had_tmp = 0.0;
     
     if (!IsFlagNoApproximateGammaZ()){
-        
-        if (FlagSMAux) {
-            
-//  New (Testing)
             
         /* SM contribution with the approximate formula */
         return myApproximateFormulae->X_full("Gamma_had");
-            
-        } else {
-            
-//  Original
-        
-        /* SM contribution with the approximate formula */
-        return myApproximateFormulae->X_full_2_loop("Gamma_had");
-        
-        }
     
     } else {
     
@@ -1344,22 +1303,9 @@ double StandardModel::Gamma_had() const
 double StandardModel::Gamma_Z() const
 {
     if (!IsFlagNoApproximateGammaZ()){
-        
-        if (FlagSMAux) {
-            
-//  New (Testing)
             
         /* SM contribution with the approximate formula */
         return myApproximateFormulae->X_full("GammaZ");
-        
-        } else {
-            
-//  Original
-            
-        /* SM contribution with the approximate formula */
-        return myApproximateFormulae->X_full_2_loop("GammaZ");
-        
-        }
 
     } else {
         return ( GammaZ(leptons[ELECTRON]) + GammaZ(leptons[MU]) + GammaZ(leptons[TAU])
@@ -1370,22 +1316,11 @@ double StandardModel::Gamma_Z() const
 double StandardModel::sigma0_had() const
 {
     if (!IsFlagNoApproximateGammaZ()){
-        
-        if (FlagSMAux) {
-            
-//  New (Testing)
             
         /* SM contribution with the approximate formula */
         return (myApproximateFormulae->X_full("sigmaHadron")
             / GeVminus2_to_nb);
-        } else {
-            
-//  Original
-            
-        /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->X_full_2_loop("sigmaHadron")
-            / GeVminus2_to_nb);            
-        }
+
     } else {
         return (12.0 * M_PI * GammaZ(leptons[ELECTRON]) * Gamma_had()
             / Mz / Mz / Gamma_Z() / Gamma_Z());
@@ -1394,10 +1329,6 @@ double StandardModel::sigma0_had() const
 
 double StandardModel::R0_f(const Particle f) const
 {
-    
-    if (FlagSMAux) {
-        
-//  New (Testing)
                 
     if (f.is("ELECTRON")) {
         if (!IsFlagNoApproximateGammaZ())
@@ -1465,77 +1396,6 @@ double StandardModel::R0_f(const Particle f) const
 
     } else throw std::runtime_error("StandardModel::R0_f called with wrong argument");     
     
-    } else {
-        
-//  Original
-    
-    if (f.is("ELECTRON")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_electron"));
-        else
-            return (Gamma_had() / GammaZ(leptons[ELECTRON]));
-    }  else if (f.is("MU")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_muon"));
-        else
-            return (Gamma_had() / GammaZ(leptons[MU]));
-    }  else if (f.is("TAU")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_tau"));
-        else
-            return (Gamma_had() / GammaZ(leptons[TAU]));
-    } else if (f.is("NEUTRINO_1")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_neutrino"));
-        else
-            return (GammaZ(leptons[NEUTRINO_1]) / Gamma_had());
-    } else if (f.is("NEUTRINO_2")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_neutrino"));
-        else
-            return (GammaZ(leptons[NEUTRINO_2]) / Gamma_had());
-    } else if (f.is("NEUTRINO_3")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_neutrino"));
-        else
-            return (GammaZ(leptons[NEUTRINO_3]) / Gamma_had());
-    }  else if (f.is("UP")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_up"));
-        else
-            return (GammaZ(quarks[UP]) / Gamma_had());
-
-    }  else if (f.is("STRANGE")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_strange"));
-        else
-            return (GammaZ(quarks[STRANGE]) / Gamma_had());
-
-    }  else if (f.is("CHARM")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_charm"));
-        else
-            return (GammaZ(quarks[CHARM]) / Gamma_had());
-
-    } else if (f.is("BOTTOM")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_full_2_loop("R0_bottom"));
-        else
-            return (GammaZ(quarks[BOTTOM]) / Gamma_had());
-
-    } else throw std::runtime_error("StandardModel::R0_f called with wrong argument");
-    
-    }
 }
 
 double StandardModel::R_inv() const
@@ -1655,9 +1515,9 @@ gslpp::complex StandardModel::kappaZ_f(const Particle f) const
     if (FlagKappaZ.compare("APPROXIMATEFORMULA") == 0) {
 
 //  Choose the correct formulae for the effective angle        
-        if (FlagSMAux && (f.is("BOTTOM")) ){
+        if ( f.is("BOTTOM") ){
             ReKappaZf = myApproximateFormulae->sin2thetaEff_b_full() / sW2();            
-        } else if (FlagSMAux && (f.is("ELECTRON") || f.is("MUON") || f.is("TAU") ) ) {
+        } else if ( f.is("ELECTRON") || f.is("MUON") || f.is("TAU") ) {
             ReKappaZf = myApproximateFormulae->sin2thetaEff_l_full() / sW2();             
         } else {
             ReKappaZf = myApproximateFormulae->sin2thetaEff(f) / sW2();
