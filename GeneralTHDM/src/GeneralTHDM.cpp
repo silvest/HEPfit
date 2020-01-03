@@ -43,7 +43,7 @@ GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
     ModelParamMap.insert(std::make_pair("yl1R_GTHDM", std::cref(yl1R_GTHDM)));
 
 
-    
+ 
     ModelParamMap.insert(std::make_pair("Nu_11r", std::cref(Nu_11r)));
     ModelParamMap.insert(std::make_pair("Nu_11i", std::cref(Nu_11i)));
     ModelParamMap.insert(std::make_pair("Nu_12r", std::cref(Nu_12r)));
@@ -103,6 +103,7 @@ GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
     ModelParamMap.insert(std::make_pair("NLOuniscaleGTHDM", std::cref(NLOuniscaleGTHDM)));
     flag_use_sq_masses=true;
     flag_sigma=true;
+    flag_SM_Higgs= true;
 
 
 }
@@ -426,6 +427,11 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
     else if(name.compare("CPconservation") == 0) {
     std::cout<<"CPconservation = "<< value<<std::endl;
         flag_CPconservation = value;
+        res = true;  
+    }
+    else if(name.compare("SMHiggs") == 0) {
+    std::cout<<"SMHiggs = "<< value<<std::endl;
+        flag_SM_Higgs = value;
         res = true;  
     }
     else

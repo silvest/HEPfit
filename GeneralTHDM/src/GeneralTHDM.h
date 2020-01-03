@@ -457,6 +457,11 @@ class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
  *   <td class="mod_valu">true / false</td>
  *   <td class="mod_desc">Whether to use the elements  of the Yukawa couplings @f$N_{f,ij}@f$ or the couplings @f$y_f@f$. Valid only in the aligned case and in the CP-conserved limit</td>
  * </tr>
+ *  * <tr>
+ *   <td class="mod_name">%SM_Higgs</td>
+ *   <td class="mod_valu">true / false</td>
+ *   <td class="mod_desc">Whether the SM-Higgs of 125 GeV is chosen to be @f$\varphi_{1}@f$ (and the angle  @f$\tilde{\alpha}@f$) close to 0) or  the SM-Higgs of 125 GeV is chosen to be @f$\varphi_{2}@f$ (and the angle  @f$\tilde{\alpha}@f$ close to @f$\pi/2f$). So far only fully implemented at the aligend, CP-conserving limit </td>
+ * </tr>
  * </table>
  */
 
@@ -1093,10 +1098,18 @@ public:
          else
          {
             gslpp::complex i = gslpp::complex::i();
+            if(flag_SM_Higgs){
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
             double R13 = -sinalpha2;
             return (R11 + (R12 - i*R13)*(Nu_11r + i*Nu_11i).conjugate());
+            }
+            else{
+                double R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+                double R22 = cosalpha1*cosalpha3+sinalpha1*sinalpha2*sinalpha3;
+                double R23 = cosalpha2*sinalpha3;
+                return (R21 + (R22 - i*R23)*(Nu_11r + i*Nu_11i).conjugate());
+            }
          }
     }
         
@@ -1106,11 +1119,18 @@ public:
         return (yu1R_GTHDM);
         }
          else
-         {
+            {
+             if(flag_SM_Higgs){
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
             return (R11 + R12*Nu_11r);
-         }
+             }
+            else{
+                double R21 = - sinalpha1;
+                double R22 = cosalpha1;
+                return (R21 + R22*Nu_11r);
+            }
+       }
     }    
         
         
@@ -1121,12 +1141,20 @@ public:
          else
          {
             gslpp::complex i = gslpp::complex::i();
+            if(flag_SM_Higgs){
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
             double R13 = -sinalpha2;
             return (R11 + (R12 - i*R13)*(Nd_11r + i*Nd_11i));
+            }
+            else{
+                double R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+                double R22 = cosalpha1*cosalpha3+sinalpha1*sinalpha2*sinalpha3;
+                double R23 = cosalpha2*sinalpha3;
+               return (R21 + (R22 - i*R23)*(Nd_11r + i*Nd_11i));
+            }
+            }
          }
-    }
     
     
     double getyd1R() const {
@@ -1135,9 +1163,16 @@ public:
         }
          else
          {
+            if(flag_SM_Higgs){
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
             return (R11 + R12*Nd_11r);
+                 }
+            else{
+                double R21 = - sinalpha1;
+                double R22 = cosalpha1;
+                return (R21 + R22*Nd_11r);
+                 }
          }
     }
     
@@ -1148,10 +1183,18 @@ public:
          else
          {
             gslpp::complex i = gslpp::complex::i();
-            double R11 = cosalpha1*cosalpha2;
-            double R12 = sinalpha1*cosalpha2;
-            double R13 = -sinalpha2;
-            return (R11 + (R12 - i*R13)*(Nl_11r + i*Nl_11i));
+            if(flag_SM_Higgs){
+             double R11 = cosalpha1*cosalpha2;
+             double R12 = sinalpha1*cosalpha2;
+             double R13 = -sinalpha2;
+                return (R11 + (R12 - i*R13)*(Nl_11r + i*Nl_11i)); 
+            }
+            else{
+                double R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+                double R22 = cosalpha1*cosalpha3+sinalpha1*sinalpha2*sinalpha3;
+                double R23 = cosalpha2*sinalpha3;
+               return (R21 + (R22 - i*R23)*(Nl_11r + i*Nl_11i)); 
+            }
          }
     }
     
@@ -1162,9 +1205,16 @@ public:
         }
          else
          {
+           if(flag_SM_Higgs){
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
             return (R11 + R12*Nl_11r);
+           }
+           else{
+             double R21 = - sinalpha1;
+             double R22 = cosalpha1;   
+             return (R21 + R22*Nl_11r);
+           }
          }
     }
     
@@ -1228,7 +1278,15 @@ public:
     bool getsqmassesflag() const {
         return flag_use_sq_masses;
     }
-
+/**
+     *
+     * @brief A getter for the flag to choose which scalar is the SM one.
+ *   * Default value (true) is the SM-Higgs is the first one. Only fully impleneted in the aligned CP-conserving limit
+     * @return Flag to select the SM Higgs of 125 GeV
+     */
+    bool getSMHiggs() const {
+        return flag_SM_Higgs;
+    }
 
     virtual double muggH(const double sqrt_s) const;
     virtual double muVBF(const double sqrt_s) const;
@@ -1320,7 +1378,7 @@ private:
             Nl_21r, Nl_21i, Nl_22r, Nl_22i, Nl_23r, Nl_23i, 
             Nl_31r, Nl_31i, Nl_32r, Nl_32i, Nl_33r, Nl_33i, 
             Q_GTHDM, RpepsGTHDM, NLOuniscaleGTHDM;
-    bool flag_ATHDM, flag_CPconservation, flag_use_sq_masses, flag_sigma;
+    bool flag_ATHDM, flag_CPconservation, flag_use_sq_masses, flag_sigma, flag_SM_Higgs;
     std::string flag_RGEorder;
 };
 

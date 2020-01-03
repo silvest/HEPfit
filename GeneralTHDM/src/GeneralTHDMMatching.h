@@ -230,7 +230,7 @@ public:
      * @return return the value of the Wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     gslpp::complex setWCbsg (int i, gslpp::complex sigmau, gslpp::complex sigmad, double mt, double mhp, double mu, orders order);
-
+    
      const Polylogarithms getPolyLog() const
        {
            return PolyLog;

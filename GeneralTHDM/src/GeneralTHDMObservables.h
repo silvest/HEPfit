@@ -17,6 +17,7 @@
 #include "GeneralTHDMHeavyHiggs.h"
 #include "GeneralTHDMLightHiggs.h"
 #include "GeneralTHDMSTU.h"
+#include "GeneralTHDMBmunu.h"
 
 
 

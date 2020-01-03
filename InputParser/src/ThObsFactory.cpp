@@ -4476,6 +4476,7 @@ ThObsFactory::ThObsFactory()
    obsThFactory["rh_gaga_GTHDM"] = boost::factory<rh_gaga_GTHDM*>();
    obsThFactory["rh_Zga_GTHDM"] = boost::factory<rh_Zga_GTHDM*>();
 
+  obsThFactory["Bmunu_2HDM"] = boost::factory<GeneralTHDMBmunu_2HDM*>();
 
 
    /* obsThFactory["Gamma_HH_THDM"] = boost::factory<Gamma_HH_THDM*>();
