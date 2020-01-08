@@ -556,7 +556,7 @@ double GeneralTHDMMatching::gminus2muNLOB() {
         eta = alpha1;
     }
     else{
-        eta = alpha1 - pi/2.0;
+         eta = alpha1 - pi/2.0;
     }
         
     double CW = sqrt(CW2);
