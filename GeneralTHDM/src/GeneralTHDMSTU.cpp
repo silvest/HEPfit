@@ -51,13 +51,27 @@ double GTHDMDeltaS::computeThValue()
     double mHp2=myGTHDM->getmHp2();
     
     double mHref_2 = myGTHDM->getMyGTHDMCache()->mH1sq;  
-    double  R11 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
-    double  R11_2 = R11*R11;
-    double  R21 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
-    double  R21_2 = R21*R21;
+    double  R11 = 0.0;
+    double  R21 = 0.0;
     double  R31 = myGTHDM->getMyGTHDMCache()->R31_GTHDM;
-    double  R31_2 = R31*R31;
 
+    
+    if(myGTHDM->getSMHiggs()){
+           R11 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
+           R21 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
+    }
+    else{
+           R21 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
+           R11 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
+    }
+    
+        double  R11_2 = R11*R11;
+        double  R21_2 = R21*R21;
+        double  R31_2 = R31*R31;
+
+
+
+    
     double MZ=myGTHDM->getMz();
     double MZ2 = MZ*MZ;
     
@@ -124,21 +138,39 @@ double GTHDMDeltaT::computeThValue()
     double mHref_2 = myGTHDM->getMyGTHDMCache()->mH1sq;
         
         
-    
-    double  R11 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
-    double  R11_2 = R11*R11; 
-    double  R12 = myGTHDM->getMyGTHDMCache()->R12_GTHDM;
-    double  R13 = myGTHDM->getMyGTHDMCache()->R13_GTHDM;
-    double  R21 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
-    double  R21_2 = R21*R21;
-    double  R22 = myGTHDM->getMyGTHDMCache()->R22_GTHDM;
-    double  R23 = myGTHDM->getMyGTHDMCache()->R23_GTHDM;
+        
+    double  R11 = 0.0;
+    double  R12 = 0.0;
+    double  R13 = 0.0;
+    double  R21 = 0.0;
+    double  R22 = 0.0;
+    double  R23 = 0.0;
     double  R31 = myGTHDM->getMyGTHDMCache()->R31_GTHDM;
-    double  R31_2 = R31*R31;
     double  R32 = myGTHDM->getMyGTHDMCache()->R32_GTHDM;
     double  R33 = myGTHDM->getMyGTHDMCache()->R33_GTHDM;
-   
+
     
+    if(myGTHDM->getSMHiggs()){
+           R11 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
+           R12 = myGTHDM->getMyGTHDMCache()->R12_GTHDM;
+           R13 = myGTHDM->getMyGTHDMCache()->R13_GTHDM;
+           R21 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
+           R22 = myGTHDM->getMyGTHDMCache()->R22_GTHDM;
+           R23 = myGTHDM->getMyGTHDMCache()->R23_GTHDM;
+    }
+    else{
+           R21 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
+           R22 = myGTHDM->getMyGTHDMCache()->R12_GTHDM;
+           R23 = myGTHDM->getMyGTHDMCache()->R13_GTHDM;
+           R11 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
+           R12 = myGTHDM->getMyGTHDMCache()->R22_GTHDM;
+           R13 = myGTHDM->getMyGTHDMCache()->R23_GTHDM;
+    }
+    
+        double  R11_2 = R11*R11;
+        double  R21_2 = R21*R21;
+        double  R31_2 = R31*R31;
+
     double MZ=myGTHDM->getMz();
     double MZ2 = MZ*MZ;
     
@@ -201,18 +233,38 @@ double GTHDMDeltaU::computeThValue()
         
         
     
-    double  R11 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
-    double  R11_2 = R11*R11; 
-    double  R12 = myGTHDM->getMyGTHDMCache()->R12_GTHDM;
-    double  R13 = myGTHDM->getMyGTHDMCache()->R13_GTHDM;
-    double  R21 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
-    double  R21_2 = R21*R21;
-    double  R22 = myGTHDM->getMyGTHDMCache()->R22_GTHDM;
-    double  R23 = myGTHDM->getMyGTHDMCache()->R23_GTHDM;
+          
+    double  R11 = 0.0;
+    double  R12 = 0.0;
+    double  R13 = 0.0;
+    double  R21 = 0.0;
+    double  R22 = 0.0;
+    double  R23 = 0.0;
     double  R31 = myGTHDM->getMyGTHDMCache()->R31_GTHDM;
-    double  R31_2 = R31*R31;
     double  R32 = myGTHDM->getMyGTHDMCache()->R32_GTHDM;
     double  R33 = myGTHDM->getMyGTHDMCache()->R33_GTHDM;
+
+    
+    if(myGTHDM->getSMHiggs()){
+           R11 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
+           R12 = myGTHDM->getMyGTHDMCache()->R12_GTHDM;
+           R13 = myGTHDM->getMyGTHDMCache()->R13_GTHDM;
+           R21 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
+           R22 = myGTHDM->getMyGTHDMCache()->R22_GTHDM;
+           R23 = myGTHDM->getMyGTHDMCache()->R23_GTHDM;
+    }
+    else{
+           R21 = myGTHDM->getMyGTHDMCache()->R11_GTHDM;
+           R22 = myGTHDM->getMyGTHDMCache()->R12_GTHDM;
+           R23 = myGTHDM->getMyGTHDMCache()->R13_GTHDM;
+           R11 = myGTHDM->getMyGTHDMCache()->R21_GTHDM;
+           R12 = myGTHDM->getMyGTHDMCache()->R22_GTHDM;
+           R13 = myGTHDM->getMyGTHDMCache()->R23_GTHDM;
+    }
+    
+    double  R11_2 = R11*R11;
+    double  R21_2 = R21*R21;
+    double  R31_2 = R31*R31;
 
     double MZ=myGTHDM->getMz();
     double MZ2 = MZ*MZ;

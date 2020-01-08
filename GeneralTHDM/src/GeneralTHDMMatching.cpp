@@ -61,17 +61,26 @@ double GeneralTHDMMatching::gminus2muLO() {
 
     /*eta is the deviation from the SM limit*/
     double alpha1 = myGTHDM.getalpha1();
-    double beta = atan(myGTHDM.gettanb());
-    double eta = M_PI/2.0-(beta-alpha1);
+    double eta = 0.0;
+    
+     if(myGTHDM.getSMHiggs()){
+        eta = alpha1;
+    }
+    else{
+        eta = alpha1 - pi/2.0;
+    }
+        
     
     
-    
- //in the CP-conserving limit su, sd, sl are real. have to fit it
+ //in the CP-conserving limit su, sd, sl are real. have to fix it
     
  
-    double yl_h = 1.0 + eta*sl.real();
-    double yl_H = -sl.real() + eta;
+    double yl_h = yl_h = 1.0 + eta*sl.real();
+    double yl_H =  -sl.real() + eta;
     double yl_A = - sl.real();
+    
+    
+
     
     double rmu_hSM, rmu_h, rmu_H, rmu_A, rmu_Hp;
     double part_hSM, part_h, part_H, part_A, part_Hp;
@@ -313,8 +322,14 @@ double GeneralTHDMMatching::gminus2muNLOF() {
    
     /*eta is the deviation from the SM limit*/
     double alpha1 = myGTHDM.getalpha1();
-    double beta = atan(myGTHDM.gettanb());
-    double eta = M_PI/2.0-(beta-alpha1);
+    double eta = 0.0;
+    
+     if(myGTHDM.getSMHiggs()){
+        eta = alpha1;
+    }
+    else{
+        eta = alpha1 - pi/2.0;
+    }
     
     
     double mt2 = mt*mt;
@@ -323,18 +338,24 @@ double GeneralTHDMMatching::gminus2muNLOF() {
     
  //in the CP-conserving limit su, sd, sl are real. have to fit it
     
-    double yt_h = 1.0 + eta*su.real();
-    double yb_h = 1.0 + eta*sd.real();
-    double ytau_h = 1.0 + eta*sl.real();
-    
-    double yt_H = -su.real() + eta;
-    double yb_H = -sd.real() + eta;
-    double ytau_H = -sl.real() + eta;
+
     
     double yt_A = su.real();
     double yb_A = - sd.real();
     double ytau_A = - sl.real();
+   
     
+
+    double  yt_h = 1.0 + eta*su.real();
+    double  yb_h = 1.0 + eta*sd.real();
+    double  ytau_h = 1.0 + eta*sl.real();
+    double  yt_H = -su.real() + eta;
+    double  yb_H = -sd.real() + eta;
+    double  ytau_H = -sl.real() + eta;
+   
+   /* std::cout << "yt_H = " << yt_H << std::endl;
+    std::cout << "yt_h = " << yt_h << std::endl;*/
+
     double rtau_hSM, rtau_h, rtau_H, rtau_A, rt_hSM, rt_h, rt_H, rt_A, rb_hSM, rb_h, rb_H, rb_A;
     double stau_hSM, stau_h, stau_H, stau_A, st_hSM, st_h, st_H, st_A, sb_hSM, sb_h, sb_H, sb_A;
 
@@ -528,9 +549,16 @@ double GeneralTHDMMatching::gminus2muNLOB() {
    
     /*eta is the deviation from the SM limit*/
     double alpha1 = myGTHDM.getalpha1();
-    double beta = atan(myGTHDM.gettanb());
-    double eta = M_PI/2.0-(beta-alpha1);
+
+    double eta = 0.0;
     
+     if(myGTHDM.getSMHiggs()){
+        eta = alpha1;
+    }
+    else{
+        eta = alpha1 - pi/2.0;
+    }
+        
     double CW = sqrt(CW2);
     double CW4 = CW2*CW2;
     double CW6 = CW4*CW2;
@@ -2669,6 +2697,11 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMgminus2mu() {
    
 }
 
+/*******************************************************************************
+ * Wilson coefficients meson mixing           *  
+ * ****************************************************************************/
+
+
 std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
 
     double Mut = myGTHDM.getMut();
@@ -2763,6 +2796,12 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
 //    vmcdsp.push_back(mcdbsp2);
 //    return(vmcdsp);
 //}
+
+
+/*******************************************************************************
+ * Wilson coefficients calculus, Bs -> mu+mu-.  From 1404.5865              *  
+ * ****************************************************************************/
+
 
 double GeneralTHDMMatching::C10Bll(double xt, double xHp, gslpp::complex su) {
     
@@ -3049,11 +3088,19 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
        
     //Yukawa couplings. Eq. (19)
     
-    gslpp::complex yl1 = R11  + (R12 + i*R13)*sl;
-    gslpp::complex yl2 = R21  + (R22 + i*R23)*sl;
+    gslpp::complex yl1 = 0.0;
+    gslpp::complex yl2 = 0.0;
     gslpp::complex yl3 = R31  + (R32 + i*R33)*sl;
     
-    
+   if(myGTHDM.getSMHiggs()){
+        yl1 = R11  + (R12 + i*R13)*sl;  
+        yl2 = R21  + (R22 + i*R23)*sl;
+   }
+    else{
+        yl2 = R11  + (R12 + i*R13)*sl;  
+        yl1 = R21  + (R22 + i*R23)*sl;
+   }
+     
       
     gslpp::complex CSboxU = CSboxBll(xt,  xHp, su, sd, sl);
     gslpp::complex CPboxU = CPboxBll(xt,  xHp, su, sd, sl);
