@@ -12,6 +12,7 @@
 #include "GeneralTHDMEWPO.h"
 #include "GeneralTHDMgminus2.h"
 #include "GeneralTHDMquantities.h"
+#include "GeneralTHDMLightHiggs.h"
 #include "GeneralTHDMstability.h"
 #include "GeneralTHDMunitarity.h"
 #include "GeneralTHDMHeavyHiggs.h"

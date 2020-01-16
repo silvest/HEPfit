@@ -366,30 +366,30 @@ double GTHDM_mu_htoZga::computeThValue()
     return myGTHDM.getMyGTHDMCache()->pph13*myGTHDM.getMyGTHDMCache()->rh_Zga/myGTHDM.getMyGTHDMCache()->sumModBRs;
 }
 
-yu1R_GTHDM::yu1R_GTHDM(const StandardModel& SM_i)
+yu1r_GTHDM::yu1r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yu1R_GTHDM::computeThValue()
+double yu1r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yu1R;
 }
 
-yd1R_GTHDM::yd1R_GTHDM(const StandardModel& SM_i)
+yd1r_GTHDM::yd1r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yd1R_GTHDM::computeThValue()
+double yd1r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yd1R;
 }
 
 
-yl1R_GTHDM::yl1R_GTHDM(const StandardModel& SM_i)
+yl1r_GTHDM::yl1r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yl1R_GTHDM::computeThValue()
+double yl1r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yl1R;
 }

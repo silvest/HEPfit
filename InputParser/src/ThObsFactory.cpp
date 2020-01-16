@@ -4455,17 +4455,17 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GTHDM_mu_htotautau"] = boost::factory<GTHDM_mu_htotautau*>();
     obsThFactory["GTHDM_mu_htoZga"] = boost::factory<GTHDM_mu_htoZga*>();
 
-   obsThFactory["yu1R_GTHDM"] = boost::factory<yu1R_GTHDM*>();
-   obsThFactory["yd1R_GTHDM"] = boost::factory<yd1R_GTHDM*>();
-   obsThFactory["yl1R_GTHDM"] = boost::factory<yl1R_GTHDM*>();
+   obsThFactory["yu1r_GTHDM"] = boost::factory<yu1r_GTHDM*>();
+   obsThFactory["yd1r_GTHDM"] = boost::factory<yd1r_GTHDM*>();
+   obsThFactory["yl1r_GTHDM"] = boost::factory<yl1r_GTHDM*>();
    
-   obsThFactory["yu2R_GTHDM"] = boost::factory<yu2R_GTHDM*>();
-   obsThFactory["yd2R_GTHDM"] = boost::factory<yd2R_GTHDM*>();
-   obsThFactory["yl2R_GTHDM"] = boost::factory<yl2R_GTHDM*>();
+   obsThFactory["yu2r_GTHDM"] = boost::factory<yu2r_GTHDM*>();
+   obsThFactory["yd2r_GTHDM"] = boost::factory<yd2r_GTHDM*>();
+   obsThFactory["yl2r_GTHDM"] = boost::factory<yl2r_GTHDM*>();
    
-   obsThFactory["yu3R_GTHDM"] = boost::factory<yu3R_GTHDM*>();
-   obsThFactory["yd3R_GTHDM"] = boost::factory<yd3R_GTHDM*>();
-   obsThFactory["yl3R_GTHDM"] = boost::factory<yl3R_GTHDM*>();
+   obsThFactory["yu3r_GTHDM"] = boost::factory<yu3r_GTHDM*>();
+   obsThFactory["yd3r_GTHDM"] = boost::factory<yd3r_GTHDM*>();
+   obsThFactory["yl3r_GTHDM"] = boost::factory<yl3r_GTHDM*>();
 
    obsThFactory["suR_GTHDM"] = boost::factory<suR_GTHDM*>();
    obsThFactory["sdR_GTHDM"] = boost::factory<sdR_GTHDM*>();

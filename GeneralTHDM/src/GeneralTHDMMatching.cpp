@@ -3106,13 +3106,28 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
     gslpp::complex CPboxU = CPboxBll(xt,  xHp, su, sd, sl);
     gslpp::complex CPZU = CPZUBll(xt,  xHp,  sW2, su, sd);
     
-    gslpp::complex CSphi1U = yl1.real()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7, su, sd);
-    gslpp::complex CSphi2U = yl2.real()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    gslpp::complex CSphi1U = 0.0;
+    gslpp::complex CSphi2U = 0.0;
     gslpp::complex CSphi3U = yl3.real()*CphiU(xHp,  xt,  vev,  xphi3,  mu,  R31,  R32,  R33,  mH3_2,  lambda3,  Relambda7, Imlambda7, su, sd);
 
-    gslpp::complex CPphi1U = i*yl1.imag()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7, su, sd);
-    gslpp::complex CPphi2U = i*yl2.imag()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    gslpp::complex CPphi1U = 0.0;
+    gslpp::complex CPphi2U = 0.0;
     gslpp::complex CPphi3U = i*yl3.imag()*CphiU(xHp,  xt,  vev,  xphi3,  mu,  R31,  R32,  R33,  mH3_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    
+    
+    if(myGTHDM.getSMHiggs()){
+        CSphi1U = yl1.real()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+        CSphi2U = yl2.real()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+        CPphi1U = i*yl1.imag()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+        CPphi2U = i*yl2.imag()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    }
+    else{
+        CSphi1U = yl1.real()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R21,  R22,  R23,  mH1_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+        CSphi2U = yl2.real()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R11,  R12,  R13,  mH2_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+        CPphi1U = i*yl1.imag()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R21,  R22,  R23,  mH1_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+        CPphi2U = i*yl2.imag()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R11,  R12,  R13,  mH2_2,  lambda3,  Relambda7, Imlambda7, su, sd);
+    }
+    
     
     //Total 2HDM Wilson coefficients CS and CP PART. Eq. (31)-(33) without SM part
    

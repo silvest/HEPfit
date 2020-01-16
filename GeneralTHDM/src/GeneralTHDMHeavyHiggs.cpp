@@ -2514,59 +2514,59 @@ double BR_phi2_HpW_GTHDM::computeThValue()
 }
 
 
-yu2R_GTHDM::yu2R_GTHDM(const StandardModel& SM_i)
+yu2r_GTHDM::yu2r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yu2R_GTHDM::computeThValue()
+double yu2r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yu2R;
 }
 
-yd2R_GTHDM::yd2R_GTHDM(const StandardModel& SM_i)
+yd2r_GTHDM::yd2r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yd2R_GTHDM::computeThValue()
+double yd2r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yd2R;
 }
 
 
-yl2R_GTHDM::yl2R_GTHDM(const StandardModel& SM_i)
+yl2r_GTHDM::yl2r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yl2R_GTHDM::computeThValue()
+double yl2r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yl2R;
 }
 
 
-yu3R_GTHDM::yu3R_GTHDM(const StandardModel& SM_i)
+yu3r_GTHDM::yu3r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yu3R_GTHDM::computeThValue()
+double yu3r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yu3R;
 }
 
-yd3R_GTHDM::yd3R_GTHDM(const StandardModel& SM_i)
+yd3r_GTHDM::yd3r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yd3R_GTHDM::computeThValue()
+double yd3r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yd3R;
 }
 
 
-yl3R_GTHDM::yl3R_GTHDM(const StandardModel& SM_i)
+yl3r_GTHDM::yl3r_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double yl3R_GTHDM::computeThValue()
+double yl3r_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->yl3R;
 }

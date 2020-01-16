@@ -5745,7 +5745,7 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
     
     double GeneralTHDMcache::lambdaipm(const double Ri1,const double Ri2, const double Ri3) const
     {
-        return -vev*(lambda3H*Ri1 + Relambda7H*Ri2 - Imlambda7H*Ri3);
+        return vev*(lambda3H*Ri1 + Relambda7H*Ri2 - Imlambda7H*Ri3);
     }
        
 void GeneralTHDMcache::computeSignalStrengths()
@@ -5801,7 +5801,7 @@ void GeneralTHDMcache::computeSignalStrengths()
     yd1R = myGTHDM->getyd1R();
     yl1R = myGTHDM->getyl1R();
    
-        
+ 
      //The Standard Model h branching ratios
 
     BrSM_htobb = 5.77e-1;
@@ -5896,7 +5896,7 @@ void GeneralTHDMcache::computeSignalStrengths()
             I_h_W=R21_GTHDM*I_hSM_W;
     }        
      
-  
+    
     gslpp::complex I_hSM_F= fermU+fermD+fermL;
     gslpp::complex I_hE_F= yu1.real()*fermU+ yd1.real()*fermD+yl1.real()*fermL;
     
@@ -5924,6 +5924,20 @@ void GeneralTHDMcache::computeSignalStrengths()
 
    // double Gamma_hgaga=(GF*Ale*Ale*m1*m1*m1/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI))*((I_hE_F+I_h_W+I_h_Hp).abs2()+ (I_hO_F).abs2());
     rh_gaga = ((I_hE_F+I_h_W+I_h_Hp).abs2()+ (I_hO_F).abs2())/(I_hSM_F +I_hSM_W).abs2();    
+    
+   /* std::cout << "rh_gaga = " << rh_gaga << std::endl;
+    std::cout << "I_hE_F = " << I_hE_F << std::endl;
+    std::cout << "I_h_W = " << I_h_W << std::endl;
+    std::cout << "I_h_Hp = " << I_h_Hp << std::endl;
+    std::cout << "I_hO_F = " << I_hO_F << std::endl;
+    std::cout << "I_hSM_F = " << I_hSM_F << std::endl;
+    std::cout << "I_hSM_W = " << I_hSM_W << std::endl;*/
+
+   /* std::cout << "yu1 c = " << yu1 << std::endl;
+    std::cout << "yd1 c = " << yd1 << std::endl;
+    std::cout << "yl1 c = " << yl1 << std::endl;*/
+
+    
     /*Decay to Z gamma
     CP-EVEN PART*/
 
@@ -7292,7 +7306,7 @@ double GeneralTHDMcache::updateCache()
     R31 = cosa2*sina2*cosa3 + sina1*sina3;
     R32 = sina1*sina2*cosa3 - cosa1*sina3;
     R33 = cosa2*cosa3;
-
+    
     /*The Mij_2 are defined such that Msqdiag = -2*RT*M_2*R with the rotation Matrix R
      * and Msqdiag containing the physical mass squares on the diagonal. */
 

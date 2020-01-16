@@ -731,20 +731,20 @@ private:
 };
 
 /**
- * @class yu1R_GTHDM
+ * @class yu1r_GTHDM
  * @ingroup GeneralTHDM
  * @brief  Coupling of the SM-Higgs to up quarks real part
  */
-class yu1R_GTHDM : public ThObservable {
+class yu1r_GTHDM : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    yu1R_GTHDM(const StandardModel& SM_i);
+    yu1r_GTHDM(const StandardModel& SM_i);
     
     /**
-     * @return @f$yu1R_GTHDM@f$
+     * @return @f$yu1r_GTHDM@f$
      */
     double computeThValue();
 private:
@@ -752,20 +752,20 @@ private:
 }; 
 
 /**
- * @class yd1R_GTHDM
+ * @class yd1r_GTHDM
  * @ingroup GeneralTHDM
  * @brief  Coupling of the SM-Higgs to down quarks  real part
  */
-class yd1R_GTHDM : public ThObservable {
+class yd1r_GTHDM : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    yd1R_GTHDM(const StandardModel& SM_i);
+    yd1r_GTHDM(const StandardModel& SM_i);
     
     /**
-     * @return @f$yd1R_GTHDM@f$
+     * @return @f$yd1r_GTHDM@f$
      */
     double computeThValue();
 private:
@@ -773,20 +773,20 @@ private:
 };
 
 /**
- * @class yl1R_GTHDM
+ * @class yl1r_GTHDM
  * @ingroup GeneralTHDM
  * @brief  Coupling of the SM-Higgs to leptons  real part
  */
-class yl1R_GTHDM : public ThObservable {
+class yl1r_GTHDM : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    yl1R_GTHDM(const StandardModel& SM_i);
+    yl1r_GTHDM(const StandardModel& SM_i);
     
     /**
-     * @return @f$yl1R_GTHDM@f$
+     * @return @f$yl1r_GTHDM@f$
      */
     double computeThValue();
 private:
