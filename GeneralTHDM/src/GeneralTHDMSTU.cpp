@@ -170,7 +170,7 @@ double GTHDMDeltaT::computeThValue()
         double  R11_2 = R11*R11;
         double  R21_2 = R21*R21;
         double  R31_2 = R31*R31;
-
+     
     double MZ=myGTHDM->getMz();
     double MZ2 = MZ*MZ;
     
@@ -203,7 +203,7 @@ double GTHDMDeltaT::computeThValue()
     B0_MZ2_0_MW2_mH3_2 = mycache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mH3_2);
     B0_MZ2_0_MW2_mHref_2 = mycache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mHref_2);
 
-    
+      
     return 1. / 16. / M_PI / MW2 / s_W2*((R12 + I*R13).abs2()*F(mHp2, mH1_2)+(R22 + I*R23).abs2()*F(mHp2, mH2_2)+
              (R32 + I*R33).abs2()*F(mHp2, mH3_2)- R11_2*F(mH2_2, mH3_2) - R21_2*F(mH1_2, mH3_2) - R31_2*F(mH1_2, mH2_2)
             + R11_2*(F(MW2, mH1_2) - F(MZ2, mH1_2) - 4.0*MW2*B0_MZ2_0_MW2_mH1_2.real() + 4.0*MZ2*B0_MZ2_0_MZ2_mH1_2.real())
