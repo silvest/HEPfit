@@ -90,6 +90,8 @@ void BXqll::updateParameters()
     phinv21 = alstilde * alstilde * kappa * (2. * phi20 * phi01 / phi00_2 / phi00 -
               3. * phi1 * phi1 * phi01 / phi00_2 / phi00_2);
     
+    phinv_00_01 = phinv00 + phinv01;
+    
     //ISIDORI VALUES
 //    z = 0.29*0.29;
 //    mu_b = 5.0;
@@ -280,10 +282,11 @@ double BXqll::getH(std::string obs, double sh)
     else if (obs == "L")
         return H_L(sh);
     else if (obs == "A")
-        return H_A(sh);
+//        return H_A(sh);
+        return (H_A(sh) + pre * PhiA_brems(sh) * phinv_00_01);
     else if (obs == "TL")
 //        return (H_T(sh) + H_L(sh));
-        return (H_T(sh) + H_L(sh) + pre * Phi_brems(sh) / (Phi_u_inv(QCD0, QED0) + Phi_u_inv(QCD0, QED1)));
+        return (H_T(sh) + H_L(sh) + pre * PhiTL_brems(sh) * phinv_00_01);
     else
         throw std::runtime_error("BXqll::getH: Angular observable not implemented");
 }
@@ -309,13 +312,13 @@ double BXqll::H_T(double sh)
     for (unsigned int i = 0; i < 7; i++)
     {
         for (unsigned int j = i; j < 7; j++)
-            Phi_ll_u += (WC(i, LO).conjugate() * WC(j, LO) * eij_T(i, j, sh) ).real() * Phi_u_inv(QCD0, QED0);
+            Phi_ll_u += (WC(i, LO).conjugate() * WC(j, LO) * eij_T(i, j, sh) ).real() * phinv00;
         
-        Phi_ll_u += (WC(i, LO).conjugate() * C9 * eij_T(i, 8, sh) ).real() * Phi_u_inv(QCD0, QED0);
+        Phi_ll_u += (WC(i, LO).conjugate() * C9 * eij_T(i, 8, sh) ).real() * phinv00;
     }
     
-    Phi_ll_u += (C9.abs2() * eij_T(8, 8, sh) ).real() * Phi_u_inv(QCD0, QED0);
-    Phi_ll_u += (WC(9, int_qed(NLO_QED11)).abs2() * eij_T(9, 9, sh) ).real() * Phi_u_inv(QCD0, QED0);
+    Phi_ll_u += (C9.abs2() * eij_T(8, 8, sh) ).real() * phinv00;
+    Phi_ll_u += (WC(9, int_qed(NLO_QED11)).abs2() * eij_T(9, 9, sh) ).real() * phinv00;
 
     return pre * Phi_ll_u;
 }
@@ -341,13 +344,13 @@ double BXqll::H_L(double sh)
     for (unsigned int i = 0; i < 7; i++)
     {
         for (unsigned int j = i; j < 7; j++)
-            Phi_ll_u += (WC(i, LO).conjugate() * WC(j, LO) * eij_L(i, j, sh) ).real() * Phi_u_inv(QCD0, QED0);
+            Phi_ll_u += (WC(i, LO).conjugate() * WC(j, LO) * eij_L(i, j, sh) ).real() * phinv00;
         
-        Phi_ll_u += (WC(i, LO).conjugate() * C9 * eij_L(i, 8, sh) ).real() * Phi_u_inv(QCD0, QED0);
+        Phi_ll_u += (WC(i, LO).conjugate() * C9 * eij_L(i, 8, sh) ).real() * phinv00;
     }
     
-    Phi_ll_u += (C9.abs2() * eij_L(8, 8, sh) ).real() * Phi_u_inv(QCD0, QED0);
-    Phi_ll_u += (WC(9, int_qed(NLO_QED11)).abs2() * eij_L(9, 9, sh) ).real() * Phi_u_inv(QCD0, QED0);
+    Phi_ll_u += (C9.abs2() * eij_L(8, 8, sh) ).real() * phinv00;
+    Phi_ll_u += (WC(9, int_qed(NLO_QED11)).abs2() * eij_L(9, 9, sh) ).real() * phinv00;
     
     return pre * Phi_ll_u;
 }
@@ -365,9 +368,9 @@ double BXqll::H_A(double sh)
     // log-enhanced electromagnetic corrections
     Phi_ll_u += (WC(0, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(0, 9, sh) +
                  WC(1, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(1, 9, sh) +
-                 WC(6, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(6, 9, sh) ).real() * Phi_u_inv(QCD0, QED0);
+                 WC(6, LO).conjugate() * WC(9, int_qed(NLO_QED11)) * eij_A(6, 9, sh) ).real() * phinv00;
     Phi_ll_u += ((WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11))) * WC(9, int_qed(NLO_QED11)) *
-                eij_A(8, 9, sh) ).real() * Phi_u_inv(QCD0, QED0);
+                eij_A(8, 9, sh) ).real() * phinv00;
     
     return pre * Phi_ll_u;
 }
@@ -2199,11 +2202,11 @@ void BXqll::Test_WC_DF1()
 }
 
 
-/************************************************************************
- * Finite bremsstrahlung corrections in the notation of Asatryan:2002iy *
- ************************************************************************/
+/********************************************************************************************
+ * Finite bremsstrahlung corrections in the notation of Asatryan:2002iy and Asatrian:2003yk *
+ ********************************************************************************************/
 
-double BXqll::Phi_brems(double sh)
+double BXqll::PhiTL_brems(double sh)
 {
     gslpp::complex c78, c89, c17, c27, c18, c28, c19, c29;
     double c88, c11, c12, c22;
@@ -2235,6 +2238,18 @@ double BXqll::Phi_brems(double sh)
         2. * (c19 + c29).imag() * tau29fit_Im(sh);
     
     return (aletilde * aletilde * alstilde * (Brems_a + Brems_b));
+}
+
+double BXqll::PhiA_brems(double sh)
+{
+    gslpp::complex C10mod = (WC(9, QCD1 + 3*QED1) / aletilde).conjugate();
+    // 2 als / pi = 8 alstilde, and H_A(s) = dAFB/ds * 4 / 3 
+    double factor = aletilde * aletilde * alstilde * 8. * (1. - sh) * 4. / 3.;
+    
+    return  (factor * (-3. * sh * (C9mod(sh) * C10mod).real() * f910(sh) -
+            6. * (WC(6, LO) * C10mod).real() * f710(sh) +
+            ((WC(7, LO) * C10mod).real() * t810(sh) +
+            ((WC(1, LO) - WC(0, LO) / 6.) * C10mod).real() * t210fit(sh)) / 3.));
 }
 
 gslpp::complex BXqll::C9mod(double sh)
@@ -2313,110 +2328,235 @@ double BXqll::tau88(double sh)
 
 double BXqll::tau22fit(double sh)
 {
+    double c0, c1, c2, c3, c4, c5, c6, c7;
     double q2 = sh * Mb_pole * Mb_pole;
+    double sh2 = sh*sh;
+    double sh3 = sh*sh2;
     
     if (q2 <= 6.)
-        return (-186.96738127 + 1313.45792139*sh - 8975.40399683*sh*sh + 47018.56440838*sh*sh*sh -
-                159603.3217871*sh*sh*sh*sh + 309228.13379963*sh*sh*sh*sh*sh - 258317.14719949*sh*sh*sh*sh*sh*sh -
-                51.2467544*log(sh));
+    {
+        c0 = -85.5881372; c1 = 597.0445584; c2 = -3951.5752864; c3 = 19597.1776773;
+        c4 = -61781.6106761; c5 = 109385.1435323; c6 = -82410.437659; c7 = -23.4496345;    
+    }
     else if (q2 >= 14.4)
-        return (-322.73989723 + 4.75813656/sh/sh - 80.36414222/sh + 687.70415138*sh - 491.08241967*sh*sh +
-                303.28125994*sh*sh*sh - 132.82124268*sh*sh*sh*sh + 35.63127394*sh*sh*sh*sh*sh -
-                4.36712003*sh*sh*sh*sh*sh*sh - 306.899641*log(sh));
+    {
+        c0 = -606.8557516; c1 = 1655.5780054, c2 = -2473.7140331; c3 = 2628.5002517;
+        c4 = -1766.6491578; c5 = 674.9172919; c6 = -111.776621; c7 = -230.9832054;
+    }
     else
         throw std::runtime_error("BXqll::tau22fit: region of q^2 not implemented");
+    
+    return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
 }
 
 double BXqll::tau27fit_Re(double sh)
 {
+    double c0, c1, c2, c3, c4, c5, c6, c7;
     double q2 = sh * Mb_pole * Mb_pole;
+    double sh2 = sh*sh;
+    double sh3 = sh*sh2;
     
     if (q2 <= 6.)
-        return (-45.40905903+334.92509492*sh-2404.69181358*sh*sh+12847.93973401*sh*sh*sh-
-                44421.35127703*sh*sh*sh*sh+87786.54536182*sh*sh*sh*sh*sh-75574.96266083*sh*sh*sh*sh*sh*sh-
-                13.79251644*log(sh));
+    {
+        c0 = -110.2528109; c1 = 778.1558706; c2 = -5200.7693192; c3 = 25864.3213911;
+        c4 = -81610.5151368; c5 = 144546.094428; c6 = -108930.3093624; c7 = -31.0505015;
+    }
     else if (q2 >= 14.4)
-        return (87.43391175-196.67646862*sh+219.51106756*sh*sh-184.44868587*sh*sh*sh+
-                103.59892754*sh*sh*sh*sh-34.56056777*sh*sh*sh*sh*sh+5.14181565*sh*sh*sh*sh*sh*sh+
-                38.55667004*log(sh));
+    {
+        c0 = 104.4988411; c1 = -236.2534692; c2 = 265.8226647; c3 = -224.7002307;
+        c4 = 126.6513245; c5 = -42.3215314; c6 = 6.3024015; c7 = 45.8968367;
+    }
     else
         throw std::runtime_error("BXqll::tau27fit_Re: region of q^2 not implemented");
+    
+    return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
 }
 
 double BXqll::tau27fit_Im(double sh)
 {
+    double c0, c1, c2, c3, c4, c5, c6, c7;
     double q2 = sh * Mb_pole * Mb_pole;
+    double sh2 = sh*sh;
+    double sh3 = sh*sh2;
     
     if (q2 <= 6.)
-        return (-189.61083508+1349.85607262*sh-9198.62227938*sh*sh+48104.40980548*sh*sh*sh-
-                162998.75872037*sh*sh*sh*sh+315224.375522*sh*sh*sh*sh*sh-262649.64320483*sh*sh*sh*sh*sh*sh-
-                52.52183304*log(sh));
+    {
+        c0 = -109.7117334; c1 = 770.3496716; c2 = -5092.660051; c3 = 25238.4761864;
+        c4 = -79546.8013633; c5 = 140825.6087763; c6 = -106089.2269733; c7 = -30.1707767;
+    }
     else if (q2 >= 14.4)
-        return (523.76263422+49.97156504/sh-1120.42920341*sh+1024.46949612*sh*sh-767.28958612*sh*sh*sh+
-                393.62561539*sh*sh*sh*sh-120.74162898*sh*sh*sh*sh*sh+16.63110789*sh*sh*sh*sh*sh*sh+
-                352.74960196*log(sh));
+    {
+        c0 = -3232.2938841; c1 = 8748.3523192; c2 = -12941.1559426; c3 = 13657.4529099;
+        c4 = -9136.8371605; c5 = 3479.428199; c6 = -574.9465146; c7 = -1238.52469;
+    }
     else
         throw std::runtime_error("BXqll::tau27fit_Im: region of q^2 not implemented");
+    
+    return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
 }
 
 double BXqll::tau28fit_Re(double sh)
 {
+    double c0, c1, c2, c3, c4, c5, c6, c7;
     double q2 = sh * Mb_pole * Mb_pole;
+    double sh2 = sh*sh;
+    double sh3 = sh*sh2;
     
     if (q2 <= 6.)
-        return (8.67757227-85.91172547*sh+666.57779497*sh*sh-3619.65234448*sh*sh*sh+
-                12475.74303361*sh*sh*sh*sh-24365.45545631*sh*sh*sh*sh*sh+20446.33269814*sh*sh*sh*sh*sh*sh+
-                1.54278226*log(sh));
+    {
+        c0 = 31.4802423; c1 = -241.0846881; c2 = 1656.2061824; c3 = -8298.8096208;
+        c4 = 26278.5739013; c5 = -46638.1094866; c6 = 35189.3746188; c7 = 7.7075461;
+    }
     else if (q2 >= 14.4)
-        return (-4.11234905-0.52681762/sh+8.21844628*sh-6.04601107*sh*sh+3.67099354*sh*sh*sh-
-                1.57120958*sh*sh*sh*sh+0.41975346*sh*sh*sh*sh*sh-0.05280596*sh*sh*sh*sh*sh*sh-
-                3.16331567*log(sh));
+    {
+        c0 = 4.6900829; c1 = -11.9199517; c2 = 15.9522495; c3 = -15.3178755;
+        c4 = 9.3880956; c5 = -3.2996681; c6 = 0.5070672; c7 = 1.8726389;
+    }
     else
         throw std::runtime_error("BXqll::tau28fit_Re: region of q^2 not implemented");
+    
+    return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
 }
 
 double BXqll::tau28fit_Im(double sh)
 {
+    double c0, c1, c2, c3, c4, c5, c6, c7;
     double q2 = sh * Mb_pole * Mb_pole;
+    double sh2 = sh*sh;
+    double sh3 = sh*sh2;
     
     if (q2 <= 6.)
-        return (57.88258299-430.77957254*sh+3002.9999511*sh*sh-15808.63980887*sh*sh*sh+
-                    53787.08410769*sh*sh*sh*sh-104360.60205475*sh*sh*sh*sh*sh+87294.84251167*sh*sh*sh*sh*sh*sh+
-                    14.61062129*log(sh));
+    {
+        c0 = 33.7994469; c1 = -246.7751255; c2 = 1660.6205985; c3 = -8272.13013;
+        c4 = 26130.6171608; c5 = -46315.2850273; c6 = 34917.5988012; c7 = 8.6664919;
+    }
     else if (q2 >= 14.4)
-        return (-24.92802842+0.3842418/sh/sh-6.38294139/sh+53.15600599*sh-37.59024636*sh*sh+
-                23.04316804*sh*sh*sh-10.03556518*sh*sh*sh*sh+2.68088049*sh*sh*sh*sh*sh-
-                0.32751495*sh*sh*sh*sh*sh*sh-24.01652729*log(sh));
+    {
+        c0 = -36.7487481; c1 = 99.7027369; c2 = -147.7606619; c3 = 155.8859306;
+        c4 = -104.1170313; c5 = 39.5573846; c6 = -6.5196117; c7 = -14.0404657;
+    }
     else
         throw std::runtime_error("BXqll::tau28fit_Im: region of q^2 not implemented");
+    
+    return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
 }
 
 double BXqll::tau29fit_Re(double sh)
 {
+    double c0, c1, c2, c3, c4, c5, c6, c7;
     double q2 = sh * Mb_pole * Mb_pole;
+    double sh2 = sh*sh;
+    double sh3 = sh*sh2;
     
     if (q2 <= 6.)
-        return (0.53834924+0.47775224*sh-16.20063604*sh*sh+101.36668267*sh*sh*sh-
-                466.94537092*sh*sh*sh*sh+1224.77742613*sh*sh*sh*sh*sh-1469.41817323*sh*sh*sh*sh*sh*sh-
-                0.01686348*log(sh));
+    {
+        c0 = 0.6273561; c1 = -0.6332694; c2 = -2.9264173; c3 = 8.9668433;
+        c4 = -17.5473592; c5 = 25.1466317; c6 = -19.5875632; c7 = 0.0002596;
+    }
     else if (q2 >= 14.4)
-        return (4.46985355-6.16130742*sh+0.84917331*sh*sh+1.7696124*sh*sh*sh-1.14453916*sh*sh*sh*sh+
-                0.24261178*sh*sh*sh*sh*sh-0.02540446*sh*sh*sh*sh*sh*sh+2.67164817*log(sh));
+    {
+        c0 = 5.6720573; c1 = -8.2946135; c2 = 2.2577422; c3 = 1.1204784;
+        c4 = -0.9164538; c5 = 0.1768918; c6 = -0.0161023; c7 = 3.2956642;
+    }
     else
         throw std::runtime_error("BXqll::tau29fit_Re: region of q^2 not implemented");
+    
+    return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
 }
 
 double BXqll::tau29fit_Im(double sh)
 {
+    double c0, c1, c2, c3, c4, c5, c6, c7;
     double q2 = sh * Mb_pole * Mb_pole;
+    double sh2 = sh*sh;
+    double sh3 = sh*sh2;
     
     if (q2 <= 6.)
-        return (0.7688748-0.21680402*sh-1.16934757*sh*sh+8.31833871*sh*sh*sh-4.81289468*sh*sh*sh*sh-
-                51.53765482*sh*sh*sh*sh*sh+158.06040784*sh*sh*sh*sh*sh*sh-0.00485643*log(sh));
+    {
+        c0 = 0.3394312; c1 = -0.2742808; c2 = -0.1496318; c3 = 1.6480602;
+        c4 = -6.3928038; c5 = 13.9968788; c6 = -11.1080801; c7 = -0.0001847;
+    }
     else if (q2 >= 14.4)
-        return (-38.80905455+95.60697233*sh-124.04368889*sh*sh+118.64599185*sh*sh*sh-
-                73.76081228*sh*sh*sh*sh+26.55080999*sh*sh*sh*sh*sh-4.19021877*sh*sh*sh*sh*sh*sh-
-                16.02711369*log(sh));
+    {
+        c0 = -823.7736; c1 = 2231.2869412; c2 = -3306.5226002; c3 = 3497.1579714;
+        c4 = -2344.7802726; c5 = 894.7382317; c6 = -148.1066909; c7 = -315.648791;
+    }
     else
         throw std::runtime_error("BXqll::tau29fit_Im: region of q^2 not implemented");
+    
+    return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
+}
+
+double BXqll::f710(double sh)
+{
+    double sh2 = sh * sh;
+    double umsh = 1. - sh;
+    double umsqrt = 1. - sqrt(sh);
+    double dilog_sh = gslpp_special_functions::dilog(sh);
+    double dilog_sqrt = gslpp_special_functions::dilog(sqrt(sh));
+    
+    return  (-(6. * sh * (3. + 9. * sh - 2. * sh2) * dilog_sh - 12. * sh * (1. + 13. * sh -
+            4. * sh2) * dilog_sqrt + 3. * (1. - 23. * sh + 23 * sh2 - sh*sh2) * log(umsh) +
+            6. * sh * (13. - 16. * sh + 3. * sh2) * log(umsqrt) + sh * (5 * MPI2 * (1. + sh) - 
+            3. * (5. - 20. * sqrt(sh) + sh) * umsqrt*umsqrt) + 24. * sh * umsh*umsh * log(muh)) /
+            18. / sh / umsh / umsh);
+}
+
+double BXqll::f910(double sh)
+{
+    double sh2 = sh * sh;
+    double umsh = 1. - sh;
+    double umsqrt = 1. - sqrt(sh);
+    double dilog_sh = gslpp_special_functions::dilog(sh);
+    double dilog_sqrt = gslpp_special_functions::dilog(sqrt(sh));
+    
+    return  (-(6. * sh * (1. + 3. * sh - sh2) * dilog_sh - 12. * sh2 * (5. - 2. * sh) * dilog_sqrt +
+            3. * (1. - 10. * sh + 11. * sh2 - 2. * sh*sh2) * log(umsh) + 6. * sh * (5. - 7 * sh +
+            2. * sh2) * log(umsqrt) + sh * (3. * (4 * sqrt(sh) - 3.) * umsqrt * umsqrt + MPI2 * (2. +
+            sh))) / 9. / sh / umsh / umsh);
+}
+
+double BXqll::t810(double sh)
+{
+    gslpp::complex i = gslpp::complex::i();
+    double umsh = 1. - sh;
+    double shmt = sh - 3.;
+    double ssh = sqrt(sh);
+    double sqmsh = sqrt(4. - sh);
+    double umsqrt = 1. - ssh;
+    double dmsqrt = 2. - ssh;
+    
+    double dilog_1 = gslpp_special_functions::dilog(-ssh);
+    double dilog_2 = (i * dilog((-2. + i * sqmsh + ssh) * ssh / (i * sqmsh - ssh))).real();
+    double dilog_3 = (i * dilog(i * sqmsh * umsh * ssh / 2. - shmt * sh / 2.)).real();
+    
+    return  (3. * (umsqrt * umsqrt * (23. - 6. * ssh - sh) + 4. * umsh * (7. + sh) * log(1. + ssh) +
+            2. * sh * (1. + sh - log(sh)) * log(sh)) + 2. * (-3. * MPI2 * (1. + 2. * sh) -
+            6. * shmt * sh * log(dmsqrt) - 36. * (1. + 2. * sh) * dilog_1 - ssh / sqmsh * 
+            (6. * (2. * shmt * sh * atan((2. + ssh) / sqmsh) + 2. * M_PI * log(dmsqrt) -
+            atan(sqmsh / sh) * (shmt * sh + 4. * log(dmsqrt)) - atan(ssh * sqmsh / (2. - sh)) *
+            (shmt * sh - log(sh)) + 4. * dilog_2 - 2. * dilog_3)))) / 6. / umsh / umsh;
+}
+
+double BXqll::t210fit(double sh)
+{
+    double c0, c1, c2, c3, c4, c5, c6, c7;
+    double q2 = sh * Mb_pole * Mb_pole;
+    double sh2 = sh*sh;
+    double sh3 = sh*sh2;
+    
+    if (q2 <= 6.)
+    {
+        c0 = 0.4853155; c1 = -0.4841452; c2 = 2.1099434; c3 = -17.9649531;
+        c4 = 69.0927112; c5 = -154.3567398; c6 = 145.5137293; c7 = -0.001321;
+    }
+    else if (q2 >= 14.4)
+    {
+        c0 = 0.84111; c1 = -0.2282341; c2 = -1.3546028; c3 = 1.3081906;
+        c4 = -0.8150979; c5 = 0.2963146; c6 = -0.0476803; c7 = 1.0777667;
+    }
+    else
+        throw std::runtime_error("BXqll::t210fit_Re: region of q^2 not implemented");
+    
+    return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
 }

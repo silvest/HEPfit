@@ -86,7 +86,7 @@ private:
     double Mlep, mu_b, mu_c, Mb, Mc, Mtau, Mb_pole, Mc_pole, Ms, MW;
     double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl;
     double phi1, phi2, phi00, phi00_2, phi20, phi01;
-    double phinv00, phinv10, phinv20, phinv01, phinv11, phinv21;
+    double phinv00, phinv10, phinv20, phinv01, phinv11, phinv21, phinv_00_01;
     double BR_BXcenu, C_ratio, pre;
     unsigned int QCD_max, QED_max;
    
@@ -373,7 +373,13 @@ private:
     * @brief The finite bremsstrahlung corrections to dGamma/ds for @f$B \to X_q l^+ l^-@f$ from @cite Asatryan:2002iy
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     */
-    double Phi_brems(double sh);
+    double PhiTL_brems(double sh);
+    
+    /**
+    * @brief The finite bremsstrahlung corrections to dAFB/ds for @f$B \to X_q l^+ l^-@f$ from @cite Asatryan:2003yk
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    */
+    double PhiA_brems(double sh);
     
     /**
     * @brief The modified coefficient \f${\tilde C}_9^{0,\mathrm{mod}}\f$ from @cite Asatryan:2002iy.
@@ -459,6 +465,34 @@ private:
     * @return \f$tau_{29}(\hat s)\f$
     */
     double tau29fit_Im(double sh);
+    
+    /**
+    * @brief The finite bremsstrahlung correction \f$f_{710}(\hat s)\f$ from @cite Asatrian:2002va.
+    * @param[in] sh \f$q^2/m_b^2\f$ of the decay
+    * @return \f$tau_{710}(\hat s)\f$
+    */
+    double f710(double sh);
+    
+    /**
+    * @brief The finite bremsstrahlung correction \f$f_{910}(\hat s)\f$ from @cite Asatrian:2002va.
+    * @param[in] sh \f$q^2/m_b^2\f$ of the decay
+    * @return \f$tau_{910}(\hat s)\f$
+    */
+    double f910(double sh);
+    
+    /**
+    * @brief The finite bremsstrahlung correction \f$f_{810}(\hat s)\f$ from @cite Asatrian:2003yk.
+    * @param[in] sh \f$q^2/m_b^2\f$ of the decay
+    * @return \f$tau_{810}(\hat s)\f$
+    */
+    double t810(double sh);
+    
+    /**
+    * @brief The fit of finite bremsstrahlung correction \f$t_{210}(\hat s)\f$ from @cite Asatrian:2003yk.
+    * @param[in] sh \f$q^2/m_b^2\f$ of the decay
+    * @return \f$tau_{210}(\hat s)\f$
+    */
+    double t210fit(double sh);
     
     /**
     * @brief Auxiliary function that matches orders_qed to an integer
