@@ -6257,6 +6257,22 @@ double GeneralTHDMcache::computephi2quantities()
     SigmaVH_phi2_13=(ip_cs_WtoWH_13(m2)+ip_cs_ZtoZH_13(m2))*rphi2_VV;
 
 
+    
+    /*std::cout << "THoEX_bb_phi2_tautau_ATLAS13 = " << THoEX_bb_phi2_tautau_ATLAS13 << std::endl;
+    std::cout << "bb_phi2_tautau_TH13 = " << bb_phi2_tautau_TH13 << std::endl;
+    std::cout << "ip_ex_bb_phi_tautau_ATLAS13(m2) = " << ip_ex_bb_phi_tautau_ATLAS13(m2) << std::endl;
+    std::cout << "SigmabbF_phi2_13 = " << SigmabbF_phi2_13 << std::endl;
+    std::cout << "ip_cs_pptobbH_13(m2) = " << ip_cs_pptobbH_13(m2) << std::endl;
+    std::cout << "rphi2_QdQdE = " << rphi2_QdQdE << std::endl;
+    std::cout << "yd2 = " << yd2 << std::endl;
+    std::cout << "R21 = " << R21 << std::endl;
+    std::cout << "R22 = " << R22 << std::endl;
+    std::cout << "R23 = " << R23 << std::endl;
+    std::cout << "sd " << sd << std::endl;
+    std::cout << "ip_cs_pptobbA_13(m2) = " << ip_cs_pptobbA_13(m2) << std::endl;
+    std::cout << "rphi2_QdQdO = " << rphi2_QdQdO << std::endl;*/
+    
+    
  
 //    double SigmaTotSM_H13 = 1.0e-15;
 //    if (mHh>=20. && mHh <=2000.) {
@@ -6335,6 +6351,13 @@ Gammaphi2tot= Gammaphi2tot + (BrSM_phi2tott*(rphi2_QuQuE + rphi2_QuQuO/(beta_mt_
     Br_phi2tobb=BrSM_phi2tobb*(rphi2_QdQdE + rphi2_QdQdO/(beta(Mb, m2_2)*beta(Mb, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2totautau=BrSM_phi2totautau*(rphi2_QlQlE + rphi2_QlQlO/(beta(Mtau, m2_2)*beta(Mtau, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
 
+  /*  std:: cout << " Br_phi2totautau = " << Br_phi2totautau << std::endl;
+    std:: cout << " BrSM_phi2totautau = " << BrSM_phi2totautau << std::endl;
+    std:: cout << " rphi2_QlQlE = " << rphi2_QlQlE << std::endl;
+    std:: cout << " Gammaphi2totSM = " << Gammaphi2totSM << std::endl;
+    std:: cout << " Gammaphi2tot = " << Gammaphi2tot << std::endl;*/
+
+    
     Br_phi2toWW=BrSM_phi2toWW*rphi2_VV*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2toZZ=BrSM_phi2toZZ*rphi2_VV*Gammaphi2totSM/Gammaphi2tot;
     Br_phi2togaga=Gamma_phi2gaga/Gammaphi2tot;
@@ -6420,11 +6443,11 @@ double GeneralTHDMcache::computephi3quantities()
     double rphi3_QdQdO= yd3.imag()*yd3.imag(); 
     double rphi3_QlQlE= yl3.real()*yl3.real(); 
     double rphi3_QlQlO= yl3.imag()*yl3.imag(); 
-     rphi3_ggE = yu3.real()*yd3.real() + (yu3.real()*yu3.real() - yu3.real()*yd3.real())*rSigmaggphi3E_t8  + (yd3.real()*yd3.real() - yu3.real()*yd3.real())*rSigmaggphi3E_b8;
-     rphi3_ggO = yu3.imag()*yu3.imag() + (yu3.imag()*yu3.imag() - yu3.imag()*yd3.imag())*rSigmaggphi3O_t8  + (yd3.imag()*yd3.imag() - yu3.imag()*yd3.imag())*rSigmaggphi3O_b8;
-     rphi3_VV=R31*R31;
+    rphi3_ggE = yu3.real()*yd3.real() + (yu3.real()*yu3.real() - yu3.real()*yd3.real())*rSigmaggphi3E_t8  + (yd3.real()*yd3.real() - yu3.real()*yd3.real())*rSigmaggphi3E_b8;
+    rphi3_ggO = yu3.imag()*yd3.imag() + (yu3.imag()*yu3.imag() - yu3.imag()*yd3.imag())*rSigmaggphi3O_t8  + (yd3.imag()*yd3.imag() - yu3.imag()*yd3.imag())*rSigmaggphi3O_b8;
+    rphi3_VV=R31*R31;
      
-
+      
     /*Gamma_phi3gaga and Gamma_phi3Zga expressions ...*/
     
     /*Decay to photons. The fermionic contribution has a CP-even part (HH) and a CP-odd (A)*/
@@ -6517,7 +6540,7 @@ double GeneralTHDMcache::computephi3quantities()
     SigmattF_phi3_13=ip_cs_pptottH_13(m3)*rphi3_QuQuE + ip_cs_pptottA_13(m3)*rphi3_QuQuO;
     SigmaVH_phi3_13=(ip_cs_WtoWH_13(m3)+ip_cs_ZtoZH_13(m3))*rphi3_VV;
 
-  
+      
 //    double SigmaTotSM_H13 = 1.0e-15;
 //    if (mHh>=20. && mHh <=2000.) {
 //            SigmaTotSM_H13=ip_cs_ggtoH_13(mHh)+ip_cs_VBFtoH_13(mHh)+ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh)+ip_cs_pptottH_13(mHh)+ip_cs_pptobbH_13(mHh);
@@ -6875,10 +6898,10 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     gg_phi2_bb_TH8=SigmaggF_phi2_8*Br_phi2tobb;
     gg_phi3_bb_TH8=SigmaggF_phi3_8*Br_phi3tobb;
     pp_phi2_bb_TH13=SigmaSumphi2_13*Br_phi2tobb;
-    pp_phi3_bb_TH13=SigmaSumphi3_13*Br_phi3tobb;
+    pp_phi3_bb_TH13=SigmaggF_phi3_8*Br_phi3tobb;
     bb_phi2_bb_TH13=SigmabbF_phi2_13*Br_phi2tobb;
     bb_phi3_bb_TH13=SigmabbF_phi3_13*Br_phi3tobb;
-
+    
     gg_phi2_tautau_TH8=SigmaggF_phi2_8*Br_phi2totautau;
     gg_phi3_tautau_TH8=SigmaggF_phi3_8*Br_phi3totautau;
     bb_phi2_tautau_TH8=SigmabbF_phi2_8*Br_phi2totautau;
@@ -6887,7 +6910,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     gg_phi3_tautau_TH13=SigmaggF_phi3_13*Br_phi3totautau;
     bb_phi2_tautau_TH13=SigmabbF_phi2_13*Br_phi2totautau;
     bb_phi3_tautau_TH13=SigmabbF_phi3_13*Br_phi3totautau;
-
+    
     gg_phi2_gaga_TH8=SigmaggF_phi2_8*Br_phi2togaga;
     gg_phi3_gaga_TH8=SigmaggF_phi3_8*Br_phi3togaga;
     pp_phi2_gaga_TH13=SigmaSumphi2_13*Br_phi2togaga;
