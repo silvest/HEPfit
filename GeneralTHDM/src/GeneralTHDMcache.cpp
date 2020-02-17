@@ -6123,7 +6123,7 @@ double GeneralTHDMcache::computephi2quantities()
     double rphi2_QlQlO= yl2.imag()*yl2.imag(); 
     rphi2_ggE = yu2.real()*yd2.real() + (yu2.real()*yu2.real() - yu2.real()*yd2.real())*rSigmaggphi2E_t8  + (yd2.real()*yd2.real() - yu2.real()*yd2.real())*rSigmaggphi2E_b8;
     rphi2_ggO = yu2.imag()*yu2.imag() + (yu2.imag()*yu2.imag() - yu2.imag()*yd2.imag())*rSigmaggphi2O_t8  + (yd2.imag()*yd2.imag() - yu2.imag()*yd2.imag())*rSigmaggphi2O_b8;
- 
+
     rphi2_VV=0.0;
 
     if(myGTHDM->getSMHiggs()){
@@ -7011,158 +7011,764 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     //95% to 1 sigma conversion factor, roughly sqrt(3.84)
 //    double nftos=1.95996398454;
 
-    if(m2>= 400.0 && m2<1000.0) THoEX_tt_phi2_tt_ATLAS13=tt_phi2_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(m2);
-    if(m3>= 400.0 && m3<1000.0) THoEX_tt_phi3_tt_ATLAS13=tt_phi3_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(m3);
-    if(m2>= 400.0 && m2<1000.0) THoEX_bb_phi2_tt_ATLAS13=bb_phi2_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(m2);
-    if(m3>= 400.0 && m3<1000.0) THoEX_bb_phi3_tt_ATLAS13=bb_phi3_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(m3);
-    if(m2>= 100.0 && m2< 900.0) THoEX_bb_phi2_bb_CMS8=bb_phi2_bb_TH8/ip_ex_bb_phi_bb_CMS8(m2);
-    if(m3>= 100.0 && m3< 900.0) THoEX_bb_phi3_bb_CMS8=bb_phi3_bb_TH8/ip_ex_bb_phi_bb_CMS8(m3);
-    if(m2>= 330.0 && m2<1200.0) THoEX_gg_phi2_bb_CMS8=gg_phi2_bb_TH8/ip_ex_gg_phi_bb_CMS8(m2);
-    if(m3>= 330.0 && m3<1200.0) THoEX_gg_phi3_bb_CMS8=gg_phi3_bb_TH8/ip_ex_gg_phi_bb_CMS8(m3);   
-    if(m2>= 550.0 && m2<1200.0) THoEX_pp_phi2_bb_CMS13=pp_phi2_bb_TH13/ip_ex_pp_phi_bb_CMS13(m2);
-    if(m3>= 550.0 && m3<1200.0) THoEX_pp_phi3_bb_CMS13=pp_phi3_bb_TH13/ip_ex_pp_phi_bb_CMS13(m3);
-    if(m2>= 300.0 && m2<1300.0) THoEX_bb_phi2_bb_CMS13=bb_phi2_bb_TH13/ip_ex_bb_phi_bb_CMS13(m2);
-    if(m3>= 300.0 && m3<1300.0) THoEX_bb_phi3_bb_CMS13=bb_phi3_bb_TH13/ip_ex_bb_phi_bb_CMS13(m3);
-    if(m2>=  90.0 && m2<1000.0) THoEX_gg_phi2_tautau_ATLAS8=gg_phi2_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(m2);
-    if(m3>=  90.0 && m3<1000.0) THoEX_gg_phi3_tautau_ATLAS8=gg_phi3_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(m3);
-    if(m2>=  90.0 && m2<1000.0) THoEX_gg_phi2_tautau_CMS8=gg_phi2_tautau_TH8/ip_ex_gg_phi_tautau_CMS8(m2);
-    if(m3>=  90.0 && m3<1000.0) THoEX_gg_phi3_tautau_CMS8=gg_phi3_tautau_TH8/ip_ex_gg_phi_tautau_CMS8(m3);
-    if(m2>=  90.0 && m2<1000.0) THoEX_bb_phi2_tautau_ATLAS8=bb_phi2_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(m2);
-    if(m3>=  90.0 && m3<1000.0) THoEX_bb_phi3_tautau_ATLAS8=bb_phi3_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(m3);
-    if(m2>=  90.0 && m2<1000.0) THoEX_bb_phi2_tautau_CMS8=bb_phi2_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(m2);
-    if(m3>=  90.0 && m3<1000.0) THoEX_bb_phi3_tautau_CMS8=bb_phi3_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(m3);
-    if(m2>= 200.0 && m2<2250.0) THoEX_gg_phi2_tautau_ATLAS13=gg_phi2_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(m2);
-    if(m3>= 200.0 && m3<2250.0) THoEX_gg_phi3_tautau_ATLAS13=gg_phi3_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(m3);
-    if(m2>=  90.0 && m2<3200.0) THoEX_gg_phi2_tautau_CMS13=gg_phi2_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(m2);
-    if(m3>=  90.0 && m3<3200.0) THoEX_gg_phi3_tautau_CMS13=gg_phi3_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(m3);
-    if(m2>= 200.0 && m2<2250.0) THoEX_bb_phi2_tautau_ATLAS13=bb_phi2_tautau_TH13/ip_ex_bb_phi_tautau_ATLAS13(m2);
-    if(m3>= 200.0 && m3<2250.0) THoEX_bb_phi3_tautau_ATLAS13=bb_phi3_tautau_TH13/ip_ex_bb_phi_tautau_ATLAS13(m3);
-    if(m2>=  90.0 && m2<3200.0) THoEX_bb_phi2_tautau_CMS13=bb_phi2_tautau_TH13/ip_ex_bb_phi_tautau_CMS13(m2);
-    if(m3>=  90.0 && m3<3200.0) THoEX_bb_phi3_tautau_CMS13=bb_phi3_tautau_TH13/ip_ex_bb_phi_tautau_CMS13(m3);
-    if(m2>=  65.0 && m2< 600.0) THoEX_gg_phi2_gaga_ATLAS8=gg_phi2_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(m2);
-    if(m3>=  65.0 && m3< 600.0) THoEX_gg_phi3_gaga_ATLAS8=gg_phi3_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(m3);
-    if(m2>= 200.0 && m2<2700.0) THoEX_pp_phi2_gaga_ATLAS13=pp_phi2_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m2);
-    if(m3>= 200.0 && m3<2700.0) THoEX_pp_phi3_gaga_ATLAS13=pp_phi3_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m3);   
-    if(m2>= 500.0 && m2<4000.0) THoEX_gg_phi2_gaga_CMS13=gg_phi2_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m2);    
-    if(m3>= 500.0 && m3<4000.0) THoEX_gg_phi3_gaga_CMS13=gg_phi3_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m3);
-    if(m2>= 200.0 && m2<1600.0) THoEX_pp_phi2_Zga_llga_ATLAS8=pp_phi2_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m2);
-    if(m3>= 200.0 && m3<1600.0) THoEX_pp_phi3_Zga_llga_ATLAS8=pp_phi3_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m3);
-    if(m2>= 200.0 && m2<1200.0) THoEX_pp_phi2_Zga_llga_CMS8=pp_phi2_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(m2);
-    if(m3>= 200.0 && m3<1200.0) THoEX_pp_phi3_Zga_llga_CMS8=pp_phi3_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(m3);
-    if(m2>= 250.0 && m2<2400.0) THoEX_gg_phi2_Zga_llga_ATLAS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(m2);
-    if(m3>= 250.0 && m3<2400.0) THoEX_gg_phi3_Zga_llga_ATLAS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(m3);
-    if(m2>=1000.0 && m2<6800.0) THoEX_gg_phi2_Zga_qqga_ATLAS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_qqga_ATLAS13(m2);
-    if(m3>=1000.0 && m3<6800.0) THoEX_gg_phi3_Zga_qqga_ATLAS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_qqga_ATLAS13(m3);
-    if(m2>= 350.0 && m2<4000.0) THoEX_gg_phi2_Zga_CMS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(m2);
-    if(m3>= 350.0 && m3<4000.0) THoEX_gg_phi3_Zga_CMS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(m3);
-    if(m2>= 140.0 && m2<1000.0) THoEX_gg_phi2_ZZ_ATLAS8=gg_phi2_ZZ_TH8/ip_ex_gg_phi_ZZ_ATLAS8(m2);
-    if(m3>= 140.0 && m3<1000.0) THoEX_gg_phi3_ZZ_ATLAS8=gg_phi3_ZZ_TH8/ip_ex_gg_phi_ZZ_ATLAS8(m3);
-    if(m2>= 140.0 && m2<1000.0) THoEX_VV_phi2_ZZ_ATLAS8=VV_phi2_ZZ_TH8/ip_ex_VV_phi_ZZ_ATLAS8(m2);
-    if(m3>= 140.0 && m3<1000.0) THoEX_VV_phi3_ZZ_ATLAS8=VV_phi3_ZZ_TH8/ip_ex_VV_phi_ZZ_ATLAS8(m3);
-    if(m2>= 200.0 && m2<1200.0) THoEX_gg_phi2_ZZ_llllnunu_ATLAS13=gg_phi2_ZZ_TH13/ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(m2);
-    if(m3>= 200.0 && m3<1200.0) THoEX_gg_phi3_ZZ_llllnunu_ATLAS13=gg_phi3_ZZ_TH13/ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(m3);
-    if(m2>= 200.0 && m2<1200.0) THoEX_VV_phi2_ZZ_llllnunu_ATLAS13=VV_phi2_ZZ_TH13/ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(m2);
-    if(m3>= 200.0 && m3<1200.0) THoEX_VV_phi3_ZZ_llllnunu_ATLAS13=VV_phi3_ZZ_TH13/ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(m3);
-    if(m2>= 300.0 && m2<3000.0) THoEX_gg_phi2_ZZ_qqllnunu_ATLAS13=gg_phi2_ZZ_TH13/ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(m2);
-    if(m3>= 300.0 && m3<3000.0) THoEX_gg_phi3_ZZ_qqllnunu_ATLAS13=gg_phi3_ZZ_TH13/ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(m3);
-    if(m2>= 300.0 && m2<3000.0) THoEX_VV_phi2_ZZ_qqllnunu_ATLAS13=VV_phi2_ZZ_TH13/ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(m2);
-    if(m3>= 300.0 && m3<3000.0) THoEX_VV_phi3_ZZ_qqllnunu_ATLAS13=VV_phi3_ZZ_TH13/ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(m3);
-    if(m2>= 130.0 && m2<3000.0) THoEX_pp_phi2_ZZ_llqqnunull_CMS13=pp_phi2_ZZ_TH13/ip_ex_pp_phi_ZZ_llqqnunull_CMS13(m2);
-    if(m3>= 130.0 && m3<3000.0) THoEX_pp_phi3_ZZ_llqqnunull_CMS13=pp_phi3_ZZ_TH13/ip_ex_pp_phi_ZZ_llqqnunull_CMS13(m3);
-    if(m2>=1000.0 && m2<4000.0) THoEX_pp_phi2_ZZ_qqnunu_CMS13=pp_phi2_ZZ_TH13/ip_ex_pp_phi_ZZ_qqnunu_CMS13(m2);
-    if(m3>=1000.0 && m3<4000.0) THoEX_pp_phi3_ZZ_qqnunu_CMS13=pp_phi3_ZZ_TH13/ip_ex_pp_phi_ZZ_qqnunu_CMS13(m3);
-    if(m2>= 300.0 && m2<1500.0) THoEX_gg_phi2_WW_ATLAS8=gg_phi2_WW_TH8/ip_ex_gg_phi_WW_ATLAS8(m2);
-    if(m3>= 300.0 && m3<1500.0) THoEX_gg_phi3_WW_ATLAS8=gg_phi3_WW_TH8/ip_ex_gg_phi_WW_ATLAS8(m3);  
-    if(m2>= 300.0 && m2<1500.0) THoEX_VV_phi2_WW_ATLAS8=VV_phi2_WW_TH8/ip_ex_VV_phi_WW_ATLAS8(m2);
-    if(m3>= 300.0 && m3<1500.0) THoEX_VV_phi3_WW_ATLAS8=VV_phi3_WW_TH8/ip_ex_VV_phi_WW_ATLAS8(m3);
-    if(m2>= 250.0 && m2<4000.0) THoEX_gg_phi2_WW_enumunu_ATLAS13=gg_phi2_WW_TH13/ip_ex_gg_phi_WW_enumunu_ATLAS13(m2);
-    if(m3>= 250.0 && m3<4000.0) THoEX_gg_phi3_WW_enumunu_ATLAS13=gg_phi3_WW_TH13/ip_ex_gg_phi_WW_enumunu_ATLAS13(m3);
-    if(m2>= 250.0 && m2<3000.0) THoEX_VV_phi2_WW_enumunu_ATLAS13=VV_phi2_WW_TH13/ip_ex_VV_phi_WW_enumunu_ATLAS13(m2);
-    if(m3>= 250.0 && m3<3000.0) THoEX_VV_phi3_WW_enumunu_ATLAS13=VV_phi3_WW_TH13/ip_ex_VV_phi_WW_enumunu_ATLAS13(m3);
-    if(m2>= 200.0 && m2<1000.0) THoEX_ggVV_phi2_WW_lnulnu_CMS13=ggVV_phi2_WW_lnulnu_TH13/ip_ex_ggVV_phi_WW_lnulnu_CMS13(m2);
-    if(m3>= 200.0 && m3<1000.0) THoEX_ggVV_phi3_WW_lnulnu_CMS13=ggVV_phi3_WW_lnulnu_TH13/ip_ex_ggVV_phi_WW_lnulnu_CMS13(m3);
-    if(m2>= 300.0 && m2<3000.0) THoEX_gg_phi2_WW_lnuqq_ATLAS13=gg_phi2_WW_TH13/ip_ex_gg_phi_WW_lnuqq_ATLAS13(m2);
-    if(m3>= 300.0 && m3<3000.0) THoEX_gg_phi3_WW_lnuqq_ATLAS13=gg_phi3_WW_TH13/ip_ex_gg_phi_WW_lnuqq_ATLAS13(m3);
-    if(m2>= 300.0 && m2<3000.0) THoEX_VV_phi2_WW_lnuqq_ATLAS13=VV_phi2_WW_TH13/ip_ex_VV_phi_WW_lnuqq_ATLAS13(m2);
-    if(m3>= 300.0 && m3<3000.0) THoEX_VV_phi3_WW_lnuqq_ATLAS13=VV_phi3_WW_TH13/ip_ex_VV_phi_WW_lnuqq_ATLAS13(m3);
-    if(m2>=1000.0 && m2<4400.0) THoEX_pp_phi2_WW_lnuqq_CMS13=pp_phi2_WW_TH13/ip_ex_pp_phi_WW_lnuqq_CMS13(m2);
-    if(m3>=1000.0 && m3<4400.0) THoEX_pp_phi3_WW_lnuqq_CMS13=pp_phi3_WW_TH13/ip_ex_pp_phi_WW_lnuqq_CMS13(m3);
-    if(m2>= 145.0 && m2<1000.0) THoEX_mu_pp_phi2_VV_CMS8=mu_pp_phi2_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(m2);
-    if(m3>= 145.0 && m3<1000.0) THoEX_mu_pp_phi3_VV_CMS8=mu_pp_phi3_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(m3);
-    if(m2>=1200.0 && m2<3000.0) THoEX_pp_phi2_VV_qqqq_ATLAS13=pp_phi2_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(m2);
-    if(m3>=1200.0 && m3<3000.0) THoEX_pp_phi3_VV_qqqq_ATLAS13=pp_phi3_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(m3);
-    if(m2>= 260.0 && m2<1000.0) THoEX_gg_phi2_phi1phi1_ATLAS8=gg_phi2_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m2);   
-    if(m3>= 260.0 && m3<1000.0) THoEX_gg_phi3_phi1phi1_ATLAS8=gg_phi3_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m3);
-    if(m2>= 270.0 && m2<1100.0) THoEX_pp_phi2_phi1phi1_bbbb_CMS8=pp_phi2_phi1phi1_bbbb_TH8/ip_ex_pp_phi_phi1phi1_bbbb_CMS8(m2);
-    if(m3>= 270.0 && m3<1100.0) THoEX_pp_phi3_phi1phi1_bbbb_CMS8=pp_phi3_phi1phi1_bbbb_TH8/ip_ex_pp_phi_phi1phi1_bbbb_CMS8(m3);
-    if(m2>= 260.0 && m2<1100.0) THoEX_pp_phi2_phi1phi1_bbgaga_CMS8=pp_phi2_phi1phi1_bbgaga_TH8/ip_ex_pp_phi_phi1phi1_bbgaga_CMS8(m2);
-    if(m3>= 260.0 && m3<1100.0) THoEX_pp_phi3_phi1phi1_bbgaga_CMS8=pp_phi3_phi1phi1_bbgaga_TH8/ip_ex_pp_phi_phi1phi1_bbgaga_CMS8(m3);
-    if(m2>= 260.0 && m2< 350.0) THoEX_gg_phi2_phi1phi1_bbtautau_CMS8=gg_phi2_phi1phi1_bbtautau_TH8/ip_ex_gg_phi_phi1phi1_bbtautau_CMS8(m2);
-    if(m3>= 260.0 && m3< 350.0) THoEX_gg_phi3_phi1phi1_bbtautau_CMS8=gg_phi3_phi1phi1_bbtautau_TH8/ip_ex_gg_phi_phi1phi1_bbtautau_CMS8(m3);
-    if(m2>= 350.0 && m2<1000.0) THoEX_pp_phi2_phi1phi1_bbtautau_CMS8=pp_phi2_phi1phi1_TH8/ip_ex_pp_phi_phi1phi1_bbtautau_CMS8(m2);
-    if(m3>= 350.0 && m3<1000.0) THoEX_pp_phi3_phi1phi1_bbtautau_CMS8=pp_phi3_phi1phi1_TH8/ip_ex_pp_phi_phi1phi1_bbtautau_CMS8(m3);
-    if(m2>= 260.0 && m2<3000.0) THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m2);
-    if(m3>= 260.0 && m3<3000.0) THoEX_pp_phi3_phi1phi1_bbbb_ATLAS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m3);
-    if(m2>= 260.0 && m2<1200.0) THoEX_pp_phi2_phi1phi1_bbbb_1_CMS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_1_CMS13(m2);
-    if(m3>= 260.0 && m3<1200.0) THoEX_pp_phi3_phi1phi1_bbbb_1_CMS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_1_CMS13(m3);
-    if(m2>=1200.0 && m2<3000.0) THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m2);
-    if(m3>=1200.0 && m3<3000.0) THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m3);
-    if(m2>= 260.0 && m2<1000.0) THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13=pp_phi2_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m2);
-    if(m3>= 260.0 && m3<1000.0) THoEX_pp_phi3_phi1phi1_bbgaga_ATLAS13=pp_phi3_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m3);
-    if(m2>= 250.0 && m2< 900.0) THoEX_pp_phi2_phi1phi1_bbgaga_CMS13=pp_phi2_phi1phi1_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(m2);
-    if(m3>= 250.0 && m3< 900.0) THoEX_pp_phi3_phi1phi1_bbgaga_CMS13=pp_phi3_phi1phi1_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(m3);
-    if(m2>= 260.0 && m2<1000.0) THoEX_pp_phi2_phi1phi1_bbtautau_ATLAS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13(m2);
-    if(m3>= 260.0 && m3<1000.0) THoEX_pp_phi3_phi1phi1_bbtautau_ATLAS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13(m3);
-    if(m2>= 250.0 && m2< 900.0) THoEX_pp_phi2_phi1phi1_bbtautau_1_CMS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13(m2);
-    if(m3>= 250.0 && m3< 900.0) THoEX_pp_phi3_phi1phi1_bbtautau_1_CMS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13(m3);
-    if(m2>= 900.0 && m2<4000.0) THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13=pp_phi2_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m2);
-    if(m3>= 900.0 && m3<4000.0) THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13=pp_phi3_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m3);
-    if(m2>= 260.0 && m2< 900.0) THoEX_pp_phi2_phi1phi1_bbVV_CMS13=pp_phi2_phi1phi1_bbVV_TH13/ip_ex_pp_phi_phi1phi1_bbVV_CMS13(m2);
-    if(m3>= 260.0 && m3< 900.0) THoEX_pp_phi3_phi1phi1_bbVV_CMS13=pp_phi3_phi1phi1_bbVV_TH13/ip_ex_pp_phi_phi1phi1_bbVV_CMS13(m3); 
-    if(m2>= 500.0 && m2< 3000.0) THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13=pp_phi2_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m2);
-    if(m3>= 500.0 && m3< 3000.0) THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13=pp_phi3_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m3);  
-    if(m2>= 260.0 && m2< 500.0) THoEX_gg_phi2_phi1phi1_gagaWW_ATLAS13=gg_phi2_phi1phi1_gagaWW_TH13/ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(m2);
-    if(m3>= 260.0 && m3< 500.0) THoEX_gg_phi3_phi1phi1_gagaWW_ATLAS13=gg_phi3_phi1phi1_gagaWW_TH13/ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(m3);
+    if(m2>= 400.0 && m2<1000.0) 
+    {
+        THoEX_tt_phi2_tt_ATLAS13=tt_phi2_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(m2);
+        if(THoEX_tt_phi2_tt_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+   
+                    
+    if(m3>= 400.0 && m3<1000.0)
+        { 
+        THoEX_tt_phi3_tt_ATLAS13=tt_phi3_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(m3);
+        if(THoEX_tt_phi3_tt_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m2>= 400.0 && m2<1000.0) 
+        {
+        THoEX_bb_phi2_tt_ATLAS13=bb_phi2_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(m2);  
+        if(THoEX_bb_phi2_tt_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m3>= 400.0 && m3<1000.0) 
+        {
+        THoEX_bb_phi3_tt_ATLAS13=bb_phi3_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(m3);   
+                if(THoEX_bb_phi3_tt_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+
+    }
+    if(m2>= 100.0 && m2< 900.0) 
+       {
+        THoEX_bb_phi2_bb_CMS8=bb_phi2_bb_TH8/ip_ex_bb_phi_bb_CMS8(m2);    
+        if(THoEX_bb_phi2_bb_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+
+    }
+    if(m3>= 100.0 && m3< 900.0) 
+        {
+        THoEX_bb_phi3_bb_CMS8=bb_phi3_bb_TH8/ip_ex_bb_phi_bb_CMS8(m3);    
+        if(THoEX_bb_phi3_bb_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m2>= 330.0 && m2<1200.0) 
+        {
+        THoEX_gg_phi2_bb_CMS8=gg_phi2_bb_TH8/ip_ex_gg_phi_bb_CMS8(m2);
+        if(THoEX_gg_phi2_bb_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m3>= 330.0 && m3<1200.0) 
+       {
+        THoEX_gg_phi3_bb_CMS8=gg_phi3_bb_TH8/ip_ex_gg_phi_bb_CMS8(m3);
+        if(THoEX_gg_phi3_bb_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m2>= 550.0 && m2<1200.0) 
+       {
+        THoEX_pp_phi2_bb_CMS13=pp_phi2_bb_TH13/ip_ex_pp_phi_bb_CMS13(m2);
+        if(THoEX_pp_phi2_bb_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m3>= 550.0 && m3<1200.0) 
+       {
+        THoEX_pp_phi3_bb_CMS13=pp_phi3_bb_TH13/ip_ex_pp_phi_bb_CMS13(m3); 
+        if(THoEX_pp_phi3_bb_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m2>= 300.0 && m2<1300.0) 
+       {
+        THoEX_bb_phi2_bb_CMS13=bb_phi2_bb_TH13/ip_ex_bb_phi_bb_CMS13(m2);  
+        if(THoEX_bb_phi2_bb_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();      
+    }
+    if(m3>= 300.0 && m3<1300.0) 
+       {
+       THoEX_bb_phi3_bb_CMS13=bb_phi3_bb_TH13/ip_ex_bb_phi_bb_CMS13(m3);  
+        if(THoEX_bb_phi3_bb_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();      
+    }
+    if(m2>=  90.0 && m2<1000.0) 
+      {
+        THoEX_gg_phi2_tautau_ATLAS8=gg_phi2_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(m2);   
+        if(THoEX_gg_phi2_tautau_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m3>=  90.0 && m3<1000.0) 
+       {
+        THoEX_gg_phi3_tautau_ATLAS8=gg_phi3_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(m3);   
+        if(THoEX_gg_phi3_tautau_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m2>=  90.0 && m2<1000.0) 
+        {
+        THoEX_gg_phi2_tautau_CMS8=gg_phi2_tautau_TH8/ip_ex_gg_phi_tautau_CMS8(m2);   
+        if(THoEX_gg_phi2_tautau_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();     
+    }
+    if(m3>=  90.0 && m3<1000.0) 
+        {
+        THoEX_gg_phi3_tautau_CMS8=gg_phi3_tautau_TH8/ip_ex_gg_phi_tautau_CMS8(m3);     
+        if(THoEX_gg_phi3_tautau_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m2>=  90.0 && m2<1000.0) 
+        {
+        THoEX_bb_phi2_tautau_ATLAS8=bb_phi2_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(m2);    
+        if(THoEX_bb_phi2_tautau_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();     
+    }
+    if(m3>=  90.0 && m3<1000.0) 
+        {
+        THoEX_bb_phi3_tautau_ATLAS8=bb_phi3_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(m3);    
+        if(THoEX_bb_phi3_tautau_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();   
+    }
+    if(m2>=  90.0 && m2<1000.0) 
+        {
+        THoEX_bb_phi2_tautau_CMS8=bb_phi2_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(m2);     
+        if(THoEX_bb_phi2_tautau_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();   
+    }
+    if(m3>=  90.0 && m3<1000.0) 
+        {
+        THoEX_bb_phi3_tautau_CMS8=bb_phi3_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(m3);    
+        if(THoEX_bb_phi3_tautau_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m2>= 200.0 && m2<2250.0) 
+        {
+        THoEX_gg_phi2_tautau_ATLAS13=gg_phi2_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(m2);  
+        if(THoEX_gg_phi2_tautau_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();     
+    }
+    if(m3>= 200.0 && m3<2250.0) 
+        {
+        THoEX_gg_phi3_tautau_ATLAS13=gg_phi3_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(m3);     
+        if(THoEX_gg_phi3_tautau_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m2>=  90.0 && m2<3200.0) 
+        {
+        THoEX_gg_phi2_tautau_CMS13=gg_phi2_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(m2);    
+        if(THoEX_gg_phi2_tautau_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m3>=  90.0 && m3<3200.0) 
+        {
+        THoEX_gg_phi3_tautau_CMS13=gg_phi3_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(m3);     
+        if(THoEX_gg_phi3_tautau_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m2>= 200.0 && m2<2250.0) 
+        {
+        THoEX_bb_phi2_tautau_ATLAS13=bb_phi2_tautau_TH13/ip_ex_bb_phi_tautau_ATLAS13(m2);   
+        if(THoEX_bb_phi2_tautau_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();      
+    }
+    if(m3>= 200.0 && m3<2250.0) 
+        {
+        THoEX_bb_phi3_tautau_ATLAS13=bb_phi3_tautau_TH13/ip_ex_bb_phi_tautau_ATLAS13(m3);    
+        if(THoEX_bb_phi3_tautau_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();   
+    }
+    if(m2>=  90.0 && m2<3200.0) 
+        {
+        THoEX_bb_phi2_tautau_CMS13=bb_phi2_tautau_TH13/ip_ex_bb_phi_tautau_CMS13(m2);        
+        if(THoEX_bb_phi2_tautau_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m3>=  90.0 && m3<3200.0) 
+        {
+        THoEX_bb_phi3_tautau_CMS13=bb_phi3_tautau_TH13/ip_ex_bb_phi_tautau_CMS13(m3);        
+        if(THoEX_bb_phi3_tautau_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m2>=  65.0 && m2< 600.0) 
+        {
+        THoEX_gg_phi2_gaga_ATLAS8=gg_phi2_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(m2);        
+        if(THoEX_gg_phi2_gaga_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m3>=  65.0 && m3< 600.0) 
+        {
+        THoEX_gg_phi3_gaga_ATLAS8=gg_phi3_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(m3);        
+        if(THoEX_gg_phi3_gaga_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m2>= 200.0 && m2<2700.0) 
+        {
+        THoEX_pp_phi2_gaga_ATLAS13=pp_phi2_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m2);     
+        if(THoEX_pp_phi2_gaga_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m3>= 200.0 && m3<2700.0)  
+        {
+        THoEX_pp_phi3_gaga_ATLAS13=pp_phi3_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m3);   
+        if(THoEX_pp_phi3_gaga_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m2>= 500.0 && m2<4000.0)     
+        {
+        THoEX_gg_phi2_gaga_CMS13=gg_phi2_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m2);        
+        if(THoEX_gg_phi2_gaga_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m3>= 500.0 && m3<4000.0) 
+        {
+        THoEX_gg_phi3_gaga_CMS13=gg_phi3_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m3);     
+        if(THoEX_gg_phi3_gaga_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m2>= 200.0 && m2<1600.0) 
+        {
+        THoEX_pp_phi2_Zga_llga_ATLAS8=pp_phi2_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m2);       
+        if(THoEX_pp_phi2_Zga_llga_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m3>= 200.0 && m3<1600.0) 
+        {
+        THoEX_pp_phi3_Zga_llga_ATLAS8=pp_phi3_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m3);     
+        if(THoEX_pp_phi3_Zga_llga_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m2>= 200.0 && m2<1200.0) 
+        {
+        THoEX_pp_phi2_Zga_llga_CMS8=pp_phi2_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(m2);     
+        if(THoEX_pp_phi2_Zga_llga_CMS8 >100) return std::numeric_limits<double>::quiet_NaN(); 
+    }
+    if(m3>= 200.0 && m3<1200.0) 
+        {
+        THoEX_pp_phi3_Zga_llga_CMS8=pp_phi3_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(m3);     
+        if(THoEX_pp_phi3_Zga_llga_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m2>= 250.0 && m2<2400.0) 
+        {
+        THoEX_gg_phi2_Zga_llga_ATLAS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(m2);   
+        if(THoEX_gg_phi2_Zga_llga_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();      
+    }
+    if(m3>= 250.0 && m3<2400.0) 
+        {
+        THoEX_gg_phi3_Zga_llga_ATLAS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(m3);   
+        if(THoEX_gg_phi3_Zga_llga_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();     
+    }
+    if(m2>=1000.0 && m2<6800.0) 
+        {
+        THoEX_gg_phi2_Zga_qqga_ATLAS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_qqga_ATLAS13(m2);     
+        if(THoEX_gg_phi2_Zga_qqga_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m3>=1000.0 && m3<6800.0) 
+        {
+        THoEX_gg_phi3_Zga_qqga_ATLAS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_qqga_ATLAS13(m3);    
+        if(THoEX_gg_phi3_Zga_qqga_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m2>= 350.0 && m2<4000.0) 
+        {
+        THoEX_gg_phi2_Zga_CMS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(m2);      
+        if(THoEX_gg_phi2_Zga_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m3>= 350.0 && m3<4000.0) 
+        {
+        THoEX_gg_phi3_Zga_CMS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(m3);      
+        if(THoEX_gg_phi3_Zga_CMS13>100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m2>= 140.0 && m2<1000.0) 
+        {
+        THoEX_gg_phi2_ZZ_ATLAS8=gg_phi2_ZZ_TH8/ip_ex_gg_phi_ZZ_ATLAS8(m2);     
+        if(THoEX_gg_phi2_ZZ_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m3>= 140.0 && m3<1000.0) 
+        {
+        THoEX_gg_phi3_ZZ_ATLAS8=gg_phi3_ZZ_TH8/ip_ex_gg_phi_ZZ_ATLAS8(m3);     
+        if(THoEX_gg_phi3_ZZ_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m2>= 140.0 && m2<1000.0) 
+        {
+        THoEX_VV_phi2_ZZ_ATLAS8=VV_phi2_ZZ_TH8/ip_ex_VV_phi_ZZ_ATLAS8(m2);     
+        if(THoEX_VV_phi2_ZZ_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m3>= 140.0 && m3<1000.0) 
+        {
+        THoEX_VV_phi3_ZZ_ATLAS8=VV_phi3_ZZ_TH8/ip_ex_VV_phi_ZZ_ATLAS8(m3);     
+        if(THoEX_VV_phi3_ZZ_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();  
+    }
+    if(m2>= 200.0 && m2<1200.0) 
+        {
+        THoEX_gg_phi2_ZZ_llllnunu_ATLAS13=gg_phi2_ZZ_TH13/ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(m2);   
+        if(THoEX_gg_phi2_ZZ_llllnunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();     
+    }
+    if(m3>= 200.0 && m3<1200.0) 
+        {
+        THoEX_gg_phi3_ZZ_llllnunu_ATLAS13=gg_phi3_ZZ_TH13/ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(m3);   
+        if(THoEX_gg_phi3_ZZ_llllnunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();     
+    }
+    if(m2>= 200.0 && m2<1200.0) 
+        {
+        THoEX_VV_phi2_ZZ_llllnunu_ATLAS13=VV_phi2_ZZ_TH13/ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(m2);     
+        if(THoEX_VV_phi2_ZZ_llllnunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();   
+    }
+    if(m3>= 200.0 && m3<1200.0) 
+        {
+        THoEX_VV_phi3_ZZ_llllnunu_ATLAS13=VV_phi3_ZZ_TH13/ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(m3);    
+        if(THoEX_VV_phi3_ZZ_llllnunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m2>= 300.0 && m2<3000.0) 
+        {
+        THoEX_gg_phi2_ZZ_qqllnunu_ATLAS13=gg_phi2_ZZ_TH13/ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(m2);    
+        if(THoEX_gg_phi2_ZZ_qqllnunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();     
+    }
+    if(m3>= 300.0 && m3<3000.0) 
+        {
+        THoEX_gg_phi3_ZZ_qqllnunu_ATLAS13=gg_phi3_ZZ_TH13/ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(m3);    
+        if(THoEX_gg_phi3_ZZ_qqllnunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();    
+    }
+    if(m2>= 300.0 && m2<3000.0) 
+        {
+        THoEX_VV_phi2_ZZ_qqllnunu_ATLAS13=VV_phi2_ZZ_TH13/ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(m2); 
+        if(THoEX_VV_phi2_ZZ_qqllnunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
+    if(m3>= 300.0 && m3<3000.0) 
+        {
+        THoEX_VV_phi3_ZZ_qqllnunu_ATLAS13=VV_phi3_ZZ_TH13/ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(m3); 
+        if(THoEX_VV_phi3_ZZ_qqllnunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+    }
     
     
-    if(m2>= 220.0 && m2<1000.0) THoEX_gg_phi2_phi1Z_bbZ_ATLAS8=gg_phi2_phi1Z_bbZ_TH8/ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(m2);
-    if(m3>= 220.0 && m3<1000.0) THoEX_gg_phi3_phi1Z_bbZ_ATLAS8=gg_phi3_phi1Z_bbZ_TH8/ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(m3);
-    if(m2>= 225.0 && m2< 600.0) THoEX_gg_phi2_phi1Z_bbll_CMS8=gg_phi2_phi1Z_bbll_TH8/ip_ex_gg_phi_phi1Z_bbll_CMS8(m2);
-    if(m3>= 225.0 && m3< 600.0) THoEX_gg_phi3_phi1Z_bbll_CMS8=gg_phi3_phi1Z_bbll_TH8/ip_ex_gg_phi_phi1Z_bbll_CMS8(m3);
-    if(m2>= 220.0 && m2<1000.0) THoEX_gg_phi2_phi1Z_tautauZ_ATLAS8=gg_phi2_phi1Z_tautauZ_TH8/ip_ex_gg_phi_phi1Z_tautauZ_ATLAS8(m2);
-    if(m3>= 220.0 && m3<1000.0) THoEX_gg_phi3_phi1Z_tautauZ_ATLAS8=gg_phi3_phi1Z_tautauZ_TH8/ip_ex_gg_phi_phi1Z_tautauZ_ATLAS8(m3);
-    if(m2>= 220.0 && m2< 350.0) THoEX_gg_phi2_phi1Z_tautaull_CMS8=gg_phi2_phi1Z_tautaull_TH8/ip_ex_gg_phi_phi1Z_tautaull_CMS8(m2);
-    if(m3>= 220.0 && m3< 350.0) THoEX_gg_phi3_phi1Z_tautaull_CMS8=gg_phi3_phi1Z_tautaull_TH8/ip_ex_gg_phi_phi1Z_tautaull_CMS8(m3);
-    if(m2>= 200.0 && m2<2000.0) THoEX_gg_phi2_phi1Z_bbZ_ATLAS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m2);
-    if(m3>= 200.0 && m3<2000.0) THoEX_gg_phi3_phi1Z_bbZ_ATLAS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m3);
-    if(m2>= 220.0 && m2< 800.0) THoEX_gg_phi2_phi1Z_bbZ_1_CMS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(m2);
-    if(m3>= 220.0 && m3< 800.0) THoEX_gg_phi3_phi1Z_bbZ_1_CMS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(m3);
-    if(m2>= 800.0 && m2<2000.0) THoEX_gg_phi2_phi1Z_bbZ_2_CMS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(m2);
-    if(m3>= 800.0 && m3<2000.0) THoEX_gg_phi3_phi1Z_bbZ_2_CMS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(m3);
-    if(m2>= 200.0 && m2<2000.0) THoEX_bb_phi2_phi1Z_bbZ_ATLAS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m2);
-    if(m3>= 200.0 && m3<2000.0) THoEX_bb_phi3_phi1Z_bbZ_ATLAS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m3);
-    if(m2>= 220.0 && m2< 800.0) THoEX_bb_phi2_phi1Z_bbZ_1_CMS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(m2);
-    if(m3>= 220.0 && m3< 800.0) THoEX_bb_phi3_phi1Z_bbZ_1_CMS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(m3);
-    if(m2>= 800.0 && m2<2000.0) THoEX_bb_phi2_phi1Z_bbZ_2_CMS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_2_CMS13(m2);
-    if(m3>= 800.0 && m3<2000.0) THoEX_bb_phi3_phi1Z_bbZ_2_CMS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_2_CMS13(m3);
-    if(m3>= 175.0 && m3<1000.0 && m2 >=50.0 && m2 <910.0) THoEX_pp_phi3_phi2Z_bbll_1_CMS8=pp_phi3_phi2Z_bbll_TH8/ip_ex_pp_phii_phijZ_bbll_1_CMS8(m3,m2); //mA=m3, mH=m2
-    if(m2>= 175.0 && m2<1000.0 && m3 >=50.0 && m3 <910.0) THoEX_pp_phi2_phi3Z_bbll_1_CMS8=pp_phi2_phi3Z_bbll_TH8/ip_ex_pp_phii_phijZ_bbll_1_CMS8(m2,m3); //mA=m3, mH=m2
-    if(m3>=  50.0 && m3<1000.0 && m2 >=50.0 && m2 <1000.0) THoEX_pp_phi3_phi2Z_tautaull_1_CMS8=pp_phi3_phi2Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_1_CMS8(m3,m2); //mA=m3, mH=m2
-    if(m2>=  50.0 && m2<1000.0 && m3 >=50.0 && m3 <1000.0) THoEX_pp_phi2_phi3Z_tautaull_1_CMS8=pp_phi2_phi3Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_1_CMS8(m2,m3); //mA=m3, mH=m2
-    if(m3>=  50.0 && m3<1000.0 && m2 >=50.0 && m2 <1000.0) THoEX_pp_phi3_phi2Z_tautaull_2_CMS8=pp_phi3_phi2Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_2_CMS8(m2,m3); //mA=m2, mH=m3
-    if(m2>=  50.0 && m2<1000.0 && m3 >=50.0 && m3 <1000.0) THoEX_pp_phi2_phi3Z_tautaull_2_CMS8=pp_phi2_phi3Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_2_CMS8(m3,m2); //mA=m2, mH=m3
-    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0) THoEX_gg_phi3_phi2Z_bbZ_ATLAS13=gg_phi3_phi2Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2);
-    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0) THoEX_gg_phi2_phi3Z_bbZ_ATLAS13=gg_phi2_phi3Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m2,m3);
-    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0) THoEX_bb_phi3_phi2Z_bbZ_ATLAS13=bb_phi3_phi2Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m3,m2);
-    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0) THoEX_bb_phi2_phi3Z_bbZ_ATLAS13=bb_phi2_phi3Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m2,m3);
-      
-    if(mHp>= 180.0 && mHp<1000.0) THoEX_pp_Hpm_taunu_ATLAS8=pp_Hpm_taunu_TH8/ip_ex_pp_Hpm_taunu_ATLAS8(mHp);
-    if(mHp>= 180.0 && mHp< 600.0) THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mHp);
-    if(mHp>= 150.0 && mHp<2000.0) THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mHp);
-    if(mHp>= 180.0 && mHp<3000.0) THoEX_pp_Hpm_taunu_CMS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_CMS13(mHp);
-    if(mHp>= 200.0 && mHp< 600.0) THoEX_pp_Hpm_tb_ATLAS8=pp_Hpm_tb_TH8/ip_ex_pp_Hpm_tb_ATLAS8(mHp);
-    if(mHp>= 180.0 && mHp< 600.0) THoEX_pp_Hp_tb_CMS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
-    if(mHp>= 200.0 && mHp<2000.0) THoEX_pp_Hpm_tb_ATLAS13=pp_Hpm_tb_TH13/ip_ex_pp_Hpm_tb_ATLAS13(mHp);
+    if(m2>= 130.0 && m2<3000.0)
+         {
+           THoEX_pp_phi2_ZZ_llqqnunull_CMS13=pp_phi2_ZZ_TH13/ip_ex_pp_phi_ZZ_llqqnunull_CMS13(m2);
+           if(THoEX_pp_phi2_ZZ_llqqnunull_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 130.0 && m3<3000.0)
+          {
+             THoEX_pp_phi3_ZZ_llqqnunull_CMS13=pp_phi3_ZZ_TH13/ip_ex_pp_phi_ZZ_llqqnunull_CMS13(m3);
+             if(THoEX_pp_phi3_ZZ_llqqnunull_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>=1000.0 && m2<4000.0)
+            {
+             THoEX_pp_phi2_ZZ_qqnunu_CMS13=pp_phi2_ZZ_TH13/ip_ex_pp_phi_ZZ_qqnunu_CMS13(m2);
+             if(THoEX_pp_phi2_ZZ_qqnunu_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>=1000.0 && m3<4000.0)
+            {
+             THoEX_pp_phi3_ZZ_qqnunu_CMS13=pp_phi3_ZZ_TH13/ip_ex_pp_phi_ZZ_qqnunu_CMS13(m3);
+             if(THoEX_pp_phi3_ZZ_qqnunu_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 300.0 && m2<1500.0)
+            {
+             THoEX_gg_phi2_WW_ATLAS8=gg_phi2_WW_TH8/ip_ex_gg_phi_WW_ATLAS8(m2);
+             if(THoEX_gg_phi2_WW_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 300.0 && m3<1500.0)
+            {
+             THoEX_gg_phi3_WW_ATLAS8=gg_phi3_WW_TH8/ip_ex_gg_phi_WW_ATLAS8(m3);
+             if(THoEX_gg_phi3_WW_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }  
+    if(m2>= 300.0 && m2<1500.0)
+            {
+             THoEX_VV_phi2_WW_ATLAS8=VV_phi2_WW_TH8/ip_ex_VV_phi_WW_ATLAS8(m2);
+             if(THoEX_VV_phi2_WW_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 300.0 && m3<1500.0)
+            {
+             THoEX_VV_phi3_WW_ATLAS8=VV_phi3_WW_TH8/ip_ex_VV_phi_WW_ATLAS8(m3);
+             if(THoEX_VV_phi3_WW_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 250.0 && m2<4000.0)
+            {
+             THoEX_gg_phi2_WW_enumunu_ATLAS13=gg_phi2_WW_TH13/ip_ex_gg_phi_WW_enumunu_ATLAS13(m2);
+             if(THoEX_gg_phi2_WW_enumunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 250.0 && m3<4000.0)
+            {
+             THoEX_gg_phi3_WW_enumunu_ATLAS13=gg_phi3_WW_TH13/ip_ex_gg_phi_WW_enumunu_ATLAS13(m3);
+             if(THoEX_gg_phi3_WW_enumunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 250.0 && m2<3000.0)
+            {
+             THoEX_VV_phi2_WW_enumunu_ATLAS13=VV_phi2_WW_TH13/ip_ex_VV_phi_WW_enumunu_ATLAS13(m2);
+             if(THoEX_VV_phi2_WW_enumunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 250.0 && m3<3000.0)
+            {
+             THoEX_VV_phi3_WW_enumunu_ATLAS13=VV_phi3_WW_TH13/ip_ex_VV_phi_WW_enumunu_ATLAS13(m3);
+             if(THoEX_VV_phi3_WW_enumunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 200.0 && m2<1000.0)
+            {
+             THoEX_ggVV_phi2_WW_lnulnu_CMS13=ggVV_phi2_WW_lnulnu_TH13/ip_ex_ggVV_phi_WW_lnulnu_CMS13(m2);
+             if(THoEX_ggVV_phi2_WW_lnulnu_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 200.0 && m3<1000.0)
+            {
+             THoEX_ggVV_phi3_WW_lnulnu_CMS13=ggVV_phi3_WW_lnulnu_TH13/ip_ex_ggVV_phi_WW_lnulnu_CMS13(m3);
+             if(THoEX_ggVV_phi3_WW_lnulnu_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 300.0 && m2<3000.0)
+            {
+             THoEX_gg_phi2_WW_lnuqq_ATLAS13=gg_phi2_WW_TH13/ip_ex_gg_phi_WW_lnuqq_ATLAS13(m2);
+             if(THoEX_gg_phi2_WW_lnuqq_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 300.0 && m3<3000.0)
+            {
+             THoEX_gg_phi3_WW_lnuqq_ATLAS13=gg_phi3_WW_TH13/ip_ex_gg_phi_WW_lnuqq_ATLAS13(m3);
+             if(THoEX_gg_phi3_WW_lnuqq_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 300.0 && m2<3000.0)
+            {
+             THoEX_VV_phi2_WW_lnuqq_ATLAS13=VV_phi2_WW_TH13/ip_ex_VV_phi_WW_lnuqq_ATLAS13(m2);
+             if(THoEX_VV_phi2_WW_lnuqq_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 300.0 && m3<3000.0)
+            {
+             THoEX_VV_phi3_WW_lnuqq_ATLAS13=VV_phi3_WW_TH13/ip_ex_VV_phi_WW_lnuqq_ATLAS13(m3);
+             if(THoEX_VV_phi3_WW_lnuqq_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>=1000.0 && m2<4400.0)
+            {
+             THoEX_pp_phi2_WW_lnuqq_CMS13=pp_phi2_WW_TH13/ip_ex_pp_phi_WW_lnuqq_CMS13(m2);
+             if(THoEX_pp_phi2_WW_lnuqq_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>=1000.0 && m3<4400.0)
+            {
+             THoEX_pp_phi3_WW_lnuqq_CMS13=pp_phi3_WW_TH13/ip_ex_pp_phi_WW_lnuqq_CMS13(m3);
+             if(THoEX_pp_phi3_WW_lnuqq_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 145.0 && m2<1000.0)
+            {
+             THoEX_mu_pp_phi2_VV_CMS8=mu_pp_phi2_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(m2);
+             if(THoEX_mu_pp_phi2_VV_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 145.0 && m3<1000.0)
+            {
+             THoEX_mu_pp_phi3_VV_CMS8=mu_pp_phi3_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(m3);
+             if(THoEX_mu_pp_phi3_VV_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>=1200.0 && m2<3000.0)
+            {
+             THoEX_pp_phi2_VV_qqqq_ATLAS13=pp_phi2_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(m2);
+             if(THoEX_pp_phi2_VV_qqqq_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>=1200.0 && m3<3000.0)
+            {
+             THoEX_pp_phi3_VV_qqqq_ATLAS13=pp_phi3_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(m3);
+             if(THoEX_pp_phi3_VV_qqqq_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 260.0 && m2<1000.0)
+            {
+             THoEX_gg_phi2_phi1phi1_ATLAS8=gg_phi2_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m2);
+             if(THoEX_gg_phi2_phi1phi1_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }   
+    if(m3>= 260.0 && m3<1000.0)
+            {
+             THoEX_gg_phi3_phi1phi1_ATLAS8=gg_phi3_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m3);
+             if(THoEX_gg_phi3_phi1phi1_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 270.0 && m2<1100.0)
+            {
+             THoEX_pp_phi2_phi1phi1_bbbb_CMS8=pp_phi2_phi1phi1_bbbb_TH8/ip_ex_pp_phi_phi1phi1_bbbb_CMS8(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbbb_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 270.0 && m3<1100.0)
+            {
+             THoEX_pp_phi3_phi1phi1_bbbb_CMS8=pp_phi3_phi1phi1_bbbb_TH8/ip_ex_pp_phi_phi1phi1_bbbb_CMS8(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbbb_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 260.0 && m2<1100.0)
+            {
+             THoEX_pp_phi2_phi1phi1_bbgaga_CMS8=pp_phi2_phi1phi1_bbgaga_TH8/ip_ex_pp_phi_phi1phi1_bbgaga_CMS8(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbgaga_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 260.0 && m3<1100.0)
+            {
+             THoEX_pp_phi3_phi1phi1_bbgaga_CMS8=pp_phi3_phi1phi1_bbgaga_TH8/ip_ex_pp_phi_phi1phi1_bbgaga_CMS8(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbgaga_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 260.0 && m2< 350.0)
+            {
+             THoEX_gg_phi2_phi1phi1_bbtautau_CMS8=gg_phi2_phi1phi1_bbtautau_TH8/ip_ex_gg_phi_phi1phi1_bbtautau_CMS8(m2);
+             if(THoEX_gg_phi2_phi1phi1_bbtautau_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 260.0 && m3< 350.0)
+            {
+             THoEX_gg_phi3_phi1phi1_bbtautau_CMS8=gg_phi3_phi1phi1_bbtautau_TH8/ip_ex_gg_phi_phi1phi1_bbtautau_CMS8(m3);
+             if(THoEX_gg_phi3_phi1phi1_bbtautau_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 350.0 && m2<1000.0)
+            {
+             THoEX_pp_phi2_phi1phi1_bbtautau_CMS8=pp_phi2_phi1phi1_TH8/ip_ex_pp_phi_phi1phi1_bbtautau_CMS8(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbtautau_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 350.0 && m3<1000.0)
+            {
+             THoEX_pp_phi3_phi1phi1_bbtautau_CMS8=pp_phi3_phi1phi1_TH8/ip_ex_pp_phi_phi1phi1_bbtautau_CMS8(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbtautau_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 260.0 && m2<3000.0)
+            {
+             THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 260.0 && m3<3000.0)
+            {
+             THoEX_pp_phi3_phi1phi1_bbbb_ATLAS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbbb_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 260.0 && m2<1200.0)
+            {
+             THoEX_pp_phi2_phi1phi1_bbbb_1_CMS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_1_CMS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbbb_1_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 260.0 && m3<1200.0)
+            {
+             THoEX_pp_phi3_phi1phi1_bbbb_1_CMS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_1_CMS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbbb_1_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>=1200.0 && m2<3000.0)
+            {
+             THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>=1200.0 && m3<3000.0)
+            {
+             THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 260.0 && m2<1000.0)
+            {
+             THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13=pp_phi2_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m3>= 260.0 && m3<1000.0)
+            {
+             THoEX_pp_phi3_phi1phi1_bbgaga_ATLAS13=pp_phi3_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbgaga_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+             }
+    if(m2>= 250.0 && m2< 900.0) 
+        {
+        THoEX_pp_phi2_phi1phi1_bbgaga_CMS13=pp_phi2_phi1phi1_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(m2);
+         if(THoEX_pp_phi2_phi1phi1_bbgaga_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m3>= 250.0 && m3< 900.0) 
+        {
+        THoEX_pp_phi3_phi1phi1_bbgaga_CMS13=pp_phi3_phi1phi1_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(m3);
+        if(THoEX_pp_phi3_phi1phi1_bbgaga_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m2>= 260.0 && m2<1000.0) 
+        {
+        THoEX_pp_phi2_phi1phi1_bbtautau_ATLAS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbtautau_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m3>= 260.0 && m3<1000.0) 
+        {
+        THoEX_pp_phi3_phi1phi1_bbtautau_ATLAS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbtautau_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m2>= 250.0 && m2< 900.0) 
+        {
+        THoEX_pp_phi2_phi1phi1_bbtautau_1_CMS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbtautau_1_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m3>= 250.0 && m3< 900.0) 
+        {
+        THoEX_pp_phi3_phi1phi1_bbtautau_1_CMS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbtautau_1_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m2>= 900.0 && m2<4000.0) 
+        {
+        THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13=pp_phi2_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m3>= 900.0 && m3<4000.0) 
+        {
+        THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13=pp_phi3_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m2>= 260.0 && m2< 900.0) 
+        {
+        THoEX_pp_phi2_phi1phi1_bbVV_CMS13=pp_phi2_phi1phi1_bbVV_TH13/ip_ex_pp_phi_phi1phi1_bbVV_CMS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbVV_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m3>= 260.0 && m3< 900.0) 
+        {
+        THoEX_pp_phi3_phi1phi1_bbVV_CMS13=pp_phi3_phi1phi1_bbVV_TH13/ip_ex_pp_phi_phi1phi1_bbVV_CMS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbVV_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        } 
+    if(m2>= 500.0 && m2< 3000.0) 
+        {
+        THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13=pp_phi2_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m2);
+             if(THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m3>= 500.0 && m3< 3000.0) 
+        {
+        THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13=pp_phi3_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m3);
+             if(THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }  
+    if(m2>= 260.0 && m2< 500.0)  
+        {
+        THoEX_gg_phi2_phi1phi1_gagaWW_ATLAS13=gg_phi2_phi1phi1_gagaWW_TH13/ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(m2);
+         if(THoEX_gg_phi2_phi1phi1_gagaWW_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    if(m3>= 260.0 && m3< 500.0)  
+        {
+        THoEX_gg_phi3_phi1phi1_gagaWW_ATLAS13=gg_phi3_phi1phi1_gagaWW_TH13/ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(m3);
+         if(THoEX_gg_phi3_phi1phi1_gagaWW_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+        }
+    
+    
+    
+    
+    if(m2>= 220.0 && m2<1000.0)
+        {
+        THoEX_gg_phi2_phi1Z_bbZ_ATLAS8=gg_phi2_phi1Z_bbZ_TH8/ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(m2);
+        if(THoEX_gg_phi2_phi1Z_bbZ_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 220.0 && m3<1000.0)
+        {
+         THoEX_gg_phi3_phi1Z_bbZ_ATLAS8=gg_phi3_phi1Z_bbZ_TH8/ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(m3);
+         if(THoEX_gg_phi3_phi1Z_bbZ_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 225.0 && m2< 600.0)
+        {
+         THoEX_gg_phi2_phi1Z_bbll_CMS8=gg_phi2_phi1Z_bbll_TH8/ip_ex_gg_phi_phi1Z_bbll_CMS8(m2);
+        if(THoEX_gg_phi2_phi1Z_bbll_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 225.0 && m3< 600.0)
+        {
+         THoEX_gg_phi3_phi1Z_bbll_CMS8=gg_phi3_phi1Z_bbll_TH8/ip_ex_gg_phi_phi1Z_bbll_CMS8(m3);
+         if(THoEX_gg_phi3_phi1Z_bbll_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 220.0 && m2<1000.0)
+        {
+         THoEX_gg_phi2_phi1Z_tautauZ_ATLAS8=gg_phi2_phi1Z_tautauZ_TH8/ip_ex_gg_phi_phi1Z_tautauZ_ATLAS8(m2);
+         if(THoEX_gg_phi2_phi1Z_tautauZ_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 220.0 && m3<1000.0)
+        {
+         THoEX_gg_phi3_phi1Z_tautauZ_ATLAS8=gg_phi3_phi1Z_tautauZ_TH8/ip_ex_gg_phi_phi1Z_tautauZ_ATLAS8(m3);
+         if(THoEX_gg_phi3_phi1Z_tautauZ_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 220.0 && m2< 350.0)
+        {
+         THoEX_gg_phi2_phi1Z_tautaull_CMS8=gg_phi2_phi1Z_tautaull_TH8/ip_ex_gg_phi_phi1Z_tautaull_CMS8(m2);
+         if(THoEX_gg_phi2_phi1Z_tautaull_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 220.0 && m3< 350.0)
+        {
+         THoEX_gg_phi3_phi1Z_tautaull_CMS8=gg_phi3_phi1Z_tautaull_TH8/ip_ex_gg_phi_phi1Z_tautaull_CMS8(m3);
+         if(THoEX_gg_phi3_phi1Z_tautaull_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 200.0 && m2<2000.0)
+        {
+         THoEX_gg_phi2_phi1Z_bbZ_ATLAS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m2);
+         if(THoEX_gg_phi2_phi1Z_bbZ_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 200.0 && m3<2000.0)
+        {
+         THoEX_gg_phi3_phi1Z_bbZ_ATLAS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m3);
+         if(THoEX_gg_phi3_phi1Z_bbZ_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 220.0 && m2< 800.0)
+        {
+         THoEX_gg_phi2_phi1Z_bbZ_1_CMS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(m2);
+         if(THoEX_gg_phi2_phi1Z_bbZ_1_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 220.0 && m3< 800.0)
+        {
+         THoEX_gg_phi3_phi1Z_bbZ_1_CMS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(m3);
+         if(THoEX_gg_phi3_phi1Z_bbZ_1_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 800.0 && m2<2000.0)
+        {
+         THoEX_gg_phi2_phi1Z_bbZ_2_CMS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(m2);
+         if(THoEX_gg_phi2_phi1Z_bbZ_2_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 800.0 && m3<2000.0)
+        {
+         THoEX_gg_phi3_phi1Z_bbZ_2_CMS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(m3);
+         if(THoEX_gg_phi3_phi1Z_bbZ_2_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 200.0 && m2<2000.0)
+        {
+         THoEX_bb_phi2_phi1Z_bbZ_ATLAS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m2);
+         if(THoEX_bb_phi2_phi1Z_bbZ_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 200.0 && m3<2000.0)
+        {
+         THoEX_bb_phi3_phi1Z_bbZ_ATLAS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m3);
+         if(THoEX_bb_phi3_phi1Z_bbZ_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 220.0 && m2< 800.0)
+        {
+         THoEX_bb_phi2_phi1Z_bbZ_1_CMS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(m2);
+         if(THoEX_bb_phi2_phi1Z_bbZ_1_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 220.0 && m3< 800.0)
+        {
+         THoEX_bb_phi3_phi1Z_bbZ_1_CMS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(m3);
+         if(THoEX_bb_phi3_phi1Z_bbZ_1_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2>= 800.0 && m2<2000.0)
+        {
+         THoEX_bb_phi2_phi1Z_bbZ_2_CMS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_2_CMS13(m2);
+         if(THoEX_bb_phi2_phi1Z_bbZ_2_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 800.0 && m3<2000.0)
+        {
+         THoEX_bb_phi3_phi1Z_bbZ_2_CMS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_2_CMS13(m3);
+         if(THoEX_bb_phi3_phi1Z_bbZ_2_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3>= 175.0 && m3<1000.0 && m2 >=50.0 && m2 <910.0)
+        {
+         THoEX_pp_phi3_phi2Z_bbll_1_CMS8=pp_phi3_phi2Z_bbll_TH8/ip_ex_pp_phii_phijZ_bbll_1_CMS8(m3,m2);
+         if(THoEX_pp_phi3_phi2Z_bbll_1_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         } //mA=m3, mH=m2
+    if(m2>= 175.0 && m2<1000.0 && m3 >=50.0 && m3 <910.0)
+        {
+         THoEX_pp_phi2_phi3Z_bbll_1_CMS8=pp_phi2_phi3Z_bbll_TH8/ip_ex_pp_phii_phijZ_bbll_1_CMS8(m2,m3);
+         if(THoEX_pp_phi2_phi3Z_bbll_1_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         } //mA=m3, mH=m2
+    if(m3>=  50.0 && m3<1000.0 && m2 >=50.0 && m2 <1000.0)
+        {
+         THoEX_pp_phi3_phi2Z_tautaull_1_CMS8=pp_phi3_phi2Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_1_CMS8(m3,m2);
+         if(THoEX_pp_phi3_phi2Z_tautaull_1_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         } //mA=m3, mH=m2
+    if(m2>=  50.0 && m2<1000.0 && m3 >=50.0 && m3 <1000.0)
+        {
+         THoEX_pp_phi2_phi3Z_tautaull_1_CMS8=pp_phi2_phi3Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_1_CMS8(m2,m3);
+         if(THoEX_pp_phi2_phi3Z_tautaull_1_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         } //mA=m3, mH=m2
+    if(m3>=  50.0 && m3<1000.0 && m2 >=50.0 && m2 <1000.0)
+        {
+         THoEX_pp_phi3_phi2Z_tautaull_2_CMS8=pp_phi3_phi2Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_2_CMS8(m2,m3);
+         if(THoEX_pp_phi2_phi3Z_tautaull_1_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         } //mA=m2, mH=m3
+    if(m2>=  50.0 && m2<1000.0 && m3 >=50.0 && m3 <1000.0)
+        {
+         THoEX_pp_phi2_phi3Z_tautaull_2_CMS8=pp_phi2_phi3Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_2_CMS8(m3,m2);
+         if(THoEX_pp_phi2_phi3Z_tautaull_2_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         } //mA=m2, mH=m3
+    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0)
+        {
+         THoEX_gg_phi3_phi2Z_bbZ_ATLAS13=gg_phi3_phi2Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2);
+         if(THoEX_gg_phi3_phi2Z_bbZ_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0)
+        {
+         THoEX_gg_phi2_phi3Z_bbZ_ATLAS13=gg_phi2_phi3Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m2,m3);
+         if(THoEX_gg_phi2_phi3Z_bbZ_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0)
+        {
+         THoEX_bb_phi3_phi2Z_bbZ_ATLAS13=bb_phi3_phi2Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m3,m2);
+         if(THoEX_bb_phi3_phi2Z_bbZ_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0)
+        {
+         THoEX_bb_phi2_phi3Z_bbZ_ATLAS13=bb_phi2_phi3Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m2,m3);
+         if(THoEX_bb_phi2_phi3Z_bbZ_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+
+
+
+    if(mHp>= 180.0 && mHp<1000.0)
+        {
+        THoEX_pp_Hpm_taunu_ATLAS8=pp_Hpm_taunu_TH8/ip_ex_pp_Hpm_taunu_ATLAS8(mHp);
+        if(THoEX_pp_Hpm_taunu_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(mHp>= 180.0 && mHp< 600.0)
+        {
+        THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mHp);
+        if(THoEX_pp_Hp_taunu_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(mHp>= 150.0 && mHp<2000.0)
+        {
+        THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mHp);
+        if(THoEX_pp_Hpm_taunu_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(mHp>= 180.0 && mHp<3000.0)
+        {
+        THoEX_pp_Hpm_taunu_CMS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_CMS13(mHp);
+        if(THoEX_pp_Hpm_taunu_CMS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(mHp>= 200.0 && mHp< 600.0)
+        {
+        THoEX_pp_Hpm_tb_ATLAS8=pp_Hpm_tb_TH8/ip_ex_pp_Hpm_tb_ATLAS8(mHp);
+        if(THoEX_pp_Hpm_tb_ATLAS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(mHp>= 180.0 && mHp< 600.0)
+        {
+        THoEX_pp_Hp_tb_CMS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
+        if(THoEX_pp_Hp_tb_CMS8 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
+    if(mHp>= 200.0 && mHp<2000.0)
+        {
+        THoEX_pp_Hpm_tb_ATLAS13=pp_Hpm_tb_TH13/ip_ex_pp_Hpm_tb_ATLAS13(mHp);
+        if(THoEX_pp_Hpm_tb_ATLAS13 >100) return std::numeric_limits<double>::quiet_NaN();
+         }
 
     return 0.;
 }
