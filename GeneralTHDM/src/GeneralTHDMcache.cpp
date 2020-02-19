@@ -8332,7 +8332,14 @@ double GeneralTHDMcache::updateCache()
     if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
                 return std::numeric_limits<double>::quiet_NaN();
     
+    //myGTHDM->getRelambda5();
+    double yu1R = myGTHDM->getyu1R();
+    double yd1R = myGTHDM->getyd1R();
+    double yl1R = myGTHDM->getyl1R();
 
+    if (yu1R*yu1R >4. ||  yd1R*yd1R >4. ||  yl1R*yl1R >4.) 
+                return std::numeric_limits<double>::quiet_NaN();
+  
         
     Q_GTHDM=myGTHDM->getQ_GTHDM();
     Ale=myGTHDM->getAle();

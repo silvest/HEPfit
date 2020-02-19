@@ -1102,13 +1102,17 @@ public:
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
             double R13 = -sinalpha2;
-            return (R11 + (R12 - i*R13)*(Nu_11r + i*Nu_11i).conjugate());
+            gslpp::complex yu1 = (R11 + (R12 - i*R13)*(Nu_11r + i*Nu_11i).conjugate());
+           // if(yu1.abs2() > 4.) return std::numeric_limits<double>::quiet_NaN();
+            return yu1;
             }
             else{
                 double R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
                 double R22 = cosalpha1*cosalpha3+sinalpha1*sinalpha2*sinalpha3;
                 double R23 = cosalpha2*sinalpha3;
-                return (R21 + (R22 - i*R23)*(Nu_11r + i*Nu_11i).conjugate());
+                gslpp::complex yu1 = (R21 + (R22 - i*R23)*(Nu_11r + i*Nu_11i).conjugate());
+               // if(yu1.abs2() > 4.) return std::numeric_limits<double>::quiet_NaN();
+                return yu1;
             }
          }
     }
@@ -1123,12 +1127,16 @@ public:
              if(flag_SM_Higgs){
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
-            return (R11 + R12*Nu_11r);
+            double yu1R = (R11 + R12*Nu_11r);
+          //  if(yu1R*yu1R > 4.) return std::numeric_limits<double>::quiet_NaN();
+            return yu1R;
              }
             else{
                 double R21 = - sinalpha1;
                 double R22 = cosalpha1;
-                return (R21 + R22*Nu_11r);
+                double yu1R =(R21 + R22*Nu_11r);
+            //    if(yu1R*yu1R > 4.) return std::numeric_limits<double>::quiet_NaN();
+                return yu1R;
             }
        }
     }    
@@ -1145,13 +1153,17 @@ public:
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
             double R13 = -sinalpha2;
-            return (R11 + (R12 - i*R13)*(Nd_11r + i*Nd_11i));
+            gslpp::complex yd1 = (R11 + (R12 - i*R13)*(Nd_11r + i*Nd_11i));
+          //  if(yd1.abs2() > 4.) return std::numeric_limits<double>::quiet_NaN();
+            return yd1;
             }
             else{
                 double R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
                 double R22 = cosalpha1*cosalpha3+sinalpha1*sinalpha2*sinalpha3;
-                double R23 = cosalpha2*sinalpha3;
-               return (R21 + (R22 - i*R23)*(Nd_11r + i*Nd_11i));
+                double R23 = cosalpha2*sinalpha3;   
+                gslpp::complex yd1 = (R21 + (R22 - i*R23)*(Nd_11r + i*Nd_11i));
+           //     if(yd1.abs2() > 4.) return std::numeric_limits<double>::quiet_NaN();
+                 return yd1;
             }
             }
          }
@@ -1166,12 +1178,16 @@ public:
             if(flag_SM_Higgs){
             double R11 = cosalpha1*cosalpha2;
             double R12 = sinalpha1*cosalpha2;
-            return (R11 + R12*Nd_11r);
+            double yd1R = (R11 + R12*Nd_11r);
+           // if(yd1R*yd1R > 4.) return std::numeric_limits<double>::quiet_NaN();
+            return yd1R;
                  }
             else{
                 double R21 = - sinalpha1;
                 double R22 = cosalpha1;
-                return (R21 + R22*Nd_11r);
+                double yd1R = (R21 + R22*Nd_11r);
+            //    if(yd1R*yd1R > 4.) return std::numeric_limits<double>::quiet_NaN();
+                return yd1R;
                  }
          }
     }
@@ -1187,13 +1203,18 @@ public:
              double R11 = cosalpha1*cosalpha2;
              double R12 = sinalpha1*cosalpha2;
              double R13 = -sinalpha2;
-                return (R11 + (R12 - i*R13)*(Nl_11r + i*Nl_11i)); 
+             gslpp::complex yl1 = (R11 + (R12 - i*R13)*(Nl_11r + i*Nl_11i)); 
+           // if(yl1.abs2() > 4.) return std::numeric_limits<double>::quiet_NaN();
+            return yl1;
+             
             }
             else{
                 double R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
                 double R22 = cosalpha1*cosalpha3+sinalpha1*sinalpha2*sinalpha3;
                 double R23 = cosalpha2*sinalpha3;
-               return (R21 + (R22 - i*R23)*(Nl_11r + i*Nl_11i)); 
+                gslpp::complex yl1 = (R21 + (R22 - i*R23)*(Nl_11r + i*Nl_11i)); 
+            //     if(yl1.abs2() > 4.) return std::numeric_limits<double>::quiet_NaN();
+                 return yl1;
             }
          }
     }
@@ -1207,13 +1228,18 @@ public:
          {
            if(flag_SM_Higgs){
             double R11 = cosalpha1*cosalpha2;
-            double R12 = sinalpha1*cosalpha2;
-            return (R11 + R12*Nl_11r);
+            double R12 = sinalpha1*cosalpha2;            
+            double yl1R = (R11 + R12*Nl_11r);
+            //if(yl1R*yl1R > 4.) return std::numeric_limits<double>::quiet_NaN();
+            return yl1R;
+            
            }
            else{
              double R21 = - sinalpha1;
              double R22 = cosalpha1;   
-             return (R21 + R22*Nl_11r);
+             double yl1R = (R21 + R22*Nl_11r);
+            //if(yl1R*yl1R > 4.) return std::numeric_limits<double>::quiet_NaN();
+            return yl1R;  
            }
          }
     }
