@@ -135,8 +135,8 @@ void StandardModelMatching::updateSMParameters()
 //    sW2 = (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw ); // WARNING: only for 
     Vckm = SM.getVCKM();
     lam_t = SM.getCKM().computelamt();
-    L = 2*log(Muw/Mw);
-    Lz = 2*log(Muw/SM.getMz());
+    L = 2.*log(Muw/Mw);
+    Lz = 2.*log(Muw/SM.getMz());
     mu_b = SM.getMub();
 }
 
@@ -153,14 +153,13 @@ double StandardModelMatching::x_t(const double mu, const orders order) const
     
     if(mu == Mut)
         mt = Mt_mut;
-    else if (mu == Mw)
+    else if (mu == Muw)
         mt = Mt_muw;
     else
         mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
 
     //msbar mass here?
-    //mt=163.836;
     return mt*mt/Mw/Mw;   
 }
 
@@ -632,18 +631,26 @@ double StandardModelMatching::E0b(double x) const
             (x2 * (15. - 16. * x +4. * x2))/(6.*pow(1.-x,4.)) *log(x) );
 }
 
-//Loop functions for QED corrections
+/******************************************************************************
+ * Loop functions for QED corrections                                         *
+ ******************************************************************************/
+
 double StandardModelMatching::B1d(double x, double mu) const
 {
     double xmo = x - 1.;
     double dilog1mx = gslpp_special_functions::dilog(1.-x);
-    double xmuw = mu*mu/Mw/Mw;
     double mut = SM.getQuarks(QCD::TOP).getMass_scale();
     double xmut = mut*mut/Mw/Mw;
+    double logxw;
+    
+    if(mu == Muw)
+        logxw = L;
+    else
+        logxw = 2.*log(mu/Mw);
 
     return (-(8.-183.*x+47.*x*x)/24./xmo/xmo - (8.+27.*x+93.*x*x)/24./xmo/xmo/xmo*log(x) +
             (27.*x+71.*x*x-2.*x*x*x)/24./xmo/xmo/xmo*log(x)*log(x) - (2.-3.*x-9.*x*x+x*x*x)/6./x/xmo/xmo*dilog1mx +
-            (2.+x)/36./x*M_PI*M_PI + 19./6.*B0b(x) - B0b(x)*log(xmuw) + 4.*x/xmo/xmo*log(xmut) -
+            (2.+x)/36./x*M_PI*M_PI + B0b(x)*(19./6.-logxw) + 4.*x/xmo/xmo*log(xmut) -
             (2.*x+2.*x*x)/xmo/xmo/xmo*log(x)*log(xmut));
 }
 
@@ -651,33 +658,48 @@ double StandardModelMatching::B1d_tilde(double x, double mu) const
 {
     double xmo = x - 1.;
     double dilog1mx = gslpp_special_functions::dilog(1.-x);
-    double xmuw = mu*mu/Mw/Mw;
+    double logxw;
     
-    return ((-8.-23.*x)/8./xmo - (8.-5.*x)/8./xmo/xmo*log(x) + (3.*x+2.*x*x)/8./xmo/xmo*log(x)*log(x) +
-            (2.-3.*x+3.*x*x+x*x*x)/2./x/xmo/xmo*dilog1mx - (2.+x)/12./x*M_PI*M_PI + 5./2.*B0b(x) +
-            3.*B0b(x)*log(xmuw));
+    if(mu == Muw)
+        logxw = L;
+    else
+        logxw = 2.*log(mu/Mw);
+    
+    return (-(8.-23.*x)/8./xmo - (8.-5.*x)/8./xmo/xmo*log(x) + (3.*x+2.*x*x)/8./xmo/xmo*log(x)*log(x) +
+            (2.-3.*x+3.*x*x+x*x*x)/2./x/xmo/xmo*dilog1mx - (2.+x)/12./x*M_PI*M_PI + B0b(x)*(5./2.+3.*logxw));
 }
 
 double StandardModelMatching::B1u(double x, double mu) const
 {
     double xmo = x - 1.;
     double dilog1mx = gslpp_special_functions::dilog(1.-x);
-    double xmuw = mu*mu/Mw/Mw;
     double mut = SM.getQuarks(QCD::TOP).getMass_scale();
     double xmut = mut*mut/Mw/Mw;
+    double logxw;
+    
+    if(mu == Muw)
+        logxw = L;
+    else
+        logxw = 2.*log(mu/Mw);
 
     return (-(46.*x+18.*x*x)/3./xmo/xmo - (16.*x-80.*x*x)/3./xmo/xmo/xmo*log(x) -
-            (9.*x+23.*x*x)/2./xmo/xmo/xmo*log(x)*log(x) - 6.*x/xmo/xmo*dilog1mx - 38./3.*B0b(x) +
-            4.*B0b(x)*log(xmuw) - 16.*x/xmo/xmo*log(xmut) + (8.*x+8.*x*x)/xmo/xmo/xmo*log(x)*log(xmut));
+            (9.*x+23.*x*x)/2./xmo/xmo/xmo*log(x)*log(x) - 6.*x/xmo/xmo*dilog1mx +
+            B0b(x)*(-38./3.+4.*logxw) - 16.*x/xmo/xmo*log(xmut) + (8.*x+8.*x*x)/xmo/xmo/xmo*log(x)*log(xmut));
 }
 
 double StandardModelMatching::B1u_tilde(double x, double mu) const
 {
     double xmo = x - 1.;
     double logx = log(x);
-    double dilogomx = gslpp_special_functions::dilog(1. - x);
+    double dilog1mx = gslpp_special_functions::dilog(1. - x);
+    double logxw;
     
-    return (-6.*x/xmo - 3.*x*logx*logx/2./xmo/xmo - 6.*x*dilogomx - B0b(x)*(10. + 12.*L));
+    if(mu == Muw)
+        logxw = L;
+    else
+        logxw = 2.*log(mu/Mw);
+    
+    return (-6.*x/xmo - 3.*x*logx*logx/2./xmo/xmo - 6.*x*dilog1mx/xmo/xmo - B0b(x)*(10. + 12.*logxw));
 }
 
 double StandardModelMatching::C1ew(double x) const
@@ -689,7 +711,7 @@ double StandardModelMatching::C1ew(double x) const
     
     return ((29.*x+7.*x*x+4.*x*x*x)/3./xmo/xmo + (x-35.*x*x-3.*x*x*x-3.*x*x*x*x)/3./xmo/xmo/xmo*log(x) +
             (20.*x*x-x*x*x+x*x*x*x)/2./xmo/xmo/xmo*log(x)*log(x) + (4.*x+x*x*x)/xmo/xmo*dilog1mx +
-            (8.*x+x*x+x*x*x)/xmo/xmo*log(xmut) + (2.*x+8.*x*x)/xmo/xmo/xmo*log(x)*log(xmut));
+            (8.*x+x*x+x*x*x)/xmo/xmo*log(xmut) - (2.*x+8.*x*x)/xmo/xmo/xmo*log(x)*log(xmut));
 }
 
 double StandardModelMatching::Zew(double xt, double xz) const
@@ -3015,7 +3037,7 @@ double StandardModelMatching::Delta_t(double mu, double x) // from hep-ph/970724
 WilsonCoefficientNew& StandardModelMatching::mc_L() {
 //    double sW2 = (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw() ); // ******* FOR TEST *********
     double xt = x_t(Muw);
-    double xht = SM.getMHl() * SM.getMHl() / Mt_muw / Mt_muw;
+//    double xht = SM.getMHl() * SM.getMHl() / Mt_muw / Mt_muw;
 
     
     switch (mcL.getScheme()) {
