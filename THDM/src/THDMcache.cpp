@@ -1634,7 +1634,7 @@ void THDMcache::read(){
 
 //    std::cout << "HEPFITTABS = " << getenv("HEPFITPATH") << std::endl;
     std::stringstream path;
-    path << getenv("HEPFITTABS") << "/THDM/tabs/";
+    path << getenv("HEPFITTABS") << "/THDM/tabs/"; // IMPORTANT: If this line is changed please report it to the person in charge of packaging the code. Otherwise you will break the pacakging.
     std::string tablepath=path.str();
 
     br1 << tablepath << "br1.dat";
