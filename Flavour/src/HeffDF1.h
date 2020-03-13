@@ -38,7 +38,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    Expanded<gslpp::vector<gslpp::complex> > ComputeCoeff(double mu, schemes scheme = NDR);
+    virtual Expanded<gslpp::vector<gslpp::complex> > ComputeCoeff(double mu, schemes scheme = NDR);
 
     /**
      * 
@@ -63,11 +63,13 @@ public:
     const StandardModel& GetModel() const {
         return model;
     }
+    
+protected:
+    WilsonCoefficientNew coeff;
 
 private:
     const StandardModel& model;
 
-    WilsonCoefficientNew coeff;
     EvolDF1 evolDF1;
 
     std::string blocks;
@@ -76,6 +78,35 @@ private:
     schemes scheme_cache;
     std::vector<double> Vmu_cache;
     std::vector<WilsonCoefficientNew> WC_cache;
+};
+
+
+class HeffDF1_NP : public HeffDF1 {
+public:
+    /**
+     * @brief constructor
+     * @param SM
+     * @param modelmatching
+     */
+    HeffDF1_NP(std::string blocks, const StandardModel & SM, qcd_orders order_qcd, qed_orders order_qed);
+
+    /**
+     * 
+     * @brief destructor
+     */
+    virtual ~HeffDF1_NP() {
+    };
+    
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
+     * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
+     */
+    Expanded<gslpp::vector<gslpp::complex> > ComputeCoeff(double mu, schemes scheme = NDR);
+    
+private:
+    gslpp::vector<gslpp::complex> coeffNP;
 };
 
 #endif /* HEFFDF1_H */

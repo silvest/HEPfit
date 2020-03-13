@@ -11,8 +11,8 @@
 extern std::map<std::string, unsigned int> blocks_nops;
 
 HeffDF1::HeffDF1(std::string blocks, const StandardModel & SM, qcd_orders order_qcd, qed_orders order_qed)
-: model(SM),
-coeff(blocks_nops.at(blocks), NDR, order_qcd, order_qed),
+: coeff(blocks_nops.at(blocks), NDR, order_qcd, order_qed),
+model(SM),
 evolDF1(blocks, NDR, SM, order_qcd, order_qed)
 {
     this->blocks = blocks;
@@ -135,5 +135,28 @@ Expanded<gslpp::vector<gslpp::complex> > HeffDF1::ComputeCoeff(double mu, scheme
         coeff.setCoeff(coeff.getCoeff() + evolDF1.DF1Evol(mu, mc[i].getMu(), mc[i].getScheme()) * mc[i].getCoeff()); // multiple matching scales wrong for EW corrections *** TO BE FIXED 
     }
 
+    return coeff.getCoeff();
+}
+
+
+/*****************************************
+ * New Physics DF1 Effective Hamiltonian *
+ *****************************************/
+
+HeffDF1_NP::HeffDF1_NP(std::string blocks, const StandardModel & SM, qcd_orders order_qcd, qed_orders order_qed)
+: HeffDF1(blocks, SM, order_qcd, order_qed),
+  coeffNP(blocks_nops.at(blocks), 0.)
+{   
+    coeffNP.assign(6, -1.);
+    coeffNP.assign(8,  1.);
+    coeffNP.assign(9, -1.);
+}
+
+Expanded<gslpp::vector<gslpp::complex> > HeffDF1_NP::ComputeCoeff(double mu, schemes scheme)
+{
+    HeffDF1::ComputeCoeff(mu);
+       
+    coeff.setCoeff(coeff.getCoeff(QCD0, QED0) + coeffNP, QCD0, QED0);
+    
     return coeff.getCoeff();
 }
