@@ -1517,7 +1517,7 @@ gslpp::complex StandardModel::kappaZ_f(const Particle f) const
 //  Choose the correct formulae for the effective angle        
         if ( f.is("BOTTOM") ){
             ReKappaZf = myApproximateFormulae->sin2thetaEff_b_full() / sW2();            
-        } else if ( f.is("ELECTRON") || f.is("MUON") || f.is("TAU") ) {
+        } else if ( f.is("ELECTRON") || f.is("MU") || f.is("TAU") ) {
             ReKappaZf = myApproximateFormulae->sin2thetaEff_l_full() / sW2();             
         } else {
             ReKappaZf = myApproximateFormulae->sin2thetaEff(f) / sW2();
