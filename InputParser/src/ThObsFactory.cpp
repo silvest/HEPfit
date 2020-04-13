@@ -71,7 +71,9 @@ ThObsFactory::ThObsFactory()
     const double sqrt_s_LEP2_200 = 0.1995; ///< the center-of-mass energy in TeV
     const double sqrt_s_LEP2_202 = 0.2016; ///< the center-of-mass energy in TeV
     const double sqrt_s_LEP2_205 = 0.2049; ///< the center-of-mass energy in TeV
+    const double sqrt_s_LEP2_206 = 0.2059; ///< the center-of-mass energy in TeV
     const double sqrt_s_LEP2_207 = 0.2066; ///< the center-of-mass energy in TeV
+    const double sqrt_s_LEP2_208 = 0.208; ///< the center-of-mass energy in TeV
     //
     const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_LHC8 = 8.0; ///< the center-of-mass energy in TeV
@@ -167,7 +169,19 @@ ThObsFactory::ThObsFactory()
     obsThFactory["eeWW_LEP2_200"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_200);
     obsThFactory["eeWW_LEP2_202"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_202);
     obsThFactory["eeWW_LEP2_205"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["eeWW_LEP2_206"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_206);
     obsThFactory["eeWW_LEP2_207"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["eeWW_LEP2_208"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_208);
+    // Similar observables, defined only for the d 6 SMEFT, from arXiv: 1606.06693 [hep-ph].
+    obsThFactory["eeWWtot_LEP2_189"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_189);
+    obsThFactory["eeWWtot_LEP2_192"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_192);
+    obsThFactory["eeWWtot_LEP2_196"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_196);
+    obsThFactory["eeWWtot_LEP2_200"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_200);
+    obsThFactory["eeWWtot_LEP2_202"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_202);
+    obsThFactory["eeWWtot_LEP2_205"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["eeWWtot_LEP2_206"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_206);
+    obsThFactory["eeWWtot_LEP2_207"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["eeWWtot_LEP2_208"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_208);
     //-----  ee -> WW observables: LEP2 differential cross section  -----
     obsThFactory["deeWWdcos_LEP2_183_Bin1"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos1_LEP2_WW, cos2_LEP2_WW);
     obsThFactory["deeWWdcos_LEP2_183_Bin2"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos2_LEP2_WW, cos3_LEP2_WW);
@@ -212,6 +226,16 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deeWWdcos_LEP2_206_Bin8"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos8_LEP2_WW, cos9_LEP2_WW);
     obsThFactory["deeWWdcos_LEP2_206_Bin9"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos9_LEP2_WW, cos10_LEP2_WW);
     obsThFactory["deeWWdcos_LEP2_206_Bin10"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos10_LEP2_WW, cos11_LEP2_WW);
+    // Similar observables, defined only for the d 6 SMEFT, from arXiv: 1606.06693 [hep-ph].
+    obsThFactory["deeWW_LEP2_183_Bin1"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_183, 1);
+    obsThFactory["deeWW_LEP2_183_Bin2"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_183, 2);
+    obsThFactory["deeWW_LEP2_183_Bin3"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_183, 3);
+    obsThFactory["deeWW_LEP2_183_Bin4"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_183, 4);    
+    //
+    obsThFactory["deeWW_LEP2_206_Bin1"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 1);
+    obsThFactory["deeWW_LEP2_206_Bin2"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 2);
+    obsThFactory["deeWW_LEP2_206_Bin3"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 3);
+    obsThFactory["deeWW_LEP2_206_Bin4"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 4);
     //-----  ee -> WW observables: Future colliders differential cross section  -----
     obsThFactory["deeWWdcos_161_Bin1"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_161, cos1_ee_WW, cos2_ee_WW);
     obsThFactory["deeWWdcos_161_Bin2"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_161, cos2_ee_WW, cos3_ee_WW);

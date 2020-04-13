@@ -1926,6 +1926,44 @@ public:
     }
     
     ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to 4f @f$, 
+     * with @f$ 4f = 0 (jjjj), 1 (e v jj), 2 (mu v jj), 3 (tau v jj),
+     * 4 (e v e v), 5 (mu v mu v), 6 (tau v tau v),
+     * 7 (e v mu v), 8 (e v tau v), 9 (mu v tau v), 10 (l v jj), 11 (l v l v) @f$
+     * the different fermion final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$sigma@f$ [pb]
+     */
+    virtual double xseeWW4fLEP2(const double sqrt_s, const int fstate) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The total cross section in pb for @f$e^+ e^- \to W^+ W^-@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$sigma@f$ [pb]
+     */
+    virtual double xseeWWtotLEP2(const double sqrt_s) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The differential cross section in pb for @f$e^+ e^- \to W^+ W^- \to lv jj @f$, 
+     * with @f$ l= e,\mu @f$ for the 4 @f$ cos{\theta}@f$ bins defined in arXiv: 1606.06693 [hep-ph].
+     * for the C.O.M. energies of 182.6 and 205.9 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$d\sigma/d\cos{\theta}@f$ [pb]
+     */
+    virtual double dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
+    {
+        return 0.0;
+    }
+    
     /**
      * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
      * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.

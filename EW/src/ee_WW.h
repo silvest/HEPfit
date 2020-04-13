@@ -57,7 +57,7 @@ private:
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the integral of the differential cross section
- * for @f$e^+ e^- \to W^+ W^-@f$ in a given @f$\cos{\theta}@f$ bin..
+ * for @f$e^+ e^- \to W^+ W^-@f$ in a given @f$\cos{\theta}@f$ bin.
  */
 class dxseeWWdcosBin : public ThObservable {
 public:
@@ -88,6 +88,89 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s;
     const double cos1, cos2;
+};
+
+
+/**
+ * @class xseeWWtot
+ * @brief A class for computing the total cross section @f$e^+ e^- \to W^+ W^-@f$
+ * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the cross section @f$e^+ e^- \to W^+ W^-@f$.
+ */
+class xseeWWtot : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     */
+    xseeWWtot(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("xseeWWtot called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of the cross section @f$e^+ e^- \to W^+ W^-@f$ in the current model.
+     * @return @f$\sigma(e^+ e^- \to W^+ W^-)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->xseeWWtotLEP2(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+
+
+/**
+ * @class dxseeWWLEP2Bin
+ * @brief A class for computing the differential cross section 
+ * for @f$e^+ e^- \to W^+ W^- \to l v jj@f$, with @f$ l= e,\mu @f$,
+ * for the 4 @f$ cos{\theta}@f$ bins defined in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the integral of the differential cross section
+ * for @f$e^+ e^- \to W^+ W^- \to l v jj@f$ in a given @f$\cos{\theta}@f$ bin.
+ */
+class dxseeWWLEP2Bin : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     * @param[in] bin_i the bin nnumber: 1-4
+     */
+    dxseeWWLEP2Bin(const StandardModel& SM_i, const double sqrt_s_i, const int bin_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i), bin(bin_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("dxseeWWLEP2Bin called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the integral of the differential cross section 
+     * for @f$e^+ e^- \to W^+ W^-@f$ in a given @f$\cos{\theta}@f$ bin in the current model.
+     * @return @f$\int_{bin_i} d\sigma(e^+ e^- \to W^+ W^-)/d\cos{\theta}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->dxsdcoseeWWlvjjLEP2(sqrt_s, bin);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    const int bin;
 };
 
 #endif	/* EEWW_H */

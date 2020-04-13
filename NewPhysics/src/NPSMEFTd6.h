@@ -888,7 +888,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 506;
+    static const int NNPSMEFTd6Vars = 507;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -906,7 +906,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 260;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 261;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -3799,6 +3799,35 @@ public:
     virtual double deltaKgammaNPEff() const;
     
     ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to 4f @f$, 
+     * with @f$ 4f = 0 (jjjj), 1 (e v jj), 2 (mu v jj), 3 (tau v jj),
+     * 4 (e v e v), 5 (mu v mu v), 6 (tau v tau v),
+     * 7 (e v mu v), 8 (e v tau v), 9 (mu v tau v), 10 (l v jj), 11 (l v l v) @f$
+     * the different fermion final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph].
+     * @return @f$sigma@f$ [pb]
+     */
+    virtual double xseeWW4fLEP2(const double sqrt_s, const int fstate) const;
+    
+    /**
+     * @brief The total cross section in pb for @f$e^+ e^- \to W^+ W^-@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph].
+     * @return @f$sigma@f$ [pb]
+     */
+    virtual double xseeWWtotLEP2(const double sqrt_s) const;
+    
+    /**
+     * @brief The differential cross section in pb for @f$e^+ e^- \to W^+ W^- \to lv jj @f$, 
+     * with @f$ l= e,\mu @f$ for the 4 @f$ cos{\theta}@f$ bins defined in arXiv: 1606.06693 [hep-ph].
+     * for the C.O.M. energies of 182.6 and 205.9 GeV.
+     * From arXiv: 1606.06693 [hep-ph].
+     * @return @f$d\sigma/d\cos{\theta}@f$ [pb]
+     */
+    virtual double dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const;
+    
     /**
      * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
      * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.
@@ -4780,6 +4809,9 @@ protected:
     double eHccpar; ///< Parametric relative theoretical error in \f$H \to c\bar{c}\f$.
     double eHbbint; ///< Intrinsic relative theoretical error in \f$H \to b\bar{b}\f$.
     double eHbbpar; ///< Parametric relative theoretical error in \f$H \to b\bar{b}\f$.
+    
+//  Intrinsic errors in \f$ee \to WW\f$ observables
+    double eeeWWint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to W^+ W^^\f$.
     
     double eggFHgaga,eggFHZga,eggFHZZ,eggFHWW,eggFHtautau,eggFHbb,eggFHmumu; ///< Total relative theoretical error in \f$gg \to H \to X\f$.   
     double eVBFHgaga,eVBFHZga,eVBFHZZ,eVBFHWW,eVBFHtautau,eVBFHbb,eVBFHmumu; ///< Total relative theoretical error in \f$pp \to Hjj (VBF) \to X jj\f$.   
