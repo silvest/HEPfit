@@ -5073,6 +5073,8 @@ protected:
     // Cache variables
     double dGammaHTotR1,dGammaHTotR2,GammaHTotR;///< NP contributions and Total to Higgs width ratio with SM
     
+    double delta_GF;///< The dimension 6 correction to the Fermi constant, as extracted from muon decay
+    
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(1)}\f$ corresponding to particle F.
      * @param[in] F a lepton or quark

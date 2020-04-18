@@ -92,6 +92,120 @@ private:
 
 
 /**
+ * @class xseeWWlept
+ * @brief A class for computing the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$
+ * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$.
+ */
+class xseeWWlept : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     */
+    xseeWWlept(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("xseeWWlept called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$ in the current model.
+     * @return @f$\sigma(e^+ e^- \to W^+ W^-\to \ell \nu \ell \nu)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->xseeWWleptLEP2(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class xseeWWsemil
+ * @brief A class for computing the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu j j @f$
+ * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the cross section @f$e^+ e^- \to W^+ W^-\to \ell \nu j j @f$.
+ */
+class xseeWWsemil : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     */
+    xseeWWsemil(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("xseeWWsemil called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of the cross section @f$e^+ e^- \to W^+ W^-\to \ell \nu j j @f$ in the current model.
+     * @return @f$\sigma(e^+ e^- \to W^+ W^-\to \ell \nu j j )@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->xseeWWsemilLEP2(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class xseeWWhad
+ * @brief A class for computing the cross section @f$e^+ e^- \to W^+ W^- \to j j j j@f$
+ * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the cross section @f$e^+ e^- \to W^+ W^- \to j j j j@f$.
+ */
+class xseeWWhad : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     */
+    xseeWWhad(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("xseeWWhad called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of the cross section @f$e^+ e^- \to W^+ W^- \to j j j j@f$ in the current model.
+     * @return @f$\sigma(e^+ e^- \to W^+ W^- \to j j j j)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->xseeWWhadLEP2(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
  * @class xseeWWtot
  * @brief A class for computing the total cross section @f$e^+ e^- \to W^+ W^-@f$
  * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].

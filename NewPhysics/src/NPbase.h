@@ -1940,6 +1940,39 @@ public:
     {
         return 0.0;
     }
+
+    /**
+     * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$sigma@f$ [pb]
+     */
+    virtual double xseeWWleptLEP2(const double sqrt_s) const
+    {
+        return xseeWW4fLEP2(sqrt_s, 11);
+    }
+    
+    /**
+     * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to \ell \nu j j@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$sigma@f$ [pb]
+     */
+    virtual double xseeWWsemilLEP2(const double sqrt_s) const
+    {
+        return xseeWW4fLEP2(sqrt_s, 10);
+    }    
+    
+    /**
+     * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to j j j j@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$sigma@f$ [pb]
+     */
+    virtual double xseeWWhadLEP2(const double sqrt_s) const
+    {
+        return xseeWW4fLEP2(sqrt_s, 0);
+    }
     
     /**
      * @brief The total cross section in pb for @f$e^+ e^- \to W^+ W^-@f$, 

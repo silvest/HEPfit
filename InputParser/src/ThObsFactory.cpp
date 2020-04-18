@@ -173,6 +173,36 @@ ThObsFactory::ThObsFactory()
     obsThFactory["eeWW_LEP2_207"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_207);
     obsThFactory["eeWW_LEP2_208"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_208);
     // Similar observables, defined only for the d 6 SMEFT, from arXiv: 1606.06693 [hep-ph].
+    obsThFactory["eeWWlept_LEP2_189"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_189);
+    obsThFactory["eeWWlept_LEP2_192"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_192);
+    obsThFactory["eeWWlept_LEP2_196"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_196);
+    obsThFactory["eeWWlept_LEP2_200"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_200);
+    obsThFactory["eeWWlept_LEP2_202"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_202);
+    obsThFactory["eeWWlept_LEP2_205"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["eeWWlept_LEP2_206"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_206);
+    obsThFactory["eeWWlept_LEP2_207"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["eeWWlept_LEP2_208"] = boost::bind(boost::factory<xseeWWlept*>(), _1, sqrt_s_LEP2_208);
+    //
+    obsThFactory["eeWWsemil_LEP2_189"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_189);
+    obsThFactory["eeWWsemil_LEP2_192"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_192);
+    obsThFactory["eeWWsemil_LEP2_196"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_196);
+    obsThFactory["eeWWsemil_LEP2_200"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_200);
+    obsThFactory["eeWWsemil_LEP2_202"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_202);
+    obsThFactory["eeWWsemil_LEP2_205"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["eeWWsemil_LEP2_206"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_206);
+    obsThFactory["eeWWsemil_LEP2_207"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["eeWWsemil_LEP2_208"] = boost::bind(boost::factory<xseeWWsemil*>(), _1, sqrt_s_LEP2_208);
+    //
+    obsThFactory["eeWWhad_LEP2_189"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_189);
+    obsThFactory["eeWWhad_LEP2_192"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_192);
+    obsThFactory["eeWWhad_LEP2_196"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_196);
+    obsThFactory["eeWWhad_LEP2_200"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_200);
+    obsThFactory["eeWWhad_LEP2_202"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_202);
+    obsThFactory["eeWWhad_LEP2_205"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["eeWWhad_LEP2_206"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_206);
+    obsThFactory["eeWWhad_LEP2_207"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["eeWWhad_LEP2_208"] = boost::bind(boost::factory<xseeWWhad*>(), _1, sqrt_s_LEP2_208);
+    //
     obsThFactory["eeWWtot_LEP2_189"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_189);
     obsThFactory["eeWWtot_LEP2_192"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_192);
     obsThFactory["eeWWtot_LEP2_196"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_196);
