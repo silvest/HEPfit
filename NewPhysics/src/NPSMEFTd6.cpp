@@ -13914,7 +13914,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     double xslvjjSM[8] = {7.14, 7.26, 7.38, 7.44, 7.47, 7.50, 7.50, 7.50}; // All leptons. Divide by 3 for each
     double xslvlvSM[8] = {1.72, 1.76, 1.79, 1.80, 1.81, 1.82, 1.82, 1.82}; // All leptons. Divide by 6 for each
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
     
     double gVZeeSM, gAZeeSM;
     
@@ -13926,7 +13926,11 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     
     dGF = delta_GF / sqrt(2.0);
     
-    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2 ;  
+    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2;
+    
+    dmW2 = - deltaMwd62(); //There is a minus sign between refs. definition of dmW2 and ours
+    
+    dGW = deltaGwd6();
     
     dsW2 = -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
@@ -14076,8 +14080,8 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     if (sqrt_s == 0.1886) {
 
         xspb += xspbSM[0] + norm4f *(
-                + 2.6 * deltaMwd62()
-                - 17.0 * deltaGwd6()
+                + 2.6 * dmW2
+                - 17.0 * dGW
                 + 72.0 * dgWve
                 + 34.0 * dgWpm1
                 + 34.0 * dgWpm2
@@ -14101,8 +14105,8 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     } else if (sqrt_s == 0.1916) {
 
         xspb += xspbSM[1]+ norm4f *(
-                + 1.6 * deltaMwd62()
-                - 17.0 * deltaGwd6()
+                + 1.6 * dmW2
+                - 17.0 * dGW
                 + 73.0 * dgWve
                 + 34.0 * dgWpm1
                 + 34.0 * dgWpm2                
@@ -14126,8 +14130,8 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     } else if (sqrt_s == 0.1955) {
 
         xspb += xspbSM[2]+ norm4f *(
-                + 0.26 * deltaMwd62()
-                - 17.0 * deltaGwd6()
+                + 0.26 * dmW2
+                - 17.0 * dGW
                 + 74.0 * dgWve
                 + 34.0 * dgWpm1
                 + 34.0 * dgWpm2                
@@ -14151,8 +14155,8 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     } else if (sqrt_s == 0.1995) {
 
         xspb += xspbSM[3]+ norm4f *(
-                - 0.54 * deltaMwd62()
-                - 17.0 * deltaGwd6()
+                - 0.54 * dmW2
+                - 17.0 * dGW
                 + 75.0 * dgWve
                 + 34.0 * dgWpm1
                 + 34.0 * dgWpm2                
@@ -14176,8 +14180,8 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     } else if (sqrt_s == 0.2016) {
 
         xspb += xspbSM[4]+ norm4f *(
-                - 0.97 * deltaMwd62()
-                - 17.0 * deltaGwd6()
+                - 0.97 * dmW2
+                - 17.0 * dGW
                 + 75.0 * dgWve
                 + 34.0 * dgWpm1
                 + 34.0 * dgWpm2                
@@ -14201,8 +14205,8 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     } else if (sqrt_s == 0.2049) {
 
         xspb += xspbSM[5]+ norm4f *(
-                - 1.4 * deltaMwd62()
-                - 17.0 * deltaGwd6()
+                - 1.4 * dmW2
+                - 17.0 * dGW
                 + 75.0 * dgWve
                 + 34.0 * dgWpm1
                 + 34.0 * dgWpm2                
@@ -14226,8 +14230,8 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     } else if (sqrt_s == 0.2066) {
 
         xspb += xspbSM[6]+ norm4f *(
-                - 1.8 * deltaMwd62()
-                - 17.0 * deltaGwd6()
+                - 1.8 * dmW2
+                - 17.0 * dGW
                 + 76.0 * dgWve
                 + 34.0 * dgWpm1
                 + 34.0 * dgWpm2                
@@ -14251,8 +14255,8 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     } else if (sqrt_s == 0.208) {
 
         xspb += xspbSM[7]+ norm4f *(
-                - 2.0 * deltaMwd62()
-                - 17.0 * deltaGwd6()
+                - 2.0 * dmW2
+                - 17.0 * dGW
                 + 76.0 * dgWve
                 + 34.0 * dgWpm1
                 + 34.0 * dgWpm2                
@@ -14302,7 +14306,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
     double xslvjjSM206[4] = {0.52, 0.98, 2.92, 7.80};
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
     
     double gVZeeSM, gAZeeSM;
     
@@ -14312,7 +14316,11 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     
     dGF = delta_GF / sqrt(2.0);
     
-    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2 ;  
+    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2;
+    
+    dmW2 = - deltaMwd62(); //There is a minus sign between refs. definition of dmW2 and ours
+    
+    dGW = deltaGwd6();
     
     dsW2 = -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
@@ -14355,8 +14363,8 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 1        
                 xspbSM = xslvjjSM183[0];
                 xspb += xspbSM
-                -1.6 * deltaMwd62()
-                -1.5 * deltaGwd6()
+                -1.6 * dmW2
+                -1.5 * dGW
                 +12.0 * dgWve
                 +2.9 * dgWpm1
                 +2.9 * dgWpm2                
@@ -14374,8 +14382,8 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 2   
                 xspbSM = xslvjjSM183[1];                
                 xspb += xspbSM
-                -1.5 * deltaMwd62()
-                -2.8 * deltaGwd6()
+                -1.5 * dmW2
+                -2.8 * dGW
                 +16.0 * dgWve
                 +5.5 * dgWpm1
                 +5.5 * dgWpm2                
@@ -14393,8 +14401,8 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 3      
                 xspbSM = xslvjjSM183[2];                
                 xspb += xspbSM
-                +0.16 * deltaMwd62()
-                -5.3 * deltaGwd6()
+                +0.16 * dmW2
+                -5.3 * dGW
                 +22.0 * dgWve
                 +10.0 * dgWpm1
                 +10.0 * dgWpm2                
@@ -14412,8 +14420,8 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 4        
                 xspbSM = xslvjjSM183[3];                
                 xspb += xspbSM
-                +18.0 * deltaMwd62()
-                -14.0 * deltaGwd6()
+                +18.0 * dmW2
+                -14.0 * dGW
                 +39.0  * dgWve
                 +27.0  * dgWpm1
                 +27.0  * dgWpm2                
@@ -14441,8 +14449,8 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 1        
                 xspbSM = xslvjjSM206[0];                
                 xspb += xspbSM
-                -1.1 * deltaMwd62()
-                -0.9 * deltaGwd6()
+                -1.1 * dmW2
+                -0.9 * dGW
                 +11.0 * dgWve
                 +1.8 * dgWpm1
                 +1.8 * dgWpm2                
@@ -14460,8 +14468,8 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 2        
                 xspbSM = xslvjjSM206[1];                
                 xspb += xspbSM
-                -1.7 * deltaMwd62()
-                -2.1 * deltaGwd6()
+                -1.7 * dmW2
+                -2.1 * dGW
                 +15.0  * dgWve
                 +4.1 * dgWpm1
                 +4.1 * dgWpm2                
@@ -14479,8 +14487,8 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 3        
                 xspbSM = xslvjjSM206[2];                
                 xspb += xspbSM
-                -2.3 * deltaMwd62()
-                -4.6 * deltaGwd6()
+                -2.3 * dmW2
+                -4.6 * dGW
                 +22.0 * dgWve
                 +9.0 * dgWpm1
                 +9.0 * dgWpm2                
@@ -14498,8 +14506,8 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 4        
                 xspbSM = xslvjjSM206[3];                
                 xspb += xspbSM
-                +10.0 * deltaMwd62()
-                -20.0 * deltaGwd6()
+                +10.0 * dmW2
+                -20.0 * dGW
                 +59.0 * dgWve
                 +39.0 * dgWpm1
                 +39.0 * dgWpm2                
