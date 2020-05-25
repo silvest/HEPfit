@@ -5800,7 +5800,7 @@ void GeneralTHDMcache::computeSignalStrengths()
     yu1R = myGTHDM->getyu1R();
     yd1R = myGTHDM->getyd1R();
     yl1R = myGTHDM->getyl1R();
-   
+       
  
      //The Standard Model h branching ratios
 
@@ -6226,7 +6226,7 @@ double GeneralTHDMcache::computephi2quantities()
      SigmaVH_phi2_8=(ip_cs_WtoWH_8(m2)+ip_cs_ZtoZH_8(m2))*rphi2_VV;*/
 
 
-    SigmaggF_phi2_8=ip_cs_ggtoH_8(m2)* rphi2_ggE + ip_cs_ggtoA_8(m2)* rphi2_ggO;
+    SigmaggF_phi2_8=ip_cs_ggtoH_8(m2)*rphi2_ggE + ip_cs_ggtoA_8(m2)* rphi2_ggO;
     SigmabbF_phi2_8=ip_cs_pptobbH_8(m2)*rphi2_QdQdE + ip_cs_pptobbA_8(m2)*rphi2_QdQdO;
     SigmaVBF_phi2_8=ip_cs_VBFtoH_8(m2)*rphi2_VV;
     SigmattF_phi2_8=ip_cs_pptottH_8(m2)*rphi2_QuQuE + ip_cs_pptottA_8(m2)*rphi2_QuQuO;
@@ -8332,13 +8332,10 @@ double GeneralTHDMcache::updateCache()
     if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
                 return std::numeric_limits<double>::quiet_NaN();
     
-    //myGTHDM->getRelambda5();
-    double yu1R = myGTHDM->getyu1R();
-    double yd1R = myGTHDM->getyd1R();
-    double yl1R = myGTHDM->getyl1R();
+    
 
-    if (yu1R*yu1R >4. ||  yd1R*yd1R >4. ||  yl1R*yl1R >4.) 
-                return std::numeric_limits<double>::quiet_NaN();
+    //if (yu1R*yu1R >4. ||  yd1R*yd1R >4. ||  yl1R*yl1R >4.) 
+         //       return std::numeric_limits<double>::quiet_NaN();
   
         
     Q_GTHDM=myGTHDM->getQ_GTHDM();
