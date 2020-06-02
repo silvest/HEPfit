@@ -5978,12 +5978,18 @@ void GeneralTHDMcache::computeSignalStrengths()
     double Gamma_hgg=rh_gg*GF*Als*Als*m1*m1*m1/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2();
     double lambda122 = 0;
    if(myGTHDM->getSMHiggs()){
+         lambda122 = (2.0)*(lambdaijk(R11, R12, R13, R21, R22, R23, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) +  lambdaijk(R21, R22, R23, R11, R12, R13, R21, R22, R23,   lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) + lambdaijk(R21, R22, R23, R21, R22, R23, R11, R21, R13,   lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7 ));
+    }
+    else{
+         lambda122 = (2.0)*(lambdaijk(R21, R22, R23, R11, R12, R13, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) +  lambdaijk(R11, R12, R13, R21, R22, R23, R11, R12, R13,  lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) + lambdaijk(R11, R12, R13, R11, R12, R13, R21, R22, R23,  lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7 ));
+    }
+    
+     /*if(myGTHDM->getSMHiggs()){
          lambda122 = (2.0)*(lambdaijk(R11, R12, R13, R21, R22, R23, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) +  lambdaijk(R21, R22, R23, R11, R12, R13, R21, R22, R23,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R21, R22, R23, R21, R22, R23, R11, R21, R13,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) );
     }
     else{
          lambda122 = (2.0)*(lambdaijk(R21, R22, R23, R11, R12, R13, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) +  lambdaijk(R11, R12, R13, R21, R22, R23, R11, R12, R13,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R12, R13, R11, R12, R13, R21, R22, R23,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) );
-    }
-    
+    }*/
     
     
     
@@ -6295,13 +6301,23 @@ double lambda132 = 0.0;
 double lambda332 = 0.0;
 
 if(myGTHDM->getSMHiggs()){
+        lambda132 = lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R21, R22, R23, R11, R12, R13, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R11, R12, R13, R21, R22, R23, R32, R32, R32, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  ;
+         lambda332 = lambdaijk(R31, R32, R33, R31, R32, R33, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R21, R22, R23, R31, R32, R33, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32, R33, R21, R22, R23, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) ;
+}
+    else{
+       lambda132 = lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R11, R12, R13, R21, R22, R23, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R21, R22, R23, R11, R12, R13, R32, R32, R32, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  ;
+       lambda332 = lambdaijk(R31, R32, R33, R31, R32, R33, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R11, R12, R13, R31, R32, R33, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32, R33, R11, R12, R13, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) ;
+}
+
+
+/*if(myGTHDM->getSMHiggs()){
         lambda132 = lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R22, R23, R11, R12, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R11, R12, R13, R21, R22, R23, R32, R32, R32, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  ;
          lambda332 = lambdaijk(R31, R32, R33, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R22, R23, R31, R32, R33, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R21, R22, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
 }
     else{
        lambda132 = lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R11, R12, R13, R21, R22, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R21, R22, R23, R11, R12, R13, R32, R32, R32, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  ;
        lambda332 = lambdaijk(R31, R32, R33, R31, R32, R33, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R11, R12, R13, R31, R32, R33, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R11, R12, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
-}
+}*/
 
 
 
@@ -6315,12 +6331,20 @@ double Gammaphi2_phi3phi3=HSTheta(m2 - 2.0*m3)*sqrt(std::fabs(1.0 - (4.0*m3_2)/m
 double lambda112 = 0.0;
 
 if(myGTHDM->getSMHiggs()){
+         lambda112 = (2.0)*(lambdaijk(R11, R12, R13, R21, R22, R23, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) + lambdaijk(R11, R12, R13, R11, R12, R13, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) + lambdaijk(R21, R22, R23, R11, R12, R13, R11, R12, R13,  lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) );
+}
+    else{
+         lambda112 = (2.0)*(lambdaijk(R21, R22, R23, R11, R12, R13, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) + lambdaijk(R21, R22, R23, R21, R22, R23, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) + lambdaijk(R11, R12, R13, R21, R22, R23, R21, R22, R23,  lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) );
+}
+
+/*if(myGTHDM->getSMHiggs()){
          lambda112 = (2.0)*(lambdaijk(R11, R12, R13, R21, R22, R23, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R12, R13, R11, R12, R13, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R21, R22, R23, R11, R12, R13, R11, R12, R13,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) );
 }
     else{
          lambda112 = (2.0)*(lambdaijk(R21, R22, R23, R11, R12, R13, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R21, R22, R23, R21, R22, R23, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) + lambdaijk(R11, R12, R13, R21, R22, R23, R21, R22, R23,  lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) );
 }
-   
+   */
+
 //phi2 -> phi1phi1
 double Gammaphi2_phi1phi1=HSTheta(m2 - 2.0*m1)*sqrt(std::fabs(1.0 - (4.0*m1_2)/m2_2))*lambda112*lambda112/(32.0*m2*M_PI);
 
@@ -6566,6 +6590,17 @@ double lambda223 = 0.0;
 double lambda113 = 0.0;
 
 if(myGTHDM->getSMHiggs()){
+        lambda123 = lambdaijk(R11, R12, R13, R21, R22, R23, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R21, R22, R23, R11, R12, R13, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  ;
+        lambda223 = lambdaijk(R21, R22, R23, R21, R22, R23, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R21, R22, R23, R31, R32, R33, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32, R33, R21, R22, R23, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) ;
+        lambda113 = lambdaijk(R11, R12, R13, R11, R13, R13, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R11, R11, R13, R31, R32, R33, R11, R12, R13,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32, R33, R11, R12, R13, R11, R12, R13,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) ;
+}
+    else{
+        lambda123 = lambdaijk(R21, R22, R23, R11, R12, R13, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R11, R12, R13, R21, R22, R23, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)   + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  ;
+        lambda223 = lambdaijk(R11, R12, R13, R11, R12, R13, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R11, R12, R13, R31, R32, R33, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32, R33, R11, R12, R13, R11, R12, R13, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) ;
+        lambda113 = lambdaijk(R21, R22, R23, R21, R23, R23, R31, R32, R33, lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R21, R21, R23, R31, R32, R33, R21, R22, R23,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7)  + lambdaijk(R31, R32, R33, R21, R22, R23, R21, R22, R23,lambda1, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) ;
+}
+
+/*if(myGTHDM->getSMHiggs()){
         lambda123 = lambdaijk(R11, R12, R13, R21, R22, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R22, R23, R11, R12, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R21, R22, R23, R31, R32, R33, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R11, R12, R13, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32,R33, R11, R12, R13, R21, R22, R23,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)   + lambdaijk(R31, R32,R33, R21, R22, R23, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  ;
         lambda223 = lambdaijk(R21, R22, R23, R21, R22, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R22, R23, R31, R32, R33, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R21, R22, R23, R21, R22, R23, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
         lambda113 = lambdaijk(R11, R12, R13, R11, R13, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R11, R11, R13, R31, R32, R33, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R11, R12, R13, R11, R12, R13,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
@@ -6575,7 +6610,7 @@ if(myGTHDM->getSMHiggs()){
         lambda223 = lambdaijk(R11, R12, R13, R11, R12, R13, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R11, R12, R13, R31, R32, R33, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R11, R12, R13, R11, R12, R13, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
         lambda113 = lambdaijk(R21, R22, R23, R21, R23, R23, R31, R32, R33, lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R21, R21, R23, R31, R32, R33, R21, R22, R23,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H)  + lambdaijk(R31, R32, R33, R21, R22, R23, R21, R22, R23,lambda1H, lambda3H, lambda4H, Relambda5H, Imlambda5H, Relambda6H, Imlambda6H, Relambda7H, Imlambda7H) ;
 }
-
+*/
 
 
 //phi3 -> phi1 phi2

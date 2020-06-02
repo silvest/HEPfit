@@ -216,7 +216,7 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
     else if(name.compare("Nu_11r") == 0 && flag_sigma)
         Nu_11r = value;
    else if(name.compare("yu1R_GTHDM") == 0 && !flag_sigma){
-       if(alpha1==0)
+       if(alpha1==0 && flag_SM_Higgs )
            yu1R_GTHDM=1;
        else
          yu1R_GTHDM = value;

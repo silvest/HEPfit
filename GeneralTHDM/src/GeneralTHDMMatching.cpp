@@ -2735,7 +2735,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
         default:
             std::stringstream out;
             out << mcdbs2.getOrder();
-            throw std::runtime_error("THDMMatching::CMdbs2(): order " + out.str() + "not implemented");
+            throw std::runtime_error("GeneralTHDMMatching::CMdbs2(): order " + out.str() + "not implemented");
     }
 
     vmcds.push_back(mcdbs2);
@@ -2751,7 +2751,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
         default:
             std::stringstream out;
             out << mcdbs2.getOrder();
-            throw std::runtime_error("THDMMatching::CMdbs2(): order " + out.str() + "not implemented");
+            throw std::runtime_error("GeneralTHDMMatching::CMdbs2(): order " + out.str() + "not implemented");
     }
 
     vmcds.push_back(mcdbs2);
