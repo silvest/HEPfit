@@ -18,7 +18,7 @@
  * @f$R_{Wc}=\Gamma(W\to cs)/\Gamma(W\to {\rm hadrons})@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the ratio of the @f$Z\to c\bar{c}@f$ 
+ * @details This class is used to compute the ratio of the @f$W\to cs@f$ 
  * width to the @f$Z@f$-boson hadronic width:
  * @f[
  * R_{Wc}=\Gamma(W\to cs)/\Gamma(W\to {\rm hadrons})\,.

@@ -124,6 +124,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrWtau"] = boost::factory<BrWtau*>();
     obsThFactory["BrWhadrons"] = boost::factory<BrWhadrons*>();
     obsThFactory["RWc"] = boost::factory<RWc*>();
+    obsThFactory["RW_mu_e"] = boost::factory<RWmue*>();
+    obsThFactory["RW_tau_e"] = boost::factory<RWtaue*>();
+    obsThFactory["RW_tau_mu"] = boost::factory<RWtaumu*>();
+    obsThFactory["RZ_mu_e"] = boost::factory<RZmue*>();
+    obsThFactory["RZ_tau_e"] = boost::factory<RZtaue*>();
+    obsThFactory["RZ_tau_mu"] = boost::factory<RZtaumu*>();
     obsThFactory["GammaZ"] = boost::factory<GammaZ*>();
     obsThFactory["GammaZhad"] = boost::factory<GammaZhad*>();
     obsThFactory["sigmaHadron"] = boost::factory<sigmaHadron*>();
