@@ -1204,6 +1204,40 @@ double StandardModel::GammaW() const
 }
 
 
+double StandardModel::BrW(const Particle fi, const Particle fj) const
+{
+    double GammW = GammaW();
+    double GammWij = GammaW(fi, fj);
+
+    return GammWij/GammW;
+}
+
+
+double StandardModel::RWlilj(const Particle li, const Particle lj) const
+{
+    double GammWli, GammWlj;
+    
+    if (li.is("ELECTRON"))
+        GammWli = GammaW(leptons[NEUTRINO_1],li);
+    else if (li.is("MU"))
+        GammWli = GammaW(leptons[NEUTRINO_2],li);        
+    else if (li.is("TAU"))
+        GammWli = GammaW(leptons[NEUTRINO_3],li);        
+    else
+        throw std::runtime_error("Error in StandardModel::RWlilj. li must be a charged lepton");
+    
+    if (lj.is("ELECTRON"))
+        GammWlj = GammaW(leptons[NEUTRINO_1],lj);
+    else if (lj.is("MU"))
+        GammWlj = GammaW(leptons[NEUTRINO_2],lj);        
+    else if (lj.is("TAU"))
+        GammWlj = GammaW(leptons[NEUTRINO_3],lj);        
+    else
+        throw std::runtime_error("Error in StandardModel::RWlilj. lj must be a charged lepton");
+    
+    return GammWli/GammWlj;
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 double StandardModel::A_f(const Particle f) const
@@ -1312,6 +1346,25 @@ double StandardModel::Gamma_Z() const
             + Gamma_inv() + Gamma_had());
     }
 }
+
+
+double StandardModel::RZlilj(const Particle li, const Particle lj) const
+{
+    double GammZli, GammZlj;
+    
+    if ( li.is("ELECTRON") || li.is("MU") || li.is("TAU") )
+        GammZli = GammaZ(li);        
+    else
+        throw std::runtime_error("Error in StandardModel::RZlilj. li must be a charged lepton");
+    
+    if ( lj.is("ELECTRON") || lj.is("MU") || lj.is("TAU") )
+        GammZlj = GammaZ(lj);        
+    else
+        throw std::runtime_error("Error in StandardModel::RZlilj. lj must be a charged lepton");
+    
+    return GammZli/GammZlj;
+}
+
 
 double StandardModel::sigma0_had() const
 {

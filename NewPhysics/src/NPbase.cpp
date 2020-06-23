@@ -82,6 +82,40 @@ double NPbase::GammaW() const
     return Gamma_W;
 }
 
+double NPbase::BrW(const Particle fi, const Particle fj) const
+{
+    double GammW = GammaW();
+    double GammWij = GammaW(fi, fj);
+
+    return GammWij/GammW;
+}
+
+
+double NPbase::RWlilj(const Particle li, const Particle lj) const
+{
+    double GammWli, GammWlj;
+    
+    if (li.is("ELECTRON"))
+        GammWli = GammaW(leptons[NEUTRINO_1],li);
+    else if (li.is("MU"))
+        GammWli = GammaW(leptons[NEUTRINO_2],li);        
+    else if (li.is("TAU"))
+        GammWli = GammaW(leptons[NEUTRINO_3],li);        
+    else
+        throw std::runtime_error("Error in NPbase::RWlilj. li must be a charged lepton");
+    
+    if (lj.is("ELECTRON"))
+        GammWlj = GammaW(leptons[NEUTRINO_1],lj);
+    else if (lj.is("MU"))
+        GammWlj = GammaW(leptons[NEUTRINO_2],lj);        
+    else if (lj.is("TAU"))
+        GammWlj = GammaW(leptons[NEUTRINO_3],lj);        
+    else
+        throw std::runtime_error("Error in NPbase::RWlilj. lj must be a charged lepton");
+    
+    return GammWli/GammWlj;
+}
+
 double NPbase::deltaGV_f(const Particle f) const
 {
     if (f.is("TOP")) return 0.;
@@ -218,6 +252,25 @@ double NPbase::Gamma_Z() const
 {
     return (trueSM.Gamma_Z() + deltaGamma_Z());
 }
+
+
+double NPbase::RZlilj(const Particle li, const Particle lj) const
+{
+    double GammZli, GammZlj;
+    
+    if ( li.is("ELECTRON") || li.is("MU") || li.is("TAU") )
+        GammZli = Gamma_Zf(li);        
+    else
+        throw std::runtime_error("Error in NPbase::RZlilj. li must be a charged lepton");
+    
+    if ( lj.is("ELECTRON") || lj.is("MU") || lj.is("TAU") )
+        GammZlj = Gamma_Zf(lj);        
+    else
+        throw std::runtime_error("Error in NPbase::RZlilj. lj must be a charged lepton");
+    
+    return GammZli/GammZlj;
+}
+
 
 double NPbase::deltaGamma_Zhad() const
 {

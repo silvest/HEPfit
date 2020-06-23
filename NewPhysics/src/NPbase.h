@@ -241,6 +241,18 @@ public:
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
+    
+    /**
+     * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
+     * @return @f$Br(W\to f_i f_j)@f$ in GeV
+     */
+    virtual double BrW(const Particle fi, const Particle fj) const;
+    
+    /**
+     * @brief The lepton universality ratio @f$R_{W,l_i/l_j)=\Gamma(W\to l_i \nu_i)/\Gamma(W\to l_j \nu_j)@f$.
+     * @return @f$R_{W,l_i/l_j)@f$ in GeV
+     */
+    virtual double RWlilj(const Particle li, const Particle lj) const;
 
     /**
      * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
@@ -348,6 +360,14 @@ public:
      * @return @f$\delta \Gamma_{Z,had}@f$ in GeV
      */
     virtual double deltaGamma_Zhad() const;
+    
+    
+    /**
+     * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
+     * @return @f$R_{Z,l_i/l_j)@f$ in GeV
+     */
+    virtual double RZlilj(const Particle li, const Particle lj) const;
+    
 
     /**
      * @brief The hadronic decay width of the @f$Z@f$ boson, @f$\Gamma_{Z,had}@f$.

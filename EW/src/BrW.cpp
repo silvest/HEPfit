@@ -10,46 +10,35 @@
 
 double BrWlepton::computeThValue()
 {
-    double GammW = SM.GammaW();
-    double Gamme = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_1), SM.getLeptons(StandardModel::ELECTRON));
-    double Gammmu = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_2), SM.getLeptons(StandardModel::MU));
-    double Gammtau = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_3), SM.getLeptons(StandardModel::TAU));
+    double BRe = SM.BrW(SM.getLeptons(StandardModel::NEUTRINO_1), SM.getLeptons(StandardModel::ELECTRON));
+    double BRmu = SM.BrW(SM.getLeptons(StandardModel::NEUTRINO_2), SM.getLeptons(StandardModel::MU));
+    double BRtau = SM.BrW(SM.getLeptons(StandardModel::NEUTRINO_3), SM.getLeptons(StandardModel::TAU));
     
-    return (1./3.)*(Gamme + Gammmu + Gammtau)/GammW;
+    return (1./3.)*(BRe + BRmu + BRtau);
 }
 
 double BrWelectron::computeThValue()
 {
-    double GammW = SM.GammaW();
-    double Gamme = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_1), SM.getLeptons(StandardModel::ELECTRON));
-
-    return Gamme/GammW;
+    return SM.BrW(SM.getLeptons(StandardModel::NEUTRINO_1), SM.getLeptons(StandardModel::ELECTRON));
 }
 
 double BrWmuon::computeThValue()
 {
-    double GammW = SM.GammaW();
-    double Gammmu = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_2), SM.getLeptons(StandardModel::MU));
-
-    return Gammmu/GammW;
+    return SM.BrW(SM.getLeptons(StandardModel::NEUTRINO_2), SM.getLeptons(StandardModel::MU));
 }
 
 double BrWtau::computeThValue()
 {
-    double GammW = SM.GammaW();
-    double Gammtau = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_3), SM.getLeptons(StandardModel::TAU));
-
-    return Gammtau/GammW;
+    return SM.BrW(SM.getLeptons(StandardModel::NEUTRINO_3), SM.getLeptons(StandardModel::TAU));
 }
 
 double BrWhadrons::computeThValue()
 {
-    double GammW = SM.GammaW();
-    double Gammhad = 0.;
+    double Brhad = 0.;
     
 //  Current SM formula asummes diagonal CKM
-    Gammhad += SM.GammaW(SM.getQuarks(StandardModel::UP), SM.getQuarks(StandardModel::DOWN));
-    Gammhad += SM.GammaW(SM.getQuarks(StandardModel::CHARM), SM.getQuarks(StandardModel::STRANGE));
+    Brhad += SM.BrW(SM.getQuarks(StandardModel::UP), SM.getQuarks(StandardModel::DOWN));
+    Brhad += SM.BrW(SM.getQuarks(StandardModel::CHARM), SM.getQuarks(StandardModel::STRANGE));
 
-    return Gammhad/GammW;
+    return Brhad;
 }

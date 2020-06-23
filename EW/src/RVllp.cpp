@@ -10,55 +10,34 @@
 
 double RWmue::computeThValue()
 {    
-    double Gamml1 = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_2), SM.getLeptons(StandardModel::MU));
-    double Gamml2 = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_1), SM.getLeptons(StandardModel::ELECTRON));
-
-    return Gamml1/Gamml2;
+    return SM.RWlilj(SM.getLeptons(StandardModel::MU),SM.getLeptons(StandardModel::ELECTRON));
 }
-
 
 double RWtaue::computeThValue()
 {    
-    double Gamml1 = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_3), SM.getLeptons(StandardModel::TAU));
-    double Gamml2 = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_1), SM.getLeptons(StandardModel::ELECTRON));
-
-    return Gamml1/Gamml2;
+    return SM.RWlilj(SM.getLeptons(StandardModel::TAU),SM.getLeptons(StandardModel::ELECTRON));
 }
 
 double RWtaumu::computeThValue()
 {    
-    double Gamml1 = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_3), SM.getLeptons(StandardModel::TAU));
-    double Gamml2 = SM.GammaW(SM.getLeptons(StandardModel::NEUTRINO_2), SM.getLeptons(StandardModel::MU));
-
-    return Gamml1/Gamml2;
+    return SM.RWlilj(SM.getLeptons(StandardModel::TAU),SM.getLeptons(StandardModel::MU));
 }
-
-
 
 
 double RZmue::computeThValue()
 {    
-    double Gamml1 = SM.GammaZ(SM.getLeptons(StandardModel::MU));
-    double Gamml2 = SM.GammaZ(SM.getLeptons(StandardModel::ELECTRON));
-
-    return Gamml1/Gamml2;
+    return SM.RZlilj(SM.getLeptons(StandardModel::MU),SM.getLeptons(StandardModel::ELECTRON));
 }
 
 
 double RZtaue::computeThValue()
 {    
-    double Gamml1 = SM.GammaZ(SM.getLeptons(StandardModel::TAU));
-    double Gamml2 = SM.GammaZ(SM.getLeptons(StandardModel::ELECTRON));
-
-    return Gamml1/Gamml2;
+    return SM.RZlilj(SM.getLeptons(StandardModel::TAU),SM.getLeptons(StandardModel::ELECTRON));
 }
 
 double RZtaumu::computeThValue()
 {    
-    double Gamml1 = SM.GammaZ(SM.getLeptons(StandardModel::TAU));
-    double Gamml2 = SM.GammaZ(SM.getLeptons(StandardModel::MU));
-
-    return Gamml1/Gamml2;
+    return SM.RZlilj(SM.getLeptons(StandardModel::TAU),SM.getLeptons(StandardModel::MU));
 }
 
 
