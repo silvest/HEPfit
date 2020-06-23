@@ -3212,6 +3212,76 @@ double NPSMEFTd6::deltaGR_f(const Particle p) const
 }
 
 
+double NPSMEFTd6::BrW(const Particle fi, const Particle fj) const
+{
+    double GammW0 = trueSM.GammaW();
+    double dGammW = deltaGamma_W();
+    
+    double GammWij0 = trueSM.GammaW(fi, fj);
+    double dGammWij = deltaGamma_Wff(fi, fj);
+
+    return GammWij0/GammW0 + dGammWij/GammW0 - GammWij0*dGammW/GammW0/GammW0;
+}
+
+
+double NPSMEFTd6::RWlilj(const Particle li, const Particle lj) const
+{
+    double GammWli0, GammWlj0;
+    double dGammWli, dGammWlj;
+    
+    if (li.is("ELECTRON")) {
+        GammWli0 = trueSM.GammaW(leptons[NEUTRINO_1],li);
+        dGammWli = deltaGamma_Wff(leptons[NEUTRINO_1],li);
+    } else if (li.is("MU")) {
+        GammWli0 = trueSM.GammaW(leptons[NEUTRINO_2],li);
+        dGammWli = deltaGamma_Wff(leptons[NEUTRINO_2],li);
+    } else if (li.is("TAU")) {
+        GammWli0 = trueSM.GammaW(leptons[NEUTRINO_3],li);
+        dGammWli = deltaGamma_Wff(leptons[NEUTRINO_3],li);
+    } else {
+        throw std::runtime_error("Error in NPSMEFTd6::RWlilj. li must be a charged lepton");
+    }
+    
+    if (lj.is("ELECTRON")) {
+        GammWlj0 = trueSM.GammaW(leptons[NEUTRINO_1],lj);
+        dGammWlj = deltaGamma_Wff(leptons[NEUTRINO_1],lj);
+    } else if (lj.is("MU")) {
+        GammWlj0 = trueSM.GammaW(leptons[NEUTRINO_2],lj);  
+        dGammWlj = deltaGamma_Wff(leptons[NEUTRINO_2],lj);
+    } else if (lj.is("TAU")) {
+        GammWlj0 = trueSM.GammaW(leptons[NEUTRINO_3],lj); 
+        dGammWlj = deltaGamma_Wff(leptons[NEUTRINO_3],lj);
+    } else {
+        throw std::runtime_error("Error in NPSMEFTd6::RWlilj. lj must be a charged lepton");
+    }
+    
+    return GammWli0/GammWlj0 + dGammWli/GammWlj0 - GammWli0*dGammWlj/GammWlj0/GammWlj0;
+}
+
+
+double NPSMEFTd6::RZlilj(const Particle li, const Particle lj) const
+{
+    double GammZli0, GammZlj0;
+    double dGammZli, dGammZlj;
+    
+    if ( li.is("ELECTRON") || li.is("MU") || li.is("TAU") ) {
+        GammZli0 = trueSM.GammaZ(li);
+        dGammZli = deltaGamma_Zf(li);
+    } else {
+        throw std::runtime_error("Error in NPSMEFTd6::RZlilj. li must be a charged lepton");
+    }
+    
+    if ( lj.is("ELECTRON") || lj.is("MU") || lj.is("TAU") ) {
+        GammZlj0 = trueSM.GammaZ(lj);
+        dGammZlj = deltaGamma_Zf(lj);
+    } else {
+        throw std::runtime_error("Error in NPSMEFTd6::RZlilj. lj must be a charged lepton");
+    }
+    
+    return GammZli0/GammZlj0 + dGammZli/GammZlj0 - GammZli0*dGammZlj/GammZlj0/GammZlj0;
+}
+
+
 ////////////////////////////////////////////////////////////////////////
 
 gslpp::complex NPSMEFTd6::deltaGL_Wff(const Particle pbar, const Particle p) const

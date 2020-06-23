@@ -1437,9 +1437,27 @@ public:
      */
         // no generation mixing
     double deltaGR_f(const Particle p) const;
+        
+    /**
+     * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
+     * @return @f$Br(W\to f_i f_j)@f$ in GeV
+     */
+    virtual double BrW(const Particle fi, const Particle fj) const;
+    
+    /**
+     * @brief The lepton universality ratio @f$R_{W,l_i/l_j)=\Gamma(W\to l_i \nu_i)/\Gamma(W\to l_j \nu_j)@f$.
+     * @return @f$R_{W,l_i/l_j)@f$ in GeV
+     */
+    virtual double RWlilj(const Particle li, const Particle lj) const;
+    
+    /**
+     * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
+     * @return @f$R_{Z,l_i/l_j)@f$ in GeV
+     */
+    virtual double RZlilj(const Particle li, const Particle lj) const;
 
 
-        ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
  
     double CLL_mu() const;
     double CLL_tau() const;
@@ -1472,8 +1490,6 @@ public:
     double CRR_charm() const;
     double CRR_strange() const;
     double CRR_bottom() const;
-
-    ////////////////////////////////////////////////////////////////////////
     
     ////////////////////////////////////////////////////////////////////////
 
