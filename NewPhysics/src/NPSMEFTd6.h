@@ -369,7 +369,70 @@
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QE})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
+ * </tr> 
+ * <tr>
+ *   <td class="mod_name">%CQQ1_1133, CQQ1_1331 </td>
+ *   <td class="mod_symb">\f$C_{QQ}^{(1)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{QQ}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
+ *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQQ3_1133, CQQ3_1331 </td>
+ *   <td class="mod_symb">\f$C_{QQ}^{(3)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{QQ}^{(3)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu \sigma_a Q^j\big)
+ *   \big(\overline{Q^k}\,\gamma_\mu \sigma_a Q^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Cuu_1133, Cuu_1331 </td>
+ *   <td class="mod_symb">\f$C_{uu}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{uu})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu u^j\big)
+ *   \big(\overline{u^k}\,\gamma_\mu u^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Cud1_3311 </td>
+ *   <td class="mod_symb">\f$C_{ud}^{(1)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{ud}^{(1)})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu u^j\big)
+ *   \big(\overline{d^k}\,\gamma_\mu d^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Cud8_3311 </td>
+ *   <td class="mod_symb">\f$C_{ud}^{(8)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{ud}^{(8)})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu T^A u^j\big)
+ *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQu1_1133, CQu1_3311 </td>
+ *   <td class="mod_symb">\f$C_{Qu}^{(1)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{Qu}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
+ *   \big(\overline{u^k}\,\gamma_\mu u^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQu8_1133, CQu8_3311 </td>
+ *   <td class="mod_symb">\f$C_{Qu}^{(8)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{Qu}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
+ *   \big(\overline{u^k}\,\gamma_\mu T^A u^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQd1_3311 </td>
+ *   <td class="mod_symb">\f$C_{Qd}^{(1)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{Qd}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
+ *   \big(\overline{d^k}\,\gamma_\mu d^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQd8_3311 </td>
+ *   <td class="mod_symb">\f$C_{Qd}^{(8)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{Qd}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
+ *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
+ * </tr> 
  * <tr>
  *   <td class="mod_name">%Lambda_NP </td>
  *   <td class="mod_symb">\f$\Lambda \f$</td>
@@ -778,6 +841,69 @@
  *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%CQQ1 </td>
+ *   <td class="mod_symb">\f$C_{QQ}^{(1)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{QQ}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
+ *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQQ3 </td>
+ *   <td class="mod_symb">\f$C_{QQ}^{(3)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{QQ}^{(3)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu \sigma_a Q^j\big)
+ *   \big(\overline{Q^k}\,\gamma_\mu \sigma_a Q^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Cuu </td>
+ *   <td class="mod_symb">\f$C_{uu}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{uu})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu u^j\big)
+ *   \big(\overline{u^k}\,\gamma_\mu u^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Cud1 </td>
+ *   <td class="mod_symb">\f$C_{ud}^{(1)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{ud}^{(1)})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu u^j\big)
+ *   \big(\overline{d^k}\,\gamma_\mu d^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Cud8 </td>
+ *   <td class="mod_symb">\f$C_{ud}^{(8)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{ud}^{(8)})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu T^A u^j\big)
+ *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQu1 </td>
+ *   <td class="mod_symb">\f$C_{Qu}^{(1)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{Qu}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
+ *   \big(\overline{u^k}\,\gamma_\mu u^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQu8 </td>
+ *   <td class="mod_symb">\f$C_{Qu}^{(8)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{Qu}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
+ *   \big(\overline{u^k}\,\gamma_\mu T^A u^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQd1 </td>
+ *   <td class="mod_symb">\f$C_{Qd}^{(1)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{Qd}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
+ *   \big(\overline{d^k}\,\gamma_\mu d^l\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CQd8 </td>
+ *   <td class="mod_symb">\f$C_{Qd}^{(8)}\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$({\cal O}_{Qd}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
+ *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%Lambda_NP </td>
  *   <td class="mod_symb">\f$\Lambda \f$</td>
  *   <td class="mod_desc">The new physics scale. </td>
@@ -888,7 +1014,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 507;
+    static const int NNPSMEFTd6Vars = 521;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -906,7 +1032,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 261;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 270;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -4785,6 +4911,10 @@ protected:
     double CQe_2311, CQe_2322, CQe_2333;
     double CQe_3211, CQe_3222, CQe_3233;
     double CLedQ_11, CLedQ_22, CpLedQ_11, CpLedQ_22;
+    double CQQ1_1133, CQQ1_1331, CQQ3_1133, CQQ3_1331;
+    double Cuu_1133, Cuu_1331, Cud1_3311, Cud8_3311;
+    double CQu1_1133, CQu1_3311, CQu8_1133, CQu8_3311;
+    double CQd1_3311, CQd8_3311; 
     double Lambda_NP; ///< The new physics scale [GeV].
 // The intrinsic and parametric theory relative errors in the Higgs observables.
     double eggFint; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)

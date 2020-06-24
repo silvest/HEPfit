@@ -75,6 +75,10 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "CQe_2311","CQe_2322","CQe_2333",
     "CQe_3211","CQe_3222","CQe_3233",
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
+    "CQQ1_1133", "CQQ1_1331", "CQQ3_1133", "CQQ3_1331",
+    "Cuu_1133", "Cuu_1331", "Cud1_3311", "Cud8_3311",
+    "CQu1_1133", "CQu1_3311", "CQu8_1133", "CQu8_3311",
+    "CQd1_3311", "CQd8_3311",        
     "Lambda_NP",
     "BrHinv","BrHexo",
     "dg1Z","dKappaga","lambZ",
@@ -175,6 +179,10 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "CQe_2311","CQe_2322","CQe_2333",
     "CQe_3211","CQe_3222","CQe_3233",
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
+    "CQQ1_1133", "CQQ1_1331", "CQQ3_1133", "CQQ3_1331",
+    "Cuu_1133", "Cuu_1331", "Cud1_3311", "Cud8_3311",
+    "CQu1_1133", "CQu1_3311", "CQu8_1133", "CQu8_3311",
+    "CQd1_3311", "CQd8_3311", 
     "Lambda_NP",
     "BrHinv","BrHexo",
     "dg1Z","dKappaga","lambZ",
@@ -222,6 +230,10 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "CeW_r", "CeW_i", "CeB_r", "CeB_i",
     "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe",
+    "CQQ1", "CQQ3",
+    "Cuu", "Cud1", "Cud8",
+    "CQu1", "CQu8",
+    "CQd1", "CQd8", 
     "Lambda_NP",
     "BrHinv","BrHexo",
     "dg1Z","dKappaga","lambZ",
@@ -269,6 +281,10 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "CeW_r", "CeW_i", "CeB_r", "CeB_i",
     "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe",
+    "CQQ1", "CQQ3",
+    "Cuu", "Cud1", "Cud8",
+    "CQu1", "CQu8",
+    "CQd1", "CQd8",
     "Lambda_NP",
     "BrHinv","BrHexo",
     "dg1Z","dKappaga","lambZ",
@@ -448,6 +464,15 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::make_pair("CeW_i", std::cref(CeW_11i)));
         ModelParamMap.insert(std::make_pair("CeB_r", std::cref(CeB_11r)));
         ModelParamMap.insert(std::make_pair("CeB_i", std::cref(CeB_11i)));
+        ModelParamMap.insert(std::make_pair("CQQ1", std::cref(CQQ1_1133)));
+        ModelParamMap.insert(std::make_pair("CQQ3", std::cref(CQQ3_1133)));
+        ModelParamMap.insert(std::make_pair("Cuu", std::cref(Cuu_1133)));        
+        ModelParamMap.insert(std::make_pair("Cud1", std::cref(Cud1_3311)));        
+        ModelParamMap.insert(std::make_pair("Cud8", std::cref(Cud8_3311)));
+        ModelParamMap.insert(std::make_pair("CQu1", std::cref(CQu1_1133)));
+        ModelParamMap.insert(std::make_pair("CQu8", std::cref(CQu8_1133)));
+        ModelParamMap.insert(std::make_pair("CQd1", std::cref(CQd1_3311)));
+        ModelParamMap.insert(std::make_pair("CQd8", std::cref(CQd8_3311)));        
     } else {
         ModelParamMap.insert(std::make_pair("CHQ1_11", std::cref(CHQ1_11)));
         ModelParamMap.insert(std::make_pair("CHQ1_12r", std::cref(CHQ1_12r)));
@@ -616,7 +641,21 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::make_pair("CeB_13i", std::cref(CeB_13i)));
         ModelParamMap.insert(std::make_pair("CeB_22i", std::cref(CeB_22i)));
         ModelParamMap.insert(std::make_pair("CeB_23i", std::cref(CeB_23i)));
-        ModelParamMap.insert(std::make_pair("CeB_33i", std::cref(CeB_33i)));
+        ModelParamMap.insert(std::make_pair("CeB_33i", std::cref(CeB_33i)));        
+        ModelParamMap.insert(std::make_pair("CQQ1_1133", std::cref(CQQ1_1133)));        
+        ModelParamMap.insert(std::make_pair("CQQ1_1331", std::cref(CQQ1_1331)));
+        ModelParamMap.insert(std::make_pair("CQQ3_1133", std::cref(CQQ3_1133)));
+        ModelParamMap.insert(std::make_pair("CQQ3_1331", std::cref(CQQ3_1331)));
+        ModelParamMap.insert(std::make_pair("Cuu_1133", std::cref(Cuu_1133)));
+        ModelParamMap.insert(std::make_pair("Cuu_1331", std::cref(Cuu_1331)));
+        ModelParamMap.insert(std::make_pair("Cud1_3311", std::cref(Cud1_3311)));
+        ModelParamMap.insert(std::make_pair("Cud8_3311", std::cref(Cud8_3311)));
+        ModelParamMap.insert(std::make_pair("CQu1_1133", std::cref(CQu1_1133)));
+        ModelParamMap.insert(std::make_pair("CQu1_3311", std::cref(CQu1_3311)));
+        ModelParamMap.insert(std::make_pair("CQu8_1133", std::cref(CQu8_1133)));
+        ModelParamMap.insert(std::make_pair("CQu8_3311", std::cref(CQu8_3311)));
+        ModelParamMap.insert(std::make_pair("CQd1_3311", std::cref(CQd1_3311)));
+        ModelParamMap.insert(std::make_pair("CQd8_3311", std::cref(CQd8_3311)));                
     }
     if(FlagLeptonUniversal && FlagQuarkUniversal){
         ModelParamMap.insert(std::make_pair("CLQ1", std::cref(CLQ1_1111)));  
@@ -2272,7 +2311,58 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
     } else if (name.compare("CpLedQ_22") == 0) {
         CpLedQ_22 = value; 
     } else if (name.compare("CQe_3233") == 0) {
-        CQe_3233 = value;
+        CQe_3233 = value;        
+    } else if (name.compare("CQQ1_1133") == 0) {
+        CQQ1_1133 = value;
+    } else if (name.compare("CQQ1_1331") == 0) {
+        CQQ1_1331 = value;
+    } else if (name.compare("CQQ1") == 0) {
+        CQQ1_1133 = value;
+        CQQ1_1331 = 0.;
+    } else if (name.compare("CQQ3_1133") == 0) {
+        CQQ3_1133 = value;
+    } else if (name.compare("CQQ3_1331") == 0) {
+        CQQ3_1331 = value;
+    } else if (name.compare("CQQ3") == 0) {
+        CQQ3_1133 = value;
+        CQQ3_1331 = 0.;
+    } else if (name.compare("Cuu_1133") == 0) {
+        Cuu_1133 = value;
+    } else if (name.compare("Cuu_1331") == 0) {
+        Cuu_1331 = value;
+    } else if (name.compare("Cuu") == 0) {
+        Cuu_1133 = value;
+        Cuu_1331 = 0.;
+    } else if (name.compare("Cud1_3311") == 0) {
+        Cud1_3311 = value;
+    } else if (name.compare("Cud1") == 0) {
+        Cud1_3311 = value;
+    } else if (name.compare("Cud8_3311") == 0) {
+        Cud8_3311 = value;
+    } else if (name.compare("Cud8") == 0) {
+        Cud8_3311 = value;
+    } else if (name.compare("CQu1_1133") == 0) {
+        CQu1_1133 = value;
+    } else if (name.compare("CQu1_3311") == 0) {
+        CQu1_3311 = value;
+    } else if (name.compare("CQu1") == 0) {
+        CQu1_1133 = value;
+        CQu1_3311 = value;
+    } else if (name.compare("CQu8_1133") == 0) {
+        CQu8_1133 = value;
+    } else if (name.compare("CQu8_3311") == 0) {
+        CQu8_3311 = value;
+    } else if (name.compare("CQu8") == 0) {
+        CQu8_1133 = value;
+        CQu8_3311 = value;
+    } else if (name.compare("CQd1_3311") == 0) {
+        CQd1_3311 = value;
+    } else if (name.compare("CQd1") == 0) {
+        CQd1_3311 = value;
+    } else if (name.compare("CQd8_3311") == 0) {
+        CQd8_3311 = value;
+    } else if (name.compare("CQd8") == 0) {
+        CQd8_3311 = value;        
     } else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;        
     } else if (name.compare("BrHinv") == 0) {
