@@ -89,7 +89,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
-    "eeeWWint",
+    "eeeWWint","edeeWWdcint",
     "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
     "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
     "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
@@ -193,7 +193,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
-    "eeeWWint",
+    "eeeWWint","edeeWWdcint",
     "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
     "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
     "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
@@ -244,7 +244,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
-    "eeeWWint",
+    "eeeWWint","edeeWWdcint",
     "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
     "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
     "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
@@ -295,7 +295,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
     "eHccint","eHccpar","eHbbint","eHbbpar",
-    "eeeWWint",
+    "eeeWWint","edeeWWdcint",
     "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
     "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
     "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
@@ -790,7 +790,8 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::make_pair("eHccpar", std::cref(eHccpar)));
     ModelParamMap.insert(std::make_pair("eHbbint", std::cref(eHbbint)));
     ModelParamMap.insert(std::make_pair("eHbbpar", std::cref(eHbbpar)));
-    ModelParamMap.insert(std::make_pair("eeeWWint", std::cref(eeeWWint)));    
+    ModelParamMap.insert(std::make_pair("eeeWWint", std::cref(eeeWWint)));   
+    ModelParamMap.insert(std::make_pair("edeeWWdcint", std::cref(edeeWWdcint)));
     ModelParamMap.insert(std::make_pair("eggFHgaga", std::cref(eggFHgaga)));
     ModelParamMap.insert(std::make_pair("eggFHZga", std::cref(eggFHZga)));
     ModelParamMap.insert(std::make_pair("eggFHZZ", std::cref(eggFHZZ)));
@@ -2454,7 +2455,9 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
     } else if (name.compare("eHbbpar") == 0) {
         eHbbpar = value;
     } else if (name.compare("eeeWWint") == 0) {
-        eeeWWint = value;           
+        eeeWWint = value;   
+    } else if (name.compare("edeeWWdcint") == 0) {
+        edeeWWdcint = value;        
     } else if (name.compare("eggFHgaga") == 0) {
         eggFHgaga = value;
     } else if (name.compare("eggFHZga") == 0) {
@@ -14056,6 +14059,420 @@ double NPSMEFTd6::deltaKgammaNPEff() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
+double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
+{
+    
+//  Returns cross section in pb
+    
+//  fstate = 0 (jjjj), 1 (e v jj), 2 (mu v jj), 3 (tau v jj),
+//       4 (e v e v), 5 (mu v mu v), 6 (tau v tau v),
+//       7 (e v mu v), 8 (e v tau v), 9 (mu v tau v)
+//      10 (l v jj), 11 (l v l v)
+    
+    double xspb = 0.0;
+    
+    double xspbSM0;
+    double xspbSM[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+// SM values from hep-ex/0409016    
+    double xsjjjjSM[8] = {7.42, 7.56, 7.68, 7.76, 7.79, 7.81, 7.82, 7.82};
+    double xslvjjSM[8] = {7.14, 7.26, 7.38, 7.44, 7.47, 7.50, 7.50, 7.50}; // All leptons. Divide by 3 for each
+    double xslvlvSM[8] = {1.72, 1.76, 1.79, 1.80, 1.81, 1.82, 1.82, 1.82}; // All leptons. Divide by 6 for each
+    
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
+    
+    double gVZeeSM, gAZeeSM;
+    
+    double norm4f = 1.0;
+    
+//  Values of the couplings: final-state independent couplings
+    gVZeeSM = -0.25 + sW2_tree;            
+    gAZeeSM = -0.25;
+    
+    dGF = delta_GF / sqrt(2.0);
+    
+    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2;
+    
+    dmW2 = - deltaMwd62(); //There is a minus sign between refs. definition of dmW2 and ours
+    
+    dGW = deltaGwd6();
+    
+    dsW2 = -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
+            + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
+            + 2.0 * sqrt(2.0) * dGF );
+    
+    dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
+            + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
+    
+    dgVZee = dgZ * gVZeeSM 
+            - 0.25 * ( CiHe_11 + CiHL1_11 + CiHL3_11 )* v2_over_LambdaNP2
+            - sW2_tree * dsW2;
+            
+    dgAZee = dgZ * gAZeeSM 
+            + 0.25 * ( CiHe_11 - CiHL1_11 - CiHL3_11 )* v2_over_LambdaNP2;
+    
+    dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+        
+    dg1Z = deltag1ZNP();
+            
+    dkga = deltaKgammaNP();
+            
+    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+    
+    dlga = - lambdaZNP();
+            
+    dlZ = - lambdaZNP();
+    
+//  Values of the couplings: final-state dependent couplings
+    dgWpm1 = 0.0;
+    dgWpm2 = 0.0;
+    
+    switch(fstate) {
+        
+        case 0:
+//  fstate = 0 (jjjj)       
+            dgWpm1 = 0.5 * (CiHQ3_11 + CiHQ3_22);
+            dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22);
+            norm4f = 1.01;
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xsjjjjSM[i];
+            } 
+            break;            
+        case 1:
+//  fstate = 1 (e v jj)            
+            dgWpm1 = CiHL3_11;
+            dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22);
+            norm4f = 1.0;
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvjjSM[i]/3.0;
+            }
+            break;            
+        case 2:
+//  fstate = 2 (mu v jj)            
+            dgWpm1 = CiHL3_22;
+            dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22);
+            norm4f = 1.0;  
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvjjSM[i]/3.0;
+            }    
+            break;            
+        case 3:
+//  fstate = 3 (tau v jj)            
+            dgWpm1 = CiHL3_33;
+            dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22);
+            norm4f = 1.0; 
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvjjSM[i]/3.0;
+            }   
+            break;            
+        case 4:
+//  fstate = 4 (e v e v)            
+            dgWpm1 = CiHL3_11;
+            dgWpm2 = CiHL3_11;
+            norm4f = 1.0 / 4.04;
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvlvSM[i]/6.0;
+            }          
+            break;            
+        case 5:
+//  fstate = 5 (mu v mu v)            
+            dgWpm1 = CiHL3_22;
+            dgWpm2 = CiHL3_22;
+            norm4f = 1.0 / 4.04; 
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvlvSM[i]/6.0;
+            }        
+            break;            
+        case 6:
+//  fstate = 6 (tau v tau v)            
+            dgWpm1 = CiHL3_33;
+            dgWpm2 = CiHL3_33;;
+            norm4f = 1.0 / 4.04;   
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvlvSM[i]/6.0;
+            }      
+            break;            
+        case 7:
+//  fstate = 7 (e v mu v)            
+            dgWpm1 = CiHL3_11;
+            dgWpm2 = CiHL3_22;
+            norm4f = 1.0 / 4.04;  
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvlvSM[i]/6.0;
+            }     
+            break;            
+        case 8:
+//  fstate = 8 (e v tau v)           
+            dgWpm1 = CiHL3_11;
+            dgWpm2 = CiHL3_33;
+            norm4f = 1.0 / 4.04;  
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvlvSM[i]/6.0;
+            }           
+            break;            
+        case 9:
+//  fstate = 9 (mu v tau v)           
+            dgWpm1 = CiHL3_22;
+            dgWpm2 = CiHL3_33;
+            norm4f = 1.0 / 4.04;
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvlvSM[i]/6.0;
+            }           
+            break;            
+        case 10:
+//  fstate = 10 (l v jj)           
+            dgWpm1 = (1.0 / 3.0) * (CiHL3_11 + CiHL3_22 + CiHL3_33);
+            dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22);
+            norm4f = 1.0 / 4.04;
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvjjSM[i];
+            }         
+            break;            
+        case 11:
+//  fstate = 11 (l v l v)           
+            dgWpm1 = (1.0 / 3.0) * (CiHL3_11 + CiHL3_22 + CiHL3_33);
+            dgWpm2 = (1.0 / 3.0) * (CiHL3_11 + CiHL3_22 + CiHL3_33);
+            norm4f = 1.0 / 4.04;
+            for (int i = 0; i < 8; ++i){
+                xspbSM[i] = xslvlvSM[i];
+            }         
+            break;            
+    }
+    
+    dgWpm1 = 0.5 * (dgWpm1 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWpm2 = 0.5 * (dgWpm2 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+
+    if (sqrt_s == 0.1886) {
+
+        xspb += norm4f *(
+                + 2.6 * dmW2
+                - 17.0 * dGW
+                + 72.0 * dgWve
+                + 34.0 * dgWpm1
+                + 34.0 * dgWpm2
+                + 5.3 * dgVZee
+                + 0.3 * dgAZee
+                - 0.08 * dg1Z
+                - 0.50 * dkga
+                - 0.19 * dkZ
+                - 0.29 * dlga
+                + 0.026 * dlZ
+                );
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+    // Save the SM value, to check the total cross section, SM+NP is not negative
+       xspbSM0 = xspbSM[0];
+       
+    //Add relative theory errors (free par). (Assume they are constant in energy.)
+        xspb += eeeWWint * xspbSM[0];
+
+    } else if (sqrt_s == 0.1916) {
+
+        xspb += norm4f *(
+                + 1.6 * dmW2
+                - 17.0 * dGW
+                + 73.0 * dgWve
+                + 34.0 * dgWpm1
+                + 34.0 * dgWpm2                
+                + 5.8 * dgVZee
+                + 0.4 * dgAZee
+                - 0.10 * dg1Z
+                - 0.56 * dkga
+                - 0.22 * dkZ
+                - 0.32 * dlga
+                + 0.018 * dlZ
+                );
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+        
+    // Save the SM value, to check the total cross section, SM+NP is not negative
+       xspbSM0 = xspbSM[1];
+        
+    //Add relative theory errors (free par). (Assume they are constant in energy.)
+        xspb += eeeWWint * xspbSM[1];
+        
+    } else if (sqrt_s == 0.1955) {
+
+        xspb += norm4f *(
+                + 0.26 * dmW2
+                - 17.0 * dGW
+                + 74.0 * dgWve
+                + 34.0 * dgWpm1
+                + 34.0 * dgWpm2                
+                + 6.5 * dgVZee
+                + 0.6 * dgAZee
+                - 0.12 * dg1Z
+                - 0.64 * dkga
+                - 0.27 * dkZ
+                - 0.36 * dlga
+                + 0.005 * dlZ
+                );
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+        
+    // Save the SM value, to check the total cross section, SM+NP is not negative
+       xspbSM0 = xspbSM[2];
+        
+    //Add relative theory errors (free par). (Assume they are constant in energy.)
+        xspb += eeeWWint * xspbSM[2];
+        
+    } else if (sqrt_s == 0.1995) {
+
+        xspb += norm4f *(
+                - 0.54 * dmW2
+                - 17.0 * dGW
+                + 75.0 * dgWve
+                + 34.0 * dgWpm1
+                + 34.0 * dgWpm2                
+                + 7.1 * dgVZee
+                + 0.8 * dgAZee
+                - 0.15 * dg1Z
+                - 0.71 * dkga
+                - 0.31 * dkZ
+                - 0.40 * dlga
+                - 0.009 * dlZ
+                );
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+        
+    // Save the SM value, to check the total cross section, SM+NP is not negative
+       xspbSM0 = xspbSM[3];
+        
+    //Add relative theory errors (free par). (Assume they are constant in energy.)
+        xspb += eeeWWint * xspbSM[3];
+        
+    } else if (sqrt_s == 0.2016) {
+
+        xspb += norm4f *(
+                - 0.97 * dmW2
+                - 17.0 * dGW
+                + 75.0 * dgWve
+                + 34.0 * dgWpm1
+                + 34.0 * dgWpm2                
+                + 7.4 * dgVZee
+                + 0.9 * dgAZee
+                - 0.16 * dg1Z
+                - 0.75 * dkga
+                - 0.33 * dkZ
+                - 0.42 * dlga
+                - 0.017 * dlZ
+                );
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+        
+    // Save the SM value, to check the total cross section, SM+NP is not negative
+       xspbSM0 = xspbSM[4];
+        
+    //Add relative theory errors (free par). (Assume they are constant in energy.)
+        xspb += eeeWWint * xspbSM[4];
+        
+    } else if (sqrt_s == 0.2049) {
+
+        xspb += norm4f *(
+                - 1.4 * dmW2
+                - 17.0 * dGW
+                + 75.0 * dgWve
+                + 34.0 * dgWpm1
+                + 34.0 * dgWpm2                
+                + 7.8 * dgVZee
+                + 1.0 * dgAZee
+                - 0.18 * dg1Z
+                - 0.80 * dkga
+                - 0.37 * dkZ
+                - 0.44 * dlga
+                - 0.029 * dlZ
+                );
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+        
+    // Save the SM value, to check the total cross section, SM+NP is not negative
+       xspbSM0 = xspbSM[5];
+        
+    //Add relative theory errors (free par). (Assume they are constant in energy.)
+        xspb += eeeWWint * xspbSM[5];
+        
+    } else if (sqrt_s == 0.2066) {
+
+        xspb += norm4f *(
+                - 1.8 * dmW2
+                - 17.0 * dGW
+                + 76.0 * dgWve
+                + 34.0 * dgWpm1
+                + 34.0 * dgWpm2                
+                + 8.0 * dgVZee
+                + 1.1 * dgAZee
+                - 0.19 * dg1Z
+                - 0.83 * dkga
+                - 0.39 * dkZ
+                - 0.46 * dlga
+                - 0.036 * dlZ
+                );
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+        
+    // Save the SM value, to check the total cross section, SM+NP is not negative
+       xspbSM0 = xspbSM[6];
+        
+    //Add relative theory errors (free par). (Assume they are constant in energy.)
+        xspb += eeeWWint * xspbSM[6];
+        
+    } else if (sqrt_s == 0.208) {
+
+        xspb += norm4f *(
+                - 2.0 * dmW2
+                - 17.0 * dGW
+                + 76.0 * dgWve
+                + 34.0 * dgWpm1
+                + 34.0 * dgWpm2                
+                + 8.2 * dgVZee
+                + 1.2 * dgAZee
+                - 0.20 * dg1Z
+                - 0.85 * dkga
+                - 0.40 * dkZ
+                - 0.47 * dlga
+                - 0.042 * dlZ
+                );
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+        
+    // Save the SM value, to check the total cross section, SM+NP is not negative
+       xspbSM0 = xspbSM[7];
+        
+    //Add relative theory errors (free par). (Assume they are constant in energy.)
+        xspb += eeeWWint * xspbSM[7];
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::deltaxseeWW4fLEP2()");
+    
+    if ((xspbSM0 + xspb) < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return xspb;
+}
+
+
 double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
 {
     
@@ -14445,10 +14862,252 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     return xspb;
 }
 
+double NPSMEFTd6::deltaxseeWWtotLEP2(const double sqrt_s) const
+{
+    return ( deltaxseeWW4fLEP2(sqrt_s, 0) + deltaxseeWW4fLEP2(sqrt_s, 10) + deltaxseeWW4fLEP2(sqrt_s, 11) );    
+}
 
 double NPSMEFTd6::xseeWWtotLEP2(const double sqrt_s) const
 {
     return ( xseeWW4fLEP2(sqrt_s, 0) + xseeWW4fLEP2(sqrt_s, 10) + xseeWW4fLEP2(sqrt_s, 11) );    
+}
+
+double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
+{
+    
+//  Returns differential cross section in pb  
+//  bin = 1, 2, 3, 4
+
+    double xspb = 0.0;
+    
+    double xspbSM;
+// SM values from Table 8 in hep-ex/0409016
+// Sum bin contents into B1=[-1,-0.8], B2=[-0.4,-0.2], B3=[0.4,0.6], B4=[0.8,1]
+    double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
+    double xslvjjSM206[4] = {0.52, 0.98, 2.92, 7.80};
+    
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
+    
+    double gVZeeSM, gAZeeSM;
+    
+//  Values of the couplings: final-state independent couplings
+    gVZeeSM = -0.25 + sW2_tree;            
+    gAZeeSM = -0.25;
+    
+    dGF = delta_GF / sqrt(2.0);
+    
+    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2;
+    
+    dmW2 = - deltaMwd62(); //There is a minus sign between refs. definition of dmW2 and ours
+    
+    dGW = deltaGwd6();
+    
+    dsW2 = -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
+            + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
+            + 2.0 * sqrt(2.0) * dGF );
+    
+    dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
+            + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
+    
+    dgVZee = dgZ * gVZeeSM 
+            - 0.25 * ( CiHe_11 + CiHL1_11 + CiHL3_11 )* v2_over_LambdaNP2
+            - sW2_tree * dsW2;
+            
+    dgAZee = dgZ * gAZeeSM 
+            + 0.25 * ( CiHe_11 - CiHL1_11 - CiHL3_11 )* v2_over_LambdaNP2;
+    
+    dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+        
+    dg1Z = deltag1ZNP();
+            
+    dkga = deltaKgammaNP();
+            
+    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+    
+    dlga = - lambdaZNP();
+            
+    dlZ = - lambdaZNP();
+    
+//  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
+//  the LEP2 experimental analyses they use, for l=e, mu
+    dgWpm1 = 0.5 * (CiHL3_11 + CiHL3_22) + 0.5 * cW_tree * CiHWB / sW_tree;
+    dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22) + 0.5 * cW_tree * CiHWB / sW_tree;
+    
+    dgWpm1 = 0.5 * dgWpm1 * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWpm2 = 0.5 * dgWpm2 * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+
+    if (sqrt_s == 0.1827) {
+        
+        switch(bin) {
+            case 1:
+//  Bin 1        
+                xspbSM = xslvjjSM183[0];
+                xspb += -1.6 * dmW2
+                -1.5 * dGW
+                +12.0 * dgWve
+                +2.9 * dgWpm1
+                +2.9 * dgWpm2                
+                +4.1 * dgVZee
+                +3.0 * dgAZee
+                -0.44 * dg1Z
+                -0.34 * dkga
+                -0.47 * dkZ
+                -0.32 * dlga
+                -0.45 * dlZ
+                ;
+                break;
+                
+            case 2:                
+//  Bin 2   
+                xspbSM = xslvjjSM183[1];                
+                xspb += -1.5 * dmW2
+                -2.8 * dGW
+                +16.0 * dgWve
+                +5.5 * dgWpm1
+                +5.5 * dgWpm2                
+                +3.5 * dgVZee
+                +2.2 * dgAZee
+                -0.30 * dg1Z
+                -0.32 * dkga
+                -0.39 * dkZ
+                -0.26 * dlga
+                -0.34 * dlZ
+                ;
+                break;                
+
+            case 3:                
+//  Bin 3      
+                xspbSM = xslvjjSM183[2];                
+                xspb += 0.16 * dmW2
+                -5.3 * dGW
+                +22.0 * dgWve
+                +10.0 * dgWpm1
+                +10.0 * dgWpm2                
+                +1.5 * dgVZee
+                +0.2 * dgAZee
+                -0.04 * dg1Z
+                -0.14 * dkga
+                -0.06 * dkZ
+                -0.06 * dlga
+                +0.026 * dlZ
+                ; 
+                break;                
+
+            case 4:        
+//  Bin 4        
+                xspbSM = xslvjjSM183[3];                
+                xspb += 18.0 * dmW2
+                -14.0 * dGW
+                +39.0  * dgWve
+                +27.0  * dgWpm1
+                +27.0  * dgWpm2                
+                -7.7  * dgVZee
+                -8.8  * dgAZee
+                +1.2  * dg1Z
+                +0.62  * dkga
+                +1.3  * dkZ
+                +0.63  * dlga
+                +1.3  * dlZ
+                ;
+                break;                
+                
+        }
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+
+    } else if (sqrt_s == 0.2059) {
+
+        switch(bin) {
+            case 1:
+//  Bin 1        
+                xspbSM = xslvjjSM206[0];                
+                xspb += -1.1 * dmW2
+                -0.9 * dGW
+                +11.0 * dgWve
+                +1.8 * dgWpm1
+                +1.8 * dgWpm2                
+                +4.9 * dgVZee
+                +3.0 * dgAZee
+                -0.44 * dg1Z
+                -0.44 * dkga
+                -0.50 * dkZ
+                -0.40 * dlga
+                -0.46 * dlZ
+                ;    
+                break;                
+
+            case 2:                
+//  Bin 2        
+                xspbSM = xslvjjSM206[1];                
+                xspb += -1.7 * dmW2
+                -2.1 * dGW
+                +15.0  * dgWve
+                +4.1 * dgWpm1
+                +4.1 * dgWpm2                
+                +5.0 * dgVZee
+                +2.8 * dgAZee
+                -0.34 * dg1Z
+                -0.53 * dkga
+                -0.55 * dkZ
+                -0.37 * dlga
+                -0.41 * dlZ
+                ;    
+                break;                
+
+            case 3:                
+//  Bin 3        
+                xspbSM = xslvjjSM206[2];                
+                xspb += -2.3 * dmW2
+                -4.6 * dGW
+                +22.0 * dgWve
+                +9.0 * dgWpm1
+                +9.0 * dgWpm2                
+                +3.5 * dgVZee
+                +1.2 * dgAZee
+                -0.19 * dg1Z
+                -0.35 * dkga
+                -0.25 * dkZ
+                -0.19 * dlga
+                -0.086 * dlZ
+                ;           
+                break;                
+
+            case 4:                
+//  Bin 4        
+                xspbSM = xslvjjSM206[3];                
+                xspb += 10.0 * dmW2
+                -20.0 * dGW
+                +59.0 * dgWve
+                +39.0 * dgWpm1
+                +39.0 * dgWpm2                
+                -9.6  * dgVZee
+                -11.0 * dgAZee
+                +1.5 * dg1Z
+                +0.86 * dkga
+                +1.7 * dkZ
+                +0.9  * dlga
+                +1.7  * dlZ
+                ;    
+                break;                
+        }
+        
+        if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        xspb +=  0.0;
+        }
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2()");
+    
+//Add relative theory errors (free par). (Assume they are constant in energy.)
+    xspb += edeeWWdcint * xspbSM;
+    
+    if ((xspbSM + xspb) < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return xspb;
 }
 
 
@@ -14691,7 +15350,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
         throw std::runtime_error("Bad argument in NPSMEFTd6::dxsdcoseeWWlvjjLEP2()");
     
 //Add relative theory errors (free par). (Assume they are constant in energy.)
-    xspb += eeeWWint * xspbSM;
+    xspb += edeeWWdcint * xspbSM;
     
     if (xspb < 0) return std::numeric_limits<double>::quiet_NaN();
     

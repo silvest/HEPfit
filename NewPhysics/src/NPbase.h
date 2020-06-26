@@ -1960,6 +1960,20 @@ public:
     {
         return 0.0;
     }
+    
+    /**
+     * @brief The new physics contribution to the cross section in pb for @f$e^+ e^- \to W^+ W^- \to 4f @f$, 
+     * with @f$ 4f = 0 (jjjj), 1 (e v jj), 2 (mu v jj), 3 (tau v jj),
+     * 4 (e v e v), 5 (mu v mu v), 6 (tau v tau v),
+     * 7 (e v mu v), 8 (e v tau v), 9 (mu v tau v), 10 (l v jj), 11 (l v l v) @f$
+     * the different fermion final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph].
+     * @return @f$\delta sigma@f$ [pb]
+     */
+    virtual double deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
+    {
+        return 0.0;
+    }
 
     /**
      * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$, 
@@ -1972,6 +1986,17 @@ public:
         return xseeWW4fLEP2(sqrt_s, 11);
     }
     
+/**
+     * @brief The new physics contribution to the cross section in pb for @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$\delta sigma@f$ [pb]
+     */
+    virtual double deltaxseeWWleptLEP2(const double sqrt_s) const
+    {
+        return deltaxseeWW4fLEP2(sqrt_s, 11);
+    }
+    
     /**
      * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to \ell \nu j j@f$, 
      * summing over all final states for C.O.M. energies in 188-208 GeV.
@@ -1981,7 +2006,18 @@ public:
     virtual double xseeWWsemilLEP2(const double sqrt_s) const
     {
         return xseeWW4fLEP2(sqrt_s, 10);
-    }    
+    }  
+    
+    /**
+     * @brief The new physics contribution to the cross section in pb for @f$e^+ e^- \to W^+ W^- \to \ell \nu j j@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$\delta sigma@f$ [pb]
+     */
+    virtual double deltaxseeWWsemilLEP2(const double sqrt_s) const
+    {
+        return deltaxseeWW4fLEP2(sqrt_s, 10);
+    } 
     
     /**
      * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to j j j j@f$, 
@@ -1992,6 +2028,17 @@ public:
     virtual double xseeWWhadLEP2(const double sqrt_s) const
     {
         return xseeWW4fLEP2(sqrt_s, 0);
+    }
+    
+    /**
+     * @brief The new physics contribution to the cross section in pb for @f$e^+ e^- \to W^+ W^- \to j j j j@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph]. Defined only for the NPSMEFTd6 class.
+     * @return @f$\delta sigma@f$ [pb]
+     */
+    virtual double deltaxseeWWhadLEP2(const double sqrt_s) const
+    {
+        return deltaxseeWW4fLEP2(sqrt_s, 0);
     }
     
     /**
@@ -2006,6 +2053,17 @@ public:
     }
     
     /**
+     * @brief The new physics contribution to the total cross section in pb for @f$e^+ e^- \to W^+ W^-@f$, 
+     * summing over all final states for C.O.M. energies in 188-208 GeV.
+     * From arXiv: 1606.06693 [hep-ph].
+     * @return @f$\delta sigma@f$ [pb]
+     */
+    virtual double deltaxseeWWtotLEP2(const double sqrt_s) const
+    {
+        return 0.0;
+    }
+    
+    /**
      * @brief The differential cross section in pb for @f$e^+ e^- \to W^+ W^- \to lv jj @f$, 
      * with @f$ l= e,\mu @f$ for the 4 @f$ cos{\theta}@f$ bins defined in arXiv: 1606.06693 [hep-ph].
      * for the C.O.M. energies of 182.6 and 205.9 GeV.
@@ -2013,6 +2071,18 @@ public:
      * @return @f$d\sigma/d\cos{\theta}@f$ [pb]
      */
     virtual double dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The new physics contribution to the differential cross section in pb for @f$e^+ e^- \to W^+ W^- \to lv jj @f$, 
+     * with @f$ l= e,\mu @f$ for the 4 @f$ cos{\theta}@f$ bins defined in arXiv: 1606.06693 [hep-ph].
+     * for the C.O.M. energies of 182.6 and 205.9 GeV.
+     * From arXiv: 1606.06693 [hep-ph].
+     * @return @f$\delta d\sigma/d\cos{\theta}@f$ [pb]
+     */
+    virtual double deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     {
         return 0.0;
     }

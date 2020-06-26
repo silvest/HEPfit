@@ -130,6 +130,44 @@ private:
 
 
 /**
+ * @class deltaxseeWWlept
+ * @brief A class for computing the NP contribution to the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$
+ * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the NP contribution to the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$.
+ */
+class deltaxseeWWlept : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     */
+    deltaxseeWWlept(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("deltaxseeWWlept called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of the NP contribution to the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu \ell \nu@f$ in the current model.
+     * @return @f$\delta \sigma(e^+ e^- \to W^+ W^-\to \ell \nu \ell \nu)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->deltaxseeWWleptLEP2(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
  * @class xseeWWsemil
  * @brief A class for computing the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu j j @f$
  * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
@@ -159,6 +197,44 @@ public:
     double computeThValue()
     {
         return myNPbase->xseeWWsemilLEP2(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class deltaxseeWWsemil
+ * @brief A class for computing the NP contribution to the cross section @f$e^+ e^- \to W^+ W^- \to \ell \nu j j @f$
+ * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the NP contribution to the cross section @f$e^+ e^- \to W^+ W^-\to \ell \nu j j @f$.
+ */
+class deltaxseeWWsemil : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     */
+    deltaxseeWWsemil(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("deltaxseeWWsemil called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of the NP contribution to the cross section @f$e^+ e^- \to W^+ W^-\to \ell \nu j j @f$ in the current model.
+     * @return @f$\delta \sigma(e^+ e^- \to W^+ W^-\to \ell \nu j j )@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->deltaxseeWWsemilLEP2(sqrt_s);
     }
 
 private:
@@ -206,6 +282,44 @@ private:
 
 
 /**
+ * @class deltaxseeWWhad
+ * @brief A class for computing the NP contribution to the cross section @f$e^+ e^- \to W^+ W^- \to j j j j@f$
+ * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the NP contribution to the cross section @f$e^+ e^- \to W^+ W^- \to j j j j@f$.
+ */
+class deltaxseeWWhad : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     */
+    deltaxseeWWhad(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("deltaxseeWWhad called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of the NP contribution to the cross section @f$e^+ e^- \to W^+ W^- \to j j j j@f$ in the current model.
+     * @return @f$\delta \sigma(e^+ e^- \to W^+ W^- \to j j j j)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->deltaxseeWWhadLEP2(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
  * @class xseeWWtot
  * @brief A class for computing the total cross section @f$e^+ e^- \to W^+ W^-@f$
  * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
@@ -242,7 +356,42 @@ private:
     const double sqrt_s;
 };
 
+/**
+ * @class deltaxseeWWtot
+ * @brief A class for computing the NP contribution to the total cross section @f$e^+ e^- \to W^+ W^-@f$
+ * in the dim-6 SMEFT, as in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the NP contribution to the cross section @f$e^+ e^- \to W^+ W^-@f$.
+ */
+class deltaxseeWWtot : public ThObservable {
+public:
 
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     */
+    deltaxseeWWtot(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("deltaxseeWWtot called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of the NP contribution to the cross section @f$e^+ e^- \to W^+ W^-@f$ in the current model.
+     * @return @f$\delta \sigma(e^+ e^- \to W^+ W^-)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->deltaxseeWWtotLEP2(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
 
 
 /**
@@ -286,6 +435,50 @@ private:
     const double sqrt_s;
     const int bin;
 };
+
+
+/**
+ * @class deltadxseeWWLEP2Bin
+ * @brief A class for computing the NP contribution to the differential cross section 
+ * for @f$e^+ e^- \to W^+ W^- \to l v jj@f$, with @f$ l= e,\mu @f$,
+ * for the 4 @f$ cos{\theta}@f$ bins defined in arXiv: 1606.06693 [hep-ph].
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the integral of the NP contribution to the differential cross section
+ * for @f$e^+ e^- \to W^+ W^- \to l v jj@f$ in a given @f$\cos{\theta}@f$ bin.
+ */
+class deltadxseeWWLEP2Bin : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in GeV
+     * @param[in] bin_i the bin nnumber: 1-4
+     */
+    deltadxseeWWLEP2Bin(const StandardModel& SM_i, const double sqrt_s_i, const int bin_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i), bin(bin_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("deltadxseeWWLEP2Bin called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the integral of the NP contribution to the differential cross section 
+     * for @f$e^+ e^- \to W^+ W^-@f$ in a given @f$\cos{\theta}@f$ bin in the current model.
+     * @return @f$\int_{bin_i} \delta d\sigma(e^+ e^- \to W^+ W^-)/d\cos{\theta}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->deltadxsdcoseeWWlvjjLEP2(sqrt_s, bin);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    const int bin;
+};
+
 
 #endif	/* EEWW_H */
 

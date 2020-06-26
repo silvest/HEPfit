@@ -217,7 +217,47 @@ ThObsFactory::ThObsFactory()
     obsThFactory["eeWWtot_LEP2_205"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_205);
     obsThFactory["eeWWtot_LEP2_206"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_206);
     obsThFactory["eeWWtot_LEP2_207"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_207);
-    obsThFactory["eeWWtot_LEP2_208"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_208);
+    obsThFactory["eeWWtot_LEP2_208"] = boost::bind(boost::factory<xseeWWtot*>(), _1, sqrt_s_LEP2_208);    
+    // The same, but only the new physics contribution
+    obsThFactory["deltaeeWWlept_LEP2_189"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_189);
+    obsThFactory["deltaeeWWlept_LEP2_192"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_192);
+    obsThFactory["deltaeeWWlept_LEP2_196"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_196);
+    obsThFactory["deltaeeWWlept_LEP2_200"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_200);
+    obsThFactory["deltaeeWWlept_LEP2_202"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_202);
+    obsThFactory["deltaeeWWlept_LEP2_205"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["deltaeeWWlept_LEP2_206"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_206);
+    obsThFactory["deltaeeWWlept_LEP2_207"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["deltaeeWWlept_LEP2_208"] = boost::bind(boost::factory<deltaxseeWWlept*>(), _1, sqrt_s_LEP2_208);
+    //
+    obsThFactory["deltaeeWWsemil_LEP2_189"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_189);
+    obsThFactory["deltaeeWWsemil_LEP2_192"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_192);
+    obsThFactory["deltaeeWWsemil_LEP2_196"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_196);
+    obsThFactory["deltaeeWWsemil_LEP2_200"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_200);
+    obsThFactory["deltaeeWWsemil_LEP2_202"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_202);
+    obsThFactory["deltaeeWWsemil_LEP2_205"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["deltaeeWWsemil_LEP2_206"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_206);
+    obsThFactory["deltaeeWWsemil_LEP2_207"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["deltaeeWWsemil_LEP2_208"] = boost::bind(boost::factory<deltaxseeWWsemil*>(), _1, sqrt_s_LEP2_208);
+    //
+    obsThFactory["deltaeeWWhad_LEP2_189"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_189);
+    obsThFactory["deltaeeWWhad_LEP2_192"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_192);
+    obsThFactory["deltaeeWWhad_LEP2_196"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_196);
+    obsThFactory["deltaeeWWhad_LEP2_200"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_200);
+    obsThFactory["deltaeeWWhad_LEP2_202"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_202);
+    obsThFactory["deltaeeWWhad_LEP2_205"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["deltaeeWWhad_LEP2_206"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_206);
+    obsThFactory["deltaeeWWhad_LEP2_207"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["deltaeeWWhad_LEP2_208"] = boost::bind(boost::factory<deltaxseeWWhad*>(), _1, sqrt_s_LEP2_208);
+    //
+    obsThFactory["deltaeeWWtot_LEP2_189"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_189);
+    obsThFactory["deltaeeWWtot_LEP2_192"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_192);
+    obsThFactory["deltaeeWWtot_LEP2_196"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_196);
+    obsThFactory["deltaeeWWtot_LEP2_200"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_200);
+    obsThFactory["deltaeeWWtot_LEP2_202"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_202);
+    obsThFactory["deltaeeWWtot_LEP2_205"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_205);
+    obsThFactory["deltaeeWWtot_LEP2_206"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_206);
+    obsThFactory["deltaeeWWtot_LEP2_207"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_207);
+    obsThFactory["deltaeeWWtot_LEP2_208"] = boost::bind(boost::factory<deltaxseeWWtot*>(), _1, sqrt_s_LEP2_208);
     //-----  ee -> WW observables: LEP2 differential cross section  -----
     obsThFactory["deeWWdcos_LEP2_183_Bin1"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos1_LEP2_WW, cos2_LEP2_WW);
     obsThFactory["deeWWdcos_LEP2_183_Bin2"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos2_LEP2_WW, cos3_LEP2_WW);
@@ -272,6 +312,16 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deeWW_LEP2_206_Bin2"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 2);
     obsThFactory["deeWW_LEP2_206_Bin3"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 3);
     obsThFactory["deeWW_LEP2_206_Bin4"] = boost::bind(boost::factory<dxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 4);
+    // The same but only the NP contribution
+    obsThFactory["deltadeeWW_LEP2_183_Bin1"] = boost::bind(boost::factory<deltadxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_183, 1);
+    obsThFactory["deltadeeWW_LEP2_183_Bin2"] = boost::bind(boost::factory<deltadxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_183, 2);
+    obsThFactory["deltadeeWW_LEP2_183_Bin3"] = boost::bind(boost::factory<deltadxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_183, 3);
+    obsThFactory["deltadeeWW_LEP2_183_Bin4"] = boost::bind(boost::factory<deltadxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_183, 4);    
+    //
+    obsThFactory["deltadeeWW_LEP2_206_Bin1"] = boost::bind(boost::factory<deltadxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 1);
+    obsThFactory["deltadeeWW_LEP2_206_Bin2"] = boost::bind(boost::factory<deltadxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 2);
+    obsThFactory["deltadeeWW_LEP2_206_Bin3"] = boost::bind(boost::factory<deltadxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 3);
+    obsThFactory["deltadeeWW_LEP2_206_Bin4"] = boost::bind(boost::factory<deltadxseeWWLEP2Bin*>(), _1, sqrt_s_LEP2_206, 4);
     //-----  ee -> WW observables: Future colliders differential cross section  -----
     obsThFactory["deeWWdcos_161_Bin1"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_161, cos1_ee_WW, cos2_ee_WW);
     obsThFactory["deeWWdcos_161_Bin2"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_leptcoll_161, cos2_ee_WW, cos3_ee_WW);
