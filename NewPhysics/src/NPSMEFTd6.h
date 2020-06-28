@@ -997,6 +997,13 @@
  *   Works independently of the flag QuadraticTerms (the quadratic contributions are also added if the latter is true).
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%RGEciLLA</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if including log-enhanced 1-loop corrections proportional to the dim-6 Wilson coefficients via renormalization group effects. 
+ *   Only valid working exactly inside the Warsaw basis. Logs evaluated at the top mass scale. (NOT ACTIVE YET. PLACEHOLDER.)
+ *   The default value is FALSE.</td>
+ * </tr>
  * 
  * 
  * </table>
@@ -1290,6 +1297,15 @@ public:
     double getCpLedQ_22() const{
         return CpLedQ_22;
     }
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief A function to apply the 1st leading log corrections to the Wilson coefficients, according to the d6 SMEFT RGEs
+     * @details This method runs inside the PostUpdate() method, after the definition of the internal Ci coefficients,
+     * adding the log corrections according to the d6 SMEFT RGEs. It also sets the values of the corresponding anomalous dimensions.
+     */
+    virtual bool RGd6SMEFTlogs();
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5132,12 +5148,20 @@ protected:
     double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
     
     // Internal values for some of the dimension-6 coefficients (to allow changes of bases in Post-Update)
+    // Define also the corresponding anomalous dimension, gADX, for each parameter
     double CiHL1_11;
     double CiHL1_22;
     double CiHL1_33;
     double CiHL3_11;
     double CiHL3_22;
     double CiHL3_33;
+    
+    double gADHL1_11;
+    double gADHL1_22;
+    double gADHL1_33;
+    double gADHL3_11;
+    double gADHL3_22;
+    double gADHL3_33;
     
     double CiHQ1_11;
     double CiHQ1_22;
@@ -5146,56 +5170,117 @@ protected:
     double CiHQ3_22;
     double CiHQ3_33;
     
+    double gADHQ1_11;
+    double gADHQ1_22;
+    double gADHQ1_33;
+    double gADHQ3_11;
+    double gADHQ3_22;
+    double gADHQ3_33;
+    
     double CiHe_11;
     double CiHe_22;
     double CiHe_33;
+    
+    double gADHe_11;
+    double gADHe_22;
+    double gADHe_33;
     
     double CiHu_11;
     double CiHu_22;
     double CiHu_33;
     
+    double gADHu_11;
+    double gADHu_22;
+    double gADHu_33;
+    
     double CiHd_11;
     double CiHd_22;
     double CiHd_33;
     
-    double CiW;
+    double gADHd_11;
+    double gADHd_22;
+    double gADHd_33;
     
+    double CiW;
+    double CiG;   
+    
+    double gADW;
+    double gADG;
+
+    double CiHG;   
     double CiHW;
     double CiHB; 
+    double CiHWB;
     double CiDHB; 
     double CiDHW;
-    double CiHWB;
+    
+    double gADHG;   
+    double gADHW;
+    double gADHB; 
+    double gADHWB;
+    double gADDHB; 
+    double gADDHW;
     
     double CiHbox;
     double CiHD;
     double CiH;
     
+    double gADHbox;
+    double gADHD;
+    double gADH;
+    
     double CieH_11r;
     double CieH_22r;
     double CieH_33r;
+    
+    double gADeH_11r;
+    double gADeH_22r;
+    double gADeH_33r;
     
     double CiuH_11r;
     double CiuH_22r;
     double CiuH_33r;
     
+    double gADuH_11r;
+    double gADuH_22r;
+    double gADuH_33r;
+    
     double CidH_11r;
     double CidH_22r;
     double CidH_33r;
+    
+    double gADdH_11r;
+    double gADdH_22r;
+    double gADdH_33r;
     
     double CiuG_11r;
     double CiuG_22r;
     double CiuG_33r;
     
+    double gADuG_11r;
+    double gADuG_22r;
+    double gADuG_33r;
+    
     double CiuW_11r;
     double CiuW_22r;
     double CiuW_33r;
+    
+    double gADuW_11r;
+    double gADuW_22r;
+    double gADuW_33r;
     
     double CiuB_11r;
     double CiuB_22r;
     double CiuB_33r;
     
+    double gADuB_11r;
+    double gADuB_22r;
+    double gADuB_33r;
+    
     double CiLL_1221;
-    double CiLL_2112;    
+    double CiLL_2112;   
+    
+    double gADLL_1221;
     
     double v2;///< The square of the EW vev.
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
@@ -5234,6 +5319,8 @@ protected:
     
     double cLH3d62;///< Parameter to control the inclusion of modifications of SM loops in Higgs processes due to dim 6 interactions modifying the Higgs trilinear coupling (Quadratic terms).
 
+    double cRGE;///< Parameter to control the inclusion of log-enhanced contributions via RG effects. If activated then it takes the value multiplying the anomalous dimension: \f$-\log(\Lambda/\mu)/16 \pi^2 \Lambda^2\f$
+    
     double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
     double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
     double Yukd,Yuks,Yukb;///< SM d-quark Yukawas
@@ -5318,7 +5405,8 @@ private:
     bool FlagHiggsSM; ///< A boolean flag that is true if including dependence on small variations of the SM parameters (dependence is linearized). Available only in selected Higgs observables. 
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
     bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
-
+    bool FlagRGEciLLA; ///< A flag that is TRUE if including log-enhanced 1-loop corrections propotional to the dim-6 Wilson coefficients. See comment in documentation above.
+    
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour
      * universality.

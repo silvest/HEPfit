@@ -336,6 +336,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagHiggsSM = false;
     FlagLoopHd6 = false;
     FlagLoopH3d6Quad = false;
+    FlagRGEciLLA = false;
     setModelLinearized();
     
     w_WW = gsl_integration_cquad_workspace_alloc(100);
@@ -1021,7 +1022,7 @@ bool NPSMEFTd6::PostUpdate()
     } else {
         cLH3d62 = 0.0;
     }
-   
+       
 //  1) Post-update operations involving SM parameters only (and Lambda_NP)
     LambdaNP2 = Lambda_NP * Lambda_NP;
     v2 = v() * v();
@@ -1062,7 +1063,7 @@ bool NPSMEFTd6::PostUpdate()
     Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
     
     dZH = -(9.0/16.0)*( GF*mHl*mHl/sqrt(2.0)/M_PI/M_PI )*( 2.0*M_PI/3.0/sqrt(3.0) - 1.0 );
-        
+            
 //  2) Post-update operations related to assumptions in the form of the dimension-6 operators 
   
 //  Rotated CHW and CHB parameters: Here I need to overwrite the model parameters (There are always 2 on/2 off but need the values of both in output)
@@ -1190,6 +1191,7 @@ bool NPSMEFTd6::PostUpdate()
     CiHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
     
     CiW = CW + g2_tree * C2W;
+    CiG = CG;
         
     CiHbox = CHbox - 0.5 * CT + (g1_tree*g1_tree/4.0) * (C2B + 0.5 * C2BS) + (3.0*g2_tree*g2_tree/4.0) * (C2W + 0.5 * C2WS);
     CiHD = CHD - 2.0 * CT + (g1_tree*g1_tree/4.0) * (C2B + 0.5 * C2BS);
@@ -1212,14 +1214,27 @@ bool NPSMEFTd6::PostUpdate()
     CiLL_1221 = CLL_1221 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
     CiLL_2112 = CiLL_1221;
     
+    CiHG = CHG;
 //  Contributionsfrom CDW, DB    
     CiHB = CHB + (g1_tree/4.0) * CDB;    
     CiHW = CHW + (g2_tree/4.0) * CDW; 
 //    CiHWHB_gaga = CHWHB_gaga; 
 //    CiHWHB_gagaorth = CHWHB_gagaorth; 
+    CiHWB = CHWB + (1.0/4.0) * ( g1_tree * CDW + g2_tree * CDB );
     CiDHB = CDHB + CDB; 
     CiDHW = CDHW + CDW;
-    CiHWB = CHWB + (1.0/4.0) * ( g1_tree * CDW + g2_tree * CDB );
+    
+//  RG effects: Apply now after the definiton of CiX (RG effects will be applied over these)
+//  before using them in any calculation
+    if (FlagRGEciLLA) {
+        // Encode the log dependence in cRGE
+        cRGE = -log(Lambda_NP/mtpole)/16.0/M_PI/M_PI/LambdaNP2;
+        // And call the function that modifies the CiX in the 1st leading-log approximation, according to the d6 SMEFT anomalous dimensions
+        RGd6SMEFTlogs();
+        
+    } else {
+        cRGE = 0.0;
+    }
     
 //  3) Post-update operations working directly with the dimension six operators  
     
@@ -1250,8 +1265,8 @@ bool NPSMEFTd6::PostUpdate()
     eHwidth = deltaGammaTotalRatio1() - deltaGammaTotalRatio1noError();
       
 //  Dimension-6 coefficients used in the STXS parameterization
-    aiG = 16.0 * M_PI * M_PI * CHG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / LambdaNP2;
-    ai3G = CG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / g3_tree / LambdaNP2;
+    aiG = 16.0 * M_PI * M_PI * CiHG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / LambdaNP2;
+    ai3G = CiG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / g3_tree / LambdaNP2;
     ai2G =0.0; // Add
     aiT = 2.0 * CiHD * v2_over_LambdaNP2;
     aiH = - 2.0 * CiHbox * v2_over_LambdaNP2;
@@ -2829,12 +2844,160 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
     } else if (name.compare("LoopH3d6Quad") == 0) {        
         FlagLoopH3d6Quad = value;
         res = true;
+    } else if (name.compare("RGEciLLA") == 0) {        
+        FlagRGEciLLA = value;
+        res = true;
     } else
         res = NPbase::setFlag(name, value);
-
+    
     return (res);
 }
 
+////////////////////////////////////////////////////////////////////////
+
+bool NPSMEFTd6::RGd6SMEFTlogs()
+{
+// Initialize the anomalous dimensions
+    gADHL1_11 = 0.0;
+    gADHL1_22 = 0.0;
+    gADHL1_33 = 0.0;
+    gADHL3_11 = 0.0;
+    gADHL3_22 = 0.0;
+    gADHL3_33 = 0.0;
+    
+    gADHQ1_11 = 0.0;
+    gADHQ1_22 = 0.0;
+    gADHQ1_33 = 0.0;
+    gADHQ3_11 = 0.0;
+    gADHQ3_22 = 0.0;
+    gADHQ3_33 = 0.0;
+    
+    gADHe_11 = 0.0;
+    gADHe_22 = 0.0;
+    gADHe_33 = 0.0;
+    
+    gADHu_11 = 0.0;
+    gADHu_22 = 0.0;
+    gADHu_33 = 0.0;
+    
+    gADHd_11 = 0.0;
+    gADHd_22 = 0.0;
+    gADHd_33 = 0.0;
+    
+    gADW = 0.0;
+    gADG = 0.0;
+    
+    gADHG = 0.0;   
+    gADHW = 0.0;
+    gADHB = 0.0; 
+    gADHWB = 0.0;
+    gADDHB = 0.0; 
+    gADDHW = 0.0;
+    
+    gADHbox = 0.0;
+    gADHD = 0.0;
+    gADH = 0.0;
+    
+    gADeH_11r = 0.0;
+    gADeH_22r = 0.0;
+    gADeH_33r = 0.0;
+    
+    gADuH_11r = 0.0;
+    gADuH_22r = 0.0;
+    gADuH_33r = 0.0;
+    
+    gADdH_11r = 0.0;
+    gADdH_22r = 0.0;
+    gADdH_33r = 0.0;
+    
+    gADuG_11r = 0.0;
+    gADuG_22r = 0.0;
+    gADuG_33r = 0.0;
+    
+    gADuW_11r = 0.0;
+    gADuW_22r = 0.0;
+    gADuW_33r = 0.0;
+    
+    gADuB_11r = 0.0;
+    gADuB_22r = 0.0;
+    gADuB_33r = 0.0;
+    
+    gADLL_1221 = 0.0;
+    
+// Modify the values of the CiX Wilson coefficients        
+    CiHL1_11 += cRGE * gADHL1_11;
+    CiHL1_22 += cRGE * gADHL1_22;
+    CiHL1_33 += cRGE * gADHL1_33;
+    CiHL3_11 += cRGE * gADHL3_11;
+    CiHL3_22 += cRGE * gADHL3_22;
+    CiHL3_33 += cRGE * gADHL3_33;
+    
+    CiHQ1_11 += cRGE * gADHQ1_11;
+    CiHQ1_22 += cRGE * gADHQ1_22;
+    CiHQ1_33 += cRGE * gADHQ1_33;
+    CiHQ3_11 += cRGE * gADHQ3_11;
+    CiHQ3_22 += cRGE * gADHQ3_22;
+    CiHQ3_33 += cRGE * gADHQ3_33;
+    
+    CiHe_11 += cRGE * gADHe_11;
+    CiHe_22 += cRGE * gADHe_22;
+    CiHe_33 += cRGE * gADHe_33;
+        
+    CiHu_11 += cRGE * gADHu_11;
+    CiHu_22 += cRGE * gADHu_22;
+    CiHu_33 += cRGE * gADHu_33;
+        
+    CiHd_11 += cRGE * gADHd_11;
+    CiHd_22 += cRGE * gADHd_22;
+    CiHd_33 += cRGE * gADHd_33;
+        
+    CiW += cRGE * gADW;
+    CiG += cRGE * gADG;   
+    
+    CiHG += cRGE * gADHG;   
+    CiHW += cRGE * gADHW;
+    CiHB += cRGE * gADHB; 
+    CiHWB += cRGE * gADHWB;
+    CiDHB += cRGE * gADDHB; 
+    CiDHW += cRGE * gADDHW;
+    
+    CiHbox += cRGE * gADHbox;
+    CiHD += cRGE * gADHD;
+    CiH += cRGE * gADH;
+        
+    CieH_11r += cRGE * gADeH_11r;
+    CieH_22r += cRGE * gADeH_22r;
+    CieH_33r += cRGE * gADeH_33r;
+    
+    CiuH_11r += cRGE * gADuH_11r;
+    CiuH_22r += cRGE * gADuH_22r;
+    CiuH_33r += cRGE * gADuH_33r;
+        
+    CidH_11r += cRGE * gADdH_11r;
+    CidH_22r += cRGE * gADdH_22r;
+    CidH_33r += cRGE * gADdH_33r;
+    
+    CiuG_11r += cRGE * gADuG_11r;
+    CiuG_22r += cRGE * gADuG_22r;
+    CiuG_33r += cRGE * gADuG_33r;
+
+    CiuW_11r += cRGE * gADuW_11r;
+    CiuW_22r += cRGE * gADuW_22r;
+    CiuW_33r += cRGE * gADuW_33r;
+    
+    CiuB_11r += cRGE * gADuB_11r;
+    CiuB_22r += cRGE * gADuB_22r;
+    CiuB_33r += cRGE * gADuB_33r;
+    
+    CiLL_1221 += cRGE * gADLL_1221;
+    CiLL_2112 = CiLL_1221;  // Symmetric
+    
+// Include SMEFT RG effects in the running of the SM parameters via ratios of the form g/gSM=1+...
+// For the relevant observables I need: SM gauge couplings and Yukawas. 
+// If including self coupling, then also \lambda and mH.
+ 
+    return (true);
+}
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -3403,7 +3566,7 @@ gslpp::complex NPSMEFTd6::deltaGR_Wff(const Particle pbar, const Particle p) con
 
 double NPSMEFTd6::deltaG_hgg() const
 {
-    return (CHG * v2_over_LambdaNP2 / v());
+    return (CiHG * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG_hggRatio() const
@@ -3821,7 +3984,7 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
     gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
 
-    gslpp::complex tmpHG = CHG / v() * v2_over_LambdaNP2 / G_eff_SM;
+    gslpp::complex tmpHG = CiHG / v() * v2_over_LambdaNP2 / G_eff_SM;
     gslpp::complex tmpt = G_eff_t_SM * dKappa_t / G_eff_SM;
     gslpp::complex tmpb = G_eff_b_SM * dKappa_b / G_eff_SM;
     gslpp::complex tmpc = G_eff_c_SM * dKappa_c / G_eff_SM;
@@ -3903,7 +4066,7 @@ double NPSMEFTd6::muggHH(const double sqrt_s) const
     ct= 1.0 - 0.5 * delta_GF + delta_h - v() * CiuH_33r * v2_over_LambdaNP2 / sqrt(2.0)/ mtpole;
     c2t = delta_h - 3.0 *v() * CiuH_33r * v2_over_LambdaNP2 / 2.0 /sqrt(2.0)/ mtpole;
     c3 = 1.0 + deltaG_hhhRatio();
-    cg = M_PI * CHG * v2_over_LambdaNP2 / AlsMz; 
+    cg = M_PI * CiHG * v2_over_LambdaNP2 / AlsMz; 
     c2g = cg;
 
 // In the SM the Eq. returns 0.999. Fix that small offset by adding 0.0010    
@@ -3948,7 +4111,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +8971.22 * (1. + eVBF_2_HB ) * CiHB / LambdaNP2
                 -65827.6 * (1. + eVBF_2_HW ) * CiHW / LambdaNP2
                 -323514. * (1. + eVBF_2_HWB ) * CiHWB / LambdaNP2
-                +481332. * (1. + eVBF_2_HG ) * CHG / LambdaNP2
+                +481332. * (1. + eVBF_2_HG ) * CiHG / LambdaNP2
                 +1255.16 * (1. + eVBF_2_DHB ) * CiDHB / LambdaNP2
                 -34956.7 * (1. + eVBF_2_DHW ) * CiDHW / LambdaNP2
                 -4.511 * (1. + eVBF_2_DeltaGF ) * delta_GF
@@ -3976,7 +4139,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -423.123 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
                 -89854. * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
                 -312617. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
-                -82956.8 * (1. + eVBF_78_HG ) * CHG / LambdaNP2
+                -82956.8 * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
                 -279.08 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
                 -54861. * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
                 -4.479 * (1. + eVBF_78_DeltaGF ) * delta_GF
@@ -4004,7 +4167,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -349.242 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
                 -87279.4 * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
                 -313449. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
-                -69421.9 * (1. + eVBF_78_HG ) * CHG / LambdaNP2
+                -69421.9 * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
                 -373.338 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
                 -57028.1 * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
                 -4.472 * (1. + eVBF_78_DeltaGF ) * delta_GF
@@ -4031,7 +4194,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -61.471 * (1. + eVBF_1314_HB ) * CiHB / LambdaNP2
                 -82985.3 * (1. + eVBF_1314_HW ) * CiHW / LambdaNP2
                 -313815. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
-                -36554. * (1. + eVBF_1314_HG ) * CHG / LambdaNP2
+                -36554. * (1. + eVBF_1314_HG ) * CiHG / LambdaNP2
                 -725.694 * (1. + eVBF_1314_DHB ) * CiDHB / LambdaNP2
                 -65253.4 * (1. + eVBF_1314_DHW ) * CiDHW / LambdaNP2
                 -4.474 * (1. + eVBF_1314_DeltaGF ) * delta_GF
@@ -4057,7 +4220,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -60.253 * (1. + eVBF_1314_HB ) * CiHB / LambdaNP2
                 -83504.9 * (1. + eVBF_1314_HW ) * CiHW / LambdaNP2
                 -314059. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
-                -33627.6 * (1. + eVBF_1314_HG ) * CHG / LambdaNP2
+                -33627.6 * (1. + eVBF_1314_HG ) * CiHG / LambdaNP2
                 -775.959 * (1. + eVBF_1314_DHB ) * CiDHB / LambdaNP2
                 -66336.3 * (1. + eVBF_1314_DHW ) * CiDHW / LambdaNP2
                 -4.474 * (1. + eVBF_1314_DeltaGF ) * delta_GF
@@ -4084,7 +4247,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +58.33 * CiHB / LambdaNP2
                 -81360.5 * CiHW / LambdaNP2
                 -313026. * CiHWB / LambdaNP2
-                -16430. * CHG / LambdaNP2
+                -16430. * CiHG / LambdaNP2
                 -1314.45 * CiDHB / LambdaNP2
                 -75884.6 * CiDHW / LambdaNP2
                 -4.475 * delta_GF
@@ -4111,7 +4274,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +71.488 * CiHB / LambdaNP2
                 -90808.2 * CiHW / LambdaNP2
                 -312544. * CiHWB / LambdaNP2
-                -8165.65 * CHG / LambdaNP2
+                -8165.65 * CiHG / LambdaNP2
                 -2615.48 * CiDHB / LambdaNP2
                 -96539.6 * CiDHW / LambdaNP2
                 -4.452 * delta_GF
@@ -9252,17 +9415,33 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
 {
     double mu = 1.0;
     
-     double C1 = 0.0;
+    double C1 = 0.0;
+    
+    // 4F ccontributions computed using SMEFTsimA
     
     if (sqrt_s == 1.96) {
         
         C1 = 0.0; // N.A.
 
         mu += 
-                +423420. * (1. + ettH_2_HG ) * CHG / LambdaNP2
-                -4269.4 * (1. + ettH_2_G ) * CG / LambdaNP2
+                +423420. * (1. + ettH_2_HG ) * CiHG / LambdaNP2
+                -4269.4 * (1. + ettH_2_G ) * CiG / LambdaNP2
                 +566792. * (1. + ettH_2_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.854 * (1. + ettH_2_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
+                +57950.7 * CQQ1_1133 / LambdaNP2
+                +572237. * CQQ1_1331 / LambdaNP2
+                +68506.5 * CQQ3_1133 / LambdaNP2
+                +689368. * CQQ3_1331 / LambdaNP2
+                +34359.2 * Cuu_1133 / LambdaNP2
+                +562953. * Cuu_1331 / LambdaNP2
+                -1123.41 * Cud1_3311 / LambdaNP2
+                +15070.6 * Cud8_3311 / LambdaNP2
+                +22531.7 * CQu1_1133 / LambdaNP2
+                +13290.1 * CQu1_3311 / LambdaNP2
+                +152635. * CQu8_1133 / LambdaNP2
+                +137479. * CQu8_3311 / LambdaNP2
+                -890.245 * CQd1_3311 / LambdaNP2
+                +15388.5 * CQd8_3311 / LambdaNP2
                 ;
         
         if (FlagQuadraticTerms) {
@@ -9276,10 +9455,24 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0387;
 
         mu += 
-                +532200. * (1. + ettH_78_HG ) * CHG / LambdaNP2
-                -85145.2 * (1. + ettH_78_G ) * CG / LambdaNP2
+                +532200. * (1. + ettH_78_HG ) * CiHG / LambdaNP2
+                -85145.2 * (1. + ettH_78_G ) * CiG / LambdaNP2
                 +811678. * (1. + ettH_78_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.841 * (1. + ettH_78_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
+                +19387.7 * CQQ1_1133 / LambdaNP2
+                +309431. * CQQ1_1331 / LambdaNP2
+                +53723.7 * CQQ3_1133 / LambdaNP2
+                +633768. * CQQ3_1331 / LambdaNP2
+                +19654.7 * Cuu_1133 / LambdaNP2
+                +303278. * Cuu_1331 / LambdaNP2
+                -3442.03 * Cud1_3311 / LambdaNP2
+                +41220. * Cud8_3311 / LambdaNP2
+                +6827.86 * CQu1_1133 / LambdaNP2
+                +7038.59 * CQu1_3311 / LambdaNP2
+                +116509. * CQu8_1133 / LambdaNP2
+                +74277.5 * CQu8_3311 / LambdaNP2
+                -2514.79 * CQd1_3311 / LambdaNP2
+                +41346.5 * CQd8_3311 / LambdaNP2
                 ;
         
         if (FlagQuadraticTerms) {
@@ -9293,10 +9486,24 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0378;
 
         mu += 
-                +535632. * (1. + ettH_78_HG ) * CHG / LambdaNP2
-                -86537.2 * (1. + ettH_78_G ) * CG / LambdaNP2
+                +535632. * (1. + ettH_78_HG ) * CiHG / LambdaNP2
+                -86537.2 * (1. + ettH_78_G ) * CiG / LambdaNP2
                 +825379. * (1. + ettH_78_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.849 * (1. + ettH_78_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
+                +18617. * CQQ1_1133 / LambdaNP2
+                +294168. * CQQ1_1331 / LambdaNP2
+                +51386.8 * CQQ3_1133 / LambdaNP2
+                +603913. * CQQ3_1331 / LambdaNP2
+                +18807. * Cuu_1133 / LambdaNP2
+                +287709. * Cuu_1331 / LambdaNP2
+                -3419.45 * Cud1_3311 / LambdaNP2
+                +39513.7 * Cud8_3311 / LambdaNP2
+                +6838.91 * CQu1_1133 / LambdaNP2
+                +6363.98 * CQu1_3311 / LambdaNP2
+                +110752. * CQu8_1133 / LambdaNP2
+                +70573.7 * CQu8_3311 / LambdaNP2
+                -2659.57 * CQd1_3311 / LambdaNP2
+                +39608.7 * CQd8_3311 / LambdaNP2
                 ;
         
         if (FlagQuadraticTerms) {
@@ -9310,10 +9517,24 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0351;
 
         mu += 
-                +538764. * (1. + ettH_1314_HG ) * CHG / LambdaNP2
-                -84648. * (1. + ettH_1314_G ) * CG / LambdaNP2
+                +538764. * (1. + ettH_1314_HG ) * CiHG / LambdaNP2
+                -84648. * (1. + ettH_1314_G ) * CiG / LambdaNP2
                 +860470. * (1. + ettH_1314_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.834 * (1. + ettH_1314_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
+                +13574.9 * CQQ1_1133 / LambdaNP2
+                +227043. * CQQ1_1331 / LambdaNP2
+                +41257.5 * CQQ3_1133 / LambdaNP2
+                +473396. * CQQ3_1331 / LambdaNP2
+                +14488.3 * Cuu_1133 / LambdaNP2
+                +221664. * Cuu_1331 / LambdaNP2
+                -3400.07 * Cud1_3311 / LambdaNP2
+                +31615.5 * Cud8_3311 / LambdaNP2
+                +4516.51 * CQu1_1133 / LambdaNP2
+                +4161.27 * CQu1_3311 / LambdaNP2
+                +85356.9 * CQu8_1133 / LambdaNP2
+                +53893.6 * CQu8_3311 / LambdaNP2
+                -2791.1 * CQd1_3311 / LambdaNP2
+                +30575.2 * CQd8_3311 / LambdaNP2
                 ;
         
         if (FlagQuadraticTerms) {
@@ -9327,8 +9548,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0347;
 
         mu += 
-                +536600. * (1. + ettH_1314_HG ) * CHG / LambdaNP2
-                -83824.6 * (1. + ettH_1314_G ) * CG / LambdaNP2
+                +536600. * (1. + ettH_1314_HG ) * CiHG / LambdaNP2
+                -83824.6 * (1. + ettH_1314_G ) * CiG / LambdaNP2
                 +863670. * (1. + ettH_1314_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.839 * (1. + ettH_1314_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
                 ;
@@ -9344,8 +9565,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0320; // From arXiv: 1902.00134
 
         mu += 
-                +519682. * CHG / LambdaNP2
-                -68463.1 * CG / LambdaNP2
+                +519682. * CiHG / LambdaNP2
+                -68463.1 * CiG / LambdaNP2
                 +884060. * CiuG_33r / LambdaNP2
                 -2.849 * deltaG_hff(quarks[TOP]).real()
                 ;
@@ -9361,8 +9582,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu += 
-                +467438. * CHG / LambdaNP2
-                -22519. * CG / LambdaNP2
+                +467438. * CiHG / LambdaNP2
+                -22519. * CiG / LambdaNP2
                 +880378. * CiuG_33r / LambdaNP2
                 -2.837 * deltaG_hff(quarks[TOP]).real()
                 ;
@@ -11164,7 +11385,7 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
     
     double C1 = 0.0066;
     
-    dwidth = ( +37526258. * CHG / LambdaNP2
+    dwidth = ( +37526258. * CiHG / LambdaNP2
             + cLHd6 * (
             +121248. * CiHbox / LambdaNP2
             +173353. * CiuH_22r / LambdaNP2
@@ -13000,8 +13221,8 @@ double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
 
     dsigmarat = 1.0;
 //  ttH 100 TeV (from muttH func): NOT BOOSTED YET
-    dsigmarat += +467438. * CHG / LambdaNP2
-                -22519. * CG / LambdaNP2
+    dsigmarat += +467438. * CiHG / LambdaNP2
+                -22519. * CiG / LambdaNP2
                 +880378. * CiuG_33r / LambdaNP2
                 -2.837 * deltaG_hff(quarks[TOP]).real()
                 ;
@@ -13009,8 +13230,8 @@ double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
     dsigmarat = dsigmarat - (
                 -40869.4 * CiHD / LambdaNP2
                 -52607.9 * CiHWB / LambdaNP2
-                -90424.9 * CHG / LambdaNP2
-                +432089. * CG / LambdaNP2
+                -90424.9 * CiHG / LambdaNP2
+                +432089. * CiG / LambdaNP2
                 +326525. * CiuG_33r / LambdaNP2
                 -2028.11 * CiuW_33r / LambdaNP2
                 +1679.85 * CiuB_33r / LambdaNP2
@@ -17055,7 +17276,7 @@ double NPSMEFTd6::cgg_HB() const
 {
     double ciHB;
     
-    ciHB = (1.0/(M_PI * AlsMz))*CHG*v2_over_LambdaNP2;
+    ciHB = (1.0/(M_PI * AlsMz))*CiHG*v2_over_LambdaNP2;
     
     return ciHB;
 }
@@ -17899,14 +18120,440 @@ double NPSMEFTd6::AuxObs_NP14() const
 
 double NPSMEFTd6::AuxObs_NP15() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // diBoson study from arXiv: 2003.07862: LO version
+    // Only WW and WZ distributions
+    
+    // Effective couplings
+    double  dgZ1, lZ, dkga, dkZ, dgLZu, dgRZu, dgLZd, dgRZd;
+    
+    double chi2WW, chi2WZ;
+
+    double chi2WWA8, chi2WWA13;
+    double chi2WZA8, chi2WZC8, chi2WZA13, chi2WZC13;
+    
+    // Bins: Theory prediction
+    double WWA8bin1LO, WWA8bin2LO, WWA8bin3LO, WWA8bin4LO, WWA8bin5LO;
+    double WWA13bin1LO, WWA13bin2LO, WWA13bin3LO, WWA13bin4LO, WWA13bin5LO, WWA13bin6LO, WWA13bin7LO;
+    double WZA8bin1LO, WZA8bin2LO, WZA8bin3LO, WZA8bin4LO, WZA8bin5LO, WZA8bin6LO;
+    double WZC8bin1LO, WZC8bin2LO, WZC8bin3LO, WZC8bin4LO, WZC8bin5LO, WZC8bin6LO, WZC8bin7LO, WZC8bin8LO, WZC8bin9LO;
+    double WZA13bin1LO, WZA13bin2LO, WZA13bin3LO, WZA13bin4LO, WZA13bin5LO, WZA13bin6LO;
+    double WZC13bin1LO, WZC13bin2LO, WZC13bin3LO, WZC13bin4LO ,WZC13bin5LO, WZC13bin6LO, WZC13bin7LO;
+    
+    // Bins: Exp values and errors
+    double WWA8bin1Exp=4022., WWA8bin2Exp=951., WWA8bin3Exp=74., WWA8bin4Exp=2., WWA8bin5Exp=1.;
+    double WWA8bin1Err=210.863, WWA8bin2Err=56.6745, WWA8bin3Err=9.35361, WWA8bin4Err=1.43849, WWA8bin5Err=0.866498;
+    
+    double WWA13bin1Exp=419.843, WWA13bin2Exp=512.837, WWA13bin3Exp=258.115, WWA13bin4Exp=170.302, WWA13bin5Exp=123.998, WWA13bin6Exp=72.922, WWA13bin7Exp=35.8834;
+    double WWA13bin1Err=58.121, WWA13bin2Err=80.142, WWA13bin3Err=43.32, WWA13bin4Err=31.5875, WWA13bin5Err=24.2051, WWA13bin6Err=14.44, WWA13bin7Err=9.55206;
+    
+    double WZA8bin1Exp=83.23, WZA8bin2Exp=324.8, WZA8bin3Exp=217.21, WZA8bin4Exp=89.32, WZA8bin5Exp=8.12, WZA8bin6Exp=2.03;
+    double WZA8bin1Err=11.4025, WZA8bin2Err=18.1888, WZA8bin3Err=13.9014, WZA8bin4Err=8.66404, WZA8bin5Err=2.46848, WZA8bin6Err=1.01906;
+    
+    double WZC8bin1Exp=58016., WZC8bin2Exp=136024., WZC8bin3Exp=100352., WZC8bin4Exp=82320., WZC8bin5Exp=47040., WZC8bin6Exp=19208., WZC8bin7Exp=19600., WZC8bin8Exp=15758.4, WZC8bin9Exp=9604.;
+    double WZC8bin1Err=17038.1, WZC8bin2Err=30818.8, WZC8bin3Err=28715.2, WZC8bin4Err=21945., WZC8bin5Err=16718.7, WZC8bin6Err=10771.1, WZC8bin7Err=9505.49, WZC8bin8Err=10897.5, WZC8bin9Err=7723.99;
+    
+    double WZA13bin1Exp=280.497, WZA13bin2Exp=925.965, WZA13bin3Exp=784.814, WZA13bin4Exp=280.136, WZA13bin5Exp=21.299, WZA13bin6Exp=15.162;
+    double WZA13bin1Err=40.3916, WZA13bin2Err=62.0397, WZA13bin3Err=45.5192, WZA13bin4Err=22.9712, WZA13bin5Err=4.89877, WZA13bin6Err=3.54791;
+    
+    double WZC13bin1Exp=475.3, WZC13bin2Exp=1963.2, WZC13bin3Exp=849.4, WZC13bin4Exp=305.1, WZC13bin5Exp=210., WZC13bin6Exp=10.9, WZC13bin7Exp=3.54;
+    double WZC13bin1Err=32.2502, WZC13bin2Err=107.697, WZC13bin3Err=51.5083, WZC13bin4Err=23.1908, WZC13bin5Err=17.8955, WZC13bin6Err=3.83689, WZC13bin7Err=2.01542;
+
+    //  Effective parameters
+    
+    // Zff couplings. Approximate them as couplings with 1st family quarks (i.e. all pp is 1st family)
+    dgLZu = deltaGL_f(quarks[UP]);
+            
+    dgRZu = deltaGR_f(quarks[UP]);
+            
+    dgLZd = deltaGL_f(quarks[DOWN]);
+            
+    dgRZd = deltaGR_f(quarks[DOWN]);
+        
+    // arXiv: 2003.07862 convention for aTGC Lagrangian has a minus sign wrt HEPfit definitions
+    dgZ1 = - deltag1ZNP();
+            
+    dkga = - deltaKgammaNP();
+            
+    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+            
+    lZ = - lambdaZNP();
+    
+    // Parameterization of pp->WW
+    
+    // WW ATLAS pT bins 8 TeV
+    WWA8bin1LO = 2410.31 - 7955.92 * dgLZd + 12275.5 * dgLZu + 2557.08 * dgRZd + 2052.71 * dgRZu + 1909.25 * dgZ1 + 2578.16 * dkZ + 2481.23 * lZ;
+    
+    WWA8bin2LO = 550.64 - 2620.11 * dgLZd + 3535.75 * dgLZu + 686.547 * dgRZd + 182.622 * dgRZu - 282.928 * dgZ1 + 741.476 * dkZ + 383.857 * lZ;
+    
+    WWA8bin3LO = 49.86 - 410.099 * dgLZd + 445.841 * dgLZu + 83.1445 * dgRZd - 52.7319 * dgRZu - 185.631 * dgZ1 + 123.908 * dkZ + 18.1956 * lZ;
+    
+    WWA8bin4LO = 5.699 - 79.7396 * dgLZd + 70.0216 * dgLZu + 12.9901 * dgRZd - 18.8422 * dgRZu - 50.7712 * dgZ1 + 26.0995 * dkZ + 1.24051 * lZ;
+    
+    WWA8bin5LO = 1.2727 - 30.569 * dgLZd + 21.8664 * dgLZu + 4.07619 * dgRZd - 9.13773 * dgRZu - 22.4705 * dgZ1 + 10.6031 * dkZ - 0.0207054 * lZ;
+      
+    // Use only last bin
+    chi2WWA8 = 0.* (WWA8bin1Exp-WWA8bin1LO)*(WWA8bin1Exp-WWA8bin1LO)/WWA8bin1Err/WWA8bin1Err +
+            0.* (WWA8bin2Exp-WWA8bin2LO)*(WWA8bin2Exp-WWA8bin2LO)/WWA8bin2Err/WWA8bin2Err +
+            0.* (WWA8bin3Exp-WWA8bin3LO)*(WWA8bin3Exp-WWA8bin3LO)/WWA8bin3Err/WWA8bin3Err +
+            0.* (WWA8bin4Exp-WWA8bin4LO)*(WWA8bin4Exp-WWA8bin4LO)/WWA8bin4Err/WWA8bin4Err +
+            (WWA8bin5Exp-WWA8bin5LO)*(WWA8bin5Exp-WWA8bin5LO)/WWA8bin5Err/WWA8bin5Err;
+
+    
+    // WW ATLAS pT bins 13 TeV 
+    WWA13bin1LO = 400.32 - 2010.9 * dgLZd + 2743.29 * dgLZu + 518.417 * dgRZd + 74.99 * dgRZu - 334.799 * dgZ1 + 564.605 * dkZ + 277.749 * lZ;
+    
+    WWA13bin2LO = 493.759 - 2748.52 * dgLZd + 3608.02 * dgLZu + 674.641 * dgRZd - 19.055 * dgRZu - 667.59 * dgZ1 + 779.098 * dkZ + 298.751 * lZ;
+    
+    WWA13bin3LO = 258.115 - 1651.56 * dgLZd + 2047.54 * dgLZu + 379.535 * dgRZd - 97.9571 * dgRZu - 549.495 * dgZ1 + 478.339 * dkZ + 128.105 * lZ;
+    
+    WWA13bin4LO = 171.153 - 1266.88 * dgLZd + 1471.52 * dgLZu + 271.806 * dgRZd - 134.097 * dgRZu - 521.841 * dgZ1 + 376.853 * dkZ + 68.516 * lZ;
+    
+    WWA13bin5LO = 134.414 - 1215.57 * dgLZd + 1285.59 * dgLZu + 237.757 * dgRZd - 191.781 * dgRZu - 607.825 * dgZ1 + 374.921 * dkZ + 38.9405 * lZ;
+    
+    WWA13bin6LO = 69.2759 - 853.385 * dgLZd + 780.617 * dgLZu + 145.743 * dgRZd - 185.211 * dgRZu - 512.435 * dgZ1 + 276.095 * dkZ + 11.456 * lZ;
+    
+    WWA13bin7LO = 33.7304 - 713.411 * dgLZd + 510.906 * dgLZu + 97.8425 * dgRZd - 199.708 * dgRZu - 502.132 * dgZ1 + 244.554 * dkZ + 0.233402 * lZ;
+    
+    // Exclude last 2 bins
+    chi2WWA13 = (WWA13bin1Exp-WWA13bin1LO)*(WWA13bin1Exp-WWA13bin1LO)/WWA13bin1Err/WWA13bin1Err +
+            (WWA13bin2Exp-WWA13bin2LO)*(WWA13bin2Exp-WWA13bin2LO)/WWA13bin2Err/WWA13bin2Err +
+            (WWA13bin3Exp-WWA13bin3LO)*(WWA13bin3Exp-WWA13bin3LO)/WWA13bin3Err/WWA13bin3Err +
+            (WWA13bin4Exp-WWA13bin4LO)*(WWA13bin4Exp-WWA13bin4LO)/WWA13bin4Err/WWA13bin4Err +
+            (WWA13bin5Exp-WWA13bin5LO)*(WWA13bin5Exp-WWA13bin5LO)/WWA13bin5Err/WWA13bin5Err +
+            0. * (WWA13bin6Exp-WWA13bin6LO)*(WWA13bin6Exp-WWA13bin6LO)/WWA13bin6Err/WWA13bin6Err +
+            0. * (WWA13bin7Exp-WWA13bin7LO)*(WWA13bin7Exp-WWA13bin7LO)/WWA13bin7Err/WWA13bin7Err;
+    
+    
+    // Total WW chi2
+    chi2WW = chi2WWA8 + chi2WWA13;
+
+    
+    // Parameterization of pp->WZ
+    
+    // WZ ATLAS MT bins 8 TeV
+    WZA8bin1LO = 64.0231 - 262.564 * dgLZd + 271.127 * dgLZu + 64.0231 * dgRZd + 64.0231 * dgRZu + 73.1446 * dgZ1 + 70.0463 * dkZ + 79.3857 * lZ;
+    
+    WZA8bin2LO = 266.448 - 1078.16 * dgLZd + 1164.29 * dgLZu + 266.448 * dgRZd + 266.448 * dgRZu + 306.867 * dgZ1 + 282.18 * dkZ + 337.517 * lZ;
+    
+    WZA8bin3LO = 199.275 - 1246.69 * dgLZd + 1419.14 * dgLZu + 199.275 * dgRZd + 199.275 * dgRZu - 66.2903 * dgZ1 + 125.888 * dkZ + 130.754 * lZ;
+    
+    WZA8bin4LO = 62.4615 - 900.496 * dgLZd + 976.191 * dgLZu + 62.4615 * dgRZd + 62.4615 * dgRZu - 376.789 * dgZ1 - 7.89486 * dkZ - 3.3 * lZ;
+    
+    WZA8bin5LO = 4.89157 - 167.729 * dgLZd + 172.898 * dgLZu + 4.89157 * dgRZd + 4.89157 * dgRZu - 101.811 * dgZ1 - 3.62056 * dkZ + 2.56078 * lZ;
+    
+    WZA8bin6LO = 1.42958 - 105.344 * dgLZd + 106.596 * dgLZu + 1.42958 * dgRZd + 1.42958 * dgRZu - 73.1082 * dgZ1 - 1.40856 * dkZ + 4.95953 * lZ;
+    
+    // Consider only 5th bin
+    chi2WZA8 = 0. * (WZA8bin1Exp-WZA8bin1LO)*(WZA8bin1Exp-WZA8bin1LO)/WZA8bin1Err/WZA8bin1Err +
+            0. * (WZA8bin2Exp-WZA8bin2LO)*(WZA8bin2Exp-WZA8bin2LO)/WZA8bin2Err/WZA8bin2Err +
+            0. * (WZA8bin3Exp-WZA8bin3LO)*(WZA8bin3Exp-WZA8bin3LO)/WZA8bin3Err/WZA8bin3Err +
+            0. * (WZA8bin4Exp-WZA8bin4LO)*(WZA8bin4Exp-WZA8bin4LO)/WZA8bin4Err/WZA8bin4Err +
+            (WZA8bin5Exp-WZA8bin5LO)*(WZA8bin5Exp-WZA8bin5LO)/WZA8bin5Err/WZA8bin5Err +
+            0. * (WZA8bin6Exp-WZA8bin6LO)*(WZA8bin6Exp-WZA8bin6LO)/WZA8bin6Err/WZA8bin6Err;
+    
+ 
+    // WZ CMS pT bins 8 TeV
+    WZC8bin1LO = 48211.3 - 137924. * dgLZd + 120313. * dgLZu + 48211.3 * dgRZd + 48211.3 * dgRZu + 94261.9 * dgZ1 + 67530. * dkZ + 85895.7 * lZ;
+
+    WZC8bin2LO = 105555. - 440885. * dgLZd + 355350. * dgLZu + 105555. * dgRZd + 105555. * dgRZu + 141264. * dgZ1 + 122367. * dkZ + 148838. * lZ;
+    
+    WZC8bin3LO = 95535.1 - 542042. * dgLZd + 467766. * dgLZu + 95535.1 * dgRZd + 95535.1 * dgRZu + 46226.7 * dgZ1 + 80186.7 * dkZ + 97205.6 * lZ;
+    
+    WZC8bin4LO = 63880.3 - 479646. * dgLZd + 456064. * dgLZu + 63880.3 * dgRZd + 63880.3 * dgRZu - 44518.1 * dgZ1 + 28691.7 * dkZ + 38018.6 * lZ;
+    
+    WZC8bin5LO = 39607.7 - 383899. * dgLZd + 379976. * dgLZu + 39607.7 * dgRZd + 39607.7 * dgRZu - 84542.1 * dgZ1 + 4050.03 * dkZ + 6365.16 * lZ;
+    
+    WZC8bin6LO = 24855.2 - 302869. * dgLZd + 304541. * dgLZu + 24855.2 * dgRZd + 24855.2 * dgRZu - 95368.5 * dgZ1 - 4726.25 * dkZ - 6591.92 * lZ;
+    
+    WZC8bin7LO = 14988.1 - 224947. * dgLZd + 227541. * dgLZu + 14988.1 * dgRZd + 14988.1 * dgRZu - 87151.6 * dgZ1 - 6575.39 * dkZ - 9906.71 * lZ;
+    
+    WZC8bin8LO = 19871.3 - 412140. * dgLZd + 417930. * dgLZu + 19871.3 * dgRZd + 19871.3 * dgRZu - 198439. * dgZ1 - 15171.5 * dkZ - 24525.7 * lZ;
+    
+    WZC8bin9LO = 7452.7 - 269883. * dgLZd + 272932. * dgLZu + 7452.7 * dgRZd + 7452.7 * dgRZu - 161173. * dgZ1 - 8792.17 * dkZ - 15465.3 * lZ;
+    
+    // Exclude 1st bin
+    chi2WZC8 = 0. * (WZC8bin1Exp-WZC8bin1LO)*(WZC8bin1Exp-WZC8bin1LO)/WZC8bin1Err/WZC8bin1Err +
+            (WZC8bin2Exp-WZC8bin2LO)*(WZC8bin2Exp-WZC8bin2LO)/WZC8bin2Err/WZC8bin2Err +
+            (WZC8bin3Exp-WZC8bin3LO)*(WZC8bin3Exp-WZC8bin3LO)/WZC8bin3Err/WZC8bin3Err +
+            (WZC8bin4Exp-WZC8bin4LO)*(WZC8bin4Exp-WZC8bin4LO)/WZC8bin4Err/WZC8bin4Err +
+            (WZC8bin5Exp-WZC8bin5LO)*(WZC8bin5Exp-WZC8bin5LO)/WZC8bin5Err/WZC8bin5Err +
+            (WZC8bin6Exp-WZC8bin6LO)*(WZC8bin6Exp-WZC8bin6LO)/WZC8bin6Err/WZC8bin6Err +
+            (WZC8bin7Exp-WZC8bin7LO)*(WZC8bin7Exp-WZC8bin7LO)/WZC8bin7Err/WZC8bin7Err +
+            (WZC8bin8Exp-WZC8bin8LO)*(WZC8bin8Exp-WZC8bin8LO)/WZC8bin8Err/WZC8bin8Err +
+            (WZC8bin9Exp-WZC8bin9LO)*(WZC8bin9Exp-WZC8bin9LO)/WZC8bin9Err/WZC8bin9Err;
+
+    
+    // WZ ATLAS MT bins 13 TeV
+    WZA13bin1LO = 210.9 - 863.074 * dgLZd + 900.382 * dgLZu + 211.842 * dgRZd + 211.842 * dgRZu + 242.98 * dgZ1 + 232.219 * dkZ + 262.962 * lZ;
+    
+    WZA13bin2LO = 935.318 - 3772.34 * dgLZd + 4098.21 * dgLZu + 936.319 * dgRZd + 936.319 * dgRZu + 1081.52 * dgZ1 + 993.265 * dkZ + 1188.07 * lZ;
+    
+    WZA13bin3LO = 761.955 - 4753.51 * dgLZd + 5422.16 * dgLZu + 762.426 * dgRZd + 762.426 * dgRZu - 246.741 * dgZ1 + 484.428 * dkZ + 506.464 * lZ;
+    
+    WZA13bin4LO = 282.966 - 4085.68 * dgLZd + 4424.39 * dgLZu + 284.141 * dgRZd + 284.141 * dgRZu - 1707.42 * dgZ1 - 32.2231 * dkZ - 2.89413 * lZ;
+    
+    WZA13bin5LO = 28.3987 - 953.075 * dgLZd + 982.47 * dgLZu + 28.5529 * dgRZd + 28.5529 * dgRZu - 574.883 * dgZ1 - 19.8605 * dkZ + 19.6616 * lZ;
+    
+    WZA13bin6LO = 14.1701 - 1069.87 * dgLZd + 1082.36 * dgLZu + 14.3211 * dgRZd + 14.3211 * dgRZu - 744.911 * dgZ1 - 12.7999 * dkZ + 67.0172 * lZ;
+    
+    // All bins
+    chi2WZA13 = (WZA13bin1Exp-WZA13bin1LO)*(WZA13bin1Exp-WZA13bin1LO)/WZA13bin1Err/WZA13bin1Err +
+            (WZA13bin2Exp-WZA13bin2LO)*(WZA13bin2Exp-WZA13bin2LO)/WZA13bin2Err/WZA13bin2Err +
+            (WZA13bin3Exp-WZA13bin3LO)*(WZA13bin3Exp-WZA13bin3LO)/WZA13bin3Err/WZA13bin3Err +
+            (WZA13bin4Exp-WZA13bin4LO)*(WZA13bin4Exp-WZA13bin4LO)/WZA13bin4Err/WZA13bin4Err +
+            (WZA13bin5Exp-WZA13bin5LO)*(WZA13bin5Exp-WZA13bin5LO)/WZA13bin5Err/WZA13bin5Err +
+            (WZA13bin6Exp-WZA13bin6LO)*(WZA13bin6Exp-WZA13bin6LO)/WZA13bin6Err/WZA13bin6Err;
+    
+    
+    // WZ CMS M bins 13 TeV
+    WZC13bin1LO = 310.897 - 1747.83 * dgLZd + 1098.2 * dgLZu + 310.897 * dgRZd + 310.897 * dgRZu + 254.88 * dgZ1 + 308.331 * dkZ + 338.716 * lZ;
+    
+    WZC13bin2LO = 1490.35 - 9445.69 * dgLZd + 9529.15 * dgLZu + 1490.35 * dgRZd + 1490.35 * dgRZu - 292.046 * dgZ1 + 1065.37 * dkZ + 1331.03 * lZ;
+    
+    WZC13bin3LO = 629.894 - 5705.32 * dgLZd + 5880.54 * dgLZu + 629.894 * dgRZd + 629.894 * dgRZu - 1292.82 * dgZ1 + 241.436 * dkZ + 348.134 * lZ;
+    
+    WZC13bin4LO = 232.784 - 2749.58 * dgLZd + 2807.65 * dgLZu + 232.784 * dgRZd + 232.784 * dgRZu - 933.382 * dgZ1 + 49.9535 * dkZ + 91.6478 * lZ;
+    
+    WZC13bin5LO = 174.94 - 3217.49 * dgLZd + 3252.81 * dgLZu + 174.94 * dgRZd + 174.94 * dgRZu - 1564.01 * dgZ1 + 7.77705 * dkZ + 55.699 * lZ;
+    
+    WZC13bin6LO = 8.27 - 347.727 * dgLZd + 351.047 * dgLZu + 8.27 * dgRZd + 8.27 * dgRZu - 225.256 * dgZ1 - 1.11098 * dkZ + 4.70184 * lZ;
+    
+    WZC13bin7LO = 1.71 - 136.248 * dgLZd + 137.365 * dgLZu + 1.71 * dgRZd + 1.71 * dgRZu - 96.8497 * dgZ1 - 0.143322 * dkZ + 2.33017 * lZ;
+    
+    // Consider only the last 3 bins
+    chi2WZC13 = 0. * (WZC13bin1Exp-WZC13bin1LO)*(WZC13bin1Exp-WZC13bin1LO)/WZC13bin1Err/WZC13bin1Err +
+            0. * (WZC13bin2Exp-WZC13bin2LO)*(WZC13bin2Exp-WZC13bin2LO)/WZC13bin2Err/WZC13bin2Err +
+            0. * (WZC13bin3Exp-WZC13bin3LO)*(WZC13bin3Exp-WZC13bin3LO)/WZC13bin3Err/WZC13bin3Err +
+            0. * (WZC13bin4Exp-WZC13bin4LO)*(WZC13bin4Exp-WZC13bin4LO)/WZC13bin4Err/WZC13bin4Err +
+            (WZC13bin5Exp-WZC13bin5LO)*(WZC13bin5Exp-WZC13bin5LO)/WZC13bin5Err/WZC13bin5Err +
+            (WZC13bin6Exp-WZC13bin6LO)*(WZC13bin6Exp-WZC13bin6LO)/WZC13bin6Err/WZC13bin6Err +
+            (WZC13bin7Exp-WZC13bin7LO)*(WZC13bin7Exp-WZC13bin7LO)/WZC13bin7Err/WZC13bin7Err;
+    
+    
+    // Total WW chi2
+    chi2WZ = chi2WZA8 + chi2WZC8 + chi2WZA13 + chi2WZC13;
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt of the total chi2    
+    return sqrt(chi2WW + chi2WZ);
 }
 
 double NPSMEFTd6::AuxObs_NP16() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // diBoson study from arXiv: 2003.07862: NLO version
+    // Only WW and WZ distributions
+    
+    // Effective couplings
+    double  dgZ1, lZ, dkga, dkZ, dgLZu, dgRZu, dgLZd, dgRZd;
+    
+    double chi2WW, chi2WZ;
+
+    double chi2WWA8, chi2WWA13;
+    double chi2WZA8, chi2WZC8, chi2WZA13, chi2WZC13;
+    
+    // Bins: Theory prediction
+    double WWA8bin1NLO, WWA8bin2NLO, WWA8bin3NLO, WWA8bin4NLO, WWA8bin5NLO;
+    double WWA13bin1NLO, WWA13bin2NLO, WWA13bin3NLO, WWA13bin4NLO, WWA13bin5NLO, WWA13bin6NLO, WWA13bin7NLO;
+    double WZA8bin1NLO, WZA8bin2NLO, WZA8bin3NLO, WZA8bin4NLO, WZA8bin5NLO, WZA8bin6NLO;
+    double WZC8bin1NLO, WZC8bin2NLO, WZC8bin3NLO, WZC8bin4NLO, WZC8bin5NLO, WZC8bin6NLO, WZC8bin7NLO, WZC8bin8NLO, WZC8bin9NLO;
+    double WZA13bin1NLO, WZA13bin2NLO, WZA13bin3NLO, WZA13bin4NLO, WZA13bin5NLO, WZA13bin6NLO;
+    double WZC13bin1NLO, WZC13bin2NLO, WZC13bin3NLO, WZC13bin4NLO ,WZC13bin5NLO, WZC13bin6NLO, WZC13bin7NLO;
+    
+    // Bins: Exp values and errors
+    double WWA8bin1Exp=4022., WWA8bin2Exp=951., WWA8bin3Exp=74., WWA8bin4Exp=2., WWA8bin5Exp=1.;
+    double WWA8bin1Err=210.863, WWA8bin2Err=56.6745, WWA8bin3Err=9.35361, WWA8bin4Err=1.43849, WWA8bin5Err=0.866498;
+    
+    double WWA13bin1Exp=419.843, WWA13bin2Exp=512.837, WWA13bin3Exp=258.115, WWA13bin4Exp=170.302, WWA13bin5Exp=123.998, WWA13bin6Exp=72.922, WWA13bin7Exp=35.8834;
+    double WWA13bin1Err=58.121, WWA13bin2Err=80.142, WWA13bin3Err=43.32, WWA13bin4Err=31.5875, WWA13bin5Err=24.2051, WWA13bin6Err=14.44, WWA13bin7Err=9.55206;
+    
+    double WZA8bin1Exp=83.23, WZA8bin2Exp=324.8, WZA8bin3Exp=217.21, WZA8bin4Exp=89.32, WZA8bin5Exp=8.12, WZA8bin6Exp=2.03;
+    double WZA8bin1Err=11.4025, WZA8bin2Err=18.1888, WZA8bin3Err=13.9014, WZA8bin4Err=8.66404, WZA8bin5Err=2.46848, WZA8bin6Err=1.01906;
+    
+    double WZC8bin1Exp=58016., WZC8bin2Exp=136024., WZC8bin3Exp=100352., WZC8bin4Exp=82320., WZC8bin5Exp=47040., WZC8bin6Exp=19208., WZC8bin7Exp=19600., WZC8bin8Exp=15758.4, WZC8bin9Exp=9604.;
+    double WZC8bin1Err=17038.1, WZC8bin2Err=30818.8, WZC8bin3Err=28715.2, WZC8bin4Err=21945., WZC8bin5Err=16718.7, WZC8bin6Err=10771.1, WZC8bin7Err=9505.49, WZC8bin8Err=10897.5, WZC8bin9Err=7723.99;
+    
+    double WZA13bin1Exp=280.497, WZA13bin2Exp=925.965, WZA13bin3Exp=784.814, WZA13bin4Exp=280.136, WZA13bin5Exp=21.299, WZA13bin6Exp=15.162;
+    double WZA13bin1Err=40.3916, WZA13bin2Err=62.0397, WZA13bin3Err=45.5192, WZA13bin4Err=22.9712, WZA13bin5Err=4.89877, WZA13bin6Err=3.54791;
+    
+    double WZC13bin1Exp=475.3, WZC13bin2Exp=1963.2, WZC13bin3Exp=849.4, WZC13bin4Exp=305.1, WZC13bin5Exp=210., WZC13bin6Exp=10.9, WZC13bin7Exp=3.54;
+    double WZC13bin1Err=32.2502, WZC13bin2Err=107.697, WZC13bin3Err=51.5083, WZC13bin4Err=23.1908, WZC13bin5Err=17.8955, WZC13bin6Err=3.83689, WZC13bin7Err=2.01542;
+
+    //  Effective parameters
+    
+    // Zff couplings. Approximate them as couplings with 1st family quarks (i.e. all pp is 1st family)
+    dgLZu = deltaGL_f(quarks[UP]);
+            
+    dgRZu = deltaGR_f(quarks[UP]);
+            
+    dgLZd = deltaGL_f(quarks[DOWN]);
+            
+    dgRZd = deltaGR_f(quarks[DOWN]);
+        
+    // arXiv: 2003.07862 convention for aTGC Lagrangian has a minus sign wrt HEPfit definitions
+    dgZ1 = - deltag1ZNP();
+            
+    dkga = - deltaKgammaNP();
+            
+    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+            
+    lZ = - lambdaZNP();
+    
+    // Parameterization of pp->WW
+    
+    // WW ATLAS pT bins 8 TeV
+    WWA8bin1NLO = 2410.31 - 7829.11 * dgLZd + 12299.8 * dgLZu + 2556.54 * dgRZd + 2112.94 * dgRZu + 2030.05 * dgZ1 + 2568.87 * dkZ + 2528.84 * lZ;
+    
+    WWA8bin2NLO = 550.64 - 2265.28 * dgLZd + 3155.45 * dgLZu + 615.479 * dgRZd + 203.37 * dgRZu - 165.565 * dgZ1 + 650.167 * dkZ + 411.026 * lZ;
+    
+    WWA8bin3NLO = 49.86 - 317.921 * dgLZd + 351.102 * dgLZu + 66.4958 * dgRZd - 36.0034 * dgRZu - 135.219 * dgZ1 + 94.4916 * dkZ + 37.3071 * lZ;
+    
+    WWA8bin4NLO = 5.699 - 57.4092 * dgLZd + 50.6928 * dgLZu + 9.81372 * dgRZd - 13.2364 * dgRZu - 36.198 * dgZ1 + 18.55 * dkZ + 6.98241 * lZ;
+    
+    WWA8bin5NLO = 1.2727 - 20.8509 * dgLZd + 15.6341 * dgLZu + 3.00117 * dgRZd - 6.22156 * dgRZu - 15.5846 * dgZ1 + 7.18415 * dkZ + 2.99976 * lZ;
+      
+    // Use only last bin
+    chi2WWA8 = 0.* (WWA8bin1Exp-WWA8bin1NLO)*(WWA8bin1Exp-WWA8bin1NLO)/WWA8bin1Err/WWA8bin1Err +
+            0.* (WWA8bin2Exp-WWA8bin2NLO)*(WWA8bin2Exp-WWA8bin2NLO)/WWA8bin2Err/WWA8bin2Err +
+            0.* (WWA8bin3Exp-WWA8bin3NLO)*(WWA8bin3Exp-WWA8bin3NLO)/WWA8bin3Err/WWA8bin3Err +
+            0.* (WWA8bin4Exp-WWA8bin4NLO)*(WWA8bin4Exp-WWA8bin4NLO)/WWA8bin4Err/WWA8bin4Err +
+            (WWA8bin5Exp-WWA8bin5NLO)*(WWA8bin5Exp-WWA8bin5NLO)/WWA8bin5Err/WWA8bin5Err;
+
+    
+    // WW ATLAS pT bins 13 TeV 
+    WWA13bin1NLO = 400.32 - 1946.32 * dgLZd + 2736.41 * dgLZu + 521.991 * dgRZd + 114.286 * dgRZu - 241.492 * dgZ1 + 557.655 * dkZ + 348.551 * lZ;
+    
+    WWA13bin2NLO = 493.759 - 2620.09 * dgLZd + 3518.17 * dgLZu + 666.437 * dgRZd + 38.085 * dgRZu - 533.621 * dgZ1 + 750.58 * dkZ + 409.991 * lZ;
+    
+    WWA13bin3NLO = 258.115 - 1522.46 * dgLZd + 1943.17 * dgLZu + 365.503 * dgRZd - 61.1737 * dgRZu - 455.013 * dgZ1 + 446.558 * dkZ + 198.405 * lZ;
+    
+    WWA13bin4NLO = 171.153 - 1153.75 * dgLZd + 1360.68 * dgLZu + 256.067 * dgRZd - 102.757 * dgRZu - 434.307 * dgZ1 + 342.709 * dkZ + 132.885 * lZ;
+    
+    WWA13bin5NLO = 134.414 - 1086.1 * dgLZd + 1149.72 * dgLZu + 217.941 * dgRZd - 150.149 * dgRZu - 509.092 * dgZ1 + 327.509 * dkZ + 110.989 * lZ;
+    
+    WWA13bin6NLO = 69.2759 - 729.641 * dgLZd + 667.246 * dgLZu + 129.686 * dgRZd - 150.65 * dgRZu - 424.099 * dgZ1 + 233.325 * dkZ + 74.4341 * lZ;
+    
+    WWA13bin7NLO = 33.7304 - 593.383 * dgLZd + 426.917 * dgLZu + 84.0936 * dgRZd - 160.339 * dgRZu - 410.935 * dgZ1 + 198.867 * dkZ + 61.7305 * lZ;
+    
+    // Exclude last 2 bins
+    chi2WWA13 = (WWA13bin1Exp-WWA13bin1NLO)*(WWA13bin1Exp-WWA13bin1NLO)/WWA13bin1Err/WWA13bin1Err +
+            (WWA13bin2Exp-WWA13bin2NLO)*(WWA13bin2Exp-WWA13bin2NLO)/WWA13bin2Err/WWA13bin2Err +
+            (WWA13bin3Exp-WWA13bin3NLO)*(WWA13bin3Exp-WWA13bin3NLO)/WWA13bin3Err/WWA13bin3Err +
+            (WWA13bin4Exp-WWA13bin4NLO)*(WWA13bin4Exp-WWA13bin4NLO)/WWA13bin4Err/WWA13bin4Err +
+            (WWA13bin5Exp-WWA13bin5NLO)*(WWA13bin5Exp-WWA13bin5NLO)/WWA13bin5Err/WWA13bin5Err +
+            0. * (WWA13bin6Exp-WWA13bin6NLO)*(WWA13bin6Exp-WWA13bin6NLO)/WWA13bin6Err/WWA13bin6Err +
+            0. * (WWA13bin7Exp-WWA13bin7NLO)*(WWA13bin7Exp-WWA13bin7NLO)/WWA13bin7Err/WWA13bin7Err;
+    
+    
+    // Total WW chi2
+    chi2WW = chi2WWA8 + chi2WWA13;
+
+    
+    // Parameterization of pp->WZ
+    
+    // WZ ATLAS MT bins 8 TeV
+    WZA8bin1NLO = 64.0231 - 432.326 * dgLZd + 663.895 * dgLZu + 113.935 * dgRZd + 113.935 * dgRZu + 136.053 * dgZ1 + 127.745 * dkZ + 154.176 * lZ;
+    
+    WZA8bin2NLO = 266.448 - 1696.04 * dgLZd + 2682.91 * dgLZu + 455.526 * dgRZd + 455.526 * dgRZu + 567.978 * dgZ1 + 500.809 * dkZ + 624.434 * lZ;
+    
+    WZA8bin3NLO = 199.275 - 1851.45 * dgLZd + 2302.17 * dgLZu + 368.076 * dgRZd + 368.076 * dgRZu + 124.683 * dgZ1 + 312.161 * dkZ + 421.23 * lZ;
+    
+    WZA8bin4NLO = 62.4615 - 1194.94 * dgLZd + 1449.19 * dgLZu + 127.456 * dgRZd + 127.456 * dgRZu - 352.836 * dgZ1 + 63.0308 * dkZ + 201.643 * lZ;
+    
+    WZA8bin5NLO = 4.89157 - 198.225 * dgLZd + 260.69 * dgLZu + 10.1279 * dgRZd + 10.1279 * dgRZu - 106.64 * dgZ1 + 2.82628 * dkZ + 41.4749 * lZ;
+    
+    WZA8bin6NLO = 1.42958 - 106.675 * dgLZd + 155.184 * dgLZu + 2.76817 * dgRZd + 2.76817 * dgRZu - 69.2783 * dgZ1 + 0.662577 * dkZ + 26.9946 * lZ;
+    
+    // Consider only 5th bin
+    chi2WZA8 = 0. * (WZA8bin1Exp-WZA8bin1NLO)*(WZA8bin1Exp-WZA8bin1NLO)/WZA8bin1Err/WZA8bin1Err +
+            0. * (WZA8bin2Exp-WZA8bin2NLO)*(WZA8bin2Exp-WZA8bin2NLO)/WZA8bin2Err/WZA8bin2Err +
+            0. * (WZA8bin3Exp-WZA8bin3NLO)*(WZA8bin3Exp-WZA8bin3NLO)/WZA8bin3Err/WZA8bin3Err +
+            0. * (WZA8bin4Exp-WZA8bin4NLO)*(WZA8bin4Exp-WZA8bin4NLO)/WZA8bin4Err/WZA8bin4Err +
+            (WZA8bin5Exp-WZA8bin5NLO)*(WZA8bin5Exp-WZA8bin5NLO)/WZA8bin5Err/WZA8bin5Err +
+            0. * (WZA8bin6Exp-WZA8bin6NLO)*(WZA8bin6Exp-WZA8bin6NLO)/WZA8bin6Err/WZA8bin6Err;
+    
+ 
+    // WZ CMS pT bins 8 TeV
+    WZC8bin1NLO = 48211.3 - 211046. * dgLZd + 574513. * dgLZu + 68328.7 * dgRZd + 68328.7 * dgRZu + 122719. * dgZ1 + 87803.2 * dkZ + 113221. * lZ;
+
+    WZC8bin2NLO = 105555. - 636900. * dgLZd + 771034. * dgLZu + 164538. * dgRZd + 164538. * dgRZu + 227935. * dgZ1 + 185437. * dkZ + 235575. * lZ;
+    
+    WZC8bin3NLO = 95535.1 - 800852. * dgLZd + 771583. * dgLZu + 163657. * dgRZd + 163657. * dgRZu + 133396. * dgZ1 + 151539. * dkZ + 198427. * lZ;
+    
+    WZC8bin4NLO = 63880.3 - 691881. * dgLZd + 690499. * dgLZu + 117894. * dgRZd + 117894. * dgRZu + 14995.3 * dgZ1 + 85009.3 * dkZ + 122822. * lZ;
+    
+    WZC8bin5NLO = 39607.7 - 539249. * dgLZd + 568912. * dgLZu + 78418.4 * dgRZd + 78418.4 * dgRZu - 50735.4 * dgZ1 + 44726.9 * dkZ + 75660.1 * lZ;
+    
+    WZC8bin6NLO = 24855.2 - 422586. * dgLZd + 462072. * dgLZu + 53286.7 * dgRZd + 53286.7 * dgRZu - 76050. * dgZ1 + 25301.8 * dkZ + 50553.7 * lZ;
+    
+    WZC8bin7NLO = 14988.1 - 313165. * dgLZd + 352433. * dgLZu + 34854.5 * dgRZd + 34854.5 * dgRZu - 77082.3 * dgZ1 + 15108. * dkZ + 36685.2 * lZ;
+    
+    WZC8bin8NLO = 19871.3 - 568574. * dgLZd + 670089. * dgLZu + 52746.6 * dgRZd + 52746.6 * dgRZu - 188355. * dgZ1 + 22816.8 * dkZ + 72677. * lZ;
+    
+    WZC8bin9NLO = 7452.7 - 349468. * dgLZd + 453250. * dgLZu + 24770.6 * dgRZd + 24770.6 * dgRZu - 160704. * dgZ1 + 13427. * dkZ + 59126.2 * lZ;
+    
+    // Exclude 1st bin
+    chi2WZC8 = 0. * (WZC8bin1Exp-WZC8bin1NLO)*(WZC8bin1Exp-WZC8bin1NLO)/WZC8bin1Err/WZC8bin1Err +
+            (WZC8bin2Exp-WZC8bin2NLO)*(WZC8bin2Exp-WZC8bin2NLO)/WZC8bin2Err/WZC8bin2Err +
+            (WZC8bin3Exp-WZC8bin3NLO)*(WZC8bin3Exp-WZC8bin3NLO)/WZC8bin3Err/WZC8bin3Err +
+            (WZC8bin4Exp-WZC8bin4NLO)*(WZC8bin4Exp-WZC8bin4NLO)/WZC8bin4Err/WZC8bin4Err +
+            (WZC8bin5Exp-WZC8bin5NLO)*(WZC8bin5Exp-WZC8bin5NLO)/WZC8bin5Err/WZC8bin5Err +
+            (WZC8bin6Exp-WZC8bin6NLO)*(WZC8bin6Exp-WZC8bin6NLO)/WZC8bin6Err/WZC8bin6Err +
+            (WZC8bin7Exp-WZC8bin7NLO)*(WZC8bin7Exp-WZC8bin7NLO)/WZC8bin7Err/WZC8bin7Err +
+            (WZC8bin8Exp-WZC8bin8NLO)*(WZC8bin8Exp-WZC8bin8NLO)/WZC8bin8Err/WZC8bin8Err +
+            (WZC8bin9Exp-WZC8bin9NLO)*(WZC8bin9Exp-WZC8bin9NLO)/WZC8bin9Err/WZC8bin9Err;
+
+    
+    // WZ ATLAS MT bins 13 TeV
+    WZA13bin1NLO = 210.9 - 1538.29 * dgLZd + 2090.03 * dgLZu + 412.422 * dgRZd + 412.422 * dgRZu + 495.535 * dgZ1 + 463.077 * dkZ + 573.114 * lZ;
+    
+    WZA13bin2NLO = 935.318 - 6327.47 * dgLZd + 8887.4 * dgLZu + 1735.63 * dgRZd + 1735.63 * dgRZu + 2189.77 * dgZ1 + 1920.9 * dkZ + 2423.75 * lZ;
+    
+    WZA13bin3NLO = 761.955 - 7639.11 * dgLZd + 9400.48 * dgLZu + 1592.09 * dgRZd + 1592.09 * dgRZu + 727.602 * dgZ1 + 1411.59 * dkZ + 1983.66 * lZ;
+    
+    WZA13bin4NLO = 282.966 - 5916.74 * dgLZd + 7021.37 * dgLZu + 704.878 * dgRZd + 704.878 * dgRZu - 1518.83 * dgZ1 + 433.021 * dkZ + 1322.95 * lZ;
+    
+    WZA13bin5NLO = 28.3987 - 1235.14 * dgLZd + 1523.66 * dgLZu + 75.7642 * dgRZd + 75.7642 * dgRZu - 622.335 * dgZ1 + 35.011 * dkZ + 340.428 * lZ;
+    
+    WZA13bin6NLO = 14.1701 - 1200.86 * dgLZd + 1637.7 * dgLZu + 35.6558 * dgRZd + 35.6558 * dgRZu - 765.679 * dgZ1 + 15.3856 * dkZ + 386.992 * lZ;
+    
+    // All bins
+    chi2WZA13 = (WZA13bin1Exp-WZA13bin1NLO)*(WZA13bin1Exp-WZA13bin1NLO)/WZA13bin1Err/WZA13bin1Err +
+            (WZA13bin2Exp-WZA13bin2NLO)*(WZA13bin2Exp-WZA13bin2NLO)/WZA13bin2Err/WZA13bin2Err +
+            (WZA13bin3Exp-WZA13bin3NLO)*(WZA13bin3Exp-WZA13bin3NLO)/WZA13bin3Err/WZA13bin3Err +
+            (WZA13bin4Exp-WZA13bin4NLO)*(WZA13bin4Exp-WZA13bin4NLO)/WZA13bin4Err/WZA13bin4Err +
+            (WZA13bin5Exp-WZA13bin5NLO)*(WZA13bin5Exp-WZA13bin5NLO)/WZA13bin5Err/WZA13bin5Err +
+            (WZA13bin6Exp-WZA13bin6NLO)*(WZA13bin6Exp-WZA13bin6NLO)/WZA13bin6Err/WZA13bin6Err;
+    
+    
+    // WZ CMS M bins 13 TeV
+    WZC13bin1NLO = 310.897 - 3311.66 * dgLZd + 4923.17 * dgLZu + 730.006 * dgRZd + 730.006 * dgRZu + 718.192 * dgZ1 + 751.263 * dkZ + 850.366 * lZ;
+    
+    WZC13bin2NLO = 1490.35 - 15194.9 * dgLZd + 16711.1 * dgLZu + 3034.05 * dgRZd + 3034.05 * dgRZu + 1380.12 * dgZ1 + 2725.68 * dkZ + 3868.96 * lZ;
+    
+    WZC13bin3NLO = 629.894 - 8390.66 * dgLZd + 9234.47 * dgLZu + 1290.66 * dgRZd + 1290.66 * dgRZu - 748.093 * dgZ1 + 947.852 * dkZ + 1888.75 * lZ;
+    
+    WZC13bin4NLO = 232.784 - 3896.81 * dgLZd + 4345.03 * dgLZu + 485.435 * dgRZd + 485.435 * dgRZu - 810.122 * dgZ1 + 323.179 * dkZ + 894.34 * lZ;
+    
+    WZC13bin5NLO = 174.94 - 4161.42 * dgLZd + 5115.65 * dgLZu + 365.576 * dgRZd + 365.576 * dgRZu - 1577.77 * dgZ1 + 224.176 * dkZ + 1058.21 * lZ;
+    
+    WZC13bin6NLO = 8.27 - 373.695 * dgLZd + 600.396 * dgLZu + 15.4694 * dgRZd + 15.4694 * dgRZu - 216.476 * dgZ1 + 8.36269 * dkZ + 110.306 * lZ;
+    
+    WZC13bin7NLO = 1.71 - 122.273 * dgLZd + 251.559 * dgLZu + 2.55789 * dgRZd + 2.55789 * dgRZu - 78.8209 * dgZ1 + 1.48003 * dkZ + 37.0098 * lZ;
+    
+    // Consider only the last 3 bins
+    chi2WZC13 = 0. * (WZC13bin1Exp-WZC13bin1NLO)*(WZC13bin1Exp-WZC13bin1NLO)/WZC13bin1Err/WZC13bin1Err +
+            0. * (WZC13bin2Exp-WZC13bin2NLO)*(WZC13bin2Exp-WZC13bin2NLO)/WZC13bin2Err/WZC13bin2Err +
+            0. * (WZC13bin3Exp-WZC13bin3NLO)*(WZC13bin3Exp-WZC13bin3NLO)/WZC13bin3Err/WZC13bin3Err +
+            0. * (WZC13bin4Exp-WZC13bin4NLO)*(WZC13bin4Exp-WZC13bin4NLO)/WZC13bin4Err/WZC13bin4Err +
+            (WZC13bin5Exp-WZC13bin5NLO)*(WZC13bin5Exp-WZC13bin5NLO)/WZC13bin5Err/WZC13bin5Err +
+            (WZC13bin6Exp-WZC13bin6NLO)*(WZC13bin6Exp-WZC13bin6NLO)/WZC13bin6Err/WZC13bin6Err +
+            (WZC13bin7Exp-WZC13bin7NLO)*(WZC13bin7Exp-WZC13bin7NLO)/WZC13bin7Err/WZC13bin7Err;
+    
+    
+    // Total WW chi2
+    chi2WZ = chi2WZA8 + chi2WZC8 + chi2WZA13 + chi2WZC13;
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt of the total chi2    
+    return sqrt(chi2WW + chi2WZ);
 }
 
 double NPSMEFTd6::AuxObs_NP17() const
