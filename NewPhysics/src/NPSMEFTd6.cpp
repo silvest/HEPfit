@@ -2857,32 +2857,76 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
 
 bool NPSMEFTd6::RGd6SMEFTlogs()
 {
-// Initialize the anomalous dimensions
-    gADHL1_11 = 0.0;
-    gADHL1_22 = 0.0;
-    gADHL1_33 = 0.0;
-    gADHL3_11 = 0.0;
-    gADHL3_22 = 0.0;
-    gADHL3_33 = 0.0;
+     
+//  4F operators not in the input list
+    double CLQ1_2233 = 0.0, CLQ1_3333 = 0.0;
+    double CLQ3_2233 = 0.0, CLQ3_3333 = 0.0;
+    double CLu_3333 = 0.0;
+    double CQe_3322 = 0.0, CQe_3333 = 0.0;
+    double Ceu_3333 = 0.0;
+    double CQQ1_3113 = CQQ1_1331, CQQ1_2332= 0.0, CQQ1_3223 = CQQ1_2332, 
+            CQQ1_3311 = CQQ1_1133, CQQ1_3322 = 0.0, CQQ1_2233 = CQQ1_3322, CQQ1_3333 = 0.0;
+    double CQQ3_3113 = CQQ3_1331, CQQ3_2332= 0.0, CQQ3_3223 = CQQ3_2332, 
+            CQQ3_3311 = CQQ3_1133, CQQ3_3322 = 0.0, CQQ3_2233 = CQQ3_3322, CQQ3_3333 = 0.0;
+    double CQd1_3322 = 0.0, CQd1_3333 = 0.0;
+    double CQu1_3322 = 0.0, CQu1_2233 = CQu1_3322, CQu1_3333 = 0.0;
+    double Cud1_3322 = 0.0, Cud1_3333 = 0.0; 
+    double Cuu_3113 = Cuu_1331, Cuu_3311 = Cuu_1133, Cuu_2233 = 0.0, Cuu_3322= Cuu_2233, Cuu_2332 = 0.0, Cuu_3223 = Cuu_2332, Cuu_3333 = 0.0;
     
-    gADHQ1_11 = 0.0;
-    gADHQ1_22 = 0.0;
-    gADHQ1_33 = 0.0;
-    gADHQ3_11 = 0.0;
-    gADHQ3_22 = 0.0;
-    gADHQ3_33 = 0.0;
+//  SM pars
+    double Yt, Yt2;
+    double g1, g2;
+    double yq = 1.0/6.0, yu = 2.0/3.0;
+
+    Yt = Yukt;
+    Yt2 = Yt*Yt;
     
-    gADHe_11 = 0.0;
-    gADHe_22 = 0.0;
-    gADHe_33 = 0.0;
+    g1 = g1_tree;
+    g2 = g2_tree;
+       
+// Initialize the anomalous dimensions: only Yt terms
+    gADHL1_11 = 2.0 * Nc * Yt2 * (CiHL1_11 + CLQ1_1133 - CLu_1133);
+    gADHL1_22 = 2.0 * Nc * Yt2 * (CiHL1_22 + CLQ1_2233 - CLu_2233);
+    gADHL1_33 = 2.0 * Nc * Yt2 * (CiHL1_33 + CLQ1_3333 - CLu_3333);
+    gADHL3_11 = 2.0 * Nc * Yt2 * (CiHL3_11 - CLQ3_1133);
+    gADHL3_22 = 2.0 * Nc * Yt2 * (CiHL3_22 - CLQ3_2233);
+    gADHL3_33 = 2.0 * Nc * Yt2 * (CiHL3_33 - CLQ3_3333);
     
-    gADHu_11 = 0.0;
-    gADHu_22 = 0.0;
-    gADHu_33 = 0.0;
+    gADHQ1_11 = Yt2 * (CQQ1_1331 + CQQ1_3113 + 3.0 * CQQ3_1331 + 3.0 * CQQ3_3113 
+            + 2.0 * Nc * (CiHQ1_11 + CQQ1_1133 + CQQ1_3311 - CQu1_1133));
     
-    gADHd_11 = 0.0;
-    gADHd_22 = 0.0;
-    gADHd_33 = 0.0;
+    gADHQ1_22 = Yt2 * (CQQ1_2332 + CQQ1_3223 + 3.0 * CQQ3_2332 + 3.0 * CQQ3_3223 
+            + 2.0 * Nc * (CiHQ1_22 + CQQ1_2233 + CQQ1_3322 - CQu1_2233));
+    
+    gADHQ1_33 = (0.5) * Yt2 * (CiHbox + CiHD + 8.0 * CiHQ1_33 + 4.0 * Nc * CiHQ1_33 
+            - 18.0 * CiHQ3_33 - 2.0 * CiHu_33 + 4.0 * CQQ1_3333 + 8.0 * Nc * CQQ1_3333 
+            + 12.0 * CQQ3_3333 - 4.0 * Nc * CQu1_3333);
+    
+    gADHQ3_11 = Yt2 * ( - CQQ1_1331 - CQQ1_3113 + CQQ3_1331 + CQQ3_3113 
+            + 2.0 * Nc * (CiHQ3_11 - CQQ3_1133 - CQQ3_3311));
+    
+    gADHQ3_22 = Yt2 * ( - CQQ1_2332 - CQQ1_3223 + CQQ3_2332 + CQQ3_3223 
+            + 2.0 * Nc * (CiHQ3_22 - CQQ3_2233 - CQQ3_3322));
+    
+    gADHQ3_33 = - (0.5) * Yt2 * (CiHbox + 6.0 * CiHQ1_33 - 4.0 * (1.0 + Nc) * CiHQ3_33 
+            + 4.0 * CQQ1_3333 - 4.0 * CQQ3_3333 + 8.0 * Nc * CQQ3_3333);
+    
+    gADHe_11 = 2.0 * Nc * Yt2 * ( - Ceu_1133 + CiHe_11 + CQe_3311);
+    gADHe_22 = 2.0 * Nc * Yt2 * ( - Ceu_2233 + CiHe_22 + CQe_3322);
+    gADHe_33 = 2.0 * Nc * Yt2 * ( - Ceu_3333 + CiHe_33 + CQe_3333);
+    
+    gADHu_11 = - 2.0 * Yt2 * (Cuu_1331 + Cuu_3113 
+            + Nc * ( - CiHu_11 - CQu1_3311 + Cuu_1133 + Cuu_3311));
+    
+    gADHu_22 = - 2.0 * Yt2 * (Cuu_2332 + Cuu_3223 
+            + Nc * ( - CiHu_22 - CQu1_3322 + Cuu_2233 + Cuu_3322));
+    
+    gADHu_33 = - Yt2 * (CiHbox + CiHD + 2.0 * CiHQ1_33 -  7.0 * CiHu_33 
+            - 2.0 * Nc * CiHu_33 - 2.0 * Nc * CQu1_3333 + 4.0 * Cuu_3333 + 4.0 * Nc * Cuu_3333);
+    
+    gADHd_11 = 2.0 * Nc * Yt2 * (CiHd_11 + CQd1_3311 - Cud1_3311);
+    gADHd_22 = 2.0 * Nc * Yt2 * (CiHd_22 + CQd1_3322 - Cud1_3322);
+    gADHd_33 = 2.0 * Nc * Yt2 * (CiHd_33 + CQd1_3333 - Cud1_3333);
     
     gADW = 0.0;
     gADG = 0.0;
@@ -2890,12 +2934,14 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     gADHG = 0.0;   
     gADHW = 0.0;
     gADHB = 0.0; 
-    gADHWB = 0.0;
+    gADHWB = 2.0 * CiHWB * Nc * Yt2  - g2 * Nc * Yt * CdB_33r + 2.0 * g2 * Nc * Yt * CiuB_33r 
+            + 4.0 * g1 * Nc * yq * Yt * CiuW_33r + 4.0 * g1 * Nc * Yt * yu * CiuW_33r;
+    
     gADDHB = 0.0; 
     gADDHW = 0.0;
     
     gADHbox = 0.0;
-    gADHD = 0.0;
+    gADHD = 4.0 * CiHD * Nc * Yt2 + 8.0 * Nc * Yt2 * CiHQ1_33 - 8.0 * Nc * Yt2 * CiHu_33;
     gADH = 0.0;
     
     gADeH_11r = 0.0;
