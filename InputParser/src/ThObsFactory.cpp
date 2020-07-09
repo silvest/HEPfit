@@ -566,6 +566,29 @@ ThObsFactory::ThObsFactory()
     obsThFactory["oblTpar"] = boost::factory<oblT*>();
     obsThFactory["oblWpar"] = boost::factory<oblW*>();
     obsThFactory["oblYpar"] = boost::factory<oblY*>();
+    //-----  Combinations of Warsaw basis coefficients constrained by EWPO  ----------
+    obsThFactory["CEWHL1_11"] = boost::factory<CEWHL111*>();
+    obsThFactory["CEWHL1_22"] = boost::factory<CEWHL122*>();
+    obsThFactory["CEWHL1_33"] = boost::factory<CEWHL133*>();
+    obsThFactory["CEWHL3_11"] = boost::factory<CEWHL311*>();
+    obsThFactory["CEWHL3_22"] = boost::factory<CEWHL322*>();
+    obsThFactory["CEWHL3_33"] = boost::factory<CEWHL333*>();
+    obsThFactory["CEWHQ1_11"] = boost::factory<CEWHQ111*>();
+    obsThFactory["CEWHQ1_22"] = boost::factory<CEWHQ122*>();
+    obsThFactory["CEWHQ1_33"] = boost::factory<CEWHQ133*>();
+    obsThFactory["CEWHQ3_11"] = boost::factory<CEWHQ311*>();
+    obsThFactory["CEWHQ3_22"] = boost::factory<CEWHQ322*>();
+    obsThFactory["CEWHQ3_33"] = boost::factory<CEWHQ333*>();
+    obsThFactory["CEWHQd_33"] = boost::factory<CEWHQd33*>();
+    obsThFactory["CEWHe_11"] = boost::factory<CEWHe11*>();
+    obsThFactory["CEWHe_22"] = boost::factory<CEWHe22*>();
+    obsThFactory["CEWHe_33"] = boost::factory<CEWHe33*>();
+    obsThFactory["CEWHu_11"] = boost::factory<CEWHu11*>();
+    obsThFactory["CEWHu_22"] = boost::factory<CEWHu22*>();
+    obsThFactory["CEWHu_33"] = boost::factory<CEWHu33*>();
+    obsThFactory["CEWHd_11"] = boost::factory<CEWHd11*>();
+    obsThFactory["CEWHd_22"] = boost::factory<CEWHd22*>();
+    obsThFactory["CEWHd_33"] = boost::factory<CEWHd33*>();
     //-----  Auxiliary observables to work with new physics  ----------
     obsThFactory["AuxObsNP1"] = boost::factory<AuxObsNP1*>();
     obsThFactory["AuxObsNP2"] = boost::factory<AuxObsNP2*>();

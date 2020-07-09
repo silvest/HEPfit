@@ -3474,6 +3474,814 @@ private:
 };
 
 
+//-----  Combinations of Warsaw basis coefficients constrained by EWPO  ----------
+
+/**
+ * @class CEWHL111
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HL}^{(1)})_{11}@f$.
+ *
+ */
+class CEWHL111 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHL111(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHL111 class.
+     */
+    virtual ~CEWHL111();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HL}^{(1)})_{11}@f$.
+     * @return @f$(\hat{C}_{HL}^{(1)})_{11}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHL122
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HL}^{(1)})_{22}@f$.
+ *
+ */
+class CEWHL122 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHL122(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHL122 class.
+     */
+    virtual ~CEWHL122();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HL}^{(1)})_{22}@f$.
+     * @return @f$(\hat{C}_{HL}^{(1)})_{22}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHL133
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HL}^{(1)})_{33}@f$.
+ *
+ */
+class CEWHL133 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHL133(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHL133 class.
+     */
+    virtual ~CEWHL133();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HL}^{(1)})_{33}@f$.
+     * @return @f$(\hat{C}_{HL}^{(1)})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHL311
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HL}^{(3)})_{11}@f$.
+ *
+ */
+class CEWHL311 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHL311(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHL311 class.
+     */
+    virtual ~CEWHL311();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HL}^{(3)})_{11}@f$.
+     * @return @f$(\hat{C}_{HL}^{(3)})_{11}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHL322
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HL}^{(3)})_{22}@f$.
+ *
+ */
+class CEWHL322 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHL322(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHL322 class.
+     */
+    virtual ~CEWHL322();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HL}^{(3)})_{22}@f$.
+     * @return @f$(\hat{C}_{HL}^{(3)})_{22}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHL333
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HL}^{(3)})_{33}@f$.
+ *
+ */
+class CEWHL333 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHL333(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHL333 class.
+     */
+    virtual ~CEWHL333();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HL}^{(3)})_{33}@f$.
+     * @return @f$(\hat{C}_{HL}^{(3)})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHQ111
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{11}@f$.
+ *
+ */
+class CEWHQ111 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ111(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ111 class.
+     */
+    virtual ~CEWHQ111();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{11}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{11}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ122
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{22}@f$.
+ *
+ */
+class CEWHQ122 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ122(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ122 class.
+     */
+    virtual ~CEWHQ122();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{22}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{22}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ133
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{33}@f$.
+ *
+ */
+class CEWHQ133 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ133(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ133 class.
+     */
+    virtual ~CEWHQ133();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{33}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHQ311
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{11}@f$.
+ *
+ */
+class CEWHQ311 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ311(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ311 class.
+     */
+    virtual ~CEWHQ311();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{11}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{11}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ322
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{22}@f$.
+ *
+ */
+class CEWHQ322 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ322(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ322 class.
+     */
+    virtual ~CEWHQ322();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{22}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{22}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ333
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{33}@f$.
+ *
+ */
+class CEWHQ333 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ333(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ333 class.
+     */
+    virtual ~CEWHQ333();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{33}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHQd33
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(d)})_{33}@f$.
+ *
+ */
+class CEWHQd33 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQd33(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ333 class.
+     */
+    virtual ~CEWHQd33();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(d)})_{33}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(d)})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHe11
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{He})_{11}@f$.
+ *
+ */
+class CEWHe11 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHe11(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHe11 class.
+     */
+    virtual ~CEWHe11();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{He})_{11}@f$.
+     * @return @f$(\hat{C}_{He})_{11}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHe22
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{He})_{22}@f$.
+ *
+ */
+class CEWHe22 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHe22(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHe22 class.
+     */
+    virtual ~CEWHe22();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{He})_{22}@f$.
+     * @return @f$(\hat{C}_{He})_{22}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHe33
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{He})_{33}@f$.
+ *
+ */
+class CEWHe33 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHe33(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHe33 class.
+     */
+    virtual ~CEWHe33();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{He})_{33}@f$.
+     * @return @f$(\hat{C}_{He})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHu11
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hu})_{11}@f$.
+ *
+ */
+class CEWHu11 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHu11(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHu11 class.
+     */
+    virtual ~CEWHu11();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hu})_{11}@f$.
+     * @return @f$(\hat{C}_{Hu})_{11}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHu22
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hu})_{22}@f$.
+ *
+ */
+class CEWHu22 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHu22(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHu22 class.
+     */
+    virtual ~CEWHu22();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hu})_{22}@f$.
+     * @return @f$(\hat{C}_{Hu})_{22}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHu33
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hu})_{33}@f$.
+ *
+ */
+class CEWHu33 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHu33(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHu33 class.
+     */
+    virtual ~CEWHu33();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hu})_{33}@f$.
+     * @return @f$(\hat{C}_{Hu})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHd11
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hd})_{11}@f$.
+ *
+ */
+class CEWHd11 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHd11(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHd11 class.
+     */
+    virtual ~CEWHd11();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hd})_{11}@f$.
+     * @return @f$(\hat{C}_{Hd})_{11}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHd22
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hd})_{22}@f$.
+ *
+ */
+class CEWHd22 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHd22(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHd22 class.
+     */
+    virtual ~CEWHd22();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hd})_{22}@f$.
+     * @return @f$(\hat{C}_{Hd})_{22}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHd33
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hd})_{33}@f$.
+ *
+ */
+class CEWHd33 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHd33(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHd33 class.
+     */
+    virtual ~CEWHd33();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hd})_{33}@f$.
+     * @return @f$(\hat{C}_{Hd})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
 //-----  Auxiliary observables  ----------
 
 /**

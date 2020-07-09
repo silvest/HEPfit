@@ -1957,6 +1957,392 @@ double oblY::computeThValue()
     return (myNPbase->obliqueY());
 }
 
+
+
+/* -------------------------------------*/
+/* -------------------------------------*/
+
+//-----  Combinations of Warsaw basis coefficients constrained by EWPO  ----------
+
+/* -------------------------------------*/
+/* -------------------------------------*/
+
+
+CEWHL111::CEWHL111(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHL111::~CEWHL111()
+{}
+
+double CEWHL111::computeThValue()
+{    
+    return (myNPbase->CEWHL111());
+}
+
+/* -------------------------------------*/
+
+CEWHL122::CEWHL122(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHL122::~CEWHL122()
+{}
+
+double CEWHL122::computeThValue()
+{    
+    return (myNPbase->CEWHL122());
+}
+
+/* -------------------------------------*/
+
+CEWHL133::CEWHL133(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHL133::~CEWHL133()
+{}
+
+double CEWHL133::computeThValue()
+{    
+    return (myNPbase->CEWHL133());
+}
+
+/* -------------------------------------*/
+
+CEWHL311::CEWHL311(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHL311::~CEWHL311()
+{}
+
+double CEWHL311::computeThValue()
+{    
+    return (myNPbase->CEWHL311());
+}
+
+/* -------------------------------------*/
+
+CEWHL322::CEWHL322(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHL322::~CEWHL322()
+{}
+
+double CEWHL322::computeThValue()
+{    
+    return (myNPbase->CEWHL322());
+}
+
+/* -------------------------------------*/
+
+CEWHL333::CEWHL333(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHL333::~CEWHL333()
+{}
+
+double CEWHL333::computeThValue()
+{    
+    return (myNPbase->CEWHL333());
+}
+
+/* -------------------------------------*/
+
+CEWHQ111::CEWHQ111(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHQ111::~CEWHQ111()
+{}
+
+double CEWHQ111::computeThValue()
+{    
+    return (myNPbase->CEWHQ111());
+}
+
+/* -------------------------------------*/
+
+CEWHQ122::CEWHQ122(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHQ122::~CEWHQ122()
+{}
+
+double CEWHQ122::computeThValue()
+{    
+    return (myNPbase->CEWHQ122());
+}
+
+/* -------------------------------------*/
+
+CEWHQ133::CEWHQ133(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHQ133::~CEWHQ133()
+{}
+
+double CEWHQ133::computeThValue()
+{    
+    return (myNPbase->CEWHQ133());
+}
+
+/* -------------------------------------*/
+
+CEWHQ311::CEWHQ311(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHQ311::~CEWHQ311()
+{}
+
+double CEWHQ311::computeThValue()
+{    
+    return (myNPbase->CEWHQ311());
+}
+
+/* -------------------------------------*/
+
+CEWHQ322::CEWHQ322(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHQ322::~CEWHQ322()
+{}
+
+double CEWHQ322::computeThValue()
+{    
+    return (myNPbase->CEWHQ322());
+}
+
+/* -------------------------------------*/
+
+CEWHQ333::CEWHQ333(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHQ333::~CEWHQ333()
+{}
+
+double CEWHQ333::computeThValue()
+{    
+    return (myNPbase->CEWHQ333());
+}
+
+/* -------------------------------------*/
+
+CEWHQd33::CEWHQd33(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHQd33::~CEWHQd33()
+{}
+
+double CEWHQd33::computeThValue()
+{    
+    return (myNPbase->CEWHQd33());
+}
+
+/* -------------------------------------*/
+
+CEWHe11::CEWHe11(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHe11::~CEWHe11()
+{}
+
+double CEWHe11::computeThValue()
+{    
+    return (myNPbase->CEWHe11());
+}
+
+/* -------------------------------------*/
+
+CEWHe22::CEWHe22(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHe22::~CEWHe22()
+{}
+
+double CEWHe22::computeThValue()
+{    
+    return (myNPbase->CEWHe22());
+}
+
+/* -------------------------------------*/
+
+CEWHe33::CEWHe33(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHe33::~CEWHe33()
+{}
+
+double CEWHe33::computeThValue()
+{    
+    return (myNPbase->CEWHe33());
+}
+
+/* -------------------------------------*/
+
+CEWHu11::CEWHu11(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHu11::~CEWHu11()
+{}
+
+double CEWHu11::computeThValue()
+{    
+    return (myNPbase->CEWHu11());
+}
+
+/* -------------------------------------*/
+
+CEWHu22::CEWHu22(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHu22::~CEWHu22()
+{}
+
+double CEWHu22::computeThValue()
+{    
+    return (myNPbase->CEWHu22());
+}
+
+/* -------------------------------------*/
+
+CEWHu33::CEWHu33(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHu33::~CEWHu33()
+{}
+
+double CEWHu33::computeThValue()
+{    
+    return (myNPbase->CEWHu33());
+}
+
+/* -------------------------------------*/
+
+CEWHd11::CEWHd11(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHd11::~CEWHd11()
+{}
+
+double CEWHd11::computeThValue()
+{    
+    return (myNPbase->CEWHd11());
+}
+
+/* -------------------------------------*/
+
+CEWHd22::CEWHd22(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHd22::~CEWHd22()
+{}
+
+double CEWHd22::computeThValue()
+{    
+    return (myNPbase->CEWHd22());
+}
+
+/* -------------------------------------*/
+
+CEWHd33::CEWHd33(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{}
+
+
+CEWHd33::~CEWHd33()
+{}
+
+double CEWHd33::computeThValue()
+{    
+    return (myNPbase->CEWHd33());
+}
+
+/* -------------------------------------*/
+
+
 /* -------------------------------------*/
 /* -------------------------------------*/
 

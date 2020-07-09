@@ -17355,6 +17355,140 @@ double NPSMEFTd6::lambz_HB() const
     return ciHB;
 }
 
+    /////////////Combinations of Warsaw basis coefficients constrained by EWPO////////////////
+    
+double NPSMEFTd6::CEWHL111() const
+{
+    return CiHL1_11 + (1.0/4.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHL122() const
+{
+    return CiHL1_22 + (1.0/4.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHL133() const
+{
+    return CiHL1_33 + (1.0/4.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHL311() const
+{
+    return CiHL3_11 + (1.0/4.0) * (cW2_tree/sW2_tree) * CiHD + (cW_tree/sW_tree) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHL322() const
+{
+    return CiHL3_22 + (1.0/4.0) * (cW2_tree/sW2_tree) * CiHD + (cW_tree/sW_tree) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHL333() const
+{
+    return CiHL3_33 + (1.0/4.0) * (cW2_tree/sW2_tree) * CiHD + (cW_tree/sW_tree) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHQ111() const
+{
+    return CiHQ1_11 - (1.0/12.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHQ122() const
+{
+    return CiHQ1_22 - (1.0/12.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHQ133() const
+{
+    return CiHQ1_33 - (1.0/12.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHQ311() const
+{
+    return CiHQ3_11 + (1.0/4.0) * (cW2_tree/sW2_tree) * CiHD + (cW_tree/sW_tree) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHQ322() const
+{
+    return CiHQ3_22 + (1.0/4.0) * (cW2_tree/sW2_tree) * CiHD + (cW_tree/sW_tree) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHQ333() const
+{
+    return CiHQ3_33 + (1.0/4.0) * (cW2_tree/sW2_tree) * CiHD + (cW_tree/sW_tree) * CiHD;
+}
+    
+    
+double NPSMEFTd6::CEWHQd33() const
+{
+    return 0.5 * ( (CiHQ1_33 - (1.0/12.0) * CiHD) + 
+            (CiHQ3_33 + (1.0/4.0) * (cW2_tree/sW2_tree) * CiHD + (cW_tree/sW_tree) * CiHD) );
+}
+    
+        
+double NPSMEFTd6::CEWHe11() const
+{
+    return CiHe_11 + (1.0/2.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHe22() const
+{
+    return CiHe_22 + (1.0/2.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHe33() const
+{
+    return CiHe_33 + (1.0/2.0) * CiHD;
+}
+    
+    
+double NPSMEFTd6::CEWHu11() const
+{
+    return CiHu_11 - (1.0/3.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHu22() const
+{
+    return CiHu_22 - (1.0/3.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHu33() const
+{
+    return CiHu_33 - (1.0/3.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHd11() const
+{
+    return CiHd_11 + (1.0/6.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHd22() const
+{
+    return CiHd_22 + (1.0/6.0) * CiHD;
+}
+    
+
+double NPSMEFTd6::CEWHd33() const
+{
+    return CiHd_33 + (1.0/6.0) * CiHD;
+}
+
 ////////////////////////////Auxiliary observables//////////////////////////////
 
 double NPSMEFTd6::AuxObs_NP1() const
