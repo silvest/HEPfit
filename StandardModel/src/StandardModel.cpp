@@ -893,7 +893,8 @@ double StandardModel::DeltaAlpha() const
 double StandardModel::alphaMz() const
 {
     return (ale / (1.0 - DeltaAlpha()));
-//    return(1./127.918); // FOR HEFFDF1 TEST
+//    return(1./127.918); // FOR HEFFDF1 TEST: VALUE IN 1503.04849
+//    return(1./127.955); // FOR HEFFDF1 TEST: VALUE IN 2007.04191
 }
 
 double StandardModel::Alstilde5(const double mu) const

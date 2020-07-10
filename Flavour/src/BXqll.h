@@ -79,7 +79,7 @@ private:
     const StandardModel& mySM;/**< Model type */
     F_1 myF_1;
     F_2 myF_2;
-    HeffDF1_NP myHeff;
+    HeffDF1 myHeff;
     QCD::lepton lep;/**< Final leptons type */
     QCD::quark quark;/**< Initial meson type */
     double CF, GF, ale, alsmu, alsmuc, alstilde, aletilde, kappa;

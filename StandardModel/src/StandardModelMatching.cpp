@@ -427,7 +427,7 @@ double StandardModelMatching::C7t_3L_func(double x, double mu) const
 double x2 = x * x;
 double x3 = x * x2;
 double x4 = x * x3;
-double x5 = x * x3;
+double x5 = x * x4;
 double xm1to5 = (x-1.)*(x-1.)*(x-1.)*(x-1.)*(x-1.);
 double xm1to6 = xm1to5*(x-1.);
 

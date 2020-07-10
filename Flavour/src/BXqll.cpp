@@ -1897,7 +1897,7 @@ void BXqll::Test_WC_DF1()
     std::cout << "lambda_1 = " << lambda_1 << std::endl;
     std::cout << "lambda_2 = " << lambda_2 << std::endl;
     std::cout << "Phi_u    = " << Phi_u(FULLNLO_QED) << std::endl;
-    std::cout << "eta      = " << mySM.Als(muw, FULLNNNLO, true) / alsmu << std::endl;  
+    std::cout << "eta      = " << mySM.Als(muw, FULLNNNLO, true) / alsmu << std::endl;
     
     std::cout << std::endl;
     std::cout << "H_T = " << getH("T", 0.05) << std::endl;
@@ -2199,6 +2199,29 @@ void BXqll::Test_WC_DF1()
 //                WC(i, QCD0 + 3*QED1) + WC(i, QCD1 + 3*QED1) + WC(i, QCD2 + 3*QED1) +
 //                WC(i, QCD0 + 3*QED2) + WC(i, QCD1 + 3*QED2) + WC(i, QCD2 + 3*QED2) << std::endl;
 //    }
+//    
+//    double mymt = mySM.Mrun(muw, mySM.getQuarks(QCD::TOP).getMass_scale(), 
+//                mySM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+//    std::cout << "Mw  = " << MW << std::endl;
+//    std::cout << "Muw = " << muw << std::endl;
+//    std::cout << "xt  = " << xt << std::endl;
+//    std::cout << "mt  = " << mymt << " = " << sqrt(xt * MW * MW) << std::endl;
+//    std::cout << "sW2 = " << mySM.sW2() << std::endl;
+//    
+//    std::cout << std::endl;
+//    std::cout << "alstilde(Muw) = " << mySM.Als(muw, FULLNNNLO, true) / 4. / M_PI << std::endl;
+//    std::cout << "aletilde(Muw) = " << mySM.Ale(muw, FULLNLO) / 4. / M_PI << std::endl;
+//    
+//    std::cout << std::endl;
+//    std::cout << "C7t_3L_at_mt(xt)    = " << mySM.getMatching().C7t_3L_at_mt(xt) << std::endl;
+//    std::cout << "C7t_3L_func(xt,Muw) = " << mySM.getMatching().C7t_3L_func(xt, muw) << std::endl;
+//    std::cout << "C7c_3L_at_mW(xt)    = " << mySM.getMatching().C7c_3L_at_mW(xt) << std::endl;
+//    std::cout << "C8t_3L_at_mt(xt)    = " << mySM.getMatching().C8t_3L_at_mt(xt) << std::endl;
+//    std::cout << "C8t_3L_func(xt,Muw) = " << mySM.getMatching().C8t_3L_func(xt, muw) << std::endl;
+//    std::cout << "C8c_3L_at_mW(xt)    = " << mySM.getMatching().C8c_3L_at_mW(xt) << std::endl;
+//    
+//    std::cout << std::endl;
+//    std::cout << "mc = " << (mySM.getMatching().CMDF1("CPMLQB", 15)[0]).getCoeff(QCD2,QED0) << std::endl;
 }
 
 
