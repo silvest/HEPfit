@@ -2869,20 +2869,30 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     double CQQ3_3113 = CQQ3_1331, CQQ3_2332= 0.0, CQQ3_3223 = CQQ3_2332, 
             CQQ3_3311 = CQQ3_1133, CQQ3_3322 = 0.0, CQQ3_2233 = CQQ3_3322, CQQ3_3333 = 0.0;
     double CQd1_3322 = 0.0, CQd1_3333 = 0.0;
-    double CQu1_3322 = 0.0, CQu1_2233 = CQu1_3322, CQu1_3333 = 0.0;
+    double CQu1_3322 = 0.0, CQu1_2233 = CQu1_3322, CQu1_3333 = 0.0, CQu1_1331 = 0.0, CQu1_2332 = 0.0;
+    double CQu8_1331 = 0.0, CQu8_2332 = 0.0, CQu8_3333 = 0.0;
     double Cud1_3322 = 0.0, Cud1_3333 = 0.0; 
     double Cuu_3113 = Cuu_1331, Cuu_3311 = Cuu_1133, Cuu_2233 = 0.0, Cuu_3322= Cuu_2233, Cuu_2332 = 0.0, Cuu_3223 = Cuu_2332, Cuu_3333 = 0.0;
+    double CQuQd1_1331 = 0.0, CQuQd1_3311 = 0.0, CQuQd1_2332 = 0.0, CQuQd1_3322 = 0.0, CQuQd1_3333 = 0.0;
+    double CQuQd8_1331 = 0.0, CQuQd8_2332 = 0.0, CQuQd8_3333 = 0.0;
+    double CLeQu1_1133 = 0.0, CLeQu1_2233 = 0.0, CLeQu1_3333 = 0.0;
     
 //  SM pars
-    double Yt, Yt2;
-    double g1, g2;
+    double Yt, Yt2, Yt3;
+    double g1, g2, g3;
+    double lambdaH;
     double yq = 1.0/6.0, yu = 2.0/3.0;
+    double cF3= (Nc*Nc - 1.0)/2.0/Nc ;
 
     Yt = Yukt;
     Yt2 = Yt*Yt;
+    Yt3 = Yt2*Yt;
     
     g1 = g1_tree;
     g2 = g2_tree;
+    g3 = g3_tree;
+    
+    lambdaH = lambdaH_tree;
        
 // Initialize the anomalous dimensions: only Yt terms
     gADHL1_11 = 2.0 * Nc * Yt2 * (CiHL1_11 + CLQ1_1133 - CLu_1133);
@@ -2931,10 +2941,10 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     gADW = 0.0;
     gADG = 0.0;
     
-    gADHG = 0.0;   
-    gADHW = 0.0;
-    gADHB = 0.0; 
-    gADHWB = 2.0 * CiHWB * Nc * Yt2  - g2 * Nc * Yt * CdB_33r + 2.0 * g2 * Nc * Yt * CiuB_33r 
+    gADHG = 2.0 * CiHG * Nc * Yt2 - 4.0 * g3 * Yt * CiuG_33r;   
+    gADHW = 2.0 * CiHW * Nc * Yt2 - 2.0 * g2 * Nc * Yt * CiuW_33r;
+    gADHB = 2.0 * CiHB * Nc * Yt2 - 4.0 * g1 * Nc * yq * Yt * CiuB_33r - 4.0 * g1 * Nc * Yt * yu * CiuB_33r; 
+    gADHWB = 2.0 * CiHWB * Nc * Yt2  + 2.0 * g2 * Nc * Yt * CiuB_33r 
             + 4.0 * g1 * Nc * yq * Yt * CiuW_33r + 4.0 * g1 * Nc * Yt * yu * CiuW_33r;
     
     gADDHB = 0.0; 
@@ -2944,17 +2954,35 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     gADHD = 4.0 * CiHD * Nc * Yt2 + 8.0 * Nc * Yt2 * CiHQ1_33 - 8.0 * Nc * Yt2 * CiHu_33;
     gADH = 0.0;
     
-    gADeH_11r = 0.0;
-    gADeH_22r = 0.0;
-    gADeH_33r = 0.0;
+    gADeH_11r = 24.0 * lambdaH * CieH_11r + Nc * Yt * (3.0 * Yt * CieH_11r
+            - 4.0 * lambdaH * CLeQu1_1133) + 4.0 * Nc * Yt3 * CLeQu1_1133;
     
-    gADuH_11r = 0.0;
-    gADuH_22r = 0.0;
-    gADuH_33r = 0.0;
+    gADeH_22r = 24.0 * lambdaH * CieH_22r + Nc * Yt * (3.0 * Yt * CieH_22r
+            - 4.0 * lambdaH * CLeQu1_2233) + 4.0 * Nc * Yt3 * CLeQu1_2233;
     
-    gADdH_11r = 0.0;
-    gADdH_22r = 0.0;
-    gADdH_33r = 0.0;
+    gADeH_33r = 24.0 * lambdaH * CieH_33r + Nc * Yt * (3.0 * Yt * CieH_33r
+            + 4.0 * Yt2 * CLeQu1_3333 - 4.0 * lambdaH * CLeQu1_3333);
+    
+    gADuH_11r = 8.0 * Yt3 * (CQu1_1331 + cF3 * CQu8_1331)
+            -8.0 * Yt * lambdaH * (CQu1_1331 + cF3 * CQu8_1331) + 3.0 * Nc * Yt2 * CiuH_11r + 24.0 * lambdaH * CiuH_11r;
+    
+    gADuH_22r = 8.0 * Yt3 * (CQu1_2332 + cF3 * CQu8_2332)
+            -8.0 * Yt * lambdaH * (CQu1_2332 + cF3 * CQu8_2332) + 3.0 * Nc * Yt2 * CiuH_22r + 24.0 * lambdaH * CiuH_22r;
+    
+    gADuH_33r = -6.0 * CiHbox * Yt3 + CiHD * Yt3 - 4.0 * CiHbox * Yt * lambdaH+ 2.0 * CiHD * Yt * lambdaH
+            -2.0 * Yt3 * CiHQ1_33 - 4.0 * Yt * lambdaH * CiHQ1_33-4.0 * Nc * Yt3 * CiHQ3_33 + 12.0 * Yt * lambdaH * CiHQ3_33
+            +2.0 * Yt3 * CiHu_33 + 4.0 * Yt * lambdaH * CiHu_33+8.0 * Yt3 * CQu1_3333 - 8.0 * Yt * lambdaH * CQu1_3333
+            +8.0 * cF3 * Yt3 * CQu8_3333 - 8.0 * cF3 * Yt * lambdaH * CQu8_3333+10.0 * Yt2 * CiuH_33r
+            +5.0 * Nc * Yt2 * CiuH_33r + 24.0 * lambdaH * CiuH_33r;
+    
+    gADdH_11r = -Yt2 * (Nc * (-3.0 * CidH_11r + 4.0 * Yt * CQuQd1_3311)
+            + 2.0 * Yt * (CQuQd1_1331 + cF3 * CQuQd8_1331));
+    
+    gADdH_22r = -Yt2 * (Nc * (-3.0 * CidH_22r + 4.0 * Yt * CQuQd1_3322)
+            + 2.0 * Yt * (CQuQd1_2332 + cF3 * CQuQd8_2332));
+    
+    gADdH_33r = -(1.0/2.0) * Yt2 * ((3.0 - 6.0 * Nc) * CidH_33r
+            + 4.0 * Yt * (CHud_33r + (1.0 + 2.0 * Nc) * CQuQd1_3333 + cF3 * CQuQd8_3333));
     
     gADuG_11r = 0.0;
     gADuG_22r = 0.0;
