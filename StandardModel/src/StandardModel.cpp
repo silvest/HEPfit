@@ -893,7 +893,7 @@ double StandardModel::DeltaAlpha() const
 double StandardModel::alphaMz() const
 {
     return (ale / (1.0 - DeltaAlpha()));
-//    return(1./127.918); // FOR HEFFDF1 TEST: VALUE IN 1503.04849
+//    return(1./127.918); // FOR HEFFDF1 TEST: VALUE IN hep-ph/0512066
 //    return(1./127.955); // FOR HEFFDF1 TEST: VALUE IN 2007.04191
 }
 
@@ -1007,7 +1007,8 @@ double StandardModel::Mw() const
         }
     }
 
-//    Mw = 80.426; // FOR HEFFDF1 TEST
+//    Mw = 80.426; // FOR HEFFDF1 TEST: VALUE IN hep-ph/0512066
+//    Mw = 80.379; // FOR HEFFDF1 TEST: VALUE IN 2007.04191
     Mw_cache = Mw;
     useMw_cache = true;
     return Mw;
