@@ -2857,6 +2857,8 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
 
 bool NPSMEFTd6::RGd6SMEFTlogs()
 {
+    
+// AD not implemented yet for OH. Also not available for ODHB, ODHW (not in Warsaw basis)
      
 //  4F operators not in the input list
     double CLQ1_2233 = 0.0, CLQ1_3333 = 0.0;
@@ -2879,10 +2881,12 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     
 //  SM pars
     double Yt, Yt2, Yt3;
-    double g1, g2, g3;
+    double g1, g2, g3, g12, g22, g32;
     double lambdaH;
-    double yq = 1.0/6.0, yu = 2.0/3.0;
-    double cF3= (Nc*Nc - 1.0)/2.0/Nc ;
+    double yq = 1.0/6.0, yu = 2.0/3.0, yd = -1.0/3.0, yl = -1.0/2.0, ye = -1.0, yH = 1.0/2.0;
+    double cF2 = 3.0/4.0, cF3= (Nc*Nc - 1.0)/2.0/Nc, cA2 = 2.0, cA3 =  Nc;
+    double ng  = 3.0;
+    double b01 = -1.0/6.0 - 20.0 * ng/9.0, b02 = 43.0/6.0 - 4.0 * ng/3.0, b03 = 11.0 - 4.0 * ng/3.0;
 
     Yt = Yukt;
     Yt2 = Yt*Yt;
@@ -2892,9 +2896,15 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     g2 = g2_tree;
     g3 = g3_tree;
     
+    g12 = g1*g1;
+    g22 = g2*g2;
+    g32 = g3*g3;
+    
     lambdaH = lambdaH_tree;
        
-// Initialize the anomalous dimensions: only Yt terms
+//  Fill the anomalous dimensions
+    
+//  Yukawa contributions: only Yt terms
     gADHL1_11 = 2.0 * Nc * Yt2 * (CiHL1_11 + CLQ1_1133 - CLu_1133);
     gADHL1_22 = 2.0 * Nc * Yt2 * (CiHL1_22 + CLQ1_2233 - CLu_2233);
     gADHL1_33 = 2.0 * Nc * Yt2 * (CiHL1_33 + CLQ1_3333 - CLu_3333);
@@ -2938,8 +2948,8 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     gADHd_22 = 2.0 * Nc * Yt2 * (CiHd_22 + CQd1_3322 - Cud1_3322);
     gADHd_33 = 2.0 * Nc * Yt2 * (CiHd_33 + CQd1_3333 - Cud1_3333);
     
-    gADW = 0.0;
     gADG = 0.0;
+    gADW = 0.0;
     
     gADHG = 2.0 * CiHG * Nc * Yt2 - 4.0 * g3 * Yt * CiuG_33r;   
     gADHW = 2.0 * CiHW * Nc * Yt2 - 2.0 * g2 * Nc * Yt * CiuW_33r;
@@ -2954,27 +2964,16 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     gADHD = 4.0 * CiHD * Nc * Yt2 + 8.0 * Nc * Yt2 * CiHQ1_33 - 8.0 * Nc * Yt2 * CiHu_33;
     gADH = 0.0;
     
-    gADeH_11r = 24.0 * lambdaH * CieH_11r + Nc * Yt * (3.0 * Yt * CieH_11r
-            - 4.0 * lambdaH * CLeQu1_1133) + 4.0 * Nc * Yt3 * CLeQu1_1133;
+    gADeH_11r = Nc * 3.0 * Yt2 * CieH_11r + 4.0 * Nc * Yt3 * CLeQu1_1133;    
+    gADeH_22r = Nc * 3.0 * Yt2 * CieH_22r + 4.0 * Nc * Yt3 * CLeQu1_2233;
+    gADeH_33r = Nc * 3.0 * Yt2 * CieH_33r + 4.0 * Nc * Yt3 * CLeQu1_3333;
     
-    gADeH_22r = 24.0 * lambdaH * CieH_22r + Nc * Yt * (3.0 * Yt * CieH_22r
-            - 4.0 * lambdaH * CLeQu1_2233) + 4.0 * Nc * Yt3 * CLeQu1_2233;
-    
-    gADeH_33r = 24.0 * lambdaH * CieH_33r + Nc * Yt * (3.0 * Yt * CieH_33r
-            + 4.0 * Yt2 * CLeQu1_3333 - 4.0 * lambdaH * CLeQu1_3333);
-    
-    gADuH_11r = 8.0 * Yt3 * (CQu1_1331 + cF3 * CQu8_1331)
-            -8.0 * Yt * lambdaH * (CQu1_1331 + cF3 * CQu8_1331) + 3.0 * Nc * Yt2 * CiuH_11r + 24.0 * lambdaH * CiuH_11r;
-    
-    gADuH_22r = 8.0 * Yt3 * (CQu1_2332 + cF3 * CQu8_2332)
-            -8.0 * Yt * lambdaH * (CQu1_2332 + cF3 * CQu8_2332) + 3.0 * Nc * Yt2 * CiuH_22r + 24.0 * lambdaH * CiuH_22r;
-    
-    gADuH_33r = -6.0 * CiHbox * Yt3 + CiHD * Yt3 - 4.0 * CiHbox * Yt * lambdaH+ 2.0 * CiHD * Yt * lambdaH
-            -2.0 * Yt3 * CiHQ1_33 - 4.0 * Yt * lambdaH * CiHQ1_33-4.0 * Nc * Yt3 * CiHQ3_33 + 12.0 * Yt * lambdaH * CiHQ3_33
-            +2.0 * Yt3 * CiHu_33 + 4.0 * Yt * lambdaH * CiHu_33+8.0 * Yt3 * CQu1_3333 - 8.0 * Yt * lambdaH * CQu1_3333
-            +8.0 * cF3 * Yt3 * CQu8_3333 - 8.0 * cF3 * Yt * lambdaH * CQu8_3333+10.0 * Yt2 * CiuH_33r
-            +5.0 * Nc * Yt2 * CiuH_33r + 24.0 * lambdaH * CiuH_33r;
-    
+    gADuH_11r = 8.0 * Yt3 * (CQu1_1331 + cF3 * CQu8_1331) + 3.0 * Nc * Yt2 * CiuH_11r;    
+    gADuH_22r = 8.0 * Yt3 * (CQu1_2332 + cF3 * CQu8_2332) + 3.0 * Nc * Yt2 * CiuH_22r;    
+    gADuH_33r = -6.0 * CiHbox * Yt3 + CiHD * Yt3 -2.0 * Yt3 * CiHQ1_33 - 4.0 * Nc * Yt3 * CiHQ3_33 
+            +2.0 * Yt3 * CiHu_33 + 8.0 * Yt3 * CQu1_3333 + 8.0 * cF3 * Yt3 * CQu8_3333 + 10.0 * Yt2 * CiuH_33r
+            +5.0 * Nc * Yt2 * CiuH_33r;
+  
     gADdH_11r = -Yt2 * (Nc * (-3.0 * CidH_11r + 4.0 * Yt * CQuQd1_3311)
             + 2.0 * Yt * (CQuQd1_1331 + cF3 * CQuQd8_1331));
     
@@ -2997,6 +2996,104 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     gADuB_33r = 0.0;
     
     gADLL_1221 = 0.0;
+    
+    
+//  Lambda contributions
+    gADHG += 12.0 * lambdaH * CiHG;   
+    gADHW += 12.0 * lambdaH * CiHW;
+    gADHB += 12.0 * lambdaH * CiHB;
+    gADHWB += 4.0 * lambdaH * CiHWB;
+    
+    gADHbox += 24.0 * lambdaH * CiHbox;
+    gADHD += 12.0 * lambdaH * CiHD;
+    gADH += 0.0;
+    
+    gADeH_11r = 24.0 * lambdaH * CieH_11r - 4.0 * Nc * Yt * lambdaH * CLeQu1_1133;
+    gADeH_22r = 24.0 * lambdaH * CieH_22r - 4.0 * Nc * Yt * lambdaH * CLeQu1_2233;
+    gADeH_33r = 24.0 * lambdaH * CieH_33r - 4.0 * Nc * Yt * lambdaH * CLeQu1_3333;
+    
+    gADuH_11r = -8.0 * Yt * lambdaH * (CQu1_1331 + cF3 * CQu8_1331) + 24.0 * lambdaH * CiuH_11r;    
+    gADuH_22r = -8.0 * Yt * lambdaH * (CQu1_2332 + cF3 * CQu8_2332) + 24.0 * lambdaH * CiuH_22r;
+    
+    gADuH_33r = - 4.0 * CiHbox * Yt * lambdaH + 2.0 * CiHD * Yt * lambdaH
+            - 4.0 * Yt * lambdaH * CiHQ1_33 + 12.0 * Yt * lambdaH * CiHQ3_33
+            + 4.0 * Yt * lambdaH * CiHu_33 - 8.0 * Yt * lambdaH * CQu1_3333
+            - 8.0 * cF3 * Yt * lambdaH * CQu8_3333 + 24.0 * lambdaH * CiuH_33r;
+ 
+    gADdH_11r += 2.0 * lambdaH * (12.0 * CidH_11r + Yt * (CQuQd1_1331 + 2.0 * Nc * CQuQd1_3311 + cF3 * CQuQd8_1331));    
+    gADdH_22r += 2.0 * lambdaH * (12.0 * CidH_22r + Yt * (CQuQd1_2332 + 2.0 * Nc * CQuQd1_3322 + cF3 * CQuQd8_2332));    
+    gADdH_33r += 2.0 * lambdaH * (12.0 * CidH_33r + (1.0 + 2.0 * Nc) * Yt * CQuQd1_3333 + cF3 * Yt * CQuQd8_3333);
+    
+    
+//  Gauge contributions
+    gADHL1_11 += 0.0;
+    gADHL1_22 += 0.0;
+    gADHL1_33 += 0.0;
+    gADHL3_11 += 0.0;
+    gADHL3_22 += 0.0;
+    gADHL3_33 += 0.0;
+    
+    gADHQ1_11 += 0.0;
+    gADHQ1_22 += 0.0;    
+    gADHQ1_33 += 0.0;
+    
+    gADHQ3_11 += 0.0;    
+    gADHQ3_22 += 0.0;    
+    gADHQ3_33 += 0.0;
+    
+    gADHe_11 += 0.0;
+    gADHe_22 += 0.0;
+    gADHe_33 += 0.0;
+    
+    gADHu_11 += 0.0;    
+    gADHu_22 += 0.0;    
+    gADHu_33 += 0.0;
+    
+    gADHd_11 += 0.0;
+    gADHd_22 += 0.0;
+    gADHd_33 += 0.0;
+    
+    gADG += (12.0 * cA3 -3.0 * b03) * g32 * CiG;
+    gADW += (12.0 * cA2 -3.0 * b02) * g22 * CiW;
+    
+    gADHG += 0.0;   
+    gADHW += 0.0;
+    gADHB += 0.0;
+    gADHWB += 0.0;
+    
+    gADDHB += 0.0;
+    gADDHW += 0.0;
+    
+    gADHbox += 0.0;
+    gADHD += 0.0;
+    gADH += 0.0;
+    
+    gADeH_11r += 0.0;    
+    gADeH_22r += 0.0;    
+    gADeH_33r += 0.0;
+    
+    gADuH_11r += 0.0;    
+    gADuH_22r += 0.0;    
+    gADuH_33r += 0.0;
+ 
+    gADdH_11r += 0.0;    
+    gADdH_22r += 0.0;    
+    gADdH_33r += 0.0;
+    
+    gADuG_11r = 0.0;
+    gADuG_22r = 0.0;
+    gADuG_33r = 0.0;
+    
+    gADuW_11r = 0.0;
+    gADuW_22r = 0.0;
+    gADuW_33r = 0.0;
+    
+    gADuB_11r = 0.0;
+    gADuB_22r = 0.0;
+    gADuB_33r = 0.0;
+    
+    gADLL_1221 += 0.0;
+    
     
 // Modify the values of the CiX Wilson coefficients        
     CiHL1_11 += cRGE * gADHL1_11;
