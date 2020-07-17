@@ -2924,14 +2924,14 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     
 //  SM pars
     double Yt, Yt2, Yt3;
-    double g1, g2, g3, g12, g22, g32, g13, g23, g33;
-    double lambdaH;
+    double g1, g2, g3, g12, g22, g32, g13, g23, g33, g14, g24, g34;
+    double lambdaH, lambdaH2;
     double yq = 1.0/6.0, yu = 2.0/3.0, yd = -1.0/3.0, yl = -1.0/2.0, ye = -1.0, yH = 1.0/2.0;
     double yq2 = yq*yq, yu2 = yu*yu, yd2 = yd*yd, yl2 = yl*yl, ye2 = ye*ye, yH2 = yH*yH;
     double cF2 = 3.0/4.0, cF3= (Nc*Nc - 1.0)/2.0/Nc, cA2 = 2.0, cA3 =  Nc;
     double ng  = 3.0;
     double b01 = -1.0/6.0 - 20.0 * ng/9.0, b02 = 43.0/6.0 - 4.0 * ng/3.0, b03 = 11.0 - 4.0 * ng/3.0;
-    double TrCHL1, TrCHQ1, TrCHe, TrCHu, TrCHd, ZetaB;
+    double TrCHL1, TrCHL3, TrCHQ1, TrCHQ3, TrCHe, TrCHu, TrCHd, ZetaB;
 
 //  SM pars
     Yt = Yukt;
@@ -2950,13 +2950,22 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     g23 = g22*g2;
     g33 = g32*g3;
     
+    g14 = g13*g1;
+    g24 = g23*g2;
+    g34 = g33*g3;
+    
     lambdaH = lambdaH_tree;
+    lambdaH2 = lambdaH*lambdaH;
     
 //  Commbinations of Wilson coeffs
     
     TrCHL1 = CiHL1_11 + CiHL1_22 + CiHL1_33;
+    
+    TrCHL3 = CiHL3_11 + CiHL3_22 + CiHL3_33;
             
     TrCHQ1 = CiHQ1_11 + CiHQ1_22 + CiHQ1_33;
+    
+    TrCHQ3 = CiHQ3_11 + CiHQ3_22 + CiHQ3_33;
             
     TrCHe = CiHe_11 + CiHe_22 + CiHe_33;
             
@@ -3024,9 +3033,9 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     gADDHB = 0.0; 
     gADDHW = 0.0;
     
-    gADHbox = 0.0;
+    gADHbox = 4.0 * CiHbox * Nc * Yt2 + 3.0 * Nc * Yt2 * CiHQ1_33 - 9.0 * Nc * Yt2 * CiHQ3_33 - 3.0 * Nc * Yt2 * CiHu_33;
     gADHD = 4.0 * CiHD * Nc * Yt2 + 8.0 * Nc * Yt2 * CiHQ1_33 - 8.0 * Nc * Yt2 * CiHu_33;
-    gADH = 0.0;
+    gADH = 6.0 * CiH * Nc * Yt2 - 8.0 * Nc * Yt3 * CiuH_33r;
     
     gADeH_11r = Nc * 3.0 * Yt2 * CieH_11r + 4.0 * Nc * Yt3 * CLeQu1_1133;    
     gADeH_22r = Nc * 3.0 * Yt2 * CieH_22r + 4.0 * Nc * Yt3 * CLeQu1_2233;
@@ -3070,7 +3079,8 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     
     gADHbox += 24.0 * lambdaH * CiHbox;
     gADHD += 12.0 * lambdaH * CiHD;
-    gADH += 0.0;
+    gADH += 108.0 * CiH * lambdaH - 160.0 * CiHbox * lambdaH2 + 48.0 * CiHD * lambdaH2 
+            - 16.0 * Nc * Yt2 * lambdaH * CiHQ3_33 + 8.0 * Nc * Yt * lambdaH * CiuH_33r;
     
     gADeH_11r = 24.0 * lambdaH * CieH_11r - 4.0 * Nc * Yt * lambdaH * CLeQu1_1133;
     gADeH_22r = 24.0 * lambdaH * CieH_22r - 4.0 * Nc * Yt * lambdaH * CLeQu1_2233;
@@ -3243,7 +3253,15 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
             + 32.0/3.0 * g12 * Nc * yH * yq * CiHQ1_22 + 32.0/3.0 * g12 * Nc * yH * yq * CiHQ1_33 
             + 16.0/3.0 * g12 * Nc * yH * yu * CiHu_11 + 16.0/3.0 * g12 * Nc * yH * yu * CiHu_22 
             + 16.0/3.0 * g12 * Nc * yH * yu * CiHu_33;
-    gADH += 0.0;
+    
+    gADH += - (9.0 * CiH * g12)/2.0 - (27.0 * CiH * g22)/2.0 - (3.0 * CiHD * g24)/4.0 - 9.0 * CiHW * g24
+            - 6.0 * CiHWB * g1 * g23 * yH - 12.0 * CiHB * g12 * g22 * yH2 - 6.0 * CiHD * g12 * g22 * yH2
+            - 12.0 * CiHW * g12 * g22 * yH2 - 24.0 * CiHWB * g13 * g2 * yH2 * yH - 48.0 * CiHB * g14 * yH2 * yH2
+            - 12.0 * CiHD * g14 * yH2 * yH2 + 20.0 * CiHbox * g22 * lambdaH - 6.0 * CiHD * g22 * lambdaH
+            + 36.0 * CiHW * g22 * lambdaH + 24.0 * CiHWB * g1 * g2 * yH * lambdaH
+            + 48.0 * CiHB * g12 * yH2 * lambdaH + 24.0 * CiHD * g12 * yH2 * lambdaH
+            + 16.0/3.0 * g22 * lambdaH * TrCHL3
+            + 16.0/3.0 * g22 * Nc * lambdaH * TrCHQ3;
     
     gADeH_11r += -6.0 * g1 * yH * (g22 + 4.0 * g12 * yH * (ye+yl)) * CieB_11r
             -3.0/4.0 * (9.0 * g22 + 4.0 * g12 * (3.0 * ye2 - 4.0 * ye * yl + 3.0 * yl2)) * CieH_11r
