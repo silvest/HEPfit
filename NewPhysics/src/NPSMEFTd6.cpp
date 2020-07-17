@@ -2861,33 +2861,79 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
 // AD not implemented yet for OH. Also not available for ODHB, ODHW (not in Warsaw basis)
      
 //  4F operators not in the input list
-    double CLQ1_2233 = 0.0, CLQ1_3333 = 0.0;
-    double CLQ3_2233 = 0.0, CLQ3_3333 = 0.0;
-    double CLu_3333 = 0.0;
-    double CQe_3322 = 0.0, CQe_3333 = 0.0;
-    double Ceu_3333 = 0.0;
+    double CiLL_1111 = 0.0, CiLL_1122 = 0.0, CiLL_2222 = 0.0, CiLL_1331 = 0.0, 
+            CiLL_3113 = CiLL_1331, CiLL_2332 = 0.0, CiLL_3223 = CiLL_2332, CiLL_1133 = 0.0, 
+            CiLL_2211 = CiLL_1122, CiLL_3311 = CiLL_1133, CiLL_2233 = 0.0, CiLL_3322 = CiLL_2233, CiLL_3333 = 0.0;
+    
+    double CLQ1_2233 = 0.0, CLQ1_3333 = 0.0, CLQ1_2222 = 0.0, CLQ1_3322 = 0.0;
+    double CLQ3_2222 = 0.0, CLQ3_2233 = 0.0, CLQ3_3322 = 0.0, CLQ3_3333 = 0.0;
+    double CLu_3333 = 0.0, CLu_2222 = 0.0, CLu_3322 = 0.0;
+    double CQe_3322 = 0.0, CQe_3333 = 0.0, CQe_2222 = 0.0, CQe_2233 = 0.0;
+    
+    double Cee_1221 = 0.0, Cee_2112 = Cee_1221, Cee_1331 = 0.0, Cee_3113 = Cee_1331, 
+            Cee_2222 = 0.0, Cee_2233 = 0.0, Cee_3322 = Cee_2233, Cee_2332 = 0.0, 
+            Cee_3223 = Cee_2332, Cee_3333 = 0.0;
+    
+    double Ceu_3322 = 0.0, Ceu_2222 = 0.0, Ceu_3333 = 0.0;
+    
+    double Ced_2222 = 0.0, Ced_2233 = 0.0, Ced_3322 = 0.0, Ced_3333 = 0.0;
+    
     double CQQ1_3113 = CQQ1_1331, CQQ1_2332= 0.0, CQQ1_3223 = CQQ1_2332, 
-            CQQ1_3311 = CQQ1_1133, CQQ1_3322 = 0.0, CQQ1_2233 = CQQ1_3322, CQQ1_3333 = 0.0;
+            CQQ1_3311 = CQQ1_1133, CQQ1_3322 = 0.0, CQQ1_2233 = CQQ1_3322, CQQ1_3333 = 0.0,
+            CQQ1_1111 = 0.0, CQQ1_1122 = 0.0, CQQ1_2211 = CQQ1_1122, CQQ1_1221 = 0.0, CQQ1_2112 = CQQ1_1221, CQQ1_2222 = 0.0;
+    
     double CQQ3_3113 = CQQ3_1331, CQQ3_2332= 0.0, CQQ3_3223 = CQQ3_2332, 
-            CQQ3_3311 = CQQ3_1133, CQQ3_3322 = 0.0, CQQ3_2233 = CQQ3_3322, CQQ3_3333 = 0.0;
-    double CQd1_3322 = 0.0, CQd1_3333 = 0.0;
-    double CQu1_3322 = 0.0, CQu1_2233 = CQu1_3322, CQu1_3333 = 0.0, CQu1_1331 = 0.0, CQu1_2332 = 0.0;
+            CQQ3_3311 = CQQ3_1133, CQQ3_3322 = 0.0, CQQ3_2233 = CQQ3_3322, CQQ3_3333 = 0.0,
+            CQQ3_1111 = 0.0, CQQ3_1221 = 0.0, CQQ3_2112 = CQQ3_1221, CQQ3_1122 = 0.0, CQQ3_2211 = CQQ3_1122, CQQ3_2222 = 0.0;
+    
+    double CQd1_3322 = 0.0, CQd1_3333 = 0.0, CQd1_1111 = 0.0, CQd1_1122 = 0.0, CQd1_2211 = 0.0, CQd1_2222 = 0.0,
+            CQd1_1133 = 0.0, CQd1_2233 = 0.0;
+    
+    double CQu1_3322 = 0.0, CQu1_2233 = CQu1_3322, CQu1_3333 = 0.0, CQu1_1331 = 0.0, 
+            CQu1_2332 = 0.0, CQu1_1111 = 0.0, CQu1_1122 = 0.0, CQu1_2211 = 0.0, CQu1_2222 = 0.0;
+    
     double CQu8_1331 = 0.0, CQu8_2332 = 0.0, CQu8_3333 = 0.0;
-    double Cud1_3322 = 0.0, Cud1_3333 = 0.0; 
-    double Cuu_3113 = Cuu_1331, Cuu_3311 = Cuu_1133, Cuu_2233 = 0.0, Cuu_3322= Cuu_2233, Cuu_2332 = 0.0, Cuu_3223 = Cuu_2332, Cuu_3333 = 0.0;
+    
+    double Cud1_1111 = 0.0, Cud1_1122 = 0.0, Cud1_2211 = 0.0, Cud1_2222 = 0.0, 
+            Cud1_1133 = 0.0, Cud1_2233 = 0.0, Cud1_3322 = 0.0, Cud1_3333 = 0.0; 
+    
+    double Cuu_1111 = 0.0, Cuu_1221 = 0.0, Cuu_2112 = Cuu_1221, Cuu_1122 = 0.0, Cuu_2211 = Cuu_1122, 
+            Cuu_2222 = 0.0, Cuu_3113 = Cuu_1331, Cuu_3311 = Cuu_1133, Cuu_2233 = 0.0, 
+            Cuu_3322= Cuu_2233, Cuu_2332 = 0.0, Cuu_3223 = Cuu_2332, Cuu_3333 = 0.0;
+    
     double CQuQd1_1331 = 0.0, CQuQd1_3311 = 0.0, CQuQd1_2332 = 0.0, CQuQd1_3322 = 0.0, CQuQd1_3333 = 0.0;
     double CQuQd8_1331 = 0.0, CQuQd8_2332 = 0.0, CQuQd8_3333 = 0.0;
-    double CLeQu1_1133 = 0.0, CLeQu1_2233 = 0.0, CLeQu1_3333 = 0.0;
+    double CLeQu1_1133 = 0.0, CLeQu1_2233 = 0.0, CLeQu1_3333 = 0.0;    
+    
+    double CLe_2222 = 0.0,CLe_2233 = 0.0,CLe_3322 = 0.0,CLe_3333 = 0.0;
+    double CLd_2222 = 0.0,CLd_2233 = 0.0,CLd_3322 = 0.0,CLd_3333 = 0.0;
+
+    double Cdd_1111 = 0.0, Cdd_1221 = 0.0, Cdd_2112 = Cdd_1221, Cdd_1122 = 0.0, 
+            Cdd_2211 = Cdd_1122, Cdd_2222 = 0.0, Cdd_1133 = 0.0, Cdd_3311 = Cdd_1133, Cdd_1331 = 0.0,
+            Cdd_3113 = Cdd_1331, Cdd_2332 = 0.0, Cdd_3223 = Cdd_2332, Cdd_2233 = 0.0, Cdd_3322 = Cdd_2233, Cdd_3333 = 0.0; 
+    
+    double CieB_11r = 0.0, CieB_22r = 0.0, CieB_33r = 0.0;
+    double CieW_11r = 0.0, CieW_22r = 0.0, CieW_33r = 0.0;
+    
+    double CidB_11r = 0.0, CidB_22r = 0.0, CidB_33r = 0.0;
+    double CidW_11r = 0.0, CidW_22r = 0.0, CidW_33r = 0.0;
+    
+//  The following set all complex stuff to zero
+    double I = 0.0;
+    double CiHGt = 0.0, CiHWt = 0.0, CiHBt = 0.0, CiHWBt = 0.0, CiGt = 0.0;
     
 //  SM pars
     double Yt, Yt2, Yt3;
-    double g1, g2, g3, g12, g22, g32;
+    double g1, g2, g3, g12, g22, g32, g13, g23, g33;
     double lambdaH;
     double yq = 1.0/6.0, yu = 2.0/3.0, yd = -1.0/3.0, yl = -1.0/2.0, ye = -1.0, yH = 1.0/2.0;
+    double yq2 = yq*yq, yu2 = yu*yu, yd2 = yd*yd, yl2 = yl*yl, ye2 = ye*ye, yH2 = yH*yH;
     double cF2 = 3.0/4.0, cF3= (Nc*Nc - 1.0)/2.0/Nc, cA2 = 2.0, cA3 =  Nc;
     double ng  = 3.0;
     double b01 = -1.0/6.0 - 20.0 * ng/9.0, b02 = 43.0/6.0 - 4.0 * ng/3.0, b03 = 11.0 - 4.0 * ng/3.0;
+    double TrCHL1, TrCHQ1, TrCHe, TrCHu, TrCHd, ZetaB;
 
+//  SM pars
     Yt = Yukt;
     Yt2 = Yt*Yt;
     Yt3 = Yt2*Yt;
@@ -2900,7 +2946,25 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     g22 = g2*g2;
     g32 = g3*g3;
     
+    g13 = g12*g1;
+    g23 = g22*g2;
+    g33 = g32*g3;
+    
     lambdaH = lambdaH_tree;
+    
+//  Commbinations of Wilson coeffs
+    
+    TrCHL1 = CiHL1_11 + CiHL1_22 + CiHL1_33;
+            
+    TrCHQ1 = CiHQ1_11 + CiHQ1_22 + CiHQ1_33;
+            
+    TrCHe = CiHe_11 + CiHe_22 + CiHe_33;
+            
+    TrCHu = CiHu_11 + CiHu_22 + CiHu_33;
+            
+    TrCHd = CiHd_11 + CiHd_22 + CiHd_33;
+    
+    ZetaB = 4.0/3.0 * yH * (CiHbox + CiHD) + 8.0/3.0 * (2.0 * yl * TrCHL1 + 2.0 * yq * Nc * TrCHQ1 + ye * TrCHe + yu * Nc * TrCHu + yd * Nc * TrCHd); 
        
 //  Fill the anomalous dimensions
     
@@ -3026,63 +3090,212 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     
     
 //  Gauge contributions
-    gADHL1_11 += 0.0;
-    gADHL1_22 += 0.0;
-    gADHL1_33 += 0.0;
-    gADHL3_11 += 0.0;
-    gADHL3_22 += 0.0;
-    gADHL3_33 += 0.0;
+    gADHL1_11 += 1.0/6.0 * g12 * (3.0 * yl * ZetaB 
+            + 8.0 * yH * yl * (6.0 * CiLL_1111 + 2.0 * CiLL_1122 + 2.0 * CiLL_1133+CiLL_1221+CiLL_1331+CiLL_2112 + 2.0 * CiLL_2211+CiLL_3113 + 2.0 * CiLL_3311)
+            + 8.0 * yH * (yH * CiHL1_11 + ye * (CLe_1111+CLe_1122+CLe_1133)
+            + Nc * (yd * (CLd_1111+CLd_1122+CLd_1133)+2.0 * yq * (CLQ1_1111+CLQ1_1122+CLQ1_1133)+yu * (CLu_1111+CLu_1122+CLu_1133))));
     
-    gADHQ1_11 += 0.0;
-    gADHQ1_22 += 0.0;    
-    gADHQ1_33 += 0.0;
+    gADHL1_22 += 1.0/6.0 * g12 * (3.0 * yl * ZetaB 
+            + 8.0 * yH * yl * (2.0 * CiLL_1122+CiLL_1221+CiLL_2112 + 2.0 * CiLL_2211 + 6.0 * CiLL_2222 + 2.0 * CiLL_2233+CiLL_2332+CiLL_3223 + 2.0 * CiLL_3322)
+            + 8.0 * yH * (yH * CiHL1_22 + ye * (CLe_2211+CLe_2222+CLe_2233)
+            + Nc * (yd * (CLd_2211+CLd_2222+CLd_2233)+2.0 * yq * (CLQ1_2211+CLQ1_2222+CLQ1_2233)+yu * (CLu_2211+CLu_2222+CLu_2233))));
     
-    gADHQ3_11 += 0.0;    
-    gADHQ3_22 += 0.0;    
-    gADHQ3_33 += 0.0;
+    gADHL1_33 += 1.0/6.0 * g12 * (3.0 * yl * ZetaB 
+            + 8.0 * yH * yl * (2.0 * CiLL_1133+CiLL_1331 + 2.0 * CiLL_2233+CiLL_2332+CiLL_3113+CiLL_3223 + 2.0 * CiLL_3311 + 2.0 * CiLL_3322 + 6.0 * CiLL_3333)
+            + 8.0 * yH * (yH * CiHL1_33 + ye * (CLe_3311+CLe_3322+CLe_3333)
+            + Nc * (yd * (CLd_3311+CLd_3322+CLd_3333)+2.0 * yq * (CLQ1_3311+CLQ1_3322+CLQ1_3333)+yu * (CLu_3311+CLu_3322+CLu_3333))));
     
-    gADHe_11 += 0.0;
-    gADHe_22 += 0.0;
-    gADHe_33 += 0.0;
+    gADHL3_11 += 1.0/6.0 * g22 * (CiHbox - 34.0 * CiHL3_11 + 4.0 * (CiHL3_11+CiHL3_22+CiHL3_33) 
+            + 4.0 * Nc * (CiHQ3_11+CiHQ3_22+CiHQ3_33) + 2.0 * (CiLL_1111+CiLL_2112+CiLL_3113) 
+            + 4.0 * Nc * (CLQ3_1111+CLQ3_1122+CLQ3_1133));
     
-    gADHu_11 += 0.0;    
-    gADHu_22 += 0.0;    
-    gADHu_33 += 0.0;
+    gADHL3_22 += 1.0/6.0 * g22 * (CiHbox - 34.0 * CiHL3_22 + 4.0 * (CiHL3_11+CiHL3_22+CiHL3_33) 
+            + 4.0 * Nc * (CiHQ3_11+CiHQ3_22+CiHQ3_33) + 2.0 * (CiLL_1221+CiLL_2222+CiLL_3223) 
+            + 4.0 * Nc * (CLQ3_2211+CLQ3_2222+CLQ3_2233));
     
-    gADHd_11 += 0.0;
-    gADHd_22 += 0.0;
-    gADHd_33 += 0.0;
+    gADHL3_33 += 1.0/6.0 * g22 * (CiHbox - 34.0 * CiHL3_33 + 4.0 * (CiHL3_11+CiHL3_22+CiHL3_33) 
+            + 4.0 * Nc * (CiHQ3_11+CiHQ3_22+CiHQ3_33) + 2.0 * (CiLL_1331+CiLL_2332+CiLL_3333) 
+            + 4.0 * Nc * (CLQ3_3311+CLQ3_3322+CLQ3_3333));
     
-    gADG += (12.0 * cA3 -3.0 * b03) * g32 * CiG;
-    gADW += (12.0 * cA2 -3.0 * b02) * g22 * CiW;
+    gADHQ1_11 += 1.0/6.0 * g12 * (3.0 * yq * ZetaB 
+            + 8.0 * yH * yq * ((2.0 + 4.0 * Nc) * CQQ1_1111+CQQ1_1221+CQQ1_1331+CQQ1_2112+CQQ1_3113 + 2.0 * Nc * (CQQ1_1122+CQQ1_1133+CQQ1_2211+CQQ1_3311) + 6.0 * CQQ3_1111 + 3.0 * CQQ3_1221 + 3.0 * CQQ3_1331 + 3.0 * CQQ3_2112 + 3.0 * CQQ3_3113)+ 8.0 * yH * (yH * CiHQ1_11+2.0 * yl * (CLQ1_1111+CLQ1_2211+CLQ1_3311)+ Nc * yd * CQd1_1111+ Nc * yd * CQd1_1122+ Nc * yd * CQd1_1133+ye * CQe_1111+ye * CQe_1122+ye * CQe_1133+ Nc * yu * CQu1_1111+ Nc * yu * CQu1_1122+ Nc * yu * CQu1_1133));
     
-    gADHG += 0.0;   
-    gADHW += 0.0;
-    gADHB += 0.0;
-    gADHWB += 0.0;
+    gADHQ1_22 += 1.0/6.0 * g12 * (3.0 * yq * ZetaB 
+            + 8.0 * yH * yq * (CQQ1_1221+CQQ1_2112 + 2.0 * CQQ1_2222+CQQ1_2332+CQQ1_3223 + 2.0 * Nc * (CQQ1_1122+CQQ1_2211 + 2.0 * CQQ1_2222+CQQ1_2233+CQQ1_3322) + 3.0 * CQQ3_1221 + 3.0 * CQQ3_2112 + 6.0 * CQQ3_2222 + 3.0 * CQQ3_2332 + 3.0 * CQQ3_3223)+ 8.0 * yH * (yH * CiHQ1_22+2.0 * yl * (CLQ1_1122+CLQ1_2222+CLQ1_3322)+ Nc * yd * CQd1_2211+ Nc * yd * CQd1_2222+ Nc * yd * CQd1_2233+ye * CQe_2211+ye * CQe_2222+ye * CQe_2233+ Nc * yu * CQu1_2211+ Nc * yu * CQu1_2222+ Nc * yu * CQu1_2233));    
+    
+    gADHQ1_33 += 1.0/6.0 * g12 * (3.0 * yq * ZetaB 
+            + 8.0 * yH * yq * (CQQ1_1331+CQQ1_2332+CQQ1_3113+CQQ1_3223 + 2.0 * CQQ1_3333 + 2.0 * Nc * (CQQ1_1133+CQQ1_2233+CQQ1_3311+CQQ1_3322 + 2.0 * CQQ1_3333) + 3.0 * CQQ3_1331 + 3.0 * CQQ3_2332 + 3.0 * CQQ3_3113 + 3.0 * CQQ3_3223 + 6.0 * CQQ3_3333)+ 8.0 * yH * (yH * CiHQ1_33+2.0 * yl * (CLQ1_1133+CLQ1_2233+CLQ1_3333)+ Nc * yd * CQd1_3311+ Nc * yd * CQd1_3322+ Nc * yd * CQd1_3333+ye * CQe_3311+ye * CQe_3322+ye * CQe_3333+ Nc * yu * CQu1_3311+ Nc * yu * CQu1_3322+ Nc * yu * CQu1_3333));
+    
+    gADHQ3_11 += 1.0/6.0 * g22 * (CiHbox + 4.0 * (CiHL3_11+CiHL3_22+CiHL3_33) 
+            - 34.0 * CiHQ3_11 + 4.0 * Nc * (CiHQ3_11+CiHQ3_22+CiHQ3_33) 
+            + 4.0 * (CLQ3_1111+CLQ3_2211+CLQ3_3311) + 2.0 * (CQQ1_1111+CQQ1_1221+CQQ1_1331) 
+            + 2.0 * (CQQ1_1111+CQQ1_2112+CQQ1_3113) + 4.0 * Nc * (CQQ3_1111+CQQ3_1122+CQQ3_1133)
+            - 2.0 * (CQQ3_1111+CQQ3_1221+CQQ3_1331)-2.0 * (CQQ3_1111+CQQ3_2112+CQQ3_3113) 
+            + 4.0 * Nc * (CQQ3_1111+CQQ3_2211+CQQ3_3311));    
+    
+    gADHQ3_22 += 1.0/6.0 * g22 * (CiHbox + 4.0 * (CiHL3_11+CiHL3_22+CiHL3_33) 
+            - 34.0 * CiHQ3_22 + 4.0 * Nc * (CiHQ3_11+CiHQ3_22+CiHQ3_33) 
+            + 4.0 * (CLQ3_1122+CLQ3_2222+CLQ3_3322) + 2.0 * (CQQ1_2112+CQQ1_2222+CQQ1_2332) 
+            + 2.0 * (CQQ1_1221+CQQ1_2222+CQQ1_3223) + 4.0 * Nc * (CQQ3_2211+CQQ3_2222+CQQ3_2233)
+            - 2.0 * (CQQ3_2112+CQQ3_2222+CQQ3_2332)-2.0 * (CQQ3_1221+CQQ3_2222+CQQ3_3223) 
+            + 4.0 * Nc * (CQQ3_1122+CQQ3_2222+CQQ3_3322));    
+    
+    gADHQ3_33 += 1.0/6.0 * g22 * (CiHbox + 4.0 * (CiHL3_11+CiHL3_22+CiHL3_33) 
+            - 34.0 * CiHQ3_33 + 4.0 * Nc * (CiHQ3_11+CiHQ3_22+CiHQ3_33) 
+            + 4.0 * (CLQ3_1133+CLQ3_2233+CLQ3_3333) + 2.0 * (CQQ1_1331+CQQ1_2332+CQQ1_3333) 
+            + 2.0 * (CQQ1_3113+CQQ1_3223+CQQ1_3333) + 4.0 * Nc * (CQQ3_1133+CQQ3_2233+CQQ3_3333)
+            - 2.0 * (CQQ3_1331+CQQ3_2332+CQQ3_3333)-2.0 * (CQQ3_3113+CQQ3_3223+CQQ3_3333) 
+            + 4.0 * Nc * (CQQ3_3311+CQQ3_3322+CQQ3_3333));
+    
+    gADHe_11 += 1.0/6.0 * g12 * (ye * (3.0 * ZetaB 
+            + 8.0 * yH * (4.0 * Cee_1111+Cee_1122+Cee_1133+Cee_1221+Cee_1331+Cee_2112+Cee_2211+Cee_3113+Cee_3311))
+            + 8.0 * yH * (yH * CiHe_11+2.0 * yl * CLe_1111+2.0 * yl * CLe_2211+2.0 * yl * CLe_3311
+            + Nc * (yd * (Ced_1111+Ced_1122+Ced_1133)+yu * (Ceu_1111+Ceu_1122+Ceu_1133)+2.0 * yq * (CQe_1111+CQe_2211+CQe_3311))));
+    
+    gADHe_22 += 1.0/6.0 * g12 * (ye * (3.0 * ZetaB 
+            + 8.0 * yH * (Cee_1122+Cee_1221+Cee_2112+Cee_2211 + 4.0 * Cee_2222+Cee_2233+Cee_2332+Cee_3223+Cee_3322))
+            + 8.0 * yH * (yH * CiHe_22+2.0 * yl * CLe_1122+2.0 * yl * CLe_2222+2.0 * yl * CLe_3322
+            + Nc * (yd * (Ced_2211+Ced_2222+Ced_2233)+yu * (Ceu_2211+Ceu_2222+Ceu_2233)+2.0 * yq * (CQe_1122+CQe_2222+CQe_3322))));
+   
+    gADHe_33 += 1.0/6.0 * g12 * (ye * (3.0 * ZetaB 
+            + 8.0 * yH * (Cee_1133+Cee_1331+Cee_2233+Cee_2332+Cee_3113+Cee_3223+Cee_3311+Cee_3322 + 4.0 * Cee_3333))
+            + 8.0 * yH * (yH * CiHe_33+2.0 * yl * CLe_1133+2.0 * yl * CLe_2233+2.0 * yl * CLe_3333
+            + Nc * (yd * (Ced_3311+Ced_3322+Ced_3333)+yu * (Ceu_3311+Ceu_3322+Ceu_3333)+2.0 * yq * (CQe_1133+CQe_2233+CQe_3333))));
+    
+    gADHu_11 += 1.0/6.0 * g12 * (8.0 * yH * (ye * (Ceu_1111+Ceu_2211+Ceu_3311)+yH * CiHu_11
+            + 2.0 * yl * CLu_1111+2.0 * yl * CLu_2211+2.0 * yl * CLu_3311+2.0 * Nc * yq * CQu1_1111
+            + 2.0 * Nc * yq * CQu1_2211+2.0 * Nc * yq * CQu1_3311+ Nc * yd * Cud1_1111
+            + Nc * yd * Cud1_1122+ Nc * yd * Cud1_1133)+yu * (3.0 * ZetaB 
+            + 8.0 * yH * (2.0 * (1.0 + Nc) * Cuu_1111+Cuu_1221+Cuu_1331+Cuu_2112+Cuu_3113+Nc * (Cuu_1122+Cuu_1133+Cuu_2211+Cuu_3311))));    
+    
+    gADHu_22 += 1.0/6.0 * g12 * (8.0 * yH * (ye * (Ceu_1122+Ceu_2222+Ceu_3322)+yH * CiHu_22
+            + 2.0 * yl * CLu_1122+2.0 * yl * CLu_2222+2.0 * yl * CLu_3322+2.0 * Nc * yq * CQu1_1122
+            + 2.0 * Nc * yq * CQu1_2222+2.0 * Nc * yq * CQu1_3322+ Nc * yd * Cud1_2211
+            + Nc * yd * Cud1_2222+ Nc * yd * Cud1_2233)+yu * (3.0 * ZetaB 
+            + 8.0 * yH * (Cuu_1221+Cuu_2112 + 2.0 * Cuu_2222+Cuu_2332+Cuu_3223+Nc * (Cuu_1122+Cuu_2211 + 2.0 * Cuu_2222+Cuu_2233+Cuu_3322))));    
+    
+    gADHu_33 += 1.0/6.0 * g12 * (8.0 * yH * (ye * (Ceu_1133+Ceu_2233+Ceu_3333)+yH * CiHu_33
+            + 2.0 * yl * CLu_1133+2.0 * yl * CLu_2233+2.0 * yl * CLu_3333+2.0 * Nc * yq * CQu1_1133
+            + 2.0 * Nc * yq * CQu1_2233+2.0 * Nc * yq * CQu1_3333+ Nc * yd * Cud1_3311
+            + Nc * yd * Cud1_3322+ Nc * yd * Cud1_3333)+yu * (3.0 * ZetaB 
+            + 8.0 * yH * (Cuu_1331+Cuu_2332+Cuu_3113+Cuu_3223 + 2.0 * Cuu_3333
+            + Nc * (Cuu_1133+Cuu_2233+Cuu_3311+Cuu_3322 + 2.0 * Cuu_3333))));
+    
+    gADHd_11 += 1.0/6.0 * g12 * (yd * (3.0 * ZetaB 
+            + 8.0 * yH * ((1.0 + 2.0 * Nc) * Cdd_1111+Cdd_2112+Cdd_3113+Nc * (Cdd_1122+Cdd_1133+Cdd_2211+Cdd_3311)
+            + Cdd_1111+Cdd_1221+Cdd_1331))+ 8.0 * yH * (ye * (Ced_1111+Ced_2211+Ced_3311)
+            + yH * CiHd_11+2.0 * yl * CLd_1111+2.0 * yl * CLd_2211
+            + 2.0 * yl * CLd_3311+2.0 * Nc * yq * CQd1_1111+2.0 * Nc * yq * CQd1_2211
+            + 2.0 * Nc * yq * CQd1_3311+ Nc * yu * Cud1_1111+ Nc * yu * Cud1_2211+ Nc * yu * Cud1_3311));
+    
+    gADHd_22 += 1.0/6.0 * g12 * (yd * (3.0 * ZetaB 
+            + 8.0 * yH * (Cdd_1221+Cdd_2222+Cdd_3223+Nc * (Cdd_1122+Cdd_2211 + 2.0 * Cdd_2222+Cdd_2233+Cdd_3322)
+            + Cdd_2112+Cdd_2222+Cdd_2332))+ 8.0 * yH * (ye * (Ced_1122+Ced_2222+Ced_3322)
+            + yH * CiHd_22+2.0 * yl * CLd_1122+2.0 * yl * CLd_2222
+            + 2.0 * yl * CLd_3322+2.0 * Nc * yq * CQd1_1122+2.0 * Nc * yq * CQd1_2222
+            + 2.0 * Nc * yq * CQd1_3322+ Nc * yu * Cud1_1122+ Nc * yu * Cud1_2222+ Nc * yu * Cud1_3322));
+    
+    gADHd_33 += 1.0/6.0 * g12 * (yd * (3.0 * ZetaB 
+            + 8.0 * yH * (Cdd_1331+Cdd_2332+Cdd_3333+Nc * (Cdd_1133+Cdd_2233+Cdd_3311+Cdd_3322 + 2.0 * Cdd_3333)
+            + Cdd_3113+Cdd_3223+Cdd_3333))+ 8.0 * yH * (ye * (Ced_1133+Ced_2233+Ced_3333)
+            + yH * CiHd_33+2.0 * yl * CLd_1133+2.0 * yl * CLd_2233
+            + 2.0 * yl * CLd_3333+2.0 * Nc * yq * CQd1_1133+2.0 * Nc * yq * CQd1_2233
+            + 2.0 * Nc * yq * CQd1_3333+ Nc * yu * Cud1_1133+ Nc * yu * Cud1_2233+ Nc * yu * Cud1_3333));
+    
+    gADG += (12.0 * cA3 - 3.0 * b03) * g32 * CiG;
+    gADW += (12.0 * cA2 - 3.0 * b02) * g22 * CiW;
+    
+    gADHG += - ((9.0 * CiHG * g22 )/2.0) - 2.0 * b03 * CiHG * g32 
+            - 6.0 * CiHG * g12 * yH2;   
+    
+    gADHW += - ((5.0 * CiHW * g22 )/2.0) - 2.0 * b02 * CiHW * g22 
+            - 15.0 * CiW * g23 + 2.0 * CiHWB * g1 * g2 * yH -  6.0 * CiHW * g12 * yH2;
+    
+    gADHB += - 2.0 * b01 * CiHB * g12 -  (9.0 * CiHB * g22 )/2.0 
+            + 6.0 * CiHWB * g1 * g2 * yH + 2.0 * CiHB * g12 * yH2;
+    
+    gADHWB += - b02 * CiHWB -  b01 * CiHWB * g12 + (11.0 * CiHWB * g22 )/2.0 
+            + 4.0 * CiHB * g1 * g2 * yH + 4.0 * CiHW * g1 * g2 * yH 
+            + 6.0 * CiW * g1 * g22 * yH - 2.0 * CiHWB * g12 * yH2;
     
     gADDHB += 0.0;
     gADDHW += 0.0;
     
-    gADHbox += 0.0;
-    gADHD += 0.0;
+    gADHbox += - 4.0 * CiHbox * g22 - 16.0/3.0 * CiHbox * g12 * yH2 
+            + 20.0/3.0 * CiHD * g12 * yH2 + 4.0/3.0 * g12 * Nc * yd * yH * CiHd_11 
+            + 4.0/3.0 * g12 * Nc * yd * yH * CiHd_22 + 4.0/3.0 * g12 * Nc * yd * yH * CiHd_33 
+            + 4.0/3.0 * g12 * ye * yH * CiHe_11 + 4.0/3.0 * g12 * ye * yH * CiHe_22 
+            + 4.0/3.0 * g12 * ye * yH * CiHe_33 + 8.0/3.0 * g12 * yH * yl * CiHL1_11 
+            + 8.0/3.0 * g12 * yH * yl * CiHL1_22 + 8.0/3.0 * g12 * yH * yl * CiHL1_33 
+            + 2.0 * g22 * CiHL3_11 + 2.0 * g22 * CiHL3_22 + 2.0 * g22 * CiHL3_33 
+            + 8.0/3.0 * g12 * Nc * yH * yq * CiHQ1_11 + 8.0/3.0 * g12 * Nc * yH * yq * CiHQ1_22 
+            + 8.0/3.0 * g12 * Nc * yH * yq * CiHQ1_33 + 2.0 * g22 * Nc * CiHQ3_11 
+            + 2.0 * g22 * Nc * CiHQ3_22 + 2.0 * g22 * Nc * CiHQ3_33 
+            + 4.0/3.0 * g12 * Nc * yH * yu * CiHu_11 + 4.0/3.0 * g12 * Nc * yH * yu * CiHu_22 
+            + 4.0/3.0 * g12 * Nc * yH * yu * CiHu_33;
+    
+    gADHD += (9.0 * CiHD * g22 )/2.0  + 80.0/3.0 * CHbox * g12 * yH2 - 10.0/3.0 * CiHD * g12 * yH2 
+            + 16.0/3.0 * g12 * Nc * yd * yH * CiHd_11 + 16.0/3.0 * g12 * Nc * yd * yH * CiHd_22 
+            + 16.0/3.0 * g12 * Nc * yd * yH * CiHd_33 + 16.0/3.0 * g12 * ye * yH * CiHe_11 
+            + 16.0/3.0 * g12 * ye * yH * CiHe_22 + 16.0/3.0 * g12 * ye * yH * CiHe_33 
+            + 32.0/3.0 * g12 * yH * yl * CiHL1_11 + 32.0/3.0 * g12 * yH * yl * CiHL1_22 
+            + 32.0/3.0 * g12 * yH * yl * CiHL1_33 + 32.0/3.0 * g12 * Nc * yH * yq * CiHQ1_11 
+            + 32.0/3.0 * g12 * Nc * yH * yq * CiHQ1_22 + 32.0/3.0 * g12 * Nc * yH * yq * CiHQ1_33 
+            + 16.0/3.0 * g12 * Nc * yH * yu * CiHu_11 + 16.0/3.0 * g12 * Nc * yH * yu * CiHu_22 
+            + 16.0/3.0 * g12 * Nc * yH * yu * CiHu_33;
     gADH += 0.0;
     
-    gADeH_11r += 0.0;    
-    gADeH_22r += 0.0;    
-    gADeH_33r += 0.0;
+    gADeH_11r += -6.0 * g1 * yH * (g22 + 4.0 * g12 * yH * (ye+yl)) * CieB_11r
+            -3.0/4.0 * (9.0 * g22 + 4.0 * g12 * (3.0 * ye2 - 4.0 * ye * yl + 3.0 * yl2)) * CieH_11r
+            -3.0 * (3.0 * g23 + 4.0 * g12 * g2 * yH * (ye+yl)) * CieW_11r;
     
-    gADuH_11r += 0.0;    
-    gADuH_22r += 0.0;    
-    gADuH_33r += 0.0;
+    gADeH_22r += -6.0 * g1 * yH * (g22 + 4.0 * g12 * yH * (ye+yl)) * CieB_22r
+            -3.0/4.0 * (9.0 * g22 + 4.0 * g12 * (3.0 * ye2 - 4.0 * ye * yl + 3.0 * yl2)) * CieH_22r
+            -3.0 * (3.0 * g23 + 4.0 * g12 * g2 * yH * (ye+yl)) * CieW_22r; 
+    
+    gADeH_33r += -6.0 * g1 * yH * (g22 + 4.0 * g12 * yH * (ye+yl)) * CieB_33r
+            -3.0/4.0 * (9.0 * g22 + 4.0 * g12 * (3.0 * ye2 - 4.0 * ye * yl + 3.0 * yl2)) * CieH_33r
+            -3.0 * (3.0 * g23 + 4.0 * g12 * g2 * yH * (ye+yl)) * CieW_33r;
+    
+    gADuH_11r += -6.0 * g1 * yH * (-g22 + 4.0 * g12 * yH * (yq+yu)) * CiuB_11r
+            -3.0/4.0 * (9.0 * g22 + 8.0 * cF3 * g32 + 4.0 * g12 * (3.0 * yq2 - 4.0 * yq * yu + 3.0 * yu2)) * CiuH_11r
+            +3.0 * (-3.0 * g23 +4.0 * g12 * g2 * yH * (yq+yu)) * CiuW_11r; 
+    
+    gADuH_22r += -6.0 * g1 * yH * (-g22 + 4.0 * g12 * yH * (yq+yu)) * CiuB_22r
+            -3.0/4.0 * (9.0 * g22 + 8.0 * cF3 * g32 + 4.0 * g12 * (3.0 * yq2 - 4.0 * yq * yu + 3.0 * yu2)) * CiuH_22r
+            +3.0 * (-3.0 * g23 +4.0 * g12 * g2 * yH * (yq+yu)) * CiuW_22r; 
+    
+    gADuH_33r += 10/3.0 * CiHbox * g22 * Yt + 9.0 * (CiHW + I * CiHWt) * g22 * Yt
+            +24.0 * cF3 * (CiHG + I * CiHGt) * g32 * Yt - 3.0/2.0 * CiHD * (g22 -4.0 * g12 * yH2) * Yt
+            -6.0 * (CiHWB + I * CiHWBt) * g1 * g2 * yq * Yt + 12.0 * (CiHB + I * CiHBt) * g12 * Yt * (yH2 + 2.0 * yq * yu)
+            +12.0 * g12 * yH * Yt * yu * CiHQ1_33 - 12.0 * g12 * yH * Yt * yu * CiHQ3_33
+            +4.0/3.0 * g22 * Yt * (CiHL3_11 + CiHL3_22 + CiHL3_33 + Nc * CiHQ3_11 + Nc * CiHQ3_22 + Nc * CiHQ3_33)
+            -3.0 * (g22 - 4.0 * g12 * yH * yq) * Yt * CiHu_33 - 6.0 * g1 * Yt2 * (yq+yu) * CiuB_33r - 3.0 * g1 * Yt2 * (yd + 3.0 * yu) * CiuB_33r
+            -6.0 * g1 * yH * (-g22 + 4.0 * g12 * yH * (yq+yu)) * CiuB_33r - 24.0 * cF3 * g3 * Yt2 * CiuG_33r - 27.0/4.0 * g22 * CiuH_33r
+            -6.0 * cF3 * g32 * CiuH_33r - 3.0 * g12 * (3.0 * yq2-4.0 * yq * yu + 3.0 * yu2) * CiuH_33r 
+            +3.0 * (-3.0 * g23 + 4.0 * g12 * g2 * yH * (yq+yu)) * CiuW_33r;
  
-    gADdH_11r += 0.0;    
-    gADdH_22r += 0.0;    
-    gADdH_33r += 0.0;
+    gADdH_11r += -6.0 * g1 * yH * (g22 + 4.0 * g12 * yH * (yd+yq)) * CidB_11r
+            -3.0/4.0 * (9.0 * g22 + 8.0 * cF3 * g32 + 4.0 * g12 * (3.0 * yd2 - 4.0 * yd * yq + 3.0 * yq2)) * CidH_11r
+            -3.0 * (3.0 * g23 +4.0 * g12 * g2 * yH * (yd+yq)) * CidW_11r;  
     
-    gADuG_11r = 0.0;
-    gADuG_22r = 0.0;
-    gADuG_33r = 0.0;
+    gADdH_22r += -6.0 * g1 * yH * (g22 + 4.0 * g12 * yH * (yd+yq)) * CidB_22r
+            -3.0/4.0 * (9.0 * g22 + 8.0 * cF3 * g32 + 4.0 * g12 * (3.0 * yd2 - 4.0 * yd * yq + 3.0 * yq2)) * CidH_22r
+            -3.0 * (3.0 * g23 + 4.0 * g12 * g2 * yH * (yd+yq)) * CidW_22r; 
+    
+    gADdH_33r += -6.0 * g1 * yH * (g22 + 4.0 * g12 * yH * (yd+yq)) * CidB_33r
+            -3.0/4.0 * (9.0 * g22 + 8.0 * cF3 * g32 + 4.0 * g12 * (3.0 * yd2 - 4.0 * yd * yq + 3.0 * yq2)) * CidH_33r
+            -3.0 * (3.0 * g23 + 4.0 * g12 * g2 * yH * (yd+yq)) * CidW_33r - 12.0 * g2 * Yt2 * CidW_33r + 3.0 * g22 * Yt * CHud_33r;
+    
+    gADuG_11r = 4.0 * g1 * g3 * (yq+yu) * CiuB_11r + (-3.0 * cF2 * g22 -(b03 + 4.0 * cA3 - 10.0 * cF3) * g32 + g12 * (-3.0 * yq2 + 8.0 * yq * yu - 3.0 * yu2)) * CiuG_11r 
+            + 8.0 * cF2 * g2 * g3 * CiuW_11r;
+    
+    gADuG_22r = 4.0 * g1 * g3 * (yq+yu) * CiuB_22r + (-3.0 * cF2 * g22 -(b03 + 4.0 * cA3 - 10.0 * cF3) * g32 + g12 * (-3.0 * yq2 + 8.0 * yq * yu - 3.0 * yu2)) * CiuG_22r 
+            + 8.0 * cF2 * g2 * g3 * CiuW_22r;
+    
+    gADuG_33r = -4.0 * (CiHG + I * CiHGt) * g3 * Yt - 3.0 * cA3 * (CiG + I * CiGt) * g32 * Yt + 4.0 * g1 * g3 * (yq+yu) * CiuB_33r 
+            + (-3.0 * cF2 * g22 -(b03+4.0 * cA3-10.0 * cF3) * g32 + g12 * (-3.0 * yq2 + 8.0 * yq * yu - 3.0 * yu2)) * CiuG_33r 
+            + 8.0 * cF2 * g2 * g3* CiuW_33r;
     
     gADuW_11r = 0.0;
     gADuW_22r = 0.0;
@@ -3092,7 +3305,12 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     gADuB_22r = 0.0;
     gADuB_33r = 0.0;
     
-    gADLL_1221 += 0.0;
+    gADLL_1221 += 1.0/3.0 * g22 * CiHL3_11 + 1.0/3.0 * g22 * CiHL3_22 + 2.0/3.0 * g22 * CiLL_1111 
+            + 6.0 * g22 * CiLL_1122 - 7.0/3.0 * g22 * CiLL_1221 + 12.0 * g12 * yl2 * CiLL_1221
+            +1.0/3.0 * g22 * CiLL_1331 + 2.0/3.0 * g22 * CiLL_2112 + 2.0/3.0 * g22 * CiLL_2222
+            +1.0/3.0 * g22 * CiLL_2332 + 1.0/3.0 * g22 * CiLL_3113 + 1.0/3.0 * g22 * CiLL_3223
+            +2.0/3.0 * g22 * Nc * CLQ3_1111 + 2.0/3.0 * g22 * Nc * CLQ3_1122 + 2.0/3.0 * g22 * Nc * CLQ3_1133
+            +2.0/3.0 * g22 * Nc * CLQ3_2211 + 2.0/3.0 * g22 * Nc * CLQ3_2222 + 2.0/3.0 * g22 * Nc * CLQ3_2233;
     
     
 // Modify the values of the CiX Wilson coefficients        
