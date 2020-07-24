@@ -17136,9 +17136,12 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     ////////////////////////////////////////////////////////////////////////
     
     //----- Simplified Template Cross Sections Bins
-    // NOTE: Not our own calculations. From https://twiki.cern.ch/twiki/bin/view/LHCPhysics/STXStoEFT
+    // NOTE: Not our own calculations. From https://twiki.cern.ch/twiki/bin/view/LHCPhysics/STXStoEFT  for HEL calculations
+    // From Table 3 in ATL-PHYS-PUB-2019-042 for Warsaw basis calculations
 
 double NPSMEFTd6::STXS_ggH_VBFtopo_j3v(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17148,6 +17151,8 @@ double NPSMEFTd6::STXS_ggH_VBFtopo_j3v(const double sqrt_s) const{
 }
 
 double NPSMEFTd6::STXS_ggH_VBFtopo_j3(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17159,9 +17164,14 @@ double NPSMEFTd6::STXS_ggH_VBFtopo_j3(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 + 55.2*aiG + 0.362*ai3G + 0.276*ai2G;
+//    STXSb = 1.0 + 55.2*aiG + 0.362*ai3G + 0.276*ai2G;
+    
+    STXSb += (35.0 * CiHG) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17169,9 +17179,14 @@ double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_ggH1j_pTH_0_60(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 + 56.0*aiG + 1.52*ai3G + 1.19*ai2G;
+//    STXSb = 1.0 + 56.0*aiG + 1.52*ai3G + 1.19*ai2G;
+    
+    STXSb += (28.3 * CiHG) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17179,9 +17194,14 @@ double NPSMEFTd6::STXS_ggH1j_pTH_0_60(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_ggH1j_pTH_60_120(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 + 55.5*aiG + 4.12*ai3G + 2.76*ai2G;
+//    STXSb = 1.0 + 55.5*aiG + 4.12*ai3G + 2.76*ai2G;
+    
+    STXSb += (26.1 * CiHG) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17189,9 +17209,14 @@ double NPSMEFTd6::STXS_ggH1j_pTH_60_120(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_ggH1j_pTH_120_200(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 + 56.5*aiG + 17.8*ai3G + 11.2*ai2G;
+//    STXSb = 1.0 + 56.5*aiG + 17.8*ai3G + 11.2*ai2G;
+    
+    STXSb += (23.1 * CiHG) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17199,9 +17224,14 @@ double NPSMEFTd6::STXS_ggH1j_pTH_120_200(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_ggH1j_pTH_200(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 + 55.0*aiG + 52.0*ai3G + 34.0*ai2G;
+//    STXSb = 1.0 + 55.0*aiG + 52.0*ai3G + 34.0*ai2G;
+    
+    STXSb += (15.6 * CiHG) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17209,13 +17239,19 @@ double NPSMEFTd6::STXS_ggH1j_pTH_200(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_ggH2j_pTH_0_200(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    
     double STXSb = 1.0;
+    
+    STXSb = 1.0 + 16.0 * CiHG;
     
     return STXSb;
 }
 
 
 double NPSMEFTd6::STXS_ggH2j_pTH_0_60(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17226,6 +17262,8 @@ double NPSMEFTd6::STXS_ggH2j_pTH_0_60(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_ggH2j_pTH_60_120(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 + 56.1*aiG + 7.73*ai3G + 6.81*ai2G;
@@ -17234,6 +17272,8 @@ double NPSMEFTd6::STXS_ggH2j_pTH_60_120(const double sqrt_s) const{
 }
 
 double NPSMEFTd6::STXS_ggH2j_pTH_120_200(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17244,9 +17284,14 @@ double NPSMEFTd6::STXS_ggH2j_pTH_120_200(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_ggH2j_pTH_200(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 + 56.0*aiG + 89.8*ai3G + 68.1*ai2G;
+//    STXSb = 1.0 + 56.0*aiG + 89.8*ai3G + 68.1*ai2G;
+    
+    STXSb += (15.6 * CiHG) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17260,6 +17305,8 @@ double NPSMEFTd6::STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 + 1.256*aiWW - 0.02319*aiB - 4.31*aiHW - 0.2907*aiHB;
@@ -17269,25 +17316,60 @@ double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 + 1.204*aiWW - 0.02692*aiB - 5.76*aiHW - 0.4058*aiHB;
     
     return STXSb;
 }
+
+
+double NPSMEFTd6::STXS_qqHqq_nonVHtopo(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
+    double STXSb = 1.0;
+  
+    // Fix for non-universal
+    double CiHL3=CiHL3_11;
+    double CiHQ1=CiHQ1_11, CiHQ3=CiHQ3_11, CiHu=CiHu_11, CiHd=CiHd_11;
+    
+//    STXSb = 1.0 + 1.389*aiWW - 0.0284*aiB - 6.23*aiHW - 0.417*aiHB;
+    
+    STXSb += (0.1213 * CiHbox -0.0107 * CiHD -0.008 * CiHW +0.0313 * CiHWB 
+            - 0.364 * CiHL3 +0.0043 * CiHQ1 -0.212 * CiHQ3 -0.0108 * CiHu 
+            + 0.0038 * CiHd +0.182 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+    return STXSb;
+}
 
 double NPSMEFTd6::STXS_qqHqq_VHtopo(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 + 1.389*aiWW - 0.0284*aiB - 6.23*aiHW - 0.417*aiHB;
+    // Fix for non-universal
+    double CiHL3=CiHL3_11;
+    double CiHQ1=CiHQ1_11, CiHQ3=CiHQ3_11, CiHu=CiHu_11, CiHd=CiHd_11;
+    
+//    STXSb = 1.0 + 1.389*aiWW - 0.0284*aiB - 6.23*aiHW - 0.417*aiHB;
+    
+    STXSb += (0.120 * CiHbox -0.0071 * CiHD +0.623 * CiHW +0.0215 * CiHB 
+            + 0.098 * CiHWB -0.360 * CiHL3 -0.026 * CiHQ1 +1.86 * CiHQ3 
+            +0.135 * CiHu - 0.0506 * CiHd + 0.181 * CiLL_1221) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
 
 
 double NPSMEFTd6::STXS_qqHqq_Rest(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17299,9 +17381,20 @@ double NPSMEFTd6::STXS_qqHqq_Rest(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHqq_pTj_200(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 + 7.82*aiWW - 0.1868*aiB - 30.65*aiHW - 2.371*aiHB;
+    // Fix for non-universal
+    double CiHL3=CiHL3_11;
+    double CiHQ1=CiHQ1_11, CiHQ3=CiHQ3_11, CiHu=CiHu_11, CiHd=CiHd_11;
+    
+//    STXSb = 1.0 + 7.82*aiWW - 0.1868*aiB - 30.65*aiHW - 2.371*aiHB;
+    
+    STXSb += (0.122 * CiHbox -0.0073 * CiHD -0.25 * CiHW +0.0024 * CiHB 
+            +0.045 * CiHWB -0.367 * CiHL3 +0.030 * CiHQ1 -0.47 * CiHQ3 
+            -0.030 * CiHu + 0.0087 * CiHd + 0.180 * CiLL_1221) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17309,13 +17402,24 @@ double NPSMEFTd6::STXS_qqHqq_pTj_200(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHlv_pTV_0_250(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    
     double STXSb = 1.0;
+    
+    // Fix for non-universal
+    double CiHL3=CiHL3_11;
+    double CiHQ3=CiHQ3_11;
+    
+    STXSb += (0.1212 * CiHbox - 0.0304 * CiHD + 0.874 * CiHW 
+            - 0.242 * CiHL3 + 1.710 * CiHQ3 + 0.182 * CiLL_1221) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
 
 
 double NPSMEFTd6::STXS_qqHlv_pTV_0_150(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17327,6 +17431,8 @@ double NPSMEFTd6::STXS_qqHlv_pTV_0_150(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 - 0.998*aiH + 76.3*aiWW + 50.7*aiHW + 66.5*aipHQ + 2.03*aipHL;
@@ -17336,6 +17442,8 @@ double NPSMEFTd6::STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const{
 
 
 double NPSMEFTd6::STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17347,9 +17455,19 @@ double NPSMEFTd6::STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHlv_pTV_250(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 - 1.001*aiH + 196.5*aiWW + 169.4*aiHW + 186.3*aipHQ + 2.03*aipHL;
+    // Fix for non-universal
+    double CiHL3=CiHL3_11;
+    double CiHQ3=CiHQ3_11;
+    
+//    STXSb = 1.0 - 1.001*aiH + 196.5*aiWW + 169.4*aiHW + 186.3*aipHQ + 2.03*aipHL;
+    
+    STXSb += (0.121 * CiHbox -0.0299 * CiHD +1.06 * CiHW -0.237 * CiHL3 
+            + 10.9 * CiHQ3 + 0.184 * CiLL_1221) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17357,11 +17475,23 @@ double NPSMEFTd6::STXS_qqHlv_pTV_250(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHll_pTV_0_150(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 - 1.0*aiH - 4.001*aiT + 29.82*aiWW + 8.43*aiB + 8.5*aiHW 
-            + 2.545*aiHB + 0.0315*aiA - 1.89*aiHQ + 22.84*aipHQ + 5.247*aiHu 
-            - 2.0*aiHd - 0.963*aiHL + 2.042*aipHL - 0.2307*aiHe;
+    // Fix for non-universal
+    double CiHL1=CiHL1_11, CiHL3=CiHL3_11, CiHe=CiHe_11;
+    double CiHQ1=CiHQ1_11, CiHQ3=CiHQ3_11, CiHu=CiHu_11, CiHd=CiHd_11;
+    
+//    STXSb = 1.0 - 1.0*aiH - 4.001*aiT + 29.82*aiWW + 8.43*aiB + 8.5*aiHW 
+//            + 2.545*aiHB + 0.0315*aiA - 1.89*aiHQ + 22.84*aipHQ + 5.247*aiHu 
+//            - 2.0*aiHd - 0.963*aiHL + 2.042*aipHL - 0.2307*aiHe;
+    
+    STXSb += (0.1218 * CiHbox +0.0259 * CiHD +0.696 * CiHW +0.0846 * CiHB 
+            + 0.328 * CiHWB +0.1332 * CiHL1 -0.231 * CiHL3 -0.1076 * CiHe 
+            +0.016 * CiHQ1 +1.409 * CiHQ3 +0.315 * CiHu -0.1294 * CiHd 
+            +0.182 * CiLL_1221) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17369,13 +17499,27 @@ double NPSMEFTd6::STXS_qqHll_pTV_0_150(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHll_pTV_150_250(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    
     double STXSb = 1.0;
+    
+    // Fix for non-universal
+    double CiHL1=CiHL1_11, CiHL3=CiHL3_11, CiHe=CiHe_11;
+    double CiHQ1=CiHQ1_11, CiHQ3=CiHQ3_11, CiHu=CiHu_11, CiHd=CiHd_11;
+    
+    
+    STXSb += (0.124 * CiHbox +0.026 * CiHD +0.85 * CiHW +0.102 * CiHB 
+            + 0.389 * CiHWB +0.134 * CiHL1 -0.232 * CiHL3 -0.109 * CiHe 
+            -0.16 * CiHQ1 +3.56 * CiHQ3 +0.85 * CiHu -0.315 * CiHd 
+            +0.184 * CiLL_1221) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
 
 
 double NPSMEFTd6::STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17389,6 +17533,8 @@ double NPSMEFTd6::STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 - 1.002*aiH - 4.01*aiT + 57.9*aiWW + 16.78*aiB + 32.8*aiHW 
@@ -17401,11 +17547,23 @@ double NPSMEFTd6::STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const{
 
 double NPSMEFTd6::STXS_qqHll_pTV_250(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 - 0.998*aiH - 4.0*aiT + 153.1*aiWW + 45.6*aiB + 126.4*aiHW 
-            + 37.9*aiHB - 13.85*aiHQ + 168.6*aipHQ + 41.7*aiHu - 13.48*aiHd 
-            - 0.977*aiHL + 2.09*aipHL - 0.238*aiHe;
+    // Fix for non-universal
+    double CiHL1=CiHL1_11, CiHL3=CiHL3_11, CiHe=CiHe_11;
+    double CiHQ1=CiHQ1_11, CiHQ3=CiHQ3_11, CiHu=CiHu_11, CiHd=CiHd_11;
+    
+//    STXSb = 1.0 - 0.998*aiH - 4.0*aiT + 153.1*aiWW + 45.6*aiB + 126.4*aiHW 
+//            + 37.9*aiHB - 13.85*aiHQ + 168.6*aipHQ + 41.7*aiHu - 13.48*aiHd 
+//            - 0.977*aiHL + 2.09*aipHL - 0.238*aiHe;
+    
+    STXSb += (0.122 * CiHbox +0.028 * CiHD +0.88 * CiHW +0.121 * CiHB 
+            + 0.43 * CiHWB +0.137 * CiHL1 -0.234 * CiHL3 -0.113 * CiHe 
+            -0.82 * CiHQ1 +8.5 * CiHQ3 + 2.14 * CiHu -0.71 * CiHd 
+            +0.182 * CiLL_1221) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
@@ -17413,15 +17571,37 @@ double NPSMEFTd6::STXS_qqHll_pTV_250(const double sqrt_s) const{
     
 double NPSMEFTd6::STXS_ttHtH(const double sqrt_s) const{
     
+    // Warsaw parameterization
+    // (HEL parameterization commented out)
+    
     double STXSb = 1.0;
     
-    STXSb = 1.0 - 0.983*aiH + 2.949*aiu + 0.928*aiG + 313.6*aiuG 
-            + 27.48*ai3G - 13.09*ai2G;
+    // Fix for non-universal
+    double CiHL3=CiHL3_11;
+    double CiHQ3=CiHQ3_11;
+    
+    //  Set 4 quark operators to zero for the moment.
+    double CQQ1=0.0, CQQ11=0.0, CQQ3=0.0, CQQ31=0.0;
+    double Cuu=0.0, Cuu1=0.0, Cud1=0.0, Cud8=0.0;
+    double CQu1=0.0, CQu8=0.0, CQd1=0.0, CQd8=0.0;
+    
+//    STXSb = 1.0 - 0.983*aiH + 2.949*aiu + 0.928*aiG + 313.6*aiuG 
+//            + 27.48*ai3G - 13.09*ai2G;
+    
+    STXSb += (0.133 * CiG +0.1182 * CiHbox -0.0296 * CiHD +0.532 * CiHG 
+            + 0.0120 * CiHW -0.1152 * CiuH_33r -0.790 * CiuG_33r -0.0111 * CiuW_33r
+            - 0.0017 * CiuB_33r - 0.1320 * CiHL3 + 0.0146 * CiHQ3 
+            + 0.0660 * CiLL_1221 + 0.0218 * CQQ1 +0.1601 * CQQ11 + 0.0263 * CQQ3 
+            + 0.388 * CQQ31 +0.0114 * Cuu + 0.1681 * Cuu1 - 0.0018 * Cud1 
+            + 0.0265 * Cud8 + 0.007 * CQu1 + 0.1087 * CQu8 
+            - 0.0011 * CQd1 + 0.0266 * CQd8) * (1000000.0 / LambdaNP2);
     
     return STXSb;
 }
 
 double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17432,6 +17612,8 @@ double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const{
     
 double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 - 1.04*aiH + 44.9*aiWW + 20.3*aiHW + 36.8*aipHQ;
@@ -17440,6 +17622,8 @@ double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const{
 }
     
 double NPSMEFTd6::STXS_WHqqHqq_VH2j(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17450,6 +17634,8 @@ double NPSMEFTd6::STXS_WHqqHqq_VH2j(const double sqrt_s) const{
     
 double NPSMEFTd6::STXS_WHqqHqq_Rest(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 - 1.002*aiH + 34.29*aiWW + 11.56*aiHW + 26.27*aipHQ;
@@ -17459,6 +17645,8 @@ double NPSMEFTd6::STXS_WHqqHqq_Rest(const double sqrt_s) const{
     
 double NPSMEFTd6::STXS_WHqqHqq_pTj1_200(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 - 1.003*aiH + 181.2*aiWW + 152.3*aiHW + 173.7*aipHQ;
@@ -17467,6 +17655,8 @@ double NPSMEFTd6::STXS_WHqqHqq_pTj1_200(const double sqrt_s) const{
 }
     
 double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17478,6 +17668,8 @@ double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const{
     
 double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 - 0.97*aiH - 3.98*aiT + 38.1*aiWW + 10.5*aiB + 14.2*aiHW 
@@ -17487,6 +17679,8 @@ double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const{
 }
     
 double NPSMEFTd6::STXS_ZHqqHqq_VH2j(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     
@@ -17498,6 +17692,8 @@ double NPSMEFTd6::STXS_ZHqqHqq_VH2j(const double sqrt_s) const{
     
 double NPSMEFTd6::STXS_ZHqqHqq_Rest(const double sqrt_s) const{
     
+    // HEL parameterization
+    
     double STXSb = 1.0;
     
     STXSb = 1.0 - 1.001*aiH - 3.998*aiT + 30.89*aiWW + 8.35*aiB + 8.71*aiHW 
@@ -17507,6 +17703,8 @@ double NPSMEFTd6::STXS_ZHqqHqq_Rest(const double sqrt_s) const{
 }
     
 double NPSMEFTd6::STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const{
+    
+    // HEL parameterization
     
     double STXSb = 1.0;
     

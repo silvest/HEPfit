@@ -3426,6 +3426,25 @@ double STXSqqHqq_VBFtopo_j3_4l::computeThValue()
 
 
 
+STXSqqHqq_nonVHtopo_4l::STXSqqHqq_nonVHtopo_4l(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXSqqHqq_nonVHtopo_4l called with a class whose parent is not NPbase");
+
+}
+
+double STXSqqHqq_nonVHtopo_4l::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS_qqHqq_nonVHtopo(sqrt_s)) + (myNPbase->BrHZZ4lRatio()) - 1.0);
+    } else {
+        return (myNPbase->STXS_qqHqq_nonVHtopo(sqrt_s))*(myNPbase->BrHZZ4lRatio());
+    }
+}
+
+
+
 STXSqqHqq_VHtopo_4l::STXSqqHqq_VHtopo_4l(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {

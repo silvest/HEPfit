@@ -1582,6 +1582,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["STXSqqHqq_VBFtopo_Rest_4l_13"] = boost::bind(boost::factory<STXSqqHqq_VBFtopo_Rest_4l*>(), _1, sqrt_s_LHC13);
     obsThFactory["STXSqqHqq_VBFtopo_j3v_4l_13"] = boost::bind(boost::factory<STXSqqHqq_VBFtopo_j3v_4l*>(), _1, sqrt_s_LHC13);
     obsThFactory["STXSqqHqq_VBFtopo_j3_4l_13"] = boost::bind(boost::factory<STXSqqHqq_VBFtopo_j3_4l*>(), _1, sqrt_s_LHC13);
+    obsThFactory["STXSqqHqq_nonVHtopo_4l_13"] = boost::bind(boost::factory<STXSqqHqq_nonVHtopo_4l*>(), _1, sqrt_s_LHC13);
     obsThFactory["STXSqqHqq_VHtopo_4l_13"] = boost::bind(boost::factory<STXSqqHqq_VHtopo_4l*>(), _1, sqrt_s_LHC13); 
     obsThFactory["STXSqqHqq_Rest_4l_13"] = boost::bind(boost::factory<STXSqqHqq_Rest_4l*>(), _1, sqrt_s_LHC13);      
     obsThFactory["STXSqqHqq_pTj_200_4l_13"] = boost::bind(boost::factory<STXSqqHqq_pTj_200_4l*>(), _1, sqrt_s_LHC13);    

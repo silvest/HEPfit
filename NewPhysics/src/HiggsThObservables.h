@@ -6992,6 +6992,35 @@ private:
 
 
 /**
+ * @class STXSqqHqq_nonVHtopo_4l
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$qq \to H qq@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$qq \to H qq@f$.
+ */
+class STXSqqHqq_nonVHtopo_4l : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXSqqHqq_nonVHtopo_4l(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
  * @class STXSqqHqq_VHtopo_4l
  * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$qq \to H qq@f$.

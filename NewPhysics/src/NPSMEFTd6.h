@@ -4180,6 +4180,12 @@ public:
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
+    virtual double STXS_qqHqq_nonVHtopo(const double sqrt_s) const;
+    
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
     virtual double STXS_qqHqq_VHtopo(const double sqrt_s) const;
     
     /**
