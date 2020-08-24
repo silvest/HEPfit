@@ -1024,7 +1024,273 @@ public:
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+     * in the @f$H,Z\to b\bar{b}@f$ channel in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
+     */
+    virtual double muttHZbbboost(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+        
+    virtual double muggHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs
+     * production cross-section with subsequent decay into 2 photons in the
+     * current model and in the Standard Model. Includes interference effects
+     * with the background, following arXiv:1704.08259
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH,\gamma\gamma}@f$
+     */
+    virtual double muggHgagaInt(const double sqrt_s) const
+    {
+        return 1.0;        
+    };
+    
+    virtual double muVBFHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }   
+    virtual double muggHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muWHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }  
+    virtual double muggHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muWHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    virtual double muggHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }    
+    virtual double muWHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHZZ4l(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    virtual double muggHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHWW2l2v(const double sqrt_s) const
+    {
+        return 1.0;
+    }   
+    virtual double muggHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muZHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muWHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muppHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muppHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    ///////////////////////HIGGS DECAY WIDTHS/////////////////////////
 
+    /**
+     * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
+     */
+    virtual double computeGammaTotalRatio() const
+    {
+        return 1.0;
+    }
+    
+    ///////////////////////HIGGS BRANCHING RATIOS/////////////////////////
+    
     /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
      * and in the Standard Model.
@@ -1211,269 +1477,6 @@ public:
      * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
      */
     virtual double BrHbbRatio() const
-    {
-        return 1.0;
-    }
-    
-    /**
-     * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
-     * in the @f$H,Z\to b\bar{b}@f$ channel in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
-     */
-    virtual double muttHZbbboost(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-        
-    virtual double muggHgaga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    
-    /**
-     * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs
-     * production cross-section with subsequent decay into 2 photons in the
-     * current model and in the Standard Model. Includes interference effects
-     * with the background, following arXiv:1704.08259
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return @f$\mu_{ggH,\gamma\gamma}@f$
-     */
-    virtual double muggHgagaInt(const double sqrt_s) const
-    {
-        return 1.0;        
-    };
-    
-    virtual double muVBFHgaga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHgaga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muWHgaga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHgaga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHgaga(const double sqrt_s) const
-    {
-        return 1.0;
-    }   
-    virtual double muggHZga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVBFHZga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHZga(const double sqrt_s) const
-    {
-        return 1.0;
-    }    
-    virtual double muWHZga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHZga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHZga(const double sqrt_s) const
-    {
-        return 1.0;
-    }  
-    virtual double muggHZZ(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVBFHZZ(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHZZ(const double sqrt_s) const
-    {
-        return 1.0;
-    }    
-    virtual double muWHZZ(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHZZ(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHZZ(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    
-    virtual double muggHZZ4l(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVBFHZZ4l(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHZZ4l(const double sqrt_s) const
-    {
-        return 1.0;
-    }    
-    virtual double muWHZZ4l(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHZZ4l(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHZZ4l(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    
-    
-    virtual double muggHWW(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVBFHWW(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHWW(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muWHWW(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHWW(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHWW(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muggHWW2l2v(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVBFHWW2l2v(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHWW2l2v(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muWHWW2l2v(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHWW2l2v(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHWW2l2v(const double sqrt_s) const
-    {
-        return 1.0;
-    }   
-    virtual double muggHmumu(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVBFHmumu(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHmumu(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muWHmumu(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHmumu(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHmumu(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muggHtautau(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVBFHtautau(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHtautau(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muWHtautau(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHtautau(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHtautau(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muggHbb(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVBFHbb(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muZHbb(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muWHbb(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muVHbb(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muttHbb(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muppHmumu(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-    virtual double muppHZga(const double sqrt_s) const
-    {
-        return 1.0;
-    }
-
-    /**
-     * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
-     * and in the Standard Model.
-     * @return @f$\Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
-     */
-    virtual double computeGammaTotalRatio() const
     {
         return 1.0;
     }
