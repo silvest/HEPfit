@@ -4518,7 +4518,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +10129.9 * (1. + eVBF_2_HB ) * CiHB / LambdaNP2
                 -65827.6 * (1. + eVBF_2_HW ) * CiHW / LambdaNP2
                 -323514. * (1. + eVBF_2_HWB ) * CiHWB / LambdaNP2
-                +481332. * (1. + eVBF_2_HG ) * CiHG / LambdaNP2
+                +778380. * (1. + eVBF_2_HG ) * CiHG / LambdaNP2
                 +542.258 * (1. + eVBF_2_DHB ) * CiDHB / LambdaNP2
                 -34956.7 * (1. + eVBF_2_DHW ) * CiDHW / LambdaNP2
                 -4.511 * (1. + eVBF_2_DeltaGF ) * delta_GF
@@ -4546,7 +4546,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -536.629 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
                 -89854. * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
                 -312617. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
-                -82956.8 * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
+                -83255.6 * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
                 -381.61 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
                 -54861. * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
                 -4.479 * (1. + eVBF_78_DeltaGF ) * delta_GF
@@ -4574,7 +4574,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -465.919 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
                 -87279.4 * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
                 -313449. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
-                -69421.9 * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
+                -69437.4 * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
                 -444.569 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
                 -57028.1 * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
                 -4.472 * (1. + eVBF_78_DeltaGF ) * delta_GF
@@ -4601,7 +4601,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +171.802 * (1. + eVBF_1314_HB ) * CiHB / LambdaNP2
                 -82985.3 * (1. + eVBF_1314_HW ) * CiHW / LambdaNP2
                 -313815. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
-                -36554. * (1. + eVBF_1314_HG ) * CiHG / LambdaNP2
+                -83746.6 * (1. + eVBF_1314_HG ) * CiHG / LambdaNP2
                 -772.322 * (1. + eVBF_1314_DHB ) * CiDHB / LambdaNP2
                 -65253.4 * (1. + eVBF_1314_DHW ) * CiDHW / LambdaNP2
                 -4.474 * (1. + eVBF_1314_DeltaGF ) * delta_GF
@@ -4627,7 +4627,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 +184.946 * (1. + eVBF_1314_HB ) * CiHB / LambdaNP2
                 -83504.9 * (1. + eVBF_1314_HW ) * CiHW / LambdaNP2
                 -314059. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
-                -33627.6 * (1. + eVBF_1314_HG ) * CiHG / LambdaNP2
+                -79081.6 * (1. + eVBF_1314_HG ) * CiHG / LambdaNP2
                 -838.19 * (1. + eVBF_1314_DHB ) * CiDHB / LambdaNP2
                 -66336.3 * (1. + eVBF_1314_DHW ) * CiDHW / LambdaNP2
                 -4.474 * (1. + eVBF_1314_DeltaGF ) * delta_GF
