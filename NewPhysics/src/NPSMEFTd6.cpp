@@ -8097,6 +8097,53 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
     return mu;
 }
 
+
+double NPSMEFTd6::muWHpT250(const double sqrt_s) const
+{
+    double mu = 1.0;
+    
+    double C1 = 0.0;
+    
+    if (sqrt_s == 13.0) {
+        
+        C1 = 0.0119;
+
+        mu += 
+                +120546. * CiHbox / LambdaNP2
+                +12383685. * CiHQ3_11 / LambdaNP2
+                -160073. * CiHD / LambdaNP2
+                +1104105. * CiHW / LambdaNP2
+                -284219. * CiHWB / LambdaNP2
+                +1865202. * CiDHW / LambdaNP2
+                -3.269 * delta_GF
+                -1.911 * deltaMwd6()
+                -14.103 * deltaMwd62()
+                ;
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::muWHpT250()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eWHint + eWHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
+
 double NPSMEFTd6::muZH(const double sqrt_s) const
 {
     double mu = 1.0;
@@ -8292,6 +8339,55 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
     
     return mu;
 }
+
+
+double NPSMEFTd6::muZHpT250(const double sqrt_s) const
+{
+    double mu = 1.0;
+    
+    double C1 = 0.0;
+    
+    if (sqrt_s == 13.0) {
+        
+        C1 = 0.0119;
+
+        mu += 
+                +121507. * CiHbox / LambdaNP2
+                -1342644. * CiHQ1_11 / LambdaNP2
+                +2801027. * CiHu_11 / LambdaNP2
+                -900548. * CiHd_11 / LambdaNP2
+                +11246575. * CiHQ3_11 / LambdaNP2
+                -14726. * CiHD / LambdaNP2
+                +104110. * CiHB / LambdaNP2
+                +968630. * CiHW / LambdaNP2
+                +287671. * CiHWB / LambdaNP2
+                +296096. * CiDHB / LambdaNP2
+                +1652945. * CiDHW / LambdaNP2
+                -2.517 * delta_GF
+                ;
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::muZHpT250()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eZHint + eZHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 
 double NPSMEFTd6::mueeZH(const double sqrt_s) const
 {
@@ -9802,6 +9898,22 @@ double NPSMEFTd6::muVH(const double sqrt_s) const
     
     return mu;
 }
+
+
+double NPSMEFTd6::muVHpT250(const double sqrt_s) const
+{
+    //Use MG SM values
+    double sigmaWH_SM = 0.26944e-01;
+    double sigmaZH_SM = 0.14600e-01;
+    double sigmaWH = muWHpT250(sqrt_s) * sigmaWH_SM;
+    double sigmaZH = muZHpT250(sqrt_s) * sigmaZH_SM;
+    double mu = ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 
 double NPSMEFTd6::muVBFpVH(const double sqrt_s) const
 {
@@ -19680,6 +19792,72 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
     ////////////////////////////////////////////////////////////////////////
     
     //----- Simplified Template Cross Sections Bins
+
+    //----- Stage 0
+
+double NPSMEFTd6::STXS0_qqH(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double C1 = 0.0; 
+    
+    if (sqrt_s == 13.0) {
+        
+        C1 = 0.0064;  // Use the same as VBF 
+
+        STXSb += 
+                +121687. * CiHbox / LambdaNP2
+                -162383. * CiHD / LambdaNP2
+                +6933.53 * CiHB / LambdaNP2
+                +133459. * CiHW / LambdaNP2
+                -286707. * CiHWB / LambdaNP2
+                +1616.64 * CiDHB / LambdaNP2
+                -1257.62 * CiDHW / LambdaNP2
+                -1929.85 * CiHQ1_11 / LambdaNP2
+                +1378.01 * CiHQ1_22 / LambdaNP2
+                +2505.13 * CiHQ1_33 / LambdaNP2
+                +17471.4 * CiHu_11 / LambdaNP2
+                +532.133 * CiHu_22 / LambdaNP2
+                -6552.85 * CiHd_11 / LambdaNP2
+                -454.364 * CiHd_22 / LambdaNP2
+                -437.319 * CiHd_33 / LambdaNP2
+                +152289. * CiHQ3_11 / LambdaNP2
+                -2645.75 * CiHQ3_22 / LambdaNP2
+                +2515.78 * CiHQ3_33 / LambdaNP2
+                -4.496 * delta_GF
+                -0.084 * deltaGzd6()
+                -2.759 * deltaMwd6()
+                -0.142 * deltaGwd6()
+                +0.199 * deltaGzd62()
+                +23.437 * deltaMwd62()
+                +0.229 * deltaGwd62()
+                ;
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        STXSb +=  0.0;
+
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS0_qqH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    // Use the same as VBF
+    STXSb += eVBFint + eVBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    STXSb = STXSb + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    STXSb = STXSb + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+
+
+    //----- Stage 1
     // NOTE: Not our own calculations. From https://twiki.cern.ch/twiki/bin/view/LHCPhysics/STXStoEFT  for HEL calculations
     // From Table 3 in ATL-PHYS-PUB-2019-042 for Warsaw basis calculations
 

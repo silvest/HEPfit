@@ -699,12 +699,26 @@ public:
      */
     virtual double muWH(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
+     * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{WH}@f$
+     */
+    virtual double muWHpT250(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH}@f$
      */
     virtual double muZH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production
+     * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ZH}@f$
+     */
+    virtual double muZHpT250(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
      * @f$e^{+}e^{-}\to ZH@f$ associated production
@@ -766,6 +780,13 @@ public:
      * @return @f$\mu_{VH}@f$
      */
     virtual double muVH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
+     * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VH}@f$
+     */
+    virtual double muVHpT250(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF+VH}@f$ between the sum of VBF and WH+ZH associated production
      * cross-section in the current model and in the Standard Model.

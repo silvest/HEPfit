@@ -603,11 +603,21 @@ double HiggsKigen::muWH(const double sqrt_s) const
     return (mu*(1.0 + eWHint + eWHpar));
 }
 
+double HiggsKigen::muWHpT250(const double sqrt_s) const
+{
+    return muWH(sqrt_s);
+}
+
 double HiggsKigen::muZH(const double sqrt_s) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());
     return (mu*(1.0 + eZHint + eZHpar));
+}
+
+double HiggsKigen::muZHpT250(const double sqrt_s) const
+{
+    return muZH(sqrt_s);
 }
 
 double HiggsKigen::mueeZH(const double sqrt_s) const
@@ -656,6 +666,16 @@ double HiggsKigen::muVH(const double sqrt_s) const
 {
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
     double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
+    return ((computeKW() * computeKW()*(1.0 + eWHint + eWHpar) * sigmaWH_SM
+            + computeKZ() * computeKZ()*(1.0 + eZHint + eZHpar) * sigmaZH_SM)
+            / (sigmaWH_SM + sigmaZH_SM));
+}
+
+double HiggsKigen::muVHpT250(const double sqrt_s) const
+{
+    //Use MG SM values
+    double sigmaWH_SM = 0.26944e-01;
+    double sigmaZH_SM = 0.14600e-01;
     return ((computeKW() * computeKW()*(1.0 + eWHint + eWHpar) * sigmaWH_SM
             + computeKZ() * computeKZ()*(1.0 + eZHint + eZHpar) * sigmaZH_SM)
             / (sigmaWH_SM + sigmaZH_SM));
