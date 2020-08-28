@@ -140,6 +140,23 @@ muWH::muWH(const StandardModel& SM_i, const double sqrt_s_i)
         throw std::runtime_error("muWH called with a class whose parent is not NPbase");
 }
 
+double muWH::computeThValue()
+{
+    return myNPbase->muWH(sqrt_s);
+}
+
+muWHpT250::muWHpT250(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muWHpT250 called with a class whose parent is not NPbase");
+}
+
+double muWHpT250::computeThValue()
+{
+    return myNPbase->muWHpT250(sqrt_s);
+}
+
 muepZBF::muepZBF(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
@@ -153,11 +170,6 @@ double muepZBF::computeThValue()
     return myNPbase->muepZBF(sqrt_s);
 }
 
-double muWH::computeThValue()
-{
-    return myNPbase->muWH(sqrt_s);
-}
-
 muZH::muZH(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
@@ -168,6 +180,18 @@ muZH::muZH(const StandardModel& SM_i, const double sqrt_s_i)
 double muZH::computeThValue()
 {
     return myNPbase->muZH(sqrt_s);
+}
+
+muZHpT250::muZHpT250(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muZHpT250 called with a class whose parent is not NPbase");
+}
+
+double muZHpT250::computeThValue()
+{
+    return myNPbase->muZHpT250(sqrt_s);
 }
 
 mueeZH::mueeZH(const StandardModel& SM_i, const double sqrt_s_i)
@@ -279,6 +303,18 @@ muVH::muVH(const StandardModel& SM_i, const double sqrt_s_i)
 double muVH::computeThValue()
 {
     return myNPbase->muVH(sqrt_s);
+}
+
+muVHpT250::muVHpT250(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muVHpT250 called with a class whose parent is not NPbase");
+}
+
+double muVHpT250::computeThValue()
+{
+    return myNPbase->muVHpT250(sqrt_s);
 }
 
 muVBFpVH::muVBFpVH(const StandardModel& SM_i, const double sqrt_s_i)
@@ -3157,6 +3193,28 @@ double muepZBFtautau::computeThValue()
 
 // -----------------------------------------------------------------------------
 // STXS bins
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// Stage 0
+// -----------------------------------------------------------------------------
+
+STXS_0_qqH::STXS_0_qqH(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS_0_qqH called with a class whose parent is not NPbase");
+
+}
+
+double STXS_0_qqH::computeThValue()
+{
+    return myNPbase->STXS0_qqH(sqrt_s);
+}
+
+
+// -----------------------------------------------------------------------------
+// Stage 1
 // -----------------------------------------------------------------------------
 
 STXSggH_VBFtopo_j3v_4l::STXSggH_VBFtopo_j3v_4l(const StandardModel& SM_i, const double sqrt_s_i)

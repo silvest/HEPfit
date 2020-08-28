@@ -647,7 +647,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["VBFgamma13"] = boost::bind(boost::factory<muVBFgamma*>(), _1, sqrt_s_LHC13);
     obsThFactory["VH13"] = boost::bind(boost::factory<muVH*>(), _1, sqrt_s_LHC13);
     obsThFactory["WH13"] = boost::bind(boost::factory<muWH*>(), _1, sqrt_s_LHC13);
-    obsThFactory["ZH13"] = boost::bind(boost::factory<muZH*>(), _1, sqrt_s_LHC13);
+    obsThFactory["ZH13"] = boost::bind(boost::factory<muZH*>(), _1, sqrt_s_LHC13);   
+    obsThFactory["VHpT25013"] = boost::bind(boost::factory<muVHpT250*>(), _1, sqrt_s_LHC13);
+    obsThFactory["WHpT25013"] = boost::bind(boost::factory<muWHpT250*>(), _1, sqrt_s_LHC13);
+    obsThFactory["ZHpT25013"] = boost::bind(boost::factory<muZHpT250*>(), _1, sqrt_s_LHC13);
     obsThFactory["ttH13"] = boost::bind(boost::factory<muttH*>(), _1, sqrt_s_LHC13);
     obsThFactory["tHq13"] = boost::bind(boost::factory<mutHq*>(), _1, sqrt_s_LHC13);
     obsThFactory["ggH14"] = boost::bind(boost::factory<muggH*>(), _1, sqrt_s_LHC14);
@@ -1565,7 +1568,9 @@ ThObsFactory::ThObsFactory()
     //
     //
     //----- STXS bins at hadron colliders
-    // 4l
+    // Stage 0
+    obsThFactory["STXS_0_qqH_13"] = boost::bind(boost::factory<STXS_0_qqH*>(), _1, sqrt_s_LHC13);    
+    // Stage 1: 4l final state
     obsThFactory["STXSggH_VBFtopo_j3v_4l_13"] = boost::bind(boost::factory<STXSggH_VBFtopo_j3v_4l*>(), _1, sqrt_s_LHC13);
     obsThFactory["STXSggH_VBFtopo_j3_4l_13"] = boost::bind(boost::factory<STXSggH_VBFtopo_j3_4l*>(), _1, sqrt_s_LHC13);
     obsThFactory["STXSggH0j4l_13"] = boost::bind(boost::factory<STXSggH0j4l*>(), _1, sqrt_s_LHC13); 

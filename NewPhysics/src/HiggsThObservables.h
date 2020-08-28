@@ -391,6 +391,38 @@ private:
     const double sqrt_s;
 };
 
+
+/**
+ * @class muWHpT250
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{WH,p_T>250}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{WH,p_T>250}@f$ between the WH 
+ * associated production cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
+ */
+class muWHpT250 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muWHpT250(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{WH,p_T>250}@f$ in the current model.
+     * @return @f$\mu_{WH,p_T>250}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
 /**
  * @class muZH
  * @ingroup NewPhysics
@@ -420,6 +452,38 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s;
 };
+
+
+/**
+ * @class muZHpT250
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{ZH,p_T>250}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{ZH,p_T>250}@f$ between the ZH 
+ * associated production cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
+ */
+class muZHpT250 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muZHpT250(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{ZH,p_T>250}@f$ in the current model.
+     * @return @f$\mu_{ZH,p_T>250}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
 
 /**
  * @class mueeZH
@@ -701,6 +765,36 @@ public:
     /**
      * @brief A method to compute the value of @f$\mu_{VH}@f$ in the current model.
      * @return @f$\mu_{VH}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muVHpT250
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{VH,p_T>250}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{VH,p_T>250}@f$ between the WH+ZH 
+ * associated production cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
+ */
+class muVHpT250 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVHpT250(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{VH,p_T>250}@f$ in the current model.
+     * @return @f$\mu_{VH,p_T>250}@f$
      */
     double computeThValue();
 
@@ -6552,6 +6646,43 @@ private:
 
 // -----------------------------------------------------------------------------
 // STXS bins
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// Stage 0
+// -----------------------------------------------------------------------------
+
+/**
+ * @class STXS_0_qqH
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$pp \to H qq@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$pp \to H qq@f$.
+ */
+class STXS_0_qqH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS_0_qqH(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+// -----------------------------------------------------------------------------
+// Stage 1
 // -----------------------------------------------------------------------------
 
 /**
