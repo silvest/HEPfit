@@ -1702,6 +1702,44 @@ private:
     const NPbase* myNPbase;
 };
 
+
+// -----------------------------------------------------------------------------
+// More 4 fermion decays
+// -----------------------------------------------------------------------------
+
+/**
+ * @class BrHtoevmuvRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to e\nu \mu\nu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to e\nu \mu\nu)@f$.
+ * in the current model and in the Standard Model
+ */
+class BrHtoevmuvRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoevmuvRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to e\nu \mu\nu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to e\nu \mu\nu)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+// -----------------------------------------------------------------------------
+// Ratios of BR (ratios with SM)
+// -----------------------------------------------------------------------------
+
 /**
  * @class BrHtogaga_over_mumu_Ratio
  * @ingroup NewPhysics

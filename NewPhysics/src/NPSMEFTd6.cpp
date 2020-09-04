@@ -3922,6 +3922,33 @@ double NPSMEFTd6::RWlilj(const Particle li, const Particle lj) const
 }
 
 
+double NPSMEFTd6::RWc() const
+{
+    double GammWcX0, GammWhad0;
+    double dGammWcX, dGammWhad;
+    
+    GammWcX0 = trueSM.GammaW(quarks[CHARM], quarks[STRANGE])
+            + trueSM.GammaW(quarks[CHARM], quarks[DOWN])
+            + trueSM.GammaW(quarks[CHARM], quarks[BOTTOM]);
+    
+    dGammWcX = deltaGamma_Wff(quarks[CHARM], quarks[STRANGE])
+            + deltaGamma_Wff(quarks[CHARM], quarks[DOWN])
+            + deltaGamma_Wff(quarks[CHARM], quarks[BOTTOM]);
+    
+    GammWhad0 = GammWcX0
+            + trueSM.GammaW(quarks[UP], quarks[DOWN])
+            + trueSM.GammaW(quarks[UP], quarks[STRANGE])
+            + trueSM.GammaW(quarks[UP], quarks[BOTTOM]);
+    
+    dGammWhad = dGammWcX
+            + deltaGamma_Wff(quarks[UP], quarks[STRANGE])
+            + deltaGamma_Wff(quarks[UP], quarks[DOWN])
+            + deltaGamma_Wff(quarks[UP], quarks[BOTTOM]);
+    
+    return GammWcX0/GammWhad0 + dGammWcX/GammWhad0 - GammWcX0*dGammWhad/GammWhad0/GammWhad0;
+}
+
+
 double NPSMEFTd6::RZlilj(const Particle li, const Particle lj) const
 {
     double GammZli0, GammZlj0;
@@ -11137,8 +11164,9 @@ double NPSMEFTd6::deltaGammaTotalRatio1() const
     
 //  The change in the ratio asumming only SM decays
     deltaGammaRatio = ( trueSM.computeBrHtogg() * deltaGammaHggRatio1()
-            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio1()
-            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
+//            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio1()
+//            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
+            + trueSM.computeBrHto4f() * deltaGammaH4fRatio1()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio1()
             + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio1()
             + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
@@ -11159,8 +11187,11 @@ double NPSMEFTd6::deltaGammaTotalRatio1noError() const
     
 //  The change in the ratio asumming only SM decays
     deltaGammaRatio = ( trueSM.computeBrHtogg() * (deltaGammaHggRatio1() - eHggint - eHggpar )
-            + trueSM.computeBrHtoWW() * (deltaGammaHWWRatio1() - eHWWint - eHWWpar )
-            + trueSM.computeBrHtoZZ() * (deltaGammaHZZRatio1() - eHZZint - eHZZpar )
+//            + trueSM.computeBrHtoWW() * (deltaGammaHWWRatio1() - eHWWint - eHWWpar )
+//            + trueSM.computeBrHtoZZ() * (deltaGammaHZZRatio1() - eHZZint - eHZZpar )          
+            + trueSM.computeBrHto4f() * deltaGammaH4fRatio1() 
+            - trueSM.computeBrHtoWW() * ( eHWWint + eHWWpar ) 
+            - trueSM.computeBrHtoZZ() * ( eHZZint + eHZZpar )
             + trueSM.computeBrHtoZga() * (deltaGammaHZgaRatio1() - eHZgaint - eHZgapar )
             + trueSM.computeBrHtogaga() * (deltaGammaHgagaRatio1() - eHgagaint - eHgagapar )
             + trueSM.computeBrHtomumu() * (deltaGammaHmumuRatio1() - eHmumuint - eHmumupar )
@@ -11181,8 +11212,9 @@ double NPSMEFTd6::deltaGammaTotalRatio2() const
     
 //  The change in the ratio asumming only SM decays
     deltaGammaRatio = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
-            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
-            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+//            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
+//            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+            + trueSM.computeBrHto4f() * deltaGammaH4fRatio2()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
             + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
             + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
@@ -16179,7 +16211,7 @@ double NPSMEFTd6::Br_H_inv() const
 //  Contributions from both modifications in H->ZZ->4v and the extra invisible decays
     double BR4v;
     
-    BR4v = BrHZZ4vRatio()*(trueSM.computeBrHtoZZinv());
+    BR4v = BrHZZ4vRatio()*(trueSM.computeBrHto4v());
     
 //  BR4v positivity is already checked inside BrHZZ4vRatio()
 //  and will be nan if negative. Check here BrHinv, to make sure both are positive
@@ -16250,7 +16282,7 @@ double NPSMEFTd6::BrHvisRatio() const
 
 double NPSMEFTd6::BrHtoinvRatio() const
 {        
-    return (Br_H_inv()/(trueSM.computeBrHtoZZinv()));
+    return (Br_H_inv()/(trueSM.computeBrHto4v()));
 }
 
 

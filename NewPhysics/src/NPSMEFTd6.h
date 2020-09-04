@@ -1593,6 +1593,12 @@ public:
     virtual double RWlilj(const Particle li, const Particle lj) const;
     
     /**
+     * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
+     * @return @f$R_{W,c)@f$ in GeV
+     */
+    virtual double RWc() const;
+    
+    /**
      * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */

@@ -116,6 +116,24 @@ double NPbase::RWlilj(const Particle li, const Particle lj) const
     return GammWli/GammWlj;
 }
 
+double NPbase::RWc() const
+{  
+    double GammWcX, GammWhad;
+
+//  Add all the  W-> cX decays
+    GammWcX += GammaW(quarks[CHARM], quarks[STRANGE])
+            + GammaW(quarks[CHARM], quarks[DOWN])
+            + GammaW(quarks[CHARM], quarks[BOTTOM]);
+    
+//  Add the W-> uX decays into the hadronic part
+    GammWhad = GammWcX
+            + GammaW(quarks[UP], quarks[DOWN])
+            + GammaW(quarks[UP], quarks[STRANGE])
+            + GammaW(quarks[UP], quarks[BOTTOM]);
+
+    return GammWcX/GammWhad;
+}
+
 double NPbase::deltaGV_f(const Particle f) const
 {
     if (f.is("TOP")) return 0.;

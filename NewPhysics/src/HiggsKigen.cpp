@@ -1675,7 +1675,7 @@ double HiggsKigen::Br_H_exo() const
 
 double HiggsKigen::Br_H_inv() const
 {
-    return ( (trueSM.computeBrHtoZZinv())*BrHZZRatio() + BrHinv );
+    return ( (trueSM.computeBrHto4v())*BrHZZRatio() + BrHinv );
 }
 
 double HiggsKigen::Br_H_inv_NP() const
@@ -1691,7 +1691,7 @@ double HiggsKigen::BrHvisRatio() const
 
 double HiggsKigen::BrHtoinvRatio() const
 {    
-        return (Br_H_inv()/(trueSM.computeBrHtoZZinv()));   
+        return (Br_H_inv()/(trueSM.computeBrHto4v()));   
 }
 
 ////////////////////////////////////////////////////////////////////////

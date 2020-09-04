@@ -668,6 +668,26 @@ double BrHtobbRatio::computeThValue()
     return myNPbase->BrHbbRatio();
 }
 
+// -----------------------------------------------------------------------------
+// More 4 fermion decays
+// -----------------------------------------------------------------------------
+
+BrHtoevmuvRatio::BrHtoevmuvRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtoevmuvRatio called with a class whose parent is not NPbase");
+}
+
+double BrHtoevmuvRatio::computeThValue()
+{
+    return myNPbase->BrHlvvlRatio();
+}
+
+// -----------------------------------------------------------------------------
+// Ratios of BR (ratios with SM)
+// -----------------------------------------------------------------------------
+
 BrHtogaga_over_mumu_Ratio::BrHtogaga_over_mumu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)

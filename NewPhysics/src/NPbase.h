@@ -253,6 +253,12 @@ public:
      * @return @f$R_{W,l_i/l_j)@f$ in GeV
      */
     virtual double RWlilj(const Particle li, const Particle lj) const;
+    
+    /**
+     * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
+     * @return @f$R_{W,c)@f$ in GeV
+     */
+    virtual double RWc() const;
 
     /**
      * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
@@ -1515,6 +1521,20 @@ public:
     {
         return 1.0;
     }
+    
+    ///////////////////////OTHER HIGGS 4 FERMION BRANCHING RATIOS/////////////////////////
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to lvvl)@f$ (@f$l=e,\mu@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to lvvl)@f$/Br@f$(H\to lvvl)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHlvvlRatio() const
+    {
+        return 1.0;
+    }
+    
+    ///////////////////////OTHER HIGGS BRANCHING RATIOS/////////////////////////    
     
     /**
      * @brief The branching ratio of the of the Higgs into exotic particles.

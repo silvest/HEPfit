@@ -1489,6 +1489,12 @@ public:
      * @return @f$R_{W,l_i/l_j)@f$ in GeV
      */
     virtual double RWlilj(const Particle li, const Particle lj) const;
+    
+    /**
+     * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
+     * @return @f$R_{W,c)@f$ in GeV
+     */
+    virtual double RWc() const;
 
     ////////////////////////////////////////////////////////////////////////     
     // EWPO at Z-pole
@@ -2243,16 +2249,6 @@ public:
     }
     
     /**
-     * @brief The Br@f$(H\to ZZ \to inv)@f$ in the Standard Model.
-     * @details 
-     * @return Br@f$(H\to ZZ\to inv)@f$ in the Standard Model
-     */
-    double computeBrHtoZZinv() const
-    {
-        return 1.06e-3;
-    }
-
-    /**
      * @brief The Br@f$(H\to Z\gamma)@f$ in the Standard Model.
      * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
@@ -2333,6 +2329,95 @@ public:
         //return 5.67e-1; // Mh=125.6 GeV
     }
 
+    // H decays into 4-fermions 
+    
+    /**
+     * @brief The Br@f$(H\to 4\nu)@f$ in the Standard Model.
+     * @details 
+     * @return Br@f$(H\to 4\nu)@f$ in the Standard Model
+     */
+    double computeBrHto4v() const
+    {
+        return 1.06e-3;
+    }
+
+    /**
+     * @brief The Br@f$(H\to e \nu \mu \nu)@f$ in the Standard Model.
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
+     * @return Br@f$(H\to e \nu \mu \nu)@f$ in the Standard Model
+     */
+    double computeBrHtoevmuv() const
+    {
+        return 2.539e-03; // Mh=125.1 GeV
+    }     
+
+    /**
+     * @brief The Br@f$(H\to l^+ l^- \nu \nu)@f$ @f$l=e,\mu@f$ in the Standard Model.
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
+     * @return Br@f$(H\to l^+ l^- \nu \nu)@f$ @f$l=e,\mu@f$ in the Standard Model
+     */
+    double computeBrHtollvv2() const
+    {
+        return 1.063e-02; // Mh=125.1 GeV
+    }   
+    
+    /**
+     * @brief The Br@f$(H\to l^+ l^- \nu \nu)@f$ @f$l=e,\mu,\tau@f$ in the Standard Model.
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
+     * @return Br@f$(H\to l^+ l^- \nu \nu)@f$ @f$l=e,\mu,\tau@f$ in the Standard Model
+     */
+    double computeBrHtollvv3() const
+    {
+        return 2.356e-02; // Mh=125.1 GeV
+    }
+        
+    /**
+     * @brief The Br@f$(H\to 4l)@f$ @f$l=e,\mu@f$ in the Standard Model.
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
+     * @return Br@f$(H\to 4l)@f$ @f$l=e,\muu@f$ in the Standard Model
+     */
+    double computeBrHto4l2() const
+    {
+        return 1.252e-04; // Mh=125.1 GeV
+    } 
+
+    /**
+     * @brief The Br@f$(H\to 4l)@f$ @f$l=e,\mu,\tau@f$ in the Standard Model.
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
+     * @return Br@f$(H\to 4l)@f$ @f$l=e,\mu,\tau@f$ in the Standard Model
+     */
+    double computeBrHto4l3() const
+    {
+        return 2.771e-04; // Mh=125.1 GeV
+    }    
+
+    /**
+     * @brief The Br@f$(H\to 4q)@f$ in the Standard Model.
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
+     * @return Br@f$(H\to 4q)@f$ in the Standard Model
+     */
+    double computeBrHto4q() const
+    {
+        return 1.098e-01; // Mh=125.1 GeV
+    }    
+    
+    /**
+     * @brief The Br@f$(H\to 4f)@f$ in the Standard Model.
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
+     * @return Br@f$(H\to 4f)@f$ in the Standard Model
+     */
+    double computeBrHto4f() const
+    {
+        return 2.406e-01; // Mh=125.1 GeV
+    }
+    
     /**
      * @brief The Higgs total width in the Standard Model.
      * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
