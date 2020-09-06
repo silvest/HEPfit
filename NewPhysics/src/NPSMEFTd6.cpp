@@ -3927,19 +3927,23 @@ double NPSMEFTd6::RWc() const
     double GammWcX0, GammWhad0;
     double dGammWcX, dGammWhad;
     
-    GammWcX0 = trueSM.GammaW(quarks[CHARM], quarks[STRANGE])
-            + trueSM.GammaW(quarks[CHARM], quarks[DOWN])
-            + trueSM.GammaW(quarks[CHARM], quarks[BOTTOM]);
+//  For the SM contributions to the of W widths, proceed as in the SM implementation, 
+//  using W->cX = W->cs and W->had = W->ud + W->cs. (See comments in StandardModel.cpp>RWc.)
     
+//  Add all the  W-> cX decays
+//  In SM GammaW fermion masses are ignored and CKM=1 but uses that SM CKM is unitary => I only need W->cs
+    GammWcX0 = trueSM.GammaW(quarks[CHARM], quarks[STRANGE]);
+    
+//  SMEFT NP effects, however, can break CKM unitarity and I need to add all fermion decays explicitly
     dGammWcX = deltaGamma_Wff(quarks[CHARM], quarks[STRANGE])
             + deltaGamma_Wff(quarks[CHARM], quarks[DOWN])
             + deltaGamma_Wff(quarks[CHARM], quarks[BOTTOM]);
     
+//  For the same reasons, I only need to add the W-> ud decays into the SM hadronic W width
     GammWhad0 = GammWcX0
-            + trueSM.GammaW(quarks[UP], quarks[DOWN])
-            + trueSM.GammaW(quarks[UP], quarks[STRANGE])
-            + trueSM.GammaW(quarks[UP], quarks[BOTTOM]);
+            + trueSM.GammaW(quarks[UP], quarks[DOWN]);
     
+//  and, similarly, for the NP corrections to hadronic width I need all fermion decays explicitly
     dGammWhad = dGammWcX
             + deltaGamma_Wff(quarks[UP], quarks[STRANGE])
             + deltaGamma_Wff(quarks[UP], quarks[DOWN])

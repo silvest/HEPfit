@@ -1246,15 +1246,12 @@ double StandardModel::RWc() const
     double GammWcX, GammWhad;
 
 //  Add all the  W-> cX decays
-    GammWcX += GammaW(quarks[CHARM], quarks[STRANGE])
-            + GammaW(quarks[CHARM], quarks[DOWN])
-            + GammaW(quarks[CHARM], quarks[BOTTOM]);
+//  In GammaW fermion masses are ignored and CKM=1 but uses that SM CKM is unitary => I only need W->cs
+    GammWcX = GammaW(quarks[CHARM], quarks[STRANGE]);
     
-//  Add the W-> uX decays into the hadronic part
+//  For the same reasons, I only need to add the W-> ud decays into the hadronic part
     GammWhad = GammWcX
-            + GammaW(quarks[UP], quarks[DOWN])
-            + GammaW(quarks[UP], quarks[STRANGE])
-            + GammaW(quarks[UP], quarks[BOTTOM]);
+            + GammaW(quarks[UP], quarks[DOWN]);
 
     return GammWcX/GammWhad;
 }
