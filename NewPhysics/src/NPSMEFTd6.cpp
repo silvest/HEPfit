@@ -13699,7 +13699,7 @@ double NPSMEFTd6::deltaGammaH2L2LRatio1() const
                 +42264.2 * CiHL3_22 / LambdaNP2
                 +42700.7 * CiHL3_33 / LambdaNP2
                 -3.4 * delta_GF
-                -0.832 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -13789,7 +13789,7 @@ double NPSMEFTd6::deltaGammaH2L2L2Ratio1() const
                 +63479.1 * CiHL3_11 / LambdaNP2
                 +63297.8 * CiHL3_22 / LambdaNP2
                 -3.396 * delta_GF
-                -0.832 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -13878,7 +13878,7 @@ double NPSMEFTd6::deltaGammaH2v2vRatio1() const
                 +40425.2 * CiHL3_22 / LambdaNP2
                 +40531.9 * CiHL3_33 / LambdaNP2
                 -3.01 * delta_GF
-                -0.841 * deltaGzd6() );
+                -0.823 * deltaGzd6() );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -13971,7 +13971,7 @@ double NPSMEFTd6::deltaGammaH2L2vRatio1() const
                 +41213.6 * CiHL3_22 / LambdaNP2
                 +41054.5 * CiHL3_33 / LambdaNP2
                 -3.206 * delta_GF
-                -0.842 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14063,7 +14063,7 @@ double NPSMEFTd6::deltaGammaH2L2v2Ratio1() const
                 +47383.7 * CiHL3_22 / LambdaNP2
                 +28642.5 * CiHL3_33 / LambdaNP2
                 -3.202 * delta_GF
-                -0.836 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14158,7 +14158,7 @@ double NPSMEFTd6::deltaGammaH2u2uRatio1() const
                 +71133.3 * CiHQ3_22 / LambdaNP2
                 -42.667 * CiHQ3_33 / LambdaNP2
                 -4.185 * delta_GF
-                -0.817 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14254,7 +14254,7 @@ double NPSMEFTd6::deltaGammaH2d2dRatio1() const
                 +43423.5 * CiHQ3_22 / LambdaNP2
                 +48184.1 * CiHQ3_33 / LambdaNP2
                 -3.824 * delta_GF
-                -0.824 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14352,7 +14352,7 @@ double NPSMEFTd6::deltaGammaH2u2dRatio1() const
                 +49834.2 * CiHQ3_22 / LambdaNP2
                 +35913. * CiHQ3_33 / LambdaNP2
                 -3.961 * delta_GF
-                -0.81 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14453,7 +14453,7 @@ double NPSMEFTd6::deltaGammaH2L2uRatio1() const
                 +35645.9 * CiHQ3_22 / LambdaNP2
                 -1.777 * CiHQ3_33 / LambdaNP2
                 -3.788 * delta_GF
-                -0.832 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14555,7 +14555,7 @@ double NPSMEFTd6::deltaGammaH2L2dRatio1() const
                 +22940.7 * CiHQ3_22 / LambdaNP2
                 +22616.8 * CiHQ3_33 / LambdaNP2
                 -3.625 * delta_GF
-                -0.833 * deltaGzd6() );
+                -0.823 * deltaGzd6() );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14653,7 +14653,7 @@ double NPSMEFTd6::deltaGammaH2v2uRatio1() const
                 +37172.5 * CiHQ3_22 / LambdaNP2
                 -9.868 * CiHQ3_33 / LambdaNP2
                 -3.593 * delta_GF
-                -0.846 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14752,7 +14752,7 @@ double NPSMEFTd6::deltaGammaH2v2dRatio1() const
                 +23811.4 * CiHQ3_22 / LambdaNP2
                 +23437.1 * CiHQ3_33 / LambdaNP2
                 -3.399 * delta_GF
-                -0.838 * deltaGzd6()  );
+                -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14845,7 +14845,7 @@ double NPSMEFTd6::deltaGammaH4LRatio1() const
                 +41248.4 * CiHL3_22 / LambdaNP2
                 +40689.2 * CiHL3_33 / LambdaNP2
                 -3.437 * delta_GF
-                -0.754 * deltaGzd6()  );
+                -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14935,7 +14935,7 @@ double NPSMEFTd6::deltaGammaH4L2Ratio1() const
                 +60735.5 * CiHL3_11 / LambdaNP2
                 +60896.9 * CiHL3_22 / LambdaNP2
                 -3.419 * delta_GF
-                -0.753 * deltaGzd6()  );
+                -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15025,7 +15025,7 @@ double NPSMEFTd6::deltaGammaH4vRatio1() const
                 +37609.6 * CiHL3_22 / LambdaNP2
                 +36484.2 * CiHL3_33 / LambdaNP2
                 -3.004 * delta_GF
-                -0.71 * deltaGzd6()  );
+                -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15120,7 +15120,7 @@ double NPSMEFTd6::deltaGammaH4uRatio1() const
                 +70307.2 * CiHQ3_22 / LambdaNP2
                 +6.76 * CiHQ3_33 / LambdaNP2
                 -4.234 * delta_GF
-                -0.776 * deltaGzd6()  );
+                -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15216,7 +15216,7 @@ double NPSMEFTd6::deltaGammaH4dRatio1() const
                 +43560.6 * CiHQ3_22 / LambdaNP2
                 +44874. * CiHQ3_33 / LambdaNP2
                 -3.855 * delta_GF
-                -0.778 * deltaGzd6()  );
+                -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15303,8 +15303,8 @@ double NPSMEFTd6::deltaGammaHLvvLRatio1() const
                 +44832.3 * CiHL3_22 / LambdaNP2
                 +44677.4 * CiHL3_33 / LambdaNP2
                 -4.718 * delta_GF 
-                -13.629 * deltaMwd6()
-                -0.956 * deltaGwd6()  );
+                -13.697 * deltaMwd6()
+                -0.951 * deltaGwd6()  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15388,8 +15388,8 @@ double NPSMEFTd6::deltaGammaHLvvL2Ratio1() const
                 +66369.7 * CiHL3_11 / LambdaNP2
                 +66241. * CiHL3_22 / LambdaNP2
                 -4.705 * delta_GF 
-                -13.465 * deltaMwd6()
-                -0.958 * deltaGwd6());
+                -13.697 * deltaMwd6()
+                -0.951 * deltaGwd6() );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15476,8 +15476,8 @@ double NPSMEFTd6::deltaGammaHudduRatio1() const
                 +69269.3 * CiHQ3_22 / LambdaNP2
                 +26.898 * CiHQ3_33 / LambdaNP2
                 -4.798 * delta_GF
-                -13.92 * deltaMwd6()
-                -0.959 * deltaGwd6() );
+                -13.697 * deltaMwd6()
+                -0.951 * deltaGwd6() );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15567,8 +15567,8 @@ double NPSMEFTd6::deltaGammaHLvudRatio1() const
                 +41274.4 * CiHQ3_11 / LambdaNP2
                 +41210.4 * CiHQ3_22 / LambdaNP2
                 -4.799 * delta_GF
-                -13.57 * deltaMwd6()
-                -0.952 * deltaGwd6());
+                -13.697 * deltaMwd6()
+                -0.951 * deltaGwd6());
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15666,9 +15666,9 @@ double NPSMEFTd6::deltaGammaH2udRatio1() const
                 +69732.3 * CiHQ3_22 / LambdaNP2
                 +11.669 * CiHQ3_33 / LambdaNP2
                 -4.766 * delta_GF
-                -0.035 * deltaGzd6()
-                -13.61 * deltaMwd6()
-                -0.933 * deltaGwd6());
+                -0.032 * deltaGzd6()
+                -13.513 * deltaMwd6()
+                -0.920 * deltaGwd6());
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15762,9 +15762,9 @@ double NPSMEFTd6::deltaGammaH2LvRatio1() const
                 +44212.6 * CiHL3_22 / LambdaNP2
                 +45251.7 * CiHL3_33 / LambdaNP2
                 -4.61 * delta_GF
-                -0.035 * deltaGzd6()
-                -13.579 * deltaMwd6()
-                -0.953 * deltaGwd6());
+                -0.040 * deltaGzd6()
+                -13.553 * deltaMwd6()
+                -0.944 * deltaGwd6());
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15857,9 +15857,9 @@ double NPSMEFTd6::deltaGammaH2Lv2Ratio1() const
                 +67487.6 * CiHL3_22 / LambdaNP2
                 -54.487 * CiHL3_33 / LambdaNP2
                 -4.621 * delta_GF
-                -0.053 * deltaGzd6()
-                -13.464 * deltaMwd6()
-                -0.958 * deltaGwd6());
+                -0.040 * deltaGzd6()
+                -13.553 * deltaMwd6()
+                -0.944 * deltaGwd6());
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
