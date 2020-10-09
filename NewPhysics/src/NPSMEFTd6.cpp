@@ -13783,23 +13783,20 @@ double NPSMEFTd6::deltaGammaH2L2LRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121144. * CiHbox / LambdaNP2
-                -42066.3 * CiHD / LambdaNP2
-                -59605.4 * CiHB / LambdaNP2
-                -6135.62 * CiHW / LambdaNP2
-                -112436. * CiHWB / LambdaNP2
-                +27465.7 * CiDHB / LambdaNP2
-                +23766. * CiDHW / LambdaNP2
-                +42233.8 * CiHL1_11 / LambdaNP2
-                +42309.9 * CiHL1_22 / LambdaNP2
-                +42528.1 * CiHL1_33 / LambdaNP2
-                -36220. * CiHe_11 / LambdaNP2
-                -36184.4 * CiHe_22 / LambdaNP2
-                -36362.1 * CiHe_33 / LambdaNP2
-                +42106.9 * CiHL3_11 / LambdaNP2
-                +42264.2 * CiHL3_22 / LambdaNP2
-                +42700.7 * CiHL3_33 / LambdaNP2
-                -3.4 * delta_GF
+    dwidth = (+121316. * CiHbox / LambdaNP2
+                -42545.9 * CiHD / LambdaNP2
+                -59649.5 * CiHB / LambdaNP2
+                -6396.88 * CiHW / LambdaNP2
+                -112087. * CiHWB / LambdaNP2
+                +27215.2 * CiDHB / LambdaNP2
+                +23773.6 * CiDHW / LambdaNP2
+                +42224.6 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +42233.3 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +42527.4 * (CiHL1_33 + CiHL3_33) / LambdaNP2
+                -36293.6 * CiHe_11 / LambdaNP2
+                -36291. * CiHe_22 / LambdaNP2
+                -36498.6 * CiHe_33 / LambdaNP2
+                -3.398 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -13876,20 +13873,18 @@ double NPSMEFTd6::deltaGammaH2L2L2Ratio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120825. * CiHbox / LambdaNP2
-                -42329.5 * CiHD / LambdaNP2
-                -60208.5 * CiHB / LambdaNP2
-                -6571.49 * CiHW / LambdaNP2
-                -111126. * CiHWB / LambdaNP2
-                +27464.3 * CiDHB / LambdaNP2
-                +23861.3 * CiDHW / LambdaNP2
-                +63645.3 * CiHL1_11 / LambdaNP2
-                +63539.5 * CiHL1_22 / LambdaNP2
-                -54656.7 * CiHe_11 / LambdaNP2
-                -54535.8 * CiHe_22 / LambdaNP2
-                +63479.1 * CiHL3_11 / LambdaNP2
-                +63297.8 * CiHL3_22 / LambdaNP2
-                -3.396 * delta_GF
+    dwidth = (+121269. * CiHbox / LambdaNP2
+                -42454.6 * CiHD / LambdaNP2
+                -59154.8 * CiHB / LambdaNP2
+                -6800.82 * CiHW / LambdaNP2
+                -111684. * CiHWB / LambdaNP2
+                +27224.1 * CiDHB / LambdaNP2
+                +23816. * CiDHW / LambdaNP2
+                +63546.4 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +63469.3 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                -54629.5 * CiHe_11 / LambdaNP2
+                -54599.3 * CiHe_22 / LambdaNP2
+                -3.398 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -13965,20 +13960,17 @@ double NPSMEFTd6::deltaGammaH2v2vRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+123267. * CiHbox / LambdaNP2
-                -28905.6 * CiHD / LambdaNP2
-                -13119.5 * CiHB / LambdaNP2
-                -45545. * CiHW / LambdaNP2
-                -24781.3 * CiHWB / LambdaNP2
-                +16710.5 * CiDHB / LambdaNP2
-                +29741.2 * CiDHW / LambdaNP2
-                -38772. * CiHL1_11 / LambdaNP2
-                -38843.1 * CiHL1_22 / LambdaNP2
-                -38878.6 * CiHL1_33 / LambdaNP2
-                +41243. * CiHL3_11 / LambdaNP2
-                +40425.2 * CiHL3_22 / LambdaNP2
-                +40531.9 * CiHL3_33 / LambdaNP2
-                -3.01 * delta_GF
+    dwidth = (+121429. * CiHbox / LambdaNP2
+                -30336.3 * CiHD / LambdaNP2
+                -14014.1 * CiHB / LambdaNP2
+                -46746.8 * CiHW / LambdaNP2
+                -25594.8 * CiHWB / LambdaNP2
+                +15974. * CiDHB / LambdaNP2
+                +29131.4 * CiDHW / LambdaNP2
+                -39492.8 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                -39555.0 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -39540.0 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                -3.003 * delta_GF
                 -0.823 * deltaGzd6() );
 
 //  Linear contribution from Higgs self-coupling
@@ -14055,23 +14047,23 @@ double NPSMEFTd6::deltaGammaH2L2vRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121841. * CiHbox / LambdaNP2
-                -36144.6 * CiHD / LambdaNP2
-                -35299.7 * CiHB / LambdaNP2
-                -27145.2 * CiHW / LambdaNP2
-                -68836.3 * CiHWB / LambdaNP2
-                +21598.6 * CiDHB / LambdaNP2
-                +26392.2 * CiDHW / LambdaNP2
-                +2938.58 * CiHL1_11 / LambdaNP2
-                +2938.58 * CiHL1_22 / LambdaNP2
-                +2583.51 * CiHL1_33 / LambdaNP2
-                -18709. * CiHe_11 / LambdaNP2
-                -18892.6 * CiHe_22 / LambdaNP2
-                -18684.5 * CiHe_33 / LambdaNP2
-                +41213.6 * CiHL3_11 / LambdaNP2
-                +41213.6 * CiHL3_22 / LambdaNP2
-                +41054.5 * CiHL3_33 / LambdaNP2
-                -3.206 * delta_GF
+    dwidth = (+121275. * CiHbox / LambdaNP2
+                -36362.8 * CiHD / LambdaNP2
+                -35635.8 * CiHB / LambdaNP2
+                -27172. * CiHW / LambdaNP2
+                -69185.3 * CiHWB / LambdaNP2
+                +21374.5 * CiDHB / LambdaNP2
+                +26522.6 * CiDHW / LambdaNP2
+                +3008.38 * CiHL1_11 / LambdaNP2
+                +2991.11 * CiHL1_22 / LambdaNP2
+                +2727.13 * CiHL1_33 / LambdaNP2
+                -18887.7 * CiHe_11 / LambdaNP2
+                -18881.6 * CiHe_22 / LambdaNP2
+                -18793.5 * CiHe_33 / LambdaNP2
+                +41028.7 * CiHL3_11 / LambdaNP2
+                +41016.5 * CiHL3_22 / LambdaNP2
+                +41044.7 * CiHL3_33 / LambdaNP2
+                -3.201 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14148,21 +14140,21 @@ double NPSMEFTd6::deltaGammaH2L2v2Ratio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121946. * CiHbox / LambdaNP2
-                -36073.1 * CiHD / LambdaNP2
-                -35194.6 * CiHB / LambdaNP2
-                -26958.8 * CiHW / LambdaNP2
-                -68193. * CiHWB / LambdaNP2
-                +21797.6 * CiDHB / LambdaNP2
-                +26382.3 * CiDHW / LambdaNP2
-                +18485. * CiHL1_11 / LambdaNP2
-                +18430.1 * CiHL1_22 / LambdaNP2
-                -28715.8 * CiHL1_33 / LambdaNP2
-                -27983.7 * CiHe_11 / LambdaNP2
-                -28075.2 * CiHe_22 / LambdaNP2
-                +47292.2 * CiHL3_11 / LambdaNP2
-                +47383.7 * CiHL3_22 / LambdaNP2
-                +28642.5 * CiHL3_33 / LambdaNP2
+    dwidth = (+121303. * CiHbox / LambdaNP2
+                -36354.8 * CiHD / LambdaNP2
+                -35378.6 * CiHB / LambdaNP2
+                -27456.8 * CiHW / LambdaNP2
+                -69159.4 * CiHWB / LambdaNP2
+                +21419.9 * CiDHB / LambdaNP2
+                +26570.9 * CiDHW / LambdaNP2
+                +18538. * CiHL1_11 / LambdaNP2
+                +18523.4 * CiHL1_22 / LambdaNP2
+                -28626.1 * CiHL1_33 / LambdaNP2
+                -28232.6 * CiHe_11 / LambdaNP2
+                -28223.4 * CiHe_22 / LambdaNP2
+                +47370.9 * CiHL3_11 / LambdaNP2
+                +47299.5 * CiHL3_22 / LambdaNP2
+                +28635.2 * CiHL3_33 / LambdaNP2
                 -3.202 * delta_GF
                 -0.823 * deltaGzd6()  );
 
@@ -14240,25 +14232,18 @@ double NPSMEFTd6::deltaGammaH2u2uRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120800. * CiHbox / LambdaNP2
-                -66666.7 * CiHD / LambdaNP2
-                -147689. * CiHB / LambdaNP2
-                +73066.7 * CiHW / LambdaNP2
-                -270400. * CiHWB / LambdaNP2
-                +355.556 * CiHG / LambdaNP2
-                +47022.2 * CiDHB / LambdaNP2
-                +10977.8 * CiDHW / LambdaNP2
-                -71264. * CiHQ1_11 / LambdaNP2
-                -71128.9 * CiHQ1_22 / LambdaNP2
-                -32. * CiHQ1_33 / LambdaNP2
-                +31671.1 * CiHu_11 / LambdaNP2
-                +31564.4 * CiHu_22 / LambdaNP2
-                +275.556 * CiHL3_11 / LambdaNP2
-                +193.778 * CiHL3_22 / LambdaNP2
-                +71160. * CiHQ3_11 / LambdaNP2
-                +71133.3 * CiHQ3_22 / LambdaNP2
-                -42.667 * CiHQ3_33 / LambdaNP2
-                -4.185 * delta_GF
+    dwidth = (+121182. * CiHbox / LambdaNP2
+                -66080. * CiHD / LambdaNP2
+                -147138. * CiHB / LambdaNP2
+                +73444.4 * CiHW / LambdaNP2
+                -270333. * CiHWB / LambdaNP2
+                +47511.1 * CiDHB / LambdaNP2
+                +12016. * CiDHW / LambdaNP2
+                -71226.7 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
+                -71167.1 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
+                +31692.4 * CiHu_11 / LambdaNP2
+                +31598.2 * CiHu_22 / LambdaNP2
+                -4.179 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14335,26 +14320,20 @@ double NPSMEFTd6::deltaGammaH2d2dRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120611. * CiHbox / LambdaNP2
-                -56358.1 * CiHD / LambdaNP2
-                -109609. * CiHB / LambdaNP2
-                +39979.8 * CiHW / LambdaNP2
-                -201949. * CiHWB / LambdaNP2
-                -923.904 * CiHG / LambdaNP2
-                +38468. * CiDHB / LambdaNP2
-                +16462.3 * CiDHW / LambdaNP2
-                +43531. * CiHQ1_11 / LambdaNP2
-                +43541.1 * CiHQ1_22 / LambdaNP2
-                +48217.7 * CiHQ1_33 / LambdaNP2
-                -7973.8 * CiHd_11 / LambdaNP2
-                -7940.87 * CiHd_22 / LambdaNP2
-                -8236.52 * CiHd_33 / LambdaNP2
-                -663.531 * CiHL3_11 / LambdaNP2
-                -727.364 * CiHL3_22 / LambdaNP2
-                +43431.9 * CiHQ3_11 / LambdaNP2
-                +43423.5 * CiHQ3_22 / LambdaNP2
-                +48184.1 * CiHQ3_33 / LambdaNP2
-                -3.824 * delta_GF
+    dwidth = (+121183. * CiHbox / LambdaNP2
+                -55640. * CiHD / LambdaNP2
+                -109189. * CiHB / LambdaNP2
+                +40140.3 * CiHW / LambdaNP2
+                -201940. * CiHWB / LambdaNP2
+                +38946.8 * CiDHB / LambdaNP2
+                +17010.8 * CiDHW / LambdaNP2
+                +43606.1 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
+                +43581.0 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
+                +48269.8 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
+                -7939.53 * CiHd_11 / LambdaNP2
+                -7925.08 * CiHd_22 / LambdaNP2
+                -8205.95 * CiHd_33 / LambdaNP2
+                -3.835 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14431,28 +14410,25 @@ double NPSMEFTd6::deltaGammaH2u2dRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120621. * CiHbox / LambdaNP2
-                -62130.9 * CiHD / LambdaNP2
-                -125799. * CiHB / LambdaNP2
-                +55092.6 * CiHW / LambdaNP2
-                -236615. * CiHWB / LambdaNP2
-                -37699.2 * CiHG / LambdaNP2
-                +43119.5 * CiDHB / LambdaNP2
-                +15209.1 * CiDHW / LambdaNP2
-                -18420.2 * CiHQ1_11 / LambdaNP2
-                -18494.6 * CiHQ1_22 / LambdaNP2
-                +35913. * CiHQ1_33 / LambdaNP2
-                +15267.4 * CiHu_11 / LambdaNP2
-                +15293.3 * CiHu_22 / LambdaNP2
-                -2880.03 * CiHd_11 / LambdaNP2
-                -2889.73 * CiHd_22 / LambdaNP2
-                -6061. * CiHd_33 / LambdaNP2
-                +542.027 * CiHL3_11 / LambdaNP2
-                +525.847 * CiHL3_22 / LambdaNP2
-                +50020.2 * CiHQ3_11 / LambdaNP2
-                +49834.2 * CiHQ3_22 / LambdaNP2
-                +35913. * CiHQ3_33 / LambdaNP2
-                -3.961 * delta_GF
+    dwidth = (+121187. * CiHbox / LambdaNP2
+                -60971.4 * CiHD / LambdaNP2
+                -129572. * CiHB / LambdaNP2
+                +58443.4 * CiHW / LambdaNP2
+                -238222. * CiHWB / LambdaNP2
+                +43676.1 * CiDHB / LambdaNP2
+                +14359.5 * CiDHW / LambdaNP2
+                -18911.9 * CiHQ1_11 / LambdaNP2
+                -18938.6 * CiHQ1_22 / LambdaNP2
+                +36645.8 * CiHQ1_33 / LambdaNP2
+                +15595.2 * CiHu_11 / LambdaNP2
+                +15566.5 * CiHu_22 / LambdaNP2
+                -2944.31 * CiHd_11 / LambdaNP2
+                -2932.55 * CiHd_22 / LambdaNP2
+                -6224.5 * CiHd_33 / LambdaNP2
+                +51220.7 * CiHQ3_11 / LambdaNP2
+                +51153. * CiHQ3_22 / LambdaNP2
+                +36662.3 * CiHQ3_33 / LambdaNP2
+                -4.011 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14529,31 +14505,24 @@ double NPSMEFTd6::deltaGammaH2L2uRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121388. * CiHbox / LambdaNP2
-                -54764.7 * CiHD / LambdaNP2
-                -104688. * CiHB / LambdaNP2
-                +35355. * CiHW / LambdaNP2
-                -194341. * CiHWB / LambdaNP2
-                +37864.5 * CiDHB / LambdaNP2
-                +17677.5 * CiDHW / LambdaNP2
-                +21224.5 * CiHL1_11 / LambdaNP2
-                +21225.4 * CiHL1_22 / LambdaNP2
-                +21123.3 * CiHL1_33 / LambdaNP2
-                -35834. * CiHQ1_11 / LambdaNP2
-                -35797.6 * CiHQ1_22 / LambdaNP2
-                -14.213 * CiHQ1_33 / LambdaNP2
-                -18224.7 * CiHe_11 / LambdaNP2
-                -18247.8 * CiHe_22 / LambdaNP2
-                -18120.8 * CiHe_33 / LambdaNP2
-                +15927.5 * CiHu_11 / LambdaNP2
-                +15892. * CiHu_22 / LambdaNP2
-                +21093.1 * CiHL3_11 / LambdaNP2
-                +21235.2 * CiHL3_22 / LambdaNP2
-                +21121.9 * CiHL3_33 / LambdaNP2
-                +35774.7 * CiHQ3_11 / LambdaNP2
-                +35645.9 * CiHQ3_22 / LambdaNP2
-                -1.777 * CiHQ3_33 / LambdaNP2
-                -3.788 * delta_GF
+    dwidth = (+121197. * CiHbox / LambdaNP2
+                -54269.5 * CiHD / LambdaNP2
+                -103997. * CiHB / LambdaNP2
+                +35761.4 * CiHW / LambdaNP2
+                -194677. * CiHWB / LambdaNP2
+                +37920. * CiDHB / LambdaNP2
+                +17860.5 * CiDHW / LambdaNP2
+                +21165.5 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +21199.4 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +21135.3 * (CiHL1_33 + CiHL3_33) / LambdaNP2
+                -35824.0 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
+                -35756.8 * (CiHQ1_22 - CiHQ3_22)/ LambdaNP2
+                -18225.6 * CiHe_11 / LambdaNP2
+                -18211.4 * CiHe_22 / LambdaNP2
+                -18113.7 * CiHe_33 / LambdaNP2
+                +15935.5 * CiHu_11 / LambdaNP2
+                +15874.2 * CiHu_22 / LambdaNP2
+                -3.789 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14630,32 +14599,26 @@ double NPSMEFTd6::deltaGammaH2L2dRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = ( +121601. * CiHbox / LambdaNP2
-                -48887.3 * CiHD / LambdaNP2
-                -84201.3 * CiHB / LambdaNP2
-                +17662.8 * CiHW / LambdaNP2
-                -157393. * CiHWB / LambdaNP2
-                +33461.5 * CiDHB / LambdaNP2
-                +20622.2 * CiDHW / LambdaNP2
-                +21004.3 * CiHL1_11 / LambdaNP2
-                +21013.6 * CiHL1_22 / LambdaNP2
-                +20920.4 * CiHL1_33 / LambdaNP2
-                +22989.6 * CiHQ1_11 / LambdaNP2
-                +22961.7 * CiHQ1_22 / LambdaNP2
-                +22626.1 * CiHQ1_33 / LambdaNP2
-                -17994.2 * CiHe_11 / LambdaNP2
-                -18047.8 * CiHe_22 / LambdaNP2
-                -17947.1 * CiHe_33 / LambdaNP2
-                -4191.54 * CiHd_11 / LambdaNP2
-                -4192.01 * CiHd_22 / LambdaNP2
-                -3823.84 * CiHd_33 / LambdaNP2
-                +21455.2 * CiHL3_11 / LambdaNP2
-                +21353.8 * CiHL3_22 / LambdaNP2
-                +20936.7 * CiHL3_33 / LambdaNP2
-                +22952.3 * CiHQ3_11 / LambdaNP2
-                +22940.7 * CiHQ3_22 / LambdaNP2
-                +22616.8 * CiHQ3_33 / LambdaNP2
-                -3.625 * delta_GF
+    dwidth = ( +121251. * CiHbox / LambdaNP2
+                -48965.4 * CiHD / LambdaNP2
+                -84009.1 * CiHB / LambdaNP2
+                +16978.9 * CiHW / LambdaNP2
+                -157754. * CiHWB / LambdaNP2
+                +33201.7 * CiDHB / LambdaNP2
+                +20408.9 * CiDHW / LambdaNP2
+                +20988.5 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +20928.8 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +20926.9 * (CiHL1_33 + CiHL3_33) / LambdaNP2
+                +22975.8 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
+                +22975.5 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
+                +22616.8 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
+                -18052.9 * CiHe_11 / LambdaNP2
+                -18043.1 * CiHe_22 / LambdaNP2
+                -17928. * CiHe_33 / LambdaNP2
+                -4179.47 * CiHd_11 / LambdaNP2
+                -4180.64 * CiHd_22 / LambdaNP2
+                -3842.06 * CiHd_33 / LambdaNP2
+                -3.617 * delta_GF
                 -0.823 * deltaGzd6() );
 
 //  Linear contribution from Higgs self-coupling
@@ -14732,28 +14695,21 @@ double NPSMEFTd6::deltaGammaH2v2uRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+122564. * CiHbox / LambdaNP2
-                -47740.6 * CiHD / LambdaNP2
-                -75842.2 * CiHB / LambdaNP2
-                +14083. * CiHW / LambdaNP2
-                -150204. * CiHWB / LambdaNP2
-                +32048.7 * CiDHB / LambdaNP2
-                +21548.2 * CiDHW / LambdaNP2
-                -19056.8 * CiHL1_11 / LambdaNP2
-                -19034.9 * CiHL1_22 / LambdaNP2
-                -19063.6 * CiHL1_33 / LambdaNP2
-                -37101.8 * CiHQ1_11 / LambdaNP2
-                -37044.2 * CiHQ1_22 / LambdaNP2
-                -6.435 * CiHQ1_33 / LambdaNP2
-                +16589.4 * CiHu_11 / LambdaNP2
-                +16477.9 * CiHu_22 / LambdaNP2
-                +19329. * CiHL3_11 / LambdaNP2
-                +19143.4 * CiHL3_22 / LambdaNP2
-                +19110.2 * CiHL3_33 / LambdaNP2
-                +37279.7 * CiHQ3_11 / LambdaNP2
-                +37172.5 * CiHQ3_22 / LambdaNP2
-                -9.868 * CiHQ3_33 / LambdaNP2
-                -3.593 * delta_GF
+    dwidth = (+121320. * CiHbox / LambdaNP2
+                -48243.6 * CiHD / LambdaNP2
+                -76131.8 * CiHB / LambdaNP2
+                +13745.1 * CiHW / LambdaNP2
+                -150848. * CiHWB / LambdaNP2
+                +31714.1 * CiDHB / LambdaNP2
+                +20916.4 * CiDHW / LambdaNP2
+                -19020.6 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                -19160.4 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -19052.2 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                -37151.4 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
+                -37075.4 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
+                +16537.5 * CiHu_11 / LambdaNP2
+                +16462. * CiHu_22 / LambdaNP2
+                -3.591 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14830,29 +14786,23 @@ double NPSMEFTd6::deltaGammaH2v2dRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121445. * CiHbox / LambdaNP2
-                -43441.6 * CiHD / LambdaNP2
-                -57772.3 * CiHB / LambdaNP2
-                -4720.69 * CiHW / LambdaNP2
-                -114083. * CiHWB / LambdaNP2
-                +26357.2 * CiDHB / LambdaNP2
-                +23491.1 * CiDHW / LambdaNP2
-                -18848.6 * CiHL1_11 / LambdaNP2
-                -18874.9 * CiHL1_22 / LambdaNP2
-                -18830.6 * CiHL1_33 / LambdaNP2
-                +23772.1 * CiHQ1_11 / LambdaNP2
-                +23756.3 * CiHQ1_22 / LambdaNP2
-                +23423.6 * CiHQ1_33 / LambdaNP2
-                -4349.78 * CiHd_11 / LambdaNP2
-                -4318.31 * CiHd_22 / LambdaNP2
-                -3945.15 * CiHd_33 / LambdaNP2
-                +17758.8 * CiHL3_11 / LambdaNP2
-                +17702.6 * CiHL3_22 / LambdaNP2
-                +18843.4 * CiHL3_33 / LambdaNP2
-                +23766.4 * CiHQ3_11 / LambdaNP2
-                +23811.4 * CiHQ3_22 / LambdaNP2
-                +23437.1 * CiHQ3_33 / LambdaNP2
-                -3.399 * delta_GF
+    dwidth = (+121204. * CiHbox / LambdaNP2
+                -42971.8 * CiHD / LambdaNP2
+                -57761. * CiHB / LambdaNP2
+                -4516.97 * CiHW / LambdaNP2
+                -113971. * CiHWB / LambdaNP2
+                +27032.1 * CiDHB / LambdaNP2
+                +23373.6 * CiDHW / LambdaNP2
+                -18847.0 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                -18824.0 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -18833.9 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                +23798.8 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
+                +23806.4 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
+                +23445.0 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
+                -4329.1 * CiHd_11 / LambdaNP2
+                -4334.72 * CiHd_22 / LambdaNP2
+                -3993.48 * CiHd_33 / LambdaNP2
+                -3.417 * delta_GF
                 -0.823 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14929,23 +14879,20 @@ double NPSMEFTd6::deltaGammaH4LRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+122126. * CiHbox / LambdaNP2
-                -42622.1 * CiHD / LambdaNP2
-                -104083. * CiHB / LambdaNP2
-                -24872.7 * CiHW / LambdaNP2
-                -82653.9 * CiHWB / LambdaNP2
-                +26712.4 * CiDHB / LambdaNP2
-                +22856.4 * CiDHW / LambdaNP2
-                +41150.3 * CiHL1_11 / LambdaNP2
-                +40816.7 * CiHL1_22 / LambdaNP2
-                +40640.1 * CiHL1_33 / LambdaNP2
-                -34959.1 * CiHe_11 / LambdaNP2
-                -35086.7 * CiHe_22 / LambdaNP2
-                -34409.7 * CiHe_33 / LambdaNP2
-                +41179.8 * CiHL3_11 / LambdaNP2
-                +41248.4 * CiHL3_22 / LambdaNP2
-                +40689.2 * CiHL3_33 / LambdaNP2
-                -3.437 * delta_GF
+    dwidth = (+121335. * CiHbox / LambdaNP2
+                -43443.3 * CiHD / LambdaNP2
+                -104640. * CiHB / LambdaNP2
+                -25323.6 * CiHW / LambdaNP2
+                -83598.7 * CiHWB / LambdaNP2
+                +25938.2 * CiDHB / LambdaNP2
+                +22862.3 * CiDHW / LambdaNP2
+                +40762.3 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +40885.5 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +40501.8 * (CiHL1_33 + CiHL3_33) / LambdaNP2
+                -34972.9 * CiHe_11 / LambdaNP2
+                -35109.3 * CiHe_22 / LambdaNP2
+                -34651. * CiHe_33 / LambdaNP2
+                -3.431 * delta_GF
                 -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -15022,20 +14969,18 @@ double NPSMEFTd6::deltaGammaH4L2Ratio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121192. * CiHbox / LambdaNP2
-                -42745.2 * CiHD / LambdaNP2
-                -102901. * CiHB / LambdaNP2
-                -25532.7 * CiHW / LambdaNP2
-                -82056.7 * CiHWB / LambdaNP2
-                +26104.9 * CiDHB / LambdaNP2
-                +22825.3 * CiDHW / LambdaNP2
-                +61087.6 * CiHL1_11 / LambdaNP2
-                +60911.5 * CiHL1_22 / LambdaNP2
-                -52518. * CiHe_11 / LambdaNP2
-                -52415.3 * CiHe_22 / LambdaNP2
-                +60735.5 * CiHL3_11 / LambdaNP2
-                +60896.9 * CiHL3_22 / LambdaNP2
-                -3.419 * delta_GF
+    dwidth = (+121346. * CiHbox / LambdaNP2
+                -43253.2 * CiHD / LambdaNP2
+                -102043. * CiHB / LambdaNP2
+                -26540.3 * CiHW / LambdaNP2
+                -81946.6 * CiHWB / LambdaNP2
+                +25759.4 * CiDHB / LambdaNP2
+                +23045.4 * CiDHW / LambdaNP2
+                +60965.9 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +61035.6 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                -52330.2 * CiHe_11 / LambdaNP2
+                -52507.8 * CiHe_22 / LambdaNP2
+                -3.426 * delta_GF
                 -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -15112,20 +15057,17 @@ double NPSMEFTd6::deltaGammaH4vRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121654. * CiHbox / LambdaNP2
-                -29732.3 * CiHD / LambdaNP2
-                -12674.7 * CiHB / LambdaNP2
-                -43473.1 * CiHW / LambdaNP2
-                -24283.3 * CiHWB / LambdaNP2
-                +15103.1 * CiDHB / LambdaNP2
-                +27067. * CiDHW / LambdaNP2
-                -36306.6 * CiHL1_11 / LambdaNP2
-                -36810. * CiHL1_22 / LambdaNP2
-                -36721.2 * CiHL1_33 / LambdaNP2
-                +36898.8 * CiHL3_11 / LambdaNP2
-                +37609.6 * CiHL3_22 / LambdaNP2
-                +36484.2 * CiHL3_33 / LambdaNP2
-                -3.004 * delta_GF
+    dwidth = (+121322. * CiHbox / LambdaNP2
+                -30321.6 * CiHD / LambdaNP2
+                -13308.2 * CiHB / LambdaNP2
+                -44334.3 * CiHW / LambdaNP2
+                -24272.1 * CiHWB / LambdaNP2
+                +14997.9 * CiDHB / LambdaNP2
+                +27370. * CiDHW / LambdaNP2
+                -36972.9 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                -36941.8 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -36930.2 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                -3.0 * delta_GF
                 -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -15202,25 +15144,19 @@ double NPSMEFTd6::deltaGammaH4uRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120875. * CiHbox / LambdaNP2
-                -67725.7 * CiHD / LambdaNP2
-                -153112. * CiHB / LambdaNP2
-                +70725.4 * CiHW / LambdaNP2
-                -272213. * CiHWB / LambdaNP2
-                -488487. * CiHG / LambdaNP2
-                +47192.5 * CiDHB / LambdaNP2
-                +11660.8 * CiDHW / LambdaNP2
-                -69985.2 * CiHQ1_11 / LambdaNP2
-                -70357. * CiHQ1_22 / LambdaNP2
-                -25.35 * CiHQ1_33 / LambdaNP2
+    dwidth = (+121256. * CiHbox / LambdaNP2
+                -67839.8 * CiHD / LambdaNP2
+                -153416. * CiHB / LambdaNP2
+                +70062.1 * CiHW / LambdaNP2
+                -272158. * CiHWB / LambdaNP2
+                -487093. * CiHG / LambdaNP2
+                +47564.3 * CiDHB / LambdaNP2
+                +11327.5 * CiDHW / LambdaNP2
+                -69970.9 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
+                -70376.5 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
                 +30225.2 * CiHu_11 / LambdaNP2
-                +30358.7 * CiHu_22 / LambdaNP2
-                -24.505 * CiHL3_11 / LambdaNP2
-                +4.225 * CiHL3_22 / LambdaNP2
-                +69905.8 * CiHQ3_11 / LambdaNP2
-                +70307.2 * CiHQ3_22 / LambdaNP2
-                +6.76 * CiHQ3_33 / LambdaNP2
-                -4.234 * delta_GF
+                +30360.4 * CiHu_22 / LambdaNP2
+                -4.232 * delta_GF
                 -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -15297,26 +15233,21 @@ double NPSMEFTd6::deltaGammaH4dRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121187. * CiHbox / LambdaNP2
-                -56062.7 * CiHD / LambdaNP2
-                -106715. * CiHB / LambdaNP2
-                +38868.8 * CiHW / LambdaNP2
-                -199920. * CiHWB / LambdaNP2
-                -376622. * CiHG / LambdaNP2
-                +37972.6 * CiDHB / LambdaNP2
-                +16115.1 * CiDHW / LambdaNP2
-                +43486.6 * CiHQ1_11 / LambdaNP2
-                +43460. * CiHQ1_22 / LambdaNP2
-                +44840.8 * CiHQ1_33 / LambdaNP2
-                -7603.81 * CiHd_11 / LambdaNP2
-                -7632.36 * CiHd_22 / LambdaNP2
-                -7297.77 * CiHd_33 / LambdaNP2
-                +365.121 * CiHL3_11 / LambdaNP2
-                +351.844 * CiHL3_22 / LambdaNP2
-                +43482.6 * CiHQ3_11 / LambdaNP2
-                +43560.6 * CiHQ3_22 / LambdaNP2
-                +44874. * CiHQ3_33 / LambdaNP2
-                -3.855 * delta_GF
+    dwidth = (+121272. * CiHbox / LambdaNP2
+                -56046.1 * CiHD / LambdaNP2
+                -106096. * CiHB / LambdaNP2
+                +37333.6 * CiHW / LambdaNP2
+                -199688. * CiHWB / LambdaNP2
+                -376539. * CiHG / LambdaNP2
+                +37954.3 * CiDHB / LambdaNP2
+                +16431.1 * CiDHW / LambdaNP2
+                +43561.6 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
+                +43546.8 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
+                +44892.3 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
+                -7612.44 * CiHd_11 / LambdaNP2
+                -7610.45 * CiHd_22 / LambdaNP2
+                -7269.89 * CiHd_33 / LambdaNP2
+                -3.843 * delta_GF
                 -0.745 * deltaGzd6()  );
 
 //  Linear contribution from Higgs self-coupling
@@ -15393,17 +15324,15 @@ double NPSMEFTd6::deltaGammaHLvvLRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120985. * CiHbox / LambdaNP2
-                -205085. * CiHD / LambdaNP2
-                -335.64 * CiHB / LambdaNP2
-                -91672.7 * CiHW / LambdaNP2
-                -380099. * CiHWB / LambdaNP2
-                -34.425 * CiDHB / LambdaNP2
-                +36834.3 * CiDHW / LambdaNP2
-                +44815.1 * CiHL3_11 / LambdaNP2
-                +44832.3 * CiHL3_22 / LambdaNP2
-                +44677.4 * CiHL3_33 / LambdaNP2
-                -4.718 * delta_GF 
+    dwidth = (+121237. * CiHbox / LambdaNP2
+                -203587. * CiHD / LambdaNP2
+                -91282. * CiHW / LambdaNP2
+                -379824. * CiHWB / LambdaNP2
+                +37006.4 * CiDHW / LambdaNP2
+                +44683.1 * CiHL3_11 / LambdaNP2
+                +45084.7 * CiHL3_22 / LambdaNP2
+                +44793.9 * CiHL3_33 / LambdaNP2
+                -4.714 * delta_GF 
                 -13.697 * deltaMwd6()
                 -0.951 * deltaGwd6()  );
 
@@ -15481,14 +15410,14 @@ double NPSMEFTd6::deltaGammaHLvvL2Ratio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120952. * CiHbox / LambdaNP2
-                -203182. * CiHD / LambdaNP2
-                -91292.9 * CiHW / LambdaNP2
-                -379950. * CiHWB / LambdaNP2
-                +36712.8 * CiDHW / LambdaNP2
-                +66369.7 * CiHL3_11 / LambdaNP2
-                +66241. * CiHL3_22 / LambdaNP2
-                -4.705 * delta_GF 
+    dwidth = (+121317. * CiHbox / LambdaNP2
+                -203584. * CiHD / LambdaNP2
+                -91287.8 * CiHW / LambdaNP2
+                -379744. * CiHWB / LambdaNP2
+                +36996. * CiDHW / LambdaNP2
+                +67135.2 * CiHL3_11 / LambdaNP2
+                +67186.7 * CiHL3_22 / LambdaNP2
+                -4.715 * delta_GF 
                 -13.697 * deltaMwd6()
                 -0.951 * deltaGwd6() );
 
@@ -15566,17 +15495,14 @@ double NPSMEFTd6::deltaGammaHudduRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120816. * CiHbox / LambdaNP2
-                -205021. * CiHD / LambdaNP2
-                -91676.6 * CiHW / LambdaNP2
-                -384123. * CiHWB / LambdaNP2
-                +38179.9 * CiDHW / LambdaNP2
-                +155.409 * CiHL3_11 / LambdaNP2
-                +255.529 * CiHL3_22 / LambdaNP2
-                +69164.7 * CiHQ3_11 / LambdaNP2
-                +69269.3 * CiHQ3_22 / LambdaNP2
-                +26.898 * CiHQ3_33 / LambdaNP2
-                -4.798 * delta_GF
+    dwidth = (+121378. * CiHbox / LambdaNP2
+                -203856. * CiHD / LambdaNP2
+                -91905. * CiHW / LambdaNP2
+                -380250. * CiHWB / LambdaNP2
+                +37189.3 * CiDHW / LambdaNP2
+                +67303.7 * CiHQ3_11 / LambdaNP2
+                +67249.8 * CiHQ3_22 / LambdaNP2
+                -4.719 * delta_GF
                 -13.697 * deltaMwd6()
                 -0.951 * deltaGwd6() );
 
@@ -15654,20 +15580,17 @@ double NPSMEFTd6::deltaGammaHLvudRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+123851. * CiHbox / LambdaNP2
-                -203748. * CiHD / LambdaNP2
-                +1766.38 * CiHB / LambdaNP2
-                -90930. * CiHW / LambdaNP2
-                -381333. * CiHWB / LambdaNP2
-                +895.989 * CiHG / LambdaNP2
-                +2073.57 * CiDHB / LambdaNP2
-                +39013.9 * CiDHW / LambdaNP2
-                +20323.6 * CiHL3_11 / LambdaNP2
-                +20369.7 * CiHL3_22 / LambdaNP2
-                +18436.9 * CiHL3_33 / LambdaNP2
-                +41274.4 * CiHQ3_11 / LambdaNP2
-                +41210.4 * CiHQ3_22 / LambdaNP2
-                -4.799 * delta_GF
+    dwidth = (+121293. * CiHbox / LambdaNP2
+                -203586. * CiHD / LambdaNP2
+                -92714.8 * CiHW / LambdaNP2
+                -380195. * CiHWB / LambdaNP2
+                +37315.2 * CiDHW / LambdaNP2
+                +18267. * CiHL3_11 / LambdaNP2
+                +18170.9 * CiHL3_22 / LambdaNP2
+                +18095.4 * CiHL3_33 / LambdaNP2
+                +40158.6 * CiHQ3_11 / LambdaNP2
+                +40100.9 * CiHQ3_22 / LambdaNP2
+                -4.721 * delta_GF
                 -13.697 * deltaMwd6()
                 -0.951 * deltaGwd6());
 
@@ -15745,28 +15668,23 @@ double NPSMEFTd6::deltaGammaH2udRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+121144. * CiHbox / LambdaNP2
-                -200423. * CiHD / LambdaNP2
-                -2990.3 * CiHB / LambdaNP2
-                -87302.2 * CiHW / LambdaNP2
-                -379578. * CiHWB / LambdaNP2
-                -61921.1 * CiHG / LambdaNP2
-                +3282.04 * CiDHB / LambdaNP2
-                +36831.7 * CiDHW / LambdaNP2
-                -32.091 * CiHQ1_11 / LambdaNP2
-                -23.339 * CiHQ1_22 / LambdaNP2
-                +0. * CiHQ1_33 / LambdaNP2
-                +685.581 * CiHu_11 / LambdaNP2
-                +691.416 * CiHu_22 / LambdaNP2
-                -259.646 * CiHd_11 / LambdaNP2
-                -245.059 * CiHd_22 / LambdaNP2
-                +29.174 * CiHd_33 / LambdaNP2
-                +437.605 * CiHL3_11 / LambdaNP2
-                +430.311 * CiHL3_22 / LambdaNP2
-                +69520.8 * CiHQ3_11 / LambdaNP2
-                +69732.3 * CiHQ3_22 / LambdaNP2
-                +11.669 * CiHQ3_33 / LambdaNP2
-                -4.766 * delta_GF
+    dwidth = (+121311. * CiHbox / LambdaNP2
+                -199058. * CiHD / LambdaNP2
+                -3495.85 * CiHB / LambdaNP2
+                -87641.6 * CiHW / LambdaNP2
+                -374908. * CiHWB / LambdaNP2
+                -59683.8 * CiHG / LambdaNP2
+                +1269.24 * CiDHB / LambdaNP2
+                +36755.6 * CiDHW / LambdaNP2
+                -25.599 * CiHQ1_11 / LambdaNP2
+                -24.529 * CiHQ1_22 / LambdaNP2
+                +603.32 * CiHu_11 / LambdaNP2
+                +604.427 * CiHu_22 / LambdaNP2
+                -234.079 * CiHd_11 / LambdaNP2
+                -234.951 * CiHd_22 / LambdaNP2
+                +67621.9 * CiHQ3_11 / LambdaNP2
+                +67812.9 * CiHQ3_22 / LambdaNP2
+                -4.687 * delta_GF
                 -0.032 * deltaGzd6()
                 -13.513 * deltaMwd6()
                 -0.920 * deltaGwd6());
@@ -15846,23 +15764,23 @@ double NPSMEFTd6::deltaGammaH2LvRatio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120877. * CiHbox / LambdaNP2
-                -199115. * CiHD / LambdaNP2
-                +1251.95 * CiHB / LambdaNP2
-                -91991.1 * CiHW / LambdaNP2
-                -363719. * CiHWB / LambdaNP2
-                -762.057 * CiDHB / LambdaNP2
-                +37594.8 * CiDHW / LambdaNP2
-                -592.711 * CiHL1_11 / LambdaNP2
-                -157.25 * CiHL1_22 / LambdaNP2
-                -532.23 * CiHL1_33 / LambdaNP2
-                -1282.19 * CiHe_11 / LambdaNP2
-                -1100.75 * CiHe_22 / LambdaNP2
-                -991.883 * CiHe_33 / LambdaNP2
-                +44163. * CiHL3_11 / LambdaNP2
-                +44212.6 * CiHL3_22 / LambdaNP2
-                +45251.7 * CiHL3_33 / LambdaNP2
-                -4.61 * delta_GF
+    dwidth = (+121036. * CiHbox / LambdaNP2
+                -197478. * CiHD / LambdaNP2
+                +1146.44 * CiHB / LambdaNP2
+                -91497.6 * CiHW / LambdaNP2
+                -362801. * CiHWB / LambdaNP2
+                -224.19 * CiDHB / LambdaNP2
+                +37547.6 * CiDHW / LambdaNP2
+                -147.367 * CiHL1_11 / LambdaNP2
+                -148.166 * CiHL1_22 / LambdaNP2
+                -134.279 * CiHL1_33 / LambdaNP2
+                -966.542 * CiHe_11 / LambdaNP2
+                -932.129 * CiHe_22 / LambdaNP2
+                -930.205 * CiHe_33 / LambdaNP2
+                +45269.8 * CiHL3_11 / LambdaNP2
+                +45100.5 * CiHL3_22 / LambdaNP2
+                +45154.9 * CiHL3_33 / LambdaNP2
+                -4.624 * delta_GF
                 -0.040 * deltaGzd6()
                 -13.553 * deltaMwd6()
                 -0.944 * deltaGwd6());
@@ -15942,22 +15860,20 @@ double NPSMEFTd6::deltaGammaH2Lv2Ratio1() const
     
     double C1 = 0.0;
         
-    dwidth = (+120525. * CiHbox / LambdaNP2
-                -198224. * CiHD / LambdaNP2
-                +1334.93 * CiHB / LambdaNP2
-                -90993.3 * CiHW / LambdaNP2
-                -363483. * CiHWB / LambdaNP2
-                -490.383 * CiDHB / LambdaNP2
-                +37487.1 * CiDHW / LambdaNP2
-                -817.305 * CiHL1_11 / LambdaNP2
-                -181.623 * CiHL1_22 / LambdaNP2
-                -108.974 * CiHL1_33 / LambdaNP2
-                -1307.69 * CiHe_11 / LambdaNP2
-                -1235.04 * CiHe_22 / LambdaNP2
-                +67395. * CiHL3_11 / LambdaNP2
-                +67487.6 * CiHL3_22 / LambdaNP2
-                -54.487 * CiHL3_33 / LambdaNP2
-                -4.621 * delta_GF
+    dwidth = (+121179. * CiHbox / LambdaNP2
+                -197603. * CiHD / LambdaNP2
+                +1142.81 * CiHB / LambdaNP2
+                -91440.1 * CiHW / LambdaNP2
+                -362960. * CiHWB / LambdaNP2
+                -223.402 * CiDHB / LambdaNP2
+                +37519.8 * CiDHW / LambdaNP2
+                -219.564 * CiHL1_11 / LambdaNP2
+                -221.635 * CiHL1_22 / LambdaNP2
+                -1448.17 * CiHe_11 / LambdaNP2
+                -1400.75 * CiHe_22 / LambdaNP2
+                +67494.9 * CiHL3_11 / LambdaNP2
+                +67513. * CiHL3_22 / LambdaNP2
+                -4.619 * delta_GF
                 -0.040 * deltaGzd6()
                 -13.553 * deltaMwd6()
                 -0.944 * deltaGwd6());
