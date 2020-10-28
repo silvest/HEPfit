@@ -17415,7 +17415,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     double xslvjjSM[8] = {7.14, 7.26, 7.38, 7.44, 7.47, 7.50, 7.50, 7.50}; // All leptons. Divide by 3 for each
     double xslvlvSM[8] = {1.72, 1.76, 1.79, 1.80, 1.81, 1.82, 1.82, 1.82}; // All leptons. Divide by 6 for each
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dkga, dkZ, dlga, dlZ;
     
     double gVZeeSM, gAZeeSM;
     
@@ -17449,11 +17449,11 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     
     dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
         
-    dg1Z = deltag1ZNP();
+    dgZ1 = deltag1ZNP();
             
     dkga = deltaKgammaNP();
             
-    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
     
     dlga = - lambdaZNP();
             
@@ -17588,7 +17588,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2
                 + 5.3 * dgVZee
                 + 0.3 * dgAZee
-                - 0.08 * dg1Z
+                - 0.08 * dgZ1
                 - 0.50 * dkga
                 - 0.19 * dkZ
                 - 0.29 * dlga
@@ -17615,7 +17615,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 5.8 * dgVZee
                 + 0.4 * dgAZee
-                - 0.10 * dg1Z
+                - 0.10 * dgZ1
                 - 0.56 * dkga
                 - 0.22 * dkZ
                 - 0.32 * dlga
@@ -17643,7 +17643,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 6.5 * dgVZee
                 + 0.6 * dgAZee
-                - 0.12 * dg1Z
+                - 0.12 * dgZ1
                 - 0.64 * dkga
                 - 0.27 * dkZ
                 - 0.36 * dlga
@@ -17671,7 +17671,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 7.1 * dgVZee
                 + 0.8 * dgAZee
-                - 0.15 * dg1Z
+                - 0.15 * dgZ1
                 - 0.71 * dkga
                 - 0.31 * dkZ
                 - 0.40 * dlga
@@ -17699,7 +17699,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 7.4 * dgVZee
                 + 0.9 * dgAZee
-                - 0.16 * dg1Z
+                - 0.16 * dgZ1
                 - 0.75 * dkga
                 - 0.33 * dkZ
                 - 0.42 * dlga
@@ -17727,7 +17727,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 7.8 * dgVZee
                 + 1.0 * dgAZee
-                - 0.18 * dg1Z
+                - 0.18 * dgZ1
                 - 0.80 * dkga
                 - 0.37 * dkZ
                 - 0.44 * dlga
@@ -17755,7 +17755,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 8.0 * dgVZee
                 + 1.1 * dgAZee
-                - 0.19 * dg1Z
+                - 0.19 * dgZ1
                 - 0.83 * dkga
                 - 0.39 * dkZ
                 - 0.46 * dlga
@@ -17783,7 +17783,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 8.2 * dgVZee
                 + 1.2 * dgAZee
-                - 0.20 * dg1Z
+                - 0.20 * dgZ1
                 - 0.85 * dkga
                 - 0.40 * dkZ
                 - 0.47 * dlga
@@ -17828,7 +17828,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     double xslvjjSM[8] = {7.14, 7.26, 7.38, 7.44, 7.47, 7.50, 7.50, 7.50}; // All leptons. Divide by 3 for each
     double xslvlvSM[8] = {1.72, 1.76, 1.79, 1.80, 1.81, 1.82, 1.82, 1.82}; // All leptons. Divide by 6 for each
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dkga, dkZ, dlga, dlZ;
     
     double gVZeeSM, gAZeeSM;
     
@@ -17862,11 +17862,11 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     
     dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
         
-    dg1Z = deltag1ZNP();
+    dgZ1 = deltag1ZNP();
             
     dkga = deltaKgammaNP();
             
-    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
     
     dlga = - lambdaZNP();
             
@@ -18001,7 +18001,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2
                 + 5.3 * dgVZee
                 + 0.3 * dgAZee
-                - 0.08 * dg1Z
+                - 0.08 * dgZ1
                 - 0.50 * dkga
                 - 0.19 * dkZ
                 - 0.29 * dlga
@@ -18026,7 +18026,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 5.8 * dgVZee
                 + 0.4 * dgAZee
-                - 0.10 * dg1Z
+                - 0.10 * dgZ1
                 - 0.56 * dkga
                 - 0.22 * dkZ
                 - 0.32 * dlga
@@ -18051,7 +18051,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 6.5 * dgVZee
                 + 0.6 * dgAZee
-                - 0.12 * dg1Z
+                - 0.12 * dgZ1
                 - 0.64 * dkga
                 - 0.27 * dkZ
                 - 0.36 * dlga
@@ -18076,7 +18076,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 7.1 * dgVZee
                 + 0.8 * dgAZee
-                - 0.15 * dg1Z
+                - 0.15 * dgZ1
                 - 0.71 * dkga
                 - 0.31 * dkZ
                 - 0.40 * dlga
@@ -18101,7 +18101,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 7.4 * dgVZee
                 + 0.9 * dgAZee
-                - 0.16 * dg1Z
+                - 0.16 * dgZ1
                 - 0.75 * dkga
                 - 0.33 * dkZ
                 - 0.42 * dlga
@@ -18126,7 +18126,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 7.8 * dgVZee
                 + 1.0 * dgAZee
-                - 0.18 * dg1Z
+                - 0.18 * dgZ1
                 - 0.80 * dkga
                 - 0.37 * dkZ
                 - 0.44 * dlga
@@ -18151,7 +18151,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 8.0 * dgVZee
                 + 1.1 * dgAZee
-                - 0.19 * dg1Z
+                - 0.19 * dgZ1
                 - 0.83 * dkga
                 - 0.39 * dkZ
                 - 0.46 * dlga
@@ -18176,7 +18176,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 34.0 * dgWpm2                
                 + 8.2 * dgVZee
                 + 1.2 * dgAZee
-                - 0.20 * dg1Z
+                - 0.20 * dgZ1
                 - 0.85 * dkga
                 - 0.40 * dkZ
                 - 0.47 * dlga
@@ -18223,7 +18223,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
     double xslvjjSM206[4] = {0.52, 0.98, 2.92, 7.80};
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dkga, dkZ, dlga, dlZ;
     
     double gVZeeSM, gAZeeSM;
     
@@ -18255,11 +18255,11 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     
     dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
         
-    dg1Z = deltag1ZNP();
+    dgZ1 = deltag1ZNP();
             
     dkga = deltaKgammaNP();
             
-    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
     
     dlga = - lambdaZNP();
             
@@ -18286,7 +18286,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +2.9 * dgWpm2                
                 +4.1 * dgVZee
                 +3.0 * dgAZee
-                -0.44 * dg1Z
+                -0.44 * dgZ1
                 -0.34 * dkga
                 -0.47 * dkZ
                 -0.32 * dlga
@@ -18304,7 +18304,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +5.5 * dgWpm2                
                 +3.5 * dgVZee
                 +2.2 * dgAZee
-                -0.30 * dg1Z
+                -0.30 * dgZ1
                 -0.32 * dkga
                 -0.39 * dkZ
                 -0.26 * dlga
@@ -18322,7 +18322,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +10.0 * dgWpm2                
                 +1.5 * dgVZee
                 +0.2 * dgAZee
-                -0.04 * dg1Z
+                -0.04 * dgZ1
                 -0.14 * dkga
                 -0.06 * dkZ
                 -0.06 * dlga
@@ -18340,7 +18340,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +27.0  * dgWpm2                
                 -7.7  * dgVZee
                 -8.8  * dgAZee
-                +1.2  * dg1Z
+                +1.2  * dgZ1
                 +0.62  * dkga
                 +1.3  * dkZ
                 +0.63  * dlga
@@ -18368,7 +18368,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +1.8 * dgWpm2                
                 +4.9 * dgVZee
                 +3.0 * dgAZee
-                -0.44 * dg1Z
+                -0.44 * dgZ1
                 -0.44 * dkga
                 -0.50 * dkZ
                 -0.40 * dlga
@@ -18386,7 +18386,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +4.1 * dgWpm2                
                 +5.0 * dgVZee
                 +2.8 * dgAZee
-                -0.34 * dg1Z
+                -0.34 * dgZ1
                 -0.53 * dkga
                 -0.55 * dkZ
                 -0.37 * dlga
@@ -18404,7 +18404,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +9.0 * dgWpm2                
                 +3.5 * dgVZee
                 +1.2 * dgAZee
-                -0.19 * dg1Z
+                -0.19 * dgZ1
                 -0.35 * dkga
                 -0.25 * dkZ
                 -0.19 * dlga
@@ -18422,7 +18422,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +39.0 * dgWpm2                
                 -9.6  * dgVZee
                 -11.0 * dgAZee
-                +1.5 * dg1Z
+                +1.5 * dgZ1
                 +0.86 * dkga
                 +1.7 * dkZ
                 +0.9  * dlga
@@ -18462,7 +18462,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
     double xslvjjSM206[4] = {0.52, 0.98, 2.92, 7.80};
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dg1Z, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dkga, dkZ, dlga, dlZ;
     
     double gVZeeSM, gAZeeSM;
     
@@ -18494,11 +18494,11 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     
     dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
         
-    dg1Z = deltag1ZNP();
+    dgZ1 = deltag1ZNP();
             
     dkga = deltaKgammaNP();
             
-    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
     
     dlga = - lambdaZNP();
             
@@ -18526,7 +18526,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +2.9 * dgWpm2                
                 +4.1 * dgVZee
                 +3.0 * dgAZee
-                -0.44 * dg1Z
+                -0.44 * dgZ1
                 -0.34 * dkga
                 -0.47 * dkZ
                 -0.32 * dlga
@@ -18545,7 +18545,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +5.5 * dgWpm2                
                 +3.5 * dgVZee
                 +2.2 * dgAZee
-                -0.30 * dg1Z
+                -0.30 * dgZ1
                 -0.32 * dkga
                 -0.39 * dkZ
                 -0.26 * dlga
@@ -18564,7 +18564,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +10.0 * dgWpm2                
                 +1.5 * dgVZee
                 +0.2 * dgAZee
-                -0.04 * dg1Z
+                -0.04 * dgZ1
                 -0.14 * dkga
                 -0.06 * dkZ
                 -0.06 * dlga
@@ -18583,7 +18583,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +27.0  * dgWpm2                
                 -7.7  * dgVZee
                 -8.8  * dgAZee
-                +1.2  * dg1Z
+                +1.2  * dgZ1
                 +0.62  * dkga
                 +1.3  * dkZ
                 +0.63  * dlga
@@ -18612,7 +18612,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +1.8 * dgWpm2                
                 +4.9 * dgVZee
                 +3.0 * dgAZee
-                -0.44 * dg1Z
+                -0.44 * dgZ1
                 -0.44 * dkga
                 -0.50 * dkZ
                 -0.40 * dlga
@@ -18631,7 +18631,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +4.1 * dgWpm2                
                 +5.0 * dgVZee
                 +2.8 * dgAZee
-                -0.34 * dg1Z
+                -0.34 * dgZ1
                 -0.53 * dkga
                 -0.55 * dkZ
                 -0.37 * dlga
@@ -18650,7 +18650,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +9.0 * dgWpm2                
                 +3.5 * dgVZee
                 +1.2 * dgAZee
-                -0.19 * dg1Z
+                -0.19 * dgZ1
                 -0.35 * dkga
                 -0.25 * dkZ
                 -0.19 * dlga
@@ -18669,7 +18669,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +39.0 * dgWpm2                
                 -9.6  * dgVZee
                 -11.0 * dgAZee
-                +1.5 * dg1Z
+                +1.5 * dgZ1
                 +0.86 * dkga
                 +1.7 * dkZ
                 +0.9  * dlga
@@ -21685,7 +21685,7 @@ double NPSMEFTd6::AuxObs_NP15() const
             
     dkga = - deltaKgammaNP();
             
-    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
             
     lZ = - lambdaZNP();
     
@@ -21754,13 +21754,13 @@ double NPSMEFTd6::AuxObs_NP15() const
     
     WZA8bin6LO = 1.42958 - 105.344 * dgLZd + 106.596 * dgLZu + 1.42958 * dgRZd + 1.42958 * dgRZu - 73.1082 * dgZ1 - 1.40856 * dkZ + 4.95953 * lZ;
     
-    // Consider only 5th bin
+    // Consider only 5 and 6th bin
     chi2WZA8 = 0. * (WZA8bin1Exp-WZA8bin1LO)*(WZA8bin1Exp-WZA8bin1LO)/WZA8bin1Err/WZA8bin1Err +
             0. * (WZA8bin2Exp-WZA8bin2LO)*(WZA8bin2Exp-WZA8bin2LO)/WZA8bin2Err/WZA8bin2Err +
             0. * (WZA8bin3Exp-WZA8bin3LO)*(WZA8bin3Exp-WZA8bin3LO)/WZA8bin3Err/WZA8bin3Err +
             0. * (WZA8bin4Exp-WZA8bin4LO)*(WZA8bin4Exp-WZA8bin4LO)/WZA8bin4Err/WZA8bin4Err +
             (WZA8bin5Exp-WZA8bin5LO)*(WZA8bin5Exp-WZA8bin5LO)/WZA8bin5Err/WZA8bin5Err +
-            0. * (WZA8bin6Exp-WZA8bin6LO)*(WZA8bin6Exp-WZA8bin6LO)/WZA8bin6Err/WZA8bin6Err;
+            (WZA8bin6Exp-WZA8bin6LO)*(WZA8bin6Exp-WZA8bin6LO)/WZA8bin6Err/WZA8bin6Err;
     
  
     // WZ CMS pT bins 8 TeV
@@ -21782,8 +21782,8 @@ double NPSMEFTd6::AuxObs_NP15() const
     
     WZC8bin9LO = 7452.7 - 269883. * dgLZd + 272932. * dgLZu + 7452.7 * dgRZd + 7452.7 * dgRZu - 161173. * dgZ1 - 8792.17 * dkZ - 15465.3 * lZ;
     
-    // Exclude 1st bin
-    chi2WZC8 = 0. * (WZC8bin1Exp-WZC8bin1LO)*(WZC8bin1Exp-WZC8bin1LO)/WZC8bin1Err/WZC8bin1Err +
+    // All bins
+    chi2WZC8 = (WZC8bin1Exp-WZC8bin1LO)*(WZC8bin1Exp-WZC8bin1LO)/WZC8bin1Err/WZC8bin1Err +
             (WZC8bin2Exp-WZC8bin2LO)*(WZC8bin2Exp-WZC8bin2LO)/WZC8bin2Err/WZC8bin2Err +
             (WZC8bin3Exp-WZC8bin3LO)*(WZC8bin3Exp-WZC8bin3LO)/WZC8bin3Err/WZC8bin3Err +
             (WZC8bin4Exp-WZC8bin4LO)*(WZC8bin4Exp-WZC8bin4LO)/WZC8bin4Err/WZC8bin4Err +
@@ -21904,7 +21904,7 @@ double NPSMEFTd6::AuxObs_NP16() const
             
     dkga = - deltaKgammaNP();
             
-    dkZ = dg1Z - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
             
     lZ = - lambdaZNP();
     
@@ -21973,13 +21973,13 @@ double NPSMEFTd6::AuxObs_NP16() const
     
     WZA8bin6NLO = 1.42958 - 106.675 * dgLZd + 155.184 * dgLZu + 2.76817 * dgRZd + 2.76817 * dgRZu - 69.2783 * dgZ1 + 0.662577 * dkZ + 26.9946 * lZ;
     
-    // Consider only 5th bin
+    // Consider only 5 and 6th bin
     chi2WZA8 = 0. * (WZA8bin1Exp-WZA8bin1NLO)*(WZA8bin1Exp-WZA8bin1NLO)/WZA8bin1Err/WZA8bin1Err +
             0. * (WZA8bin2Exp-WZA8bin2NLO)*(WZA8bin2Exp-WZA8bin2NLO)/WZA8bin2Err/WZA8bin2Err +
             0. * (WZA8bin3Exp-WZA8bin3NLO)*(WZA8bin3Exp-WZA8bin3NLO)/WZA8bin3Err/WZA8bin3Err +
             0. * (WZA8bin4Exp-WZA8bin4NLO)*(WZA8bin4Exp-WZA8bin4NLO)/WZA8bin4Err/WZA8bin4Err +
             (WZA8bin5Exp-WZA8bin5NLO)*(WZA8bin5Exp-WZA8bin5NLO)/WZA8bin5Err/WZA8bin5Err +
-            0. * (WZA8bin6Exp-WZA8bin6NLO)*(WZA8bin6Exp-WZA8bin6NLO)/WZA8bin6Err/WZA8bin6Err;
+            (WZA8bin6Exp-WZA8bin6NLO)*(WZA8bin6Exp-WZA8bin6NLO)/WZA8bin6Err/WZA8bin6Err;
     
  
     // WZ CMS pT bins 8 TeV
@@ -22001,8 +22001,8 @@ double NPSMEFTd6::AuxObs_NP16() const
     
     WZC8bin9NLO = 7452.7 - 349468. * dgLZd + 453250. * dgLZu + 24770.6 * dgRZd + 24770.6 * dgRZu - 160704. * dgZ1 + 13427. * dkZ + 59126.2 * lZ;
     
-    // Exclude 1st bin
-    chi2WZC8 = 0. * (WZC8bin1Exp-WZC8bin1NLO)*(WZC8bin1Exp-WZC8bin1NLO)/WZC8bin1Err/WZC8bin1Err +
+    // All bins
+    chi2WZC8 = (WZC8bin1Exp-WZC8bin1NLO)*(WZC8bin1Exp-WZC8bin1NLO)/WZC8bin1Err/WZC8bin1Err +
             (WZC8bin2Exp-WZC8bin2NLO)*(WZC8bin2Exp-WZC8bin2NLO)/WZC8bin2Err/WZC8bin2Err +
             (WZC8bin3Exp-WZC8bin3NLO)*(WZC8bin3Exp-WZC8bin3NLO)/WZC8bin3Err/WZC8bin3Err +
             (WZC8bin4Exp-WZC8bin4NLO)*(WZC8bin4Exp-WZC8bin4NLO)/WZC8bin4Err/WZC8bin4Err +
