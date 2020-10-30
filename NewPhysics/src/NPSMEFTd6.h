@@ -3153,6 +3153,62 @@ public:
     
     
     /**
+     * @brief The ratio of the @f$\Gamma(H\to 2e2v)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 2e2v)@f$/@f$\Gamma(H\to 2e2v)_{\mathrm{SM}}@f$
+     */
+    double GammaH2e2vRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2e2v)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 2e2v)@f$/@f$\Gamma(H\to 2e2v)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH2e2vRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2e2v)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 2e2v)@f$/@f$\Gamma(H\to 2e2v)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH2e2vRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 2e2v)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2e2v)@f$/Br@f$(H\to 2e2v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2e2vRatio() const;
+    
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 2\mu 2v)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 2\mu 2v)@f$/@f$\Gamma(H\to 2\mu 2v)_{\mathrm{SM}}@f$
+     */
+    double GammaH2mu2vRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2\mu 2v)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 2\mu 2v)@f$/@f$\Gamma(H\to 2\mu 2v)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH2mu2vRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2\mu 2v)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 2\mu 2v)@f$/@f$\Gamma(H\to 2\mu 2v)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH2mu2vRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 2\mu 2v)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2\mu 2v)@f$/Br@f$(H\to 2\mu 2v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2mu2vRatio() const;
+    
+    
+    /**
      * @brief The ratio of the @f$\Gamma(H\to 2u2u)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2u2u)@f$/@f$\Gamma(H\to 2u2u)_{\mathrm{SM}}@f$
@@ -3395,6 +3451,62 @@ public:
      * @return Br@f$(H\to 4L)@f$/Br@f$(H\to 4L)_{\mathrm{SM}}@f$
      */
     virtual double BrH4L2Ratio() const;
+    
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 4e)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 4e)@f$/@f$\Gamma(H\to 4e)_{\mathrm{SM}}@f$
+     */
+    double GammaH4eRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4e)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4e)@f$/@f$\Gamma(H\to 4e)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH4eRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4e)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4e)@f$/@f$\Gamma(H\to 4e)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH4eRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 4e)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4e)@f$/Br@f$(H\to 4e)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4eRatio() const;
+    
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 4\mu)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 4\mu)@f$/@f$\Gamma(H\to 4\mu)_{\mathrm{SM}}@f$
+     */
+    double GammaH4muRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4\mu)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4\mu)@f$/@f$\Gamma(H\to 4\mu)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH4muRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4\mu)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4\mu)@f$/@f$\Gamma(H\to 4\mu)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH4muRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 4\mu)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4\mu)@f$/Br@f$(H\to 4\mu)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4muRatio() const;
     
     
     /**
@@ -3667,6 +3779,63 @@ public:
      * @return Br@f$(H\to 2Lv)@f$/Br@f$(H\to 2Lv)_{\mathrm{SM}}@f$
      */
     virtual double BrH2Lv2Ratio() const;
+    
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 2ev)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 2ev)@f$/@f$\Gamma(H\to 2ev)_{\mathrm{SM}}@f$
+     */
+    double GammaH2evRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2ev)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 2ev)@f$/@f$\Gamma(H\to 2ev)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH2evRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2ev)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 2ev)@f$/@f$\Gamma(H\to 2ev)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH2evRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 2ev)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2ev)@f$/Br@f$(H\to 2ev)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2evRatio() const;
+    
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 2\mu v)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 2\mu v)@f$/@f$\Gamma(H\to 2\mu v)_{\mathrm{SM}}@f$
+     */
+    double GammaH2muvRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2\mu v)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 2\mu v)@f$/@f$\Gamma(H\to 2\mu v)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH2muvRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2\mu v)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 2\mu v)@f$/@f$\Gamma(H\to 2\mu v)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaH2muvRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 2ev)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2\mu v)@f$/Br@f$(H\to 2\mu v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2muvRatio() const;
+    
     
     /**
      * @brief The ratio of the @f$\Gamma(H\to 4f)@f$ in the current model
