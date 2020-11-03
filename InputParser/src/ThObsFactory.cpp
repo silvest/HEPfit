@@ -1122,8 +1122,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtautauRatio"] = boost::factory<BrHtotautauRatio*>();
     obsThFactory["BrHccRatio"] = boost::factory<BrHtoccRatio*>();
     obsThFactory["BrHbbRatio"] = boost::factory<BrHtobbRatio*>();
-    //
+    // Dedicated 4 lepton decays
+    obsThFactory["BrHto2l2vRatio"] = boost::factory<BrHto2l2vRatio*>();
     obsThFactory["BrHtoevmuvRatio"] = boost::factory<BrHtoevmuvRatio*>();
+    obsThFactory["BrHto2e2vRatio"] = boost::factory<BrHto2e2vRatio*>();
+    obsThFactory["BrHto2mu2vRatio"] = boost::factory<BrHto2mu2vRatio*>();
+    obsThFactory["BrHto4lRatio"] = boost::factory<BrHto4lRatio*>();
+    obsThFactory["BrHto4eRatio"] = boost::factory<BrHto4eRatio*>();
+    obsThFactory["BrHto4muRatio"] = boost::factory<BrHto4muRatio*>();
+    obsThFactory["BrHto2e2muRatio"] = boost::factory<BrHto2e2muRatio*>();
     //-----  Ratios of BR (ratios with SM)  ----------
     obsThFactory["BrHtogaga_over_mumu_Ratio"] = boost::factory<BrHtogaga_over_mumu_Ratio*>();
     obsThFactory["BrHtoZga_over_mumu_Ratio"] = boost::factory<BrHtoZga_over_mumu_Ratio*>();

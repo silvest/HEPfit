@@ -13852,22 +13852,22 @@ double NPSMEFTd6::BrH2L2LRatio() const
 }
 
 
-double NPSMEFTd6::GammaH2L2L2Ratio() const
+double NPSMEFTd6::GammaH2e2muRatio() const
 {
-      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2L2L2Ratio1
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2e2muRatio1
     double width = 1.0;
     
-    width += deltaGammaH2L2L2Ratio1();
+    width += deltaGammaH2e2muRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaH2L2L2Ratio2();    
+            width += deltaGammaH2e2muRatio2();    
         }
     
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2L2L2Ratio1() const
+double NPSMEFTd6::deltaGammaH2e2muRatio1() const
 {
     double dwidth = 0.0;
     
@@ -13904,7 +13904,7 @@ double NPSMEFTd6::deltaGammaH2L2L2Ratio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2L2L2Ratio2() const
+double NPSMEFTd6::deltaGammaH2e2muRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13913,18 +13913,18 @@ double NPSMEFTd6::deltaGammaH2L2L2Ratio2() const
     
 }
 
-double NPSMEFTd6::BrH2L2L2Ratio() const
+double NPSMEFTd6::BrH2e2muRatio() const
 {
     double Br = 1.0;
     double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    dGHiR1= deltaGammaH2L2L2Ratio1();
+    dGHiR1= deltaGammaH2e2muRatio1();
     
     Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
         
-        dGHiR2= deltaGammaH2L2L2Ratio2();
+        dGHiR2= deltaGammaH2e2muRatio2();
         
         //Add contributions that are quadratic in the effective coefficients
         Br += - dGHiR1 * dGammaHTotR1
@@ -15741,22 +15741,22 @@ double NPSMEFTd6::BrHLvvLRatio() const
 }
 
 
-double NPSMEFTd6::GammaHLvvL2Ratio() const
+double NPSMEFTd6::GammaHevmuvRatio() const
 {
-      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHLvvL2Ratio1
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHevmuvRatio1
     double width = 1.0;
     
-    width += deltaGammaHLvvL2Ratio1();
+    width += deltaGammaHevmuvRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHLvvL2Ratio2();    
+            width += deltaGammaHevmuvRatio2();    
         }
     
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHLvvL2Ratio1() const
+double NPSMEFTd6::deltaGammaHevmuvRatio1() const
 {
     double dwidth = 0.0;
     
@@ -15790,7 +15790,7 @@ double NPSMEFTd6::deltaGammaHLvvL2Ratio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHLvvL2Ratio2() const
+double NPSMEFTd6::deltaGammaHevmuvRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15799,18 +15799,18 @@ double NPSMEFTd6::deltaGammaHLvvL2Ratio2() const
     
 }
 
-double NPSMEFTd6::BrHLvvL2Ratio() const
+double NPSMEFTd6::BrHevmuvRatio() const
 {
     double Br = 1.0;
     double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
     
-    dGHiR1= deltaGammaHLvvL2Ratio1();
+    dGHiR1= deltaGammaHevmuvRatio1();
     
     Br += dGHiR1 - dGammaHTotR1;
     
     if (FlagQuadraticTerms) {
         
-        dGHiR2= deltaGammaHLvvL2Ratio2();
+        dGHiR2= deltaGammaHevmuvRatio2();
         
         //Add contributions that are quadratic in the effective coefficients
         Br += - dGHiR1 * dGammaHTotR1
@@ -16588,12 +16588,12 @@ double NPSMEFTd6::deltaGammaH4lRatio1() const
     double dwidth = 0.0;
     
     // SM decay widths (from MG simmulations)
-    double wH2L2L2SM=0.22065e-06, wH4L2SM=0.22716e-06;
+    double wH2e2muSM=0.22065e-06, wH4L2SM=0.22716e-06;
     
     // Sum
-    double wH4lSM=wH2L2L2SM+wH4L2SM;
+    double wH4lSM=wH2e2muSM+wH4L2SM;
         
-    dwidth = ( wH2L2L2SM * deltaGammaH2L2L2Ratio1() + wH4L2SM * deltaGammaH4L2Ratio1() )/wH4lSM;
+    dwidth = ( wH2e2muSM * deltaGammaH2e2muRatio1() + wH4L2SM * deltaGammaH4L2Ratio1() )/wH4lSM;
     
     return dwidth;
 }
@@ -16654,12 +16654,12 @@ double NPSMEFTd6::deltaGammaH2l2vRatio1() const
     double dwidth = 0.0;
     
     // SM decay widths (from MG simmulations)
-    double wH2L2v2SM=0.18213e-05, wHLvvL2SM=0.19421e-04, wH2Lv2SM=0.18353e-04;
+    double wH2L2v2SM=0.18213e-05, wHevmuvSM=0.19421e-04, wH2Lv2SM=0.18353e-04;
     
     // Sum
-    double wH2l2vSM=wH2L2v2SM+wHLvvL2SM+wH2Lv2SM;
+    double wH2l2vSM=wH2L2v2SM+wHevmuvSM+wH2Lv2SM;
         
-    dwidth = ( wH2L2v2SM * deltaGammaH2L2v2Ratio1() + wHLvvL2SM  * deltaGammaHLvvL2Ratio1() 
+    dwidth = ( wH2L2v2SM * deltaGammaH2L2v2Ratio1() + wHevmuvSM  * deltaGammaHevmuvRatio1() 
             + wH2Lv2SM * deltaGammaH2Lv2Ratio1() )/wH2l2vSM;
     
     return dwidth;
@@ -16686,58 +16686,6 @@ double NPSMEFTd6::BrH2l2vRatio() const
     if (FlagQuadraticTerms) {
         
         dGHiR2= deltaGammaH2l2vRatio2();
-        
-        //Add contributions that are quadratic in the effective coefficients
-        Br += - dGHiR1 * dGammaHTotR1
-                + dGHiR2 - dGammaHTotR2
-                + pow(dGammaHTotR1,2.0);            
-        }
-    
-    GHiR += dGHiR1 + dGHiR2;        
-    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
-    
-    return Br;
-
-}
-
-
-double NPSMEFTd6::GammaHlvvlRatio() const
-{
-      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHlvvlRatio1
-    double width = 1.0;
-    
-    width += deltaGammaHlvvlRatio1();
-    
-    if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            width += deltaGammaHlvvlRatio2();    
-        }
-    
-    return width;
-}
-
-double NPSMEFTd6::deltaGammaHlvvlRatio1() const
-{   
-    return deltaGammaHLvvL2Ratio1();
-}
-
-double NPSMEFTd6::deltaGammaHlvvlRatio2() const
-{
-    return deltaGammaHLvvL2Ratio2();            
-}
-
-double NPSMEFTd6::BrHlvvlRatio() const
-{
-    double Br = 1.0;
-    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
-    
-    dGHiR1= deltaGammaHlvvlRatio1();
-    
-    Br += dGHiR1 - dGammaHTotR1;
-    
-    if (FlagQuadraticTerms) {
-        
-        dGHiR2= deltaGammaHlvvlRatio2();
         
         //Add contributions that are quadratic in the effective coefficients
         Br += - dGHiR1 * dGammaHTotR1
