@@ -897,9 +897,9 @@ BrHtogaga_over_2e2mu_Ratio::BrHtogaga_over_2e2mu_Ratio(const StandardModel& SM_i
 double BrHtogaga_over_2e2mu_Ratio::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHZZ2e2muRatio()));
+        return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrH2e2muRatio()));
     } else {
-        return (myNPbase->BrHgagaRatio()) / (myNPbase->BrHZZ2e2muRatio());
+        return (myNPbase->BrHgagaRatio()) / (myNPbase->BrH2e2muRatio());
     }
 }
 
@@ -942,9 +942,9 @@ BrHtomumu_over_4mu_Ratio::BrHtomumu_over_4mu_Ratio(const StandardModel& SM_i) : 
 double BrHtomumu_over_4mu_Ratio::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrHZZ4muRatio()));
+        return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrH4muRatio()));
     } else {
-        return (myNPbase->BrHmumuRatio()) / (myNPbase->BrHZZ4muRatio());
+        return (myNPbase->BrHmumuRatio()) / (myNPbase->BrH4muRatio());
     }
 }
 
@@ -992,6 +992,10 @@ double BrHtomumu_over_gaga_Ratio::computeThValue()
         return (myNPbase->BrHmumuRatio()) / (myNPbase->BrHgagaRatio());
     }
 }
+
+// -----------------------------------------------------------------------------
+// Full signal strengths (prod x decay)
+// -----------------------------------------------------------------------------
 
 muggHgaga::muggHgaga(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
@@ -1335,9 +1339,9 @@ muggHZZ4mu::muggHZZ4mu(const StandardModel& SM_i, const double sqrt_s_i)
 double muggHZZ4mu::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZZ4muRatio()));
+        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrH4muRatio()));
     } else {
-        return (myNPbase->muggH(sqrt_s))*(myNPbase->BrHZZ4muRatio());
+        return (myNPbase->muggH(sqrt_s))*(myNPbase->BrH4muRatio());
     }
 }
 
