@@ -20966,6 +20966,1433 @@ double NPSMEFTd6::STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const{
     
     return STXSb;
 }
+
+
+    //----- Stage 1.2
+    // NOTE: Not our own calculations.
+    // From Appendix A in ATLAS-CONF-2020-053 
+    // Warsaw basis calculations in {GF,MW,MZ} scheme, assuming U(3)^5 symmetry
+
+double NPSMEFTd6::STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.030 * CiHD + 47 * CiHG - 0.122 * CiuH_33r 
+                - 1.69 * CiuG_33r - 0.120 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.058 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH200_300_Nj01()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.029 * CiHD + 60 * CiHG - 0.12 * CiuH_33r 
+                - 2.1 * CiuG_33r - 0.11 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.055 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH300_450_Nj01()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.030 * CiHD + 70 * CiHG - 0.14 * CiuH_33r 
+                - 2. * CiuG_33r - 0.13 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.07 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH450_650_Nj01()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.02 * CiHD + 200 * CiHG - 0.05 * CiuH_33r 
+                - 10 * CiuG_33r - 0.07 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.06 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH650_Inf_Nj01()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0294 * CiHD + 42.0 * CiHG - 0.117 * CiuH_33r 
+                - 1.59 * CiuG_33r - 0.117 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.0587 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH0_10_Nj0()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0295 * CiHD + 42.2 * CiHG - 0.1186 * CiuH_33r 
+                - 1.62 * CiuG_33r - 0.1182 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.0590 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH10_Inf_Nj0()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0330 * CiHD + 44.0 * CiHG - 0.132 * CiuH_33r 
+                - 1.60 * CiuG_33r - 0.132 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.065 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH0_60_Nj1()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0314 * CiHD + 43.5 * CiHG - 0.125 * CiuH_33r 
+                - 1.58 * CiuG_33r - 0.125 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.063 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH60_120_Nj1()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.028 * CiHD + 44 * CiHG - 0.118 * CiuH_33r 
+                - 1.60 * CiuG_33r - 0.112 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.058 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_pTH120_200_Nj1()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+      
+
+double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.033 * CiHD + 46 * CiHG - 0.128 * CiuH_33r 
+                - 1.63 * CiuG_33r - 0.132 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.065 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_mjj0_350_pTH0_60_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.033 * CiHD + 47 * CiHG - 0.133 * CiuH_33r 
+                - 1.59 * CiuG_33r - 0.130 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.065 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_mjj0_350_pTH60_120_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.032 * CiHD + 46 * CiHG - 0.132 * CiuH_33r 
+                - 1.48 * CiuG_33r - 0.130 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.066 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_mjj0_350_pTH120_200_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.038 * CiHD + 48 * CiHG - 0.16 * CiuH_33r 
+                - 1.60 * CiuG_33r - 0.147 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.075 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.033 * CiHD + 42 * CiHG - 0.131 * CiuH_33r 
+                - 1.43 * CiuG_33r - 0.124 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.064 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}    
+
+
+double NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.033 * CiHD + 50 * CiHG - 0.14 * CiuH_33r 
+                - 1.60 * CiuG_33r - 0.13 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.068 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.030 * CiHD + 44 * CiHG - 0.13 * CiuH_33r 
+                - 1.4 * CiuG_33r - 0.13 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.061 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggHll_pTV0_75(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0057 * CiHD + 0.0090 * CiHWB 
+                + 0.0454 * CiuH_33r - 0.309 * CiuG_33r 
+                - 0.0102 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.2932 * 0.5*(CiHL3_11 + CiHL3_22) 
+                - 0.0231 * 0.5*(CiHe_11 + CiHe_22) - 0.827 * CiHQ1 
+                - 0.289 * CiHQ3 
+                + 0.246 * CiHu + 0.296 * CiHd 
+                + 0.218 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggHll_pTV0_75()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggHll_pTV75_150(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0015 * CiHD + 0.0088 * CiHWB 
+                + 0.0542 * CiuH_33r - 0.387 * CiuG_33r 
+                - 0.0103 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.2943 * 0.5*(CiHL3_11 + CiHL3_22) 
+                - 0.0235 * 0.5*(CiHe_11 + CiHe_22) - 0.698 * CiHQ1 
+                - 0.250 * CiHQ3 
+                + 0.199 * CiHu + 0.257 * CiHd 
+                + 0.220 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggHll_pTV75_150()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox + 0.020 * CiHD + 0.008 * CiHWB 
+                + 0.100 * CiuH_33r - 0.539 * CiuG_33r 
+                - 0.0104 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.2974 * 0.5*(CiHL3_11 + CiHL3_22) 
+                - 0.0236 * 0.5*(CiHe_11 + CiHe_22) - 0.499 * CiHQ1 
+                - 0.199 * CiHQ3 + 0.105 * CiHu + 0.205 * CiHd 
+                + 0.223 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj0()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox + 0.0142 * CiHD + 0.0084 * CiHWB 
+                + 0.0851 * CiuH_33r - 0.491 * CiuG_33r 
+                - 0.0103 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.2943 * 0.5*(CiHL3_11 + CiHL3_22) 
+                - 0.0233 * 0.5*(CiHe_11 + CiHe_22) - 0.552 * CiHQ1 
+                - 0.212 * CiHQ3 + 0.131 * CiHu + 0.219 * CiHd 
+                + 0.219 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj1()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ggHll_pTV250_Inf(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox + 0.050 * CiHD + 0.0091 * CiHWB 
+                + 0.163 * CiuH_33r - 0.680 * CiuG_33r 
+                - 0.0108 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.2968 * 0.5*(CiHL3_11 + CiHL3_22) - 0.0240 * 0.5*(CiHe_11 + CiHe_22) 
+                - 0.352 * CiHQ1 - 0.171 * CiHQ3 + 0.020 * CiHu 
+                + 0.177 * CiHd + 0.221 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ggHll_pTV250_Inf()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+    
+double NPSMEFTd6::STXS12_qqHqq_Nj0(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.011 * CiHD + 0.32 * CiHW + 0.008 * CiHB 
+                + 0.048 * CiHWB - 0.36 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.46 * CiHQ3 + 0.027 * CiHu - 0.0125 * CiHd 
+                + 0.18 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_Nj0()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHqq_Nj1(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0111 * CiHD + 0.187 * CiHW + 0.0063 * CiHB 
+                + 0.047 * CiHWB - 0.368 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.003 * CiHQ1 + 0.39 * CiHQ3 + 0.0278 * CiHu 
+                - 0.0113 * CiHd + 0.183 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_Nj1()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.011 * CiHD + 0.38 * CiHW + 0.012 * CiHB 
+                + 0.060 * CiHWB - 0.36 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.94 * CiHQ3 + 0.055 * CiHu - 0.022 * CiHd 
+                + 0.178 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_mjj0_60_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0072 * CiHD + 0.638 * CiHW + 0.0230 * CiHB 
+                + 0.100 * CiHWB - 0.364 * 0.5*(CiHL3_11 + CiHL3_22) 
+                - 0.015 * CiHQ1 + 2.07 * CiHQ3 + 0.152 * CiHu 
+                - 0.0593 * CiHd + 0.181 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_mjj60_120_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0099 * CiHD - 0.021 * CiHW + 0.0017 * CiHB 
+                + 0.0368 * CiHWB - 0.363 * 0.5*(CiHL3_11 + CiHL3_22) 
+                - 0.003 * CiHQ1 - 0.155 * CiHQ3 - 0.0038 * CiHu 
+                + 0.0022 * CiHd + 0.181 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_mjj120_350_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0072 * CiHD + 0.188 * CiHW - 0.0012 * CiHB 
+                + 0.038 * CiHWB - 0.362 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.047 * CiHQ1 - 1.33 * CiHQ3 - 0.095 * CiHu 
+                + 0.0314 * CiHd + 0.181 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0110 * CiHD - 0.134 * CiHW - 0.0014 * CiHB 
+                + 0.0234 * CiHWB - 0.368 * 0.5*(CiHL3_11 + CiHL3_22) 
+                - 0.371 * CiHQ3 - 0.0203 * CiHu 
+                + 0.0084 * CiHd + 0.184 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0101 * CiHD - 0.143 * CiHW + 0.027 * CiHWB 
+                - 0.358 * 0.5*(CiHL3_11 + CiHL3_22) + 0.002 * CiHQ1 
+                - 0.38 * CiHQ3 - 0.0204 * CiHu + 0.0081 * CiHd 
+                + 0.183 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}    
+    
+
+double NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0101 * CiHD - 0.117 * CiHW - 0.0016 * CiHB 
+                + 0.0231 * CiHWB - 0.365 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.010 * CiHQ1 - 0.364 * CiHQ3 - 0.0216 * CiHu 
+                + 0.0074 * CiHd + 0.182 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0096 * CiHD - 0.168 * CiHW + 0.023 * CiHWB 
+                - 0.361 * 0.5*(CiHL3_11 + CiHL3_22) + 0.015 * CiHQ1 
+                - 0.442 * CiHQ3 - 0.0282 * CiHu + 0.0091 * CiHd 
+                + 0.180 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHlv_pTV0_75(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0304 * CiHD + 0.813 * CiHW 
+                - 0.241 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 1.142 * CiHQ3 + 0.183 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHlv_pTV0_75()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHlv_pTV75_150(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0304 * CiHD + 0.946 * CiHW 
+                - 0.244 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 1.90 * CiHQ3 + 0.183 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHlv_pTV75_150()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0312 * CiHD + 1.06 * CiHW 
+                - 0.247 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 4.07 * CiHQ3 + 0.187 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj0()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0307 * CiHD + 1.08 * CiHW 
+                - 0.239 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 3.58 * CiHQ3 + 0.180 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj1()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0282 * CiHD + 1.07 * CiHW 
+                - 0.228 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 10.6 * CiHQ3 + 0.170 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHlv_pTV250_Inf()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+
+
+double NPSMEFTd6::STXS12_qqHll_pTV0_75(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox + 0.0129 * CiHD + 0.665 * CiHW + 0.0835 * CiHB 
+                + 0.303 * CiHWB - 0.0362 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.2772 * 0.5*(CiHL3_11 + CiHL3_22) - 0.0359 * 0.5*(CiHe_11 + CiHe_22) 
+                + 0.029 * CiHQ1 + 1.27 * CiHQ3 + 0.245 * CiHu - 0.1064 * CiHd 
+                + 0.183 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHll_pTV0_75()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+        
+
+double NPSMEFTd6::STXS12_qqHll_pTV75_150(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox + 0.0128 * CiHD + 0.771 * CiHW + 0.092 * CiHB 
+                + 0.341 * CiHWB - 0.0360 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.274 * 0.5*(CiHL3_11 + CiHL3_22) - 0.0362 * 0.5*(CiHe_11 + CiHe_22) 
+                + 0.01 * CiHQ1 + 1.80 * CiHQ3 + 0.403 * CiHu - 0.166 * CiHd 
+                + 0.182 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHll_pTV75_150()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+        
+
+double NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox + 0.013 * CiHD + 0.86 * CiHW + 0.103 * CiHB 
+                + 0.366 * CiHWB - 0.035 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.267 * 0.5*(CiHL3_11 + CiHL3_22) - 0.0358 * 0.5*(CiHe_11 + CiHe_22) 
+                - 0.12 * CiHQ1 + 3.63 * CiHQ3 + 0.87 * CiHu - 0.323 * CiHd 
+                + 0.177 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj0()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox + 0.013 * CiHD + 0.85 * CiHW + 0.102 * CiHB 
+                + 0.373 * CiHWB - 0.036 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.266 * 0.5*(CiHL3_11 + CiHL3_22) - 0.0367 * 0.5*(CiHe_11 + CiHe_22) 
+                - 0.10 * CiHQ1 + 3.19 * CiHQ3 + 0.77 * CiHu - 0.282 * CiHd 
+                + 0.177 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj1()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_qqHll_pTV250_Inf(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox + 0.010 * CiHD + 0.88 * CiHW + 0.135 * CiHB 
+                + 0.41 * CiHWB - 0.037 * 0.5*(CiHL1_11 + CiHL1_22 - CiHL3_11 - CiHL3_22) 
+                - 0.271 * 0.5*(CiHL3_11 + CiHL3_22) - 0.036 * 0.5*(CiHe_11 + CiHe_22) 
+                - 1.12 * CiHQ1 + 9.9 * CiHQ3 + 2.51 * CiHu - 0.81 * CiHd 
+                + 0.181 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_qqHll_pTV250_Inf()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+     
+
+double NPSMEFTd6::STXS12_ttH_pTH0_60(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( -0.021 * CiG + 0.12 * CiHbox - 0.0301 * CiHD + 0.411 * CiHG 
+                - 0.121 * CiuH_33r + 0.764 * CiuG_33r + 0.004 * CiuW_33r 
+                + 0.0015 * CiuB_33r - 0.121 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.0031 * CiHQ3 
+                + 0.0612 * CiLL_1221 
+                //+ 0.0154 * Ciqq1 + 0.121 * Ciqq11 
+                //+ 0.0142 * Ciqq3 + 0.299 * Ciqq31 
+                //+ 0.0088 * Ciuu + 0.128 * Ciuu1 
+                //- 0.0015 * Ciud1 + 0.0213 * Ciud8 
+                //+ 0.0056 * Ciqu1 + 0.082 * Ciqu8 
+                //- 0.001 * Ciqd1 + 0.0215 * Ciqd8
+                ) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ttH_pTH0_60()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ttH_pTH60_120(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( -0.061 * CiG + 0.12 * CiHbox - 0.0286 * CiHD + 0.450 * CiHG 
+                - 0.1149 * CiuH_33r + 0.790 * CiuG_33r + 0.005 * CiuW_33r 
+                + 0.0017 * CiuB_33r - 0.1151 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.0032 * CiHQ3 
+                + 0.0574 * CiLL_1221 
+                //+ 0.0183 * Ciqq1 + 0.138 * Ciqq11 
+                //+ 0.0175 * Ciqq3 + 0.340 * Ciqq31 
+                //+ 0.0104 * Ciuu + 0.147 * Ciuu1 
+                //- 0.0017 * Ciud1 + 0.0244 * Ciud8 
+                //+ 0.0066 * Ciqu1 + 0.0968 * Ciqu8 
+                //- 0.001 * Ciqd1 + 0.0243 * Ciqd8
+                ) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ttH_pTH60_120()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ttH_pTH120_200(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( -0.152 * CiG + 0.12 * CiHbox - 0.0282 * CiHD + 0.553 * CiHG 
+                + 0.0013 * CiHW - 0.113 * CiuH_33r + 0.890 * CiuG_33r 
+                + 0.007 * CiuW_33r + 0.002 * CiuB_33r 
+                - 0.114 * 0.5*(CiHL3_11 + CiHL3_22) 
+                + 0.0045 * CiHQ3 + 0.0569 * CiLL_1221 
+                //+ 0.0282 * Ciqq1 + 0.202 * Ciqq11 
+                //+ 0.0275 * Ciqq3 + 0.493 * Ciqq31 
+                //+ 0.0156 * Ciuu + 0.217 * Ciuu1 
+                //- 0.0025 * Ciud1 + 0.0347 * Ciud8 
+                //+ 0.0097 * Ciqu1 + 0.138 * Ciqu8 
+                //- 0.0016 * Ciqd1 + 0.0345 * Ciqd8
+                ) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ttH_pTH120_200()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ttH_pTH200_300(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( -0.311 * CiG + 0.12 * CiHbox - 0.0277 * CiHD + 0.68 * CiHG 
+                + 0.002 * CiHW - 0.001 * CiHWB - 0.112 * CiuH_33r 
+                + 0.97 * CiuG_33r + 0.0105 * CiuW_33r + 0.003 * CiuB_33r 
+                - 0.114 * 0.5*(CiHL3_11 + CiHL3_22) - 0.0015 * CiHQ1 
+                + 0.0091 * CiHQ3 + 0.0569 * CiLL_1221 
+                //+ 0.0493 * Ciqq1 + 0.336 * Ciqq11 
+                //+ 0.0484 * Ciqq3 + 0.82 * Ciqq31 
+                //+ 0.0268 * Ciuu + 0.358 * Ciuu1 
+                //- 0.0042 * Ciud1 + 0.0545 * Ciud8 
+                //+ 0.0159 * Ciqu1 + 0.228 * Ciqu8 
+                //- 0.0025 * Ciqd1 + 0.0541 * Ciqd8
+                ) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ttH_pTH200_300()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_ttH_pTH300_Inf(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+    CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
+    CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( -0.58 * CiG + 0.12 * CiHbox - 0.0276 * CiHD + 0.84 * CiHG 
+                + 0.003 * CiHW - 0.001 * CiHWB - 0.110 * CiuH_33r 
+                + 1.04 * CiuG_33r + 0.0186 * CiuW_33r + 0.0068 * CiuB_33r 
+                - 0.112 * 0.5*(CiHL3_11 + CiHL3_22) - 0.0105 * CiHQ1 
+                + 0.0503 * CiHQ3 + 0.0110 * CiHu - 0.0032 * CiHd 
+                + 0.056 * CiLL_1221 
+                //+ 0.120 * Ciqq1 + 0.75 * Ciqq11 
+                //+ 0.122 * Ciqq3 + 1.70 * Ciqq31 
+                //+ 0.064 * Ciuu + 0.78 * Ciuu1 
+                //- 0.0091 * Ciud1 + 0.110 * Ciud8 
+                //+ 0.0344 * Ciqu1 + 0.497 * Ciqu8 
+                //- 0.0045 * Ciqd1 + 0.111 * Ciqd8
+                ) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_ttH_pTH300_Inf()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
+    
+
+double NPSMEFTd6::STXS12_tH(const double sqrt_s) const{
+    
+    double STXSb = 1.0;
+    
+    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
+     
+    if (sqrt_s == 13.0) {
+     
+        STXSb += ( 0.12 * CiHbox - 0.0272 * CiHD + 0.254 * CiHG + 0.1808 * CiHW 
+                - 0.0764 * CiuH_33r + 0.119 * CiuG_33r + 0.170 * CiuW_33r 
+                - 0.2679 * 0.5*(CiHL3_11 + CiHL3_22) + 0.319 * CiHQ3 
+                + 0.1341 * CiLL_1221 
+                //+ 0.418 * Ciqq3
+                ) * (1000000.0 / LambdaNP2);
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb +=  0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::STXS12_tH()");
+    
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return STXSb;
+}
     
 
 ///////////////////////////////////////////////////////////////////////////////
