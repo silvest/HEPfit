@@ -29,7 +29,7 @@
 /* END: REMOVE FROM THE PACKAGE */
   
 std::string StandardModel::SMvars[NSMvars] = {
-    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", 
+    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "Mw_inp", "mHl", 
     "delMw", "delSin2th_l", "delSin2th_q", "delSin2th_b", "delGammaZ", "delsigma0H", "delR0l", "delR0c", "delR0b",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
 };
@@ -47,6 +47,8 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     FlagRhoZ = "NORESUM";
     FlagKappaZ = "APPROXIMATEFORMULA";
     FlagWolfenstein = true;
+
+    FlagMWinput = false;
     
     FlagSMAux = false;
 
@@ -110,6 +112,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::make_pair("GF", std::cref(GF)));
     ModelParamMap.insert(std::make_pair("ale", std::cref(ale)));
     ModelParamMap.insert(std::make_pair("dAle5Mz", std::cref(dAle5Mz)));
+    ModelParamMap.insert(std::make_pair("Mw_inp", std::cref(Mw_inp)));
     ModelParamMap.insert(std::make_pair("mHl", std::cref(mHl)));
     ModelParamMap.insert(std::make_pair("delMw", std::cref(delMw)));
     ModelParamMap.insert(std::make_pair("delSin2th_l", std::cref(delSin2th_l)));
@@ -228,6 +231,9 @@ bool StandardModel::PostUpdate()
 
     /* Set the CKM and PMNS matrices */
     computeCKM();
+    
+    /* Compute the 5-quark contribution to the running of alpha*/
+    dAl5hMz = Dalpha5hMz();   
 
     /* Set the Yukawa matrices */
     if (!isModelSUSY()) {
@@ -268,6 +274,8 @@ void StandardModel::setParameter(const std::string name, const double& value)
         ale = value;
     else if (name.compare("dAle5Mz") == 0)
         dAle5Mz = value;
+    else if (name.compare("Mw_inp") == 0)
+        Mw_inp = value;
     else if (name.compare("mHl") == 0)
         mHl = value;
     else if (name.compare("delMw") == 0)
@@ -430,6 +438,16 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("NoApproximateGammaZ") == 0) {
         FlagNoApproximateGammaZ = value;
         res = true;
+    } else if (name.compare("MWinput") == 0) {
+        FlagMWinput = value;
+        if (FlagMWinput) {
+            // Point the different flags towards the approximate formulae, when available
+            FlagNoApproximateGammaZ = false;
+            FlagMw = "APPROXIMATEFORMULA";
+            FlagRhoZ = "NORESUM";
+            FlagKappaZ = "APPROXIMATEFORMULA";
+        }
+        res = true;
     } else if (name.compare("SMAux") == 0) {
         FlagSMAux = value;
         res = true;
@@ -468,6 +486,14 @@ bool StandardModel::setFlagStr(const std::string name, const std::string value)
                 + name + "=" + value);
     } else
         res = QCD::setFlagStr(name, value);
+    
+    if (FlagMWinput) {
+        // Point the different flags towards the approximate formulae, when available
+        FlagNoApproximateGammaZ = false;
+        FlagMw = "APPROXIMATEFORMULA";
+        FlagRhoZ = "NORESUM";
+        FlagKappaZ = "APPROXIMATEFORMULA";
+    }
 
     return (res);
 }
@@ -487,7 +513,7 @@ bool StandardModel::checkSMparamsForEWPO()
     // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
     // mut, mub, muc
     // 19 parameters in StandardModel
-    // GF, ale, dAle5Mz, mHl,
+    // GF, ale, dAle5Mz, Mw_inp, mHl,
     // mneutrino_1, mneutrino_2, mneutrino_3, melectron, mmu, mtau,
     // delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b,
     // 3 flags in StandardModel
@@ -496,7 +522,7 @@ bool StandardModel::checkSMparamsForEWPO()
     // Note: When modifying the array below, the constant NumSMParams has to
     // be modified accordingly.
     double SMparams[NumSMParamsForEWPO] = {
-        AlsMz, Mz, GF, ale, dAle5Mz,
+        AlsMz, Mz, GF, ale, dAle5Mz, Mw_inp,
         mHl, mtpole,
         leptons[NEUTRINO_1].getMass(),
         leptons[NEUTRINO_2].getMass(),
@@ -856,7 +882,7 @@ double StandardModel::DeltaAlphaLepton(const double s) const
 double StandardModel::DeltaAlphaL5q() const
 {
     double Mz2 = Mz*Mz;
-    return (DeltaAlphaLepton(Mz2) + dAle5Mz);
+    return (DeltaAlphaLepton(Mz2) + dAl5hMz);
 }
 
 double StandardModel::DeltaAlphaTop(const double s) const
@@ -976,6 +1002,9 @@ double StandardModel::Mw() const
     //          << " [cache:" << schemeMw_cache
     //          << " current:" << schemeMw << "]" << std::endl;
 
+    if (FlagMWinput)
+        return Mw_inp;
+
     if (FlagCacheInStandardModel)
         if (useMw_cache)
             return Mw_cache;
@@ -1012,6 +1041,14 @@ double StandardModel::Mw() const
     Mw_cache = Mw;
     useMw_cache = true;
     return Mw;
+}
+
+double StandardModel::Dalpha5hMz() const
+{
+    if (FlagMWinput){
+        return (myApproximateFormulae->dAlpha5hMw());
+    } else
+        return dAle5Mz;
 }
 
 double StandardModel::cW2(double Mw_i) const

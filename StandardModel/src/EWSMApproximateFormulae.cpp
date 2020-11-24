@@ -71,6 +71,64 @@ double EWSMApproximateFormulae::Mw() const
             + mycache.getSM().getDelMw());
 }
 
+double EWSMApproximateFormulae::dAlpha5hMw() const
+{
+    // Use parametrization for W mass from arXiv:hep-ph/0311148v2 (updates from the journal version)
+    double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;
+    if (mycache.getSM().getMHl() >= 100.0 && mycache.getSM().getMHl() <= UpperBoundForApproximateFormulae) {
+        // applicable for 100 GeV <= mHl <= 1 TeV
+        Mw0 = 80.3779;
+        c1 = 0.05263;
+        c2 = 0.010239;
+        c3 = 0.000954;
+        c4 = -0.000054;
+        c5 = 1.077;
+        c6 = 0.5252;
+        c7 = 0.0700;
+        c8 = 0.004102;
+        c9 = 0.000111;
+        c10 = 0.0774;
+        c11 = 115.0;
+    } else if (mycache.getSM().getMHl() >= 10.0 && mycache.getSM().getMHl() <= 1000.0) {
+        // applicable for 10 GeV <= mHl <= 1 TeV
+        Mw0 = 80.3799;
+        c1 = 0.05427;
+        c2 = 0.008931;
+        c3 = 0.0000882;
+        c4 = 0.000161;
+        c5 = 1.070;
+        c6 = 0.5237;
+        c7 = 0.0679;
+        c8 = 0.00179;
+        c9 = 0.0000664;
+        c10 = 0.0795;
+        c11 = 114.9;
+    } else {
+        std::stringstream out;
+        out << mycache.getSM().getMHl();
+        throw std::runtime_error("ApproximateFormulae::dAlpha5hMw(): mh=" + out.str() + " is out of range");
+    }
+
+    double dH = log(mycache.getSM().getMHl() / 100.0);
+    double dh = pow((mycache.getSM().getMHl() / 100.0), 2.0);
+    double dt = pow((mycache.getSM().getMtpole() / 174.3), 2.0) - 1.0;
+    double dZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+    double dalphas = mycache.getSM().getAlsMz() / 0.119 - 1.0;
+
+    double MwInp = mycache.getSM().getMw();    
+    double Mz2 = (mycache.getSM().getMz())*(mycache.getSM().getMz());
+    double dalphaeLept = mycache.getSM().DeltaAlphaLepton(Mz2);
+    double dalphae;
+    
+    dalphae = ( (Mw0 - MwInp - c1 * dH - c2 * dH * dH + c3 * pow(dH, 4.0)
+            + c4 * (dh - 1.0) + c6 * dt - c7 * dt * dt
+            - c8 * dH * dt + c9 * dh * dt - c10 * dalphas + c11 * dZ
+            + mycache.getSM().getDelMw())/c5 );
+    
+    return 0.05907 * (dalphae + 1.0) - dalphaeLept;
+}
+
+
 double EWSMApproximateFormulae::sin2thetaEff_l(const QCD::lepton l) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
