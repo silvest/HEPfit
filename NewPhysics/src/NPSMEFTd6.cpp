@@ -13781,7 +13781,7 @@ double NPSMEFTd6::deltaGammaH2L2LRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121316. * CiHbox / LambdaNP2
                 -42545.9 * CiHD / LambdaNP2
@@ -13871,7 +13871,7 @@ double NPSMEFTd6::deltaGammaH2e2muRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121269. * CiHbox / LambdaNP2
                 -42454.6 * CiHD / LambdaNP2
@@ -13958,7 +13958,7 @@ double NPSMEFTd6::deltaGammaH2v2vRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121429. * CiHbox / LambdaNP2
                 -30336.3 * CiHD / LambdaNP2
@@ -14045,7 +14045,7 @@ double NPSMEFTd6::deltaGammaH2L2vRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121275. * CiHbox / LambdaNP2
                 -36362.8 * CiHD / LambdaNP2
@@ -14138,7 +14138,7 @@ double NPSMEFTd6::deltaGammaH2L2v2Ratio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121303. * CiHbox / LambdaNP2
                 -36354.8 * CiHD / LambdaNP2
@@ -14230,7 +14230,7 @@ double NPSMEFTd6::deltaGammaH2e2vRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121249. * CiHbox / LambdaNP2
                 -36362.7 * CiHD / LambdaNP2
@@ -14319,7 +14319,7 @@ double NPSMEFTd6::deltaGammaH2mu2vRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121389. * CiHbox / LambdaNP2
                 -36502.4 * CiHD / LambdaNP2
@@ -14408,7 +14408,7 @@ double NPSMEFTd6::deltaGammaH2u2uRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121182. * CiHbox / LambdaNP2
                 -66080. * CiHD / LambdaNP2
@@ -14496,7 +14496,7 @@ double NPSMEFTd6::deltaGammaH2d2dRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121183. * CiHbox / LambdaNP2
                 -55640. * CiHD / LambdaNP2
@@ -14586,7 +14586,7 @@ double NPSMEFTd6::deltaGammaH2u2dRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121187. * CiHbox / LambdaNP2
                 -60971.4 * CiHD / LambdaNP2
@@ -14681,7 +14681,7 @@ double NPSMEFTd6::deltaGammaH2L2uRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121197. * CiHbox / LambdaNP2
                 -54269.5 * CiHD / LambdaNP2
@@ -14775,7 +14775,7 @@ double NPSMEFTd6::deltaGammaH2L2dRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = ( +121251. * CiHbox / LambdaNP2
                 -48965.4 * CiHD / LambdaNP2
@@ -14871,7 +14871,7 @@ double NPSMEFTd6::deltaGammaH2v2uRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121320. * CiHbox / LambdaNP2
                 -48243.6 * CiHD / LambdaNP2
@@ -14962,7 +14962,7 @@ double NPSMEFTd6::deltaGammaH2v2dRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121204. * CiHbox / LambdaNP2
                 -42971.8 * CiHD / LambdaNP2
@@ -15055,7 +15055,7 @@ double NPSMEFTd6::deltaGammaH4LRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121335. * CiHbox / LambdaNP2
                 -43443.3 * CiHD / LambdaNP2
@@ -15145,7 +15145,7 @@ double NPSMEFTd6::deltaGammaH4L2Ratio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121346. * CiHbox / LambdaNP2
                 -43253.2 * CiHD / LambdaNP2
@@ -15233,7 +15233,7 @@ double NPSMEFTd6::deltaGammaH4eRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121278. * CiHbox / LambdaNP2
                 -43230. * CiHD / LambdaNP2
@@ -15320,7 +15320,7 @@ double NPSMEFTd6::deltaGammaH4muRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121334. * CiHbox / LambdaNP2
                 -43294.3 * CiHD / LambdaNP2
@@ -15407,7 +15407,7 @@ double NPSMEFTd6::deltaGammaH4vRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121322. * CiHbox / LambdaNP2
                 -30321.6 * CiHD / LambdaNP2
@@ -15494,7 +15494,7 @@ double NPSMEFTd6::deltaGammaH4uRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121256. * CiHbox / LambdaNP2
                 -67839.8 * CiHD / LambdaNP2
@@ -15583,7 +15583,7 @@ double NPSMEFTd6::deltaGammaH4dRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0083;
         
     dwidth = (+121272. * CiHbox / LambdaNP2
                 -56046.1 * CiHD / LambdaNP2
@@ -15674,7 +15674,7 @@ double NPSMEFTd6::deltaGammaHLvvLRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
     dwidth = (+121237. * CiHbox / LambdaNP2
                 -203587. * CiHD / LambdaNP2
@@ -15760,7 +15760,7 @@ double NPSMEFTd6::deltaGammaHevmuvRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
     dwidth = (+121317. * CiHbox / LambdaNP2
                 -203584. * CiHD / LambdaNP2
@@ -15845,7 +15845,7 @@ double NPSMEFTd6::deltaGammaHudduRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
     dwidth = (+121378. * CiHbox / LambdaNP2
                 -203856. * CiHD / LambdaNP2
@@ -15930,21 +15930,21 @@ double NPSMEFTd6::deltaGammaHLvudRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
-    dwidth = (+121293. * CiHbox / LambdaNP2
-                -203586. * CiHD / LambdaNP2
-                -92714.8 * CiHW / LambdaNP2
-                -380195. * CiHWB / LambdaNP2
-                +37315.2 * CiDHW / LambdaNP2
-                +18267. * CiHL3_11 / LambdaNP2
-                +18170.9 * CiHL3_22 / LambdaNP2
-                +18095.4 * CiHL3_33 / LambdaNP2
-                +40158.6 * CiHQ3_11 / LambdaNP2
-                +40100.9 * CiHQ3_22 / LambdaNP2
-                -4.721 * delta_GF
+    dwidth = (+121307. * CiHbox / LambdaNP2
+                -203763. * CiHD / LambdaNP2
+                -92951.5 * CiHW / LambdaNP2
+                -380363. * CiHWB / LambdaNP2
+                +37386.2 * CiDHW / LambdaNP2
+                +21895.2 * CiHL3_11 / LambdaNP2
+                +21669.7 * CiHL3_22 / LambdaNP2
+                +22068.9 * CiHL3_33 / LambdaNP2
+                +34279.2 * CiHQ3_11 / LambdaNP2
+                +34241.1 * CiHQ3_22 / LambdaNP2
+                -4.716 * delta_GF
                 -13.697 * deltaMwd6()
-                -0.951 * deltaGwd6());
+                -0.951 * deltaGwd6() );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15952,10 +15952,10 @@ double NPSMEFTd6::deltaGammaHLvudRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.395 * deltaMz()
-                +13.93 * deltaMh()
-                +1.863 * deltaaMZ()
-                +0.178 * deltaGmu() ); 
+    dwidth += cHSM * (-12.375 * deltaMz()
+                +13.792 * deltaMh()
+                +1.857 * deltaaMZ()
+                +0.195 * deltaGmu() ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHWWint + eHWWpar;
@@ -16018,7 +16018,7 @@ double NPSMEFTd6::deltaGammaH2udRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
     dwidth = (+121311. * CiHbox / LambdaNP2
                 -199058. * CiHD / LambdaNP2
@@ -16114,7 +16114,7 @@ double NPSMEFTd6::deltaGammaH2LvRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
     dwidth = (+121036. * CiHbox / LambdaNP2
                 -197478. * CiHD / LambdaNP2
@@ -16210,7 +16210,7 @@ double NPSMEFTd6::deltaGammaH2Lv2Ratio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
     dwidth = (+121179. * CiHbox / LambdaNP2
                 -197603. * CiHD / LambdaNP2
@@ -16303,7 +16303,7 @@ double NPSMEFTd6::deltaGammaH2evRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
     dwidth = (+121282. * CiHbox / LambdaNP2
                 -197946. * CiHD / LambdaNP2
@@ -16394,7 +16394,7 @@ double NPSMEFTd6::deltaGammaH2muvRatio1() const
 {
     double dwidth = 0.0;
     
-    double C1 = 0.0;
+    double C1 = 0.0073;
         
     dwidth = (+121159. * CiHbox / LambdaNP2
                 -197630. * CiHD / LambdaNP2
@@ -16491,7 +16491,7 @@ double NPSMEFTd6::deltaGammaH4fRatio1() const
     double wH2L2uSM=0.45029e-05, wH2L2dSM=0.85830e-05, wH2v2uSM=0.93233e-05;
     double wH2v2dSM=0.17794e-04, wH4LSM=0.33973e-06, wH4vSM=0.16884e-05;
     double wH4uSM=0.23669e-05, wH4dSM=0.60254e-05;
-    double wHLvvLSM=0.58098e-04, wHudduSM=0.13384e-03, wHLvudSM=0.39063e-03 ;
+    double wHLvvLSM=0.58098e-04, wHudduSM=0.13384e-03, wHLvudSM=0.34149e-03 ;
     double wH2udSM=0.13711e-03, wH2LvSM=0.27557e-04;
     
     // Sum
@@ -16700,6 +16700,327 @@ double NPSMEFTd6::BrH2l2vRatio() const
 
 }
 
+///////////////////////OTHER DEDICATED (SEMI-)LEPTONIC 4 FERMION DECAYS/////////////////////////
+
+double NPSMEFTd6::GammaHlljjRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHlljjRatio1
+    double width = 1.0;
+    
+    width += deltaGammaHlljjRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHlljjRatio2();    
+        }
+    
+    return width;
+}
+
+double NPSMEFTd6::deltaGammaHlljjRatio1() const
+{   
+    double dwidth = 0.0;
+    
+    double C1 = 0.0083;
+        
+    dwidth = (+121258. * CiHbox / LambdaNP2
+                -51112.8 * CiHD / LambdaNP2
+                -92134.5 * CiHB / LambdaNP2
+                +24384.2 * CiHW / LambdaNP2
+                -172905. * CiHWB / LambdaNP2
+                +35131.3 * CiDHB / LambdaNP2
+                +19419.1 * CiDHW / LambdaNP2
+                +31733.4 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +31758.9 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +3488.8 * CiHQ1_11 / LambdaNP2
+                +3526.22 * CiHQ1_22 / LambdaNP2
+                -27246.6 * CiHe_11 / LambdaNP2
+                -27249. * CiHe_22 / LambdaNP2
+                +6976.44 * CiHu_11 / LambdaNP2
+                +6948.06 * CiHu_22 / LambdaNP2
+                -3489.15 * CiHd_11 / LambdaNP2
+                -3489.15 * CiHd_22 / LambdaNP2
+                +34851.8 * CiHQ3_11 / LambdaNP2
+                +34815.6 * CiHQ3_22 / LambdaNP2
+                -3.688 * delta_GF
+                -0.823 * deltaGzd6()
+                 );
+
+//  Linear contribution from Higgs self-coupling
+    dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    // Add modifications due to small variations of the SM parameters    
+    dwidth += cHSM * (-9.82 * deltaMz()
+                +16.132 * deltaMh()
+                -0.407 * deltaaMZ()
+                +2.558 * deltaGmu() ); 
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
+}
+
+double NPSMEFTd6::deltaGammaHlljjRatio2() const
+{
+    double dwidth = 0.0;
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );        
+    
+}
+
+double NPSMEFTd6::BrHlljjRatio() const
+{
+    double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
+    
+    dGHiR1= deltaGammaHlljjRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
+    
+    if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHlljjRatio2();
+        
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
+        }
+    
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
+}
+
+
+double NPSMEFTd6::GammaHlvjjRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHlvjjRatio1
+    double width = 1.0;
+    
+    width += deltaGammaHlvjjRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHlvjjRatio2();    
+        }
+    
+    return width;
+}
+
+double NPSMEFTd6::deltaGammaHlvjjRatio1() const
+{
+    double dwidth = 0.0;
+    
+    double C1 = 0.0073;
+        
+    dwidth = (+121228. * CiHbox / LambdaNP2
+                -203763. * CiHD / LambdaNP2
+                -92855.3 * CiHW / LambdaNP2
+                -380434. * CiHWB / LambdaNP2
+                +37363.2 * CiDHW / LambdaNP2
+                +32982.5 * CiHL3_11 / LambdaNP2
+                +33289.5 * CiHL3_22 / LambdaNP2
+                +34288.6 * CiHQ3_11 / LambdaNP2
+                +34275.9 * CiHQ3_22 / LambdaNP2
+                -4.722 * delta_GF
+                -13.697 * deltaMwd6()
+                -0.951 * deltaGwd6() );
+
+//  Linear contribution from Higgs self-coupling
+    dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    // Add modifications due to small variations of the SM parameters    
+    dwidth += cHSM * (-12.353 * deltaMz()
+                +13.844 * deltaMh()
+                +1.836 * deltaaMZ()
+                +0.219 * deltaGmu() ); 
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHWWint + eHWWpar;
+    
+    return dwidth;
+}
+
+double NPSMEFTd6::deltaGammaHlvjjRatio2() const
+{
+    double dwidth = 0.0;
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );        
+    
+}
+
+double NPSMEFTd6::BrHlvjjRatio() const
+{
+    double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
+    
+    dGHiR1= deltaGammaHlvjjRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
+    
+    if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHlvjjRatio2();
+        
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
+        }
+    
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
+}
+
+
+double NPSMEFTd6::GammaHlv_lvorjjRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHlv_lvorjjRatio1
+    double width = 1.0;
+    
+    width += deltaGammaHlv_lvorjjRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHlv_lvorjjRatio2();    
+        }
+    
+    return width;
+}
+
+double NPSMEFTd6::deltaGammaHlv_lvorjjRatio1() const
+{   
+    double dwidth = 0.0;
+    
+    // SM decay widths (from MG simulations)
+    double wH2Lv2SM=0.18353e-04, wHevmuvSM=0.19421e-04, wHlvjjSM=0.228e-03;
+    
+    // Sum
+    double wHlv_lvorjjSM = wH2Lv2SM +  wHevmuvSM + wHlvjjSM;
+        
+    dwidth = ( wH2Lv2SM * deltaGammaH2Lv2Ratio1()
+            + wHevmuvSM  * deltaGammaHevmuvRatio1()
+            + wHlvjjSM * deltaGammaHlvjjRatio1() )/wHlv_lvorjjSM;
+    
+    return dwidth;
+}
+
+double NPSMEFTd6::deltaGammaHlv_lvorjjRatio2() const
+{
+    double dwidth = 0.0;
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );        
+    
+}
+
+double NPSMEFTd6::BrHlv_lvorjjRatio() const
+{
+    double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
+    
+    dGHiR1= deltaGammaHlv_lvorjjRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
+    
+    if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHlv_lvorjjRatio2();
+        
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
+        }
+    
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
+}
+
+
+double NPSMEFTd6::GammaHll_vvorjjRatio() const
+{
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHll_vvorjjRatio1
+    double width = 1.0;
+    
+    width += deltaGammaHll_vvorjjRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaHll_vvorjjRatio2();    
+        }
+    
+    return width;
+}
+
+double NPSMEFTd6::deltaGammaHll_vvorjjRatio1() const
+{   
+    double dwidth = 0.0;
+    
+    // SM decay widths (from MG simmulations)
+    double wH2L2v2SM=0.18213e-05, wHlljjSM=0.69061E-05;
+    
+    // Sum
+    double wHll_vvorjjSM = wH2L2v2SM + wHlljjSM;
+        
+    dwidth = ( wH2L2v2SM * deltaGammaH2L2v2Ratio1() 
+            + wHlljjSM  * deltaGammaHlljjRatio1() )/wHll_vvorjjSM;
+    
+    return dwidth;
+}
+
+double NPSMEFTd6::deltaGammaHll_vvorjjRatio2() const
+{
+    double dwidth = 0.0;
+
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth );        
+    
+}
+
+double NPSMEFTd6::BrHll_vvorjjRatio() const
+{
+    double Br = 1.0;
+    double dGHiR1=0.0, dGHiR2=0.0, GHiR=1.0;
+    
+    dGHiR1= deltaGammaHll_vvorjjRatio1();
+    
+    Br += dGHiR1 - dGammaHTotR1;
+    
+    if (FlagQuadraticTerms) {
+        
+        dGHiR2= deltaGammaHll_vvorjjRatio2();
+        
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1,2.0);            
+        }
+    
+    GHiR += dGHiR1 + dGHiR2;        
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
+}
+
+///////////////////////OTHER HIGGS BRANCHING RATIOS///////////////////////// 
 
 double NPSMEFTd6::Br_H_exo() const
 {    

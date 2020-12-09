@@ -776,6 +776,59 @@ double BrHto2e2muRatio::computeThValue()
     return myNPbase->BrH2e2muRatio();
 }
 
+
+
+BrHtolljjRatio::BrHtolljjRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtolljjRatio called with a class whose parent is not NPbase");
+}
+
+double BrHtolljjRatio::computeThValue()
+{
+    return myNPbase->BrHlljjRatio();
+}
+
+
+BrHtolvjjRatio::BrHtolvjjRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtolvjjRatio called with a class whose parent is not NPbase");
+}
+
+double BrHtolvjjRatio::computeThValue()
+{
+    return myNPbase->BrHlvjjRatio();
+}
+
+
+BrHtolv_lvorjjRatio::BrHtolv_lvorjjRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtolv_lvorjjRatio called with a class whose parent is not NPbase");
+}
+
+double BrHtolv_lvorjjRatio::computeThValue()
+{
+    return myNPbase->BrHlv_lvorjjRatio();
+}
+
+
+BrHtoll_vvorjjRatio::BrHtoll_vvorjjRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtoll_vvorjjRatio called with a class whose parent is not NPbase");
+}
+
+double BrHtoll_vvorjjRatio::computeThValue()
+{
+    return myNPbase->BrHll_vvorjjRatio();
+}
+
 // -----------------------------------------------------------------------------
 // Ratios of BR (ratios with SM)
 // -----------------------------------------------------------------------------

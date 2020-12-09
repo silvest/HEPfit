@@ -1947,6 +1947,125 @@ private:
 };
 
 
+/**
+ * @class BrHtolljjRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtolljjRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtolljjRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtolvjjRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtolvjjRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtolvjjRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHtolv_lvorjjRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtolv_lvorjjRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtolv_lvorjjRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHtoll_vvorjjRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoll_vvorjjRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtoll_vvorjjRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
 // -----------------------------------------------------------------------------
 // Ratios of BR (ratios with SM)
 // -----------------------------------------------------------------------------

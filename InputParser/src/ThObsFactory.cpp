@@ -1132,6 +1132,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHto4eRatio"] = boost::factory<BrHto4eRatio*>();
     obsThFactory["BrHto4muRatio"] = boost::factory<BrHto4muRatio*>();
     obsThFactory["BrHto2e2muRatio"] = boost::factory<BrHto2e2muRatio*>();
+    // Other dedicated (semi-)leptonic 4 fermion decays
+    obsThFactory["BrHtolljjRatio"] = boost::factory<BrHtolljjRatio*>();
+    obsThFactory["BrHtolvjjRatio"] = boost::factory<BrHtolvjjRatio*>();
+    obsThFactory["BrHtolv_lvorjjRatio"] = boost::factory<BrHtolv_lvorjjRatio*>();
+    obsThFactory["BrHtoll_vvorjjRatio"] = boost::factory<BrHtoll_vvorjjRatio*>();
     //-----  Ratios of BR (ratios with SM)  ----------
     obsThFactory["BrHtogaga_over_mumu_Ratio"] = boost::factory<BrHtogaga_over_mumu_Ratio*>();
     obsThFactory["BrHtoZga_over_mumu_Ratio"] = boost::factory<BrHtoZga_over_mumu_Ratio*>();

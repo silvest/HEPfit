@@ -3919,6 +3919,119 @@ public:
      * @return Br@f$(H\to 2l2v)@f$/Br@f$(H\to 2l2v)_{\mathrm{SM}}@f$
      */
     virtual double BrH2l2vRatio() const;
+    
+    ///////////////////////OTHER DEDICATED (SEMI-)LEPTONIC 4 FERMION DECAYS/////////////////////////
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to l l j j)@f$ (@f$l=e,\mu@f,~~j\not=b$) in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to l l j j)@f$/@f$\Gamma(H\to l l j j)_{\mathrm{SM}}@f$
+     */
+    double GammaHlljjRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to l l j j)@f$/@f$\Gamma(H\to l l j j)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHlljjRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to l l j j)@f$/@f$\Gamma(H\to l l j j)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHlljjRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to l l j j)@f$/Br@f$(H\to l l j j)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHlljjRatio() const;
+    
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to l \nu j j)@f$ (@f$l=e,\mu@f,~~j\not=b$) in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to l \nu j j)@f$/@f$\Gamma(H\to l \nu j j)_{\mathrm{SM}}@f$
+     */
+    double GammaHlvjjRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to l \nu j j)@f$/@f$\Gamma(H\to l \nu j j)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHlvjjRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to l \nu j j)@f$/@f$\Gamma(H\to l \nu j j)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHlvjjRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to l \nu j j)@f$/Br@f$(H\to l \nu j j)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHlvjjRatio() const;
+    
+
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to l \nu l \nu, l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to l \nu l \nu, l \nu j j)@f$/@f$\Gamma(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
+     */
+    double GammaHlv_lvorjjRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l \nu l \nu, l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to l \nu l \nu, l \nu j j)@f$/@f$\Gamma(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHlv_lvorjjRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l \nu l \nu, l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to l \nu l \nu, l \nu j j)@f$/@f$\Gamma(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHlv_lvorjjRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to l \nu l \nu, l \nu j j)@f$/Br@f$(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHlv_lvorjjRatio() const;
+    
+
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to l l \nu\nu, l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to l l \nu\nu, l l j j)@f$/@f$\Gamma(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
+     */
+    double GammaHll_vvorjjRatio() const;    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l l \nu\nu, l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to l l \nu\nu, l l j j)@f$/@f$\Gamma(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHll_vvorjjRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l l \nu\nu, l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to l l \nu\nu, l l j j)@f$/@f$\Gamma(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHll_vvorjjRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to l l \nu\nu, l l j j)@f$/Br@f$(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHll_vvorjjRatio() const;
         
     ///////////////////////OTHER HIGGS BRANCHING RATIOS/////////////////////////    
 
