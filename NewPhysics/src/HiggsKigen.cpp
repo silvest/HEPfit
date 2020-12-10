@@ -511,8 +511,34 @@ double HiggsKigen::obliqueU() const
 double HiggsKigen::muggH(const double sqrt_s) const
 {
     double mu = 1.0;
-    mu = (computeKg() * computeKg());
-    return (mu*(1.0 + eggFint + eggFpar));
+    
+    if (FlagKiLoop) {
+        
+        // H->gg width and ggH cross section assumed to scale in the same way ~Kg^2
+        mu = (computeKg() * computeKg());
+
+    } else {
+        
+        // Do not use the expression for Kg, which is computed from the width.
+        // Use instead the following
+        if (sqrt_s == 1.96){
+        // Exact expression not available for Tevatron. Assume Kt^2 scaling.
+            mu = (computeKt() * computeKt());
+            
+        } else {
+            
+            double sigmatt_SM = trueSM.computeSigmaggH_tt(sqrt_s);
+            double sigmabb_SM = trueSM.computeSigmaggH_bb(sqrt_s);
+            double sigmatb_SM = trueSM.computeSigmaggH_tb(sqrt_s);
+            
+            mu = (computeKt() * computeKt() * sigmatt_SM
+                + computeKb() * computeKb() * sigmabb_SM
+                + computeKt() * computeKb() * sigmatb_SM)
+                / (sigmatt_SM + sigmabb_SM + sigmatb_SM);
+        }
+    }
+    
+    return (mu*(1.0 + eggFint + eggFpar));    
 }
 
 double HiggsKigen::muVBF(const double sqrt_s) const
