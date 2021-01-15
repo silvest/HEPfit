@@ -1228,10 +1228,10 @@ bool NPSMEFTd6::PostUpdate()
 //  before using them in any calculation
     if (FlagRGEciLLA) {
         // Encode the log dependence in cRGE
-        cRGE = -log(Lambda_NP/mtpole)/16.0/M_PI/M_PI/LambdaNP2;
+        cRGE = -log(Lambda_NP/mtpole)/16.0/M_PI/M_PI;
         // And call the function that modifies the CiX in the 1st leading-log approximation, according to the d6 SMEFT anomalous dimensions
         RGd6SMEFTlogs();
-        
+                
     } else {
         cRGE = 0.0;
     }
