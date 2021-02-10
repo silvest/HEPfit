@@ -3640,8 +3640,8 @@ double NPSMEFTd6::obliqueY() const
 
 double NPSMEFTd6::deltaMz() const
 {
-    //  Ref. value from SM EW fit 2018
-    return ( (Mz - 91.1882) / 91.1882 );
+    //  Ref. value used in MG simulations
+    return ( (Mz - 91.1879) / 91.1879 );
 }
     
 double NPSMEFTd6::deltaMz2() const
@@ -3651,7 +3651,7 @@ double NPSMEFTd6::deltaMz2() const
         
 double NPSMEFTd6::deltaMh() const
 {
-    //  Ref. value from SM EW fit 2018
+    //  Ref. value used in MG simulations
     return ( (mHl - 125.1) / 125.1 );
 }
     
@@ -3662,8 +3662,8 @@ double NPSMEFTd6::deltaMh2() const
     
 double NPSMEFTd6::deltamt() const
 {
-    //  Ref. value from SM EW fit 2018
-    return ( (mtpole - 173.2) / 173.2 );
+    //  Ref. value used in MG simulations
+    return ( (mtpole - 173.0) / 173.0 );
 }
     
 double NPSMEFTd6::deltamt2() const
@@ -3673,7 +3673,7 @@ double NPSMEFTd6::deltamt2() const
 
 double NPSMEFTd6::deltamb() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    //  Ref. value used in MG simulations
     return ( ((quarks[BOTTOM].getMass()) - 4.18) / 4.18 );
 }
     
@@ -3684,7 +3684,7 @@ double NPSMEFTd6::deltamb2() const
     
 double NPSMEFTd6::deltamc() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    //  Ref. value used in MG simulations
     return ( ((quarks[CHARM].getMass()) - 1.275) / 1.275 );
 }
     
@@ -3695,8 +3695,8 @@ double NPSMEFTd6::deltamc2() const
    
 double NPSMEFTd6::deltamtau() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
-    return ( ((leptons[TAU].getMass()) - 1.77686) / 1.77686 );
+    //  Ref. value used in MG simulations
+    return ( ((leptons[TAU].getMass()) - 1.77682) / 1.77682 );
 }
     
 double NPSMEFTd6::deltamtau2() const
@@ -3706,8 +3706,8 @@ double NPSMEFTd6::deltamtau2() const
  
 double NPSMEFTd6::deltaGmu() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
-    return ( (GF - 1.1663787/100000.0 ) / (1.1663787/100000.0) );
+    //  Ref. value used in MG simulations
+    return ( (GF - 1.16637/100000.0 ) / (1.16637/100000.0) );
 }
     
 double NPSMEFTd6::deltaGmu2() const
@@ -3717,8 +3717,8 @@ double NPSMEFTd6::deltaGmu2() const
     
 double NPSMEFTd6::deltaaMZ() const
 {
-    //  Ref. value from SM EW fit 2018
-    return ( (aleMz - 0.007754941997887603) / 0.007754941997887603 );
+    //  Ref. value used in MG simulations
+    return ( (aleMz - 0.007754633699856456) / 0.007754633699856456 );
 }
     
 double NPSMEFTd6::deltaaMZ2() const
@@ -3728,7 +3728,7 @@ double NPSMEFTd6::deltaaMZ2() const
 
 double NPSMEFTd6::deltaa0() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    //  Ref. value used in MG simulations
     return ( (aleMz - 0.0072973525664) / 0.0072973525664 );
 }
     
@@ -3739,11 +3739,23 @@ double NPSMEFTd6::deltaa02() const
     
 double NPSMEFTd6::deltaaSMZ() const
 {
-    //  Ref. value from SM EW fit 2018
+    //  Ref. value used in MG simulations
     return ( (AlsMz - 0.1180) / 0.1180 );
 }
     
 double NPSMEFTd6::deltaaSMZ2() const
+{
+    return ( 0.0 );
+}
+
+double NPSMEFTd6::deltaMw() const
+{
+    //  Ref. value used in MG simulations
+    //  (Value chosen to produce the same tree level SM pars as in the Alpha scheme with the input pars above)
+    return ( (Mz - 79.96717329554225) / 79.96717329554225 );
+}
+    
+double NPSMEFTd6::deltaMw2() const
 {
     return ( 0.0 );
 }
@@ -4574,8 +4586,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -3.498 * deltaMwd6())
                 +cWsch*(-13112. * (1. + eVBF_2_HD ) * CiHD / LambdaNP2
                 +21988.3 * (1. + eVBF_2_HWB ) * CiHWB / LambdaNP2
-                -3.003 * (1. + eVBF_2_DeltaGF ) * delta_GF
-                +3.78 * deltaMwd6())
+                -3.003 * (1. + eVBF_2_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4610,8 +4621,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -3.253 * deltaMwd6())
                 +cWsch*(-11689.4 * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
                 +23083.4 * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
-                -3.004 * (1. + eVBF_78_DeltaGF ) * delta_GF
-                +3.902 * deltaMwd6())
+                -3.004 * (1. + eVBF_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4646,8 +4656,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -3.347 * deltaMwd6())
                 +cWsch*(-11741.3 * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
                 +22626.6 * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
-                -3.003 * (1. + eVBF_78_DeltaGF ) * delta_GF
-                +3.769 * deltaMwd6())
+                -3.003 * (1. + eVBF_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4681,8 +4690,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
                 -3.247 * deltaMwd6())
                 +cWsch*(-11844.9 * (1. + eVBF_1314_HD ) * CiHD / LambdaNP2
                 +21545. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
-                -2.999 * (1. + eVBF_1314_DeltaGF ) * delta_GF
-                +3.888 * deltaMwd6())
+                -2.999 * (1. + eVBF_1314_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4829,8 +4837,7 @@ double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
                 -5.764 * deltaMwd6())
                 +cWsch*(-131254. * CiHD / LambdaNP2
                 -111576. * CiHWB / LambdaNP2
-                -3.998 * delta_GF
-                -2.433 * deltaMwd6())
+                -3.998 * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8066,8 +8073,7 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 -2.258 * deltaMwd6())
                 +cWsch*(-30311.6 * (1. + eWH_2_HD ) * CiHD / LambdaNP2
                 +0. * (1. + eWH_2_HWB ) * CiHWB / LambdaNP2
-                -2. * (1. + eWH_2_DeltaGF ) * delta_GF
-                +3.745 * deltaMwd6())
+                -2. * (1. + eWH_2_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8092,8 +8098,7 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 -2.217 * deltaMwd6())
                 +cWsch*(-30300.4 * (1. + eWH_78_HD ) * CiHD / LambdaNP2
                 +0. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
-                -1.999 * (1. + eWH_78_DeltaGF ) * delta_GF
-                +3.783 * deltaMwd6())
+                -1.999 * (1. + eWH_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8118,8 +8123,7 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 -2.179 * deltaMwd6())
                 +cWsch*(-30310.6 * (1. + eWH_78_HD ) * CiHD / LambdaNP2
                 +0. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
-                -1.999 * (1. + eWH_78_DeltaGF ) * delta_GF
-                +3.819 * deltaMwd6())
+                -1.999 * (1. + eWH_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8144,8 +8148,7 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
                 -2.139 * deltaMwd6())
                 +cWsch*(-30285.8 * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
                 +0. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
-                -1.999 * (1. + eWH_1314_DeltaGF ) * delta_GF
-                +3.857 * deltaMwd6())
+                -1.999 * (1. + eWH_1314_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8264,8 +8267,7 @@ double NPSMEFTd6::muWHpT250(const double sqrt_s) const
                 -1.986 * deltaMwd6())
                 +cWsch*(-30279.5 * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
                 +0. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
-                -2. * (1. + eWH_1314_DeltaGF ) * delta_GF
-                +4.013 * deltaMwd6())
+                -2. * (1. + eWH_1314_DeltaGF ) * delta_GF)
                 ;
 
         if (FlagQuadraticTerms) {

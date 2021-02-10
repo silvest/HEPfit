@@ -1485,6 +1485,18 @@ public:
      */
     virtual double deltaaSMZ2() const;
     
+    /**
+     * @brief The relative correction to the mass of the @f$W@f$ boson, @f$\delta M_W/M_W@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$\delta M_W/M_W@f$
+     */
+    virtual double deltaMw() const;
+    
+    /**
+     * @brief The relative correction to the mass of the @f$W@f$ boson squared, @f$(\delta M_W/M_W)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
+     * @return @f$(\delta M_W/M_W)^2@f$
+     */
+    virtual double deltaMw2() const;
+    
     ////////////////////////////////////////////////////////////////////////
     
     /**
