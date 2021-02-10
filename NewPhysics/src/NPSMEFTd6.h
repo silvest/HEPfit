@@ -1004,6 +1004,13 @@
  *   Only valid working exactly inside the Warsaw basis. Logs evaluated at the top mass scale. (NOT ACTIVE YET. PLACEHOLDER.)
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%MWinput</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
+ *   instead of the electromagnetic constant parameter %dAle5Mz. 
+ *   The default value is FALSE. This flag must be used together with the flag of the same name in StandardModel</td>
+ * </tr>
  * 
  * 
  * </table>
@@ -6868,6 +6875,8 @@ protected:
 
     double cRGE;///< Parameter to control the inclusion of log-enhanced contributions via RG effects. If activated then it takes the value multiplying the anomalous dimension: \f$-\log(\Lambda/\mu)/16 \pi^2 \Lambda^2\f$
     
+    double cAsch,cWsch;///< Parameters to control the SM EW input scheme: Alpha or MW.
+    
     double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
     double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
     double Yukd,Yuks,Yukb;///< SM d-quark Yukawas
@@ -6953,6 +6962,7 @@ private:
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
     bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
     bool FlagRGEciLLA; ///< A flag that is TRUE if including log-enhanced 1-loop corrections propotional to the dim-6 Wilson coefficients. See comment in documentation above.
+    bool FlagMWinput; ///< A boolean for the model flag %MWinput. 
     
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour

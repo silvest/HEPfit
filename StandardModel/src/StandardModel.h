@@ -328,7 +328,7 @@ class EWSMTwoFermionsLEP2;
  * <tr>
  *   <td class="mod_name">%MWinput</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This auxiliary flag is used for using the W mass as an SM input, 
+ *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
  * instead of the electromagnetic constant parameter %dAle5Mz. The default value is FALSE.</td>
  * </tr>
  * <tr>
