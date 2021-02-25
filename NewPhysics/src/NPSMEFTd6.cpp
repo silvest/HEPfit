@@ -337,6 +337,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagLoopHd6 = false;
     FlagLoopH3d6Quad = false;
     FlagRGEciLLA = false;
+    FlagMWinput = false;
     setModelLinearized();
     
     w_WW = gsl_integration_cquad_workspace_alloc(100);
@@ -997,6 +998,16 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         CdH_12i = 0.0;
         CdH_13i = 0.0;
         CdH_23i = 0.0;        
+    }
+    
+    if (FlagMWinput){
+    //  MW scheme
+        cAsch = 0.;
+        cWsch = 1.;
+    } else {
+    //  ALpha scheme
+        cAsch = 1.;
+        cWsch = 0.;        
     }
 }
 
@@ -2847,6 +2858,9 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
     } else if (name.compare("RGEciLLA") == 0) {        
         FlagRGEciLLA = value;
         res = true;
+    } else if (name.compare("MWinput") == 0) {        
+        FlagMWinput = value;
+        res = true;
     } else
         res = NPbase::setFlag(name, value);
     
@@ -3626,8 +3640,8 @@ double NPSMEFTd6::obliqueY() const
 
 double NPSMEFTd6::deltaMz() const
 {
-    //  Ref. value from SM EW fit 2018
-    return ( (Mz - 91.1882) / 91.1882 );
+    //  Ref. value used in MG simulations
+    return ( (Mz - 91.1879) / 91.1879 );
 }
     
 double NPSMEFTd6::deltaMz2() const
@@ -3637,7 +3651,7 @@ double NPSMEFTd6::deltaMz2() const
         
 double NPSMEFTd6::deltaMh() const
 {
-    //  Ref. value from SM EW fit 2018
+    //  Ref. value used in MG simulations
     return ( (mHl - 125.1) / 125.1 );
 }
     
@@ -3648,8 +3662,8 @@ double NPSMEFTd6::deltaMh2() const
     
 double NPSMEFTd6::deltamt() const
 {
-    //  Ref. value from SM EW fit 2018
-    return ( (mtpole - 173.2) / 173.2 );
+    //  Ref. value used in MG simulations
+    return ( (mtpole - 173.0) / 173.0 );
 }
     
 double NPSMEFTd6::deltamt2() const
@@ -3659,7 +3673,7 @@ double NPSMEFTd6::deltamt2() const
 
 double NPSMEFTd6::deltamb() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    //  Ref. value used in MG simulations
     return ( ((quarks[BOTTOM].getMass()) - 4.18) / 4.18 );
 }
     
@@ -3670,7 +3684,7 @@ double NPSMEFTd6::deltamb2() const
     
 double NPSMEFTd6::deltamc() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    //  Ref. value used in MG simulations
     return ( ((quarks[CHARM].getMass()) - 1.275) / 1.275 );
 }
     
@@ -3681,8 +3695,8 @@ double NPSMEFTd6::deltamc2() const
    
 double NPSMEFTd6::deltamtau() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
-    return ( ((leptons[TAU].getMass()) - 1.77686) / 1.77686 );
+    //  Ref. value used in MG simulations
+    return ( ((leptons[TAU].getMass()) - 1.77682) / 1.77682 );
 }
     
 double NPSMEFTd6::deltamtau2() const
@@ -3692,8 +3706,8 @@ double NPSMEFTd6::deltamtau2() const
  
 double NPSMEFTd6::deltaGmu() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
-    return ( (GF - 1.1663787/100000.0 ) / (1.1663787/100000.0) );
+    //  Ref. value used in MG simulations
+    return ( (GF - 1.16637/100000.0 ) / (1.16637/100000.0) );
 }
     
 double NPSMEFTd6::deltaGmu2() const
@@ -3703,8 +3717,8 @@ double NPSMEFTd6::deltaGmu2() const
     
 double NPSMEFTd6::deltaaMZ() const
 {
-    //  Ref. value from SM EW fit 2018
-    return ( (aleMz - 0.007754941997887603) / 0.007754941997887603 );
+    //  Ref. value used in MG simulations
+    return ( (aleMz - 0.007754633699856456) / 0.007754633699856456 );
 }
     
 double NPSMEFTd6::deltaaMZ2() const
@@ -3714,7 +3728,7 @@ double NPSMEFTd6::deltaaMZ2() const
 
 double NPSMEFTd6::deltaa0() const
 {
-    //  Ref. value fixed in SM EW fit 2018: from PDG 2018
+    //  Ref. value used in MG simulations
     return ( (aleMz - 0.0072973525664) / 0.0072973525664 );
 }
     
@@ -3725,11 +3739,23 @@ double NPSMEFTd6::deltaa02() const
     
 double NPSMEFTd6::deltaaSMZ() const
 {
-    //  Ref. value from SM EW fit 2018
+    //  Ref. value used in MG simulations
     return ( (AlsMz - 0.1180) / 0.1180 );
 }
     
 double NPSMEFTd6::deltaaSMZ2() const
+{
+    return ( 0.0 );
+}
+
+double NPSMEFTd6::deltaMw() const
+{
+    //  Ref. value used in MG simulations
+    //  (Value chosen to produce the same tree level SM pars as in the Alpha scheme with the input pars above)
+    return ( (Mz - 79.96717329554225) / 79.96717329554225 );
+}
+    
+double NPSMEFTd6::deltaMw2() const
 {
     return ( 0.0 );
 }
@@ -4540,28 +4566,27 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu += 
-                +121407. * (1. + eVBF_2_Hbox ) * CiHbox / LambdaNP2
-                // -7918.38 * (1. + eVBF_2_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // -11338.2 * (1. + eVBF_2_Hu_11 ) * CiHu_11 / LambdaNP2
-                // +3533.68 * (1. + eVBF_2_Hd_11 ) * CiHd_11 / LambdaNP2
-                // -226310. * (1. + eVBF_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -15025.1 * (1. + eVBF_2_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                -1143.46 * (1. + eVBF_2_HQ1_11 ) * CiHQ1_22 / LambdaNP2
-                -10469.5 * (1. + eVBF_2_Hu_11 ) * CiHu_11 / LambdaNP2
-                -646.127 * (1. + eVBF_2_Hu_11 ) * CiHu_22 / LambdaNP2
-                +3085.53 * (1. + eVBF_2_Hd_11 ) * CiHd_11 / LambdaNP2
-                +478.643 * (1. + eVBF_2_Hd_11 ) * CiHd_22 / LambdaNP2
-                -209041. * (1. + eVBF_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -17020.1 * (1. + eVBF_2_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -170126. * (1. + eVBF_2_HD ) * CiHD / LambdaNP2
-                +5964.55 * (1. + eVBF_2_HB ) * CiHB / LambdaNP2
-                -57324.7 * (1. + eVBF_2_HW ) * CiHW / LambdaNP2
-                -430723. * (1. + eVBF_2_HWB ) * CiHWB / LambdaNP2
-                +66725.6 * (1. + eVBF_2_HG ) * CiHG / LambdaNP2
-                +840.754 * (1. + eVBF_2_DHB ) * CiDHB / LambdaNP2
-                -31784.1 * (1. + eVBF_2_DHW ) * CiDHW / LambdaNP2
-                -4.565 * (1. + eVBF_2_DeltaGF ) * delta_GF
-                -3.481 * deltaMwd6()
+                +121321. * (1. + eVBF_2_Hbox ) * CiHbox / LambdaNP2
+                +5770.95 * (1. + eVBF_2_HB ) * CiHB / LambdaNP2
+                -51626.2 * (1. + eVBF_2_HW ) * CiHW / LambdaNP2
+                +57783.8 * (1. + eVBF_2_HG ) * CiHG / LambdaNP2
+                +771.294 * (1. + eVBF_2_DHB ) * CiDHB / LambdaNP2
+                -31008.9 * (1. + eVBF_2_DHW ) * CiDHW / LambdaNP2
+                -15060.5 * (1. + eVBF_2_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                -1122.91 * (1. + eVBF_2_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                -9988.6 * (1. + eVBF_2_Hu_11 ) * CiHu_11 / LambdaNP2
+                -629.4 * (1. + eVBF_2_Hu_11 ) * CiHu_22 / LambdaNP2
+                +2994.79 * (1. + eVBF_2_Hd_11 ) * CiHd_11 / LambdaNP2
+                +467.105 * (1. + eVBF_2_Hd_11 ) * CiHd_22 / LambdaNP2
+                -205793. * (1. + eVBF_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                -16751.6 * (1. + eVBF_2_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-170868. * (1. + eVBF_2_HD ) * CiHD / LambdaNP2
+                -322062. * (1. + eVBF_2_HWB ) * CiHWB / LambdaNP2
+                -4.567 * (1. + eVBF_2_DeltaGF ) * delta_GF
+                -3.498 * deltaMwd6())
+                +cWsch*(-13112. * (1. + eVBF_2_HD ) * CiHD / LambdaNP2
+                +21988.3 * (1. + eVBF_2_HWB ) * CiHWB / LambdaNP2
+                -3.003 * (1. + eVBF_2_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4576,28 +4601,27 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         C1 = 0.0065;
 
         mu += 
-                +121051. * (1. + eVBF_78_Hbox ) * CiHbox / LambdaNP2
-                // +13917.1 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // -27887.4 * (1. + eVBF_78_Hu_11 ) * CiHu_11 / LambdaNP2
-                // +8808.85 * (1. + eVBF_78_Hd_11 ) * CiHd_11 / LambdaNP2
-                // -411533. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +15801.9 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                -2983.13 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_22 / LambdaNP2
-                -25449.7 * (1. + eVBF_78_Hu_11 ) * CiHu_11 / LambdaNP2
-                -2415.43 * (1. + eVBF_78_Hu_11 ) * CiHu_22 / LambdaNP2
-                +7286.31 * (1. + eVBF_78_Hd_11 ) * CiHd_11 / LambdaNP2
-                +1533.08 * (1. + eVBF_78_Hd_11 ) * CiHd_22 / LambdaNP2
-                -358409. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -52744. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -166078. * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
-                -782.529 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
-                -87956.6 * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
-                -335811. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
-                -154983. * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
-                -358.675 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
-                -54656.4 * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
-                -4.529 * (1. + eVBF_78_DeltaGF ) * delta_GF
-                -3.22 * deltaMwd6()
+                +121090. * (1. + eVBF_78_Hbox ) * CiHbox / LambdaNP2
+                -810.554 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
+                -86724.3 * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
+                -155709. * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
+                -369.549 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
+                -54328.9 * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
+                +15633.8 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                -2932.56 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                -24997.3 * (1. + eVBF_78_Hu_11 ) * CiHu_11 / LambdaNP2
+                -2380.75 * (1. + eVBF_78_Hu_11 ) * CiHu_22 / LambdaNP2
+                +7157.18 * (1. + eVBF_78_Hd_11 ) * CiHd_11 / LambdaNP2
+                +1508.92 * (1. + eVBF_78_Hd_11 ) * CiHd_22 / LambdaNP2
+                -355189. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                -52211.2 * (1. + eVBF_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-166792. * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
+                -316769. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
+                -4.542 * (1. + eVBF_78_DeltaGF ) * delta_GF
+                -3.253 * deltaMwd6())
+                +cWsch*(-11689.4 * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
+                +23083.4 * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
+                -3.004 * (1. + eVBF_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4612,28 +4636,27 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         C1 = 0.0065;
 
         mu += 
-                +121093. * (1. + eVBF_78_Hbox ) * CiHbox / LambdaNP2
-                // +13149.7 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // -28485.4 * (1. + eVBF_78_Hu_11 ) * CiHu_11 / LambdaNP2
-                // +9185.17 * (1. + eVBF_78_Hd_11 ) * CiHd_11 / LambdaNP2
-                // -423538. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +15361.7 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                -3155.66 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_22 / LambdaNP2
-                -25858.6 * (1. + eVBF_78_Hu_11 ) * CiHu_11 / LambdaNP2
-                -2624.34 * (1. + eVBF_78_Hu_11 ) * CiHu_22 / LambdaNP2
-                +7540.2 * (1. + eVBF_78_Hd_11 ) * CiHd_11 / LambdaNP2
-                +1653.45 * (1. + eVBF_78_Hd_11 ) * CiHd_22 / LambdaNP2
-                -366169. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -56830.7 * (1. + eVBF_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -166165. * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
-                -677.001 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
-                -86392.8 * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
-                -334578. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
-                -136135. * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
-                -442.73 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
-                -56772.8 * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
-                -4.528 * (1. + eVBF_78_DeltaGF ) * delta_GF
-                -3.138 * deltaMwd6()
+                +121100. * (1. + eVBF_78_Hbox ) * CiHbox / LambdaNP2
+                -684.545 * (1. + eVBF_78_HB ) * CiHB / LambdaNP2
+                -85129.2 * (1. + eVBF_78_HW ) * CiHW / LambdaNP2
+                -136876. * (1. + eVBF_78_HG ) * CiHG / LambdaNP2
+                -456.67 * (1. + eVBF_78_DHB ) * CiDHB / LambdaNP2
+                -56410.8 * (1. + eVBF_78_DHW ) * CiDHW / LambdaNP2
+                +15225.3 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                -3114.83 * (1. + eVBF_78_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                -25391.2 * (1. + eVBF_78_Hu_11 ) * CiHu_11 / LambdaNP2
+                -2583.43 * (1. + eVBF_78_Hu_11 ) * CiHu_22 / LambdaNP2
+                +7410.87 * (1. + eVBF_78_Hd_11 ) * CiHd_11 / LambdaNP2
+                +1629.31 * (1. + eVBF_78_Hd_11 ) * CiHd_22 / LambdaNP2
+                -363032. * (1. + eVBF_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                -56263.7 * (1. + eVBF_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-166792. * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
+                -317073. * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
+                -4.541 * (1. + eVBF_78_DeltaGF ) * delta_GF
+                -3.347 * deltaMwd6())
+                +cWsch*(-11741.3 * (1. + eVBF_78_HD ) * CiHD / LambdaNP2
+                +22626.6 * (1. + eVBF_78_HWB ) * CiHWB / LambdaNP2
+                -3.003 * (1. + eVBF_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4647,28 +4670,27 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         C1 = 0.0064;
 
         mu += 
-                +121364. * (1. + eVBF_1314_Hbox ) * CiHbox / LambdaNP2
-                // +10478.9 * (1. + eVBF_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // -30749.7 * (1. + eVBF_1314_Hu_11 ) * CiHu_11 / LambdaNP2
-                // +10580.6 * (1. + eVBF_1314_Hd_11 ) * CiHd_11 / LambdaNP2
-                // -466824. * (1. + eVBF_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +13714.6 * (1. + eVBF_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                -3967.84 * (1. + eVBF_1314_HQ1_11 ) * CiHQ1_22 / LambdaNP2
-                -27247.9 * (1. + eVBF_1314_Hu_11 ) * CiHu_11 / LambdaNP2
-                -3465.43 * (1. + eVBF_1314_Hu_11 ) * CiHu_22 / LambdaNP2
-                +8452.5 * (1. + eVBF_1314_Hd_11 ) * CiHd_11 / LambdaNP2
-                +2141.59 * (1. + eVBF_1314_Hd_11 ) * CiHd_22 / LambdaNP2
-                -393000. * (1. + eVBF_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -73110. * (1. + eVBF_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -166157. * (1. + eVBF_1314_HD ) * CiHD / LambdaNP2
-                -263.276 * (1. + eVBF_1314_HB ) * CiHB / LambdaNP2
-                -82089.1 * (1. + eVBF_1314_HW ) * CiHW / LambdaNP2
-                -331549. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
-                -89770.1 * (1. + eVBF_1314_HG ) * CiHG / LambdaNP2
-                -790.619 * (1. + eVBF_1314_DHB ) * CiDHB / LambdaNP2
-                -64274.3 * (1. + eVBF_1314_DHW ) * CiDHW / LambdaNP2
-                -4.529 * (1. + eVBF_1314_DeltaGF ) * delta_GF
-                -3.109 * deltaMwd6()
+                +121332. * (1. + eVBF_1314_Hbox ) * CiHbox / LambdaNP2
+                -283.27 * (1. + eVBF_1314_HB ) * CiHB / LambdaNP2
+                -80829.5 * (1. + eVBF_1314_HW ) * CiHW / LambdaNP2
+                -90637.9 * (1. + eVBF_1314_HG ) * CiHG / LambdaNP2
+                -769.333 * (1. + eVBF_1314_DHB ) * CiDHB / LambdaNP2
+                -63886.1 * (1. + eVBF_1314_DHW ) * CiDHW / LambdaNP2
+                +13466.3 * (1. + eVBF_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                -3912.24 * (1. + eVBF_1314_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                -26789.8 * (1. + eVBF_1314_Hu_11 ) * CiHu_11 / LambdaNP2
+                -3408.16 * (1. + eVBF_1314_Hu_11 ) * CiHu_22 / LambdaNP2
+                +8302.17 * (1. + eVBF_1314_Hd_11 ) * CiHd_11 / LambdaNP2
+                +2107.16 * (1. + eVBF_1314_Hd_11 ) * CiHd_22 / LambdaNP2
+                -389656. * (1. + eVBF_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                -72334.1 * (1. + eVBF_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-166707. * (1. + eVBF_1314_HD ) * CiHD / LambdaNP2
+                -317068. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
+                -4.532 * (1. + eVBF_1314_DeltaGF ) * delta_GF
+                -3.247 * deltaMwd6())
+                +cWsch*(-11844.9 * (1. + eVBF_1314_HD ) * CiHD / LambdaNP2
+                +21545. * (1. + eVBF_1314_HWB ) * CiHWB / LambdaNP2
+                -2.999 * (1. + eVBF_1314_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4677,6 +4699,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 14.0) {
+        
+        // Only Alpha scheme
         
         C1 = 0.0064;
 
@@ -4713,6 +4737,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
    
     } else if (sqrt_s == 27.0) {
         
+        // Only Alpha scheme
+        
         C1 = 0.0062; // From arXiv: 1902.00134
 
         mu += 
@@ -4739,6 +4765,8 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 100.0) {
+        
+        // Only Alpha scheme
         
         C1 = 0.0; // N.A.
 
@@ -4795,19 +4823,21 @@ double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
         C1 = 0.0064;
 
         mu += 
-                +121340. * CiHbox / LambdaNP2
-                // -501680. * CiHQ3_11 / LambdaNP2
-                -466465. * CiHQ3_11 / LambdaNP2
-                -35489.7 * CiHQ3_22 / LambdaNP2
-                -203726. * CiHD / LambdaNP2
-                +11863.7 * CiHB / LambdaNP2
-                -132056. * CiHW / LambdaNP2
-                -269934. * CiHWB / LambdaNP2
-                -18895.4 * CiDHB / LambdaNP2
-                -69390.3 * CiDHW / LambdaNP2
-                +23887.4 * CiW / LambdaNP2
-                -4.71 * delta_GF
-                -5.756 * deltaMwd6()
+                +121253. * CiHbox / LambdaNP2
+                +11791.5 * CiHB / LambdaNP2
+                -130714. * CiHW / LambdaNP2
+                -18848.5 * CiDHB / LambdaNP2
+                -69191.8 * CiDHW / LambdaNP2
+                +23472.1 * CiW / LambdaNP2
+                -461704. * CiHQ3_11 / LambdaNP2
+                -35103.4 * CiHQ3_22 / LambdaNP2
+                +cAsch*(-203622. * CiHD / LambdaNP2
+                -270077. * CiHWB / LambdaNP2
+                -4.714 * delta_GF
+                -5.764 * deltaMwd6())
+                +cWsch*(-131254. * CiHD / LambdaNP2
+                -111576. * CiHWB / LambdaNP2
+                -3.998 * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4833,6 +4863,8 @@ double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
 
 double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 {
+    
+    //  Only Alpha scheme
     double mu = 1.0;
     
     double C1 = 0.0;
@@ -5135,6 +5167,9 @@ double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const dou
 
 double NPSMEFTd6::mueeHvv(const double sqrt_s) const
 {
+    
+    //  Only Alpha scheme
+    
     double mu = 1.0;
     
     double C1 = 0.0;
@@ -5470,6 +5505,9 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
 
 double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
+    
+    //  Only Alpha scheme
+    
     double mu = 1.0;
     
     double C1 = 0.0;    
@@ -6498,6 +6536,9 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
 
 double NPSMEFTd6::mueeZBF(const double sqrt_s) const
 {
+    
+    //  Only Alpha scheme
+    
     double mu = 1.0;
     
     double C1 = 0.0;
@@ -6812,6 +6853,9 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
 
 double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
+    
+    //  Only Alpha scheme
+    
     double mu = 1.0;
     
     double C1 = 0.0;
@@ -7797,6 +7841,9 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
 
 double NPSMEFTd6::muepWBF(const double sqrt_s) const
 {
+    
+    //  Only Alpha scheme
+    
     double mu = 1.0;
     
     if (sqrt_s == 1.3) {
@@ -7888,6 +7935,9 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
 
 double NPSMEFTd6::muepZBF(const double sqrt_s) const
 {
+    
+    //  Only Alpha scheme
+    
     double mu = 1.0;
 
     if (sqrt_s == 1.3) {
@@ -8012,16 +8062,18 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu += 
-                +121245. * (1. + eWH_2_Hbox ) * CiHbox / LambdaNP2
-                // +1568070. * (1. + eWH_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +1557954. * (1. + eWH_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +10407.9 * (1. + eWH_2_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -160295. * (1. + eWH_2_HD ) * CiHD / LambdaNP2
-                +861316. * (1. + eWH_2_HW ) * CiHW / LambdaNP2
-                -284950. * (1. + eWH_2_HWB ) * CiHWB / LambdaNP2
-                +134946. * (1. + eWH_2_DHW ) * CiDHW / LambdaNP2
+                +121231. * (1. + eWH_2_Hbox ) * CiHbox / LambdaNP2
+                +855498. * (1. + eWH_2_HW ) * CiHW / LambdaNP2
+                +135077. * (1. + eWH_2_DHW ) * CiDHW / LambdaNP2
+                +1554889. * (1. + eWH_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +10415.1 * (1. + eWH_2_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-160273. * (1. + eWH_2_HD ) * CiHD / LambdaNP2
+                -284953. * (1. + eWH_2_HWB ) * CiHWB / LambdaNP2
                 -3.288 * (1. + eWH_2_DeltaGF ) * delta_GF
-                -2.199 * deltaMwd6()
+                -2.258 * deltaMwd6())
+                +cWsch*(-30311.6 * (1. + eWH_2_HD ) * CiHD / LambdaNP2
+                +0. * (1. + eWH_2_HWB ) * CiHWB / LambdaNP2
+                -2. * (1. + eWH_2_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8035,16 +8087,18 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         C1 = 0.0106;
 
         mu += 
-                +121219. * (1. + eWH_78_Hbox ) * CiHbox / LambdaNP2
-                // +1793453. * (1. + eWH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +1692523. * (1. + eWH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +101767. * (1. + eWH_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -160244. * (1. + eWH_78_HD ) * CiHD / LambdaNP2
-                +880553. * (1. + eWH_78_HW ) * CiHW / LambdaNP2
-                -284912. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
-                +168447. * (1. + eWH_78_DHW ) * CiDHW / LambdaNP2
-                -3.287 * (1. + eWH_78_DeltaGF ) * delta_GF
-                -2.143 * deltaMwd6()
+                +121215. * (1. + eWH_78_Hbox ) * CiHbox / LambdaNP2
+                +874536. * (1. + eWH_78_HW ) * CiHW / LambdaNP2
+                +168556. * (1. + eWH_78_DHW ) * CiDHW / LambdaNP2
+                +1688781. * (1. + eWH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +101677. * (1. + eWH_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-160236. * (1. + eWH_78_HD ) * CiHD / LambdaNP2
+                -284911. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
+                -3.286 * (1. + eWH_78_DeltaGF ) * delta_GF
+                -2.217 * deltaMwd6())
+                +cWsch*(-30300.4 * (1. + eWH_78_HD ) * CiHD / LambdaNP2
+                +0. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
+                -1.999 * (1. + eWH_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8058,16 +8112,18 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         C1 = 0.0105;
 
         mu += 
-                +121252. * (1. + eWH_78_Hbox ) * CiHbox / LambdaNP2
-                // +1831866. * (1. + eWH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +1718938. * (1. + eWH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +113356. * (1. + eWH_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -160298. * (1. + eWH_78_HD ) * CiHD / LambdaNP2
-                +883535. * (1. + eWH_78_HW ) * CiHW / LambdaNP2
+                +121222. * (1. + eWH_78_Hbox ) * CiHbox / LambdaNP2
+                +877503. * (1. + eWH_78_HW ) * CiHW / LambdaNP2
+                +174299. * (1. + eWH_78_DHW ) * CiDHW / LambdaNP2
+                +1716018. * (1. + eWH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +113210. * (1. + eWH_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-160294. * (1. + eWH_78_HD ) * CiHD / LambdaNP2
                 -284954. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
-                +174173. * (1. + eWH_78_DHW ) * CiDHW / LambdaNP2
-                -3.288 * (1. + eWH_78_DeltaGF ) * delta_GF
-                -2.147 * deltaMwd6()
+                -3.287 * (1. + eWH_78_DeltaGF ) * delta_GF
+                -2.179 * deltaMwd6())
+                +cWsch*(-30310.6 * (1. + eWH_78_HD ) * CiHD / LambdaNP2
+                +0. * (1. + eWH_78_HWB ) * CiHWB / LambdaNP2
+                -1.999 * (1. + eWH_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8081,16 +8137,18 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         C1 = 0.0103;
 
         mu += 
-                +121131. * (1. + eWH_1314_Hbox ) * CiHbox / LambdaNP2
-                // +1956304. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +1795961. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +161699. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -160183. * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
-                +892308. * (1. + eWH_1314_HW ) * CiHW / LambdaNP2
-                -284834. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
-                +193158. * (1. + eWH_1314_DHW ) * CiDHW / LambdaNP2
+                +121126. * (1. + eWH_1314_Hbox ) * CiHbox / LambdaNP2
+                +886205. * (1. + eWH_1314_HW ) * CiHW / LambdaNP2
+                +193294. * (1. + eWH_1314_DHW ) * CiDHW / LambdaNP2
+                +1792005. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +161535. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-160176. * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
+                -284823. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
                 -3.287 * (1. + eWH_1314_DeltaGF ) * delta_GF
-                -2.101 * deltaMwd6()
+                -2.139 * deltaMwd6())
+                +cWsch*(-30285.8 * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
+                +0. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
+                -1.999 * (1. + eWH_1314_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8100,6 +8158,8 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         }
       
     } else if (sqrt_s == 14.0) {
+        
+        // Only Alpha scheme
         
         C1 = 0.0103;
 
@@ -8124,6 +8184,8 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
 
     } else if (sqrt_s == 27.0) {
         
+        // Only Alpha scheme
+        
         C1 = 0.0101; // From arXiv: 1902.00134
 
         mu += 
@@ -8144,6 +8206,8 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
         }
     
     } else if (sqrt_s == 100.0) {
+        
+        // Only Alpha scheme
         
         C1 = 0.0; // N.A. 
 
@@ -8192,16 +8256,18 @@ double NPSMEFTd6::muWHpT250(const double sqrt_s) const
         C1 = 0.0119;
 
         mu += 
-                +121111. * (1. + eWH_1314_Hbox ) * CiHbox / LambdaNP2
-                // +12489244. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +11949245. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +539802. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -160220. * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
-                +1104937. * (1. + eWH_1314_HW ) * CiHW / LambdaNP2
-                -284901. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
-                +1869321. * (1. + eWH_1314_DHW ) * CiDHW / LambdaNP2
-                -3.286 * (1. + eWH_1314_DeltaGF ) * delta_GF                
-                -1.911 * deltaMwd6()
+                +121150. * (1. + eWH_1314_Hbox ) * CiHbox / LambdaNP2
+                +1095782. * (1. + eWH_1314_HW ) * CiHW / LambdaNP2
+                +1870485. * (1. + eWH_1314_DHW ) * CiDHW / LambdaNP2
+                +11951748. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +540010. * (1. + eWH_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-160282. * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
+                -285105. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
+                -3.287 * (1. + eWH_1314_DeltaGF ) * delta_GF
+                -1.986 * deltaMwd6())
+                +cWsch*(-30279.5 * (1. + eWH_1314_HD ) * CiHD / LambdaNP2
+                +0. * (1. + eWH_1314_HWB ) * CiHWB / LambdaNP2
+                -2. * (1. + eWH_1314_DeltaGF ) * delta_GF)
                 ;
 
         if (FlagQuadraticTerms) {
@@ -8240,25 +8306,24 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
 
         mu += 
                 +121186. * (1. + eZH_2_Hbox ) * CiHbox / LambdaNP2
-                // -810493. * (1. + eZH_2_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // +529162. * (1. + eZH_2_Hu_11 ) * CiHu_11 / LambdaNP2
-                // -68952.3 * (1. + eZH_2_Hd_11 ) * CiHd_11 / LambdaNP2
-                // +1567857. * (1. + eZH_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -814086. * (1. + eZH_2_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                +3349.63 * (1. + eZH_2_HQ1_11 ) * CiHQ1_22 / LambdaNP2
-                +527932. * (1. + eZH_2_Hu_11 ) * CiHu_11 / LambdaNP2
-                +1274.13 * (1. + eZH_2_Hu_11 ) * CiHu_22 / LambdaNP2
-                -67811.4 * (1. + eZH_2_Hd_11 ) * CiHd_11 / LambdaNP2
-                -1130.75 * (1. + eZH_2_Hd_11 ) * CiHd_22 / LambdaNP2
-                +1558810. * (1. + eZH_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +9079.98 * (1. + eZH_2_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -16406.7 * (1. + eZH_2_HD ) * CiHD / LambdaNP2
-                +79223.8 * (1. + eZH_2_HB ) * CiHB / LambdaNP2
-                +712455. * (1. + eZH_2_HW ) * CiHW / LambdaNP2
-                +189523. * (1. + eZH_2_HWB ) * CiHWB / LambdaNP2
-                +9964.24 * (1. + eZH_2_DHB ) * CiDHB / LambdaNP2
-                +131156. * (1. + eZH_2_DHW ) * CiDHW / LambdaNP2
-                -2.541 * (1. + eZH_2_DeltaGF ) * delta_GF
+                +79191.5 * (1. + eZH_2_HB ) * CiHB / LambdaNP2
+                +712325. * (1. + eZH_2_HW ) * CiHW / LambdaNP2
+                +9992.07 * (1. + eZH_2_DHB ) * CiDHB / LambdaNP2
+                +131146. * (1. + eZH_2_DHW ) * CiDHW / LambdaNP2
+                -813859. * (1. + eZH_2_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                +3350.92 * (1. + eZH_2_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                +527754. * (1. + eZH_2_Hu_11 ) * CiHu_11 / LambdaNP2
+                +1274.21 * (1. + eZH_2_Hu_11 ) * CiHu_22 / LambdaNP2
+                -67806.5 * (1. + eZH_2_Hd_11 ) * CiHd_11 / LambdaNP2
+                -1130.86 * (1. + eZH_2_Hd_11 ) * CiHd_22 / LambdaNP2
+                +1558454. * (1. + eZH_2_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +9076.74 * (1. + eZH_2_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-16406.7 * (1. + eZH_2_HD ) * CiHD / LambdaNP2
+                +189539. * (1. + eZH_2_HWB ) * CiHWB / LambdaNP2
+                -2.54 * (1. + eZH_2_DeltaGF ) * delta_GF)
+                +cWsch*(+38221.8 * (1. + eZH_2_HD ) * CiHD / LambdaNP2
+                +309296. * (1. + eZH_2_HWB ) * CiHWB / LambdaNP2
+                -2. * (1. + eZH_2_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8273,25 +8338,24 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
 
         mu += 
                 +121226. * (1. + eZH_78_Hbox ) * CiHbox / LambdaNP2
-                // -183004. * (1. + eZH_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // +421724. * (1. + eZH_78_Hu_11 ) * CiHu_11 / LambdaNP2
-                // -139269. * (1. + eZH_78_Hd_11 ) * CiHd_11 / LambdaNP2
-                // +1713376. * (1. + eZH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -212482. * (1. + eZH_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                +30275.6 * (1. + eZH_78_HQ1_11 ) * CiHQ1_22 / LambdaNP2
-                +405177. * (1. + eZH_78_Hu_11 ) * CiHu_11 / LambdaNP2
-                +16469.5 * (1. + eZH_78_Hu_11 ) * CiHu_22 / LambdaNP2
-                -127018. * (1. + eZH_78_Hd_11 ) * CiHd_11 / LambdaNP2
-                -12240. * (1. + eZH_78_Hd_11 ) * CiHd_22 / LambdaNP2
-                +1609141. * (1. + eZH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +104309. * (1. + eZH_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -15321.2 * (1. + eZH_78_HD ) * CiHD / LambdaNP2
-                +87064.4 * (1. + eZH_78_HB ) * CiHB / LambdaNP2
-                +717868. * (1. + eZH_78_HW ) * CiHW / LambdaNP2
-                +203140. * (1. + eZH_78_HWB ) * CiHWB / LambdaNP2
-                +17420.3 * (1. + eZH_78_DHB ) * CiDHB / LambdaNP2
-                +153225. * (1. + eZH_78_DHW ) * CiDHW / LambdaNP2
-                -2.507 * (1. + eZH_78_DeltaGF ) * delta_GF
+                +87099.3 * (1. + eZH_78_HB ) * CiHB / LambdaNP2
+                +717825. * (1. + eZH_78_HW ) * CiHW / LambdaNP2
+                +17433.4 * (1. + eZH_78_DHB ) * CiDHB / LambdaNP2
+                +153216. * (1. + eZH_78_DHW ) * CiDHW / LambdaNP2
+                -213136. * (1. + eZH_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                +30259.1 * (1. + eZH_78_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                +405194. * (1. + eZH_78_Hu_11 ) * CiHu_11 / LambdaNP2
+                +16467.8 * (1. + eZH_78_Hu_11 ) * CiHu_22 / LambdaNP2
+                -127014. * (1. + eZH_78_Hd_11 ) * CiHd_11 / LambdaNP2
+                -12241.3 * (1. + eZH_78_Hd_11 ) * CiHd_22 / LambdaNP2
+                +1608269. * (1. + eZH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +104261. * (1. + eZH_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-15321.2 * (1. + eZH_78_HD ) * CiHD / LambdaNP2
+                +203123. * (1. + eZH_78_HWB ) * CiHWB / LambdaNP2
+                -2.506 * (1. + eZH_78_DeltaGF ) * delta_GF)
+                +cWsch*(+35707.6 * (1. + eZH_78_HD ) * CiHD / LambdaNP2
+                +315273. * (1. + eZH_78_HWB ) * CiHWB / LambdaNP2
+                -1.999 * (1. + eZH_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8305,26 +8369,25 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         C1 = 0.0122;
 
         mu += 
-                +121280. * (1. + eZH_78_Hbox ) * CiHbox / LambdaNP2
-                // -178337. * (1. + eZH_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // +428445. * (1. + eZH_78_Hu_11 ) * CiHu_11 / LambdaNP2
-                // -142908. * (1. + eZH_78_Hd_11 ) * CiHd_11 / LambdaNP2
-                // +1747863. * (1. + eZH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -210534. * (1. + eZH_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                +32910.1 * (1. + eZH_78_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                +121277. * (1. + eZH_78_Hbox ) * CiHbox / LambdaNP2
+                +87409.1 * (1. + eZH_78_HB ) * CiHB / LambdaNP2
+                +721014. * (1. + eZH_78_HW ) * CiHW / LambdaNP2
+                +18357.2 * (1. + eZH_78_DHB ) * CiDHB / LambdaNP2
+                +158294. * (1. + eZH_78_DHW ) * CiDHW / LambdaNP2
+                -211101. * (1. + eZH_78_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                +32881.7 * (1. + eZH_78_HQ1_11 ) * CiHQ1_22 / LambdaNP2
                 +409966. * (1. + eZH_78_Hu_11 ) * CiHu_11 / LambdaNP2
                 +18389.4 * (1. + eZH_78_Hu_11 ) * CiHu_22 / LambdaNP2
-                -129413. * (1. + eZH_78_Hd_11 ) * CiHd_11 / LambdaNP2
+                -129402. * (1. + eZH_78_Hd_11 ) * CiHd_11 / LambdaNP2
                 -13507. * (1. + eZH_78_Hd_11 ) * CiHd_22 / LambdaNP2
-                +1632594. * (1. + eZH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +115602. * (1. + eZH_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -15333.2 * (1. + eZH_78_HD ) * CiHD / LambdaNP2
-                +87426.8 * (1. + eZH_78_HB ) * CiHB / LambdaNP2
-                +721121. * (1. + eZH_78_HW ) * CiHW / LambdaNP2
-                +204430. * (1. + eZH_78_HWB ) * CiHWB / LambdaNP2
-                +18330.9 * (1. + eZH_78_DHB ) * CiDHB / LambdaNP2
-                +158326. * (1. + eZH_78_DHW ) * CiDHW / LambdaNP2
-                -2.507 * (1. + eZH_78_DeltaGF ) * delta_GF
+                +1632382. * (1. + eZH_78_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +115538. * (1. + eZH_78_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-15333.2 * (1. + eZH_78_HD ) * CiHD / LambdaNP2
+                +204451. * (1. + eZH_78_HWB ) * CiHWB / LambdaNP2
+                -2.506 * (1. + eZH_78_DeltaGF ) * delta_GF)
+                +cWsch*(+35736.8 * (1. + eZH_78_HD ) * CiHD / LambdaNP2
+                +316485. * (1. + eZH_78_HWB ) * CiHWB / LambdaNP2
+                -2. * (1. + eZH_78_DeltaGF ) * delta_GF)
                 ;
         
         if (FlagQuadraticTerms) {
@@ -8339,25 +8402,24 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
 
         mu += 
                 +121234. * (1. + eZH_1314_Hbox ) * CiHbox / LambdaNP2
-                // -153901. * (1. + eZH_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // +448592. * (1. + eZH_1314_Hu_11 ) * CiHu_11 / LambdaNP2
-                // -155603. * (1. + eZH_1314_Hd_11 ) * CiHd_11 / LambdaNP2
-                // +1863512. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -195921. * (1. + eZH_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                +43333.6 * (1. + eZH_1314_HQ1_11 ) * CiHQ1_22 / LambdaNP2
-                +421930. * (1. + eZH_1314_Hu_11 ) * CiHu_11 / LambdaNP2
-                +26499.5 * (1. + eZH_1314_Hu_11 ) * CiHu_22 / LambdaNP2
-                -136885. * (1. + eZH_1314_Hd_11 ) * CiHd_11 / LambdaNP2
-                -18728.7 * (1. + eZH_1314_Hd_11 ) * CiHd_22 / LambdaNP2
-                +1700821. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +162560. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -15274.7 * (1. + eZH_1314_HD ) * CiHD / LambdaNP2
-                +88473.6 * (1. + eZH_1314_HB ) * CiHB / LambdaNP2
-                +728684. * (1. + eZH_1314_HW ) * CiHW / LambdaNP2
-                +207716. * (1. + eZH_1314_HWB ) * CiHWB / LambdaNP2
-                +21647.4 * (1. + eZH_1314_DHB ) * CiDHB / LambdaNP2
-                +175427. * (1. + eZH_1314_DHW ) * CiDHW / LambdaNP2
-                -2.504 * (1. + eZH_1314_DeltaGF ) * delta_GF
+                +88512.4 * (1. + eZH_1314_HB ) * CiHB / LambdaNP2
+                +728790. * (1. + eZH_1314_HW ) * CiHW / LambdaNP2
+                +21680.9 * (1. + eZH_1314_DHB ) * CiDHB / LambdaNP2
+                +175494. * (1. + eZH_1314_DHW ) * CiDHW / LambdaNP2
+                -196945. * (1. + eZH_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                +43331.9 * (1. + eZH_1314_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                +422018. * (1. + eZH_1314_Hu_11 ) * CiHu_11 / LambdaNP2
+                +26503. * (1. + eZH_1314_Hu_11 ) * CiHu_22 / LambdaNP2
+                -136921. * (1. + eZH_1314_Hd_11 ) * CiHd_11 / LambdaNP2
+                -18730.5 * (1. + eZH_1314_Hd_11 ) * CiHd_22 / LambdaNP2
+                +1700150. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +162456. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-15274.7 * (1. + eZH_1314_HD ) * CiHD / LambdaNP2
+                +207822. * (1. + eZH_1314_HWB ) * CiHWB / LambdaNP2
+                -2.502 * (1. + eZH_1314_DeltaGF ) * delta_GF)
+                +cWsch*(+35605.2 * (1. + eZH_1314_HD ) * CiHD / LambdaNP2
+                +319361. * (1. + eZH_1314_HWB ) * CiHWB / LambdaNP2
+                -1.999 * (1. + eZH_1314_DeltaGF ) * delta_GF)
                 ;
 
         if (FlagQuadraticTerms) {
@@ -8367,6 +8429,8 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 14.0) {
+        
+        // Only Alpha scheme
         
         C1 = 0.0118;
 
@@ -8401,6 +8465,8 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
 
     } else if (sqrt_s == 27.0) {
         
+        // Only Alpha scheme
+        
         C1 = 0.0116; // From arXiv: 1902.00134
 
         mu += 
@@ -8425,6 +8491,8 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         }
     
     } else if (sqrt_s == 100.0) {
+        
+        // Only Alpha scheme
         
         C1 = 0.0; // N.A.
  
@@ -8476,26 +8544,25 @@ double NPSMEFTd6::muZHpT250(const double sqrt_s) const
         C1 = 0.0119;
 
         mu += 
-                +121212. * (1. + eZH_1314_Hbox ) * CiHbox / LambdaNP2
-                // -1346575. * (1. + eZH_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                // +2800548. * (1. + eZH_1314_Hu_11 ) * CiHu_11 / LambdaNP2
-                // -900685. * (1. + eZH_1314_Hd_11 ) * CiHd_11 / LambdaNP2
-                // +11237671. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                -1509110. * (1. + eZH_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
-                +165959. * (1. + eZH_1314_HQ1_11 ) * CiHQ1_22 / LambdaNP2
-                +2716507. * (1. + eZH_1314_Hu_11 ) * CiHu_11 / LambdaNP2
-                +83506.8 * (1. + eZH_1314_Hu_11 ) * CiHu_22 / LambdaNP2
-                -836370. * (1. + eZH_1314_Hd_11 ) * CiHd_11 / LambdaNP2
-                -64357.5 * (1. + eZH_1314_Hd_11 ) * CiHd_22 / LambdaNP2
-                +10696575. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
-                +541192. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
-                -15363.7 * (1. + eZH_1314_HD ) * CiHD / LambdaNP2
-                +103425. * (1. + eZH_1314_HB ) * CiHB / LambdaNP2
-                +968904. * (1. + eZH_1314_HW ) * CiHW / LambdaNP2
-                +286692. * (1. + eZH_1314_HWB ) * CiHWB / LambdaNP2
-                +295178. * (1. + eZH_1314_DHB ) * CiDHB / LambdaNP2
-                +1652466. * (1. + eZH_1314_DHW ) * CiDHW / LambdaNP2
-                -2.507 * (1. + eZH_1314_DeltaGF ) * delta_GF
+                +121102. * (1. + eZH_1314_Hbox ) * CiHbox / LambdaNP2
+                +103334. * (1. + eZH_1314_HB ) * CiHB / LambdaNP2
+                +968778. * (1. + eZH_1314_HW ) * CiHW / LambdaNP2
+                +295029. * (1. + eZH_1314_DHB ) * CiDHB / LambdaNP2
+                +1652242. * (1. + eZH_1314_DHW ) * CiDHW / LambdaNP2
+                -1507566. * (1. + eZH_1314_HQ1_11 ) * CiHQ1_11 / LambdaNP2
+                +165375. * (1. + eZH_1314_HQ1_11 ) * CiHQ1_22 / LambdaNP2
+                +2712770. * (1. + eZH_1314_Hu_11 ) * CiHu_11 / LambdaNP2
+                +83533. * (1. + eZH_1314_Hu_11 ) * CiHu_22 / LambdaNP2
+                -836015. * (1. + eZH_1314_Hd_11 ) * CiHd_11 / LambdaNP2
+                -64306.7 * (1. + eZH_1314_Hd_11 ) * CiHd_22 / LambdaNP2
+                +10690175. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_11 / LambdaNP2
+                +540904. * (1. + eZH_1314_HQ3_11 ) * CiHQ3_22 / LambdaNP2
+                +cAsch*(-15339.3 * (1. + eZH_1314_HD ) * CiHD / LambdaNP2
+                +286518. * (1. + eZH_1314_HWB ) * CiHWB / LambdaNP2
+                -2.508 * (1. + eZH_1314_DeltaGF ) * delta_GF)
+                +cWsch*(+35828.1 * (1. + eZH_1314_HD ) * CiHD / LambdaNP2
+                +398987. * (1. + eZH_1314_HWB ) * CiHWB / LambdaNP2
+                -2. * (1. + eZH_1314_DeltaGF ) * delta_GF)
                 ;
 
         if (FlagQuadraticTerms) {
@@ -8523,6 +8590,9 @@ double NPSMEFTd6::muZHpT250(const double sqrt_s) const
 
 double NPSMEFTd6::mueeZH(const double sqrt_s) const
 {
+    
+    // Only Alpha scheme
+    
     double mu = 1.0;
     
     double C1 = 0.0;
@@ -8880,6 +8950,9 @@ double NPSMEFTd6::mueeZqqH(const double sqrt_s) const
 
 double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
+    
+    // Only Alpha scheme
+    
     double mu = 1.0;
     
     double C1 = 0.0;
@@ -10075,9 +10148,9 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu += 
-                +423578. * (1. + ettH_2_HG ) * CiHG / LambdaNP2
+                +423765. * (1. + ettH_2_HG ) * CiHG / LambdaNP2
                 -4152.27 * (1. + ettH_2_G ) * CiG / LambdaNP2
-                +568672. * (1. + ettH_2_uG_33r ) * CiuG_33r / LambdaNP2
+                +568696. * (1. + ettH_2_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.844 * (1. + ettH_2_DeltagHt ) * deltaG_hff(quarks[TOP]).real()                
                 +57950.7 * CQQ1_1133 / LambdaNP2
                 +572237. * CQQ1_1331 / LambdaNP2
@@ -10106,9 +10179,9 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0387;
 
         mu += 
-                +531350. * (1. + ettH_78_HG ) * CiHG / LambdaNP2
+                +531046. * (1. + ettH_78_HG ) * CiHG / LambdaNP2
                 -85174.4 * (1. + ettH_78_G ) * CiG / LambdaNP2
-                +810097. * (1. + ettH_78_uG_33r ) * CiuG_33r / LambdaNP2
+                +810365. * (1. + ettH_78_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.846 * (1. + ettH_78_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
                 +19387.7 * CQQ1_1133 / LambdaNP2
                 +309431. * CQQ1_1331 / LambdaNP2
@@ -10137,7 +10210,7 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0378;
 
         mu += 
-                +535018. * (1. + ettH_78_HG ) * CiHG / LambdaNP2
+                +535133. * (1. + ettH_78_HG ) * CiHG / LambdaNP2
                 -86316.6 * (1. + ettH_78_G ) * CiG / LambdaNP2
                 +824047. * (1. + ettH_78_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.846 * (1. + ettH_78_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
@@ -10168,10 +10241,10 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         C1 = 0.0351;
 
         mu += 
-                +538001. * (1. + ettH_1314_HG ) * CiHG / LambdaNP2
+                +538046. * (1. + ettH_1314_HG ) * CiHG / LambdaNP2
                 -85159.5 * (1. + ettH_1314_G ) * CiG / LambdaNP2
-                +861416. * (1. + ettH_1314_uG_33r ) * CiuG_33r / LambdaNP2
-                -2.845 * (1. + ettH_1314_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
+                +861157. * (1. + ettH_1314_uG_33r ) * CiuG_33r / LambdaNP2
+                -2.846 * (1. + ettH_1314_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
                 +13574.9 * CQQ1_1133 / LambdaNP2
                 +227043. * CQQ1_1331 / LambdaNP2
                 +41257.5 * CQQ3_1133 / LambdaNP2
@@ -10196,6 +10269,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         
     } else if (sqrt_s == 14.0) {
         
+        //  Old (but ok) implementation + Missing 4F
+        
         C1 = 0.0347;
 
         mu += 
@@ -10213,6 +10288,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
 
     } else if (sqrt_s == 27.0) {
         
+        //  Old (but ok) implementation + Missing 4F
+        
         C1 = 0.0320; // From arXiv: 1902.00134
 
         mu += 
@@ -10229,6 +10306,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         }
             
     } else if (sqrt_s == 100.0) {
+        
+        //  Old (but ok) implementation + Missing 4F
         
         C1 = 0.0; // N.A.
 
@@ -10373,6 +10452,9 @@ double NPSMEFTd6::muggHpttH(const double sqrt_s) const
 
 double NPSMEFTd6::mueettH(const double sqrt_s) const
 {
+    
+    // Only Alpha scheme
+    
     double mu = 1.0;
     
     double C1 = 0.0;
@@ -10570,6 +10652,9 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
 
 double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
+    
+    // Only Alpha scheme
+    
     double mu = 1.0;
     
     double C1 = 0.0; 
@@ -13783,21 +13868,27 @@ double NPSMEFTd6::deltaGammaH2L2LRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121316. * CiHbox / LambdaNP2
-                -42545.9 * CiHD / LambdaNP2
-                -59649.5 * CiHB / LambdaNP2
-                -6396.88 * CiHW / LambdaNP2
-                -112087. * CiHWB / LambdaNP2
-                +27215.2 * CiDHB / LambdaNP2
-                +23773.6 * CiDHW / LambdaNP2
-                +42224.6 * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                +42233.3 * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                +42527.4 * (CiHL1_33 + CiHL3_33) / LambdaNP2
-                -36293.6 * CiHe_11 / LambdaNP2
-                -36291. * CiHe_22 / LambdaNP2
-                -36498.6 * CiHe_33 / LambdaNP2
-                -3.398 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121302. * CiHbox / LambdaNP2
+                -59592.5 * CiHB / LambdaNP2
+                -6187.97 * CiHW / LambdaNP2
+                +27262.7 * CiDHB / LambdaNP2
+                +23783.2 * CiDHW / LambdaNP2
+                +42404.3 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +42440.7 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +42633.3 * (CiHL1_33 + CiHL3_33) / LambdaNP2
+                -36384.4 * CiHe_11 / LambdaNP2
+                -36395.3 * CiHe_22 / LambdaNP2
+                -36589.1 * CiHe_33 / LambdaNP2
+                +cAsch*(-42519.3 * CiHD / LambdaNP2
+                -112124. * CiHWB / LambdaNP2
+                -3.401 * delta_GF
+                -0.836 * deltaGzd6()
+                )
+                +cWsch*(-1940.8 * CiHD / LambdaNP2
+                -23529. * CiHWB / LambdaNP2
+                -3.002 * delta_GF
+                -0.836 * deltaGzd6()
+                )  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -13805,10 +13896,14 @@ double NPSMEFTd6::deltaGammaH2L2LRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-10.442 * deltaMz()
-                +16.174 * deltaMh()
-                -0.111 * deltaaMZ()
-                +2.267 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-10.484 * deltaMz()
+                +16.233 * deltaMh()
+                -0.114 * deltaaMZ()
+                +2.278 * deltaGmu()))
+                +cWsch*(cHSM * (-11.298 * deltaMz()
+                +16.233 * deltaMh()
+                +2.163 * deltaGmu()
+                +0.552 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -13873,19 +13968,25 @@ double NPSMEFTd6::deltaGammaH2e2muRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121269. * CiHbox / LambdaNP2
-                -42454.6 * CiHD / LambdaNP2
-                -59154.8 * CiHB / LambdaNP2
-                -6800.82 * CiHW / LambdaNP2
-                -111684. * CiHWB / LambdaNP2
-                +27224.1 * CiDHB / LambdaNP2
-                +23816. * CiDHW / LambdaNP2
-                +63546.4 * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                +63469.3 * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                -54629.5 * CiHe_11 / LambdaNP2
-                -54599.3 * CiHe_22 / LambdaNP2
-                -3.398 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121249. * CiHbox / LambdaNP2
+                -59336.7 * CiHB / LambdaNP2
+                -7152.53 * CiHW / LambdaNP2
+                +27264.5 * CiDHB / LambdaNP2
+                +23839.6 * CiDHW / LambdaNP2
+                +63753.6 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +63771.3 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                -54745.8 * CiHe_11 / LambdaNP2
+                -54706. * CiHe_22 / LambdaNP2
+                +cAsch*(-42424.4 * CiHD / LambdaNP2
+                -111863. * CiHWB / LambdaNP2
+                -3.401 * delta_GF
+                -0.837 * deltaGzd6()
+                )
+                +cWsch*(-2206.38 * CiHD / LambdaNP2
+                -23677.2 * CiHWB / LambdaNP2
+                -3.001 * delta_GF
+                -0.837 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -13893,10 +13994,14 @@ double NPSMEFTd6::deltaGammaH2e2muRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-10.381 * deltaMz()
-                +16.134 * deltaMh()
-                -0.104 * deltaaMZ()
-                +2.257 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-10.452 * deltaMz()
+                +16.193 * deltaMh()
+                -0.096 * deltaaMZ()
+                +2.281 * deltaGmu()))
+                +cWsch*(cHSM * (-11.25 * deltaMz()
+                +16.193 * deltaMh()
+                +2.17 * deltaGmu()
+                +0.522 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -13960,18 +14065,24 @@ double NPSMEFTd6::deltaGammaH2v2vRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121429. * CiHbox / LambdaNP2
-                -30336.3 * CiHD / LambdaNP2
-                -14014.1 * CiHB / LambdaNP2
-                -46746.8 * CiHW / LambdaNP2
-                -25594.8 * CiHWB / LambdaNP2
-                +15974. * CiDHB / LambdaNP2
-                +29131.4 * CiDHW / LambdaNP2
-                -39492.8 * (CiHL1_11 - CiHL3_11) / LambdaNP2
-                -39555.0 * (CiHL1_22 - CiHL3_22) / LambdaNP2
-                -39540.0 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+    dwidth = (+121344. * CiHbox / LambdaNP2
+                -14021.1 * CiHB / LambdaNP2
+                -46733.1 * CiHW / LambdaNP2
+                +15986.2 * CiDHB / LambdaNP2
+                +29166.5 * CiDHW / LambdaNP2
+                -39647.5 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                -39690.9 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -39622.3 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                +cAsch*(-30324.8 * CiHD / LambdaNP2
+                -25575.1 * CiHWB / LambdaNP2
                 -3.003 * delta_GF
-                -0.823 * deltaGzd6() );
+                -0.847 * deltaGzd6()
+                )
+                +cWsch*(-30324.8 * CiHD / LambdaNP2
+                -25575.1 * CiHWB / LambdaNP2
+                -3.003 * delta_GF
+                -0.847 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -13979,10 +14090,14 @@ double NPSMEFTd6::deltaGammaH2v2vRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-10.864 * deltaMz()
-                +15.64 * deltaMh()
-                +0.277 * deltaaMZ()
-                +1.824 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-10.87 * deltaMz()
+                +15.738 * deltaMh()
+                +0.292 * deltaaMZ()
+                +1.853 * deltaGmu()))
+                +cWsch*(cHSM * (-8.952 * deltaMz()
+                +15.738 * deltaMh()
+                +2.164 * deltaGmu()
+                -1.149 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14047,24 +14162,30 @@ double NPSMEFTd6::deltaGammaH2L2vRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121275. * CiHbox / LambdaNP2
-                -36362.8 * CiHD / LambdaNP2
-                -35635.8 * CiHB / LambdaNP2
-                -27172. * CiHW / LambdaNP2
-                -69185.3 * CiHWB / LambdaNP2
-                +21374.5 * CiDHB / LambdaNP2
-                +26522.6 * CiDHW / LambdaNP2
-                +3008.38 * CiHL1_11 / LambdaNP2
-                +2991.11 * CiHL1_22 / LambdaNP2
-                +2727.13 * CiHL1_33 / LambdaNP2
-                -18887.7 * CiHe_11 / LambdaNP2
-                -18881.6 * CiHe_22 / LambdaNP2
-                -18793.5 * CiHe_33 / LambdaNP2
-                +41028.7 * CiHL3_11 / LambdaNP2
-                +41016.5 * CiHL3_22 / LambdaNP2
-                +41044.7 * CiHL3_33 / LambdaNP2
+    dwidth = (+121291. * CiHbox / LambdaNP2
+                -35349.6 * CiHB / LambdaNP2
+                -27095.7 * CiHW / LambdaNP2
+                +21443.2 * CiDHB / LambdaNP2
+                +26588.4 * CiDHW / LambdaNP2
+                +3026.29 * CiHL1_11 / LambdaNP2
+                +3021.87 * CiHL1_22 / LambdaNP2
+                +2746.62 * CiHL1_33 / LambdaNP2
+                -18924.3 * CiHe_11 / LambdaNP2
+                -18918.4 * CiHe_22 / LambdaNP2
+                -18820.4 * CiHe_33 / LambdaNP2
+                +41085.2 * CiHL3_11 / LambdaNP2
+                +41121.1 * CiHL3_22 / LambdaNP2
+                +41134.2 * CiHL3_33 / LambdaNP2
+                +cAsch*(-36393. * CiHD / LambdaNP2
+                -69325.9 * CiHWB / LambdaNP2
                 -3.201 * delta_GF
-                -0.823 * deltaGzd6()  );
+                -0.846 * deltaGzd6()
+                )
+                +cWsch*(-16170.3 * CiHD / LambdaNP2
+                -24273.2 * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.846 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14072,10 +14193,14 @@ double NPSMEFTd6::deltaGammaH2L2vRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-10.647 * deltaMz()
-                +15.887 * deltaMh()
-                +0.096 * deltaaMZ()
-                +2.075 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-10.683 * deltaMz()
+                +15.939 * deltaMh()
+                +0.095 * deltaaMZ()
+                +2.099 * deltaGmu()))
+                +cWsch*(cHSM * (-10.108 * deltaMz()
+                +15.939 * deltaMh()
+                +2.178 * deltaGmu()
+                -0.402 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14140,23 +14265,29 @@ double NPSMEFTd6::deltaGammaH2L2v2Ratio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121303. * CiHbox / LambdaNP2
-                -36354.8 * CiHD / LambdaNP2
-                -35378.6 * CiHB / LambdaNP2
-                -27456.8 * CiHW / LambdaNP2
-                -69159.4 * CiHWB / LambdaNP2
-                +21419.9 * CiDHB / LambdaNP2
-                +26570.9 * CiDHW / LambdaNP2
-                +18538. * CiHL1_11 / LambdaNP2
-                +18523.4 * CiHL1_22 / LambdaNP2
-                -28626.1 * CiHL1_33 / LambdaNP2
-                -28232.6 * CiHe_11 / LambdaNP2
-                -28223.4 * CiHe_22 / LambdaNP2
-                +47370.9 * CiHL3_11 / LambdaNP2
-                +47299.5 * CiHL3_22 / LambdaNP2
-                +28635.2 * CiHL3_33 / LambdaNP2
-                -3.202 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121298. * CiHbox / LambdaNP2
+                -35499.1 * CiHB / LambdaNP2
+                -27241.9 * CiHW / LambdaNP2
+                +21422.8 * CiDHB / LambdaNP2
+                +26606.6 * CiDHW / LambdaNP2
+                +18600.1 * CiHL1_11 / LambdaNP2
+                +18562.6 * CiHL1_22 / LambdaNP2
+                -28682. * CiHL1_33 / LambdaNP2
+                -28294.2 * CiHe_11 / LambdaNP2
+                -28285.3 * CiHe_22 / LambdaNP2
+                +47342.8 * CiHL3_11 / LambdaNP2
+                +47360.7 * CiHL3_22 / LambdaNP2
+                +28708.8 * CiHL3_33 / LambdaNP2
+                +cAsch*(-36443.1 * CiHD / LambdaNP2
+                -68837.8 * CiHWB / LambdaNP2
+                -3.201 * delta_GF
+                -0.839 * deltaGzd6()
+                )
+                +cWsch*(-16226. * CiHD / LambdaNP2
+                -24353. * CiHWB / LambdaNP2
+                -3.002 * delta_GF
+                -0.839 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14164,10 +14295,14 @@ double NPSMEFTd6::deltaGammaH2L2v2Ratio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-10.624 * deltaMz()
-                +15.903 * deltaMh()
-                +0.08 * deltaaMZ()
-                +2.1 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-10.697 * deltaMz()
+                +16.002 * deltaMh()
+                +0.083 * deltaaMZ()
+                +2.115 * deltaGmu()))
+                +cWsch*(cHSM * (-10.137 * deltaMz()
+                +16.002 * deltaMh()
+                +2.179 * deltaGmu()
+                -0.466 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14227,24 +14362,28 @@ double NPSMEFTd6::GammaH2e2vRatio() const
 }
 
 double NPSMEFTd6::deltaGammaH2e2vRatio1() const
-{
+{    
     double dwidth = 0.0;
     
     double C1 = 0.0083;
         
-    dwidth = (+121249. * CiHbox / LambdaNP2
-                -36362.7 * CiHD / LambdaNP2
-                -35306. * CiHB / LambdaNP2
-                -27263.5 * CiHW / LambdaNP2
-                -69026.7 * CiHWB / LambdaNP2
-                +21454.1 * CiDHB / LambdaNP2
-                +26513.7 * CiDHW / LambdaNP2
-                +65653. * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                -28610.1 * (CiHL1_22 - CiHL3_22) / LambdaNP2
-                -28638.5 * (CiHL1_33 - CiHL3_33) / LambdaNP2
-                -56452.8 * CiHe_11 / LambdaNP2
-                -3.198 * delta_GF
-                -0.823 * deltaGzd6()
+    dwidth = (+121287. * CiHbox / LambdaNP2
+                -35405.9 * CiHB / LambdaNP2
+                -27195.5 * CiHW / LambdaNP2
+                +21469.4 * CiDHB / LambdaNP2
+                +26548.6 * CiDHW / LambdaNP2
+                +65790.6 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                -28690.7 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -28703.9 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                -56575.7 * CiHe_11 / LambdaNP2
+                +cAsch*(-36350.8 * CiHD / LambdaNP2
+                -68896.2 * CiHWB / LambdaNP2
+                -3.199 * delta_GF
+                -0.846 * deltaGzd6())
+                +cWsch*(-16304.9 * CiHD / LambdaNP2
+                -24376.4 * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.846 * deltaGzd6())
                  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14253,10 +14392,15 @@ double NPSMEFTd6::deltaGammaH2e2vRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-10.648 * deltaMz()
-                +15.859 * deltaMh()
-                +0.075 * deltaaMZ()
-                +2.1 * deltaGmu() ); 
+    dwidth += cHSM * (cAsch*(-10.705 * deltaMz()
+                +15.922 * deltaMh()
+                +0.079 * deltaaMZ()
+                +2.103 * deltaGmu() )
+                +cWsch*(
+                -10.099 * deltaMz()
+                +15.922 * deltaMh()
+                +2.191 * deltaGmu()
+                -0.445 * deltaMw()) ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14316,24 +14460,28 @@ double NPSMEFTd6::GammaH2mu2vRatio() const
 }
 
 double NPSMEFTd6::deltaGammaH2mu2vRatio1() const
-{
+{   
     double dwidth = 0.0;
     
     double C1 = 0.0083;
         
-    dwidth = (+121389. * CiHbox / LambdaNP2
-                -36502.4 * CiHD / LambdaNP2
-                -35604.5 * CiHB / LambdaNP2
-                -27012.7 * CiHW / LambdaNP2
-                -69139.8 * CiHWB / LambdaNP2
-                +21487.5 * CiDHB / LambdaNP2
-                +26559.7 * CiDHW / LambdaNP2
-                -28662.5 * (CiHL1_11 - CiHL3_11) / LambdaNP2
-                +65730.5 * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                -28647.1 * (CiHL1_33 - CiHL3_33) / LambdaNP2
-                -56433. * CiHe_22 / LambdaNP2
-                -3.201 * delta_GF
-                -0.823 * deltaGzd6()
+    dwidth = (+121291. * CiHbox / LambdaNP2
+                -35658.4 * CiHB / LambdaNP2
+                -26866.3 * CiHW / LambdaNP2
+                +21500.1 * CiDHB / LambdaNP2
+                +26571.5 * CiDHW / LambdaNP2
+                -28684.4 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                +65832. * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                -28703.3 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                -56559.6 * CiHe_22 / LambdaNP2
+                +cAsch*(-36391.6 * CiHD / LambdaNP2
+                -69347.6 * CiHWB / LambdaNP2
+                -3.198 * delta_GF
+                -0.842 * deltaGzd6())
+                +cWsch*(-16131.8 * CiHD / LambdaNP2
+                -24298.9 * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.842 * deltaGzd6())
                  );
 
 //  Linear contribution from Higgs self-coupling
@@ -14342,10 +14490,14 @@ double NPSMEFTd6::deltaGammaH2mu2vRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-10.654 * deltaMz()
-                +15.908 * deltaMh()
-                +0.074 * deltaaMZ()
-                +2.069 * deltaGmu() ); 
+    dwidth += cHSM * (cAsch*(-10.716 * deltaMz()
+                +15.962 * deltaMh()
+                +0.082 * deltaaMZ()
+                +2.075 * deltaGmu())
+                +cWsch*(-10.13 * deltaMz()
+                +15.962 * deltaMh()
+                +2.177 * deltaGmu()
+                -0.489 * deltaMw()) ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14410,19 +14562,25 @@ double NPSMEFTd6::deltaGammaH2u2uRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121182. * CiHbox / LambdaNP2
-                -66080. * CiHD / LambdaNP2
-                -147138. * CiHB / LambdaNP2
-                +73444.4 * CiHW / LambdaNP2
-                -270333. * CiHWB / LambdaNP2
-                +47511.1 * CiDHB / LambdaNP2
-                +12016. * CiDHW / LambdaNP2
-                -71226.7 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
-                -71167.1 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
-                +31692.4 * CiHu_11 / LambdaNP2
-                +31598.2 * CiHu_22 / LambdaNP2
-                -4.179 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121242. * CiHbox / LambdaNP2
+                -147406. * CiHB / LambdaNP2
+                +73926.6 * CiHW / LambdaNP2
+                +47688.3 * CiDHB / LambdaNP2
+                +12016.1 * CiDHW / LambdaNP2
+                -71435.3 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
+                -71331.9 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
+                +31760.4 * CiHu_11 / LambdaNP2
+                +31666.6 * CiHu_22 / LambdaNP2
+                +cAsch*(-66129.8 * CiHD / LambdaNP2
+                -270623. * CiHWB / LambdaNP2
+                -4.182 * delta_GF
+                -0.827 * deltaGzd6()
+                )
+                +cWsch*(+53075.8 * CiHD / LambdaNP2
+                -9701.32 * CiHWB / LambdaNP2
+                -3.002 * delta_GF
+                -0.827 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14430,10 +14588,14 @@ double NPSMEFTd6::deltaGammaH2u2uRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-8.936 * deltaMz()
-                +16.662 * deltaMh()
-                -0.911 * deltaaMZ()
-                +3.076 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.043 * deltaMz()
+                +16.707 * deltaMh()
+                -0.908 * deltaaMZ()
+                +3.065 * deltaGmu()))
+                +cWsch*(cHSM * (-15.04 * deltaMz()
+                +16.707 * deltaMh()
+                +2.177 * deltaGmu()
+                +4.215 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14498,21 +14660,27 @@ double NPSMEFTd6::deltaGammaH2d2dRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121183. * CiHbox / LambdaNP2
-                -55640. * CiHD / LambdaNP2
-                -109189. * CiHB / LambdaNP2
-                +40140.3 * CiHW / LambdaNP2
-                -201940. * CiHWB / LambdaNP2
-                +38946.8 * CiDHB / LambdaNP2
-                +17010.8 * CiDHW / LambdaNP2
-                +43606.1 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
-                +43581.0 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
-                +48269.8 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
-                -7939.53 * CiHd_11 / LambdaNP2
-                -7925.08 * CiHd_22 / LambdaNP2
-                -8205.95 * CiHd_33 / LambdaNP2
-                -3.835 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121209. * CiHbox / LambdaNP2
+                -109493. * CiHB / LambdaNP2
+                +40559.6 * CiHW / LambdaNP2
+                +39022.8 * CiDHB / LambdaNP2
+                +17020.8 * CiDHW / LambdaNP2
+                +43704.5 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
+                +43686.8 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
+                +48405. * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
+                -7957.66 * CiHd_11 / LambdaNP2
+                -7942.9 * CiHd_22 / LambdaNP2
+                -8231.05 * CiHd_33 / LambdaNP2
+                +cAsch*(-55688.4 * CiHD / LambdaNP2
+                -202420. * CiHWB / LambdaNP2
+                -3.837 * delta_GF
+                -0.829 * deltaGzd6()
+                )
+                +cWsch*(+28762.7 * CiHD / LambdaNP2
+                -17533.6 * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.829 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14520,10 +14688,14 @@ double NPSMEFTd6::deltaGammaH2d2dRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.667 * deltaMz()
-                +16.471 * deltaMh()
-                -0.546 * deltaaMZ()
-                +2.751 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.78 * deltaMz()
+                +16.533 * deltaMh()
+                -0.55 * deltaaMZ()
+                +2.769 * deltaGmu()))
+                +cWsch*(cHSM * (-13.39 * deltaMz()
+                +16.533 * deltaMh()
+                +2.228 * deltaGmu()
+                +2.601 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14588,26 +14760,32 @@ double NPSMEFTd6::deltaGammaH2u2dRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121187. * CiHbox / LambdaNP2
-                -60971.4 * CiHD / LambdaNP2
-                -129572. * CiHB / LambdaNP2
-                +58443.4 * CiHW / LambdaNP2
-                -238222. * CiHWB / LambdaNP2
-                +43676.1 * CiDHB / LambdaNP2
-                +14359.5 * CiDHW / LambdaNP2
-                -18911.9 * CiHQ1_11 / LambdaNP2
-                -18938.6 * CiHQ1_22 / LambdaNP2
-                +36645.8 * CiHQ1_33 / LambdaNP2
-                +15595.2 * CiHu_11 / LambdaNP2
-                +15566.5 * CiHu_22 / LambdaNP2
-                -2944.31 * CiHd_11 / LambdaNP2
-                -2932.55 * CiHd_22 / LambdaNP2
-                -6224.5 * CiHd_33 / LambdaNP2
-                +51220.7 * CiHQ3_11 / LambdaNP2
-                +51153. * CiHQ3_22 / LambdaNP2
-                +36662.3 * CiHQ3_33 / LambdaNP2
-                -4.011 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121245. * CiHbox / LambdaNP2
+                -129896. * CiHB / LambdaNP2
+                +58951.9 * CiHW / LambdaNP2
+                +43749.1 * CiDHB / LambdaNP2
+                +14365.1 * CiDHW / LambdaNP2
+                -18953.2 * CiHQ1_11 / LambdaNP2
+                -18954.1 * CiHQ1_22 / LambdaNP2
+                +36775. * CiHQ1_33 / LambdaNP2
+                +15639.1 * CiHu_11 / LambdaNP2
+                +15598.5 * CiHu_22 / LambdaNP2
+                -2951.74 * CiHd_11 / LambdaNP2
+                -2940.03 * CiHd_22 / LambdaNP2
+                -6238.49 * CiHd_33 / LambdaNP2
+                +51319. * CiHQ3_11 / LambdaNP2
+                +51289.2 * CiHQ3_22 / LambdaNP2
+                +36755.6 * CiHQ3_33 / LambdaNP2
+                +cAsch*(-60973.2 * CiHD / LambdaNP2
+                -238821. * CiHWB / LambdaNP2
+                -4.013 * delta_GF
+                -0.832 * deltaGzd6()
+                )
+                +cWsch*(+41194.1 * CiHD / LambdaNP2
+                -14774.7 * CiHWB / LambdaNP2
+                -3.001 * delta_GF
+                -0.832 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14615,10 +14793,14 @@ double NPSMEFTd6::deltaGammaH2u2dRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.49 * deltaMz()
-                +16.544 * deltaMh()
-                -0.626 * deltaaMZ()
-                +2.775 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.34 * deltaMz()
+                +16.613 * deltaMh()
+                -0.716 * deltaaMZ()
+                +2.838 * deltaGmu()))
+                +cWsch*(cHSM * (-14.238 * deltaMz()
+                +16.613 * deltaMh()
+                +2.133 * deltaGmu()
+                +3.346 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14683,25 +14865,31 @@ double NPSMEFTd6::deltaGammaH2L2uRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121197. * CiHbox / LambdaNP2
-                -54269.5 * CiHD / LambdaNP2
-                -103997. * CiHB / LambdaNP2
-                +35761.4 * CiHW / LambdaNP2
-                -194677. * CiHWB / LambdaNP2
-                +37920. * CiDHB / LambdaNP2
-                +17860.5 * CiDHW / LambdaNP2
-                +21165.5 * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                +21199.4 * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                +21135.3 * (CiHL1_33 + CiHL3_33) / LambdaNP2
-                -35824.0 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
-                -35756.8 * (CiHQ1_22 - CiHQ3_22)/ LambdaNP2
-                -18225.6 * CiHe_11 / LambdaNP2
-                -18211.4 * CiHe_22 / LambdaNP2
-                -18113.7 * CiHe_33 / LambdaNP2
-                +15935.5 * CiHu_11 / LambdaNP2
-                +15874.2 * CiHu_22 / LambdaNP2
-                -3.789 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121251. * CiHbox / LambdaNP2
+                -103956. * CiHB / LambdaNP2
+                +35760.1 * CiHW / LambdaNP2
+                +38002.6 * CiDHB / LambdaNP2
+                +17867.3 * CiDHW / LambdaNP2
+                +21276.1 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +21284.8 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +21179.4 * (CiHL1_33 + CiHL3_33) / LambdaNP2
+                -35906.7 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
+                -35849.3 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
+                -18274.6 * CiHe_11 / LambdaNP2
+                -18258.1 * CiHe_22 / LambdaNP2
+                -18170.5 * CiHe_33 / LambdaNP2
+                +15975.7 * CiHu_11 / LambdaNP2
+                +15912.4 * CiHu_22 / LambdaNP2
+                +cAsch*(-54348.3 * CiHD / LambdaNP2
+                -194795. * CiHWB / LambdaNP2
+                -3.791 * delta_GF
+                -0.836 * deltaGzd6()
+                )
+                +cWsch*(+25556.3 * CiHD / LambdaNP2
+                -19191.5 * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.836 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14709,10 +14897,14 @@ double NPSMEFTd6::deltaGammaH2L2uRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.645 * deltaMz()
-                +16.171 * deltaMh()
-                -0.515 * deltaaMZ()
-                +2.678 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.689 * deltaMz()
+                +16.184 * deltaMh()
+                -0.517 * deltaaMZ()
+                +2.692 * deltaGmu()))
+                +cWsch*(cHSM * (-13.135 * deltaMz()
+                +16.184 * deltaMh()
+                +2.157 * deltaGmu()
+                +2.403 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14777,27 +14969,33 @@ double NPSMEFTd6::deltaGammaH2L2dRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = ( +121251. * CiHbox / LambdaNP2
-                -48965.4 * CiHD / LambdaNP2
-                -84009.1 * CiHB / LambdaNP2
-                +16978.9 * CiHW / LambdaNP2
-                -157754. * CiHWB / LambdaNP2
-                +33201.7 * CiDHB / LambdaNP2
-                +20408.9 * CiDHW / LambdaNP2
-                +20988.5 * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                +20928.8 * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                +20926.9 * (CiHL1_33 + CiHL3_33) / LambdaNP2
-                +22975.8 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
-                +22975.5 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
-                +22616.8 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
-                -18052.9 * CiHe_11 / LambdaNP2
-                -18043.1 * CiHe_22 / LambdaNP2
-                -17928. * CiHe_33 / LambdaNP2
-                -4179.47 * CiHd_11 / LambdaNP2
-                -4180.64 * CiHd_22 / LambdaNP2
-                -3842.06 * CiHd_33 / LambdaNP2
+    dwidth = ( +121289. * CiHbox / LambdaNP2
+                -84134.2 * CiHB / LambdaNP2
+                +17402.7 * CiHW / LambdaNP2
+                +33258.3 * CiDHB / LambdaNP2
+                +20429.8 * CiDHW / LambdaNP2
+                +21075. * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +21073.9 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +20966.2 * (CiHL1_33 + CiHL3_33) / LambdaNP2
+                +23026.5 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
+                +23023.9 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
+                +22666. * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
+                -18090.2 * CiHe_11 / LambdaNP2
+                -18067. * CiHe_22 / LambdaNP2
+                -17980.6 * CiHe_33 / LambdaNP2
+                -4190.57 * CiHd_11 / LambdaNP2
+                -4189.38 * CiHd_22 / LambdaNP2
+                -3850.11 * CiHd_33 / LambdaNP2
+                +cAsch*(-48948.9 * CiHD / LambdaNP2
+                -158101. * CiHWB / LambdaNP2
                 -3.617 * delta_GF
-                -0.823 * deltaGzd6() );
+                -0.837 * deltaGzd6()
+                )
+                +cWsch*(+13172. * CiHD / LambdaNP2
+                -21275. * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.837 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14805,10 +15003,14 @@ double NPSMEFTd6::deltaGammaH2L2dRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * ( -9.999 * deltaMz()
-                +16.25 * deltaMh()
-                -0.343 * deltaaMZ()
-                +2.535 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-10.043 * deltaMz()
+                +16.281 * deltaMh()
+                -0.342 * deltaaMZ()
+                +2.516 * deltaGmu()))
+                +cWsch*(cHSM * (-12.322 * deltaMz()
+                +16.281 * deltaMh()
+                +2.201 * deltaGmu()
+                +1.57 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14873,22 +15075,28 @@ double NPSMEFTd6::deltaGammaH2v2uRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121320. * CiHbox / LambdaNP2
-                -48243.6 * CiHD / LambdaNP2
-                -76131.8 * CiHB / LambdaNP2
-                +13745.1 * CiHW / LambdaNP2
-                -150848. * CiHWB / LambdaNP2
-                +31714.1 * CiDHB / LambdaNP2
-                +20916.4 * CiDHW / LambdaNP2
-                -19020.6 * (CiHL1_11 - CiHL3_11) / LambdaNP2
-                -19160.4 * (CiHL1_22 - CiHL3_22) / LambdaNP2
-                -19052.2 * (CiHL1_33 - CiHL3_33) / LambdaNP2
-                -37151.4 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
-                -37075.4 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
-                +16537.5 * CiHu_11 / LambdaNP2
-                +16462. * CiHu_22 / LambdaNP2
-                -3.591 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121248. * CiHbox / LambdaNP2
+                -76316.6 * CiHB / LambdaNP2
+                +13981.5 * CiHW / LambdaNP2
+                +31756.8 * CiDHB / LambdaNP2
+                +20941.3 * CiDHW / LambdaNP2
+                -19052.2 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                -19081.3 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -19088.9 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                -37234.1 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
+                -37155.9 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
+                +16564.7 * CiHu_11 / LambdaNP2
+                +16487.2 * CiHu_22 / LambdaNP2
+                +cAsch*(-48203. * CiHD / LambdaNP2
+                -150929. * CiHWB / LambdaNP2
+                -3.589 * delta_GF
+                -0.849 * deltaGzd6()
+                )
+                +cWsch*(+11461.3 * CiHD / LambdaNP2
+                -20220.2 * CiHWB / LambdaNP2
+                -2.998 * delta_GF
+                -0.849 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14896,10 +15104,14 @@ double NPSMEFTd6::deltaGammaH2v2uRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.807 * deltaMz()
-                +15.863 * deltaMh()
-                -0.285 * deltaaMZ()
-                +2.521 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.867 * deltaMz()
+                +15.889 * deltaMh()
+                -0.28 * deltaaMZ()
+                +2.519 * deltaGmu()))
+                +cWsch*(cHSM * (-11.908 * deltaMz()
+                +15.889 * deltaMh()
+                +2.169 * deltaGmu()
+                +1.303 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -14964,24 +15176,30 @@ double NPSMEFTd6::deltaGammaH2v2dRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121204. * CiHbox / LambdaNP2
-                -42971.8 * CiHD / LambdaNP2
-                -57761. * CiHB / LambdaNP2
-                -4516.97 * CiHW / LambdaNP2
-                -113971. * CiHWB / LambdaNP2
-                +27032.1 * CiDHB / LambdaNP2
-                +23373.6 * CiDHW / LambdaNP2
-                -18847.0 * (CiHL1_11 - CiHL3_11) / LambdaNP2
-                -18824.0 * (CiHL1_22 - CiHL3_22) / LambdaNP2
-                -18833.9 * (CiHL1_33 - CiHL3_33) / LambdaNP2
-                +23798.8 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
-                +23806.4 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
-                +23445.0 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
-                -4329.1 * CiHd_11 / LambdaNP2
-                -4334.72 * CiHd_22 / LambdaNP2
-                -3993.48 * CiHd_33 / LambdaNP2
-                -3.417 * delta_GF
-                -0.823 * deltaGzd6()  );
+    dwidth = (+121140. * CiHbox / LambdaNP2
+                -57872.8 * CiHB / LambdaNP2
+                -4371.77 * CiHW / LambdaNP2
+                +27059.2 * CiDHB / LambdaNP2
+                +23376.6 * CiDHW / LambdaNP2
+                -18746.1 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                -18746.1 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -18868.3 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                +23856.6 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
+                +23828.1 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
+                +23481.4 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
+                -4335.75 * CiHd_11 / LambdaNP2
+                -4341.01 * CiHd_22 / LambdaNP2
+                -4000. * CiHd_33 / LambdaNP2
+                +cAsch*(-42945.7 * CiHD / LambdaNP2
+                -113953. * CiHWB / LambdaNP2
+                -3.412 * delta_GF
+                -0.842 * deltaGzd6()
+                )
+                +cWsch*(-837.5 * CiHD / LambdaNP2
+                -21725.9 * CiHWB / LambdaNP2
+                -2.996 * delta_GF
+                -0.842 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -14989,10 +15207,14 @@ double NPSMEFTd6::deltaGammaH2v2dRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-10.27 * deltaMz()
-                +15.882 * deltaMh()
-                -0.152 * deltaaMZ()
-                +2.296 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-10.269 * deltaMz()
+                +15.979 * deltaMh()
+                -0.143 * deltaaMZ()
+                +2.286 * deltaGmu()))
+                +cWsch*(cHSM * (-11.132 * deltaMz()
+                +15.979 * deltaMh()
+                +2.144 * deltaGmu()
+                +0.598 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -15057,21 +15279,27 @@ double NPSMEFTd6::deltaGammaH4LRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121335. * CiHbox / LambdaNP2
-                -43443.3 * CiHD / LambdaNP2
-                -104640. * CiHB / LambdaNP2
-                -25323.6 * CiHW / LambdaNP2
-                -83598.7 * CiHWB / LambdaNP2
-                +25938.2 * CiDHB / LambdaNP2
-                +22862.3 * CiDHW / LambdaNP2
-                +40762.3 * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                +40885.5 * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                +40501.8 * (CiHL1_33 + CiHL3_33) / LambdaNP2
-                -34972.9 * CiHe_11 / LambdaNP2
-                -35109.3 * CiHe_22 / LambdaNP2
-                -34651. * CiHe_33 / LambdaNP2
-                -3.431 * delta_GF
-                -0.745 * deltaGzd6()  );
+    dwidth = (+121291. * CiHbox / LambdaNP2
+                -103587. * CiHB / LambdaNP2
+                -25126.1 * CiHW / LambdaNP2
+                +25935.6 * CiDHB / LambdaNP2
+                +22895.7 * CiDHW / LambdaNP2
+                +40801.2 * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +40841.5 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +40593.4 * (CiHL1_33 + CiHL3_33) / LambdaNP2
+                -35062.5 * CiHe_11 / LambdaNP2
+                -35200.6 * CiHe_22 / LambdaNP2
+                -34739.1 * CiHe_33 / LambdaNP2
+                +cAsch*(-43327.2 * CiHD / LambdaNP2
+                -83516.6 * CiHWB / LambdaNP2
+                -3.426 * delta_GF
+                -0.759 * deltaGzd6()
+                )
+                +cWsch*(-79.855 * CiHD / LambdaNP2
+                +10882.3 * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.759 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15079,10 +15307,14 @@ double NPSMEFTd6::deltaGammaH4LRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.69 * deltaMz()
-                +15.866 * deltaMh()
-                -0.171 * deltaaMZ()
-                +2.395 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.741 * deltaMz()
+                +15.903 * deltaMh()
+                -0.172 * deltaaMZ()
+                +2.401 * deltaGmu()))
+                +cWsch*(cHSM * (-10.943 * deltaMz()
+                +15.903 * deltaMh()
+                +2.234 * deltaGmu()
+                +0.855 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -15147,19 +15379,25 @@ double NPSMEFTd6::deltaGammaH4L2Ratio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121346. * CiHbox / LambdaNP2
-                -43253.2 * CiHD / LambdaNP2
-                -102043. * CiHB / LambdaNP2
-                -26540.3 * CiHW / LambdaNP2
-                -81946.6 * CiHWB / LambdaNP2
-                +25759.4 * CiDHB / LambdaNP2
-                +23045.4 * CiDHW / LambdaNP2
-                +60965.9 * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                +61035.6 * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                -52330.2 * CiHe_11 / LambdaNP2
-                -52507.8 * CiHe_22 / LambdaNP2
+    dwidth = (+121305. * CiHbox / LambdaNP2
+                -101068. * CiHB / LambdaNP2
+                -26272.7 * CiHW / LambdaNP2
+                +25787.2 * CiDHB / LambdaNP2
+                +23110.1 * CiDHW / LambdaNP2
+                +61265. * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +61239.2 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                -52542.2 * CiHe_11 / LambdaNP2
+                -52658.5 * CiHe_22 / LambdaNP2
+                +cAsch*(-43256.5 * CiHD / LambdaNP2
+                -82588.8 * CiHWB / LambdaNP2
                 -3.426 * delta_GF
-                -0.745 * deltaGzd6()  );
+                -0.761 * deltaGzd6()
+                )
+                +cWsch*(-451.131 * CiHD / LambdaNP2
+                +10429. * CiHWB / LambdaNP2
+                -3.003 * delta_GF
+                -0.761 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15167,10 +15405,14 @@ double NPSMEFTd6::deltaGammaH4L2Ratio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.65 * deltaMz()
-                +15.764 * deltaMh()
-                -0.151 * deltaaMZ()
-                +2.399 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.718 * deltaMz()
+                +15.845 * deltaMh()
+                -0.163 * deltaaMZ()
+                +2.408 * deltaGmu()))
+                +cWsch*(cHSM * (-10.905 * deltaMz()
+                +15.845 * deltaMh()
+                +2.236 * deltaGmu()
+                +0.81 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -15230,23 +15472,27 @@ double NPSMEFTd6::GammaH4eRatio() const
 }
 
 double NPSMEFTd6::deltaGammaH4eRatio1() const
-{
+{   
     double dwidth = 0.0;
     
     double C1 = 0.0083;
         
-    dwidth = (+121278. * CiHbox / LambdaNP2
-                -43230. * CiHD / LambdaNP2
-                -102562. * CiHB / LambdaNP2
-                -26109.7 * CiHW / LambdaNP2
-                -81754.6 * CiHWB / LambdaNP2
-                +25700.3 * CiDHB / LambdaNP2
-                +23018.3 * CiDHW / LambdaNP2
-                +121995. * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                -104513. * CiHe_11 / LambdaNP2
-                -3.425 * delta_GF
-                -0.745 * deltaGzd6()
-                 );
+    dwidth = (+121313. * CiHbox / LambdaNP2
+                -101223. * CiHB / LambdaNP2
+                -25774.5 * CiHW / LambdaNP2
+                +25802.5 * CiDHB / LambdaNP2
+                +23066. * CiDHW / LambdaNP2
+                +122287. * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                -104859. * CiHe_11 / LambdaNP2
+                +cAsch*(-43133.2 * CiHD / LambdaNP2
+                -82523.3 * CiHWB / LambdaNP2
+                -3.424 * delta_GF
+                -0.754 * deltaGzd6())
+                +cWsch*(-321.416 * CiHD / LambdaNP2
+                +10203.3 * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.754 * deltaGzd6())
+                );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15254,10 +15500,14 @@ double NPSMEFTd6::deltaGammaH4eRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.666 * deltaMz()
-                +15.83 * deltaMh()
-                -0.167 * deltaaMZ()
-                +2.439 * deltaGmu() ); 
+    dwidth += cHSM * (cAsch*(-9.739 * deltaMz()
+                +15.858 * deltaMh()
+                -0.16 * deltaaMZ()
+                +2.408 * deltaGmu())
+                +cWsch*(-10.859 * deltaMz()
+                +15.858 * deltaMh()
+                +2.236 * deltaGmu()
+                +0.749 * deltaMw()) ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -15317,22 +15567,26 @@ double NPSMEFTd6::GammaH4muRatio() const
 }
 
 double NPSMEFTd6::deltaGammaH4muRatio1() const
-{
+{    
     double dwidth = 0.0;
     
     double C1 = 0.0083;
         
-    dwidth = (+121334. * CiHbox / LambdaNP2
-                -43294.3 * CiHD / LambdaNP2
-                -102184. * CiHB / LambdaNP2
-                -25654.9 * CiHW / LambdaNP2
-                -82120.1 * CiHWB / LambdaNP2
-                +25756.2 * CiDHB / LambdaNP2
-                +23015.9 * CiDHW / LambdaNP2
-                +122097. * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                -105015. * CiHe_22 / LambdaNP2
-                -3.427 * delta_GF
-                -0.745 * deltaGzd6()                
+    dwidth = (+121280. * CiHbox / LambdaNP2
+                -101266. * CiHB / LambdaNP2
+                -25189.1 * CiHW / LambdaNP2
+                +25799.1 * CiDHB / LambdaNP2
+                +23071.4 * CiDHW / LambdaNP2
+                +122245. * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                -105313. * CiHe_22 / LambdaNP2
+                +cAsch*(-43187.7 * CiHD / LambdaNP2
+                -82284. * CiHWB / LambdaNP2
+                -3.424 * delta_GF
+                -0.756 * deltaGzd6())
+                +cWsch*(-448.867 * CiHD / LambdaNP2
+                +10693.5 * CiHWB / LambdaNP2
+                -2.999 * delta_GF
+                -0.756 * deltaGzd6())             
                  );
 
 //  Linear contribution from Higgs self-coupling
@@ -15341,10 +15595,14 @@ double NPSMEFTd6::deltaGammaH4muRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.636 * deltaMz()
-                +15.801 * deltaMh()
-                -0.162 * deltaaMZ()
-                +2.409 * deltaGmu() ); 
+    dwidth += cHSM * (cAsch*(-9.697 * deltaMz()
+                +15.843 * deltaMh()
+                -0.171 * deltaaMZ()
+                +2.408 * deltaGmu())
+                +cWsch*(-10.868 * deltaMz()
+                +15.843 * deltaMh()
+                +2.244 * deltaGmu()
+                +0.672 * deltaMw()) ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -15409,18 +15667,24 @@ double NPSMEFTd6::deltaGammaH4vRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121322. * CiHbox / LambdaNP2
-                -30321.6 * CiHD / LambdaNP2
-                -13308.2 * CiHB / LambdaNP2
-                -44334.3 * CiHW / LambdaNP2
-                -24272.1 * CiHWB / LambdaNP2
-                +14997.9 * CiDHB / LambdaNP2
-                +27370. * CiDHW / LambdaNP2
-                -36972.9 * (CiHL1_11 - CiHL3_11) / LambdaNP2
-                -36941.8 * (CiHL1_22 - CiHL3_22) / LambdaNP2
-                -36930.2 * (CiHL1_33 - CiHL3_33) / LambdaNP2
-                -3.0 * delta_GF
-                -0.745 * deltaGzd6()  );
+    dwidth = (+121311. * CiHbox / LambdaNP2
+                -13320.2 * CiHB / LambdaNP2
+                -44355.6 * CiHW / LambdaNP2
+                +15020. * CiDHB / LambdaNP2
+                +27416.8 * CiDHW / LambdaNP2
+                -37027.3 * (CiHL1_11 - CiHL3_11) / LambdaNP2
+                -36969.3 * (CiHL1_22 - CiHL3_22) / LambdaNP2
+                -37032.5 * (CiHL1_33 - CiHL3_33) / LambdaNP2
+                +cAsch*(-30309.7 * CiHD / LambdaNP2
+                -24266.2 * CiHWB / LambdaNP2
+                -2.998 * delta_GF
+                -0.715 * deltaGzd6()
+                )
+                +cWsch*(-30309.7 * CiHD / LambdaNP2
+                -24266.2 * CiHWB / LambdaNP2
+                -2.998 * delta_GF
+                -0.715 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15428,10 +15692,14 @@ double NPSMEFTd6::deltaGammaH4vRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.503 * deltaMz()
-                +14.748 * deltaMh()
-                +0.235 * deltaaMZ()
-                +2.029 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.608 * deltaMz()
+                +14.774 * deltaMh()
+                +0.233 * deltaaMZ()
+                +2.016 * deltaGmu()))
+                +cWsch*(cHSM * (-7.952 * deltaMz()
+                +14.777 * deltaMh()
+                +2.262 * deltaGmu()
+                -1.206 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -15496,20 +15764,26 @@ double NPSMEFTd6::deltaGammaH4uRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121256. * CiHbox / LambdaNP2
-                -67839.8 * CiHD / LambdaNP2
-                -153416. * CiHB / LambdaNP2
-                +70062.1 * CiHW / LambdaNP2
-                -272158. * CiHWB / LambdaNP2
-                -487093. * CiHG / LambdaNP2
-                +47564.3 * CiDHB / LambdaNP2
-                +11327.5 * CiDHW / LambdaNP2
-                -69970.9 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
-                -70376.5 * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
-                +30225.2 * CiHu_11 / LambdaNP2
-                +30360.4 * CiHu_22 / LambdaNP2
-                -4.232 * delta_GF
-                -0.745 * deltaGzd6()  );
+    dwidth = (+121283. * CiHbox / LambdaNP2
+                -153814. * CiHB / LambdaNP2
+                +70762.7 * CiHW / LambdaNP2
+                -476614. * CiHG / LambdaNP2
+                +47719.2 * CiDHB / LambdaNP2
+                +11347.8 * CiDHW / LambdaNP2
+                -70157.4 * (CiHQ1_11 - CiHQ3_11) / LambdaNP2
+                -70569. * (CiHQ1_22 - CiHQ3_22) / LambdaNP2
+                +30328.1 * CiHu_11 / LambdaNP2
+                +30455.3 * CiHu_22 / LambdaNP2
+                +cAsch*(-67742.3 * CiHD / LambdaNP2
+                -272758. * CiHWB / LambdaNP2
+                -4.233 * delta_GF
+                -0.781 * deltaGzd6()
+                )
+                +cWsch*(+56825.9 * CiHD / LambdaNP2
+                +5.842 * CiHWB / LambdaNP2
+                -3.002 * delta_GF
+                -0.781 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15517,10 +15791,14 @@ double NPSMEFTd6::deltaGammaH4uRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-8.391 * deltaMz()
-                +16.308 * deltaMh()
-                -0.965 * deltaaMZ()
-                +3.203 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-8.52 * deltaMz()
+                +16.373 * deltaMh()
+                -0.942 * deltaaMZ()
+                +3.167 * deltaGmu()))
+                +cWsch*(cHSM * (-14.978 * deltaMz()
+                +16.373 * deltaMh()
+                +2.198 * deltaGmu()
+                +4.578 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -15585,22 +15863,28 @@ double NPSMEFTd6::deltaGammaH4dRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121272. * CiHbox / LambdaNP2
-                -56046.1 * CiHD / LambdaNP2
-                -106096. * CiHB / LambdaNP2
-                +37333.6 * CiHW / LambdaNP2
-                -199688. * CiHWB / LambdaNP2
-                -376539. * CiHG / LambdaNP2
-                +37954.3 * CiDHB / LambdaNP2
-                +16431.1 * CiDHW / LambdaNP2
-                +43561.6 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
-                +43546.8 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
-                +44892.3 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
-                -7612.44 * CiHd_11 / LambdaNP2
-                -7610.45 * CiHd_22 / LambdaNP2
-                -7269.89 * CiHd_33 / LambdaNP2
-                -3.843 * delta_GF
-                -0.745 * deltaGzd6()  );
+    dwidth = (+121248. * CiHbox / LambdaNP2
+                -106312. * CiHB / LambdaNP2
+                +37722.3 * CiHW / LambdaNP2
+                -368494. * CiHG / LambdaNP2
+                +38027.3 * CiDHB / LambdaNP2
+                +16455.2 * CiDHW / LambdaNP2
+                +43669.1 * (CiHQ1_11 + CiHQ3_11) / LambdaNP2
+                +43649.7 * (CiHQ1_22 + CiHQ3_22) / LambdaNP2
+                +45003.6 * (CiHQ1_33 + CiHQ3_33) / LambdaNP2
+                -7637.9 * CiHd_11 / LambdaNP2
+                -7633.36 * CiHd_22 / LambdaNP2
+                -7294.61 * CiHd_33 / LambdaNP2
+                +cAsch*(-56026.9 * CiHD / LambdaNP2
+                -199805. * CiHWB / LambdaNP2
+                -3.841 * delta_GF
+                -0.778 * deltaGzd6()
+                )
+                +cWsch*(+29594.4 * CiHD / LambdaNP2
+                -12377.7 * CiHWB / LambdaNP2
+                -2.995 * delta_GF
+                -0.778 * deltaGzd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15608,10 +15892,14 @@ double NPSMEFTd6::deltaGammaH4dRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.115 * deltaMz()
-                +16.289 * deltaMh()
-                -0.598 * deltaaMZ()
-                +2.816 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-9.19 * deltaMz()
+                +16.387 * deltaMh()
+                -0.596 * deltaaMZ()
+                +2.807 * deltaGmu()))
+                +cWsch*(cHSM * (-13.077 * deltaMz()
+                +16.387 * deltaMh()
+                +2.268 * deltaGmu()
+                +2.743 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -15676,17 +15964,23 @@ double NPSMEFTd6::deltaGammaHLvvLRatio1() const
     
     double C1 = 0.0073;
         
-    dwidth = (+121237. * CiHbox / LambdaNP2
-                -203587. * CiHD / LambdaNP2
-                -91282. * CiHW / LambdaNP2
-                -379824. * CiHWB / LambdaNP2
-                +37006.4 * CiDHW / LambdaNP2
-                +44683.1 * CiHL3_11 / LambdaNP2
-                +45084.7 * CiHL3_22 / LambdaNP2
-                +44793.9 * CiHL3_33 / LambdaNP2
-                -4.714 * delta_GF 
-                -13.697 * deltaMwd6()
-                -0.951 * deltaGwd6()  );
+    dwidth = (+121150. * CiHbox / LambdaNP2
+                -91767.5 * CiHW / LambdaNP2
+                +36978. * CiDHW / LambdaNP2
+                +45140.3 * CiHL3_11 / LambdaNP2
+                +45192.1 * CiHL3_22 / LambdaNP2
+                +45407.7 * CiHL3_33 / LambdaNP2
+                +cAsch*(-203598. * CiHD / LambdaNP2
+                -379536. * CiHWB / LambdaNP2
+                -4.713 * delta_GF
+                -13.743 * deltaMwd6()
+                -0.962 * deltaGwd6()
+                )
+                +cWsch*(-30310.3 * CiHD / LambdaNP2
+                +0. * CiHWB / LambdaNP2
+                -2.996 * delta_GF
+                -0.962 * deltaGwd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15694,10 +15988,14 @@ double NPSMEFTd6::deltaGammaHLvvLRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.137 * deltaMz()
-                +13.735 * deltaMh()
-                +1.833 * deltaaMZ()
-                +0.239 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-12.232 * deltaMz()
+                +13.669 * deltaMh()
+                +1.829 * deltaaMZ()
+                +0.189 * deltaGmu()))
+                +cWsch*(cHSM * (-0.016 * deltaMz()
+                -8.548 * deltaMw()
+                +13.67 * deltaMh()
+                +2.003 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHWWint + eHWWpar;
@@ -15762,16 +16060,22 @@ double NPSMEFTd6::deltaGammaHevmuvRatio1() const
     
     double C1 = 0.0073;
         
-    dwidth = (+121317. * CiHbox / LambdaNP2
-                -203584. * CiHD / LambdaNP2
-                -91287.8 * CiHW / LambdaNP2
-                -379744. * CiHWB / LambdaNP2
-                +36996. * CiDHW / LambdaNP2
-                +67135.2 * CiHL3_11 / LambdaNP2
-                +67186.7 * CiHL3_22 / LambdaNP2
-                -4.715 * delta_GF 
-                -13.697 * deltaMwd6()
-                -0.951 * deltaGwd6() );
+    dwidth = (+121407. * CiHbox / LambdaNP2
+                -91741.5 * CiHW / LambdaNP2
+                +36995.8 * CiDHW / LambdaNP2
+                +68126.1 * CiHL3_11 / LambdaNP2
+                +68223.8 * CiHL3_22 / LambdaNP2
+                +cAsch*(-203550. * CiHD / LambdaNP2
+                -380035. * CiHWB / LambdaNP2
+                -4.711 * delta_GF
+                -13.53 * deltaMwd6()
+                -0.964 * deltaGwd6()
+                )
+                +cWsch*(-30299.6 * CiHD / LambdaNP2
+                +0. * CiHWB / LambdaNP2
+                -3. * delta_GF
+                -0.964 * deltaGwd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15779,10 +16083,14 @@ double NPSMEFTd6::deltaGammaHevmuvRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.221 * deltaMz()
-                +13.596 * deltaMh()
-                +1.81 * deltaaMZ()
-                +0.27 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-12.178 * deltaMz()
+                +13.623 * deltaMh()
+                +1.825 * deltaaMZ()
+                +0.233 * deltaGmu()))
+                +cWsch*(cHSM * (-0.016 * deltaMz()
+                -8.445 * deltaMw()
+                +13.623 * deltaMh()
+                +2.089 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHWWint + eHWWpar;
@@ -15847,16 +16155,22 @@ double NPSMEFTd6::deltaGammaHudduRatio1() const
     
     double C1 = 0.0073;
         
-    dwidth = (+121378. * CiHbox / LambdaNP2
-                -203856. * CiHD / LambdaNP2
-                -91905. * CiHW / LambdaNP2
-                -380250. * CiHWB / LambdaNP2
-                +37189.3 * CiDHW / LambdaNP2
-                +67303.7 * CiHQ3_11 / LambdaNP2
-                +67249.8 * CiHQ3_22 / LambdaNP2
+    dwidth = (+121333. * CiHbox / LambdaNP2
+                -92283.9 * CiHW / LambdaNP2
+                +37165.5 * CiDHW / LambdaNP2
+                +68273.4 * CiHQ3_11 / LambdaNP2
+                +68176.3 * CiHQ3_22 / LambdaNP2
+                +cAsch*(-203776. * CiHD / LambdaNP2
+                -380178. * CiHWB / LambdaNP2
                 -4.719 * delta_GF
-                -13.697 * deltaMwd6()
-                -0.951 * deltaGwd6() );
+                -14.006 * deltaMwd6()
+                -0.956 * deltaGwd6()
+                )
+                +cWsch*(-30312.7 * CiHD / LambdaNP2
+                +0. * CiHWB / LambdaNP2
+                -3.003 * delta_GF
+                -0.956 * deltaGwd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15864,10 +16178,14 @@ double NPSMEFTd6::deltaGammaHudduRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.642 * deltaMz()
-                +14.263 * deltaMh()
-                +1.901 * deltaaMZ()
-                +0.187 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-12.618 * deltaMz()
+                +14.254 * deltaMh()
+                +1.912 * deltaaMZ()
+                +0.149 * deltaGmu()))
+                +cWsch*(cHSM * (-0.018 * deltaMz()
+                -8.857 * deltaMw()
+                +14.251 * deltaMh()
+                +2.073 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHWWint + eHWWpar;
@@ -15932,19 +16250,25 @@ double NPSMEFTd6::deltaGammaHLvudRatio1() const
     
     double C1 = 0.0073;
         
-    dwidth = (+121307. * CiHbox / LambdaNP2
-                -203763. * CiHD / LambdaNP2
-                -92951.5 * CiHW / LambdaNP2
-                -380363. * CiHWB / LambdaNP2
-                +37386.2 * CiDHW / LambdaNP2
-                +21895.2 * CiHL3_11 / LambdaNP2
-                +21669.7 * CiHL3_22 / LambdaNP2
-                +22068.9 * CiHL3_33 / LambdaNP2
-                +34279.2 * CiHQ3_11 / LambdaNP2
-                +34241.1 * CiHQ3_22 / LambdaNP2
-                -4.716 * delta_GF
-                -13.697 * deltaMwd6()
-                -0.951 * deltaGwd6() );
+    dwidth = (+121281. * CiHbox / LambdaNP2
+                -93409.7 * CiHW / LambdaNP2
+                +37365.5 * CiDHW / LambdaNP2
+                +22531.9 * CiHL3_11 / LambdaNP2
+                +22479. * CiHL3_22 / LambdaNP2
+                +22364.3 * CiHL3_33 / LambdaNP2
+                +34744.7 * CiHQ3_11 / LambdaNP2
+                +34720.9 * CiHQ3_22 / LambdaNP2
+                +cAsch*(-203784. * CiHD / LambdaNP2
+                -380028. * CiHWB / LambdaNP2
+                -4.721 * delta_GF
+                -13.591 * deltaMwd6()
+                -0.969 * deltaGwd6()
+                )
+                +cWsch*(-30359.9 * CiHD / LambdaNP2
+                +0. * CiHWB / LambdaNP2
+                -3.004 * delta_GF
+                -0.969 * deltaGwd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -15952,10 +16276,14 @@ double NPSMEFTd6::deltaGammaHLvudRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.375 * deltaMz()
-                +13.792 * deltaMh()
-                +1.857 * deltaaMZ()
-                +0.195 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-12.333 * deltaMz()
+                +13.766 * deltaMh()
+                +1.852 * deltaaMZ()
+                +0.169 * deltaGmu()))
+                +cWsch*(cHSM * (-0.015 * deltaMz()
+                -8.492 * deltaMw()
+                +13.769 * deltaMh()
+                +2.065 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHWWint + eHWWpar;
@@ -16020,26 +16348,33 @@ double NPSMEFTd6::deltaGammaH2udRatio1() const
     
     double C1 = 0.0073;
         
-    dwidth = (+121311. * CiHbox / LambdaNP2
-                -199058. * CiHD / LambdaNP2
-                -3495.85 * CiHB / LambdaNP2
-                -87641.6 * CiHW / LambdaNP2
-                -374908. * CiHWB / LambdaNP2
-                -59683.8 * CiHG / LambdaNP2
-                +1269.24 * CiDHB / LambdaNP2
-                +36755.6 * CiDHW / LambdaNP2
-                -25.599 * CiHQ1_11 / LambdaNP2
-                -24.529 * CiHQ1_22 / LambdaNP2
-                +603.32 * CiHu_11 / LambdaNP2
-                +604.427 * CiHu_22 / LambdaNP2
-                -234.079 * CiHd_11 / LambdaNP2
-                -234.951 * CiHd_22 / LambdaNP2
-                +67621.9 * CiHQ3_11 / LambdaNP2
-                +67812.9 * CiHQ3_22 / LambdaNP2
-                -4.687 * delta_GF
-                -0.032 * deltaGzd6()
-                -13.513 * deltaMwd6()
-                -0.920 * deltaGwd6());
+    dwidth = (+121425. * CiHbox / LambdaNP2
+                -3244.8 * CiHB / LambdaNP2
+                -88391.2 * CiHW / LambdaNP2
+                -55282. * CiHG / LambdaNP2
+                +1177.32 * CiDHB / LambdaNP2
+                +36769.9 * CiDHW / LambdaNP2
+                -23.442 * CiHQ1_11 / LambdaNP2
+                -22.98 * CiHQ1_22 / LambdaNP2
+                +559.485 * CiHu_11 / LambdaNP2
+                +560.558 * CiHu_22 / LambdaNP2
+                -217.102 * CiHd_11 / LambdaNP2
+                -218.04 * CiHd_22 / LambdaNP2
+                +68556.8 * CiHQ3_11 / LambdaNP2
+                +68783.1 * CiHQ3_22 / LambdaNP2
+                +cAsch*(-199535. * CiHD / LambdaNP2
+                -375669. * CiHWB / LambdaNP2
+                -4.696 * delta_GF
+                -0.026 * deltaGzd6()
+                -13.64 * deltaMwd6()
+                -0.944 * deltaGwd6()
+                )
+                +cWsch*(-28852.8 * CiHD / LambdaNP2
+                -1306.57 * CiHWB / LambdaNP2
+                -3.002 * delta_GF
+                -0.026 * deltaGzd6()
+                -0.944 * deltaGwd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -16047,10 +16382,14 @@ double NPSMEFTd6::deltaGammaH2udRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.705 * deltaMz()
-                +14.426 * deltaMh()
-                +1.822 * deltaaMZ()
-                +0.204 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-12.708 * deltaMz()
+                +14.393 * deltaMh()
+                +1.82 * deltaaMZ()
+                +0.188 * deltaGmu()))
+                +cWsch*(cHSM * (-0.441 * deltaMz()
+                -8.601 * deltaMw()
+                +14.393 * deltaMh()
+                +2.022 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)  
     // Dominated by CC => Use HWW uncertainty
@@ -16116,26 +16455,33 @@ double NPSMEFTd6::deltaGammaH2LvRatio1() const
     
     double C1 = 0.0073;
         
-    dwidth = (+121036. * CiHbox / LambdaNP2
-                -197478. * CiHD / LambdaNP2
-                +1146.44 * CiHB / LambdaNP2
-                -91497.6 * CiHW / LambdaNP2
-                -362801. * CiHWB / LambdaNP2
-                -224.19 * CiDHB / LambdaNP2
-                +37547.6 * CiDHW / LambdaNP2
-                -147.367 * CiHL1_11 / LambdaNP2
-                -148.166 * CiHL1_22 / LambdaNP2
-                -134.279 * CiHL1_33 / LambdaNP2
-                -966.542 * CiHe_11 / LambdaNP2
-                -932.129 * CiHe_22 / LambdaNP2
-                -930.205 * CiHe_33 / LambdaNP2
-                +45269.8 * CiHL3_11 / LambdaNP2
-                +45100.5 * CiHL3_22 / LambdaNP2
-                +45154.9 * CiHL3_33 / LambdaNP2
-                -4.624 * delta_GF
-                -0.040 * deltaGzd6()
-                -13.553 * deltaMwd6()
-                -0.944 * deltaGwd6());
+    dwidth = (+121133. * CiHbox / LambdaNP2
+                +1057.61 * CiHB / LambdaNP2
+                -91969.3 * CiHW / LambdaNP2
+                -210.15 * CiDHB / LambdaNP2
+                +37475. * CiDHW / LambdaNP2
+                -137.279 * CiHL1_11 / LambdaNP2
+                -137.825 * CiHL1_22 / LambdaNP2
+                -123.03 * CiHL1_33 / LambdaNP2
+                -897.801 * CiHe_11 / LambdaNP2
+                -865.641 * CiHe_22 / LambdaNP2
+                -862.721 * CiHe_33 / LambdaNP2
+                +45408.9 * CiHL3_11 / LambdaNP2
+                +45540.1 * CiHL3_22 / LambdaNP2
+                +45765.4 * CiHL3_33 / LambdaNP2
+                +cAsch*(-198032. * CiHD / LambdaNP2
+                -364301. * CiHWB / LambdaNP2
+                -4.631 * delta_GF
+                -13.529 * deltaMwd6()
+                -0.956 * deltaGwd6()
+                -0.037 * deltaGzd6()
+                )
+                +cWsch*(-33553.1 * CiHD / LambdaNP2
+                -3437.65 * CiHWB / LambdaNP2
+                -3.001 * delta_GF
+                -0.036 * deltaGzd6()
+                -0.956 * deltaGwd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -16143,10 +16489,14 @@ double NPSMEFTd6::deltaGammaH2LvRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.757 * deltaMz()
-                +14.047 * deltaMh()
-                +1.894 * deltaaMZ()
-                +0.149 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-12.684 * deltaMz()
+                +13.95 * deltaMh()
+                +1.899 * deltaaMZ()
+                +0.151 * deltaGmu()))
+                +cWsch*(cHSM * (-0.128 * deltaMz()
+                -8.864 * deltaMw()
+                +13.95 * deltaMh()
+                +2.045 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)  
     // Dominated by CC => Use HWW uncertainty
@@ -16212,23 +16562,30 @@ double NPSMEFTd6::deltaGammaH2Lv2Ratio1() const
     
     double C1 = 0.0073;
         
-    dwidth = (+121179. * CiHbox / LambdaNP2
-                -197603. * CiHD / LambdaNP2
-                +1142.81 * CiHB / LambdaNP2
-                -91440.1 * CiHW / LambdaNP2
-                -362960. * CiHWB / LambdaNP2
-                -223.402 * CiDHB / LambdaNP2
-                +37519.8 * CiDHW / LambdaNP2
-                -219.564 * CiHL1_11 / LambdaNP2
-                -221.635 * CiHL1_22 / LambdaNP2
-                -1448.17 * CiHe_11 / LambdaNP2
-                -1400.75 * CiHe_22 / LambdaNP2
-                +67494.9 * CiHL3_11 / LambdaNP2
-                +67513. * CiHL3_22 / LambdaNP2
-                -4.619 * delta_GF
-                -0.040 * deltaGzd6()
-                -13.553 * deltaMwd6()
-                -0.944 * deltaGwd6());
+    dwidth = (+121215. * CiHbox / LambdaNP2
+                +1054.39 * CiHB / LambdaNP2
+                -91849.7 * CiHW / LambdaNP2
+                -207.764 * CiDHB / LambdaNP2
+                +37474.1 * CiDHW / LambdaNP2
+                -205.44 * CiHL1_11 / LambdaNP2
+                -205.933 * CiHL1_22 / LambdaNP2
+                -1345.15 * CiHe_11 / LambdaNP2
+                -1299.22 * CiHe_22 / LambdaNP2
+                +68383.7 * CiHL3_11 / LambdaNP2
+                +68347.6 * CiHL3_22 / LambdaNP2
+                +cAsch*(-198193. * CiHD / LambdaNP2
+                -364163. * CiHWB / LambdaNP2
+                -4.627 * delta_GF
+                -13.439 * deltaMwd6()
+                -0.961 * deltaGwd6()
+                -0.042 * deltaGzd6()
+                )
+                +cWsch*(-33577.8 * CiHD / LambdaNP2
+                -3457.89 * CiHWB / LambdaNP2
+                -2.999 * delta_GF
+                -0.042 * deltaGzd6()
+                -0.961 * deltaGwd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -16236,10 +16593,14 @@ double NPSMEFTd6::deltaGammaH2Lv2Ratio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.766 * deltaMz()
-                +14.115 * deltaMh()
-                +1.86 * deltaaMZ()
-                +0.147 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-12.755 * deltaMz()
+                +14.08 * deltaMh()
+                +1.884 * deltaaMZ()
+                +0.121 * deltaGmu()))
+                +cWsch*(cHSM * (-0.118 * deltaMz()
+                -8.746 * deltaMw()
+                +14.08 * deltaMh()
+                +2.002 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)  
     // Dominated by CC => Use HWW uncertainty
@@ -16300,25 +16661,30 @@ double NPSMEFTd6::GammaH2evRatio() const
 }
 
 double NPSMEFTd6::deltaGammaH2evRatio1() const
-{
+{   
     double dwidth = 0.0;
     
     double C1 = 0.0073;
         
-    dwidth = (+121282. * CiHbox / LambdaNP2
-                -197946. * CiHD / LambdaNP2
-                +1132.3 * CiHB / LambdaNP2
-                -91499.5 * CiHW / LambdaNP2
-                -363442. * CiHWB / LambdaNP2
-                -220.942 * CiDHB / LambdaNP2
-                +37540.9 * CiDHW / LambdaNP2
-                -439.637 * CiHL1_11 / LambdaNP2
-                -2898.24 * CiHe_11 / LambdaNP2
-                +135188. * CiHL3_11 / LambdaNP2
-                -4.623 * delta_GF
-                -0.040 * deltaGzd6()
-                -13.553 * deltaMwd6()
-                -0.944 * deltaGwd6()                
+    dwidth = (+121306. * CiHbox / LambdaNP2
+                +1054.18 * CiHB / LambdaNP2
+                -91797.7 * CiHW / LambdaNP2
+                -205.428 * CiDHB / LambdaNP2
+                +37460.6 * CiDHW / LambdaNP2
+                -411.183 * CiHL1_11 / LambdaNP2
+                -2684.07 * CiHe_11 / LambdaNP2
+                +136899. * CiHL3_11 / LambdaNP2
+                +cAsch*(-198266. * CiHD / LambdaNP2
+                -364381. * CiHWB / LambdaNP2
+                -4.629 * delta_GF
+                -0.037 * deltaGzd6()
+                -13.549 * deltaMwd6()
+                -0.965 * deltaGwd6())
+                +cWsch*(-33589.4 * CiHD / LambdaNP2
+                -3458.14 * CiHWB / LambdaNP2
+                -2.999 * delta_GF
+                -0.037 * deltaGzd6()
+                -0.965 * deltaGwd6())                
                  );
 
 //  Linear contribution from Higgs self-coupling
@@ -16327,10 +16693,14 @@ double NPSMEFTd6::deltaGammaH2evRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.717 * deltaMz()
-                +14.043 * deltaMh()
-                +1.889 * deltaaMZ()
-                +0.098 * deltaGmu() ); 
+    dwidth += cHSM * (cAsch*(-12.638 * deltaMz()
+                +14.08 * deltaMh()
+                +1.901 * deltaaMZ()
+                +0.103 * deltaGmu())
+                +cWsch*(-0.103 * deltaMz()
+                -8.875 * deltaMw()
+                +14.08 * deltaMh()
+                +2.015 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)  
     // Dominated by CC => Use HWW uncertainty
@@ -16391,25 +16761,27 @@ double NPSMEFTd6::GammaH2muvRatio() const
 }
 
 double NPSMEFTd6::deltaGammaH2muvRatio1() const
-{
+{   
     double dwidth = 0.0;
     
     double C1 = 0.0073;
         
-    dwidth = (+121159. * CiHbox / LambdaNP2
-                -197630. * CiHD / LambdaNP2
-                +1128.6 * CiHB / LambdaNP2
-                -91465.3 * CiHW / LambdaNP2
-                -362683. * CiHWB / LambdaNP2
-                -221.363 * CiDHB / LambdaNP2
-                +37458.7 * CiDHW / LambdaNP2
-                -436.612 * CiHL1_22 / LambdaNP2
-                -2799.53 * CiHe_22 / LambdaNP2
-                +135112. * CiHL3_22 / LambdaNP2
-                -4.619 * delta_GF
-                -0.040 * deltaGzd6()
-                -13.553 * deltaMwd6()
-                -0.944 * deltaGwd6()                
+    dwidth = (+121244. * CiHbox / LambdaNP2
+                +1045.26 * CiHB / LambdaNP2
+                -91781. * CiHW / LambdaNP2
+                -206.573 * CiDHB / LambdaNP2
+                +37435.3 * CiDHW / LambdaNP2
+                -410.738 * CiHL1_22 / LambdaNP2
+                -2593.82 * CiHe_22 / LambdaNP2
+                +136695. * CiHL3_22 / LambdaNP2
+                +cAsch*(-198022. * CiHD / LambdaNP2
+                -364213. * CiHWB / LambdaNP2
+                -4.625 * delta_GF
+                -0.031 * deltaGzd6())
+                +cWsch*(-33559. * CiHD / LambdaNP2
+                -3447.11 * CiHWB / LambdaNP2
+                -2.998 * delta_GF
+                -0.031 * deltaGzd6())          
                  );
 
 //  Linear contribution from Higgs self-coupling
@@ -16418,10 +16790,17 @@ double NPSMEFTd6::deltaGammaH2muvRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.798 * deltaMz()
-                +14.141 * deltaMh()
-                +1.882 * deltaaMZ()
-                +0.093 * deltaGmu() ); 
+    dwidth += cHSM * (cAsch*(-12.671 * deltaMz()
+                -13.492 * deltaMwd6()
+                -0.957 * deltaGwd6()
+                +14.005 * deltaMh()
+                +1.868 * deltaaMZ()
+                +0.103 * deltaGmu())
+                +cWsch*(-0.177 * deltaMz()
+                -8.833 * deltaMw()
+                -0.957 * deltaGwd6()
+                +14.005 * deltaMh()
+                +1.959 * deltaGmu()) ); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)  
     // Dominated by CC => Use HWW uncertainty
@@ -16723,28 +17102,33 @@ double NPSMEFTd6::deltaGammaHlljjRatio1() const
     
     double C1 = 0.0083;
         
-    dwidth = (+121258. * CiHbox / LambdaNP2
-                -51112.8 * CiHD / LambdaNP2
-                -92134.5 * CiHB / LambdaNP2
-                +24384.2 * CiHW / LambdaNP2
-                -172905. * CiHWB / LambdaNP2
-                +35131.3 * CiDHB / LambdaNP2
-                +19419.1 * CiDHW / LambdaNP2
-                +31733.4 * (CiHL1_11 + CiHL3_11) / LambdaNP2
-                +31758.9 * (CiHL1_22 + CiHL3_22) / LambdaNP2
-                +3488.8 * CiHQ1_11 / LambdaNP2
-                +3526.22 * CiHQ1_22 / LambdaNP2
-                -27246.6 * CiHe_11 / LambdaNP2
-                -27249. * CiHe_22 / LambdaNP2
-                +6976.44 * CiHu_11 / LambdaNP2
-                +6948.06 * CiHu_22 / LambdaNP2
-                -3489.15 * CiHd_11 / LambdaNP2
-                -3489.15 * CiHd_22 / LambdaNP2
-                +34851.8 * CiHQ3_11 / LambdaNP2
-                +34815.6 * CiHQ3_22 / LambdaNP2
-                -3.688 * delta_GF
-                -0.823 * deltaGzd6()
-                 );
+    dwidth = (+121311. * CiHbox / LambdaNP2
+                -92298.6 * CiHB / LambdaNP2
+                +24856.5 * CiHW / LambdaNP2
+                +35209.4 * CiDHB / LambdaNP2
+                +19445.9 * CiDHW / LambdaNP2
+                +31820. * (CiHL1_11 + CiHL3_11) / LambdaNP2
+                +31802.8 * (CiHL1_22 + CiHL3_22) / LambdaNP2
+                +3495.26 * CiHQ1_11 / LambdaNP2
+                +3545.61 * CiHQ1_22 / LambdaNP2
+                -27325.3 * CiHe_11 / LambdaNP2
+                -27320.8 * CiHe_22 / LambdaNP2
+                +6992.68 * CiHu_11 / LambdaNP2
+                +6968.35 * CiHu_22 / LambdaNP2
+                -3496.34 * CiHd_11 / LambdaNP2
+                -3497.7 * CiHd_22 / LambdaNP2
+                +34929.4 * CiHQ3_11 / LambdaNP2
+                +34902.6 * CiHQ3_22 / LambdaNP2
+                +cAsch*(-51170.9 * CiHD / LambdaNP2
+                -173417. * CiHWB / LambdaNP2
+                -3.69 * delta_GF
+                -0.84 * deltaGzd6()
+                )
+                +cWsch*(+18275. * CiHD / LambdaNP2
+                -20362.3 * CiHWB / LambdaNP2
+                -3.001 * delta_GF
+                -0.84 * deltaGzd6()
+                )  );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -16752,10 +17136,14 @@ double NPSMEFTd6::deltaGammaHlljjRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-9.82 * deltaMz()
-                +16.132 * deltaMh()
+    dwidth += cAsch*(cHSM * (-9.881 * deltaMz()
+                +16.162 * deltaMh()
                 -0.407 * deltaaMZ()
-                +2.558 * deltaGmu() ); 
+                +2.579 * deltaGmu()))
+                +cWsch*(cHSM * (-12.635 * deltaMz()
+                +16.162 * deltaMh()
+                +2.15 * deltaGmu()
+                +1.831 * deltaMw())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZZint + eHZZpar;
@@ -16820,18 +17208,24 @@ double NPSMEFTd6::deltaGammaHlvjjRatio1() const
     
     double C1 = 0.0073;
         
-    dwidth = (+121228. * CiHbox / LambdaNP2
-                -203763. * CiHD / LambdaNP2
-                -92855.3 * CiHW / LambdaNP2
-                -380434. * CiHWB / LambdaNP2
-                +37363.2 * CiDHW / LambdaNP2
-                +32982.5 * CiHL3_11 / LambdaNP2
-                +33289.5 * CiHL3_22 / LambdaNP2
-                +34288.6 * CiHQ3_11 / LambdaNP2
-                +34275.9 * CiHQ3_22 / LambdaNP2
-                -4.722 * delta_GF
-                -13.697 * deltaMwd6()
-                -0.951 * deltaGwd6() );
+    dwidth = (+121253. * CiHbox / LambdaNP2
+                -93392.5 * CiHW / LambdaNP2
+                +37361. * CiDHW / LambdaNP2
+                +33596.1 * CiHL3_11 / LambdaNP2
+                +33564.4 * CiHL3_22 / LambdaNP2
+                +34752.8 * CiHQ3_11 / LambdaNP2
+                +34719.9 * CiHQ3_22 / LambdaNP2
+                +cAsch*(-203815. * CiHD / LambdaNP2
+                -380827. * CiHWB / LambdaNP2
+                -4.723 * delta_GF
+                -13.742 * deltaMwd6()
+                -0.962 * deltaGwd6()
+                )
+                +cWsch*(-30332.8 * CiHD / LambdaNP2
+                +0. * CiHWB / LambdaNP2
+                -3.004 * delta_GF
+                -0.962 * deltaGwd6()
+                ) );
 
 //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
@@ -16839,10 +17233,14 @@ double NPSMEFTd6::deltaGammaHlvjjRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
     // Add modifications due to small variations of the SM parameters    
-    dwidth += cHSM * (-12.353 * deltaMz()
-                +13.844 * deltaMh()
-                +1.836 * deltaaMZ()
-                +0.219 * deltaGmu() ); 
+    dwidth += cAsch*(cHSM * (-12.383 * deltaMz()
+                +13.843 * deltaMh()
+                +1.845 * deltaaMZ()
+                +0.244 * deltaGmu()))
+                +cWsch*(cHSM * (-0.034 * deltaMz()
+                -8.477 * deltaMw()
+                +13.843 * deltaMh()
+                +2.008 * deltaGmu())); 
     
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHWWint + eHWWpar;
