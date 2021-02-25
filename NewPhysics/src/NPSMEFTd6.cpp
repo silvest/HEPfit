@@ -1039,9 +1039,11 @@ bool NPSMEFTd6::PostUpdate()
     v2 = v() * v();
     v2_over_LambdaNP2 = v2 / LambdaNP2;
     aleMz = alphaMz();
-    eeMz = sqrt( 4.0 * M_PI * aleMz );
+    eeMz = cAsch * sqrt( 4.0 * M_PI * aleMz ) + cWsch * sqrt(4.0 * sqrt(2.0) * GF * Mw_inp*Mw_inp * (1.0 - Mw_inp*Mw_inp/Mz/Mz) );
     eeMz2 = eeMz*eeMz;
-    cW_tree = Mw_tree() / Mz;
+    cW_tree = cAsch * Mw_tree() / Mz + cWsch * Mw_inp / Mz;
+    
+    
     cW2_tree = cW_tree * cW_tree;
     sW2_tree = 1.0 - cW2_tree;
     sW_tree = sqrt(sW2_tree);
@@ -1248,17 +1250,46 @@ bool NPSMEFTd6::PostUpdate()
     }
     
 //  3) Post-update operations working directly with the dimension six operators  
-    
+ 
+    // Renormalization of gauge fields parameters
     delta_ZZ = (cW2_tree * CiHW + sW2_tree * CiHB + sW_tree * cW_tree * CiHWB) * v2_over_LambdaNP2;
     delta_AA = (sW2_tree * CiHW + cW2_tree * CiHB - sW_tree * cW_tree * CiHWB) * v2_over_LambdaNP2;
     delta_AZ = 2.0 * sW_tree * cW_tree * (CiHW - CiHB) * v2_over_LambdaNP2
             - (cW2_tree - sW2_tree) * CiHWB * v2_over_LambdaNP2;
+
+    // Similar definitions for the EWPO
+    delta_Z = 2.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2;
+    delta_A = - 2.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2;
+    delta_ZA = (cW2_tree - sW2_tree) * CiHWB * v2_over_LambdaNP2;
+    
+    // Renormalization of Higgs field parameter
     delta_h = (-CiHD / 4.0 + CiHbox) * v2_over_LambdaNP2;
     
 //  Calculation of some quantities repeteadly used in the code
+    
+//  NP corrections to Z and W mass Lagrangian parameters
+    delta_MZ = ( sW_tree * cW_tree * CiHWB + 0.25 * CiHD + (3.0/8.0) * CiH/lambdaH_tree ) * v2_over_LambdaNP2;
+    delta_MW = (3.0/8.0) * (CiH/lambdaH_tree) * v2_over_LambdaNP2;
    
 //  NP correction to Fermi constant, as extracted from muon decay
     delta_GF = DeltaGF();
+    
+//  NP correction to the vev, as extracted from GF
+    delta_v = 0.5 * delta_GF;
+            
+//  NP corrections to electric constant parameter and weak mixing angle, depending on the input scheme
+    delta_e = cAsch * (-0.5 * delta_A) 
+            + cWsch * ( (cW2_tree/sW2_tree) * (delta_MW - delta_MZ) - 0.5 * delta_GF );
+    
+    delta_sW2 = cAsch * ( -cW2_tree * (delta_GF - 2.0 * (delta_MW - delta_MZ) - delta_A )/(sW2_tree-cW2_tree)) 
+            + cWsch * (2.0 * cW2_tree * (delta_MW - delta_MZ)/sW2_tree );
+    
+//  NP indirect corrections to EW fermion couplings
+    delta_UgNC = (0.5 * delta_Z - 0.5 * delta_GF + delta_MW - delta_MZ );
+    
+    delta_QgNC = -( sW_tree * cW_tree * delta_ZA + sW2_tree * delta_sW2 );
+    
+    delta_UgCC = (delta_e - 0.5 * delta_sW2);
     
 //  NP corrections to Total Higgs width
     dGammaHTotR1 = deltaGammaTotalRatio1();
@@ -3752,7 +3783,7 @@ double NPSMEFTd6::deltaMw() const
 {
     //  Ref. value used in MG simulations
     //  (Value chosen to produce the same tree level SM pars as in the Alpha scheme with the input pars above)
-    return ( (Mz - 79.96717329554225) / 79.96717329554225 );
+    return ( (Mw_inp - 79.96717329554225) / 79.96717329554225 );
 }
     
 double NPSMEFTd6::deltaMw2() const
@@ -3765,18 +3796,22 @@ double NPSMEFTd6::deltaMw2() const
 
 double NPSMEFTd6::Mw() const
 {
-    return (trueSM.Mw() - Mw_tree() / 4.0 / (cW2_tree - sW2_tree)
-            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
-            + cW2_tree * CiHD * v2_over_LambdaNP2
-            + 2.0 * sW2_tree * delta_GF));
+//    return (trueSM.Mw() - Mw_tree() / 4.0 / (cW2_tree - sW2_tree)
+//            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
+//            + cW2_tree * CiHD * v2_over_LambdaNP2
+//            + 2.0 * sW2_tree * delta_GF));
+    
+    return (trueSM.Mw() + Mw_tree() * (delta_e - 0.5 * delta_sW2 + delta_v));
 }
 
 double NPSMEFTd6::deltaMwd6() const
 {
-    return (- 1.0 / 4.0 / (cW2_tree - sW2_tree)
-            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
-            + cW2_tree * CiHD * v2_over_LambdaNP2
-            + 2.0 * sW2_tree * delta_GF));
+//    return (- 1.0 / 4.0 / (cW2_tree - sW2_tree)
+//            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
+//            + cW2_tree * CiHD * v2_over_LambdaNP2
+//            + 2.0 * sW2_tree * delta_GF));
+    
+    return (delta_e - 0.5 * delta_sW2 + delta_v);    
 }
 
 double NPSMEFTd6::deltaMwd62() const
@@ -3804,12 +3839,16 @@ double NPSMEFTd6::deltaGamma_Wff(const Particle fi, const Particle fj) const
         GammaW_tree = G0;        
     }
     
-    deltaGamma_Wij = - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
-            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
-            + cW2_tree * CiHD * v2_over_LambdaNP2
-            + 2.0 * (1.0 + cW2_tree) / 3.0 * delta_GF);
+//    deltaGamma_Wij = - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
+//            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
+//            + cW2_tree * CiHD * v2_over_LambdaNP2
+//            + 2.0 * (1.0 + cW2_tree) / 3.0 * delta_GF);
     
-    deltaGamma_Wij = deltaGamma_Wij + 2.0 * GammaW_tree * CHF3ij * v2_over_LambdaNP2;
+//    deltaGamma_Wij = deltaGamma_Wij + 2.0 * GammaW_tree * CHF3ij * v2_over_LambdaNP2;
+    
+    deltaGamma_Wij = deltaMwd6() + 2.0 * delta_UgCC;
+    
+    deltaGamma_Wij = GammaW_tree * ( deltaGamma_Wij + 2.0 * CHF3ij * v2_over_LambdaNP2 );
 
     return deltaGamma_Wij;    
 }
@@ -3825,12 +3864,14 @@ double NPSMEFTd6::deltaGamma_W() const
     double G0 = GF * pow(Mz*cW_tree, 3.0) / 6.0 / sqrt(2.0) / M_PI;
     double GammaW_tree = (3.0 + 2.0 * Nc) * G0;
 
-    return (- 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
-            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
-            + cW2_tree * CiHD * v2_over_LambdaNP2
-            + 2.0 * (1.0 + cW2_tree) / 3.0 * delta_GF)
+//    return (- 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
+//            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
+//            + cW2_tree * CiHD * v2_over_LambdaNP2
+//            + 2.0 * (1.0 + cW2_tree) / 3.0 * delta_GF)
+//            + 2.0 * G0 * (CiHL3_11 + CiHL3_22 + CiHL3_33 + Nc*(CiHQ3_11 + CiHQ3_22)) * v2_over_LambdaNP2);          
+    
+    return ( GammaW_tree * (deltaMwd6() + 2.0 * delta_UgCC) 
             + 2.0 * G0 * (CiHL3_11 + CiHL3_22 + CiHL3_33 + Nc*(CiHQ3_11 + CiHQ3_22)) * v2_over_LambdaNP2);          
-//            + 2.0 * GammaW_tree / 3.0 * (CiHL3_11 + CiHQ3_11 + CiHQ3_22) * v2_over_LambdaNP2);    
 }
 
 double NPSMEFTd6::GammaW() const
@@ -3879,9 +3920,11 @@ double NPSMEFTd6::deltaGL_f(const Particle p) const
     double CHF3 = CHF3_diag(p);
     double NPindirect;
 
-    NPindirect = -I3p / 4.0 * (CiHD * v2_over_LambdaNP2 + 2.0 * delta_GF)
-                - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-                *((4.0 * cW_tree / sW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+//    NPindirect = -I3p / 4.0 * (CiHD * v2_over_LambdaNP2 + 2.0 * delta_GF)
+//                - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
+//                *((4.0 * cW_tree / sW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+    
+    NPindirect = (I3p - Qp * sW2_tree) * delta_UgNC + Qp * delta_QgNC;
 
     double NPdirect = -0.5 * (CHF1 - 2.0 * I3p * CHF3) * v2_over_LambdaNP2;
     return (NPindirect + NPdirect);
@@ -3893,9 +3936,11 @@ double NPSMEFTd6::deltaGR_f(const Particle p) const
     double CHf = CHf_diag(p);
     double NPindirect;
 
-    NPindirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-                *((4.0 * cW_tree / sW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+//    NPindirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
+//                *((4.0 * cW_tree / sW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * delta_GF);
 
+    NPindirect = (- Qp * sW2_tree) * delta_UgNC + Qp * delta_QgNC;
+    
     double NPdirect = -0.5 * CHf*v2_over_LambdaNP2;
     return (NPindirect + NPdirect);
 }
@@ -4012,9 +4057,11 @@ gslpp::complex NPSMEFTd6::deltaGL_Wff(const Particle pbar, const Particle p) con
     double CHF3 = CHF3_diag(pbar);
     double NPindirect;
 
-    NPindirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
-                * ((4.0 * sW_tree / cW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+//    NPindirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
+//                * ((4.0 * sW_tree / cW_tree * CiHWB + CiHD) * v2_over_LambdaNP2 + 2.0 * delta_GF);
 
+    NPindirect = delta_UgCC;
+    
     double NPdirect = CHF3 * v2_over_LambdaNP2;
     return (NPindirect + NPdirect);
 }
@@ -4069,9 +4116,12 @@ double NPSMEFTd6::deltaG3_hWW() const
 {
     double NPindirect;
 
+//    NPindirect = 2.0 * cW2_tree * Mz * Mz / v()
+//                * (delta_h - 1.0 / 2.0 / (cW2_tree - sW2_tree)
+//                * ((4.0 * sW_tree * cW_tree * CiHWB + cW2_tree * CiHD) * v2_over_LambdaNP2 + delta_GF));
+    
     NPindirect = 2.0 * cW2_tree * Mz * Mz / v()
-                * (delta_h - 1.0 / 2.0 / (cW2_tree - sW2_tree)
-                * ((4.0 * sW_tree * cW_tree * CiHWB + cW2_tree * CiHD) * v2_over_LambdaNP2 + delta_GF));
+                * (delta_h + 0.5 * delta_GF + 2.0 * delta_e - delta_sW2);
 
     return NPindirect;
 }
@@ -4088,8 +4138,10 @@ double NPSMEFTd6::deltaG2_hZZ() const
 
 double NPSMEFTd6::deltaG3_hZZ() const
 {
-    double NPindirect = Mz * Mz / v() * (-0.5 * CiHD * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF);
+//    double NPindirect = Mz * Mz / v() * (-0.5 * CiHD * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF);
+    double NPindirect = Mz * Mz / v() * ( delta_Z + delta_h + 0.5 * delta_GF + 2.0 * delta_e - (1.0-sW2_tree/cW2_tree) * delta_sW2 );
     double NPdirect = Mz * Mz / v() * CiHD * v2_over_LambdaNP2;
+    
     return (NPindirect + NPdirect);
 }
 
@@ -18530,31 +18582,51 @@ double NPSMEFTd6::deltag1ZNP() const
 {
       double NPdirect, NPindirect;
       
-      /*    From own calculations. Agrees with with LHCHXWG-INT-2015-001 for common interactions */
       NPdirect = sW_tree / sqrt( 4.0 * M_PI * aleMz );
       NPdirect = - NPdirect * (Mz * Mz / v () / v() ) * CiDHW * v2_over_LambdaNP2;
       
-      NPindirect = - 1.0 / (cW2_tree-sW2_tree);
+//      NPindirect = - 1.0 / (cW2_tree-sW2_tree);
       
-      NPindirect = NPindirect * (sW_tree * CiHWB / cW_tree 
-              + 0.25 * CiHD ) * v2_over_LambdaNP2
-              + 0.5 * NPindirect * delta_GF ;
+//      NPindirect = NPindirect * (sW_tree * CiHWB / cW_tree 
+//              + 0.25 * CiHD ) * v2_over_LambdaNP2
+//              + 0.5 * NPindirect * delta_GF ;
+      
+      NPindirect = delta_e - 0.5 * delta_sW2/cW2_tree + 0.5 * delta_Z - sW_tree * delta_ZA/cW_tree;      
       
       return NPdirect + NPindirect + dg1Z ;
+}
+
+
+double NPSMEFTd6::deltaKZNP() const
+{
+    // Obtain from the other aTGC  
+      
+      return ( deltag1ZNP() - (sW2_tree/cW2_tree) * (deltaKgammaNP() - deltag1gaNP()) ) ;
+}
+
+
+double NPSMEFTd6::deltag1gaNP() const
+{
+      double NPindirect;
+      
+      NPindirect = delta_e + 0.5 * delta_A;
+      
+      return NPindirect;
 }
       
 double NPSMEFTd6::deltaKgammaNP() const
 {
-      double NPdirect;
+      double NPdirect, NPindirect;
 
-      /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
       NPdirect = sqrt( 4.0 * M_PI * aleMz ) / 4.0 / sW2_tree;
       
       NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * aleMz ) ) * CiHWB 
               - sW_tree * CiDHW 
               - cW_tree * CiDHB ) * v2_over_LambdaNP2;
       
-      return NPdirect + dKappaga ;
+      NPindirect = delta_e + 0.5 * delta_A;
+      
+      return NPdirect + NPindirect + dKappaga ;
 }
       
 double NPSMEFTd6::lambdaZNP() const
@@ -18615,7 +18687,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     double xslvjjSM[8] = {7.14, 7.26, 7.38, 7.44, 7.47, 7.50, 7.50, 7.50}; // All leptons. Divide by 3 for each
     double xslvlvSM[8] = {1.72, 1.76, 1.79, 1.80, 1.81, 1.82, 1.82, 1.82}; // All leptons. Divide by 6 for each
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGZ, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dgga1, dkga, dkZ, dlga, dlZ,deem;
     
     double gVZeeSM, gAZeeSM;
     
@@ -18627,15 +18699,19 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     
     dGF = delta_GF / sqrt(2.0);
     
-    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2;
+    dmZ2 = cAsch * ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2
+            + cWsch * (  0.5 * CiHD + (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
     
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
+
+    dGZ = deltaGzd6();
     
-    dsW2 = -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
+    dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
-            + 2.0 * sqrt(2.0) * dGF );
+            + 2.0 * sqrt(2.0) * dGF ))
+            + cWsch * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
     
     dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
             + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
@@ -18650,14 +18726,18 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
         
     dgZ1 = deltag1ZNP();
+    
+    dgga1 = deltag1gaNP();
             
     dkga = deltaKgammaNP();
             
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1) ;
     
     dlga = - lambdaZNP();
             
     dlZ = - lambdaZNP();
+    
+    deem = delta_e + 0.5 * delta_A;
     
 //  Values of the couplings: final-state dependent couplings
     dgWpm1 = 0.0;
@@ -18722,7 +18802,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
         case 6:
 //  fstate = 6 (tau v tau v)            
             dgWpm1 = CiHL3_33;
-            dgWpm2 = CiHL3_33;;
+            dgWpm2 = CiHL3_33;
             norm4f = 1.0 / 4.04;   
             for (int i = 0; i < 8; ++i){
                 xspbSM[i] = xslvlvSM[i]/6.0;
@@ -18780,7 +18860,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
 
     if (sqrt_s == 0.1886) {
 
-        xspb += norm4f *(
+        xspb += norm4f * cAsch * (
                 + 2.6 * dmW2
                 - 17.0 * dGW
                 + 72.0 * dgWve
@@ -18795,6 +18875,23 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 0.026 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +72.0 * dgWve
+                +33.4 * dgWpm1
+                +33.4 * dgWpm2
+                +5.72 * dgVZee
+                +0.21 * dgAZee
+                -0.05 * dgZ1
+                -0.57 * dkga
+                -0.16 * dkZ
+                -0.34 * dlga
+                +0.051 * dlZ
+                +0.0005 * dGZ
+                -0.41 * dgga1
+                -0.98 * deem
+                );
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -18807,7 +18904,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
 
     } else if (sqrt_s == 0.1916) {
 
-        xspb += norm4f *(
+        xspb += norm4f * cAsch * (
                 + 1.6 * dmW2
                 - 17.0 * dGW
                 + 73.0 * dgWve
@@ -18820,6 +18917,23 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.22 * dkZ
                 - 0.32 * dlga
                 + 0.018 * dlZ
+                );
+        
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +72.0 * dgWve
+                +33.6 * dgWpm1
+                +33.6 * dgWpm2
+                +6.26 * dgVZee
+                +0.33 * dgAZee
+                -0.07 * dgZ1
+                -0.64 * dkga
+                -0.19 * dkZ
+                -0.37 * dlga
+                +0.045 * dlZ
+                +0.0005 * dGZ
+                -0.41 * dgga1
+                -1.08 * deem
                 );
         
         if (FlagQuadraticTerms) {
@@ -18835,7 +18949,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.1955) {
 
-        xspb += norm4f *(
+        xspb += norm4f * cAsch * (
                 + 0.26 * dmW2
                 - 17.0 * dGW
                 + 74.0 * dgWve
@@ -18850,6 +18964,23 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 0.005 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +73.0 * dgWve
+                +33.8 * dgWpm1
+                +33.8 * dgWpm2
+                +6.91 * dgVZee
+                +0.50 * dgAZee
+                -0.09 * dgZ1
+                -0.72 * dkga
+                -0.22 * dkZ
+                -0.41 * dlga
+                +0.035 * dlZ
+                +0.0005 * dGZ
+                -0.49 * dgga1
+                -1.20 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -18863,7 +18994,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.1995) {
 
-        xspb += norm4f *(
+        xspb += norm4f * cAsch * (
                 - 0.54 * dmW2
                 - 17.0 * dGW
                 + 75.0 * dgWve
@@ -18878,6 +19009,23 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.009 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +74.0 * dgWve
+                +33.7 * dgWpm1
+                +33.7 * dgWpm2
+                +7.52 * dgVZee
+                +0.68 * dgAZee
+                -0.11 * dgZ1
+                -0.79 * dkga
+                -0.26 * dkZ
+                -0.45 * dlga
+                +0.022 * dlZ
+                +0.0005 * dGZ
+                -0.53 * dgga1
+                -1.33 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -18891,7 +19039,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.2016) {
 
-        xspb += norm4f *(
+        xspb += norm4f * cAsch * (
                 - 0.97 * dmW2
                 - 17.0 * dGW
                 + 75.0 * dgWve
@@ -18906,6 +19054,23 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.017 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +74.0 * dgWve
+                +33.7 * dgWpm1
+                +33.7 * dgWpm2
+                +7.82 * dgVZee
+                +0.78 * dgAZee
+                -0.12 * dgZ1
+                -0.83 * dkga
+                -0.28 * dkZ
+                -0.47 * dlga
+                +0.016 * dlZ
+                +0.0005 * dGZ
+                -0.55 * dgga1
+                -1.39 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -18919,7 +19084,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.2049) {
 
-        xspb += norm4f *(
+        xspb += norm4f * cAsch * (
                 - 1.4 * dmW2
                 - 17.0 * dGW
                 + 75.0 * dgWve
@@ -18934,6 +19099,23 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.029 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +74.0 * dgWve
+                +33.5 * dgWpm1
+                +33.5 * dgWpm2
+                +8.24 * dgVZee
+                +0.93 * dgAZee
+                -0.14 * dgZ1
+                -0.89 * dkga
+                -0.32 * dkZ
+                -0.47 * dlga
+                +0.005 * dlZ
+                +0.0005 * dGZ
+                -0.58 * dgga1
+                -1.47 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -18947,7 +19129,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.2066) {
 
-        xspb += norm4f *(
+        xspb += norm4f * cAsch * (
                 - 1.8 * dmW2
                 - 17.0 * dGW
                 + 76.0 * dgWve
@@ -18962,6 +19144,23 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.036 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +75.0 * dgWve
+                +33.4 * dgWpm1
+                +33.4 * dgWpm2
+                +8.45 * dgVZee
+                +1.01 * dgAZee
+                -0.15 * dgZ1
+                -0.92 * dkga
+                -0.33 * dkZ
+                -0.51 * dlga
+                -0.001 * dlZ
+                +0.0005 * dGZ
+                -0.60 * dgga1
+                -1.52 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -18975,7 +19174,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.208) {
 
-        xspb += norm4f *(
+        xspb += norm4f * cAsch * (
                 - 2.0 * dmW2
                 - 17.0 * dGW
                 + 76.0 * dgWve
@@ -18989,6 +19188,23 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.47 * dlga
                 - 0.042 * dlZ
                 );
+        
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +75.0 * dgWve
+                +33.3 * dgWpm1
+                +33.3 * dgWpm2
+                +8.62 * dgVZee
+                +1.08 * dgAZee
+                -0.16 * dgZ1
+                -0.94 * dkga
+                -0.35 * dkZ
+                -0.52 * dlga
+                -0.007 * dlZ
+                +0.0005 * dGZ
+                -0.61 * dgga1
+                -1.55 * deem
+                );        
         
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
@@ -19028,7 +19244,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     double xslvjjSM[8] = {7.14, 7.26, 7.38, 7.44, 7.47, 7.50, 7.50, 7.50}; // All leptons. Divide by 3 for each
     double xslvlvSM[8] = {1.72, 1.76, 1.79, 1.80, 1.81, 1.82, 1.82, 1.82}; // All leptons. Divide by 6 for each
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGZ, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dgga1, dkga, dkZ, dlga, dlZ,deem;
     
     double gVZeeSM, gAZeeSM;
     
@@ -19040,15 +19256,19 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     
     dGF = delta_GF / sqrt(2.0);
     
-    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2;
+    dmZ2 = cAsch * ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2
+            + cWsch * (  0.5 * CiHD + (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
     
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
     
-    dsW2 = -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
+    dGZ = deltaGzd6();
+    
+    dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
-            + 2.0 * sqrt(2.0) * dGF );
+            + 2.0 * sqrt(2.0) * dGF ))
+            + cWsch * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
     
     dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
             + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
@@ -19063,14 +19283,18 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
         
     dgZ1 = deltag1ZNP();
+    
+    dgga1 = deltag1gaNP();
             
     dkga = deltaKgammaNP();
             
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1) ;
     
     dlga = - lambdaZNP();
             
     dlZ = - lambdaZNP();
+    
+    deem = delta_e + 0.5 * delta_A;
     
 //  Values of the couplings: final-state dependent couplings
     dgWpm1 = 0.0;
@@ -19135,7 +19359,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
         case 6:
 //  fstate = 6 (tau v tau v)            
             dgWpm1 = CiHL3_33;
-            dgWpm2 = CiHL3_33;;
+            dgWpm2 = CiHL3_33;
             norm4f = 1.0 / 4.04;   
             for (int i = 0; i < 8; ++i){
                 xspbSM[i] = xslvlvSM[i]/6.0;
@@ -19193,7 +19417,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
 
     if (sqrt_s == 0.1886) {
 
-        xspb += xspbSM[0] + norm4f *(
+        xspb += xspbSM[0] + norm4f * cAsch * (
                 + 2.6 * dmW2
                 - 17.0 * dGW
                 + 72.0 * dgWve
@@ -19208,6 +19432,23 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 0.026 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +72.0 * dgWve
+                +33.4 * dgWpm1
+                +33.4 * dgWpm2
+                +5.72 * dgVZee
+                +0.21 * dgAZee
+                -0.05 * dgZ1
+                -0.57 * dkga
+                -0.16 * dkZ
+                -0.34 * dlga
+                +0.051 * dlZ
+                +0.0005 * dGZ
+                -0.41 * dgga1
+                -0.98 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -19218,7 +19459,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
 
     } else if (sqrt_s == 0.1916) {
 
-        xspb += xspbSM[1]+ norm4f *(
+        xspb += xspbSM[1]+ norm4f * cAsch * (
                 + 1.6 * dmW2
                 - 17.0 * dGW
                 + 73.0 * dgWve
@@ -19233,6 +19474,23 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 0.018 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +72.0 * dgWve
+                +33.6 * dgWpm1
+                +33.6 * dgWpm2
+                +6.26 * dgVZee
+                +0.33 * dgAZee
+                -0.07 * dgZ1
+                -0.64 * dkga
+                -0.19 * dkZ
+                -0.37 * dlga
+                +0.045 * dlZ
+                +0.0005 * dGZ
+                -0.41 * dgga1
+                -1.08 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -19243,7 +19501,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.1955) {
 
-        xspb += xspbSM[2]+ norm4f *(
+        xspb += xspbSM[2]+ norm4f * cAsch * (
                 + 0.26 * dmW2
                 - 17.0 * dGW
                 + 74.0 * dgWve
@@ -19258,6 +19516,23 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 + 0.005 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +73.0 * dgWve
+                +33.8 * dgWpm1
+                +33.8 * dgWpm2
+                +6.91 * dgVZee
+                +0.50 * dgAZee
+                -0.09 * dgZ1
+                -0.72 * dkga
+                -0.22 * dkZ
+                -0.41 * dlga
+                +0.035 * dlZ
+                +0.0005 * dGZ
+                -0.49 * dgga1
+                -1.20 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -19268,7 +19543,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.1995) {
 
-        xspb += xspbSM[3]+ norm4f *(
+        xspb += xspbSM[3]+ norm4f * cAsch * (
                 - 0.54 * dmW2
                 - 17.0 * dGW
                 + 75.0 * dgWve
@@ -19283,6 +19558,23 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.009 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +74.0 * dgWve
+                +33.7 * dgWpm1
+                +33.7 * dgWpm2
+                +7.52 * dgVZee
+                +0.68 * dgAZee
+                -0.11 * dgZ1
+                -0.79 * dkga
+                -0.26 * dkZ
+                -0.45 * dlga
+                +0.022 * dlZ
+                +0.0005 * dGZ
+                -0.53 * dgga1
+                -1.33 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -19293,7 +19585,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.2016) {
 
-        xspb += xspbSM[4]+ norm4f *(
+        xspb += xspbSM[4]+ norm4f * cAsch * (
                 - 0.97 * dmW2
                 - 17.0 * dGW
                 + 75.0 * dgWve
@@ -19308,6 +19600,23 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.017 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +74.0 * dgWve
+                +33.7 * dgWpm1
+                +33.7 * dgWpm2
+                +7.82 * dgVZee
+                +0.78 * dgAZee
+                -0.12 * dgZ1
+                -0.83 * dkga
+                -0.28 * dkZ
+                -0.47 * dlga
+                +0.016 * dlZ
+                +0.0005 * dGZ
+                -0.55 * dgga1
+                -1.39 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -19318,7 +19627,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.2049) {
 
-        xspb += xspbSM[5]+ norm4f *(
+        xspb += xspbSM[5]+ norm4f * cAsch * (
                 - 1.4 * dmW2
                 - 17.0 * dGW
                 + 75.0 * dgWve
@@ -19333,6 +19642,23 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.029 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +74.0 * dgWve
+                +33.5 * dgWpm1
+                +33.5 * dgWpm2
+                +8.24 * dgVZee
+                +0.93 * dgAZee
+                -0.14 * dgZ1
+                -0.89 * dkga
+                -0.32 * dkZ
+                -0.47 * dlga
+                +0.005 * dlZ
+                +0.0005 * dGZ
+                -0.58 * dgga1
+                -1.47 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -19343,7 +19669,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.2066) {
 
-        xspb += xspbSM[6]+ norm4f *(
+        xspb += xspbSM[6]+ norm4f * cAsch * (
                 - 1.8 * dmW2
                 - 17.0 * dGW
                 + 76.0 * dgWve
@@ -19358,6 +19684,23 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.036 * dlZ
                 );
         
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +75.0 * dgWve
+                +33.4 * dgWpm1
+                +33.4 * dgWpm2
+                +8.45 * dgVZee
+                +1.01 * dgAZee
+                -0.15 * dgZ1
+                -0.92 * dkga
+                -0.33 * dkZ
+                -0.51 * dlga
+                -0.001 * dlZ
+                +0.0005 * dGZ
+                -0.60 * dgga1
+                -1.52 * deem
+                );        
+        
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         xspb +=  0.0;
@@ -19368,7 +19711,7 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
         
     } else if (sqrt_s == 0.208) {
 
-        xspb += xspbSM[7]+ norm4f *(
+        xspb += xspbSM[7]+ norm4f * cAsch * (
                 - 2.0 * dmW2
                 - 17.0 * dGW
                 + 76.0 * dgWve
@@ -19382,6 +19725,23 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
                 - 0.47 * dlga
                 - 0.042 * dlZ
                 );
+        
+        xspb += norm4f * cWsch *(
+                -17.0 * dGW
+                +75.0 * dgWve
+                +33.3 * dgWpm1
+                +33.3 * dgWpm2
+                +8.62 * dgVZee
+                +1.08 * dgAZee
+                -0.16 * dgZ1
+                -0.94 * dkga
+                -0.35 * dkZ
+                -0.52 * dlga
+                -0.007 * dlZ
+                +0.0005 * dGZ
+                -0.61 * dgga1
+                -1.55 * deem
+                );        
         
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
@@ -19423,7 +19783,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
     double xslvjjSM206[4] = {0.52, 0.98, 2.92, 7.80};
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGZ, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dgga1, dkga, dkZ, dlga, dlZ, deem;
     
     double gVZeeSM, gAZeeSM;
     
@@ -19433,15 +19793,19 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     
     dGF = delta_GF / sqrt(2.0);
     
-    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2;
+    dmZ2 = cAsch * ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2
+            + cWsch * (  0.5 * CiHD + (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
     
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
     
-    dsW2 = -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
+    dGZ = deltaGzd6();
+    
+    dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
-            + 2.0 * sqrt(2.0) * dGF );
+            + 2.0 * sqrt(2.0) * dGF ))
+            + cWsch * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
     
     dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
             + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
@@ -19456,14 +19820,18 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
         
     dgZ1 = deltag1ZNP();
+    
+    dgga1 = deltag1gaNP();
             
     dkga = deltaKgammaNP();
             
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1) ;
     
     dlga = - lambdaZNP();
             
     dlZ = - lambdaZNP();
+    
+    deem = delta_e + 0.5 * delta_A;
     
 //  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
 //  the LEP2 experimental analyses they use, for l=e, mu
@@ -19479,7 +19847,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
             case 1:
 //  Bin 1        
                 xspbSM = xslvjjSM183[0];
-                xspb += -1.6 * dmW2
+                xspb += cAsch * (-1.6 * dmW2
                 -1.5 * dGW
                 +12.0 * dgWve
                 +2.9 * dgWpm1
@@ -19490,14 +19858,31 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 -0.34 * dkga
                 -0.47 * dkZ
                 -0.32 * dlga
-                -0.45 * dlZ
+                -0.45 * dlZ)
                 ;
+                
+                xspb += cWsch *(
+                -1.5  * dGW
+                +12.0 * dgWve
+                +2.9 * dgWpm1
+                +2.9 * dgWpm2
+                +4.3 * dgVZee
+                +3.0 * dgAZee
+                -0.42 * dgZ1
+                -0.37 * dkga
+                -0.45 * dkZ
+                -0.35 * dlga
+                -0.43 * dlZ
+                -0.34 * dgga1
+                -0.71 * deem
+                );
+                
                 break;
                 
             case 2:                
 //  Bin 2   
                 xspbSM = xslvjjSM183[1];                
-                xspb += -1.5 * dmW2
+                xspb += cAsch * (-1.5 * dmW2
                 -2.8 * dGW
                 +16.0 * dgWve
                 +5.5 * dgWpm1
@@ -19508,14 +19893,31 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 -0.32 * dkga
                 -0.39 * dkZ
                 -0.26 * dlga
-                -0.34 * dlZ
+                -0.34 * dlZ)
                 ;
+                
+                xspb += cWsch *(
+                -2.8 * dGW
+                +16.0 * dgWve
+                +5.4 * dgWpm1
+                +5.4 * dgWpm2
+                +3.7 * dgVZee
+                +2.3 * dgAZee
+                -0.29 * dgZ1
+                -0.35 * dkga
+                -0.38 * dkZ
+                -0.28 * dlga
+                -0.32 * dlZ
+                -0.27 * dgga1
+                -0.62 * deem
+                );
+                
                 break;                
 
             case 3:                
 //  Bin 3      
                 xspbSM = xslvjjSM183[2];                
-                xspb += 0.16 * dmW2
+                xspb += cAsch * (0.16 * dmW2
                 -5.3 * dGW
                 +22.0 * dgWve
                 +10.0 * dgWpm1
@@ -19526,14 +19928,31 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 -0.14 * dkga
                 -0.06 * dkZ
                 -0.06 * dlga
-                +0.026 * dlZ
+                +0.026 * dlZ)
                 ; 
+                
+                xspb += cWsch *(
+                -5.2 * dGW
+                +22.0 * dgWve
+                +10.2 * dgWpm1
+                +10.2 * dgWpm2
+                +1.7 * dgVZee
+                +0.2 * dgAZee
+                -0.04 * dgZ1
+                -0.16 * dkga
+                -0.06 * dkZ
+                -0.08 * dlga
+                +0.03 * dlZ
+                -0.12 * dgga1
+                -0.29 * deem
+                );
+                
                 break;                
 
             case 4:        
 //  Bin 4        
                 xspbSM = xslvjjSM183[3];                
-                xspb += 18.0 * dmW2
+                xspb += cAsch * (18.0 * dmW2
                 -14.0 * dGW
                 +39.0  * dgWve
                 +27.0  * dgWpm1
@@ -19544,8 +19963,25 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +0.62  * dkga
                 +1.3  * dkZ
                 +0.63  * dlga
-                +1.3  * dlZ
+                +1.3  * dlZ)
                 ;
+                
+                xspb += cWsch *(
+                -14.1 * dGW
+                +40.0 * dgWve
+                +27.5 * dgWpm1
+                +27.5 * dgWpm2
+                -7.8 * dgVZee
+                -9.0 * dgAZee
+                +1.20 * dgZ1
+                +0.67 * dkga
+                +1.27 * dkZ
+                +0.68 * dlga
+                +1.27 * dlZ
+                +0.64 * dgga1
+                +1.30 * deem
+                );
+                
                 break;                
                 
         }
@@ -19561,7 +19997,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
             case 1:
 //  Bin 1        
                 xspbSM = xslvjjSM206[0];                
-                xspb += -1.1 * dmW2
+                xspb += cAsch * (-1.1 * dmW2
                 -0.9 * dGW
                 +11.0 * dgWve
                 +1.8 * dgWpm1
@@ -19572,14 +20008,31 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 -0.44 * dkga
                 -0.50 * dkZ
                 -0.40 * dlga
-                -0.46 * dlZ
+                -0.46 * dlZ)
                 ;    
+                
+                xspb += cWsch *(
+                -0.9 * dGW
+                +10.0 * dgWve
+                +1.8 * dgWpm1
+                +1.8 * dgWpm2
+                +4.9 * dgVZee
+                +2.9 * dgAZee
+                -0.40 * dgZ1
+                -0.47 * dkga
+                -0.46 * dkZ
+                -0.43 * dlga
+                -0.43 * dlZ
+                -0.41 * dgga1
+                -0.88 * deem
+                );
+                
                 break;                
 
             case 2:                
 //  Bin 2        
                 xspbSM = xslvjjSM206[1];                
-                xspb += -1.7 * dmW2
+                xspb += cAsch * (-1.7 * dmW2
                 -2.1 * dGW
                 +15.0  * dgWve
                 +4.1 * dgWpm1
@@ -19590,14 +20043,31 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 -0.53 * dkga
                 -0.55 * dkZ
                 -0.37 * dlga
-                -0.41 * dlZ
-                ;    
+                -0.41 * dlZ)
+                ; 
+                
+                xspb += cWsch *(
+                -2.0 * dGW
+                +15.0 * dgWve
+                +4.0 * dgWpm1
+                +4.0 * dgWpm2
+                +5.1 * dgVZee
+                +2.8 * dgAZee
+                -0.31 * dgZ1
+                -0.57 * dkga
+                -0.51 * dkZ
+                -0.40 * dlga
+                -0.38 * dlZ
+                -0.35 * dgga1
+                -0.92 * deem
+                );
+                
                 break;                
 
             case 3:                
 //  Bin 3        
                 xspbSM = xslvjjSM206[2];                
-                xspb += -2.3 * dmW2
+                xspb += cAsch * (-2.3 * dmW2
                 -4.6 * dGW
                 +22.0 * dgWve
                 +9.0 * dgWpm1
@@ -19608,14 +20078,31 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 -0.35 * dkga
                 -0.25 * dkZ
                 -0.19 * dlga
-                -0.086 * dlZ
-                ;           
+                -0.086 * dlZ)
+                ;     
+                
+                xspb += cWsch *(
+                -4.5 * dGW
+                +22.0 * dgWve
+                +8.8 * dgWpm1
+                +8.8 * dgWpm2
+                +3.7 * dgVZee
+                +1.2 * dgAZee
+                -0.17 * dgZ1
+                -0.39 * dkga
+                -0.22 * dkZ
+                -0.21 * dlga
+                -0.07 * dlZ
+                -0.27 * dgga1
+                -0.66 * deem
+                );
+                
                 break;                
 
             case 4:                
 //  Bin 4        
                 xspbSM = xslvjjSM206[3];                
-                xspb += 10.0 * dmW2
+                xspb += cAsch * (10.0 * dmW2
                 -20.0 * dGW
                 +59.0 * dgWve
                 +39.0 * dgWpm1
@@ -19626,8 +20113,25 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
                 +0.86 * dkga
                 +1.7 * dkZ
                 +0.9  * dlga
-                +1.7  * dlZ
+                +1.7  * dlZ)
                 ;    
+                
+                xspb += cWsch *(
+                -19.8 * dGW
+                +59.0 * dgWve
+                +39.0 * dgWpm1
+                +39.0 * dgWpm2
+                -9.5 * dgVZee
+                -11.4 * dgAZee
+                +1.48 * dgZ1
+                +0.88 * dkga
+                +1.63 * dkZ
+                +0.93 * dlga
+                +1.67 * dlZ
+                +0.81 * dgga1
+                +1.69 * deem
+                );
+                
                 break;                
         }
         
@@ -19662,7 +20166,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
     double xslvjjSM206[4] = {0.52, 0.98, 2.92, 7.80};
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dkga, dkZ, dlga, dlZ;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGZ, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dgga1, dkga, dkZ, dlga, dlZ,deem;
     
     double gVZeeSM, gAZeeSM;
     
@@ -19672,15 +20176,19 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     
     dGF = delta_GF / sqrt(2.0);
     
-    dmZ2 = ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2;
+    dmZ2 = cAsch * ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2
+            + cWsch * (  0.5 * CiHD + (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
     
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
     
-    dsW2 = -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
+    dGZ = deltaGzd6();
+    
+    dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
-            + 2.0 * sqrt(2.0) * dGF );
+            + 2.0 * sqrt(2.0) * dGF ))
+            + cWsch * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
     
     dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
             + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
@@ -19695,14 +20203,18 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
         
     dgZ1 = deltag1ZNP();
+    
+    dgga1 = deltag1gaNP();
             
     dkga = deltaKgammaNP();
             
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1) ;
     
     dlga = - lambdaZNP();
             
     dlZ = - lambdaZNP();
+    
+    deem = delta_e + 0.5 * delta_A;
     
 //  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
 //  the LEP2 experimental analyses they use, for l=e, mu
@@ -19719,7 +20231,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 1        
                 xspbSM = xslvjjSM183[0];
                 xspb += xspbSM
-                -1.6 * dmW2
+                + cAsch * (-1.6 * dmW2
                 -1.5 * dGW
                 +12.0 * dgWve
                 +2.9 * dgWpm1
@@ -19730,15 +20242,32 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 -0.34 * dkga
                 -0.47 * dkZ
                 -0.32 * dlga
-                -0.45 * dlZ
+                -0.45 * dlZ)
                 ;
+                
+                xspb += cWsch *(
+                -1.5  * dGW
+                +12.0 * dgWve
+                +2.9 * dgWpm1
+                +2.9 * dgWpm2
+                +4.3 * dgVZee
+                +3.0 * dgAZee
+                -0.42 * dgZ1
+                -0.37 * dkga
+                -0.45 * dkZ
+                -0.35 * dlga
+                -0.43 * dlZ
+                -0.34 * dgga1
+                -0.71 * deem
+                );
+                
                 break;
                 
             case 2:                
 //  Bin 2   
                 xspbSM = xslvjjSM183[1];                
                 xspb += xspbSM
-                -1.5 * dmW2
+                + cAsch * (-1.5 * dmW2
                 -2.8 * dGW
                 +16.0 * dgWve
                 +5.5 * dgWpm1
@@ -19749,15 +20278,32 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 -0.32 * dkga
                 -0.39 * dkZ
                 -0.26 * dlga
-                -0.34 * dlZ
+                -0.34 * dlZ)
                 ;
+                
+                xspb += cWsch *(
+                -2.8 * dGW
+                +16.0 * dgWve
+                +5.4 * dgWpm1
+                +5.4 * dgWpm2
+                +3.7 * dgVZee
+                +2.3 * dgAZee
+                -0.29 * dgZ1
+                -0.35 * dkga
+                -0.38 * dkZ
+                -0.28 * dlga
+                -0.32 * dlZ
+                -0.27 * dgga1
+                -0.62 * deem
+                );
+                
                 break;                
 
             case 3:                
 //  Bin 3      
                 xspbSM = xslvjjSM183[2];                
                 xspb += xspbSM
-                +0.16 * dmW2
+                + cAsch * (+0.16 * dmW2
                 -5.3 * dGW
                 +22.0 * dgWve
                 +10.0 * dgWpm1
@@ -19768,15 +20314,32 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 -0.14 * dkga
                 -0.06 * dkZ
                 -0.06 * dlga
-                +0.026 * dlZ
+                +0.026 * dlZ)
                 ; 
+                
+                xspb += cWsch *(
+                -5.2 * dGW
+                +22.0 * dgWve
+                +10.2 * dgWpm1
+                +10.2 * dgWpm2
+                +1.7 * dgVZee
+                +0.2 * dgAZee
+                -0.04 * dgZ1
+                -0.16 * dkga
+                -0.06 * dkZ
+                -0.08 * dlga
+                +0.03 * dlZ
+                -0.12 * dgga1
+                -0.29 * deem
+                );  
+                
                 break;                
 
             case 4:        
 //  Bin 4        
                 xspbSM = xslvjjSM183[3];                
                 xspb += xspbSM
-                +18.0 * dmW2
+                + cAsch * (+18.0 * dmW2
                 -14.0 * dGW
                 +39.0  * dgWve
                 +27.0  * dgWpm1
@@ -19787,8 +20350,25 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +0.62  * dkga
                 +1.3  * dkZ
                 +0.63  * dlga
-                +1.3  * dlZ
+                +1.3  * dlZ)
                 ;
+                
+                xspb += cWsch *(
+                -14.1 * dGW
+                +40.0 * dgWve
+                +27.5 * dgWpm1
+                +27.5 * dgWpm2
+                -7.8 * dgVZee
+                -9.0 * dgAZee
+                +1.20 * dgZ1
+                +0.67 * dkga
+                +1.27 * dkZ
+                +0.68 * dlga
+                +1.27 * dlZ
+                +0.64 * dgga1
+                +1.30 * deem
+                );   
+                
                 break;                
                 
         }
@@ -19805,7 +20385,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 //  Bin 1        
                 xspbSM = xslvjjSM206[0];                
                 xspb += xspbSM
-                -1.1 * dmW2
+                + cAsch * (-1.1 * dmW2
                 -0.9 * dGW
                 +11.0 * dgWve
                 +1.8 * dgWpm1
@@ -19816,15 +20396,32 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 -0.44 * dkga
                 -0.50 * dkZ
                 -0.40 * dlga
-                -0.46 * dlZ
+                -0.46 * dlZ)
                 ;    
+                
+                xspb += cWsch *(
+                -0.9 * dGW
+                +10.0 * dgWve
+                +1.8 * dgWpm1
+                +1.8 * dgWpm2
+                +4.9 * dgVZee
+                +2.9 * dgAZee
+                -0.40 * dgZ1
+                -0.47 * dkga
+                -0.46 * dkZ
+                -0.43 * dlga
+                -0.43 * dlZ
+                -0.41 * dgga1
+                -0.88 * deem
+                );
+                
                 break;                
 
             case 2:                
 //  Bin 2        
                 xspbSM = xslvjjSM206[1];                
                 xspb += xspbSM
-                -1.7 * dmW2
+                + cAsch * (-1.7 * dmW2
                 -2.1 * dGW
                 +15.0  * dgWve
                 +4.1 * dgWpm1
@@ -19835,15 +20432,32 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 -0.53 * dkga
                 -0.55 * dkZ
                 -0.37 * dlga
-                -0.41 * dlZ
-                ;    
+                -0.41 * dlZ)
+                ; 
+                
+                xspb += cWsch *(
+                -2.0 * dGW
+                +15.0 * dgWve
+                +4.0 * dgWpm1
+                +4.0 * dgWpm2
+                +5.1 * dgVZee
+                +2.8 * dgAZee
+                -0.31 * dgZ1
+                -0.57 * dkga
+                -0.51 * dkZ
+                -0.40 * dlga
+                -0.38 * dlZ
+                -0.35 * dgga1
+                -0.92 * deem
+                );
+                
                 break;                
 
             case 3:                
 //  Bin 3        
                 xspbSM = xslvjjSM206[2];                
                 xspb += xspbSM
-                -2.3 * dmW2
+                + cAsch * (-2.3 * dmW2
                 -4.6 * dGW
                 +22.0 * dgWve
                 +9.0 * dgWpm1
@@ -19854,15 +20468,32 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 -0.35 * dkga
                 -0.25 * dkZ
                 -0.19 * dlga
-                -0.086 * dlZ
-                ;           
+                -0.086 * dlZ)
+                ;    
+                
+                xspb += cWsch *(
+                -4.5 * dGW
+                +22.0 * dgWve
+                +8.8 * dgWpm1
+                +8.8 * dgWpm2
+                +3.7 * dgVZee
+                +1.2 * dgAZee
+                -0.17 * dgZ1
+                -0.39 * dkga
+                -0.22 * dkZ
+                -0.21 * dlga
+                -0.07 * dlZ
+                -0.27 * dgga1
+                -0.66 * deem
+                );
+                
                 break;                
 
             case 4:                
 //  Bin 4        
                 xspbSM = xslvjjSM206[3];                
                 xspb += xspbSM
-                +10.0 * dmW2
+                + cAsch * (+10.0 * dmW2
                 -20.0 * dGW
                 +59.0 * dgWve
                 +39.0 * dgWpm1
@@ -19873,8 +20504,25 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
                 +0.86 * dkga
                 +1.7 * dkZ
                 +0.9  * dlga
-                +1.7  * dlZ
-                ;    
+                +1.7  * dlZ)
+                ; 
+                
+                xspb += cWsch *(
+                -19.8 * dGW
+                +59.0 * dgWve
+                +39.0 * dgWpm1
+                +39.0 * dgWpm2
+                -9.5 * dgVZee
+                -11.4 * dgAZee
+                +1.48 * dgZ1
+                +0.88 * dkga
+                +1.63 * dkZ
+                +0.93 * dlga
+                +1.67 * dlZ
+                +0.81 * dgga1
+                +1.69 * deem
+                );
+                
                 break;                
         }
         
@@ -24312,7 +24960,7 @@ double NPSMEFTd6::AuxObs_NP15() const
             
     dkga = - deltaKgammaNP();
             
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga ;
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - deltag1gaNP()) ;
             
     lZ = - lambdaZNP();
     

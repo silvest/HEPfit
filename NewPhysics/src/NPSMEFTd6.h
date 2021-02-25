@@ -5022,13 +5022,26 @@ public:
     virtual double muTHUggHZgamumu(const double sqrt_s) const;
       
     ////////////////////////////////////////////////////////////////////////
-      
+
+    
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
      * @return @f$\delta g_{1,Z}@f$
      */
     virtual double deltag1ZNP() const;
+    
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{Z}@f$.
+     * @return @f$\delta \kappa_{Z}@f$
+     */
+    virtual double deltaKZNP() const;
       
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,\gamma}@f$.
+     * @return @f$\delta g_{1,\gamma}@f$
+     */
+    virtual double deltag1gaNP() const;
+    
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{\gamma}@f$.
      * @return @f$\delta \kappa_{\gamma}@f$
@@ -6873,6 +6886,11 @@ protected:
     double delta_ZZ;///< Combination of dimension 6 coefficients modifying the \f$Z_\mu\f$ canonical field definition.
     double delta_AA;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.
     double delta_AZ;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition.
+    
+    double delta_Z;///< Combination of dimension 6 coefficients modifying the \f$Z_\mu\f$ canonical field definition for EWPO.
+    double delta_A;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition for EWPO.
+    double delta_ZA;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition for EWPO.
+    
     double delta_h;///< Combinations of dimension 6 coefficients modifying the \f$H\f$ canonical field definition.
     
     double lambdaH_tree;///< The SM tree level value of the scalar quartic coupling in the potential.
@@ -6904,6 +6922,15 @@ protected:
     double dGammaHTotR1,dGammaHTotR2,GammaHTotR;///< NP contributions and Total to Higgs width ratio with SM
     
     double delta_GF;///< The dimension 6 correction to the Fermi constant, as extracted from muon decay
+    
+    double delta_MZ;///< The dimension 6 correction to Z mass Lagrangian parameter
+    double delta_MW;///< The dimension 6 correction to W mass Lagrangian parameter
+    double delta_v;///< The dimension 6 correction to the vev, as extracted from GF
+    double delta_e;///< The dimension 6 correction to the electric constant parameter
+    double delta_sW2;///< The dimension 6 correction to the weak mixing angle
+    double delta_UgNC;///< The dimension 6 universal correction to neutral current EW couplings
+    double delta_QgNC;///< The dimension 6 charge correction to neutral current EW couplings
+    double delta_UgCC;///< The dimension 6 universal correction to charged current EW couplings
     
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(1)}\f$ corresponding to particle F.
