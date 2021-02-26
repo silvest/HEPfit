@@ -19851,11 +19851,11 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     
 //  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
 //  the LEP2 experimental analyses they use, for l=e, mu    
-    dgWpm1 = 0.5 * (CiHL3_11 + CiHL3_22) * v2_over_LambdaNP2 
+    dgWpm1 = 0.25 * (CiHL3_11 + CiHL3_22) * v2_over_LambdaNP2 
             + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF/2.0/sqrt(2.0));
     
-    dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22) * v2_over_LambdaNP2 
+    dgWpm2 = 0.25 * (CiHQ3_11 + CiHQ3_22) * v2_over_LambdaNP2 
             + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF/2.0/sqrt(2.0));
 
@@ -20238,11 +20238,11 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     
 //  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
 //  the LEP2 experimental analyses they use, for l=e, mu
-    dgWpm1 = 0.5 * (CiHL3_11 + CiHL3_22) * v2_over_LambdaNP2 
+    dgWpm1 = 0.25 * (CiHL3_11 + CiHL3_22) * v2_over_LambdaNP2 
             + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF/2.0/sqrt(2.0));
     
-    dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22) * v2_over_LambdaNP2 
+    dgWpm2 = 0.25 * (CiHQ3_11 + CiHQ3_22) * v2_over_LambdaNP2 
             + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF/2.0/sqrt(2.0));
 
