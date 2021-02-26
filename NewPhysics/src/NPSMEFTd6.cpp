@@ -18700,7 +18700,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     dGF = delta_GF / sqrt(2.0);
     
     dmZ2 = cAsch * ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2
-            + cWsch * (  0.5 * CiHD + (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
+            + cWsch * (  0.5 * CiHD + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
     
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
@@ -18711,7 +18711,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
             + 2.0 * sqrt(2.0) * dGF ))
-            + cWsch * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
+            + cWsch * (1.0/sW2_tree) * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
     
     dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
             + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
@@ -18723,7 +18723,9 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     dgAZee = dgZ * gAZeeSM 
             + 0.25 * ( CiHe_11 - CiHL1_11 - CiHL3_11 )* v2_over_LambdaNP2;
     
-    dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWve = 0.5 * CiHL3_11 * v2_over_LambdaNP2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
         
     dgZ1 = deltag1ZNP();
     
@@ -18854,9 +18856,14 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
             }         
             break;            
     }
+        
+    dgWpm1 = 0.5 * dgWpm1 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
     
-    dgWpm1 = 0.5 * (dgWpm1 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
-    dgWpm2 = 0.5 * (dgWpm2 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWpm2 = 0.5 * dgWpm2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
 
     if (sqrt_s == 0.1886) {
 
@@ -19257,18 +19264,18 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     dGF = delta_GF / sqrt(2.0);
     
     dmZ2 = cAsch * ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2
-            + cWsch * (  0.5 * CiHD + (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
+            + cWsch * (  0.5 * CiHD + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
     
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
-    
+
     dGZ = deltaGzd6();
     
     dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
             + 2.0 * sqrt(2.0) * dGF ))
-            + cWsch * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
+            + cWsch * (1.0/sW2_tree) * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
     
     dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
             + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
@@ -19280,7 +19287,9 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     dgAZee = dgZ * gAZeeSM 
             + 0.25 * ( CiHe_11 - CiHL1_11 - CiHL3_11 )* v2_over_LambdaNP2;
     
-    dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWve = 0.5 * CiHL3_11 * v2_over_LambdaNP2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
         
     dgZ1 = deltag1ZNP();
     
@@ -19412,8 +19421,13 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
             break;            
     }
     
-    dgWpm1 = 0.5 * (dgWpm1 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
-    dgWpm2 = 0.5 * (dgWpm2 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWpm1 = 0.5 * dgWpm1 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
+    
+    dgWpm2 = 0.5 * dgWpm2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
 
     if (sqrt_s == 0.1886) {
 
@@ -19794,18 +19808,18 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     dGF = delta_GF / sqrt(2.0);
     
     dmZ2 = cAsch * ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2
-            + cWsch * (  0.5 * CiHD + (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
+            + cWsch * (  0.5 * CiHD + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
     
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
-    
+
     dGZ = deltaGzd6();
     
     dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
             + 2.0 * sqrt(2.0) * dGF ))
-            + cWsch * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
+            + cWsch * (1.0/sW2_tree) * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
     
     dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
             + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
@@ -19817,7 +19831,9 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     dgAZee = dgZ * gAZeeSM 
             + 0.25 * ( CiHe_11 - CiHL1_11 - CiHL3_11 )* v2_over_LambdaNP2;
     
-    dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWve = 0.5 * CiHL3_11 * v2_over_LambdaNP2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
         
     dgZ1 = deltag1ZNP();
     
@@ -19834,12 +19850,14 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     deem = delta_e + 0.5 * delta_A;
     
 //  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
-//  the LEP2 experimental analyses they use, for l=e, mu
-    dgWpm1 = 0.5 * (CiHL3_11 + CiHL3_22) + 0.5 * cW_tree * CiHWB / sW_tree;
-    dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22) + 0.5 * cW_tree * CiHWB / sW_tree;
+//  the LEP2 experimental analyses they use, for l=e, mu    
+    dgWpm1 = 0.5 * (CiHL3_11 + CiHL3_22) * v2_over_LambdaNP2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
     
-    dgWpm1 = 0.5 * dgWpm1 * v2_over_LambdaNP2 + 0.25 * dsW2 ;
-    dgWpm2 = 0.5 * dgWpm2 * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22) * v2_over_LambdaNP2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
 
     if (sqrt_s == 0.1827) {
         
@@ -20177,18 +20195,18 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     dGF = delta_GF / sqrt(2.0);
     
     dmZ2 = cAsch * ( 0.5 * CiHD + 2.0 * cW_tree * sW_tree * CiHWB ) * v2_over_LambdaNP2
-            + cWsch * (  0.5 * CiHD + (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
+            + cWsch * (  0.5 * CiHD + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp*Mw_inp / Mz/Mz) * CiHWB ) * v2_over_LambdaNP2;
     
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
-    
+
     dGZ = deltaGzd6();
     
     dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
             + 2.0 * sqrt(2.0) * dGF ))
-            + cWsch * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
+            + cWsch * (1.0/sW2_tree) * ( 0.5 * Mw_inp*Mw_inp*CiHD/Mz/Mz + Mw_inp*sqrt(1.0 - Mw_inp*Mw_inp/Mz/Mz)*CiHWB/Mz ) * v2_over_LambdaNP2;
     
     dgZ = - dGF/sqrt(2.0) - 0.5 * dmZ2 
             + cW_tree * sW_tree * CiHWB * v2_over_LambdaNP2; 
@@ -20200,7 +20218,9 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     dgAZee = dgZ * gAZeeSM 
             + 0.25 * ( CiHe_11 - CiHL1_11 - CiHL3_11 )* v2_over_LambdaNP2;
     
-    dgWve = 0.5 * (CiHL3_11 + 0.5 * cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWve = 0.5 * CiHL3_11 * v2_over_LambdaNP2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
         
     dgZ1 = deltag1ZNP();
     
@@ -20218,11 +20238,13 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     
 //  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
 //  the LEP2 experimental analyses they use, for l=e, mu
-    dgWpm1 = 0.5 * (CiHL3_11 + CiHL3_22) + 0.5 * cW_tree * CiHWB / sW_tree;
-    dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22) + 0.5 * cW_tree * CiHWB / sW_tree;
+    dgWpm1 = 0.5 * (CiHL3_11 + CiHL3_22) * v2_over_LambdaNP2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
     
-    dgWpm1 = 0.5 * dgWpm1 * v2_over_LambdaNP2 + 0.25 * dsW2 ;
-    dgWpm2 = 0.5 * dgWpm2 * v2_over_LambdaNP2 + 0.25 * dsW2 ;
+    dgWpm2 = 0.5 * (CiHQ3_11 + CiHQ3_22) * v2_over_LambdaNP2 
+            + cAsch * ( 0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cWsch * (-dGF/2.0/sqrt(2.0));
 
     if (sqrt_s == 0.1827) {
         
