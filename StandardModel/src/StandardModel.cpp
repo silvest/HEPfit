@@ -977,7 +977,10 @@ double StandardModel::v() const
 
 double StandardModel::Mw_tree() const
 {
-    return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * ale / sqrt(2.0) / GF / Mz / Mz)));
+    if (FlagMWinput){
+        return Mw_inp;
+    } else
+        return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * ale / sqrt(2.0) / GF / Mz / Mz)));
 }
 
 double StandardModel::s02() const

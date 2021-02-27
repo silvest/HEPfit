@@ -1038,19 +1038,26 @@ bool NPSMEFTd6::PostUpdate()
     LambdaNP2 = Lambda_NP * Lambda_NP;
     v2 = v() * v();
     v2_over_LambdaNP2 = v2 / LambdaNP2;
+    
+    // SM parameters using tree-level relations, depending on the input scheme
     aleMz = alphaMz();
-    eeMz = cAsch * sqrt( 4.0 * M_PI * aleMz ) + cWsch * sqrt(4.0 * sqrt(2.0) * GF * Mw_inp*Mw_inp * (1.0 - Mw_inp*Mw_inp/Mz/Mz) );
+    eeMz = cAsch * sqrt( 4.0 * M_PI * aleMz ) 
+            + cWsch * sqrt(4.0 * sqrt(2.0) * GF * Mw_inp*Mw_inp * (1.0 - Mw_inp*Mw_inp/Mz/Mz) );
     eeMz2 = eeMz*eeMz;
-    cW_tree = cAsch * Mw_tree() / Mz + cWsch * Mw_inp / Mz;
+
+    sW2_tree = cAsch * ( 0.5 * (1.0 - sqrt(1.0 - eeMz2/(sqrt(2.0)*GF*Mz*Mz))) )
+            + cWsch * (1.0 - Mw_inp*Mw_inp/Mz/Mz);
+    cW2_tree = 1.0 - sW2_tree;
     
-    
-    cW2_tree = cW_tree * cW_tree;
-    sW2_tree = 1.0 - cW2_tree;
     sW_tree = sqrt(sW2_tree);
+    cW_tree = sqrt(cW2_tree);
     
     g1_tree = eeMz/cW_tree;
     g2_tree = eeMz/sW_tree;
     g3_tree = sqrt( 4.0 * M_PI * AlsMz );
+    
+    Mw_tree = cAsch * ( Mz * cW_tree ) 
+            + cWsch * Mw_inp;
     
     lambdaH_tree = mHl*mHl/2.0/v2;
     
@@ -1307,16 +1314,16 @@ bool NPSMEFTd6::PostUpdate()
     eHwidth = deltaGammaTotalRatio1() - deltaGammaTotalRatio1noError();
       
 //  Dimension-6 coefficients used in the STXS parameterization
-    aiG = 16.0 * M_PI * M_PI * CiHG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / LambdaNP2;
-    ai3G = CiG * Mw_tree() * Mw_tree() / g3_tree / g3_tree / g3_tree / LambdaNP2;
+    aiG = 16.0 * M_PI * M_PI * CiHG * Mw_tree * Mw_tree / g3_tree / g3_tree / LambdaNP2;
+    ai3G = CiG * Mw_tree * Mw_tree / g3_tree / g3_tree / g3_tree / LambdaNP2;
     ai2G =0.0; // Add
     aiT = 2.0 * CiHD * v2_over_LambdaNP2;
     aiH = - 2.0 * CiHbox * v2_over_LambdaNP2;
     aiWW = 0.0; // Add
     aiB = 0.0; // Add
-    aiHW = CiDHW * Mw_tree() * Mw_tree() / 2.0 / g2_tree / LambdaNP2;
-    aiHB = CiDHB * Mw_tree() * Mw_tree() / 2.0 / g1_tree / LambdaNP2;
-    aiA = CiHB * Mw_tree() * Mw_tree() / g1_tree / g1_tree / LambdaNP2;
+    aiHW = CiDHW * Mw_tree * Mw_tree / 2.0 / g2_tree / LambdaNP2;
+    aiHB = CiDHB * Mw_tree * Mw_tree / 2.0 / g1_tree / LambdaNP2;
+    aiA = CiHB * Mw_tree * Mw_tree / g1_tree / g1_tree / LambdaNP2;
     aiHQ = CiHQ1_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
     aipHQ = CiHQ3_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
     aiHL = CiHL1_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
@@ -1325,7 +1332,7 @@ bool NPSMEFTd6::PostUpdate()
     aiHd = CiHd_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
     aiHe = CiHe_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
     aiu = - CiuH_33r * v2_over_LambdaNP2 / Yukt;
-    aiuG = CiuG_33r * Mw_tree() * Mw_tree() / g3_tree / LambdaNP2 / Yukt / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
+    aiuG = CiuG_33r * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / Yukt / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
     
    
 //  Dim 6 SMEFT matching
@@ -3796,12 +3803,12 @@ double NPSMEFTd6::deltaMw2() const
 
 double NPSMEFTd6::Mw() const
 {
-//    return (trueSM.Mw() - Mw_tree() / 4.0 / (cW2_tree - sW2_tree)
+//    return (trueSM.Mw() - Mw_tree / 4.0 / (cW2_tree - sW2_tree)
 //            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
 //            + cW2_tree * CiHD * v2_over_LambdaNP2
 //            + 2.0 * sW2_tree * delta_GF));
     
-    return (trueSM.Mw() + Mw_tree() * (delta_e - 0.5 * delta_sW2 + delta_v));
+    return (trueSM.Mw() + Mw_tree * (delta_e - 0.5 * delta_sW2 + delta_v));
 }
 
 double NPSMEFTd6::deltaMwd6() const
@@ -4104,12 +4111,12 @@ double NPSMEFTd6::deltaG_hggRatio() const
 
 double NPSMEFTd6::deltaG1_hWW() const
 {
-    return (( 2.0 * CiHW - sqrt( M_PI * aleMz ) * CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return (( 2.0 * CiHW - 0.5 * eeMz * CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG2_hWW() const
 {
-    return ( - sqrt( M_PI * aleMz ) * ( CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return ( - 0.5 * eeMz * ( CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG3_hWW() const
@@ -4128,12 +4135,12 @@ double NPSMEFTd6::deltaG3_hWW() const
 
 double NPSMEFTd6::deltaG1_hZZ() const
 {
-    return ( (delta_ZZ - 0.5 * sqrt( M_PI * aleMz ) * (CiDHB / cW_tree + CiDHW / sW_tree) * v2_over_LambdaNP2 )/ v());
+    return ( (delta_ZZ - 0.25 * eeMz * (CiDHB / cW_tree + CiDHW / sW_tree) * v2_over_LambdaNP2 )/ v());
 }
 
 double NPSMEFTd6::deltaG2_hZZ() const
 {
-    return ( - sqrt( M_PI * aleMz ) * ( CiDHB / cW_tree + CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return ( - 0.5 * eeMz * ( CiDHB / cW_tree + CiDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG3_hZZ() const
@@ -4147,7 +4154,7 @@ double NPSMEFTd6::deltaG3_hZZ() const
 
 double NPSMEFTd6::deltaG1_hZA() const
 {
-    return ( (delta_AZ + 0.5 * sqrt( M_PI * aleMz ) * (CiDHB / sW_tree - CiDHW / cW_tree) * v2_over_LambdaNP2 )/ v());
+    return ( (delta_AZ + 0.25 * eeMz * (CiDHB / sW_tree - CiDHW / cW_tree) * v2_over_LambdaNP2 )/ v());
 }
 
 double NPSMEFTd6::deltaG1_hZARatio() const
@@ -4232,7 +4239,7 @@ double NPSMEFTd6::deltaG1_hZARatio() const
 
 double NPSMEFTd6::deltaG2_hZA() const
 {
-    return ( sqrt( M_PI * aleMz ) * ( CiDHB / sW_tree - CiDHW / cW_tree ) * v2_over_LambdaNP2 / v());
+    return ( 0.5 * eeMz * ( CiDHB / sW_tree - CiDHW / cW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG_hAA() const
@@ -18582,7 +18589,7 @@ double NPSMEFTd6::deltag1ZNP() const
 {
       double NPdirect, NPindirect;
       
-      NPdirect = sW_tree / sqrt( 4.0 * M_PI * aleMz );
+      NPdirect = sW_tree / eeMz;
       NPdirect = - NPdirect * (Mz * Mz / v () / v() ) * CiDHW * v2_over_LambdaNP2;
       
 //      NPindirect = - 1.0 / (cW2_tree-sW2_tree);
@@ -18618,9 +18625,9 @@ double NPSMEFTd6::deltaKgammaNP() const
 {
       double NPdirect, NPindirect;
 
-      NPdirect = sqrt( 4.0 * M_PI * aleMz ) / 4.0 / sW2_tree;
+      NPdirect = eeMz / 4.0 / sW2_tree;
       
-      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * aleMz ) ) * CiHWB 
+      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / eeMz ) * CiHWB 
               - sW_tree * CiDHW 
               - cW_tree * CiDHB ) * v2_over_LambdaNP2;
       
@@ -18634,7 +18641,7 @@ double NPSMEFTd6::lambdaZNP() const
       double NPdirect;
 
       /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
-      NPdirect = - (3.0 / 2.0) * (sqrt( 4.0 * M_PI * aleMz ) / sW_tree) * CiW * v2_over_LambdaNP2;
+      NPdirect = - (3.0 / 2.0) * (eeMz / sW_tree) * CiW * v2_over_LambdaNP2;
 
       return NPdirect + lambZ ;
 }
@@ -20836,14 +20843,14 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     Ampnu2.assign(1,1, 0.0);
     Ampnu2.assign(2,0, -(1.0 + cos)/2.0);
     
-    Ampnu2 = (8.0 * M_PI * aleMz / sW2_tree)* Uenu * Uenu.conjugate() * Ampnu2 * sin / (1.0 + beta*beta - 2.0*beta*cos);
+    Ampnu2 = (2.0 * eeMz2 / sW2_tree)* Uenu * Uenu.conjugate() * Ampnu2 * sin / (1.0 + beta*beta - 2.0*beta*cos);
     
 //  Total amplitudes 
     gslpp::matrix<gslpp::complex> MRH(3, 3, 0.0);
     gslpp::matrix<gslpp::complex> MLH(3, 3, 0.0);
 
-    MRH = sqrt(2.0) * 4.0 * M_PI * aleMz * (AmpZRH + AmpgaRH);
-    MLH = - sqrt(2.0) * 4.0 * M_PI * aleMz * (AmpZLH + AmpgaLH + Ampnu1) + Ampnu2;
+    MRH = sqrt(2.0) * eeMz2 * (AmpZRH + AmpgaRH);
+    MLH = - sqrt(2.0) * eeMz2 * (AmpZLH + AmpgaLH + Ampnu1) + Ampnu2;
     
 //  Total amplitude squared and differential cross section (in pb)
     gslpp::matrix<double> M2(3, 3, 0.0);

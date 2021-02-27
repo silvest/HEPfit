@@ -6875,6 +6875,10 @@ protected:
     double g2_tree;///< The tree level value of the \f$SU(2)_L\f$ gauge coupling contant (at the \f$Z\f$ pole).
     double g3_tree;///< The tree level value of the \f$SU(3)_c\f$ gauge coupling contant (at the \f$Z\f$ pole).
     
+    double Mw_tree;///< The tree level value of the \f$W\f$ boson mass.
+    
+    double lambdaH_tree;///< The SM tree level value of the scalar quartic coupling in the potential.
+    
     double gZvL;///< The tree level value of the \f$Z\bar{\nu}\nu\f$ couplings in the SM.
     double gZlL,gZlR;///< The tree level value of the \f$Z\ell^+\ell^-\f$ couplings in the SM.
     double gZuL,gZuR;///< The tree level value of the \f$Z\bar{u}u\f$ couplings in the SM.
@@ -6892,9 +6896,7 @@ protected:
     double delta_ZA;///< Combination of dimension 6 coefficients modifying the \f$A_\mu\f$ canonical field definition for EWPO.
     
     double delta_h;///< Combinations of dimension 6 coefficients modifying the \f$H\f$ canonical field definition.
-    
-    double lambdaH_tree;///< The SM tree level value of the scalar quartic coupling in the potential.
-    
+        
     double dZH;///< Higgs self-coupling contribution to the universal resummed Higgs wave function renormalization
     
     double cHSM;///< Parameter to control the inclusion of modifications of SM parameters in selected Higgs processes.
