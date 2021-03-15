@@ -25,6 +25,13 @@ bool NPbase::PostUpdate()
     return StandardModel::PostUpdate();
 }
 
+double NPbase::alphaMz() const
+{
+    double myAlphaMz = trueSM.alphaMz();
+    
+    return myAlphaMz;
+}
+
 double NPbase::Mw() const
 {
     double myMw = trueSM.Mw();

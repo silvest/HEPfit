@@ -1040,7 +1040,7 @@ bool NPSMEFTd6::PostUpdate()
     v2_over_LambdaNP2 = v2 / LambdaNP2;
     
     // SM parameters using tree-level relations, depending on the input scheme
-    aleMz = alphaMz();
+    aleMz = trueSM.alphaMz();
     eeMz = cAsch * sqrt( 4.0 * M_PI * aleMz ) 
             + cWsch * sqrt(4.0 * sqrt(2.0) * GF * Mw_inp*Mw_inp * (1.0 - Mw_inp*Mw_inp/Mz/Mz) );
     eeMz2 = eeMz*eeMz;
@@ -3651,12 +3651,12 @@ double NPSMEFTd6::DeltaGF() const
 
 double NPSMEFTd6::obliqueS() const
 {
-    return (4.0 * sW_tree * cW_tree * CiHWB / alphaMz() * v2_over_LambdaNP2);
+    return (4.0 * sW_tree * cW_tree * CiHWB / aleMz * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6::obliqueT() const
 {
-    return (-CiHD / 2.0 / alphaMz() * v2_over_LambdaNP2);
+    return (-CiHD / 2.0 / aleMz * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6::obliqueU() const
@@ -3800,6 +3800,11 @@ double NPSMEFTd6::deltaMw2() const
     
     
 ////////////////////////////////////////////////////////////////////////
+
+double NPSMEFTd6::alphaMz() const
+{   
+    return (aleMz*(1.0 + 2.0 * delta_e));
+}
 
 double NPSMEFTd6::Mw() const
 {
