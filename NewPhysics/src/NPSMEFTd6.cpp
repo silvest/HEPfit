@@ -3803,7 +3803,7 @@ double NPSMEFTd6::deltaMw2() const
 
 double NPSMEFTd6::alphaMz() const
 {   
-    return (aleMz*(1.0 + 2.0 * delta_e));
+    return (aleMz*(1.0 + 2.0 * delta_e + delta_A));
 }
 
 double NPSMEFTd6::Mw() const
