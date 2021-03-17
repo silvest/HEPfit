@@ -70,7 +70,6 @@
           </incDir>
         </cTool>
         <ccTool>
-          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
           </incDir>
@@ -361,7 +360,6 @@
         </cTool>
         <ccTool>
           <developmentMode>6</developmentMode>
-          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
           </incDir>

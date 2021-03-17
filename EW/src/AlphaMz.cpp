@@ -14,3 +14,9 @@ double AlphaEmMz::computeThValue()
 }
 
 
+double DAlpha5hadMz::computeThValue()
+{
+    return SM.Dalpha5hMz();
+}
+
+

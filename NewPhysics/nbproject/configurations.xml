@@ -93,7 +93,6 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../EW/src</pElem>
@@ -240,7 +239,6 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../EW/src</pElem>

@@ -64,7 +64,22 @@ public:
      * @return the @f$W@f$-boson mass in units of GeV
      */
     double Mw() const;
+    
+    /**
+     * @brief The value of @f$\Delta\alpha^{5}_{had}(M_Z^2)@f$ obtained from the @f$W@f$-boson mass, 
+     * using the full two-loop %EW corrections.
+     * @details This function is based on the approximate formula for @f$M_W@f$
+     * presented in @cite Awramik:2003rn. See notes in @f$Mw()@f$ function.
+     * @return the value of @f$\Delta\alpha^{5}_{had}(M_Z^2)@f$
+     */
+    double dAlpha5hMw() const;
 
+    
+    /**
+     * @brief The value of the effective weak mixing anlge for a given fermion.
+     * @param[in] p name of a particle
+     * @return the value of @f$\sin^^{\theta_{Eff}^p}@f$
+     */
     double sin2thetaEff(const Particle p) const
     {
         if (p.is("QUARK"))

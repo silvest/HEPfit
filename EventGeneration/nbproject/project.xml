@@ -39,6 +39,10 @@
                     <name>ArchLinux_MPI</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>ArchLinux_Release_MPI</name>
+                    <type>3</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

@@ -72,6 +72,11 @@ class EWSMTwoFermionsLEP2;
  *   <td class="mod_desc">The mass of the \f$Z\f$ boson in GeV.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%Mw_inp</td>
+ *   <td class="mod_symb">@f$M_W@f$</td>
+ *   <td class="mod_desc">The mass of the \f$W\f$ boson in GeV. Only used if the flag MWinput is TRUE.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%AlsMz</td>
  *   <td class="mod_symb">@f$\alpha_s(M_Z)@f$</td>
  *   <td class="mod_desc">The strong coupling constant at the Z-boson mass.</td>
@@ -321,6 +326,12 @@ class EWSMTwoFermionsLEP2;
  *   See EWSM::kappaZ_l_SM(), EWSM::kappaZ_q_SM() and EWSM::resumKappaZ() for detail.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%MWinput</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
+ * instead of the electromagnetic constant parameter %dAle5Mz. The default value is FALSE.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%SMAux</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This auxiliary flag is used for testing new options. 
@@ -504,8 +515,8 @@ public:
 
 
     
-//    static const int NSMvars = 38; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
-    static const int NSMvars = 26; ///< The number of the model parameters in %StandardModel.
+//    static const int NSMvars = 39; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
+    static const int NSMvars = 27; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
@@ -721,6 +732,15 @@ public:
     double getMz() const
     {
         return Mz;
+    }
+    
+    /**
+     * @brief A get method to access the input value of the mass of the \f$W\f$ boson \f$M_W\f$.
+     * @return the @f$W@f$-boson mass @f$M_W@f$
+     */
+    double getMw() const
+    {
+        return Mw_inp;
     }
 
     /**
@@ -1260,6 +1280,17 @@ public:
      * current class is employed.
      */
     virtual double Mw() const;
+    
+    
+    /**
+     * @brief The 5-quark contribution to the running of the em constant to the @f$Z@f$ pole.
+     * @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$.
+     * @details
+     * Depending on the flag MWinput this is given by the input parameter dAle5Mz (MWinput=false)
+     * or it is computed from Mw (MWinput=true)
+     * @return @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$
+     */
+    virtual double Dalpha5hMz() const;
 
     /**
      * @brief The square of the cosine of the weak mixing angle
@@ -1883,7 +1914,7 @@ public:
      *
      * @sa checkSMparamsForEWPO()
      */
-    static const int NumSMParamsForEWPO = 33;
+    static const int NumSMParamsForEWPO = 34;
 
     /**
      * @brief A method to check whether the parameters relevant to the EWPO
@@ -2654,6 +2685,7 @@ protected:
     // model parameters
     double AlsMz; ///< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$.
     double Mz; ///< The mass of the \f$Z\f$ boson in GeV. 
+    double Mw_inp; ///< The mass of the \f$W\f$ boson in GeV (as input of the model). 
     double GF; ///< The Fermi constant @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$.
     double ale; ///< The fine-structure constant @f$\alpha@f$.
     double dAle5Mz; ///< The five-flavour hadronic contribution to the electromagnetic coupling, @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$.
@@ -2678,6 +2710,8 @@ protected:
     double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV.
     double s12, s13, s23, delta, alpha21, alpha31;
 
+    // non-model parameters
+    double dAl5hMz; ///< The five-flavour hadronic contribution to the electromagnetic coupling, @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$. (Non-input parameter)
 
     ////////////////////////////////////////////////////////////////////////
     // For EWPO
@@ -3235,7 +3269,8 @@ private:
     std::string FlagRhoZ; ///< A string for the model flag %RhoZ.
     std::string FlagKappaZ; ///< A string for the model flag %KappaZ.
     bool FlagWolfenstein; ///< A boolean for the model flag %Wolfenstein.
-    
+
+    bool FlagMWinput; ///< A boolean for the model flag %MWinput.    
     bool FlagSMAux; ///< A boolean for the model flag %SMAux.
 
     ////////////////////////////////////////////////////////////////////////     

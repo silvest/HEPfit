@@ -29,6 +29,12 @@
                      kind="TEST">
         <itemPath>StandardModel_FlavourTest.conf</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="New C++ Simple Test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/newsimpletest.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1"
                      displayName="RunningMass"
                      projectFiles="true"
@@ -497,6 +503,21 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
@@ -506,6 +527,8 @@
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release_MPI" type="1">
@@ -517,7 +540,6 @@
       <compileType>
         <ccTool>
           <developmentMode>6</developmentMode>
-          <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
@@ -544,7 +566,7 @@
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -std=c++11</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
@@ -930,6 +952,21 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_EventGeneration_example.cpp" ex="true" tool="1" flavor2="8">
@@ -946,6 +983,8 @@
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Debug" type="1">
       <toolsSet>
@@ -955,7 +994,6 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>8</standard>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -983,7 +1021,7 @@
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -std=c++11</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
@@ -1367,11 +1405,28 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -1386,7 +1441,6 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
-          <standard>8</standard>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -1798,11 +1852,28 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster" type="1">
@@ -2229,11 +2300,28 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster_MPI" type="1">
@@ -2677,6 +2765,21 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
@@ -2686,6 +2789,8 @@
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Schwinger_MPI" type="1">
@@ -3096,6 +3201,21 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
@@ -3107,6 +3227,8 @@
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="ArchLinux_MPI" type="1">
@@ -3531,6 +3653,21 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_EventGeneration_example.cpp" ex="true" tool="1" flavor2="9">
@@ -3546,6 +3683,463 @@
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="ArchLinux_Release_MPI" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <developmentMode>6</developmentMode>
+          <commandlineTool>mpic++</commandlineTool>
+          <incDir>
+            <pElem>../ComputeObservables/src</pElem>
+            <pElem>../EventGeneration/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../MonteCarlo/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../pMSSM/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
+            <pElem>../BAT_parallel/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopTools/include</pElem>
+            <pElem>../boost</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <preprocessorList>
+            <Elem>_MPI</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
+          <linkerAddLib>
+            <pElem>../BAT_parallel/lib</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>../BAT_parallel/lib</pElem>
+          </linkerDynSerch>
+          <commandlineTool>mpic++</commandlineTool>
+          <linkerLibItems>
+            <linkerOptionItem>-Wl,--start-group</linkerOptionItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="ArchLinux_Release"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE} -j -f Makefile CONF=ArchLinux_Release"
+                            CC="${MAKE} -j -f Makefile CONF=ArchLinux_Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="ArchLinux_Release_MPI"
+                            AC="true"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE} -j -f Makefile CONF=ArchLinux_Release_MPI"
+                            CC="${MAKE} -j -f Makefile CONF=ArchLinux_Release_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MonteCarlo"
+                            CT="3"
+                            CN="Release_MPI"
+                            AC="false"
+                            BL="true"
+                            WD="../MonteCarlo"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release_MPI"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDMW"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../THDMW"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdmw.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeorgiMachacek"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeorgiMachacek"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeftRightSymmetricModel"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LeftRightSymmetricModel"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleftrightsymmetricmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralTHDM"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeneralTHDM"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../StandardModel"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../StandardModel"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE} -j 8 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerOptionItem>-Wl,--end-group</linkerOptionItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs` -lifport -lifcore -limf -lirc</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel_FlavourTest.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="main_EventGeneration_example.cpp" ex="true" tool="1" flavor2="8">
+      </item>
+      <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_df1evol_test.cpp" ex="true" tool="1" flavor2="8">
+      </item>
+      <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_libmode_header_example.cpp" ex="true" tool="1" flavor2="8">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -1708,6 +1708,36 @@ private:
 // -----------------------------------------------------------------------------
 
 /**
+ * @class BrHto2l2vRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to 2l 2\nu)@f$ with @f$l=e,\mu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to 2l 2\nu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto2l2vRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHto2l2vRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to 2l 2\nu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 2l 2\nu)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
  * @class BrHtoevmuvRatio
  * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to e\nu \mu\nu)@f$.
@@ -1735,6 +1765,306 @@ public:
 private:
     const NPbase* myNPbase;
 };
+
+
+/**
+ * @class BrHto2e2vRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to 2e 2\nu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to 2e 2\nu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto2e2vRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHto2e2vRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to 2e 2\nu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 2e 2\nu)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHto2mu2vRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to 2\mu 2\nu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to 2\mu 2\nu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto2mu2vRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHto2mu2vRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to 2\mu 2\nu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 2\mu 2\nu)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHto4lRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to 4l)@f$ with @f$l=e,\mu@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to 4l)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto4lRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHto4lRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to 4l)@f$ with @f$l=e,\mu@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 4l)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHto4eRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to 4e)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to 4e)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto4eRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHto4eRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to 4e)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 4e)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHto4muRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to 4\mu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to 4\mu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto4muRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHto4muRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to 4\mu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 4\mu)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHto2e2muRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to 2 e 2\mu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to 2 e 2\mu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto2e2muRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHto2e2muRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to 2 e 2\mu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 2 e 2\mu)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHtolljjRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtolljjRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtolljjRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtolvjjRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtolvjjRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtolvjjRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHtolv_lvorjjRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtolv_lvorjjRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtolv_lvorjjRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHtoll_vvorjjRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoll_vvorjjRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtoll_vvorjjRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
 
 // -----------------------------------------------------------------------------
 // Ratios of BR (ratios with SM)

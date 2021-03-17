@@ -60,7 +60,6 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>8</standard>
           <incDir>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -152,7 +151,6 @@
       <compileType>
         <ccTool>
           <developmentMode>6</developmentMode>
-          <standard>8</standard>
           <incDir>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>

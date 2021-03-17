@@ -43,5 +43,39 @@ private:
 
 };
 
+
+/**
+ * @class DAlpha5hadMz 
+ * @brief An observable class for the 5-quark contribution to the running of the em constant to the @f$Z@f$ pole.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the 5-quark contribution to the running of the em constant to the @f$Z@f$ pole.
+ *
+ */
+class DAlpha5hadMz : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DAlpha5hadMz(const StandardModel& SM_i) 
+    : ThObservable(SM_i) 
+    {
+    };
+
+    /**
+     * @brief The 5-quark contribution to the running of the em constant to the @f$Z@f$ pole, @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$.
+     * @return @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$
+     */
+    double computeThValue();
+
+    
+private:
+
+
+};
+
+
 #endif	/* ALPHAMZ_H */
 

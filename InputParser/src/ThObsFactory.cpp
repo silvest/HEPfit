@@ -116,6 +116,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["alpha_s_FULLNNLO"] = boost::bind(boost::factory<alpha_s*>(), _1, FULLNNLO);
     //-----  Electroweak precision observables  -----
     obsThFactory["alphaMz"] = boost::factory<AlphaEmMz*>();
+    obsThFactory["Dalpha_5h_Mz"] = boost::factory<DAlpha5hadMz*>();
     obsThFactory["Mw"] = boost::factory<Mw*>();
     obsThFactory["GammaW"] = boost::factory<GammaW*>();
     obsThFactory["BrWlepton"] = boost::factory<BrWlepton*>();
@@ -1122,8 +1123,20 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtautauRatio"] = boost::factory<BrHtotautauRatio*>();
     obsThFactory["BrHccRatio"] = boost::factory<BrHtoccRatio*>();
     obsThFactory["BrHbbRatio"] = boost::factory<BrHtobbRatio*>();
-    //
+    // Dedicated 4 lepton decays
+    obsThFactory["BrHto2l2vRatio"] = boost::factory<BrHto2l2vRatio*>();
     obsThFactory["BrHtoevmuvRatio"] = boost::factory<BrHtoevmuvRatio*>();
+    obsThFactory["BrHto2e2vRatio"] = boost::factory<BrHto2e2vRatio*>();
+    obsThFactory["BrHto2mu2vRatio"] = boost::factory<BrHto2mu2vRatio*>();
+    obsThFactory["BrHto4lRatio"] = boost::factory<BrHto4lRatio*>();
+    obsThFactory["BrHto4eRatio"] = boost::factory<BrHto4eRatio*>();
+    obsThFactory["BrHto4muRatio"] = boost::factory<BrHto4muRatio*>();
+    obsThFactory["BrHto2e2muRatio"] = boost::factory<BrHto2e2muRatio*>();
+    // Other dedicated (semi-)leptonic 4 fermion decays
+    obsThFactory["BrHtolljjRatio"] = boost::factory<BrHtolljjRatio*>();
+    obsThFactory["BrHtolvjjRatio"] = boost::factory<BrHtolvjjRatio*>();
+    obsThFactory["BrHtolv_lvorjjRatio"] = boost::factory<BrHtolv_lvorjjRatio*>();
+    obsThFactory["BrHtoll_vvorjjRatio"] = boost::factory<BrHtoll_vvorjjRatio*>();
     //-----  Ratios of BR (ratios with SM)  ----------
     obsThFactory["BrHtogaga_over_mumu_Ratio"] = boost::factory<BrHtogaga_over_mumu_Ratio*>();
     obsThFactory["BrHtoZga_over_mumu_Ratio"] = boost::factory<BrHtoZga_over_mumu_Ratio*>();

@@ -50,7 +50,6 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>8</standard>
           <incDir>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/src</pElem>

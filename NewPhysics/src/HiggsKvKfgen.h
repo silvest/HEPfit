@@ -346,7 +346,44 @@ public:
      * @return @f$\Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
     virtual double computeGammaTotalRatio() const;
-
+    
+    ///////////////////////OTHER HIGGS 4 FERMION BRANCHING RATIOS/////////////////////////   
+    /**
+     * @brief The ratio of the Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to l l j j)@f$/Br@f$(H\to l l j j)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHlljjRatio() const
+    {
+        return BrHZZRatio(); 
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to l \nu j j)@f$/Br@f$(H\to l \nu j j)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHlvjjRatio() const
+    {
+        return BrHWWRatio(); 
+    }   
+    /**
+     * @brief The ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to l \nu l \nu, l \nu j j)@f$/Br@f$(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHlv_lvorjjRatio() const
+    {
+        return BrHWWRatio();
+    }   
+    /**
+     * @brief The ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to l l \nu\nu, l l j j)@f$/Br@f$(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHll_vvorjjRatio() const
+    {
+        return BrHZZRatio();
+    }
     ////////////////////////////////////////////////////////////////////////
 protected:
 
