@@ -22404,7 +22404,7 @@ double NPSMEFTd6::STXS12_BrHevmuvRatio() const
     double dGHiR1=0.0, dGHiTotR1=0.0;
     
     // e v mu v
-    dGHiR1= 0.0;
+    dGHiR1= deltaGammaHevmuvRatio1();
 
     // Tot
     dGHiTotR1= (- 0.001 * CiW + 0.12 * CiHbox - 0.030 * CiHD + 1.362 * CiHG - 0.048 * CiHW
