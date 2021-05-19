@@ -784,7 +784,7 @@ public:
      * @brief Get the minimum order of the outer expansion.
      * @return value of the minimum order of the outer expansion.
      */
-    const int getMin1() const {
+    int getMin1() const {
         return minord1;
     }
 
@@ -792,7 +792,7 @@ public:
      * @brief Get the minimum order of the inner expansion.
      * @return value of the minimum order of the inner expansion.
      */
-    const int getMin2() const {
+    int getMin2() const {
         return minord2;
     }
 
@@ -800,7 +800,7 @@ public:
      * @brief Get the number of terms in the outer expansion
      * @return value of the minimum order of the outer expansion.
      */
-    const int getN1() const {
+    int getN1() const {
         return n1;
     }
 
