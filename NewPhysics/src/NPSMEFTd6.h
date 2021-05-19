@@ -5470,6 +5470,26 @@ public:
     // Expressions valid in the {G_F, M_Z, M_W} scheme
     
     /**
+     * @brief The STXS BR @f$ H \to 4l @f$, @f$l=e,\mu@f$.
+     */
+    virtual double STXS12_BrH4lRatio() const;
+    
+    /**
+     * @brief The STXS BR @f$ H \to e\nu \mu\nu @f$.
+     */
+    virtual double STXS12_BrHevmuvRatio() const;
+    
+    /**
+     * @brief The STXS BR @f$ H \to \gamma \gamma @f$.
+     */
+    virtual double STXS12_BrHgagaRatio() const;
+    
+    /**
+     * @brief The STXS BR @f$ H \to bb @f$.
+     */
+    virtual double STXS12_BrHbbRatio() const;
+    
+    /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,~200<p_{TH} [GeV]<300@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
