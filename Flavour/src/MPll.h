@@ -23,7 +23,7 @@ class F_2;
 #define GSL_INTERP_DIM_DC 10
 #define SPLINE true
 
-#define NFPOLARBASIS_MPLL true
+#define NFPOLARBASIS_MPLL false
 
 /**
  * @class MPll
@@ -196,6 +196,29 @@ public:
      * @return \f$h_{hel}(q^2)\f$
      */
     gslpp::complex h_lambda(double q2);
+    
+    /**
+    * @brief The helicity form factor \f$ V_L^0 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ V_L^{\lambda} \f$
+    */
+    gslpp::complex V_L(double q2);
+
+
+    /**
+    * @brief The helicity form factor \f$ T_L^0 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T_L^{\lambda} \f$
+    */
+    gslpp::complex T_L(double q2);
+
+
+    /**
+    * @brief The helicity form factor \f$ S_L \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ S_L \f$
+    */
+    double S_L(double q2);
     
     /**
     * @brief The helicity amplitude \f$ H_V^{\lambda} \f$ .
@@ -725,29 +748,6 @@ private:
     * @return \f$ f_0 \f$
     */
     double f_0(double q2);
-    
-    /**
-    * @brief The helicity form factor \f$ V_L^0 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ V_L^{\lambda} \f$
-    */
-    gslpp::complex V_L(double q2);
-
-
-    /**
-    * @brief The helicity form factor \f$ T_L^0 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_L^{\lambda} \f$
-    */
-    gslpp::complex T_L(double q2);
-
-
-    /**
-    * @brief The helicity form factor \f$ S_L \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ S_L \f$
-    */
-    double S_L(double q2);
 
 
     /**

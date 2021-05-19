@@ -174,6 +174,39 @@ private:
 };
 
 
+/**
+ * @class hlambda_at_1
+ * @ingroup Flavour
+ * @brief A class for @f$h_{\lambda}(q^2=1)@f$ in @f$M \to P l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the observable @f$h_{\lambda}(q^2=1)@f$
+ */
+class DC9_hlambda : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    DC9_hlambda(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The binned observable @f$_{\lambda}(q^2=1)@f$ in @f$M \to P l^+l^-@f$.
+    * @return @f$_{\lambda}(q^2=1)@f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+};
+
+
 #endif	/* MPLLOBSERVABLES_H */
 
     

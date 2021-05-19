@@ -19,7 +19,7 @@ class F_2;
 #include <memory>
 
 #define SWITCH 8.2
-#define NFPOLARBASIS_MVLL true
+#define NFPOLARBASIS_MVLL false
 #define COMPUTECP false
 #define GSL_INTERP_DIM 10
 #define GSL_INTERP_DIM_DC 10

@@ -3832,6 +3832,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["dBR_B0Kmu"] = boost::bind(boost::factory<dBR_MPll*>(), _1, StandardModel::B_D, StandardModel::K_0, StandardModel::MU);
     obsThFactory["dBR_B0Ke"] = boost::bind(boost::factory<dBR_MPll*>(), _1, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON);
     obsThFactory["RK_B0Kll"] = boost::bind(boost::factory<R_MPll*>(), _1, StandardModel::B_D, StandardModel::K_0, StandardModel::MU, StandardModel::ELECTRON);
+    
+    obsThFactory["DC9_hlambda"] = boost::bind(boost::factory<DC9_hlambda*>(), _1, StandardModel::B_D, StandardModel::K_0, StandardModel::MU);
 
     //----- B to D*lnu -----
     obsThFactory["Gammaw_MVlnu"] = boost::bind(boost::factory<Gammaw_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON);
