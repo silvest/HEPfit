@@ -16928,7 +16928,7 @@ double NPSMEFTd6::deltaGammaH4fRatio1() const
 {
     double dwidth = 0.0;
     
-    // SM decay widths (from MG simmulations)
+    // SM decay widths (from MG simulations)
     double wH2L2LSM=0.65682e-06, wH2v2vSM=0.28126e-05, wH2L2vSM=0.27224e-05;
     double wH2u2uSM=0.22500e-05, wH2d2dSM=0.11906e-04, wH2u2dSM=0.12361e-04;
     double wH2L2uSM=0.45029e-05, wH2L2dSM=0.85830e-05, wH2v2uSM=0.93233e-05;
@@ -16957,7 +16957,7 @@ double NPSMEFTd6::deltaGammaH4fRatio2() const
 {
     double dwidth = 0.0;
 
-    // SM decay widths (from MG simmulations)
+    // SM decay widths (from MG simulations)
     double wH2L2LSM=0.65682e-06, wH2v2vSM=0.28126e-05, wH2L2vSM=0.27224e-05;
     double wH2u2uSM=0.22500e-05, wH2d2dSM=0.11906e-04, wH2u2dSM=0.12361e-04;
     double wH2L2uSM=0.45029e-05, wH2L2dSM=0.85830e-05, wH2v2uSM=0.93233e-05;

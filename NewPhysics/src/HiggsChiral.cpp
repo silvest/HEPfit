@@ -589,6 +589,13 @@ double HiggsChiral::BrHZZ4muRatio() const
     return BrHZZRatio();
 }
 
+double HiggsChiral::BrHZZ4vRatio() const
+{
+//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
+    
+    return BrHZZRatio();
+}
+
 double HiggsChiral::BrHZgaRatio() const
 {
 //    return GammaZga() / GammaTotal() / trueSM.computeBrHtoZga();
@@ -650,6 +657,205 @@ double HiggsChiral::BrHbbRatio() const
 //    return Gammabb() / GammaTotal() / trueSM.computeBrHtobb();
     
     return (computecb() * computecb() / computeGammaTotalRatio());
+}
+
+    // General 4 fermion final states 
+
+double HiggsChiral::BrH2L2LRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2e2muRatio() const
+{    
+    return BrHZZRatio();
+}    
+
+double HiggsChiral::BrH2v2vRatio() const
+{    
+    return BrHZZRatio();
+}
+
+double HiggsChiral::BrH2L2vRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2L2v2Ratio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2e2vRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2mu2vRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2u2uRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2d2dRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2u2dRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2L2uRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2L2dRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2v2uRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2v2dRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH4LRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH4L2Ratio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH4eRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH4muRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH4vRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH4uRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH4dRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrHLvvLRatio() const
+{    
+    return BrHWWRatio();
+}
+    
+double HiggsChiral::BrHevmuvRatio() const
+{    
+    return BrHWWRatio();
+}
+    
+double HiggsChiral::BrHudduRatio() const
+{    
+    return BrHWWRatio();
+}
+    
+double HiggsChiral::BrHLvudRatio() const
+{    
+    return BrHWWRatio();
+}
+    
+double HiggsChiral::BrH2udRatio() const
+{    
+    // Approximate by pure CC
+    return BrHWWRatio();
+}
+    
+double HiggsChiral::BrH2LvRatio() const
+{    
+    // Approximate by pure CC
+    return BrHWWRatio();
+}   
+    
+double HiggsChiral::BrH2Lv2Ratio() const
+{    
+    // Approximate by pure CC
+    return BrHWWRatio();
+}
+    
+double HiggsChiral::BrH2evRatio() const
+{    
+    // Approximate by pure CC
+    return BrHWWRatio();
+}    
+    
+double HiggsChiral::BrH2muvRatio() const
+{    
+    // Approximate by pure CC
+    return BrHWWRatio();
+}    
+    
+double HiggsChiral::BrH4fRatio() const
+{
+    double Br = 0.0;
+    
+    // SM decay widths (from MG simulations)
+    double wH2L2LSM=0.65682e-06, wH2v2vSM=0.28126e-05, wH2L2vSM=0.27224e-05;
+    double wH2u2uSM=0.22500e-05, wH2d2dSM=0.11906e-04, wH2u2dSM=0.12361e-04;
+    double wH2L2uSM=0.45029e-05, wH2L2dSM=0.85830e-05, wH2v2uSM=0.93233e-05;
+    double wH2v2dSM=0.17794e-04, wH4LSM=0.33973e-06, wH4vSM=0.16884e-05;
+    double wH4uSM=0.23669e-05, wH4dSM=0.60254e-05;
+    double wHLvvLSM=0.58098e-04, wHudduSM=0.13384e-03, wHLvudSM=0.34149e-03 ;
+    double wH2udSM=0.13711e-03, wH2LvSM=0.27557e-04;
+
+    // Sum: SM
+    double wH4fSM=wH2L2LSM+wH2v2vSM+wH2L2vSM+wH2u2uSM+wH2d2dSM+wH2u2dSM+
+    wH2L2uSM+wH2L2dSM+wH2v2uSM+wH2v2dSM+wH4LSM+wH4vSM+wH4uSM+wH4dSM+wHLvvLSM+wHudduSM+
+    wHLvudSM+wH2udSM+wH2LvSM;
+
+    // Sum: SM+NP
+    double wH4f= (computecV() * computecV()) * (wH2L2LSM+wH2v2vSM+wH2L2vSM+wH2u2uSM+wH2d2dSM+wH2u2dSM
+            + wH2L2uSM+wH2L2dSM+wH2v2uSM+wH2v2dSM+wH4LSM+wH4vSM+wH4uSM+wH4dSM)
+            + (computecV() * computecV()) * (wHLvvLSM+wHudduSM
+            + wHLvudSM+wH2udSM+wH2LvSM);
+        
+    Br = (wH4f/wH4fSM) / computeGammaTotalRatio();
+    
+    return Br;
+}
+    
+    // DECAYS INVOLVING ONLY ELECTRONS, MUONS OR NEUTRINOS IN THE FINAL STATES 
+
+double HiggsChiral::BrH4lRatio() const
+{    
+    return BrHZZRatio();
+}
+    
+double HiggsChiral::BrH2l2vRatio() const
+{  
+    // Approximate by pure CC
+    return BrHWWRatio();
 }
 
 double HiggsChiral::BrHtoinvRatio() const
