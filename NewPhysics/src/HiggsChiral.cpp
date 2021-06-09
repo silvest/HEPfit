@@ -15,6 +15,7 @@ HiggsChiral::HiggsChiral()
 : NPbase()
 {    
     FlagUniversalcf = false;
+    FlagUniversalcvcf = false;
     
     ModelParamMap.insert(std::make_pair("cv", std::cref(cv)));
     ModelParamMap.insert(std::make_pair("ct", std::cref(ct)));
@@ -48,6 +49,15 @@ bool HiggsChiral::PostUpdate()
 
     if (FlagUniversalcf) {
 //  Assign to all cf the value of ct
+        cb = ct;
+        cc = ct;
+        ctau = ct;
+        cmu = ct;
+    }
+    
+    if (FlagUniversalcvcf) {
+//  Assign to all cv and cf the value of ct
+        cv = ct;
         cb = ct;
         cc = ct;
         ctau = ct;
@@ -124,6 +134,9 @@ bool HiggsChiral::setFlag(const std::string name, const bool value)
     bool res = false;
     if (name.compare("Universalcf") == 0) {
         FlagUniversalcf = value;
+        res = true;
+    } else if (name.compare("Universalcvcf") == 0) {
+        FlagUniversalcvcf = value;
         res = true;
     } else
         res = NPbase::setFlag(name, value);

@@ -91,6 +91,13 @@
  *   universal value. The value is controlled by the parameter ct.
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%Universalcvcf</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if all cv and cf are assumed to take the same 
+ *   universal value. The value is controlled by the parameter ct.
+ *   The default value is FALSE.</td>
+ * </tr>
  * </table>
  * 
  */
@@ -2240,6 +2247,7 @@ private:
     bool loopComputed;
     
     bool FlagUniversalcf; ///< A boolean flag that is true if all cf take the same universal value.
+    bool FlagUniversalcvcf; ///< A boolean flag that is true if all cv and cf take the same universal value.
 
 };
 
