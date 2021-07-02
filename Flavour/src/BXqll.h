@@ -449,20 +449,6 @@ private:
     double tau29fit_Im(double sh);
     
     /**
-    * @brief The finite bremsstrahlung correction \f$f_{710}(\hat s)\f$ from @cite Asatrian:2002va.
-    * @param[in] sh \f$q^2/m_b^2\f$ of the decay
-    * @return \f$tau_{710}(\hat s)\f$
-    */
-    double f710(double sh);
-    
-    /**
-    * @brief The finite bremsstrahlung correction \f$f_{910}(\hat s)\f$ from @cite Asatrian:2002va.
-    * @param[in] sh \f$q^2/m_b^2\f$ of the decay
-    * @return \f$tau_{910}(\hat s)\f$
-    */
-    double f910(double sh);
-    
-    /**
     * @brief The finite bremsstrahlung correction \f$f_{810}(\hat s)\f$ from @cite Asatrian:2003yk.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{810}(\hat s)\f$

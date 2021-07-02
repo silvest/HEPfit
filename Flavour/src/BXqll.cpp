@@ -2261,6 +2261,14 @@ void BXqll::Test_WC_DF1()
 //        }
 //    
 //    std::cout << myHeff.getEvol().DF1Evol(mu_b, muw, NDR).getOrd(QCD0,QED1) * alsMuw / aleMuw << std::endl;
+//
+//    std::cout << std::endl;
+//    std::cout << "PhiTL_brems(0.05) = " << PhiTL_brems(0.05) << std::endl;
+//    std::cout << "PhiTL_brems(0.15) = " << PhiTL_brems(0.15) << std::endl;
+//    std::cout << "PhiTL_brems(0.25) = " << PhiTL_brems(0.25) << std::endl;
+//    std::cout << "PhiA_brems(0.05)  = " << PhiA_brems(0.05)  << std::endl;
+//    std::cout << "PhiA_brems(0.15)  = " << PhiA_brems(0.15)  << std::endl;
+//    std::cout << "PhiA_brems(0.25)  = " << PhiA_brems(0.25)  << std::endl;
 }
 
 
@@ -2306,23 +2314,21 @@ double BXqll::PhiA_brems(double sh)
 {
     gslpp::complex C10mod = (WC(9, QCD1 + 3*QED1) / aletilde).conjugate();
     // 2 als / pi = 8 alstilde, and H_A(s) = dAFB/ds * 4 / 3 
-    double factor = aletilde * aletilde * alstilde * 8. * (1. - sh) * 4. / 3.;
+    double factor = aletilde * aletilde * alstilde * 8. * (1. - sh) * (1. - sh) * 4. / 3.;
     
-    return  (factor * (-3. * sh * (C9mod(sh) * C10mod).real() * f910(sh) -
-            6. * (WC(6, LO) * C10mod).real() * f710(sh) +
-            ((WC(7, LO) * C10mod).real() * t810(sh) +
-            ((WC(1, LO) - WC(0, LO) / 6.) * C10mod).real() * t210fit(sh)) / 3.));
+    return  (factor * ((WC(7, LO) * C10mod).real() * t810(sh) +
+            ((WC(1, LO) - WC(0, LO) / 6.) * C10mod).real() * t210fit(sh)) / 3.);
 }
 
 gslpp::complex BXqll::C9mod(double sh)
 {    
-    gslpp::complex T9 = 4./3. * WC(0, LO) + WC(1, LO) + 6. * WC(2, LO) + 60. * WC(4, LO);
-    gslpp::complex U9 = -7./2. * WC(2, LO) - 2./3. * WC(3, LO) - 38. * WC(4, LO) - 32./3. * WC(5, LO);
-    gslpp::complex W9 = -1./2. * WC(2, LO) - 2./3. * WC(3, LO) -  8. * WC(4, LO) - 32./3. * WC(5, LO);
+    gslpp::complex T9 =    4./3. * WC(0, LO) +           WC(1, LO) +       6. * WC(2, LO) +    60. * WC(4, LO);
+    gslpp::complex U9 =   -7./2. * WC(2, LO) -   2./3. * WC(3, LO) -      38. * WC(4, LO) - 32./3. * WC(5, LO);
+    gslpp::complex W9 =   -1./2. * WC(2, LO) -   2./3. * WC(3, LO) -       8. * WC(4, LO) - 32./3. * WC(5, LO);
     gslpp::complex A9 = -32./27. * WC(0, LO) -   8./9. * WC(1, LO) -   16./9. * WC(2, LO) +
                          32./27. * WC(3, LO) - 112./9. * WC(4, LO) + 512./27. * WC(5, LO);
     A9 *= log(1. / muh);
-    A9 += (WC(8, int_qed(LO_QED)) + WC(8, int_qed(NLO_QED11))) / aletilde;
+    A9 += (WC(8, QCD0 + 3*QED1) + WC(8, QCD1 + 3*QED1)) / aletilde;
     A9 += 4./3. * WC(2, LO) + 64./9. * WC(4, LO) + 64./27. * WC(5, LO);
     
     return (A9 + T9 * h_z(z, sh) + U9 * h_z(1., sh) + W9 * h_z(0., sh));
@@ -2549,35 +2555,6 @@ double BXqll::tau29fit_Im(double sh)
     return (c0 + c1 * sh + c2 * sh2 + c3 * sh3 + c4 * sh2*sh2 + c5 * sh2*sh3 + c6 * sh3*sh3 + c7 * log(sh));
 }
 
-double BXqll::f710(double sh)
-{
-    double sh2 = sh * sh;
-    double umsh = 1. - sh;
-    double umsqrt = 1. - sqrt(sh);
-    double dilog_sh = gslpp_special_functions::dilog(sh);
-    double dilog_sqrt = gslpp_special_functions::dilog(sqrt(sh));
-    
-    return  (-(6. * sh * (3. + 9. * sh - 2. * sh2) * dilog_sh - 12. * sh * (1. + 13. * sh -
-            4. * sh2) * dilog_sqrt + 3. * (1. - 23. * sh + 23 * sh2 - sh*sh2) * log(umsh) +
-            6. * sh * (13. - 16. * sh + 3. * sh2) * log(umsqrt) + sh * (5 * MPI2 * (1. + sh) - 
-            3. * (5. - 20. * sqrt(sh) + sh) * umsqrt*umsqrt) + 24. * sh * umsh*umsh * log(muh)) /
-            18. / sh / umsh / umsh);
-}
-
-double BXqll::f910(double sh)
-{
-    double sh2 = sh * sh;
-    double umsh = 1. - sh;
-    double umsqrt = 1. - sqrt(sh);
-    double dilog_sh = gslpp_special_functions::dilog(sh);
-    double dilog_sqrt = gslpp_special_functions::dilog(sqrt(sh));
-    
-    return  (-(6. * sh * (1. + 3. * sh - sh2) * dilog_sh - 12. * sh2 * (5. - 2. * sh) * dilog_sqrt +
-            3. * (1. - 10. * sh + 11. * sh2 - 2. * sh*sh2) * log(umsh) + 6. * sh * (5. - 7 * sh +
-            2. * sh2) * log(umsqrt) + sh * (3. * (4 * sqrt(sh) - 3.) * umsqrt * umsqrt + MPI2 * (2. +
-            sh))) / 9. / sh / umsh / umsh);
-}
-
 double BXqll::t810(double sh)
 {
     gslpp::complex i = gslpp::complex::i();
@@ -2596,7 +2573,7 @@ double BXqll::t810(double sh)
             2. * sh * (1. + sh - log(sh)) * log(sh)) + 2. * (-3. * MPI2 * (1. + 2. * sh) -
             6. * shmt * sh * log(dmsqrt) - 36. * (1. + 2. * sh) * dilog_1 - ssh / sqmsh * 
             (6. * (2. * shmt * sh * atan((2. + ssh) / sqmsh) + 2. * M_PI * log(dmsqrt) -
-            atan(sqmsh / sh) * (shmt * sh + 4. * log(dmsqrt)) - atan(ssh * sqmsh / (2. - sh)) *
+            atan(sqmsh / ssh) * (shmt * sh + 4. * log(dmsqrt)) - atan(ssh * sqmsh / (2. - sh)) *
             (shmt * sh - log(sh)) + 4. * dilog_2 - 2. * dilog_3)))) / 6. / umsh / umsh;
 }
 
