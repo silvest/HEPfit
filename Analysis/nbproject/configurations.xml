@@ -90,7 +90,6 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
@@ -117,7 +116,7 @@
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -std=c++11</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
@@ -422,7 +421,7 @@
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs`</commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs` -lquadmath</commandLine>
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">

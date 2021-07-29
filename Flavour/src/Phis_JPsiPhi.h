@@ -20,14 +20,14 @@
  * @details This class is used to compute the theoretical value of
  * @f$S_{J/\psi\phi}@f$.
  */
-class Betas_JPsiPhi : public ThObservable, AmpDB2 {
+class Phis_JPsiPhi : public ThObservable, AmpDB2 {
 public:
     
    /**
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    Betas_JPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
+    Phis_JPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
     
     /**
      *

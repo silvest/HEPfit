@@ -17,7 +17,7 @@
 #include "gamma.h"
 #include "SJPsiK.h"
 #include "C2beta.h"
-#include "Betas_JPsiPhi.h"
+#include "Phis_JPsiPhi.h"
 #include "Mll.h"
 #include "Btaunu.h"
 #include "bsgamma.h"
