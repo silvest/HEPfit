@@ -321,24 +321,6 @@ private:
     void computeMi(double sh);
     
     /**
-    * @brief Matrix of auxiliary functions \f$H_{ij}^{T}\f$ from @cite Huber:2015sra
-    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    */
-    void computeHij_T(double sh);
-    
-    /**
-    * @brief Matrix of auxiliary functions \f$H_{ij}^{L}\f$ from @cite Huber:2015sra
-    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    */
-    void computeHij_L(double sh);
-    
-    /**
-    * @brief Matrix of auxiliary functions \f$H_{ij}^{A}\f$ from @cite Huber:2015sra
-    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
-    */
-    void computeHij_A(double sh);
-    
-    /**
     * @brief Angular observable \f$H_T\f$ as defined in @cite Huber:2015sra
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     */
@@ -467,20 +449,6 @@ private:
     double tau29fit_Im(double sh);
     
     /**
-    * @brief The finite bremsstrahlung correction \f$f_{710}(\hat s)\f$ from @cite Asatrian:2002va.
-    * @param[in] sh \f$q^2/m_b^2\f$ of the decay
-    * @return \f$tau_{710}(\hat s)\f$
-    */
-    double f710(double sh);
-    
-    /**
-    * @brief The finite bremsstrahlung correction \f$f_{910}(\hat s)\f$ from @cite Asatrian:2002va.
-    * @param[in] sh \f$q^2/m_b^2\f$ of the decay
-    * @return \f$tau_{910}(\hat s)\f$
-    */
-    double f910(double sh);
-    
-    /**
     * @brief The finite bremsstrahlung correction \f$f_{810}(\hat s)\f$ from @cite Asatrian:2003yk.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
     * @return \f$tau_{810}(\hat s)\f$
@@ -505,12 +473,6 @@ private:
     * @param[in] Hij matrix element related to the one of the angular observables of \f$B\to X_s\ell\ell\f$
     */
     double CCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& Hij);
-    
-    /**
-    * @brief Auxiliary function that performs the multiplication of Wilson coefficients and matrix elements
-    * @param[in] Hij matrix element related to the one of the angular observables of \f$B\to X_s\ell\ell\f$
-    */
-    double FULLCCH_multiplication(std::vector< gslpp::matrix<gslpp::complex> >& Hij);
     
     /**
     * @brief Temporary method to test Wilson coefficients with C10_OS1 matching and HeffDF1 evolution 

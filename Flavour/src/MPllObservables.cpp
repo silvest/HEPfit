@@ -96,3 +96,24 @@ double ACP_MPll::computeThValue()
     
     return (3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateDelta(0, q_min, q_max) - SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateDelta(2, q_min, q_max))/(4.*computeBR_MPll(q_min, q_max, lep)* SM.getFlavour().getMPll(meson, pseudoscalar, lep).getwidth());
 }
+
+DC9_hlambda::DC9_hlambda(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    pseudoscalar = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).initializeMPllParameters());
+}
+
+double DC9_hlambda::computeThValue() 
+{   
+    double q2 = getBinMin();
+    double sixteenM_PI2 = 16.*M_PI*M_PI;
+    gslpp::complex hlambda = SM.getFlavour().getMPll(meson, pseudoscalar, lep).h_lambda(q2);
+    double MM = SM.getMesons(meson).getMass();
+    gslpp::complex VL = SM.getFlavour().getMPll(meson, pseudoscalar, lep).V_L(q2);
+    gslpp::complex result = - sixteenM_PI2 * hlambda * MM * MM / q2 / VL;
+    return result.abs();
+}

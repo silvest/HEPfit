@@ -16,7 +16,7 @@ class AmpDB2;
 #include <gsl/gsl_integration.h>
 #include <memory>
 
-#define NFPOLARBASIS_MVGAMMA true
+#define NFPOLARBASIS_MVGAMMA false
 #define UNIFIEDBTOS true
 #define FULLNLOQCDF_MVGAMMA false
 

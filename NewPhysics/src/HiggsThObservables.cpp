@@ -4283,6 +4283,1528 @@ double STXSZHqqHqq_pTj1_200_2b::computeThValue()
 
 
 
+// -----------------------------------------------------------------------------
+// Stage 1.2
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH200_300_Nj01::STXS12_ggH_pTH200_300_Nj01(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH200_300_Nj01 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH200_300_Nj01::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH200_300_Nj01 called with invalid argument for final state in fstate_i");
+    }        
+    
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH200_300_Nj01(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH200_300_Nj01(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH300_450_Nj01::STXS12_ggH_pTH300_450_Nj01(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH300_450_Nj01 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH300_450_Nj01::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH300_450_Nj01 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH300_450_Nj01(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH300_450_Nj01(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH450_650_Nj01::STXS12_ggH_pTH450_650_Nj01(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH450_650_Nj01 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH450_650_Nj01::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH450_650_Nj01 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH450_650_Nj01(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH450_650_Nj01(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH650_Inf_Nj01::STXS12_ggH_pTH650_Inf_Nj01(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH650_Inf_Nj01 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH650_Inf_Nj01::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH650_Inf_Nj01 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH650_Inf_Nj01(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH650_Inf_Nj01(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH0_10_Nj0::STXS12_ggH_pTH0_10_Nj0(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH0_10_Nj0 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH0_10_Nj0::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH0_10_Nj0 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH0_10_Nj0(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH0_10_Nj0(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH10_Inf_Nj0::STXS12_ggH_pTH10_Inf_Nj0(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH10_Inf_Nj0 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH10_Inf_Nj0::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH10_Inf_Nj0 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH10_Inf_Nj0(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH10_Inf_Nj0(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH0_60_Nj1::STXS12_ggH_pTH0_60_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH0_60_Nj1 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH0_60_Nj1::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH0_60_Nj1 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH0_60_Nj1(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH0_60_Nj1(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH60_120_Nj1::STXS12_ggH_pTH60_120_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH60_120_Nj1 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH60_120_Nj1::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH60_120_Nj1 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH60_120_Nj1(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH60_120_Nj1(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_pTH120_200_Nj1::STXS12_ggH_pTH120_200_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH120_200_Nj1 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH120_200_Nj1::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH120_200_Nj1 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_pTH120_200_Nj1(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_pTH120_200_Nj1(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_mjj0_350_pTH0_60_Nj2::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_mjj0_350_pTH0_60_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_mjj0_350_pTH0_60_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_mjj0_350_pTH0_60_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_mjj0_350_pTH60_120_Nj2::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_mjj0_350_pTH60_120_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_mjj0_350_pTH60_120_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_mjj0_350_pTH60_120_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_mjj0_350_pTH120_200_Nj2::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_mjj0_350_pTH120_200_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_mjj0_350_pTH120_200_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_mjj0_350_pTH120_200_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_mjj0_350_pTH120_200_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_mjj0_350_pTH120_200_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH200_300_Nj01 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggHll_pTV0_75::STXS12_ggHll_pTV0_75(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggHll_pTV0_75 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggHll_pTV0_75::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggHll_pTV0_75 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggHll_pTV0_75(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggHll_pTV0_75(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggHll_pTV75_150::STXS12_ggHll_pTV75_150(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggHll_pTV75_150 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggHll_pTV75_150::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggHll_pTV75_150 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggHll_pTV75_150(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggHll_pTV75_150(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggHll_pTV150_250_Nj0::STXS12_ggHll_pTV150_250_Nj0(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggHll_pTV150_250_Nj0 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggHll_pTV150_250_Nj0::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggHll_pTV150_250_Nj0 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggHll_pTV150_250_Nj0(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggHll_pTV150_250_Nj0(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggHll_pTV150_250_Nj1::STXS12_ggHll_pTV150_250_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggHll_pTV150_250_Nj1 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggHll_pTV150_250_Nj1::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggHll_pTV150_250_Nj1 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggHll_pTV150_250_Nj1(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggHll_pTV150_250_Nj1(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ggHll_pTV250_Inf::STXS12_ggHll_pTV250_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggHll_pTV250_Inf called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggHll_pTV250_Inf::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ggHll_pTV250_Inf called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ggHll_pTV250_Inf(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ggHll_pTV250_Inf(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_Nj0::STXS12_qqHqq_Nj0(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_Nj0 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_Nj0::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_Nj called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_Nj0(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_Nj0(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_Nj1::STXS12_qqHqq_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_Nj1 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_Nj1::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_Nj1 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_Nj1(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_Nj1(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_mjj0_60_Nj2::STXS12_qqHqq_mjj0_60_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj0_60_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj0_60_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj0_60_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_mjj0_60_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_mjj0_60_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_mjj60_120_Nj2::STXS12_qqHqq_mjj60_120_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj60_120_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj60_120_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj60_120_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_mjj60_120_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_mjj60_120_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_mjj120_350_Nj2::STXS12_qqHqq_mjj120_350_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj120_350_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj120_350_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj120_350_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_mjj120_350_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_mjj120_350_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHlv_pTV0_75::STXS12_qqHlv_pTV0_75(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHlv_pTV0_75 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHlv_pTV0_75::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHlv_pTV0_75 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHlv_pTV0_75(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHlv_pTV0_75(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHlv_pTV75_150::STXS12_qqHlv_pTV75_150(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHlv_pTV75_150 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHlv_pTV75_150::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHlv_pTV75_150 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHlv_pTV150_250_Nj0::STXS12_qqHlv_pTV150_250_Nj0(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHlv_pTV150_250_Nj0 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHlv_pTV150_250_Nj0::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHlv_pTV150_250_Nj0 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHlv_pTV150_250_Nj0(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHlv_pTV150_250_Nj0(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHlv_pTV150_250_Nj1::STXS12_qqHlv_pTV150_250_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHlv_pTV150_250_Nj1 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHlv_pTV150_250_Nj1::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHlv_pTV150_250_Nj1 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHlv_pTV150_250_Nj1(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHlv_pTV150_250_Nj1(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHlv_pTV250_Inf::STXS12_qqHlv_pTV250_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHlv_pTV250_Inf called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHlv_pTV250_Inf::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHlv_pTV250_Inf called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHlv_pTV250_Inf(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHlv_pTV250_Inf(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHll_pTV0_75::STXS12_qqHll_pTV0_75(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHll_pTV0_75 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHll_pTV0_75::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHll_pTV0_75 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHll_pTV0_75(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHll_pTV0_75(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHll_pTV75_150::STXS12_qqHll_pTV75_150(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHll_pTV75_150 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHll_pTV75_150::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHll_pTV75_150 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHll_pTV75_150(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHll_pTV75_150(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHll_pTV150_250_Nj0::STXS12_qqHll_pTV150_250_Nj0(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHll_pTV150_250_Nj0 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHll_pTV150_250_Nj0::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHll_pTV150_250_Nj0 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHll_pTV150_250_Nj1::STXS12_qqHll_pTV150_250_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHll_pTV150_250_Nj1 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHll_pTV150_250_Nj1::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHll_pTV150_250_Nj1 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_qqHll_pTV250_Inf::STXS12_qqHll_pTV250_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHll_pTV250_Inf called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHll_pTV250_Inf::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_qqHll_pTV250_Inf called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_qqHll_pTV250_Inf(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_qqHll_pTV250_Inf(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ttH_pTH0_60::STXS12_ttH_pTH0_60(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ttH_pTH0_60 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ttH_pTH0_60::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ttH_pTH0_60 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ttH_pTH0_60(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ttH_pTH0_60(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ttH_pTH60_120::STXS12_ttH_pTH60_120(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ttH_pTH60_120 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ttH_pTH60_120::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ttH_pTH60_120 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ttH_pTH60_120(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ttH_pTH60_120(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ttH_pTH120_200::STXS12_ttH_pTH120_200(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ttH_pTH120_200 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ttH_pTH120_200::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ttH_pTH120_200 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ttH_pTH120_200(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ttH_pTH120_200(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ttH_pTH200_300::STXS12_ttH_pTH200_300(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ttH_pTH200_300 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ttH_pTH200_300::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ttH_pTH200_300 called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ttH_pTH200_300(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ttH_pTH200_300(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_ttH_pTH300_Inf::STXS12_ttH_pTH300_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ttH_pTH300_Inf called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ttH_pTH300_Inf::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_ttH_pTH300_Inf called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_ttH_pTH300_Inf(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_ttH_pTH300_Inf(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+STXS12_tH::STXS12_tH(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_tH called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_tH::computeThValue()
+{
+    double BrHXXRatio = 1.0;
+    if (fstate == 1){
+        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    } else if (fstate == 2){
+        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+    } else if (fstate == 3){
+        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+    } else if (fstate == 4){
+        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+    } else {
+        throw std::runtime_error("STXS12_tH called with invalid argument for final state in fstate_i");
+    } 
+
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->STXS12_tH(sqrt_s)) + (BrHXXRatio) - 1.0);
+    } else {
+        return (myNPbase->STXS12_tH(sqrt_s))*(BrHXXRatio);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
+
 //-----------------------------------------------------------------------------------------
 //-- Special Hadron collider signal strengths with separate full TH unc U(prod x decay) ---
 //-----------------------------------------------------------------------------------------

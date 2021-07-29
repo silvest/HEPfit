@@ -1099,7 +1099,13 @@ gslpp::complex MPll::DeltaC9_KD(double q2)
 gslpp::complex MPll::h_lambda(double q2)
 {
     if (!dispersion) {
-        return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * q2;
+//        if (q2 <= 1.) return 1.3e-4/MM2 * (1. + gslpp::complex::i()) / sqrt(2.);
+//        else {
+//            h_2 = (-sixteenM_PI2*4.9e-7/MM2 * (1. + gslpp::complex::i()) / sqrt(2.) - h_1 / MM2 * V_L(1.) - h_2 * sixteenM_PI2) / twoMboMM / T_L(1.);
+//            h_2 = 1.3e-4/MM2 * (1. + gslpp::complex::i()) / sqrt(2.) - h_1 * V_L(1.)/sixteenM_PI2/MM2;
+            //else return 4.9e-7/MM2 + h_1 * (q2 * V_L(q2) - T_L(q2). * V_L(1)/T_L(1.)) / MM2  / sixteenM_PI2;
+            return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * q2; 
+//        }
     } else {
         return -q2 / (MM2 * sixteenM_PI2) * V_L(q2) * DeltaC9_KD(q2);
     }
@@ -1107,7 +1113,9 @@ gslpp::complex MPll::h_lambda(double q2)
 
 gslpp::complex MPll::H_V(double q2)
 {
-    return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2) + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2) - sixteenM_PI2 * h_lambda(q2)));
+    return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2) 
+            + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2) 
+            - sixteenM_PI2 * h_lambda(q2)));
 }
 
 gslpp::complex MPll::H_A(double q2)

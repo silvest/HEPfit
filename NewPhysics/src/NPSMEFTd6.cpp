@@ -16928,7 +16928,7 @@ double NPSMEFTd6::deltaGammaH4fRatio1() const
 {
     double dwidth = 0.0;
     
-    // SM decay widths (from MG simmulations)
+    // SM decay widths (from MG simulations)
     double wH2L2LSM=0.65682e-06, wH2v2vSM=0.28126e-05, wH2L2vSM=0.27224e-05;
     double wH2u2uSM=0.22500e-05, wH2d2dSM=0.11906e-04, wH2u2dSM=0.12361e-04;
     double wH2L2uSM=0.45029e-05, wH2L2dSM=0.85830e-05, wH2v2uSM=0.93233e-05;
@@ -16957,7 +16957,7 @@ double NPSMEFTd6::deltaGammaH4fRatio2() const
 {
     double dwidth = 0.0;
 
-    // SM decay widths (from MG simmulations)
+    // SM decay widths (from MG simulations)
     double wH2L2LSM=0.65682e-06, wH2v2vSM=0.28126e-05, wH2L2vSM=0.27224e-05;
     double wH2u2uSM=0.22500e-05, wH2d2dSM=0.11906e-04, wH2u2dSM=0.12361e-04;
     double wH2L2uSM=0.45029e-05, wH2L2dSM=0.85830e-05, wH2v2uSM=0.93233e-05;
@@ -22373,6 +22373,100 @@ double NPSMEFTd6::STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const{
     // NOTE: Not our own calculations.
     // From Appendix A in ATLAS-CONF-2020-053 
     // Warsaw basis calculations in {GF,MW,MZ} scheme, assuming U(3)^5 symmetry
+
+double NPSMEFTd6::STXS12_BrH4lRatio() const
+{
+    double Br = 1.0;
+    double dGHiR1=0.0, dGHiTotR1=0.0;
+    
+    // 4l
+    dGHiR1= (0.12 * CiHbox + 0.005 * CiHD - 0.296 * CiHW - 0.197 * CiHB + 0.296 * CiHWB 
+            + 0.126 * (CiHL1_11 + CiHL1_22)/2.0 - 0.234 * (CiHL3_11 + CiHL3_22)/2.0 
+            - 0.101 * (CiHe_11 + CiHe_22)/2.0 + 0.181 * CiLL_1221) * (1000000.0 / LambdaNP2);
+
+    // Tot
+    dGHiTotR1= (- 0.001 * CiW + 0.12 * CiHbox - 0.030 * CiHD + 1.362 * CiHG - 0.048 * CiHW
+            - 0.049 * CiHB + 0.046 * CiHWB - 0.005 * CieH_33r - 0.012 * CiuH_33r - 0.085 * CidH_33r
+            + 0.051 * CiuG_33r - 0.002 * CiuW_33r - 0.003 * CiuB_33r 
+            - 0.150 * (CiHL3_11 + CiHL3_22 + CiHL3_33)/3.0 + 0.013 * (CiHQ3_11+ CiHQ3_22 + CiHQ3_33)/3.0
+            + 0.079 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+    Br += dGHiR1 - dGHiTotR1;
+    
+    if ((Br < 0) || (dGHiR1 < -1.0) || (dGHiTotR1 < -1.0)) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::STXS12_BrHevmuvRatio() const
+{
+    double Br = 1.0;
+    double dGHiR1=0.0, dGHiTotR1=0.0;
+    
+    // e v mu v
+    dGHiR1= deltaGammaHevmuvRatio1();
+
+    // Tot
+    dGHiTotR1= (- 0.001 * CiW + 0.12 * CiHbox - 0.030 * CiHD + 1.362 * CiHG - 0.048 * CiHW
+            - 0.049 * CiHB + 0.046 * CiHWB - 0.005 * CieH_33r - 0.012 * CiuH_33r - 0.085 * CidH_33r
+            + 0.051 * CiuG_33r - 0.002 * CiuW_33r - 0.003 * CiuB_33r 
+            - 0.150 * (CiHL3_11 + CiHL3_22 + CiHL3_33)/3.0 + 0.013 * (CiHQ3_11+ CiHQ3_22 + CiHQ3_33)/3.0
+            + 0.079 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+    Br += dGHiR1 - dGHiTotR1;
+    
+    if ((Br < 0) || (dGHiR1 < -1.0) || (dGHiTotR1 < -1.0)) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::STXS12_BrHgagaRatio() const
+{
+    double Br = 1.0;
+    double dGHiR1=0.0, dGHiTotR1=0.0;
+    
+    // gaga
+    dGHiR1= (- 40.15 * CiHB - 13.08 * CiHW + 22.4 * CiHWB - 0.9463 * CiW + 0.12 * CiHbox 
+            - 0.2417 * CiHD + 0.03447 * CiuH_33r - 1.151 * CiuW_33r - 2.150 * CiuB_33r  
+            - 0.3637 * (CiHL3_11 + CiHL3_22)/2.0 + 0.1819 * CiLL_1221) * (1000000.0 / LambdaNP2);;
+
+    // Tot
+    dGHiTotR1= (- 0.001 * CiW + 0.12 * CiHbox - 0.030 * CiHD + 1.362 * CiHG - 0.048 * CiHW
+            - 0.049 * CiHB + 0.046 * CiHWB - 0.005 * CieH_33r - 0.012 * CiuH_33r - 0.085 * CidH_33r
+            + 0.051 * CiuG_33r - 0.002 * CiuW_33r - 0.003 * CiuB_33r 
+            - 0.150 * (CiHL3_11 + CiHL3_22 + CiHL3_33)/3.0 + 0.013 * (CiHQ3_11+ CiHQ3_22 + CiHQ3_33)/3.0
+            + 0.079 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+    Br += dGHiR1 - dGHiTotR1;
+    
+    if ((Br < 0) || (dGHiR1 < -1.0) || (dGHiTotR1 < -1.0)) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+double NPSMEFTd6::STXS12_BrHbbRatio() const
+{
+    double Br = 1.0;
+    double dGHiR1=0.0, dGHiTotR1=0.0;
+    
+    // bb
+    dGHiR1= (0.12 * CiHbox - 0.030 * CiHD - 0.121 * CidH_33r - 0.121 * (CiHL3_11 + CiHL3_22)/2.0 
+            + 0.061 * CiLL_1221) * (1000000.0 / LambdaNP2);
+
+    // Tot
+    dGHiTotR1= (- 0.001 * CiW + 0.12 * CiHbox - 0.030 * CiHD + 1.362 * CiHG - 0.048 * CiHW
+            - 0.049 * CiHB + 0.046 * CiHWB - 0.005 * CieH_33r - 0.012 * CiuH_33r - 0.085 * CidH_33r
+            + 0.051 * CiuG_33r - 0.002 * CiuW_33r - 0.003 * CiuB_33r 
+            - 0.150 * (CiHL3_11 + CiHL3_22 + CiHL3_33)/3.0 + 0.013 * (CiHQ3_11+ CiHQ3_22 + CiHQ3_33)/3.0
+            + 0.079 * CiLL_1221) * (1000000.0 / LambdaNP2);
+    
+    Br += dGHiR1 - dGHiTotR1;
+    
+    if ((Br < 0) || (dGHiR1 < -1.0) || (dGHiTotR1 < -1.0)) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
 
 double NPSMEFTd6::STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const{
     
