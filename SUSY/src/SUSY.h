@@ -12,9 +12,13 @@
 #include <StandardModel.h>
 #include "SUSYMatching.h"
 
+#define FEYNHIGGS false
+
 class EWSUSY; // forward reference to EWSUSY class
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
 class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
+#endif
 /* END: REMOVE FROM THE PACKAGE */
 class SUSYSpectrum; // forward reference to Spectrum class
 
@@ -54,7 +58,8 @@ public:
 
     virtual bool InitializeModel();
     
-/* BEGIN: REMOVE FROM THE PACKAGE */    
+/* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS    
     /**
      * @brief
      * @return
@@ -63,6 +68,7 @@ public:
     {
         return myFH;
     }
+#endif
 /* END: REMOVE FROM THE PACKAGE */    
 
     virtual SUSYMatching& getMatching() const
@@ -551,7 +557,9 @@ protected:
     virtual void computeYukawas();
     virtual void SetSoftTerms();
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
     FeynHiggsWrapper* myFH;
+#endif
 /* END: REMOVE FROM THE PACKAGE */
 
     SUSYSpectrum* mySUSYSpectrum;

@@ -13,7 +13,9 @@
 #include "SUSYSpectrum.h"
 #include "EWSUSY.h"
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
 #include "FeynHiggsWrapper.h"
+#endif
 /* END: REMOVE FROM THE PACKAGE */
 
 
@@ -52,7 +54,9 @@ SUSY::~SUSY()
 {
     if (IsModelInitialized()) {
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
         if (myFH != NULL) delete(myFH);
+#endif
 /* END: REMOVE FROM THE PACKAGE */
         if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
         if (myEWSUSY != NULL) delete(myEWSUSY);
@@ -66,8 +70,10 @@ bool SUSY::InitializeModel()
     if (!flag_h) mySUSYSpectrum = new SUSYSpectrum(*this);
     else mySUSYSpectrum = NULL;
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
     if (flag_h) myFH = new FeynHiggsWrapper(*this);
     else myFH = NULL;
+#endif
 /* END: REMOVE FROM THE PACKAGE */
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
@@ -123,9 +129,11 @@ bool SUSY::PostUpdate()
     /* Compute Higgs and sparticle spectra with FeynHiggs */
     if (IsFlag_FH()) {
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
         if(!myFH->SetFeynHiggsPars()) return (false);
         if(!myFH->CalcHiggsSpectrum()) return (false);
         if(!myFH->CalcSpectrum()) return (false); /* FH does not calculate Sneutrino masses. */
+#endif
 /* END: REMOVE FROM THE PACKAGE */
     }
     else {
@@ -381,7 +389,9 @@ double SUSY::v2() const
 double SUSY::getMGl() const
 {
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
     if (IsFlag_FH()) return myFH->getMGl();
+#endif
 /* END: REMOVE FROM THE PACKAGE */
     return m3;
 }
@@ -398,6 +408,7 @@ double SUSY::Mw() const
 double SUSY::Mw_dRho() const
 {
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
     //double delRho = myFH->getFHdeltarho();
     //std::cout << "DeltaRho = " << delRho << std::endl;
 
@@ -407,6 +418,7 @@ double SUSY::Mw_dRho() const
     double sW2_SM = 1.0 - cW2_SM;
     if (IsFlag_FH()) return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
     throw std::runtime_error("SUSY::Mw_dRho(): set Flag_FH to true to use Mw_dRho()");
+#endif
 /* END: REMOVE FROM THE PACKAGE */
     return 0.;
 }

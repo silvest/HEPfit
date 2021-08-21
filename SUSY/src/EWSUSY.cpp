@@ -1318,7 +1318,9 @@ double EWSUSY::Mw_MSSM() const
     double Mw_org; 
     Mw_org = mySUSY.Mw_tree(); /** This is kep this way for packaging: MUST BE INSPECTED **/
     /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
     if(mySUSY.IsFlag_FH()) Mw_org = mySUSY.getMyFH()->getMw_FHinput(); /** This is kep this way for packaging: MUST BE INSPECTED **/
+#endif
     /* END: REMOVE FROM THE PACKAGE */
     
     double Mw = Mw_MSSM_TMP(Mw_org);

@@ -5,12 +5,14 @@
  * For the licensing terms see doc/COPYING.
  */
 
+
 #ifndef FEYNHIGGSWRAPPER_H
 #define	FEYNHIGGSWRAPPER_H
 
+#include "SUSY.h"
+#if FEYNHIGGS
 #include <CFeynHiggs.h>
 #include <gslpp.h>
-#include "SUSY.h"
 
 /**
  * @class FeynHiggsWrapper
@@ -345,4 +347,4 @@ private:
 };
 
 #endif	/* FEYNHIGGSWRAPPER_H */
-
+#endif

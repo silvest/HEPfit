@@ -126,8 +126,6 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../BAT_parallel/lib</pElem>
-            <pElem>../FeynHiggs/lib64</pElem>
-            <pElem>../FeynHiggs/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
@@ -417,7 +415,6 @@
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
-            <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
@@ -575,8 +572,6 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../BAT_parallel/lib</pElem>
-            <pElem>../FeynHiggs/lib64</pElem>
-            <pElem>../FeynHiggs/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
@@ -866,7 +861,6 @@
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
-            <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
@@ -1027,8 +1021,6 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../BAT/lib</pElem>
-            <pElem>../FeynHiggs/lib64</pElem>
-            <pElem>../FeynHiggs/lib</pElem>
             <pElem>../LoopTools/lib64</pElem>
             <pElem>../LoopTools/lib</pElem>
             <pElem>../boost/lib</pElem>
@@ -1319,7 +1311,6 @@
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
-            <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
@@ -1477,8 +1468,6 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../BAT/lib</pElem>
-            <pElem>../FeynHiggs/lib64</pElem>
-            <pElem>../FeynHiggs/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
@@ -1754,7 +1743,6 @@
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
-            <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibProjectItem>

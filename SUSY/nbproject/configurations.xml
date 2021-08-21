@@ -70,11 +70,10 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
-          <commandLine>-DFEYNHIGGS_VERSION=`../FeynHiggs/bin/FeynHiggs | head -1 | cut -d" " -f 2 | cut -d"." -f1-2| sed -e 's/\.//g'` `root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>FHDEBUG</Elem>
           </preprocessorList>
@@ -161,11 +160,10 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
-          <commandLine>-DFEYNHIGGS_VERSION=`../FeynHiggs/bin/FeynHiggs | head -1 | cut -d" " -f 2 | cut -d"." -f1-2| sed -e 's/\.//g'` `root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

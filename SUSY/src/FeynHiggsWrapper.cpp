@@ -4,7 +4,7 @@
  *
  * For the licensing terms see doc/COPYING.
  */
-
+#if FEYNHIGGS
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -31,7 +31,7 @@ FeynHiggsWrapper::FeynHiggsWrapper(SUSY& SUSY_in)
             // The cMSSM a_s a_t corrections are combined with the remaining
             // corrections, whose complex phases are interpolated in
             // At, Ab, M_3, MUE
-            );
+            );x
 #elif FEYNHIGGS_VERSION==213
     FHSetFlags(&err,
             4, // Full MSSM
@@ -660,5 +660,7 @@ void FeynHiggsWrapper::SortSfermionMasses(gslpp::vector<double>& m_sf2, gslpp::m
             myRf.assign(k, i, Rf(newIndex[k], i));
     Rf = myRf;
 }
+
+#endif
 
 

@@ -9,7 +9,9 @@
 #define	SUSYOBSERVABLES_H
 
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#if FEYNHIGGS
 #include "OutputSLHAfromFH.h"
+#endif
 /* END: REMOVE FROM THE PACKAGE */
 #include "Mhiggs.h"
 #include "Msup.h"
