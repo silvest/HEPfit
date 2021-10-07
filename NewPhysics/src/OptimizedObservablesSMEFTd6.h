@@ -12,6 +12,7 @@ class StandardModel;
 #include "ThObservable.h"
 #include "QCD.h"
 #include "OrderScheme.h"
+#include <complex>
 
 class eeWW : public ThObservable {
 public:   
