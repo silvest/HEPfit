@@ -39,6 +39,7 @@ Analysis/*.root
 Analysis/*.txt
 Analysis/*~
 Analysis/*.eps
+Analysis/*.pdf
 Analysis/Observables*
 Analysis/*.sh
 Analysis/*.zip
