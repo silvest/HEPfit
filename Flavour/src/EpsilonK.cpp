@@ -11,7 +11,7 @@
 
 EpsilonK::EpsilonK(const StandardModel& SM_i): ThObservable(SM_i), AmpDK2(SM_i)
 {
-    setParametersForObservable(make_vector<std::string>() << "DeltaMK" << "KbarEpsK" << "phiEpsK");
+    setParametersForObservable(make_vector<std::string>() << "DeltaMK" << "KbarEpsK" << "phiEpsK" << "DeltattEpsK");
 }
 
 double EpsilonK::computeThValue()
@@ -20,5 +20,7 @@ double EpsilonK::computeThValue()
     std::cout << "amplitude = " <<  AmpDK(FULLNLO).imag() << std::endl;
 #endif
     return(SM.getCepsK() / SM.getOptionalParameter("DeltaMK") * AmpDK(FULLNLO).imag() * SM.getOptionalParameter("KbarEpsK") * 
+            // Tarantino et al 2021
+            1.01 *
             sin(SM.getOptionalParameter("phiEpsK") * M_PI / 180.));
 }

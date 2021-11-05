@@ -133,7 +133,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme
     orders ordDF2 = coeffk.getOrder();
     for (unsigned int i = 0; i < mc.size(); i++){
         if (i == 0){
-            coeffk.setCoeff(0, evolDF2->etatt(mu) * model.getMatching().S0tt()
+            coeffk.setCoeff(0, evolDF2->etatt(mu) * model.getMatching().S0tt() * (1. - model.getOptionalParameter("DeltattEpsK")) //EW correction from 2108.00017
                              + evolDF2->etacc(mu) * model.getMatching().S0c()
                              + evolDF2->etact(mu) * model.getMatching().S0ct(),
                             NLO);
