@@ -17,7 +17,6 @@
       <itemPath>src/BXqll.h</itemPath>
       <itemPath>src/BXqllObservables.h</itemPath>
       <itemPath>src/BdmumuOBsmumu.h</itemPath>
-      <itemPath>src/Betas_JPsiPhi.h</itemPath>
       <itemPath>src/Btaunu.h</itemPath>
       <itemPath>src/C2beta.h</itemPath>
       <itemPath>src/CPenguinBox.h</itemPath>
@@ -59,6 +58,7 @@
       <itemPath>src/MVlnu.h</itemPath>
       <itemPath>src/MVlnuObservables.h</itemPath>
       <itemPath>src/Mll.h</itemPath>
+      <itemPath>src/Phis_JPsiPhi.h</itemPath>
       <itemPath>src/SJPsiK.h</itemPath>
       <itemPath>src/VCKM.h</itemPath>
       <itemPath>src/WilsonCoefficientObservables.h</itemPath>
@@ -235,8 +235,6 @@
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Betas_JPsiPhi.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
@@ -397,6 +395,8 @@
       </item>
       <item path="src/Phis_JPsiPhi.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/Phis_JPsiPhi.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
@@ -507,8 +507,6 @@
       <item path="src/BdmumuOBsmumu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Betas_JPsiPhi.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -670,6 +668,8 @@
       </item>
       <item path="src/Phis_JPsiPhi.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/Phis_JPsiPhi.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
@@ -782,8 +782,6 @@
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Betas_JPsiPhi.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
@@ -943,6 +941,8 @@
       <item path="src/Mll.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Phis_JPsiPhi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Phis_JPsiPhi.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1054,8 +1054,6 @@
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Betas_JPsiPhi.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
@@ -1215,6 +1213,8 @@
       <item path="src/Mll.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Phis_JPsiPhi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Phis_JPsiPhi.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="0">
       </item>
