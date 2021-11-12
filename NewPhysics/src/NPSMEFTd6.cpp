@@ -8,8 +8,9 @@
 #include "NPSMEFTd6.h"
 #include <limits>
 #include <gsl/gsl_sf.h>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include "gslpp_function_adapter.h"
+using namespace boost::placeholders;
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
         = {"CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
@@ -20885,7 +20886,7 @@ double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const d
     
     gsl_function FR;/**< Gsl integral variable */
     
-    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxseeWWdcos,&(*this), sqrt_s, _1));
+    FR = convertToGslFunction(bind(&NPSMEFTd6::dxseeWWdcos,&(*this), sqrt_s, _1));
     
     gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
     

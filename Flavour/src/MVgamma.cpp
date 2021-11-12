@@ -13,10 +13,11 @@
 #include "F_1.h"
 #include "F_2.h"
 #include "AmpDB2.h"
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <limits>
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_gegenbauer.h>
+using namespace boost::placeholders;
 
 MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
 : SM(SM_i), myF_1(new F_1()), myF_2(new F_2())
@@ -285,19 +286,19 @@ void MVgamma::updateParameters()
     
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     
-    f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_integrand_real, &(*this), _1));
+    f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_integrand_real, &(*this), _1));
     if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_real = std::numeric_limits<double>::quiet_NaN();
     T_perp_real = average;
     
-    f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_integrand_imag, &(*this), _1));
+    f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_integrand_imag, &(*this), _1));
     if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_imag = std::numeric_limits<double>::quiet_NaN();
     T_perp_imag = average;
     
-    f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_bar_integrand_real, &(*this), _1));
+    f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_bar_integrand_real, &(*this), _1));
     if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_real = std::numeric_limits<double>::quiet_NaN();
     T_perp_bar_real = average;
     
-    f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_bar_integrand_imag, &(*this), _1));
+    f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_bar_integrand_imag, &(*this), _1));
     if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_imag = std::numeric_limits<double>::quiet_NaN();
     T_perp_bar_imag = average;
     

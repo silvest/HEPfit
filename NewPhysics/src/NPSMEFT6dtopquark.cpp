@@ -13,7 +13,6 @@
 #include "NPSMEFT6dtopquark.h"
 #include <limits>
 #include <gsl/gsl_sf.h>
-#include <boost/bind.hpp>
 
 
 const std::string NPSMEFT6dtopquark::NPSMEFT6dtopquarkVars[NNPSMEFT6dtopquarkVars]

@@ -13,7 +13,8 @@
 #include <gsl/gsl_roots.h>
 #include <gsl/gsl_sf_gamma.h>
 #include <gsl/gsl_sf_bessel.h>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
 
 FindAction::FindAction(const StandardModel& SM_i) :
     ThObservable(SM_i),
@@ -178,7 +179,7 @@ double FindAction::computeThValue()
         x1par=x1;
         x2par=x2;
         x3par=x3;
-        gsl_function F = convertToGslFunctionS(boost::bind(&FindAction::invertedpotential, &(*this), _1));
+        gsl_function F = convertToGslFunctionS(bind(&FindAction::invertedpotential, &(*this), _1));
 //        F.function = -&invertedpotential; //pointer?
         T = gsl_min_fminimizer_brent;
         s = gsl_min_fminimizer_alloc(T);
@@ -373,7 +374,7 @@ gslpp::vector<double> FindAction::InitialConditions(double delta_phi0, double rm
         d2Vpar=d2V;
         delta_phi_cutoffpar=delta_phi_cutoff;
 
-        gsl_function F = convertToGslFunctionS(boost::bind(&FindAction::func, &(*this), _1));
+        gsl_function F = convertToGslFunctionS(bind(&FindAction::func, &(*this), _1));
         //gsl root finding algorithm
                       int status;
                       int iter = 0, max_iter = 100;

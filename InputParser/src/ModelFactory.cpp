@@ -44,8 +44,9 @@
 #include "GeneralTHDM.h"
 #include "THDMW.h"
 /* END: REMOVE FROM THE PACKAGE */
-#include <boost/bind.hpp>
-
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
+        
 ModelFactory::ModelFactory()
 {
     modelFactory["StandardModel"] = boost::factory<StandardModel*>();
@@ -54,27 +55,27 @@ ModelFactory::ModelFactory()
     modelFactory["NPEpsilons"] = boost::factory<NPEpsilons*>();
     modelFactory["NPEpsilons_pureNP"] = boost::factory<NPEpsilons_pureNP*>();
     modelFactory["NPHiggs"] = boost::factory<NPHiggs*>();
-    modelFactory["NPZbbbar"] = boost::bind(boost::factory<NPZbbbar*>(), false);
-    modelFactory["NPZbbbarLR"] = boost::bind(boost::factory<NPZbbbar*>(), true);
-    modelFactory["NPZbbbarLinearized"] = boost::bind(boost::factory<NPZbbbarLinearized*>(), false);
-    modelFactory["NPZbbbarLinearizedLR"] = boost::bind(boost::factory<NPZbbbarLinearized*>(), true);
-    modelFactory["NPEffectiveBS"] = boost::bind(boost::factory<NPEffectiveBS*>(), false, false);
-    modelFactory["NPEffectiveBS_LFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), true, false);
-    modelFactory["NPEffectiveBS_QFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), false, true);
-    modelFactory["NPEffectiveBS_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), true, true);
-    modelFactory["NPEffectiveGIMR"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), false, false);
-    modelFactory["NPEffectiveGIMRprime"] = boost::bind(boost::factory<NPEffectiveGIMRprime*>(), false, false);
-    modelFactory["NPSMEFTd6"] = boost::bind(boost::factory<NPSMEFTd6*>(), false, false);
+    modelFactory["NPZbbbar"] = bind(boost::factory<NPZbbbar*>(), false);
+    modelFactory["NPZbbbarLR"] = bind(boost::factory<NPZbbbar*>(), true);
+    modelFactory["NPZbbbarLinearized"] = bind(boost::factory<NPZbbbarLinearized*>(), false);
+    modelFactory["NPZbbbarLinearizedLR"] = bind(boost::factory<NPZbbbarLinearized*>(), true);
+    modelFactory["NPEffectiveBS"] = bind(boost::factory<NPEffectiveBS*>(), false, false);
+    modelFactory["NPEffectiveBS_LFU"] = bind(boost::factory<NPEffectiveBS*>(), true, false);
+    modelFactory["NPEffectiveBS_QFU"] = bind(boost::factory<NPEffectiveBS*>(), false, true);
+    modelFactory["NPEffectiveBS_LFU_QFU"] = bind(boost::factory<NPEffectiveBS*>(), true, true);
+    modelFactory["NPEffectiveGIMR"] = bind(boost::factory<NPEffectiveGIMR*>(), false, false);
+    modelFactory["NPEffectiveGIMRprime"] = bind(boost::factory<NPEffectiveGIMRprime*>(), false, false);
+    modelFactory["NPSMEFTd6"] = bind(boost::factory<NPSMEFTd6*>(), false, false);
     
     modelFactory["NPSMEFT6dtopquark"] = boost::factory<NPSMEFT6dtopquark*>();
 
-    //modelFactory["NPSMEFT6dtopquark"] = boost::bind(boost::factory<NPSMEFT6dtopquark*>(), false, false);
+    //modelFactory["NPSMEFT6dtopquark"] = bind(boost::factory<NPSMEFT6dtopquark*>(), false, false);
     modelFactory["SigmaBR"] = boost::factory<SigmaBR*>();
-    //modelFactory["NPEffectiveGIMR_LFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), true, false);
-    //modelFactory["NPEffectiveGIMR_QFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), false, true);
-    modelFactory["NPEffectiveGIMR_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), true, true);
-    modelFactory["NPEffectiveGIMRprime_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveGIMRprime*>(), true, true);
-    modelFactory["NPSMEFTd6_LFU_QFU"] = boost::bind(boost::factory<NPSMEFTd6*>(), true, true);
+    //modelFactory["NPEffectiveGIMR_LFU"] = bind(boost::factory<NPEffectiveGIMR*>(), true, false);
+    //modelFactory["NPEffectiveGIMR_QFU"] = bind(boost::factory<NPEffectiveGIMR*>(), false, true);
+    modelFactory["NPEffectiveGIMR_LFU_QFU"] = bind(boost::factory<NPEffectiveGIMR*>(), true, true);
+    modelFactory["NPEffectiveGIMRprime_LFU_QFU"] = bind(boost::factory<NPEffectiveGIMRprime*>(), true, true);
+    modelFactory["NPSMEFTd6_LFU_QFU"] = bind(boost::factory<NPSMEFTd6*>(), true, true);
     modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
     modelFactory["HiggsKvgenKfgen"] = boost::factory<HiggsKvgenKfgen*>();
@@ -85,8 +86,8 @@ ModelFactory::ModelFactory()
     modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
     modelFactory["FlavourWilsonCoefficient_DF2"] = boost::factory<FlavourWilsonCoefficient_DF2*>();
     modelFactory["RealWeakEFTLFV"] = boost::factory<RealWeakEFTLFV*>();
-    modelFactory["RealWeakEFTCC"] = boost::bind(boost::factory<RealWeakEFTCC*>(), 0);
-    modelFactory["RealWeakEFTCCPM"] = boost::bind(boost::factory<RealWeakEFTCC*>(), 1);
+    modelFactory["RealWeakEFTCC"] = bind(boost::factory<RealWeakEFTCC*>(), 0);
+    modelFactory["RealWeakEFTCCPM"] = bind(boost::factory<RealWeakEFTCC*>(), 1);
     modelFactory["LoopMediators"] = boost::factory<LoopMediators*>();
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();

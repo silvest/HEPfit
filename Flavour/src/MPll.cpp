@@ -12,9 +12,10 @@
 #include "F_1.h"
 #include "F_2.h"
 #include <gsl/gsl_sf.h>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <limits>
 #include <TFitResult.h>
+using namespace boost::placeholders;
 
 MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
 : mySM(SM_i), myF_1(new F_1()), myF_2(new F_2()),
@@ -898,11 +899,11 @@ gslpp::complex MPll::deltaTpar(double q2)
 
     if (deltaTparpCached[q2] == 0) {
 
-        DTPPR = convertToGslFunction(boost::bind(&MPll::Integrand_ReTpar_pm, &(*this), _1));
+        DTPPR = convertToGslFunction(bind(&MPll::Integrand_ReTpar_pm, &(*this), _1));
         if (gsl_integration_cquad(&DTPPR, 0., 1., 1.e-2, 1.e-1, w_DTPPR, &avaDTPPR, &errDTPPR, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
         double ReTppint = avaDTPPR;
 
-        DTPPR = convertToGslFunction(boost::bind(&MPll::Integrand_ImTpar_pm, &(*this), _1));
+        DTPPR = convertToGslFunction(bind(&MPll::Integrand_ImTpar_pm, &(*this), _1));
         if (gsl_integration_cquad(&DTPPR, 0., 1., 1.e-2, 1.e-1, w_DTPPR, &avaDTPPR, &errDTPPR, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
         double ImTppint = avaDTPPR;
 
@@ -1194,7 +1195,7 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
     switch (i) {
         case 0:
             if (sigma0Cached[qbin] == 0) {
-                FS = convertToGslFunction(boost::bind(&MPll::getSigma1c, &(*this), _1));
+                FS = convertToGslFunction(bind(&MPll::getSigma1c, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheSigma0[qbin] = NN*avaSigma;
                 sigma0Cached[qbin] = 1;
@@ -1203,7 +1204,7 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
             break;
         case 2:
             if (sigma2Cached[qbin] == 0) {
-                FS = convertToGslFunction(boost::bind(&MPll::getSigma2c, &(*this), _1));
+                FS = convertToGslFunction(bind(&MPll::getSigma2c, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheSigma2[qbin] = NN*avaSigma;
                 sigma2Cached[qbin] = 1;
@@ -1252,7 +1253,7 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
     switch (i) {
         case 0:
             if (delta0Cached[qbin] == 0) {
-                FD = convertToGslFunction(boost::bind(&MPll::getDelta1c, &(*this), _1));
+                FD = convertToGslFunction(bind(&MPll::getDelta1c, &(*this), _1));
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta0[qbin] = NN*avaDelta;
                 delta0Cached[qbin] = 1;
@@ -1261,7 +1262,7 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
             break;
         case 2:
             if (delta2Cached[qbin] == 0) {
-                FD = convertToGslFunction(boost::bind(&MPll::getDelta2c, &(*this), _1));
+                FD = convertToGslFunction(bind(&MPll::getDelta2c, &(*this), _1));
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta2[qbin] = NN*avaDelta;
                 delta2Cached[qbin] = 1;
