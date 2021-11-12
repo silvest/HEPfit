@@ -25,11 +25,12 @@
 /* BEGIN: REMOVE FROM THE PACKAGE */
 #include "EWSMTwoFermionsLEP2.h"
 #include <functional>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
 /* END: REMOVE FROM THE PACKAGE */
   
 std::string StandardModel::SMvars[NSMvars] = {
-    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "Mw_inp", "mHl", 
+    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", 
     "delMw", "delSin2th_l", "delSin2th_q", "delSin2th_b", "delGammaZ", "delsigma0H", "delR0l", "delR0c", "delR0b",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
 };
@@ -112,7 +113,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::make_pair("GF", std::cref(GF)));
     ModelParamMap.insert(std::make_pair("ale", std::cref(ale)));
     ModelParamMap.insert(std::make_pair("dAle5Mz", std::cref(dAle5Mz)));
-    ModelParamMap.insert(std::make_pair("Mw_inp", std::cref(Mw_inp)));
+//    ModelParamMap.insert(std::make_pair("Mw_inp", std::cref(Mw_inp)));
     ModelParamMap.insert(std::make_pair("mHl", std::cref(mHl)));
     ModelParamMap.insert(std::make_pair("delMw", std::cref(delMw)));
     ModelParamMap.insert(std::make_pair("delSin2th_l", std::cref(delSin2th_l)));
@@ -272,9 +273,9 @@ void StandardModel::setParameter(const std::string name, const double& value)
         GF = value;
     else if (name.compare("ale") == 0)
         ale = value;
-    else if (name.compare("dAle5Mz") == 0)
+    else if (name.compare("dAle5Mz") == 0 && !FlagMWinput)
         dAle5Mz = value;
-    else if (name.compare("Mw_inp") == 0)
+    else if (name.compare("Mw_inp") == 0 && FlagMWinput)
         Mw_inp = value;
     else if (name.compare("mHl") == 0)
         mHl = value;
@@ -441,6 +442,8 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("MWinput") == 0) {
         FlagMWinput = value;
         if (FlagMWinput) {
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"dAle5Mz"))] = "Mw_inp";
+            ModelParamMap.insert(std::make_pair("Mw_inp", std::cref(Mw_inp)));
             // Point the different flags towards the approximate formulae, when available
             FlagNoApproximateGammaZ = false;
             FlagMw = "APPROXIMATEFORMULA";
@@ -513,7 +516,7 @@ bool StandardModel::checkSMparamsForEWPO()
     // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
     // mut, mub, muc
     // 19 parameters in StandardModel
-    // GF, ale, dAle5Mz, Mw_inp, mHl,
+    // GF, ale, dAle5Mz, mHl,
     // mneutrino_1, mneutrino_2, mneutrino_3, melectron, mmu, mtau,
     // delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b,
     // 3 flags in StandardModel
@@ -522,7 +525,7 @@ bool StandardModel::checkSMparamsForEWPO()
     // Note: When modifying the array below, the constant NumSMParams has to
     // be modified accordingly.
     double SMparams[NumSMParamsForEWPO] = {
-        AlsMz, Mz, GF, ale, dAle5Mz, Mw_inp,
+        AlsMz, Mz, GF, ale, FlagMWinput? Mw_inp: dAle5Mz,
         mHl, mtpole,
         leptons[NEUTRINO_1].getMass(),
         leptons[NEUTRINO_2].getMass(),
@@ -2404,7 +2407,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR]){
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         } else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2412,7 +2415,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2423,7 +2426,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR]){
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         } else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2431,7 +2434,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2442,7 +2445,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2450,7 +2453,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2461,7 +2464,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2469,7 +2472,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2480,7 +2483,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2488,7 +2491,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2499,7 +2502,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2507,7 +2510,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2518,7 +2521,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2526,7 +2529,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2537,7 +2540,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2545,7 +2548,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2556,7 +2559,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2564,7 +2567,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2575,7 +2578,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
          if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2583,7 +2586,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2594,7 +2597,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2602,7 +2605,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2613,7 +2616,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(MU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_mu207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_mu207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2621,7 +2624,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2654,7 +2657,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR]){
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         } else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2662,7 +2665,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2673,7 +2676,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR]){
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         } else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2681,7 +2684,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2692,7 +2695,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2700,7 +2703,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2711,7 +2714,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2719,7 +2722,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2730,7 +2733,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2738,7 +2741,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2749,7 +2752,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2757,7 +2760,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2768,7 +2771,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2776,7 +2779,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2787,7 +2790,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2795,7 +2798,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2806,7 +2809,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2814,7 +2817,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2825,7 +2828,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
          if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2833,7 +2836,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2844,7 +2847,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2852,7 +2855,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2863,7 +2866,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_l(QCD::lepton(TAU), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_tau207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_tau207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2871,7 +2874,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2903,7 +2906,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR]){
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         } else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2911,7 +2914,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2922,7 +2925,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2930,7 +2933,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2941,7 +2944,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2949,7 +2952,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2960,7 +2963,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2968,7 +2971,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2979,7 +2982,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2987,7 +2990,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -2998,7 +3001,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3006,7 +3009,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3017,7 +3020,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3025,7 +3028,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3036,7 +3039,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
          if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3044,7 +3047,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3055,7 +3058,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3063,7 +3066,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3074,7 +3077,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(CHARM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3082,7 +3085,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3114,7 +3117,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR]){
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3122,7 +3125,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3133,7 +3136,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3141,7 +3144,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3152,7 +3155,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3160,7 +3163,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3171,7 +3174,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3179,7 +3182,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3190,7 +3193,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3198,7 +3201,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3209,7 +3212,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3217,7 +3220,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3228,7 +3231,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3236,7 +3239,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3247,7 +3250,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
          if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3255,7 +3258,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3266,7 +3269,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3274,7 +3277,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3285,7 +3288,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         if (!flagLEP2[ISR])
             SMresult_cache = sigma_NoISR_q(QCD::quark(BOTTOM), s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3293,7 +3296,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3330,31 +3333,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3363,31 +3366,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3403,31 +3406,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3435,31 +3438,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3475,31 +3478,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3507,31 +3510,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3547,31 +3550,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, 1.e-12, 1.e-6, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 200, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3579,31 +3582,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3619,32 +3622,32 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, 1.e-15, 1.e-9, 200, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, 1.e-15, 1.e-9, 200, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, 1.e-15, 1.e-9, 200, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, 1.e-15, 1.e-9, 200, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3652,31 +3655,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3692,31 +3695,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3724,31 +3727,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3764,31 +3767,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3796,31 +3799,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3836,31 +3839,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3868,31 +3871,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3908,33 +3911,33 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm192, &(*this), _1));
 
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange192, &(*this), _1));
 
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3942,31 +3945,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -3982,32 +3985,32 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange196, &(*this), _1));
 
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4015,31 +4018,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4055,31 +4058,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4087,31 +4090,31 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4127,7 +4130,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up202, &(*this), _1));
  
 
 
@@ -4136,7 +4139,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down202, &(*this), _1));
  
 
 
@@ -4145,7 +4148,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm202, &(*this), _1));
  
 
 
@@ -4154,7 +4157,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange202, &(*this), _1));
  
 
 
@@ -4163,7 +4166,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom202, &(*this), _1));
  
 
 
@@ -4174,7 +4177,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up202, &(*this), _1));
  
 
 
@@ -4183,7 +4186,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down202, &(*this), _1));
  
 
 
@@ -4192,7 +4195,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm202, &(*this), _1));
  
 
 
@@ -4201,7 +4204,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange202, &(*this), _1));
  
 
 
@@ -4210,7 +4213,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom202, &(*this), _1));
  
 
 
@@ -4229,7 +4232,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up205, &(*this), _1));
  
 
 
@@ -4238,7 +4241,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down205, &(*this), _1));
  
 
 
@@ -4247,7 +4250,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm205, &(*this), _1));
  
 
 
@@ -4256,7 +4259,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange205, &(*this), _1));
  
 
 
@@ -4265,7 +4268,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom205, &(*this), _1));
  
 
 
@@ -4276,7 +4279,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up205, &(*this), _1));
  
 
 
@@ -4285,7 +4288,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down205, &(*this), _1));
  
 
 
@@ -4294,7 +4297,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm205, &(*this), _1));
  
 
 
@@ -4303,7 +4306,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange205, &(*this), _1));
  
 
 
@@ -4312,7 +4315,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom205, &(*this), _1));
  
 
 
@@ -4331,7 +4334,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             SMresult_cache += sigma_NoISR_q(QCD::quark(BOTTOM), s);
         } else {
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_up207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_up207, &(*this), _1));
  
 
 
@@ -4340,7 +4343,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_down207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_down207, &(*this), _1));
  
 
 
@@ -4349,7 +4352,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_charm207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_charm207, &(*this), _1));
  
 
 
@@ -4358,7 +4361,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_strange207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_strange207, &(*this), _1));
  
 
 
@@ -4367,7 +4370,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             SMresult_cache += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_sigmaWithISR_bottom207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_sigmaWithISR_bottom207, &(*this), _1));
  
 
 
@@ -4378,7 +4381,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         }
         
         if (flagLEP2[WeakBox]) {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_up207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_up207, &(*this), _1));
  
 
 
@@ -4387,7 +4390,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             double sigma_box = average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_down207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_down207, &(*this), _1));
  
 
 
@@ -4396,7 +4399,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm207, &(*this), _1));
  
 
 
@@ -4405,7 +4408,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_strange207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_strange207, &(*this), _1));
  
 
 
@@ -4414,7 +4417,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
             }
             sigma_box += average;
             
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom207, &(*this), _1));
  
 
 
@@ -4451,7 +4454,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4466,12 +4469,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4490,7 +4493,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4505,12 +4508,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4529,7 +4532,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4544,12 +4547,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4568,7 +4571,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4583,12 +4586,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4607,7 +4610,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4622,12 +4625,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4646,7 +4649,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4661,12 +4664,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4685,7 +4688,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4700,12 +4703,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4724,7 +4727,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4739,12 +4742,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4763,7 +4766,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4778,12 +4781,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4802,7 +4805,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(BOTTOM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4817,12 +4820,12 @@ double StandardModel::LEP2AFBbottom(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_bottom207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_bottom207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4863,7 +4866,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4878,12 +4881,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm133, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm133, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4902,7 +4905,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4917,12 +4920,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm167, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm167, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4941,7 +4944,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4956,12 +4959,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4980,7 +4983,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -4995,12 +4998,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5019,7 +5022,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5034,12 +5037,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5058,7 +5061,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5073,12 +5076,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5097,7 +5100,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5112,12 +5115,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5136,7 +5139,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5151,12 +5154,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5175,7 +5178,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5190,12 +5193,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5214,7 +5217,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_q(QCD::quark(CHARM),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_charm205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5229,12 +5232,12 @@ double StandardModel::LEP2AFBcharm(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_charm207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_charm207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5275,7 +5278,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5290,12 +5293,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5314,7 +5317,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5329,12 +5332,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5353,7 +5356,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5368,12 +5371,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5392,7 +5395,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5407,12 +5410,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5431,7 +5434,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5446,12 +5449,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5470,7 +5473,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5485,12 +5488,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5509,7 +5512,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5524,12 +5527,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5548,7 +5551,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5563,12 +5566,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5587,7 +5590,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5602,12 +5605,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5626,7 +5629,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5641,12 +5644,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5665,7 +5668,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5680,12 +5683,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5704,7 +5707,7 @@ double StandardModel::LEP2AFBmu(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(MU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_mu207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5719,12 +5722,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_mu207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_mu207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5765,7 +5768,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5780,12 +5783,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau130, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau130, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5804,7 +5807,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5819,12 +5822,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau136, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau136, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5843,7 +5846,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5858,12 +5861,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau161, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau161, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5882,7 +5885,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5897,12 +5900,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau172, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau172, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5921,7 +5924,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5936,12 +5939,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau183, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau183, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5960,7 +5963,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5975,12 +5978,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau189, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau189, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -5999,7 +6002,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6014,12 +6017,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau192, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau192, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6038,7 +6041,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6053,12 +6056,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau196, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau196, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6077,7 +6080,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6092,12 +6095,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau200, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau200, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6116,7 +6119,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6131,12 +6134,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau202, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau202, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6155,7 +6158,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6170,12 +6173,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau205, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau205, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6194,7 +6197,7 @@ double StandardModel::LEP2AFBtau(const double s) const
         if (!flagLEP2[ISR])
             AFB_noBox = AFB_NoISR_l(QCD::lepton(TAU),s);
         else {
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_AFBnumeratorWithISR_tau207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1.-0.85*0.85, abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
@@ -6209,12 +6212,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         
         if (flagLEP2[WeakBox]) {
             // numerator
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, 0., 1., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }
             double sigma_box_F = average; // interval
-            f_GSL = convertToGslFunction(boost::bind(&StandardModel::getIntegrand_dsigmaBox_tau207, &(*this), _1));
+            f_GSL = convertToGslFunction(bind(&StandardModel::getIntegrand_dsigmaBox_tau207, &(*this), _1));
             if (gsl_integration_qags(&f_GSL, -1., 0., abserr, relerr, 100, w_GSL1, &average, &error) != 0){ 
                 SMresult_cache = std::numeric_limits<double>::quiet_NaN();
             }

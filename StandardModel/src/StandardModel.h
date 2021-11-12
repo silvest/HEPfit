@@ -516,7 +516,7 @@ public:
 
     
 //    static const int NSMvars = 39; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
-    static const int NSMvars = 27; ///< The number of the model parameters in %StandardModel.
+    static const int NSMvars = 26; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
@@ -1914,7 +1914,7 @@ public:
      *
      * @sa checkSMparamsForEWPO()
      */
-    static const int NumSMParamsForEWPO = 34;
+    static const int NumSMParamsForEWPO = 33;
 
     /**
      * @brief A method to check whether the parameters relevant to the EWPO
@@ -2685,10 +2685,10 @@ protected:
     // model parameters
     double AlsMz; ///< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$.
     double Mz; ///< The mass of the \f$Z\f$ boson in GeV. 
-    double Mw_inp; ///< The mass of the \f$W\f$ boson in GeV (as input of the model). 
+    double Mw_inp; ///< The mass of the \f$W\f$ boson in GeV used as input for FlagMWinput = TRUE
     double GF; ///< The Fermi constant @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$.
     double ale; ///< The fine-structure constant @f$\alpha@f$.
-    double dAle5Mz; ///< The five-flavour hadronic contribution to the electromagnetic coupling, @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$.
+    double dAle5Mz; ///< The five-flavour hadronic contribution to the electromagnetic coupling, @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$, used as input for FlagMWinput = FALSE
     double mHl; ///< The Higgs mass @f$m_h@f$ in GeV. 
     double delMw; ///< The theoretical uncertainty in @f$M_W@f$, denoted as @f$\delta\,M_W@f$, in GeV.
     double delSin2th_l; ///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$.
