@@ -4767,8 +4767,8 @@ private:
 };
 
 
-//  Full signal strengths at lepton colliders
-//  -----------------------------------------
+//  Full signal strengths at e+ e- colliders
+//  ----------------------------------------
 
 /**
  * @class mueeZHbb
@@ -6563,6 +6563,299 @@ private:
 };
 
 
+
+//  Full signal strengths at mu+ mu- colliders
+//  -------------------------------------------
+
+/**
+ * @class mummHbb
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to bb}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to bb}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to bb@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to bb}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to bb}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHcc
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to cc}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to cc}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to cc@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHcc : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHcc(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to cc}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to cc}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHgg
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to gg}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to gg}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to gg@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHgg : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHgg(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to gg}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to gg}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to WW}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to WW}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to WW@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHWW(const StandardModel& SM_i, const double sqrt_s_i);
+    
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to WW}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to WW}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \tau\tau}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \tau\tau}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to \tau\tau@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to \tau\tau}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to \tau\tau}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHZZ
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to ZZ}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to ZZ}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to ZZ@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHZZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHZZ(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to ZZ}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to ZZ}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHZga
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to Z\gamma}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to Z\gamma}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to Z\gamma@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHZga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHZga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to Z\gamma}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to Z\gamma}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \gamma\gamma}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \gamma\gamma}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to \gamma\gamma@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to \gamma\gamma}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to \gamma\gamma}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHmumu
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to \mu\mu@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mummHmumu : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHmumu(const StandardModel& SM_i, const double sqrt_s_i);
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+//  Full signal strengths at ep colliders
+//  -------------------------------------
 
 /**
  * @class muepWBFbb

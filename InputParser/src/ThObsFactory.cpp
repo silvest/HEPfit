@@ -1842,7 +1842,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["STXS12_ttH_pTH300_Inf_evmuv"] = bind(boost::factory<STXS12_ttH_pTH300_Inf*>(), _1, sqrt_s_LHC13, 4); 
     obsThFactory["STXS12_tH_evmuv"] = bind(boost::factory<STXS12_tH*>(), _1, sqrt_s_LHC13, 4); 
     //
-    //-----  Full Signal strengths per prod and decay: Lepton colliders  ----------
+    //-----  Full Signal strengths per prod and decay: e+ e- colliders  ----------
     //
     // Pure WBF
     obsThFactory["mueeWBFbb240"] = bind(boost::factory<mueeWBFbb*>(), _1, sqrt_s_leptcoll_240);
@@ -3463,6 +3463,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueettHbb3000_m80_p30"] = bind(boost::factory<mueettHbbPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_30);
     obsThFactory["mueettHbb3000_p80_0"] = bind(boost::factory<mueettHbbPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueettHbb3000_m80_0"] = bind(boost::factory<mueettHbbPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
+    //
+    //-----  Full Signal strengths per prod and decay: mu+ mu- colliders  ----------
+    //
+    obsThFactory["mumumuHbb125"] = bind(boost::factory<mummHbb*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHcc125"] = bind(boost::factory<mummHcc*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHgg125"] = bind(boost::factory<mummHgg*>(), _1, sqrt_s_leptcoll_125);    
+    obsThFactory["mumumuHWW125"] = bind(boost::factory<mummHWW*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHtautau125"] = bind(boost::factory<mummHtautau*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHZZ125"] = bind(boost::factory<mummHZZ*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHZga125"] = bind(boost::factory<mummHZga*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHgaga125"] = bind(boost::factory<mummHgaga*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHmumu125"] = bind(boost::factory<mummHmumu*>(), _1, sqrt_s_leptcoll_125);    
     //
     //-----  Full Signal strengths per prod and decay: Lepton-Hadron colliders  ----------
     //
