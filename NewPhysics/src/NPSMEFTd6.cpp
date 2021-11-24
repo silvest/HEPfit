@@ -4491,7 +4491,7 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     double C1 = 0.0066; //It seems to be independent of energy 
     
     double m_t = mtpole;
-    //doulbe m_t = quarks[TOP].getMass();
+    //double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
 
@@ -11378,16 +11378,25 @@ double NPSMEFTd6::mummH(const double sqrt_s) const
 {
     double mu = 1.0;
     
-    double dymu = deltaG_hff(leptons[MU]).real();
-    double ymuSM = -(leptons[MU].getMass()) / v();
+//    double dymu = deltaG_hff(leptons[MU]).real();
+//    double ymuSM = -(leptons[MU].getMass()) / v();
     
-//  The ratio at all energies is given by a scaling of the muon Yukawa.
-    mu = 1.0 + 2.0 * dymu/ymuSM ;
+//  The ratio is given by a scaling of the muon Yukawa.
+//    mu = 1.0 + 2.0 * dymu/ymuSM ;
         
-    if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-        mu += dymu*dymu/ymuSM/ymuSM;
-    }
+//    if (FlagQuadraticTerms) {
+//            //Add contributions that are quadratic in the effective coefficients
+//        mu += dymu*dymu/ymuSM/ymuSM;
+//    }
+    
+    if (sqrt_s == 0.125) {
+        
+//  Peak production cross section mu mu -> H -> X = 4 pi/mH^2 * BR(H->mu mu) * BR(H-> X)
+//  Use mu mu -> H = 4 pi/mH^2 * BR(H->mu mu), so the xs BR formulae still applies
+        mu = BrHmumuRatio();
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mummH()");
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     

@@ -763,7 +763,17 @@ double HiggsKigen::mueettH(const double sqrt_s) const
 double HiggsKigen::mummH(const double sqrt_s) const
 {
     double mu = 1.0;
-    mu = (computeKmu() * computeKmu());
+//    mu = (computeKmu() * computeKmu());
+    
+    if (sqrt_s == 0.125) {
+        
+//  Peak production cross section mu mu -> H -> X = 4 pi/mH^2 * BR(H->mu mu) * BR(H-> X)
+//  Use mu mu -> H = 4 pi/mH^2 * BR(H->mu mu), so the xs BR formulae still applies
+        mu = BrHmumuRatio();
+        
+    } else
+        throw std::runtime_error("Bad argument in HiggsKigen::mummH()");  
+    
     return mu;
 }
 
