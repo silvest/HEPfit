@@ -76,10 +76,17 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "CQe_2311","CQe_2322","CQe_2333",
     "CQe_3211","CQe_3222","CQe_3233",
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
-    "CQQ1_1133", "CQQ1_1331", "CQQ3_1133", "CQQ3_1331",
-    "Cuu_1133", "Cuu_1331", "Cud1_3311", "Cud8_3311",
-    "CQu1_1133", "CQu1_3311", "CQu8_1133", "CQu8_3311",
-    "CQd1_3311", "CQd8_3311",        
+    "CQQ1_1133", "CQQ1_1331", "CQQ1_3333", 
+    "CQQ3_1133", "CQQ3_1331", "CQQ3_3333",
+    "Cuu_1133", "Cuu_1331", "Cuu_3333", 
+    "Cud1_3311","Cud1_3333",  
+    "Cud8_3311","Cud8_3333",
+    "CQu1_1133", "CQu1_3311", "CQu1_3333",
+    "CQu8_1133", "CQu8_3311", "CQu8_3333",
+    "CQd1_3311", "CQd1_3333", 
+    "CQd8_3311", "CQd8_3333",
+    "CQuQd1_3333",
+    "CQuQd8_3333",
     "Lambda_NP",
     "BrHinv","BrHexo",
     "dg1Z","dKappaga","lambZ",
@@ -180,10 +187,17 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "CQe_2311","CQe_2322","CQe_2333",
     "CQe_3211","CQe_3222","CQe_3233",
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
-    "CQQ1_1133", "CQQ1_1331", "CQQ3_1133", "CQQ3_1331",
-    "Cuu_1133", "Cuu_1331", "Cud1_3311", "Cud8_3311",
-    "CQu1_1133", "CQu1_3311", "CQu8_1133", "CQu8_3311",
-    "CQd1_3311", "CQd8_3311", 
+    "CQQ1_1133", "CQQ1_1331", "CQQ1_3333", 
+    "CQQ3_1133", "CQQ3_1331", "CQQ3_3333",
+    "Cuu_1133", "Cuu_1331", "Cuu_3333", 
+    "Cud1_3311","Cud1_3333",  
+    "Cud8_3311","Cud8_3333",
+    "CQu1_1133", "CQu1_3311", "CQu1_3333",
+    "CQu8_1133", "CQu8_3311", "CQu8_3333",
+    "CQd1_3311", "CQd1_3333", 
+    "CQd8_3311", "CQd8_3333", 
+    "CQuQd1_3333",
+    "CQuQd8_3333",
     "Lambda_NP",
     "BrHinv","BrHexo",
     "dg1Z","dKappaga","lambZ",
@@ -235,6 +249,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "Cuu", "Cud1", "Cud8",
     "CQu1", "CQu8",
     "CQd1", "CQd8", 
+    "CQuQd1", "CQuQd8",
     "Lambda_NP",
     "BrHinv","BrHexo",
     "dg1Z","dKappaga","lambZ",
@@ -286,6 +301,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "Cuu", "Cud1", "Cud8",
     "CQu1", "CQu8",
     "CQd1", "CQd8",
+    "CQuQd1", "CQuQd8",
     "Lambda_NP",
     "BrHinv","BrHexo",
     "dg1Z","dKappaga","lambZ",
@@ -475,7 +491,9 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::make_pair("CQu1", std::cref(CQu1_1133)));
         ModelParamMap.insert(std::make_pair("CQu8", std::cref(CQu8_1133)));
         ModelParamMap.insert(std::make_pair("CQd1", std::cref(CQd1_3311)));
-        ModelParamMap.insert(std::make_pair("CQd8", std::cref(CQd8_3311)));        
+        ModelParamMap.insert(std::make_pair("CQd8", std::cref(CQd8_3311)));
+        ModelParamMap.insert(std::make_pair("CQuQd1", std::cref(CQuQd1_3333)));
+        ModelParamMap.insert(std::make_pair("CQuQd8", std::cref(CQuQd8_3333)));        
     } else {
         ModelParamMap.insert(std::make_pair("CHQ1_11", std::cref(CHQ1_11)));
         ModelParamMap.insert(std::make_pair("CHQ1_12r", std::cref(CHQ1_12r)));
@@ -647,18 +665,29 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::make_pair("CeB_33i", std::cref(CeB_33i)));        
         ModelParamMap.insert(std::make_pair("CQQ1_1133", std::cref(CQQ1_1133)));        
         ModelParamMap.insert(std::make_pair("CQQ1_1331", std::cref(CQQ1_1331)));
+        ModelParamMap.insert(std::make_pair("CQQ1_3333", std::cref(CQQ1_3333)));
         ModelParamMap.insert(std::make_pair("CQQ3_1133", std::cref(CQQ3_1133)));
         ModelParamMap.insert(std::make_pair("CQQ3_1331", std::cref(CQQ3_1331)));
+        ModelParamMap.insert(std::make_pair("CQQ3_3333", std::cref(CQQ3_3333)));
         ModelParamMap.insert(std::make_pair("Cuu_1133", std::cref(Cuu_1133)));
         ModelParamMap.insert(std::make_pair("Cuu_1331", std::cref(Cuu_1331)));
+        ModelParamMap.insert(std::make_pair("Cuu_3333", std::cref(Cuu_3333)));
         ModelParamMap.insert(std::make_pair("Cud1_3311", std::cref(Cud1_3311)));
-        ModelParamMap.insert(std::make_pair("Cud8_3311", std::cref(Cud8_3311)));
+        ModelParamMap.insert(std::make_pair("Cud1_3333", std::cref(Cud1_3333)));
+        ModelParamMap.insert(std::make_pair("Cud8_3311", std::cref(Cud8_3311)));        
+        ModelParamMap.insert(std::make_pair("Cud8_3333", std::cref(Cud8_3333)));
         ModelParamMap.insert(std::make_pair("CQu1_1133", std::cref(CQu1_1133)));
         ModelParamMap.insert(std::make_pair("CQu1_3311", std::cref(CQu1_3311)));
+        ModelParamMap.insert(std::make_pair("CQu1_3333", std::cref(CQu1_3333)));
         ModelParamMap.insert(std::make_pair("CQu8_1133", std::cref(CQu8_1133)));
         ModelParamMap.insert(std::make_pair("CQu8_3311", std::cref(CQu8_3311)));
+        ModelParamMap.insert(std::make_pair("CQu8_3333", std::cref(CQu8_3333)));
         ModelParamMap.insert(std::make_pair("CQd1_3311", std::cref(CQd1_3311)));
-        ModelParamMap.insert(std::make_pair("CQd8_3311", std::cref(CQd8_3311)));                
+        ModelParamMap.insert(std::make_pair("CQd1_3333", std::cref(CQd1_3333)));
+        ModelParamMap.insert(std::make_pair("CQd8_3311", std::cref(CQd8_3311)));
+        ModelParamMap.insert(std::make_pair("CQd8_3333", std::cref(CQd8_3333)));
+        ModelParamMap.insert(std::make_pair("CQuQd1_3333", std::cref(CQuQd1_3333)));        
+        ModelParamMap.insert(std::make_pair("CQuQd8_3333", std::cref(CQuQd8_3333)));
     }
     if(FlagLeptonUniversal && FlagQuarkUniversal){
         ModelParamMap.insert(std::make_pair("CLQ1", std::cref(CLQ1_1111)));  
@@ -2382,53 +2411,88 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQQ1_1133 = value;
     } else if (name.compare("CQQ1_1331") == 0) {
         CQQ1_1331 = value;
+    } else if (name.compare("CQQ1_3333") == 0) {
+        CQQ1_3333 = value;
     } else if (name.compare("CQQ1") == 0) {
         CQQ1_1133 = value;
+        CQQ1_3333 = value;
         CQQ1_1331 = 0.;
     } else if (name.compare("CQQ3_1133") == 0) {
         CQQ3_1133 = value;
     } else if (name.compare("CQQ3_1331") == 0) {
         CQQ3_1331 = value;
+    } else if (name.compare("CQQ3_3333") == 0) {
+        CQQ3_3333 = value;
     } else if (name.compare("CQQ3") == 0) {
         CQQ3_1133 = value;
+        CQQ3_3333 = value;
         CQQ3_1331 = 0.;
     } else if (name.compare("Cuu_1133") == 0) {
         Cuu_1133 = value;
     } else if (name.compare("Cuu_1331") == 0) {
         Cuu_1331 = value;
+    } else if (name.compare("Cuu_3333") == 0) {
+        Cuu_3333 = value;
     } else if (name.compare("Cuu") == 0) {
         Cuu_1133 = value;
+        Cuu_3333 = value;
         Cuu_1331 = 0.;
     } else if (name.compare("Cud1_3311") == 0) {
         Cud1_3311 = value;
+    } else if (name.compare("Cud1_3333") == 0) {
+        Cud1_3333 = value;
     } else if (name.compare("Cud1") == 0) {
         Cud1_3311 = value;
+        Cud1_3333 = value;
     } else if (name.compare("Cud8_3311") == 0) {
         Cud8_3311 = value;
+    } else if (name.compare("Cud8_3333") == 0) {
+        Cud8_3333 = value;
     } else if (name.compare("Cud8") == 0) {
         Cud8_3311 = value;
+        Cud8_3333 = value;
     } else if (name.compare("CQu1_1133") == 0) {
         CQu1_1133 = value;
     } else if (name.compare("CQu1_3311") == 0) {
         CQu1_3311 = value;
+    } else if (name.compare("CQu1_3333") == 0) {
+        CQu1_3333 = value;
     } else if (name.compare("CQu1") == 0) {
         CQu1_1133 = value;
         CQu1_3311 = value;
+        CQu1_3333 = value;
     } else if (name.compare("CQu8_1133") == 0) {
         CQu8_1133 = value;
     } else if (name.compare("CQu8_3311") == 0) {
         CQu8_3311 = value;
+    } else if (name.compare("CQu8_3333") == 0) {
+        CQu8_3333 = value;
     } else if (name.compare("CQu8") == 0) {
         CQu8_1133 = value;
         CQu8_3311 = value;
+        CQu8_3333 = value;
     } else if (name.compare("CQd1_3311") == 0) {
         CQd1_3311 = value;
+    } else if (name.compare("CQd1_3333") == 0) {
+        CQd1_3333= value;
     } else if (name.compare("CQd1") == 0) {
         CQd1_3311 = value;
+        CQd1_3333= value;
     } else if (name.compare("CQd8_3311") == 0) {
         CQd8_3311 = value;
+    } else if (name.compare("CQd8_3333") == 0) {
+        CQd8_3333 = value;
     } else if (name.compare("CQd8") == 0) {
-        CQd8_3311 = value;        
+        CQd8_3311 = value;  
+        CQd8_3333 = value;
+    } else if (name.compare("CQuQd1_3333") == 0) {
+        CQuQd1_3333= value;
+    } else if (name.compare("CQuQd1") == 0) {
+        CQuQd1_3333= value;
+    } else if (name.compare("CQuQd8_3333") == 0) {
+        CQuQd8_3333= value;
+    } else if (name.compare("CQuQd8") == 0) {
+        CQuQd8_3333= value;
     } else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;        
     } else if (name.compare("BrHinv") == 0) {
@@ -2932,30 +2996,30 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     double Ced_2222 = 0.0, Ced_2233 = 0.0, Ced_3322 = 0.0, Ced_3333 = 0.0;
     
     double CQQ1_3113 = CQQ1_1331, CQQ1_2332= 0.0, CQQ1_3223 = CQQ1_2332, 
-            CQQ1_3311 = CQQ1_1133, CQQ1_3322 = 0.0, CQQ1_2233 = CQQ1_3322, CQQ1_3333 = 0.0,
+            CQQ1_3311 = CQQ1_1133, CQQ1_3322 = 0.0, CQQ1_2233 = CQQ1_3322,
             CQQ1_1111 = 0.0, CQQ1_1122 = 0.0, CQQ1_2211 = CQQ1_1122, CQQ1_1221 = 0.0, CQQ1_2112 = CQQ1_1221, CQQ1_2222 = 0.0;
     
     double CQQ3_3113 = CQQ3_1331, CQQ3_2332= 0.0, CQQ3_3223 = CQQ3_2332, 
-            CQQ3_3311 = CQQ3_1133, CQQ3_3322 = 0.0, CQQ3_2233 = CQQ3_3322, CQQ3_3333 = 0.0,
+            CQQ3_3311 = CQQ3_1133, CQQ3_3322 = 0.0, CQQ3_2233 = CQQ3_3322,
             CQQ3_1111 = 0.0, CQQ3_1221 = 0.0, CQQ3_2112 = CQQ3_1221, CQQ3_1122 = 0.0, CQQ3_2211 = CQQ3_1122, CQQ3_2222 = 0.0;
     
-    double CQd1_3322 = 0.0, CQd1_3333 = 0.0, CQd1_1111 = 0.0, CQd1_1122 = 0.0, CQd1_2211 = 0.0, CQd1_2222 = 0.0,
+    double CQd1_3322 = 0.0, CQd1_1111 = 0.0, CQd1_1122 = 0.0, CQd1_2211 = 0.0, CQd1_2222 = 0.0,
             CQd1_1133 = 0.0, CQd1_2233 = 0.0;
     
-    double CQu1_3322 = 0.0, CQu1_2233 = CQu1_3322, CQu1_3333 = 0.0, CQu1_1331 = 0.0, 
+    double CQu1_3322 = 0.0, CQu1_2233 = CQu1_3322, CQu1_1331 = 0.0, 
             CQu1_2332 = 0.0, CQu1_1111 = 0.0, CQu1_1122 = 0.0, CQu1_2211 = 0.0, CQu1_2222 = 0.0;
     
-    double CQu8_1331 = 0.0, CQu8_2332 = 0.0, CQu8_3333 = 0.0;
+    double CQu8_1331 = 0.0, CQu8_2332 = 0.0;
     
     double Cud1_1111 = 0.0, Cud1_1122 = 0.0, Cud1_2211 = 0.0, Cud1_2222 = 0.0, 
-            Cud1_1133 = 0.0, Cud1_2233 = 0.0, Cud1_3322 = 0.0, Cud1_3333 = 0.0; 
+            Cud1_1133 = 0.0, Cud1_2233 = 0.0, Cud1_3322 = 0.0; 
     
     double Cuu_1111 = 0.0, Cuu_1221 = 0.0, Cuu_2112 = Cuu_1221, Cuu_1122 = 0.0, Cuu_2211 = Cuu_1122, 
             Cuu_2222 = 0.0, Cuu_3113 = Cuu_1331, Cuu_3311 = Cuu_1133, Cuu_2233 = 0.0, 
-            Cuu_3322= Cuu_2233, Cuu_2332 = 0.0, Cuu_3223 = Cuu_2332, Cuu_3333 = 0.0;
+            Cuu_3322= Cuu_2233, Cuu_2332 = 0.0, Cuu_3223 = Cuu_2332;
     
-    double CQuQd1_1331 = 0.0, CQuQd1_3311 = 0.0, CQuQd1_2332 = 0.0, CQuQd1_3322 = 0.0, CQuQd1_3333 = 0.0;
-    double CQuQd8_1331 = 0.0, CQuQd8_2332 = 0.0, CQuQd8_3333 = 0.0;
+    double CQuQd1_1331 = 0.0, CQuQd1_3311 = 0.0, CQuQd1_2332 = 0.0, CQuQd1_3322 = 0.0;
+    double CQuQd8_1331 = 0.0, CQuQd8_2332 = 0.0;
     double CLeQu1_1133 = 0.0, CLeQu1_2233 = 0.0, CLeQu1_3333 = 0.0;    
     
     double CLe_2222 = 0.0,CLe_2233 = 0.0,CLe_3322 = 0.0,CLe_3333 = 0.0;
