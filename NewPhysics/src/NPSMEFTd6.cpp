@@ -4589,6 +4589,13 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
 //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
     mu = mu + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
+//  Linear contribution from 4 top operators
+    mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(9.91 + 2.76 * log(0.5*mHl/LambdaNP2))/1000.            
+            + (CQu8_3333/LambdaNP2)*(13.2 + 3.68 * log(0.5*mHl/LambdaNP2))/1000.            
+            + (CQuQd1_3333/LambdaNP2)*(4.22 + 1.37 * log(0.5*mHl/LambdaNP2))/100.            
+            + (CQuQd8_3333/LambdaNP2)*(8.03 + 2.60 * log(0.5*mHl/LambdaNP2))/1000.
+            );
+    
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
         gslpp::complex tmp2 = tmpt +tmpb +tmpc + tmpHG;
@@ -10389,6 +10396,13 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 -2791.1 * CQd1_3311 / LambdaNP2
                 +30575.2 * CQd8_3311 / LambdaNP2
                 ;
+             
+//  Linear contribution from 4 top operators
+        mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-420. + 2.24 * log((mtpole + 0.5*mHl)/LambdaNP2))/1000.            
+            + (CQu8_3333/LambdaNP2)*(65.3 + 4.41 * log((mtpole + 0.5*mHl)/LambdaNP2))/1000.            
+            + (CQuQd1_3333/LambdaNP2)*(-3.04 + 0.88 * log((mtpole + 0.5*mHl)/LambdaNP2))/1000.            
+            + (CQuQd8_3333/LambdaNP2)*(-1.61 + 0.67 * log((mtpole + 0.5*mHl)/LambdaNP2))/1000.
+            );
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -11590,6 +11604,13 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
 //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+//  Linear contribution from 4 top operators
+    dwidth = dwidth + cLHd6*( (CQu1_3333/LambdaNP2)*(9.91 + 2.76 * log(0.5*mHl/LambdaNP2))/1000.            
+            + (CQu8_3333/LambdaNP2)*(13.2 + 3.68 * log(0.5*mHl/LambdaNP2))/1000.            
+            + (CQuQd1_3333/LambdaNP2)*(4.22 + 1.37 * log(0.5*mHl/LambdaNP2))/100.            
+            + (CQuQd8_3333/LambdaNP2)*(8.03 + 2.60 * log(0.5*mHl/LambdaNP2))/1000.
+            );
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +1.003 * deltaGmu()
@@ -13590,6 +13611,13 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
 //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
+//  Linear contribution from 4 top operators
+    dwidth = dwidth + cLHd6*( (CQu1_3333/LambdaNP2)*( -2.15 - 0.6 * log(0.5*mHl/LambdaNP2))/1000.            
+            + (CQu8_3333/LambdaNP2)*( -2.87 - 0.80 * log(0.5*mHl/LambdaNP2))/1000.            
+            + (CQuQd1_3333/LambdaNP2)*(-8.07 - 2.62 * log(0.5*mHl/LambdaNP2))/1000.            
+            + (CQuQd8_3333/LambdaNP2)*(-1.53 - 4.98 * log(0.5*mHl/LambdaNP2))/1000.
+            );
+    
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +2. * deltaa0()
                 +0.27 * deltaaMZ()
@@ -13934,6 +13962,11 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
     dwidth = dwidth + cLHd6*(C1 + 2.0*dZH)*deltaG_hhhRatio();
 //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+//  Linear contribution from 4 top operators
+    dwidth = dwidth + cLHd6*( (CQuQd1_3333/LambdaNP2)*(-75.8 - 8.0 * log(0.5*mHl/LambdaNP2))/100.            
+            + (CQuQd8_3333/LambdaNP2)*(-15.0 - 1.59 * log(0.5*mHl/LambdaNP2))/100.
+            );
     
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * ( +1. * deltaGmu()
