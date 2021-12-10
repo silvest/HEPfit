@@ -1025,6 +1025,37 @@ private:
 
 
 /**
+ * @class mummHNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu\mu H}@f$ in the narrow width approximation.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
+ * production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHNWA(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu\mu H}@f$ in the current model.
+     * @return @f$\mu_{\mu\mu H}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
  * @class GammaHRatio
  * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\Gamma_{H}/\Gamma_{H}^{SM}@f$.
@@ -6842,6 +6873,293 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     mummHmumu(const StandardModel& SM_i, const double sqrt_s_i);
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHbbNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to bb}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to bb}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to bb@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHbbNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHbbNWA(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to bb}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to bb}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHccNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to cc}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to cc}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to cc@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHccNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHccNWA(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to cc}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to cc}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHggNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to gg}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to gg}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to gg@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHggNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHggNWA(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to gg}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to gg}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHWWNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to WW}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to WW}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to WW@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHWWNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHWWNWA(const StandardModel& SM_i, const double sqrt_s_i);
+    
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to WW}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to WW}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHtautauNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \tau\tau}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \tau\tau}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to \tau\tau@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHtautauNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHtautauNWA(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to \tau\tau}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to \tau\tau}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHZZNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to ZZ}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to ZZ}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to ZZ@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHZZNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHZZNWA(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to ZZ}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to ZZ}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHZgaNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to Z\gamma}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to Z\gamma}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to Z\gamma@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHZgaNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHZgaNWA(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to Z\gamma}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to Z\gamma}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHgagaNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \gamma\gamma}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \gamma\gamma}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to \gamma\gamma@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHgagaNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHgagaNWA(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to \gamma\gamma}@f$ in the current model.
+     * @return @f$\mu_{\mu^+ \mu^- \to H, H \to \gamma\gamma}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mummHmumuNWA
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$, in the narrow width approximation.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$ between the 
+ * @f$\mu^+ \mu^- \to H, H \to \mu\mu@f$ 
+ * associated production cross-section in the current model and in the Standard Model, in the narrow width approximation.
+ */
+class mummHmumuNWA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummHmumuNWA(const StandardModel& SM_i, const double sqrt_s_i);
     /**
      * @brief A method to compute the value of @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$ in the current model.
      * @return @f$\mu_{\mu^+ \mu^- \to H, H \to \mu\mu}@f$

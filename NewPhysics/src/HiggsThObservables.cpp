@@ -402,6 +402,18 @@ double mummH::computeThValue()
     return myNPbase->mummH(sqrt_s);
 }
 
+mummHNWA::mummHNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHNWA called with a class whose parent is not NPbase");
+}
+
+double mummHNWA::computeThValue()
+{
+    return myNPbase->mummHNWA(sqrt_s);
+}
+
 GammaHRatio::GammaHRatio(const StandardModel& SM_i)
 : ThObservable(SM_i)
 {
@@ -3274,6 +3286,152 @@ double mummHmumu::computeThValue()
     }
 }
 
+
+// The same in the narrow width approximation
+
+mummHbbNWA::mummHbbNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHbbNWA called with a class whose parent is not NPbase");
+}
+
+double mummHbbNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHbbRatio());
+    }
+}
+
+mummHccNWA::mummHccNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHccNWA called with a class whose parent is not NPbase");
+}
+
+double mummHccNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHccRatio());
+    }
+}
+
+mummHggNWA::mummHggNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHggNWA called with a class whose parent is not NPbase");
+}
+
+double mummHggNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHggRatio());
+    }
+}
+
+mummHWWNWA::mummHWWNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHccNWA called with a class whose parent is not NPbase");
+}
+
+double mummHWWNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHWWRatio());
+    }
+}
+
+mummHtautauNWA::mummHtautauNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHtautauNWA called with a class whose parent is not NPbase");
+}
+
+double mummHtautauNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHtautauRatio());
+    }
+}
+
+mummHZZNWA::mummHZZNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHZZNWA called with a class whose parent is not NPbase");
+}
+
+double mummHZZNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHZZRatio());
+    }
+}
+
+mummHZgaNWA::mummHZgaNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHZgaNWA called with a class whose parent is not NPbase");
+}
+
+double mummHZgaNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHZgaRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHZgaRatio());
+    }
+}
+
+mummHgagaNWA::mummHgagaNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHgagaNWA called with a class whose parent is not NPbase");
+}
+
+double mummHgagaNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHgagaRatio());
+    }
+}
+
+mummHmumuNWA::mummHmumuNWA(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHmumuNWA called with a class whose parent is not NPbase");
+}
+
+double mummHmumuNWA::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mummHNWA(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
+    } else {
+        return (myNPbase->mummHNWA(sqrt_s))*(myNPbase->BrHmumuRatio());
+    }
+}
 
 //  Full signal strengths at ep colliders
 //  -------------------------------------

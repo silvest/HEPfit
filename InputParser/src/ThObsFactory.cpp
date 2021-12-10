@@ -3474,7 +3474,17 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mumumuHZZ125"] = bind(boost::factory<mummHZZ*>(), _1, sqrt_s_leptcoll_125);
     obsThFactory["mumumuHZga125"] = bind(boost::factory<mummHZga*>(), _1, sqrt_s_leptcoll_125);
     obsThFactory["mumumuHgaga125"] = bind(boost::factory<mummHgaga*>(), _1, sqrt_s_leptcoll_125);
-    obsThFactory["mumumuHmumu125"] = bind(boost::factory<mummHmumu*>(), _1, sqrt_s_leptcoll_125);    
+    obsThFactory["mumumuHmumu125"] = bind(boost::factory<mummHmumu*>(), _1, sqrt_s_leptcoll_125);   
+    // The same in the narrow width approximation
+    obsThFactory["mumumuHbbNWA125"] = bind(boost::factory<mummHbbNWA*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHccNWA125"] = bind(boost::factory<mummHccNWA*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHggNWA125"] = bind(boost::factory<mummHggNWA*>(), _1, sqrt_s_leptcoll_125);    
+    obsThFactory["mumumuHWWNWA125"] = bind(boost::factory<mummHWWNWA*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHtautauNWA125"] = bind(boost::factory<mummHtautauNWA*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHZZNWA125"] = bind(boost::factory<mummHZZNWA*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHZgaNWA125"] = bind(boost::factory<mummHZgaNWA*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHgagaNWA125"] = bind(boost::factory<mummHgagaNWA*>(), _1, sqrt_s_leptcoll_125);
+    obsThFactory["mumumuHmumuNWA125"] = bind(boost::factory<mummHmumuNWA*>(), _1, sqrt_s_leptcoll_125);
     //
     //-----  Full Signal strengths per prod and decay: Lepton-Hadron colliders  ----------
     //

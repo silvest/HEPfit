@@ -2201,6 +2201,14 @@ public:
      * @return @f$\mu_{\mu\mu H}@f$
      */
     virtual double mummH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
+     * production cross-section in the current model and in the Standard Model, 
+     * in the narrow width approximation.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H}@f$
+     */
+    virtual double mummHNWA(const double sqrt_s) const;    
     
     ////////////HIGGS DECAY WIDTHS AND BRANCHING RATIOS/////////////
     /**
