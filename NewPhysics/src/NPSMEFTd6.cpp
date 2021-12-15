@@ -13973,8 +13973,8 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH*deltaG_hhhRatio()*deltaG_hhhRatio();
     
 //  Linear contribution from 4 top operators
-    dwidth = dwidth + cLHd6*( (CQuQd1_3333/LambdaNP2)*(-694. - 153. * log(mHl/LambdaNP2))*1000.            
-            + (CQuQd8_3333/LambdaNP2)*(-132. - 29.1 * log(mHl/LambdaNP2))*1000.
+    dwidth = dwidth + cLHd6*( (CQuQd1_3333/LambdaNP2)*(92.5 + 168. * log(mHl/LambdaNP2))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(17.6 + 32.0 * log(mHl/LambdaNP2))*1000.
             );
     
     // Add modifications due to small variations of the SM parameters    
