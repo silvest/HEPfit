@@ -10423,6 +10423,13 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 -2.844 * (1. + ettH_1314_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
                 ;
         
+//  Linear contribution from 4 top operators
+        mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-430. + 2.0 * 2.25 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQu8_3333/LambdaNP2)*(73.0 - 2.0 * 4.39 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQuQd1_3333/LambdaNP2)*(-2.20 - 2.0 * 1.22 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(-1.10 - 2.0 * 1.05 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
+            );
+        
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
         mu +=  0.0;
