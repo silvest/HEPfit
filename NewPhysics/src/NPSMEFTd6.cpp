@@ -10398,10 +10398,10 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 ;
              
 //  Linear contribution from 4 top operators
-        mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-420. + 2.0 * 2.24 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQu8_3333/LambdaNP2)*(65.3 + 2.0 * 4.41 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQuQd1_3333/LambdaNP2)*(-3.04 + 2.0 * 0.88 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQuQd8_3333/LambdaNP2)*(-1.61 + 2.0 * 0.67 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
+        mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-421. + 2.0 * 2.25 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQu8_3333/LambdaNP2)*(65.3 - 2.0 * 4.11 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQuQd1_3333/LambdaNP2)*(-3.04 - 2.0 * 1.22 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(-1.61 - 2.0 * 1.05 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
             );
         
         if (FlagQuadraticTerms) {
