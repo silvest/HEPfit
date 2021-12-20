@@ -6960,7 +6960,7 @@ protected:
     
     double delta_h;///< Combinations of dimension 6 coefficients modifying the \f$H\f$ canonical field definition.
         
-    double dZH;///< Higgs self-coupling contribution to the universal resummed Higgs wave function renormalization
+    double dZH,dZH1,dZH2;///< Higgs self-coupling contribution to the universal resummed Higgs wave function renormalization and combinations entering in the linear and quadratic pieces
     
     double cHSM;///< Parameter to control the inclusion of modifications of SM parameters in selected Higgs processes.
     
