@@ -581,6 +581,18 @@ double BrHtoZZ4muRatio::computeThValue()
     return myNPbase->BrHZZ4muRatio();
 }
 
+BrHtoVVRatio::BrHtoVVRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtoVVRatio called with a class whose parent is not NPbase");
+}
+
+double BrHtoVVRatio::computeThValue()
+{
+    return myNPbase->BrHVVRatio();
+}
+
 BrHtoZgaRatio::BrHtoZgaRatio(const StandardModel& SM_i) : ThObservable(SM_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
@@ -1679,6 +1691,22 @@ double muttHWW2l2v::computeThValue()
         return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrH2l2vRatio()));
     } else {
         return myNPbase->muttHWW2l2v(sqrt_s);
+    }
+}
+
+muttHVV::muttHVV(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muttHVV called with a class whose parent is not NPbase");
+}
+
+double muttHVV::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHVVRatio()));
+    } else {
+        return (myNPbase->muttH(sqrt_s)) * (myNPbase->BrHVVRatio());
     }
 }
 

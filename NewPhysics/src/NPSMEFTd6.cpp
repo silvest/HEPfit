@@ -1285,9 +1285,15 @@ bool NPSMEFTd6::PostUpdate()
         cRGE = -log(Lambda_NP/mtpole)/16.0/M_PI/M_PI;
         // And call the function that modifies the CiX in the 1st leading-log approximation, according to the d6 SMEFT anomalous dimensions
         RGd6SMEFTlogs();
+        
+        // Other parts of the code use different logs explicitly, so use a different variable to enable/disable them
+        //  (Eventually to be all unified with full RGE running)
+        cRGEon = 1.0;
                 
     } else {
         cRGE = 0.0;
+        
+        cRGEon = 0.0;
     }
     
 //  3) Post-update operations working directly with the dimension six operators  
@@ -4594,10 +4600,10 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     mu = mu + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
     
 //  Linear contribution from 4 top operators
-    mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(9.91 + 2.0 * 2.76 * log(0.5*mHl/Lambda_NP))*1000.            
-            + (CQu8_3333/LambdaNP2)*(13.2 + 2.0 * 3.68 * log(0.5*mHl/Lambda_NP))*1000.            
-            + (CQuQd1_3333/LambdaNP2)*(28.4 + 2.0 * 9.21 * log(0.5*mHl/Lambda_NP))*1000.            
-            + (CQuQd8_3333/LambdaNP2)*(5.41 + 2.0 * 1.76 * log(0.5*mHl/Lambda_NP))*1000.
+    mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(9.91 + cRGEon * 2.0 * 2.76 * log(0.5*mHl/Lambda_NP))*1000.            
+            + (CQu8_3333/LambdaNP2)*(13.2 + cRGEon * 2.0 * 3.68 * log(0.5*mHl/Lambda_NP))*1000.            
+            + (CQuQd1_3333/LambdaNP2)*(28.4 + cRGEon * 2.0 * 9.21 * log(0.5*mHl/Lambda_NP))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(5.41 + cRGEon * 2.0 * 1.76 * log(0.5*mHl/Lambda_NP))*1000.
             );
     
     if (FlagQuadraticTerms) {
@@ -10402,10 +10408,10 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 ;
              
 //  Linear contribution from 4 top operators
-        mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-421. + 2.0 * 2.25 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQu8_3333/LambdaNP2)*(65.3 - 2.0 * 4.11 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQuQd1_3333/LambdaNP2)*(-3.04 - 2.0 * 1.22 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQuQd8_3333/LambdaNP2)*(-1.61 - 2.0 * 1.05 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
+        mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-421. + cRGEon * 2.0 * 2.25 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQu8_3333/LambdaNP2)*(65.3 - cRGEon * 2.0 * 4.11 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQuQd1_3333/LambdaNP2)*(-3.04 - cRGEon * 2.0 * 1.22 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(-1.61 - cRGEon * 2.0 * 1.05 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
             );
         
         if (FlagQuadraticTerms) {
@@ -10428,10 +10434,10 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 ;
         
 //  Linear contribution from 4 top operators
-        mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-430. + 2.0 * 2.25 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQu8_3333/LambdaNP2)*(73.0 - 2.0 * 4.39 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQuQd1_3333/LambdaNP2)*(-2.20 - 2.0 * 1.22 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQuQd8_3333/LambdaNP2)*(-1.10 - 2.0 * 1.05 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
+        mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-430. + cRGEon * 2.0 * 2.25 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQu8_3333/LambdaNP2)*(73.0 - cRGEon * 2.0 * 4.39 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQuQd1_3333/LambdaNP2)*(-2.20 - cRGEon * 2.0 * 1.22 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(-1.10 - cRGEon * 2.0 * 1.05 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
             );
         
         if (FlagQuadraticTerms) {
@@ -11626,10 +11632,10 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
     
 //  Linear contribution from 4 top operators
-    dwidth = dwidth + cLHd6*( (CQu1_3333/LambdaNP2)*(6.08 + 2.0 * 2.76 * log(mHl/Lambda_NP))*1000.            
-            + (CQu8_3333/LambdaNP2)*(8.11 + 2.0 * 3.68 * log(mHl/Lambda_NP))*1000.            
-            + (CQuQd1_3333/LambdaNP2)*(15.7 + 2.0 * 9.21 * log(mHl/Lambda_NP))*1000.            
-            + (CQuQd8_3333/LambdaNP2)*(2.98 + 2.0 * 1.76 * log(mHl/Lambda_NP))*1000.
+    dwidth = dwidth + cLHd6*( (CQu1_3333/LambdaNP2)*(6.08 + cRGEon * 2.0 * 2.76 * log(mHl/Lambda_NP))*1000.            
+            + (CQu8_3333/LambdaNP2)*(8.11 + cRGEon * 2.0 * 3.68 * log(mHl/Lambda_NP))*1000.            
+            + (CQuQd1_3333/LambdaNP2)*(15.7 + cRGEon * 2.0 * 9.21 * log(mHl/Lambda_NP))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(2.98 + cRGEon * 2.0 * 1.76 * log(mHl/Lambda_NP))*1000.
             );
     
     // Add modifications due to small variations of the SM parameters    
@@ -13435,6 +13441,13 @@ double NPSMEFTd6::BrHZZ4fRatio() const
     return Br;
 }
 
+double NPSMEFTd6::BrHVVRatio() const
+{
+    double BrZZSM = trueSM.computeBrHtoZZ(), BrWWSM = trueSM.computeBrHtoWW();
+
+    return (BrZZSM * BrHZZRatio() + BrWWSM * BrHWWRatio() )/(BrZZSM + BrWWSM);
+}
+
 double NPSMEFTd6::GammaHZgaRatio() const
 {
       // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
@@ -13632,10 +13645,10 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
     
 //  Linear contribution from 4 top operators
-    dwidth = dwidth + cLHd6*( (CQu1_3333/LambdaNP2)*( -1.76 - 2.0 * 0.8 * log(mHl/Lambda_NP))*1000.            
-            + (CQu8_3333/LambdaNP2)*( -2.09 - 2.0 * 1.07 * log(mHl/Lambda_NP))*1000.            
-            + (CQuQd1_3333/LambdaNP2)*(-1.30 - 2.0 * 0.78 * log(mHl/Lambda_NP))*1000.            
-            + (CQuQd8_3333/LambdaNP2)*(-0.25 - 2.0 * 0.15 * log(mHl/Lambda_NP))*1000.
+    dwidth = dwidth + cLHd6*( (CQu1_3333/LambdaNP2)*( -1.76 - cRGEon * 2.0 * 0.8 * log(mHl/Lambda_NP))*1000.            
+            + (CQu8_3333/LambdaNP2)*( -2.09 - cRGEon * 2.0 * 1.07 * log(mHl/Lambda_NP))*1000.            
+            + (CQuQd1_3333/LambdaNP2)*(-1.30 - cRGEon * 2.0 * 0.78 * log(mHl/Lambda_NP))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(-0.25 - cRGEon * 2.0 * 0.15 * log(mHl/Lambda_NP))*1000.
             );
     
     // Add modifications due to small variations of the SM parameters    
@@ -13984,8 +13997,8 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
     dwidth = dwidth + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
     
 //  Linear contribution from 4 top operators
-    dwidth = dwidth + cLHd6*( (CQuQd1_3333/LambdaNP2)*(92.5 + 2.0 * 168. * log(mHl/Lambda_NP))*1000.            
-            + (CQuQd8_3333/LambdaNP2)*(17.6 + 2.0 * 32.0 * log(mHl/Lambda_NP))*1000.
+    dwidth = dwidth + cLHd6*( (CQuQd1_3333/LambdaNP2)*(92.5 + cRGEon * 2.0 * 168. * log(mHl/Lambda_NP))*1000.            
+            + (CQuQd8_3333/LambdaNP2)*(17.6 + cRGEon * 2.0 * 32.0 * log(mHl/Lambda_NP))*1000.
             );
     
     // Add modifications due to small variations of the SM parameters    

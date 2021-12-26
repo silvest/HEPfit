@@ -1219,6 +1219,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muVHWW2l2v13"] = bind(boost::factory<muVHWW2l2v*>(), _1, sqrt_s_LHC13);
     obsThFactory["muttHWW2l2v13"] = bind(boost::factory<muttHWW2l2v*>(), _1, sqrt_s_LHC13);
     //
+    obsThFactory["muttHVV13"] = bind(boost::factory<muttHVV*>(), _1, sqrt_s_LHC13);
+    //
     obsThFactory["muggHmumu13"] = bind(boost::factory<muggHmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVBFHmumu13"] = bind(boost::factory<muVBFHmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["muZHmumu13"] = bind(boost::factory<muZHmumu*>(), _1, sqrt_s_LHC13);

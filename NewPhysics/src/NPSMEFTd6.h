@@ -2893,6 +2893,13 @@ public:
      * @return Br@f$(H\to ZZ* \to 4f)@f$/Br@f$(H\to ZZ* \to 4f)_{\mathrm{SM}}@f$
      */
     virtual double BrHZZ4fRatio() const;
+        
+    /**
+     * @brief The ratio of the Br@f$(H\to VV)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to VV)@f$/Br@f$(H\to VV)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHVVRatio() const;
     
     /**
      * @brief The ratio of the @f$\Gamma(H\to Z\gamma)@f$ in the current model
@@ -6969,7 +6976,8 @@ protected:
     double cLH3d62;///< Parameter to control the inclusion of modifications of SM loops in Higgs processes due to dim 6 interactions modifying the Higgs trilinear coupling (Quadratic terms).
 
     double cRGE;///< Parameter to control the inclusion of log-enhanced contributions via RG effects. If activated then it takes the value multiplying the anomalous dimension: \f$-\log(\Lambda/\mu)/16 \pi^2 \Lambda^2\f$
-    
+    double cRGEon;///< Another parameter to control the inclusion of log-enhanced contributions via RG effects. It multiplies the logarithmic contribution to some observables, so it takes values 0/1 to deactivate/activate the log terms.
+
     double cAsch,cWsch;///< Parameters to control the SM EW input scheme: Alpha or MW.
     
     double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
