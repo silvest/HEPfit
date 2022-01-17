@@ -10417,7 +10417,8 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-420. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
             + (CQu8_3333/LambdaNP2)*(65.3 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000. 
             + (CQQ1_3333/LambdaNP2)*(1.75 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.     
-            + (CQQ3_3333/LambdaNP2)*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.                
+            + (CQQ3_3333/LambdaNP2)*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.                     
+            + (Cuu_3333/LambdaNP2)*(4.60 + cRGEon * 2.0 * 1.82 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
             );
         
         if (FlagQuadraticTerms) {
@@ -10443,9 +10444,10 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
 //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
 //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
         mu = mu + cLHd6*( (CQu1_3333/LambdaNP2)*(-430. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQu8_3333/LambdaNP2)*(72.9 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
-            + (CQQ1_3333/LambdaNP2)*(2.35 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.     
-            + (CQQ3_3333/LambdaNP2)*(14.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000. 
+            + (CQu8_3333/LambdaNP2)*(72.9 - cRGEon * 2.0 * 2.48 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.            
+            + (CQQ1_3333/LambdaNP2)*(1.65 + cRGEon * 2.0 * 1.76 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.     
+            + (CQQ3_3333/LambdaNP2)*(12.4 + cRGEon * 2.0 * 5.30 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000. 
+            + (Cuu_3333/LambdaNP2)*(4.57 + cRGEon * 2.0 * 1.74 * log((mtpole + 0.5*mHl)/Lambda_NP))*1000.
             );
         
         if (FlagQuadraticTerms) {
