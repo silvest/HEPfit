@@ -1,9 +1,18 @@
 ##################
-# CMS PAS HIG-17-019
+# OLD: CMS PAS HIG-17-019
+# arxiv:2009.04363
+# Luminosity 137
 ##################
 # Name Definition weights mu -err_mu +err_mu
 # weights are given as |ggH fraction, ttH fraction, VBF fraction, WH fraction, ZH fraction|
 ##################
-CATEGORIES ggH13 ttH13 VBF13 WH13 ZH13
-MEASUREMENT Total |0.881 0.009 0.069 0.025 0.016| 0.7 -1. 1.
+CATEGORIES ggH13 ttH13 VBF13 VH13
+MEASUREMENT ggH |1. 0. 0. 0.| 0.63 -0.64 0.65
+MEASUREMENT ttH |0. 1. 0. 0.| 2.32 -1.95 2.27
+MEASUREMENT VBF |0. 0. 1. 0.| 1.36 -0.61 0.69
+MEASUREMENT VH |0. 0. 0. 1.| 5.48 -2.83 3.1
+##################
+##################
+#### OLD #### CATEGORIES ggH13 ttH13 VBF13 WH13 ZH13
+#### OLD #### MEASUREMENT Total |0.881 0.009 0.069 0.025 0.016| 0.7 -1. 1.
 ##################

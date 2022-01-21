@@ -1,5 +1,4 @@
 ##################
-# OLD: arXiv 1708.00373 (0jet, VBF, Boosted)
 # CMS-PAS-HIG-19-005
 # 2020
 # Luminosity 137
@@ -13,10 +12,4 @@ MEASUREMENT ttH |0. 1. 0. 0. 0.| 0.81 -0.67 0.74
 MEASUREMENT VBF |0. 0. 1. 0. 0.| 1.05 -0.29 0.30
 MEASUREMENT WH |0. 0. 0. 1. 0.| 3.01 -1.51 1.65
 MEASUREMENT ZH |0. 0. 0. 0. 1.| 1.53 -1.37 1.60
-##################
-##################
-##### OLD ##### CATEGORIES ggH13 ttH13 VBF13 VH13
-##### OLD ##### MEASUREMENT 0jet |1. 0. 0. 0.| 0.84 -0.89 0.89
-##### OLD ##### MEASUREMENT VBF |0.43 0. 0.57 0.| 1.11 -0.35 0.34
-##### OLD ##### MEASUREMENT Boosted |0.8 0. 0.12 0.08| 1.17 -0.4 0.47
 ##################

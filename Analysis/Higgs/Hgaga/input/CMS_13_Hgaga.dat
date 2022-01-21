@@ -1,12 +1,14 @@
 ##################
-# arXiv:1804.02716
+# arXiv:2103.06956
+# 03/2021
+# Luminosity 137 
 ##################
 # Name Definition weights mu -err_mu +err_mu
 # weights are given as |ggH fraction, ttH fraction, VBF fraction, VH fraction|
 ##################
 CATEGORIES ggH13 ttH13 VBF13 VH13
-MEASUREMENT ggH |1. 0. 0. 0.| 1.10 -0.18 0.20
-MEASUREMENT VBF |0. 0. 1. 0.| 0.8 -0.5 0.6
-MEASUREMENT ttH |0. 1. 0. 0.| 2.2 -0.8 0.9
-MEASUREMENT VH |0. 0. 0. 1.| 2.4 -1. 1.1
+MEASUREMENT ggH |1. 0. 0. 0.| 1.07 -0.11 0.12
+MEASUREMENT VBF |0. 0. 1. 0.| 1.04 -0.31 0.34
+MEASUREMENT ttH |0. 1. 0. 0.| 1.35 -0.28 0.34
+MEASUREMENT VH |0. 0. 0. 1.| 1.34 -0.33 0.36
 ##################
