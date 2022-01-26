@@ -12,7 +12,7 @@
 EpsilonP_O_Epsilon::EpsilonP_O_Epsilon(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDS1(SM_i)
 {
-    setParametersForObservable(make_vector<std::string>() << "ReA0_Kd" << "ReA2_Kd" << "Omega_eta_etap");
+    setParametersForObservable(make_vector<std::string>() << "ReA0_Kd" << "ReA2_Kd" << "Omega_eta_etap" << "MP0" << "FP0");
 };
 
 double EpsilonP_O_Epsilon::computeThValue()

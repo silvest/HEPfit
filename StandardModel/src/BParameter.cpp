@@ -253,7 +253,7 @@ bool BParameter::setParameter(std::string name_i, double value)
         }
     }
 
-    if (name.compare("Bkd1") == 0) {
+    if (name.compare("BKd1") == 0) {
         if (name_i.compare("BK(1/2)1") == 0) {
             setBpars(0, value);
             return true;
@@ -287,44 +287,44 @@ bool BParameter::setParameter(std::string name_i, double value)
         }
     }
 
-    if (name.compare("Bkd3") == 0) {
-        if (name_i.compare("BK(3/2)1") == 0 && name.compare("Bkd3") == 0) {
+    if (name.compare("BKd3") == 0) {
+        if (name_i.compare("BK(3/2)1") == 0 && name.compare("BKd3") == 0) {
             setBpars(0, value);
             return true;
-        } else if (name_i.compare("BK(3/2)2") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)2") == 0 && name.compare("BKd3") == 0) {
             setBpars(1, value);
             return true;
-        } else if (name_i.compare("BK(3/2)3") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)3") == 0 && name.compare("BKd3") == 0) {
             setBpars(2, value);
             return true;
-        } else if (name_i.compare("BK(3/2)4") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)4") == 0 && name.compare("BKd3") == 0) {
             setBpars(3, value);
             return true;
-        } else if (name_i.compare("BK(3/2)5") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)5") == 0 && name.compare("BKd3") == 0) {
             setBpars(4, value);
             return true;
-        } else if (name_i.compare("BK(3/2)6") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)6") == 0 && name.compare("BKd3") == 0) {
             setBpars(5, value);
             return true;
-        } else if (name_i.compare("BK(3/2)7") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)7") == 0 && name.compare("BKd3") == 0) {
             setBpars(6, value);
             return true;
-        } else if (name_i.compare("BK(3/2)8") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)8") == 0 && name.compare("BKd3") == 0) {
             setBpars(7, value);
             return true;
-        } else if (name_i.compare("BK(3/2)9") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)9") == 0 && name.compare("BKd3") == 0) {
             setBpars(8, value);
             return true;
-        } else if (name_i.compare("BK(3/2)10") == 0 && name.compare("Bkd3") == 0) {
+        } else if (name_i.compare("BK(3/2)10") == 0 && name.compare("BKd3") == 0) {
             setBpars(9, value);
             return true;
         }
     }
 
-    if (name_i.compare("BKd_scale") == 0 && (name.compare("Bkd1") == 0 || name.compare("Bkd3") == 0)) {
+    if (name_i.compare("BKd_scale") == 0 && (name.compare("BKd1") == 0 || name.compare("BKd3") == 0)) {
         setMu(value);
         return true;
-    } else if (name_i.compare("BKd_scheme") == 0 && (name.compare("Bkd1") == 0 || name.compare("Bkd3") == 0)) {
+    } else if (name_i.compare("BKd_scheme") == 0 && (name.compare("BKd1") == 0 || name.compare("BKd3") == 0)) {
         setScheme((schemes) value);
         return true;
     }

@@ -36,7 +36,7 @@ enum orders
     NNNLO, /**< Next-to-next-to-next-to-leading order */
     FULLNLO, /**< Full NLO = LO + NLO */
     FULLNNLO, /**< Full NNLO = LO + NLO + NNLO */
-    FULLNNNLO /**< Full NNLO = LO + NLO + NNLO + NNNLO */        
+    FULLNNNLO /**< Full NNNLO = LO + NLO + NNLO + NNNLO */        
 };
 
 /**
@@ -58,9 +58,9 @@ enum orders_qed // WARNING: don't change the ordering, it matters in HeffDF1
 
 // New enum for orders introduced with Expanded
 /**
- * @enum orders_qcd
+ * @enum qcd_orders
  * @ingroup StandardModel
- * @brief An enum type for orders_qcd in %QCD.
+ * @brief An enum type for qcd_orders in %QCD.
  */
 enum qcd_orders
 {
@@ -74,9 +74,9 @@ enum qcd_orders
 };
 
 /**
- * @enum orders_qed
+ * @enum qed_orders
  * @ingroup StandardModel
- * @brief An enum type for orders_qcd in electroweak.
+ * @brief An enum type for qed_orders in electroweak.
  */
 enum qed_orders // WARNING: don't change the ordering, it matters in HeffDF1
 {

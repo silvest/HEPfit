@@ -122,7 +122,9 @@ class EvolDF1nlep : public RGEvolutor {
                                     K0V, ViK0, K11V, ViK11, ge11sing, K11sing, K11singV;
     gslpp::vector<gslpp::complex> e;
     unsigned int dim;
-    
+    double alsMZ_cache;
+    double Mz_cache;
+    double Ale_cache;
 
  };
 

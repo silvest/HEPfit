@@ -19,8 +19,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcdbs2(5, NDR, NLO),
         mcdd2(5, NDR, NLO),
         mcdk2(5, NDR, NLO),
-        mck(10, NDR, NLO),
-        mckcc(10, NDR, NLO),
+        mck(10, NDR, NLO, NLO_QED11),
+        mckcc(10, NDR, NLO, NLO_QED11),
         mcbsg(8, NDR, NNLO),
         mcprimebsg(8, NDR, NNLO),
         mcBMll(13, NDR, NLO),
@@ -1051,11 +1051,12 @@ double StandardModelMatching::phi_xy(double x, double y) const
         case NLO:
             mcdbd2.setCoeff(0, co * co * 4. * (SM.Als(Mut, FULLNLO) / 4. / M_PI * (S1(xt) + //* CHECK ORDER *//
                     (Bt + gamma0 * log(Mut / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Mut / Mw))), NLO);
-#if SUSYFIT_DEBUG & 1
+#if SUSYFIT_DEBUG & 2
     std::cout << "Mw = " << Mw << " mt(mut=" << Mut << ")= " << Mt_mut << " xt(mut=" << Mut << ")= " << xt << "matching of DB=2: S0(xt) = " << S0(xt) << 
                 ", S1(xt) = " << S1(xt) +
                     (Bt + gamma0 * log(Muw / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Muw / Mw) 
-            << ", lambdat_d^2 = " << SM.getCKM().computelamt_d()*SM.getCKM().computelamt_d() << std::endl;
+            << ", lambdat_d^2 = " << SM.getCKM().computelamt_d()*SM.getCKM().computelamt_d() 
+            << std::endl;
 #endif
         case LO:
             mcdbd2.setCoeff(0, co * co * 4. * (S0(xt, xt)), LO);
@@ -2539,6 +2540,8 @@ double StandardModelMatching::setWCbnlepEW(int i, double x)
     if ( swb == sw && xcacheb == x){
         return (CWbnlepArrayNLOew[i]);
     }
+    
+    //FIX THIS!!!!
     
     swc = sw; xcachec = x;
     

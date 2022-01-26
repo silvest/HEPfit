@@ -223,13 +223,17 @@ void QCD::initializeBParameter(std::string name_i) const
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
         BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
         initializeMeson(QCD::K_0);
+        initializeMeson(QCD::P_0);
+        initializeMeson(QCD::P_P);
         return;
     }
     if (name_i.compare("BKd3") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
         BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
         initializeMeson(QCD::K_0);
-        return;
+        initializeMeson(QCD::P_0);
+        initializeMeson(QCD::P_P);
+    return;
     }
 }
 
