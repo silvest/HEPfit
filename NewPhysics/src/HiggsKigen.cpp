@@ -838,6 +838,13 @@ double HiggsKigen::BrHZZ4muRatio() const
     return BrHZZRatio();
 }
 
+double HiggsKigen::BrHVVRatio() const
+{
+    double BrZZSM = trueSM.computeBrHtoZZ(), BrWWSM = trueSM.computeBrHtoWW();
+
+    return (BrZZSM * BrHZZRatio() + BrWWSM * BrHWWRatio() )/(BrZZSM + BrWWSM);
+}
+
 double HiggsKigen::BrHZgaRatio() const
 {
     double Br = 1.0;

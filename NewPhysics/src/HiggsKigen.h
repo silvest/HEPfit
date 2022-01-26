@@ -1385,6 +1385,12 @@ public:
      */
     virtual double BrHZZ4muRatio() const;
     /**
+     * @brief The ratio of the Br@f$(H\to VV)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to VV)@f$/Br@f$(H\to VV)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHVVRatio() const;
+    /**
      * @brief The ratio of the Br@f$(H\to Z\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma)@f$/Br@f$(H\to Z\gamma)_{\mathrm{SM}}@f$

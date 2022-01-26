@@ -609,6 +609,13 @@ double HiggsChiral::BrHZZ4vRatio() const
     return BrHZZRatio();
 }
 
+double HiggsChiral::BrHVVRatio() const
+{
+    double BrZZSM = trueSM.computeBrHtoZZ(), BrWWSM = trueSM.computeBrHtoWW();
+
+    return (BrZZSM * BrHZZRatio() + BrWWSM * BrHWWRatio() )/(BrZZSM + BrWWSM);
+}
+
 double HiggsChiral::BrHZgaRatio() const
 {
 //    return GammaZga() / GammaTotal() / trueSM.computeBrHtoZga();

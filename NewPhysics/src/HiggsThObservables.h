@@ -1470,6 +1470,35 @@ private:
 };
 
 /**
+ * @class BrHtoVVRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to VV \to 4f)@f$ with @f$f@f$ any fermion.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to VV\to 4f)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoVVRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtoVVRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to VV\to 4f)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to VV\to 4f)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
  * @class BrHtoZgaRatio
  * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$.
@@ -3655,6 +3684,36 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHWW2l2v(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class muttHVV
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHVV : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHVV(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief 
