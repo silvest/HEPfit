@@ -88,8 +88,9 @@ public:
 
     gslpp::vector<gslpp::complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) const;
 
-    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR) const;
-
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PPv(double mu, schemes scheme = NDR) const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PPz(double muc, schemes scheme = NDR) const;
+    
     /**
      * @brief Computes the Wilson coefficient for the process \f$ B_s \to \mu \mu \f$.
      * @param[in] mu the lower matching scale for the process

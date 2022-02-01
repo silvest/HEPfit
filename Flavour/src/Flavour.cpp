@@ -81,9 +81,14 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffmK(double mu, schemes schem
     return getPtr<HeffDF2>(HDF2)->ComputeCoeffmK(mu, scheme);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1PP(double mu, schemes scheme) const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1PPv(double mu, schemes scheme) const
 {
-    return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1PP(mu, scheme);
+    return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1PPv(mu, scheme);
+}
+
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1PPz(double muc, schemes scheme) const
+{
+    return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1PPz(muc, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1pnunu() const

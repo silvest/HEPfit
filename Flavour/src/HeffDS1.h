@@ -38,7 +38,8 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective Hamiltonian at the scale mu for \f$ K \rightarrow \pi \pi \f$
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PPv(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PPz(double muc, schemes scheme = NDR);
     
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu();
     
@@ -79,7 +80,7 @@ private :
     std::unique_ptr<EvolDF1nlep> u;
     std::unique_ptr<EvolDB1Mll> uM;
     
-    gslpp::vector<gslpp::complex> DS1cce, DS1cc;
+    gslpp::vector<gslpp::complex> DS1ccLO, DS1ccLO_QED, DS1ccNLO, DS1ccNLO_QED;
     
     /**
      * 

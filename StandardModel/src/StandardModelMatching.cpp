@@ -1289,15 +1289,13 @@ double StandardModelMatching::phi_xy(double x, double y) const
         case NNLO:
         case NLO:
             for (int j=0; j<10; j++){
-                mck.setCoeff(j, lam_t * SM.Als(Muw, FULLNLO) / 4. / M_PI * //* CHECK ORDER *//
-                                setWCbnlep(j, xt,  NLO), NLO);
-                mck.setCoeff(j, lam_t * Ale / 4. / M_PI *
-                                setWCbnlepEW(j, xt), NLO_QED11);
+                mck.setCoeff(j, SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbnlep(j, xt,  NLO), NLO);
+                mck.setCoeff(j, Ale / 4. / M_PI * setWCbnlepEW(j, xt), NLO_QED11);
                 }
         case LO:
             for (int j=0; j<10; j++){
-                mck.setCoeff(j, lam_t *  setWCbnlep(j, xt,  LO), LO);
-                mck.setCoeff(j, 0., LO_QED); 
+                mck.setCoeff(j, setWCbnlep(j, xt,  LO), LO);
+                mck.setCoeff(j, 0., LO_QED);
                 }                   
             break;
         default:
@@ -1338,17 +1336,21 @@ double StandardModelMatching::phi_xy(double x, double y) const
         case NNLO:
         case NLO:
             for (int j=0; j<2; j++){
-                mckcc.setCoeff(j, lam_t * setWCbnlep(j, xt, NLO), NLO); 
+                mckcc.setCoeff(j, SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbnlep(j, xt, NLO), NLO);
+                mckcc.setCoeff(j, Ale / 4. / M_PI * setWCbnlepEW(j, xt), NLO_QED11);
             }
             for (int j=2; j<10; j++){
                 mckcc.setCoeff(j, 0. , NLO); 
+                mckcc.setCoeff(j, 0., NLO_QED11);
             }
         case LO:
             for (int j=0; j<2; j++){
-                mckcc.setCoeff(j, lam_t * setWCbnlep(j, xt, LO), LO); 
+                mckcc.setCoeff(j, setWCbnlep(j, xt, LO), LO); 
+                mckcc.setCoeff(j, 0., LO_QED);
             }
             for (int j=2; j<10; j++){
                 mckcc.setCoeff(j, 0. , LO); 
+                mckcc.setCoeff(j, 0., LO_QED);
             }
             break;
         default:
@@ -2480,9 +2482,7 @@ double StandardModelMatching::setWCBdmmEW(int i, double x, orders_qed order_qed)
  * ****************************************************************************/
 double StandardModelMatching::setWCbnlep(int i, double x, orders order) 
 {    
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw * Mw) );
-    
-    if ( swb == sw && xcacheb == x){
+    if (xcacheb == x){
         switch (order){
         case NNLO:
         case NLO:
@@ -2498,7 +2498,7 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order)
         }
     }
     
-    swb = sw; xcacheb = x;
+    xcacheb = x;
     
     switch (order){
         case NNLO:
@@ -2535,15 +2535,13 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order)
 
 double StandardModelMatching::setWCbnlepEW(int i, double x) 
 {     
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw * Mw) ) ;
+    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw * Mw) ) ; 
     
     if ( swb == sw && xcacheb == x){
         return (CWbnlepArrayNLOew[i]);
     }
     
-    //FIX THIS!!!!
-    
-    swc = sw; xcachec = x;
+    swb = sw; xcacheb = x;
     
     CWbnlepArrayNLOew[1] = -35./18.;
     CWbnlepArrayNLOew[2] = 2. / (3. * sw * sw) * ( 2. * B0b(x) + C0b(x) );
