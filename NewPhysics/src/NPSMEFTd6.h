@@ -2224,6 +2224,13 @@ public:
      */
     virtual double mummHvv(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{\mu\mu H\mu\mu}@f$ between the @f$\sigma(\mu \mu \to H \mu \mu)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H\mu\mu}@f$
+     */
+    virtual double mummHmm(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{\mu\mu ttH}@f$ between the @f$\sigma(\mu \mu \to t\bar{t} H )}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV

@@ -11699,6 +11699,92 @@ double NPSMEFTd6::mummHvv(const double sqrt_s) const
 
 
 
+double NPSMEFTd6::mummHmm(const double sqrt_s) const
+{
+    
+    //  Only Alpha scheme
+    
+    double mu = 1.0;
+    
+    double C1 = 0.0;
+    
+    if (sqrt_s == 3.0) {
+        
+        C1 = 0.0063;// Use the same as CLIC
+
+        mu += 
+                +120754. * CiHbox / LambdaNP2
+                -42566.4 * CiHD / LambdaNP2
+                +5651.3 * CiHB / LambdaNP2
+                -34526.8 * CiHW / LambdaNP2
+                -77320.9 * CiHWB / LambdaNP2
+                -36523.8 * CiDHB / LambdaNP2
+                -105717. * CiDHW / LambdaNP2
+                -676758. * CiHL1_22 / LambdaNP2
+                +581864. * CiHe_22 / LambdaNP2
+                -1258.06 * CiHL3_11 / LambdaNP2
+                -677145. * CiHL3_22 / LambdaNP2
+                -3.389 * delta_GF
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( +4.494 * deltaMz()
+                -0.253 * deltaMh()
+                -0.397 * deltaaMZ()
+                +3.403 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 10.0) {
+        
+    C1 = 0.0; //NA
+        
+        mu += 
+                +121595. * CiHbox / LambdaNP2
+                -42528.7 * CiHD / LambdaNP2
+                -3306.42 * CiHB / LambdaNP2
+                -26428.1 * CiHW / LambdaNP2
+                -65710.7 * CiHWB / LambdaNP2
+                -55246.2 * CiDHB / LambdaNP2
+                -154926. * CiDHW / LambdaNP2
+                -972321. * CiHL1_22 / LambdaNP2
+                +835352. * CiHe_22 / LambdaNP2
+                -208.826 * CiHL3_11 / LambdaNP2
+                -970869. * CiHL3_22 / LambdaNP2
+                -3.401 * delta_GF
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( +4.603 * deltaMz()
+                -0.147 * deltaMh()
+                -0.394 * deltaaMZ()
+                +3.403 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mummHmm()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    //(Assume similar to WBF.)
+    mu += eeeWBFint + eeeWBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 
 double NPSMEFTd6::mummttH(const double sqrt_s) const
 {

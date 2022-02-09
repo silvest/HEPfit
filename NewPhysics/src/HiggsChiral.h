@@ -521,7 +521,50 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{tHq}@f$
      */
-    virtual double mutHq(const double sqrt_s) const;
+    virtual double mutHq(const double sqrt_s) const;   
+     /**
+     * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H}@f$
+     */
+    virtual double mummH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
+     * production cross-section in the current model and in the Standard Model, 
+     * in the narrow width approximation.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H}@f$
+     */
+    virtual double mummHNWA(const double sqrt_s) const; 
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu ZH}@f$ between the @f$\sigma(\mu \mu \to Z H)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu ZH}@f$
+     */
+    virtual double mummZH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu H\nu\nu}@f$ between the @f$\sigma(\mu \mu \to H \nu \nu)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H\nu\nu}@f$
+     */
+    virtual double mummHvv(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu H\mu\mu}@f$ between the @f$\sigma(\mu \mu \to H \mu \mu)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H\mu\mu}@f$
+     */
+    virtual double mummHmm(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu ttH}@f$ between the @f$\sigma(\mu \mu \to t\bar{t} H )}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu ttH}@f$
+     */
+    virtual double mummttH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH+ttH}@f$ between the sum of gluon-gluon fusion
      * and t-tbar-Higgs associated 
