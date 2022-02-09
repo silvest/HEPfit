@@ -785,6 +785,33 @@ double HiggsKigen::mummHNWA(const double sqrt_s) const
     return mu;
 }
 
+
+double HiggsKigen::mummZH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    mu = (computeKZ() * computeKZ());
+    return (mu*(1.0 + eeeZHint + eeeZHpar));
+}
+
+
+double HiggsKigen::mummHvv(const double sqrt_s) const
+{
+//  In this model we neglect the contributions from HZ->vv with off-shell Z
+//  Dependence is exact if Custodial symmetry option is on
+    double mu = 1.0;
+    mu = (computeKW() * computeKW());
+    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+}
+
+
+double HiggsKigen::mummttH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    mu = (computeKt() * computeKt());
+    return (mu*(1.0 + eeettHint + eeettHpar));
+}
+
+
 double HiggsKigen::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;

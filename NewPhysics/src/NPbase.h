@@ -1085,6 +1085,43 @@ public:
         return 1.0;
     }
     
+    
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu ZH}@f$ between the @f$\sigma(\mu \mu \to Z H)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu ZH}@f$
+     */
+    virtual double mummZH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu H\nu\nu}@f$ between the @f$\sigma(\mu \mu \to H \nu \nu)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H\nu\nu}@f$
+     */
+    virtual double mummHvv(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu ttH}@f$ between the @f$\sigma(\mu \mu \to t\bar{t} H )}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu ttH}@f$
+     */
+    virtual double mummttH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
     /**
      * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
      * in the @f$H,Z\to b\bar{b}@f$ channel in the current model and in the Standard Model.
