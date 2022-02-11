@@ -25996,25 +25996,97 @@ double NPSMEFTd6::AuxObs_NP16() const
 double NPSMEFTd6::AuxObs_NP17() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // Muon Collider WY using difermion production at energy: 3000 GeV
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2Tot;
+
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2Tot = 2250.66 * Wpar2 + 2440.91 * Wpar * Ypar + 1833.38 * Ypar2;
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP18() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // Muon Collider WY using difermion production at energy: 10000 GeV
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2Tot;
+
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2Tot = 278252. * Wpar2 + 268761. * Wpar * Ypar  + 222406. * Ypar2;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP19() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // Muon Collider CB, CW using diboson production at energy: 3000 GeV
+    double CBpar, CWpar, CBpar2, CWpar2;
+    double Chi2Tot;
+
+    CBpar = g1_tree * CDB / LambdaNP2;
+    CWpar = g2_tree * CDW / LambdaNP2;
+    
+    CBpar2 = CBpar*CBpar;
+    CWpar2 = CWpar*CWpar;
+    
+    Chi2Tot = 16353.7 * CBpar2 + 71488.1 * CBpar * CWpar + 88825.5 * CWpar2;
+    
+    if (FlagQuadraticTerms) {
+            
+        Chi2Tot = Chi2Tot + 180317. * CBpar2 * CBpar + 713067. * CBpar2 * CBpar2 + 412966. * CBpar2 * CWpar 
+                - 1.22601*1000000. * CBpar2 * CBpar * CWpar + 39461.7 * CBpar *CWpar2 + 3.68154*1000000. * CBpar2 * CWpar2 
+                + 952190. * CWpar2 * CWpar - 2.32501*1000000. * CBpar * CWpar2 * CWpar + 2.71116*1000000. * CWpar2 * CWpar2;    
+    }
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP20() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // Muon Collider CB, CW using diboson production at energy: 10000 GeV
+    double CBpar, CWpar, CBpar2, CWpar2;
+    double Chi2Tot;
+
+    CBpar = g1_tree * CDB / LambdaNP2;
+    CWpar = g2_tree * CDW / LambdaNP2;
+    
+    CBpar2 = CBpar*CBpar;
+    CWpar2 = CWpar*CWpar;
+    
+    Chi2Tot = 1000000. *(2.34317 * CBpar2 + 9.35455* CBpar * CWpar + 1.01982*10. * CWpar2); 
+    
+    if (FlagQuadraticTerms) {
+            
+        Chi2Tot = Chi2Tot + 100000000. * (2.77515 * CBpar2 * CBpar + 1.06951*100. * CBpar2 * CBpar2 
+                + 5.38407 * CBpar2 * CWpar - 1.49637*100. * CBpar2 * CBpar * CWpar
+                + 1.95735 * CBpar * CWpar2 + 4.90583*100. * CBpar2 * CWpar2
+                + 1.16919*10. * CWpar2 * CWpar - 2.59927*100. * CBpar * CWpar2 * CWpar 
+                + 3.55074*100. * CWpar2 * CWpar2 );
+    }
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
