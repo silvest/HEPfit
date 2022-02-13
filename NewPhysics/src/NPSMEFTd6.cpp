@@ -26041,8 +26041,9 @@ double NPSMEFTd6::AuxObs_NP19() const
     double CBpar, CWpar, CBpar2, CWpar2;
     double Chi2Tot;
 
-    CBpar = g1_tree * CDB / LambdaNP2;
-    CWpar = g2_tree * CDW / LambdaNP2;
+    // Chi square formulae requires WC in units of TeV-2
+    CBpar = 1.0e+06 * g1_tree * CDB / LambdaNP2;
+    CWpar = 1.0e+06 * g2_tree * CDW / LambdaNP2;
     
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
@@ -26052,8 +26053,8 @@ double NPSMEFTd6::AuxObs_NP19() const
     if (FlagQuadraticTerms) {
             
         Chi2Tot = Chi2Tot + 180317. * CBpar2 * CBpar + 713067. * CBpar2 * CBpar2 + 412966. * CBpar2 * CWpar 
-                - 1.22601*1000000. * CBpar2 * CBpar * CWpar + 39461.7 * CBpar *CWpar2 + 3.68154*1000000. * CBpar2 * CWpar2 
-                + 952190. * CWpar2 * CWpar - 2.32501*1000000. * CBpar * CWpar2 * CWpar + 2.71116*1000000. * CWpar2 * CWpar2;    
+                - 1.22601 * 1.0e+06 * CBpar2 * CBpar * CWpar + 39461.7 * CBpar * CWpar2 + 3.68154 * 1.0e+06 * CBpar2 * CWpar2 
+                + 952190. * CWpar2 * CWpar - 2.32501 * 1.0e+06 * CBpar * CWpar2 * CWpar + 2.71116 * 1.0e+06 * CWpar2 * CWpar2;    
     }
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
@@ -26068,8 +26069,9 @@ double NPSMEFTd6::AuxObs_NP20() const
     double CBpar, CWpar, CBpar2, CWpar2;
     double Chi2Tot;
 
-    CBpar = g1_tree * CDB / LambdaNP2;
-    CWpar = g2_tree * CDW / LambdaNP2;
+    // Chi square formulae requires WC in units of TeV-2
+    CBpar = 1.0e+06 * g1_tree * CDB / LambdaNP2;
+    CWpar = 1.0e+06 * g2_tree * CDW / LambdaNP2;
     
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
@@ -26078,11 +26080,11 @@ double NPSMEFTd6::AuxObs_NP20() const
     
     if (FlagQuadraticTerms) {
             
-        Chi2Tot = Chi2Tot + 100000000. * (2.77515 * CBpar2 * CBpar + 1.06951*100. * CBpar2 * CBpar2 
-                + 5.38407 * CBpar2 * CWpar - 1.49637*100. * CBpar2 * CBpar * CWpar
-                + 1.95735 * CBpar * CWpar2 + 4.90583*100. * CBpar2 * CWpar2
-                + 1.16919*10. * CWpar2 * CWpar - 2.59927*100. * CBpar * CWpar2 * CWpar 
-                + 3.55074*100. * CWpar2 * CWpar2 );
+        Chi2Tot = Chi2Tot + 1.0e+08 * (2.77515 * CBpar2 * CBpar + 1.06951 * 100. * CBpar2 * CBpar2 
+                + 5.38407 * CBpar2 * CWpar - 1.49637 * 100. * CBpar2 * CBpar * CWpar
+                + 1.95735 * CBpar * CWpar2 + 4.90583 * 100. * CBpar2 * CWpar2
+                + 1.16919 * 10. * CWpar2 * CWpar - 2.59927 * 100. * CBpar * CWpar2 * CWpar 
+                + 3.55074 * 100. * CWpar2 * CWpar2 );
     }
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
