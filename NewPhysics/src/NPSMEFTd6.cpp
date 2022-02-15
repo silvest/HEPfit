@@ -26042,8 +26042,8 @@ double NPSMEFTd6::AuxObs_NP19() const
     double Chi2Tot;
 
     // Chi square formulae requires WC in units of TeV-2
-    CBpar = 1.0e+06 * g1_tree * CDB / LambdaNP2;
-    CWpar = 1.0e+06 * g2_tree * CDW / LambdaNP2;
+    CBpar = 1.0e+06 * (CDB / g1_tree) / LambdaNP2;
+    CWpar = 1.0e+06 * (CDW / g2_tree) / LambdaNP2;
     
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
@@ -26070,8 +26070,8 @@ double NPSMEFTd6::AuxObs_NP20() const
     double Chi2Tot;
 
     // Chi square formulae requires WC in units of TeV-2
-    CBpar = 1.0e+06 * g1_tree * CDB / LambdaNP2;
-    CWpar = 1.0e+06 * g2_tree * CDW / LambdaNP2;
+    CBpar = 1.0e+06 * (CDB / g1_tree) / LambdaNP2;
+    CWpar = 1.0e+06 * (CDW / g2_tree) / LambdaNP2;
     
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
