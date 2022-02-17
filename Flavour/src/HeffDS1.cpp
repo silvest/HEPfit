@@ -121,8 +121,18 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PPz(double muc, schemes 
                         default:
                             throw std::runtime_error("Error in HeffDS1::ComputeCoeffDS1PPz()");
                     }
+                    DS1ccLO = *coeffds1cc.getCoeff(LO);
+                    DS1ccLO_QED = *coeffds1cc.getCoeff(LO_QED);
+                    DS1ccNLO = *coeffds1cc.getCoeff(NLO);
+                    DS1ccNLO_QED = *coeffds1cc.getCoeff(NLO_QED11);
+                    for (int l = 2; l < 10; l++){ 
+                        DS1ccLO.assign(l, 0.);
+                        DS1ccLO_QED.assign(l, 0.);
+                        DS1ccNLO.assign(l, 0.);
+                        DS1ccNLO_QED.assign(l, 0.);
+                    }
+                    if(mu == model.getMuc()) CharmMatch();
                     if(muc < mu){
-                        CharmMatch();
                         switch (ordDF1) {
                             case NLO:
                                 coeffds1cc.setCoeff(u->Df1Evolnlep(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccNLO +
@@ -142,6 +152,26 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PPz(double muc, schemes 
                             case LO_QED:
                                 coeffds1cc.setCoeff(u->Df1Evolnlep(muc,mu,LO, LO_QED, mcbCC[i].getScheme()) * DS1ccLO +
                                         u->Df1Evolnlep(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO_QED, LO_QED);
+                                break;
+                            default:
+                                throw std::runtime_error("Error in HeffDS1::ComputeCoeffDS1PPz()");
+                        }
+                    }
+                    else{
+                        switch (ordDF1) {
+                            case NLO:
+                                coeffds1cc.setCoeff(DS1ccNLO,NLO);
+                            case LO:
+                                coeffds1cc.setCoeff(DS1ccLO,LO);                            
+                            break;
+                            default:
+                                throw std::runtime_error("Error in HeffDS1::ComputeCoeffDS1PPz()");
+                        }
+                        switch (ordqedDF1) {
+                            case NLO_QED11:
+                                coeffds1cc.setCoeff(DS1ccNLO_QED, NLO_QED11);
+                            case LO_QED:
+                                coeffds1cc.setCoeff(DS1ccLO_QED, LO_QED);
                                 break;
                             default:
                                 throw std::runtime_error("Error in HeffDS1::ComputeCoeffDS1PPz()");
@@ -197,33 +227,19 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1mumu()
 
 void HeffDS1::CharmMatch()
 {
-    DS1ccLO = *coeffds1cc.getCoeff(LO);
-    DS1ccLO_QED = *coeffds1cc.getCoeff(LO_QED);
-    DS1ccNLO = *coeffds1cc.getCoeff(NLO);
-    DS1ccNLO_QED = *coeffds1cc.getCoeff(NLO_QED11);
-
     double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
     double alphaSmuC = model.Als(model.getMuc());
     double logmc2OmuC2 = log(mc * mc / model.getMuc() / model.getMuc());
 
-    DS1ccNLO.assign(0, 0.);
-    DS1ccNLO.assign(1, 0.);
     DS1ccNLO.assign(2, (-alphaSmuC / 24. / M_PI)*(-2. / 3. * (logmc2OmuC2 + 1.) * DS1ccLO(1)));
     DS1ccNLO.assign(3, (alphaSmuC / 8. / M_PI)*(-2. / 3. * (logmc2OmuC2 + 1.) * DS1ccLO(1)));
     DS1ccNLO.assign(4, (-alphaSmuC / 24. / M_PI)*(-2. / 3. * (logmc2OmuC2 + 1.) * DS1ccLO(1)));
     DS1ccNLO.assign(5, (alphaSmuC / 8. / M_PI)*(-2. / 3. * (logmc2OmuC2 + 1.) * DS1ccLO(1)));
-    DS1ccNLO.assign(6, 0.);
-    DS1ccNLO.assign(7, 0.);
-    DS1ccNLO.assign(8, 0.);
-    DS1ccNLO.assign(9, 0.);
 
-    DS1ccNLO_QED.assign(0, 0.);
-    DS1ccNLO_QED.assign(1, 0.);
     DS1ccNLO_QED.assign(2, (-alphaSmuC / 24. / M_PI)*(-2. / 3. * (logmc2OmuC2 + 1.) * DS1ccLO_QED(1)));
     DS1ccNLO_QED.assign(3, (alphaSmuC / 8. / M_PI)*(-2. / 3. * (logmc2OmuC2 + 1.) * DS1ccLO_QED(1)));
     DS1ccNLO_QED.assign(4, (-alphaSmuC / 24. / M_PI)*(-2. / 3. * (logmc2OmuC2 + 1.) * DS1ccLO_QED(1)));
     DS1ccNLO_QED.assign(5, (alphaSmuC / 8. / M_PI)*(-2. / 3. * (logmc2OmuC2 + 1.) * DS1ccLO_QED(1)));
     DS1ccNLO_QED.assign(6, -model.getAle() / 6. / M_PI * 4. / 9. * (logmc2OmuC2 + 1.)*(3. * DS1ccLO(0) + DS1ccLO(1)));
     DS1ccNLO_QED.assign(8, -model.getAle() / 6. / M_PI * 4. / 9. * (logmc2OmuC2 + 1.)*(3. * DS1ccLO(0) + DS1ccLO(1)));
-    DS1ccNLO_QED.assign(9, 0.);
 }
