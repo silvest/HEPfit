@@ -26094,14 +26094,99 @@ double NPSMEFTd6::AuxObs_NP20() const
 double NPSMEFTd6::AuxObs_NP21() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // Muon Collider CH, C6 using diHiggs M_{HH} invariant distribution at energy: 3000 GeV
+    double C6par, CHpar, C6par2, CHpar2;
+    double Chi2Tot;
+
+    // C6 v2, CH v2, in the notation of 2012.11555 as function of the Warsaw WC
+    C6par = (-2 * v2 * CiH / mHl / mHl) * v2_over_LambdaNP2;
+    CHpar = (-2.0 * CiHbox) * v2_over_LambdaNP2;
+    
+    C6par2 = C6par*C6par;
+    CHpar2 = CHpar*CHpar;
+    
+    //Chi2Tot = 0.0; 
+    
+    //if (FlagQuadraticTerms) {
+    
+    //  Full chi square
+            
+        Chi2Tot = (5.127032998959654*pow(1.*C6par2 + C6par*(-0.9046361401291156 - 3.160612259276141*CHpar) + CHpar*(1.4943175205469572 + 3.4987548133070216*CHpar),2))
+                /(0.4665231049459758 - 0.9046361401291156*C6par + 1.*C6par2 + 1.4943175205469572*CHpar - 3.160612259276141*C6par*CHpar + 3.4987548133070216*CHpar2)
+
+                +(3.8240160713265476*pow(1.*C6par2 + C6par*(-0.7068429909035657 - 4.529410356278686*CHpar) + CHpar*(1.6460931966048826 + 6.212867668302641*CHpar),2))
+                /(0.262033783826448 - 0.7068429909035657*C6par + 1.*C6par2 + 1.6460931966048826*CHpar - 4.529410356278686*C6par*CHpar + 6.212867668302641*CHpar2)
+
+                +(0.9569666572585168*pow(1.*C6par2 + C6par*(-0.8811004415807353 - 6.4350041910598765*CHpar) + CHpar*(2.920157858804367 + 9.935394583932345*CHpar),2))
+                /(0.48389118130810876 - 0.8811004415807353*C6par + 1.*C6par2 + 2.920157858804367*CHpar - 6.4350041910598765*C6par*CHpar + 9.935394583932345*CHpar2)
+
+                +(0.5040979907607566*pow(1.*C6par2 + C6par*(-4.0368563913001125 - 2.7217670900218875*CHpar) + CHpar*(5.59639944620888 + 10.367826272055057*CHpar),2))
+                /(10.356262676995112 - 4.0368563913001125*C6par + 1.*C6par2 + 5.59639944620888*CHpar - 2.7217670900218875*C6par*CHpar + 10.367826272055057*CHpar2)
+
+                +(3.460963680000871*pow(1.*C6par2 + C6par*(-1.7371086227288517 - 4.968101131225101*CHpar) + CHpar*(5.029364134904506 + 12.279932043237457*CHpar),2))
+                /(2.6070269148526557 - 1.7371086227288517*C6par + 1.*C6par2 + 5.029364134904506*CHpar - 4.968101131225101*C6par*CHpar + 12.279932043237457*CHpar2)
+
+                +(10.16925886603548*pow(1.*C6par2 + C6par*(-1.2083942566612897 - 17.59578848524835*CHpar) + CHpar*(13.84638209179682 + 146.76790379566108*CHpar),2))
+                /(1.3814785330740036 - 1.2083942566612897*C6par + 1.*C6par2 + 13.84638209179682*CHpar - 17.59578848524835*C6par*CHpar + 146.76790379566108*CHpar2);
+    //}
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 
 }
 
 double NPSMEFTd6::AuxObs_NP22() const
 {
     // To be used for some temporary observable
-    return 0.0;
+
+    // Muon Collider CH, C6 using diHiggs M_{HH} invariant distribution at energy: 10000 GeV
+    double C6par, CHpar, C6par2, CHpar2;
+    double Chi2Tot;
+
+    // C6 v2, CH v2, in the notation of 2012.11555 as function of the Warsaw WC
+    C6par = (-2 * v2 * CiH / mHl / mHl) * v2_over_LambdaNP2;
+    CHpar = (-2.0 * CiHbox) * v2_over_LambdaNP2;
+    
+    C6par2 = C6par*C6par;
+    CHpar2 = CHpar*CHpar;
+    
+    //Chi2Tot = 0.0; 
+    
+    //if (FlagQuadraticTerms) {
+    
+    //  Full chi square
+            
+        Chi2Tot = (571.4871835024893*pow(1.*C6par2 + C6par*(-0.9787185826575221 - 5.193831432488647*CHpar) + CHpar*(3.0674615767955578 + 10.591622934621405*CHpar),2))
+                /(0.8501719090063755 - 0.9787185826575221*C6par + 1.*C6par2 + 3.0674615767955578*CHpar - 5.193831432488647*C6par*CHpar + 10.591622934621405*CHpar2)
+
+                +(1.511128114971615*pow(1.*C6par2 + C6par*(-1.2911703709918352 - 9.439077589411124*CHpar) + CHpar*(7.742006029582707 + 24.15741462072724*CHpar),2))
+                /(1.0820876087868914 - 1.2911703709918352*C6par + 1.*C6par2 + 7.742006029582707*CHpar - 9.439077589411124*C6par*CHpar + 24.15741462072724*CHpar2)
+
+                +(17.415132210246643*pow(1.*C6par2 + C6par*(-0.9426311765101452 - 12.02751732743764*CHpar) + CHpar*(6.014890971256063 + 42.84032267422174*CHpar),2))
+                /(0.6631618979282716 - 0.9426311765101452*C6par + 1.*C6par2 + 6.014890971256063*CHpar - 12.02751732743764*C6par*CHpar + 42.84032267422174*CHpar2)
+
+                +(6.944583304323103*pow(1.*C6par2 + C6par*(-5.605076514786612 - 13.252038744875035*CHpar) + CHpar*(48.34152435283824 + 121.88758552653347*CHpar),2))
+                /(25.260881616043218 - 5.605076514786612*C6par + 1.*C6par2 + 48.34152435283824*CHpar - 13.252038744875035*C6par*CHpar + 121.88758552653347*CHpar2)
+
+                +(46.448610091340626*pow(1.*C6par2 + C6par*(-1.2424251681131542 - 29.069979810624*CHpar) + CHpar*(20.05311500484323 + 244.02853953273825*CHpar),2))
+                /(1.021577814150124 - 1.2424251681131542*C6par + 1.*C6par2 + 20.05311500484323*CHpar - 29.069979810624*C6par*CHpar + 244.02853953273825*CHpar2)
+
+                +(0.5697696171204448*pow(1.*C6par2 + C6par*(-1.618811231931265 - 48.52495426623116*CHpar) + CHpar*(33.85929443804542 + 548.5965053951562*CHpar),2))
+                /(2.3283968809253617 - 1.618811231931265*C6par + 1.*C6par2 + 33.85929443804542*CHpar - 48.52495426623116*C6par*CHpar + 548.5965053951562*CHpar2)
+
+                +(0.16515061365809997*pow(1.*C6par2 + C6par*(-8.53845097380669 - 36.0850764145878*CHpar) + CHpar*(264.5920285845332 + 746.011160256333*CHpar),2))
+                /(102.43592556954773 - 8.53845097380669*C6par + 1.*C6par2 + 264.5920285845332*CHpar - 36.0850764145878*C6par*CHpar + 746.011160256333*CHpar2)
+
+                +(2.956195984479989*pow(1.*C6par2 + C6par*(-3.780066837776757 - 72.47419413608488*CHpar) + CHpar*(176.93458387556797 + 1683.271612372297*CHpar),2))
+                /(10.551295181010284 - 3.780066837776757*C6par + 1.*C6par2 + 176.93458387556797*CHpar - 72.47419413608488*C6par*CHpar + 1683.271612372297*CHpar2)
+
+                +(17.483420030138998*pow(1.*C6par2 + C6par*(-1.6021946315041684 - 148.43576718278595*CHpar) + CHpar*(140.6006415722798 + 10716.660108216498*CHpar),2))
+                /(1.8226825772967126 - 1.6021946315041684*C6par + 1.*C6par2 + 140.6006415722798*CHpar - 148.43576718278595*C6par*CHpar + 10716.660108216498*CHpar2);
+    //}
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 
 }
 
