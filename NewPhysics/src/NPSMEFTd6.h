@@ -6352,6 +6352,68 @@ public:
      */
     virtual double AuxObs_NP20() const;
     
+    /**
+     * @brief Auxiliary observable AuxObs_NP21
+     * (See code for details.)
+     * @return AuxObs_NP21
+     */
+    virtual double AuxObs_NP21() const;
+        
+    /**
+     * @brief Auxiliary observable AuxObs_NP22
+     * (See code for details.)
+     * @return AuxObs_NP22
+     */
+    virtual double AuxObs_NP22() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP23
+     * @return AuxObs_NP23
+     */
+    virtual double AuxObs_NP23() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP24
+     * @return AuxObs_NP24
+     */
+    virtual double AuxObs_NP24() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP25
+     * @return AuxObs_NP25
+     */
+    virtual double AuxObs_NP25() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP26
+     * @return AuxObs_NP26
+     */
+    virtual double AuxObs_NP26() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP27
+     * @return AuxObs_NP27
+     */
+    virtual double AuxObs_NP27() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP28
+     * @return AuxObs_NP28
+     */
+    virtual double AuxObs_NP28() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP29
+     * @return AuxObs_NP29
+     */
+    virtual double AuxObs_NP29() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP30
+     * @return AuxObs_NP20
+     */
+    virtual double AuxObs_NP30() const;
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 

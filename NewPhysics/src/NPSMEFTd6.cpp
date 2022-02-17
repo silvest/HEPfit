@@ -26091,6 +26091,76 @@ double NPSMEFTd6::AuxObs_NP20() const
     return sqrt(Chi2Tot);
 }
 
+double NPSMEFTd6::AuxObs_NP21() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP22() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP23() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP24() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP25() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP26() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP27() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP28() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP29() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP30() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 double NPSMEFTd6::CLL_mu() const

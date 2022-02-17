@@ -619,6 +619,16 @@ ThObsFactory::ThObsFactory()
     obsThFactory["AuxObsNP18"] = boost::factory<AuxObsNP18*>();
     obsThFactory["AuxObsNP19"] = boost::factory<AuxObsNP19*>();
     obsThFactory["AuxObsNP20"] = boost::factory<AuxObsNP20*>();
+    obsThFactory["AuxObsNP21"] = boost::factory<AuxObsNP21*>();
+    obsThFactory["AuxObsNP22"] = boost::factory<AuxObsNP22*>();
+    obsThFactory["AuxObsNP23"] = boost::factory<AuxObsNP23*>();
+    obsThFactory["AuxObsNP24"] = boost::factory<AuxObsNP24*>();
+    obsThFactory["AuxObsNP25"] = boost::factory<AuxObsNP25*>();
+    obsThFactory["AuxObsNP26"] = boost::factory<AuxObsNP26*>();
+    obsThFactory["AuxObsNP27"] = boost::factory<AuxObsNP27*>();
+    obsThFactory["AuxObsNP28"] = boost::factory<AuxObsNP28*>();
+    obsThFactory["AuxObsNP29"] = boost::factory<AuxObsNP29*>();
+    obsThFactory["AuxObsNP30"] = boost::factory<AuxObsNP30*>();
 
     //-----  Higgs observables  ----------
 
