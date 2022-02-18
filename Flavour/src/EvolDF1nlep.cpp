@@ -13,8 +13,9 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, order
 gs(dim_i, 0.), Js(dim_i, 0.), ge0(dim_i, 0.), K0(dim_i, 0.), ge11(dim_i, 0.), K11(dim_i, 0.),
 JsK0V(dim_i, 0.), ViK0Js(dim_i, 0.), Gamma_s0T(dim_i, 0.), Gamma_s1T(dim_i, 0.),
 Gamma_eT(dim_i, 0.), Gamma_seT(dim_i, 0.), JsV(dim_i, 0.), ViJs(dim_i, 0.), K0V(dim_i, 0.),
-ViK0(dim_i, 0.), K11V(dim_i, 0.), ViK11(dim_i, 0.), ge11sing(dim_i, 0.), K11sing(dim_i, 0.),
-K11singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
+ViK0(dim_i, 0.), ge0sing(dim_i, 0.), K0sing(dim_i, 0.), K0singV(dim_i, 0.), K11V(dim_i, 0.), 
+ViK11(dim_i, 0.), ge11sing(dim_i, 0.), K11sing(dim_i, 0.),K11singV(dim_i, 0.), 
+JsK0singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
 {
 
     int nu = 0, nd = 0;
@@ -71,7 +72,7 @@ K11singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
 
         /*magic numbers related to Js*/
         JsV = Js*V;
-        ViJs = Vi * Js;
+        ViJs = Vi*Js;
         for (unsigned int i = 0; i < dim; i++) {
             for (unsigned int j = 0; j < dim; j++) {
                 for (unsigned int k = 0; k < dim; k++) {
@@ -84,19 +85,27 @@ K11singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
         ge0 = (1. / 2. / b0) * Vi * Gamma_eT * V;
         for (unsigned int i = 0; i < dim; i++) {
             for (unsigned int j = 0; j < dim; j++) {
-                ge0.assign(i, j, ge0(i, j) / (1. - a[L][i] + a[L][j]));
+                if (fabs(a[L][j] + 1. - a[L][i]) > 0.00000000001) {
+                    ge0.assign(i, j, ge0(i, j) / (1. - a[L][i] + a[L][j]));
+                } else {
+                    ge0sing.assign(i, j, ge0(i, j) / 2. / b0);
+                    ge0.assign(i, j, 0.);
+                }
             }
         }
         K0 = V * ge0 * Vi;
+        K0sing = V * ge0sing * Vi;
 
         /*magic numbers related to K0*/
         K0V = K0*V;
         ViK0 = Vi * K0;
+        K0singV = K0sing*V;
         for (unsigned int i = 0; i < dim; i++) {
             for (unsigned int j = 0; j < dim; j++) {
                 for (unsigned int k = 0; k < dim; k++) {
                     m[L][i][j][k] = K0V(i, k).real() * Vi(k, j).real();
                     n[L][i][j][k] = -V(i, k).real() * ViK0(k, j).real();
+                    mn[L][i][j][k] = K0singV(i, k).real() * Vi(k, j).real();
                 }
             }
         }
@@ -120,14 +129,12 @@ K11singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
         K11V = K11 * V;
         ViK11 = Vi * K11;
         K11singV = K11sing * V;
-        if (L == 1) {
-        }
         for (unsigned int i = 0; i < dim; i++) {
             for (unsigned int j = 0; j < dim; j++) {
                 for (unsigned int k = 0; k < dim; k++) {
                     o[L][i][j][k] = K11V(i, k).real() * Vi(k, j).real();
                     p[L][i][j][k] = -V(i, k).real() * ViK11(k, j).real();
-                    u[L][i][j][k] = K11singV(i, k).real() * Vi(k, j).real();
+                    op[L][i][j][k] = K11singV(i, k).real() * Vi(k, j).real();
                 }
             }
         }
@@ -135,6 +142,7 @@ K11singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
         /*magic numbers related to K12 and K13*/
         JsK0V = Js * K0 * V;
         ViK0Js = Vi * K0 * Js;
+        JsK0singV = Js * K0sing * V;
         for (unsigned int i = 0; i < dim; i++) {
             for (unsigned int j = 0; j < dim; j++) {
                 for (unsigned int k = 0; k < dim; k++) {
@@ -142,6 +150,8 @@ K11singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
                     r[L][i][j][k] = V(i, k).real() * ViK0Js(k, j).real();
                     s[L][i][j][k] = -JsV(i, k).real() * ViK0(k, j).real();
                     t[L][i][j][k] = -K0V(i, k).real() * ViJs(k, j).real();
+                    qq[L][i][j][k] = JsK0singV(i, k).real() * Vi(k, j).real();
+                    rr[L][i][j][k] = -K0singV(i, k).real() * ViJs(k, j).real();
                 }
             }
         }
@@ -271,7 +281,7 @@ gslpp::matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsig
             gammaDF1(6, 6) = 71. / 3. - 22. / 9. * nf;
             gammaDF1(6, 7) = -99. + 22. / 3. * nf;
 
-            gammaDF1(7, 2) = -682. / 243 * (n_u - n_d / 2.);
+            gammaDF1(7, 2) = -682. / 243. * (n_u - n_d / 2.);
             gammaDF1(7, 3) = 106. / 81. * (n_u - n_d / 2.);
             gammaDF1(7, 4) = 704. / 243. * (n_u - n_d / 2.);
             gammaDF1(7, 5) = 736. / 81. * (n_u - n_d / 2.);
@@ -660,18 +670,35 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme)
 
                 resLO_ew(i, j) += m[L][i][j][k] * etap * ale / alsmu;
                 resLO_ew(i, j) += n[L][i][j][k] * etap * ale / alsM;
+                resLO_ew(i, j) += mn[L][i][j][k] * etap * ale / alsM * log(eta);
 
                 resNLO_QED(i, j) += o[L][i][j][k] * etap * ale;
                 resNLO_QED(i, j) += p[L][i][j][k] * etap * ale;
-                resNLO_QED(i, j) += u[L][i][j][k] * etap * ale * log(eta);
+                resNLO_QED(i, j) += op[L][i][j][k] * etap * ale * log(eta);
 
                 resNLO_QED(i, j) += q[L][i][j][k] * etap * ale;
                 resNLO_QED(i, j) += r[L][i][j][k] * etap * ale;
                 resNLO_QED(i, j) += s[L][i][j][k] * etap * ale / eta;
                 resNLO_QED(i, j) += t[L][i][j][k] * etap * ale * eta;
+                resNLO_QED(i, j) += qq[L][i][j][k] * etap * ale * log(eta);
+                resNLO_QED(i, j) += rr[L][i][j][k] * etap * ale * log(eta);
+                
+                // unreasonable large entries: this fixes the issue, weird numerical instability needs investigation
+                if(L==3){
+                    if((i==6) and (j==6)){
+                    resNLO_QED(i, j) -= op[L][i][j][k] * etap * ale * log(eta);
+                    resNLO_QED(i, j) -= qq[L][i][j][k] * etap * ale * log(eta);
+                    resNLO_QED(i, j) -= rr[L][i][j][k] * etap * ale * log(eta);
+                    }
+                    if((i==7) and ((j==6) or (j==7))){
+                    resNLO_QED(i, j) -= op[L][i][j][k] * etap * ale * log(eta);
+                    resNLO_QED(i, j) -= qq[L][i][j][k] * etap * ale * log(eta);
+                    resNLO_QED(i, j) -= rr[L][i][j][k] * etap * ale * log(eta);
+                    }
+                }
             }
         }
-    } 
+    }
     
     switch (order_qed) {
         case NLO_QED11:
