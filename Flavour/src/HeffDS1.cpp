@@ -15,7 +15,7 @@ HeffDS1::HeffDS1(const StandardModel & SM)
 coeffds1(10, NDR, NLO, NLO_QED11), coeffds1cc(10, NDR, NLO, NLO_QED11),
 coeffds1pnunu(1, NDR, NLO, NLO_QED11), coeffds1mumu(1, NDR, NLO),
 u(new EvolDF1nlep(10, NDR, NLO, NLO_QED11, SM)), uM(new EvolDB1Mll(13, NDR, NLO, SM)),
-DS1ccLO(10, 0.),DS1ccNLO(10, 0.),DS1ccLO_QED(10, 0.),DS1ccNLO_QED(10, 0.)
+DS1ccLO(10, 0.),DS1ccLO_QED(10, 0.),DS1ccNLO(10, 0.),DS1ccNLO_QED(10, 0.)
 {
 }
 
