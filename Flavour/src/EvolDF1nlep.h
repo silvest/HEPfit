@@ -65,6 +65,8 @@ class EvolDF1nlep : public RGEvolutor {
      * @return the evolutor \f$ U (\mu , M) \f$
      */
     gslpp::matrix<double>& Df1Evolnlep(double mu, double M, orders order, orders_qed order_qed, schemes scheme = NDR);
+    // evolutor involving only 3 flavors and allowing mu > M regardless thresholds
+    gslpp::matrix<double>& Df1Evolnlep3flav(double mu, double M, orders order, orders_qed order_qed, schemes scheme = NDR);
     /**
      * @brief a method returning the matrix threshold for the QCD penguins at the NLO
      * @param nf a double for the active number of flavors

@@ -756,3 +756,45 @@ void EvolDF1nlep::Df1threshold_nlep(double M, double nf)
 
 
 }
+
+gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep3flav(double mu, double M, orders order, orders_qed order_qed, schemes scheme)
+{
+    switch (scheme) {
+        case NDR:
+            break;
+        case LRI:
+        case HV:
+        default:
+            std::stringstream out;
+            out << scheme;
+            throw std::runtime_error("EvolDF1nlep::Df1Evolnlep_EM(): scheme " + out.str()
+                    + " not implemented ");
+    }
+    
+    double alsMZ = model.getAlsMz();
+    double Mz = model.getMz();
+    double Ale = model.getAle();
+    if (alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache) {
+        if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
+            return (*Evol(order));
+
+        if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NLO_QED11)
+            return (*Evol(order_qed));
+    }
+    
+    alsMZ_cache = alsMZ;
+    Mz_cache = Mz;
+    Ale_cache = Ale;
+
+    setScales(mu, M); // also assign evol to identity
+
+    Df1Evolnlep(mu, M, 3, scheme);
+
+    if (order_qed != NO_QED) {
+        return (*Evol(order_qed));
+    }
+    else {
+        return (*Evol(order));
+    }
+
+}

@@ -79,13 +79,16 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PPz(double muc, schemes 
     const std::vector<WilsonCoefficient>& mcbCC = model.getMatching().CMKCC();
     coeffds1cc.setMu(muc);
     double mu = 0.;
+    /*
     if(muc < model.getMuc()){
         mu = model.getMuc();
     }
     else{
         mu = muc;
-    }
-
+    }*/
+    // here below assuming a theory of 3 flavours even above muc in light of current lattice results
+    mu = model.getMuc();
+    
     orders ordDF1 = coeffds1cc.getOrder();
     orders_qed ordqedDF1 = coeffds1cc.getOrder_qed();
 
@@ -132,26 +135,27 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PPz(double muc, schemes 
                         DS1ccNLO_QED.assign(l, 0.);
                     }
                     if(mu == model.getMuc()) CharmMatch();
-                    if(muc < mu){
+                    // if(muc < mu){
+                    if(muc != mu){
                         switch (ordDF1) {
                             case NLO:
-                                coeffds1cc.setCoeff(u->Df1Evolnlep(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccNLO +
+                                coeffds1cc.setCoeff(u->Df1Evolnlep3flav(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccNLO +
                                         u->Df1Evolnlep(muc,mu,NLO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO,NLO);
                             case LO:
-                                coeffds1cc.setCoeff(u->Df1Evolnlep(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO,LO);                            
+                                coeffds1cc.setCoeff(u->Df1Evolnlep3flav(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO,LO);                            
                             break;
                             default:
                                 throw std::runtime_error("Error in HeffDS1::ComputeCoeffDS1PPz()");
                         }
                         switch (ordqedDF1) {
                             case NLO_QED11:
-                                coeffds1cc.setCoeff(u->Df1Evolnlep(muc,mu,LO, LO_QED, mcbCC[i].getScheme()) * DS1ccNLO +
-                                        u->Df1Evolnlep(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccNLO_QED +
-                                        u->Df1Evolnlep(muc,mu,LO, NLO_QED11, mcbCC[i].getScheme()) * DS1ccLO +
-                                        u->Df1Evolnlep(muc,mu,NLO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO_QED, NLO_QED11);
+                                coeffds1cc.setCoeff(u->Df1Evolnlep3flav(muc,mu,LO, LO_QED, mcbCC[i].getScheme()) * DS1ccNLO +
+                                        u->Df1Evolnlep3flav(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccNLO_QED +
+                                        u->Df1Evolnlep3flav(muc,mu,LO, NLO_QED11, mcbCC[i].getScheme()) * DS1ccLO +
+                                        u->Df1Evolnlep3flav(muc,mu,NLO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO_QED, NLO_QED11);
                             case LO_QED:
-                                coeffds1cc.setCoeff(u->Df1Evolnlep(muc,mu,LO, LO_QED, mcbCC[i].getScheme()) * DS1ccLO +
-                                        u->Df1Evolnlep(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO_QED, LO_QED);
+                                coeffds1cc.setCoeff(u->Df1Evolnlep3flav(muc,mu,LO, LO_QED, mcbCC[i].getScheme()) * DS1ccLO +
+                                        u->Df1Evolnlep3flav(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO_QED, LO_QED);
                                 break;
                             default:
                                 throw std::runtime_error("Error in HeffDS1::ComputeCoeffDS1PPz()");
