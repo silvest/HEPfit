@@ -142,7 +142,6 @@
         </cTool>
         <ccTool>
           <developmentMode>6</developmentMode>
-          <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../EW/src</pElem>
@@ -164,7 +163,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -std=c++11</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
