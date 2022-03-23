@@ -1061,7 +1061,7 @@ std::string MonteCarloEngine::computeStatistics() {
                     double interval_heignt = v[i].intervals[j].relative_height;
                     double interval_relative_mass = v[i].intervals[j].relative_mass;
                     StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
-                            << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
+                            << ") corresponding to " << (interval_xmin + interval_xmax)/2. << " +- " << (-interval_xmin + interval_xmax)/2./(i+1) << " (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
                             << std::setprecision(getPrecision(interval_heignt, ss_prec)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, ss_prec)) << interval_relative_mass << ")"
                             << std::endl;
                     StatsLog << std::endl;
@@ -1172,9 +1172,29 @@ std::string MonteCarloEngine::computeStatistics() {
                 }
             } else StatsLog << " The covariance matrix cannot be inverted.\n" << std::endl;
             StatsLog << std::endl;
+            
+            StatsLog << "\nThe correlation matrix for " << it1->getName() << " in Latex form:\n" << std::endl;
+
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << " " << " & ";
+                else if (i < size) StatsLog << "$" << it1->getObs(i-1).getLabel() << "$" << " & ";
+                else StatsLog << it1->getObs(i-1).getLabel() << " \\\\ \\hline";
+            }
+            StatsLog << std::endl;
+
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size + 1; j++) {
+                    if (j == 0) StatsLog << "$" << it1->getObs(i).getLabel() << "$ & ";
+                    else if (j < size) StatsLog << std::setprecision(5) << (*corr)(i, j - 1) << " & ";
+                    else StatsLog << std::setprecision(5) << (*corr)(i, j - 1) << " \\\\ ";
+                }
+            StatsLog << std::endl;
+            }
+            StatsLog << "\\hline" << std::endl;
+
         }
     }
-    
+
     setDParsFromParameters(mode,DPars);
     Mod->Update(DPars);
     
