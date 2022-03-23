@@ -36,8 +36,18 @@ gslpp::complex AmpDS1::AmpDS1pp0(orders order)
         
     gslpp::vector<gslpp::complex> allcoeffzLO = (*allcoeffz[LO]) + (*allcoeffz[LO_QED]);
     gslpp::vector<gslpp::complex> allcoeffzNLO = (*allcoeffz[NLO]) + (*allcoeffz[NLO_QED11]);
-    gslpp::vector<gslpp::complex> allcoeffyLO = (*allcoeffv[LO]) + (*allcoeffv[LO_QED]) - (*allcoeffz[LO]) - (*allcoeffz[LO_QED]);
-    gslpp::vector<gslpp::complex> allcoeffyNLO = (*allcoeffv[NLO]) + (*allcoeffv[NLO_QED11]) - (*allcoeffz[NLO]) - (*allcoeffz[NLO_QED11]);
+    gslpp::vector<gslpp::complex> allcoeffyLO = (*allcoeffv[LO]) + (*allcoeffv[LO_QED]);
+    gslpp::vector<gslpp::complex> allcoeffyNLO = (*allcoeffv[NLO]) + (*allcoeffv[NLO_QED11]);
+    for(int i = 0; i<2; i++){
+        allcoeffzLO.assign(i,allcoeffyLO(i));
+        allcoeffzNLO.assign(i,allcoeffyNLO(i));
+        allcoeffyLO.assign(i,0.);
+        allcoeffyNLO.assign(i,0.);
+    }
+    for(int i = 2; i<10; i++){
+        allcoeffyLO.assign(i,allcoeffyLO(i)-allcoeffzLO(i));
+        allcoeffyNLO.assign(i,allcoeffyNLO(i)-allcoeffzNLO(i));   
+    }
     
     gslpp::vector<double> meBKd1(mySM.getBKd1().getBpars());
 

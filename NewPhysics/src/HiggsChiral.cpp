@@ -311,6 +311,67 @@ double HiggsChiral::mueettHPol(const double sqrt_s, const double Pol_em, const d
     return computect() * computect();
 }
 
+
+double HiggsChiral::mummH(const double sqrt_s) const
+{
+    double mu = 1.0;
+//    mu = (computecmu() * computecmu());
+    
+    if (sqrt_s == 0.125) {
+        
+//  Peak production cross section mu mu -> H -> X = 4 pi/mH^2 * BR(H->mu mu) * BR(H-> X)
+//  Use mu mu -> H = 4 pi/mH^2 * BR(H->mu mu), so the xs BR formulae still applies
+        mu = BrHmumuRatio();
+        
+    } else
+        throw std::runtime_error("Bad argument in HiggsChiral::mummH()");  
+    
+    return mu;
+}
+
+double HiggsChiral::mummHNWA(const double sqrt_s) const
+{
+    double mu = 1.0;
+    mu = (computecmu() * computecmu());
+    
+    return mu;
+}
+
+
+double HiggsChiral::mummZH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    mu = (computecV() * computecV());
+    return mu;
+}
+
+
+double HiggsChiral::mummHvv(const double sqrt_s) const
+{
+//  In this model we neglect the contributions from HZ->vv with off-shell Z
+//  Dependence is exact if Custodial symmetry option is on
+    double mu = 1.0;
+    mu = (computecV() * computecV());
+    return mu;
+}
+
+
+double HiggsChiral::mummHmm(const double sqrt_s) const
+{
+    double mu = 1.0;
+    mu = (computecV() * computecV());
+    return mu;
+}
+
+
+double HiggsChiral::mummttH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    mu = (computect() * computect());
+    return mu;
+}
+
+
 double HiggsChiral::UpperLimitZgammaA13(const double sqrt_s) const
 {
     double sigmaggH_SM = trueSM.computeSigmaggH(sqrt_s);

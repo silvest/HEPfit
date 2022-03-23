@@ -11517,7 +11517,374 @@ double NPSMEFTd6::mummHNWA(const double sqrt_s) const
     return mu;
 }
 
-    ////////////HIGGS DECAY WIDTHS AND BRANCHING RATIOS/////////////
+
+
+double NPSMEFTd6::mummZH(const double sqrt_s) const
+{
+    
+    // Only Alpha scheme
+    
+    double mu = 1.0;
+    
+    double C1 = 0.0;
+
+    if (sqrt_s == 3.0) {
+        
+        C1 = -0.00054;// Use the same as CLIC
+
+        mu += 
+                +120311. * CiHbox / LambdaNP2
+                -5772.03 * CiHD / LambdaNP2
+                +253308. * CiHB / LambdaNP2
+                +1178831. * CiHW / LambdaNP2
+                +526388. * CiHWB / LambdaNP2
+                +8753562. * CiDHB / LambdaNP2
+                +22389067. * CiDHW / LambdaNP2
+                +139222448. * CiHL1_22 / LambdaNP2
+                -119515557. * CiHe_22 / LambdaNP2
+                +0. * CiHL3_11 / LambdaNP2
+                +139217069. * CiHL3_22 / LambdaNP2
+                -2.19 * delta_GF
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( +4.384 * deltaMz()
+                -0.009 * deltaMh()
+                -0.198 * deltaaMZ()
+                +2.199 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 10.0) {
+        
+        C1 = 0.0;// NA
+        
+        mu += 
+                +110705. * CiHbox / LambdaNP2
+                -2881.46 * CiHD / LambdaNP2
+                +234510. * CiHB / LambdaNP2
+                +1090997. * CiHW / LambdaNP2
+                +487384. * CiHWB / LambdaNP2
+                +90542251. * CiDHB / LambdaNP2
+                +230979695. * CiDHW / LambdaNP2
+                +1423231114. * CiHL1_22 / LambdaNP2
+                -1221737534. * CiHe_22 / LambdaNP2
+                +74.649 * CiHL3_11 / LambdaNP2
+                +1423208868. * CiHL3_22 / LambdaNP2
+                -2.096 * delta_GF
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( +4.016 * deltaMz()
+                +0. * deltaMh()
+                -0.182 * deltaaMZ()
+                +2.183 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mummZH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeZHint + eeeZHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
+
+double NPSMEFTd6::mummHvv(const double sqrt_s) const
+{
+    
+    //  Only Alpha scheme
+    
+    double mu = 1.0;
+    
+    double C1 = 0.0;
+    
+//  For the Higgs trilinear dependence assume the WBF mechanism dominates
+    
+    if (sqrt_s == 3.0) {
+        
+        C1 = 0.0057;// Use the same as CLIC
+
+        mu += 
+                +120415. * CiHbox / LambdaNP2
+                -204193. * CiHD / LambdaNP2
+                +584.639 * CiHB / LambdaNP2
+                -40740.1 * CiHW / LambdaNP2
+                -380159. * CiHWB / LambdaNP2
+                +96.414 * CiDHB / LambdaNP2
+                -104066. * CiDHW / LambdaNP2
+                -518.996 * CiHL1_22 / LambdaNP2
+                -1015.43 * CiHe_22 / LambdaNP2
+                -1128.25 * CiHL3_11 / LambdaNP2
+                -678627. * CiHL3_22 / LambdaNP2
+                -4.701 * delta_GF
+                -4.244 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +5.314 * deltaMz()
+                -0.277 * deltaMh()
+                -0.795 * deltaaMZ()
+                +3.787 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 10.0) {
+        
+        C1 = 0.0;// NA
+        
+        mu += 
+                +120660. * CiHbox / LambdaNP2
+                -204535. * CiHD / LambdaNP2
+                -38.696 * CiHB / LambdaNP2
+                -27111.7 * CiHW / LambdaNP2
+                -380108. * CiHWB / LambdaNP2
+                -85.858 * CiDHB / LambdaNP2
+                -151122. * CiDHW / LambdaNP2
+                +296.269 * CiHL1_22 / LambdaNP2
+                -613.096 * CiHe_22 / LambdaNP2
+                -1584.13 * CiHL3_11 / LambdaNP2
+                -952573. * CiHL3_22 / LambdaNP2
+                -4.696 * delta_GF
+                -4.223 * deltaMwd6()
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( 
+                +5.49 * deltaMz()
+                -0.177 * deltaMh()
+                -0.821 * deltaaMZ()
+                +3.804 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mummHvv()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeWBFint + eeeWBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
+
+double NPSMEFTd6::mummHmm(const double sqrt_s) const
+{
+    
+    //  Only Alpha scheme
+    
+    double mu = 1.0;
+    
+    double C1 = 0.0;
+    
+    if (sqrt_s == 3.0) {
+        
+        C1 = 0.0063;// Use the same as CLIC
+
+        mu += 
+                +120754. * CiHbox / LambdaNP2
+                -42566.4 * CiHD / LambdaNP2
+                +5651.3 * CiHB / LambdaNP2
+                -34526.8 * CiHW / LambdaNP2
+                -77320.9 * CiHWB / LambdaNP2
+                -36523.8 * CiDHB / LambdaNP2
+                -105717. * CiDHW / LambdaNP2
+                -676758. * CiHL1_22 / LambdaNP2
+                +581864. * CiHe_22 / LambdaNP2
+                -1258.06 * CiHL3_11 / LambdaNP2
+                -677145. * CiHL3_22 / LambdaNP2
+                -3.389 * delta_GF
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( +4.494 * deltaMz()
+                -0.253 * deltaMh()
+                -0.397 * deltaaMZ()
+                +3.403 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 10.0) {
+        
+    C1 = 0.0; //NA
+        
+        mu += 
+                +121595. * CiHbox / LambdaNP2
+                -42528.7 * CiHD / LambdaNP2
+                -3306.42 * CiHB / LambdaNP2
+                -26428.1 * CiHW / LambdaNP2
+                -65710.7 * CiHWB / LambdaNP2
+                -55246.2 * CiDHB / LambdaNP2
+                -154926. * CiDHW / LambdaNP2
+                -972321. * CiHL1_22 / LambdaNP2
+                +835352. * CiHe_22 / LambdaNP2
+                -208.826 * CiHL3_11 / LambdaNP2
+                -970869. * CiHL3_22 / LambdaNP2
+                -3.401 * delta_GF
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( +4.603 * deltaMz()
+                -0.147 * deltaMh()
+                -0.394 * deltaaMZ()
+                +3.403 * deltaGmu() );
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mummHmm()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    //(Assume similar to WBF.)
+    mu += eeeWBFint + eeeWBFpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
+double NPSMEFTd6::mummttH(const double sqrt_s) const
+{
+    
+    // Only Alpha scheme
+    
+    double mu = 1.0;
+    
+    double C1 = 0.0;
+    
+    if (sqrt_s == 3.0) {
+        
+        C1 = 0.0037;// Use the same as CLIC
+
+        mu += 
+                +121703. * CiHbox / LambdaNP2
+                -105827. * CiuH_33r / LambdaNP2
+                -60143.2 * CiHD / LambdaNP2
+                +696642. * CiHB / LambdaNP2
+                +749580. * CiHW / LambdaNP2
+                -625570. * CiHWB / LambdaNP2
+                +1203584. * CiDHB / LambdaNP2
+                +3110823. * CiDHW / LambdaNP2
+                +8600327. * CiuW_33r / LambdaNP2
+                +10933756. * CiuB_33r / LambdaNP2
+                +19536100. * CiHL1_22 / LambdaNP2
+                -16360523. * CiHe_22 / LambdaNP2
+                +22577.7 * CiHu_33 / LambdaNP2
+                -120.094 * CiHL3_11 / LambdaNP2
+                +19529711. * CiHL3_22 / LambdaNP2
+                -2.244 * delta_GF
+                +4.309 * -0.5 * (CiHQ1_33 - CiHQ3_33) * v2_over_LambdaNP2
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( +2.486 * deltaMz()
+                -0.594 * deltaMh()
+                +0.777 * deltaaMZ()
+                +2.227 * deltaGmu()
+                +2.183 * deltamt() );
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else if (sqrt_s == 10.0) {
+        
+        C1 = 0.0037;//NA
+        
+        mu += 
+                +121697. * CiHbox / LambdaNP2
+                -99433. * CiuH_33r / LambdaNP2
+                -59412.6 * CiHD / LambdaNP2
+                +977027. * CiHB / LambdaNP2
+                +1069899. * CiHW / LambdaNP2
+                -816019. * CiHWB / LambdaNP2
+                +19093781. * CiDHB / LambdaNP2
+                +48703755. * CiDHW / LambdaNP2
+                +48598343. * CiuW_33r / LambdaNP2
+                +62025699. * CiuB_33r / LambdaNP2
+                +300770201. * CiHL1_22 / LambdaNP2
+                -257079386. * CiHe_22 / LambdaNP2
+                +37385. * CiHu_33 / LambdaNP2
+                -36.349 * CiHL3_11 / LambdaNP2
+                +299984515. * CiHL3_22 / LambdaNP2
+                -2.329 * delta_GF
+                +5.129 * -0.5 * (CiHQ1_33 - CiHQ3_33) * v2_over_LambdaNP2
+                ;
+        
+    // Add modifications due to small variations of the SM parameters    
+        mu += cHSM * ( +2.661 * deltaMz()
+                -0.39 * deltaMh()
+                +0.693 * deltaaMZ()
+                +2.295 * deltaGmu()
+                +2.081 * deltamt() );
+    
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu +=  0.0;
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mummttH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeettHint + eeettHpar;
+    
+//  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio();
+//  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6*cLH3d62*dZH2*deltaG_hhhRatio()*deltaG_hhhRatio();
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
+////////////HIGGS DECAY WIDTHS AND BRANCHING RATIOS/////////////
 
 double NPSMEFTd6::computeGammaTotalRatio() const
 {
@@ -25629,25 +25996,254 @@ double NPSMEFTd6::AuxObs_NP16() const
 double NPSMEFTd6::AuxObs_NP17() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // Muon Collider WY using difermion production at energy: 3000 GeV
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2Tot;
+
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2Tot = 2250.66 * Wpar2 + 2440.91 * Wpar * Ypar + 1833.38 * Ypar2;
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP18() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // Muon Collider WY using difermion production at energy: 10000 GeV
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2Tot;
+
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+    
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+    
+    Chi2Tot = 278252. * Wpar2 + 268761. * Wpar * Ypar  + 222406. * Ypar2;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP19() const
 {
     // To be used for some temporary observable
-    return 0.0;
+    
+    // Muon Collider CB, CW using diboson production at energy: 3000 GeV
+    double CBpar, CWpar, CBpar2, CWpar2;
+    double Chi2Tot;
+
+    // Chi square formulae requires WC in units of TeV-2
+    CBpar = 1.0e+06 * (CDB / g1_tree) / LambdaNP2;
+    CWpar = 1.0e+06 * (CDW / g2_tree) / LambdaNP2;
+    
+    CBpar2 = CBpar*CBpar;
+    CWpar2 = CWpar*CWpar;
+    
+    Chi2Tot = 16353.7 * CBpar2 + 71488.1 * CBpar * CWpar + 88825.5 * CWpar2;
+    
+    if (FlagQuadraticTerms) {
+            
+        Chi2Tot = Chi2Tot + 180317. * CBpar2 * CBpar + 713067. * CBpar2 * CBpar2 + 412966. * CBpar2 * CWpar 
+                - 1.22601 * 1.0e+06 * CBpar2 * CBpar * CWpar + 39461.7 * CBpar * CWpar2 + 3.68154 * 1.0e+06 * CBpar2 * CWpar2 
+                + 952190. * CWpar2 * CWpar - 2.32501 * 1.0e+06 * CBpar * CWpar2 * CWpar + 2.71116 * 1.0e+06 * CWpar2 * CWpar2;    
+    }
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
 
 double NPSMEFTd6::AuxObs_NP20() const
 {
     // To be used for some temporary observable
+    
+    // Muon Collider CB, CW using diboson production at energy: 10000 GeV
+    double CBpar, CWpar, CBpar2, CWpar2;
+    double Chi2Tot;
+
+    // Chi square formulae requires WC in units of TeV-2
+    CBpar = 1.0e+06 * (CDB / g1_tree) / LambdaNP2;
+    CWpar = 1.0e+06 * (CDW / g2_tree) / LambdaNP2;
+    
+    CBpar2 = CBpar*CBpar;
+    CWpar2 = CWpar*CWpar;
+    
+    Chi2Tot = 1000000. *(2.34317 * CBpar2 + 9.35455* CBpar * CWpar + 1.01982*10. * CWpar2); 
+    
+    if (FlagQuadraticTerms) {
+            
+        Chi2Tot = Chi2Tot + 1.0e+08 * (2.77515 * CBpar2 * CBpar + 1.06951 * 100. * CBpar2 * CBpar2 
+                + 5.38407 * CBpar2 * CWpar - 1.49637 * 100. * CBpar2 * CBpar * CWpar
+                + 1.95735 * CBpar * CWpar2 + 4.90583 * 100. * CBpar2 * CWpar2
+                + 1.16919 * 10. * CWpar2 * CWpar - 2.59927 * 100. * CBpar * CWpar2 * CWpar 
+                + 3.55074 * 100. * CWpar2 * CWpar2 );
+    }
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
+}
+
+double NPSMEFTd6::AuxObs_NP21() const
+{
+    // To be used for some temporary observable
+    
+    // Muon Collider CH, C6 using diHiggs M_{HH} invariant distribution at energy: 3000 GeV
+    double C6par, CHpar, C6par2, CHpar2;
+    double Chi2Tot;
+
+    // C6 v2, CH v2, in the notation of 2012.11555 as function of the Warsaw WC
+    C6par = (-2 * v2 * CiH / mHl / mHl) * v2_over_LambdaNP2;
+    CHpar = (-2.0 * CiHbox) * v2_over_LambdaNP2;
+    
+    C6par2 = C6par*C6par;
+    CHpar2 = CHpar*CHpar;
+    
+    //Chi2Tot = 0.0; 
+    
+    //if (FlagQuadraticTerms) {
+    
+    //  Full chi square
+            
+        Chi2Tot = (5.127032998959654*pow(1.*C6par2 + C6par*(-0.9046361401291156 - 3.160612259276141*CHpar) + CHpar*(1.4943175205469572 + 3.4987548133070216*CHpar),2))
+                /(0.4665231049459758 - 0.9046361401291156*C6par + 1.*C6par2 + 1.4943175205469572*CHpar - 3.160612259276141*C6par*CHpar + 3.4987548133070216*CHpar2)
+
+                +(3.8240160713265476*pow(1.*C6par2 + C6par*(-0.7068429909035657 - 4.529410356278686*CHpar) + CHpar*(1.6460931966048826 + 6.212867668302641*CHpar),2))
+                /(0.262033783826448 - 0.7068429909035657*C6par + 1.*C6par2 + 1.6460931966048826*CHpar - 4.529410356278686*C6par*CHpar + 6.212867668302641*CHpar2)
+
+                +(0.9569666572585168*pow(1.*C6par2 + C6par*(-0.8811004415807353 - 6.4350041910598765*CHpar) + CHpar*(2.920157858804367 + 9.935394583932345*CHpar),2))
+                /(0.48389118130810876 - 0.8811004415807353*C6par + 1.*C6par2 + 2.920157858804367*CHpar - 6.4350041910598765*C6par*CHpar + 9.935394583932345*CHpar2)
+
+                +(0.5040979907607566*pow(1.*C6par2 + C6par*(-4.0368563913001125 - 2.7217670900218875*CHpar) + CHpar*(5.59639944620888 + 10.367826272055057*CHpar),2))
+                /(10.356262676995112 - 4.0368563913001125*C6par + 1.*C6par2 + 5.59639944620888*CHpar - 2.7217670900218875*C6par*CHpar + 10.367826272055057*CHpar2)
+
+                +(3.460963680000871*pow(1.*C6par2 + C6par*(-1.7371086227288517 - 4.968101131225101*CHpar) + CHpar*(5.029364134904506 + 12.279932043237457*CHpar),2))
+                /(2.6070269148526557 - 1.7371086227288517*C6par + 1.*C6par2 + 5.029364134904506*CHpar - 4.968101131225101*C6par*CHpar + 12.279932043237457*CHpar2)
+
+                +(10.16925886603548*pow(1.*C6par2 + C6par*(-1.2083942566612897 - 17.59578848524835*CHpar) + CHpar*(13.84638209179682 + 146.76790379566108*CHpar),2))
+                /(1.3814785330740036 - 1.2083942566612897*C6par + 1.*C6par2 + 13.84638209179682*CHpar - 17.59578848524835*C6par*CHpar + 146.76790379566108*CHpar2);
+    //}
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
+
+}
+
+double NPSMEFTd6::AuxObs_NP22() const
+{
+    // To be used for some temporary observable
+
+    // Muon Collider CH, C6 using diHiggs M_{HH} invariant distribution at energy: 10000 GeV
+    double C6par, CHpar, C6par2, CHpar2;
+    double Chi2Tot;
+
+    // C6 v2, CH v2, in the notation of 2012.11555 as function of the Warsaw WC
+    C6par = (-2 * v2 * CiH / mHl / mHl) * v2_over_LambdaNP2;
+    CHpar = (-2.0 * CiHbox) * v2_over_LambdaNP2;
+    
+    C6par2 = C6par*C6par;
+    CHpar2 = CHpar*CHpar;
+    
+    //Chi2Tot = 0.0; 
+    
+    //if (FlagQuadraticTerms) {
+    
+    //  Full chi square
+            
+        Chi2Tot = (571.4871835024893*pow(1.*C6par2 + C6par*(-0.9787185826575221 - 5.193831432488647*CHpar) + CHpar*(3.0674615767955578 + 10.591622934621405*CHpar),2))
+                /(0.8501719090063755 - 0.9787185826575221*C6par + 1.*C6par2 + 3.0674615767955578*CHpar - 5.193831432488647*C6par*CHpar + 10.591622934621405*CHpar2)
+
+                +(1.511128114971615*pow(1.*C6par2 + C6par*(-1.2911703709918352 - 9.439077589411124*CHpar) + CHpar*(7.742006029582707 + 24.15741462072724*CHpar),2))
+                /(1.0820876087868914 - 1.2911703709918352*C6par + 1.*C6par2 + 7.742006029582707*CHpar - 9.439077589411124*C6par*CHpar + 24.15741462072724*CHpar2)
+
+                +(17.415132210246643*pow(1.*C6par2 + C6par*(-0.9426311765101452 - 12.02751732743764*CHpar) + CHpar*(6.014890971256063 + 42.84032267422174*CHpar),2))
+                /(0.6631618979282716 - 0.9426311765101452*C6par + 1.*C6par2 + 6.014890971256063*CHpar - 12.02751732743764*C6par*CHpar + 42.84032267422174*CHpar2)
+
+                +(6.944583304323103*pow(1.*C6par2 + C6par*(-5.605076514786612 - 13.252038744875035*CHpar) + CHpar*(48.34152435283824 + 121.88758552653347*CHpar),2))
+                /(25.260881616043218 - 5.605076514786612*C6par + 1.*C6par2 + 48.34152435283824*CHpar - 13.252038744875035*C6par*CHpar + 121.88758552653347*CHpar2)
+
+                +(46.448610091340626*pow(1.*C6par2 + C6par*(-1.2424251681131542 - 29.069979810624*CHpar) + CHpar*(20.05311500484323 + 244.02853953273825*CHpar),2))
+                /(1.021577814150124 - 1.2424251681131542*C6par + 1.*C6par2 + 20.05311500484323*CHpar - 29.069979810624*C6par*CHpar + 244.02853953273825*CHpar2)
+
+                +(0.5697696171204448*pow(1.*C6par2 + C6par*(-1.618811231931265 - 48.52495426623116*CHpar) + CHpar*(33.85929443804542 + 548.5965053951562*CHpar),2))
+                /(2.3283968809253617 - 1.618811231931265*C6par + 1.*C6par2 + 33.85929443804542*CHpar - 48.52495426623116*C6par*CHpar + 548.5965053951562*CHpar2)
+
+                +(0.16515061365809997*pow(1.*C6par2 + C6par*(-8.53845097380669 - 36.0850764145878*CHpar) + CHpar*(264.5920285845332 + 746.011160256333*CHpar),2))
+                /(102.43592556954773 - 8.53845097380669*C6par + 1.*C6par2 + 264.5920285845332*CHpar - 36.0850764145878*C6par*CHpar + 746.011160256333*CHpar2)
+
+                +(2.956195984479989*pow(1.*C6par2 + C6par*(-3.780066837776757 - 72.47419413608488*CHpar) + CHpar*(176.93458387556797 + 1683.271612372297*CHpar),2))
+                /(10.551295181010284 - 3.780066837776757*C6par + 1.*C6par2 + 176.93458387556797*CHpar - 72.47419413608488*C6par*CHpar + 1683.271612372297*CHpar2)
+
+                +(17.483420030138998*pow(1.*C6par2 + C6par*(-1.6021946315041684 - 148.43576718278595*CHpar) + CHpar*(140.6006415722798 + 10716.660108216498*CHpar),2))
+                /(1.8226825772967126 - 1.6021946315041684*C6par + 1.*C6par2 + 140.6006415722798*CHpar - 148.43576718278595*C6par*CHpar + 10716.660108216498*CHpar2);
+    //}
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
+
+}
+
+double NPSMEFTd6::AuxObs_NP23() const
+{
+    // To be used for some temporary observable
     return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP24() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP25() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP26() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP27() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP28() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP29() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
+}
+
+double NPSMEFTd6::AuxObs_NP30() const
+{
+    // To be used for some temporary observable
+    return 0.0;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

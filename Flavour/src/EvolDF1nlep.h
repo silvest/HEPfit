@@ -65,6 +65,8 @@ class EvolDF1nlep : public RGEvolutor {
      * @return the evolutor \f$ U (\mu , M) \f$
      */
     gslpp::matrix<double>& Df1Evolnlep(double mu, double M, orders order, orders_qed order_qed, schemes scheme = NDR);
+    // evolutor involving only 3 flavors and allowing mu > M regardless thresholds
+    gslpp::matrix<double>& Df1Evolnlep3flav(double mu, double M, orders order, orders_qed order_qed, schemes scheme = NDR);
     /**
      * @brief a method returning the matrix threshold for the QCD penguins at the NLO
      * @param nf a double for the active number of flavors
@@ -99,9 +101,9 @@ class EvolDF1nlep : public RGEvolutor {
      * @param t array of double for the magic numbers of the evolutor ( QED corrections proportional to \f$ \alpha_{strong}(\mu) / \alpha_{strong}(M) * \alpha_{em} \f$ )
      */
     double a[4][10], b[4][10][10][10], c[4][10][10][10], d[4][10][10][10],
-           m[4][10][10][10], n[4][10][10][10], o[4][10][10][10], 
-           p[4][10][10][10], q[4][10][10][10], r[4][10][10][10], 
-           s[4][10][10][10], t[4][10][10][10], u[4][10][10][10];
+           m[4][10][10][10], n[4][10][10][10], mn[4][10][10][10], o[4][10][10][10], 
+           p[4][10][10][10], op[4][10][10][10], q[4][10][10][10], qq[4][10][10][10], 
+           r[4][10][10][10], rr[4][10][10][10], s[4][10][10][10], t[4][10][10][10];
     const StandardModel& model;
     /**
      * @brief a void type method storing properly the magic numbers for the implementation of the evolutor
@@ -119,7 +121,8 @@ class EvolDF1nlep : public RGEvolutor {
     void Df1threshold_nlep(double M, double nf);
     gslpp::matrix <gslpp::complex>  V, Vi, gs, Js, ge0, K0, ge11, K11, JsK0V, ViK0Js,
                                     Gamma_s0T, Gamma_s1T, Gamma_eT, Gamma_seT, JsV, ViJs,
-                                    K0V, ViK0, K11V, ViK11, ge11sing, K11sing, K11singV;
+                                    K0V, ViK0, ge0sing, K0sing, K0singV, K11V, ViK11, ge11sing, 
+                                    K11sing, K11singV, JsK0singV;
     gslpp::vector<gslpp::complex> e;
     unsigned int dim;
     double alsMZ_cache;

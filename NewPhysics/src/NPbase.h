@@ -1085,6 +1085,55 @@ public:
         return 1.0;
     }
     
+    
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu ZH}@f$ between the @f$\sigma(\mu \mu \to Z H)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu ZH}@f$
+     */
+    virtual double mummZH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu H\nu\nu}@f$ between the @f$\sigma(\mu \mu \to H \nu \nu)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H\nu\nu}@f$
+     */
+    virtual double mummHvv(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu H\mu\mu}@f$ between the @f$\sigma(\mu \mu \to H \mu \mu)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H\mu\mu}@f$
+     */
+    virtual double mummHmm(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu ttH}@f$ between the @f$\sigma(\mu \mu \to t\bar{t} H )}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu ttH}@f$
+     */
+    virtual double mummttH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
     /**
      * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
      * in the @f$H,Z\to b\bar{b}@f$ channel in the current model and in the Standard Model.
@@ -3862,6 +3911,98 @@ public:
     {
         return 0.0;
     }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP21
+     * @return AuxObs_NP21
+     */
+    virtual double AuxObs_NP21() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP22
+     * @return AuxObs_NP22
+     */
+    virtual double AuxObs_NP22() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP23
+     * @return AuxObs_NP23
+     */
+    virtual double AuxObs_NP23() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP24
+     * @return AuxObs_NP24
+     */
+    virtual double AuxObs_NP24() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP25
+     * @return AuxObs_NP25
+     */
+    virtual double AuxObs_NP25() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP26
+     * @return AuxObs_NP26
+     */
+    virtual double AuxObs_NP26() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP27
+     * @return AuxObs_NP27
+     */
+    virtual double AuxObs_NP27() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP28
+     * @return AuxObs_NP28
+     */
+    virtual double AuxObs_NP28() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP29
+     * @return AuxObs_NP29
+     */
+    virtual double AuxObs_NP29() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP30
+     * @return AuxObs_NP30
+     */
+    virtual double AuxObs_NP30() const
+    {
+        return 0.0;
+    }
+    
+    
       
     ////////////////////////////////////////////////////////////////////////
 protected:

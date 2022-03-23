@@ -1,0 +1,3 @@
+[submodule "gslpp"]
+	path = gslpp
+	url = https://github.com/silvest/gslpp.git
