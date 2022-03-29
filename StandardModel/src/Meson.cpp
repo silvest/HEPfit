@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 HEPfit Collaboration
  *
  *
@@ -8,7 +8,7 @@
 #include "Meson.h"
 #include "std_make_vector.h"
 
-Meson::Meson(double mass, double lifetime = 5.e29, double decayconst = 0., 
+Meson::Meson(double mass, double lifetime = 5.e29, double decayconst = 0.,
         double lambdaM = 0., double gegenalpha1 = 0., double gegenalpha2 = 0.)
 {
     this->mass = mass;
@@ -50,6 +50,12 @@ void Meson::ModelParameterMapInsert(std::map< std::string, std::reference_wrappe
     if (name.compare("K_0") == 0) {
         ModelParamMap.insert(std::make_pair("MK0", std::cref(mass)));
         ModelParamMap.insert(std::make_pair("tKl", std::cref(lifetime)));
+        ModelParamMap.insert(std::make_pair("FK", std::cref(decayconst)));
+        return;
+    }
+    if (name.compare("K_S") == 0) {
+        ModelParamMap.insert(std::make_pair("MK0", std::cref(mass)));
+        ModelParamMap.insert(std::make_pair("tKs", std::cref(lifetime)));
         ModelParamMap.insert(std::make_pair("FK", std::cref(decayconst)));
         return;
     }
@@ -128,25 +134,25 @@ void Meson::ModelParameterMapInsert(std::map< std::string, std::reference_wrappe
         ModelParamMap.insert(std::make_pair("alpha1kst", std::cref(gegenalpha[0])));
         ModelParamMap.insert(std::make_pair("alpha2kst", std::cref(gegenalpha[1])));
         return;
-    } 
+    }
     if (name.compare("D_star_P") == 0) {
         ModelParamMap.insert(std::make_pair("MDstarP", std::cref(mass)));
         ModelParamMap.insert(std::make_pair("tDstarP", std::cref(lifetime)));
         ModelParamMap.insert(std::make_pair("FDstarP", std::cref(decayconst)));
         return;
-    } 
+    }
     if (name.compare("RHO") == 0) {
         ModelParamMap.insert(std::make_pair("Mrho", std::cref(mass)));
         ModelParamMap.insert(std::make_pair("trho", std::cref(lifetime)));
         ModelParamMap.insert(std::make_pair("Frho", std::cref(decayconst)));
         return;
-    } 
+    }
     if (name.compare("RHO_P") == 0) {
         ModelParamMap.insert(std::make_pair("MrhoP", std::cref(mass)));
         ModelParamMap.insert(std::make_pair("trho", std::cref(lifetime)));
         ModelParamMap.insert(std::make_pair("Frho", std::cref(decayconst)));
         return;
-    } 
+    }
     if (name.compare("OMEGA") == 0) {
         ModelParamMap.insert(std::make_pair("Momega", std::cref(mass)));
         ModelParamMap.insert(std::make_pair("tomega", std::cref(lifetime)));
@@ -161,6 +167,7 @@ std::vector<std::string> Meson::parameterList(std::string name_i)
     if (name_i.compare("P_P") == 0) return make_vector<std::string>() << "MPp" << "tPp" << "FPp";
     if (name_i.compare("K_0") == 0) return make_vector<std::string>() << "MK0" << "tKl" << "FK";
     if (name_i.compare("K_P") == 0) return make_vector<std::string>() << "MKp" << "tKp" << "FK" << "alpha1kp" << "alpha2kp";
+    if (name_i.compare("K_S") == 0) return make_vector<std::string>() << "MK0" << "tKs" << "FK";
     if (name_i.compare("D_0") == 0) return make_vector<std::string>() << "MD"  << "tD"  << "FD";
     if (name_i.compare("D_P") == 0) return make_vector<std::string>() << "MDP"  << "tDP"  << "FDP";
     if (name_i.compare("B_D") == 0) return make_vector<std::string>() << "MBd" << "tBd" << "FBsoFBd" << "lambdaB";
@@ -177,7 +184,7 @@ std::vector<std::string> Meson::parameterList(std::string name_i)
     else throw std::runtime_error(name_i + " is not implemented in Meson class");
 }
 
-bool Meson::setParameter(std::string name_i, double value) 
+bool Meson::setParameter(std::string name_i, double value)
 {
     if (name.compare("P_0") == 0) {
         if (name_i.compare("MP0") == 0) {
@@ -213,6 +220,20 @@ bool Meson::setParameter(std::string name_i, double value)
             return true;
         }
         if (name_i.compare("tKl") == 0) {
+            lifetime = value;
+            return true;
+        }
+        if (name_i.compare("FK") == 0) {
+            decayconst = value;
+            return true;
+        }
+    }
+    if (name.compare("K_S") == 0) {
+        if (name_i.compare("MK0") == 0) {
+            mass = value;
+            return true;
+        }
+        if (name_i.compare("tKs") == 0) {
             lifetime = value;
             return true;
         }

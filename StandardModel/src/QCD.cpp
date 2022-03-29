@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 HEPfit Collaboration
  *
  *
@@ -42,7 +42,7 @@ QCD::QCD()
     dAdA_NA = Nc*Nc*(Nc*Nc+36.)/24.;
     dFdF_NA = (Nc*Nc-6.+18./Nc/Nc)/96.;
     NA = Nc*Nc-1.;
-    
+
     //    Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
     quarks[UP] = Particle("UP", 0., 2., 0., 2. / 3., .5);
     quarks[CHARM] = Particle("CHARM", 0., 0., 0., 2. / 3., .5);
@@ -50,7 +50,7 @@ QCD::QCD()
     quarks[DOWN] = Particle("DOWN", 0., 2., 0., -1. / 3., -.5);
     quarks[STRANGE] = Particle("STRANGE", 0., 2., 0., -1. / 3., -.5);
     quarks[BOTTOM] = Particle("BOTTOM", 0., 0., 0., -1. / 3., -.5);
-    
+
     zeta2 = gslpp_special_functions::zeta(2);
     zeta3 = gslpp_special_functions::zeta(3);
     for (int i = 0; i < CacheSize; i++) {
@@ -74,7 +74,7 @@ QCD::QCD()
     ModelParamMap.insert(std::make_pair("mbottom", std::cref(quarks[BOTTOM].getMass())));
     ModelParamMap.insert(std::make_pair("muc", std::cref(muc)));
     ModelParamMap.insert(std::make_pair("mub", std::cref(mub)));
-    ModelParamMap.insert(std::make_pair("mut", std::cref(mut)));   
+    ModelParamMap.insert(std::make_pair("mut", std::cref(mut)));
 
     unknownParameterWarning = true;
     realorder = LO;
@@ -127,7 +127,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     if (!PreUpdate()) return (false);
 
     UpdateError = false;
-    
+
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
     {
         setParameter(it->first, it->second);
@@ -160,7 +160,7 @@ bool QCD::PostUpdate()
         BParameterMap.at("BBd").setBpars(2, BParameterMap.at("BBd").getFBdSqrtBBd3() * BParameterMap.at("BBd").getFBdSqrtBBd3() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
         BParameterMap.at("BBd").setBpars(3, BParameterMap.at("BBd").getFBdSqrtBBd4() * BParameterMap.at("BBd").getFBdSqrtBBd4() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
         BParameterMap.at("BBd").setBpars(4, BParameterMap.at("BBd").getFBdSqrtBBd5() * BParameterMap.at("BBd").getFBdSqrtBBd5() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
-        } else 
+        } else
             BParameterMap.at("BBd").setBpars(0, BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getBBsoBBd());
     }
     if (computemt) {
@@ -175,7 +175,7 @@ bool QCD::PostUpdate()
 #endif
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
-        
+
     return (true);
 }
 
@@ -192,7 +192,7 @@ void QCD::addParameters(std::vector<std::string> params_i)
 void QCD::initializeBParameter(std::string name_i) const
 {
     if (BParameterMap.find(name_i) != BParameterMap.end()) return;
-    
+
     if (name_i.compare("BBs") == 0 || name_i.compare("BBd") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >("BBs", BParameter(5, "BBs")));
         BParameterMap.at("BBs").setFlagCsi(FlagCsi);
@@ -223,6 +223,8 @@ void QCD::initializeBParameter(std::string name_i) const
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
         BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
         initializeMeson(QCD::K_0);
+        initializeMeson(QCD::K_P);
+        initializeMeson(QCD::K_S);
         initializeMeson(QCD::P_0);
         initializeMeson(QCD::P_P);
         return;
@@ -231,6 +233,7 @@ void QCD::initializeBParameter(std::string name_i) const
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
         BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
         initializeMeson(QCD::K_0);
+        initializeMeson(QCD::K_P);
         initializeMeson(QCD::P_0);
         initializeMeson(QCD::P_P);
     return;
@@ -238,15 +241,16 @@ void QCD::initializeBParameter(std::string name_i) const
 }
 
 void QCD::initializeMeson(const QCD::meson meson_i) const
-{  
+{
     if (mesonsMap.find(meson_i) != mesonsMap.end()) return;
-    
+
     mesonsMap.insert(std::pair<const QCD::meson, Meson>(meson_i, Meson()));
-    
+
     if (meson_i == QCD::P_0) mesonsMap.at(meson_i).setName("P_0");
     else if (meson_i == QCD::P_P) mesonsMap.at(meson_i).setName("P_P");
     else if (meson_i == QCD::K_0) mesonsMap.at(meson_i).setName("K_0");
     else if (meson_i == QCD::K_P) mesonsMap.at(meson_i).setName("K_P");
+    else if (meson_i == QCD::K_S) mesonsMap.at(meson_i).setName("K_S");
     else if (meson_i == QCD::D_0) mesonsMap.at(meson_i).setName("D_0");
     else if (meson_i == QCD::D_P) mesonsMap.at(meson_i).setName("D_P");
     else if (meson_i == QCD::B_D) mesonsMap.at(meson_i).setName("B_D");
@@ -265,12 +269,12 @@ void QCD::initializeMeson(const QCD::meson meson_i) const
         out << meson_i;
         throw std::runtime_error("QCD::initializeMeson() meson " + out.str() + " not implemented");
     }
-    
+
     if (meson_i == QCD::B_D) computeFBd = true;
     if (meson_i == QCD::B_P) computeFBp = true;
-    
+
     if ((computeFBd || computeFBp) && (mesonsMap.find(QCD::B_S) == mesonsMap.end())) initializeMeson(QCD::B_S);
-    
+
     mesonsMap.at(meson_i).ModelParameterMapInsert(ModelParamMap);
 }
 
@@ -278,7 +282,7 @@ void QCD::setParameter(const std::string name, const double& value)
 {
     int notABparameter = 0;
     int notAMesonParameter = 0;
-    
+
     if (name.compare("AlsM") == 0) {
         AlsM = value;
         computemt = true;
@@ -322,18 +326,18 @@ void QCD::setParameter(const std::string name, const double& value)
     else if (optionalParameters.find(name) != optionalParameters.end())
         setOptionalParameter(name, value);
     else {
-        if (!BParameterMap.empty()) 
-            for (std::map<std::string, BParameter>::iterator it = BParameterMap.begin(); it != BParameterMap.end(); it++) 
+        if (!BParameterMap.empty())
+            for (std::map<std::string, BParameter>::iterator it = BParameterMap.begin(); it != BParameterMap.end(); it++)
                 if(it->second.setParameter(name, value))
                     notABparameter += 1;
-        if (!mesonsMap.empty()) 
+        if (!mesonsMap.empty())
             for (std::map<const QCD::meson, Meson>::iterator it = mesonsMap.begin(); it != mesonsMap.end(); it++)
                 if(it->second.setParameter(name, value))
                     notAMesonParameter += 1;
-        if (unknownParameterWarning && !isSliced && notABparameter == 0 && notAMesonParameter == 0) 
+        if (unknownParameterWarning && !isSliced && notABparameter == 0 && notAMesonParameter == 0)
             if (std::find(unknownParameters.begin(), unknownParameters.end(), name) == unknownParameters.end()) unknownParameters.push_back(name);
     }
-        
+
 }
 
 bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
@@ -390,7 +394,7 @@ bool QCD::setFlag(const std::string name, const bool value)
         if (computeBd) BParameterMap.at("BBd").setFlagCsi(FlagCsi);
         res = true;
     }
-    
+
     return res;
 }
 
@@ -617,7 +621,7 @@ orders QCD::FullOrder(orders order) const
         case NNNLO:
             return(FULLNNNLO);
         default:
-            throw std::runtime_error("QCD::FullOrder(): " + orderToString(order) + " is not implemented.");    
+            throw std::runtime_error("QCD::FullOrder(): " + orderToString(order) + " is not implemented.");
     }
 }
 
@@ -638,7 +642,7 @@ double QCD::MassOfNf(int nf) const
     }
 }
 
-double QCD::Als(const double mu, const orders order, bool Nf_thr) const 
+double QCD::Als(const double mu, const orders order, bool Nf_thr) const
 {
     switch (order)
     {
@@ -659,12 +663,12 @@ double QCD::Als(const double mu, const orders order, bool Nf_thr) const
     }
 }
 
-double QCD::AlsByOrder(const double mu, const orders order, bool Nf_thr) const 
+double QCD::AlsByOrder(const double mu, const orders order, bool Nf_thr) const
 {
     int i, nfAls = (int) Nf(MAls), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
     double als, alstmp, mutmp;
     orders fullord;
-    
+
     for (i = 0; i < CacheSize; ++i)
         if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
                 (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
@@ -1073,8 +1077,8 @@ double QCD::Mrun(const double mu, const double m, const orders order) const
 double QCD::Mrun(const double mu_f, const double mu_i, const double m,
         const orders order) const
 {
-    // Note: When the scale evolves across a flavour threshold, the definitions 
-    //       of the outputs for "NLO" and "NNLO" become complicated. 
+    // Note: When the scale evolves across a flavour threshold, the definitions
+    //       of the outputs for "NLO" and "NNLO" become complicated.
 
     int i;
     for (i = 0; i < CacheSize; ++i) {
@@ -1190,7 +1194,7 @@ double QCD::MrunTMP(const double mu_f, const double mu_i, const double m,
     if (order == NLO) return mNLO;
     if (order == FULLNLO) return (mLO + mNLO);
 
-    // NNLO contribution    
+    // NNLO contribution
     double b2 = Beta2(nf), g2 = Gamma2(nf);
     double A2 = b1 * b1 * g0 / (2. * b0 * b0 * b0) - b2 * g0 / (2. * b0 * b0) - b1 * g1 / (2. * b0 * b0) + g2 / (2. * b0);
     double mNNLO = mLO * (A1 * A1 / 2. * (af - ai)*(af - ai) + A2 / 2. * (af * af - ai * ai));
@@ -1234,7 +1238,7 @@ double QCD::Mbar2Mp(const double mbar, const orders order) const
     if (order == NNLO || order == FULLNNLO) orderForAls = FULLNNLO;
     double a = Als(mbar + MEPS, orderForAls) / M_PI;
 
-    // NLO contribution 
+    // NLO contribution
     double MpNLO = mbar * 4. / 3. * a;
     if (order == NLO) return MpNLO;
     if (order == FULLNLO) return (MpLO + MpNLO);

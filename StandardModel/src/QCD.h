@@ -123,20 +123,20 @@
  * <H3>Computation of the strong coupling constant \f$\alpha_s\f$:  </H3>
  *
  * The strong coupling constant @f$\alpha_s@f$ at an arbitrary scale can be
- * computed with the member functions: 
+ * computed with the member functions:
  *
  * @li AlsWithInit(const double mu, const double alsi, const double mu_i, const orders order),
- * @li AlsWithLambda(const double mu, const orders order), 
+ * @li AlsWithLambda(const double mu, const orders order),
  *
  * where another function
- * 
+ *
  * @li Als(const double mu, const orders order = FULLNLO)
  *
  * calls %AlsWithInit() for order=LO/FULLNLO(NLO),
  * and %AlsWithLambda() for order=FULLNNLO(NNLO).
  *
  * The function %AlsWithInit() computes @f$\alpha_s(\mu)@f$ with a given initial
- * value @f$\alpha_s(\mu_i)@f$: 
+ * value @f$\alpha_s(\mu_i)@f$:
  * @f[
  *   \alpha_s(\mu)=\frac{\alpha_s(\mu_i)}{v(\mu)},\qquad
  *   \alpha_s(\mu)=\frac{\alpha_s(\mu_i)}{v(\mu)}
@@ -147,7 +147,7 @@
  * @f[
  *   v(\mu) = 1- \beta_0\frac{\alpha_s(\mu_i)}{2\pi}\ln\frac{\mu_i}{\mu},
  * @f]
- * and the one-loop and two-loop beta functions are given by 
+ * and the one-loop and two-loop beta functions are given by
  * @f[
  *  \beta_0 = \frac{11N_c-2N_f}{3},\qquad
  *  \beta_1 = \frac{34}{3}N_c^2-\frac{10}{3}N_cN_f-2C_FN_f.
@@ -157,7 +157,7 @@
  * \f$\Lambda_{\rm QCD}\f$, where the value of \f$\Lambda_{\rm QCD}\f$ for \f$N_f=5\f$
  * is derived from @f$\alpha_s(M_{\alpha_s})@f$ by solving
  * the equation (see e.g., @cite Chetyrkin:1997sg, which follows the convention
- * in @cite Buras:1977qg for \f$\ln(\mu^2/\Lambda^2)\f$): 
+ * in @cite Buras:1977qg for \f$\ln(\mu^2/\Lambda^2)\f$):
  * @f[
  *  \frac{\alpha_s(\mu)}{4\pi}=\frac{1}{\beta_0L}-\frac{\beta_1\ln L}{\beta_0^3L^2}+
  *  \frac{1}{\left(\beta_0L\right)^3}\left[\frac{\beta_1^2}{\beta_0^2}\left(\ln^2L-\ln L-1\right)+
@@ -169,7 +169,7 @@
  *  \beta_2 = \frac{2857}{54}N_c^3+C_F^2N_f-\frac{205}{18}C_FN_cN_f
  *  -\frac{1415}{54}N_c^2N_f+\frac{11}{9}C_FN_f^2 + \frac{79}{54}N_cN_f^2.
  * @f]
- * For \f$N_f < 5\f$, \f$\Lambda_{QCD}\f$ can be obtained by solving the following 
+ * For \f$N_f < 5\f$, \f$\Lambda_{QCD}\f$ can be obtained by solving the following
  * matching condition at \f$\mu\f$ @cite Chetyrkin:1997sg @cite Chetyrkin:2000yt :
  * \f{eqnarray}{
  *  \beta_0^{'}\ln\frac{\Lambda^{'2}}{\Lambda^2}
@@ -182,7 +182,7 @@
  *  +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{'}}{\beta_0^{'}}C_1-C_1^2-C_2\right]+
  *  O\left(\frac{\ln^2L}{L^2}\right),
  * \f}
- * where the primed (unprimed) quantities refer to those pertaining to \f$N_f-1\f$ \f$(N_f)\f$. 
+ * where the primed (unprimed) quantities refer to those pertaining to \f$N_f-1\f$ \f$(N_f)\f$.
  * The terms \f$C_1\f$ and \f$C_2\f$ are given by
  * @f[
  *  C_1 = \frac{2}{3}\ln\frac{\mu^2}{\mu_f^2},\qquad
@@ -201,7 +201,7 @@
  *   \frac{19}{24}\ln\frac{\mu^2}{\mu_f^2} + \frac{11}{72}\right) + O\left(\left(\frac{\alpha_s}{\pi}
  *   \right)^3\right).
  * @f]
- * 
+ *
  * For the top quark mass, the pole mass @f$m_t@f$ is used as an input instead of the \f$\overline{\mathrm{MS}}\f$
  * invariant mass. Then the \f$\overline{\mathrm{MS}}\f$ invariant mass is computed from the pole mass with the
  * computed value of \f$\alpha_s^{(6)}(m_t)\f$, which in turn is computed from \f$\alpha_s^{(5)}(M_Z)\f$. Hence, the
@@ -219,7 +219,7 @@
  * Besides, \f$\Lambda_{QCD}\f$ for \f$N_f=6\f$ is derived from that for
  * \f$N_f=5\f$ with the relation:
  * \f{eqnarray}{
- *  \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{'2}} 
+ *  \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{'2}}
  *  &=& (\beta_0-\beta_0^{'})L^{'}+\left(\frac{\beta_1}{\beta_0}-
  *  \frac{\beta_1^{'}}{\beta_0^{'}}\right)\ln L^{'}-\frac{\beta_1}{\beta_0}\ln\frac{\beta_0}{\beta_0^{'}}-C_1^{'}
  *  \\
@@ -235,10 +235,10 @@
  *  C_2^{'} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{m_t^2}+\frac{19}{24}\ln\frac{\mu^2}{m_t^2}+\frac{7}{24}\right).
  * @f]
  *
- * 
+ *
  * <H3>Computation of the running of the quark masses: </H3>
  *
- * In the \f$\overline{\mathrm{MS}}\f$ scheme the quark mass at a scale \f$\mu\f$ is given by 
+ * In the \f$\overline{\mathrm{MS}}\f$ scheme the quark mass at a scale \f$\mu\f$ is given by
  * (see e.g., @cite Chetyrkin:1997dh)
  * @f[
  *  m_q(\mu) = m_q(\mu_0)\left[\frac{\alpha_s(\mu)}{\alpha_s(\mu_0)}\right]^{\frac{\gamma^{(0)}_m}{2\beta_0}}
@@ -252,7 +252,7 @@
  *  A_2 = \frac{\beta_1^2\gamma^{(0)}_m}{2\beta_0^3}-\frac{\beta_2\gamma^{(0)}_m}{2\beta_0^2}-
  *  \frac{\beta_1\gamma^{(1)}_m}{2\beta_0^2}+\frac{\gamma^{(2)}_m}{2\beta_0},
  * @f]
- * and 
+ * and
  * @f[
  *  \gamma_m^{(0)} = 6C_F,\qquad
  *  \gamma_m^{(1)} = C_F\left(3C_F+\frac{97}{3}N_c-\frac{10}{3}N_f\right),\\
@@ -270,10 +270,10 @@
  *  \zeta^f_m=1+\left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{12}\ln^2\frac{\mu^2}{\mu_f^2}
  *   -\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}+\frac{89}{432}\right),\\
  *   \frac{1}{\zeta^f_m}=1+\left(\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\right)^2\left(-\frac{1}{12}\ln^2\frac{\mu^2}
- *   {\mu_f^2}+\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}-\frac{89}{432}\right), 
+ *   {\mu_f^2}+\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}-\frac{89}{432}\right),
  * @f]
  * with \f$\mu_f=m_f(\mu_f)\f$.
- * 
+ *
  *
  * <H3>Pole mass vs. \f$ \overline{\mathrm{MS}} \f$ scale invariant mass:</H3>
  *
@@ -297,9 +297,9 @@
  *  +\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{m_i}{m_q}\right)\right]\left(\frac{\alpha_s(m_q)}{\pi}
  *  \right)^2\right\}
  * @f]
- * To get the pole mass of the light quarks we solve the above equation numerically and derive it from the 
- * corresponding \f$\overline{\mathrm{MS}}\f$ mass. 
- * 
+ * To get the pole mass of the light quarks we solve the above equation numerically and derive it from the
+ * corresponding \f$\overline{\mathrm{MS}}\f$ mass.
+ *
  */
 class QCD : public Model {
 public:
@@ -328,7 +328,7 @@ public:
         TOP, /**< Top quark */
         BOTTOM /**< Bottom quark */
     };
-    
+
 
     /**
      * @brief An enum type for mesons.
@@ -347,14 +347,15 @@ public:
         PHI, /**< @f$\phi@f$ meson */
         K_star, /**< @f$K^*@f$ meson */
         K_star_P, /**< @f$K^{*,\pm}@f$ meson */
+        K_S, /**< @f$K_S@f$ meson */
         D_star_P, /**< @f$D^{*,\pm}@f$ meson */
         RHO, /**< @f$\rho@f$ meson */
         RHO_P, /**< @f$\rho@f$ meson */
         OMEGA, /**< @f$\omega@f$ meson */
         MESON_END /**< The size of this enum. */
     };
-    
-    static const int NQCDvars = 11; ///< The number of model parameters in %QCD. 
+
+    static const int NQCDvars = 11; ///< The number of model parameters in %QCD.
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -366,7 +367,7 @@ public:
      * @brief Constructor.
      */
     QCD();
-    
+
     /**
      * @brief Converts an object of the enum type "orders" to the corresponding string.
      * @param[in] order an object of the enum type "orders"
@@ -403,7 +404,7 @@ public:
     /**
      * @brief The post-update method for %QCD.
      * @details This method runs all the procedures that are need to be executed
-     * after the model is successfully updated. This includes 
+     * after the model is successfully updated. This includes
      * \li computing the decay constant \f$F_{B_D}\f$ from \f$F_{B_s}\f$
      * \li computing the bag parameters \f$B_{B_d}\f$ from \f$B_{B_s}\f$
      * \li computing the \f$\overline{\rm MS}\f$ mass of the top quark at the \f$\overline{\rm MS}\f$ mass,
@@ -420,26 +421,26 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-    
+
     /**
      * @brief A method to add parameters that are specific to only one set of observables
      * @param[in] params_i a vector of parameters to be added
      * (including parameters that are varied and those that are held constant)
      */
     void addParameters(std::vector<std::string> params_i);
-    
+
     /**
      * @brief A method to initialize B Parameter and the corresponding meson
      * @param[in] name_i name of the B parameters set
      */
     void initializeBParameter(std::string name_i) const;
-    
+
     /**
      * @brief A method to initialize a meson
      * @param[in] meson_i the enumerator corresponding to the meson
      */
     void initializeMeson(QCD::meson meson_i) const;
-    
+
     /**
      * @brief A method to get parameters that are specific to only one set of observables.
      * @param[in] name the name of the parameter
@@ -449,7 +450,7 @@ public:
     {
         return optionalParameters.at(name);
     }
-    
+
     /**
      * @brief A method to set the parameter value for the parameters that are specific to only one set of observables.
      * @param[in] name the name of the parameter
@@ -659,7 +660,7 @@ public:
         return BParameterMap.at("BKd3");
     }
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -669,7 +670,7 @@ public:
      * \f$\mu_b\f$ (i = 2), \f$\mu_c\f$ (i = 3) and 0. (default)
      */
     double Thresholds(const int i) const;
-    
+
     /**
      * @brief The active flavour threshold above the scale \f$\mu\f$
      * as defined in %QCD::Thresholds().
@@ -694,7 +695,7 @@ public:
     double Nf(const double mu) const;
 
     /**
-     * @brief Threshold corrections in matching \f$\alpha_s(n_f+1)\f$ with \f$\alpha_s(n_f)\f$ 
+     * @brief Threshold corrections in matching \f$\alpha_s(n_f+1)\f$ with \f$\alpha_s(n_f)\f$
      * from eq. (34) of hep-ph/0512060
      * @param[in] mu the matching scale
      * @param[in] M the running quark mass
@@ -704,14 +705,14 @@ public:
      * @return Threshold correction (without the leading term equal to 1)
      */
     double NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const;
-    
+
     /**
      * @brief Return the FULLORDER enum corresponding to order
      * @param[in] order of the expansion in \f$\alpha_s\f$
      * @return the FULLORDER enum corresponding to order
      */
     orders FullOrder(orders order) const;
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -736,7 +737,7 @@ public:
     double Beta2(const double nf) const;
 
     /**
-     * @brief The \f$\beta_3(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$. 
+     * @brief The \f$\beta_3(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return @f$\beta_3(n_f)@f$
      */
@@ -774,7 +775,7 @@ public:
      * @param[in] mu the scale @f$\mu@f$ in GeV
      * @param[in] order order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
      * @param[in] order_qed order in the @f$\alpha_e@f$ expansion as defined in OrderScheme. Default to NO_QED.
-     * @param[in] Nf_thr true (default): @f$n_f@f$ = Nf(mu), false: @f$n_f@f$ = Nf(AlsM)  
+     * @param[in] Nf_thr true (default): @f$n_f@f$ = Nf(mu), false: @f$n_f@f$ = Nf(AlsM)
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
@@ -912,7 +913,7 @@ protected:
 
     /**
      * @brief The Mbar mass of the heaviest quark in the theory with Nf active flavour
-     * @param[in] Nf the number of active flavour 
+     * @param[in] Nf the number of active flavour
      * @return MSbar \f$m_q(m_q)\f$
      */
     double MassOfNf(int nf) const;
@@ -922,17 +923,17 @@ protected:
     bool requireYd; ///< Switch for generating the Yukawa couplings to the down-type quarks.
 
     // model parameters
-    double AlsM; ///< The strong coupling constant at the mass scale MAls, \f$\alpha_s(M_{\alpha_s})\f$. 
-    double MAls; ///< The mass scale in GeV at which the strong coupling measurement is provided. 
+    double AlsM; ///< The strong coupling constant at the mass scale MAls, \f$\alpha_s(M_{\alpha_s})\f$.
+    double MAls; ///< The mass scale in GeV at which the strong coupling measurement is provided.
     double mtpole; ///< The pole mass of the top quark.
-    double mut; ///< The threshold between six- and five-flavour theory in GeV. 
-    double mub; ///< The threshold between five- and four-flavour theory in GeV. 
-    double muc; ///< The threshold between four- and three-flavour theory in GeV. 
-    
+    double mut; ///< The threshold between six- and five-flavour theory in GeV.
+    double mub; ///< The threshold between five- and four-flavour theory in GeV.
+    double muc; ///< The threshold between four- and three-flavour theory in GeV.
+
     double Nc; ///< The number of colours.
     double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
     Particle quarks[6]; ///< The vector of all SM quarks.
-    
+
 private:
     mutable std::map<std::string, BParameter> BParameterMap;
 
@@ -1012,7 +1013,7 @@ private:
 
     /**
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNLO.
-     * @param[in] nfNEW the number of flavours after crossing the flavour threshold, \f$n_{f}^{\mathrm{NEW}}\f$ 
+     * @param[in] nfNEW the number of flavours after crossing the flavour threshold, \f$n_{f}^{\mathrm{NEW}}\f$
      * @param[in] nfORG the number of flavours before crossing the flavour threshold, \f$n_{f}^{\mathrm{ORG}}\f$
      * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = n_{f}^{\mathrm{ORG}}\f$
      * @return \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = n_{f}^{\mathrm{NEW}}\f$
@@ -1023,7 +1024,7 @@ private:
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNNLO.
      * @param[in] muMatching the scale at which the matching is done during crossing a flavour threshold
      * @param[in] mf the mass of the quark sitting at the flavour threshold being crossed
-     * @param[in] nfNEW the number of flavours after crossing the flavour threshold, \f$n_{f}^{\mathrm{NEW}}\f$ 
+     * @param[in] nfNEW the number of flavours after crossing the flavour threshold, \f$n_{f}^{\mathrm{NEW}}\f$
      * @param[in] nfORG the number of flavours before crossing the flavour threshold, \f$n_{f}^{\mathrm{ORG}}\f$
      * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = n_{f}^{\mathrm{ORG}}\f$
      * @param[in] order the %QCD order of the calculation

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 HEPfit Collaboration
  *
  *
@@ -16,19 +16,19 @@
 /**
  * @class Particle
  * @ingroup StandardModel
- * @brief A class for particles. 
+ * @brief A class for particles.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is the class for defining particles and their properties
  * like mass (GeV), width (GeV), charge, isospin. One can also specify the scale,
- * in GeV, at which the mass of a particle is defined. 
+ * in GeV, at which the mass of a particle is defined.
  */
 class Particle {
 public:
 
     /**
-     * @brief The default constructor. 
-     * @details 
+     * @brief The default constructor.
+     * @details
      */
     Particle()
     {
@@ -42,7 +42,7 @@ public:
     };
 
     /**
-     * @brief Constructor. 
+     * @brief Constructor.
      * @details The properties of the particle can be initialized by passing arguments.
      * @param[in] name the name of the particle
      * @param[in] mass the mass of the particle in GeV
@@ -55,7 +55,7 @@ public:
 
     virtual ~Particle(){};
     /**
-     * @brief A get method to access the particle mass. 
+     * @brief A get method to access the particle mass.
      * @return the particle mass in GeV
      */
     const double& getMass() const
@@ -64,7 +64,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the particle mass. 
+     * @brief A set method to fix the particle mass.
      * @param[in] mass the particle mass in GeV
      */
     void setMass(double mass)
@@ -91,7 +91,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the particle charge. 
+     * @brief A get method to access the particle charge.
      * @return the particle charge
      */
     double getCharge() const
@@ -127,7 +127,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the scale at which the particle mass is defined. 
+     * @brief A get method to access the scale at which the particle mass is defined.
      * @return the scale in GeV at which the particle mass is defined
      */
     double getMass_scale() const

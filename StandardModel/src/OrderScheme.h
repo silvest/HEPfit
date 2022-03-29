@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 HEPfit Collaboration
  *
  *
@@ -20,7 +20,8 @@ enum schemes
 {
     NDR = 0, /**< Naive dimensional regularization (NDR) scheme */
     HV, /**< 't Hooft-Veltman (HV) scheme */
-    LRI /**< Regularization-Independent (RI) renormalization schemes with the Landau gauge */
+    LRI, /**< Regularization-Independent (RI) renormalization schemes with the Landau gauge */
+    LAT /** < Bare Lattice */
 };
 
 /**
@@ -36,7 +37,7 @@ enum orders
     NNNLO, /**< Next-to-next-to-next-to-leading order */
     FULLNLO, /**< Full NLO = LO + NLO */
     FULLNNLO, /**< Full NNLO = LO + NLO + NNLO */
-    FULLNNNLO /**< Full NNNLO = LO + NLO + NNLO + NNNLO */        
+    FULLNNNLO /**< Full NNNLO = LO + NLO + NNLO + NNNLO */
 };
 
 /**
@@ -70,7 +71,7 @@ enum qcd_orders
     QCD3, /**< Next-to-next-to-next-to-leading order */
     FULLQCD1, /**< Full NLO = LO + NLO */
     FULLQCD2, /**< Full NNLO = LO + NLO + NNLO */
-    FULLQCD3 /**< Full NNLO = LO + NLO + NNLO + NNNLO */        
+    FULLQCD3 /**< Full NNLO = LO + NLO + NNLO + NNNLO */
 };
 
 /**

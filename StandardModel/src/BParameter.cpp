@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2017 HEPfit Collaboration
  *
  *
@@ -86,7 +86,7 @@ void BParameter::ModelParameterMapInsert(std::map< std::string, std::reference_w
         ModelParamMap.insert(std::make_pair("BK(1/2)8", std::cref(bpars(7))));
         ModelParamMap.insert(std::make_pair("BK(1/2)9", std::cref(bpars(8))));
         ModelParamMap.insert(std::make_pair("BK(1/2)10", std::cref(bpars(9))));
-        ModelParamMap.insert(std::make_pair("BKd_scale", std::cref(mu)));
+        ModelParamMap.insert(std::make_pair("BKd1_scale", std::cref(mu)));
         return;
     }
     if (name.compare("BKd3") == 0) {
@@ -100,7 +100,7 @@ void BParameter::ModelParameterMapInsert(std::map< std::string, std::reference_w
         ModelParamMap.insert(std::make_pair("BK(3/2)8", std::cref(bpars(7))));
         ModelParamMap.insert(std::make_pair("BK(3/2)9", std::cref(bpars(8))));
         ModelParamMap.insert(std::make_pair("BK(3/2)10", std::cref(bpars(9))));
-        ModelParamMap.insert(std::make_pair("BKd_scale", std::cref(mu)));
+        ModelParamMap.insert(std::make_pair("BKd3_scale", std::cref(mu)));
         return;
     } else throw std::runtime_error(name + " is not implemented in BParameter class");
 }
@@ -114,9 +114,9 @@ std::vector<std::string> BParameter::parameterList(std::string name_i)
     if (name_i.compare("BK") == 0) return make_vector<std::string>() << "BK1" << "BK2" << "BK3" << "BK4" << "BK5" << "BKscale" << "BKscheme";
     if (name_i.compare("BD") == 0) return make_vector<std::string>() << "BD1" << "BD2" << "BD3" << "BD4" << "BD5" << "BDscale" << "BDscheme";
     if (name_i.compare("BKd1") == 0) return make_vector<std::string>() << "BK(1/2)1" << "BK(1/2)2" << "BK(1/2)3" << "BK(1/2)4" << "BK(1/2)5"
-        << "BK(1/2)6" << "BK(1/2)7" << "BK(1/2)8" << "BK(1/2)9" << "BK(1/2)10" << "BKd_scale" << "BKd_scheme";
+        << "BK(1/2)6" << "BK(1/2)7" << "BK(1/2)8" << "BK(1/2)9" << "BK(1/2)10" << "BKd1_scale" << "BKd1_scheme";
     if (name_i.compare("BKd3") == 0) return make_vector<std::string>() << "BK(3/2)1" << "BK(3/2)2" << "BK(3/2)3" << "BK(3/2)4" << "BK(3/2)5"
-        << "BK(3/2)6" << "BK(3/2)7" << "BK(3/2)8" << "BK(3/2)9" << "BK(3/2)10" << "BKd_scale" << "BKd_scheme";
+        << "BK(3/2)6" << "BK(3/2)7" << "BK(3/2)8" << "BK(3/2)9" << "BK(3/2)10" << "BKd3_scale" << "BKd3_scheme";
     else throw std::runtime_error(name_i + " is not implemented in BParameter class");
 }
 
@@ -284,49 +284,53 @@ bool BParameter::setParameter(std::string name_i, double value)
         } else if (name_i.compare("BK(1/2)10") == 0) {
             setBpars(9, value);
             return true;
+        } else if (name_i.compare("BKd1_scale") == 0) {
+            setMu(value);
+            return true;
+        } else if (name_i.compare("BKd1_scheme") == 0) {
+            setScheme((schemes) value);
+            return true;
         }
     }
 
     if (name.compare("BKd3") == 0) {
-        if (name_i.compare("BK(3/2)1") == 0 && name.compare("BKd3") == 0) {
+        if (name_i.compare("BK(3/2)1") == 0) {
             setBpars(0, value);
             return true;
-        } else if (name_i.compare("BK(3/2)2") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)2") == 0) {
             setBpars(1, value);
             return true;
-        } else if (name_i.compare("BK(3/2)3") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)3") == 0) {
             setBpars(2, value);
             return true;
-        } else if (name_i.compare("BK(3/2)4") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)4") == 0) {
             setBpars(3, value);
             return true;
-        } else if (name_i.compare("BK(3/2)5") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)5") == 0) {
             setBpars(4, value);
             return true;
-        } else if (name_i.compare("BK(3/2)6") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)6") == 0) {
             setBpars(5, value);
             return true;
-        } else if (name_i.compare("BK(3/2)7") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)7") == 0) {
             setBpars(6, value);
             return true;
-        } else if (name_i.compare("BK(3/2)8") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)8") == 0) {
             setBpars(7, value);
             return true;
-        } else if (name_i.compare("BK(3/2)9") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)9") == 0) {
             setBpars(8, value);
             return true;
-        } else if (name_i.compare("BK(3/2)10") == 0 && name.compare("BKd3") == 0) {
+        } else if (name_i.compare("BK(3/2)10") == 0) {
             setBpars(9, value);
             return true;
+        } else if (name_i.compare("BKd3_scale") == 0) {
+            setMu(value);
+            return true;
+        } else if (name_i.compare("BKd3_scheme") == 0) {
+            setScheme((schemes) value);
+            return true;
         }
-    }
-
-    if (name_i.compare("BKd_scale") == 0 && (name.compare("BKd1") == 0 || name.compare("BKd3") == 0)) {
-        setMu(value);
-        return true;
-    } else if (name_i.compare("BKd_scheme") == 0 && (name.compare("BKd1") == 0 || name.compare("BKd3") == 0)) {
-        setScheme((schemes) value);
-        return true;
     }
 
     return false;
