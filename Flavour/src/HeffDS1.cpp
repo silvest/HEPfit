@@ -140,7 +140,7 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PPz(double muc, schemes 
                         switch (ordDF1) {
                             case NLO:
                                 coeffds1cc.setCoeff(u->Df1Evolnlep3flav(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccNLO +
-                                        u->Df1Evolnlep(muc,mu,NLO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO,NLO);
+                                        u->Df1Evolnlep3flav(muc,mu,NLO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO,NLO);
                             case LO:
                                 coeffds1cc.setCoeff(u->Df1Evolnlep3flav(muc,mu,LO, NO_QED, mcbCC[i].getScheme()) * DS1ccLO,LO);                            
                             break;
