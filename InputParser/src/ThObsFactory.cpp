@@ -522,6 +522,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltalHHH"] = boost::factory<deltalHHH*>();
     //-----  Other Higgs couplings observables  ----------
     obsThFactory["gHWZeff_Ratio"] = boost::factory<gHWZeff*>();
+    obsThFactory["gHWZSM_Ratio"] = boost::factory<gHWZSMLin*>();
     obsThFactory["gHbWeff_Ratio"] = boost::factory<gHbWeff*>();
     obsThFactory["gHtaWeff_Ratio"] = boost::factory<gHtaWeff*>();
     //-----  VVV couplings observables  ----------

@@ -2449,6 +2449,43 @@ private:
 };
 
 /**
+ * @class gHWZSMLin
+ * @brief An observable class for the ratio of the SM-like @f$H WW@f$ and @f$H ZZ@f$ couplings 
+ * @f$g_{HWW}^{Eff}/g_{HZZ}^{Eff}@f$  (linear in new physics effects).
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the ratio of the effective @f$H WW@f$ and @f$H ZZ@f$ couplings 
+ * @f$g_{HWW}^{Eff}/g_{HZZ}^{Eff}@f$.
+ *
+ */
+class gHWZSMLin : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHWZSMLin(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHWZSMLin class.
+     */
+    virtual ~gHWZSMLin();
+
+    /**
+     * @brief The ratio of the SM-like @f$H WW@f$ and @f$H ZZ@f$ couplings
+     * @return @f$g_{HWW}^{Eff}/g_{HZZ}^{Eff}@f$ (linear in new physics effects)
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
  * @class gHbWeff
  * @brief An observable class for the ratio of the effective @f$H bb@f$ and @f$H WW@f$ couplings 
  * @f$g_{Hbb}^{Eff}/g_{HWW}^{Eff}@f$.

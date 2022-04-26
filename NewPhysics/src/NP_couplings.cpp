@@ -1425,6 +1425,30 @@ double gHWZeff::computeThValue()
 
 /* -------------------------------------*/
 
+gHWZSMLin::gHWZSMLin(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHWZSMLin::~gHWZSMLin()
+{}
+
+double gHWZSMLin::computeThValue()
+{   
+    double dgZ = myNPbase->deltaG3_hZZ();
+    double gZSM = (SM.getMz()) * (SM.getMz()) / (SM.v());
+    
+    double dgW = myNPbase->deltaG3_hWW();
+    double gWSM = 2.0 * (SM.StandardModel::Mw_tree())* (SM.StandardModel::Mw_tree()) / (SM.v());
+    
+    return (1.0 + dgW/gWSM - dgZ/gZSM);
+}
+
+/* -------------------------------------*/
+
 gHbWeff::gHbWeff(const StandardModel& SM_i):
 
         ThObservable(SM_i), 
