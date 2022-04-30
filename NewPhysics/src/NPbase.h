@@ -165,7 +165,7 @@ public:
      * @f$\alpha(M_Z^2)=\alpha/(1-\Delta\alpha(M_Z^2))@f$.
      * @return @f$\alpha(M_Z^2)@f$
      */
-    double alphaMz() const;
+    virtual double alphaMz() const;
 
     /**
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.

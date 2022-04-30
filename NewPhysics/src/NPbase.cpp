@@ -211,6 +211,7 @@ double NPbase::deltaGamma_Zf(const Particle f) const
         Nf = 3.0;
     }
     
+    double alpha = trueSM.alphaMz();
     double sW2_SM = trueSM.sW2();
     double cW2_SM = trueSM.cW2();
     
@@ -221,7 +222,7 @@ double NPbase::deltaGamma_Zf(const Particle f) const
         double delGammaZf = 0.0;
         delGammaZf = 2.0 * Nf * (gVf * delGVf + gAf * delGAf);
         
-        deltaGamma_Zf = alphaMz() * Mz / 12.0 / sW2_SM / cW2_SM * delGammaZf;
+        deltaGamma_Zf = alpha * Mz / 12.0 / sW2_SM / cW2_SM * delGammaZf;
     }
 
     return deltaGamma_Zf;
@@ -265,9 +266,10 @@ double NPbase::deltaGamma_Z() const
             delGammaZ += deltaGl[p] + 3.0 * deltaGq[p];
         }
 
+        double alpha = trueSM.alphaMz();       
         double sW2_SM = trueSM.sW2();
         double cW2_SM = trueSM.cW2();
-        deltaGamma_Z = alphaMz() * Mz / 12.0 / sW2_SM / cW2_SM
+        deltaGamma_Z = alpha * Mz / 12.0 / sW2_SM / cW2_SM
                 * delGammaZ;
     }
 
@@ -324,9 +326,10 @@ double NPbase::deltaGamma_Zhad() const
             delGammaZhad += 3.0 * deltaGq[p];
         }
 
+        double alpha = trueSM.alphaMz();
         double sW2_SM = trueSM.sW2();
         double cW2_SM = trueSM.cW2();
-        deltaGamma_Zhad = alphaMz() * Mz / 12.0 / sW2_SM / cW2_SM
+        deltaGamma_Zhad = alpha * Mz / 12.0 / sW2_SM / cW2_SM
                 * delGammaZhad;
     }
 

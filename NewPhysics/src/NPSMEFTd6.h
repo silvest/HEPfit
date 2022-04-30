@@ -1531,7 +1531,7 @@ public:
      * @brief The electromagnetic coupling at the @f$Z@f$-mass scale.
      * @return @f$\alpha(M_Z^2)@f$
      */
-    double alphaMz() const;
+    virtual double alphaMz() const;
     
     /**
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.

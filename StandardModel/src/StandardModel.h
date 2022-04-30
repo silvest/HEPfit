@@ -1162,7 +1162,7 @@ public:
      * @f]
      * @return @f$\alpha(M_Z^2)@f$
      */
-    double alphaMz() const;
+    virtual double alphaMz() const;
 
     /**
      * @brief The value of \f$\frac{\alpha_s^{\mathrm{FULLNLO}}}{4\pi}\f$ at any scale \f$\mu\f$ with the number of flavours
