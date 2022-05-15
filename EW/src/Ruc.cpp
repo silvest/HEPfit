@@ -10,7 +10,11 @@
 
 double Ruc::computeThValue()
 {
-    return 0.5 * (SM.R0_f(SM.getQuarks(SM.UP)) + SM.R0_f(SM.getQuarks(SM.CHARM)) );
+    //AG:begin
+    return SM.Ruc();
+    //AG:end
+    
+    //return 0.5 * (SM.R0_f(SM.getQuarks(SM.UP)) + SM.R0_f(SM.getQuarks(SM.CHARM)) );
 }
 
 

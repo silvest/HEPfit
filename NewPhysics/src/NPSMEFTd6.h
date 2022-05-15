@@ -1,3 +1,35 @@
+/*AG: The following public functions and protected parameters were added
+virtual double deltaMwd6_2() const;
+virtual double deltaMwd6_Test() const
+virtual double deltaGamma_Wff_Test(const Particle fi, const Particle fj) const;
+virtual double deltaGamma_Wff_2(const Particle fi, const Particle fj) const;
+virtual double deltaGamma_W_Test() const;
+virtual double deltaGamma_W_2() const;
+double deltaGL_f_Test(const Particle p) const;
+double deltaGR_f_Test(const Particle p) const;
+virtual double deltaGV_f_2(const Particle p) const;
+virtual double deltaGA_f_2(const Particle p) const;
+double deltaGL_f_2(const Particle p) const;
+double deltaGR_f_2(const Particle p) const;
+double delta_GF_2;
+double delta_ale;
+double delta_Mz2;
+double delta_g1;
+double delta_g2; 
+double xWZ_tree;
+double xBZ_tree;
+double delta_xWZ;
+double delta_xBZ;
+double delta_xWZ_2;
+double delta_xBZ_2;
+double delta_ale_2;
+double delta_Mz2_2;
+double delta_g1_2;
+double delta_g2_2;
+virtual bool NumericCheck() const; 
+virtual int Output() const;
+*/
+
 /*
  * Copyright (C) 2014 HEPfit Collaboration
  *
@@ -1656,8 +1688,67 @@ public:
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */
     virtual double RZlilj(const Particle li, const Particle lj) const;
-
-
+    
+    ///////////////////////////////////////////////////////////////////////
+    //AG:begin
+    virtual double deltaMwd6_Test() const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the mass of the @f$W@f$ boson, @f$\delta M_W^{(2)}/M_W@f$.
+     * @return @f$\delta M_W^{(2)}/M_W@f$
+     */
+    virtual double deltaMwd6_2() const;
+    
+    virtual double deltaGamma_Wff_Test(const Particle fi, const Particle fj) const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the decay width of the @f$W@f$ boson into a given fermion pair, @f$\delta \Gamma_{Z,f}^{(2)}@f$.
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\delta \Gamma_{W,ff}^{(2)}@f$ in GeV
+     */
+    virtual double deltaGamma_Wff_2(const Particle fi, const Particle fj) const;
+    
+    virtual double deltaGamma_W_Test() const;
+    
+    /**
+     * @brief The quadratic new physics contribution to the total decay width of the @f$W@f$ boson, @f$\delta \Gamma_W^{(2)}@f$.
+     * @return @f$\delta \Gamma_W^{(2)}@f$ in GeV
+     */
+    virtual double deltaGamma_W_2() const;
+    
+    double deltaGL_f_Test(const Particle p) const;
+    double deltaGR_f_Test(const Particle p) const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the neutral-current vector coupling @f$g_V^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_{V,f}^{(2)}@f$
+     */
+    virtual double deltaGV_f_2(const Particle p) const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_{A,f}^{(2)}@f$
+     */    
+    virtual double deltaGA_f_2(const Particle p) const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_{L,f}^{(2)}@f$
+     */
+    double deltaGL_f_2(const Particle p) const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_{R,f}^{(2)}@f$
+     */
+    double deltaGR_f_2(const Particle p) const;
+    
+    //AG:end
     ////////////////////////////////////////////////////////////////////////
  
     double CLL_mu() const;
@@ -6414,6 +6505,9 @@ public:
      */
     virtual double AuxObs_NP30() const;
     
+    virtual bool NumericCheck() const;   //AG:added
+    virtual int Output() const;          //AG:added
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -7094,6 +7188,24 @@ protected:
     double delta_UgNC;///< The dimension 6 universal correction to neutral current EW couplings
     double delta_QgNC;///< The dimension 6 charge correction to neutral current EW couplings
     double delta_UgCC;///< The dimension 6 universal correction to charged current EW couplings
+    
+    //AG:begin
+    double delta_GF_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the Fermi constant.
+    double delta_ale;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the EM constant at the Z-pole.
+    double delta_ale_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the EM constant at the Z-pole.
+    double delta_Mz2;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the mass-squared of the Z.
+    double delta_Mz2_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the mass-squared of the Z.
+    double delta_g1;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the \f$U(1)_Y\f$ gauge coupling contant (at the \f$Z\f$ pole).
+    double delta_g1_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the \f$U(1)_Y\f$ gauge coupling contant (at the \f$Z\f$ pole).
+    double delta_g2;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the \f$SU(2)_L\f$ gauge coupling contant (at the \f$Z\f$ pole).
+    double delta_g2_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the \f$SU(2)_L\f$ gauge coupling contant (at the \f$Z\f$ pole) .
+    double xWZ_tree;///< The tree level value of the coefficient that transforms the weak-isospin field \f$W^3\f$ into the Z-boson \f$Z\f$.
+    double xBZ_tree;///< The tree level value of the coefficient that transforms the hypercharge field \f$B\f$ into the Z-boson \f$Z\f$.
+    double delta_xWZ;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the coefficient that transforms the weak-isospin field \f$W^3\f$ into the Z-boson \f$Z\f$.
+    double delta_xBZ;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the coefficient that transforms the hypercharge field \f$B\f$ into the Z-boson \f$Z\f$.
+    double delta_xWZ_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the coefficient that transforms the weak-isospin field \f$W^3\f$ into the Z-boson \f$Z\f$.
+    double delta_xBZ_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the coefficient that transforms the hypercharge field \f$B\f$ into the Z-boson \f$Z\f$.
+    //AG:end
     
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(1)}\f$ corresponding to particle F.

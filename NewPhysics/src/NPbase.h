@@ -1,3 +1,28 @@
+/*AG: The following functions were added:
+virtual double deltaGV_f_2(const Particle f) const;
+virtual double deltaGA_f_2(const Particle f) const;
+virtual double deltaGamma_Zf_Test(const Particle f) const;
+virtual double deltaGamma_Zf_2(const Particle f) const;
+virtual double deltaGamma_Z_Test() const;
+virtual double deltaGamma_Z_2() const;
+virtual double deltaGamma_Zhad_Test() const;
+virtual double deltaGamma_Zhad_2() const;
+virtual double deltaSigmaHadron_Test() const;
+virtual double deltaSigmaHadron_2() const;
+virtual double deltaSin2thetaEff_e_2() const;
+virtual double deltaSin2thetaEff_mu_2() const;
+virtual double deltaA_f_2(const Particle f) const;
+virtual double deltaAFB_Test(const Particle f) const;
+virtual double deltaAFB_2(const Particle f) const;
+virtual double deltaR0_f_Test(const Particle f) const;
+virtual double deltaR0_f_2(const Particle f) const;
+virtual double deltaRuc() const;
+virtual double deltaRuc_2() const;
+virtual double Ruc() const;
+virtual bool NumericCheck() const;   
+virtual int Output() const;
+*/
+
 /*
  * Copyright (C) 2013 HEPfit Collaboration
  *
@@ -158,6 +183,92 @@ public:
         return 0.;
     }
 
+    ////////////////////////////////////////////////////////////////////////
+    //AG:begin
+    virtual double deltaGV_f_2(const Particle f) const {
+        return 0.0;
+    }
+    virtual double deltaGA_f_2(const Particle f) const {
+        return 0.0;
+    }
+    
+    virtual double deltaGamma_Zf_Test(const Particle f) const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the decay width of the @f$Z@f$ boson into a given fermion pair, @f$\delta \Gamma_{Z,f}^{(2)}@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta \Gamma_{Z,f}^{(2)}@f$ in GeV
+     */
+    virtual double deltaGamma_Zf_2(const Particle f) const;
+    
+    virtual double deltaGamma_Z_Test() const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the total decay width of the @f$Z@f$ boson, @f$\delta \Gamma_Z^{(2)}@f$.
+     * @return @f$\delta \Gamma_Z^{(2)}@f$ in GeV
+     */
+    virtual double deltaGamma_Z_2() const;
+    
+    virtual double deltaGamma_Zhad_Test() const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the hadronic decay width of the @f$Z@f$ boson, @f$\delta \Gamma_{Z,had}^{(2)}@f$.
+     * @return @f$\delta \Gamma_{Z,had}^{(2)}@f$ in GeV
+     */
+    virtual double deltaGamma_Zhad_2() const;
+    
+    virtual double deltaSigmaHadron_Test() const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
+     * at the @f$Z@f$ pole, @f$\delta \sigma_h^{0,(2)}@f$.
+     * @return @f$\delta \sigma_h^{0,(2)}@f$ in GeV@f$^{-2}@f$
+     */
+    virtual double deltaSigmaHadron_2() const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the effective electron/leptonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\rm lept, (2)}@f$
+     * at the @f$Z@f$ pole.
+     * @return @f$\delta \sin^2\theta_{\rm eff}^{\rm lept, (2)}@f$
+     */
+    virtual double deltaSin2thetaEff_e_2() const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the effective muonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\mu\mu (2)}@f$
+     * at the @f$Z@f$ pole.
+     * @return @f$\delta \sin^2\theta_{\rm eff}^{\mu\mu (2)}@f$
+     */
+    virtual double deltaSin2thetaEff_mu_2() const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\delta \mathcal{A}_f^{(2)}@f$. 
+     * @param[in] f a lepton or quark
+     * @return @f$\delta \mathcal{A}_f^{(2)}@f$
+     */
+    virtual double deltaA_f_2(const Particle f) const;
+    
+    virtual double deltaAFB_Test(const Particle f) const;
+    
+    /**
+     * @brief The quadratic @f$\mathcal{O}(1/\Lambda^4)@f$ NP to the forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\delta A^f_{FB}@f$. 
+     * @param[in] f a lepton or quark
+     * @return @f$\delta A^{f (2)}_{FB}@f$
+     */
+    virtual double deltaAFB_2(const Particle f) const;
+    
+    virtual double deltaR0_f_Test(const Particle f) const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
+     * @f$R_q^0=\Gamma_q/\Gamma_{\mathrm{had}}@f$ and @f$R_\nu^0=\Gamma_\nu/\Gamma_{\mathrm{had}}@f$, 
+     * for charged leptons, quarks and neutrinos, respectively.
+     * @param f a lepton or quark
+     * @return @f$\delta R_f^{0 (2)}@f$
+     */
+    virtual double deltaR0_f_2(const Particle f) const;
+    //AG:end     
     ////////////////////////////////////////////////////////////////////////
     
     /**
@@ -374,6 +485,11 @@ public:
      */
     virtual double deltaGamma_Zhad() const;
     
+    //AG:begin
+    virtual double deltaRuc() const;
+    virtual double deltaRuc_2() const;
+    virtual double Ruc() const;
+    //AG:end
     
     /**
      * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
@@ -4002,7 +4118,8 @@ public:
         return 0.0;
     }
     
-    
+    virtual bool NumericCheck() const;   //AG:added
+    virtual int Output() const;          //AG:added
       
     ////////////////////////////////////////////////////////////////////////
 protected:

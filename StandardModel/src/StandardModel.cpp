@@ -1,3 +1,5 @@
+//AG: Ruc added
+
 /* 
  * Copyright (C) 2012 HEPfit Collaboration
  *
@@ -49,7 +51,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     FlagKappaZ = "APPROXIMATEFORMULA";
     FlagWolfenstein = true;
 
-    FlagMWinput = false;
+    FlagMWinput = true;
     
     FlagSMAux = false;
 
@@ -1283,6 +1285,12 @@ double StandardModel::RWlilj(const Particle li, const Particle lj) const
     return GammWli/GammWlj;
 }
 
+//AG:begin
+double StandardModel::Ruc() const
+{
+    return 0.5 * ( R0_f(quarks[UP]) + R0_f(quarks[CHARM]) );
+}
+//AG:end
 
 double StandardModel::RWc() const
 {  

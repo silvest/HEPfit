@@ -1,3 +1,5 @@
+//AG: Ruc added
+
 /*
  * Copyright (C) 2012 HEPfit Collaboration
  *
@@ -1520,6 +1522,10 @@ public:
      * @return @f$R_{W,l_i/l_j)@f$ in GeV
      */
     virtual double RWlilj(const Particle li, const Particle lj) const;
+    
+    //AG:begin
+    virtual double Ruc() const;
+    //AG:end
     
     /**
      * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
