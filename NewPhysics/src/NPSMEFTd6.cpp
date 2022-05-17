@@ -354,7 +354,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagLoopHd6 = false;
     FlagLoopH3d6Quad = false;
     FlagRGEciLLA = false;
-    FlagMWinput = false;
+    FlagMWinput = true;
     setModelLinearized();
     
     w_WW = gsl_integration_cquad_workspace_alloc(100);
@@ -3068,7 +3068,7 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
 
 //AG:begin
 bool NPSMEFTd6::NumericCheck() const {
-    return false;
+    return true;
 }
 
 int NPSMEFTd6::Output() const {
@@ -3980,7 +3980,43 @@ double NPSMEFTd6::deltaMw2() const
 
 double NPSMEFTd6::alphaMz() const
 {   
-    return (aleMz*(1.0 + 2.0 * delta_e + delta_A));
+    
+    //AG:begin
+    double dalphaMz = 0.0;
+    double dalphaMz_2 = 0.0;
+    if(FlagQuadraticTerms and FlagMWinput){
+    double g1 = g1_tree;
+    double dg1L= delta_g1;
+    double dg1Q = delta_g1_2;
+    double g2 = g2_tree;
+    double dg2L = delta_g2;
+    double dg2Q = delta_g2_2;
+    double G = g1*g1+g2*g2;
+
+    // dalphaMz equivalent to "2.0 * delta_e + delta_A"
+    dalphaMz = 2.0*( g1*g1*g1*dg2L + g2*g2*g2*dg1L)/g1/g2/G - 2.0*g1*g2/G*CiHWB*v2_over_LambdaNP2;
+    
+    dalphaMz_2 = 2.0/G*(g1*g1/g2*dg2Q + g2*g2/g1*dg1Q)
+               + g1*g1*(g1*g1-3.0*g2*g2)/g2/g2/G/G * dg2L*dg2L + g2*g2*(g2*g2-3.0*g1*g1)/g1/g1/G/G * dg1L*dg1L
+               + 2.0/G/G * ( g1*(g2*g2-3.0*g1*g1)*dg2L + g2*(g1*g1-3.0*g2*g2)*dg1L ) * CiHWB*v2_over_LambdaNP2
+               + 8.0*g1*g2/G/G * dg1L*dg2L
+               - 2.0*g1*g2/G/G * (-2.0*g1*g2*CiHWB*v2_over_LambdaNP2 + G*(CiHW+CiHB)*v2_over_LambdaNP2 + G*delta_GF ) * CiHWB*v2_over_LambdaNP2;
+    
+    bool numericCheck = NumericCheck();
+    if(numericCheck){
+        std::cout << g1 << " " << dg1L << " " << dg1Q << std::endl;
+        std::cout << g2 << " " << dg2L << " " << dg2Q << std::endl;
+        std::cout << "aleMz = " << aleMz << std::endl;
+        std::cout << "dalphaMz = " << dalphaMz << std::endl;
+        std::cout << "2.0 * delta_e + delta_A = " << 2.0 * delta_e + delta_A << std::endl;
+        std::cout << "dalphaMz_2 = " << dalphaMz_2 << std::endl;
+    }
+    }
+
+    //AG:end
+
+    //AG: dalphaMz_2 added below
+    return (aleMz*(1.0 + 2.0 * delta_e + delta_A + dalphaMz_2 ));
 }
 
 double NPSMEFTd6::Mw() const
