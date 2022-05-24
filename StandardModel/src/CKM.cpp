@@ -52,14 +52,20 @@ void CKM::computeCKMfromAngles()
     V.assign(2, 2, c23*c13);  
 }
 
-void CKM::computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v)
+void CKM::computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v, bool useVud)
 {
     s13 = Vub_v;
     c13 = sqrt(1.-s13*s13);
-    s12 = Vus_v / c13;
+    if (useVud) {
+        c12 = Vus_v / c13;
+        s12 = sqrt(1. - c12 * c12);
+    }
+    else {
+        s12 = Vus_v / c13;
+        c12 = sqrt(1. - s12 * s12);
+    }
+    
     s23 = Vcb_v / c13;
-
-    c12 = sqrt(1. - s12 * s12);
     c23 = sqrt(1. - s23 * s23);
     
     double a = c12 * s13 * s23 / s12 / c23;
@@ -78,6 +84,7 @@ void CKM::computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v)
     Eta = -Rb.imag();
     return;
 }
+
 
 double CKM::computeBeta() const
 {

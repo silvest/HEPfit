@@ -277,6 +277,17 @@ class EWSMTwoFermionsLEP2;
  *   The default value is TRUE.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%UseVud</td>
+ *   <td class="mod_valu"><b>FALSE</b>&nbsp;/&nbsp;TRUE</td>
+ *   <td class="mod_desc">This flag controls the way the CKM matrix is parameterized. 
+ *   If set to FALSE, with %Wolfenstein FALSE, the CKM matrix is computed starting from @f$\vert V_{us} \vert@f$, 
+ *   @f$\vert V_{cb} \vert@f$, @f$\vert V_{ub} \vert@f$ and @f$\gamma@f$. 
+ *   If set to TRUE, with %Wolfenstein FALSE, the CKM matrix is computed starting from @f$\vert V_{ud} \vert@f$, 
+ *   @f$\vert V_{cb} \vert@f$, @f$\vert V_{ub} \vert@f$ and @f$\gamma@f$.
+ *   If %Wolfenstein is set to TRUE, this flag has no effect.
+ *   The default value is FALSE.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CacheInStandardModel</td>
  *   <td class="mod_valu"><b>TRUE</b>&nbsp;/&nbsp;FALSE</td>
  *   <td class="mod_desc">This flag controls the use of the cashing method
@@ -2704,6 +2715,7 @@ protected:
     double rhob; ///< The %CKM parameter @f$\bar{\rho}@f$ in the Wolfenstein parameterization.
     double etab; ///< The %CKM parameter @f$\bar{\eta}@f$ in the Wolfenstein parameterization.
     double Vus; ///< @f$\vert V_{us} \vert @f$ used as an input for FlagWolfenstein = FALSE
+    double Vud; ///< @f$\vert V_{ud} \vert @f$ used as an input for FlagWolfenstein = FALSE and FlagUseVud = TRUE
     double Vcb; ///< @f$\vert V_{cb} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double Vub; ///< @f$\vert V_{ub} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double gamma; ///< @f$\gamma @f$ used as an input for FlagWolfenstein = FALSE
@@ -3269,6 +3281,7 @@ private:
     std::string FlagRhoZ; ///< A string for the model flag %RhoZ.
     std::string FlagKappaZ; ///< A string for the model flag %KappaZ.
     bool FlagWolfenstein; ///< A boolean for the model flag %Wolfenstein.
+    bool FlagUseVud; ///< A boolean for the model flag %UseVud.
 
     bool FlagMWinput; ///< A boolean for the model flag %MWinput.    
     bool FlagSMAux; ///< A boolean for the model flag %SMAux.

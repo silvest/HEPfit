@@ -48,6 +48,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     FlagRhoZ = "NORESUM";
     FlagKappaZ = "APPROXIMATEFORMULA";
     FlagWolfenstein = true;
+    FlagUseVud = false;
 
     FlagMWinput = false;
     
@@ -327,8 +328,11 @@ void StandardModel::setParameter(const std::string name, const double& value)
     } else if (name.compare("etab") == 0 && FlagWolfenstein) {
         etab = value;
         requireCKM = true;
-    } else if (name.compare("V_us") == 0 && !FlagWolfenstein) {
+    } else if (name.compare("V_us") == 0 && !FlagWolfenstein && !FlagUseVud) {
         Vus = value;
+        requireCKM = true;
+    } else if (name.compare("V_ud") == 0 && !FlagWolfenstein && FlagUseVud) {
+        Vud = value;
         requireCKM = true;
     } else if (name.compare("V_cb") == 0 && !FlagWolfenstein) {
         Vcb = value;
@@ -366,12 +370,20 @@ void StandardModel::computeCKM()
             Vcb = myCKM.getV_cb().abs();
             Vub = myCKM.getV_ub().abs();
             gamma = myCKM.computeGamma();
+        } else if (FlagUseVud) {
+            myCKM.computeCKM(Vud, Vcb, Vub, gamma, FlagUseVud);
+            lambda = myCKM.getLambda();
+            A = myCKM.getA();
+            rhob = myCKM.getRhoBar();
+            etab = myCKM.getEtaBar();
+            Vus = myCKM.getV_us().abs();
         } else {
             myCKM.computeCKM(Vus, Vcb, Vub, gamma);
             lambda = myCKM.getLambda();
             A = myCKM.getA();
             rhob = myCKM.getRhoBar();
             etab = myCKM.getEtaBar();
+            Vud = myCKM.getV_ud().abs();
         }
     }
     myPMNS.computePMNS(s12, s13, s23, delta, alpha21, alpha31); // WARNING: This does not do anything since the input values are not set.
@@ -453,6 +465,16 @@ bool StandardModel::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("SMAux") == 0) {
         FlagSMAux = value;
+        res = true;
+    } else if (name.compare("UseVud") == 0) {
+        FlagUseVud = value;
+        if (FlagUseVud && FlagWolfenstein)
+            throw std::runtime_error("UseVud can only be used when Wolfenstein is false");
+        else if(FlagUseVud) {
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"V_us"))] = "V_ud";
+            ModelParamMap.erase("V_us");
+            ModelParamMap.insert(std::make_pair("V_ud", std::cref(Vud)));
+        }
         res = true;
     } else
         res = QCD::setFlag(name, value);
