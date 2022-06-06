@@ -1561,15 +1561,47 @@ public:
     
     /**
      * @brief The electromagnetic coupling at the @f$Z@f$-mass scale.
-     * @return @f$\alpha(M_Z^2)@f$
+     * @details  
+     * \f$\newcommand{\nc}{\newcommand}\f$
+     * \f$\nc{\gwt}{\widetilde{g}_W}\f$
+     * \f$\nc{\gbt}{\widetilde{g}_1}\f$
+     * \f$\nc{\gbL}{\Delta g_1^{(1)}}\f$
+     * \f$\nc{\gwL}{\Delta g_W^{(1)}}\f$
+     * \f$\nc{\gbQ}{\Delta g_1^{(2)}}\f$
+     * \f$\nc{\gwQ}{\Delta g_W^{(2)}}\f$
+     * \f$\nc{\vt}{\widetilde{v}}\f$
+     * \f$\nc{\dGf}{\delta_{G_F}}\f$
+     * \f$\nc{\swt}{s_W}\f$
+     * \f$\nc{\cwt}{c_W}\f$
+     * \f[
+     * \alpha (M_Z) = \alpha (M_Z)^{SM} + \Delta \alpha (Mz)^{(1)} + \Delta \alpha (Mz)^{(2)}
+     * \f]
+     * where,
+     * \f[
+     * \Delta \alpha^{(1)} = 2\swt^2\frac{\gwL}{\gwt} + 2\cwt^2\frac{\gbL}{\gbt} - 4\swt\cwt C_{\varphi WB}\frac{\vt^2}{\Lambda^2}
+     * \f]
+     * \f{eqnarray*}{
+     * \Delta \alpha^{(2)} &=& 2\swt^2\frac{\gwQ}{\gwt} + 2\cwt^2\frac{\gbQ}{\gbt}
+     * + \swt^2(\swt^2-3\cwt^2)\left(\frac{\gwL}{\gwt}\right)^2 + \cwt^2(\cwt^2-3\swt^2)\left(\frac{\gbL}{\gbt}\right)^2 
+     * + 8 \swt^2\cwt^2 \frac{\gwL}{\gwt}\frac{\gbL}{\gbt} \\
+     * &+& 2 \swt\cwt\left((\cwt^2-3\swt^2)\frac{\gwL}{\gwt} 
+     * + (\swt^2-3\cwt^2)\frac{\gbL}{\gbt}\right) \hat{C}_{\varphi WB} \vt^2 
+     * - 2 \swt \cwt \left( -2\swt\cwt \hat{C}_{\varphi WB}\vt^2 
+     * + (\hat{C}_{\varphi W}+\hat{C}_{\varphi B})\vt^2 + \dGf^{(1)} \right) \hat{C}_{\varphi WB}\vt^2
+     * \f}
+     * @return @f$\alpha(M_Z^2)@f$, including @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions.
      */
-    virtual double alphaMz() const;
+    virtual double alphaMz() const;                                //AG:modified
     
     /**
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
-     * @return @f$M_W@f$ in GeV
+     * @details
+     * \f[
+     * M_W = M_W^{SM}( 1 + \Delta M_W^{(1)} + \Delta M_W^{(2)})
+     * \f]
+     * @return @f$M_W@f$ in GeV, including @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions.
      */
-    virtual double Mw() const;
+    virtual double Mw() const;                                     //AG:modified
     
     /**
      * @brief The relative NP corrections to the mass of the @f$W@f$ boson, @f$\delta M_W/M_W@f$.
@@ -1667,84 +1699,137 @@ public:
         
     /**
      * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
-     * @return @f$Br(W\to f_i f_j)@f$ in GeV
+     * @details
+     * \f[ BrW_{fi,fj} = BrW_{fi,fj}^{SM} + \Delta BrW_{fi,fj}^{(1)} + \Delta BrW_{fi,fj}^{(2)} \f]
+     * where,
+     * \f[
+     * \Delta BrW_{fi,fj}^{(1)} = \frac{\Gamma_{W, f_i f_j}^{SM}}{\Gamma_W^{SM}} \left( \frac{\Delta \Gamma_{W, f_i f_j}^{(1)}}{\Gamma_{W, f_i f_j}^{SM}} - \frac{\Delta \Gamma_{W}^{(1)}}{\Gamma_{W}^{SM}} \right)
+     * \f]
+     * \f[
+     * \Delta BrW_{fi,fj}^{(2)} = \frac{\Gamma_{W,f_i f_j}^{SM}}{\Gamma_W^{SM}} \left( \frac{\Delta \Gamma_{W, f_i f_j}^{(2)}}{\Gamma_{W, f_i f_j}^{SM}}
+     * - \frac{\Delta \Gamma_{W}^{(2)}}{\Gamma_{W}^{SM}}
+     * + \frac{(\Delta \Gamma_{W}^{(1)})^2}{(\Gamma_{W}^{SM})^2} 
+     * + \frac{\Delta \Gamma_{W,f_i f_j}^{(1)} \Delta \Gamma_{W}^{(1)}}{\Gamma_{W, f_i f_j}^{SM} \Gamma_{W}^{SM}} \right)
+     * \f]
+     * @return @f$Br(W\to f_i f_j)@f$ in GeV, including @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions.
      */
-    virtual double BrW(const Particle fi, const Particle fj) const;
+    virtual double BrW(const Particle fi, const Particle fj) const;     //AG:modified
     
     /**
      * @brief The lepton universality ratio @f$R_{W,l_i/l_j)=\Gamma(W\to l_i \nu_i)/\Gamma(W\to l_j \nu_j)@f$.
+     * @details
+     * \f[ RWc = RWc^{SM} + \Delta RWc^{(1)} + \Delta RWc^{(2)} \f]
+     * where,
+     * \f[
+     * \Delta RWc^{(2)} = \frac{\Delta \Gamma_{W,cx}^{(2)}}{\Gamma_{W,had}^{SM}} 
+     * + \frac{\Gamma_{W,cx}^{SM} ~\Delta \Gamma_{W,had}^{(1)}}{\Gamma_{W,had}^{SM}} 
+     * + \frac{\Gamma_{W,cx}^{SM} ~(\Delta \Gamma_{W,had}^{(1)})^2}{(\Gamma_{W,had}^{SM})^3} 
+     * - \frac{\Delta \Gamma_{W,cx}^{(1)} ~\Delta \Gamma_{W,had}^{(1)}}{(\Gamma_{W,had}^{SM})^2}
+     * \f]
      * @return @f$R_{W,l_i/l_j)@f$ in GeV
      */
     virtual double RWlilj(const Particle li, const Particle lj) const;
     
     /**
-     * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
-     * @return @f$R_{W,c)@f$ in GeV
+     * @brief The ratio @f$ R_{W,c}=\Gamma(W\to c + X)/\Gamma(W\to had) @f$.
+     * @return \f$R_{W,c}\f$ in GeV, including @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions.
      */
-    virtual double RWc() const;
+    virtual double RWc() const;                                    //AG:modified
     
     /**
      * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */
     virtual double RZlilj(const Particle li, const Particle lj) const;
-    
+
     ///////////////////////////////////////////////////////////////////////
     //AG:begin
-    virtual double deltaMwd6_Test() const;
+    virtual double deltaMwd6_Test() const;///<Alternative notation to deltaMwd6
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the mass of the @f$W@f$ boson, @f$\delta M_W^{(2)}/M_W@f$.
-     * @return @f$\delta M_W^{(2)}/M_W@f$
+     * @brief The relative \f$\mathcal{O}(\Lambda^{-4})\f$ NP corrections to the mass of the @f$W@f$ boson, @f$\Delta M_W^{(2)}@f$.
+     * @details
+     * \f$\nc{\dGf}{\delta_{G_F}}\f$
+     * \f[
+     * \Delta M_W^{(2)} =  \frac{\gwQ}{\gwt} + \frac{\dGf^{(2)}}{2} + \frac{\gwL \dGf^{(1)}}{2\gwt} - \frac{(\dGf^{(1)})^2}{8}
+     * \f]
+     * @return @f$\Delta M_W^{(2)}@f$
      */
     virtual double deltaMwd6_2() const;
     
-    virtual double deltaGamma_Wff_Test(const Particle fi, const Particle fj) const;
+    virtual double deltaGamma_Wff_Test(const Particle fi, const Particle fj) const;///<Alternative notation to deltaGamma_Wff.
     
-    /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the decay width of the @f$W@f$ boson into a given fermion pair, @f$\delta \Gamma_{Z,f}^{(2)}@f$.
-     * @param[in] fi a lepton or quark
-     * @param[in] fj a lepton or quark
-     * @return @f$\delta \Gamma_{W,ff}^{(2)}@f$ in GeV
-     */
+
     virtual double deltaGamma_Wff_2(const Particle fi, const Particle fj) const;
     
-    virtual double deltaGamma_W_Test() const;
+    virtual double deltaGamma_W_Test() const;///<Alternative notation to deltaGamma_W.
     
-    /**
-     * @brief The quadratic new physics contribution to the total decay width of the @f$W@f$ boson, @f$\delta \Gamma_W^{(2)}@f$.
-     * @return @f$\delta \Gamma_W^{(2)}@f$ in GeV
-     */
+
     virtual double deltaGamma_W_2() const;
     
-    double deltaGL_f_Test(const Particle p) const;
-    double deltaGR_f_Test(const Particle p) const;
+    double deltaGL_f_Test(const Particle p) const;///<Alternative notation to deltaGL_f.
+    double deltaGR_f_Test(const Particle p) const;///<Alternative notation to deltaGR_f.
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the neutral-current vector coupling @f$g_V^f@f$.
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
+     * @details
+     * \f[
+     * \Delta g_{V,f}^{(2)} = \Delta g_{L,f}^{(2)} + \Delta g_{R,f}^{(2)}
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$\delta g_{V,f}^{(2)}@f$
+     * @return @f$\Delta g_{V,f}^{(2)}@f$
      */
     virtual double deltaGV_f_2(const Particle p) const;
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the neutral-current vector coupling @f$g_A^f@f$.
+     * @details
+     * \f[
+     * \Delta g_{A,f}^{(2)} = \Delta g_{L,f}^{(2)} - \Delta g_{R,f}^{(2)}
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$\delta g_{A,f}^{(2)}@f$
-     */    
+     * @return @f$\Delta g_{A,f}^{(2)}@f$
+     */
     virtual double deltaGA_f_2(const Particle p) const;
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the left-handed coupling @f$g_L^f@f$.
+     * @details
+     * \f$\newcommand{\nc}{\newcommand}\f$
+     * \f$\nc{\vt}{\widetilde{v}}\f$
+     * \f$\nc{\xWZb}{\mathbb{\bar{X}}_{(WZ)}}\f$
+     * \f$\nc{\xBZb}{\mathbb{\bar{X}}_{(BZ)}}\f$
+     * \f$\nc{\xWZt}{\mathbb{\widetilde{X}}_{(WZ)}}\f$
+     * \f$\nc{\xBZt}{\mathbb{\widetilde{X}}_{(BZ)}}\f$
+     * \f$\nc{\xWZL}{\Delta \mathbb{X}_{WZ}^{(1)}}\f$
+     * \f$\nc{\xBZL}{\Delta \mathbb{X}_{BZ}^{(1)}}\f$
+     * \f$\nc{\xWZQ}{\Delta \mathbb{X}_{WZ}^{(2)}}\f$
+     * \f$\nc{\xBZQ}{\Delta \mathbb{X}_{BZ}^{(2)}}\f$
+     * \f$\nc{\gwt}{\widetilde{g}_W}\f$
+     * \f$\nc{\gbt}{\widetilde{g}_1}\f$
+     * \f$\nc{\gbL}{\Delta g_1^{(1)}}\f$
+     * \f$\nc{\gwL}{\Delta g_W^{(1)}}\f$
+     * \f$\nc{\gbQ}{\Delta g_1^{(2)}}\f$
+     * \f$\nc{\gwQ}{\Delta g_W^{(2)}}\f$
+     * \f{eqnarray*}{
+     * \Delta g_L^{(2)} &=& \frac{1}{\sqrt{\gbt^2+\gwt^2}} \left[ (Q-I_3) ~\left(\gbt ~\xBZQ + \gbL \xBZL + \xBZt \gbQ \right) 
+     * + I_3 ~\left(\gwt \xWZQ + \gwL \xWZL + \xWZt \gwQ \right) \right] \\
+     * &+& \frac{(\hat{C}_{Hf1} - 2I_3\hat{C}_{Hf3}) \vt^2}{2} ~\frac{\xBZt \gbL + \gbt \xBZL  - \xWZt \gwL - \gwt \xWZL }{\sqrt{\gbt^2+\gwt^2}}
+     * \f}
      * @param[in] f a lepton or quark
-     * @return @f$\delta g_{L,f}^{(2)}@f$
+     * @return @f$\Delta g_{L,f}^{(2)}@f$
      */
     double deltaGL_f_2(const Particle p) const;
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the right-handed coupling @f$g_R^f@f$.
+     * @details
+     * \f[
+     * \Delta g_R^{(2)} = \frac{Q}{\sqrt{\gbt^2+\gwt^2}} \left( \gbt \xBZQ + \gbL \xBZL + \xBZt \gbQ \right) 
+     * + \frac{\hat{C}_{Hf} \vt^2}{2} ~\frac{\xBZt \gbL + \gbt \xBZL  - \xWZt \gwL - \gwt \xWZL }{\sqrt{\gbt^2+\gwt^2}}
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$\delta g_{R,f}^{(2)}@f$
+     * @return @f$\Delta g_{R,f}^{(2)}@f$
      */
     double deltaGR_f_2(const Particle p) const;
     
@@ -6505,8 +6590,10 @@ public:
      */
     virtual double AuxObs_NP30() const;
     
-    virtual bool NumericCheck() const;   //AG:added
-    virtual int Output() const;          //AG:added
+    //AG:begin
+    virtual bool NumericCheck() const;///<If true, prints the numerical values of the different contributions to the EWPOs (to be used in --noMC mode)
+    virtual int Output() const;///<Type of contributions to be included in the EWPOs. Takes a numerica values depending on the choice.        
+    //AG:end
     
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -7190,21 +7277,203 @@ protected:
     double delta_UgCC;///< The dimension 6 universal correction to charged current EW couplings
     
     //AG:begin
-    double delta_GF_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the Fermi constant.
-    double delta_ale;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the EM constant at the Z-pole.
-    double delta_ale_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the EM constant at the Z-pole.
-    double delta_Mz2;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the mass-squared of the Z.
-    double delta_Mz2_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the mass-squared of the Z.
-    double delta_g1;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the \f$U(1)_Y\f$ gauge coupling contant (at the \f$Z\f$ pole).
-    double delta_g1_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the \f$U(1)_Y\f$ gauge coupling contant (at the \f$Z\f$ pole).
-    double delta_g2;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the \f$SU(2)_L\f$ gauge coupling contant (at the \f$Z\f$ pole).
-    double delta_g2_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the \f$SU(2)_L\f$ gauge coupling contant (at the \f$Z\f$ pole) .
-    double xWZ_tree;///< The tree level value of the coefficient that transforms the weak-isospin field \f$W^3\f$ into the Z-boson \f$Z\f$.
-    double xBZ_tree;///< The tree level value of the coefficient that transforms the hypercharge field \f$B\f$ into the Z-boson \f$Z\f$.
-    double delta_xWZ;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the coefficient that transforms the weak-isospin field \f$W^3\f$ into the Z-boson \f$Z\f$.
-    double delta_xBZ;///< The @f$\mathcal{O}(1/\Lambda^2)@f$ dimension 6 correction to the coefficient that transforms the hypercharge field \f$B\f$ into the Z-boson \f$Z\f$.
-    double delta_xWZ_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the coefficient that transforms the weak-isospin field \f$W^3\f$ into the Z-boson \f$Z\f$.
-    double delta_xBZ_2;///< The @f$\mathcal{O}(1/\Lambda^4)@f$ dimension 6 correction to the coefficient that transforms the hypercharge field \f$B\f$ into the Z-boson \f$Z\f$.
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the Fermi constant.
+     * @details
+     * \f[
+     * \dGf^{(2)} = \left( (C_{\varphi l}^{(3)11})^2 +(C_{\varphi l}^{(3)22})^2 +3C_{\varphi l}^{(3)11} C_{\varphi l}^{(3)22} \right) \frac{\vt^4 }{\Lambda^4}
+     * - \left(C_{\varphi l}^{(3)11} + C_{\varphi l}^{(3)22}\right) \left( C_{ll}^{1221}+C_{ll}^{2112}\right) \frac{\vt^4 }{\Lambda^4}
+     * + \frac{1}{4} \left( C_{ll}^{1221}+C_{ll}^{2112}\right)^2 \frac{\vt^4 }{\Lambda^4}
+     * \f]
+     */
+    double delta_GF_2;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the electromagnetic coupling.
+     * @details
+     * \f$\nc{\daEW}{\delta_{\alpha}}\f$
+     * \f$\nc{\dMZZ}{\delta_{M_Z^2}}\f$
+     * \f$\nc{\dGf}{\delta_{G_F}}\f$
+     * \f[
+     * \daEW^{(1)} = -2 s_W c_W \frac{C_{\varphi WB}\vt^2}{\Lambda^2}
+     * \f]
+     */
+    double delta_ale;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the electromagnetic coupling.
+     * @details
+     * \f[
+     * \daEW^{(2)} = -2 s_W c_W \frac{C_{\varphi WB} \vt^2}{\Lambda^2} \left( \frac{\left(C_{\varphi W}+C_{\varphi B}\right)\vt^2}{\Lambda^2} 
+     * + \frac{1}{4} \frac{C_{\varphi D}\vt^2}{\Lambda^2} + 3\dGf^{(1)}\right)
+     * \f]
+     */
+    double delta_ale_2;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the Z-boson mass squared.
+     * @details
+     * \f[
+     * \dMZZ^{(1)} = 2 s_W c_W \frac{C_{\varphi WB}\vt^2}{\Lambda^2} + \frac{1}{2} \frac{C_{\varphi D}\vt^2}{\Lambda^2}
+     * \f]
+     */
+    double delta_Mz2;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the Z-boson mass squared.
+     * @details
+     * \f{eqnarray*}{
+     * \dMZZ^{(2)} &=& \text{cAsch} \left[ \left(3 s_W c_W C_{\varphi WB}\frac{vt^2}{\Lambda^2} + \frac{1}{2} C_{\varphi D}\frac{\vt^2}{\Lambda^2}\right)\dGf^{(1)}
+     * + 2 s_W c_W C_{\varphi WB}\left(C_{\varphi W}+C_{\varphi B}+\frac{3}{4}C_{\varphi D}\right)\frac{\vt^4}{\Lambda^4} + (1+4s_W^2 c_W^2)C_{\varphi WB}^2 \frac{\vt^4}{\Lambda^4} \right]\\
+     * &+& \text{cWsch} \left[ \left(2s_W c_W C_{\varphi WB}\frac{\vt^2}{\Lambda^2} + \frac{1}{2} C_{\varphi D}\frac{\vt^2}{\Lambda^2} \right) \dGf^{(1)}
+     * + (1+2 c_W^2 - 4 c_W^4) C_{\varphi WB}^2 \frac{\vt^4}{\Lambda^4} 
+     * + 2 s_W c_W C_{\varphi WB} \left(C_{\varphi W} + C_{\varphi B} + \frac{1}{2}C_{\varphi D}\right) \frac{\vt^4}{\Lambda^4}
+     * + \frac{(1-2 c_W^2)c_W}{2s_W} C_{\varphi WB} C_{\varphi D} \frac{\vt^4}{\Lambda^4} \right] 
+     * \f}
+     */
+    double delta_Mz2_2;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the \f$U(1)_Y\f$ gauge coupling, 
+     * for the Alpha-Scheme (cAsch=1, cWsch=0) or the Mw-Scheme (cAsch=0, cWsch=1).
+     * @details
+     * \f$\nc{\daEW}{\delta_{\alpha}}\f$
+     * \f$\nc{\dMZZ}{\delta_{M_Z^2}}\f$
+     * \f$\nc{\dGf}{\delta_{G_F}}\f$
+     * \f[
+     * \gbL =  \text{cAsch} \left[\gbt \frac{c_W^2\daEW^{(1)}-s_W^2\left(\dMZZ^{(1)}+\dGf^{(1)}\right)}{2(-1+2 s_W^2)} \right] 
+     * + \text{cWsch} \left[\gbt \frac{-\dMZZ^{(1)}-s_W^2\dGf^{(1)}}{2 s_W^2}\right]
+     * \f]
+     */
+    double delta_g1;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the \f$U(1)_Y\f$ gauge coupling.
+     * @details
+     * Alpha-Scheme:
+     * \f{eqnarray*}{
+     * \gbQ &=&  \gbt \frac{4 (-1+2 s_W^2)^2 \left( c_W^2 \daEW^{(2)} - s_W^2\big(\dGf^{(2)} + \dMZZ^{(2)}\big) \right)
+     * + \big( -3+12s_W^2-19s_W^4+10s_W^6 \big) \left(\daEW^{(1)}\right)^2 
+     * + s_W^4\big(-7+10s_W^2\big) \left((\dMZZ^{(1)})^2+(\dGf^{(1)})^2\right)}{8(-1+2s_W^2)^3} \\
+     * &+& \gbt \frac{ s_W^2 (3-5s_W^2+2s_W^4) \left( \daEW^{(1)}\dMZZ^{(1)} + \daEW^{(1)}\dGf^{(1)}\right)
+     * +  s_W^2 (-2+s_W^2+2s_W^4) ~ \dMZZ^{(1)} ~ \dGf^{(1)}}{4(-1+2s_W^2)^3}  
+     * \f}
+     * Mw-Scheme:
+     * \f[
+     * \gbQ = \gbt \left[ -\frac{\dMZZ^{(2)}}{2s_W^2} - \frac{\dGf^{(2)}}{2} 
+     * - \frac{ (1-4 s_W^2)\left(\dMZZ^{(1)}\right)^2}{8s_W^4} + \frac{3\left(\dGf^{(1)}\right)^2}{8} + \frac{\dMZZ^{(1)} \dGf^{(1)}}{4s_W^2}\right]
+     * \f]
+     */
+    double delta_g1_2;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the \f$SU(2)_L\f$ gauge coupling, 
+     * for the Alpha-Scheme (cAsch=1, cWsch=0) or the Mw-Scheme (cAsch=0, cWsch=1).
+     * @details
+     * \f[
+     * \gwL =  \text{cAsch}\left[ \gwt\left( -\frac{\daEW^{(1)}}{2} - \frac{c_W^2(-\daEW^{(1)}+\dGf^{(1)}+\dMZZ^{(1)})}{2(c_W^2-s_W^2)} \right) \right]
+     * + \text{cWsch} \left[ \gwt \left(-\frac{\dGf^{(1)}}{2}\right) \right]
+     * \f]
+     */
+    double delta_g2;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the \f$SU(2)_L\f$ gauge coupling.
+     * @details
+     * Alpha-Scheme:
+     * \f{eqnarray*}{
+     * \gwQ &=& \gwt \frac{ 4 (-1+2s_W^2)^2 \left( -s_W^2 \daEW^{(2)} + c_W^2\big(\dGf^{(2)} + \dMZZ^{(2)}\big) \right) 
+     * + s_W^2 \big(4-11s_W^2+10s_W^4\big) \left(\daEW^{(1)}\right)^2 
+     * + c_W^4 \big(-3+10s_W^2\big) \left((\dMZZ^{(1)})^2+(\dGf^{(1)})^2\right) }{8(-1+2s_W^2)^3}  \\
+     * &+& \gwt \frac{  s_W^2 \big(-1-s_W^2+2s_W^4\big) \left( \daEW^{(1)}\dMZZ^{(1)} + \daEW^{(1)}\dGf^{(1)} \right)
+     * + \big(-1+6s_W^2-7s_W^4+2s_W^6\big) ~ \dMZZ^{(1)} ~ \dGf^{(1)} }{4(-1+2s_W^2)^3}
+     * \f}
+     * Mw-Scheme:
+     * \f[
+     * \gwQ = \gwt \left[-\frac{\dGf^{(2)}}{2} + \frac{3\left(\dGf^{(1)}\right)^2}{8}\right]
+     * \f]
+     */
+    double delta_g2_2;
+    
+    /**
+     *@brief The tree level component of the matrix that transform the gauge field \f$W_{\mu}^3\f$ into \f$Z_{\mu}\f$.
+     *@details 
+     * \f[
+     * \mathbb{\widetilde{X}}_{(WZ)} = c_W
+     * \f]
+     * where, \f$c_W\f$ is the tree level value for the cosine of the weak angle. 
+     */
+    double xWZ_tree;
+    
+    /**
+     *@brief The tree level component of the matrix that transform the gauge field \f$B_{\mu}\f$ into \f$Z_{\mu}\f$.
+     *@details 
+     * \f[
+     * \mathbb{\widetilde{X}}_{(BZ)} = - s_W
+     * \f]
+     * where, \f$s_W\f$ is the tree level value for the sine of the weak angle. 
+     */
+    double xBZ_tree;
+    
+     /**
+     *@brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the component of the matrix that transform the gauge field \f$W_{\mu}^3\f$ into \f$Z_{\mu}\f$.
+     *@details 
+     * \f[
+     * \Delta \mathbb{X}_{WZ}^{(1)} = s_W^2 c_W \left(\frac{\gwL}{\gwt}-\frac{\gbL}{\gbt}\right) + s_W^3 \frac{C_{\varphi WB}\vt^2}{\Lambda^2 }
+     * \f]
+     * where, \f$s_W\f$ and \f$c_W\f$ are the tree level values for the sine and cosine of the weak angle. 
+     * Whereas \f$\gwt\f$ and \f$\gbt\f$ are tree level values of the \f$SU(2)_{L}\f$ and \f$U(1)_Y\f$ gauge couplings at the Z-pole, 
+      * and \f$\Delta g^{(1)}\f$ their \f$\mathcal{O}(\Lambda^{-2})\f$ new physics corrections.
+     */
+    double delta_xWZ;
+    
+    /**
+     *@brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the component of the matrix that transform the gauge field \f$B_{\mu}\f$ into \f$Z_{\mu}\f$.
+     *@details 
+     * \f[
+     * \Delta \mathbb{X}_{BZ}^{(1)} = c_W^2 s_W \left(\frac{\gwL}{\gwt}-\frac{\gbL}{\gbt}\right) - c_W^3 \frac{C_{\varphi WB}\vt^2}{\Lambda^2 } 
+     * \f]
+     * where, \f$s_W\f$ and \f$c_W\f$ are the tree level values for the sine and cosine of the weak angle. 
+     * Whereas \f$\gwt\f$ and \f$\gbt\f$ are tree level values of the \f$SU(2)_{L}\f$ and \f$U(1)_Y\f$ gauge couplings at the Z-pole, 
+      * and \f$\Delta g^{(1)}\f$ their \f$\mathcal{O}(\Lambda^{-2})\f$ new physics corrections.
+     */
+    double delta_xBZ;
+    
+    /**
+     *@brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the component of the matrix that transform the gauge field \f$W_{\mu}^3\f$ into \f$Z_{\mu}\f$.
+     *@details 
+     * \f{eqnarray*}{
+     * \Delta \mathbb{X}_{WZ}^{(2)} &=& -\frac{3 s_W^2 c_W^3}{2}\left(\frac{\gwL}{\gwt}\right)^2 
+     * + \frac{s_W^2 c_W(2 s_W^2- c_W^2)}{2}\left(\frac{\gbL}{\gbt}\right)^2
+     * - s_W^2 c_W(s_W^2-2 c_W^2)\frac{\gwL}{\gwt}\frac{\gbL}{\gbt} 
+     * + s_W^2 c_W\left(\frac{\gwQ}{\gwt}-\frac{\gbQ}{\gbt}\right) \\
+     * &-& 3 s_W^3 c_W^2 \left(\frac{\gwL}{\gwt}-\frac{\gbL}{\gbt}\right)\frac{C_{\varphi WB}\vt^2}{\Lambda^2 }
+     * -c_W(s_W^4-3s_W^2 c_W^2-c_W^4)\frac{C_{\varphi WB}\vt^4}{\Lambda^4 }
+     * + s_W^3\left(C_{\varphi WB}(C_{\varphi W}+C_{\varphi B})\frac{\vt^4}{\Lambda^4} + \delta_{G_F}^{(1)} \frac{C_{\varphi WB} \vt^2}{\Lambda^2}  \right)
+     * \f}
+     * where, \f$s_W\f$ and \f$c_W\f$ are the tree level values for the sine and cosine of the weak angle. 
+     * Whereas \f$\gwt\f$ and \f$\gbt\f$ are tree level values of the \f$SU(2)_{L}\f$ and \f$U(1)_Y\f$ gauge couplings at the Z-pole;
+     * \f$\Delta g^{(1)}\f$ and \f$\Delta g^{(2)}\f$ their respective \f$\mathcal{O}(\Lambda^{-2})\f$ and \f$\mathcal{O}(\Lambda^{-4})\f$ new physics corrections.
+     */
+    double delta_xWZ_2;
+    
+    /**
+     *@brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the component of the matrix that transform the gauge field \f$B_{\mu}\f$ into \f$Z_{\mu}\f$.
+     *@details 
+     * \f{eqnarray*}{
+     * \Delta \mathbb{X}_{BZ}^{(2)} &=& \frac{3 s_W^3 c_W^2}{2}\left(\frac{\gbL}{\gbt^2}\right)^2 
+     * + \frac{s_W c_W^2(s_W^2-2c_W^2)}{2}\left(\frac{\gwL}{\gwt}\right)^2 
+     * - s_W c_W(2s_W^2-c_W^2)\frac{\gwL}{\gwt}\frac{\gbL}{\gbt}
+     * + s_W c_W^2\left(\frac{\gwQ}{\gwt}-\frac{\gbQ}{\gbt}\right) \\
+     * &-& 3s_W^2 c_W^3\left(\frac{\gwL}{\gwt}-\frac{\gbL}{\gbt}\right)\frac{C_{\varphi WB}\vt^2}{\Lambda^2 }
+     * - \frac{1}{2}s_W(s_W^4+3s_W^2 c_W^2- c_W^4)\frac{C_{\varphi WB}^2\vt^4}{\Lambda^4 }
+     * + c_W^3\left(C_{\varphi WB}(C_{\varphi W}+C_{\varphi B})\frac{\vt^4}{\Lambda^4} + \delta_{G_F}^{(1)} \frac{C_{\varphi WB} \vt^2}{\Lambda^2}  \right)
+     * \f}
+     * where, \f$s_W\f$ and \f$c_W\f$ are the tree level values for the sine and cosine of the weak angle. 
+     * Whereas \f$\gwt\f$ and \f$\gbt\f$ are tree level values of the \f$SU(2)_{L}\f$ and \f$U(1)_Y\f$ gauge couplings at the Z-pole;
+     * \f$\Delta g^{(1)}\f$ and \f$\Delta g^{(2)}\f$ their respective \f$\mathcal{O}(\Lambda^{-2})\f$ and \f$\mathcal{O}(\Lambda^{-4})\f$ new physics corrections.
+     */
+    double delta_xBZ_2;
     //AG:end
     
     /**

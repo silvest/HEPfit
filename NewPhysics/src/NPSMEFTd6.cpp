@@ -354,7 +354,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagLoopHd6 = false;
     FlagLoopH3d6Quad = false;
     FlagRGEciLLA = false;
-    FlagMWinput = true;
+    FlagMWinput = false;
     setModelLinearized();
     
     w_WW = gsl_integration_cquad_workspace_alloc(100);
@@ -1224,22 +1224,22 @@ bool NPSMEFTd6::PostUpdate()
     CiHL3_11 = CHL3_11 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
     CiHL3_22 = CHL3_22 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
     CiHL3_33 = CHL3_33 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
-    
+
     CiHQ1_11 = CHQ1_11 + (g1_tree*g1_tree/6.0) * (C2B + 0.5 * C2BS);
     CiHQ1_22 = CHQ1_22 + (g1_tree*g1_tree/6.0) * (C2B + 0.5 * C2BS);
     CiHQ1_33 = CHQ1_33 + (g1_tree*g1_tree/6.0) * (C2B + 0.5 * C2BS);
     CiHQ3_11 = CHQ3_11 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
     CiHQ3_22 = CHQ3_22 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
     CiHQ3_33 = CHQ3_33 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
-    
+
     CiHe_11 = CHe_11 - (g1_tree*g1_tree) * (C2B + 0.5 * C2BS);
     CiHe_22 = CHe_22 - (g1_tree*g1_tree) * (C2B + 0.5 * C2BS);
     CiHe_33 = CHe_33 - (g1_tree*g1_tree) * (C2B + 0.5 * C2BS);
-    
+
     CiHu_11 = CHu_11 + (2.0*g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
     CiHu_22 = CHu_22 + (2.0*g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
     CiHu_33 = CHu_33 + (2.0*g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
-    
+
     CiHd_11 = CHd_11 - (g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
     CiHd_22 = CHd_22 - (g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
     CiHd_33 = CHd_33 - (g1_tree*g1_tree/3.0) * (C2B + 0.5 * C2BS);
@@ -1264,9 +1264,9 @@ bool NPSMEFTd6::PostUpdate()
     CidH_11r = CidH_11r + (g2_tree*g2_tree*Yukd) * (C2W + 0.5 * C2WS);
     CidH_22r = CidH_22r + (g2_tree*g2_tree*Yuks) * (C2W + 0.5 * C2WS);
     CidH_33r = CidH_33r + (g2_tree*g2_tree*Yukb) * (C2W + 0.5 * C2WS);
-    
+ 
     CiLL_1221 = CLL_1221 + (g2_tree*g2_tree/2.0) * (C2W + 0.5 * C2WS);
-    CiLL_2112 = CiLL_1221;
+    CiLL_2112 = CiLL_1221; 
     
     CiHG = CHG;
 //  Contributionsfrom CDW, DB    
@@ -1448,8 +1448,7 @@ bool NPSMEFTd6::PostUpdate()
                     - 2.0 * pow(g2_tree,3.0) * (g1_tree*g1_tree+g2_tree*g2_tree) * (CiHWB*(CiHW+CiHB)*v2_over_LambdaNP2*v2_over_LambdaNP2 + delta_GF*CiHWB*v2_over_LambdaNP2)
                   ) / 2.0 / pow(g1_tree*g1_tree+g2_tree*g2_tree, 2.5);
    
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << " " << std::endl;
         if (FlagMWinput){ std::cout << "(NPSMEFTd6) - MwScheme" << std::endl; };
         if (!FlagMWinput){ std::cout << "(NPSMEFTd6) - AlphaScheme" << std::endl; };
@@ -1461,7 +1460,7 @@ bool NPSMEFTd6::PostUpdate()
         std::cout << "  delta_Mz2, delta_Mz2_2 = " << delta_Mz2 << " , " << delta_Mz2_2 << std::endl;
         std::cout << "  delta_GF, delta_GF_2 = " << delta_GF << " , " << delta_GF_2 << std::endl;
         std::cout << "  sW_tree, cW_tree = " << sW_tree << " , " << cW_tree << std::endl;
-    } 
+    }    
     //AG:end
     ////////////////////////////////////////////////////////////////////////////
     
@@ -1470,7 +1469,7 @@ bool NPSMEFTd6::PostUpdate()
 
 void NPSMEFTd6::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("CG") == 0)
+    if (name.compare("CG") == 0)     
         CG = value;
     else if (name.compare("CW") == 0)
         CW = value;
@@ -3068,7 +3067,7 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
 
 //AG:begin
 bool NPSMEFTd6::NumericCheck() const {
-    return true;
+    return false;
 }
 
 int NPSMEFTd6::Output() const {
@@ -3078,9 +3077,9 @@ int NPSMEFTd6::Output() const {
     // 3 Linear_Test + Quadratic
     // 4 Quadratic
     // 5 SM
-    int outputChoice = 2;
-    return outputChoice;
-}//AG:end
+    return 3;
+}
+//AG:end
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -3978,48 +3977,45 @@ double NPSMEFTd6::deltaMw2() const
     
 ////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::alphaMz() const
+double NPSMEFTd6::alphaMz() const                           //AG: NumericCheck()
 {   
-    
     //AG:begin
     double dalphaMz = 0.0;
     double dalphaMz_2 = 0.0;
     if(FlagQuadraticTerms and FlagMWinput){
-    double g1 = g1_tree;
-    double dg1L= delta_g1;
-    double dg1Q = delta_g1_2;
-    double g2 = g2_tree;
-    double dg2L = delta_g2;
-    double dg2Q = delta_g2_2;
-    double G = g1*g1+g2*g2;
+        double g1 = g1_tree;
+        double dg1L= delta_g1;
+        double dg1Q = delta_g1_2;
+        double g2 = g2_tree;
+        double dg2L = delta_g2;
+        double dg2Q = delta_g2_2;
+        double G = g1*g1+g2*g2;
 
-    // dalphaMz equivalent to "2.0 * delta_e + delta_A"
-    dalphaMz = 2.0*( g1*g1*g1*dg2L + g2*g2*g2*dg1L)/g1/g2/G - 2.0*g1*g2/G*CiHWB*v2_over_LambdaNP2;
-    
-    dalphaMz_2 = 2.0/G*(g1*g1/g2*dg2Q + g2*g2/g1*dg1Q)
-               + g1*g1*(g1*g1-3.0*g2*g2)/g2/g2/G/G * dg2L*dg2L + g2*g2*(g2*g2-3.0*g1*g1)/g1/g1/G/G * dg1L*dg1L
-               + 2.0/G/G * ( g1*(g2*g2-3.0*g1*g1)*dg2L + g2*(g1*g1-3.0*g2*g2)*dg1L ) * CiHWB*v2_over_LambdaNP2
-               + 8.0*g1*g2/G/G * dg1L*dg2L
-               - 2.0*g1*g2/G/G * (-2.0*g1*g2*CiHWB*v2_over_LambdaNP2 + G*(CiHW+CiHB)*v2_over_LambdaNP2 + G*delta_GF ) * CiHWB*v2_over_LambdaNP2;
-    
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
-        std::cout << g1 << " " << dg1L << " " << dg1Q << std::endl;
-        std::cout << g2 << " " << dg2L << " " << dg2Q << std::endl;
-        std::cout << "aleMz = " << aleMz << std::endl;
-        std::cout << "dalphaMz = " << dalphaMz << std::endl;
-        std::cout << "2.0 * delta_e + delta_A = " << 2.0 * delta_e + delta_A << std::endl;
-        std::cout << "dalphaMz_2 = " << dalphaMz_2 << std::endl;
-    }
-    }
+        // dalphaMz equivalent to "2.0 * delta_e + delta_A"
+        dalphaMz = 2.0*( g1*g1*g1*dg2L + g2*g2*g2*dg1L)/g1/g2/G - 2.0*g1*g2/G*CiHWB*v2_over_LambdaNP2;
 
+        dalphaMz_2 = 2.0/G*(g1*g1/g2*dg2Q + g2*g2/g1*dg1Q)
+                   + g1*g1*(g1*g1-3.0*g2*g2)/g2/g2/G/G * dg2L*dg2L + g2*g2*(g2*g2-3.0*g1*g1)/g1/g1/G/G * dg1L*dg1L
+                   + 2.0/G/G * ( g1*(g2*g2-3.0*g1*g1)*dg2L + g2*(g1*g1-3.0*g2*g2)*dg1L ) * CiHWB*v2_over_LambdaNP2
+                   + 8.0*g1*g2/G/G * dg1L*dg2L
+                   - 2.0*g1*g2/G/G * (-2.0*g1*g2*CiHWB*v2_over_LambdaNP2 + G*(CiHW+CiHB)*v2_over_LambdaNP2 + G*delta_GF ) * CiHWB*v2_over_LambdaNP2;
+
+        if(NumericCheck()){
+            std::cout << g1 << " " << dg1L << " " << dg1Q << std::endl;
+            std::cout << g2 << " " << dg2L << " " << dg2Q << std::endl;
+            std::cout << "aleMz = " << aleMz << std::endl;
+            std::cout << "dalphaMz = " << dalphaMz << std::endl;
+            std::cout << "2.0 * delta_e + delta_A = " << 2.0 * delta_e + delta_A << std::endl;
+            std::cout << "dalphaMz_2 = " << dalphaMz_2 << std::endl;
+        }
+    }
     //AG:end
 
     //AG: dalphaMz_2 added below
     return (aleMz*(1.0 + 2.0 * delta_e + delta_A + dalphaMz_2 ));
 }
 
-double NPSMEFTd6::Mw() const
+double NPSMEFTd6::Mw() const                     //AG: NumericCheck() & Output()
 {
 //    return (trueSM.Mw() - Mw_tree / 4.0 / (cW2_tree - sW2_tree)
 //            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
@@ -4027,8 +4023,7 @@ double NPSMEFTd6::Mw() const
 //            + 2.0 * sW2_tree * delta_GF));
     
     //AG:begin
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << " " << std::endl;
         std::cout << "Numeric Values of Mw(): " << std::endl;
         std::cout << "  trueSM.Mw() = " << trueSM.Mw() << std::endl;
@@ -4037,13 +4032,12 @@ double NPSMEFTd6::Mw() const
         std::cout << "  Mw_tree*deltaMwd6_2() = " << Mw_tree*deltaMwd6_2() << std::endl;
     }
     
-    int output = Output();
-    if(output==0){ return (trueSM.Mw() + Mw_tree*deltaMwd6() ); }
-    if(output==1){ return (trueSM.Mw() + Mw_tree*deltaMwd6_Test() ); }
-    if(output==2){ return (trueSM.Mw() + Mw_tree*deltaMwd6() + Mw_tree*deltaMwd6_2() ); }
-    if(output==3){ return (trueSM.Mw() + Mw_tree*deltaMwd6_Test() + Mw_tree*deltaMwd6_2() ); }
-    if(output==4){ return (trueSM.Mw() + Mw_tree*deltaMwd6_2() ); }
-    if(output==5){ return (trueSM.Mw()); }
+    if(Output()==0){ return (trueSM.Mw() + Mw_tree*deltaMwd6() ); }
+    if(Output()==1){ return (trueSM.Mw() + Mw_tree*deltaMwd6_Test() ); }
+    if(Output()==2){ return (trueSM.Mw() + Mw_tree*deltaMwd6() + Mw_tree*deltaMwd6_2() ); }
+    if(Output()==3){ return (trueSM.Mw() + Mw_tree*deltaMwd6_Test() + Mw_tree*deltaMwd6_2() ); }
+    if(Output()==4){ return (trueSM.Mw() + Mw_tree*deltaMwd6_2() ); }
+    if(Output()==5){ return (trueSM.Mw()); }
     //AG:end
     
     //return (trueSM.Mw() + Mw_tree * (delta_e - 0.5 * delta_sW2 + delta_v));
@@ -4099,9 +4093,18 @@ double NPSMEFTd6::deltaGamma_Wff(const Particle fi, const Particle fj) const
 }
 
 
-double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const
+double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const        //AG: Output()
 {
-    return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) );          
+    //AG:begin
+    if(Output()==0){ return (trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj)); }
+    if(Output()==1){ return (trueSM.GammaW(fi, fj) + deltaGamma_Wff_Test(fi, fj)); }
+    if(Output()==2){ return (trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) + deltaGamma_Wff_2(fi, fj)); }
+    if(Output()==3){ return (trueSM.GammaW(fi, fj) + deltaGamma_Wff_Test(fi, fj) + deltaGamma_Wff_2(fi, fj)); }
+    if(Output()==4){ return (deltaGamma_Wff_2(fi, fj)); }
+    if(Output()==5){ return (trueSM.GammaW(fi, fj)); }
+    //AG:end
+    
+    //return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj));          
 }
 
 double NPSMEFTd6::deltaGamma_W() const
@@ -4119,12 +4122,10 @@ double NPSMEFTd6::deltaGamma_W() const
             + 2.0 * G0 * (CiHL3_11 + CiHL3_22 + CiHL3_33 + Nc*(CiHQ3_11 + CiHQ3_22)) * v2_over_LambdaNP2);          
 }
 
-double NPSMEFTd6::GammaW() const
+double NPSMEFTd6::GammaW() const                 //AG: NumericCheck() & Output()
 {
     //AG:begin
- 
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         //// Testing numeric values of Gamma_Wff
         std::cout << " " << std::endl;
         std::cout << "Numeric Values of Gamma_Wff: " << std::endl;
@@ -4173,7 +4174,6 @@ double NPSMEFTd6::GammaW() const
         double deltaGammaWHad2 = deltaGamma_Wff_2(quarks[UP], quarks[DOWN])
                                + deltaGamma_Wff_2(quarks[CHARM], quarks[STRANGE]) ;
         std::cout << "  Sum deltaGamma_Wff_2() = " << deltaGammaWLep2+deltaGammaWHad2 << std::endl;*/
-        
         
         std::cout << " " << std::endl;
         std::cout << "Numeric Values of L-R couplings (from GammaW))" << std::endl;
@@ -4230,13 +4230,12 @@ double NPSMEFTd6::GammaW() const
 
     }
 
-    int output = Output();
-    if(output==0){ return (trueSM.GammaW() + deltaGamma_W()); }
-    if(output==1){ return (trueSM.GammaW() + deltaGamma_W_Test() ); }
-    if(output==2){ return (trueSM.GammaW() + deltaGamma_W() + deltaGamma_W_2() ); }
-    if(output==3){ return (trueSM.GammaW() + deltaGamma_W_Test() + deltaGamma_W_2() ); }
-    if(output==4){ return (trueSM.GammaW() + deltaGamma_W_2() ); }
-    if(output==5){ return (trueSM.GammaW()  ); }
+    if(Output()==0){ return (trueSM.GammaW() + deltaGamma_W()); }
+    if(Output()==1){ return (trueSM.GammaW() + deltaGamma_W_Test() ); }
+    if(Output()==2){ return (trueSM.GammaW() + deltaGamma_W() + deltaGamma_W_2() ); }
+    if(Output()==3){ return (trueSM.GammaW() + deltaGamma_W_Test() + deltaGamma_W_2() ); }
+    if(Output()==4){ return (trueSM.GammaW() + deltaGamma_W_2() ); }
+    if(Output()==5){ return (trueSM.GammaW()  ); }
     //AG:end
     
     //return ( trueSM.GammaW() + deltaGamma_W() );
@@ -4266,14 +4265,24 @@ double NPSMEFTd6::deltaGzd62() const
     return (dWZ*dWZ);
 }
 
-double NPSMEFTd6::deltaGV_f(const Particle p) const
+double NPSMEFTd6::deltaGV_f(const Particle p) const               //AG: Output()
 {
-    return (deltaGL_f(p) + deltaGR_f(p));
+    //AG:begin
+    if(Output()==0 || Output()==2){ return (deltaGL_f(p) + deltaGR_f(p)); }
+    if(Output()==1 || Output()==3){ return (deltaGL_f_Test(p) + deltaGR_f_Test(p)); }
+    if(Output()==4 || Output()==5){ return (0.0); }
+    //AG:end
+    //return (deltaGL_f(p) + deltaGR_f(p));
 }
 
-double NPSMEFTd6::deltaGA_f(const Particle p) const
+double NPSMEFTd6::deltaGA_f(const Particle p) const               //AG: Output()
 {
-    return (deltaGL_f(p) - deltaGR_f(p));
+    //AG:begin
+    if(Output()==0 || Output()==2){ return (deltaGL_f(p) - deltaGR_f(p)); }
+    if(Output()==1 || Output()==3){ return (deltaGL_f_Test(p) - deltaGR_f_Test(p)); }
+    if(Output()==4 || Output()==5){ return (0.0); }
+    //AG:end
+    //return (deltaGL_f(p) - deltaGR_f(p));
 }
 
 double NPSMEFTd6::deltaGL_f(const Particle p) const
@@ -4309,7 +4318,7 @@ double NPSMEFTd6::deltaGR_f(const Particle p) const
 }
 
 
-double NPSMEFTd6::BrW(const Particle fi, const Particle fj) const
+double NPSMEFTd6::BrW(const Particle fi, const Particle fj) const           //AG: NumericCheck() & Output()
 {
     double GammW0 = trueSM.GammaW();
     double dGammW = deltaGamma_W();
@@ -4326,8 +4335,7 @@ double NPSMEFTd6::BrW(const Particle fi, const Particle fj) const
               + pow(dGammW,2.0)/pow(GammW0,2.0) + dGammWij*dGammW/GammWij0/GammW0 );
     }
 
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << " " << std::endl;
         std::cout << "Numeric Values of BrW(fi,fj)" << std::endl;
         std::cout << "  fi,fj= " << fi.getName() << " " << fj.getName() << std::endl;
@@ -4335,10 +4343,14 @@ double NPSMEFTd6::BrW(const Particle fi, const Particle fj) const
         std::cout << "  Linear = " << dGammWij/GammW0 - GammWij0*dGammW/GammW0/GammW0 << std::endl;
         std::cout << "  Quadratic = " << BrW_2 << std::endl;    
     }
+    
+    if(Output()==0 || Output()==1){ return (GammWij0/GammW0 + dGammWij/GammW0 - GammWij0*dGammW/GammW0/GammW0); }
+    if(Output()==2 || Output()==3){ return (GammWij0/GammW0 + dGammWij/GammW0 - GammWij0*dGammW/GammW0/GammW0 + BrW_2); }
+    if(Output()==4){ return (BrW_2); }
+    if(Output()==5){ return (GammWij0/GammW0); }
     //AG:end    
     
-    //AG: BrW_2 added bellow.
-    return GammWij0/GammW0 + dGammWij/GammW0 - GammWij0*dGammW/GammW0/GammW0 + BrW_2;
+    //return GammWij0/GammW0 + dGammWij/GammW0 - GammWij0*dGammW/GammW0/GammW0;
 }
 
 
@@ -4377,7 +4389,7 @@ double NPSMEFTd6::RWlilj(const Particle li, const Particle lj) const
 }
 
 
-double NPSMEFTd6::RWc() const
+double NPSMEFTd6::RWc() const                    //AG: NumericCheck() & Output()
 {
     double GammWcX0, GammWhad0;
     double dGammWcX, dGammWhad;
@@ -4420,18 +4432,21 @@ double NPSMEFTd6::RWc() const
               - dGammWcX*dGammWhad/pow(GammWhad0,2.0);
     }
     
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << " " << std::endl;
         std::cout << "Numeric Values of RWc: " << std::endl;
         std::cout << "  SM = " << GammWcX0/GammWhad0 << std::endl;
         std::cout << "  Linear = " << dGammWcX/GammWhad0 - GammWcX0*dGammWhad/GammWhad0/GammWhad0 << std::endl;
         std::cout << "  Quadratic = " << RWc_2 << std::endl;
     }
+    
+    if(Output()==0 || Output()==1){ return (GammWcX0/GammWhad0 + dGammWcX/GammWhad0 - GammWcX0*dGammWhad/GammWhad0/GammWhad0); }
+    if(Output()==2 || Output()==3){ return (GammWcX0/GammWhad0 + dGammWcX/GammWhad0 - GammWcX0*dGammWhad/GammWhad0/GammWhad0 + RWc_2); }
+    if(Output()==4){ return (RWc_2); }
+    if(Output()==5){ return (GammWcX0/GammWhad0); }
     //AG:end
     
-    //AG: RWc_2 added below
-    return GammWcX0/GammWhad0 + dGammWcX/GammWhad0 - GammWcX0*dGammWhad/GammWhad0/GammWhad0 + RWc_2;
+    //return GammWcX0/GammWhad0 + dGammWcX/GammWhad0 - GammWcX0*dGammWhad/GammWhad0/GammWhad0 + RWc_2;
 }
 
 
@@ -4457,6 +4472,7 @@ double NPSMEFTd6::RZlilj(const Particle li, const Particle lj) const
     return GammZli0/GammZlj0 + dGammZli/GammZlj0 - GammZli0*dGammZlj/GammZlj0/GammZlj0;
 }
 
+////////////////////////////////////////////////////////////////////////
 //AG:begin
 double NPSMEFTd6::deltaMwd6_Test() const
 {
@@ -4500,7 +4516,7 @@ double NPSMEFTd6::deltaGamma_Wff_Test(const Particle fi, const Particle fj) cons
     
 }
 
-double NPSMEFTd6::deltaGamma_Wff_2(const Particle fi, const Particle fj) const
+double NPSMEFTd6::deltaGamma_Wff_2(const Particle fi, const Particle fj) const       //AG: To be added cHud contribution
 {
     
     if (!FlagQuadraticTerms) 
@@ -4577,7 +4593,6 @@ double NPSMEFTd6::deltaGamma_W_2() const
     return deltaGammaWLep2 + deltaGammaWHad2;
 }
 
-//---
 double NPSMEFTd6::deltaGV_f_2(const Particle p) const
 {
     if (!FlagQuadraticTerms) return 0.;
@@ -4601,6 +4616,7 @@ double NPSMEFTd6::deltaGA_f_2(const Particle p) const
 double NPSMEFTd6::deltaGL_f_Test(const Particle p) const
 {
     // Consistent with deltaGL_f already implemented, but with my notation
+    if(p.is("TOP")) { return 0.0;}
     double I3p = p.getIsospin();
     double Qp = p.getCharge();
     double CHF1 = CHF1_diag(p);
@@ -4619,6 +4635,7 @@ double NPSMEFTd6::deltaGL_f_Test(const Particle p) const
 double NPSMEFTd6::deltaGR_f_Test(const Particle p) const
 {
     // Consistent with deltaGL_f already implemented, but with my notation
+    if(p.is("TOP")) { return 0.0;}
     double Qp = p.getCharge();
     double CHf = CHf_diag(p);
     
@@ -4634,6 +4651,7 @@ double NPSMEFTd6::deltaGL_f_2(const Particle p) const
 {
     if (!FlagQuadraticTerms) 
         return 0;
+    if(p.is("TOP")) { return 0.0;}
     
     double I3p = p.getIsospin();
     double Qp = p.getCharge();
@@ -4658,6 +4676,7 @@ double NPSMEFTd6::deltaGR_f_2(const Particle p) const
     if (!FlagQuadraticTerms) 
         return 0;
     
+    if(p.is("TOP")) { return 0.0;}
     double Qp = p.getCharge();
     double CHf = CHf_diag(p);
     

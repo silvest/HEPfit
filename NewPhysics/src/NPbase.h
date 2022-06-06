@@ -187,85 +187,174 @@ public:
     //AG:begin
     virtual double deltaGV_f_2(const Particle f) const {
         return 0.0;
-    }
+    }///<
     virtual double deltaGA_f_2(const Particle f) const {
         return 0.0;
-    }
+    }///<
     
-    virtual double deltaGamma_Zf_Test(const Particle f) const;
+    virtual double deltaGamma_Zf_Test(const Particle f) const;///< Alternative notation to deltaGamma_Zf.
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the decay width of the @f$Z@f$ boson into a given fermion pair, @f$\delta \Gamma_{Z,f}^{(2)}@f$.
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the decay width of the \f$Z\f$ boson into a given fermion pair, @f$\Delta \Gamma_{Z,f}^{(2)}@f$.
+     * @details 
+     * \f$\newcommand{\nc}{\newcommand}\f$
+     * \f$\nc{\gVfSM}{g_{V,f}^{SM}}\f$
+     * \f$\nc{\gAfSM}{g_{A,f}^{SM}}\f$
+     * \f$\nc{\gVfL}{\Delta g_{V,f}^{(1)}}\f$
+     * \f$\nc{\gAfL}{\Delta g_{A,f}^{(1)}}\f$
+     * \f$\nc{\gVfQ}{\Delta g_{V,f}^{(2)}}\f$
+     * \f$\nc{\gAfQ}{\Delta g_{A,f}^{(2)}}\f$
+     * \f[ 
+     * \Delta \Gamma_{Z,f}^{(2)} = N_f \frac{\alpha(M_Z)^{SM} M_Z}{6 s_W^2 c_w^2} \left[ (\gVfL)^2 + (\gAfL)^2 + 2 \left( \gAfSM ~\gAfQ + \gVfSM ~\gVfQ \right) \right] 
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$\delta \Gamma_{Z,f}^{(2)}@f$ in GeV
+     * @return @f$\Delta \Gamma_{Z,f}^{(2)}@f$ in GeV
      */
     virtual double deltaGamma_Zf_2(const Particle f) const;
     
-    virtual double deltaGamma_Z_Test() const;
+    virtual double deltaGamma_Z_Test() const;///<Alternative notation to deltaGamma_Z
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the total decay width of the @f$Z@f$ boson, @f$\delta \Gamma_Z^{(2)}@f$.
-     * @return @f$\delta \Gamma_Z^{(2)}@f$ in GeV
+     * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the total decay width of the @f$Z@f$ boson, @f$\Delta \Gamma_Z^{(2)}@f$.
+     * @details 
+     * \f[ 
+     * \Delta \Gamma_{Z}^{(2)} = \Delta \Gamma_{Z,fer}^{(2)} + \Delta \Gamma_{Z,had}^{(2)}
+     * \f]
+     * @return @f$\Delta \Gamma_Z^{(2)}@f$ in GeV
      */
     virtual double deltaGamma_Z_2() const;
     
-    virtual double deltaGamma_Zhad_Test() const;
+    virtual double deltaGamma_Zhad_Test() const;///<Alternative notation to deltaGamma_Zhad
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the hadronic decay width of the @f$Z@f$ boson, @f$\delta \Gamma_{Z,had}^{(2)}@f$.
-     * @return @f$\delta \Gamma_{Z,had}^{(2)}@f$ in GeV
+     * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the hadronic decay width of the @f$Z@f$ boson, @f$\Delta \Gamma_{Z,had}^{(2)}@f$.
+     * @details 
+     * \f[ 
+     * \Delta \Gamma_{Z,had}^{(2)} = \Delta \Gamma_{Z,u}^{(2)} + \Delta \Gamma_{Z,d}^{(2)}
+     * + \Delta \Gamma_{Z,c}^{(2)} + \Delta \Gamma_{Z,s}^{(2)}
+     * + \Delta \Gamma_{Z,b}^{(2)}
+     * \f]
+     * @return @f$\Delta \Gamma_{Z,had}^{(2)}@f$ in GeV
      */
     virtual double deltaGamma_Zhad_2() const;
     
-    virtual double deltaSigmaHadron_Test() const;
+    virtual double deltaSigmaHadron_Test() const;///<Alternative notation to deltaSigmaHadron
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
-     * at the @f$Z@f$ pole, @f$\delta \sigma_h^{0,(2)}@f$.
-     * @return @f$\delta \sigma_h^{0,(2)}@f$ in GeV@f$^{-2}@f$
+     * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
+     * at the @f$Z@f$ pole, @f$\Delta \sigma_h^{0,(2)}@f$.
+     * @details
+     * \f$\nc{\MZt}{\widetilde{M}_Z}\f$
+     * \f[
+     * \Delta\sigma_{h}^{0,(2)} = \frac{12\pi}{\MZt^2} ~\frac{\Gamma_e^{SM} \Gamma_{had}^{SM}}{(\Gamma_Z^{SM})^2}
+    ~ \left( \frac{\Delta\Gamma_e^{(2)}}{\Gamma_e^{SM}}
+           + \frac{\Delta\Gamma_{had}^{(2)}}{\Gamma_{had}^{SM}}
+           - 2 \frac{\Delta\Gamma_Z^{(2)}}{\Gamma_Z^{SM}}
+           + \frac{\Delta\Gamma_e^{(1)} \Delta\Gamma_{had}^{(1)}}{\Gamma_e^{SM} \Gamma_{had}^{SM}} 
+           - 2 \frac{\Delta\Gamma_e^{(1)} \Delta\Gamma_Z^{(1)}}{\Gamma_e^{SM} \Gamma_Z^{SM}} 
+           - 2 \frac{\Delta\Gamma_{had}^{(1)} \Delta\Gamma_Z^{(1)}}{\Gamma_{had}^{SM} \Gamma_Z^{SM}} 
+           + 3 \frac{(\Delta\Gamma_Z^{(1)})^2}{(\Gamma_Z^{SM})^2} 
+     \right)
+     * \f]
+     * @return @f$\Delta \sigma_h^{0,(2)}@f$ in GeV@f$^{-2}@f$
      */
     virtual double deltaSigmaHadron_2() const;
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the effective electron/leptonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\rm lept, (2)}@f$
+     * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the effective electron weak angle @f$\Delta \sin^2\theta_{eff,e}^{(2)}@f$
      * at the @f$Z@f$ pole.
-     * @return @f$\delta \sin^2\theta_{\rm eff}^{\rm lept, (2)}@f$
+     * @details 
+     * \f$\nc{\gVlSM}{g_{V,e}^{SM}}\f$
+     * \f$\nc{\gAlSM}{g_{A,e}^{SM}}\f$
+     * \f$\nc{\gVlL}{\Delta g_{V,e}^{(1)}}\f$
+     * \f$\nc{\gAlL}{\Delta g_{A,e}^{(1)}}\f$
+     * \f$\nc{\gVlQ}{\Delta g_{V,e}^{(2)}}\f$
+     * \f$\nc{\gAlQ}{\Delta g_{A,e}^{(2)}}\f$
+     * \f[ 
+     * \Delta sin^2\theta_{eff,e}^{(2)} = \frac{1}{4}\frac{\gVlL ~\gAlL}{(\gAlSM)^2}  -\frac{1}{4}\frac{\gVlSM ~(\gAlL)^2}{(\gAlSM)^3} - \frac{1}{4} \frac{ \gAlSM ~\gVlQ - \gVlSM ~\gAlQ}{(\gAlSM)^2}
+     * \f]
+     * @return @f$\Delta \sin^2\theta_{eff,e}^{(2)}@f$
      */
     virtual double deltaSin2thetaEff_e_2() const;
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the effective muonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\mu\mu (2)}@f$
+     * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the effective muonic weak angle @f$\Delta \sin^2\theta_{eff, \mu}^{(2)}@f$
      * at the @f$Z@f$ pole.
-     * @return @f$\delta \sin^2\theta_{\rm eff}^{\mu\mu (2)}@f$
+     * @details 
+     * \f$\nc{\gVlSM}{g_{V,\mu}^{SM}}\f$
+     * \f$\nc{\gAlSM}{g_{A,\mu}^{SM}}\f$
+     * \f$\nc{\gVlL}{\Delta g_{V,\mu}^{(1)}}\f$
+     * \f$\nc{\gAlL}{\Delta g_{A,\mu}^{(1)}}\f$
+     * \f$\nc{\gVlQ}{\Delta g_{V,\mu}^{(2)}}\f$
+     * \f$\nc{\gAlQ}{\Delta g_{A,\mu}^{(2)}}\f$
+     * \f[ 
+     * \Delta sin^2\theta_{eff,\mu}^{(2)} = \frac{1}{4}\frac{\gVlL ~\gAlL}{(\gAlSM)^2}  -\frac{1}{4}\frac{\gVlSM ~(\gAlL)^2}{(\gAlSM)^3} - \frac{1}{4} \frac{ \gAlSM ~\gVlQ - \gVlSM ~\gAlQ}{(\gAlSM)^2}
+     * \f]
+     * @return @f$\Delta \sin^2\theta_{eff,\mu}^{(2)}@f$
      */
     virtual double deltaSin2thetaEff_mu_2() const;
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
-     * @f$Z@f$-pole, @f$\delta \mathcal{A}_f^{(2)}@f$. 
+     * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\Delta \mathcal{A}_f^{(2)}@f$.
+     * @details
+     * \f$\newcommand{\nc}{\newcommand}\f$
+     * \f$\nc{\gVfSM}{g_{V,f}^{SM}}\f$
+     * \f$\nc{\gAfSM}{g_{A,f}^{SM}}\f$
+     * \f$\nc{\gVfL}{\Delta g_{V,f}^{(1)}}\f$
+     * \f$\nc{\gAfL}{\Delta g_{A,f}^{(1)}}\f$
+     * \f$\nc{\gVfQ}{\Delta g_{V,f}^{(2)}}\f$
+     * \f$\nc{\gAfQ}{\Delta g_{A,f}^{(2)}}\f$
+     * \f{eqnarray*}{
+     * \Delta \mathcal{A}_f^{(2)} &=& 2~ \frac{ \gVfSM ~\gAfSM }{ \left[(g_{V,f}^{SM})^2+(g_{A,f}^{SM})^2\right]^3 } 
+     * \left(  \left[(\gAfSM)^2 -3 (\gVfSM)^2\right] (\gAfL)^2 
+     * + \left[(\gVfSM)^2 -3 (\gAfSM)^2\right] (\gVfL)^2 \right) \\
+     * &-& ~ 2~ \frac{ (\gAfSM)^4 - 6(\gAfSM)^2(\gVfSM)^2 + (\gVfSM)^4 }{\left[(g_{V,f}^{SM})^2+(g_{A,f}^{SM})^2\right]^3} ~\gVfL ~\gAfL 
+     * +~ 2~ \frac{ (g_{V,f}^{SM})^2-(g_{A,f}^{SM})^2 }{ \left[(g_{V,f}^{SM})^2+(g_{A,f}^{SM})^2\right]^2 } \left[ \gVfSM ~\gAfQ - \gAfSM ~\gVfQ \right]
+     * \f}
      * @param[in] f a lepton or quark
-     * @return @f$\delta \mathcal{A}_f^{(2)}@f$
+     * @return @f$\Delta \mathcal{A}_f^{(2)}@f$
      */
     virtual double deltaA_f_2(const Particle f) const;
     
-    virtual double deltaAFB_Test(const Particle f) const;
+    virtual double deltaAFB_Test(const Particle f) const;///<Alternative notation to deltaAFB
     
     /**
-     * @brief The quadratic @f$\mathcal{O}(1/\Lambda^4)@f$ NP to the forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
-     * @f$Z@f$-pole, @f$\delta A^f_{FB}@f$. 
+     * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics to the forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\Delta A^f_{FB}@f$. 
+     * @details
+     * \f[
+     * \Delta A_{FB,f}^{(2)} = \frac{3}{4} \left( \Delta A_e^{(1)} \Delta A_f^{(1)} + A_e^{SM} \Delta A_f^{(2)} + A_f^{SM} \Delta A_e^{(2)} \right)
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$\delta A^{f (2)}_{FB}@f$
+     * @return @f$\Delta A^{f (2)}_{FB}@f$
      */
     virtual double deltaAFB_2(const Particle f) const;
     
-    virtual double deltaR0_f_Test(const Particle f) const;
+    virtual double deltaR0_f_Test(const Particle f) const;///<Alternative notation to deltaR0_f.
     
     /**
-     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ NP contribution to the ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
+     * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
      * @f$R_q^0=\Gamma_q/\Gamma_{\mathrm{had}}@f$ and @f$R_\nu^0=\Gamma_\nu/\Gamma_{\mathrm{had}}@f$, 
-     * for charged leptons, quarks and neutrinos, respectively.
+     * for charged leptons, quarks and neutrinos:
+     * @details
+     * \f[
+     * \Delta R_l^{(2)} = \frac{ \Gamma_{had}^{SM}~(\Delta \Gamma_l^{(1)})^2}{(\Gamma_l^{SM})^3}
+                        - \frac{\Delta \Gamma_{had}^{(1)}~\Delta \Gamma_l^{(1)}}{(\Gamma_l^{SM})^2}
+                        + \frac{ \Gamma_l^{SM} ~\Delta \Gamma_{had}^{(2)} - \Gamma_{had}^{SM} ~\Delta \Gamma_l^{(2)}}{(\Gamma_l^{SM})^2}
+     * \f]
+     * \f[
+     * \Delta R_q^{(2)} = \frac{ \Gamma_{q}^{SM}~(\Delta \Gamma_{had}^{(1)})^2}{(\Gamma_{had}^{SM})^3}
+                     - \frac{\Delta \Gamma_q^{(1)}~\Delta \Gamma_{had}^{(1)}}{(\Gamma_{had}^{SM})^2}
+                     + \frac{ \Gamma_{had}^{SM} ~\Delta \Gamma_q^{(2)} - \Gamma_q^{SM} ~\Delta \Gamma_{had}^{(2)}}{(\Gamma_{had}^{SM})^2}
+     * \f]
+     * \f[
+     * \Delta R_{\nu}^{(2)} = \frac{ \Gamma_{\nu}^{SM}~(\Delta \Gamma_{had}^{(1)})^2}{(\Gamma_{had}^{SM})^3}
+                     - \frac{\Delta \Gamma_{\nu}^{(1)}~\Delta \Gamma_{had}^{(1)}}{(\Gamma_{had}^{SM})^2}
+                     + \frac{ \Gamma_{had}^{SM} ~\Delta \Gamma_{\nu}^{(2)} - \Gamma_{\nu}^{SM} ~\Delta \Gamma_{had}^{(2)}}{(\Gamma_{had}^{SM})^2}
+     * \f]
      * @param f a lepton or quark
-     * @return @f$\delta R_f^{0 (2)}@f$
+     * @return @f$\Delta R_f^{0 (2)}@f$
      */
     virtual double deltaR0_f_2(const Particle f) const;
     //AG:end     
@@ -456,13 +545,17 @@ public:
     
     /**
      * @brief The decay width of the @f$Z@f$ boson into a given fermion pair, @f$\Gamma_Z^{f}@f$.
+     * @details
+     * \f[
+     * \Gamma_Z^{f} = \Gamma_{Z,f}^{SM} + \Delta \Gamma_{Z,f}^{(1)} + \Delta \Gamma_{Z,f}^{(2)}
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$\Gamma_Z^{f}@f$ in GeV, including SM plus NP contributions
+     * @return @f$\Gamma_Z^{f}@f$ in GeV, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual double Gamma_Zf(const Particle f) const;
+    virtual double Gamma_Zf(const Particle f) const;               //AG:modified
 
     /**
      * @brief The new physics contribution to the total decay width of the @f$Z@f$ boson, @f$\delta \Gamma_Z@f$.
@@ -472,12 +565,16 @@ public:
 
     /**
      * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$.
-     * @return @f$\Gamma_Z@f$ in GeV, including SM plus NP contributions
+     * @details
+     * \f[
+     * \Gamma_Z = \Gamma_Z^{SM} + \Delta \Gamma_Z^{(1)} + \Delta \Gamma_Z^{(2)}
+     * \f]
+     * @return @f$\Gamma_Z@f$ in GeV, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual double Gamma_Z() const;
+    virtual double Gamma_Z() const;                                //AG:modified
     
     /**
      * @brief The new physics contribution to the hadronic decay width of the @f$Z@f$ boson, @f$\delta \Gamma_{Z,had}@f$.
@@ -486,8 +583,30 @@ public:
     virtual double deltaGamma_Zhad() const;
     
     //AG:begin
+    /**
+     * @brief The new physics contribution to the ratio of the @f$Z\to u\bar{u} + Z\to c\bar{c}@f$ width to the @f$Z@f$-boson hadronic width:
+     * @details
+     * \f[ 
+     * \Delta R_{uc} = \frac{1}{2} \left(\Delta R_u^{(1)} + \Delta R_c^{(1)} \right) 
+     * \f]
+     * @return @f$\Delta R_{uc}^{(1)}@f$
+     */
     virtual double deltaRuc() const;
+    
+    /**
+     * @brief The @f$\mathcal{O}(1/\Lambda^4)@f$ new physics contribution to the ratio of the @f$Z\to u\bar{u} + Z\to c\bar{c}@f$ width to the @f$Z@f$-boson hadronic width:
+     * @details
+     * \f[ 
+     * \Delta R_{uc}^{(2)} = \frac{1}{2} \left(\Delta R_u^{(2)} + \Delta R_c^{(2)} \right) 
+     * \f]
+     * @return @f$\Delta R_{uc}^{(2)}@f$
+     */
     virtual double deltaRuc_2() const;
+    
+    /**
+     * @brief The ratio of the @f$Z\to u\bar{u} + Z\to c\bar{c}@f$ width to the @f$Z@f$-boson hadronic width.
+     * @return @f$\Delta R_{uc}^{0 (2)}@f$, including SM plus NP contributions
+     */
     virtual double Ruc() const;
     //AG:end
     
@@ -500,7 +619,9 @@ public:
 
     /**
      * @brief The hadronic decay width of the @f$Z@f$ boson, @f$\Gamma_{Z,had}@f$.
-     * @return @f$\Gamma_{Z,had}@f$ in GeV, including SM plus NP contributions
+     * @details
+     * \Gamma_{Z,had} = \Gamma_Z,had}^{SM} + \Delta \Gamma_{Z,had}^{(1)} + \Delta \Gamma_{Z,had}^{(2)}
+     * @return @f$\Gamma_{Z,had}@f$ in GeV, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
@@ -527,12 +648,16 @@ public:
     /**
      * @brief The cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
      * at the @f$Z@f$ pole, @f$\sigma_h^0@f$.
-     * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$, including SM plus NP contributions
+     * @details
+     * \f[
+     * \sigma_h = \sigma_h^{SM} + \Delta \sigma_h^{(1)} + \Delta \sigma_h^{(2)}
+     * \f]
+     * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual double sigma0_had() const;
+    virtual double sigma0_had() const;                             //AG:modified
 
     /**
      * @brief The new physics contribution to the effective electron/leptonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\rm lept}@f$
@@ -550,13 +675,17 @@ public:
 
     /**
      * @brief @copybrief sin2thetaEff::computeThValue()
+     * @details
+     * \f[
+     * \sin^2\theta_{eff} = \sin^2\theta_{eff}^{SM} + \Delta \sin^2\theta_{eff}^{(1)} + \Delta \sin^2\theta_{eff}^{(2)}
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, including SM plus NP contributions
+     * @return @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual double sin2thetaEff(const Particle f) const;
+    virtual double sin2thetaEff(const Particle f) const;           //AG:modified
 
     /**
      * @brief The new physics contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -569,13 +698,17 @@ public:
     /**
      * @brief The left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
      * @f$Z@f$-pole, @f$\mathcal{A}_f@f$.
+     * @details
+     * \f[
+     * \mathcal{A}_f = \mathcal{A}_f^{SM} + \Delta \mathcal{A}_f^{(1)} + \Delta \mathcal{A}_f^{(2)}
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$\mathcal{A}_f@f$, including SM plus NP contributions
+     * @return @f$\mathcal{A}_f@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual double A_f(const Particle f) const;
+    virtual double A_f(const Particle f) const;                    //AG:modified
 
     /**
      * @brief The new physics contribution to the forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -588,10 +721,14 @@ public:
     /**
      * @brief The forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
      * @f$Z@f$-pole, @f$A^f_{FB}@f$.
+     * @details
+     * \f[
+     * A_{FB,f} = A_{FB,f}^{SM} + \Delta A_{FB,f}^{(1)} + \Delta A_{FB,f}^{(2)}
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$A^f_{FB}@f$, including SM plus NP contributions
+     * @return @f$A^f_{FB}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      */
-    virtual double AFB(const Particle f) const;
+    virtual double AFB(const Particle f) const;                    //AG:modified
 
     /**
      * @brief The new physics contribution to the ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
@@ -606,10 +743,14 @@ public:
      * @brief The ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
      * @f$R_q^0=\Gamma_q/\Gamma_{\mathrm{had}}@f$ and @f$R_\nu^0=\Gamma_\nu/\Gamma_{\mathrm{had}}@f$, 
      * for charged leptons, quarks and neutrinos, respectively. 
+     * @details
+     * \f[
+     * R^0_f = R_f^{SM} + \Delta R_f^{(1)} + \Delta R_f^{(2)}
+     * \f]
      * @param[in] f a lepton or quark
-     * @return @f$R_f^0@f$, including SM plus NP contributions
+     * @return @f$R_f^0@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      */
-    virtual double R0_f(const Particle f) const;
+    virtual double R0_f(const Particle f) const;                   //AG:modified
     
     /**
      * @brief The new physics contribution to the ratio of invisible and leptonic (electron) decay widths of the @f$Z@f$ boson, @f$\delta R_{inv}@f$.

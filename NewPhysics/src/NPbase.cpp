@@ -56,13 +56,25 @@ int NPbase::Output() const {
     // 3 Linear_Test + Quadratic
     // 4 Quadratic
     // 5 SM
-    int outputChoice = 0;
-    return outputChoice;
+    return 3;
 }
 //AG:end
 
 double NPbase::alphaMz() const
 {
+    /*AG:begin
+    // FlagMWinput flag to be implemented in NPbase, especially for alphaMz and Mw!
+    double dalphaMz = 0.0;
+    if(FlagMWinput){
+        double alpha = trueSM.alphaMz();
+        double c2 = trueSM.cW2();
+        double s2 = trueSM.sW2();
+        
+        dalphaMz = sqrt(2.0)*GF*Mz*Mz/4.0/M_PI*c2*( alpha/2.0*(obliqueS() - 2.0*c2*obliqueT() - (c2-s2)/2.0/s2*obliqueU()) - s2/2.0/(c2-s2)*DeltaGF() );
+    }
+    return (trueSM.alphaMz() + dalphaMz);
+    //AG:end */
+    
     double myAlphaMz = trueSM.alphaMz();
     
     return myAlphaMz;
@@ -834,16 +846,15 @@ double NPbase::deltaGamma_Zf(const Particle f) const
     return deltaGamma_Zf;
 }
 
-double NPbase::Gamma_Zf(const Particle f) const
+double NPbase::Gamma_Zf(const Particle f) const                   //AG: Output()
 {
     //AG:begin
-    int output = Output();
-    if(output==0){ return (trueSM.GammaZ(f) + deltaGamma_Zf(f)); }
-    if(output==1){ return (trueSM.GammaZ(f) + deltaGamma_Zf_Test(f) ); }
-    if(output==2){ return (trueSM.GammaZ(f) + deltaGamma_Zf(f) + deltaGamma_Zf_2(f) ); }
-    if(output==3){ return (trueSM.GammaZ(f) + deltaGamma_Zf_Test(f) + deltaGamma_Zf_2(f) ); }
-    if(output==4){ return (trueSM.GammaZ(f) + deltaGamma_Zf_2(f) ); }
-    if(output==5){ return (trueSM.GammaZ(f) ); }
+    if(Output()==0){ return (trueSM.GammaZ(f) + deltaGamma_Zf(f)); }
+    if(Output()==1){ return (trueSM.GammaZ(f) + deltaGamma_Zf_Test(f) ); }
+    if(Output()==2){ return (trueSM.GammaZ(f) + deltaGamma_Zf(f) + deltaGamma_Zf_2(f) ); }
+    if(Output()==3){ return (trueSM.GammaZ(f) + deltaGamma_Zf_Test(f) + deltaGamma_Zf_2(f) ); }
+    if(Output()==4){ return (trueSM.GammaZ(f) + deltaGamma_Zf_2(f) ); }
+    if(Output()==5){ return (trueSM.GammaZ(f) ); }
     //AG:end
     
     //return (trueSM.GammaZ(f) + deltaGamma_Zf(f));
@@ -892,11 +903,10 @@ double NPbase::deltaGamma_Z() const
     return deltaGamma_Z;
 }
 
-double NPbase::Gamma_Z() const
+double NPbase::Gamma_Z() const                   //AG: NumericCheck() & Output()
 {
     //AG:begin
-    bool numericCheck = NumericCheck();
-    if(numericCheck) { 
+    if(NumericCheck()) { 
         //// Testing the vector-axial Z-couplings:
        std::cout << " " << std::endl;
        std::cout << "Numeric Values of V-A couplings (from GammaZ)" << std::endl;
@@ -1014,13 +1024,12 @@ double NPbase::Gamma_Z() const
        */
     }
 
-    int output = Output();
-    if(output==0){ return (trueSM.Gamma_Z() + deltaGamma_Z()); }
-    if(output==1){ return (trueSM.Gamma_Z() + deltaGamma_Z_Test() ); }
-    if(output==2){ return (trueSM.Gamma_Z() + deltaGamma_Z() + deltaGamma_Z_2() ); }
-    if(output==3){ return (trueSM.Gamma_Z() + deltaGamma_Z_Test() + deltaGamma_Z_2() ); }
-    if(output==4){ return (trueSM.Gamma_Z() + deltaGamma_Z_2() ); }
-    if(output==5){ return (trueSM.Gamma_Z() ); }
+    if(Output()==0){ return (trueSM.Gamma_Z() + deltaGamma_Z()); }
+    if(Output()==1){ return (trueSM.Gamma_Z() + deltaGamma_Z_Test() ); }
+    if(Output()==2){ return (trueSM.Gamma_Z() + deltaGamma_Z() + deltaGamma_Z_2() ); }
+    if(Output()==3){ return (trueSM.Gamma_Z() + deltaGamma_Z_Test() + deltaGamma_Z_2() ); }
+    if(Output()==4){ return (trueSM.Gamma_Z() + deltaGamma_Z_2() ); }
+    if(Output()==5){ return (trueSM.Gamma_Z() ); }
     //AG:end
     
     //return (trueSM.Gamma_Z() + deltaGamma_Z());
@@ -1057,10 +1066,9 @@ double NPbase::deltaRuc() const
     return DeltaRuc;
 }
 
-double NPbase::Ruc() const      // if
+double NPbase::Ruc() const                       //AG: NumericCheck() & Output()
 {
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << " " << std::endl;
         std::cout << "Numeric Values of Ruc():" << std::endl;
         std::cout << "  trueSM.Ruc() = " << trueSM.Ruc() << std::endl;
@@ -1068,11 +1076,10 @@ double NPbase::Ruc() const      // if
         std::cout << "  deltaRuc_2() = " << deltaRuc_2() << std::endl;
     }
     
-    int output = Output();
-    if(output==0 || output==1){ return (trueSM.Ruc() + deltaRuc()); }
-    if(output==2 || output==3){ return (trueSM.Ruc() + deltaRuc() + deltaRuc_2() ); }
-    if(output==4){ return (trueSM.Ruc() + deltaRuc_2() ); }
-    if(output==5){ return (trueSM.Ruc() ); }
+    if(Output()==0 || Output()==1){ return (trueSM.Ruc() + deltaRuc()); }
+    if(Output()==2 || Output()==3){ return (trueSM.Ruc() + deltaRuc() + deltaRuc_2() ); }
+    if(Output()==4){ return (trueSM.Ruc() + deltaRuc_2() ); }
+    if(Output()==5){ return (trueSM.Ruc() ); }
     
     //return ( trueSM.Ruc() + deltaRuc() );
 }
@@ -1195,11 +1202,10 @@ double NPbase::deltaSigmaHadron() const
     return sigma_had;
 }
 
-double NPbase::sigma0_had() const
+double NPbase::sigma0_had() const                //AG: NumericCheck() & Output()
 {
     //AG:begin
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << "" << std::endl;
         std::cout << "Numeric values of sigma0_had : " << std::endl;
         std::cout << "  trueSM.sigma0_had = " << trueSM.sigma0_had() << std::endl;
@@ -1208,16 +1214,15 @@ double NPbase::sigma0_had() const
         std::cout << "  deltaSigmaHadron_2 = " << deltaSigmaHadron_2()  << std::endl;
     }
     
-    int output = Output();
-    if(output==0){ return (trueSM.sigma0_had() + deltaSigmaHadron()); }
-    if(output==1){ return (trueSM.sigma0_had() + deltaSigmaHadron_Test() ); }
-    if(output==2){ return (trueSM.sigma0_had() + deltaSigmaHadron() + deltaSigmaHadron_2() ); }
-    if(output==3){ return (trueSM.sigma0_had() + deltaSigmaHadron_Test() + deltaSigmaHadron_2() ); }
-    if(output==4){ return (trueSM.sigma0_had() + deltaSigmaHadron_2() ); }
-    if(output==5){ return (trueSM.sigma0_had() ); }
+    if(Output()==0){ return (trueSM.sigma0_had() + deltaSigmaHadron()); }
+    if(Output()==1){ return (trueSM.sigma0_had() + deltaSigmaHadron_Test() ); }
+    if(Output()==2){ return (trueSM.sigma0_had() + deltaSigmaHadron() + deltaSigmaHadron_2() ); }
+    if(Output()==3){ return (trueSM.sigma0_had() + deltaSigmaHadron_Test() + deltaSigmaHadron_2() ); }
+    if(Output()==4){ return (trueSM.sigma0_had() + deltaSigmaHadron_2() ); }
+    if(Output()==5){ return (trueSM.sigma0_had() ); }
     //AG:end
     
-    return (trueSM.sigma0_had() + deltaSigmaHadron());
+    //return (trueSM.sigma0_had() + deltaSigmaHadron());
 }
 
 double NPbase::deltaSin2thetaEff_e() const
@@ -1250,11 +1255,10 @@ double NPbase::deltaSin2thetaEff_mu() const
     return sin2_theta_eff;
 }
 
-double NPbase::sin2thetaEff(const Particle f) const
+double NPbase::sin2thetaEff(const Particle f) const     //AG: NumericCheck() & Output()
 {
     //AG:begin
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << " "  << std::endl;
         std::cout << "Numeric Values of sin2thetaEff: " << std::endl;
         std::cout << "  trueSM.sin2thetaEff_e = " << trueSM.sin2thetaEff(leptons[ELECTRON]) << std::endl;
@@ -1269,21 +1273,19 @@ double NPbase::sin2thetaEff(const Particle f) const
     
     if (f.is("ELECTRON")){
         //AG:begin
-        int output = Output();
-        if(output==0 || output==1){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e()); }
-        if(output==2 || output==3){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e() + deltaSin2thetaEff_e_2() ); }
-        if(output==4){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e_2() ); }
-        if(output==5){ return (trueSM.sin2thetaEff(f)); }
+        if(Output()==0 || Output()==1){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e()); }
+        if(Output()==2 || Output()==3){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e() + deltaSin2thetaEff_e_2() ); }
+        if(Output()==4){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e_2() ); }
+        if(Output()==5){ return (trueSM.sin2thetaEff(f)); }
         //AG:end
         //return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e() );
     }
     else if (f.is("MU")){
         //AG:begin
-        int output = Output();
-        if(output==0 || output==1){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_mu()); }
-        if(output==2 || output==3){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_mu() + deltaSin2thetaEff_mu_2() ); }
-        if(output==4){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_mu_2() ); }
-        if(output==5){ return (trueSM.sin2thetaEff(f) ); }
+        if(Output()==0 || Output()==1){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_mu()); }
+        if(Output()==2 || Output()==3){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_mu() + deltaSin2thetaEff_mu_2() ); }
+        if(Output()==4){ return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_mu_2() ); }
+        if(Output()==5){ return (trueSM.sin2thetaEff(f) ); }
         //AG:end
         //return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_mu() );
     }
@@ -1308,11 +1310,10 @@ double NPbase::deltaA_f(const Particle f) const
     return dAf;
 }
 
-double NPbase::A_f(const Particle f) const
+double NPbase::A_f(const Particle f) const       //AG: NumericCheck() & Output()
 {
     //AG: begin
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << " " << std::endl;
         std::cout << "Numeric Values of Af:" << std::endl;
         std::cout << "  trueSM electron-type :" << trueSM.A_f(leptons[ELECTRON]) << " " << trueSM.A_f(leptons[MU]) << " " << trueSM.A_f(leptons[TAU]) << std::endl;
@@ -1329,11 +1330,10 @@ double NPbase::A_f(const Particle f) const
         std::cout << "  deltaAf2 down-type :" << deltaA_f_2(quarks[DOWN]) << " " << deltaA_f_2(quarks[STRANGE]) << " " << deltaA_f_2(quarks[BOTTOM]) << std::endl;
     }
     
-    int output = Output();
-    if(output==0 || output==1){ return (trueSM.A_f(f) + deltaA_f(f)); }
-    if(output==2 || output==3){ return (trueSM.A_f(f) + deltaA_f(f) + deltaA_f_2(f) ); }
-    if(output==4){ return (trueSM.A_f(f) + deltaA_f_2(f) ); }
-    if(output==5){ return (trueSM.A_f(f) ); }
+    if(Output()==0 || Output()==1){ return (trueSM.A_f(f) + deltaA_f(f)); }
+    if(Output()==2 || Output()==3){ return (trueSM.A_f(f) + deltaA_f(f) + deltaA_f_2(f) ); }
+    if(Output()==4){ return (trueSM.A_f(f) + deltaA_f_2(f) ); }
+    if(Output()==5){ return (trueSM.A_f(f) ); }
     //AG:end
     
     //return (trueSM.A_f(f) + deltaA_f(f));
@@ -1374,11 +1374,10 @@ double NPbase::deltaAFB(const Particle f) const
     return dAFB;
 }
 
-double NPbase::AFB(const Particle f) const
+double NPbase::AFB(const Particle f) const       //AG: NumericCheck() & Output()
 {
     //AG: begin
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << " " << std::endl;
         std::cout << "Numeric Values of AFB:" << std::endl;
         std::cout << "  trueSM electron-type :" << trueSM.AFB(leptons[ELECTRON]) << " " << trueSM.AFB(leptons[MU]) << " " << trueSM.AFB(leptons[TAU]) << std::endl;
@@ -1399,13 +1398,12 @@ double NPbase::AFB(const Particle f) const
         std::cout << "    deltaAFB2 down-type :" << deltaAFB_2(quarks[DOWN]) << " " << deltaAFB_2(quarks[STRANGE]) << " " << deltaAFB_2(quarks[BOTTOM]) << std::endl;   
     }
 
-    int output = Output();
-    if(output==0){ return (trueSM.AFB(f) + deltaAFB(f)); }
-    if(output==1){ return (trueSM.AFB(f) + deltaAFB_Test(f) ); }
-    if(output==2){ return (trueSM.AFB(f) + deltaAFB(f) + deltaAFB_2(f) ); }
-    if(output==3){ return (trueSM.AFB(f) + deltaAFB_Test(f) + deltaAFB_2(f) ); }
-    if(output==4){ return (trueSM.AFB(f) + deltaAFB_2(f) ); }
-    if(output==5){ return (trueSM.AFB(f) ); }
+    if(Output()==0){ return (trueSM.AFB(f) + deltaAFB(f)); }
+    if(Output()==1){ return (trueSM.AFB(f) + deltaAFB_Test(f) ); }
+    if(Output()==2){ return (trueSM.AFB(f) + deltaAFB(f) + deltaAFB_2(f) ); }
+    if(Output()==3){ return (trueSM.AFB(f) + deltaAFB_Test(f) + deltaAFB_2(f) ); }
+    if(Output()==4){ return (trueSM.AFB(f) + deltaAFB_2(f) ); }
+    if(Output()==5){ return (trueSM.AFB(f) ); }
     //AG:end
     
     //return (trueSM.AFB(f) + deltaAFB(f));
@@ -1462,11 +1460,10 @@ double NPbase::deltaR0_f(const Particle f) const
     return dR0_f;
 }
 
-double NPbase::R0_f(const Particle f) const
+double NPbase::R0_f(const Particle f) const      //AG: NumericCheck() & Output()
 {
     //AG:begin
-    bool numericCheck = NumericCheck();
-    if(numericCheck){
+    if(NumericCheck()){
         std::cout << "" << std::endl;
         std::cout << "Numeric values of R0_l : " << std::endl;
         std::cout << "  trueSM.R0_e,mu,tau = " << trueSM.R0_f(leptons[ELECTRON]) <<" "
@@ -1513,13 +1510,12 @@ double NPbase::R0_f(const Particle f) const
                                               << deltaR0_f_2(quarks[BOTTOM]) << std::endl;
     }
 
-    int output = Output();
-    if(output==0){ return (trueSM.R0_f(f) + deltaR0_f(f)); }
-    if(output==1){ return (trueSM.R0_f(f) + deltaR0_f_Test(f) ); }
-    if(output==2){ return (trueSM.R0_f(f) + deltaR0_f(f) + deltaR0_f_2(f) ); }
-    if(output==3){ return (trueSM.R0_f(f) + deltaR0_f_Test(f)  + deltaR0_f_2(f) ); }
-    if(output==4){ return (trueSM.R0_f(f) + deltaR0_f_2(f) ); }
-    if(output==5){ return (trueSM.R0_f(f) ); }
+    if(Output()==0){ return (trueSM.R0_f(f) + deltaR0_f(f)); }
+    if(Output()==1){ return (trueSM.R0_f(f) + deltaR0_f_Test(f) ); }
+    if(Output()==2){ return (trueSM.R0_f(f) + deltaR0_f(f) + deltaR0_f_2(f) ); }
+    if(Output()==3){ return (trueSM.R0_f(f) + deltaR0_f_Test(f)  + deltaR0_f_2(f) ); }
+    if(Output()==4){ return (trueSM.R0_f(f) + deltaR0_f_2(f) ); }
+    if(Output()==5){ return (trueSM.R0_f(f) ); }
     //AG:end
     
     //return (trueSM.R0_f(f) + deltaR0_f(f));
