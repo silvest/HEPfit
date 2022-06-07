@@ -2655,6 +2655,12 @@ bool setFlagSigmaForR(const bool flagSigmaForR_i)
     return true;
 }
 
+    /**
+     * @brief The MSbar running quark mass computed at NLO
+     * @param q the quark flavour
+     * @param mu the scale at which the running mass is returned
+     * @return @f$ m_q^\overline{\mathrm{MS}}(\mu)@f$
+     */
 virtual double getmq(const QCD::quark q, const double mu) const
 {
     return m_q(q, mu, FULLNLO);
@@ -2790,9 +2796,8 @@ protected:
                                          getQuarks(q).getMass(), order);
             case QCD::CHARM:
             case QCD::BOTTOM:
-                return Mrun(mu, getQuarks(q).getMass(), order);
             case QCD::TOP:
-                return getMtpole(); // the pole mass
+                return Mrun(mu, getQuarks(q).getMass(), order);
             default:
                 throw std::runtime_error("Error in StandardModel::m_q()"); 
         }

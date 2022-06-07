@@ -475,6 +475,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                     double th1 = buff[il][k++];
                     double th2 = buff[il][k++];
                     Histo2D[it->getName()].GetHistogram()->Fill(th1, th2);
+                    if (fMCMCFlagWriteChainToFile) {
+                        hMCMCObservables[index_chain[il]][k_all++] = th1;
+                        hMCMCObservables[index_chain[il]][k_all++] = th2;
+                    }
                 }
 
                 // fill the histograms for correlated observables
@@ -488,6 +492,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                         if (th < thMin[it->getName()]) thMin[it->getName()] = th;
                         if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                         Histo1D[it->getName()].GetHistogram()->Fill(th);
+                        if (fMCMCFlagWriteChainToFile) hMCMCObservables[index_chain[il]][k_all++] = th;                        
                         if (it1->isPrediction()) COdata[nObs++] = th;
                     }
                     if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(COdata);
@@ -547,6 +552,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             double th1 = it->computeTheoryValue();
             double th2 = it->computeTheoryValue2();
             Histo2D[it->getName()].GetHistogram()->Fill(th1, th2);
+            if (fMCMCFlagWriteChainToFile) {
+                hMCMCObservables[index_chain[il]][k_all++] = th1;
+                hMCMCObservables[index_chain[il]][k_all++] = th2;
+            }
         }
 
         // fill the histograms for correlated observables
@@ -562,6 +571,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 if (th < thMin[it->getName()]) thMin[it->getName()] = th;
                 if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                 Histo1D[it->getName()].GetHistogram()->Fill(th);
+                if (fMCMCFlagWriteChainToFile) hMCMCObservables[index_chain[il]][k_all++] = th;                        
                 if (it1->isPrediction()) COdata[nObs++] = th;
             }
             if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(COdata);
@@ -895,8 +905,13 @@ void MonteCarloEngine::AddChains() {
         hMCMCObservableTree->Branch("LogPriorProbability", &hMCMCLogPriorProbability, "logpriorprobability/D");
     }
     if (fMCMCFlagWriteChainToFile) {
-        hMCMCObservables.assign(fMCMCNChains, std::vector<double>(Obs_ALL.size(), 0.));
-        hMCMCTree_Observables.assign(Obs_ALL.size(), 0.);
+        //compute size of observables to be written, including Observables in Obs_ALL, Obs2D_ALL and CGO
+        int ObsNum = Obs_ALL.size() + Obs2D_ALL.size() * 2;
+        for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
+            ObsNum += it->getObs().size();
+        }
+        hMCMCObservables.assign(fMCMCNChains, std::vector<double>(ObsNum, 0.));
+        hMCMCTree_Observables.assign(ObsNum, 0.);
         if (kwmax > 0) {
             hMCMCObservables_weight.assign(fMCMCNChains, std::vector<double>(kwmax, 0.));
             hMCMCTree_Observables_weight.assign(kwmax, 0.);
@@ -910,6 +925,22 @@ void MonteCarloEngine::AddChains() {
                 hMCMCObservableTree->Branch((it->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it->getName() + "_weight/D").data());
                 hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it->getName() + "_weight").data());
                 kweight++;
+            }
+        }
+        for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
+            hMCMCObservableTree->Branch(it->getThname().data(), &hMCMCTree_Observables[k], (it->getThname() + "/D").data());
+            hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables%i", k), it->getThname().data());
+            k++;           
+            hMCMCObservableTree->Branch(it->getThname2().data(), &hMCMCTree_Observables[k], (it->getThname2() + "/D").data());
+            hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables%i", k), it->getThname2().data());
+            k++;           
+        }
+        for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
+            std::vector<Observable> ObsV(it1->getObs());
+            for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) {
+                hMCMCObservableTree->Branch(it->getName().data(), &hMCMCTree_Observables[k], (it->getName() + "/D").data());
+                hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables%i", k), it->getName().data());
+                k++;
             }
         }
     } else if (getchainedObsSize() > 0) {
@@ -950,7 +981,7 @@ void MonteCarloEngine::InChainFillObservablesTree()
 {
     if (!hMCMCObservableTree) return;
     for (fMCMCTree_Chain = 0; fMCMCTree_Chain < fMCMCNChains; ++fMCMCTree_Chain) {
-        if (getchainedObsSize() > 0) hMCMCTree_Observables = hMCMCObservables[fMCMCTree_Chain];
+        if (getchainedObsSize() > 0 || fMCMCFlagWriteChainToFile) hMCMCTree_Observables = hMCMCObservables[fMCMCTree_Chain];
         if (WriteLogLikelihoodChain) {
             hMCMCLogLikelihood = fMCMCStates.at(fMCMCTree_Chain).log_likelihood;
             hMCMCLogProbability = fMCMCStates.at(fMCMCTree_Chain).log_probability;
