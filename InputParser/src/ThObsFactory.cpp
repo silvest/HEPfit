@@ -3891,9 +3891,10 @@ ThObsFactory::ThObsFactory()
     /* BEGIN: REMOVE FROM THE PACKAGE */
     obsThFactory["M12D"] = boost::factory<M12D*>();
     obsThFactory["ArgD"] = boost::factory<ArgD*>();
-    //----- eps'/eps  -----
-    obsThFactory["EpsilonP_O_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
     /* END: REMOVE FROM THE PACKAGE */
+   //----- eps'/eps  -----
+    obsThFactory["EpsilonP_O_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
+    obsThFactory["EpsilonP_O_Epsilon_TH"] = boost::factory<EpsilonP_O_Epsilon_TH*>();
     //----- CKM  -----
     obsThFactory["Vud"] = bind(boost::factory<VCKM*>(), _1, 1, 1);
     obsThFactory["Vus"] = bind(boost::factory<VCKM*>(), _1, 1, 2);

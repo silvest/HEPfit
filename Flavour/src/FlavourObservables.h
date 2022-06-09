@@ -27,6 +27,7 @@
 #include "EpsilonK.h"
 #include "DmK.h"
 #include "EpsilonP_O_Epsilon.h"
+#include "EpsilonP_O_Epsilon_TH.h"
 #include "MVllObservables.h"
 #include "MPllObservables.h"
 #include "MVgamma.h"
