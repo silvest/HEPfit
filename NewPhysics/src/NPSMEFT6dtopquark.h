@@ -21,7 +21,7 @@ public:
 /**
 *　@brief The number of the model parameters in %NPSMEFT6dtopquarkVars. 
 */
-static const int NNPSMEFT6dtopquarkVars = 67;
+static const int NNPSMEFT6dtopquarkVars = 100;
    
 /*
 @brief A string array containing the labels of the model parameters in NPSMEFT6dtopquark 
@@ -154,6 +154,38 @@ static const int NNPSMEFT6dtopquarkVars = 67;
     
     
     
+    
+    
+    
+    
+    
+    double getNPSMEFT6dtopquark_C_Qd1() const {
+        return C_Qd1;
+    }
+    double getNPSMEFT6dtopquark_C_Qu1() const {
+        return C_Qu1;
+    }
+    double getNPSMEFT6dtopquark_C_td1() const {
+        return C_td1;
+    }
+    double getNPSMEFT6dtopquark_C_tu1() const {
+        return C_tu1;
+    }
+    double getNPSMEFT6dtopquark_C_tq1() const {
+        return C_tq1;
+    }
+    double getNPSMEFT6dtopquark_C_Qq11() const {
+        return C_Qq11;
+    }
+    double getNPSMEFT6dtopquark_C_Qq31() const {
+        return C_Qq31;
+    }
+
+    
+    
+    
+    
+    
      double getNPSMEFT6dtopquark_SM_tAq_inc() const {
         return SM_tAq_inc;
     }
@@ -185,7 +217,115 @@ static const int NNPSMEFT6dtopquarkVars = 67;
     double getNPSMEFT6dtopquark_SM_ttZ_bin_290_400() const {
         return SM_ttZ_bin_290_400;
     }
+    
+    
+    
+    
+    double getNPSMEFT6dtopquark_SM_tt_bin_250_400() const {
+        return SM_tt_bin_250_400;
+    }
         
+    double getNPSMEFT6dtopquark_SM_tt_bin_400_480() const {
+        return SM_tt_bin_400_480;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_480_560() const {
+        return SM_tt_bin_480_560;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_560_640() const {
+        return SM_tt_bin_560_640;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_640_720() const {
+        return SM_tt_bin_640_720;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_720_800() const {
+        return SM_tt_bin_720_800;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_800_900() const {
+        return SM_tt_bin_800_900;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_900_1000() const {
+        return SM_tt_bin_900_1000;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_1000_1150() const {
+        return SM_tt_bin_1000_1150;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_1150_1300() const {
+        return SM_tt_bin_1150_1300;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_1300_1500() const {
+        return SM_tt_bin_1300_1500;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_1500_1700() const {
+        return SM_tt_bin_1500_1700;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_1700_2000() const {
+        return SM_tt_bin_1700_2000;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_2000_2300() const {
+        return SM_tt_bin_2000_2300;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_2300_2600() const {
+        return SM_tt_bin_2300_2600;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_2600_3000() const {
+        return SM_tt_bin_2600_3000;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_3000_3500() const {
+        return SM_tt_bin_3000_3500;
+    }
+        
+    double getNPSMEFT6dtopquark_SM_tt_bin_3500_4000() const {
+        return SM_tt_bin_3500_4000;
+    }
+        
+    
+    
+    
+    
+    
+    
+    double getNPSMEFT6dtopquark_SM_Charge_Asymmetry_bin_tt_0_500() const {
+        return SM_Charge_Asymmetry_bin_tt_0_500;
+    }
+    
+    double getNPSMEFT6dtopquark_SM_Charge_Asymmetry_bin_tt_500_750() const {
+        return SM_Charge_Asymmetry_bin_tt_500_750;
+    }
+    
+    double getNPSMEFT6dtopquark_SM_Charge_Asymmetry_bin_tt_750_1000() const {
+        return SM_Charge_Asymmetry_bin_tt_750_1000;
+    }
+    
+    double getNPSMEFT6dtopquark_SM_Charge_Asymmetry_bin_tt_1000_1500() const {
+        return SM_Charge_Asymmetry_bin_tt_1000_1500;
+    }
+    
+    double getNPSMEFT6dtopquark_SM_Charge_Asymmetry_bin_tt_1500_2000() const {
+        return SM_Charge_Asymmetry_bin_tt_1500_2000;
+    }
+    
+    double getNPSMEFT6dtopquark_SM_Charge_Asymmetry_bin_tt_2000_2500() const {
+        return SM_Charge_Asymmetry_bin_tt_2000_2500;
+    }
+    
+    double getNPSMEFT6dtopquark_SM_Charge_Asymmetry_bin_tt_2500_3000() const {
+        return SM_Charge_Asymmetry_bin_tt_2500_3000;
+    }
     
     
     
@@ -251,6 +391,10 @@ static const int NNPSMEFT6dtopquarkVars = 67;
     
     double getNPSMEFT6dtopquark_SM_ttW_inc() const {
         return SM_ttW_inc;
+    }
+    
+    double getNPSMEFT6dtopquark_SM_Asymmetry_leptonic_charge_rapidity_ttW() const {
+        return SM_Asymmetry_leptonic_charge_rapidity_ttW;
     }
     
      double getNPSMEFT6dtopquark_SM_tW_inc() const {
@@ -352,6 +496,17 @@ static const int NNPSMEFT6dtopquarkVars = 67;
     double C_Qq38; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double C_Qu8; //< The dimension-6 operator coefficient \f$C_{G}\f$.
     double C_Qd8; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    
+    double C_Qd1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qu1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_td1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tu1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tq1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qq11; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qq31; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    
+    
+    
     double SM_tAq_inc; ///< The SM value for tgammaq
     double SM_ttZ_bin_0_40; ///< The SM value for the differential cross section ttZ in the bin from 0 to 40 GeV.
     double SM_ttZ_bin_40_70; ///< The SM value for the differential cross section ttZ in the bin from 40 to 70 GeV.
@@ -373,6 +528,35 @@ static const int NNPSMEFT6dtopquarkVars = 67;
     double SM_ttA_bin_132_180; ///< The SM value for the differential cross section ttA in the bin from 132 to 180 GeV.
     double SM_ttA_bin_180_300; ///< The SM value for the differential cross section ttA in the bin from 180 to 300 GeV.
 
+    
+    
+    double SM_tt_bin_250_400; ///< The SM value for the differential cross section tt in the bin from 250 to 400 GeV.
+    double SM_tt_bin_400_480; ///< The SM value for the differential cross section tt in the bin from  400 to 480 GeV.
+    double SM_tt_bin_480_560; ///< The SM value for the differential cross section tt in the bin from  480 to 560 GeV.
+    double SM_tt_bin_560_640; ///< The SM value for the differential cross section tt in the bin from  560 to 640 GeV.
+    double SM_tt_bin_640_720; ///< The SM value for the differential cross section tt in the bin from  640 to 720 GeV.
+    double SM_tt_bin_720_800; ///< The SM value for the differential cross section tt in the bin from  720 to 800 GeV.
+    double SM_tt_bin_800_900; ///< The SM value for the differential cross section tt in the bin from  800 to 900 GeV.
+    double SM_tt_bin_900_1000; ///< The SM value for the differential cross section tt in the bin from  900 to 1000 GeV.
+    double SM_tt_bin_1000_1150; ///< The SM value for the differential cross section tt in the bin from  1000 to 1150 GeV.
+    double SM_tt_bin_1150_1300; ///< The SM value for the differential cross section tt in the bin from  1150 to 1300 GeV.
+    double SM_tt_bin_1300_1500; ///< The SM value for the differential cross section tt in the bin from  1300 to 1500 GeV.
+    double SM_tt_bin_1500_1700; ///< The SM value for the differential cross section tt in the bin from  1500 to 1700 GeV.
+    double SM_tt_bin_1700_2000; ///< The SM value for the differential cross section tt in the bin from  1700 to 2000 GeV.
+    double SM_tt_bin_2000_2300; ///< The SM value for the differential cross section tt in the bin from  2000 to 2300 GeV.
+    double SM_tt_bin_2300_2600; ///< The SM value for the differential cross section tt in the bin from  2300 to 2600 GeV.
+    double SM_tt_bin_2600_3000; ///< The SM value for the differential cross section tt in the bin from  2600 to 3000 GeV.
+    double SM_tt_bin_3000_3500; ///< The SM value for the differential cross section tt in the bin from  3000 to 3500 GeV.
+    double SM_tt_bin_3500_4000; ///< The SM value for the differential cross section tt in the bin from  3500 to 4000 GeV.
+    
+    double SM_Charge_Asymmetry_bin_tt_0_500;     ///< The SM value for the charged asymmetry of tt differential in the bin from  0 to 500 GeV.
+    double SM_Charge_Asymmetry_bin_tt_500_750;   ///< The SM value for the charged asymmetry of tt differential in the bin from  500 to 750 GeV.
+    double SM_Charge_Asymmetry_bin_tt_750_1000;  ///< The SM value for the charged asymmetry of tt differential in the bin from  750 to 1000 GeV.
+    double SM_Charge_Asymmetry_bin_tt_1000_1500; ///< The SM value for the charged asymmetry of tt differential in the bin from  1000 to 1500 GeV.
+    double SM_Charge_Asymmetry_bin_tt_1500_2000; ///< The SM value for the charged asymmetry of tt differential in the bin from  1500 to 2000 GeV.
+    double SM_Charge_Asymmetry_bin_tt_2000_2500; ///< The SM value for the charged asymmetry of tt differential in the bin from  2000 to 2500 GeV.
+    double SM_Charge_Asymmetry_bin_tt_2500_3000; ///< The SM value for the charged asymmetry of tt differential in the bin from  2500 to 3000 GeV.
+    
 
 
     double SM_tZQ_inc; ///< The SM value for the inclusive cross section tZQ.
@@ -380,6 +564,7 @@ static const int NNPSMEFT6dtopquarkVars = 67;
     double SM_ttZ_inc; ///< The SM value for the inclusive cross section ttZ.
     double SM_ttH_inc; ///< The SM value for the inclusive cross section ttH.
     double SM_ttW_inc; ///< The SM value for the inclusive cross section ttW.
+    double SM_Asymmetry_leptonic_charge_rapidity_ttW; ///< The SM value for the inclusive cross section SM_Asymmetry_leptonic_charge_rapidity_ttW.
     double SM_tW_inc; ///< The SM value for the inclusive cross section tW.
     double SM_tW_inc_8TeV; ///< The SM value for the inclusive cross section tW.
     double SM_sigmatchannel13; ///< The SM value for the inclusive cross section single top production at 13 TeV in the t-channel.
@@ -1053,6 +1238,186 @@ private:
 
 
 
+
+
+
+
+
+/**
+ * @class C_Qd1
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_Qd1
+ */
+class C_Qd1: public ThObservable {
+public:
+
+    /**
+     * @brief C_Qd1 constructor.
+     */
+    C_Qd1(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_Qd1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_Qu1
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_Qu1
+ */
+class C_Qu1: public ThObservable {
+public:
+
+    /**
+     * @brief C_Qu1 constructor.
+     */
+    C_Qu1(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_Qu1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_td1
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_td1
+ */
+class C_td1: public ThObservable {
+public:
+
+    /**
+     * @brief C_td1 constructor.
+     */
+    C_td1(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_td1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_tu1
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_tu1
+ */
+class C_tu1: public ThObservable {
+public:
+
+    /**
+     * @brief C_tu1 constructor.
+     */
+    C_tu1(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_tu1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_tq1
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_tq1
+ */
+class C_tq1: public ThObservable {
+public:
+
+    /**
+     * @brief C_tq1 constructor.
+     */
+    C_tq1(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_tq1
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_Qq11
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_Qq11
+ */
+class C_Qq11: public ThObservable {
+public:
+
+    /**
+     * @brief C_Qq11 constructor.
+     */
+    C_Qq11(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_Qq11
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+/**
+ * @class C_Qq31
+ * @ingroup NPSMEFT6dtopquark 
+ * @brief Wilson coefficient C_Qq31
+ */
+class C_Qq31: public ThObservable {
+public:
+
+    /**
+     * @brief C_Qq31 constructor.
+     */
+    C_Qq31(const StandardModel& SM_i);
+
+    /**
+     * @return The value of C_Qq31
+     */
+    double computeThValue();
+
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+
+
+
+
 //Observables from LEP
 
 class Rb_NPSMEFT6dtopquark : public ThObservable {
@@ -1225,6 +1590,20 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
+
+
+class Asymmetry_leptonic_charge_rapidity_ttW : public ThObservable {
+public:   
+
+    Asymmetry_leptonic_charge_rapidity_ttW(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
 
 class sigmatchannel13 : public ThObservable {
 public:   
@@ -1611,12 +1990,1133 @@ private:
 };
 
 
+// tt differential cross section for different bins
+
+
+
+class tt_bin_250_400 : public ThObservable {
+public:   
+
+    tt_bin_250_400(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_400_480 : public ThObservable {
+public:   
+
+    tt_bin_400_480(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_480_560 : public ThObservable {
+public:   
+
+    tt_bin_480_560(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_560_640 : public ThObservable {
+public:   
+
+    tt_bin_560_640(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_640_720 : public ThObservable {
+public:   
+
+    tt_bin_640_720(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_720_800 : public ThObservable {
+public:   
+
+    tt_bin_720_800(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_800_900 : public ThObservable {
+public:   
+
+    tt_bin_800_900(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_900_1000 : public ThObservable {
+public:   
+
+    tt_bin_900_1000(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_1000_1150 : public ThObservable {
+public:   
+
+    tt_bin_1000_1150(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_1150_1300 : public ThObservable {
+public:   
+
+    tt_bin_1150_1300(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_1300_1500 : public ThObservable {
+public:   
+
+    tt_bin_1300_1500(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_1500_1700 : public ThObservable {
+public:   
+
+    tt_bin_1500_1700(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_1700_2000 : public ThObservable {
+public:   
+
+    tt_bin_1700_2000(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_2000_2300 : public ThObservable {
+public:   
+
+    tt_bin_2000_2300(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_2300_2600 : public ThObservable {
+public:   
+
+    tt_bin_2300_2600(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_2600_3000 : public ThObservable {
+public:   
+
+    tt_bin_2600_3000(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_3000_3500 : public ThObservable {
+public:   
+
+    tt_bin_3000_3500(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class tt_bin_3500_4000 : public ThObservable {
+public:   
+
+    tt_bin_3500_4000(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+// Charge Asymmetry ttbar for different bins
+
+
+
+class Charge_Asymmetry_bin_tt_0_500 : public ThObservable {
+public:   
+
+    Charge_Asymmetry_bin_tt_0_500(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+class Charge_Asymmetry_bin_tt_500_750 : public ThObservable {
+public:   
+
+    Charge_Asymmetry_bin_tt_500_750(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+class Charge_Asymmetry_bin_tt_750_1000 : public ThObservable {
+public:   
+
+    Charge_Asymmetry_bin_tt_750_1000(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+class Charge_Asymmetry_bin_tt_1000_1500 : public ThObservable {
+public:   
+
+    Charge_Asymmetry_bin_tt_1000_1500(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+class Charge_Asymmetry_bin_tt_1500_2000 : public ThObservable {
+public:   
+
+    Charge_Asymmetry_bin_tt_1500_2000(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+class Charge_Asymmetry_bin_tt_2000_2500 : public ThObservable {
+public:   
+
+    Charge_Asymmetry_bin_tt_2000_2500(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+class Charge_Asymmetry_bin_tt_2500_3000 : public ThObservable {
+public:   
+
+    Charge_Asymmetry_bin_tt_2500_3000(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
 
 
 
 
 //Prospects of Linear Collider at 250 GeV
 //250 bb observables
+
+
+class sigma_250_bb_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    sigma_250_bb_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+        
+class sigma_250_bb_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    sigma_250_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+        
+      
+
+
+
+class a_250_bb_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    a_250_bb_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+        
+class a_250_bb_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    a_250_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+//500 bb observables
+     
+
+class sigma_500_bb_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    sigma_500_bb_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class sigma_500_bb_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    sigma_500_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+        
+        
+        
+
+
+
+
+
+class a_500_bb_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    a_500_bb_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class a_500_bb_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    a_500_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+
+
+
+
+class sigma_500_ttH_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    sigma_500_ttH_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class sigma_500_ttH_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    sigma_500_ttH_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
+
+
+
+//1000 bb observables
+     
+
+class sigma_1000_bb_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    sigma_1000_bb_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class sigma_1000_bb_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    sigma_1000_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+
+
+
+class a_1000_bb_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    a_1000_bb_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class a_1000_bb_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    a_1000_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+
+
+class sigma_1000_ttH_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    sigma_1000_ttH_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class sigma_1000_ttH_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    sigma_1000_ttH_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+//380 bb observables
+
+
+class sigma_380_bb_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    sigma_380_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class sigma_380_bb_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    sigma_380_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class a_380_bb_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    a_380_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class a_380_bb_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    a_380_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+//1400 bb observables
+
+class sigma_1400_bb_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    sigma_1400_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class sigma_1400_bb_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    sigma_1400_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class a_1400_bb_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    a_1400_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class a_1400_bb_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    a_1400_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+
+
+class sigma_1500_ttH_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    sigma_1500_ttH_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class sigma_1500_ttH_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    sigma_1500_ttH_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+//3000 bb observables
+
+class sigma_3000_bb_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    sigma_3000_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class sigma_3000_bb_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    sigma_3000_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class a_3000_bb_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    a_3000_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class a_3000_bb_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    a_3000_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class sigma_3000_ttH_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    sigma_3000_ttH_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class sigma_3000_ttH_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    sigma_3000_ttH_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+/////// Prospects of Linear Colders at 240 GeV //////////////////////////////////////////////////////////
+
+
+class sigma_240_bb : public ThObservable {
+public:   
+
+    sigma_240_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+class a_240_bb : public ThObservable {
+public:   
+
+    a_240_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+/////// Prospects of Linear Colders at 360 GeV //////////////////////////////////////////////////////////
+
+
+class sigma_360_bb : public ThObservable {
+public:   
+
+    sigma_360_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class a_360_bb : public ThObservable {
+public:   
+
+    a_360_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+/////// Prospects of Linear Colders at Z-Pole  //////////////////////////////////////////////////////////
+
+
+class sigma_Z_pole_bb : public ThObservable {
+public:   
+
+    sigma_Z_pole_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class sigma_Z_pole_bb_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    sigma_Z_pole_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+class sigma_Z_pole_bb_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    sigma_Z_pole_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class sigma_Z_pole_bb_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    sigma_Z_pole_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+
+
+
+class sigma_Z_pole_bb_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    sigma_Z_pole_bb_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+//////// asymmetry //////////////
+
+
+
+class a_Z_pole_bb : public ThObservable {
+public:   
+
+    a_Z_pole_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+class a_Z_pole_bb_eP_0_eM_P80 : public ThObservable {
+public:   
+
+    a_Z_pole_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+class a_Z_pole_bb_eP_0_eM_M80 : public ThObservable {
+public:   
+
+    a_Z_pole_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+class a_Z_pole_bb_eP_M30_eM_P80 : public ThObservable {
+public:   
+
+    a_Z_pole_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+
+
+
+class a_Z_pole_bb_eP_P30_eM_M80 : public ThObservable {
+public:   
+
+    a_Z_pole_bb_eP_P30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+
+//250 bb observables OLD
+
 
 
 class sigma_250_bb_eLpR : public ThObservable {
