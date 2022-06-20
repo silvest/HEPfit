@@ -553,8 +553,8 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             double th2 = it->computeTheoryValue2();
             Histo2D[it->getName()].GetHistogram()->Fill(th1, th2);
             if (fMCMCFlagWriteChainToFile) {
-                hMCMCObservables[index_chain[il]][k_all++] = th1;
-                hMCMCObservables[index_chain[il]][k_all++] = th2;
+                hMCMCObservables[i][k_all++] = th1;
+                hMCMCObservables[i][k_all++] = th2;
             }
         }
 
@@ -571,7 +571,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 if (th < thMin[it->getName()]) thMin[it->getName()] = th;
                 if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                 Histo1D[it->getName()].GetHistogram()->Fill(th);
-                if (fMCMCFlagWriteChainToFile) hMCMCObservables[index_chain[il]][k_all++] = th;                        
+                if (fMCMCFlagWriteChainToFile) hMCMCObservables[i][k_all++] = th;                        
                 if (it1->isPrediction()) COdata[nObs++] = th;
             }
             if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(COdata);
