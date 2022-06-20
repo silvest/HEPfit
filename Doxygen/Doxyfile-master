@@ -164,21 +164,37 @@ FILE_PATTERNS          = *.c \
                          *.qsf \
                          *.ice
 RECURSIVE              = YES
-EXCLUDE                = ../Analysis/ \
-                         ../ZFitterWrapper/ \
-                         ../BHWIDEWrapper/ \
-                         ../examples-src/ \
-                         ../Packaging/\
-						 ../Utils/ \
-						 ../LHPC/
-EXCLUDE_SYMLINKS       = YES
-EXCLUDE_PATTERNS       = */.dep.inc \
+EXCLUDE                = */Analysis/ \
+                         */ZFitterWrapper/ \
+                         */BHWIDEWrapper/ \
+                         */examples-src/ \
+                         */Packaging/\
+						 */Utils/ \
+						 */LHPC/  \
                          */boost/* \
                          */build/* \
                          */tests/* \
                          */BAT* \
                          */FeynHiggs* \
-                         */LoopTools*
+                         */LoopTools* \
+			 */pytorch*
+
+EXCLUDE_SYMLINKS       = YES
+EXCLUDE_PATTERNS       = */.dep.inc
+EXCLUDE_PATTERNS      += */Analysis
+EXCLUDE_PATTERNS      += */ZFitterWrapper/ 
+EXCLUDE_PATTERNS      += */BHWIDEWrapper/ 
+EXCLUDE_PATTERNS      += */examples-src/ 
+EXCLUDE_PATTERNS      += */Packaging*
+EXCLUDE_PATTERNS      += */Utils/ 
+EXCLUDE_PATTERNS      += */LHPC/  
+EXCLUDE_PATTERNS      += */boost* 
+EXCLUDE_PATTERNS      += */build/* 
+EXCLUDE_PATTERNS      += */tests/* 
+EXCLUDE_PATTERNS      += */BAT* 
+EXCLUDE_PATTERNS      += */FeynHiggs* 
+EXCLUDE_PATTERNS      += */LoopTools* 
+EXCLUDE_PATTERNS      += */pytorch*
 EXCLUDE_SYMBOLS        =
 EXAMPLE_PATH           = examples-src
 EXAMPLE_PATTERNS       = *
