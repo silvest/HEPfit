@@ -234,8 +234,10 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "ettH_78_HG", "ettH_78_G", "ettH_78_uG_33r", "ettH_78_DeltagHt",
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
+//AGhat: CHL1hat, CHL3hat, CHehat, CHQ1hat, CHQ3hat, CHuhat, CHdhat, CLLhat, CHWpCHB added below
 const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
-        = {"CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
+        = {"CHWpCHB", "CHL1hat", "CHL3hat", "CHQ1hat", "CHQ3hat", "CHdhat", "CHuhat", "CHehat", "CLLhat", 
+    "CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
@@ -361,6 +363,17 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     
     SMM.setObj((StandardModelMatching&) NPSMEFTd6M.getObj());
 
+    //AGhat: begin
+    ModelParamMap.insert(std::make_pair("CHL1hat", std::cref(CHL1hat))); 
+    ModelParamMap.insert(std::make_pair("CHL3hat", std::cref(CHL3hat))); 
+    ModelParamMap.insert(std::make_pair("CHQ1hat", std::cref(CHQ1hat))); 
+    ModelParamMap.insert(std::make_pair("CHQ3hat", std::cref(CHQ3hat))); 
+    ModelParamMap.insert(std::make_pair("CHdhat", std::cref(CHdhat))); 
+    ModelParamMap.insert(std::make_pair("CHuhat", std::cref(CHuhat))); 
+    ModelParamMap.insert(std::make_pair("CHehat", std::cref(CHehat))); 
+    ModelParamMap.insert(std::make_pair("CLLhat", std::cref(CLLhat)));
+    ModelParamMap.insert(std::make_pair("CHWpCHB", std::cref(CHWpCHB)));
+    //AGhat: end
     ModelParamMap.insert(std::make_pair("CG", std::cref(CG)));
     ModelParamMap.insert(std::make_pair("CW", std::cref(CW)));
     ModelParamMap.insert(std::make_pair("C2B", std::cref(C2B)));
@@ -1397,10 +1410,20 @@ bool NPSMEFTd6::PostUpdate()
                             + 0.5*(1.0-2.0*cW2_tree)*cW_tree/sW_tree * CiHWB*CiHD*v2_over_LambdaNP2*v2_over_LambdaNP2
                           );
     
-    delta_GF_2 = ( CiHL3_11*CiHL3_11 + CiHL3_22*CiHL3_22 + 3.0*CiHL3_11*CiHL3_22
+    //AGhat:begin
+    if(hatCis()){
+        delta_GF_2 = ( 5.0*pow((CHL3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB),2.0) 
+                       - 4.0*(CHL3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB)*(CLLhat) 
+                       + pow(CLLhat,2.0) 
+                     )*v2_over_LambdaNP2*v2_over_LambdaNP2;
+    }
+    //AGhat:end
+    else{
+        delta_GF_2 = ( CiHL3_11*CiHL3_11 + CiHL3_22*CiHL3_22 + 3.0*CiHL3_11*CiHL3_22
                    - (CiHL3_11+CiHL3_22)*(CiLL_1221+CiLL_2112)
                    + 0.25 * (CiLL_1221+CiLL_2112)*(CiLL_1221+CiLL_2112) 
                  ) *v2_over_LambdaNP2*v2_over_LambdaNP2;
+    }
     
     delta_g1 =  cAsch * ( g1_tree * ( cW2_tree*delta_ale - sW2_tree*(delta_Mz2+delta_GF)) / 2.0 / (-1+2.0*sW2_tree) )
              + cWsch * ( g1_tree * ( -delta_Mz2/2.0/sW2_tree - delta_GF/2.0 ) );
@@ -1469,7 +1492,27 @@ bool NPSMEFTd6::PostUpdate()
 
 void NPSMEFTd6::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("CG") == 0)     
+    //AGhat:begin
+    if(name.compare("CHL1hat") == 0)      
+        CHL1hat = value;
+    else if(name.compare("CHL3hat") == 0)      
+        CHL3hat = value;
+    else if(name.compare("CHQ1hat") == 0)      
+        CHQ1hat = value;
+    else if(name.compare("CHQ3hat") == 0)      
+        CHQ3hat = value;
+    else if(name.compare("CHdhat") == 0)      
+        CHdhat = value;
+    else if(name.compare("CHuhat") == 0)        
+        CHuhat = value;
+    else if(name.compare("CHehat") == 0)       
+        CHehat = value;
+    else if(name.compare("CLLhat") == 0)       
+        CLLhat = value;
+    else if(name.compare("CHWpCHB") == 0)       
+        CHWpCHB = value;
+    //AGhat: end
+    else if (name.compare("CG") == 0)      //AGhat: 'else' added    
         CG = value;
     else if (name.compare("CW") == 0)
         CW = value;
@@ -3066,9 +3109,7 @@ bool NPSMEFTd6::setFlag(const std::string name, const bool value)
 }
 
 //AG:begin
-bool NPSMEFTd6::NumericCheck() const {
-    return false;
-}
+bool NPSMEFTd6::NumericCheck() const {return false;}
 
 int NPSMEFTd6::Output() const {
     // 0 Linear
@@ -3079,6 +3120,10 @@ int NPSMEFTd6::Output() const {
     // 5 SM
     return 3;
 }
+
+bool NPSMEFTd6::hatCis() const{return true;} //AGhat
+
+bool NPSMEFTd6::flagCHWpCHB() const {return true;}
 //AG:end
 
 ////////////////////////////////////////////////////////////////////////
@@ -3822,7 +3867,13 @@ gslpp::complex NPSMEFTd6::CfB_diag(const Particle f) const
 
 double NPSMEFTd6::DeltaGF() const
 {
-    return ((CiHL3_11 + CiHL3_22 - 0.5 * (CiLL_1221 + CiLL_2112)) * v2_over_LambdaNP2);
+    //AGhat:begin
+    if(hatCis()){
+        return (2.0*(CHL3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB) - (CLLhat) )* v2_over_LambdaNP2;
+    }
+    //AGhat:end
+    else
+        return ((CiHL3_11 + CiHL3_22 - 0.5 * (CiLL_1221 + CiLL_2112)) * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6::obliqueS() const
@@ -4500,7 +4551,14 @@ double NPSMEFTd6::deltaGamma_Wff_Test(const Particle fi, const Particle fj) cons
     double CHF3ij;
     
     if (fj.getIndex() - fi.getIndex() == 1)
-        CHF3ij = CHF3_diag(fi);
+        //AGhat:begin
+        if(hatCis()){
+            if(fi.is("LEPTON")){ CHF3ij = CHL3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB; }
+            if(fi.is("QUARK")){ CHF3ij = CHQ3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB; }
+        }
+        //AGhat:end
+        else
+            CHF3ij = CHF3_diag(fi);
     else
         CHF3ij = 0.;
     
@@ -4528,7 +4586,14 @@ double NPSMEFTd6::deltaGamma_Wff_2(const Particle fi, const Particle fj) const  
     double CHF3ij;
     
     if (fj.getIndex() - fi.getIndex() == 1)
-        CHF3ij = CHF3_diag(fi);
+        //AGhat:begin
+        if(hatCis()){
+            if(fi.is("LEPTON")){ CHF3ij = CHL3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB; }
+            if(fi.is("QUARK")){ CHF3ij = CHQ3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB; }
+        }
+        //AGhat:end
+        else
+            CHF3ij = CHF3_diag(fi);
     else
         CHF3ij = 0.;
     
@@ -4619,8 +4684,24 @@ double NPSMEFTd6::deltaGL_f_Test(const Particle p) const
     if(p.is("TOP")) { return 0.0;}
     double I3p = p.getIsospin();
     double Qp = p.getCharge();
-    double CHF1 = CHF1_diag(p);
-    double CHF3 = CHF3_diag(p);
+    double CHF1;
+    double CHF3;
+    //AGhat:begin
+    if(hatCis()){
+        if(p.is("LEPTON")){
+            CHF1 = CHL1hat - CiHD/4.0;
+            CHF3 = CHL3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB;
+        }
+        if(p.is("QUARK")){
+            CHF1 = CHQ1hat + CiHD/12.0;
+            CHF3 = CHQ3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB;
+        }
+    }
+    else{
+        CHF1 = CHF1_diag(p);
+        CHF3 = CHF3_diag(p);
+    }
+    //AGhat:end
     
     double NPindirect = ( -(I3p-Qp) * (g1_tree*delta_xBZ + xBZ_tree*delta_g1) 
                           + I3p * (g2_tree*delta_xWZ + xWZ_tree*delta_g2) 
@@ -4637,7 +4718,26 @@ double NPSMEFTd6::deltaGR_f_Test(const Particle p) const
     // Consistent with deltaGL_f already implemented, but with my notation
     if(p.is("TOP")) { return 0.0;}
     double Qp = p.getCharge();
-    double CHf = CHf_diag(p);
+    double CHf;
+    //AGhat:begin
+    if(hatCis()){
+        if(p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3")){
+            CHf = 0.0;
+        } 
+        if(p.is("ELECTRON") || p.is("MU") || p.is("TAU")){
+            CHf = CHehat - CiHD/2.0;
+        }
+        if(p.is("UP") || p.is("CHARM")){
+            CHf = CHuhat + CiHD/3.0;
+        }
+        if(p.is("DOWN") || p.is("STRANGE") || p.is("BOTTOM")){
+            CHf = CHdhat - CiHD/6.0;
+        }
+    }
+    else{
+        CHf = CHf_diag(p);
+    }
+    //AGhat:end
     
     double NPindirect = Qp * ( g1_tree * delta_xBZ + xBZ_tree * delta_g1 ) / pow( (g1_tree*g1_tree + g2_tree*g2_tree) , 0.5 );
    
@@ -4655,8 +4755,24 @@ double NPSMEFTd6::deltaGL_f_2(const Particle p) const
     
     double I3p = p.getIsospin();
     double Qp = p.getCharge();
-    double CHF1 = CHF1_diag(p);
-    double CHF3 = CHF3_diag(p);
+    double CHF1;
+    double CHF3;
+    //AGhat:begin
+    if(hatCis()){
+        if(p.is("LEPTON")){
+            CHF1 = CHL1hat - CiHD/4.0;
+            CHF3 = CHL3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB;
+        }
+        if(p.is("QUARK")){
+            CHF1 = CHQ1hat + CiHD/12.0;
+            CHF3 = CHQ3hat - cW2_tree/sW2_tree*CiHD/4.0 - cW_tree/sW_tree*CiHWB;
+        }
+    }
+    else{
+        CHF1 = CHF1_diag(p);
+        CHF3 = CHF3_diag(p);
+    }
+    //AGhat:end
     
     double NPindirect = ( -(I3p-Qp) * (g1_tree*delta_xBZ_2 + delta_g1*delta_xBZ + xBZ_tree*delta_g1_2) 
                           + I3p * (g2_tree*delta_xWZ_2 + delta_g2*delta_xWZ + xWZ_tree*delta_g2_2) 
@@ -4678,7 +4794,26 @@ double NPSMEFTd6::deltaGR_f_2(const Particle p) const
     
     if(p.is("TOP")) { return 0.0;}
     double Qp = p.getCharge();
-    double CHf = CHf_diag(p);
+    double CHf;
+    //AGhat:begin
+    if(hatCis()){
+        if(p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3")){
+            CHf = 0.0;
+        } 
+        if(p.is("ELECTRON") || p.is("MU") || p.is("TAU")){
+            CHf = CHehat - CiHD/2.0;
+        }
+        if(p.is("UP") || p.is("CHARM")){
+            CHf = CHuhat + CiHD/3.0;
+        }
+        if(p.is("DOWN") || p.is("STRANGE") || p.is("BOTTOM")){
+            CHf = CHdhat - CiHD/6.0;
+        }
+    }
+    else{
+        CHf = CHf_diag(p);
+    }
+    //AGhat:end
     
     double NPindirect = Qp * ( g1_tree*delta_xBZ_2 + delta_g1*delta_xBZ + xBZ_tree*delta_g1_2 ) / pow( (g1_tree*g1_tree + g2_tree*g2_tree) , 0.5 );
    

@@ -1106,7 +1106,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 273;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 282;   //AGhat: 273+x
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -6592,7 +6592,9 @@ public:
     
     //AG:begin
     virtual bool NumericCheck() const;///<If true, prints the numerical values of the different contributions to the EWPOs (to be used in --noMC mode)
-    virtual int Output() const;///<Type of contributions to be included in the EWPOs. Takes a numerica values depending on the choice.        
+    virtual int Output() const;///<Type of contributions to be included in the EWPOs. Takes a numerica values depending on the choice.    
+    bool hatCis() const; ///<If True, explicitly defines the 8 'hat' coefficients in the EWPOs (Z-couplings, dGf, W-width)
+    bool flagCHWpCHB() const; ///< If True, uses the coefficient CHWpCHW instead of the sum CiHW+CiHB.
     //AG:end
     
     ////////////////////////////////////////////////////////////////////////
@@ -6605,6 +6607,17 @@ protected:
     virtual void setParameter(const std::string name, const double& value);
     mutable Matching<NPSMEFTd6Matching,NPSMEFTd6> NPSMEFTd6M;
 
+    //AGhat:start
+    double CHL1hat; 
+    double CHL3hat; 
+    double CHQ1hat; 
+    double CHQ3hat;
+    double CHdhat; 
+    double CHuhat; 
+    double CHehat; 
+    double CLLhat;
+    double CHWpCHB;
+    //AGhat:end
     double CG; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
     double C2B; ///< The dimension-6 operator coefficient \f$C_{2W}\f$.
