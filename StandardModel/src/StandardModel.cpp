@@ -49,6 +49,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     FlagKappaZ = "APPROXIMATEFORMULA";
     FlagWolfenstein = true;
     FlagUseVud = false;
+    FlagFixMuwMut = false;
 
     FlagMWinput = false;
     
@@ -135,7 +136,8 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::make_pair("A", std::cref(A)));
     ModelParamMap.insert(std::make_pair("rhob", std::cref(rhob)));
     ModelParamMap.insert(std::make_pair("etab", std::cref(etab)));
-    ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
+    if (!FlagFixMuwMut)
+        ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
     
     iterationNo = 0;
     realorder = LO;
@@ -242,6 +244,12 @@ bool StandardModel::PostUpdate()
         computeYukawas();
     }
 
+    /* Update muw if FlagFixMuwMut is activated */
+    
+    if (FlagFixMuwMut)  {
+        muw = mut * 80.4 / 163.;
+    }
+    
     /* Check whether the parameters for the EWPO are updated or not */
     if (!checkSMparamsForEWPO()) {
         useDeltaAlphaLepton_cache = false;
@@ -343,7 +351,7 @@ void StandardModel::setParameter(const std::string name, const double& value)
     } else if (name.compare("gamma") == 0 && !FlagWolfenstein) {
         gamma = value;
         requireCKM = true;
-    } else if (name.compare("muw") == 0)
+    } else if (name.compare("muw") == 0 && !FlagFixMuwMut)
         muw = value;
     else
         QCD::setParameter(name, value);
@@ -467,6 +475,9 @@ bool StandardModel::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("SMAux") == 0) {
         FlagSMAux = value;
+        res = true;
+    } else if (name.compare("FixMuwMut") == 0) {
+        FlagFixMuwMut = value;
         res = true;
     } else if (name.compare("UseVud") == 0) {
         FlagUseVud = value;

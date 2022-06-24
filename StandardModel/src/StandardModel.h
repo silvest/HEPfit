@@ -288,6 +288,15 @@ class EWSMTwoFermionsLEP2;
  *   The default value is FALSE.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%FixMuwMut</td>
+ *   <td class="mod_valu"><b>FALSE</b>&nbsp;/&nbsp;TRUE</td>
+ *   <td class="mod_desc">This flag controls the way the weak matching scale is varied. 
+ *   If set to FALSE, the @f$\mu_W@f$ parameter is introduced to float the matching scale independently of 
+ *   the top decoupling scale @f$\mu_t@f$.
+ *   If set to TRUE, the @f$\mu_W@f$ parameter is fixed to @f$\mu_t \M_W / \m_t@f$
+ *   The default value is FALSE.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CacheInStandardModel</td>
  *   <td class="mod_valu"><b>TRUE</b>&nbsp;/&nbsp;FALSE</td>
  *   <td class="mod_desc">This flag controls the use of the cashing method
@@ -2725,7 +2734,7 @@ protected:
     double Vcb; ///< @f$\vert V_{cb} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double Vub; ///< @f$\vert V_{ub} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double gamma; ///< @f$\gamma @f$ used as an input for FlagWolfenstein = FALSE
-    double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV.
+    double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV, used as input for FlagFixMuwMut = FALSE
     double s12, s13, s23, delta, alpha21, alpha31;
 
     // non-model parameters
@@ -3287,6 +3296,7 @@ private:
     std::string FlagKappaZ; ///< A string for the model flag %KappaZ.
     bool FlagWolfenstein; ///< A boolean for the model flag %Wolfenstein.
     bool FlagUseVud; ///< A boolean for the model flag %UseVud.
+    bool FlagFixMuwMut; ///< A boolean for the model flag %FixMuwMut.
 
     bool FlagMWinput; ///< A boolean for the model flag %MWinput.    
     bool FlagSMAux; ///< A boolean for the model flag %SMAux.
