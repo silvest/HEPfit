@@ -75,7 +75,7 @@ double GeneralTHDMMatching::gminus2muLO() {
  //in the CP-conserving limit su, sd, sl are real. have to fix it
     
  
-    double yl_h = yl_h = 1.0 + eta*sl.real();
+    double yl_h = 1.0 + eta*sl.real();
     double yl_H =  -sl.real() + eta;
     double yl_A = - sl.real();
     

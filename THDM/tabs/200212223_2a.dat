@@ -1,0 +1,61 @@
+#: table_doi: 10.17182/hepdata.93071.v4/t5
+#: name: Fig 2a
+#: description: Observed and expected 95% CL upper limits on the gluon-gluon fusion Higgs boson production cross section times ditau branching fraction as a function of the Higgs boson mass.
+#: data_file: hepdata_limit_ggH.yaml
+#: keyword reactions: g g --> PHI--> TAU+ TAU-
+#: keyword observables: SIG
+#: keyword cmenergies: 13000.0
+#: keyword phrases: Inclusive | Integrated Cross Section | Cross Section | Proton-Proton Scattering | Higgs
+#: LUMINOSITY [fb$^{-1}$],139
+#: SQRT(S) [GeV],13000
+#: Production,Higgs boson (gluon fusion)
+#: Limit,Observed
+# Mass [GeV] | $\sigma \times B$ [pb]
+######## Number of Input lines:	47
+200.0		0.228
+250.0		0.168
+300.0		0.165
+350.0		0.114
+400.0		0.0829
+450.0		0.06620000000000001
+500.0		0.0495
+550.0		0.03215
+600.0		0.0148
+650.0		0.009935
+700.0		0.00507
+750.0		0.004
+800.0		0.00293
+850.0		0.0026449999999999998
+900.0		0.00236
+950.0		0.002075
+1000.0		0.00179
+1050.0		0.0017375
+1100.0		0.0016849999999999999
+1150.0		0.0016325
+1200.0		0.00158
+1250.0		0.0015733333333333333
+1300.0		0.0015666666666666667
+1350.0		0.00156
+1400.0		0.0015533333333333332
+1450.0		0.0015466666666666667
+1500.0		0.00154
+1550.0		0.001513
+1600.0		0.001486
+1650.0		0.001459
+1700.0		0.001432
+1750.0		0.001405
+1800.0		0.001378
+1850.0		0.001351
+1900.0		0.001324
+1950.0		0.001297
+2000.0		0.00127
+2050.0		0.0012590000000000001
+2100.0		0.001248
+2150.0		0.001237
+2200.0		0.001226
+2250.0		0.001215
+2300.0		0.001204
+2350.0		0.001193
+2400.0		0.001182
+2450.0		0.001171
+2500.0		0.00116

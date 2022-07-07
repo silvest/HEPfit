@@ -174,18 +174,57 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             throw std::runtime_error("error in GeneralTHDM::SetParameter, tanb < 0!");
           }
         }
-    else if(name.compare("mH21") == 0 && !flag_use_sq_masses)
-        mH21 = value;
-    else if(name.compare("mH31") == 0 && !flag_use_sq_masses)
-        mH31 = value;
-    else if(name.compare("mHp1") == 0 && !flag_use_sq_masses)
-        mHp1 = value;
-    else if(name.compare("mH2sq") == 0 && flag_use_sq_masses)
-        mH2sq = value;
-    else if(name.compare("mH3sq") == 0 && flag_use_sq_masses)
-        mH3sq = value;
-    else if(name.compare("mHp2") == 0 && flag_use_sq_masses)
-        mHp2 = value;
+    
+    else if(name.compare("mH21") == 0){
+        if(!flag_use_sq_masses){
+            mH21 = value;
+        }
+        else{
+            mH21=sqrt(mH2sq);
+        }
+    }
+    else if(name.compare("mH31") == 0){
+        if(!flag_use_sq_masses){
+            mH31 = value;
+        }
+        else{
+            mH31=sqrt(mH3sq);
+        }
+    }
+    else if(name.compare("mHp1") == 0){
+        if(!flag_use_sq_masses){
+            mHp1 = value;
+        }
+        else{
+            mHp1=sqrt(mHp2);
+        }
+    }
+
+    else if(name.compare("mH2sq") == 0){
+        if(flag_use_sq_masses){
+            mH2sq = value;
+        }
+        else{
+            mH2sq=mH21*mH21;
+        }
+    }
+    else if(name.compare("mH3sq") == 0){
+        if(flag_use_sq_masses){
+            mH3sq = value;
+        }
+        else{
+            mH3sq=mH31*mH31;
+        }
+    }
+    else if(name.compare("mHp2") == 0){
+        if(flag_use_sq_masses){
+            mHp2 = value;
+        }
+        else{
+            mHp2=mHp1*mHp1;
+        }
+    }
+
     else if(name.compare("alpha1") == 0) {
         alpha1 = value;
         cosalpha1 = cos(alpha1);
