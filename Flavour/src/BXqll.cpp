@@ -19,7 +19,7 @@ using namespace boost::placeholders;
 #define MPI2 (M_PI * M_PI)
 
 BXqll::BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i)
-: mySM(SM_i), myF_1(), myF_2(), myHeff("CPMLQB", SM_i, QCD2, QED2), WC(15, 9, 0.)
+: mySM(SM_i), myF_1(), myF_2(), myHeff("CPMLQB", SM_i, lep_i, QCD2, QED2), WC(15, 9, 0.)
 {    
     lep = lep_i;
     quark = quark_i;    
@@ -138,6 +138,8 @@ double BXqll::getR_LOWQ2(double sh)
     //To test HeffDF1 Wilson coefficients and Expanded multiplications
     Test_WC_DF1();
     return 0.;
+    
+    std::cout << std::endl;
     
 //    computeMi(sh);
 //    return H_A(sh);
@@ -2206,13 +2208,13 @@ void BXqll::Test_WC_DF1()
 //        std::cout << ")" << std::endl;
 //    }
 //    
-//    std::cout << std::endl;
-//    for (unsigned int i = 0; i < 15; i++)
-//    {
-//        std::cout << "C_" << i+1 << " = " << WC(i, QCD0 + 3*QED0) + WC(i, QCD1 + 3*QED0) + WC(i, QCD2 + 3*QED0) +
-//                WC(i, QCD0 + 3*QED1) + WC(i, QCD1 + 3*QED1) + WC(i, QCD2 + 3*QED1) +
-//                WC(i, QCD0 + 3*QED2) + WC(i, QCD1 + 3*QED2) + WC(i, QCD2 + 3*QED2) << std::endl;
-//    }
+    std::cout << std::endl;
+    for (unsigned int i = 0; i < 15; i++)
+    {
+        std::cout << "C_" << i+1 << " = " << WC(i, QCD0 + 3*QED0) + WC(i, QCD1 + 3*QED0) + WC(i, QCD2 + 3*QED0) +
+                WC(i, QCD0 + 3*QED1) + WC(i, QCD1 + 3*QED1) + WC(i, QCD2 + 3*QED1) +
+                WC(i, QCD0 + 3*QED2) + WC(i, QCD1 + 3*QED2) + WC(i, QCD2 + 3*QED2) << std::endl;
+    }
 //
 //    double akmu;
 //    std::cout << std::endl;
@@ -2271,6 +2273,45 @@ void BXqll::Test_WC_DF1()
 //    std::cout << "PhiA_brems(0.05)  = " << PhiA_brems(0.05)  << std::endl;
 //    std::cout << "PhiA_brems(0.15)  = " << PhiA_brems(0.15)  << std::endl;
 //    std::cout << "PhiA_brems(0.25)  = " << PhiA_brems(0.25)  << std::endl;
+//    
+//    gslpp::complex i = gslpp::complex::i();
+//    std::cout << std::endl;
+//    std::cout << "tau22(0.15) = " << tau22fit(0.15) << std::endl;
+//    std::cout << "tau27(0.15) = " << tau27fit_Re(0.15) + i*tau27fit_Im(0.15) << std::endl;
+//    std::cout << "tau28(0.15) = " << tau28fit_Re(0.15) + i*tau28fit_Im(0.15) << std::endl;
+//    std::cout << "tau29(0.15) = " << tau29fit_Re(0.15) + i*tau29fit_Im(0.15) << std::endl;
+//    std::cout << "tau78(0.15) = " << tau78(0.15) << std::endl;
+//    std::cout << "tau88(0.15) = " << tau88(0.15) << std::endl;
+//    std::cout << "tau89(0.15) = " << tau89(0.15) << std::endl;
+//
+//    std::cout << std::endl;
+//    std::cout << "C_1^(0) = " << WC(0, LO) << std::endl;
+//    std::cout << "C_2^(0) = " << WC(1, LO) << std::endl;
+//    std::cout << "C_3^(0) = " << WC(2, LO) << std::endl;
+//    std::cout << "C_4^(0) = " << WC(3, LO) << std::endl;
+//    std::cout << "C_5^(0) = " << WC(4, LO) << std::endl;
+//    std::cout << "C_6^(0) = " << WC(5, LO) << std::endl;
+//    std::cout << "C_7^(0) = " << WC(6, LO) << std::endl;
+//    std::cout << "C_8^(0) = " << WC(7, LO) << std::endl;
+//
+//    std::cout << std::endl;
+//    std::cout << "muh = " << muh << std::endl;
+//    std::cout << std::endl;
+//    std::cout << "h_z(z, 0.05) = " << h_z(z, 0.05) << std::endl;
+//    std::cout << "h_z(z, 0.15) = " << h_z(z, 0.15) << std::endl;
+//    std::cout << "h_z(z, 0.25) = " << h_z(z, 0.25) << std::endl;
+//    std::cout << std::endl;
+//    std::cout << "h_z(1, 0.05) = " << h_z(1., 0.05) << std::endl;
+//    std::cout << "h_z(1, 0.15) = " << h_z(1., 0.15) << std::endl;
+//    std::cout << "h_z(1, 0.25) = " << h_z(1., 0.25) << std::endl;
+//    std::cout << std::endl;
+//    std::cout << "h_z(0, 0.05) = " << h_z(0., 0.05) << std::endl;
+//    std::cout << "h_z(0, 0.15) = " << h_z(0., 0.15) << std::endl;
+//    std::cout << "h_z(0, 0.25) = " << h_z(0., 0.25) << std::endl;
+//    std::cout << std::endl;
+//    std::cout << "C_9^(0,mod)(0.05) = " << C9mod(0.05) << std::endl;
+//    std::cout << "C_9^(0,mod)(0.15) = " << C9mod(0.15) << std::endl;
+//    std::cout << "C_9^(0,mod)(0.25) = " << C9mod(0.25) << std::endl;
 }
 
 

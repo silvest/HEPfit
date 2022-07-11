@@ -32,6 +32,7 @@
 #include "FlavourWilsonCoefficient_DF2.h"
 #include "RealWeakEFTLFV.h"
 #include "RealWeakEFTCC.h"
+#include "RealWETHeffDF1.h"
 #include "LoopMediators.h"
 #include "NPDF2.h"
 #include "CMFV.h"
@@ -88,6 +89,7 @@ ModelFactory::ModelFactory()
     modelFactory["RealWeakEFTLFV"] = boost::factory<RealWeakEFTLFV*>();
     modelFactory["RealWeakEFTCC"] = bind(boost::factory<RealWeakEFTCC*>(), 0);
     modelFactory["RealWeakEFTCCPM"] = bind(boost::factory<RealWeakEFTCC*>(), 1);
+    modelFactory["RealWETHeffDF1"] = boost::factory<RealWETHeffDF1*>();
     modelFactory["LoopMediators"] = boost::factory<LoopMediators*>();
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();

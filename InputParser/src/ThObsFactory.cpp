@@ -4134,11 +4134,17 @@ ThObsFactory::ThObsFactory()
 /* BEGIN: REMOVE FROM THE PACKAGE */
     //----- B to X_q ll -----
     obsThFactory["R_BXsee"] = bind(boost::factory<R_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
+    obsThFactory["R_BXsmumu"] = boost::bind(boost::factory<R_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::MU);
     obsThFactory["HT_BXsee"] = bind(boost::factory<HT_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["HL_BXsee"] = bind(boost::factory<HL_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["HA_BXsee"] = bind(boost::factory<HA_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["BR_BXsee"] = bind(boost::factory<BR_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["AFB_BXsee"] = bind(boost::factory<AFB_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
+    obsThFactory["HT_BXsmumu"] = boost::bind(boost::factory<HT_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::MU);
+    obsThFactory["HL_BXsmumu"] = boost::bind(boost::factory<HL_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::MU);
+    obsThFactory["HA_BXsmumu"] = boost::bind(boost::factory<HA_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::MU);
+    obsThFactory["BR_BXsmumu"] = boost::bind(boost::factory<BR_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::MU);
+    obsThFactory["AFB_BXsmumu"] = boost::bind(boost::factory<AFB_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::MU);
 /* END: REMOVE FROM THE PACKAGE */
 
     //----- B to K* gamma  -----

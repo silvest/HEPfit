@@ -143,20 +143,36 @@ Expanded<gslpp::vector<gslpp::complex> > HeffDF1::ComputeCoeff(double mu, scheme
  * New Physics DF1 Effective Hamiltonian *
  *****************************************/
 
-HeffDF1_NP::HeffDF1_NP(std::string blocks, const StandardModel & SM, qcd_orders order_qcd, qed_orders order_qed)
+HeffDF1_NP::HeffDF1_NP(std::string blocks, const StandardModel & SM, QCD::lepton lepton, qcd_orders order_qcd, qed_orders order_qed)
 : HeffDF1(blocks, SM, order_qcd, order_qed),
   coeffNP(blocks_nops.at(blocks), 0.)
-{   
-    coeffNP.assign(6, -1.);
-    coeffNP.assign(8,  1.);
-    coeffNP.assign(9, -1.);
+{
+    lep = lepton;
+    NPanalysis = (HeffDF1::GetModel().getModelName().compare("RealWETHeffDF1") == 0);
+}
+
+void HeffDF1_NP::updateParameters()
+{
+    if(NPanalysis){
+        if(lep == QCD::ELECTRON){
+            coeffNP.assign(8, HeffDF1::GetModel().getC9_11());
+            coeffNP.assign(9, HeffDF1::GetModel().getC10_11());
+        }
+        else{
+            coeffNP.assign(8, HeffDF1::GetModel().getC9_22());
+            coeffNP.assign(9, HeffDF1::GetModel().getC10_22());
+        }
+    }
 }
 
 Expanded<gslpp::vector<gslpp::complex> > HeffDF1_NP::ComputeCoeff(double mu, schemes scheme)
 {
+    updateParameters();
+    
     HeffDF1::ComputeCoeff(mu);
-       
-    coeff.setCoeff(coeff.getCoeff(QCD0, QED0) + coeffNP, QCD0, QED0);
+    
+    if(NPanalysis)
+        coeff.setCoeff(coeff.getCoeff(QCD0, QED0) + coeffNP, QCD0, QED0);
     
     return coeff.getCoeff();
 }

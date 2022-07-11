@@ -88,7 +88,7 @@ public:
      * @param SM
      * @param modelmatching
      */
-    HeffDF1_NP(std::string blocks, const StandardModel & SM, qcd_orders order_qcd, qed_orders order_qed);
+    HeffDF1_NP(std::string blocks, const StandardModel & SM, QCD::lepton lepton, qcd_orders order_qcd, qed_orders order_qed);
 
     /**
      * 
@@ -107,6 +107,14 @@ public:
     
 private:
     gslpp::vector<gslpp::complex> coeffNP;
+    
+    QCD::lepton lep;
+    bool NPanalysis; // A flag to trigger NP contributions to HeffDF1
+    
+    /**
+     * @brief The update parameter method for HeffDF1_NP
+     */
+    void updateParameters();
 };
 
 #endif /* HEFFDF1_H */

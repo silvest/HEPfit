@@ -1216,7 +1216,46 @@ public:
      * @brief A virtual implementation for the RealWeakEFTCC class
      */
     virtual double getCCC5() const { return 0.; };
+    
+    /**
+     * @brief A virtual implementation for the RealWETHeffDF1 class
+     */
+    virtual double getC9_11() const { return 0.; };
+    
+    /**
+     * @brief A virtual implementation for the RealWETHeffDF1 class
+     */
+    virtual double getC9_22() const { return 0.; };
 
+    /**
+     * @brief A virtual implementation for the RealWETHeffDF1 class
+     */
+    virtual double getC10_11() const { return 0.; };
+
+    /**
+     * @brief A virtual implementation for the RealWETHeffDF1 class
+     */
+    virtual double getC10_22() const { return 0.; };
+
+    /**
+     * @brief A virtual implementation for the RealWETHeffDF1 class
+     */
+    virtual double getC9p_11() const { return 0.; };
+
+    /**
+     * @brief A virtual implementation for the RealWETHeffDF1 class
+     */
+    virtual double getC9p_22() const { return 0.; };
+
+    /**
+     * @brief A virtual implementation for the RealWETHeffDF1 class
+     */
+    virtual double getC10p_11() const { return 0.; };
+
+    /**
+     * @brief A virtual implementation for the RealWETHeffDF1 class
+     */
+    virtual double getC10p_22() const { return 0.; };
 
 
     ///////////////////////////////////////////////////////////////////////////
