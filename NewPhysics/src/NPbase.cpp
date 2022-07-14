@@ -263,8 +263,8 @@ double NPbase::deltaGamma_Zf_Test(const Particle f) const   //c_alpha
         double DelGammaZfTest;
         
         DelGammaZfTest = 2.0 * Nf * (gVf * delGVf + gAf * delGAf);
-        DeltaGamma_Zf_Test = 4.0 * GF * pow(Mz,3.0) / 24.0 / sqrt(2.0) / M_PI * DelGammaZfTest;
-        //DeltaGamma_Zf_Test = alphaMz()*Mz / 12.0 / trueSM.sW2()/trueSM.cW2() * DelGammaZfTest;
+        //DeltaGamma_Zf_Test = 4.0 * GF * pow(Mz,3.0) / 24.0 / sqrt(2.0) / M_PI * DelGammaZfTest;
+        DeltaGamma_Zf_Test = alphaMz()*Mz / 12.0 / trueSM.sW2()/trueSM.cW2() * DelGammaZfTest;
         
         // As in deltaGamma_Zf(f):
         //delGammaZf = 2.0 * Nf * (gVf * delGVf + gAf * delGAf);
