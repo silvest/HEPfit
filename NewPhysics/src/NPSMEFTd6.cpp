@@ -3118,12 +3118,12 @@ int NPSMEFTd6::Output() const {
     // 3 Linear_Test + Quadratic
     // 4 Quadratic
     // 5 SM
-    return 3;
+    return 2;
 }
 
-bool NPSMEFTd6::hatCis() const{return true;} //AGhat
+bool NPSMEFTd6::hatCis() const{return false;} //AGhat
 
-bool NPSMEFTd6::flagCHWpCHB() const {return true;}
+bool NPSMEFTd6::flagCHWpCHB() const {return false;}
 //AG:end
 
 ////////////////////////////////////////////////////////////////////////
@@ -4031,19 +4031,19 @@ double NPSMEFTd6::deltaMw2() const
 double NPSMEFTd6::alphaMz() const                           //AG: NumericCheck()
 {   
     //AG:begin
-    double dalphaMz = 0.0;
+    double g1 = g1_tree;
+    double dg1L= delta_g1;
+    double g2 = g2_tree;
+    double dg2L = delta_g2;
+    double G = g1*g1+g2*g2;
+        
+    // dalphaMz equivalent to "2.0 * delta_e + delta_A"
+    double dalphaMz = 2.0*( g1*g1*g1*dg2L + g2*g2*g2*dg1L)/g1/g2/G - 2.0*g1*g2/G*CiHWB*v2_over_LambdaNP2;
+    
     double dalphaMz_2 = 0.0;
     if(FlagQuadraticTerms and FlagMWinput){
-        double g1 = g1_tree;
-        double dg1L= delta_g1;
         double dg1Q = delta_g1_2;
-        double g2 = g2_tree;
-        double dg2L = delta_g2;
         double dg2Q = delta_g2_2;
-        double G = g1*g1+g2*g2;
-
-        // dalphaMz equivalent to "2.0 * delta_e + delta_A"
-        dalphaMz = 2.0*( g1*g1*g1*dg2L + g2*g2*g2*dg1L)/g1/g2/G - 2.0*g1*g2/G*CiHWB*v2_over_LambdaNP2;
 
         dalphaMz_2 = 2.0/G*(g1*g1/g2*dg2Q + g2*g2/g1*dg1Q)
                    + g1*g1*(g1*g1-3.0*g2*g2)/g2/g2/G/G * dg2L*dg2L + g2*g2*(g2*g2-3.0*g1*g1)/g1/g1/G/G * dg1L*dg1L
@@ -4060,10 +4060,16 @@ double NPSMEFTd6::alphaMz() const                           //AG: NumericCheck()
             std::cout << "dalphaMz_2 = " << dalphaMz_2 << std::endl;
         }
     }
-    //AG:end
 
-    //AG: dalphaMz_2 added below
-    return (aleMz*(1.0 + 2.0 * delta_e + delta_A + dalphaMz_2 ));
+    if(Output()==0){ return (aleMz*(1.0 + 2.0 * delta_e + delta_A)); }
+    if(Output()==1){ return (aleMz*(1.0 + dalphaMz)); }
+    if(Output()==2){ return (aleMz*(1.0 + 2.0 * delta_e + delta_A + dalphaMz_2 )); }
+    if(Output()==3){ return (aleMz*(1.0 + dalphaMz + dalphaMz_2 )); }
+    if(Output()==4){ return (aleMz*(1.0 + dalphaMz_2 )); }
+    if(Output()==5){ return (aleMz); }
+    //AG:end
+    
+    //return (aleMz*(1.0 + 2.0 * delta_e + delta_A));
 }
 
 double NPSMEFTd6::Mw() const                     //AG: NumericCheck() & Output()

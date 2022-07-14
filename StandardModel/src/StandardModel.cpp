@@ -51,7 +51,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     FlagKappaZ = "APPROXIMATEFORMULA";
     FlagWolfenstein = true;
 
-    FlagMWinput = true;
+    FlagMWinput = false;
     
     FlagSMAux = false;
 
