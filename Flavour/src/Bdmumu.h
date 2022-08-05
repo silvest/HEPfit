@@ -10,6 +10,7 @@
 
 class StandardModel;
 class EvolBsmm;
+#include <memory>
 #include "ThObservable.h"
 #include "OrderScheme.h"
 
@@ -62,7 +63,7 @@ private:
     double timeInt;
     double yd;
     int obs;
-    EvolBsmm& evolbdmm;
+    std::unique_ptr<EvolBsmm> evolbdmm;
     
 };
 

@@ -12,7 +12,7 @@
 
 Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
 : ThObservable(SM_i),
-  evolbsmm(*(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)))
+  evolbsmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM))
 {
     lep = lep_i;
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
@@ -78,8 +78,8 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     }
     gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
 
-    double alsmu = evolbsmm.alphatilde_s(mu);
-    double alemu = evolbsmm.alphatilde_e(mu);
+    double alsmu = evolbsmm->alphatilde_s(mu);
+    double alemu = evolbsmm->alphatilde_e(mu);
 //    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
     gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
     double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ) ;

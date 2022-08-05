@@ -3892,6 +3892,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ArgD"] = boost::factory<ArgD*>();
     //----- eps'/eps  -----
     obsThFactory["EpsilonP_O_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
+    obsThFactory["EpsilonP_O_Epsilon_TH"] = boost::factory<EpsilonP_O_Epsilon_TH*>();
     /* END: REMOVE FROM THE PACKAGE */
     //----- CKM  -----
     obsThFactory["Vud"] = bind(boost::factory<VCKM*>(), _1, 1, 1);
