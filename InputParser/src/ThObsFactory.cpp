@@ -3964,6 +3964,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["See_Bs"] = bind(boost::factory<Mll*>(), _1, 4, StandardModel::B_S, StandardModel::ELECTRON);
 
     obsThFactory["BR_BdmumuOBR_Bsmumu"] = boost::factory<BdmumuOBsmumu*>();
+//----- B(s) to mu mu  OLD -----
+    obsThFactory["BR_Bdmumu_old"] = boost::bind(boost::factory<Bdmumu*>(), _1, 1);
+    obsThFactory["BRbar_Bdmumu_old"] = boost::bind(boost::factory<Bdmumu*>(), _1, 2);
+    obsThFactory["Amumu_Bd_old"] = boost::bind(boost::factory<Bdmumu*>(), _1, 3);
+    obsThFactory["Smumu_Bd_old"] = boost::bind(boost::factory<Bdmumu*>(), _1, 4);
+    obsThFactory["BR_Bsmumu_old"] = boost::bind(boost::factory<Bsmumu*>(), _1, 1);
+    obsThFactory["BRbar_Bsmumu_old"] = boost::bind(boost::factory<Bsmumu*>(), _1, 2);
+    obsThFactory["Amumu_Bs_old"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3);
+    obsThFactory["Smumu_Bs_old"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4);
    //----- b to q gamma  -----
     obsThFactory["BR_bsgamma"] = bind(boost::factory<Bsgamma*>(), _1, StandardModel::STRANGE, 1);
     obsThFactory["ACP_bsgamma"] = bind(boost::factory<Bsgamma*>(), _1, StandardModel::STRANGE, 2);

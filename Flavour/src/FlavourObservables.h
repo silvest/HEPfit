@@ -36,6 +36,8 @@
 #include "BXqllObservables.h"
 #include "MVlnuObservables.h"
 #include "MPlnuObservables.h"
+#include "Bdmumu.h"
+#include "Bsmumu.h"
 
 #endif	/* FLAVOUROBSERVABLES_H */
 
