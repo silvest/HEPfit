@@ -20,6 +20,10 @@ gslpp::complex AmpDK2::AmpDK(orders order)
     if (mySM.getFlavour().getHDF2().getCoeffK().getOrder() < order % 3)
         throw std::runtime_error("AmpDK::computeThValue(): requires cofficient of order not computed"); 
 
+#if SUSYFIT_DEBUG & 4
+    std::cout << "alsmu" << mySM.Als(2.) << std::endl;
+#endif
+    
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffK(
             mySM.getBK().getMu(),
             mySM.getBK().getScheme());
@@ -27,6 +31,9 @@ gslpp::complex AmpDK2::AmpDK(orders order)
     gslpp::vector<double> me(mySM.getBK().getBpars());
 #if SUSYFIT_DEBUG & 2
     std::cout << "B-parameter: " << me(0) << std::endl;
+#endif
+#if SUSYFIT_DEBUG & 4
+    std::cout << "alsmu" << mySM.Als(2.) << std::endl;
 #endif
 
     double MK = mySM.getMesons(QCD::K_0).getMass();
@@ -48,6 +55,9 @@ gslpp::complex AmpDK2::AmpDK(orders order)
 
 #if SUSYFIT_DEBUG & 2
     std::cout << "matrix element: " << me(0) << std::endl;
+#endif
+#if SUSYFIT_DEBUG & 4
+    std::cout << "alsmu" << mySM.Als(2.) << std::endl;
 #endif
     switch(order) {
         case FULLNLO:
