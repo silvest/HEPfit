@@ -112,6 +112,31 @@ private:
     unsigned int part;/**< toggle for real, imaginary, absolute or argument value */
 };
 
+class WC_epspOeps : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] part_i an unsigned integer used as toggle for real, imaginary, absolute or argument value.
+     * @param[in] mu_z scale for the Wilson coeff
+     */
+    WC_epspOeps(const StandardModel& SM_i, unsigned int part_i, double mu_z);
+    
+    /**
+    * @brief The Wilson coefficients of eps' / eps.
+    * @return @f$WC_epspOeps@f$
+    */
+    double computeThValue ();
+    
+private:
+    const StandardModel& mySM;
+    double mu; /**< The scale for the Wilson coefficient. */
+    gslpp::vector<gslpp::complex> ** allcoeffv;/**<vector that contains the Wilson coeffients v */
+    gslpp::vector<gslpp::complex> ** allcoeffz;/**<vector that contains the Wilson coeffients z */
+    unsigned int part;/**< toggle for real, imaginary, absolute or argument value */
+};
+
 #endif	/* WILSONCOEFFICIENTOBSERVABLES_H */
 
     

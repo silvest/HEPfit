@@ -3893,6 +3893,17 @@ ThObsFactory::ThObsFactory()
     //----- eps'/eps  -----
     obsThFactory["EpsilonP_O_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
     obsThFactory["EpsilonP_O_Epsilon_TH"] = boost::factory<EpsilonP_O_Epsilon_TH*>();
+    // 1.3 GeV --> scale as in Table 5 of 1909.05610
+    obsThFactory["EpsilonP_O_Epsilon_z1"] = bind(boost::factory<WC_epspOeps*>(), _1, 0, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_z2"] = bind(boost::factory<WC_epspOeps*>(), _1, 1, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_y3"] = bind(boost::factory<WC_epspOeps*>(), _1, 2, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_y4"] = bind(boost::factory<WC_epspOeps*>(), _1, 3, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_y5"] = bind(boost::factory<WC_epspOeps*>(), _1, 4, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_y6"] = bind(boost::factory<WC_epspOeps*>(), _1, 5, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_y7"] = bind(boost::factory<WC_epspOeps*>(), _1, 6, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_y8"] = bind(boost::factory<WC_epspOeps*>(), _1, 7, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_y9"] = bind(boost::factory<WC_epspOeps*>(), _1, 8, 1.3);
+    obsThFactory["EpsilonP_O_Epsilon_y10"] = bind(boost::factory<WC_epspOeps*>(), _1, 9, 1.3);
     /* END: REMOVE FROM THE PACKAGE */
     //----- CKM  -----
     obsThFactory["Vud"] = bind(boost::factory<VCKM*>(), _1, 1, 1);
