@@ -1056,7 +1056,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 533;
+    static const int NNPSMEFTd6Vars = 543;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -1074,7 +1074,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 273;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 283;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -6751,6 +6751,8 @@ protected:
     double eVBFHinv,eVHinv; ///< Total relative theoretical error in \f$pp \to X H \to X + invisible\f$.
     
     double eHwidth; ///< Total relative theoretical error in the Higgs width
+    
+    double nuisP1,nuisP2,nuisP3,nuisP4,nuisP5,nuisP6,nuisP7,nuisP8,nuisP9,nuisP10; ///< Nuisance parameters to be used in observables
     
 // The error in the parameters multiplying the dimension-6 operator coefficients in the production cross sections.
     double eVBF_2_Hbox;///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to VBF production at Tevatron (1.96 TeV).

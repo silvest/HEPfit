@@ -104,6 +104,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
     "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
     "eVBFHinv","eVHinv",
+    "nuisP1","nuisP2","nuisP3","nuisP4","nuisP5","nuisP6","nuisP7","nuisP8","nuisP9","nuisP10",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -215,6 +216,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
     "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
     "eVBFHinv","eVHinv",
+    "nuisP1","nuisP2","nuisP3","nuisP4","nuisP5","nuisP6","nuisP7","nuisP8","nuisP9","nuisP10",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -267,6 +269,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
     "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
     "eVBFHinv","eVHinv",
+    "nuisP1","nuisP2","nuisP3","nuisP4","nuisP5","nuisP6","nuisP7","nuisP8","nuisP9","nuisP10",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -319,6 +322,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "eZHgaga","eZHZga","eZHZZ","eZHWW","eZHtautau","eZHbb","eZHmumu",
     "ettHgaga","ettHZga","ettHZZ","ettHWW","ettHtautau","ettHbb","ettHmumu",
     "eVBFHinv","eVHinv",
+    "nuisP1","nuisP2","nuisP3","nuisP4","nuisP5","nuisP6","nuisP7","nuisP8","nuisP9","nuisP10",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -861,6 +865,16 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::make_pair("ettHmumu", std::cref(ettHmumu)));
     ModelParamMap.insert(std::make_pair("eVBFHinv", std::cref(eVBFHinv)));
     ModelParamMap.insert(std::make_pair("eVHinv", std::cref(eVHinv)));
+    ModelParamMap.insert(std::make_pair("nuisP1", std::cref(nuisP1)));    
+    ModelParamMap.insert(std::make_pair("nuisP2", std::cref(nuisP2)));
+    ModelParamMap.insert(std::make_pair("nuisP3", std::cref(nuisP3)));
+    ModelParamMap.insert(std::make_pair("nuisP4", std::cref(nuisP4)));
+    ModelParamMap.insert(std::make_pair("nuisP5", std::cref(nuisP5)));
+    ModelParamMap.insert(std::make_pair("nuisP6", std::cref(nuisP6)));
+    ModelParamMap.insert(std::make_pair("nuisP7", std::cref(nuisP7)));
+    ModelParamMap.insert(std::make_pair("nuisP8", std::cref(nuisP8)));
+    ModelParamMap.insert(std::make_pair("nuisP9", std::cref(nuisP9)));
+    ModelParamMap.insert(std::make_pair("nuisP10", std::cref(nuisP10)));    
     ModelParamMap.insert(std::make_pair("eVBF_2_Hbox", std::cref(eVBF_2_Hbox)));
     ModelParamMap.insert(std::make_pair("eVBF_2_HQ1_11", std::cref(eVBF_2_HQ1_11)));
     ModelParamMap.insert(std::make_pair("eVBF_2_Hu_11", std::cref(eVBF_2_Hu_11)));
@@ -2673,6 +2687,26 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         eVBFHinv = value;
     } else if (name.compare("eVHinv") == 0) {
         eVHinv = value;
+    } else if (name.compare("nuisP1") == 0) {
+        nuisP1 = value;        
+    } else if (name.compare("nuisP2") == 0) {
+        nuisP2 = value;        
+    } else if (name.compare("nuisP3") == 0) {
+        nuisP3 = value;        
+    } else if (name.compare("nuisP4") == 0) {
+        nuisP4 = value;
+    } else if (name.compare("nuisP5") == 0) {
+        nuisP5 = value;        
+    } else if (name.compare("nuisP6") == 0) {
+        nuisP6 = value;        
+    } else if (name.compare("nuisP7") == 0) {
+        nuisP7 = value;        
+    } else if (name.compare("nuisP8") == 0) {
+        nuisP8 = value;        
+    } else if (name.compare("nuisP9") == 0) {
+        nuisP9 = value;
+    } else if (name.compare("nuisP10") == 0) {
+        nuisP10 = value;
     } else if (name.compare("eVBF_2_Hbox") == 0) {
          eVBF_2_Hbox = value;
     } else if (name.compare("eVBF_2_HQ1_11") == 0) {
@@ -3053,7 +3087,7 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     
 //  SM pars
     double Yt, Yt2, Yt3;
-    double g1, g2, g3, g12, g22, g32, g13, g23, g33, g14, g24, g34;
+    double g1, g2, g3, g12, g22, g32, g13, g23, g14, g24; //, g33, g34;
     double lambdaH, lambdaH2;
     double yq = 1.0/6.0, yu = 2.0/3.0, yd = -1.0/3.0, yl = -1.0/2.0, ye = -1.0, yH = 1.0/2.0;
     double yq2 = yq*yq, yu2 = yu*yu, yd2 = yd*yd, yl2 = yl*yl, ye2 = ye*ye, yH2 = yH*yH;
@@ -3077,11 +3111,11 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
     
     g13 = g12*g1;
     g23 = g22*g2;
-    g33 = g32*g3;
+    //g33 = g32*g3;
     
     g14 = g13*g1;
     g24 = g23*g2;
-    g34 = g33*g3;
+    //g34 = g33*g3;
     
     lambdaH = lambdaH_tree;
     lambdaH2 = lambdaH*lambdaH;
@@ -20332,7 +20366,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
     double xslvjjSM206[4] = {0.52, 0.98, 2.92, 7.80};
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGZ, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dgga1, dkga, dkZ, dlga, dlZ, deem;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dgga1, dkga, dkZ, dlga, dlZ, deem;
     
     double gVZeeSM, gAZeeSM;
     
@@ -20348,8 +20382,6 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
-
-    dGZ = deltaGzd6();
     
     dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
@@ -20719,7 +20751,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
     double xslvjjSM206[4] = {0.52, 0.98, 2.92, 7.80};
     
-    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGZ, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dgga1, dkga, dkZ, dlga, dlZ,deem;
+    double dgWve, dgWpm1, dgWpm2, dmZ2, dmW2, dGW, dGF, dgZ, dsW2, dgVZee, dgAZee, dgZ1, dgga1, dkga, dkZ, dlga, dlZ,deem;
     
     double gVZeeSM, gAZeeSM;
     
@@ -20735,8 +20767,6 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
     dmW2 = - 2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
     
     dGW = deltaGwd6();
-
-    dGZ = deltaGzd6();
     
     dsW2 = cAsch * ( -0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ( ( CiHD  
             + 2.0 * CiHWB /  cW_tree / sW_tree ) * v2_over_LambdaNP2 
@@ -23570,9 +23600,10 @@ double NPSMEFTd6::STXS12_ggHll_pTV250_Inf(const double sqrt_s) const{
 double NPSMEFTd6::STXS12_qqHqq_Nj0(const double sqrt_s) const{
     
     double STXSb = 1.0;
-    
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+
+    //double CiHQ1;    
+    double CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    //CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
     CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
     CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
     CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
@@ -23634,9 +23665,10 @@ double NPSMEFTd6::STXS12_qqHqq_Nj1(const double sqrt_s) const{
 double NPSMEFTd6::STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const{
     
     double STXSb = 1.0;
-    
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+
+    //double CiHQ1;    
+    double CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    //CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
     CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
     CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
     CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
@@ -23763,8 +23795,9 @@ double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sq
     
     double STXSb = 1.0;
     
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
+    //double CiHQ1;
+    double CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    //CiHQ1 = (CiHQ1_11 + CiHQ1_22 + CiHQ1_33)/3.0;
     CiHQ3 = (CiHQ3_11 + CiHQ3_22 + CiHQ3_33)/3.0;
     CiHu = (CiHu_11 + CiHu_22 + CiHu_33)/3.0;
     CiHd = (CiHd_11 + CiHd_22 + CiHd_33)/3.0;
