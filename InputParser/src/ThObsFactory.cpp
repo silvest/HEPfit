@@ -569,7 +569,13 @@ ThObsFactory::ThObsFactory()
     obsThFactory["oblTpar"] = boost::factory<oblT*>();
     obsThFactory["oblWpar"] = boost::factory<oblW*>();
     obsThFactory["oblYpar"] = boost::factory<oblY*>();
-
+    
+    //-----  (Relative) Deviations of SM inputs with respect to reference value  ---------
+    obsThFactory["deltaalphaMz"] = boost::factory<dalphaMzRef*>();
+    obsThFactory["deltaalphaSMz"] = boost::factory<dalphaSMzRef*>();
+    obsThFactory["deltaMz"] = boost::factory<dMzRef*>();
+    obsThFactory["deltaMh"] = boost::factory<dMHRef*>();
+    obsThFactory["deltamt"] = boost::factory<dmtRef*>();
 
     //-----  Combinations of Warsaw basis coefficients constrained by EWPO  ----------
     obsThFactory["CEWHL1_11"] = boost::factory<CEWHL111*>();

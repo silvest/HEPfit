@@ -2909,3 +2909,110 @@ double AuxObsNP30::computeThValue()
 }
 
 /* -------------------------------------*/
+
+
+//-----  Deviations of SM inputs with respect to reference value  ----------
+// (To use in future collider studies where the predictions are assumed to be SM at some
+//  reference point)
+
+/* -------------------------------------*/
+
+dalphaMzRef::dalphaMzRef(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+dalphaMzRef::~dalphaMzRef()
+{}
+
+double dalphaMzRef::computeThValue()
+{
+    double aMz = SM.alphaMz();
+    
+    return (aMz - 0.007754942001072636)/0.007754942001072636;
+}
+
+/* -------------------------------------*/
+
+dalphaSMzRef::dalphaSMzRef(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+dalphaSMzRef::~dalphaSMzRef()
+{}
+
+double dalphaSMzRef::computeThValue()
+{
+    double aSMz = SM.getAlsMz();
+    
+    return (aSMz - 0.1180)/0.1180;
+}
+
+/* -------------------------------------*/
+
+dMzRef::dMzRef(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+dMzRef::~dMzRef()
+{}
+
+double dMzRef::computeThValue()
+{
+    double Mz = SM.getMz();
+    
+    return (Mz - 91.1882)/91.1882;
+}
+
+/* -------------------------------------*/
+
+dMHRef::dMHRef(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+dMHRef::~dMHRef()
+{}
+
+double dMHRef::computeThValue()
+{
+    double Mh = SM.getMHl();
+    
+    return (Mh - 125.1)/125.1;
+}
+
+/* -------------------------------------*/
+
+dmtRef::dmtRef(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+dmtRef::~dmtRef()
+{}
+
+double dmtRef::computeThValue()
+{
+    double mTop = SM.getMtpole();
+    
+    return (mTop - 173.2)/173.2;
+}
+
+/* -------------------------------------*/

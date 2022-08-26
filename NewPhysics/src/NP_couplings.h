@@ -5375,5 +5375,190 @@ private:
 
 
 
+//-----  Deviations of SM inputs with respect to reference value  ----------
+// (To use in future collider studies where the predictions are assumed to be SM at some
+//  reference point)
+
+/**
+ * @class dalphaMzRef
+ * @brief An observable class for the (relative) deviation of @f$\alpha(M_z)@f$ with respect to the SM reference value.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the (relative) deviation of @f$\alpha(M_z)@f$ with respect to the SM reference value.
+ *
+ */
+class dalphaMzRef : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    dalphaMzRef(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the dalphaMzRef class.
+     */
+    virtual ~dalphaMzRef();
+
+    /**
+     * @brief The (relative) deviation of @f$\alpha(M_z)@f$ with respect to the SM reference value.
+     * @return @f$\delta \alpha(M_z) / \alpha(M_z)@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class dalphaSMzRef
+ * @brief An observable class for the (relative) deviation of @f$\alpha_s(M_z)@f$ with respect to the SM reference value.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the (relative) deviation of @f$\alpha_s(M_z)@f$ with respect to the SM reference value.
+ *
+ */
+class dalphaSMzRef : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    dalphaSMzRef(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the dalphaSMzRef class.
+     */
+    virtual ~dalphaSMzRef();
+
+    /**
+     * @brief The (relative) deviation of @f$\alpha_s(M_z)@f$ with respect to the SM reference value.
+     * @return @f$\delta \alpha_s(M_z) / \alpha_s(M_z)@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class dMzRef
+ * @brief An observable class for the (relative) deviation of @f$M_z@f$ with respect to the SM reference value.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the (relative) deviation of @f$M_z@f$ with respect to the SM reference value.
+ *
+ */
+class dMzRef : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    dMzRef(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the dMzRef class.
+     */
+    virtual ~dMzRef();
+
+    /**
+     * @brief The (relative) deviation of @f$M_z@f$ with respect to the SM reference value.
+     * @return @f$\delta M_z / M_z@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class dMHRef
+ * @brief An observable class for the (relative) deviation of @f$M_H@f$ with respect to the SM reference value.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the (relative) deviation of @f$M_H@f$ with respect to the SM reference value.
+ *
+ */
+class dMHRef : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    dMHRef(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the dMHRef class.
+     */
+    virtual ~dMHRef();
+
+    /**
+     * @brief The (relative) deviation of @f$M_H@f$ with respect to the SM reference value.
+     * @return @f$\delta M_H / M_H@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class dmtRef
+ * @brief An observable class for the (relative) deviation of @f$m_t@f$ with respect to the SM reference value.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the (relative) deviation of @f$m_t@f$ with respect to the SM reference value.
+ *
+ */
+class dmtRef : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    dmtRef(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the dmtRef class.
+     */
+    virtual ~dmtRef();
+
+    /**
+     * @brief The (relative) deviation of @f$m_t@f$ with respect to the SM reference value.
+     * @return @f$\delta m_t / m_t@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+
 #endif	/* NPCOUPLINGS_H */
 
