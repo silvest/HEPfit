@@ -22,15 +22,31 @@ EpsilonP_O_Epsilon::EpsilonP_O_Epsilon(const StandardModel& SM_i, unsigned int p
 double EpsilonP_O_Epsilon::computeThValue()
 {
   double phase = -sin(((SM.getOptionalParameter("Delta_2")-SM.getOptionalParameter("Delta_0"))-SM.getOptionalParameter("phiEpsK"))*M_PI/180.);
-  // computation based on lattice results + improvement from exp measurement of ReA0,2
+  // return ReA0 using exp info
   if(part == 0) {
+      return getReA0();
+  }
+  // return ReA2 using exp info
+  if(part == 1) {
+      return getReA2();
+  }
+  // return ReA0 using lattice info
+  if(part == 2) {
+      return AmpDS1pp0pureLAT(NLO).real();
+  }
+  // return ReA2 using lattice info
+  if(part == 3) {
+      return AmpDS1pp2(NLO).real();
+  }
+  // eps'/eps: state-of-the-art from lattice + exp measurement of ReA0,2
+  if(part == 4) {
       ReA0 = getReA0();
       ImA0 = AmpDS1pp0(NLO).imag();
       ReA2 = getReA2();
       ImA2 = AmpDS1pp2(NLO).imag();
   }
-  // computation solely based on lattice results
-  if(part == 1) {
+  // eps'/eps: prediction solely based on lattice results
+  if(part == 5) {
       ReA0 = AmpDS1pp0pureLAT(NLO).real();
       ImA0 = AmpDS1pp0pureLAT(NLO).imag();
       ReA2 = AmpDS1pp2(NLO).real();

@@ -283,7 +283,7 @@ gslpp::complex AmpDS1::AmpDS1pp0pureLAT(orders order)
             gslpp::complex fullA0LAT =  M_SQRT1_2*GF*(Vud.conjugate()*Vus)*((allcoeffzLO + allcoeffzNLO) + tau * (allcoeffyLO + allcoeffyNLO))*getChiralMatrixpp0()*getRISMOMTransMatrix(mySM.getBKd1().getMu(), FULLNLO)*meBKd1;
             
             //The returned value for the amplitude is using the full lattice info (cfr. ArXiv:2004.09440)
-            return gslpp::complex(fullA0LAT.real() , fullA0LAT.imag());
+            return fullA0LAT;
 
           } else {
             //If the me are given in the 10 basis renormalised in MSbar (no optimization for A0 available as of now in this case)
@@ -303,7 +303,7 @@ gslpp::complex AmpDS1::AmpDS1pp0pureLAT(orders order)
             gslpp::complex fullA0LAT =  M_SQRT1_2*GF*(Vud.conjugate()*Vus)*(allcoeffzLO + tau * allcoeffyLO)*getChiralMatrixpp0()*getRISMOMTransMatrix(mySM.getBKd1().getMu(), FULLNLO)*meBKd1;
             
             //The returned value for the amplitude is using the full lattice info (cfr. ArXiv:2004.09440)
-            return gslpp::complex(fullA0LAT.real() , fullA0LAT.imag());
+            return fullA0LAT;
 
           } else {
             //If the me are given in the 10 basis renormalised in MSbar
