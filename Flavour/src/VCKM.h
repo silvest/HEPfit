@@ -366,6 +366,32 @@ public:
 };
 
 /**
+* @class CKM_Rt_dms
+* @ingroup Flavour
+* @brief An auxiliary class for the CKM UT plot from the constraint from @f$\Delta M_s@f$.
+* @author HEPfit Collaboration
+* @copyright GNU General Public License
+* @details This class is used to produce the UT plot with the constraints from
+* @f$\Delta M_s@f$ and @f$\Delta M_d@f$.
+*/
+class CKM_Rt_dms : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CKM_Rt_dms(const StandardModel& SM_i);
+
+    /**
+     * @brief @f$R_t=|(V_{td} V_{tb}^*)/(V_{cd}V_{cb}^*)|@f$.
+     * @return @f$R_t * \sqrt{1+\Lambda^2)*(1-2 \rho)}@f$
+     */
+    double computeThValue ();
+
+};
+
+/**
 * @class CKM_Rts
 * @ingroup Flavour
 * @brief A class for the CKM parameters ratio @f$R_{ts}@f$. 

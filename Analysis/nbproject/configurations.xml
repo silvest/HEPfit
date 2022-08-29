@@ -4131,7 +4131,7 @@
     </conf>
     <conf name="RM1_MPI" type="1">
       <toolsSet>
-        <compilerSet>GNU_MPI|GNU</compilerSet>
+	<compilerSet>RM1_MPI|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>

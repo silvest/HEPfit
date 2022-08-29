@@ -370,6 +370,13 @@ double CKM_Rt::computeThValue()
     return SM.getCKM().computeRt();
 }
 
+CKM_Rt_dms::CKM_Rt_dms(const StandardModel& SM_i) : ThObservable(SM_i) {}
+
+double CKM_Rt_dms::computeThValue()
+{
+    return SM.getCKM().computeRt()*sqrt(1.+SM.getCKM().getLambda()*SM.getCKM().getLambda()*(1.-2.*SM.getCKM().getRhoBar()));
+}
+
 CKM_Rts::CKM_Rts(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
 double CKM_Rts::computeThValue()

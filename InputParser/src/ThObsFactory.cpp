@@ -3937,6 +3937,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["CKM_delta"] = boost::factory<CKM_Delta*>();
     obsThFactory["J_CP"] = boost::factory<J_CP*>();
     obsThFactory["Rt"] = boost::factory<CKM_Rt*>();
+    obsThFactory["Rt_dms"] = boost::factory<CKM_Rt_dms*>();
     obsThFactory["Rts"] = boost::factory<CKM_Rts*>();
     obsThFactory["Rb"] = boost::factory<CKM_Rb*>();
     obsThFactory["VtdoVts"] = boost::factory<CKM_VtdoVts*>();
