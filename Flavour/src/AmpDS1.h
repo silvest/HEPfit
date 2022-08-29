@@ -30,6 +30,13 @@ protected:
      * @return the amplitude for \f$ K_L \f$ decay in 2 pion with 0 isospin change
      */
     gslpp::complex AmpDS1pp0(orders order);
+    
+     /**
+     *
+     * @param order
+     * @return the amplitude (pure lattice) for \f$ K_L \f$ decay in 2 pion with 0 isospin change
+     */
+    gslpp::complex AmpDS1pp0pureLAT(orders order);
 
     /**
      *
