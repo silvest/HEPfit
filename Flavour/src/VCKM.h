@@ -963,7 +963,7 @@ private:
 * @author HEPfit Collaboration
 * @copyright GNU General Public License
 * @details This class is used to compute the absolute value of the CKM parameters 
-* combination @f$\mathrm{Re}(\lambda_{t}) = \mathrm{Im}(V_{td} V_{ts}^*)@f$.
+* combination @f$\mathrm{Re}(\lambda_{t}) = \mathrm{Re}(V_{td} V_{ts}^*)@f$.
 */
 class Relam_t : public ThObservable {
 public:
@@ -1192,6 +1192,60 @@ public:
     
     /**
      * @return @f$\mathrm{Re}( V_{us} V_{ub}^* ) @f$
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+/**
+* @class Retau_DS1
+* @ingroup Flavour
+* @brief A class for the real part of the ratio of CKM parameters @f$\mathrm{Re}(-\lambda_{t}/\lambda_{u})@f$. 
+* @author HEPfit Collaboration
+* @copyright GNU General Public License
+* @details This class is used to compute the real part of the ratio of CKM parameters 
+* @f$\mathrm{Re}(-\lambda_{t}/lambda_{u}) = \mathrm{Re}(-V_{td} V_{ts}^{*}/(V_{ud}V_{us}^{*}))@f$.
+*/
+class Retau_DS1 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Retau_DS1(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mathrm{Re}( -\lambda_{t}/lambda_{u} ) @f$
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+/**
+* @class Imtau_DS1
+* @ingroup Flavour
+* @brief A class for the real part of the ratio of CKM parameters @f$\mathrm{Im}(-\lambda_{t}/\lambda_{u})@f$. 
+* @author HEPfit Collaboration
+* @copyright GNU General Public License
+* @details This class is used to compute the real part of the ratio of CKM parameters 
+* @f$\mathrm{Im}(-\lambda_{t}/lambda_{u}) = \mathrm{Im}(-V_{td} V_{ts}^{*}/(V_{ud}V_{us}^{*}))@f$.
+*/
+class Imtau_DS1 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Imtau_DS1(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mathrm{Im}( -\lambda_{t}/lambda_{u} ) @f$
      */
     double computeThValue ();
     

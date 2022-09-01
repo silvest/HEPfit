@@ -398,6 +398,20 @@ double CKM_VtdoVts::computeThValue()
     return (SM.getCKM().getV_td().abs()/SM.getCKM().getV_ts().abs());
 }
 
+Retau_DS1::Retau_DS1(const StandardModel& SM_i) : ThObservable(SM_i) {}
+
+double Retau_DS1::computeThValue()
+{
+    return ((-SM.getCKM().computelamt()/SM.getCKM().computelamu()).real());
+}
+
+Imtau_DS1::Imtau_DS1(const StandardModel& SM_i) : ThObservable(SM_i) {}
+
+double Imtau_DS1::computeThValue()
+{
+    return ((-SM.getCKM().computelamt()/SM.getCKM().computelamu()).imag());
+}
+
 CKM_rho::CKM_rho(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
 double CKM_rho::computeThValue()

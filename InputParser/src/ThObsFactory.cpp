@@ -3972,6 +3972,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Imlam_ts"] = boost::factory<Imlam_ts*>();
     obsThFactory["Imlam_cs"] = boost::factory<Imlam_cs*>();
     obsThFactory["Imlam_us"] = boost::factory<Imlam_us*>();
+    obsThFactory["Retau_DS1"] = boost::factory<Retau_DS1*>();
+    obsThFactory["Imtau_DS1"] = boost::factory<Imtau_DS1*>();
     //----- B(s) to mu mu  -----
     obsThFactory["BR_Bdmumu"] = bind(boost::factory<Mll*>(), _1, 1, StandardModel::B_D, StandardModel::MU);
     obsThFactory["BRbar_Bdmumu"] = bind(boost::factory<Mll*>(), _1, 2, StandardModel::B_D, StandardModel::MU);
