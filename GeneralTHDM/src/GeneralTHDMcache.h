@@ -98,12 +98,24 @@ public:
      */
     double interpolate (gslpp::matrix<double> arrayTab, double x);
 
-        /**
-     * @brief Linearly interpolates a table with two parameter dimensions.
+    /**
+     * @brief Linearly interpolates a table with two parameter dimensions. In this case the x variable changes first.
      * @return the interpolated value
      */
     double interpolate2D (gslpp::matrix<double> arrayTab, double x, double y);
 
+    
+    
+     /**
+     * @brief Linearly interpolates a table with two parameter dimensions. In this case the y variable changes first. Furthermore the shape is triangular.
+     * @return the interpolated value
+     */
+    double interpolate2DtriangularData (gslpp::matrix<double> arrayTab, double x, double y);
+
+    
+    
+    
+    
 //    gslpp::matrix<double> dummytable;
 
     /**

@@ -1599,6 +1599,8 @@ double GeneralTHDMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
     double y = 0.0;
        
     if(x<xmin){
+        //std::cout<<"\033[1;33m   x= \033[0m "<< x <<std::endl;
+        //std::cout<<"\033[1;33m   xmin= \033[0m "<< xmin <<std::endl;
         std::cout<<"warning: your table parameter value is smaller than the minimum allowed value"<<std::endl;
         return 0.;
     }
@@ -1646,6 +1648,89 @@ double GeneralTHDMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x,
            /((x2-x1)*(y2-y1));
     }
 }
+
+
+
+
+//2D interpolation change starts in y axis
+
+double GeneralTHDMcache::interpolate2DtriangularData(gslpp::matrix<double> arrayTab, double x, double y){
+
+    int rowN=arrayTab.size_i();
+
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double ymin = arrayTab(0,1);
+    double ymax = arrayTab(rowN-1,1);
+    double intervaly = arrayTab(1,1)-arrayTab(0,1);
+    int i=1;
+    do i++;
+    while(arrayTab(i,0)-arrayTab(i-1,0)==0&&i<30000);
+    double intervalx = arrayTab(i,0)-arrayTab(i-1,0);
+    int Nintervalsx = (x-xmin)/intervalx;
+    int Nintervalsy = (y-ymin)/intervaly;
+    if(x<xmin||x>xmax||y<ymin||y>ymax){
+        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        return 0.;
+    }
+    else{
+    
+        int Nx1y1=i*Nintervalsx-(Nintervalsx*(Nintervalsx+1)/2) +Nintervalsy;
+        int Nx1y2=i*Nintervalsx-(Nintervalsx*(Nintervalsx+1)/2) +Nintervalsy+1;
+        int Nx2y1=i*(Nintervalsx+1)-((Nintervalsx+1)*((Nintervalsx+1)+1)/2) +Nintervalsy;
+        int Nx2y2=i*(Nintervalsx+1)-((Nintervalsx+1)*((Nintervalsx+1)+1)/2) +Nintervalsy+1;
+        
+        
+    //std::cout<<" "<<std::endl;
+    //std::cout<<" intervalx= "<<intervalx<<std::endl;
+    //std::cout<<" intervaly= "<<intervaly<<std::endl;
+    //std::cout<<" Nintervalsx= "<<Nintervalsx<<std::endl;
+    //std::cout<<" Nintervalsy= "<<Nintervalsy<<std::endl;
+
+    //std::cout<<" xmin= "<<xmin<<std::endl;
+    //std::cout<<" xmax= "<<xmax<<std::endl;
+    //std::cout<<" ymin= "<<ymin<<std::endl;
+    //std::cout<<" ymax= "<<ymax<<std::endl;
+    //std::cout<<" x= "<<x<<std::endl;
+    //std::cout<<" y= "<<y<<std::endl;
+    //std::cout<<"i*Nintervalsx+Nintervalsy ="<< i*Nintervalsx+Nintervalsy<<std::endl;
+    //std::cout<<"i*Nintervalsx+Nintervalsy+1 ="<< i*Nintervalsx+Nintervalsy+1<<std::endl;
+    //std::cout<<"i*Nintervalsx+Nintervalsy ="<< i*Nintervalsx+Nintervalsy<<std::endl;
+    //std::cout<<"i*(Nintervalsx+1)+Nintervalsy ="<< i*(Nintervalsx+1)+Nintervalsy<<std::endl;
+         
+    //std::cout<<"y1(Nx1y1) = "<< arrayTab(Nx1y1,1)<<std::endl;
+    //std::cout<<"y1(Nx2y1) = "<< arrayTab(Nx2y1,1)<<std::endl;
+    //std::cout<<"y2(Nx1y2) = "<< arrayTab(Nx1y2,1)<<std::endl;
+    //std::cout<<"y2(Nx2y2) = "<< arrayTab(Nx2y2,1)<<std::endl;
+    
+    
+    //std::cout<<"x1(Nx1y1) = "<< arrayTab(Nx1y1,0)<<std::endl;
+    //std::cout<<"x1(Nx1y2) = "<< arrayTab(Nx1y2,0)<<std::endl;
+    //std::cout<<"x2(Nx2y1) = "<< arrayTab(Nx2y1,0)<<std::endl;
+    //std::cout<<"x2(Nx2y2) = "<< arrayTab(Nx2y2,0)<<std::endl;
+    //std::cout<<"Nx1y1 = "<< Nx1y1 <<std::endl;
+    //std::cout<<"Nx1y2 = "<< Nx1y2 <<std::endl;
+    //std::cout<<"Nx2y1 = "<< Nx2y1 <<std::endl;
+    //std::cout<<"Nx2y2 = "<< Nx2y2 <<std::endl;
+      
+    double y1 = arrayTab(Nx1y1,1);
+    double y2 = arrayTab(Nx1y2,1);
+    double x1 = arrayTab(Nx1y1,0);  
+    double x2 = arrayTab(Nx2y1,0);
+    
+
+    return (arrayTab(Nx2y2,2) * (y2-y) * (x2-x)
+            +arrayTab(Nx2y1,2) * (y-y1) * (x2-x)
+            +arrayTab(Nx1y2,2) * (y2-y) * (x-x1)
+            +arrayTab(Nx1y1,2) * (y-y1) * (x-x1))
+           /((x2-x1)*(y2-y1));
+    }
+}
+
+
+
+
+
 
 void GeneralTHDMcache::read(){
   std::stringstream br1,br2,br3,br4,br5,br6,br7;
@@ -4215,7 +4300,7 @@ double GeneralTHDMcache::ip_ex_gg_phii_phijZ_bbZ_ATLAS13(double mj, double mi){
     if (i>=0) {
         return ( ip_ex_gg_phii_phijZ_bbZ_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate2D(ATLAS13_gg_phii_phijZ_bbZ, mj, mi);
+        double newResult = interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, mj, mi);
         CacheShiftReal(ip_ex_gg_phii_phijZ_bbZ_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -4230,7 +4315,7 @@ double GeneralTHDMcache::ip_ex_bb_phii_phijZ_bbZ_ATLAS13(double mj, double mi){
     if (i>=0) {
         return ( ip_ex_bb_phii_phijZ_bbZ_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate2D(ATLAS13_bb_phii_phijZ_bbZ, mj, mi);
+        double newResult = interpolate2DtriangularData(ATLAS13_bb_phii_phijZ_bbZ, mj, mi);
         CacheShiftReal(ip_ex_bb_phii_phijZ_bbZ_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -5862,10 +5947,17 @@ double GeneralTHDMcache::computeHpquantities()
     
     
     
-    double GammaHptb=HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
+    double GammaHptb;
+    
+    if(mHp>=Mt+Mb)
+    {
+    GammaHptb=HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
                         -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
                       *sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2));
-    
+    }
+    else{
+    GammaHptb=0;
+    }
    
     //decay to SM Higgs
     double GammaHpHlW=0.0;
@@ -5910,7 +6002,23 @@ double GeneralTHDMcache::computeHpquantities()
     
     Br_Hptotaunu=GammaHptaunu/GammaHptot;
     Br_Hptotb=GammaHptb/GammaHptot;
-
+    
+    //HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
+    //                    -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
+    //                  *sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2))
+    
+    //std::cout<<"\033[1;33m HSTheta(mHp-Mt-Mb) = \033[0m "<< HSTheta(mHp-Mt-Mb) <<std::endl;
+    //std::cout<<"\033[1;33m (Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))  = \033[0m "<< (Vtb*Vtb/(8.0*mHp*M_PI*vev*vev)) <<std::endl;
+    //std::cout<<"\033[1;33m (-4.0*(su*sd).real()*Mb2*Mt2-sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2)) = \033[0m "<< (-4.0*(su*sd).real()*Mb2*Mt2-sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2)) <<std::endl;
+    //std::cout<<"\033[1;33m sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2))   = \033[0m "<< sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2)) <<std::endl;
+    
+    
+    
+    //std::cout<<"\033[1;31m   GammaHptb = \033[0m "<< GammaHptb <<std::endl;
+    //std::cout<<"\033[1;31m   GammaHptaunu = \033[0m "<< GammaHptaunu <<std::endl;
+    //std::cout<<"\033[1;31m   GammaHpHlW = \033[0m "<< GammaHpHlW <<std::endl;
+    //std::cout<<"\033[1;31m   GammaHpphi2W = \033[0m "<< GammaHpphi2W <<std::endl;
+    //std::cout<<"\033[1;31m   GammaHpphi3W = \033[0m "<< GammaHpphi3W <<std::endl;
   
      return 0;
 }
@@ -6199,7 +6307,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     gg_phi2_bb_TH8=SigmaggF_phi2_8*Br_phi2tobb;
     gg_phi3_bb_TH8=SigmaggF_phi3_8*Br_phi3tobb;
     pp_phi2_bb_TH13=SigmaSumphi2_13*Br_phi2tobb;
-    pp_phi3_bb_TH13=SigmaggF_phi3_8*Br_phi3tobb;
+    pp_phi3_bb_TH13=SigmaggF_phi3_13*Br_phi3tobb;
     bb_phi2_bb_TH13=SigmabbF_phi2_13*Br_phi2tobb;
     bb_phi3_bb_TH13=SigmabbF_phi3_13*Br_phi3tobb;
     
@@ -6540,15 +6648,15 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     pp_Hpm_tb_TH13=2.0*SigmaHpm13*Br_Hptotb;
     
     
-    std::cout<<"mHp = "<<mHp<<std::endl;
-    std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(100) = "<<ip_ex_pp_Hpm_taunu_CMS13(100)<<std::endl;
-    std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(200) = "<<ip_ex_pp_Hpm_taunu_CMS13(200)<<std::endl;
-    std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(300) = "<<ip_ex_pp_Hpm_taunu_CMS13(300)<<std::endl;
-    std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(400) = "<<ip_ex_pp_Hpm_taunu_CMS13(400)<<std::endl;
+    //std::cout<<"mHp = "<<mHp<<std::endl;
+    //std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(100) = "<<ip_ex_pp_Hpm_taunu_CMS13(100)<<std::endl;
+    //std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(200) = "<<ip_ex_pp_Hpm_taunu_CMS13(200)<<std::endl;
+    //std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(300) = "<<ip_ex_pp_Hpm_taunu_CMS13(300)<<std::endl;
+    //std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(400) = "<<ip_ex_pp_Hpm_taunu_CMS13(400)<<std::endl;
     //std::cout<<"pp_Hpm_taunu_CMS13 = "<<ip_ex_pp_Hpm_taunu_CMS13(500)<<std::endl;
-    std::cout<<"pp_Hpm_taunu_CMS13 = "<<ip_ex_pp_Hpm_taunu_CMS13(1065.95)<<std::endl;
+    //std::cout<<"pp_Hpm_taunu_CMS13 = "<<ip_ex_pp_Hpm_taunu_CMS13(1065.95)<<std::endl;
     
-    std::cout<<"ip_ex_pp_Hpm_taunu_CMS13 = "<<ip_ex_pp_Hpm_taunu_CMS13(mHp)<<std::endl;
+    //std::cout<<"ip_ex_pp_Hpm_taunu_CMS13 = "<<ip_ex_pp_Hpm_taunu_CMS13(mHp)<<std::endl;
     
     //std::cout<<"\033[1;34m pp_Hpm_taunu_TH8 = \033[0m "<<pp_Hpm_taunu_TH8<<std::endl;
     //std::cout<<"\033[1;34m pp_Hpm_taunu_TH8 = \033[0m "<<pp_Hpm_taunu_TH8<<std::endl;
@@ -6565,12 +6673,22 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
 //    double nftos=1.95996398454;
 
     
+    //std::cout<<"\033[1;33m   m2 = \033[0m "<<m2<<std::endl;
+    //std::cout<<"\033[1;33m   m3 = \033[0m "<<m3<<std::endl;
+    //std::cout<<"\033[1;33m   mHp = \033[0m "<<mHp<<std::endl;
+    
     
     if(m2>= 450.0 && m2<1400.0) {
+                
+        //std::cout<<"\033[1;31m   stop1 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_bb_ATLAS13=bb_phi2_bb_TH13/ip_ex_bb_phi_bb_ATLAS13(m2);
         if(THoEX_bb_phi2_bb_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }                
     if(m3>= 450.0 && m3<1400.0){ 
+                        
+        //std::cout<<"\033[1;31m   stop2 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_bb_ATLAS13=bb_phi3_bb_TH13/ip_ex_bb_phi_bb_ATLAS13(m3);
         if(THoEX_bb_phi3_bb_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
@@ -6578,39 +6696,63 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     
     if(m2>= 400.0 && m2<1000.0) {
+                        
+        //std::cout<<"\033[1;31m   stop3 \033[0m "<<std::endl;
+        
         THoEX_tt_phi2_tt_ATLAS13=tt_phi2_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(m2);
         if(THoEX_tt_phi2_tt_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }                
     if(m3>= 400.0 && m3<1000.0){ 
+                        
+        //std::cout<<"\033[1;31m   stop4 \033[0m "<<std::endl;
+        
         THoEX_tt_phi3_tt_ATLAS13=tt_phi3_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(m3);
         if(THoEX_tt_phi3_tt_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
         
     if(m2>= 400.0 && m2<1000.0) {
+                        
+        //std::cout<<"\033[1;31m   stop5 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_tt_ATLAS13=bb_phi2_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(m2);  
         if(THoEX_bb_phi2_tt_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
         
     if(m3>= 400.0 && m3<1000.0){
-        THoEX_bb_phi3_tt_ATLAS13=bb_phi3_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(m3);   
-                if(THoEX_bb_phi3_tt_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
+                        
+        //std::cout<<"\033[1;31m   stop6 \033[0m "<<std::endl;
+        
+        THoEX_bb_phi3_tt_ATLAS13=bb_phi3_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(m3);  
+        if(THoEX_bb_phi3_tt_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
 
     }
         
     if(m2>= 100.0 && m2< 900.0) {
-        THoEX_bb_phi2_bb_CMS8=bb_phi2_bb_TH8/ip_ex_bb_phi_bb_CMS8(m2);    
+                        
+        //std::cout<<"\033[1;31m   stop7 \033[0m "<<std::endl;
+        
+        THoEX_bb_phi2_bb_CMS8=bb_phi2_bb_TH8/ip_ex_bb_phi_bb_CMS8(m2);   
         if(THoEX_bb_phi2_bb_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
 
     }
     if(m3>= 100.0 && m3< 900.0) {
+                        
+        //std::cout<<"\033[1;31m   stop8 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_bb_CMS8=bb_phi3_bb_TH8/ip_ex_bb_phi_bb_CMS8(m3);    
         if(THoEX_bb_phi3_bb_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m2>= 330.0 && m2<1200.0) {
+                        
+        //std::cout<<"\033[1;31m   stop9 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_bb_CMS8=gg_phi2_bb_TH8/ip_ex_gg_phi_bb_CMS8(m2);
         if(THoEX_gg_phi2_bb_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m3>= 330.0 && m3<1200.0) {
+                        
+        //std::cout<<"\033[1;31m   stop10 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_bb_CMS8=gg_phi3_bb_TH8/ip_ex_gg_phi_bb_CMS8(m3);
         if(THoEX_gg_phi3_bb_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
     }
@@ -6622,10 +6764,16 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     
     if(m2>= 350.0 && m2<650.0) {
+                                
+        //std::cout<<"\033[1;31m   stop11 \033[0m "<<std::endl;
+        
         THoEX_tt_phi2_tt_CMS13=tt_phi2_tt_TH13/ip_ex_tt_phi2_tt_CMS13(m2);
         if(THoEX_tt_phi2_tt_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m3>= 350.0 && m3<650.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop12 \033[0m "<<std::endl;
+        
         THoEX_tt_phi3_tt_CMS13=tt_phi3_tt_TH13/ip_ex_tt_phi3_tt_CMS13(m3); 
         if(THoEX_tt_phi3_tt_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
@@ -6638,10 +6786,16 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     
     if(m2>= 550.0 && m2<1200.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop13 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_bb_CMS13=pp_phi2_bb_TH13/ip_ex_pp_phi_bb_CMS13(m2);
         if(THoEX_pp_phi2_bb_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m3>= 550.0 && m3<1200.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop14 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_bb_CMS13=pp_phi3_bb_TH13/ip_ex_pp_phi_bb_CMS13(m3); 
         if(THoEX_pp_phi3_bb_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
@@ -6653,10 +6807,16 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     
     if(m2>= 50.0 && m2<350.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop15 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_bb_light_CMS13=pp_phi2_bb_TH13/ip_ex_pp_phi2_bb_light_CMS13(m2);
         if(THoEX_pp_phi2_bb_light_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m3>= 50.0 && m3<350.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop16 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_bb_light_CMS13=pp_phi3_bb_TH13/ip_ex_pp_phi3_bb_light_CMS13(m3); 
         if(THoEX_pp_phi3_bb_light_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
@@ -6670,10 +6830,16 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     
     if(m2>= 300.0 && m2<1300.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop17 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_bb_CMS13=bb_phi2_bb_TH13/ip_ex_bb_phi_bb_CMS13(m2);  
         if(THoEX_bb_phi2_bb_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();      
     }
     if(m3>= 300.0 && m3<1300.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop18 \033[0m "<<std::endl;
+        
        THoEX_bb_phi3_bb_CMS13=bb_phi3_bb_TH13/ip_ex_bb_phi_bb_CMS13(m3);  
         if(THoEX_bb_phi3_bb_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();      
     }
@@ -6688,20 +6854,32 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
      
     //1508.01437
     if(m2>=  120.0 && m2<500.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop19 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_mumu_CMS8=gg_phi2_mumu_TH8/ip_ex_gg_phi_mumu_CMS8(m2);   
         if(THoEX_gg_phi2_mumu_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>=  120.0 && m3<500.0) {
+                                        
+        //std::cout<<"\033[1;31m   stop20 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_mumu_CMS8=gg_phi3_mumu_TH8/ip_ex_gg_phi_mumu_CMS8(m3);     
         if(THoEX_gg_phi3_mumu_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
     
 
     if(m2>=  120.0 && m2<500.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop21 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_mumu_CMS8=bb_phi2_mumu_TH8/ip_ex_bb_phi_mumu_CMS8(m2);   
         if(THoEX_bb_phi2_mumu_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>=  120.0 && m3<500.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop22 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_mumu_CMS8=bb_phi3_mumu_TH8/ip_ex_bb_phi_mumu_CMS8(m3);     
         if(THoEX_bb_phi3_mumu_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
@@ -6719,20 +6897,32 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
      
     //1907.03152
     if(m2>=  140.0 && m2<1000.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop23 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_mumu_CMS13=gg_phi2_mumu_TH13/ip_ex_gg_phi_mumu_CMS13(m2);   
         if(THoEX_gg_phi2_mumu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>=  140.0 && m3<1000.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop24 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_mumu_CMS13=gg_phi3_mumu_TH13/ip_ex_gg_phi_mumu_CMS13(m3);     
         if(THoEX_gg_phi3_mumu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
     
 
     if(m2>=  140.0 && m2<1000.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop25 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_mumu_CMS13=bb_phi2_mumu_TH13/ip_ex_bb_phi_mumu_CMS13(m2);   
         if(THoEX_bb_phi2_mumu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>=  140.0 && m3<1000.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop26 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_mumu_CMS13=bb_phi3_mumu_TH13/ip_ex_bb_phi_mumu_CMS13(m3);     
         if(THoEX_bb_phi3_mumu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
@@ -6745,20 +6935,32 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     //1901.08144
     if(m2>=  200.0 && m2<1000.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop27 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_mumu_ATLAS13=gg_phi2_mumu_TH13/ip_ex_gg_phi_mumu_ATLAS13(m2);   
         if(THoEX_gg_phi2_mumu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>=  200.0 && m3<1000.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop28 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_mumu_ATLAS13=gg_phi3_mumu_TH13/ip_ex_gg_phi_mumu_ATLAS13(m3);     
         if(THoEX_gg_phi3_mumu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
     
 
     if(m2>=  200.0 && m2<1000.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop29 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_mumu_ATLAS13=bb_phi2_mumu_TH13/ip_ex_bb_phi_mumu_ATLAS13(m2);   
         if(THoEX_bb_phi2_mumu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>=  200.0 && m3<1000.0) {
+                                                
+        //std::cout<<"\033[1;31m   stop30 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_mumu_ATLAS13=bb_phi3_mumu_TH13/ip_ex_bb_phi_mumu_ATLAS13(m3);     
         if(THoEX_bb_phi3_mumu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
@@ -6769,85 +6971,148 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     
     
-    if(m2>=  90.0 && m2<1000.0) {
+    if(m2>=  90.0 && m2<1000.0) { //
+                                                        
+        //std::cout<<"\033[1;31m   stop31 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_tautau_ATLAS8=gg_phi2_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(m2);   
         if(THoEX_gg_phi2_tautau_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
-    if(m3>=  90.0 && m3<1000.0) {
+    if(m3>=  90.0 && m3<1000.0) { //
+                                                        
+        //std::cout<<"\033[1;31m   stop32 \033[0m "<<std::endl;
+                
         THoEX_gg_phi3_tautau_ATLAS8=gg_phi3_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(m3);   
         if(THoEX_gg_phi3_tautau_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
     if(m2>=  90.0 && m2<1000.0) {
+                                                        
+        //std::cout<<"\033[1;31m   stop33 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_tautau_CMS8=gg_phi2_tautau_TH8/ip_ex_gg_phi_tautau_CMS8(m2);   
         if(THoEX_gg_phi2_tautau_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>=  90.0 && m3<1000.0) {
+                                                        
+        //std::cout<<"\033[1;31m   stop34 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_tautau_CMS8=gg_phi3_tautau_TH8/ip_ex_gg_phi_tautau_CMS8(m3);     
         if(THoEX_gg_phi3_tautau_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
     if(m2>=  90.0 && m2<1000.0) {
+                                                        
+        //std::cout<<"\033[1;31m   stop35 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_tautau_ATLAS8=bb_phi2_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(m2);    
         if(THoEX_bb_phi2_tautau_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>=  90.0 && m3<1000.0) {
+                                                        
+        //std::cout<<"\033[1;31m   stop36 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_tautau_ATLAS8=bb_phi3_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(m3);    
         if(THoEX_bb_phi3_tautau_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();   
     }
     if(m2>=  90.0 && m2<1000.0) {
+                                                        
+        //std::cout<<"\033[1;31m   stop37 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_tautau_CMS8=bb_phi2_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(m2);     
         if(THoEX_bb_phi2_tautau_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();   
     }
     if(m3>=  90.0 && m3<1000.0) {
+                                                        
+        //std::cout<<"\033[1;31m   stop38 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_tautau_CMS8=bb_phi3_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(m3);    
         if(THoEX_bb_phi3_tautau_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
     if(m2>= 200.0 && m2<2250.0) {
+                                                        
+        //std::cout<<"\033[1;31m   stop39 \033[0m "<<std::endl;
+        
+        
+        
         THoEX_gg_phi2_tautau_ATLAS13=gg_phi2_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(m2);  
         if(THoEX_gg_phi2_tautau_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
         
         
     if(m3>= 200.0 && m3<2250.0) {
+                                                        
+        //std::cout<<"\033[1;31m   stop40 \033[0m "<<std::endl;
+        
+        
         THoEX_gg_phi3_tautau_ATLAS13=gg_phi3_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(m3);     
         if(THoEX_gg_phi3_tautau_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m2>=  90.0 && m2<3200.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop41 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_tautau_CMS13=gg_phi2_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(m2);    
         if(THoEX_gg_phi2_tautau_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
     if(m3>=  90.0 && m3<3200.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop42 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_tautau_CMS13=gg_phi3_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(m3);     
         if(THoEX_gg_phi3_tautau_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
     if(m2>= 200.0 && m2<2250.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop43 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_tautau_ATLAS13=bb_phi2_tautau_TH13/ip_ex_bb_phi_tautau_ATLAS13(m2);   
         if(THoEX_bb_phi2_tautau_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();      
     }
         
         
     if(m3>= 200.0 && m3<2250.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop44 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_tautau_ATLAS13=bb_phi3_tautau_TH13/ip_ex_bb_phi_tautau_ATLAS13(m3);    
         if(THoEX_bb_phi3_tautau_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();   
     }
     if(m2>=  60.0 && m2<3500.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop45 \033[0m "<<std::endl;
+        
         THoEX_bb_phi2_tautau_CMS13=bb_phi2_tautau_TH13/ip_ex_bb_phi_tautau_CMS13(m2);        
         if(THoEX_bb_phi2_tautau_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m3>=  60.0 && m3<3500.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop46 \033[0m "<<std::endl;
+        
         THoEX_bb_phi3_tautau_CMS13=bb_phi3_tautau_TH13/ip_ex_bb_phi_tautau_CMS13(m3);        
         if(THoEX_bb_phi3_tautau_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
         
         
     if(m2>=  65.0 && m2< 600.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop47 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_gaga_ATLAS8=gg_phi2_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(m2);        
         if(THoEX_gg_phi2_gaga_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m3>=  65.0 && m3< 600.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop48 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_gaga_ATLAS8=gg_phi3_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(m3);        
         if(THoEX_gg_phi3_gaga_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m2>= 160.0 && m2<3000.0) {
+                                                                
+        //std::cout<<"\033[1;31m   stop49 \033[0m "<<std::endl;
+        
+        
+        
+        
         THoEX_pp_phi2_gaga_ATLAS13=pp_phi2_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m2);     
         if(THoEX_pp_phi2_gaga_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
@@ -6855,170 +7120,269 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
 
     if(m3>= 160.0 && m3<3000.0)  
         {
+                                                                
+        //std::cout<<"\033[1;31m   stop50 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_gaga_ATLAS13=pp_phi3_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m3);   
         if(THoEX_pp_phi3_gaga_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m2>= 500.0 && m2<4000.0)     
         {
+                                                                        
+        //std::cout<<"\033[1;31m   stop51 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_gaga_CMS13=gg_phi2_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m2);        
         if(THoEX_gg_phi2_gaga_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m3>= 500.0 && m3<4000.0) 
         {
+                                                                        
+        //std::cout<<"\033[1;31m   stop52 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_gaga_CMS13=gg_phi3_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m3);     
         if(THoEX_gg_phi3_gaga_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
     if(m2>= 200.0 && m2<1600.0) 
         {
+                                                                                
+        //std::cout<<"\033[1;31m   stop53 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_Zga_llga_ATLAS8=pp_phi2_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m2);       
         if(THoEX_pp_phi2_Zga_llga_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
     }
         
     if(m3>= 200.0 && m3<1600.0) 
         {
+                                                                                
+        //std::cout<<"\033[1;31m   stop54 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_Zga_llga_ATLAS8=pp_phi3_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m3);     
         if(THoEX_pp_phi3_Zga_llga_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m2>= 200.0 && m2<1200.0) 
         {
+                                                                                
+        //std::cout<<"\033[1;31m   stop55 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_Zga_llga_CMS8=pp_phi2_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(m2);     
         if(THoEX_pp_phi2_Zga_llga_CMS8 >2) return std::numeric_limits<double>::quiet_NaN(); 
     }
     if(m3>= 200.0 && m3<1200.0) 
         {
+                                                                                
+        //std::cout<<"\033[1;31m   stop56 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_Zga_llga_CMS8=pp_phi3_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(m3);     
         if(THoEX_pp_phi3_Zga_llga_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
     if(m2>= 250.0 && m2<2400.0) 
         {
+                                                                                
+        //std::cout<<"\033[1;31m   stop57 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_Zga_llga_ATLAS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(m2);   
         if(THoEX_gg_phi2_Zga_llga_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();      
     }
     if(m3>= 250.0 && m3<2400.0) 
         {
+                                                                                
+        //std::cout<<"\033[1;31m   stop58 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_Zga_llga_ATLAS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(m3);   
         if(THoEX_gg_phi3_Zga_llga_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m2>=1000.0 && m2<6800.0) 
         {
+                                                                                
+        //std::cout<<"\033[1;31m   stop59 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_Zga_qqga_ATLAS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_qqga_ATLAS13(m2);     
         if(THoEX_gg_phi2_Zga_qqga_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
     if(m3>=1000.0 && m3<6800.0) 
         {
+                                                                                
+        //std::cout<<"\033[1;31m   stop60 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_Zga_qqga_ATLAS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_qqga_ATLAS13(m3);    
         if(THoEX_gg_phi3_Zga_qqga_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
         
     if(m2>= 350.0 && m2<4000.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop61 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_Zga_CMS13=gg_phi2_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(m2);      
         if(THoEX_gg_phi2_Zga_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
     if(m3>= 350.0 && m3<4000.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop62 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_Zga_CMS13=gg_phi3_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(m3);      
         if(THoEX_gg_phi3_Zga_CMS13>2) return std::numeric_limits<double>::quiet_NaN();  
     }
     if(m2>= 140.0 && m2<1000.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop63 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_ZZ_ATLAS8=gg_phi2_ZZ_TH8/ip_ex_gg_phi_ZZ_ATLAS8(m2);     
         if(THoEX_gg_phi2_ZZ_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
     if(m3>= 140.0 && m3<1000.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop64 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_ZZ_ATLAS8=gg_phi3_ZZ_TH8/ip_ex_gg_phi_ZZ_ATLAS8(m3);     
         if(THoEX_gg_phi3_ZZ_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
     if(m2>= 140.0 && m2<1000.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop65 \033[0m "<<std::endl;
+        
         THoEX_VV_phi2_ZZ_ATLAS8=VV_phi2_ZZ_TH8/ip_ex_VV_phi_ZZ_ATLAS8(m2);     
         if(THoEX_VV_phi2_ZZ_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();  
     }     
         
     if(m3>= 140.0 && m3<1000.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop66 \033[0m "<<std::endl;
+        
         THoEX_VV_phi3_ZZ_ATLAS8=VV_phi3_ZZ_TH8/ip_ex_VV_phi_ZZ_ATLAS8(m3);     
         if(THoEX_VV_phi3_ZZ_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();  
     }
-    if(m2>= 200.0 && m2<1200.0) 
+    if(m2>= 210.0 && m2<1200.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop67 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_ZZ_llllnunu_ATLAS13=gg_phi2_ZZ_TH13/ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(m2);   
         if(THoEX_gg_phi2_ZZ_llllnunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
-    if(m3>= 200.0 && m3<1200.0) 
+    if(m3>= 210.0 && m3<1200.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop68 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_ZZ_llllnunu_ATLAS13=gg_phi3_ZZ_TH13/ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(m3);   
         if(THoEX_gg_phi3_ZZ_llllnunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m2>= 210.0 && m2<2000.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop69 \033[0m "<<std::endl;
+        
         THoEX_VV_phi2_ZZ_llllnunu_ATLAS13=VV_phi2_ZZ_TH13/ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(m2);     
         if(THoEX_VV_phi2_ZZ_llllnunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();   
     }
     if(m3>= 210.0 && m3<2000.0) 
         {
+                                                                                        
+        //std::cout<<"\033[1;31m   stop70 \033[0m "<<std::endl;
+        
         THoEX_VV_phi3_ZZ_llllnunu_ATLAS13=VV_phi3_ZZ_TH13/ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(m3);    
         if(THoEX_VV_phi3_ZZ_llllnunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
     if(m2>= 300.0 && m2<3000.0) 
         {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop71 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_ZZ_qqllnunu_ATLAS13=gg_phi2_ZZ_TH13/ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(m2);    
         if(THoEX_gg_phi2_ZZ_qqllnunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();     
     }
     if(m3>= 300.0 && m3<3000.0) 
         {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop72 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_ZZ_qqllnunu_ATLAS13=gg_phi3_ZZ_TH13/ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(m3);    
         if(THoEX_gg_phi3_ZZ_qqllnunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();    
     }
     if(m2>= 300.0 && m2<3000.0) 
         {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop73 \033[0m "<<std::endl;
+        
         THoEX_VV_phi2_ZZ_qqllnunu_ATLAS13=VV_phi2_ZZ_TH13/ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(m2); 
         if(THoEX_VV_phi2_ZZ_qqllnunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     if(m3>= 300.0 && m3<3000.0) 
         {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop74 \033[0m "<<std::endl;
+        
         THoEX_VV_phi3_ZZ_qqllnunu_ATLAS13=VV_phi3_ZZ_TH13/ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(m3); 
         if(THoEX_VV_phi3_ZZ_qqllnunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
     }
     
     if(m2>= 130.0 && m2<3000.0)
          {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop75 \033[0m "<<std::endl;
+        
            THoEX_pp_phi2_ZZ_llqqnunull_CMS13=pp_phi2_ZZ_TH13/ip_ex_pp_phi_ZZ_llqqnunull_CMS13(m2);
            if(THoEX_pp_phi2_ZZ_llqqnunull_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 130.0 && m3<3000.0)
           {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop76 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_ZZ_llqqnunull_CMS13=pp_phi3_ZZ_TH13/ip_ex_pp_phi_ZZ_llqqnunull_CMS13(m3);
              if(THoEX_pp_phi3_ZZ_llqqnunull_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>=1000.0 && m2<4000.0)
             {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop77 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_ZZ_qqnunu_CMS13=pp_phi2_ZZ_TH13/ip_ex_pp_phi_ZZ_qqnunu_CMS13(m2);
              if(THoEX_pp_phi2_ZZ_qqnunu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>=1000.0 && m3<4000.0)
             {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop78 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_ZZ_qqnunu_CMS13=pp_phi3_ZZ_TH13/ip_ex_pp_phi_ZZ_qqnunu_CMS13(m3);
              if(THoEX_pp_phi3_ZZ_qqnunu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 300.0 && m2<1500.0)
             {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop79 \033[0m "<<std::endl;
+        
              THoEX_gg_phi2_WW_ATLAS8=gg_phi2_WW_TH8/ip_ex_gg_phi_WW_ATLAS8(m2);
              if(THoEX_gg_phi2_WW_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 300.0 && m3<1500.0)
             {
+                                                                                                
+        //std::cout<<"\033[1;31m   stop80 \033[0m "<<std::endl;
+        
              THoEX_gg_phi3_WW_ATLAS8=gg_phi3_WW_TH8/ip_ex_gg_phi_WW_ATLAS8(m3);
              if(THoEX_gg_phi3_WW_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }  
     if(m2>= 300.0 && m2<1500.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop81 \033[0m "<<std::endl;
+        
              THoEX_VV_phi2_WW_ATLAS8=VV_phi2_WW_TH8/ip_ex_VV_phi_WW_ATLAS8(m2);
              if(THoEX_VV_phi2_WW_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 300.0 && m3<1500.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop82 \033[0m "<<std::endl;
+        
              THoEX_VV_phi3_WW_ATLAS8=VV_phi3_WW_TH8/ip_ex_VV_phi_WW_ATLAS8(m3);
              if(THoEX_VV_phi3_WW_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
@@ -7027,21 +7391,33 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 200.0 && m2<3000.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop83 \033[0m "<<std::endl;
+        
              THoEX_VV_phi2_WW_CMS13=VV_phi2_WW_TH13/ip_ex_VV_phi_WW_CMS13(m2);
              if(THoEX_VV_phi2_WW_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 200.0 && m3<3000.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop84 \033[0m "<<std::endl;
+        
              THoEX_VV_phi3_WW_CMS13=VV_phi3_WW_TH13/ip_ex_VV_phi_WW_CMS13(m3);
              if(THoEX_VV_phi3_WW_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 200.0 && m2<3000.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop85 \033[0m "<<std::endl;
+        
              THoEX_gg_phi2_WW_CMS13=gg_phi2_WW_TH13/ip_ex_gg_phi_WW_CMS13(m2);
              if(THoEX_gg_phi2_WW_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 200.0 && m3<3000.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop86 \033[0m "<<std::endl;
+        
              THoEX_gg_phi3_WW_CMS13=gg_phi3_WW_TH13/ip_ex_gg_phi_WW_CMS13(m3);
              if(THoEX_gg_phi3_WW_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
@@ -7057,21 +7433,33 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 1000.0 && m2<4500.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop87 \033[0m "<<std::endl;
+        
              THoEX_VV_phi2_WW_heavy_CMS13=VV_phi2_WW_TH13/ip_ex_VV_phi_WW_heavy_CMS13(m2);
              if(THoEX_VV_phi2_WW_heavy_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 1000.0 && m3<4500.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop88 \033[0m "<<std::endl;
+        
              THoEX_VV_phi3_WW_heavy_CMS13=VV_phi3_WW_TH13/ip_ex_VV_phi_WW_heavy_CMS13(m3);
              if(THoEX_VV_phi3_WW_heavy_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 1000.0 && m2<4500.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop89 \033[0m "<<std::endl;
+        
              THoEX_gg_phi2_WW_heavy_CMS13=gg_phi2_WW_TH13/ip_ex_gg_phi_WW_heavy_CMS13(m2);
              if(THoEX_gg_phi2_WW_heavy_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 1000.0 && m3<4500.0)
             {
+                                                                                                        
+        //std::cout<<"\033[1;31m   stop90 \033[0m "<<std::endl;
+        
              THoEX_gg_phi3_WW_heavy_CMS13=gg_phi3_WW_TH13/ip_ex_gg_phi_WW_heavy_CMS13(m3);
              if(THoEX_gg_phi3_WW_heavy_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
@@ -7089,81 +7477,129 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 250.0 && m2<4000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop91 \033[0m "<<std::endl;
+        
              THoEX_gg_phi2_WW_enumunu_ATLAS13=gg_phi2_WW_TH13/ip_ex_gg_phi_WW_enumunu_ATLAS13(m2);
              if(THoEX_gg_phi2_WW_enumunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 250.0 && m3<4000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop92 \033[0m "<<std::endl;
+        
              THoEX_gg_phi3_WW_enumunu_ATLAS13=gg_phi3_WW_TH13/ip_ex_gg_phi_WW_enumunu_ATLAS13(m3);
              if(THoEX_gg_phi3_WW_enumunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 250.0 && m2<3000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop93 \033[0m "<<std::endl;
+        
              THoEX_VV_phi2_WW_enumunu_ATLAS13=VV_phi2_WW_TH13/ip_ex_VV_phi_WW_enumunu_ATLAS13(m2);
              if(THoEX_VV_phi2_WW_enumunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 250.0 && m3<3000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop94 \033[0m "<<std::endl;
+        
              THoEX_VV_phi3_WW_enumunu_ATLAS13=VV_phi3_WW_TH13/ip_ex_VV_phi_WW_enumunu_ATLAS13(m3);
              if(THoEX_VV_phi3_WW_enumunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 200.0 && m2<1000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop95 \033[0m "<<std::endl;
+        
              THoEX_ggVV_phi2_WW_lnulnu_CMS13=ggVV_phi2_WW_lnulnu_TH13/ip_ex_ggVV_phi_WW_lnulnu_CMS13(m2);
              if(THoEX_ggVV_phi2_WW_lnulnu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 200.0 && m3<1000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop96 \033[0m "<<std::endl;
+        
              THoEX_ggVV_phi3_WW_lnulnu_CMS13=ggVV_phi3_WW_lnulnu_TH13/ip_ex_ggVV_phi_WW_lnulnu_CMS13(m3);
              if(THoEX_ggVV_phi3_WW_lnulnu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 300.0 && m2<3000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop97 \033[0m "<<std::endl;
+        
              THoEX_gg_phi2_WW_lnuqq_ATLAS13=gg_phi2_WW_TH13/ip_ex_gg_phi_WW_lnuqq_ATLAS13(m2);
              if(THoEX_gg_phi2_WW_lnuqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 300.0 && m3<3000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop98 \033[0m "<<std::endl;
+        
              THoEX_gg_phi3_WW_lnuqq_ATLAS13=gg_phi3_WW_TH13/ip_ex_gg_phi_WW_lnuqq_ATLAS13(m3);
              if(THoEX_gg_phi3_WW_lnuqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 300.0 && m2<3000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop99 \033[0m "<<std::endl;
+        
              THoEX_VV_phi2_WW_lnuqq_ATLAS13=VV_phi2_WW_TH13/ip_ex_VV_phi_WW_lnuqq_ATLAS13(m2);
              if(THoEX_VV_phi2_WW_lnuqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 300.0 && m3<3000.0)
             {
+                                                                                                                
+        //std::cout<<"\033[1;31m   stop100 \033[0m "<<std::endl;
+        
              THoEX_VV_phi3_WW_lnuqq_ATLAS13=VV_phi3_WW_TH13/ip_ex_VV_phi_WW_lnuqq_ATLAS13(m3);
              if(THoEX_VV_phi3_WW_lnuqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>=1000.0 && m2<4400.0)
             {
+                                                                                                                        
+        //std::cout<<"\033[1;31m   stop101 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_WW_lnuqq_CMS13=pp_phi2_WW_TH13/ip_ex_pp_phi_WW_lnuqq_CMS13(m2);
              if(THoEX_pp_phi2_WW_lnuqq_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>=1000.0 && m3<4400.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop102 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_WW_lnuqq_CMS13=pp_phi3_WW_TH13/ip_ex_pp_phi_WW_lnuqq_CMS13(m3);
              if(THoEX_pp_phi3_WW_lnuqq_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 145.0 && m2<1000.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop103 \033[0m "<<std::endl;
+        
              THoEX_mu_pp_phi2_VV_CMS8=mu_pp_phi2_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(m2);
              if(THoEX_mu_pp_phi2_VV_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 145.0 && m3<1000.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop104 \033[0m "<<std::endl;
+        
              THoEX_mu_pp_phi3_VV_CMS8=mu_pp_phi3_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(m3);
              if(THoEX_mu_pp_phi3_VV_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>=1200.0 && m2<3000.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop105 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_VV_qqqq_ATLAS13=pp_phi2_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(m2);
              if(THoEX_pp_phi2_VV_qqqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>=1200.0 && m3<3000.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop106 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_VV_qqqq_ATLAS13=pp_phi3_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(m3);
              if(THoEX_pp_phi3_VV_qqqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
@@ -7174,11 +7610,17 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>=300.0 && m2<5000.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop107 \033[0m "<<std::endl;
+        
              THoEX_gg_phi2_VV_llqq_ATLAS13=gg_phi2_VV_TH13/ip_ex_gg_phi_VV_llqq_ATLAS13(m2);
              if(THoEX_gg_phi2_VV_llqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>=300.0 && m3<5000.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop108 \033[0m "<<std::endl;
+        
              THoEX_gg_phi3_VV_llqq_ATLAS13=gg_phi3_VV_TH13/ip_ex_gg_phi_VV_llqq_ATLAS13(m3);
              if(THoEX_gg_phi3_VV_llqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
@@ -7186,11 +7628,17 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>=300.0 && m2<5000.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop109 \033[0m "<<std::endl;
+        
              THoEX_VV_phi2_VV_llqq_ATLAS13=VV_phi2_VV_TH13/ip_ex_VV_phi_VV_llqq_ATLAS13(m2);
              if(THoEX_VV_phi2_VV_llqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>=300.0 && m3<5000.0)
             {
+                                                                                                                                
+        //std::cout<<"\033[1;31m   stop110 \033[0m "<<std::endl;
+        
              THoEX_VV_phi3_VV_llqq_ATLAS13=VV_phi3_VV_TH13/ip_ex_VV_phi_VV_llqq_ATLAS13(m3);
              if(THoEX_VV_phi3_VV_llqq_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
@@ -7201,101 +7649,161 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 260.0 && m2<1000.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop111 \033[0m "<<std::endl;
+        
              THoEX_gg_phi2_phi1phi1_ATLAS8=gg_phi2_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m2);
              if(THoEX_gg_phi2_phi1phi1_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }   
     if(m3>= 260.0 && m3<1000.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop112 \033[0m "<<std::endl;
+        
              THoEX_gg_phi3_phi1phi1_ATLAS8=gg_phi3_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m3);
              if(THoEX_gg_phi3_phi1phi1_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 270.0 && m2<1100.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop113 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_phi1phi1_bbbb_CMS8=pp_phi2_phi1phi1_bbbb_TH8/ip_ex_pp_phi_phi1phi1_bbbb_CMS8(m2);
              if(THoEX_pp_phi2_phi1phi1_bbbb_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 270.0 && m3<1100.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop114 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_phi1phi1_bbbb_CMS8=pp_phi3_phi1phi1_bbbb_TH8/ip_ex_pp_phi_phi1phi1_bbbb_CMS8(m3);
              if(THoEX_pp_phi3_phi1phi1_bbbb_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 260.0 && m2<1100.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop115 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_phi1phi1_bbgaga_CMS8=pp_phi2_phi1phi1_bbgaga_TH8/ip_ex_pp_phi_phi1phi1_bbgaga_CMS8(m2);
              if(THoEX_pp_phi2_phi1phi1_bbgaga_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 260.0 && m3<1100.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop116 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_phi1phi1_bbgaga_CMS8=pp_phi3_phi1phi1_bbgaga_TH8/ip_ex_pp_phi_phi1phi1_bbgaga_CMS8(m3);
              if(THoEX_pp_phi3_phi1phi1_bbgaga_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 260.0 && m2< 350.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop117 \033[0m "<<std::endl;
+        
              THoEX_gg_phi2_phi1phi1_bbtautau_CMS8=gg_phi2_phi1phi1_bbtautau_TH8/ip_ex_gg_phi_phi1phi1_bbtautau_CMS8(m2);
              if(THoEX_gg_phi2_phi1phi1_bbtautau_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 260.0 && m3< 350.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop118 \033[0m "<<std::endl;
+        
              THoEX_gg_phi3_phi1phi1_bbtautau_CMS8=gg_phi3_phi1phi1_bbtautau_TH8/ip_ex_gg_phi_phi1phi1_bbtautau_CMS8(m3);
              if(THoEX_gg_phi3_phi1phi1_bbtautau_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 350.0 && m2<1000.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop119 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_phi1phi1_bbtautau_CMS8=pp_phi2_phi1phi1_TH8/ip_ex_pp_phi_phi1phi1_bbtautau_CMS8(m2);
              if(THoEX_pp_phi2_phi1phi1_bbtautau_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 350.0 && m3<1000.0)
             {
+                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop120 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_phi1phi1_bbtautau_CMS8=pp_phi3_phi1phi1_TH8/ip_ex_pp_phi_phi1phi1_bbtautau_CMS8(m3);
              if(THoEX_pp_phi3_phi1phi1_bbtautau_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 250.0 && m2<3000.0)
             {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop121 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 250.0 && m3<3000.0)
             {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop122 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_phi1phi1_bbbb_ATLAS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbbb_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 260.0 && m2<1200.0)
             {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop123 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_phi1phi1_bbbb_1_CMS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_1_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbbb_1_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 260.0 && m3<1200.0)
             {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop124 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_phi1phi1_bbbb_1_CMS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_1_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbbb_1_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>=1000.0 && m2<3000.0)
             {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop125 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>=1000.0 && m3<3000.0)
             {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop126 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 251.0 && m2<1000.0)
             {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop127 \033[0m "<<std::endl;
+        
              THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13=pp_phi2_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 251.0 && m3<1000.0)
             {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop128 \033[0m "<<std::endl;
+        
              THoEX_pp_phi3_phi1phi1_bbgaga_ATLAS13=pp_phi3_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbgaga_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 250.0 && m2< 900.0) 
         {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop129 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbgaga_CMS13=pp_phi2_phi1phi1_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(m2);
          if(THoEX_pp_phi2_phi1phi1_bbgaga_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 250.0 && m3< 900.0) 
         {
+                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop130 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbgaga_CMS13=pp_phi3_phi1phi1_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(m3);
         if(THoEX_pp_phi3_phi1phi1_bbgaga_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
@@ -7314,52 +7822,82 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     /////////
     if(m2>= 251.0 && m2<1600.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop131 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbtautau_1_ATLAS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_ATLAS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbtautau_1_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 251.0 && m3<1600.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop132 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbtautau_1_ATLAS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_ATLAS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbtautau_1_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m2>= 1000.0 && m2<3000.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop133 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbtautau_2_ATLAS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_ATLAS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbtautau_2_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 1000.0 && m3<3000.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop134 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbtautau_2_ATLAS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_ATLAS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbtautau_2_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     /////////
     if(m2>= 250.0 && m2< 900.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop135 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbtautau_1_CMS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbtautau_1_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 250.0 && m3< 900.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop136 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbtautau_1_CMS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbtautau_1_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m2>= 900.0 && m2<4000.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop137 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13=pp_phi2_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 900.0 && m3<4000.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop138 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13=pp_phi3_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m2>= 260.0 && m2< 900.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop139 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbVV_CMS13=pp_phi2_phi1phi1_bbVV_TH13/ip_ex_pp_phi_phi1phi1_bbVV_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbVV_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 260.0 && m3< 900.0) 
         {
+                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop140 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbVV_CMS13=pp_phi3_phi1phi1_bbVV_TH13/ip_ex_pp_phi_phi1phi1_bbVV_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbVV_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         } 
@@ -7367,11 +7905,17 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 250.0 && m2< 1000.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop141 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_4WOr2W2tauOr4tau_CMS13=pp_phi2_phi1phi1_4WOr2W2tauOr4tau_TH13/ip_ex_pp_phi_phi1phi1_4WOr2W2tauOr4tau_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_4WOr2W2tauOr4tau_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 250.0 && m3< 1000.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop142 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_4WOr2W2tauOr4tau_CMS13=pp_phi3_phi1phi1_4WOr2W2tauOr4tau_TH13/ip_ex_pp_phi_phi1phi1_4WOr2W2tauOr4tau_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_4WOr2W2tauOr4tau_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         } 
@@ -7380,11 +7924,17 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 800.0 && m2< 3500.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop143 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbWW_qqlnu_CMS13=pp_phi2_phi1phi1_bbWW_qqlnu_TH13/ip_ex_pp_phi_phi1phi1_bbWW_qqlnu_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbWW_qqlnu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 800.0 && m3< 3500.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop144 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbWW_qqlnu_CMS13=pp_phi3_phi1phi1_bbWW_qqlnu_TH13/ip_ex_pp_phi_phi1phi1_bbWW_qqlnu_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbWW_qqlnu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         } 
@@ -7396,21 +7946,33 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 260.0 && m2< 1000.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop145 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbZZ_lljj_CMS13=pp_phi2_phi1phi1_bbZZ_lljj_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbZZ_lljj_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 260.0 && m3< 1000.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop146 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbZZ_lljj_CMS13=pp_phi3_phi1phi1_bbZZ_lljj_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbZZ_lljj_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         } 
     if(m2>= 250.0 && m2< 1000.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop147 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbZZ_llnunu_CMS13=pp_phi2_phi1phi1_bbZZ_llnunu_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbZZ_llnunu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 250.0 && m3< 1000.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop148 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbZZ_llnunu_CMS13=pp_phi3_phi1phi1_bbZZ_llnunu_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbZZ_llnunu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         } 
@@ -7422,11 +7984,17 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 800.0 && m2< 4500.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop149 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13=pp_phi2_phi1phi1_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 800.0 && m3< 4500.0) 
         {
+                                                                                                                                                                
+        //std::cout<<"\033[1;31m   stop150 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbWWorbbtautau_CMS13=pp_phi3_phi1phi1_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbWWorbbtautau_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
         } 
@@ -7435,101 +8003,161 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 500.0 && m2< 3000.0) 
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop151 \033[0m "<<std::endl;
+        
         THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13=pp_phi2_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m2);
              if(THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 500.0 && m3< 3000.0) 
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop152 \033[0m "<<std::endl;
+        
         THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13=pp_phi3_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }  
     if(m2>= 260.0 && m2< 500.0)  
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop153 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_phi1phi1_gagaWW_ATLAS13=gg_phi2_phi1phi1_gagaWW_TH13/ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(m2);
          if(THoEX_gg_phi2_phi1phi1_gagaWW_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 260.0 && m3< 500.0)  
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop154 \033[0m "<<std::endl;
+        
         THoEX_gg_phi3_phi1phi1_gagaWW_ATLAS13=gg_phi3_phi1phi1_gagaWW_TH13/ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(m3);
          if(THoEX_gg_phi3_phi1phi1_gagaWW_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m2>= 220.0 && m2<1000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop155 \033[0m "<<std::endl;
+        
         THoEX_gg_phi2_phi1Z_bbZ_ATLAS8=gg_phi2_phi1Z_bbZ_TH8/ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(m2);
         if(THoEX_gg_phi2_phi1Z_bbZ_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 220.0 && m3<1000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop156 \033[0m "<<std::endl;
+        
          THoEX_gg_phi3_phi1Z_bbZ_ATLAS8=gg_phi3_phi1Z_bbZ_TH8/ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(m3);
          if(THoEX_gg_phi3_phi1Z_bbZ_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 225.0 && m2< 600.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop157 \033[0m "<<std::endl;
+        
          THoEX_gg_phi2_phi1Z_bbll_CMS8=gg_phi2_phi1Z_bbll_TH8/ip_ex_gg_phi_phi1Z_bbll_CMS8(m2);
         if(THoEX_gg_phi2_phi1Z_bbll_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 225.0 && m3< 600.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop158 \033[0m "<<std::endl;
+        
          THoEX_gg_phi3_phi1Z_bbll_CMS8=gg_phi3_phi1Z_bbll_TH8/ip_ex_gg_phi_phi1Z_bbll_CMS8(m3);
          if(THoEX_gg_phi3_phi1Z_bbll_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 220.0 && m2<1000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop159 \033[0m "<<std::endl;
+        
          THoEX_gg_phi2_phi1Z_tautauZ_ATLAS8=gg_phi2_phi1Z_tautauZ_TH8/ip_ex_gg_phi_phi1Z_tautauZ_ATLAS8(m2);
          if(THoEX_gg_phi2_phi1Z_tautauZ_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 220.0 && m3<1000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop160 \033[0m "<<std::endl;
+        
          THoEX_gg_phi3_phi1Z_tautauZ_ATLAS8=gg_phi3_phi1Z_tautauZ_TH8/ip_ex_gg_phi_phi1Z_tautauZ_ATLAS8(m3);
          if(THoEX_gg_phi3_phi1Z_tautauZ_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 220.0 && m2< 350.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop161 \033[0m "<<std::endl;
+        
          THoEX_gg_phi2_phi1Z_tautaull_CMS8=gg_phi2_phi1Z_tautaull_TH8/ip_ex_gg_phi_phi1Z_tautaull_CMS8(m2);
          if(THoEX_gg_phi2_phi1Z_tautaull_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 220.0 && m3< 350.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop162 \033[0m "<<std::endl;
+        
          THoEX_gg_phi3_phi1Z_tautaull_CMS8=gg_phi3_phi1Z_tautaull_TH8/ip_ex_gg_phi_phi1Z_tautaull_CMS8(m3);
          if(THoEX_gg_phi3_phi1Z_tautaull_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 200.0 && m2<2000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop163 \033[0m "<<std::endl;
+        
          THoEX_gg_phi2_phi1Z_bbZ_ATLAS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m2);
          if(THoEX_gg_phi2_phi1Z_bbZ_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 200.0 && m3<2000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop164 \033[0m "<<std::endl;
+        
          THoEX_gg_phi3_phi1Z_bbZ_ATLAS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m3);
          if(THoEX_gg_phi3_phi1Z_bbZ_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 220.0 && m2< 800.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop165 \033[0m "<<std::endl;
+        
          THoEX_gg_phi2_phi1Z_bbZ_1_CMS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(m2);
          if(THoEX_gg_phi2_phi1Z_bbZ_1_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 220.0 && m3< 800.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop166 \033[0m "<<std::endl;
+        
          THoEX_gg_phi3_phi1Z_bbZ_1_CMS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(m3);
          if(THoEX_gg_phi3_phi1Z_bbZ_1_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 800.0 && m2<2000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop167 \033[0m "<<std::endl;
+        
          THoEX_gg_phi2_phi1Z_bbZ_2_CMS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(m2);
          if(THoEX_gg_phi2_phi1Z_bbZ_2_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 800.0 && m3<2000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop168 \033[0m "<<std::endl;
+        
          THoEX_gg_phi3_phi1Z_bbZ_2_CMS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(m3);
          if(THoEX_gg_phi3_phi1Z_bbZ_2_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 200.0 && m2<2000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop169 \033[0m "<<std::endl;
+        
          THoEX_bb_phi2_phi1Z_bbZ_ATLAS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m2);
          if(THoEX_bb_phi2_phi1Z_bbZ_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 200.0 && m3<2000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop170 \033[0m "<<std::endl;
+        
          THoEX_bb_phi3_phi1Z_bbZ_ATLAS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m3);
          if(THoEX_bb_phi3_phi1Z_bbZ_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
@@ -7540,11 +8168,17 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 220.0 && m2<400.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop171 \033[0m "<<std::endl;
+        
          THoEX_gg_phi2_phi1Z_tautaull_ATLAS13=gg_phi2_phi1Z_tautaull_TH13/ip_ex_gg_phi_phi1Z_tautaull_ATLAS13(m2);
          if(THoEX_gg_phi2_phi1Z_tautaull_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 220.0 && m3<400.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop172 \033[0m "<<std::endl;
+        
          THoEX_gg_phi3_phi1Z_tautaull_ATLAS13=gg_phi3_phi1Z_tautaull_TH13/ip_ex_gg_phi_phi1Z_tautaull_ATLAS13(m3);
          if(THoEX_gg_phi3_phi1Z_tautaull_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
@@ -7556,115 +8190,240 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     if(m2>= 220.0 && m2< 800.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop173 \033[0m "<<std::endl;
+        
          THoEX_bb_phi2_phi1Z_bbZ_1_CMS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(m2);
          if(THoEX_bb_phi2_phi1Z_bbZ_1_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 220.0 && m3< 800.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop174 \033[0m "<<std::endl;
+        
          THoEX_bb_phi3_phi1Z_bbZ_1_CMS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(m3);
          if(THoEX_bb_phi3_phi1Z_bbZ_1_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 800.0 && m2<2000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop175 \033[0m "<<std::endl;
+        
          THoEX_bb_phi2_phi1Z_bbZ_2_CMS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_2_CMS13(m2);
          if(THoEX_bb_phi2_phi1Z_bbZ_2_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 800.0 && m3<2000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop176 \033[0m "<<std::endl;
+        
          THoEX_bb_phi3_phi1Z_bbZ_2_CMS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_2_CMS13(m3);
          if(THoEX_bb_phi3_phi1Z_bbZ_2_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m3>= 175.0 && m3<1000.0 && m2 >=50.0 && m2 <910.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop177 \033[0m "<<std::endl;
+        
          THoEX_pp_phi3_phi2Z_bbll_1_CMS8=pp_phi3_phi2Z_bbll_TH8/ip_ex_pp_phii_phijZ_bbll_1_CMS8(m3,m2);
          if(THoEX_pp_phi3_phi2Z_bbll_1_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          } //mA=m3, mH=m2
     if(m2>= 175.0 && m2<1000.0 && m3 >=50.0 && m3 <910.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop178 \033[0m "<<std::endl;
+        
          THoEX_pp_phi2_phi3Z_bbll_1_CMS8=pp_phi2_phi3Z_bbll_TH8/ip_ex_pp_phii_phijZ_bbll_1_CMS8(m2,m3);
          if(THoEX_pp_phi2_phi3Z_bbll_1_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          } //mA=m3, mH=m2
     if(m3>=  50.0 && m3<1000.0 && m2 >=50.0 && m2 <1000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop179 \033[0m "<<std::endl;
+        
          THoEX_pp_phi3_phi2Z_tautaull_1_CMS8=pp_phi3_phi2Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_1_CMS8(m3,m2);
          if(THoEX_pp_phi3_phi2Z_tautaull_1_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          } //mA=m3, mH=m2
     if(m2>=  50.0 && m2<1000.0 && m3 >=50.0 && m3 <1000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop180 \033[0m "<<std::endl;
+        
          THoEX_pp_phi2_phi3Z_tautaull_1_CMS8=pp_phi2_phi3Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_1_CMS8(m2,m3);
          if(THoEX_pp_phi2_phi3Z_tautaull_1_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          } //mA=m3, mH=m2
     if(m3>=  50.0 && m3<1000.0 && m2 >=50.0 && m2 <1000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop181 \033[0m "<<std::endl;
+        
          THoEX_pp_phi3_phi2Z_tautaull_2_CMS8=pp_phi3_phi2Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_2_CMS8(m2,m3);
          if(THoEX_pp_phi2_phi3Z_tautaull_1_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          } //mA=m2, mH=m3
     if(m2>=  50.0 && m2<1000.0 && m3 >=50.0 && m3 <1000.0)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop182 \033[0m "<<std::endl;
+        
          THoEX_pp_phi2_phi3Z_tautaull_2_CMS8=pp_phi2_phi3Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_2_CMS8(m3,m2);
          if(THoEX_pp_phi2_phi3Z_tautaull_2_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
          } //mA=m2, mH=m3
-    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0)
+    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0 && m2-m3>=100)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop183 \033[0m "<<std::endl;
+        
+        
          THoEX_gg_phi3_phi2Z_bbZ_ATLAS13=gg_phi3_phi2Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2);
          if(THoEX_gg_phi3_phi2Z_bbZ_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
-    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0)
+    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0 && m3-m2>=100)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop184 \033[0m "<<std::endl;
+        
+        
+        
+        
          THoEX_gg_phi2_phi3Z_bbZ_ATLAS13=gg_phi2_phi3Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m2,m3);
          if(THoEX_gg_phi2_phi3Z_bbZ_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
-    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0)
+    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0 && m2-m3>=100)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop185 \033[0m "<<std::endl;
+        
          THoEX_bb_phi3_phi2Z_bbZ_ATLAS13=bb_phi3_phi2Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m3,m2);
          if(THoEX_bb_phi3_phi2Z_bbZ_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
-    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0)
+    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0 && m3-m2>=100)
         {
+                                                                                                                                                                        
+        //std::cout<<"\033[1;31m   stop186 \033[0m "<<std::endl;
+        
          THoEX_bb_phi2_phi3Z_bbZ_ATLAS13=bb_phi2_phi3Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m2,m3);
          if(THoEX_bb_phi2_phi3Z_bbZ_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
          }
     if(mHp>= 180.0 && mHp<1000.0)
         {
+              
+        //////if(THoEX_pp_Hpm_taunu_ATLAS8 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hpm_taunu_ATLAS8 = \033[0m "<< THoEX_pp_Hpm_taunu_ATLAS8 <<std::endl;
+        
+        //std::cout<<"\033[1;31m   THoEX_pp_Hpm_taunu_ATLAS8 = \033[0m "<< THoEX_pp_Hpm_taunu_ATLAS8 <<std::endl;
+        
+        
         THoEX_pp_Hpm_taunu_ATLAS8=pp_Hpm_taunu_TH8/ip_ex_pp_Hpm_taunu_ATLAS8(mHp);
-        if(THoEX_pp_Hpm_taunu_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
+        if(THoEX_pp_Hpm_taunu_ATLAS8 >1000) return std::numeric_limits<double>::quiet_NaN();
          }
         
     if(mHp>= 180.0 && mHp< 600.0)
         {
+                                                                                                                                                                        
+        //////std::cout<<"\033[1;31m   stop188 \033[0m "<<std::endl;
+        
+        
+        //////if(THoEX_pp_Hp_taunu_CMS8 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hp_taunu_CMS8 = \033[0m "<< THoEX_pp_Hp_taunu_CMS8 <<std::endl;
+        //std::cout<<"\033[1;31m   THoEX_pp_Hp_taunu_CMS8 = \033[0m "<< THoEX_pp_Hp_taunu_CMS8 <<std::endl;
+        
+        
+        
         THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mHp);
         
-        if(THoEX_pp_Hp_taunu_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
+        if(THoEX_pp_Hp_taunu_CMS8 >1000) return std::numeric_limits<double>::quiet_NaN();
          }
     if(mHp>= 180.0 && mHp<2000.0)//exp can start in 150 GeV but theoretical no, we should compute more points there
         {
+                                                                                                                                                                        
+        //////std::cout<<"\033[1;31m   stop189 \033[0m "<<std::endl;
+        
+        //////if(THoEX_pp_Hpm_taunu_ATLAS13 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hpm_taunu_ATLAS13 = \033[0m "<< THoEX_pp_Hpm_taunu_ATLAS13 <<std::endl;
+        //std::cout<<"\033[1;31m   THoEX_pp_Hpm_taunu_ATLAS13 = \033[0m "<< THoEX_pp_Hpm_taunu_ATLAS13 <<std::endl;
+        
+        
+        
+        
+        
         THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mHp);
-        if(THoEX_pp_Hpm_taunu_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
+        if(THoEX_pp_Hpm_taunu_ATLAS13 >1000) return std::numeric_limits<double>::quiet_NaN();
          }
     if(mHp>= 180.0 && mHp<3000.0)//exp can start in 80 GeV but theoretical no, we should compute more points there
         {
+                                                                                                                                                                        
+        //////std::cout<<"\033[1;31m   stop190 \033[0m "<<std::endl;
+        
+        //if(THoEX_pp_Hpm_taunu_CMS13 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hpm_taunu_CMS13 = \033[0m "<< THoEX_pp_Hpm_taunu_CMS13 <<std::endl;
+        
+        //std::cout<<"\033[1;31m   THoEX_pp_Hpm_taunu_CMS13 = \033[0m "<< THoEX_pp_Hpm_taunu_CMS13 <<std::endl;
+
+        
+        
         THoEX_pp_Hpm_taunu_CMS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_CMS13(mHp);
-        if(THoEX_pp_Hpm_taunu_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
+        if(THoEX_pp_Hpm_taunu_CMS13 >1000) return std::numeric_limits<double>::quiet_NaN();
          }
     if(mHp>= 200.0 && mHp< 600.0)
         {
+                                                                                                                                                                        
+        //////std::cout<<"\033[1;31m   stop191 \033[0m "<<std::endl;
+        
+        //////if(THoEX_pp_Hpm_tb_ATLAS8 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_ATLAS8 = \033[0m "<< THoEX_pp_Hpm_tb_ATLAS8 <<std::endl;
+
+        //std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_ATLAS8 = \033[0m "<< THoEX_pp_Hpm_tb_ATLAS8 <<std::endl;
+
+        
+        
         THoEX_pp_Hpm_tb_ATLAS8=pp_Hpm_tb_TH8/ip_ex_pp_Hpm_tb_ATLAS8(mHp);
-        if(THoEX_pp_Hpm_tb_ATLAS8 >2) return std::numeric_limits<double>::quiet_NaN();
+        if(THoEX_pp_Hpm_tb_ATLAS8 >1000) return std::numeric_limits<double>::quiet_NaN();
          }
     if(mHp>= 180.0 && mHp< 600.0)
         {
+                                                                                                                                                                        
+        ////////std::cout<<"\033[1;31m   stop192 \033[0m "<<std::endl;
+        
+        ////////if(THoEX_pp_Hp_tb_CMS8 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hp_tb_CMS8 = \033[0m "<< THoEX_pp_Hp_tb_CMS8 <<std::endl;
+
+        //std::cout<<"\033[1;31m   THoEX_pp_Hp_tb_CMS8 = \033[0m "<< THoEX_pp_Hp_tb_CMS8 <<std::endl;
+
+        
         THoEX_pp_Hp_tb_CMS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
-        if(THoEX_pp_Hp_tb_CMS8 >2) return std::numeric_limits<double>::quiet_NaN();
+        if(THoEX_pp_Hp_tb_CMS8 >1000) return std::numeric_limits<double>::quiet_NaN();
          }
     if(mHp>= 200.0 && mHp<2000.0)
         {
+                                                                                                                                                                        
+        ////////std::cout<<"\033[1;31m   stop193 \033[0m "<<std::endl;
+        
+        ////////if(THoEX_pp_Hpm_tb_ATLAS13 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_ATLAS13 = \033[0m "<< THoEX_pp_Hpm_tb_ATLAS13 <<std::endl;
+
+        //std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_ATLAS13 = \033[0m "<< THoEX_pp_Hpm_tb_ATLAS13 <<std::endl;
+
+        
         THoEX_pp_Hpm_tb_ATLAS13=pp_Hpm_tb_TH13/ip_ex_pp_Hpm_tb_ATLAS13(mHp);
-        if(THoEX_pp_Hpm_tb_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
+        if(THoEX_pp_Hpm_tb_ATLAS13 >1000) return std::numeric_limits<double>::quiet_NaN();
          }
     if(mHp>= 200.0 && mHp<3000.0)
         {
+                                                                                                                                                                        
+        ////////std::cout<<"\033[1;31m   stop194 \033[0m "<<std::endl;
+        
+        ////////if(THoEX_pp_Hpm_tb_CMS13 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_CMS13 = \033[0m "<< THoEX_pp_Hpm_tb_CMS13 <<std::endl;
+
+        //std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_CMS13 = \033[0m "<< THoEX_pp_Hpm_tb_CMS13 <<std::endl;
+        
+        
+        
+        
+        //std::cout<<"\033[1;31m   GammaHptot = \033[0m "<< GammaHptot <<std::endl;
+        //std::cout<<"\033[1;31m   GammaHptb = \033[0m "<< GammaHptb <<std::endl;
+        //std::cout<<"\033[1;32m   Br_Hptotb = \033[0m "<< Br_Hptotb <<std::endl;
+        //std::cout<<"\033[1;32m   SigmaHpm13 = \033[0m "<< SigmaHpm13 <<std::endl;
+        //std::cout<<"\033[1;31m   pp_Hpm_tb_TH13 = \033[0m "<< pp_Hpm_tb_TH13 <<std::endl;
+        //std::cout<<"\033[1;31m   ip_ex_pp_Hpm_tb_CMS13(mHp) = \033[0m "<< ip_ex_pp_Hpm_tb_CMS13(mHp) <<std::endl;
+        //std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_CMS13 = \033[0m "<< THoEX_pp_Hpm_tb_CMS13 <<std::endl;
+        
+        
+        
         THoEX_pp_Hpm_tb_CMS13=pp_Hpm_tb_TH13/ip_ex_pp_Hpm_tb_CMS13(mHp);
-        if(THoEX_pp_Hpm_tb_CMS13 >2) return std::numeric_limits<double>::quiet_NaN();
+        if(THoEX_pp_Hpm_tb_CMS13 >1000) return std::numeric_limits<double>::quiet_NaN();
          }
     return 0.;
 }
@@ -7886,17 +8645,25 @@ double GeneralTHDMcache::updateCache()
     lambda1   = (-2.0*(M11_2-M22_2+M33_2) + Relambda5*vev*vev
                  - (2.0*M22_2-2.0*M33_2+Relambda5*vev*vev)/(cosb*cosb)
                  + (4.0*M12_2-2.0*Relambda6*vev*vev)*tanb)/(vev*vev);
-
+    
+    //std::cout<<"\033[1;33m lambda1 = \033[0m "<< lambda1 <<std::endl;
+    
     lambda2   = (-2.0*(M11_2-M22_2+M33_2) + Relambda5*vev*vev
                  - (2.0*M22_2-2.0*M33_2+Relambda5*vev*vev)/(sinb*sinb)
                  - (4.0*M12_2+2.0*Relambda7*vev*vev)/tanb)/(vev*vev);
-
+    
+    //std::cout<<"\033[1;33m lambda2 = \033[0m "<< lambda2 <<std::endl;
+    
     lambda3   = -(2.0*(M11_2-M22_2-M33_2-mHp2) + Relambda5*vev*vev
                   + (2.0*M12_2+Relambda6*vev*vev)/tanb
                   - (2.0*M12_2-Relambda7*vev*vev)*tanb)/(vev*vev);
-
+    
+    //std::cout<<"\033[1;33m lambda3 = \033[0m "<< lambda3 <<std::endl;
+    
     lambda4   = Relambda5 - (2.0*mHp2+4.0*M33_2)/(vev*vev);
-
+    
+    //std::cout<<"\033[1;33m lambda4 = \033[0m "<< lambda4 <<std::endl;
+    
     Imlambda6 = (2.0*M13_2-(2.0*M23_2+0.5*Imlambda5*vev*vev)*tanb)/(vev*vev);
 
     Imlambda7 = 2.0*M13_2/(vev*vev) + (-0.5*Imlambda5+(2.0*M23_2)/(vev*vev))/tanb;

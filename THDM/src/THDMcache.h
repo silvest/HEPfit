@@ -3026,7 +3026,7 @@ public:
     double pp_H_hh_bblnulnu_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$*/
 
     double pp_H_hh_bbVV_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}[H\to hh\to b\bar b VV(\ell\ell \nu\nu)]@f$*/
-
+    
     double ttF_H_tt_TH13; /**< Cross section times branching ratio for the process @f$t\bar t\to H\to t\bar t@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{t\bar t\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$*/
 
     double bbF_H_tt_TH13; /**< Cross section times branching ratio for the process @f$b\bar b\to H\to t\bar t@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$*/
