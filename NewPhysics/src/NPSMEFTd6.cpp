@@ -26225,8 +26225,37 @@ double NPSMEFTd6::AuxObs_NP22() const
 
 double NPSMEFTd6::AuxObs_NP23() const
 {
-    // To be used for some temporary observable
-    return 0.0;
+    // LHC FB asymmetry in Drell Yan. We use the results in Eq. (4.11) from
+    // arXiv: 2103.12074 [hep-ph] to construct the linear SMEFT chi square
+
+    double xpEFT, ypEFT, zpEFT, tpEFT;
+    double Chi2Tot;
+    
+    double dgZuL, dgZuR, dgZdL, dgZdR;
+    
+    dgZuL = deltaGL_f(quarks[UP]);
+    dgZuR = deltaGR_f(quarks[UP]);
+    dgZdL = deltaGL_f(quarks[DOWN]);
+    dgZdR = deltaGR_f(quarks[DOWN]);
+    
+    xpEFT = 0.21 * dgZuL + 0.19 * dgZuR + 0.46 * dgZdL + 0.84 * dgZdR;
+    ypEFT = 0.03 * dgZuL - 0.07 * dgZuR - 0.87 * dgZdL + 0.49 * dgZdR;
+    zpEFT = 0.83 * dgZuL - 0.54 * dgZuR + 0.02 * dgZdL - 0.10 * dgZdR;
+    tpEFT = 0.51 * dgZuL + 0.82 * dgZuR - 0.17 * dgZdL - 0.22 * dgZdR;
+    
+    // Substract the central values
+    xpEFT = xpEFT + 10.;
+    xpEFT = xpEFT - 0.5;
+    xpEFT = xpEFT - 0.04;
+    xpEFT = xpEFT + 0.001;
+    
+
+    // Add the different (uncorrelated) contributions to the chi square
+    Chi2Tot = xpEFT*xpEFT/4./4. + ypEFT*ypEFT/0.4/0.4 
+            + zpEFT*zpEFT/0.06/0.06 + tpEFT*tpEFT/0.005/0.005;
+    
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 
 }
 
