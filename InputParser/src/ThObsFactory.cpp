@@ -3928,6 +3928,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Vtd"] = bind(boost::factory<VCKM*>(), _1, 3, 1);
     obsThFactory["Vts"] = bind(boost::factory<VCKM*>(), _1, 3, 2);
     obsThFactory["Vtb"] = bind(boost::factory<VCKM*>(), _1, 3, 3);
+    obsThFactory["argVud"] = bind(boost::factory<VCKM*>(), _1, 1, 1, 1);
+    obsThFactory["argVus"] = bind(boost::factory<VCKM*>(), _1, 1, 2, 1);
+    obsThFactory["argVub"] = bind(boost::factory<VCKM*>(), _1, 1, 3, 1);
+    obsThFactory["argVcd"] = bind(boost::factory<VCKM*>(), _1, 2, 1, 1);
+    obsThFactory["argVcs"] = bind(boost::factory<VCKM*>(), _1, 2, 2, 1);
+    obsThFactory["argVcb"] = bind(boost::factory<VCKM*>(), _1, 2, 3, 1);
+    obsThFactory["argVtd"] = bind(boost::factory<VCKM*>(), _1, 3, 1, 1);
+    obsThFactory["argVts"] = bind(boost::factory<VCKM*>(), _1, 3, 2, 1);
+    obsThFactory["argVtb"] = bind(boost::factory<VCKM*>(), _1, 3, 3, 1);
     obsThFactory["CKM_alpha"] = boost::factory<CKM_Alpha*>();
     obsThFactory["CKM_gamma"] = boost::factory<CKM_Gamma*>();
     obsThFactory["CKM_beta"] = boost::factory<CKM_Beta*>();

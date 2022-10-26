@@ -8,14 +8,15 @@
 #include "VCKM.h"
 #include "StandardModel.h"
 
-VCKM::VCKM(const StandardModel& SM_i, unsigned int obsFlag_1, unsigned int obsFlag_2) 
+VCKM::VCKM(const StandardModel& SM_i, unsigned int obsFlag_1, unsigned int obsFlag_2, unsigned int obsFlag_3) 
 : ThObservable(SM_i) 
 {
-    if (obsFlag_1 > 0 && obsFlag_1 < 4 && obsFlag_2 > 0 && obsFlag_2 < 4) {
+    if (obsFlag_1 > 0 && obsFlag_1 < 4 && obsFlag_2 > 0 && obsFlag_2 < 4 && obsFlag_3 < 2) {
         obs_1 = obsFlag_1;
         obs_2 = obsFlag_2;
+        obs_3 = obsFlag_3;
     }
-    else throw std::runtime_error("obsFlag in CKM(myFlavour, obsFlag_1, obsFlag_1) called from ThFactory::ThFactory() can only be 1 - 3 corresponding to the CKM matrix");
+    else throw std::runtime_error("obsFlag_1,2 in CKM(myFlavour, obsFlag_1, obsFlag_2, obsFlag_3) called from ThFactory::ThFactory() can only be 1 - 3 corresponding to the CKM matrix; obsFlag_3 can only be 0 - 1 corresponding to abs or arg ");
 }
 
 VCKM::~VCKM() 
@@ -23,17 +24,30 @@ VCKM::~VCKM()
 
 double VCKM::computeThValue() 
 { 
-    
-    if (obs_1 == 1 && obs_2 == 1) return(SM.getCKM().getV_ud().abs());
-    if (obs_1 == 1 && obs_2 == 2) return(SM.getCKM().getV_us().abs());
-    if (obs_1 == 1 && obs_2 == 3) return(SM.getCKM().getV_ub().abs());
-    if (obs_1 == 2 && obs_2 == 1) return(SM.getCKM().getV_cd().abs());
-    if (obs_1 == 2 && obs_2 == 2) return(SM.getCKM().getV_cs().abs());
-    if (obs_1 == 2 && obs_2 == 3) return(SM.getCKM().getV_cb().abs());
-    if (obs_1 == 3 && obs_2 == 1) return(SM.getCKM().getV_td().abs());
-    if (obs_1 == 3 && obs_2 == 2) return(SM.getCKM().getV_ts().abs());
-    if (obs_1 == 3 && obs_2 == 3) return(SM.getCKM().getV_tb().abs());
-    else throw std::runtime_error("obsFlag in CKM(myFlavour, obsFlag_1, obsFlag_1) called from ThFactory::ThFactory() can only be 1 - 3 corresponding to the CKM matrix");
+    if (obs_3 == 0) {
+        if (obs_1 == 1 && obs_2 == 1) return(SM.getCKM().getV_ud().abs());
+        if (obs_1 == 1 && obs_2 == 2) return(SM.getCKM().getV_us().abs());
+        if (obs_1 == 1 && obs_2 == 3) return(SM.getCKM().getV_ub().abs());
+        if (obs_1 == 2 && obs_2 == 1) return(SM.getCKM().getV_cd().abs());
+        if (obs_1 == 2 && obs_2 == 2) return(SM.getCKM().getV_cs().abs());
+        if (obs_1 == 2 && obs_2 == 3) return(SM.getCKM().getV_cb().abs());
+        if (obs_1 == 3 && obs_2 == 1) return(SM.getCKM().getV_td().abs());
+        if (obs_1 == 3 && obs_2 == 2) return(SM.getCKM().getV_ts().abs());
+        if (obs_1 == 3 && obs_2 == 3) return(SM.getCKM().getV_tb().abs());
+        else throw std::runtime_error("obsFlag in CKM(myFlavour, obsFlag_1, obsFlag_1) called from ThFactory::ThFactory() can only be 1 - 3 corresponding to the CKM matrix");
+    }
+    else {
+        if (obs_1 == 1 && obs_2 == 1) return(SM.getCKM().getV_ud().arg());
+        if (obs_1 == 1 && obs_2 == 2) return(SM.getCKM().getV_us().arg());
+        if (obs_1 == 1 && obs_2 == 3) return(SM.getCKM().getV_ub().arg());
+        if (obs_1 == 2 && obs_2 == 1) return(SM.getCKM().getV_cd().arg());
+        if (obs_1 == 2 && obs_2 == 2) return(SM.getCKM().getV_cs().arg());
+        if (obs_1 == 2 && obs_2 == 3) return(SM.getCKM().getV_cb().arg());
+        if (obs_1 == 3 && obs_2 == 1) return(SM.getCKM().getV_td().arg());
+        if (obs_1 == 3 && obs_2 == 2) return(SM.getCKM().getV_ts().arg());
+        if (obs_1 == 3 && obs_2 == 3) return(SM.getCKM().getV_tb().arg());
+        else throw std::runtime_error("obsFlag in CKM(myFlavour, obsFlag_1, obsFlag_1) called from ThFactory::ThFactory() can only be 1 - 3 corresponding to the CKM matrix");
+    }
 }
 
 Abslam_t::Abslam_t(const StandardModel& SM_i)

@@ -26,7 +26,7 @@ public:
      * @param[in] obsFlag_1 the first index of the CKM element
      * @param[in] obsFlag_2 the second index of the CKM element
      */
-    VCKM(const StandardModel& SM_i, unsigned int obsFlag_1,  unsigned int obsFlag_2);
+    VCKM(const StandardModel& SM_i, unsigned int obsFlag_1,  unsigned int obsFlag_2, unsigned int obsFlag_3 = 0);
     
     /**
      * @brief Destructor.
@@ -41,6 +41,7 @@ public:
 private:
     unsigned int obs_1;
     unsigned int obs_2;
+    unsigned int obs_3;
         
 };
 
