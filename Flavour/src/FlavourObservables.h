@@ -11,6 +11,8 @@
 #include "Flavour.h"
 #include "DmBd.h"
 #include "DmBs.h"
+#include "BBd.h"
+#include "FBd.h"
 #include "VCKM.h"
 #include "alpha.h"
 #include "alpha_2a.h"

@@ -3885,6 +3885,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DmBd"] = boost::factory<DmBd*>();
     obsThFactory["DmBs"] = boost::factory<DmBs*>();
     obsThFactory["RmBs"] = boost::factory<RmBs*>();
+    obsThFactory["BBd"] = boost::factory<BBd*>();
+    obsThFactory["FBd"] = boost::factory<FBd*>();
     obsThFactory["alpha"] = boost::factory<Alpha*>();
     obsThFactory["alpha_2a"] = boost::factory<Alpha_2a*>();
     obsThFactory["SJPsiK"] = boost::factory<SJPsiK*>();
