@@ -120,41 +120,14 @@ GeneralTHDM::~GeneralTHDM(){
 bool GeneralTHDM::InitializeModel()
 {
     myGTHDMcache = new GeneralTHDMcache(*this);
-    setModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     setModelGeneralTHDM();
-    return(true);
-}
-
-bool GeneralTHDM::Init(const std::map<std::string, double>& DPars) {
-    return(StandardModel::Init(DPars));
-}
-
-bool GeneralTHDM::PreUpdate()
-{
-    if(!StandardModel::PreUpdate()) return (false);
-
-    return (true);
-}
-
-bool GeneralTHDM::Update(const std::map<std::string, double>& DPars) {
-
-    if(!PreUpdate()) return (false);
-
-    UpdateError = false;
-
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-
-    if (UpdateError) return (false);
-
-    if(!PostUpdate()) return (false);
-
-    return (true);
+    return(IsModelInitialized());
 }
 
 bool GeneralTHDM::PostUpdate()
 {
-    if(!StandardModel::PostUpdate()) return (false);
+    if(!NPbase::PostUpdate()) return (false);
 
     myGTHDMcache->updateCache();
 
@@ -383,7 +356,7 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
     else if(name.compare("NLOuniscaleGTHDM") == 0)
         NLOuniscaleGTHDM = value;
     else
-        StandardModel::setParameter(name,value);
+        NPbase::setParameter(name,value);
 }
 
 bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
@@ -394,7 +367,7 @@ bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
             addMissingModelParameter(GeneralTHDMvars[i]);
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -474,7 +447,7 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
         res = true;  
     }
     else
-        res = StandardModel::setFlag(name,value);
+        res = NPbase::setFlag(name,value);
 
     return(res);
 }
@@ -716,6 +689,5 @@ double GeneralTHDM::muppHZga(const double sqrt_s) const
 }
 
 double GeneralTHDM::Mw() const{
-    double MZ = StandardModel::Mz;
-    return ( MZ / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * StandardModel::ale / (sqrt(2.0) * StandardModel::GF * MZ* MZ))));
+    return (Mw_tree());
 }
