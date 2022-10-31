@@ -391,7 +391,7 @@ bool GeneralTHDM::setFlagStr(const std::string name, const std::string value)
     }
     else
     {
-        res = StandardModel::setFlagStr(name,value);
+        res = NPbase::setFlagStr(name,value);
     }
 
     return(res);

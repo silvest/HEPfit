@@ -489,25 +489,6 @@ public:
      */
     virtual bool InitializeModel();
     
-    /**
-     * @brief Initializes the %GeneralTHDM parameters found in the argument.
-     * @param[in] DPars a map containing the parameters (all as double) to be used in Monte Carlo
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
-    
-    /**
-     * @brief The pre-update method for %GeneralTHDM
-     * @return a boolean that is true if the execution is successful
-     */
-    virtual bool PreUpdate();
-    
-    /**
-     * @brief The update method for %GeneralTHDM.
-     * @details This method updates all the model parameters with given DPars.
-     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
-     * @return a boolean that is true if the execution is successful
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
     
     /**
      * @brief The post-update method for %GeneralTHDM.
