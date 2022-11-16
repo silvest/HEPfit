@@ -3908,6 +3908,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["EpsilonP_O_Epsilon_ReA2LAT"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 3);
     obsThFactory["EpsilonP_O_Epsilon"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 4);
     obsThFactory["EpsilonP_O_Epsilon_pureLAT"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 5);
+    obsThFactory["EpsilonP_O_Epsilon_ImA0"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 6);
+    obsThFactory["EpsilonP_O_Epsilon_ImA0LAT"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 7);
+    obsThFactory["EpsilonP_O_Epsilon_ImA2"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 8);
     obsThFactory["EpsilonP_O_Epsilon_TH"] = boost::factory<EpsilonP_O_Epsilon_TH*>();
     // 1.3 GeV --> scale as in Table 5 of 1909.05610
     obsThFactory["EpsilonP_O_Epsilon_z1"] = bind(boost::factory<WC_epspOeps*>(), _1, 0, 1.3);
