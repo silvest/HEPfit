@@ -2784,7 +2784,7 @@ public:
     double M33_2;
 
     //Remaining parameters of the generic potential depending on the input parameters
-    double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda2,lambda3,lambda4,Imlambda6,Imlambda7;
+    double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda2,lambda3,lambda4,Imlambda6,Imlambda7;//THIS IS WRONG NOW
     
     //Parameters of the Higgs potential depending on the input parameters
     double m11sqH,m22sqH,Rem12sqH,Imm12sqH,lambda1H,lambda2H,lambda3H,lambda4H,Relambda5H,Imlambda5H,Relambda6H,Imlambda6H,Relambda7H,Imlambda7H;
@@ -2818,7 +2818,7 @@ public:
 
     gslpp::matrix<gslpp::complex> Mu_GTHDM, Md_GTHDM, Ml_GTHDM;
     gslpp::matrix<gslpp::complex> Nu_GTHDM, Nd_GTHDM, Nl_GTHDM;
-    gslpp::matrix<gslpp::complex> Yu1_GTHDM, Yu2_GTHDM, Yd1_GTHDM, Yd2_GTHDM, Yl1_GTHDM, Yl2_GTHDM;
+    //gslpp::matrix<gslpp::complex> Yu1_GTHDM, Yu2_GTHDM, Yd1_GTHDM, Yd2_GTHDM, Yl1_GTHDM, Yl2_GTHDM; //No sense for this model
     
     gslpp::complex su, sd, sl; //These are the couplings used at the end, forget about sigmau_ATHDM which seem to be wrongly defined...
 
@@ -2857,11 +2857,12 @@ private:
 
     double mHl;
     double vev;
-    double tanb;
-    double cosb;
-    double sinb;
+    //double tanb; These parameters doesn't make sense in this model
+    //double cosb;
+    //double sinb;
     double cosa1;
     double sina1;
+    double tana1;
     double cosa2;
     double sina2;
     double cosa3;

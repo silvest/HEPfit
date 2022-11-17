@@ -4966,25 +4966,25 @@ ThObsFactory::ThObsFactory()
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
     //-----  GeneralTHDM observables  -----
-    obsThFactory["mH1"] = boost::factory<mH1_GTHDM*>();
-    obsThFactory["mH2"] = boost::factory<mH2_GTHDM*>();
-    obsThFactory["mH3"] = boost::factory<mH3_GTHDM*>();
-    obsThFactory["m1_2"] = boost::factory<m1_2*>();
-    obsThFactory["m2_2"] = boost::factory<m2_2*>();
+    //obsThFactory["mH1"] = boost::factory<mH1_GTHDM*>();  //We have the map, no need of this
+    //obsThFactory["mH2"] = boost::factory<mH2_GTHDM*>();  //We have the map, no need of this
+    //obsThFactory["mH3"] = boost::factory<mH3_GTHDM*>();  //We have the map, no need of this
+    obsThFactory["m1_2"] = boost::factory<m1_2*>();  //This seems to make sense for the case in which the NP Higgs is not the light one
+    obsThFactory["m2_2"] = boost::factory<m2_2*>();  //Let's keep it for the moment but probably useless...
     obsThFactory["m3_2"] = boost::factory<m3_2*>();
     obsThFactory["mHlight"] = boost::factory<mHlight_GTHDM*>();
     obsThFactory["mHmedium"] = boost::factory<mHmedium_GTHDM*>();
     obsThFactory["mHheavy"] = boost::factory<mHheavy_GTHDM*>();
-    obsThFactory["mHp_GTHDM"] = boost::factory<mHp_GTHDM*>();
+    //obsThFactory["mHp_GTHDM"] = boost::factory<mHp_GTHDM*>();  //We have the map, no need of this
     obsThFactory["mH3mmH2"] = boost::factory<mH3mmH2_GTHDM*>();
     obsThFactory["mH3mmHp"] = boost::factory<mH3mmHp_GTHDM*>();
     obsThFactory["mH3mmH1"] = boost::factory<mH3mmH1_GTHDM*>();
     obsThFactory["mH2mmHp"] = boost::factory<mH2mmHp_GTHDM*>();
     obsThFactory["mH2mmH1"] = boost::factory<mH2mmH1_GTHDM*>();
     obsThFactory["mHpmmH1"] = boost::factory<mHpmmH1_GTHDM*>();
-    obsThFactory["mH1sq"] = boost::factory<mH1sq_GTHDM*>();
-    obsThFactory["mH2sq"] = boost::factory<mH2sq_GTHDM*>();
-    obsThFactory["mH3sq"] = boost::factory<mH3sq_GTHDM*>();
+    //obsThFactory["mH1sq"] = boost::factory<mH1sq_GTHDM*>();  //We have the map, no need of this
+    //obsThFactory["mH2sq"] = boost::factory<mH2sq_GTHDM*>();  //We have the map, no need of this
+    //obsThFactory["mH3sq"] = boost::factory<mH3sq_GTHDM*>();  //We have the map, no need of this
     obsThFactory["Msq11"] = boost::factory<Msq11_GTHDM*>();
     obsThFactory["Msq12"] = boost::factory<Msq12_GTHDM*>();
     obsThFactory["Msq13"] = boost::factory<Msq13_GTHDM*>();
@@ -4996,24 +4996,24 @@ ThObsFactory::ThObsFactory()
     obsThFactory["m22_2_GTHDM"] = boost::factory<m22_2_GTHDM*>();
     obsThFactory["Rem12_2_GTHDM"] = boost::factory<Rem12_2_GTHDM*>();
     obsThFactory["Imm12_2_GTHDM"] = boost::factory<Imm12_2_GTHDM*>();
-    obsThFactory["lambda1_GTHDM"] = boost::factory<lambda1_GTHDM*>();
-    obsThFactory["lambda2_GTHDM"] = boost::factory<lambda2_GTHDM*>();
-    obsThFactory["lambda3_GTHDM"] = boost::factory<lambda3_GTHDM*>();
-    obsThFactory["lambda4_GTHDM"] = boost::factory<lambda4_GTHDM*>();
-    obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();
-    obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>();
-    obsThFactory["tanbeta"] = boost::factory<tanbeta_GTHDM*>();
+    //obsThFactory["lambda1_GTHDM"] = boost::factory<lambda1_GTHDM*>();
+    //obsThFactory["lambda2_GTHDM"] = boost::factory<lambda2_GTHDM*>();
+    //obsThFactory["lambda3_GTHDM"] = boost::factory<lambda3_GTHDM*>();
+    //obsThFactory["lambda4_GTHDM"] = boost::factory<lambda4_GTHDM*>();
+    //obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();//v1 is the SM vev, I remove this observable
+    //obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>(); //This doesn't make sense in this model
+    //obsThFactory["tanbeta"] = boost::factory<tanbeta_GTHDM*>();//This doesn't make sense in this model
 
-    obsThFactory["lambda1H_GTHDM"] = boost::factory<lambda1H_GTHDM*>();
-    obsThFactory["lambda2H_GTHDM"] = boost::factory<lambda2H_GTHDM*>();
-    obsThFactory["lambda3H_GTHDM"] = boost::factory<lambda3H_GTHDM*>();
-    obsThFactory["lambda4H_GTHDM"] = boost::factory<lambda4H_GTHDM*>();
-    obsThFactory["Relambda5H_GTHDM"] = boost::factory<Relambda5H_GTHDM*>();
-    obsThFactory["Imlambda5H_GTHDM"] = boost::factory<Imlambda5H_GTHDM*>();
-    obsThFactory["Relambda6H_GTHDM"] = boost::factory<Relambda6H_GTHDM*>();
-    obsThFactory["Imlambda6H_GTHDM"] = boost::factory<Imlambda6H_GTHDM*>();
-    obsThFactory["Relambda7H_GTHDM"] = boost::factory<Relambda7H_GTHDM*>();
-    obsThFactory["Imlambda7H_GTHDM"] = boost::factory<Imlambda7H_GTHDM*>();
+    //obsThFactory["lambda1H_GTHDM"] = boost::factory<lambda1H_GTHDM*>();
+    //obsThFactory["lambda2H_GTHDM"] = boost::factory<lambda2H_GTHDM*>();
+    //obsThFactory["lambda3H_GTHDM"] = boost::factory<lambda3H_GTHDM*>();
+    //obsThFactory["lambda4H_GTHDM"] = boost::factory<lambda4H_GTHDM*>();
+    //obsThFactory["Relambda5H_GTHDM"] = boost::factory<Relambda5H_GTHDM*>();
+    //obsThFactory["Imlambda5H_GTHDM"] = boost::factory<Imlambda5H_GTHDM*>();
+    //obsThFactory["Relambda6H_GTHDM"] = boost::factory<Relambda6H_GTHDM*>();
+    //obsThFactory["Imlambda6H_GTHDM"] = boost::factory<Imlambda6H_GTHDM*>();
+    //obsThFactory["Relambda7H_GTHDM"] = boost::factory<Relambda7H_GTHDM*>();
+    //obsThFactory["Imlambda7H_GTHDM"] = boost::factory<Imlambda7H_GTHDM*>();
 
 
     obsThFactory["R11"]= boost::factory<R11_GTHDM*>();

@@ -468,7 +468,8 @@ class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
 class GeneralTHDM: public NPbase {
 public:
 
-    static const int NGeneralTHDMvars = 68;
+
+    static const int NGeneralTHDMvars = 66;
     static std::string GeneralTHDMvars[NGeneralTHDMvars];
 
     /**
@@ -558,33 +559,33 @@ public:
      * @brief A getter for @f$\log_{10}(\tan \beta)@f$
      * @return @f$\log_{10}(\tan \beta)@f$
      */
-    double getlogtb() const {
-        return logtb;
-    }
+    //double getlogtb() const {
+    //    return logtb;
+    //}
 
     /**
      * @brief A getter for @f$\tan \beta@f$
      * @return @f$\tan \beta@f$
      */
-    double gettanb() const {
-        return tanb;
-    }
+    //double gettanb() const {
+    //    return tanb;
+    //}
 
     /**
      * @brief A getter for @f$\sin \beta@f$
      * @return @f$\sin \beta@f$
      */
-    double getsinb() const {
-        return sinb;
-    }
+    //double getsinb() const {
+    //    return sinb;
+    //}
 
     /**
      * @brief A getter for @f$\cos \beta@f$
      * @return @f$\cos \beta@f$
      */
-    double getcosb() const {
-        return cosb;
-    }
+    //double getcosb() const {
+    //    return cosb;
+    //}
 
     /**
      *
@@ -623,6 +624,25 @@ public:
     }
 
 
+    /**
+     * @brief A getter for first neutral mass eigenvalue (The SM Higgs)
+     * @return First neutral mass eigenvalue
+     */
+    double getmH1sq() const {
+        if(flag_use_sq_masses) {
+             if(mH1sq < 0.) {
+                throw std::runtime_error("error in GeneralTHDM: mH1sq < 0!");
+            }
+                return mH1sq;
+            }
+         else
+        {
+            return mH1*mH1;
+        }
+    }
+    
+    
+    
     /**
      * @brief A getter for second neutral mass eigenvalue
      * @return Second neutral mass eigenvalue
@@ -680,7 +700,16 @@ public:
     double getsinalpha1() const {
         return sinalpha1;
     }
-
+    
+    /**
+     * @brief A getter for tan of the rotation angle between the first and second neutral mass eigenstate
+     * @return tan of the rotation angle between the first and second neutral mass eigenstate
+     */
+    double gettanalpha1() const {
+        return tanalpha1;
+    }
+    
+    
     /**
      * @brief A getter for the rotation angle between the first and third neutral mass eigenstate
      * @return rotation angle between the first and third neutral mass eigenstate
@@ -758,7 +787,42 @@ public:
             return sinalpha3;
         }
     }
-
+    
+    
+    /**
+     * @brief A getter for the Higgs potential parameter @f$lambda_{2}@f$
+     * @return Higgs potential parameter @f$lambda_{2}@f$
+     */
+    double getlambda1() const {
+        return lambda1;
+    }
+    
+    
+    /**
+     * @brief A getter for the Higgs potential parameter @f$lambda_{2}@f$
+     * @return Higgs potential parameter @f$lambda_{2}@f$
+     */
+    double getlambda2() const {
+        return lambda2;
+    }
+    
+    
+    /**
+     * @brief A getter for the Higgs potential parameter @f$lambda_{3}@f$
+     * @return Higgs potential parameter @f$lambda_{3}@f$
+     */
+    double getlambda3() const {
+        return lambda3;
+    }
+    
+    /**
+     * @brief A getter for the Real part of the Higgs potential parameter @f$lambda_{5}@f$
+     * @return Real part of the Higgs potential parameter @f$lambda_{5}@f$
+     */
+    double getlambda4() const {
+        return lambda4;
+    }
+    
     /**
      * @brief A getter for the Real part of the Higgs potential parameter @f$lambda_{5}@f$
      * @return Real part of the Higgs potential parameter @f$lambda_{5}@f$
@@ -788,6 +852,20 @@ public:
         return Relambda6;
     }
 
+    
+    /**
+     * @brief A getter for the Imaginary part of the Higgs potential parameter @f$lambda_{5}@f$
+     * @return Imaginary part of the Higgs potential parameter @f$lambda_{5}@f$
+     */
+    double getImlambda6() const {
+        if(flag_CPconservation==true) {
+            return 0.0;
+        }
+        else {
+            return Imlambda6;
+        }
+    }
+    
     /**
      * @brief A getter for the Real part of the Higgs potential parameter @f$lambda_{7}@f$
      * @return Real part of the Higgs potential parameter @f$lambda_{7}@f$
@@ -1372,8 +1450,11 @@ private:
 
     GeneralTHDMcache* myGTHDMcache;
 
-    double logtb, tanb, sinb, cosb, mHp2, mH2sq, mH3sq, mHp1, mH21, mH31, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
-            alpha3, cosalpha3, sinalpha3, Relambda5, Imlambda5, Relambda6, Relambda7,
+    //Let's define here all the parameters of the model, including those who are linearly dependent
+    //We'll also set all the parameters in the setParameter functions in such a way that we can use the formulae written in terms of any parameter
+    //These parameters are private but used in the inherited classes, think a bit about if this is the best way of including them
+    double /*logtb, tanb, sinb, cosb,*/mH1sq, mHp2, mH2sq, mH3sq, mH1, mHp1, mH21, mH31, alpha1, cosalpha1, sinalpha1, tanalpha1, alpha2, cosalpha2, sinalpha2,
+            alpha3, cosalpha3, sinalpha3, mu2, lambda1, lambda2, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7,//we can trade one of the Im by the Im of lambda7
             yu1R_GTHDM, yd1R_GTHDM, yl1R_GTHDM, 
             Nu_11r, Nu_11i, Nu_12r, Nu_12i, Nu_13r, Nu_13i, 
             Nu_21r, Nu_21i, Nu_22r, Nu_22i, Nu_23r, Nu_23i, 
