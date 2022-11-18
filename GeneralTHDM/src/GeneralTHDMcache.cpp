@@ -2658,6 +2658,7 @@ double GeneralTHDMcache::ip_cs_ggtoHp_13(double mHp, double logtb){
         double newResult = 0.0;
         if (mHp>=180. && mHp <=2000. && logtb>=-1. && logtb<=1.75) {
             newResult = pow(10.0,interpolate2D(log_cs_ggHp_13, logtb, mHp));
+            
         }
         CacheShiftReal(ip_cs_ggtoHp_13_cache, NumPar, params, newResult);
         return newResult;
@@ -6000,22 +6001,23 @@ double GeneralTHDMcache::computeHpquantities()
      
      
     //In order to compute the xsection we use the xsections generated in the table log_cs_ggtoHp_8
-    //such a table is generated for the type II mode, basically we take the value for tanb=0 and
+    //such a table is generated for the type II mode, basically we take the value for tanb=1 and
     //then we rescale with the coupling of the top-quark, there should be a residual dependence on 
     //the coupling to the bottom-quarks which we neglect since it should be proportional to the bottom
     //quark (and the one included to the top quark)
     SigmaHp8=0.0;
     SigmaHpm13=0.0;
-    if(su.abs2()!=0){
+    
         //std::cout<<"\033[1;32m SigmaHp8 = \033[0m "<<SigmaHp8<<std::endl;
         //std::cout<<"\033[1;32m ip_cs_ggtoHp_8(mHp,0.0) = \033[0m "<<ip_cs_ggtoHp_8(mHp,0.0)<<std::endl;
         //std::cout<<"\033[1;32m su.abs2() = \033[0m "<<su.abs2()<<std::endl;
         
-        SigmaHp8=ip_cs_ggtoHp_8(mHp,0.0)/su.abs2();
-        SigmaHpm13=ip_cs_ggtoHp_13(mHp,0.0)/su.abs2();
-        //std::cout<<"\033[1;32m SigmaHp8 = \033[0m "<<SigmaHp8<<std::endl;
-        //std::cout<<"\033[1;32m SigmaHpm13 = \033[0m "<<SigmaHpm13<<std::endl;
-    }
+    SigmaHp8=ip_cs_ggtoHp_8(mHp,0.0)*su.abs2();
+    SigmaHpm13=ip_cs_ggtoHp_13(mHp,0.0)*su.abs2();
+    //std::cout<<"\033[1;32m su.abs2() = \033[0m "<<su.abs2()<<std::endl;
+    //std::cout<<"\033[1;32m SigmaHp8 = \033[0m "<<SigmaHp8<<std::endl;
+    //std::cout<<"\033[1;32m SigmaHpm13 = \033[0m "<<SigmaHpm13<<std::endl;
+   
              
     double GammaHptaunu=HSTheta(mHp-Mtau)*(Mtau2*(mHp2-Mtau2)*(mHp2-Mtau2)*sl.abs2())/(8.0*mHp*mHp2*M_PI*vev*vev);
     
@@ -6721,7 +6723,7 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     
     //std::cout<<"\033[1;34m SigmaHp8 = \033[0m "<<SigmaHp8<<std::endl;
     //std::cout<<"\033[1;34m Br_Hptotaunu = \033[0m "<<Br_Hptotaunu<<std::endl;
-    
+        
     pp_Hpm_taunu_TH8=2.0*SigmaHp8*Br_Hptotaunu;
     pp_Hp_taunu_TH8=SigmaHp8*Br_Hptotaunu;
     pp_Hpm_taunu_TH13=2.0*SigmaHpm13*Br_Hptotaunu;
@@ -6729,6 +6731,8 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     pp_Hp_tb_TH8=SigmaHp8*Br_Hptotb;
     pp_Hpm_tb_TH13=2.0*SigmaHpm13*Br_Hptotb;
     
+    //std::cout<<"\033[1;34m SigmaHp8 = \033[0m "<<SigmaHp8<<std::endl;
+    //std::cout<<"\033[1;34m pp_Hpm_tb_TH13 = \033[0m "<<pp_Hpm_tb_TH13<<std::endl;
     
     //std::cout<<"mHp = "<<mHp<<std::endl;
     //std::cout<<"ip_ex_pp_Hpm_taunu_CMS13(100) = "<<ip_ex_pp_Hpm_taunu_CMS13(100)<<std::endl;
@@ -8512,9 +8516,13 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
         ////////if(THoEX_pp_Hpm_tb_ATLAS13 != 0) std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_ATLAS13 = \033[0m "<< THoEX_pp_Hpm_tb_ATLAS13 <<std::endl;
 
         //std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_ATLAS13 = \033[0m "<< THoEX_pp_Hpm_tb_ATLAS13 <<std::endl;
+        //std::cout<<"\033[1;31m   pp_Hpm_tb_TH13 = \033[0m "<< pp_Hpm_tb_TH13 <<std::endl;
+        //std::cout<<"\033[1;31m   ip_ex_pp_Hpm_tb_ATLAS13(mHp) = \033[0m "<< ip_ex_pp_Hpm_tb_ATLAS13(mHp) <<std::endl;
 
         
         THoEX_pp_Hpm_tb_ATLAS13=pp_Hpm_tb_TH13/ip_ex_pp_Hpm_tb_ATLAS13(mHp);
+        //std::cout<<"\033[1;31m   THoEX_pp_Hpm_tb_ATLAS13 = \033[0m "<< THoEX_pp_Hpm_tb_ATLAS13 <<std::endl;
+        
     //    if(THoEX_pp_Hpm_tb_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
          }
     if(mHp>= 200.0 && mHp<3000.0)
@@ -9183,8 +9191,9 @@ double GeneralTHDMcache::updateCache()
     computeSignalStrengths();
     computephi2quantities();
     computephi3quantities();
-    ComputeHeavyHiggs();
     computeHpquantities();
+    ComputeHeavyHiggs();
+
  
     return mH1sq;
 }
