@@ -279,6 +279,26 @@ class EWSMTwoFermionsLEP2;
  *   The default value is TRUE.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%UseVud</td>
+ *   <td class="mod_valu"><b>FALSE</b>&nbsp;/&nbsp;TRUE</td>
+ *   <td class="mod_desc">This flag controls the way the CKM matrix is parameterized. 
+ *   If set to FALSE, with %Wolfenstein FALSE, the CKM matrix is computed starting from @f$\vert V_{us} \vert@f$, 
+ *   @f$\vert V_{cb} \vert@f$, @f$\vert V_{ub} \vert@f$ and @f$\gamma@f$. 
+ *   If set to TRUE, with %Wolfenstein FALSE, the CKM matrix is computed starting from @f$\vert V_{ud} \vert@f$, 
+ *   @f$\vert V_{cb} \vert@f$, @f$\vert V_{ub} \vert@f$ and @f$\gamma@f$.
+ *   If %Wolfenstein is set to TRUE, this flag has no effect.
+ *   The default value is FALSE.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FixMuwMut</td>
+ *   <td class="mod_valu"><b>FALSE</b>&nbsp;/&nbsp;TRUE</td>
+ *   <td class="mod_desc">This flag controls the way the weak matching scale is varied. 
+ *   If set to FALSE, the @f$\mu_W@f$ parameter is introduced to float the matching scale independently of 
+ *   the top decoupling scale @f$\mu_t@f$.
+ *   If set to TRUE, the @f$\mu_W@f$ parameter is fixed to @f$\mu_t \M_W / \m_t@f$
+ *   The default value is FALSE.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CacheInStandardModel</td>
  *   <td class="mod_valu"><b>TRUE</b>&nbsp;/&nbsp;FALSE</td>
  *   <td class="mod_desc">This flag controls the use of the cashing method
@@ -2650,6 +2670,12 @@ bool setFlagSigmaForR(const bool flagSigmaForR_i)
     return true;
 }
 
+    /**
+     * @brief The MSbar running quark mass computed at NLO
+     * @param q the quark flavour
+     * @param mu the scale at which the running mass is returned
+     * @return @f$ m_q^\overline{\mathrm{MS}}(\mu)@f$
+     */
 virtual double getmq(const QCD::quark q, const double mu) const
 {
     return m_q(q, mu, FULLNLO);
@@ -2710,10 +2736,11 @@ protected:
     double rhob; ///< The %CKM parameter @f$\bar{\rho}@f$ in the Wolfenstein parameterization.
     double etab; ///< The %CKM parameter @f$\bar{\eta}@f$ in the Wolfenstein parameterization.
     double Vus; ///< @f$\vert V_{us} \vert @f$ used as an input for FlagWolfenstein = FALSE
+    double Vud; ///< @f$\vert V_{ud} \vert @f$ used as an input for FlagWolfenstein = FALSE and FlagUseVud = TRUE
     double Vcb; ///< @f$\vert V_{cb} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double Vub; ///< @f$\vert V_{ub} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double gamma; ///< @f$\gamma @f$ used as an input for FlagWolfenstein = FALSE
-    double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV.
+    double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV, used as input for FlagFixMuwMut = FALSE
     double s12, s13, s23, delta, alpha21, alpha31;
 
     // non-model parameters
@@ -2784,9 +2811,8 @@ protected:
                                          getQuarks(q).getMass(), order);
             case QCD::CHARM:
             case QCD::BOTTOM:
-                return Mrun(mu, getQuarks(q).getMass(), order);
             case QCD::TOP:
-                return getMtpole(); // the pole mass
+                return Mrun(mu, getQuarks(q).getMass(), order);
             default:
                 throw std::runtime_error("Error in StandardModel::m_q()"); 
         }
@@ -3275,6 +3301,8 @@ private:
     std::string FlagRhoZ; ///< A string for the model flag %RhoZ.
     std::string FlagKappaZ; ///< A string for the model flag %KappaZ.
     bool FlagWolfenstein; ///< A boolean for the model flag %Wolfenstein.
+    bool FlagUseVud; ///< A boolean for the model flag %UseVud.
+    bool FlagFixMuwMut; ///< A boolean for the model flag %FixMuwMut.
 
     bool FlagMWinput; ///< A boolean for the model flag %MWinput.    
     bool FlagSMAux; ///< A boolean for the model flag %SMAux.

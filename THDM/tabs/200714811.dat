@@ -1,0 +1,57 @@
+#######: table_doi: 10.17182/hepdata.95432.v2/t4
+#######: name: Table 4
+#######: description: Expected and observed 95% CL upper limits on the production of a heavy, narrow-width, scalar resonance decaying to a pair of Higgs bosons ($X\rightarrow HH$). 
+#######: The final state used in the search consists of a boosted $b\bar{b}$ pair and a boosted hadronically decaying $\tau^{+}\tau^{-}$ pair, and the SM braching ratio of the Higgs boson are assumed. 
+#######:The $\pm 1\sigma$ and $\pm 2\sigma$ variations about the expected limit are indicated by the error bands. 
+#######:Two different requirements are applied on the visible mass of the two boosted Higgs boson candidates for the resonance mass hypotheses of ######1.6 TeV and 2.5 TeV, leading to discontinuities in the limits (at 1.6 TeV, the difference between imposing no requirement and $m^{vis}_{HH}>900$ GeV is less than 1% though).
+#######: data_file: data4_UpperLimit.yaml
+#######: keyword reactions: P P --> X --> H H | H H --> BQ BQBAR TAU+ TAU-
+#######: keyword observables: SIG
+#######: keyword cmenergies: 13000.0
+#######: keyword phrases: Proton-Proton Scattering | Higgs | Higgs Pair Production
+#######: Title,95% CL upper limits on $\sigma(pp\rightarrow X\rightarrow HH)$
+#######: LUMINOSITY [fb$^{-1}$],139
+#######: SQRT(S) [GeV],13000
+######Mass [GeV],Observed [pb]
+######## Number of Input lines:	41
+1000.0		0.81677
+1050.0		0.5031995
+1100.0		0.189629
+1150.0		0.1416922
+1200.0		0.0937554
+1250.0		0.084745625
+1300.0		0.07573585
+1350.0		0.066726075
+1400.0		0.0577163
+1450.0		0.0562248
+1500.0		0.0547333
+1550.0		0.0532418
+1600.0		0.0517503
+1650.0		0.05101695
+1700.0		0.0502836
+1750.0		0.049550250000000004
+1800.0		0.0488169
+1850.0		0.048916425
+1900.0		0.04901595
+1950.0		0.049115475000000006
+2000.0		0.049215
+2050.0		0.050433900000000004
+2100.0		0.0516528
+2150.0		0.0528717
+2200.0		0.0540906
+2250.0		0.0553095
+2300.0		0.0565284
+2350.0		0.0577473
+2400.0		0.058966199999999996
+2450.0		0.0601851
+2500.0		0.061404
+2550.0		0.06011394
+2600.0		0.05882388
+2650.0		0.05753382
+2700.0		0.056243760000000004
+2750.0		0.0549537
+2800.0		0.05366364
+2850.0		0.05237358
+2900.0		0.05108352
+2950.0		0.04979346
+3000.0		0.0485034

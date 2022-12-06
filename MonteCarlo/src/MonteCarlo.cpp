@@ -687,6 +687,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             unsigned int histogramBufferSize = atoi((*beg).c_str());
             if (histogramBufferSize >= 0) MCEngine.setHistogramBufferSize(histogramBufferSize);
             else throw std::runtime_error("\nERROR: HistogramBufferSize in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
+        } else if (beg->compare("ScaleFactorLowerLimit") == 0) {
+            ++beg;
+            double ScaleFactorLowerLimit = atof((*beg).c_str());
+            if (ScaleFactorLowerLimit >= 0) MCEngine.SetScaleFactorLowerLimit(ScaleFactorLowerLimit);
+            else throw std::runtime_error("\nERROR: ScaleFactorLowerLimit in the MonteCarlo configuration file: " + MCMCConf + " can only be a double greater or equal to 0.\n");
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
     } while (!IsEOF);

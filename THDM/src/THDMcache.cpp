@@ -7813,7 +7813,7 @@ void THDMcache::computeHHlimits()
     double Br_Wtoenu=0.1071; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
     double Br_Wtomunu=0.1063; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
     double Br_Wtotaunu=0.1138; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
-
+    double Br_tautoleptons=0.3521; // PDG2022
     //Theoretical expressions for the Heavy Higgs cross sections times branching ratios at 8 TeV
 
     ggF_H_tautau_TH8=SigmaggF_H8*Br_Htotautau;
@@ -7913,8 +7913,8 @@ void THDMcache::computeHHlimits()
     pp_H_hh_gagabb_TH13=SigmaSumH13*Br_Htohh*THDM_BR_h_gaga*THDM_BR_h_bb*2.0;
     pp_H_hh_bbtautau_TH13=SigmaSumH13*Br_Htohh*THDM_BR_h_bb*THDM_BR_h_tautau*2.0;
     pp_H_hh_bblnulnu_TH13=SigmaSumH13*Br_Htohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
-    pp_H_hh_bbVV_TH13=SigmaSumH13*Br_Htohh*2.0*THDM_BR_h_bb*(THDM_BR_h_WW*pow(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*0.352,2)
-                                                            +THDM_BR_h_ZZ*2.0*Br_Ztoinv*(Br_Ztoee+Br_Ztomumu+Br_Ztotautau*0.124));
+    pp_H_hh_bbVV_TH13=SigmaSumH13*Br_Htohh*2.0*THDM_BR_h_bb*(THDM_BR_h_WW*pow(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautoleptons,2)
+                                                            +THDM_BR_h_ZZ*2.0*Br_Ztoinv*(Br_Ztoee+Br_Ztomumu+Br_Ztotautau*Br_tautoleptons*Br_tautoleptons));
     ttF_H_tt_TH13=SigmattF_H13*Br_Htott;
     bbF_H_tt_TH13=SigmabbF_H13*Br_Htott;
     pp_H_bb_TH13=SigmaSumH13*Br_Htobb;

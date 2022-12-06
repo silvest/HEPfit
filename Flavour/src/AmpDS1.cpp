@@ -69,7 +69,7 @@ gslpp::complex AmpDS1::AmpDS1pp0(orders order)
             double CKMprod = (Vus.conjugate()*Vud).real();
             gslpp::complex ImA0 = M_SQRT1_2 * GF * CKMprod * ( (ImW * meBKd1 ) - ImW(2) * meBKd1(2) ) +
                           ( ImW(2)/ReW(2) ) * (getReA0() - M_SQRT1_2 * GF * CKMprod * ( ( ReW * meBKd1 ) - ReW(2) * meBKd1(2) ) );
-
+            
             //The returned value for the amplitude is using the expt value of ReA0 to minimize the error on ImA0 (cfr. ArXiv:2004.09440)
             return gslpp::complex(getReA0() , ImA0.real() );
 
@@ -88,7 +88,7 @@ gslpp::complex AmpDS1::AmpDS1pp0(orders order)
             return gslpp::complex(getReA0() , ImA0.real() );
 
           } else {
-            //If the me are given in the 10 basis renormalised in MSbar
+            //If the me are given in the 10 basis renormalised in MSbar (no optimization for A0 available as of now in this case)
             return M_SQRT1_2 * GF * (Vus.conjugate() * Vud) * ( (allcoeffzLO + allcoeffzNLO) + tau * (allcoeffyLO + allcoeffyNLO) ) * meBKd1;
           }
         case LO:
@@ -120,7 +120,7 @@ gslpp::complex AmpDS1::AmpDS1pp0(orders order)
             return gslpp::complex(getReA0() , ImA0.real() );
 
           } else {
-            //If the me are given in the 10 basis renormalised in MSbar
+            //If the me are given in the 10 basis renormalised in MSbar (no optimization for A0 available as of now in this case)
             return M_SQRT1_2 * GF * (Vus.conjugate() * Vud) * ( allcoeffzLO + tau * allcoeffyLO ) * meBKd1;
           }
         default:
@@ -228,6 +228,92 @@ double AmpDS1::getReA2(){
   double ReA2 = sqrt((2./3.) * 8. * M_PI * GammaKp * MKp * MKp / phasespacePpP0);
 
   return ReA2;
+}
+
+gslpp::complex AmpDS1::AmpDS1pp0pureLAT(orders order)
+{
+    double GF = mySM.getGF();
+    gslpp::complex Vud = mySM.getCKM().getV_ud();
+    gslpp::complex Vus = mySM.getCKM().getV_us();
+    //CKM parameter for the Wilson coeff.
+    gslpp::complex tau = -((mySM.getCKM().getV_ts()).conjugate() * mySM.getCKM().getV_td())/((mySM.getCKM().getV_us()).conjugate() * mySM.getCKM().getV_ud());
+
+    if (mySM.getFlavour().getHDS1().getCoeffDS1PP().getOrder() < order){
+        std::stringstream out;
+        out << order;
+        throw std::runtime_error("AmpDK1::computeThValue(): requires cofficient of order"
+                                 + out.str() + "not computed");
+    }
+
+    //Finding Wilson coefficients of the form C=z+tau*y where tau is a CKM parameter (scheme set to MSbar)
+    gslpp::vector<gslpp::complex> ** allcoeffv = mySM.getFlavour().ComputeCoeffDS1PPv(
+            mySM.getBKd1().getMu(), NDR);
+
+    gslpp::vector<gslpp::complex> ** allcoeffz = mySM.getFlavour().ComputeCoeffDS1PPz(
+            mySM.getBKd1().getMu(), NDR);
+
+    gslpp::vector<gslpp::complex> allcoeffzLO = (*allcoeffz[LO]) + (*allcoeffz[LO_QED]);
+    gslpp::vector<gslpp::complex> allcoeffzNLO = (*allcoeffz[NLO]) + (*allcoeffz[NLO_QED11]);
+    gslpp::vector<gslpp::complex> allcoeffyLO = (*allcoeffv[LO]) + (*allcoeffv[LO_QED]);
+    gslpp::vector<gslpp::complex> allcoeffyNLO = (*allcoeffv[NLO]) + (*allcoeffv[NLO_QED11]);
+    for(int i = 0; i<2; i++){
+        allcoeffzLO.assign(i,allcoeffyLO(i));
+        allcoeffzNLO.assign(i,allcoeffyNLO(i));
+        allcoeffyLO.assign(i,0.);
+        allcoeffyNLO.assign(i,0.);
+    }
+    for(int i = 2; i<10; i++){
+        allcoeffyLO.assign(i,allcoeffyLO(i)-allcoeffzLO(i));
+        allcoeffyNLO.assign(i,allcoeffyNLO(i)-allcoeffzNLO(i));
+    }
+
+    gslpp::vector<double> meBKd1(mySM.getBKd1().getBpars());
+
+    switch(order) {
+        case NLO:
+          if ( meBKd1(7) == 0 && meBKd1(8) == 0 && meBKd1(9) == 0 && mySM.getBKd1().getScheme() == LAT ){
+            
+            gslpp::complex fullA0LAT =  M_SQRT1_2*GF*(Vud.conjugate()*Vus)*((allcoeffzLO + allcoeffzNLO) + tau * (allcoeffyLO + allcoeffyNLO))*getChiralMatrixpp0()*getRISMOMTransMatrix(mySM.getBKd1().getMu(), FULLNLO)*getRIMatrixpp0()*meBKd1;
+            
+            //The returned value for the amplitude is using the full lattice info (cfr. ArXiv:2004.09440)
+            return gslpp::complex(fullA0LAT.real() , fullA0LAT.imag());
+
+          } else if ( meBKd1(7) == 0 && meBKd1(8) == 0 && meBKd1(9) == 0 && mySM.getBKd1().getScheme() == LRI) {
+
+            gslpp::complex fullA0LAT =  M_SQRT1_2*GF*(Vud.conjugate()*Vus)*((allcoeffzLO + allcoeffzNLO) + tau * (allcoeffyLO + allcoeffyNLO))*getChiralMatrixpp0()*getRISMOMTransMatrix(mySM.getBKd1().getMu(), FULLNLO)*meBKd1;
+            
+            //The returned value for the amplitude is using the full lattice info (cfr. ArXiv:2004.09440)
+            return fullA0LAT;
+
+          } else {
+            //If the me are given in the 10 basis renormalised in MSbar (no optimization for A0 available as of now in this case)
+            return M_SQRT1_2 * GF * (Vus.conjugate() * Vud) * ( (allcoeffzLO + allcoeffzNLO) + tau * (allcoeffyLO + allcoeffyNLO) ) * meBKd1;
+          }
+          
+        case LO:
+          if ( meBKd1(7) == 0 && meBKd1(8) == 0 && meBKd1(9) == 0 && mySM.getBKd1().getScheme() == LAT ){
+            
+            gslpp::complex fullA0LAT =  M_SQRT1_2*GF*(Vud.conjugate()*Vus)*(allcoeffzLO + tau * allcoeffyLO)*getChiralMatrixpp0()*getRISMOMTransMatrix(mySM.getBKd1().getMu(), FULLNLO)*getRIMatrixpp0()*meBKd1;
+            
+            //The returned value for the amplitude is using the full lattice info (cfr. ArXiv:2004.09440)
+            return gslpp::complex(fullA0LAT.real() , fullA0LAT.imag());
+
+          } else if ( meBKd1(7) == 0 && meBKd1(8) == 0 && meBKd1(9) == 0 && mySM.getBKd1().getScheme() == LRI) {
+              
+            gslpp::complex fullA0LAT =  M_SQRT1_2*GF*(Vud.conjugate()*Vus)*(allcoeffzLO + tau * allcoeffyLO)*getChiralMatrixpp0()*getRISMOMTransMatrix(mySM.getBKd1().getMu(), FULLNLO)*meBKd1;
+            
+            //The returned value for the amplitude is using the full lattice info (cfr. ArXiv:2004.09440)
+            return fullA0LAT;
+
+          } else {
+            //If the me are given in the 10 basis renormalised in MSbar
+            return M_SQRT1_2 * GF * (Vus.conjugate() * Vud) * ( allcoeffzLO + tau * allcoeffyLO ) * meBKd1;
+          }
+        default:
+            std::stringstream out;
+            out << order;
+            throw std::runtime_error("AmpDK1::AmpDK(): order " + out.str() + "not implemented");
+    }
 }
 
 gslpp::matrix<double> AmpDS1::getChiralMatrixpp0() const{

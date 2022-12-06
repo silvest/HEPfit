@@ -14,26 +14,28 @@
 class GeneralTHDM;
 class GeneralTHDMcache;
 
+
+//This observables doesn't make sense in this model, I comment it
 /**
  * @class tanbeta_GTHDM
  * @ingroup GeneralTHDM 
  * @brief The tangent of beta.
  */
-class tanbeta_GTHDM: public ThObservable {
-public:
+//class tanbeta_GTHDM: public ThObservable {
+//public:
 
     /**
      * @brief tanbeta constructor.
      */
-    tanbeta_GTHDM(const StandardModel& SM_i);
+//    tanbeta_GTHDM(const StandardModel& SM_i);
 
     /**
      * @return @f$\tan \beta@f$
      */
-    double computeThValue();
-
-    const GeneralTHDM * myGTHDM;
-};
+//    double computeThValue();
+//
+//    const GeneralTHDM * myGTHDM;
+//};
 
 
 /**
@@ -106,72 +108,6 @@ private:
 
 
 /**
- * @class mH1_GTHDM
- * @ingroup GeneralTHDM 
- * @brief The mass of the SM Higgs
- */
-class mH1_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief mH1_GTHDM constructor.
-     */
-    mH1_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class mH2_GTHDM
- * @ingroup GeneralTHDM 
- * @brief The mass of the second neutral Higgs
- */
-class mH2_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief mH2_GTHDM constructor.
-     */
-    mH2_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH2
-     */
-    double computeThValue();
-
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class mH3_GTHDM
- * @ingroup GeneralTHDM 
- * @brief The mass of the third neutral Higgs
- */
-class mH3_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief mH3_GTHDM constructor.
-     */
-    mH3_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH3
-     */
-    double computeThValue();
-
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
  * @class mHlight_GTHDM
  * @ingroup GeneralTHDM 
  * @brief The mass of the lightest neutral Higgs
@@ -237,27 +173,28 @@ private:
 //    const GeneralTHDM& myGTHDM;
 };
 
-/**
- * @class mHp_GTHDM
- * @ingroup GeneralTHDM 
- * @brief The mass of the charged Higgs
- */
-class mHp_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief mHp_GTHDM constructor.
-     */
-    mHp_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return The mass of the charged Higgs
-     */
-    double computeThValue();
-
-private:
-    const GeneralTHDM& myGTHDM;
-};
+//We have the map, there is no need of this
+///**
+// * @class mHp_GTHDM
+// * @ingroup GeneralTHDM 
+// * @brief The mass of the charged Higgs
+//*/
+//class mHp_GTHDM: public ThObservable {
+//public:
+//
+//    /**
+//     * @brief mHp_GTHDM constructor.
+//     */
+//    mHp_GTHDM(const StandardModel& SM_i);
+//
+//    /**
+//     * @return The mass of the charged Higgs
+//     */
+//    double computeThValue();
+//
+//private:
+//    const GeneralTHDM& myGTHDM;
+//};
 
 
 /**
@@ -393,71 +330,6 @@ private:
 };
 
 
-/**
- * @class mH1sq_GTHDM
- * @ingroup GeneralTHDM 
- * @brief The SM Higgs mass squared
- */
-class mH1sq_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief mH1sq_GTHDM constructor.
-     */
-    mH1sq_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1 squared
-     */
-    double computeThValue();
-
-private:
-//    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class mH2sq_GTHDM
- * @ingroup GeneralTHDM 
- * @brief The second neutral Higgs mass squared
- */
-class mH2sq_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief mH2sq_GTHDM constructor.
-     */
-    mH2sq_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH2 squared
-     */
-    double computeThValue();
-
-private:
-//    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class mH3sq_GTHDM
- * @ingroup GeneralTHDM 
- * @brief The third neutral Higgs mass squared
- */
-class mH3sq_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief mH3sq_GTHDM constructor.
-     */
-    mH3sq_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH3 squared
-     */
-    double computeThValue();
-
-private:
-//    const GeneralTHDM& myGTHDM;
-};
 
 /**
  * @class Msq11_GTHDM
@@ -696,302 +568,28 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+
+//Since we include this parameter in the map there is no need of defining again this observable
 /**
- * @class lambda1_GTHDM
+ * @class lambda1
  * @ingroup GeneralTHDM 
  * @brief parameter of the Higgs potential @f$\lambda_{1}@f$
  */
-class lambda1_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief lambda1_GTHDM constructor.
-     */
-    lambda1_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return lambda1_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class lambda2_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\lambda_{2}@f$
- */
-class lambda2_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief lambda2_GTHDM constructor.
-     */
-    lambda2_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return lambda2_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class lambda3_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\lambda_{3}@f$
- */
-class lambda3_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief lambda3_GTHDM constructor.
-     */
-    lambda3_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return lambda3_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class lambda4_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\lambda_{4}@f$
- */
-class lambda4_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief lambda4_GTHDM constructor.
-     */
-    lambda4_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return lambda4_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class lambda1H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\lambda_{1}@f$ in the Higgs basis
- */
-class lambda1H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief lambda1H_GTHDM constructor.
-     */
-    lambda1H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return lambda1H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class lambda2H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\lambda_{2}@f$ in the Higgs basis
- */
-class lambda2H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief lambda2H_GTHDM constructor.
-     */
-    lambda2H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return lambda2H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class lambda3H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\lambda_{3}@f$ in the Higgs basis
- */
-class lambda3H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief lambda3H_GTHDM constructor.
-     */
-    lambda3H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return lambda3H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class lambda4H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\lambda_{4}@f$ in the Higgs basis
- */
-class lambda4H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief lambda4H_GTHDM constructor.
-     */
-    lambda4H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return lambda4H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class Relambda5H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Re\lambda_{5}@f$ in the Higgs basis
- */
-class Relambda5H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief Relambda5H_GTHDM constructor.
-     */
-    Relambda5H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return Relambda5H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class Imlambda5H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Im\lambda_{5}@f$ in the Higgs basis
- */
-class Imlambda5H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief Imlambda5H_GTHDM constructor.
-     */
-    Imlambda5H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return Imlambda5H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
-/**
- * @class Relambda6H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Re\lambda_{6}@f$ in the Higgs basis
- */
-class Relambda6H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief Relambda6H_GTHDM constructor.
-     */
-    Relambda6H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return Relambda6H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class Imlambda6H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Im\lambda_{6}@f$ in the Higgs basis
- */
-class Imlambda6H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief Imlambda6H_GTHDM constructor.
-     */
-    Imlambda6H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return Imlambda6H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class Relambda7H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Re\lambda_{7}@f$ in the Higgs basis
- */
-class Relambda7H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief Relambda7H_GTHDM constructor.
-     */
-    Relambda7H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return Relambda7H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class Imlambda7H_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$\Im\lambda_{7}@f$ in the Higgs basis
- */
-class Imlambda7H_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief Imlambda7H_GTHDM constructor.
-     */
-    Imlambda7H_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return Imlambda7H_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-
+//class lambda1: public ThObservable {
+//public:
+//
+//    /**
+//     * @brief lambda1 constructor.
+//     */
+//    lambda1(const StandardModel& SM_i);
+//
+//    /**
+//     * @return lambda1
+//     */
+//    double computeThValue();
+//private:
+//    const GeneralTHDM& myGTHDM;
+//};
 
 
 /**
@@ -1186,47 +784,50 @@ private:
 };
 
 
+//I remove this observables since it's the same as in the SM
 /**
  * @class v1_GTHDM
  * @ingroup GeneralTHDM 
  * @brief The vacuum expectation value of @f$\Phi_1@f$ in the generic basis
  */
-class v1_GTHDM: public ThObservable {
-public:
+//class v1_GTHDM: public ThObservable {
+//public:
 
     /**
      * @brief v1_GTHDM constructor.
      */
-    v1_GTHDM(const StandardModel& SM_i);
+//    v1_GTHDM(const StandardModel& SM_i);
 
     /**
      * @return v1
      */
-    double computeThValue();
+//    double computeThValue();
 
-    const GeneralTHDM * myGTHDM;
-};
+//    const GeneralTHDM * myGTHDM;
+//};
 
+
+//This doesn't make sense in this model
 /**
  * @class v2_GTHDM
  * @ingroup GeneralTHDM 
  * @brief The vacuum expectation value of @f$\Phi_2@f$ in the generic basis
  */
-class v2_GTHDM: public ThObservable {
-public:
+//class v2_GTHDM: public ThObservable {
+//public:
 
     /**
      * @brief v2_GTHDM constructor.
      */
-    v2_GTHDM(const StandardModel& SM_i);
+//    v2_GTHDM(const StandardModel& SM_i);
 
     /**
      * @return v2
      */
-    double computeThValue();
+//    double computeThValue();
 
-    const GeneralTHDM * myGTHDM;
-};
+//    const GeneralTHDM * myGTHDM;
+//};
 
 /**
  * @class Resigmau

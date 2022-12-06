@@ -1,3 +1,5 @@
 [submodule "gslpp"]
 	path = gslpp
 	url = https://github.com/silvest/gslpp.git
+	update = merge
+	ignore = untracked

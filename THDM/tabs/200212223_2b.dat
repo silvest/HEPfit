@@ -1,0 +1,61 @@
+#: table_doi: 10.17182/hepdata.93071.v4/t6
+#: name: Fig 2b
+#: description: Observed and expected 95% CL upper limits on the b-associated Higgs boson production cross section times ditau branching fraction as a function of the boson mass.
+#: data_file: hepdata_limit_bbH.yaml
+#: keyword reactions: P P --> bbbar PHI (PHI--> TAU+ TAU-)
+#: keyword observables: SIG
+#: keyword cmenergies: 13000.0
+#: keyword phrases: Inclusive | Integrated Cross Section | Cross Section | Proton-Proton Scattering | Higgs
+#: LUMINOSITY [fb$^{-1}$],139
+#: SQRT(S) [GeV],13000
+#: Production,Higgs boson (b-associated production)
+#: Limit,Observed
+# Mass [GeV] | $\sigma \times B$ [pb]
+######## Number of Input lines:	47
+200.0		0.203
+250.0		0.107
+300.0		0.118
+350.0		0.119
+400.0		0.0772
+450.0		0.05285
+500.0		0.0285
+550.0		0.01792
+600.0		0.00734
+650.0		0.004895
+700.0		0.00245
+750.0		0.002045
+800.0		0.00164
+850.0		0.0015075
+900.0		0.001375
+950.0		0.0012425000000000001
+1000.0		0.00111
+1050.0		0.001072
+1100.0		0.001034
+1150.0		0.000996
+1200.0		0.000958
+1250.0		0.0009666666666666667
+1300.0		0.0009753333333333334
+1350.0		0.000984
+1400.0		0.0009926666666666667
+1450.0		0.0010013333333333335
+1500.0		0.00101
+1550.0		0.001012
+1600.0		0.0010140000000000001
+1650.0		0.001016
+1700.0		0.001018
+1750.0		0.00102
+1800.0		0.0010220000000000001
+1850.0		0.0010240000000000002
+1900.0		0.001026
+1950.0		0.001028
+2000.0		0.00103
+2050.0		0.0010290000000000002
+2100.0		0.001028
+2150.0		0.0010270000000000001
+2200.0		0.001026
+2250.0		0.001025
+2300.0		0.0010240000000000002
+2350.0		0.001023
+2400.0		0.0010220000000000001
+2450.0		0.001021
+2500.0		0.00102

@@ -11,6 +11,11 @@
 #include "Flavour.h"
 #include "DmBd.h"
 #include "DmBs.h"
+#include "BBd.h"
+#include "FBd.h"
+#include "FBdSqrtBBd.h"
+#include "FBsSqrtBBs.h"
+#include "xi.h"
 #include "VCKM.h"
 #include "alpha.h"
 #include "alpha_2a.h"
@@ -27,6 +32,7 @@
 #include "EpsilonK.h"
 #include "DmK.h"
 #include "EpsilonP_O_Epsilon.h"
+#include "EpsilonP_O_Epsilon_TH.h"
 #include "MVllObservables.h"
 #include "MPllObservables.h"
 #include "MVgamma.h"
@@ -35,6 +41,8 @@
 #include "BXqllObservables.h"
 #include "MVlnuObservables.h"
 #include "MPlnuObservables.h"
+#include "Bdmumu.h"
+#include "Bsmumu.h"
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

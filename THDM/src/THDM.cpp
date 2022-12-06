@@ -106,18 +106,54 @@ void THDM::setParameter(const std::string name, const double& value){
         bma = value;
         sin_ba = sin(bma);
     }
-    else if(name.compare("mHh1") == 0 && !flag_use_sq_masses)
-        mHh1 = value;
-    else if(name.compare("mA1") == 0 && !flag_use_sq_masses)
-        mA1 = value;
-    else if(name.compare("mHp1") == 0 && !flag_use_sq_masses)
-        mHp1 = value;
-    else if(name.compare("mHh2") == 0 && flag_use_sq_masses)
-        mHh2 = value;
-    else if(name.compare("mA2") == 0 && flag_use_sq_masses)
-        mA2 = value;
-    else if(name.compare("mHp2") == 0 && flag_use_sq_masses)
-        mHp2 = value;
+    else if(name.compare("mHh1") == 0){
+        if(!flag_use_sq_masses){
+            mHh1 = value;
+        }
+        else{
+            mHh1=sqrt(mHh2);
+        }
+    }
+    else if(name.compare("mA1") == 0){
+        if(!flag_use_sq_masses){
+            mA1 = value;
+        }
+        else{
+            mA1=sqrt(mA2);
+        }
+    }
+    else if(name.compare("mHp1") == 0){
+        if(!flag_use_sq_masses){
+            mHp1 = value;
+        }
+        else{
+            mHp1=sqrt(mHp2);
+        }
+    }
+    else if(name.compare("mHh2") == 0){
+        if(flag_use_sq_masses){
+            mHh2 = value;
+        }
+        else{
+            mHh2=mHh1*mHh1;
+        }
+    }
+    else if(name.compare("mA2") == 0){
+        if(flag_use_sq_masses){
+            mA2 = value;
+        }
+        else{
+            mA2=mA1*mA1;
+        }
+    }
+    else if(name.compare("mHp2") == 0){
+        if(flag_use_sq_masses){
+            mHp2 = value;
+        }
+        else{
+            mHp2=mHp1*mHp1;
+        }
+    }
     else if(name.compare("m12_2") == 0)
         m12_2 = value;
     else if(name.compare("BDtaunu_SM") == 0)

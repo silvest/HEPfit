@@ -38,7 +38,14 @@ public:
      * @return 
      */    
     virtual double gminus2muLO();
-
+    //FOR THE MOMENT WE LEAVE THIS DEFINITION OF THE LO CONTRIBUTION TO THE g-2, MUST BE CHECKED
+    
+    
+    
+    
+    
+    
+    
     /** Calculates the NLO contribution to the muon g-2**/
     /**
      * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at approximate two-loop from \cite Broggio:2014mna.
@@ -46,19 +53,29 @@ public:
      */    
     virtual double gminus2muNLO();
     
+    
+    
+    
+    
       /** Calculates the bosonic NLO contribution to the muon g-2**/
     /**
      * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at approximate two-loop from \cite Cherchiglia:2016eui.
      * @return 
      */    
-    virtual double gminus2muNLOF();
+    //virtual double gminus2muNLOF();
+    //WE'RE REMOVING THIS DEFINITIONS AND SUBSTITUTING THEM FROM THOSE OF 1502.04199
     
      /** Calculates the bosonic NLO contribution to the muon g-2**/
     /**
      * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at approximate two-loop from \cite Cherchiglia:2016eui.
      * @return 
      */    
-    virtual double gminus2muNLOB();
+    //virtual double gminus2muNLOB();
+    //WE'RE REMOVING THIS DEFINITIONS AND SUBSTITUTING THEM FROM THOSE OF 1502.04199
+    
+    
+    
+    
 
       /** Calculates the square root of a negative number**/
     /**
@@ -83,12 +100,25 @@ public:
     virtual gslpp::complex neglog(gslpp::complex argument);
 
     
-         /** Calculates the function of Eq. (68) of 1607.06292**/
+    
+    
+    
+    
+    
+    /** Calculates the function of Eq. (68) of 1607.06292**/
     /**
      * @brief Calculates the function of Eq. (68) of 1607.06292
      * @return  function of Eq. (68) of 1607.06292
      */    
-    virtual gslpp::complex TF(double m1, double m2, double m3);
+    //virtual gslpp::complex TF(double m1, double m2, double m3);
+    //WE'RE REMOVING THIS DEFINITIONS AND SUBSTITUTING THEM FROM THOSE OF 1502.04199
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * @return GeneralTHDM Wilson coefficients for \f$ B_s \to \bar{B_s}\f$ according to @cite Geng:1988bq, @cite Deschamps:2009rh
@@ -100,6 +130,7 @@ public:
      * @return GeneralTHDM Wilson coefficient for \f$ B \to \tau \nu \f$ from @cite Hou:1992sy
      */
     virtual  std::vector<WilsonCoefficient>& CMbtaunu(QCD::meson meson_i);
+    
     
     virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
     

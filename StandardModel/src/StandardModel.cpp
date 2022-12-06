@@ -50,6 +50,8 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     FlagRhoZ = "NORESUM";
     FlagKappaZ = "APPROXIMATEFORMULA";
     FlagWolfenstein = true;
+    FlagUseVud = false;
+    FlagFixMuwMut = false;
 
     FlagMWinput = false;
     
@@ -136,7 +138,8 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::make_pair("A", std::cref(A)));
     ModelParamMap.insert(std::make_pair("rhob", std::cref(rhob)));
     ModelParamMap.insert(std::make_pair("etab", std::cref(etab)));
-    ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
+    if (!FlagFixMuwMut)
+        ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
     
     iterationNo = 0;
     realorder = LO;
@@ -243,6 +246,12 @@ bool StandardModel::PostUpdate()
         computeYukawas();
     }
 
+    /* Update muw if FlagFixMuwMut is activated */
+    
+    if (FlagFixMuwMut)  {
+        muw = mut * 80.4 / 163.;
+    }
+    
     /* Check whether the parameters for the EWPO are updated or not */
     if (!checkSMparamsForEWPO()) {
         useDeltaAlphaLepton_cache = false;
@@ -329,8 +338,11 @@ void StandardModel::setParameter(const std::string name, const double& value)
     } else if (name.compare("etab") == 0 && FlagWolfenstein) {
         etab = value;
         requireCKM = true;
-    } else if (name.compare("V_us") == 0 && !FlagWolfenstein) {
+    } else if (name.compare("V_us") == 0 && !FlagWolfenstein && !FlagUseVud) {
         Vus = value;
+        requireCKM = true;
+    } else if (name.compare("V_ud") == 0 && !FlagWolfenstein && FlagUseVud) {
+        Vud = value;
         requireCKM = true;
     } else if (name.compare("V_cb") == 0 && !FlagWolfenstein) {
         Vcb = value;
@@ -341,7 +353,7 @@ void StandardModel::setParameter(const std::string name, const double& value)
     } else if (name.compare("gamma") == 0 && !FlagWolfenstein) {
         gamma = value;
         requireCKM = true;
-    } else if (name.compare("muw") == 0)
+    } else if (name.compare("muw") == 0 && !FlagFixMuwMut)
         muw = value;
     else
         QCD::setParameter(name, value);
@@ -368,12 +380,20 @@ void StandardModel::computeCKM()
             Vcb = myCKM.getV_cb().abs();
             Vub = myCKM.getV_ub().abs();
             gamma = myCKM.computeGamma();
+        } else if (FlagUseVud) {
+            myCKM.computeCKM(Vud, Vcb, Vub, gamma, FlagUseVud);
+            lambda = myCKM.getLambda();
+            A = myCKM.getA();
+            rhob = myCKM.getRhoBar();
+            etab = myCKM.getEtaBar();
+            Vus = myCKM.getV_us().abs();
         } else {
             myCKM.computeCKM(Vus, Vcb, Vub, gamma);
             lambda = myCKM.getLambda();
             A = myCKM.getA();
             rhob = myCKM.getRhoBar();
             etab = myCKM.getEtaBar();
+            Vud = myCKM.getV_ud().abs();
         }
     }
     myPMNS.computePMNS(s12, s13, s23, delta, alpha21, alpha31); // WARNING: This does not do anything since the input values are not set.
@@ -381,19 +401,21 @@ void StandardModel::computeCKM()
 
 void StandardModel::computeYukawas()
 {
-  /* THE FOLLOWING CODES HAVE TO BE MODIFIED!!
-     *   The Yukawa matrices have to be computed at a common scale
-     *   for all the fermions!!! */
     if (requireYu || requireCKM) {
-        Yu = gslpp::matrix<gslpp::complex>::Id(3);
-        for (int i = 0; i < 3; i++)
-            Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
+        Yu.reset();
+        for (int i = 0; i < 3; i++) {
+            Yu.assign(i, i, this->getmq(quark(UP + 2 * i),  v()/ sqrt(2.))/ v() * sqrt(2.));
+//            std::cout << quarks[UP + 2 * i].getName() << " mass at EW scale is " << this->getmq(quark(UP + 2 * i),  v() / sqrt(2.)) << std::endl;
+        }
+//        std::cout << "(top MSbar mass is " << this->Mp2Mbar(this->getMtpole()) << ")" << std::endl;
         Yu = myCKM.getCKM().transpose() * Yu;
     }
     if (requireYd) {
-        Yd = gslpp::matrix<gslpp::complex>::Id(3);
-        for (int i = 0; i < 3; i++)
-            Yd.assign(i, i, this->quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
+        Yd.reset();
+        for (int i = 0; i < 3; i++) {
+            Yd.assign(i, i, this->getmq(quark(DOWN + 2 * i),  v() / sqrt(2.)) / v() * sqrt(2.));
+//            std::cout << quarks[DOWN + 2 * i].getName() << " mass at " << v() / sqrt(2) << " is " << this->getmq(quark(DOWN + 2 * i),  v() / sqrt(2.)) << std::endl;            
+            }
     }
     if (requireYe) {
         Ye = gslpp::matrix<gslpp::complex>::Id(3);
@@ -455,6 +477,19 @@ bool StandardModel::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("SMAux") == 0) {
         FlagSMAux = value;
+        res = true;
+    } else if (name.compare("FixMuwMut") == 0) {
+        FlagFixMuwMut = value;
+        res = true;
+    } else if (name.compare("UseVud") == 0) {
+        FlagUseVud = value;
+        if (FlagUseVud && FlagWolfenstein)
+            throw std::runtime_error("UseVud can only be used when Wolfenstein is false");
+        else if(FlagUseVud) {
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"V_us"))] = "V_ud";
+            ModelParamMap.erase("V_us");
+            ModelParamMap.insert(std::make_pair("V_ud", std::cref(Vud)));
+        }
         res = true;
     } else
         res = QCD::setFlag(name, value);
@@ -671,8 +706,8 @@ double StandardModel::AlsByOrder(double mu, orders order, bool qed_flag, bool Nf
         case NLO:
         case NNLO:
         case NNNLO:
-            if (nfAls == nfmu)
-                return(AlsWithInit(mu, AlsMz, Mz, order, qed_flag));
+            if (nfAls == nfmu) 
+                als = AlsWithInit(mu, AlsMz, Mz, order, qed_flag);
             fullord = FullOrder(order);
             if (nfAls > nfmu) {
                 mutmp = BelowTh(Mz);
@@ -837,7 +872,7 @@ double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders or
 {
     if (fabs(mu - mu_i) < MEPS) return(alei);
 
-    double nf = Nf(mu), alsi = Als(mu_i, FULLNNNLO, true);
+    double nf = Nf(mu), alsi = (mu_i == Mz ? AlsMz : Als(mu_i, FULLNNNLO, true));
     double b00e = Beta_e(00, nf), b00s = Beta_s(00, nf);
     double ve = 1. - b00e * alei / 2. / M_PI * log(mu / mu_i);
     double logv = log(1. + b00s * alsi / 2. / M_PI * log(mu / mu_i)), logve = log(ve);

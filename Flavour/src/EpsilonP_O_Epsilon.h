@@ -58,7 +58,7 @@ public:
      * constructor
      * @param Flavour
      */
-    EpsilonP_O_Epsilon(const StandardModel& SM_i);
+    EpsilonP_O_Epsilon(const StandardModel& SM_i, unsigned int part_i);
     
     /**
      * 
@@ -67,7 +67,8 @@ public:
     double computeThValue();
     
 private:
-    
+    unsigned int part; /**< toggle for real, imaginary, absolute or argument value */
+    double ReA0, ReA2, ImA0, ImA2; /**< variables for real and imaginary part of \f$K^0\to\pi\pi\f$ with \f$\Delta I= 0,2\f$ */
 };
 
 #endif	/* EPSILONP_O_EPSILON_H */

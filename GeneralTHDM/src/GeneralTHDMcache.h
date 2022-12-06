@@ -98,12 +98,24 @@ public:
      */
     double interpolate (gslpp::matrix<double> arrayTab, double x);
 
-        /**
-     * @brief Linearly interpolates a table with two parameter dimensions.
+    /**
+     * @brief Linearly interpolates a table with two parameter dimensions. In this case the x variable changes first.
      * @return the interpolated value
      */
     double interpolate2D (gslpp::matrix<double> arrayTab, double x, double y);
 
+    
+    
+     /**
+     * @brief Linearly interpolates a table with two parameter dimensions. In this case the y variable changes first. Furthermore the shape is triangular.
+     * @return the interpolated value
+     */
+    double interpolate2DtriangularData (gslpp::matrix<double> arrayTab, double x, double y);
+
+    
+    
+    
+    
 //    gslpp::matrix<double> dummytable;
 
     /**
@@ -176,6 +188,14 @@ public:
      */
     gslpp::matrix<double> csrH_top_13, csrH_bottom_13, csrA_top_13, csrA_bottom_13;
 
+    
+    
+    
+    //Included in mid 2022
+    
+    gslpp::matrix<double> CMS8_gg_phi_mumu,CMS8_bb_phi_mumu,CMS13_gg_phi_mumu,\
+                          CMS13_bb_phi_mumu,ATLAS13_gg_phi_mumu,ATLAS13_bb_phi_mumu;
+    
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
      */
@@ -196,17 +216,25 @@ public:
 
     gslpp::matrix<double> CMS8_pp_phii_phijZ_bbll_1, CMS8_pp_phii_phijZ_bbll_2, CMS8_pp_phii_phijZ_tautaull_1, CMS8_pp_phii_phijZ_tautaull_2;
 
+    
+    //Included in mid 2022
+    
+    gslpp::matrix<double> ATLAS13_bb_phi_bb, CMS13_gg_phi_WW_heavy, CMS13_VV_phi_WW_heavy, CMS13_gg_phi_WW, CMS13_VV_phi_WW,ATLAS13_gg_phi_VV_llqq,ATLAS13_VV_phi_VV_llqq;
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
      */
     gslpp::matrix<double> ATLAS13_tt_phi_tt, ATLAS13_bb_phi_tt, ATLAS13_gg_phi_tautau, ATLAS13_bb_phi_tautau, ATLAS13_pp_phi_gaga, ATLAS13_gg_phi_Zga_llga, ATLAS13_gg_phi_Zga_qqga,\
                           ATLAS13_gg_phi_ZZ_llllnunu, ATLAS13_VV_phi_ZZ_llllnunu, ATLAS13_gg_phi_ZZ_qqllnunu, ATLAS13_VV_phi_ZZ_qqllnunu,\
                           ATLAS13_gg_phi_WW_enumunu, ATLAS13_VV_phi_WW_enumunu, ATLAS13_gg_phi_WW_lnuqq, ATLAS13_VV_phi_WW_lnuqq, ATLAS13_pp_phi_VV_qqqq,\
-                          ATLAS13_pp_phi_phi1phi1_bbbb, ATLAS13_pp_phi_phi1phi1_bbgaga, ATLAS13_pp_phi_phi1phi1_bbtautau, ATLAS13_pp_phi_phi1phi1_bbWW, ATLAS13_gg_phi_phi1phi1_gagaWW,\
-                          ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ;
+                          ATLAS13_pp_phi_phi1phi1_bbbb, ATLAS13_pp_phi_phi1phi1_bbgaga, ATLAS13_pp_phi_phi1phi1_bbtautau_1,ATLAS13_pp_phi_phi1phi1_bbtautau_2, ATLAS13_pp_phi_phi1phi1_bbWW, ATLAS13_gg_phi_phi1phi1_gagaWW,\
+                          ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_tautaull;
     
     gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ;
 
+    
+    //Added in mid 2022
+    gslpp::matrix<double> CMS13_pp_phi2_bb_light,CMS13_pp_phi3_bb_light,CMS13_tt_phi2_tt,CMS13_tt_phi3_tt;
+    
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
      */
@@ -215,6 +243,15 @@ public:
                           CMS13_pp_phi_phi1phi1_bbbb_1, CMS13_pp_phi_phi1phi1_bbbb_2, CMS13_pp_phi_phi1phi1_bbgaga, CMS13_pp_phi_phi1phi1_bbtautau_1, CMS13_pp_phi_phi1phi1_bbtautau_2, CMS13_pp_phi_phi1phi1_bbVV,\
                           CMS13_gg_phi_phi1Z_bbZ_1, CMS13_gg_phi_phi1Z_bbZ_2, CMS13_bb_phi_phi1Z_bbZ_1, CMS13_bb_phi_phi1Z_bbZ_2;
 
+    //Included in mid 2022
+    //Needs to be completed
+    
+    gslpp::matrix<double>   CMS13_pp_phi_phi1phi1_4WOr2W2tauOr4tau, CMS13_pp_phi_phi1phi1_bbWW_qqlnu, CMS13_pp_phi_phi1phi1_bbZZ_lljj,\
+                            CMS13_pp_phi_phi1phi1_bbZZ_llnunu,CMS13_pp_phi_phi1phi1_bbWWorbbtautau;
+    
+    
+    
+    
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
      */
@@ -230,10 +267,11 @@ public:
      */
     gslpp::matrix<double> ATLAS13_pp_Hpm_taunu, ATLAS13_pp_Hpm_tb;
 
+    
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
      */
-    gslpp::matrix<double> CMS13_pp_Hpm_taunu;
+    gslpp::matrix<double> CMS13_pp_Hpm_taunu, CMS13_pp_Hpm_tb;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -455,12 +493,28 @@ public:
      * @return @f$\sigma_b(gg\to A)/\sigma(gg\to A)@f$
      */
     double ip_csr_ggA_b_13(double mass);
-
+    double ip_ex_bb_phi_bb_ATLAS13(double mass);
     double ip_ex_tt_phi_tt_ATLAS13(double mass);
     double ip_ex_bb_phi_tt_ATLAS13(double mass);
     double ip_ex_bb_phi_bb_CMS8(double mass);
     double ip_ex_gg_phi_bb_CMS8(double mass);
-    double ip_ex_pp_phi_bb_CMS13(double mass);
+    double ip_ex_tt_phi2_tt_CMS13(double mass);
+    double ip_ex_tt_phi3_tt_CMS13(double mass);
+    double ip_ex_pp_phi_bb_CMS13(double mass);    
+    double ip_ex_pp_phi2_bb_light_CMS13(double mass);    
+    double ip_ex_pp_phi3_bb_light_CMS13(double mass);  
+    
+    
+    
+    double ip_ex_gg_phi_mumu_CMS8(double mass);
+    double ip_ex_bb_phi_mumu_CMS8(double mass);
+    double ip_ex_gg_phi_mumu_CMS13(double mass);
+    double ip_ex_bb_phi_mumu_CMS13(double mass);
+    double ip_ex_bb_phi_mumu_ATLAS13(double mass);
+    double ip_ex_gg_phi_mumu_ATLAS13(double mass);
+    
+    
+    
     double ip_ex_bb_phi_bb_CMS13(double mass);
     double ip_ex_gg_phi_tautau_ATLAS8(double mass);
     double ip_ex_gg_phi_tautau_CMS8(double mass);
@@ -488,6 +542,11 @@ public:
     double ip_ex_pp_phi_ZZ_qqnunu_CMS13(double mass);
     double ip_ex_gg_phi_WW_ATLAS8(double mass);
     double ip_ex_VV_phi_WW_ATLAS8(double mass);
+    
+    double ip_ex_gg_phi_WW_heavy_CMS13(double mass);
+    double ip_ex_VV_phi_WW_heavy_CMS13(double mass);
+    double ip_ex_gg_phi_WW_CMS13(double mass);
+    double ip_ex_VV_phi_WW_CMS13(double mass);
     double ip_ex_gg_phi_WW_enumunu_ATLAS13(double mass);
     double ip_ex_VV_phi_WW_enumunu_ATLAS13(double mass);
     double ip_ex_ggVV_phi_WW_lnulnu_CMS13(double mass);
@@ -496,6 +555,10 @@ public:
     double ip_ex_pp_phi_WW_lnuqq_CMS13(double mass);
     double ip_ex_mu_pp_phi_VV_CMS8(double mass);
     double ip_ex_pp_phi_VV_qqqq_ATLAS13(double mass);
+    
+    double ip_ex_gg_phi_VV_llqq_ATLAS13(double mass);
+    double ip_ex_VV_phi_VV_llqq_ATLAS13(double mass);
+    
     double ip_ex_gg_phi_phi1phi1_ATLAS8(double mass);
     double ip_ex_pp_phi_phi1phi1_bbbb_CMS8(double mass);
     double ip_ex_pp_phi_phi1phi1_bbgaga_CMS8(double mass);
@@ -506,10 +569,21 @@ public:
     double ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(double mass);
     double ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(double mass);
     double ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(double mass);
-    double ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13(double mass);
+    //double ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13(double mass);   //OLD We split this in two functions
+    double ip_ex_pp_phi_phi1phi1_bbtautau_1_ATLAS13(double mass);   //Included in mid 2022
+    double ip_ex_pp_phi_phi1phi1_bbtautau_2_ATLAS13(double mass);   //Included in mid 2022
     double ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13(double mass);
     double ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(double mass);
     double ip_ex_pp_phi_phi1phi1_bbVV_CMS13(double mass);
+    double ip_ex_pp_phi_phi1phi1_4WOr2W2tauOr4tau_CMS13(double mass);//Included in mid 2022
+    double ip_ex_pp_phi_phi1phi1_bbWW_qqlnu_CMS13(double mass);//Included in mid 2022
+    
+    double ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13(double mass);//Included in mid 2022
+    double ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(double mass);//Included in mid 2022
+    double ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(double mass);//Included in mid 2022
+    
+    
+    
     double ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(double mass);
     double ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(double mass);
     double ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(double mass);
@@ -520,8 +594,13 @@ public:
     double ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(double mass);
     double ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(double mass);
     double ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(double mass);
+    
+    double ip_ex_gg_phi_phi1Z_tautaull_ATLAS13(double mass);
+    
+    
     double ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(double mass);
     double ip_ex_bb_phi_phi1Z_bbZ_2_CMS13(double mass);
+    
 
     double ip_ex_pp_phii_phijZ_bbll_1_CMS8(double m2,double m3);
     double ip_ex_pp_phii_phijZ_bbll_2_CMS8(double m2,double m3);
@@ -531,6 +610,7 @@ public:
     double ip_ex_bb_phii_phijZ_bbZ_ATLAS13(double m3,double m2);
     
     double ip_ex_pp_Hpm_tb_ATLAS13(double mass);
+    double ip_ex_pp_Hpm_tb_CMS13(double mass);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
@@ -1030,6 +1110,7 @@ public:
     double SigmattF_phi3_13;
     double SigmaVH_phi3_13;
     double SigmaTotSM_phi3_13;
+    double Br_phi3tomumu;
     double Br_phi3totautau;
     double Br_phi3togaga;
     double Br_phi3toZga;
@@ -1124,6 +1205,91 @@ public:
      */
     double bb_phi3_bb_TH13;
 
+    
+    
+    
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi_2 \to \mu\mu@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \mu\mu)@f$
+     */
+    double gg_phi2_mumu_TH8;  
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi_2\to \mu\mu@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_2}\cdot BR^{\text{GTHDM}}(phi_2\to \mu\mu)@f$
+     */
+    double bb_phi2_mumu_TH8;
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi_3 \to \mu\mu@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi_3\to \mu\mu)@f$
+     */
+    double gg_phi3_mumu_TH8;  
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi_3\to \mu\mu@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to \mu\mu)@f$
+     */
+    double bb_phi3_mumu_TH8;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi_2 \to \mu\mu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \mu\mu)@f$
+     */
+    double gg_phi2_mumu_TH13;  
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi_2\to \mu\mu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_2}\cdot BR^{\text{GTHDM}}(phi_2\to \mu\mu)@f$
+     */
+    double bb_phi2_mumu_TH13;
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi_3 \to \mu\mu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi_3\to \mu\mu)@f$
+     */
+    double gg_phi3_mumu_TH13;  
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to phi_3\to \mu\mu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to \mu\mu)@f$
+     */
+    double bb_phi3_mumu_TH13;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi_2 \to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \tau\tau)@f$
@@ -1419,6 +1585,39 @@ public:
      */
     double pp_phi3_VV_TH13;
 
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to (WW+ZZ)@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot [BR^{\text{GTHDM}}(phi3\to WW)+BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     */
+    double gg_phi3_VV_TH13;
+    
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to (WW+ZZ)@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi3}\cdot [BR^{\text{GTHDM}}(phi3\to WW)+BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     */
+    double VV_phi3_VV_TH13;
+    
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to (WW+ZZ)@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot [BR^{\text{GTHDM}}(phi2\to WW)+BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     */
+    double gg_phi2_VV_TH13;
+    
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to (WW+ZZ)@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{VV\to phi2}\cdot [BR^{\text{GTHDM}}(phi2\to WW)+BR^{\text{GTHDM}}(phi3\to ZZ)]@f$
+     */
+    double VV_phi2_VV_TH13;
+    
+    
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1 phi1@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1 phi1)@f$
@@ -1538,6 +1737,33 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)]@f$
      */
     double pp_phi3_phi1phi1_bbVV_TH13;
+    
+    
+    double pp_phi2_phi1phi1_bbWW_qqlnu_TH13; //to be completed
+    
+    
+    double pp_phi3_phi1phi1_bbWW_qqlnu_TH13; //to be completed
+    
+    
+    double pp_phi2_phi1phi1_bbZZ_lljj_TH13; //to be completed
+    double pp_phi3_phi1phi1_bbZZ_lljj_TH13; //to be completed
+    
+    double pp_phi2_phi1phi1_bbZZ_llnunu_TH13; //to be completed
+    double pp_phi3_phi1phi1_bbZZ_llnunu_TH13; //to be completed
+    
+    
+    double pp_phi2_phi1phi1_bbWWorbbtautau_TH13; //to be completed
+    double pp_phi3_phi1phi1_bbWWorbbtautau_TH13; //to be completed
+    
+    
+    
+    
+    double pp_phi2_phi1phi1_4WOr2W2tauOr4tau_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to 4W/2W2\tau/4\tau@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}[H\to hh\to 4W/2W2\tau/4\tau]@f$*/
+    
+    
+    double pp_phi3_phi1phi1_4WOr2W2tauOr4tau_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to 4W/2W2\tau/4\tau@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}[H\to hh\to 4W/2W2\tau/4\tau]@f$*/
+
+    
     
      /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1 [\to b\bar b WW]@f$ at the LHC with 13 TeV.
@@ -1826,7 +2052,26 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{bb\to  phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar bZ)@f$
      */
     double bb_phi3_phi1Z_bbZ_TH13;
-
+    
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$bb\to phi3\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{\tau\tau\to  phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to \tau\bar \tau Z)@f$
+     */
+    double gg_phi2_phi1Z_tautaull_TH13;
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$bb\to phi3\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{\tau\tau\to  phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to \tau\bar \tau Z)@f$
+     */
+    double gg_phi3_phi1Z_tautaull_TH13;
+    
+    
+    
+    
+    
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi2 Z\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2 Z\to b\bar b \ell \ell)@f$
@@ -1962,6 +2207,8 @@ public:
 
     double THoEX_gg_phi2_tt_ATLAS8;
     double THoEX_tt_phi2_tt_ATLAS13;
+    double THoEX_bb_phi2_bb_ATLAS13;    //Included in mid 2022
+    double THoEX_bb_phi3_bb_ATLAS13;    //Included in mid 2022
     double THoEX_bb_phi2_tt_ATLAS13;
     double THoEX_gg_phi3_tt_ATLAS8;
     double THoEX_tt_phi3_tt_ATLAS13;
@@ -1969,13 +2216,35 @@ public:
 
     double THoEX_bb_phi2_bb_CMS8;
     double THoEX_gg_phi2_bb_CMS8;
+    double THoEX_tt_phi2_tt_CMS13;      //Included in mid 2022
+    double THoEX_tt_phi3_tt_CMS13;      //Included in mid 2022
     double THoEX_pp_phi2_bb_CMS13;
+    double THoEX_pp_phi2_bb_light_CMS13;//Included in mid 2022
+    double THoEX_pp_phi3_bb_light_CMS13;//Included in mid 2022
     double THoEX_bb_phi2_bb_CMS13;
     double THoEX_bb_phi3_bb_CMS8;
     double THoEX_gg_phi3_bb_CMS8;
     double THoEX_pp_phi3_bb_CMS13;
     double THoEX_bb_phi3_bb_CMS13;
 
+    
+    double THoEX_gg_phi2_mumu_CMS8;
+    double THoEX_gg_phi3_mumu_CMS8;
+    double THoEX_bb_phi2_mumu_CMS8;
+    double THoEX_bb_phi3_mumu_CMS8;
+    
+    double THoEX_gg_phi2_mumu_CMS13;
+    double THoEX_gg_phi3_mumu_CMS13;
+    double THoEX_bb_phi2_mumu_CMS13;
+    double THoEX_bb_phi3_mumu_CMS13;
+    
+    double THoEX_gg_phi2_mumu_ATLAS13;
+    double THoEX_gg_phi3_mumu_ATLAS13;
+    double THoEX_bb_phi2_mumu_ATLAS13;
+    double THoEX_bb_phi3_mumu_ATLAS13;
+    
+    
+    
     double THoEX_gg_phi2_tautau_ATLAS8;
     double THoEX_gg_phi2_tautau_CMS8;
     double THoEX_bb_phi2_tautau_ATLAS8;
@@ -2055,6 +2324,18 @@ public:
     double THoEX_gg_phi2_WW_lnuqq_ATLAS13;
     double THoEX_VV_phi2_WW_lnuqq_ATLAS13;
     double THoEX_pp_phi2_WW_lnuqq_CMS13;
+    
+    
+    double THoEX_gg_phi2_WW_heavy_CMS13;
+    double THoEX_gg_phi3_WW_heavy_CMS13;
+    double THoEX_VV_phi2_WW_heavy_CMS13;
+    double THoEX_VV_phi3_WW_heavy_CMS13;
+    
+    double THoEX_gg_phi2_WW_CMS13;
+    double THoEX_gg_phi3_WW_CMS13;
+    double THoEX_VV_phi2_WW_CMS13;
+    double THoEX_VV_phi3_WW_CMS13;
+    
     double THoEX_gg_phi2_WW_enumunu_ATLAS13;
     double THoEX_VV_phi2_WW_enumunu_ATLAS13;
     double THoEX_ggVV_phi2_WW_lnulnu_CMS13;
@@ -2072,6 +2353,11 @@ public:
     double THoEX_mu_pp_phi3_VV_CMS8;
     double THoEX_pp_phi3_VV_qqqq_ATLAS13;
 
+    double THoEX_gg_phi2_VV_llqq_ATLAS13;
+    double THoEX_gg_phi3_VV_llqq_ATLAS13;
+    double THoEX_VV_phi2_VV_llqq_ATLAS13;
+    double THoEX_VV_phi3_VV_llqq_ATLAS13;
+    
     double THoEX_gg_phi2_phi1phi1_ATLAS8;
     double THoEX_pp_phi2_phi1phi1_CMS8;
     double THoEX_gg_phi2_phi1phi1_bbtautau_CMS8;
@@ -2085,11 +2371,22 @@ public:
     double THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13;
     double THoEX_gg_phi2_phi1phi1_bbbb_CMS13;
     double THoEX_gg_phi2_phi1phi1_gagaWW_ATLAS13;
-    double THoEX_pp_phi2_phi1phi1_bbtautau_ATLAS13;
+    //double THoEX_pp_phi2_phi1phi1_bbtautau_ATLAS13; //Old, split in two in mid 2022
+    double THoEX_pp_phi2_phi1phi1_bbtautau_1_ATLAS13; //Included in mid 2022
+    double THoEX_pp_phi2_phi1phi1_bbtautau_2_ATLAS13; //Included in mid 2022
     double THoEX_pp_phi2_phi1phi1_bbtautau_1_CMS13;
     double THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13;
     double THoEX_pp_phi2_phi1phi1_bblnulnu_CMS13;
     double THoEX_pp_phi2_phi1phi1_bbVV_CMS13;
+    
+    double THoEX_pp_phi2_phi1phi1_4WOr2W2tauOr4tau_CMS13;   //Included in mid 2022
+    double THoEX_pp_phi2_phi1phi1_bbWW_qqlnu_CMS13;         //Included in mid 2022
+    
+    double THoEX_pp_phi2_phi1phi1_bbZZ_lljj_CMS13;         //Included in mid 2022
+    double THoEX_pp_phi2_phi1phi1_bbZZ_llnunu_CMS13;         //Included in mid 2022
+    
+    double THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13;    //Included in mid 2022
+    
     double THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13;
     double THoEX_gg_phi3_phi1phi1_ATLAS8;
     double THoEX_pp_phi3_phi1phi1_CMS8;
@@ -2104,11 +2401,22 @@ public:
     double THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13;
     double THoEX_gg_phi3_phi1phi1_bbbb_CMS13;
     double THoEX_gg_phi3_phi1phi1_gagaWW_ATLAS13;
-    double THoEX_pp_phi3_phi1phi1_bbtautau_ATLAS13;
+//    double THoEX_pp_phi3_phi1phi1_bbtautau_ATLAS13; //OLD we split this in two
+    double THoEX_pp_phi3_phi1phi1_bbtautau_1_ATLAS13; //Included in mid 2022
+    double THoEX_pp_phi3_phi1phi1_bbtautau_2_ATLAS13; //Included in mid 2022
     double THoEX_pp_phi3_phi1phi1_bbtautau_1_CMS13;
     double THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13;
     double THoEX_pp_phi3_phi1phi1_bblnulnu_CMS13;
     double THoEX_pp_phi3_phi1phi1_bbVV_CMS13;
+    
+    double THoEX_pp_phi3_phi1phi1_4WOr2W2tauOr4tau_CMS13; //Included in mid 2022
+    double THoEX_pp_phi3_phi1phi1_bbWW_qqlnu_CMS13; //Included in mid 2022
+    
+    double THoEX_pp_phi3_phi1phi1_bbZZ_lljj_CMS13; //Included in mid 2022
+    double THoEX_pp_phi3_phi1phi1_bbZZ_llnunu_CMS13; //Included in mid 2022
+    
+    double THoEX_pp_phi3_phi1phi1_bbWWorbbtautau_CMS13; //Included in mid 2022
+    
     double THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13;
 
     double THoEX_gg_phi3_phi1phi2_ATLAS8;
@@ -2159,6 +2467,10 @@ public:
     double THoEX_gg_phi3_phi1Z_bbZ_2_CMS13;
     double THoEX_bb_phi2_phi1Z_bbZ_ATLAS13;
     double THoEX_bb_phi3_phi1Z_bbZ_ATLAS13;
+    
+    double THoEX_gg_phi2_phi1Z_tautaull_ATLAS13;    //Included in mid 2022
+    double THoEX_gg_phi3_phi1Z_tautaull_ATLAS13;    //Included in mid 2022
+    
     double THoEX_bb_phi2_phi1Z_bbZ_1_CMS13;
     double THoEX_bb_phi3_phi1Z_bbZ_1_CMS13;
     double THoEX_bb_phi2_phi1Z_bbZ_2_CMS13;
@@ -2185,6 +2497,7 @@ public:
     double THoEX_pp_Hpm_tb_ATLAS8;
     double THoEX_pp_Hp_tb_CMS8;
     double THoEX_pp_Hpm_tb_ATLAS13;
+    double THoEX_pp_Hpm_tb_CMS13;           //Included in mid 2022
 
     double SigmaSumphi2_8;
     double SigmaggF_phi2_8;
@@ -2200,6 +2513,7 @@ public:
     double SigmattF_phi2_13;
     double SigmaVH_phi2_13;
     double SigmaTotSM_phi2_13;
+    double Br_phi2tomumu;
     double Br_phi2totautau;
     double Br_phi2togaga;
     double Br_phi2toZga;
@@ -2470,7 +2784,7 @@ public:
     double M33_2;
 
     //Remaining parameters of the generic potential depending on the input parameters
-    double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda2,lambda3,lambda4,Imlambda6,Imlambda7;
+    double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda2,lambda3,lambda4,Imlambda6,Imlambda7;//THIS IS WRONG NOW
     
     //Parameters of the Higgs potential depending on the input parameters
     double m11sqH,m22sqH,Rem12sqH,Imm12sqH,lambda1H,lambda2H,lambda3H,lambda4H,Relambda5H,Imlambda5H,Relambda6H,Imlambda6H,Relambda7H,Imlambda7H;
@@ -2500,13 +2814,13 @@ public:
 //    double R21_GTHDM, R22_GTHDM, R23_GTHDM;
 //    double R31_GTHDM, R32_GTHDM, R33_GTHDM;
 //    
-    gslpp::complex sigmau_ATHDM, sigmad_ATHDM, sigmal_ATHDM;
+    gslpp::complex sigmau_ATHDM, sigmad_ATHDM, sigmal_ATHDM; //This is completely useless and confusing!!!
 
     gslpp::matrix<gslpp::complex> Mu_GTHDM, Md_GTHDM, Ml_GTHDM;
     gslpp::matrix<gslpp::complex> Nu_GTHDM, Nd_GTHDM, Nl_GTHDM;
-    gslpp::matrix<gslpp::complex> Yu1_GTHDM, Yu2_GTHDM, Yd1_GTHDM, Yd2_GTHDM, Yl1_GTHDM, Yl2_GTHDM;
+    //gslpp::matrix<gslpp::complex> Yu1_GTHDM, Yu2_GTHDM, Yd1_GTHDM, Yd2_GTHDM, Yl1_GTHDM, Yl2_GTHDM; //No sense for this model
     
-    gslpp::complex su, sd, sl;
+    gslpp::complex su, sd, sl; //These are the couplings used at the end, forget about sigmau_ATHDM which seem to be wrongly defined...
 
     double Q_cutoff;
     double g1_at_Q;
@@ -2543,11 +2857,12 @@ private:
 
     double mHl;
     double vev;
-    double tanb;
-    double cosb;
-    double sinb;
+    //double tanb; These parameters doesn't make sense in this model
+    //double cosb;
+    //double sinb;
     double cosa1;
     double sina1;
+    double tana1;
     double cosa2;
     double sina2;
     double cosa3;
@@ -2716,11 +3031,26 @@ private:
     mutable double ip_csr_ggA_t_13_cache[2][CacheSize];
     mutable double ip_csr_ggA_b_8_cache[2][CacheSize];
     mutable double ip_csr_ggA_b_13_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_bb_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_tt_phi_tt_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_tt_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_bb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_bb_CMS8_cache[2][CacheSize];
+    
+    mutable double ip_ex_tt_phi2_tt_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_tt_phi3_tt_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_bb_CMS13_cache[2][CacheSize];
+    
+    mutable double ip_ex_pp_phi2_bb_light_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi3_bb_light_CMS13_cache[2][CacheSize];
+    
+    mutable double ip_ex_gg_phi_mumu_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_mumu_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_mumu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_mumu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_mumu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_mumu_ATLAS13_cache[2][CacheSize];
+    
     mutable double ip_ex_bb_phi_bb_CMS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_tautau_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_tautau_CMS8_cache[2][CacheSize];
@@ -2748,6 +3078,11 @@ private:
     mutable double ip_ex_pp_phi_ZZ_qqnunu_CMS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_WW_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_VV_phi_WW_ATLAS8_cache[2][CacheSize];
+    
+    mutable double ip_ex_gg_phi_WW_heavy_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_WW_heavy_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_WW_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_WW_CMS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_WW_enumunu_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_VV_phi_WW_enumunu_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_ggVV_phi_WW_lnulnu_CMS13_cache[2][CacheSize];
@@ -2756,6 +3091,10 @@ private:
     mutable double ip_ex_pp_phi_WW_lnuqq_CMS13_cache[2][CacheSize];
     mutable double ip_ex_mu_pp_phi_VV_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_VV_qqqq_ATLAS13_cache[2][CacheSize];
+    
+    mutable double ip_ex_gg_phi_VV_llqq_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_VV_llqq_ATLAS13_cache[2][CacheSize];
+    
     mutable double ip_ex_gg_phi_phi1phi1_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbbb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbgaga_CMS8_cache[2][CacheSize];
@@ -2766,10 +3105,18 @@ private:
     mutable double ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbgaga_CMS13_cache[2][CacheSize];
-    mutable double ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13_cache[2][CacheSize];
+    //mutable double ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13_cache[2][CacheSize];    //OLD we have splitten this one in two
+    mutable double ip_ex_pp_phi_phi1phi1_bbtautau_1_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_phi1phi1_bbtautau_2_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbtautau_1_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbVV_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_phi1phi1_4WOr2W2tauOr4tau_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_phi1phi1_bbWW_qqlnu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13_cache[2][CacheSize];
+    
     mutable double ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_phi1Z_bbZ_ATLAS8_cache[2][CacheSize];
@@ -2780,6 +3127,11 @@ private:
     mutable double ip_ex_gg_phi_phi1Z_bbZ_1_CMS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_phi1Z_bbZ_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_phi1Z_bbZ_ATLAS13_cache[2][CacheSize];
+    
+    mutable double ip_ex_gg_phi_phi1Z_tautaull_ATLAS13_cache[2][CacheSize];
+    
+    
+    
     mutable double ip_ex_bb_phi_phi1Z_bbZ_1_CMS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_phi1Z_bbZ_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phii_phijZ_bbll_1_CMS8_cache[3][CacheSize];
@@ -2796,6 +3148,7 @@ private:
     mutable double ip_ex_pp_Hpm_tb_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hp_tb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hpm_tb_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_tb_CMS13_cache[2][CacheSize];
 
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 

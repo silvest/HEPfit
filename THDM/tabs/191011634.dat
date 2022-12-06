@@ -1,0 +1,31 @@
+######: paper: 1910.11634
+######: table_doi: 10.17182/hepdata.90685.v1/t1
+######: name: Figure 5
+######: description: The expected and observed 95% CL model-independent upper limits on the product of the cross section and branching fraction for the A boson (pseudoscalar Higgs boson).
+######: data_file: figure_5.yaml
+######: keyword observables: SIG
+######: keyword reactions: GLUON GLUON --> HIGGS --> Z0 HIGGS --> LEPTON+ LEPTON- TAU+ TAU-
+######: Limit,Observed
+######: SQRT(S) [TeV],13
+######: LUMINOSITY [fb$^{-1}$],35.9
+#####Mass of the A boson [GeV],Cross section upper limit at 95% CL [pb]
+######## Number of Input lines:	19
+220.0		0.026573
+230.0		0.025016999999999998
+240.0		0.023461
+250.0		0.017465
+260.0		0.011469
+270.0		0.008585
+280.0		0.005701
+290.0		0.00487025
+300.0		0.0040395
+310.0		0.004369349999999999
+320.0		0.0046992
+330.0		0.0057547499999999994
+340.0		0.0068103
+350.0		0.006262
+360.0		0.00589562
+370.0		0.00552924
+380.0		0.00516286
+390.0		0.0047964800000000005
+400.0		0.0044301

@@ -35,12 +35,13 @@ public:
     
     /**
      * @brief A set method to calculate the CKM matrix from CKM elements and @f$ \gamma @f$
-     * @param[in] Vus_v the CKM element @f$ V_{us} @f$
+     * @param[in] Vus_v the CKM element @f$ V_{us} @f$ (@f$ V_{ud} @f$ if the useVud flag is true)
      * @param[in] Vcb_v the CKM element @f$ V_{cb} @f$
      * @param[in] Vub_v the CKM element @f$ V_{ub} @f$
      * @param[in] gamma_v the CKM element @f$ \gamma @f$
+     * @param[in] useVud (optional; if set to true, Vus_v is interpreted as the @f$ V_{ud} @f$ input value. Default: false
      */
-    void computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v);
+    void computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v, bool useVud = false);
 
     /**
      * @brief A member for returning the CKM matrix.

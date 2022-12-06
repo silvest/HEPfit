@@ -26,7 +26,7 @@ public:
      * @param[in] obsFlag_1 the first index of the CKM element
      * @param[in] obsFlag_2 the second index of the CKM element
      */
-    VCKM(const StandardModel& SM_i, unsigned int obsFlag_1,  unsigned int obsFlag_2);
+    VCKM(const StandardModel& SM_i, unsigned int obsFlag_1,  unsigned int obsFlag_2, unsigned int obsFlag_3 = 0);
     
     /**
      * @brief Destructor.
@@ -41,6 +41,7 @@ public:
 private:
     unsigned int obs_1;
     unsigned int obs_2;
+    unsigned int obs_3;
         
 };
 
@@ -363,6 +364,32 @@ public:
      */
     double computeThValue ();
       
+};
+
+/**
+* @class CKM_Rt_dms
+* @ingroup Flavour
+* @brief An auxiliary class for the CKM UT plot from the constraint from @f$\Delta M_s@f$.
+* @author HEPfit Collaboration
+* @copyright GNU General Public License
+* @details This class is used to produce the UT plot with the constraints from
+* @f$\Delta M_s@f$ and @f$\Delta M_d@f$.
+*/
+class CKM_Rt_dms : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CKM_Rt_dms(const StandardModel& SM_i);
+
+    /**
+     * @brief @f$R_t=|(V_{td} V_{tb}^*)/(V_{cd}V_{cb}^*)|@f$.
+     * @return @f$R_t * \sqrt{1+\Lambda^2)*(1-2 \rho)}@f$
+     */
+    double computeThValue ();
+
 };
 
 /**
@@ -937,7 +964,7 @@ private:
 * @author HEPfit Collaboration
 * @copyright GNU General Public License
 * @details This class is used to compute the absolute value of the CKM parameters 
-* combination @f$\mathrm{Re}(\lambda_{t}) = \mathrm{Im}(V_{td} V_{ts}^*)@f$.
+* combination @f$\mathrm{Re}(\lambda_{t}) = \mathrm{Re}(V_{td} V_{ts}^*)@f$.
 */
 class Relam_t : public ThObservable {
 public:
@@ -1166,6 +1193,60 @@ public:
     
     /**
      * @return @f$\mathrm{Re}( V_{us} V_{ub}^* ) @f$
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+/**
+* @class Retau_DS1
+* @ingroup Flavour
+* @brief A class for the real part of the ratio of CKM parameters @f$\mathrm{Re}(-\lambda_{t}/\lambda_{u})@f$. 
+* @author HEPfit Collaboration
+* @copyright GNU General Public License
+* @details This class is used to compute the real part of the ratio of CKM parameters 
+* @f$\mathrm{Re}(-\lambda_{t}/lambda_{u}) = \mathrm{Re}(-V_{td} V_{ts}^{*}/(V_{ud}V_{us}^{*}))@f$.
+*/
+class Retau_DS1 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Retau_DS1(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mathrm{Re}( -\lambda_{t}/lambda_{u} ) @f$
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+/**
+* @class Imtau_DS1
+* @ingroup Flavour
+* @brief A class for the real part of the ratio of CKM parameters @f$\mathrm{Im}(-\lambda_{t}/\lambda_{u})@f$. 
+* @author HEPfit Collaboration
+* @copyright GNU General Public License
+* @details This class is used to compute the real part of the ratio of CKM parameters 
+* @f$\mathrm{Im}(-\lambda_{t}/lambda_{u}) = \mathrm{Im}(-V_{td} V_{ts}^{*}/(V_{ud}V_{us}^{*}))@f$.
+*/
+class Imtau_DS1 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Imtau_DS1(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mathrm{Im}( -\lambda_{t}/lambda_{u} ) @f$
      */
     double computeThValue ();
     

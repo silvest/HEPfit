@@ -1,6 +1,6 @@
 # LHCHXSWGMSSMCharged
 # gg production cross section of a charged Higgs at 8 TeV
-# mHp[GeV] | log10(tanb) | log10(sigma/pb)
+# log10(tanb) | mHp[GeV] | log10(sigma/pb)    ### In HEPfit the column of the tanb and the mass is switched!
 -1.	180.	1.766
 -0.75	180.	1.268
 -0.5	180.	0.7688

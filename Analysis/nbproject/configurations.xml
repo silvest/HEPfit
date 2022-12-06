@@ -418,7 +418,7 @@
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs` -lquadmath</commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit `gsl-config --libs`</commandLine>
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
@@ -864,7 +864,7 @@
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs` -lifport -lifcore -limf -lirc</commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs`</commandLine>
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">

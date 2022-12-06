@@ -9,6 +9,7 @@
       <itemPath>src/AmpDK2.h</itemPath>
       <itemPath>src/AmpDS1.h</itemPath>
       <itemPath>src/ArgD.h</itemPath>
+      <itemPath>src/BBd.h</itemPath>
       <itemPath>src/BR_Bdnunu.h</itemPath>
       <itemPath>src/BR_Bsnunu.h</itemPath>
       <itemPath>src/BR_Kmumu.h</itemPath>
@@ -16,7 +17,9 @@
       <itemPath>src/BR_Kppnunu.h</itemPath>
       <itemPath>src/BXqll.h</itemPath>
       <itemPath>src/BXqllObservables.h</itemPath>
+      <itemPath>src/Bdmumu.h</itemPath>
       <itemPath>src/BdmumuOBsmumu.h</itemPath>
+      <itemPath>src/Bsmumu.h</itemPath>
       <itemPath>src/Btaunu.h</itemPath>
       <itemPath>src/C2beta.h</itemPath>
       <itemPath>src/CPenguinBox.h</itemPath>
@@ -27,6 +30,7 @@
       <itemPath>src/DmK.h</itemPath>
       <itemPath>src/EpsilonK.h</itemPath>
       <itemPath>src/EpsilonP_O_Epsilon.h</itemPath>
+      <itemPath>src/EpsilonP_O_Epsilon_TH.h</itemPath>
       <itemPath>src/EvolBsmm.h</itemPath>
       <itemPath>src/EvolDB1Mll.h</itemPath>
       <itemPath>src/EvolDB1bsg.h</itemPath>
@@ -35,6 +39,9 @@
       <itemPath>src/EvolDF1.h</itemPath>
       <itemPath>src/EvolDF1nlep.h</itemPath>
       <itemPath>src/EvolDF2.h</itemPath>
+      <itemPath>src/FBd.h</itemPath>
+      <itemPath>src/FBdSqrtBBd.h</itemPath>
+      <itemPath>src/FBsSqrtBBs.h</itemPath>
       <itemPath>src/F_1.h</itemPath>
       <itemPath>src/F_2.h</itemPath>
       <itemPath>src/Flavour.h</itemPath>
@@ -67,6 +74,7 @@
       <itemPath>src/bsgamma.h</itemPath>
       <itemPath>src/gamma.h</itemPath>
       <itemPath>src/hpl.h</itemPath>
+      <itemPath>src/xi.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -79,6 +87,7 @@
       <itemPath>src/AmpDD2.cpp</itemPath>
       <itemPath>src/AmpDK2.cpp</itemPath>
       <itemPath>src/AmpDS1.cpp</itemPath>
+      <itemPath>src/BBd.cpp</itemPath>
       <itemPath>src/BR_Bdnunu.cpp</itemPath>
       <itemPath>src/BR_Bsnunu.cpp</itemPath>
       <itemPath>src/BR_Kmumu.cpp</itemPath>
@@ -86,7 +95,9 @@
       <itemPath>src/BR_Kppnunu.cpp</itemPath>
       <itemPath>src/BXqll.cpp</itemPath>
       <itemPath>src/BXqllObservables.cpp</itemPath>
+      <itemPath>src/Bdmumu.cpp</itemPath>
       <itemPath>src/BdmumuOBsmumu.cpp</itemPath>
+      <itemPath>src/Bsmumu.cpp</itemPath>
       <itemPath>src/Btaunu.cpp</itemPath>
       <itemPath>src/C2beta.cpp</itemPath>
       <itemPath>src/CPenguinBox.cpp</itemPath>
@@ -97,6 +108,7 @@
       <itemPath>src/DmK.cpp</itemPath>
       <itemPath>src/EpsilonK.cpp</itemPath>
       <itemPath>src/EpsilonP_O_Epsilon.cpp</itemPath>
+      <itemPath>src/EpsilonP_O_Epsilon_TH.cpp</itemPath>
       <itemPath>src/EvolBsmm.cpp</itemPath>
       <itemPath>src/EvolDB1Mll.cpp</itemPath>
       <itemPath>src/EvolDB1bsg.cpp</itemPath>
@@ -105,6 +117,9 @@
       <itemPath>src/EvolDF1.cpp</itemPath>
       <itemPath>src/EvolDF1nlep.cpp</itemPath>
       <itemPath>src/EvolDF2.cpp</itemPath>
+      <itemPath>src/FBd.cpp</itemPath>
+      <itemPath>src/FBdSqrtBBd.cpp</itemPath>
+      <itemPath>src/FBsSqrtBBs.cpp</itemPath>
       <itemPath>src/F_1.cpp</itemPath>
       <itemPath>src/F_2.cpp</itemPath>
       <itemPath>src/Flavour.cpp</itemPath>
@@ -133,6 +148,7 @@
       <itemPath>src/alpha_2a.cpp</itemPath>
       <itemPath>src/bsgamma.cpp</itemPath>
       <itemPath>src/gamma.cpp</itemPath>
+      <itemPath>src/xi.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -203,6 +219,10 @@
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/BBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BBd.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
@@ -231,9 +251,17 @@
       </item>
       <item path="src/BXqllObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BdmumuOBsmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -275,6 +303,10 @@
       </item>
       <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EpsilonP_O_Epsilon_TH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EpsilonP_O_Epsilon_TH.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
@@ -306,6 +338,18 @@
       <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBdSqrtBBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBdSqrtBBd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBsSqrtBBs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBsSqrtBBs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/F_1.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -435,6 +479,10 @@
       </item>
       <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/xi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/xi.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
@@ -476,6 +524,10 @@
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/BBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BBd.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
@@ -504,9 +556,17 @@
       </item>
       <item path="src/BXqllObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BdmumuOBsmumu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -548,6 +608,10 @@
       </item>
       <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EpsilonP_O_Epsilon_TH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EpsilonP_O_Epsilon_TH.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
@@ -579,6 +643,18 @@
       <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBdSqrtBBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBdSqrtBBd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBsSqrtBBs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBsSqrtBBs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/F_1.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -708,6 +784,10 @@
       </item>
       <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/xi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/xi.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>
@@ -750,6 +830,10 @@
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/BBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BBd.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
@@ -778,9 +862,17 @@
       </item>
       <item path="src/BXqllObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BdmumuOBsmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -822,6 +914,10 @@
       </item>
       <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EpsilonP_O_Epsilon_TH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EpsilonP_O_Epsilon_TH.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
@@ -853,6 +949,18 @@
       <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBdSqrtBBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBdSqrtBBd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBsSqrtBBs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBsSqrtBBs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/F_1.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -976,6 +1084,10 @@
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/xi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/xi.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="ArchLinux" type="3">
@@ -1022,6 +1134,10 @@
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/BBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BBd.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
@@ -1050,9 +1166,17 @@
       </item>
       <item path="src/BXqllObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BdmumuOBsmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BdmumuOBsmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Btaunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1094,6 +1218,10 @@
       </item>
       <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EpsilonP_O_Epsilon_TH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EpsilonP_O_Epsilon_TH.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
@@ -1125,6 +1253,18 @@
       <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBdSqrtBBd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBdSqrtBBd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/FBsSqrtBBs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/FBsSqrtBBs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/F_1.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1253,6 +1393,10 @@
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/xi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/xi.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

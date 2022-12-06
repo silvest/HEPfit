@@ -8,7 +8,9 @@
 #include "GeneralTHDM.h"
 #include "GeneralTHDMcache.h"
 
-std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", "Relambda5", "Imlambda5", "Relambda6", "Relambda7",
+//The CP-violating part doesn't make sense, there are too many parameters!!!
+std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {/*"logtb",*/ "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", 
+"lambda2", "lambda3", "Relambda7",
 "Nu_11r", "Nu_11i", "Nu_12r", "Nu_12i", "Nu_13r", "Nu_13i", 
 "Nu_21r", "Nu_21i", "Nu_22r", "Nu_22i", "Nu_23r", "Nu_23i", 
 "Nu_31r", "Nu_31i", "Nu_32r", "Nu_32i", "Nu_33r", "Nu_33i", 
@@ -23,16 +25,24 @@ std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "
 GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
 
     SMM.setObj((StandardModelMatching&) GTHDMM.getObj());
-    ModelParamMap.insert(std::make_pair("logtb", std::cref(logtb)));
-    ModelParamMap.insert(std::make_pair("mHp1", std::cref(mHp1)));
-    ModelParamMap.insert(std::make_pair("mH21", std::cref(mH21)));
-    ModelParamMap.insert(std::make_pair("mH31", std::cref(mH31)));
+    //ModelParamMap.insert(std::make_pair("logtb", std::cref(logtb)));
+    
+    ModelParamMap.insert(std::make_pair("mH1", std::cref(mH1)));
+    ModelParamMap.insert(std::make_pair("mHp", std::cref(mHp1)));
+    ModelParamMap.insert(std::make_pair("mH2", std::cref(mH21)));
+    ModelParamMap.insert(std::make_pair("mH3", std::cref(mH31)));
+
+    ModelParamMap.insert(std::make_pair("mH1sq", std::cref(mH1sq)));
     ModelParamMap.insert(std::make_pair("mHp2", std::cref(mHp2)));
     ModelParamMap.insert(std::make_pair("mH2sq", std::cref(mH2sq)));
     ModelParamMap.insert(std::make_pair("mH3sq", std::cref(mH3sq)));
     ModelParamMap.insert(std::make_pair("alpha1", std::cref(alpha1)));
     ModelParamMap.insert(std::make_pair("alpha2", std::cref(alpha2)));
     ModelParamMap.insert(std::make_pair("alpha3", std::cref(alpha3)));
+    ModelParamMap.insert(std::make_pair("lambda1", std::cref(lambda1)));
+    ModelParamMap.insert(std::make_pair("lambda2", std::cref(lambda2)));
+    ModelParamMap.insert(std::make_pair("lambda3", std::cref(lambda3)));
+    ModelParamMap.insert(std::make_pair("lambda4", std::cref(lambda4)));
     ModelParamMap.insert(std::make_pair("Relambda5", std::cref(Relambda5)));
     ModelParamMap.insert(std::make_pair("Imlambda5", std::cref(Imlambda5)));
     ModelParamMap.insert(std::make_pair("Relambda6", std::cref(Relambda6)));
@@ -120,41 +130,14 @@ GeneralTHDM::~GeneralTHDM(){
 bool GeneralTHDM::InitializeModel()
 {
     myGTHDMcache = new GeneralTHDMcache(*this);
-    setModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     setModelGeneralTHDM();
-    return(true);
-}
-
-bool GeneralTHDM::Init(const std::map<std::string, double>& DPars) {
-    return(StandardModel::Init(DPars));
-}
-
-bool GeneralTHDM::PreUpdate()
-{
-    if(!StandardModel::PreUpdate()) return (false);
-
-    return (true);
-}
-
-bool GeneralTHDM::Update(const std::map<std::string, double>& DPars) {
-
-    if(!PreUpdate()) return (false);
-
-    UpdateError = false;
-
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-
-    if (UpdateError) return (false);
-
-    if(!PostUpdate()) return (false);
-
-    return (true);
+    return(IsModelInitialized());
 }
 
 bool GeneralTHDM::PostUpdate()
 {
-    if(!StandardModel::PostUpdate()) return (false);
+    if(!NPbase::PostUpdate()) return (false);
 
     myGTHDMcache->updateCache();
 
@@ -163,7 +146,7 @@ bool GeneralTHDM::PostUpdate()
 
 void GeneralTHDM::setParameter(const std::string name, const double& value){
 
-    if(name.compare("logtb") == 0) {
+    /*if(name.compare("logtb") == 0) {
         logtb = value;
         tanb = pow(10.,logtb);
         if(tanb > 0.) {
@@ -174,22 +157,80 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             throw std::runtime_error("error in GeneralTHDM::SetParameter, tanb < 0!");
           }
         }
-    else if(name.compare("mH21") == 0 && !flag_use_sq_masses)
-        mH21 = value;
-    else if(name.compare("mH31") == 0 && !flag_use_sq_masses)
-        mH31 = value;
-    else if(name.compare("mHp1") == 0 && !flag_use_sq_masses)
-        mHp1 = value;
-    else if(name.compare("mH2sq") == 0 && flag_use_sq_masses)
-        mH2sq = value;
-    else if(name.compare("mH3sq") == 0 && flag_use_sq_masses)
-        mH3sq = value;
-    else if(name.compare("mHp2") == 0 && flag_use_sq_masses)
-        mHp2 = value;
+    
+    else */ if(name.compare("mH21") == 0){
+        if(!flag_use_sq_masses){
+            mH21 = value;
+            mH2sq=mH21*mH21;
+        }
+        else{
+            //Actually it wouldn't make sense to use sq_masses and that mH21 appears in the config file 
+            //maybe it's better to through an error? Think what's best
+            mH21=sqrt(mH2sq);
+        }
+    }
+    else if(name.compare("mH31") == 0){
+        if(!flag_use_sq_masses){
+            mH31 = value;
+            mH3sq = mH31*mH31;
+        }
+        else{
+            //same concern as above
+            mH31=sqrt(mH3sq);
+        }
+    }
+    else if(name.compare("mHp1") == 0){
+        if(!flag_use_sq_masses){
+            mHp1 = value;
+            mHp2 = mHp1*mHp1;
+        }
+        else{
+            //same concern as above
+            mHp1=sqrt(mHp2);
+        }
+    }
+
+    else if(name.compare("mH2sq") == 0){
+        if(flag_use_sq_masses){
+            mH2sq = value;
+            mH21=sqrt(mH2sq);
+        }
+        else{
+            //same concern as above
+            mH2sq=mH21*mH21;
+        }
+    }
+    else if(name.compare("mH3sq") == 0){
+        if(flag_use_sq_masses){
+            mH3sq = value;
+            mH31=sqrt(mH3sq);
+        }
+        else{
+            //same concern as above
+            mH3sq=mH31*mH31;
+        }
+    }
+    else if(name.compare("mHp2") == 0){
+        if(flag_use_sq_masses){
+            mHp2 = value;
+            mHp1=sqrt(mHp2);
+        }
+        else{
+            //same concern as above
+            mHp2=mHp1*mHp1;
+        }
+    }
+
     else if(name.compare("alpha1") == 0) {
         alpha1 = value;
         cosalpha1 = cos(alpha1);
         sinalpha1 = sin(alpha1);
+        if(cosalpha1 != 0){
+            tanalpha1 = sinalpha1/cosalpha1;
+        }
+        else{
+            std::cout<<"\033[1;33m Warning!!! The alpha1=pi/2 and it's tangent is infinity, reduce the range of alpha1 \033[0m "<<std::endl;
+        }
       // std::cout<<"alpha1 before ordering = "<<alpha1<<std::endl;
 
     }
@@ -205,13 +246,11 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         sinalpha3 = sin(alpha3);
               //std::cout<<"alpha3 before ordering = "<<alpha3<<std::endl;
     }
-    else if(name.compare("Relambda5") == 0)
-        Relambda5 = value;
-    else if(name.compare("Imlambda5") == 0)
-        Imlambda5 = value;
-    else if(name.compare("Relambda6") == 0)
-        Relambda6 = value;
-    else if(name.compare("Relambda7") == 0)
+    else if(name.compare("lambda2") == 0)
+        lambda2 = value;
+    else if(name.compare("lambda3") == 0)
+        lambda3 = value;
+    else if(name.compare("Relambda7") == 0) 
         Relambda7 = value;
     else if(name.compare("Nu_11r") == 0 && flag_sigma)
         Nu_11r = value;
@@ -344,7 +383,33 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
     else if(name.compare("NLOuniscaleGTHDM") == 0)
         NLOuniscaleGTHDM = value;
     else
-        StandardModel::setParameter(name,value);
+        NPbase::setParameter(name,value);
+    if(flag_CPconservation){
+        //let's define the values for the other parameters here for the moment
+        //probably we could find a better place though, think about it
+        mu2=mHp2-lambda3/(2*v()*v());
+        
+        mH1=mHl;
+                
+        mH1sq=mH1*mH1;
+        
+        lambda1 = (mH1sq+mH2sq*tanalpha1*tanalpha1)/(v()*v()*(1+tanalpha1*tanalpha1));
+    
+        lambda4 = (mH1sq+mH3sq-2*mHp2+(mH2sq-mH1sq)/(1+tanalpha1*tanalpha1))/(v()*v());
+    
+        Relambda5 = ((mH2sq+mH1sq*tanalpha1*tanalpha1)/(1+tanalpha1*tanalpha1)-mH3sq)/(v()*v());
+    
+        Imlambda5 = 0;
+    
+        Relambda6 = ((mH1sq-mH2sq)*tanalpha1)/(v()*v()*(1+tanalpha1*tanalpha1));
+    
+        Imlambda6 = 0;
+        
+        
+    }
+    else{
+        throw std::runtime_error("\033[1;31m The CP-Violating GeneralTHDM is still not implemented, please use the CP-conserving model \033[0m ");
+    }
 }
 
 bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
@@ -355,7 +420,7 @@ bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
             addMissingModelParameter(GeneralTHDMvars[i]);
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -379,7 +444,7 @@ bool GeneralTHDM::setFlagStr(const std::string name, const std::string value)
     }
     else
     {
-        res = StandardModel::setFlagStr(name,value);
+        res = NPbase::setFlagStr(name,value);
     }
 
     return(res);
@@ -435,7 +500,7 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
         res = true;  
     }
     else
-        res = StandardModel::setFlag(name,value);
+        res = NPbase::setFlag(name,value);
 
     return(res);
 }
@@ -677,6 +742,5 @@ double GeneralTHDM::muppHZga(const double sqrt_s) const
 }
 
 double GeneralTHDM::Mw() const{
-    double MZ = StandardModel::Mz;
-    return ( MZ / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * StandardModel::ale / (sqrt(2.0) * StandardModel::GF * MZ* MZ))));
+    return (Mw_tree());
 }

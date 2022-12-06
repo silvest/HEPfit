@@ -420,7 +420,7 @@ public:
     /**
      * @brief A set method to fix the pointer to object of type ThObservable.
      * @param[in] tho_i pointer to the object of type ThObservable
-     * @param[in] bmin the lower limit of the bind
+     * @param[in] bmin the lower limit of the bin
      * @param[in] bmax the upper limit of the bin
      */
     void setTho(ThObservable* tho_i, double bmin, double bmax)
