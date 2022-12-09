@@ -873,6 +873,20 @@ public:
     double getRelambda7() const {
         return Relambda7;
     }
+    
+    
+    /**
+     * @brief A getter for the Imaginary part of the Higgs potential parameter @f$lambda_{7}@f$
+     * @return Imaginary part of the Higgs potential parameter @f$lambda_{7}@f$
+     */
+    double getImlambda7() const {
+        if(flag_CPconservation==true) {
+            return 0.0;
+        }
+        else {
+            return Imlambda7;
+        }
+    }
 
     /**
      * 
@@ -1454,7 +1468,7 @@ private:
     //We'll also set all the parameters in the setParameter functions in such a way that we can use the formulae written in terms of any parameter
     //These parameters are private but used in the inherited classes, think a bit about if this is the best way of including them
     double /*logtb, tanb, sinb, cosb,*/mH1sq, mHp2, mH2sq, mH3sq, mH1, mHp1, mH21, mH31, alpha1, cosalpha1, sinalpha1, tanalpha1, alpha2, cosalpha2, sinalpha2,
-            alpha3, cosalpha3, sinalpha3, mu2, lambda1, lambda2, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7,//we can trade one of the Im by the Im of lambda7
+            alpha3, cosalpha3, sinalpha3, mu2, lambda1, lambda2, lambda3, lambda4, Relambda5, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7,//we can trade one of the Im by the Im of lambda7, we include it any way since we've not decided yet which phase to keep
             yu1R_GTHDM, yd1R_GTHDM, yl1R_GTHDM, 
             Nu_11r, Nu_11i, Nu_12r, Nu_12i, Nu_13r, Nu_13i, 
             Nu_21r, Nu_21i, Nu_22r, Nu_22i, Nu_23r, Nu_23i, 

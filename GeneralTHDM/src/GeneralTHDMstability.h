@@ -124,5 +124,75 @@ private:
     stability_GTHDM mystability_GTHDM;
 };
 
+
+
+/**
+ * 
+ */
+class stability5_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief stability5_GTHDM constructor.
+     */
+    stability5_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return
+     */
+    double computeThValue();
+
+private:
+    stability_GTHDM mystability_GTHDM;
+};
+
+
+
+
+/**
+ * 
+ */
+class stability6_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief stability6_GTHDM constructor.
+     */
+    stability6_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return
+     */
+    double computeThValue();
+
+private:
+    stability_GTHDM mystability_GTHDM;
+};
+
+
+
+/**
+ * 
+ */
+class stability7_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief stability7_GTHDM constructor.
+     */
+    stability7_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return
+     */
+    double computeThValue();
+
+private:
+    stability_GTHDM mystability_GTHDM;
+};
+
+
+
+
 #endif /* GENERALTHDMSTABILITY_H */
 
