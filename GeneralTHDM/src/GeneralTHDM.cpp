@@ -405,6 +405,7 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
     
         Imlambda6 = 0;
         
+        Imlambda7 = 0;
         
     }
     else{

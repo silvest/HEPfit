@@ -18,17 +18,33 @@ stability_GTHDM::~stability_GTHDM()
 
 gslpp::vector<double> stability_GTHDM::getStability()
 {
-    double lambda1 = myGTHDM.getMyGTHDMCache()->lambda1;
-    double lambda2 = myGTHDM.getMyGTHDMCache()->lambda2;
-    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3;
-    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4;
+    //double lambda1 = myGTHDM.getMyGTHDMCache()->lambda1;
+    double lambda1 = myGTHDM.getlambda1();
+    double lambda2 = myGTHDM.getlambda2();
+    double lambda3 = myGTHDM.getlambda3();
+    double lambda4 = myGTHDM.getlambda4();
     double Relambda5 = myGTHDM.getRelambda5();
     double Imlambda5 = myGTHDM.getImlambda5();
     double Relambda6 = myGTHDM.getRelambda6();
     double Relambda7 = myGTHDM.getRelambda7();
-    double Imlambda6 = myGTHDM.getMyGTHDMCache()->Imlambda6;
-    double Imlambda7 = myGTHDM.getMyGTHDMCache()->Imlambda7;
+    double Imlambda6 = myGTHDM.getImlambda6();
+    double Imlambda7 = myGTHDM.getImlambda7();
     bool flag_CPconservation=myGTHDM.getCPconservationflag();
+    
+    //std::cout<<"\033[1;34m   lambda1 =\033[0m "<< lambda1 <<std::endl;
+    //std::cout<<"\033[1;34m   lambda2 =\033[0m "<< lambda2 <<std::endl;
+    //std::cout<<"\033[1;34m   lambda3 =\033[0m "<< lambda3 <<std::endl;
+    //std::cout<<"\033[1;34m   lambda4 =\033[0m "<< lambda4 <<std::endl;
+    //std::cout<<"\033[1;34m   Relambda5 =\033[0m "<< Relambda5 <<std::endl;
+    //std::cout<<"\033[1;34m   Imlambda5 =\033[0m "<< Imlambda5 <<std::endl;
+    //std::cout<<"\033[1;34m   Relambda6 =\033[0m "<< Relambda6 <<std::endl;
+    //std::cout<<"\033[1;34m   Imlambda6 =\033[0m "<< Imlambda6 <<std::endl;
+    //std::cout<<"\033[1;34m   Relambda7 =\033[0m "<< Relambda7 <<std::endl;
+    //std::cout<<"\033[1;34m   Imlambda7 =\033[0m "<< Imlambda7 <<std::endl;
+    //std::cout<<"\033[1;34m   flag_CPconservation =\033[0m "<< flag_CPconservation <<std::endl;
+    
+    
+    
     //vecStability(0) = lambda3 + sqrt(lambda1*lambda2);
     //vecStability(1) = lambda3 + lambda4 - sqrt(Relambda5*Relambda5+Imlambda5*Imlambda5) + sqrt(lambda1*lambda2);
     //vecStability(2) = (lambda1+lambda2)/2. + lambda3 + lambda4 + Relambda5 - 2.*fabs(Relambda6 + Relambda7);
@@ -64,12 +80,14 @@ gslpp::vector<double> stability_GTHDM::getStability()
                     if(lam3plam4pRelam5-3*sqrt(lam1tlam2)<=0){
                         vecStability(5)=3*sqrt(lam1tlam2)-lam3plam4pRelam5;
                         vecStability(6)=sqrt(lam1tlam2)+lam3plam4pRelam5;
+                        return vecStability;
                     }
                     else{
                         double radicandminus=(lam1tlam2*lam3plam4pRelam5-lam1tlam2*sqrt(lam1tlam2));
                         if(radicandminus>=0){
                             vecStability(5)=lam3plam4pRelam5-3*sqrt(lam1tlam2);
                             vecStability(6)=radicandminus-abs(Relambda6*sqrt(lambda2/2)+Relambda7*sqrt(lambda1/2));
+                            return vecStability;
                         }
                         else
                             return vecMinus1;
