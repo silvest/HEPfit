@@ -1,35 +1,3 @@
-/*AG: The following public functions and protected parameters were added
-virtual double deltaMwd6_2() const;
-virtual double deltaMwd6_Test() const
-virtual double deltaGamma_Wff_Test(const Particle fi, const Particle fj) const;
-virtual double deltaGamma_Wff_2(const Particle fi, const Particle fj) const;
-virtual double deltaGamma_W_Test() const;
-virtual double deltaGamma_W_2() const;
-double deltaGL_f_Test(const Particle p) const;
-double deltaGR_f_Test(const Particle p) const;
-virtual double deltaGV_f_2(const Particle p) const;
-virtual double deltaGA_f_2(const Particle p) const;
-double deltaGL_f_2(const Particle p) const;
-double deltaGR_f_2(const Particle p) const;
-double delta_GF_2;
-double delta_ale;
-double delta_Mz2;
-double delta_g1;
-double delta_g2; 
-double xWZ_tree;
-double xBZ_tree;
-double delta_xWZ;
-double delta_xBZ;
-double delta_xWZ_2;
-double delta_xBZ_2;
-double delta_ale_2;
-double delta_Mz2_2;
-double delta_g1_2;
-double delta_g2_2;
-virtual bool NumericCheck() const; 
-virtual int Output() const;
-*/
-
 /*
  * Copyright (C) 2014 HEPfit Collaboration
  *
@@ -1106,7 +1074,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 292;   //AGhat: 273+x
+    static const int NNPSMEFTd6Vars_LFU_QFU = 292;             //AG:modified,hat
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -1616,6 +1584,19 @@ public:
     virtual double deltaMwd62() const;
     
     /**
+     * @brief The relative \f$\mathcal{O}(\Lambda^{-4})\f$ NP corrections to the mass of the @f$W@f$ boson, @f$\Delta M_W^{(2)}@f$.
+     * @details
+     * \f$\nc{\dGf}{\delta_{G_F}}\f$
+     * \f[
+     * \Delta M_W^{(2)} =  \frac{\gwQ}{\gwt} + \frac{\dGf^{(2)}}{2} + \frac{\gwL \dGf^{(1)}}{2\gwt} - \frac{(\dGf^{(1)})^2}{8}
+     * \f]
+     * @return @f$\Delta M_W^{(2)}@f$
+     */
+    virtual double deltaMwd6_2() const;                           //AG:added
+    
+    virtual double deltaGamma_Wff_2(const Particle fi, const Particle fj) const;        //AG:added
+    
+    /**
      * @brief The new physics contribution to the decay width of the @f$W@f$ boson into a given fermion pair, @f$\delta \Gamma_Z^{f}@f$.
      * @param[in] fi a lepton or quark
      * @param[in] fj a lepton or quark
@@ -1630,6 +1611,8 @@ public:
      * @return @f$\Gamma^W_{ij}@f$
      */
     virtual double GammaW(const Particle fi, const Particle fj) const;
+    
+    virtual double deltaGamma_W_2() const;                        //AG:added
     
     /**
      * @brief The new physics contribution to the total decay width of the @f$W@f$ boson, @f$\delta \Gamma_W@f$.
@@ -1666,6 +1649,17 @@ public:
      * @return @f$(\delta \Gamma_Z/\Gamma_Z)^2@f$
      */
     virtual double deltaGzd62() const;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
+     * @details
+     * \f[
+     * \Delta g_{V,f}^{(2)} = \Delta g_{L,f}^{(2)} + \Delta g_{R,f}^{(2)}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$\Delta g_{V,f}^{(2)}@f$
+     */
+    virtual double deltaGV_f_2(const Particle p) const;           //AG:added
 
     /**
      * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
@@ -1675,11 +1669,51 @@ public:
     virtual double deltaGV_f(const Particle p) const;
 
     /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the neutral-current vector coupling @f$g_A^f@f$.
+     * @details
+     * \f[
+     * \Delta g_{A,f}^{(2)} = \Delta g_{L,f}^{(2)} - \Delta g_{R,f}^{(2)}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$\Delta g_{A,f}^{(2)}@f$
+     */
+    virtual double deltaGA_f_2(const Particle p) const;           //AG:added
+    
+    /**
      * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_A^f@f$
      */
     virtual double deltaGA_f(const Particle p) const;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the left-handed coupling @f$g_L^f@f$.
+     * @details
+     * \f$\newcommand{\nc}{\newcommand}\f$
+     * \f$\nc{\vt}{\widetilde{v}}\f$
+     * \f$\nc{\xWZb}{\mathbb{\bar{X}}_{(WZ)}}\f$
+     * \f$\nc{\xBZb}{\mathbb{\bar{X}}_{(BZ)}}\f$
+     * \f$\nc{\xWZt}{\mathbb{\widetilde{X}}_{(WZ)}}\f$
+     * \f$\nc{\xBZt}{\mathbb{\widetilde{X}}_{(BZ)}}\f$
+     * \f$\nc{\xWZL}{\Delta \mathbb{X}_{WZ}^{(1)}}\f$
+     * \f$\nc{\xBZL}{\Delta \mathbb{X}_{BZ}^{(1)}}\f$
+     * \f$\nc{\xWZQ}{\Delta \mathbb{X}_{WZ}^{(2)}}\f$
+     * \f$\nc{\xBZQ}{\Delta \mathbb{X}_{BZ}^{(2)}}\f$
+     * \f$\nc{\gwt}{\widetilde{g}_W}\f$
+     * \f$\nc{\gbt}{\widetilde{g}_1}\f$
+     * \f$\nc{\gbL}{\Delta g_1^{(1)}}\f$
+     * \f$\nc{\gwL}{\Delta g_W^{(1)}}\f$
+     * \f$\nc{\gbQ}{\Delta g_1^{(2)}}\f$
+     * \f$\nc{\gwQ}{\Delta g_W^{(2)}}\f$
+     * \f{eqnarray*}{
+     * \Delta g_L^{(2)} &=& \frac{1}{\sqrt{\gbt^2+\gwt^2}} \left[ (Q-I_3) ~\left(\gbt ~\xBZQ + \gbL \xBZL + \xBZt \gbQ \right) 
+     * + I_3 ~\left(\gwt \xWZQ + \gwL \xWZL + \xWZt \gwQ \right) \right] \\
+     * &+& \frac{(\hat{C}_{Hf1} - 2I_3\hat{C}_{Hf3}) \vt^2}{2} ~\frac{\xBZt \gbL + \gbt \xBZL  - \xWZt \gwL - \gwt \xWZL }{\sqrt{\gbt^2+\gwt^2}}
+     * \f}
+     * @param[in] f a lepton or quark
+     * @return @f$\Delta g_{L,f}^{(2)}@f$
+     */
+    double deltaGL_f_2(const Particle p) const;                   //AG:added    
 
     /**
      * @brief New physics contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
@@ -1688,6 +1722,18 @@ public:
      */
         // no generation mixing
     double deltaGL_f(const Particle p) const;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the right-handed coupling @f$g_R^f@f$.
+     * @details
+     * \f[
+     * \Delta g_R^{(2)} = \frac{Q}{\sqrt{\gbt^2+\gwt^2}} \left( \gbt \xBZQ + \gbL \xBZL + \xBZt \gbQ \right) 
+     * + \frac{\hat{C}_{Hf} \vt^2}{2} ~\frac{\xBZt \gbL + \gbt \xBZL  - \xWZt \gwL - \gwt \xWZL }{\sqrt{\gbt^2+\gwt^2}}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$\Delta g_{R,f}^{(2)}@f$
+     */
+    double deltaGR_f_2(const Particle p) const;                   //AG:added    
 
     /**
      * @brief New physics contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
@@ -1741,99 +1787,7 @@ public:
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */
     virtual double RZlilj(const Particle li, const Particle lj) const;
-
-    ///////////////////////////////////////////////////////////////////////
-    //AG:begin
-    virtual double deltaMwd6_Test() const;///<Alternative notation to deltaMwd6
     
-    /**
-     * @brief The relative \f$\mathcal{O}(\Lambda^{-4})\f$ NP corrections to the mass of the @f$W@f$ boson, @f$\Delta M_W^{(2)}@f$.
-     * @details
-     * \f$\nc{\dGf}{\delta_{G_F}}\f$
-     * \f[
-     * \Delta M_W^{(2)} =  \frac{\gwQ}{\gwt} + \frac{\dGf^{(2)}}{2} + \frac{\gwL \dGf^{(1)}}{2\gwt} - \frac{(\dGf^{(1)})^2}{8}
-     * \f]
-     * @return @f$\Delta M_W^{(2)}@f$
-     */
-    virtual double deltaMwd6_2() const;
-    
-    virtual double deltaGamma_Wff_Test(const Particle fi, const Particle fj) const;///<Alternative notation to deltaGamma_Wff.
-    
-
-    virtual double deltaGamma_Wff_2(const Particle fi, const Particle fj) const;
-    
-    virtual double deltaGamma_W_Test() const;///<Alternative notation to deltaGamma_W.
-    
-
-    virtual double deltaGamma_W_2() const;
-    
-    double deltaGL_f_Test(const Particle p) const;///<Alternative notation to deltaGL_f.
-    double deltaGR_f_Test(const Particle p) const;///<Alternative notation to deltaGR_f.
-    
-    /**
-     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
-     * @details
-     * \f[
-     * \Delta g_{V,f}^{(2)} = \Delta g_{L,f}^{(2)} + \Delta g_{R,f}^{(2)}
-     * \f]
-     * @param[in] f a lepton or quark
-     * @return @f$\Delta g_{V,f}^{(2)}@f$
-     */
-    virtual double deltaGV_f_2(const Particle p) const;
-    
-    /**
-     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the neutral-current vector coupling @f$g_A^f@f$.
-     * @details
-     * \f[
-     * \Delta g_{A,f}^{(2)} = \Delta g_{L,f}^{(2)} - \Delta g_{R,f}^{(2)}
-     * \f]
-     * @param[in] f a lepton or quark
-     * @return @f$\Delta g_{A,f}^{(2)}@f$
-     */
-    virtual double deltaGA_f_2(const Particle p) const;
-    
-    /**
-     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the left-handed coupling @f$g_L^f@f$.
-     * @details
-     * \f$\newcommand{\nc}{\newcommand}\f$
-     * \f$\nc{\vt}{\widetilde{v}}\f$
-     * \f$\nc{\xWZb}{\mathbb{\bar{X}}_{(WZ)}}\f$
-     * \f$\nc{\xBZb}{\mathbb{\bar{X}}_{(BZ)}}\f$
-     * \f$\nc{\xWZt}{\mathbb{\widetilde{X}}_{(WZ)}}\f$
-     * \f$\nc{\xBZt}{\mathbb{\widetilde{X}}_{(BZ)}}\f$
-     * \f$\nc{\xWZL}{\Delta \mathbb{X}_{WZ}^{(1)}}\f$
-     * \f$\nc{\xBZL}{\Delta \mathbb{X}_{BZ}^{(1)}}\f$
-     * \f$\nc{\xWZQ}{\Delta \mathbb{X}_{WZ}^{(2)}}\f$
-     * \f$\nc{\xBZQ}{\Delta \mathbb{X}_{BZ}^{(2)}}\f$
-     * \f$\nc{\gwt}{\widetilde{g}_W}\f$
-     * \f$\nc{\gbt}{\widetilde{g}_1}\f$
-     * \f$\nc{\gbL}{\Delta g_1^{(1)}}\f$
-     * \f$\nc{\gwL}{\Delta g_W^{(1)}}\f$
-     * \f$\nc{\gbQ}{\Delta g_1^{(2)}}\f$
-     * \f$\nc{\gwQ}{\Delta g_W^{(2)}}\f$
-     * \f{eqnarray*}{
-     * \Delta g_L^{(2)} &=& \frac{1}{\sqrt{\gbt^2+\gwt^2}} \left[ (Q-I_3) ~\left(\gbt ~\xBZQ + \gbL \xBZL + \xBZt \gbQ \right) 
-     * + I_3 ~\left(\gwt \xWZQ + \gwL \xWZL + \xWZt \gwQ \right) \right] \\
-     * &+& \frac{(\hat{C}_{Hf1} - 2I_3\hat{C}_{Hf3}) \vt^2}{2} ~\frac{\xBZt \gbL + \gbt \xBZL  - \xWZt \gwL - \gwt \xWZL }{\sqrt{\gbt^2+\gwt^2}}
-     * \f}
-     * @param[in] f a lepton or quark
-     * @return @f$\Delta g_{L,f}^{(2)}@f$
-     */
-    double deltaGL_f_2(const Particle p) const;
-    
-    /**
-     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the right-handed coupling @f$g_R^f@f$.
-     * @details
-     * \f[
-     * \Delta g_R^{(2)} = \frac{Q}{\sqrt{\gbt^2+\gwt^2}} \left( \gbt \xBZQ + \gbL \xBZL + \xBZt \gbQ \right) 
-     * + \frac{\hat{C}_{Hf} \vt^2}{2} ~\frac{\xBZt \gbL + \gbt \xBZL  - \xWZt \gwL - \gwt \xWZL }{\sqrt{\gbt^2+\gwt^2}}
-     * \f]
-     * @param[in] f a lepton or quark
-     * @return @f$\Delta g_{R,f}^{(2)}@f$
-     */
-    double deltaGR_f_2(const Particle p) const;
-    
-    //AG:end
     ////////////////////////////////////////////////////////////////////////
  
     double CLL_mu() const;
@@ -6591,9 +6545,8 @@ public:
     virtual double AuxObs_NP30() const;
     
     //AG:begin
-    virtual bool NumericCheck() const;///<If true, prints the numerical values of the different contributions to the EWPOs (to be used in --noMC mode)
-    virtual int Output() const;///<Type of contributions to be included in the EWPOs. Takes a numerica values depending on the choice.    
-    bool hatCis() const; ///<If True, explicitly defines the 8 'hat' coefficients in the EWPOs (Z-couplings, dGf, W-width)
+    virtual int OutputOrder() const;///<Type of contributions to be included in the EWPOs. Takes a numerica values depending on the choice.
+    bool hatCis() const; ///<If True, explicitly defines the 8 'hat' coefficients in the EWPOs (Z-couplings, dGf, W-width)              
     bool flagCHWpCHB() const; ///< If True, uses the coefficient CHWpCHW instead of the sum CiHW+CiHB.
     //AG:end
     

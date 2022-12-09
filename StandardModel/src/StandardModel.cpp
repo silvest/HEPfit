@@ -1,5 +1,3 @@
-//AG: Ruc added
-
 /* 
  * Copyright (C) 2012 HEPfit Collaboration
  *
@@ -1320,12 +1318,10 @@ double StandardModel::RWlilj(const Particle li, const Particle lj) const
     return GammWli/GammWlj;
 }
 
-//AG:begin
-double StandardModel::Ruc() const
+double StandardModel::Ruc() const       //AG:added
 {
     return 0.5 * ( R0_f(quarks[UP]) + R0_f(quarks[CHARM]) );
 }
-//AG:end
 
 double StandardModel::RWc() const
 {  
