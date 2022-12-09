@@ -4194,11 +4194,10 @@ double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const        //AG
     if(OutputOrder()==1){ return (trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj)); }
     if(OutputOrder()==2){ return (trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) + deltaGamma_Wff_2(fi, fj)); }
     if(OutputOrder()==3){ return (deltaGamma_Wff_2(fi, fj)); }
-    else{
+    else
     //AG:end
     //AG: deltaGamma_Wff_2(fi, fj) added below
-        std::cout << "AG: -1 OutputOrder" << std::endl;
-        return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) + deltaGamma_Wff_2(fi, fj));}
+        return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) + deltaGamma_Wff_2(fi, fj));
 }
 
 double NPSMEFTd6::deltaGamma_W_2() const
