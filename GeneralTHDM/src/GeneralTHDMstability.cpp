@@ -10,7 +10,8 @@
 #include "GeneralTHDMcache.h"
 
 stability_GTHDM::stability_GTHDM(const StandardModel& SM_i)
-: myGTHDM(static_cast<const GeneralTHDM&> (SM_i)), vecMinus1(7,-1.), vecStability(7,0.)
+: myGTHDM(static_cast<const GeneralTHDM&> (SM_i)), vecMinus1(7,-1.), vecStability(7,0.),
+        Lambmat(4,4,0.), Lambeigvec(4,4,0.), Lambeigval(4,0.)
 {}
 
 stability_GTHDM::~stability_GTHDM() 
@@ -42,8 +43,6 @@ gslpp::vector<double> stability_GTHDM::getStability()
     //std::cout<<"\033[1;34m   Relambda7 =\033[0m "<< Relambda7 <<std::endl;
     //std::cout<<"\033[1;34m   Imlambda7 =\033[0m "<< Imlambda7 <<std::endl;
     //std::cout<<"\033[1;34m   flag_CPconservation =\033[0m "<< flag_CPconservation <<std::endl;
-    
-    
     
     //vecStability(0) = lambda3 + sqrt(lambda1*lambda2);
     //vecStability(1) = lambda3 + lambda4 - sqrt(Relambda5*Relambda5+Imlambda5*Imlambda5) + sqrt(lambda1*lambda2);
@@ -106,6 +105,76 @@ gslpp::vector<double> stability_GTHDM::getStability()
         return vecMinus1;
     }
 }
+
+
+
+bool stability_GTHDM::CalcStabeigen(gslpp::matrix<gslpp::complex>& Stabeigvec_i, gslpp::vector<double>& Stabeigval_i)
+{
+    double lambda1 = myGTHDM.getlambda1();
+    double lambda2 = myGTHDM.getlambda2();
+    double lambda3 = myGTHDM.getlambda3();
+    double lambda4 = myGTHDM.getlambda4();
+    double Relambda5 = myGTHDM.getRelambda5();
+    double Imlambda5 = myGTHDM.getImlambda5();
+    double Relambda6 = myGTHDM.getRelambda6();
+    double Relambda7 = myGTHDM.getRelambda7();
+    double Imlambda6 = myGTHDM.getImlambda6();
+    double Imlambda7 = myGTHDM.getImlambda7();
+   
+    Lambmat.assign(0,0, ((lambda1+lambda2)/2.0 + lambda3)/2.0);
+    Lambmat.assign(0,1, (Relambda6 + Relambda7)/2.0);
+    Lambmat.assign(0,2, -(Imlambda6 + Imlambda7)/2.0);
+    Lambmat.assign(0,3, (lambda1 - lambda2)/4.0);
+    Lambmat.assign(1,0, -(Relambda6 + Relambda7)/2.0);
+    Lambmat.assign(1,1, -(lambda4 + Relambda5)/2.0);
+    Lambmat.assign(1,2,  Imlambda5/2.0);
+    Lambmat.assign(1,3, -(Relambda6 - Relambda7)/2.0);
+    Lambmat.assign(2,0, (Imlambda6 + Imlambda7)/2.0);
+    Lambmat.assign(2,1, Imlambda5/2.0);
+    Lambmat.assign(2,2, -(lambda4 - Relambda5)/2.0);
+    Lambmat.assign(2,3, (Imlambda6 - Imlambda7)/2.0);
+    Lambmat.assign(3,0, -(lambda1 - lambda2)/4.0);
+    Lambmat.assign(3,1, -(Relambda6 - Relambda7)/2.0);
+    Lambmat.assign(3,2, (Imlambda6 - Imlambda7)/2.0);
+    Lambmat.assign(3,3, (-(lambda1+lambda2)/2.0 + lambda3)/2.0);
+   
+    Lambmat.eigensystem(Stabeigvec_i, Stabeigval_i);
+   
+    return true;
+}
+
+
+double stability_GTHDM::getVacuumStability()
+{
+    //Let's first check that the stability conditions (boundness from below) are satisfied
+    if((getStability())(0)>=0 && (getStability())(1)>=0 && (getStability())(2)>=0 && (getStability())(3)>=0 && (getStability())(4)>=0 && (getStability())(5)>=0 && (getStability())(6)>=0){
+        CalcStabeigen(Lambeigvec,Lambeigval);
+        
+
+        double mHp1 = myGTHDM.getmHp();
+        double vh = myGTHDM.v();
+        
+        double Lambda_0=Lambeigval.max();
+        double xi_n=mHp1*mHp1/(vh*vh);
+        double DetS=(-(xi_n-Lambeigval(0))*(xi_n-Lambeigval(1))*(xi_n-Lambeigval(2))*(xi_n-Lambeigval(3)));
+        
+        if(DetS>0){
+            return DetS;
+        }  
+        else{
+            if(xi_n-Lambda_0>0){
+                return xi_n-Lambda_0;
+            }
+            else
+                return -1.;
+        }
+    }
+    else
+        return -1;
+
+}
+
+
 
 
 stability1_GTHDM::stability1_GTHDM(const StandardModel& SM_i)
@@ -176,4 +245,15 @@ stability7_GTHDM::stability7_GTHDM(const StandardModel& SM_i)
 double stability7_GTHDM::computeThValue()
 {
     return (mystability_GTHDM.getStability())(6);
+}
+
+
+
+vacuumstability_GTHDM::vacuumstability_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), mystability_GTHDM(SM_i)
+{}
+
+double vacuumstability_GTHDM::computeThValue()
+{
+    return (mystability_GTHDM.getVacuumStability());
 }

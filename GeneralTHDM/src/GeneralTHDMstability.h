@@ -15,7 +15,7 @@ class GeneralTHDM;
 class GeneralTHDMcache;
 
 /**
- * 
+ * This computes the bounded from below conditions according to [2203.11462]
  */
 class stability_GTHDM {
 public:
@@ -31,14 +31,37 @@ public:
     virtual ~stability_GTHDM();
     
     /**
-     * @brief Destructor.
+     * @brief Getter function for the stability conditions.
      */
     gslpp::vector<double> getStability();
     
+    
+    /**
+    * @brief Computes the eigenvalues of the @f$\Lambda^{\mu}_{\nu}$ matrix of [hep-ph/0609018]
+    */
+    bool CalcStabeigen(gslpp::matrix<gslpp::complex>& Stabeigvec_i, gslpp::vector<double>& Stabeigval_i);
+    
+    /**
+     * @brief Getter function for the vacuum stability condition.
+     */
+    double getVacuumStability();
+    
+    
 private:
     const GeneralTHDM& myGTHDM;
-    gslpp::vector<double> vecMinus1, vecStability;
+    
+    gslpp::matrix<gslpp::complex> Lambmat, Lambeigvec;
+    gslpp::vector<double> vecMinus1, vecStability, Lambeigval;
+
 };
+
+
+
+
+
+
+
+
 
 
 /**
@@ -148,7 +171,6 @@ private:
 
 
 
-
 /**
  * 
  */
@@ -190,6 +212,29 @@ public:
 private:
     stability_GTHDM mystability_GTHDM;
 };
+
+
+
+/**
+ * 
+ */
+class vacuumstability_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief vacuumstability_GTHDM constructor.
+     */
+    vacuumstability_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return
+     */
+    double computeThValue();
+
+private:
+    stability_GTHDM mystability_GTHDM;
+};
+
 
 
 

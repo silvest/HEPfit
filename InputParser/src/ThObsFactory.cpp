@@ -5067,6 +5067,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["stability5_GTHDM"] = boost::factory<stability5_GTHDM*>();
     obsThFactory["stability6_GTHDM"] = boost::factory<stability6_GTHDM*>();
     obsThFactory["stability7_GTHDM"] = boost::factory<stability7_GTHDM*>();
+    
+    obsThFactory["vacuumstability_GTHDM"] = boost::factory<vacuumstability_GTHDM*>();
 
     obsThFactory["EffectivePotMin1_GTHDM"] = boost::factory<EffectivePotMin1_GTHDM*>();
     obsThFactory["EffectivePotMin2_GTHDM"] = boost::factory<EffectivePotMin2_GTHDM*>();
