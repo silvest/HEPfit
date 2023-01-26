@@ -3727,6 +3727,8 @@ ThObsFactory::ThObsFactory()
     
     //----- NPSMEFT6dtopquark  -----
     
+    
+    //Now that the map is defined these lines should be useless. Remove them and check that is fine
     obsThFactory["C_phit"] = boost::factory<C_phit*>();
     obsThFactory["C_phiQ3"] = boost::factory<C_phiQ3*>();
     obsThFactory["C_phiQ1"] = boost::factory<C_phiQ1*>();
@@ -3759,7 +3761,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["C_Qq38"] = boost::factory<C_Qq38*>();
     obsThFactory["C_Qu8"] = boost::factory<C_Qu8*>();
     obsThFactory["C_Qd8"] = boost::factory<C_Qd8*>();
-   
+   ///////////////////////////////////////////////////////////////////////////////////
+    
+    
     obsThFactory["Rb_NPSMEFT6dtopquark"] = boost::factory<Rb_NPSMEFT6dtopquark*>();
     obsThFactory["AFBLR"] = boost::factory<AFBLR*>();
     obsThFactory["SigmattZ"] = boost::factory<sigmattZ*>();
@@ -3832,15 +3836,50 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ttA_bin_132_180"] = boost::factory<ttA_bin_132_180*>();
     obsThFactory["ttA_bin_180_300"] = boost::factory<ttA_bin_180_300*>();
     
-    //OPTIMIZED OBSERVABLES
     
+    
+    //ttbar bins
+    obsThFactory["tt_bin_250_400"] = boost::factory<tt_bin_250_400*>();
+    obsThFactory["tt_bin_400_480"] = boost::factory<tt_bin_400_480*>();
+    obsThFactory["tt_bin_480_560"] = boost::factory<tt_bin_480_560*>();
+    obsThFactory["tt_bin_560_640"] = boost::factory<tt_bin_560_640*>();
+    obsThFactory["tt_bin_640_720"] = boost::factory<tt_bin_640_720*>();
+    obsThFactory["tt_bin_720_800"] = boost::factory<tt_bin_720_800*>();
+    obsThFactory["tt_bin_800_900"] = boost::factory<tt_bin_800_900*>();
+    obsThFactory["tt_bin_900_1000"] = boost::factory<tt_bin_900_1000*>();
+    obsThFactory["tt_bin_1000_1150"] = boost::factory<tt_bin_1000_1150*>();
+    obsThFactory["tt_bin_1150_1300"] = boost::factory<tt_bin_1150_1300*>();
+    obsThFactory["tt_bin_1300_1500"] = boost::factory<tt_bin_1300_1500*>();
+    obsThFactory["tt_bin_1500_1700"] = boost::factory<tt_bin_1500_1700*>();
+    obsThFactory["tt_bin_1700_2000"] = boost::factory<tt_bin_1700_2000*>();
+    obsThFactory["tt_bin_2000_2300"] = boost::factory<tt_bin_2000_2300*>();
+    obsThFactory["tt_bin_2300_2600"] = boost::factory<tt_bin_2300_2600*>();
+    obsThFactory["tt_bin_2600_3000"] = boost::factory<tt_bin_2600_3000*>();
+    obsThFactory["tt_bin_3000_3500"] = boost::factory<tt_bin_3000_3500*>(); 
+    obsThFactory["tt_bin_3500_4000"] = boost::factory<tt_bin_3500_4000*>();
+   
+    
+    
+    //Charged asymmetry bins
+    obsThFactory["Charge_Asymmetry_bin_tt_0_500"] = boost::factory<Charge_Asymmetry_bin_tt_0_500*>();
+    obsThFactory["Charge_Asymmetry_bin_tt_500_750"] = boost::factory<Charge_Asymmetry_bin_tt_500_750*>();
+    obsThFactory["Charge_Asymmetry_bin_tt_750_1000"] = boost::factory<Charge_Asymmetry_bin_tt_750_1000*>();
+    obsThFactory["Charge_Asymmetry_bin_tt_1000_1500"] = boost::factory<Charge_Asymmetry_bin_tt_1000_1500*>();
+    obsThFactory["Charge_Asymmetry_bin_tt_1500_2000"] = boost::factory<Charge_Asymmetry_bin_tt_1500_2000*>();
+    obsThFactory["Charge_Asymmetry_bin_tt_2000_2500"] = boost::factory<Charge_Asymmetry_bin_tt_2000_2500*>();
+    obsThFactory["Charge_Asymmetry_bin_tt_2500_3000"] = boost::factory<Charge_Asymmetry_bin_tt_2500_3000*>();
+    
+    
+    //OPTIMIZED OBSERVABLES
+    //I don't really like this implementation, these constraints should be included in the prior,
+    //as we do now (from 2022). Remove this also in the code and check everything is fine
     obsThFactory["op1"] = boost::factory<op1*>();
     obsThFactory["op2"] = boost::factory<op2*>();
     obsThFactory["op3"] = boost::factory<op3*>();
     obsThFactory["op4"] = boost::factory<op4*>();
     
     //OPTIMIZED OBSERVABLES 1000 GeV
-    
+    //Same as above
     obsThFactory["op_1000_1"] = boost::factory<op_1000_1*>();
     obsThFactory["op_1000_2"] = boost::factory<op_1000_2*>();
     obsThFactory["op_1000_3"] = boost::factory<op_1000_3*>();

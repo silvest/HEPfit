@@ -35,6 +35,124 @@ const std::string NPSMEFT6dtopquark::NPSMEFT6dtopquarkVars[NNPSMEFT6dtopquarkVar
 NPSMEFT6dtopquark::NPSMEFT6dtopquark()
 : NPbase()
 {
+    
+    
+    ModelParamMap.insert(std::make_pair("C_phit", std::cref(C_phit)));
+    ModelParamMap.insert(std::make_pair("C_phiQ3", std::cref(C_phiQ3)));
+    ModelParamMap.insert(std::make_pair("C_phiQ1", std::cref(C_phiQ1)));
+    ModelParamMap.insert(std::make_pair("C_phiQm", std::cref(C_phiQm)));
+    ModelParamMap.insert(std::make_pair("C_tW", std::cref(C_tW)));
+    ModelParamMap.insert(std::make_pair("C_tZ", std::cref(C_tZ)));
+    ModelParamMap.insert(std::make_pair("C_tB", std::cref(C_tB)));
+    ModelParamMap.insert(std::make_pair("C_tphi", std::cref(C_tphi)));
+    ModelParamMap.insert(std::make_pair("C_phib", std::cref(C_phib)));
+    ModelParamMap.insert(std::make_pair("C_bW", std::cref(C_bW)));
+    ModelParamMap.insert(std::make_pair("C_bB", std::cref(C_bB)));
+    ModelParamMap.insert(std::make_pair("C_bZ", std::cref(C_bZ)));
+    ModelParamMap.insert(std::make_pair("C_phitb", std::cref(C_phitb)));
+    ModelParamMap.insert(std::make_pair("C_tG", std::cref(C_tG)));
+    
+    ModelParamMap.insert(std::make_pair("C_ed", std::cref(C_ed)));
+    ModelParamMap.insert(std::make_pair("C_eq", std::cref(C_eq)));
+    ModelParamMap.insert(std::make_pair("C_ld", std::cref(C_ld)));
+    ModelParamMap.insert(std::make_pair("C_lqP", std::cref(C_lqP)));
+    ModelParamMap.insert(std::make_pair("C_eu", std::cref(C_eu)));
+    ModelParamMap.insert(std::make_pair("C_lu", std::cref(C_lu)));
+    ModelParamMap.insert(std::make_pair("C_lqM", std::cref(C_lqM)));
+    
+    ModelParamMap.insert(std::make_pair("C_tu8", std::cref(C_tu8)));
+    ModelParamMap.insert(std::make_pair("C_td8", std::cref(C_td8)));
+    ModelParamMap.insert(std::make_pair("C_Qq18", std::cref(C_Qq18)));
+    ModelParamMap.insert(std::make_pair("C_tq8", std::cref(C_tq8)));
+    ModelParamMap.insert(std::make_pair("C_Qq38", std::cref(C_Qq38)));
+    ModelParamMap.insert(std::make_pair("C_Qu8", std::cref(C_Qu8)));
+    ModelParamMap.insert(std::make_pair("C_Qd8", std::cref(C_Qd8)));
+    ModelParamMap.insert(std::make_pair("C_Qd1", std::cref(C_Qd1)));
+    ModelParamMap.insert(std::make_pair("C_Qu1", std::cref(C_Qu1)));
+    ModelParamMap.insert(std::make_pair("C_td1", std::cref(C_td1)));
+    ModelParamMap.insert(std::make_pair("C_tu1", std::cref(C_tu1)));
+    ModelParamMap.insert(std::make_pair("C_tq1", std::cref(C_tq1)));
+    ModelParamMap.insert(std::make_pair("C_Qq11", std::cref(C_Qq11)));
+    ModelParamMap.insert(std::make_pair("C_Qq31", std::cref(C_Qq31)));
+    
+    ModelParamMap.insert(std::make_pair("SM_ttZ_bin_0_40", std::cref(SM_ttZ_bin_0_40)));
+    ModelParamMap.insert(std::make_pair("SM_ttZ_bin_40_70", std::cref(SM_ttZ_bin_40_70)));
+    ModelParamMap.insert(std::make_pair("SM_ttZ_bin_70_110", std::cref(SM_ttZ_bin_70_110)));
+    ModelParamMap.insert(std::make_pair("SM_ttZ_bin_110_160", std::cref(SM_ttZ_bin_110_160)));
+    ModelParamMap.insert(std::make_pair("SM_ttZ_bin_160_220", std::cref(SM_ttZ_bin_160_220)));
+    ModelParamMap.insert(std::make_pair("SM_ttZ_bin_220_290", std::cref(SM_ttZ_bin_220_290)));
+    ModelParamMap.insert(std::make_pair("SM_ttZ_bin_290_400", std::cref(SM_ttZ_bin_290_400)));
+    
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_20_25", std::cref(SM_ttA_bin_20_25)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_25_30", std::cref(SM_ttA_bin_25_30)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_30_35", std::cref(SM_ttA_bin_30_35)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_35_40", std::cref(SM_ttA_bin_35_40)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_40_47", std::cref(SM_ttA_bin_40_47)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_47_55", std::cref(SM_ttA_bin_47_55)));
+    
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_55_70", std::cref(SM_ttA_bin_55_70)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_70_85", std::cref(SM_ttA_bin_70_85)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_85_132", std::cref(SM_ttA_bin_85_132)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_132_180", std::cref(SM_ttA_bin_132_180)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_bin_180_300", std::cref(SM_ttA_bin_180_300)));
+    
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_250_400", std::cref(SM_tt_bin_250_400)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_400_480", std::cref(SM_tt_bin_400_480)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_480_560", std::cref(SM_tt_bin_480_560)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_560_640", std::cref(SM_tt_bin_560_640)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_640_720", std::cref(SM_tt_bin_640_720)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_720_800", std::cref(SM_tt_bin_720_800)));
+    
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_800_900", std::cref(SM_tt_bin_800_900)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_900_1000", std::cref(SM_tt_bin_900_1000)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_1000_1150", std::cref(SM_tt_bin_1000_1150)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_1150_1300", std::cref(SM_tt_bin_1150_1300)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_1300_1500", std::cref(SM_tt_bin_1300_1500)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_1500_1700", std::cref(SM_tt_bin_1500_1700)));
+    
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_1700_2000", std::cref(SM_tt_bin_1700_2000)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_2000_2300", std::cref(SM_tt_bin_2000_2300)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_2300_2600", std::cref(SM_tt_bin_2300_2600)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_2600_3000", std::cref(SM_tt_bin_2600_3000)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_3000_3500", std::cref(SM_tt_bin_3000_3500)));
+    ModelParamMap.insert(std::make_pair("SM_tt_bin_3500_4000", std::cref(SM_tt_bin_3500_4000)));
+    
+    ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_0_500", std::cref(SM_Charge_Asymmetry_bin_tt_0_500)));
+    ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_500_750", std::cref(SM_Charge_Asymmetry_bin_tt_500_750)));
+    ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_750_1000", std::cref(SM_Charge_Asymmetry_bin_tt_750_1000)));
+    ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_1000_1500", std::cref(SM_Charge_Asymmetry_bin_tt_1000_1500)));
+    
+    ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_1500_2000", std::cref(SM_Charge_Asymmetry_bin_tt_1500_2000)));
+    ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_2000_2500", std::cref(SM_Charge_Asymmetry_bin_tt_2000_2500)));
+    ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_2500_3000", std::cref(SM_Charge_Asymmetry_bin_tt_2500_3000)));
+    
+    ModelParamMap.insert(std::make_pair("SM_tAq_inc", std::cref(SM_tAq_inc)));
+    ModelParamMap.insert(std::make_pair("SM_tZQ_inc", std::cref(SM_tZQ_inc)));
+    ModelParamMap.insert(std::make_pair("SM_ttA_inc", std::cref(SM_ttA_inc)));
+    ModelParamMap.insert(std::make_pair("SM_ttZ_inc", std::cref(SM_ttZ_inc)));
+    ModelParamMap.insert(std::make_pair("SM_ttW_inc", std::cref(SM_ttW_inc)));
+    ModelParamMap.insert(std::make_pair("SM_Asymmetry_leptonic_charge_rapidity_ttW", std::cref(SM_Asymmetry_leptonic_charge_rapidity_ttW)));
+    ModelParamMap.insert(std::make_pair("SM_tW_inc", std::cref(SM_tW_inc)));
+    ModelParamMap.insert(std::make_pair("SM_tW_inc_8TeV", std::cref(SM_tW_inc_8TeV)));
+    ModelParamMap.insert(std::make_pair("SM_ttH_inc", std::cref(SM_ttH_inc)));
+    
+    ModelParamMap.insert(std::make_pair("SM_sigmatchannel13", std::cref(SM_sigmatchannel13)));
+    ModelParamMap.insert(std::make_pair("SM_sigmatchannel8", std::cref(SM_sigmatchannel8)));
+    ModelParamMap.insert(std::make_pair("SM_sigmaschannel8", std::cref(SM_sigmaschannel8)));
+    ModelParamMap.insert(std::make_pair("SM_sigmaschannelTev", std::cref(SM_sigmaschannelTev)));
+    
+    ModelParamMap.insert(std::make_pair("SM_tH_tchan_value", std::cref(SM_tH_tchan_value)));
+    ModelParamMap.insert(std::make_pair("SM_ttbar_LHC13", std::cref(SM_ttbar_LHC13)));
+    ModelParamMap.insert(std::make_pair("SM_ttbar_LHC8", std::cref(SM_ttbar_LHC8)));
+    ModelParamMap.insert(std::make_pair("SM_ttbar_Tev", std::cref(SM_ttbar_Tev)));
+    ModelParamMap.insert(std::make_pair("F0_SM", std::cref(F0_SM)));
+    ModelParamMap.insert(std::make_pair("FL_SM", std::cref(FL_SM)));
+    ModelParamMap.insert(std::make_pair("Rb_SM", std::cref(Rb_SM)));
+    ModelParamMap.insert(std::make_pair("AFBLR_SM", std::cref(AFBLR_SM)));
+    ModelParamMap.insert(std::make_pair("ttWqEM_SM", std::cref(ttWqEM_SM)));
+    
+    
+    
 }
 
 
