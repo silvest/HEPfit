@@ -5099,15 +5099,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitarity11_GTHDM"] = boost::factory<unitarity11_GTHDM*>();
     obsThFactory["unitarity12_GTHDM"] = boost::factory<unitarity12_GTHDM*>();
 
-    obsThFactory["stability1_GTHDM"] = boost::factory<stability1_GTHDM*>();
-    obsThFactory["stability2_GTHDM"] = boost::factory<stability2_GTHDM*>();
-    obsThFactory["stability3_GTHDM"] = boost::factory<stability3_GTHDM*>();
-    obsThFactory["stability4_GTHDM"] = boost::factory<stability4_GTHDM*>();
-    obsThFactory["stability5_GTHDM"] = boost::factory<stability5_GTHDM*>();
-    obsThFactory["stability6_GTHDM"] = boost::factory<stability6_GTHDM*>();
-    obsThFactory["stability7_GTHDM"] = boost::factory<stability7_GTHDM*>();
-    
-    obsThFactory["vacuumstability_GTHDM"] = boost::factory<vacuumstability_GTHDM*>();
+    obsThFactory["bounded_from_below_GTHDM"] = boost::factory<bounded_from_below_GTHDM*>();
+
+    obsThFactory["vacuum_stability_GTHDM"] = boost::factory<vacuum_stability_GTHDM*>();
 
     obsThFactory["EffectivePotMin1_GTHDM"] = boost::factory<EffectivePotMin1_GTHDM*>();
     obsThFactory["EffectivePotMin2_GTHDM"] = boost::factory<EffectivePotMin2_GTHDM*>();

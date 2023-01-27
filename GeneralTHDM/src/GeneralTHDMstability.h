@@ -30,28 +30,36 @@ public:
      */
     virtual ~stability_GTHDM();
     
+    
+    
+    
+    
+    /**
+    * @brief Computes the eigenvalues of the @f$\Lambda^{\mu}_{\nu}$ matrix of [hep-ph/0609018]
+    */
+    bool CalcStabeigen(gslpp::matrix<gslpp::complex>& Stabeigvec_i, gslpp::vector<gslpp::complex>& Stabeigval_i);
+    
+    
+    
+    
+    
+    
     /**
      * @brief Getter function for the stability conditions.
      */
     gslpp::vector<double> getStability();
     
     
-    /**
-    * @brief Computes the eigenvalues of the @f$\Lambda^{\mu}_{\nu}$ matrix of [hep-ph/0609018]
-    */
-    bool CalcStabeigen(gslpp::matrix<gslpp::complex>& Stabeigvec_i, gslpp::vector<double>& Stabeigval_i);
     
-    /**
-     * @brief Getter function for the vacuum stability condition.
-     */
-    double getVacuumStability();
     
     
 private:
     const GeneralTHDM& myGTHDM;
     
-    gslpp::matrix<gslpp::complex> Lambmat, Lambeigvec;
-    gslpp::vector<double> vecMinus1, vecStability, Lambeigval;
+    gslpp::matrix<double> LambmatE;
+    gslpp::matrix<gslpp::complex> Lambeigvec;
+    gslpp::vector<double> vecMinus1, vecStability;
+    gslpp::vector<gslpp::complex> Lambeigval;
 
 };
 
@@ -67,13 +75,13 @@ private:
 /**
  * 
  */
-class stability1_GTHDM: public ThObservable {
+class bounded_from_below_GTHDM: public ThObservable {
 public:
 
     /**
-     * @brief stability1_GTHDM constructor.
+     * @brief bounded_from_below_GTHDM constructor.
      */
-    stability1_GTHDM(const StandardModel& SM_i);
+    bounded_from_below_GTHDM(const StandardModel& SM_i);
 
     /**
      * @return
@@ -88,143 +96,13 @@ private:
 /**
  * 
  */
-class stability2_GTHDM: public ThObservable {
+class vacuum_stability_GTHDM: public ThObservable {
 public:
 
     /**
-     * @brief stability2_GTHDM constructor.
+     * @brief vacuum_stability_GTHDM constructor.
      */
-    stability2_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return
-     */
-    double computeThValue();
-
-private:
-    stability_GTHDM mystability_GTHDM;
-};
-
-
-/**
- * 
- */
-class stability3_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief stability3_GTHDM constructor.
-     */
-    stability3_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return
-     */
-    double computeThValue();
-
-private:
-    stability_GTHDM mystability_GTHDM;
-};
-
-
-/**
- * 
- */
-class stability4_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief stability4_GTHDM constructor.
-     */
-    stability4_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return
-     */
-    double computeThValue();
-
-private:
-    stability_GTHDM mystability_GTHDM;
-};
-
-
-
-/**
- * 
- */
-class stability5_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief stability5_GTHDM constructor.
-     */
-    stability5_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return
-     */
-    double computeThValue();
-
-private:
-    stability_GTHDM mystability_GTHDM;
-};
-
-
-
-/**
- * 
- */
-class stability6_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief stability6_GTHDM constructor.
-     */
-    stability6_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return
-     */
-    double computeThValue();
-
-private:
-    stability_GTHDM mystability_GTHDM;
-};
-
-
-
-/**
- * 
- */
-class stability7_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief stability7_GTHDM constructor.
-     */
-    stability7_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return
-     */
-    double computeThValue();
-
-private:
-    stability_GTHDM mystability_GTHDM;
-};
-
-
-
-/**
- * 
- */
-class vacuumstability_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief vacuumstability_GTHDM constructor.
-     */
-    vacuumstability_GTHDM(const StandardModel& SM_i);
+    vacuum_stability_GTHDM(const StandardModel& SM_i);
 
     /**
      * @return
