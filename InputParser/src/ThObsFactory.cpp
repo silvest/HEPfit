@@ -1186,6 +1186,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtoZga_over_gaga_Ratio"] = boost::factory<BrHtoZga_over_gaga_Ratio*>();
     obsThFactory["BrHtomumu_over_gaga_Ratio"] = boost::factory<BrHtomumu_over_gaga_Ratio*>();
     obsThFactory["BrHto2l2v_over_gaga_Ratio"] = boost::factory<BrHto2l2v_over_gaga_Ratio*>();
+    obsThFactory["BrHtobb_over_cc_Ratio"] = boost::factory<BrHtobb_over_cc_Ratio*>();
+    obsThFactory["BrHtogaga_over_gg_Ratio"] = boost::factory<BrHtogaga_over_gg_Ratio*>();
+    obsThFactory["BrHtogg_over_bb_Ratio"] = boost::factory<BrHtogg_over_bb_Ratio*>();
+    obsThFactory["BrHtogg_over_cc_Ratio"] = boost::factory<BrHtogg_over_cc_Ratio*>();
     //-----  Special observables --------
     obsThFactory["muttHZbb_boost100"] = bind(boost::factory<muttHZbbboost*>(), _1, sqrt_s_FCC100);
     obsThFactory["ggHgagaInt14"] = bind(boost::factory<muggHgagaInt*>(), _1, sqrt_s_LHC14);

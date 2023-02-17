@@ -2557,6 +2557,159 @@ private:
 
 
 /**
+ * @class BrHto2l2v_over_gaga_Ratio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHto2l2v_over_gaga_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHto2l2v_over_gaga_Ratio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHtobb_over_cc_Ratio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to bb)/@f$Br@f$(H\to cc)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to bb)/@f$Br@f$(H\to cc)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtobb_over_cc_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtobb_over_cc_Ratio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to bb)/@f$Br@f$(H\to cc)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to bb)/@f$Br@f$(H\to cc)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+
+/**
+ * @class BrHtogaga_over_gg_Ratio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to gg)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to gg)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtogaga_over_gg_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtogaga_over_gg_Ratio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to gg)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to gg)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+
+/**
+ * @class BrHtogg_over_bb_Ratio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to gg)/@f$Br@f$(H\to bb)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to gg)/@f$Br@f$(H\to bb)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtogg_over_bb_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtogg_over_bb_Ratio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to gg)/@f$Br@f$(H\to bb)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to gg)/@f$Br@f$(H\to bb)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+
+/**
+ * @class BrHtogg_over_cc_Ratio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to gg)/@f$Br@f$(H\to cc)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to gg)/@f$Br@f$(H\to cc)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtogg_over_cc_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtogg_over_cc_Ratio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to gg)/@f$Br@f$(H\to cc)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to gg)/@f$Br@f$(H\to cc)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
  * @class muggHgaga
  * @ingroup NewPhysics
  * @brief 
@@ -13634,34 +13787,7 @@ private:
 
 
 
-/**
- * @class BrHto2l2v_over_gaga_Ratio
- * @ingroup NewPhysics
- * @brief A class for computing the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
- * in the current model and in the Standard Model.
- */
-class BrHto2l2v_over_gaga_Ratio : public ThObservable {
-public:
 
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     */
-    BrHto2l2v_over_gaga_Ratio(const StandardModel& SM_i);
-
-    /**
-     * @brief A method to compute the the ratio Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
-     * in the current model and in the Standard Model.
-     * @return Br@f$(H\to 2\ell 2\nu)/@f$Br@f$(H\to\gamma\gamma)@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-};
 
 
 

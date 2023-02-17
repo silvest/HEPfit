@@ -1070,6 +1070,87 @@ double BrHtomumu_over_gaga_Ratio::computeThValue()
     }
 }
 
+
+BrHto2l2v_over_gaga_Ratio::BrHto2l2v_over_gaga_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHto2l2v_over_gaga_Ratio called with a class whose parent is not NPbase");
+}
+
+double BrHto2l2v_over_gaga_Ratio::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return (1.0 + (myNPbase->BrH2l2vRatio()) - (myNPbase->BrHgagaRatio()));
+    } else {
+        return (myNPbase->BrH2l2vRatio()) / (myNPbase->BrHgagaRatio());
+    }
+}
+
+
+BrHtobb_over_cc_Ratio::BrHtobb_over_cc_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtobb_over_cc_Ratio called with a class whose parent is not NPbase");
+}
+
+double BrHtobb_over_cc_Ratio::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return (1.0 + (myNPbase->BrHbbRatio()) - (myNPbase->BrHccRatio()));
+    } else {
+        return (myNPbase->BrHbbRatio()) / (myNPbase->BrHccRatio());
+    }
+}
+
+
+BrHtogaga_over_gg_Ratio::BrHtogaga_over_gg_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtogaga_over_gg_Ratio called with a class whose parent is not NPbase");
+}
+
+double BrHtogaga_over_gg_Ratio::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHggRatio()));
+    } else {
+        return (myNPbase->BrHgagaRatio()) / (myNPbase->BrHggRatio());
+    }
+}
+
+
+BrHtogg_over_bb_Ratio::BrHtogg_over_bb_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtogg_over_bb_Ratio called with a class whose parent is not NPbase");
+}
+
+double BrHtogg_over_bb_Ratio::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return (1.0 + (myNPbase->BrHggRatio()) - (myNPbase->BrHbbRatio()));
+    } else {
+        return (myNPbase->BrHggRatio()) / (myNPbase->BrHbbRatio());
+    }
+}
+
+
+BrHtogg_over_cc_Ratio::BrHtogg_over_cc_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtogg_over_cc_Ratio called with a class whose parent is not NPbase");
+}
+
+double BrHtogg_over_cc_Ratio::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return (1.0 + (myNPbase->BrHggRatio()) - (myNPbase->BrHccRatio()));
+    } else {
+        return (myNPbase->BrHggRatio()) / (myNPbase->BrHccRatio());
+    }
+}
+
+
 // -----------------------------------------------------------------------------
 // Full signal strengths (prod x decay)
 // -----------------------------------------------------------------------------
@@ -7506,20 +7587,4 @@ muTHUVHinv::muTHUVHinv(const StandardModel& SM_i, const double sqrt_s_i)
 double muTHUVHinv::computeThValue()
 {
         return (myNPbase->muTHUVHinv(sqrt_s));
-}
-
-
-BrHto2l2v_over_gaga_Ratio::BrHto2l2v_over_gaga_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("BrHto2l2v_over_gaga_Ratio called with a class whose parent is not NPbase");
-}
-
-double BrHto2l2v_over_gaga_Ratio::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return (1.0 + (myNPbase->BrH2l2vRatio()) - (myNPbase->BrHgagaRatio()));
-    } else {
-        return (myNPbase->BrH2l2vRatio()) / (myNPbase->BrHgagaRatio());
-    }
 }
