@@ -3924,6 +3924,7 @@ ThObsFactory::ThObsFactory()
     /* END: REMOVE FROM THE PACKAGE */
 
     //-----  Flavour observables  -----
+    obsThFactory["Asl"] = bind(boost::factory<Asl*>(), _1, StandardModel::MU);
     //----- DF = 2  -----
     obsThFactory["DmBd"] = boost::factory<DmBd*>();
     obsThFactory["DmBs"] = boost::factory<DmBs*>();

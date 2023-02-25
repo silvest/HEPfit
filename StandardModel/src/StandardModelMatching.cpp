@@ -176,7 +176,7 @@ double StandardModelMatching::S0(double x) const
 }
 
 double StandardModelMatching::S0(double x, double y) const 
-{ // Buras 2000 Appendix
+{ // Buras 2000 (hep-ph/0007313v1) Appendix
     if (fabs(1. - y / x) < LEPS){
         return ((x * (-4. + 15. * x - 12. * x * x + x * x * x +
             6. * x * x * log(x))) / (4. * pow(-1. + x, 3.)));
