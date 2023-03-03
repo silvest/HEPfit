@@ -76,15 +76,15 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "CQe_2311","CQe_2322","CQe_2333",
     "CQe_3211","CQe_3222","CQe_3233",
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
-    "CQQ1_1133", "CQQ1_1331", "CQQ1_3333", 
-    "CQQ3_1133", "CQQ3_1331", "CQQ3_3333",
-    "Cuu_1133", "Cuu_1331", "Cuu_3333", 
-    "Cud1_3311","Cud1_3333",  
-    "Cud8_3311","Cud8_3333",
-    "CQu1_1133", "CQu1_3311", "CQu1_3333",
-    "CQu8_1133", "CQu8_3311", "CQu8_3333",
-    "CQd1_3311", "CQd1_3333", 
-    "CQd8_3311", "CQd8_3333",
+    "CQQ1_1133", "CQQ1_1331", "CQQ1_2233", "CQQ1_2332", "CQQ1_3333", 
+    "CQQ3_1133", "CQQ3_1331", "CQQ3_2233", "CQQ3_2332", "CQQ3_3333",
+    "Cuu_1133", "Cuu_1331", "Cuu_2233", "Cuu_2332", "Cuu_3333", 
+    "Cud1_3311", "Cud1_3322", "Cud1_3333",  
+    "Cud8_3311", "Cud8_3322", "Cud8_3333",
+    "CQu1_1133", "CQu1_3311", "CQu1_2233", "CQu1_3322", "CQu1_3333",
+    "CQu8_1133", "CQu8_3311", "CQu8_2233", "CQu8_3322", "CQu8_3333",
+    "CQd1_3311", "CQd1_3322", "CQd1_3333", 
+    "CQd8_3311", "CQd8_3322", "CQd8_3333",
     "CQuQd1_3333",
     "CQuQd8_3333",
     "Lambda_NP",
@@ -188,15 +188,15 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "CQe_2311","CQe_2322","CQe_2333",
     "CQe_3211","CQe_3222","CQe_3233",
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
-    "CQQ1_1133", "CQQ1_1331", "CQQ1_3333", 
-    "CQQ3_1133", "CQQ3_1331", "CQQ3_3333",
-    "Cuu_1133", "Cuu_1331", "Cuu_3333", 
-    "Cud1_3311","Cud1_3333",  
-    "Cud8_3311","Cud8_3333",
-    "CQu1_1133", "CQu1_3311", "CQu1_3333",
-    "CQu8_1133", "CQu8_3311", "CQu8_3333",
-    "CQd1_3311", "CQd1_3333", 
-    "CQd8_3311", "CQd8_3333", 
+    "CQQ1_1133", "CQQ1_1331", "CQQ1_2233", "CQQ1_2332", "CQQ1_3333", 
+    "CQQ3_1133", "CQQ3_1331", "CQQ3_2233", "CQQ3_2332", "CQQ3_3333",
+    "Cuu_1133", "Cuu_1331", "Cuu_2233", "Cuu_2332", "Cuu_3333", 
+    "Cud1_3311", "Cud1_3322", "Cud1_3333",  
+    "Cud8_3311", "Cud8_3322", "Cud8_3333",
+    "CQu1_1133", "CQu1_3311", "CQu1_2233", "CQu1_3322", "CQu1_3333",
+    "CQu8_1133", "CQu8_3311", "CQu8_2233", "CQu8_3322", "CQu8_3333",
+    "CQd1_3311", "CQd1_3322", "CQd1_3333", 
+    "CQd8_3311", "CQd8_3322", "CQd8_3333",
     "CQuQd1_3333",
     "CQuQd8_3333",
     "Lambda_NP",
@@ -10745,20 +10745,34 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 -4152.27 * (1. + ettH_2_G ) * CiG / LambdaNP2
                 +568696. * (1. + ettH_2_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.844 * (1. + ettH_2_DeltagHt ) * deltaG_hff(quarks[TOP]).real()                
-                +57950.7 * CQQ1_1133 / LambdaNP2
-                +572237. * CQQ1_1331 / LambdaNP2
-                +68506.5 * CQQ3_1133 / LambdaNP2
-                +689368. * CQQ3_1331 / LambdaNP2
-                +34359.2 * Cuu_1133 / LambdaNP2
-                +562953. * Cuu_1331 / LambdaNP2
-                -1123.41 * Cud1_3311 / LambdaNP2
-                +15070.6 * Cud8_3311 / LambdaNP2
-                +22531.7 * CQu1_1133 / LambdaNP2
-                +13290.1 * CQu1_3311 / LambdaNP2
-                +152635. * CQu8_1133 / LambdaNP2
-                +137479. * CQu8_3311 / LambdaNP2
-                -890.245 * CQd1_3311 / LambdaNP2
-                +15388.5 * CQd8_3311 / LambdaNP2
+                + ( 54699.8 * CQQ1_1133 
+                +549891. * CQQ1_1331 
+                +67728.1 * CQQ3_1133 
+                +687228. * CQQ3_1331 
+                +33464.2 * Cuu_1133 
+                +540790. * Cuu_1331 
+                -705.501 * Cud1_3311 
+                +17355.3 * Cud8_3311 
+                +20389. * CQu1_1133 
+                +13357.5 * CQu1_3311 
+                +150107. * CQu8_1133 
+                +132305. * CQu8_3311 
+                -1058.25 * CQd1_3311 
+                +17519.9 * CQd8_3311 
+                -47.033 * CQQ1_2233 
+                +1034.73 * CQQ1_2332 
+                +470.334 * CQQ3_2233 
+                +729.017 * CQQ3_2332 
+                +893.634 * Cuu_2233 
+                +376.267 * Cuu_2332 
+                +729.017 * Cud1_3322 
+                +564.4 * Cud8_3322 
+                +0. * CQu1_2233 
+                -329.234 * CQu1_3322 
+                -211.65 * CQu8_2233 
+                +470.334 * CQu8_3322 
+                -211.65 * CQd1_3322 
+                +70.55 * CQd8_3322 ) / LambdaNP2
                 ;
         
         if (FlagQuadraticTerms) {
@@ -10776,20 +10790,34 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 -85174.4 * (1. + ettH_78_G ) * CiG / LambdaNP2
                 +810365. * (1. + ettH_78_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.846 * (1. + ettH_78_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
-                +19387.7 * CQQ1_1133 / LambdaNP2
-                +309431. * CQQ1_1331 / LambdaNP2
-                +53723.7 * CQQ3_1133 / LambdaNP2
-                +633768. * CQQ3_1331 / LambdaNP2
-                +19654.7 * Cuu_1133 / LambdaNP2
-                +303278. * Cuu_1331 / LambdaNP2
-                -3442.03 * Cud1_3311 / LambdaNP2
-                +41220. * Cud8_3311 / LambdaNP2
-                +6827.86 * CQu1_1133 / LambdaNP2
-                +7038.59 * CQu1_3311 / LambdaNP2
-                +116509. * CQu8_1133 / LambdaNP2
-                +74277.5 * CQu8_3311 / LambdaNP2
-                -2514.79 * CQd1_3311 / LambdaNP2
-                +41346.5 * CQd8_3311 / LambdaNP2
+                + ( 14866.3 * CQQ1_1133 
+                +240487. * CQQ1_1331 
+                +42363.5 * CQQ3_1133 
+                +502022. * CQQ3_1331 
+                +15464.9 * Cuu_1133 
+                +235112. * Cuu_1331 
+                -3066.1 * Cud1_3311 
+                +32835.3 * Cud8_3311 
+                +5374.83 * CQu1_1133 
+                +5582.5 * CQu1_3311 
+                +91763.1 * CQu8_1133 
+                +57461.9 * CQu8_3311 
+                -2149.93 * CQd1_3311 
+                +32884.2 * CQd8_3311 
+                -403.113 * CQQ1_2233 
+                +3371.49 * CQQ1_2332 
+                +1148.26 * CQQ3_2233 
+                +17529.3 * CQQ3_2332 
+                +232.095 * Cuu_2233 
+                +3615.8 * Cuu_2332 
+                -1404.79 * Cud1_3322 
+                +647.423 * Cud8_3322 
+                -12.216 * CQu1_2233 
+                -732.932 * CQu1_3322 
+                +1954.49 * CQu8_2233 
+                +1123.83 * CQu8_3322 
+                -1099.4 * CQd1_3322 
+                +1184.91 * CQd8_3322 ) / LambdaNP2
                 ;
         
         if (FlagQuadraticTerms) {
@@ -10807,20 +10835,34 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 -86316.6 * (1. + ettH_78_G ) * CiG / LambdaNP2
                 +824047. * (1. + ettH_78_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.846 * (1. + ettH_78_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
-                +18617. * CQQ1_1133 / LambdaNP2
-                +294168. * CQQ1_1331 / LambdaNP2
-                +51386.8 * CQQ3_1133 / LambdaNP2
-                +603913. * CQQ3_1331 / LambdaNP2
-                +18807. * Cuu_1133 / LambdaNP2
-                +287709. * Cuu_1331 / LambdaNP2
-                -3419.45 * Cud1_3311 / LambdaNP2
-                +39513.7 * Cud8_3311 / LambdaNP2
-                +6838.91 * CQu1_1133 / LambdaNP2
-                +6363.98 * CQu1_3311 / LambdaNP2
-                +110752. * CQu8_1133 / LambdaNP2
-                +70573.7 * CQu8_3311 / LambdaNP2
-                -2659.57 * CQd1_3311 / LambdaNP2
-                +39608.7 * CQd8_3311 / LambdaNP2
+                + ( 14547.9 * CQQ1_1133 
+                +229459. * CQQ1_1331 
+                +41163.8 * CQQ3_1133 
+                +483138. * CQQ3_1331 
+                +15209.1 * Cuu_1133 
+                +225574. * Cuu_1331 
+                -2231.77 * Cud1_3311 
+                +32732.7 * Cud8_3311 
+                +5620.76 * CQu1_1133 
+                +5786.08 * CQu1_3311 
+                +87700.4 * CQu8_1133 
+                +55298.4 * CQu8_3311 
+                -1487.85 * CQd1_3311 
+                +31823.4 * CQd8_3311 
+                +82.658 * CQQ1_2233 
+                +4463.55 * CQQ1_2332 
+                +1570.51 * CQQ3_2233 
+                +18432.8 * CQQ3_2332 
+                +0. * Cuu_2233 
+                +4463.55 * Cuu_2332 
+                +165.317 * Cud1_3322 
+                +1157.22 * Cud8_3322 
+                +247.975 * CQu1_2233 
+                +578.608 * CQu1_3322 
+                +2479.75 * CQu8_2233 
+                +909.241 * CQu8_3322 
+                +0. * CQd1_3322 
+                +1983.8 * CQd8_3322 ) / LambdaNP2
                 ;
         
         if (FlagQuadraticTerms) {
@@ -10838,20 +10880,34 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
                 -85159.5 * (1. + ettH_1314_G ) * CiG / LambdaNP2
                 +861157. * (1. + ettH_1314_uG_33r ) * CiuG_33r / LambdaNP2
                 -2.846 * (1. + ettH_1314_DeltagHt ) * deltaG_hff(quarks[TOP]).real()
-                +13574.9 * CQQ1_1133 / LambdaNP2
-                +227043. * CQQ1_1331 / LambdaNP2
-                +41257.5 * CQQ3_1133 / LambdaNP2
-                +473396. * CQQ3_1331 / LambdaNP2
-                +14488.3 * Cuu_1133 / LambdaNP2
-                +221664. * Cuu_1331 / LambdaNP2
-                -3400.07 * Cud1_3311 / LambdaNP2
-                +31615.5 * Cud8_3311 / LambdaNP2
-                +4516.51 * CQu1_1133 / LambdaNP2
-                +4161.27 * CQu1_3311 / LambdaNP2
-                +85356.9 * CQu8_1133 / LambdaNP2
-                +53893.6 * CQu8_3311 / LambdaNP2
-                -2791.1 * CQd1_3311 / LambdaNP2
-                +30575.2 * CQd8_3311 / LambdaNP2
+                + ( 11386.2 * CQQ1_1133 
+                +188889. * CQQ1_1331 
+                +34700.9 * CQQ3_1133 
+                +400506. * CQQ3_1331 
+                +13080.6 * Cuu_1133 
+                +183535. * Cuu_1331 
+                -2191.4 * Cud1_3311 
+                +27019.7 * Cud8_3311 
+                +4043.92 * CQu1_1133 
+                +3659.86 * CQu1_3311 
+                +71886.9 * CQu8_1133 
+                +44844.6 * CQu8_3311 
+                -1558.83 * CQd1_3311 
+                +26974.5 * CQd8_3311 
+                -293.692 * CQQ1_2233 
+                +4766.85 * CQQ1_2332 
+                +542.201 * CQQ3_2233 
+                +21213.6 * CQQ3_2332 
+                +451.834 * Cuu_2233 
+                +4224.65 * Cuu_2332 
+                -451.834 * Cud1_3322 
+                +1513.65 * Cud8_3322 
+                -609.977 * CQu1_2233 
+                -316.284 * CQu1_3322 
+                +2914.33 * CQu8_2233 
+                +858.485 * CQu8_3322 
+                -135.55 * CQd1_3322 
+                +1491.05 * CQd8_3322 ) / LambdaNP2
                 ;
              
 //  Linear contribution from 4 top operators
