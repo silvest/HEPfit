@@ -26,6 +26,11 @@ class GeneralTHDMMatching : public StandardModelMatching {
 public:
     GeneralTHDMMatching(const GeneralTHDM & GeneralTHDM_i);
 
+    
+    
+    
+    
+    
     /**
      * @brief Wilson coefficient for \f$ (g-2)_{\mu} \f$.
      * @return
@@ -34,7 +39,7 @@ public:
 
     /** Calculates the muon g-2 at LO**/
     /**
-     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at one loop from \cite Broggio:2014mna.
+     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at one loop from 1502.04199, before \cite Broggio:2014mna was used.
      * @return 
      */    
     virtual double gminus2muLO();
@@ -42,7 +47,95 @@ public:
     
     
     
+    /** One-loop function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at one loop from 1502.04199. The complete loop function is \int_0^1 dx \frac{x^2(2-x)}{ratio_sq*x^2-x+1}
+     * but for small values of ratio_sq we can expand and take only the first term for which the functions becomes (-7.0/6.0-log(ratio_sq))
+     * @return 
+     */    
+    double F1oneloopgm2(const double ratio_sq);
     
+    
+    
+    /** One-loop function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at one loop from 1502.04199. The complete loop function is \int_0^1 dx \frac{-x^3}{ratio_sq*x^2-x+1}
+     * but for small values of ratio_sq we can expand and take only the first term for which the functions becomes (11.0/6.0+log(ratio_sq))
+     * @return 
+     */    
+    double F2oneloopgm2(const double ratio_sq);
+    
+    
+    
+    /** One-loop function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at one loop from 1502.04199. The complete loop function is \int_0^1 dx \frac{x^2(1-x)}{ratio_sq*x*(1-x)-x}
+     * but for small values of ratio_sq we can expand and take only the first term for which the functions becomes (-1/12. - ratio_sq/60.)
+     * @return 
+     */    
+    double F3oneloopgm2(const double ratio_sq);
+    
+    
+    
+    /** Two-loop (Barr-Zee) function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at two loops (Barr-Zee) from 1502.04199. The complete loop function is \frac{ratio_sq}{2}*\int_0^1 dx \frac{2x(1-x)-1}{ratio_sq-x(1-x)}\log(\frac{ratio_sq}{x(1-x)})
+     * 
+     * @return 
+     */    
+    double F1twoloopgm2(const double ratio_sq);
+    
+    
+    
+    /** Two-loop (Barr-Zee) function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at two loops (Barr-Zee) from 1502.04199. The complete loop function is \frac{ratio_sq}{2}*\int_0^1 dx \frac{1}{ratio_sq-x(1-x)}\log(\frac{ratio_sq}{x(1-x)})
+     * 
+     * @return 
+     */    
+    double F1tildetwoloopgm2(const double ratio_sq);
+    
+    
+    /** Two-loop (Barr-Zee) function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at two loops (Barr-Zee) from 1502.04199. The complete loop function is \frac{1}{2}*\int_0^1 dx \frac{x(x-1)}{ratio_sq-x(1-x)}\log(\frac{ratio_sq}{x(1-x)})
+     * 
+     * @return 
+     */    
+    double F2twoloopgm2(const double ratio_sq);
+    
+    
+    
+    /** Two-loop (Barr-Zee) function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at two loops (Barr-Zee) from 1502.04199. The complete loop function is \frac{1}{2}*\int_0^1 dx \frac{x(3x(4x-1)+10)ratio_sq-x(1-x)}{ratio_sq-x(1-x)}\log(\frac{ratio_sq}{x(1-x)})
+     * 
+     * @return 
+     */    
+    double F3twoloopgm2(const double ratio_sq);
+    
+    
+    
+    /** Two-loop (Barr-Zee) function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at two loops (Barr-Zee) from 1502.04199. In the notation of [1502.04199] this corresponds to (Q_t*x+Q_b*(1-x))x(1+x)G(ratio_sq,0), i.e. we neglect mb/mHp and mb/mW which is a great approximation
+     * The complete loop function is \int_0^1 dx (2/3 *x-1/3 *(1-x))x(1+x)*\frac{\log{\frac{ratio_sq*x}{x(1-x)}}}{x(1-x-ratio_sq*x)})
+     * 
+     * @return 
+     */    
+    double F4twoloopgm2(const double ratio_sq);
+    
+    
+    
+    
+    /** Two-loop (Barr-Zee) function for the contribution to the g-2 **/
+    /**
+     * @brief Loop \f$ (g-2)_{\mu} \f$ at two loops (Barr-Zee) from 1502.04199. In the notation of [1502.04199] this corresponds to (Q_t*x+Q_b*(1-x))x(1-x)G(ratio_sq,0), i.e. we neglect mb/mHp and mb/mW which is a great approximation
+     * The complete loop function is \int_0^1 dx (2/3 *x-1/3 *(1-x))x(1-x)*\frac{\log{\frac{ratio_sq*x}{x(1-x)}}}{x(1-x-ratio_sq*x)})
+     * 
+     * @return 
+     */    
+    double F5twoloopgm2(const double ratio_sq);
     
     
     

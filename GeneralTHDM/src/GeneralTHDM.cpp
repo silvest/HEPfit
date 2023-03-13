@@ -742,6 +742,9 @@ double GeneralTHDM::muppHZga(const double sqrt_s) const
     }
 }
 
+//Here we had before the at tree level but it would be better to include the full expression (including the oblique corrections).
+//Maybe it was the tree level because we wanted to treat it as an input, think a bit about this but it doesn't seem to make any sense
 double GeneralTHDM::Mw() const{
-    return (Mw_tree());
+    return (trueSM.Mw());
+//    return (Mw_tree());
 }

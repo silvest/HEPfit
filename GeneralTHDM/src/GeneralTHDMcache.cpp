@@ -5036,9 +5036,9 @@ void GeneralTHDMcache::computeSignalStrengths()
   
     //fermionic couplings for phi1
     
-    gslpp::complex yu1 = myGTHDM->getyu1();
-    gslpp::complex yd1 = myGTHDM->getyd1();
-    gslpp::complex yl1 = myGTHDM->getyl1();
+    yu1 = myGTHDM->getyu1();
+    yd1 = myGTHDM->getyd1();
+    yl1 = myGTHDM->getyl1();
     
     yu1R = myGTHDM->getyu1R();
     yd1R = myGTHDM->getyd1R();
@@ -5310,12 +5310,14 @@ double GeneralTHDMcache::computephi2quantities()
      gslpp::complex i = gslpp::complex::i();
  
 
-        //fermionic couplings for phi2
+    //fermionic couplings for phi2
     
-    gslpp::complex yu2 = 0.0;
-    gslpp::complex yd2 = 0.0;
-    gslpp::complex yl2 = 0.0;
+    //gslpp::complex yu2 = 0.0;//Are defined already in the cache
+    //gslpp::complex yd2 = 0.0;
+    //gslpp::complex yl2 = 0.0;
     
+    
+    //Here we define the couplings to the fermions for the mass states
     if(myGTHDM->getSMHiggs()){
         yu2 = R21 + (R22 - i*R23)*su.conjugate();
         yd2 = R21 + (R22 + i*R23)*sd;
@@ -5326,8 +5328,6 @@ double GeneralTHDMcache::computephi2quantities()
         yd2 = R11 + (R12 + i*R13)*sd;
         yl2 = R11 + (R12 + i*R13)*sl;
     }
-    
-    
     
    
      if(myGTHDM->getSMHiggs()){
@@ -5717,9 +5717,9 @@ double GeneralTHDMcache::computephi3quantities()
 
      //fermionic couplings for phi3
     
-    gslpp::complex yu3 = R31 + (R32 - i*R33)*su.conjugate();
-    gslpp::complex yd3 = R31 + (R32 + i*R33)*sd;
-    gslpp::complex yl3 = R31 + (R32 + i*R33)*sl;
+    yu3 = R31 + (R32 - i*R33)*su.conjugate();
+    yd3 = R31 + (R32 + i*R33)*sd;
+    yl3 = R31 + (R32 + i*R33)*sl;
     
     yu3R = R31_GTHDM + (R32_GTHDM)*su.real();
     yd3R = R31_GTHDM + (R32_GTHDM)*sd.real();
@@ -8716,6 +8716,12 @@ double GeneralTHDMcache::updateCache()
     R31_GTHDM = cosa2*sina2*cosa3 + sina1*sina3;
     R32_GTHDM = sina1*sina2*cosa3 - cosa1*sina3;
     R33_GTHDM = cosa2*cosa3;
+    
+    //What is this mess?? Here we have the same variables defined two times with different names...
+    //We should definitely clean this mess
+    //And what about the case "Heavy case" in which the SM is Higgs is not the light one, for the g-2
+    //in that case the \pi/2 phase is included so that the angles are still small perturbations but
+    //that is not being done here
     
     R11 = cosa1*cosa2;
     R12 = sina1*cosa2;

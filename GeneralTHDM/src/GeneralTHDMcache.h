@@ -855,6 +855,25 @@ public:
     double BrSM_htotautau;
     
     
+    /**
+     * @brief Coupling of the SM-Higgs to up quarks.
+     * @return @y_{u1}@f$
+     */
+    gslpp::complex yu1;
+    
+      /**
+     * @brief Coupling of the SM-Higgs to down quarks.
+     * @return @y_{d1}@f$
+     */
+    gslpp::complex yd1;
+    
+         /**
+     * @brief Coupling of the SM-Higgs to leptons.
+     * @return @y_{l1}@f$
+     */
+    gslpp::complex yl1;
+    
+    
      /**
      * @brief Coupling of the SM-Higgs to up quarks real part.
      * @return @y_{u1}@f$
@@ -873,7 +892,27 @@ public:
      */
     double yl1R;
     
+    
+    /**
+     * @brief Coupling of H to up quarks.
+     * @return @y_{u2}@f$
+     */
+    gslpp::complex yu2;
+    
+      /**
+     * @brief Coupling of H to down quarks.
+     * @return @y_{d2}@f$
+     */
+    gslpp::complex yd2;
+    
          /**
+     * @brief Coupling of H to leptons.
+     * @return @y_{l2}@f$
+     */
+    gslpp::complex yl2;
+    
+    
+     /**
      * @brief Coupling of H to up quarks real part.
      * @return @y_{u2}@f$
      */
@@ -892,7 +931,28 @@ public:
     double yl2R;
     
     
-            /**
+    
+    /**
+     * @brief Coupling of A to up quarks.
+     * @return @y_{u3}@f$
+     */
+    gslpp::complex yu3;
+    
+      /**
+     * @brief Coupling of A to down quarks.
+     * @return @y_{d3}@f$
+     */
+    gslpp::complex yd3;
+    
+         /**
+     * @brief Coupling of A to leptons.
+     * @return @y_{l3}@f$
+     */
+    gslpp::complex yl3;
+    
+    
+    
+     /**
      * @brief Coupling of A to up quarks real part.
      * @return @y_{u3}@f$
      */
@@ -2784,7 +2844,7 @@ public:
     double M33_2;
 
     //Remaining parameters of the generic potential depending on the input parameters
-    double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda2,lambda3,lambda4,Imlambda6,Imlambda7;//THIS IS WRONG NOW
+    double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda2,lambda3,lambda4,Imlambda6,Imlambda7;//THIS IS WRONG NOW THERE IS NO SUCH A THING AS GENERIC POTENTIAL
     
     //Parameters of the Higgs potential depending on the input parameters
     double m11sqH,m22sqH,Rem12sqH,Imm12sqH,lambda1H,lambda2H,lambda3H,lambda4H,Relambda5H,Imlambda5H,Relambda6H,Imlambda6H,Relambda7H,Imlambda7H;

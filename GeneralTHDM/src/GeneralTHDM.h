@@ -1430,8 +1430,19 @@ public:
     virtual double muppHZga(const double sqrt_s) const;
     virtual double computeGammaTotalRatio() const;
 
-    /*
+    
+    
+    //  Why was this done??? It doesn't seem to make any sense
+    /* 
      * @brief Method overriding the NPbase Mw with the tree-level W mass
+     */
+    //virtual double Mw() const;
+    
+    //We substitute the tree-level value with the real SM value but the oblique corrections are missing
+    /* 
+     * @brief Method overriding the NPbase Mw with the SM W mass. We
+     * did not include the oblique corrections for the moment but it 
+     * should be done for consistency
      */
     virtual double Mw() const;
 
