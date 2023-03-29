@@ -10,7 +10,7 @@
 
 double  DmBs::computeThValue()
 {
-    return(2. * SM.getCBs() * AmpBs(FULLNLO).abs());
+    return(2. * SM.getCBs() * M12_Bs(FULLNLO).abs());
 }
 
 double  RmBs::computeThValue()

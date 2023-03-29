@@ -9,7 +9,7 @@
 #define	AMPDB2_H
 
 class StandardModel;
-#include "gslpp_complex.h"
+#include "StandardModel.h"
 #include "OrderScheme.h"
 #include "gslpp.h"
 
@@ -47,8 +47,8 @@ public:
     * @param[in] order the %QCD order of the computation
     * @return @f$M_{12}^{bd}@f$
     */
-    gslpp::complex getAmpBd(orders order){
-        return AmpBd(order);
+    gslpp::complex getM12_Bd(orders order){
+        return M12_Bd(order);
     }
 
     /**
@@ -56,8 +56,30 @@ public:
     * @param[in] order the %QCD order of the computation
     * @return @f$M_{12}^{bs}@f$
     */
-    gslpp::complex getAmpBs(orders order){
-        return AmpBs(order);
+    gslpp::complex getM12_Bs(orders order){
+        return M12_Bs(order);
+    }
+    
+    /**
+    * @brief The value of @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$
+    */
+    gslpp::complex getGamma12_Bd(orders order){
+        return Gamma12_Bd(order);
+    }
+
+    /**
+    * @brief The value of @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$
+    */
+    gslpp::complex getGamma12_Bs(orders order){
+        return Gamma12_Bs(order);
+    }
+    
+    double getAsl(orders order, QCD::lepton lep){
+        return Asl(order, lep);
     }
 
     gslpp::complex getPBd(){
@@ -67,21 +89,44 @@ public:
     gslpp::complex getPBs(){
         return PBs();
     }
-
+    
 protected:
     /**
     * @brief A method to compute @f$M_{12}^{bd}@f$.
     * @param[in] order the %QCD order of the computation
     * @return @f$M_{12}^{bd}@f$
     */
-    gslpp::complex AmpBd(orders order);
+    gslpp::complex M12_Bd(orders order);
     
     /**
     * @brief A method to compute @f$M_{12}^{bs}@f$.
     * @param[in] order the %QCD order of the computation
     * @return @f$M_{12}^{bs}@f$
     */
-    gslpp::complex AmpBs(orders order);
+    gslpp::complex M12_Bs(orders order);
+
+    /**
+    * @brief A method to compute @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$
+    */
+    gslpp::complex Gamma12_Bd(orders order);
+    
+
+    /**
+    * @brief A method to compute @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$.
+    * @param[in] order the %QCD order of the computation
+    * @return @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$
+    */
+    gslpp::complex Gamma12_Bs(orders order);
+    
+    
+    /**
+    * @brief A method to compute the CP asymmetry in semileptonic B decays in the S
+    * @param[in] order the %QCD order of the computation
+    * @return @f$A_{sl}@f$
+    */
+    double Asl(orders order, QCD::lepton lep);
     
     /**
     * @brief A method to compute the ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value.
@@ -92,12 +137,128 @@ protected:
     gslpp::complex PBd();
     gslpp::complex PBs();
 
-private:
 
+private:
     const StandardModel& mySM;/**< Model type */
     
-    gslpp::complex C_1_SM;/**<Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C_1_SM;/**<Wilson coeffients H_{eff}^{DF2} @f$C_1@f$*/
+    
+public:
+    enum quark {d,s};
+    enum quarks {cc, cu, uu};
+    
+private:    
+    double mu_1;
+    double mu_2;    
+    gslpp::vector<gslpp::complex> c(quark q); //requires computeCKMelements(); before use
+    gslpp::complex delta_1overm(quark q); //requires computeCKMelements(); before use
+    
+//access calculated function values
+    double F0(quarks qq, int k, int i, int j);
+    double F1(quarks qq, int k, int i, int j);
+    double F(quarks qq, int k, int i, int j);
+    double P(quarks qq, int k, int i, int j);
+    gslpp::complex D(quarks qq, int k);
+    gslpp::complex deltas_1overm(quarks qq, quark q);
+    gslpp::vector<double> me = gslpp::vector<double>(5, 0.);
+    gslpp::vector<double> me_R = gslpp::vector<double>(4, 0.);
+    
+//calculate function values
+    void computeF0();
+    void computeF1();   
+    void computeP();
+    void computeD(); //requires F and P
+    void compute_deltas_1overm(quark q);
+    void compute_matrixelements(quark q);
 
+//array for caching function values
+    double cacheF0[24];
+    double cacheF1[24];
+    double cacheP[84];
+    gslpp::complex cacheD[6];
+    gslpp::complex cache_deltas_1overm[6];
+
+//returns position in the corresponding array
+    int indexF(quarks qq, int k, int i, int j);
+    int indexP(quarks qq, int k, int i, int j);
+    int indexD(quarks qq, int k);
+    int index_deltas(quarks qq, quark q);
+
+    //CKM elements
+    void computeCKMelements();
+
+    gslpp::complex VtbVtd;
+    gslpp::complex VtbVts;
+    gslpp::complex VtbVtd2;
+    gslpp::complex VtbVts2;
+    gslpp::complex VcbVcd;
+    gslpp::complex VcbVcs;
+    gslpp::complex VcbVcd2;
+    gslpp::complex VcbVcs2;
+    
+    //cache for often used values
+    double Gf2;
+    double z2; //z^2
+    double z3; //z^3
+    double z4; //z^4
+    double logz; //log(z)
+    double log1minusz; //log(1-z)
+    double log1minus4z; //log(1-4z)
+    double oneminusz2; //(1 - z)^2
+    double sqrt1minus4z; //(1-4z)^(1/2)
+    double sigma; //(1 - sqrt1minus4z)/(1 + sqrt1minus4z)
+    double logsigma; //log(sigma)
+    double log2sigma; //log^2(sigma)
+    double x_1; //mu_1/Mb
+    double x_2; //mu_2/Mb
+    double logx_1; //log(x_1)
+    double logx_2; //log(x_2)
+    double Dilogz; //Li_2(z)
+    double Dilogsigma; //Li_2(sigma)
+    double Dilogsigma2; //Li_2(sigma^2)
+    const double M_PI2 = M_PI * M_PI;
+    double as_4pi; //alpha_s/(4Pi)
+    
+    
+    double Md;
+    double Ms;
+    double Mc;
+    double Mb;
+    double Mt;
+    double MW;
+    double MB;
+    double MB_s;
+    double rhob;
+    double etab;
+    double Mb2;
+    double Mt2;
+    double MB2;
+    double MW2;
+    
+    //Buras basis pdf/hep-ph/9512380v1
+    void computeWilsonCoeffs(QCD::lepton lep);
+    gslpp::complex cacheC[6];
+    gslpp::complex C_8G; //check
+    gslpp::complex C(int i);
+    
+    //combinations of Wilson coeffients arxiv.org/abs/hep-ph/0202010
+    gslpp::complex K_1;
+    gslpp::complex K_2;
+    gslpp::complex K_1prime;
+    gslpp::complex K_2prime;
+    gslpp::complex K_3prime;
+    
+    double z;
+    gslpp::complex K12;
+
+    double B1;
+    double B2; //or B_s
+    double B_sprime;
+    double eta_B;
+    double eta_Bb;
+    double S_0;
+    
+    gslpp::complex kappa;
 };
 
 /**

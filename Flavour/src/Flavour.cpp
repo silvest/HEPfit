@@ -141,6 +141,11 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll(double mu, QCD::lepton
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffBMll(mu, lepton, noSM, scheme);
 }
 
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll_Buras(double mu, QCD::lepton lepton, bool noSM, schemes scheme) const
+{
+    return getPtr<HeffDB1>(HDB1)->ComputeCoeffBMll_Buras(mu, lepton, noSM, scheme);
+}
+
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme) const
 {
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffprimeBMll(mu, lepton, scheme);

@@ -515,11 +515,11 @@ double BR_MVgamma::computeBR_MVgamma(QCD::meson meson, QCD::meson vector)
         case StandardModel::RHO:
         case StandardModel::RHO_P:
         case StandardModel::OMEGA:
-            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            arg = myAmpDB2.getM12_Bd(FULLNLO).arg();
             t_int = 1.;
             break;
         case StandardModel::PHI:
-            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            arg = myAmpDB2.getM12_Bs(FULLNLO).arg();
             /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
             /* See discussion around eq.53 in hep-ph/0510104*/
             ADG = 2.*(exp(gslpp::complex::i()*arg)*(HVp.conjugate()*HVm_bar + HVm.conjugate()*HVp_bar)).real() / (HVp.abs2() + HVm.abs2() + HVp_bar.abs2() + HVm_bar.abs2());
@@ -676,10 +676,10 @@ double S_MVgamma::computeThValue()
     switch (vectorM) {
         case StandardModel::K_star:
         case StandardModel::RHO:
-            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            arg = myAmpDB2.getM12_Bd(FULLNLO).arg();
             break;
         case StandardModel::PHI:
-            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            arg = myAmpDB2.getM12_Bs(FULLNLO).arg();
             break;
         default:
             std::stringstream out;
@@ -712,10 +712,10 @@ double ADG_MVgamma::computeThValue()
     
     switch (vectorM) {
         case StandardModel::K_star:
-            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            arg = myAmpDB2.getM12_Bd(FULLNLO).arg();
             break;
         case StandardModel::PHI:
-            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            arg = myAmpDB2.getM12_Bs(FULLNLO).arg();
             break;
         default:
             std::stringstream out;

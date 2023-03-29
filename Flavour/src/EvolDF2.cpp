@@ -456,6 +456,8 @@ double EvolDF2::etabS0(double m) const
             + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
             + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b)
             + Alsm / 4. / M_PI * J[2]);
+    std::cout << "eta " << eta << "\n";
+    std::cout << "S0: " << S0tt << "\n";
     return (eta * S0tt);
 }
 

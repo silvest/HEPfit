@@ -10,5 +10,5 @@
 
 double Phis_JPsiPhi::computeThValue() 
 {
-    return (-remainder((AmpBs(FULLNLO).arg() - 2. * SM.getCKM().computelamc_s().arg() + 2.*SM.getPhiBs() ),2.*M_PI));
+    return (-remainder((M12_Bs(FULLNLO).arg() - 2. * SM.getCKM().computelamc_s().arg() + 2.*SM.getPhiBs() ),2.*M_PI));
 }

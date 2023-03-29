@@ -150,6 +150,15 @@ public:
     gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM = false, schemes scheme = NDR) const;
 
     /**
+     * @brief Computes the Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
+     * @param[in] mu the lower matching scale for the process
+     * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
+     * @return returns the Wilson coefficients in the Buras basis for the process \f$ B \to V/P \ell^+ \ell^- \f$
+     *
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll_Buras(double mu, QCD::lepton lepton, bool noSM = false, schemes scheme = NDR) const;
+
+    /**
      * @brief Computes the chirality flipped Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
      * @param[in] mu the lower matching scale for the process
      * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated

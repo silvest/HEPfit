@@ -10,5 +10,5 @@
  
 double  DmBd::computeThValue() 
 {
-    return(2. * SM.getCBd() * AmpBd(FULLNLO).abs());
+    return(2. * SM.getCBd() * M12_Bd(FULLNLO).abs());
 }
