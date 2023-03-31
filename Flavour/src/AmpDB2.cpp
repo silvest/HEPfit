@@ -157,6 +157,8 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
                         + VcbVcd2 * (D(cc, i) + D(uu, i) - 2. * D(cu, i))
                         );
             }
+            std::cout << "D " << D(uu, 1) << " " << D(uu,1)-D(cu,1) << " " << D(cc,1)+D(uu,1)-2.*D(cu,1) << "\n";
+            std::cout << "D " << D(uu, 2) << " " << D(uu,2)-D(cu,2) << " " << D(cc,2)+D(uu,2)-2.*D(cu,2) << "\n";            
             break;
         case s:
             for (int i = 0; i <= 1; i++) {
@@ -179,11 +181,13 @@ void AmpDB2::compute_matrixelements(quark q){
     double FBq2;
     switch (q) {
         case d:
+            me = mySM.getBBd().getBpars();
             Mq = Md;
             MBq2 = MB2;
             FBq2 = mySM.getMesons(QCD::B_D).getDecayconst() * mySM.getMesons(QCD::B_D).getDecayconst();
             break;
         case s:
+            me = mySM.getBBs().getBpars();
             Mq = Ms;
             MBq2 = MB_s * MB_s;
             FBq2 = mySM.getMesons(QCD::B_S).getDecayconst() * mySM.getMesons(QCD::B_S).getDecayconst();            
@@ -193,18 +197,7 @@ void AmpDB2::compute_matrixelements(quark q){
     }
     KBq = MBq2 / ((Mb + Mq) * (Mb + Mq));
     
-//    me.assign(0, 0.);
-//    me.assign(1, 0.);
-//    me.assign(2, 0.);
-//    me.assign(3, 0.);
-//    me.assign(4, 0.);
-//
-//    me_R.assign(0, 0.);
-//    me_R.assign(1, 0.); 
-//    me_R.assign(2, 0.);
-//    me_R.assign(3, 0.);
-    
-    me = mySM.getBBs().getBpars();
+    //equation (26)
     me(0) *=  8. / 3. * MBq2 * FBq2;
     me(1) *= -5. / 3. * KBq * MBq2 * FBq2;
     me(2) *=  1. / 3. * KBq * MBq2 * FBq2;
@@ -213,9 +206,11 @@ void AmpDB2::compute_matrixelements(quark q){
     
     me_R(0) += Mq/Mb * me(0);
     //new lattice results?
-    me_R(1) += 1.;
-    me_R(2) += 1.;
+    me_R(1) += -2./3. * FBq2 * MBq2 * (MBq2 / Mb2 -1.);
+    me_R(2) +=  7./6. * FBq2 * MBq2 * (MBq2 / Mb2 -1.);
     me_R(3) += me(2) + 0.5 * me(0) + me(1) - 2. * Mq/Mb * me(4) + me_R(1);
+    std::cout << "me" << me << "\n";
+    std::cout << "me_R " << me_R << "\n";
     return;
 }
 
@@ -312,11 +307,9 @@ void AmpDB2::computeF0() {
     cacheF0[indexF(uu, 2, 2, 2)] = -1.;
     for (int k = 1; k < 3; k++) {
         for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
-            std::cout << "enum " << qq << "\n";
             cacheF0[indexF(qq, k, 2, 1)] = cacheF0[indexF(qq, k, 1, 2)];
         }
     }
-    //std::cout << "F0 " << indexF(cu, 1, 1, 1) << F0(cu, 1, 1, 1) << "\n";
     return;
 }
 
@@ -376,17 +369,30 @@ void AmpDB2::computeF1() {
     cacheF1[indexF(uu, 2, 2, 2)] = 8. * M_PI2/3. - 8./9. * (19. - 3.) - 16. * logx_1 + 32./3. * logx_2;
     for (int k = 1; k < 3; k++) {
         for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
-            std::cout << "enum " << qq << "\n";
             cacheF1[indexF(qq, k, 2, 1)] = cacheF1[indexF(qq, k, 1, 2)];
         }        
     }
    
-//    std::cout << "F1 " << cacheF1[indexF(cc, 1, 1, 1)] << "\n";
-//    std::cout << "F1 " << cacheF1[indexF(cc, 2, 1, 1)] << "\n";
-//    std::cout << "F1 " << cacheF1[indexF(cc, 1, 1, 2)] << "\n";
-//    std::cout << "F1 " << cacheF1[indexF(cc, 2, 1, 2)] << "\n";
-//    std::cout << "F1 " << cacheF1[indexF(cc, 1, 2, 2)] << "\n";
-//    std::cout << "F1 " << cacheF1[indexF(cc, 2, 2, 2)] << "\n";
+//    std::cout << "--- F ---" << "\n";
+//    std::cout << F0(cu, 1, 2, 1)<< "\n";
+//    std::cout << F0(cu, 1, 1, 2)<< "\n";
+//    std::cout << F1(cc, 2, 2, 1)<< "\n";
+//    std::cout << F1(cc, 2, 1, 2)<< "\n";
+//    
+//    std::cout << F0(cu, 2, 1, 2)<< "\n";
+//    std::cout << F0(cu, 2, 2, 2)<< "\n";
+//    std::cout << F0(cc, 1, 1, 1)<< "\n";
+//    std::cout << F0(cc, 1, 1, 2)<< "\n";
+//    std::cout << F0(cc, 1, 2, 2)<< "\n";
+//    std::cout << F0(cc, 2, 1, 1)<< "\n";
+//    std::cout << F0(cc, 2, 1, 2)<< "\n";
+//    std::cout << F0(cc, 2, 2, 2)<< "\n";
+//    std::cout << F0(uu, 1, 1, 1)<< "\n";
+//    std::cout << F0(uu, 1, 1, 2)<< "\n";
+//    std::cout << F0(uu, 1, 2, 2)<< "\n";
+//    std::cout << F0(uu, 2, 1, 1)<< "\n";
+//    std::cout << F0(uu, 2, 1, 2)<< "\n";
+//    std::cout << F0(uu, 2, 2, 2)<< "\n";
     
     return;
 }
@@ -481,38 +487,7 @@ void AmpDB2::computeD() {
         }
         cacheD[indexD(cu, k)] = result;
     }
-}
-
-void AmpDB2::computeCKMelements() {
-    VtbVtd = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_td();
-    VtbVts = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_ts();
-    VtbVtd2 = VtbVtd * VtbVtd;
-    VtbVts2 = VtbVts * VtbVts;
-    VcbVcd = mySM.getCKM().getV_cb().conjugate() * mySM.getCKM().getV_cd();
-    VcbVcs = mySM.getCKM().getV_cb().conjugate() * mySM.getCKM().getV_cs();
-    VcbVcd2 = VcbVcd * VcbVcd;
-    VcbVcs2 = VcbVcs * VcbVcs;
-//    std::cout << F0(cu, 1, 2, 1)<< "\n";
-//    std::cout << F0(cu, 1, 1, 2)<< "\n";
-//    std::cout << F1(cc, 2, 2, 1)<< "\n";
-//    std::cout << F1(cc, 2, 1, 2)<< "\n";
-    
-//    std::cout << F0(cu, 2, 1, 2)<< "\n";
-//    std::cout << F0(cu, 2, 2, 2)<< "\n";
-//    std::cout << F0(cc, 1, 1, 1)<< "\n";
-//    std::cout << F0(cc, 1, 1, 2)<< "\n";
-//    std::cout << F0(cc, 1, 2, 2)<< "\n";
-//    std::cout << F0(cc, 2, 1, 1)<< "\n";
-//    std::cout << F0(cc, 2, 1, 2)<< "\n";
-//    std::cout << F0(cc, 2, 2, 2)<< "\n";
-//    std::cout << F0(uu, 1, 1, 1)<< "\n";
-//    std::cout << F0(uu, 1, 1, 2)<< "\n";
-//    std::cout << F0(uu, 1, 2, 2)<< "\n";
-//    std::cout << F0(uu, 2, 1, 1)<< "\n";
-//    std::cout << F0(uu, 2, 1, 2)<< "\n";
-//    std::cout << F0(uu, 2, 2, 2)<< "\n";
-    
-    std::cout << "--- P ---" << "\n";
+//    std::cout << "--- P ---" << "\n";
 //    std::cout << P(cu, 1, 2, 2)<< "\n";
 //    std::cout << P(cu, 2, 2, 2)<< "\n";
 //    std::cout << P(cc, 1, 2, 2)<< "\n";
@@ -557,7 +532,19 @@ void AmpDB2::computeCKMelements() {
 //    std::cout << P(cc, 2, 2, 6)<< "\n";
 //    std::cout << P(cc, 1, 2, 8)<< "\n";
 //    std::cout << P(cc, 2, 2, 8)<< "\n";
-    
+    return;
+}
+
+void AmpDB2::computeCKMelements() {
+    VtbVtd = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_td();
+    VtbVts = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_ts();
+    VtbVtd2 = VtbVtd * VtbVtd;
+    VtbVts2 = VtbVts * VtbVts;
+    VcbVcd = mySM.getCKM().getV_cb().conjugate() * mySM.getCKM().getV_cd();
+    VcbVcs = mySM.getCKM().getV_cb().conjugate() * mySM.getCKM().getV_cs();
+    VcbVcd2 = VcbVcd * VcbVcd;
+    VcbVcs2 = VcbVcs * VcbVcs;
+
     //update others
     Gf2 = mySM.getGF() * mySM.getGF();
     z2 = z * z;
@@ -571,8 +558,7 @@ void AmpDB2::computeCKMelements() {
     sigma = (1 - sqrt1minus4z)/(1 + sqrt1minus4z);
     logsigma = log(sigma);
     log2sigma = logsigma * logsigma;
-    logx_1 = log(x_1);
-    logx_2 = log(x_2);
+
     Dilogz = gslpp_special_functions::dilog(z);
     Dilogsigma = gslpp_special_functions::dilog(sigma);
     Dilogsigma2 = gslpp_special_functions::dilog(sigma * sigma);
@@ -581,6 +567,29 @@ void AmpDB2::computeCKMelements() {
     mu_2 = Mb;
     x_1 = mu_1/Mb;
     x_2 = mu_2/Mb;
+    logx_1 = log(x_1);
+    logx_2 = log(x_2);
+    
+//    std::cout << "---var---" << "\n" << Gf2 << "\n"
+//    << z << "\n"
+//    << logz << "\n"
+//    << log1minusz << "\n"
+//    << log1minus4z << "\n"
+//    << oneminusz2 << "\n"
+//    << sqrt1minus4z << "\n"
+//    << sigma << "\n"
+//    << logsigma << "\n"
+//    << log2sigma << "\n"
+//    << logx_1 << "\n"
+//    << logx_2 << "\n"
+//    << Dilogz << "\n"
+//    << Dilogsigma << "\n"
+//    << Dilogsigma2 << "\n"
+//    << mu_1 << "\n"
+//    << mu_2 << "\n"
+//    << x_1 << "\n"
+//    << x_2 << "\n"
+//    "---var---" << "\n";
     
     //check mu
     as_4pi = mySM.getAlsM() / (4. * M_PI);
@@ -594,13 +603,12 @@ void AmpDB2::computeWilsonCoeffs(QCD::lepton lep){
     }
     C_8G = 0.;
 
-    std::cout.precision(4);
-    std::cout << "C_1" << C(1) << "\n";
-    std::cout << "C_2" << C(2) << "\n";
-    std::cout << "C_3" << C(3) << "\n";
-    std::cout << "C_4" << C(4) << "\n";
-    std::cout << "C_5" << C(5) << "\n";
-    std::cout << "C_6" << C(6) << "\n";
+    std::cout << "C_1 " << C(1) << " ";
+    std::cout << "C_2 " << C(2) << " ";
+    std::cout << "C_3 " << C(3) << "\n";
+    std::cout << "C_4 " << C(4) << " ";
+    std::cout << "C_5 " << C(5) << " ";
+    std::cout << "C_6 " << C(6) << "\n";
 
     K_1 = 3. * C(1) * C(1) + 2. * C(1) * C(2);
     K_2 = C(2) * C(2);
@@ -614,14 +622,13 @@ gslpp::complex AmpDB2::Gamma12_Bd(orders order) {
     if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bd(): order not implemented");
     else {
         //hep-ph/0308029v2
-        
-        //double mu_2 = 0;        
 
-        //computeCKMelements();
- 
         //equation 16
         gslpp::complex Gamma12_Bd = -Gf2 * Mb2 / (24 * M_PI * MB) *
                 (c(d)(0) * me(0) + c(d)(1) * me(1) + delta_1overm(d));
+//        std::cout << "Parts " << Gf2 * Mb2 / (24 * M_PI * MB) << "\n" << c(d)(0) * me(0) << "\n" 
+//                << c(d)(1) * me(1) << "\n" << delta_1overm(d) << "\n";
+//        std::cout << "c: " << c(d) << "\n me: " << me << "\n delta: " << delta_1overm(d) << "\n";
         return Gamma12_Bd;
     }
 }
@@ -630,11 +637,7 @@ gslpp::complex AmpDB2::Gamma12_Bs(orders order) {
     if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bs(): order not implemented");
     else {
         //hep-ph/0308029v2
-        
-        //double mu_2 = 0;        
 
-        //computeCKMelements();
- 
         //equation 16
         gslpp::complex Gamma12_Bs = -Gf2 * Mb2 / (24 * M_PI * MB_s) *
                 (c(s)(0) * me(0) + c(s)(1) * me(1) + delta_1overm(s));
@@ -714,15 +717,16 @@ double AmpDB2::Asl(orders order, QCD::lepton lep) {
     MB = mySM.getMesons(QCD::B_D).getMass();
     MB_s = mySM.getMesons(QCD::B_S).getMass();
 
+    std::cout.precision(4);
     //masses?
-    std::cout << "Ms" << mySM.Mrun(mySM.getBBs().getMu(),
-            mySM.getQuarks(QCD::STRANGE).getMass_scale(),
-            mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO) << "\n";
-    std::cout << "Ms" << mySM.getQuarks(QCD::STRANGE).getMass() << "\n";
-    std::cout << "Mb_pole" << mySM.Mbar2Mp(Mb) << "\n";
-    std::cout << "Mb" << Mb << "\n";
-
-    std::cout << "test: " << mySM.getFlavour().getHDF2().getUDF2().etabS0(mySM.getBBd().getMu()) << "\n";
+//    std::cout << "Ms" << mySM.Mrun(mySM.getBBs().getMu(),
+//            mySM.getQuarks(QCD::STRANGE).getMass_scale(),
+//            mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO) << "\n";
+//    std::cout << "Ms" << mySM.getQuarks(QCD::STRANGE).getMass() << "\n";
+//    std::cout << "Mb_pole" << mySM.Mbar2Mp(Mb) << "\n";
+//    std::cout << "Mb" << Mb << "\n";
+//
+//    std::cout << "test: " << mySM.getFlavour().getHDF2().getUDF2().etabS0(mySM.getBBd().getMu()) << "\n";
 
     Mb2 = Mb * Mb;
     Mt2 = Mt * Mt;
@@ -739,7 +743,7 @@ double AmpDB2::Asl(orders order, QCD::lepton lep) {
     computeD();
     compute_matrixelements(d);
     compute_deltas_1overm(d);
-    std::cout << "Gamma12_Bd: "  << Gamma12_Bd(FULLNLO) << "\n";
+    std::cout << "M12_Bd: " << M12_Bd(FULLNLO) << "\n";
     std::cout << "Gamma12oderM12_Bd: "  << Gamma12_Bd(FULLNLO)/M12_Bd(FULLNLO) << "\n";
 
     //mySM.getBBd().setFlagCsi(true);

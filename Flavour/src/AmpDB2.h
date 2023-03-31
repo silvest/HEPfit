@@ -219,7 +219,6 @@ private:
     const double M_PI2 = M_PI * M_PI;
     double as_4pi; //alpha_s/(4Pi)
     
-    
     double Md;
     double Ms;
     double Mc;
