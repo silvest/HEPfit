@@ -31,7 +31,7 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         evolDB1bsg(new EvolDB1bsg(8, NDR, NNLO, SM)),
         u(new EvolDF1nlep(10, NDR, NLO, NLO_QED11, SM)),
         evolbs(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)), evolbd(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)),
-        nlep (12, 0.), nlep2(10, 0.),        
+        nlep(12, 0.), nlep2(10, 0.),        
         nlepCC(4, 0.)
 {
     
@@ -71,6 +71,8 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         Bdmumu_Mu_cache.push_back(0.);
     }
     Bdmumu_mu_cache = 0.;
+    
+    setMisiaktoBuras();
 }
 
 HeffDB1::~HeffDB1() 
@@ -1051,14 +1053,8 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, QCD::lepton
     return coeffBMll.getCoeff();
 }
 
-gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll_Buras(double mu, QCD::lepton lepton, bool noSM, schemes scheme)
-{
-    //compute coefficients in Misiak basis:
-    ComputeCoeffBMll(mu, lepton, noSM, scheme);
-    orders ordDF1 = coeffBMll_Buras.getOrder();
-    unsigned int size = coeffBMll_Buras.getSize();
 
-    //transformation matrix up to O(a_s): Nuclear Physics B 520 (1998) 279-297, equation 58
+void HeffDB1::setMisiaktoBuras(){
     double R_inv_t0[6] = {0.5, 0., 0., 0., 0., 0.},
     R_inv_t1[6] = {-0.1666666666666667, 1., 0., 0., 0., 0.},
     R_inv_t2[6] = {-0., 0., 1., -0.1666666666666667, 16., -2.6666666666666667},
@@ -1072,25 +1068,32 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll_Buras(double mu, QCD::
     dR_t3[6] = {0., 0., -6.666666666666667, -2.7777777777777777, -128., -143.55555555555555},
     dR_t4[6] = {0., 0., 0., 0.14814814814814815, -10.666666666666666, 3.259259259259259},
     dR_t5[6] = {0., 0., 0.6666666666666666, 0.2777777777777778, 14.666666666666666, 13.444444444444444};
-
-    gslpp::matrix< double > R_inv_t(6, 6, 0.);
+ 
     R_inv_t.assign(0, R_inv_t0);
     R_inv_t.assign(1, R_inv_t1);
     R_inv_t.assign(2, R_inv_t2);
     R_inv_t.assign(3, R_inv_t3);
     R_inv_t.assign(4, R_inv_t4);
     R_inv_t.assign(5, R_inv_t5);
-
-    gslpp::matrix< double > dR_t(6, 6, 0.);
+    
     dR_t.assign(0, dR_t0);
     dR_t.assign(1, dR_t1);
     dR_t.assign(2, dR_t2);
     dR_t.assign(3, dR_t3);
     dR_t.assign(4, dR_t4);
     dR_t.assign(5, dR_t5);
+}
 
-    gslpp::matrix< double > changeBasis(6, 6, 0.);
-    changeBasis.assign(0, 0, R_inv_t - R_inv_t * model.Als(mu) / (4. * M_PI) * dR_t);
+
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll_Buras(double mu, QCD::lepton lepton, bool noSM, schemes scheme)
+{
+    //compute coefficients in Misiak basis:
+    ComputeCoeffBMll(mu, lepton, noSM, scheme);
+    orders ordDF1 = coeffBMll_Buras.getOrder();
+    unsigned int size = coeffBMll_Buras.getSize();
+    
+    //transformation matrix up to O(a_s): Nuclear Physics B 520 (1998) 279-297, equation 58
+    MisiaktoBuras.assign(0, 0, R_inv_t - R_inv_t * model.Als(mu) / (4. * M_PI) * dR_t);
 
     //store coeffs in a vector
     gslpp::vector< complex > tmp_coeffBMll(size, 0.);
@@ -1099,7 +1102,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll_Buras(double mu, QCD::
             tmp_coeffBMll.assign(i, (*coeffBMll.getCoeff(orders(order)))(i));
         }
         //do the change of basis
-        tmp_coeffBMll = changeBasis * tmp_coeffBMll;
+        tmp_coeffBMll = MisiaktoBuras * tmp_coeffBMll;
         for (unsigned int i = 0; i < size; i++) {
             coeffBMll_Buras.setCoeff(i, tmp_coeffBMll(i), orders(order));
         }

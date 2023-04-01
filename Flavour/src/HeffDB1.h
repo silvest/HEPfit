@@ -17,6 +17,7 @@ class EvolBsmm;
 #include "QCD.h"
 #include "WilsonCoefficient.h"
 #include <memory>
+#include "gslpp_matrix_double.h"
 
 class HeffDB1 {
 public:
@@ -266,6 +267,12 @@ private :
     std::vector<WilsonCoefficient> Bdmumu_WC_cache;
     
     gslpp::vector<gslpp::complex> nlep, nlep2, nlepCC;
+    
+    //for transformation matrix from Misiak basis to Buras basis
+    void setMisiaktoBuras();
+    gslpp::matrix<double> R_inv_t = gslpp::matrix< double >(6, 6, 0.);
+    gslpp::matrix<double> dR_t = gslpp::matrix< double >(6, 6, 0.);
+    gslpp::matrix<double> MisiaktoBuras = gslpp::matrix< double >(6, 6, 0.);
 };
 
 #endif	/* HEFFDB1_H */
