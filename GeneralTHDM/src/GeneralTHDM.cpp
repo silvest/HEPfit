@@ -9,8 +9,8 @@
 #include "GeneralTHDMcache.h"
 #include "GeneralTHDMSTU.h"
 
-//The CP-violating part doesn't make sense, there are too many parameters!!!
-std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {/*"logtb",*/ "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", 
+
+std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", 
 "lambda2", "lambda3", "Relambda7",
 "Nu_11r", "Nu_11i", "Nu_12r", "Nu_12i", "Nu_13r", "Nu_13i", 
 "Nu_21r", "Nu_21i", "Nu_22r", "Nu_22i", "Nu_23r", "Nu_23i", 
@@ -136,6 +136,43 @@ bool GeneralTHDM::InitializeModel()
     return(IsModelInitialized());
 }
 
+
+bool GeneralTHDM::Update(const std::map<std::string, double>& DPars)
+{
+    if(!NPbase::Update(DPars)) return (false);
+
+    
+    if(flag_CPconservation){
+        mu2=mHp2-lambda3/(2*v()*v());
+        
+        mH1=mHl;
+                
+        mH1sq=mH1*mH1;
+        
+        lambda1 = (mH1sq+mH2sq*tanalpha1*tanalpha1)/(v()*v()*(1+tanalpha1*tanalpha1));
+    
+        lambda4 = (mH1sq+mH3sq-2*mHp2+(mH2sq-mH1sq)/(1+tanalpha1*tanalpha1))/(v()*v());
+    
+        Relambda5 = ((mH2sq+mH1sq*tanalpha1*tanalpha1)/(1+tanalpha1*tanalpha1)-mH3sq)/(v()*v());
+    
+        Imlambda5 = 0.;
+    
+        Relambda6 = ((mH1sq-mH2sq)*tanalpha1)/(v()*v()*(1+tanalpha1*tanalpha1));
+    
+        Imlambda6 = 0.;
+        
+        Imlambda7 = 0.;
+    }
+    else{
+        throw std::runtime_error("\033[1;31m The CP-Violating GeneralTHDM is still not implemented, please use the CP-conserving model \033[0m ");
+    }
+    
+
+    return (true);
+}
+
+
+
 bool GeneralTHDM::PostUpdate()
 {
     if(!NPbase::PostUpdate()) return (false);
@@ -146,28 +183,21 @@ bool GeneralTHDM::PostUpdate()
 }
 
 void GeneralTHDM::setParameter(const std::string name, const double& value){
-
-    /*if(name.compare("logtb") == 0) {
-        logtb = value;
-        tanb = pow(10.,logtb);
-        if(tanb > 0.) {
-            sinb = tanb / sqrt(1. + tanb*tanb);
-            cosb = 1. / sqrt(1. + tanb*tanb);
-        }
-        else {
-            throw std::runtime_error("error in GeneralTHDM::SetParameter, tanb < 0!");
-          }
-        }
     
-    else */ if(name.compare("mH21") == 0){
+//    std::cout<<"\033[1;33m name = \033[0m "<< name << std::endl;
+//    std::cout<<"\033[1;33m value = \033[0m "<< value << std::endl;
+
+    
+    if(name.compare("mH21") == 0){
         if(!flag_use_sq_masses){
             mH21 = value;
             mH2sq=mH21*mH21;
         }
         else{
-            //Actually it wouldn't make sense to use sq_masses and that mH21 appears in the config file 
-            //maybe it's better to through an error? Think what's best
-            mH21=sqrt(mH2sq);
+            throw std::runtime_error(" If flag_use_sq_masses is true you should not include"
+                    " the linear mass as a parameter in the configuration file. Please comment that line");
+
+            //mH21=sqrt(mH2sq);
         }
     }
     else if(name.compare("mH31") == 0){
@@ -176,8 +206,9 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             mH3sq = mH31*mH31;
         }
         else{
-            //same concern as above
-            mH31=sqrt(mH3sq);
+            throw std::runtime_error(" If flag_use_sq_masses is true you should not include"
+                    " the linear mass as a parameter in the configuration file. Please comment that line");
+            //mH31=sqrt(mH3sq);
         }
     }
     else if(name.compare("mHp1") == 0){
@@ -186,8 +217,9 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             mHp2 = mHp1*mHp1;
         }
         else{
-            //same concern as above
-            mHp1=sqrt(mHp2);
+            throw std::runtime_error(" If flag_use_sq_masses is true you should not include"
+                    " the linear mass as a parameter in the configuration file. Please comment that line");
+            //mHp1=sqrt(mHp2);
         }
     }
 
@@ -197,8 +229,9 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             mH21=sqrt(mH2sq);
         }
         else{
-            //same concern as above
-            mH2sq=mH21*mH21;
+            throw std::runtime_error(" If flag_use_sq_masses is false you should not include"
+                    " the quadratic mass as a parameter in the configuration file. Please comment that line");
+            //mH2sq=mH21*mH21;
         }
     }
     else if(name.compare("mH3sq") == 0){
@@ -207,8 +240,9 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             mH31=sqrt(mH3sq);
         }
         else{
-            //same concern as above
-            mH3sq=mH31*mH31;
+            throw std::runtime_error(" If flag_use_sq_masses is false you should not include"
+                    " the quadratic mass as a parameter in the configuration file. Please comment that line");
+            //mH3sq=mH31*mH31;
         }
     }
     else if(name.compare("mHp2") == 0){
@@ -217,8 +251,9 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
             mHp1=sqrt(mHp2);
         }
         else{
-            //same concern as above
-            mHp2=mHp1*mHp1;
+            throw std::runtime_error(" If flag_use_sq_masses is false you should not include"
+                    " the quadratic mass as a parameter in the configuration file. Please comment that line");
+            //mHp2=mHp1*mHp1;
         }
     }
 
@@ -232,20 +267,17 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         else{
             std::cout<<"\033[1;33m Warning!!! The alpha1=pi/2 and it's tangent is infinity, reduce the range of alpha1 \033[0m "<<std::endl;
         }
-      // std::cout<<"alpha1 before ordering = "<<alpha1<<std::endl;
 
     }
     else if(name.compare("alpha2") == 0) {
         alpha2 = value;
         cosalpha2 = cos(alpha2);
         sinalpha2 = sin(alpha2);
-              //std::cout<<"alpha2 before ordering = "<<alpha2<<std::endl;
     }
     else if(name.compare("alpha3") == 0) {
         alpha3 = value;
         cosalpha3 = cos(alpha3);
         sinalpha3 = sin(alpha3);
-              //std::cout<<"alpha3 before ordering = "<<alpha3<<std::endl;
     }
     else if(name.compare("lambda2") == 0)
         lambda2 = value;
@@ -385,33 +417,7 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         NLOuniscaleGTHDM = value;
     else
         NPbase::setParameter(name,value);
-    if(flag_CPconservation){
-        //let's define the values for the other parameters here for the moment
-        //probably we could find a better place though, think about it
-        mu2=mHp2-lambda3/(2*v()*v());
-        
-        mH1=mHl;
-                
-        mH1sq=mH1*mH1;
-        
-        lambda1 = (mH1sq+mH2sq*tanalpha1*tanalpha1)/(v()*v()*(1+tanalpha1*tanalpha1));
     
-        lambda4 = (mH1sq+mH3sq-2*mHp2+(mH2sq-mH1sq)/(1+tanalpha1*tanalpha1))/(v()*v());
-    
-        Relambda5 = ((mH2sq+mH1sq*tanalpha1*tanalpha1)/(1+tanalpha1*tanalpha1)-mH3sq)/(v()*v());
-    
-        Imlambda5 = 0;
-    
-        Relambda6 = ((mH1sq-mH2sq)*tanalpha1)/(v()*v()*(1+tanalpha1*tanalpha1));
-    
-        Imlambda6 = 0;
-        
-        Imlambda7 = 0;
-        
-    }
-    else{
-        throw std::runtime_error("\033[1;31m The CP-Violating GeneralTHDM is still not implemented, please use the CP-conserving model \033[0m ");
-    }
 }
 
 bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
@@ -1051,7 +1057,6 @@ double GeneralTHDM::GTHDMDeltaU() const
 
 
 //Here we had before the at tree level but it would be better to include the full expression (including the oblique corrections).
-//Maybe it was the tree level because we wanted to treat it as an input, think a bit about this but it doesn't seem to make any sense
 double GeneralTHDM::Mw() const{
 
 

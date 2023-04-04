@@ -21,7 +21,7 @@ public:
 /**
 *　@brief The number of the model parameters in %NPSMEFT6dtopquarkVars. 
 */
-static const int NNPSMEFT6dtopquarkVars = 100;
+static const int NNPSMEFT6dtopquarkVars = 104;
    
 /*
 @brief A string array containing the labels of the model parameters in NPSMEFT6dtopquark 
@@ -331,6 +331,20 @@ static const int NNPSMEFT6dtopquarkVars = 100;
     
     
     
+    double getNPSMEFT6dtopquark_SM_ttll_bin_100_120() const {
+        return SM_ttll_bin_100_120;
+    }
+    double getNPSMEFT6dtopquark_SM_ttll_bin_120_140() const {
+        return SM_ttll_bin_120_140;
+    }
+    double getNPSMEFT6dtopquark_SM_ttll_bin_140_180() const {
+        return SM_ttll_bin_140_180;
+    }
+    double getNPSMEFT6dtopquark_SM_ttll_bin_180_500() const {
+        return SM_ttll_bin_180_500;
+    }
+    
+    
     
     
     
@@ -557,7 +571,12 @@ static const int NNPSMEFT6dtopquarkVars = 100;
     double SM_Charge_Asymmetry_bin_tt_2000_2500; ///< The SM value for the charged asymmetry of tt differential in the bin from  2000 to 2500 GeV.
     double SM_Charge_Asymmetry_bin_tt_2500_3000; ///< The SM value for the charged asymmetry of tt differential in the bin from  2500 to 3000 GeV.
     
-
+    double SM_ttll_bin_100_120; ///< The SM value for the differential cross section tt in the bin from 100 to 120 GeV.
+    double SM_ttll_bin_120_140; ///< The SM value for the differential cross section tt in the bin from 120 to 140 GeV.
+    double SM_ttll_bin_140_180; ///< The SM value for the differential cross section tt in the bin from 140 to 180 GeV.
+    double SM_ttll_bin_180_500; ///< The SM value for the differential cross section tt in the bin from 180 to 500 GeV.
+            
+            
 
     double SM_tZQ_inc; ///< The SM value for the inclusive cross section tZQ.
     double SM_ttA_inc; ///< The SM value for the inclusive cross section ttA.
@@ -2350,6 +2369,60 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
+
+
+
+
+class ttll_bin_100_120 : public ThObservable {
+public:   
+
+    ttll_bin_100_120(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class ttll_bin_120_140 : public ThObservable {
+public:   
+
+    ttll_bin_120_140(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class ttll_bin_140_180 : public ThObservable {
+public:   
+
+    ttll_bin_140_180(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class ttll_bin_180_500 : public ThObservable {
+public:   
+
+    ttll_bin_180_500(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
 
 
 

@@ -3873,6 +3873,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Charge_Asymmetry_bin_tt_2000_2500"] = boost::factory<Charge_Asymmetry_bin_tt_2000_2500*>();
     obsThFactory["Charge_Asymmetry_bin_tt_2500_3000"] = boost::factory<Charge_Asymmetry_bin_tt_2500_3000*>();
     
+    //ttll LHC observables
+    obsThFactory["ttll_bin_100_120"] = boost::factory<ttll_bin_100_120*>();
+    obsThFactory["ttll_bin_120_140"] = boost::factory<ttll_bin_120_140*>();
+    obsThFactory["ttll_bin_140_180"] = boost::factory<ttll_bin_140_180*>();
+    obsThFactory["ttll_bin_180_500"] = boost::factory<ttll_bin_180_500*>();
     
     //OPTIMIZED OBSERVABLES
     //I don't really like this implementation, these constraints should be included in the prior,

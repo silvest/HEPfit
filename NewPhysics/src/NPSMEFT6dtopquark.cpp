@@ -27,6 +27,7 @@ const std::string NPSMEFT6dtopquark::NPSMEFT6dtopquarkVars[NNPSMEFT6dtopquarkVar
         "SM_tt_bin_1700_2000", "SM_tt_bin_2000_2300", "SM_tt_bin_2300_2600", "SM_tt_bin_2600_3000", "SM_tt_bin_3000_3500", "SM_tt_bin_3500_4000", 
         "SM_Charge_Asymmetry_bin_tt_0_500", "SM_Charge_Asymmetry_bin_tt_500_750", "SM_Charge_Asymmetry_bin_tt_750_1000", "SM_Charge_Asymmetry_bin_tt_1000_1500", 
         "SM_Charge_Asymmetry_bin_tt_1500_2000", "SM_Charge_Asymmetry_bin_tt_2000_2500", "SM_Charge_Asymmetry_bin_tt_2500_3000",
+        "SM_ttll_bin_100_120","SM_ttll_bin_120_140","SM_ttll_bin_140_180","SM_ttll_bin_180_500",
         "SM_tAq_inc", "SM_tZQ_inc", "SM_ttA_inc", "SM_ttZ_inc", "SM_ttW_inc", "SM_Asymmetry_leptonic_charge_rapidity_ttW", "SM_tW_inc", "SM_tW_inc_8TeV", "SM_ttH_inc", 
         "SM_sigmatchannel13", "SM_sigmatchannel8", "SM_sigmaschannel8", "SM_sigmaschannelTev",
         "SM_tH_tchan_value", "SM_ttbar_LHC13", "SM_ttbar_LHC8", "SM_ttbar_Tev", "F0_SM", "FL_SM","Rb_SM", "AFBLR_SM", "ttWqEM_SM"};
@@ -125,6 +126,11 @@ NPSMEFT6dtopquark::NPSMEFT6dtopquark()
     ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_1500_2000", std::cref(SM_Charge_Asymmetry_bin_tt_1500_2000)));
     ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_2000_2500", std::cref(SM_Charge_Asymmetry_bin_tt_2000_2500)));
     ModelParamMap.insert(std::make_pair("SM_Charge_Asymmetry_bin_tt_2500_3000", std::cref(SM_Charge_Asymmetry_bin_tt_2500_3000)));
+    
+    ModelParamMap.insert(std::make_pair("SM_ttll_bin_100_120", std::cref(SM_ttll_bin_100_120)));
+    ModelParamMap.insert(std::make_pair("SM_ttll_bin_120_140", std::cref(SM_ttll_bin_120_140)));
+    ModelParamMap.insert(std::make_pair("SM_ttll_bin_140_180", std::cref(SM_ttll_bin_140_180)));
+    ModelParamMap.insert(std::make_pair("SM_ttll_bin_180_500", std::cref(SM_ttll_bin_180_500)));
     
     ModelParamMap.insert(std::make_pair("SM_tAq_inc", std::cref(SM_tAq_inc)));
     ModelParamMap.insert(std::make_pair("SM_tZQ_inc", std::cref(SM_tZQ_inc)));
@@ -337,7 +343,15 @@ void NPSMEFT6dtopquark::setParameter(const std::string name, const double& value
     
     
     
-    
+    else if (name.compare("SM_ttll_bin_100_120") == 0)
+        SM_ttll_bin_100_120 = value;
+    else if (name.compare("SM_ttll_bin_120_140") == 0)
+        SM_ttll_bin_120_140 = value;
+    else if (name.compare("SM_ttll_bin_140_180") == 0)
+        SM_ttll_bin_140_180 = value;
+    else if (name.compare("SM_ttll_bin_180_500") == 0)
+        SM_ttll_bin_180_500 = value;
+
     
     
     
@@ -3999,6 +4013,137 @@ else{
 
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////// ttll differential cross section for different bins //////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ttll_bin_100_120::ttll_bin_100_120(const StandardModel& SM_i)
+ : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
+{};
+
+double ttll_bin_100_120::computeThValue()
+{
+    
+    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_lQ1 = (C_lqP + C_lqM)/2.0;
+    double C_lQ3 = (C_lqP - C_lqM)/2.0;
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+
+    double SM_ttll_bin_100_120= myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_SM_ttll_bin_100_120(); 
+ 
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+//    double ttll_bin_100_120_madgraph_NLO = XXXXXXXXXXXX;//fb
+//    double ttll_bin_100_120_madgraph_LO = XXXXXXXXXXX;//fb
+
+    
+    
+    if(flag_Quadratic){
+        return  SM_ttll_bin_100_120 * 1/100 * ( 100 - 4*C_lQ1 + 0.11*C_lQ1*C_lQ1 + 4*C_lQ3 + 0.11*C_lQ3*C_lQ3 - 2.6*C_eu + 0.11 *C_eu*C_eu + 1.3*C_lu + 0.11*C_lu*C_lu + 2*C_eq + 0.11*C_eq*C_eq);  //Xsec mg5 included in coefficients
+    }
+    else{
+        return  SM_ttll_bin_100_120 * 1/100 * ( 100 - 4*C_lQ1 + 4*C_lQ3 - 2.6*C_eu + 1.3*C_lu + 2*C_eq );  //Xsec mg5 included in coefficients
+    }
+}
+
+
+ttll_bin_120_140::ttll_bin_120_140(const StandardModel& SM_i)
+ : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
+{};
+double ttll_bin_120_140::computeThValue()
+{
+    
+    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_lQ1 = (C_lqP + C_lqM)/2.0;
+    double C_lQ3 = (C_lqP - C_lqM)/2.0;
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+
+    double SM_ttll_bin_120_140= myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_SM_ttll_bin_120_140(); 
+ 
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+//    double ttll_bin_120_140_madgraph_NLO = XXXXXXXXXXXX;//fb
+//    double ttll_bin_120_140_madgraph_LO = XXXXXXXXXXX;//fb
+
+    
+    
+    if(flag_Quadratic){
+        return  SM_ttll_bin_120_140 * 1/100 * ( 100 - 10*C_lQ1 + 0.5*C_lQ1*C_lQ1 + 10*C_lQ3 + 0.5*C_lQ3*C_lQ3 - 6*C_eu + 0.5 *C_eu*C_eu + 0.6*C_lu + 0.5*C_lu*C_lu + 2.3*C_eq + 0.5*C_eq*C_eq);  //Xsec mg5 included in coefficients
+    }
+    else{
+        return  SM_ttll_bin_120_140 * 1/100 * ( 100 - 10*C_lQ1 + 10*C_lQ3 - 6*C_eu + 0.6*C_lu + 2.3*C_eq );  //Xsec mg5 included in coefficients
+    }
+}
+
+
+ttll_bin_140_180::ttll_bin_140_180(const StandardModel& SM_i)
+ : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
+{};
+double ttll_bin_140_180::computeThValue()
+{
+    
+    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_lQ1 = (C_lqP + C_lqM)/2.0;
+    double C_lQ3 = (C_lqP - C_lqM)/2.0;
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+
+    double SM_ttll_bin_140_180= myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_SM_ttll_bin_140_180(); 
+ 
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+//    double ttll_bin_140_180_madgraph_NLO = XXXXXXXXXXXX;//fb
+//    double ttll_bin_140_180_madgraph_LO = XXXXXXXXXXX;//fb
+
+    
+    
+    if(flag_Quadratic){
+        return  SM_ttll_bin_140_180 * 1/100 * ( 100 - 17*C_lQ1 + 1.6*C_lQ1*C_lQ1 + 17*C_lQ3 + 1.6*C_lQ3*C_lQ3 - 11*C_eu + 1.6 *C_eu*C_eu - 2*C_lu + 1.6*C_lu*C_lu + 1.2*C_eq + 1.6*C_eq*C_eq);  //Xsec mg5 included in coefficients
+    }
+    else{
+        return  SM_ttll_bin_140_180 * 1/100 * ( 100 - 17*C_lQ1 + 17*C_lQ3 - 11*C_eu - 2*C_lu + 1.2*C_eq );  //Xsec mg5 included in coefficients
+    }
+}
+
+
+
+ttll_bin_180_500::ttll_bin_180_500(const StandardModel& SM_i)
+ : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
+{};
+double ttll_bin_180_500::computeThValue()
+{
+    
+    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_lQ1 = (C_lqP + C_lqM)/2.0;
+    double C_lQ3 = (C_lqP - C_lqM)/2.0;
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+
+    double SM_ttll_bin_180_500= myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_SM_ttll_bin_180_500(); 
+ 
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+//    double ttll_bin_180_500_madgraph_NLO = XXXXXXXXXXXX;//fb
+//    double ttll_bin_180_500_madgraph_LO = XXXXXXXXXXX;//fb
+
+       
+    if(flag_Quadratic){
+        return  SM_ttll_bin_180_500 * 1/100 * ( 100 - 60*C_lQ1 + 70*C_lQ1*C_lQ1 + 60*C_lQ3 + 70*C_lQ3*C_lQ3 - 40*C_eu + 60 *C_eu*C_eu - 18*C_lu + 50*C_lu*C_lu - 7*C_eq + 60*C_eq*C_eq);  //Xsec mg5 included in coefficients
+    }
+    else{
+        return  SM_ttll_bin_180_500 * 1/100 * ( 100 - 60*C_lQ1 + 60*C_lQ3 - 40*C_eu - 18*C_lu - 7*C_eq );  //Xsec mg5 included in coefficients        
+    }
+}
+
+
+
+
 
 
 
@@ -4041,7 +4186,7 @@ double sigma_250_bb_eP_P30_eM_M80::computeThValue()
     double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
-    
+    //
     if(flag_LHC_WG_Basis){
             if(flag_Quadratic){
                 return  (9.3*((C_phiQm+C_phiQ3)/0.998)+9.3*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+114.5*C_lqP+20.6*C_ld+2.9*C_ed)*sigma_250_bb_eP_P30_eM_M80/100;

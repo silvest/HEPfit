@@ -491,6 +491,15 @@ public:
     virtual bool InitializeModel();
     
     
+    
+    /**
+     * @brief The update method for %GeneralTHDM.
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    
+    
+    
     /**
      * @brief The post-update method for %GeneralTHDM.
      * @details This method runs all the procedures that are need to be executed
