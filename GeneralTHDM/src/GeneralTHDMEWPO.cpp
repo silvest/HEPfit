@@ -42,7 +42,8 @@ double Rb0GTHDM::computeThValue()
     double as = myGTHDM.getAlsMz();
     double a = myGTHDM.getAle();
 
-    double MW=myGTHDM.Mw();
+    double MW=myGTHDM.Mw_tree(); //The Mw mass is used do define the electroweak scale, we can  
+                                 //use the tree level value and forget about the NP contributions
 
     double MZ=myGTHDM.getMz();
     

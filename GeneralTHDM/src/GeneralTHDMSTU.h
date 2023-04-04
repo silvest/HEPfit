@@ -37,17 +37,11 @@ public:
 
     const GeneralTHDM * myGTHDM;
 
-    /**
-     * @brief Function @f$F(m02,m12)@f$ used for %THDM. Remember that this function is
-     * defined for %GeneralTHDM while for SUSY we have a multiplicative factor 2.
-     * @param[in] m02 mass square @f$m_0^2@f$
-     * @param[in] m12 mass square @f$m_1^2@f$
-     * @return @f$F(m02,m12)@f$
-     */
-    double F(const double m02, const double m12) const;
+
 
 protected:
-    GeneralTHDMcache * mycache;
+// We do not need the cache anymore
+//    GeneralTHDMcache * mycache;
           
 };
 

@@ -1431,6 +1431,36 @@ public:
     virtual double computeGammaTotalRatio() const;
 
     
+    /**
+     * @brief Function @f$F(m02,m12)@f$ used for %THDM. Remember that this function is
+     * defined for %GeneralTHDM while for SUSY we have a multiplicative factor 2.
+     * @param[in] m02 mass square @f$m_0^2@f$
+     * @param[in] m12 mass square @f$m_1^2@f$
+     * @return @f$F(m02,m12)@f$
+     */
+    double F(const double m02, const double m12) const;
+    
+    
+    
+    /**
+     * @brief A method that returns the New Physics contribution to the oblique parameter S in the GeneralTHDM
+     * @return a double with the New Physics contribution to the oblique parameter S.
+     */
+    double GTHDMDeltaS() const;
+    
+    /**
+     * @brief A method that returns the New Physics contribution to the oblique parameter T in the GeneralTHDM
+     * @return a double with the New Physics contribution to the oblique parameter T.
+     */
+    double GTHDMDeltaT() const;
+    
+    
+    /**
+     * @brief A method that returns the New Physics contribution to the oblique parameter U in the GeneralTHDM
+     * @return a double with the New Physics contribution to the oblique parameter U.
+     */
+    double GTHDMDeltaU() const;
+    
     
     //  Why was this done??? It doesn't seem to make any sense
     /* 
@@ -1473,6 +1503,8 @@ protected:
 
 private:
 
+
+    
     GeneralTHDMcache* myGTHDMcache;
 
     //Let's define here all the parameters of the model, including those who are linearly dependent

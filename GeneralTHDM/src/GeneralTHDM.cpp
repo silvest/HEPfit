@@ -7,6 +7,7 @@
 
 #include "GeneralTHDM.h"
 #include "GeneralTHDMcache.h"
+#include "GeneralTHDMSTU.h"
 
 //The CP-violating part doesn't make sense, there are too many parameters!!!
 std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {/*"logtb",*/ "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", 
@@ -742,9 +743,338 @@ double GeneralTHDM::muppHZga(const double sqrt_s) const
     }
 }
 
+
+
+
+double GeneralTHDM::F(const double m02, const double m12) const {
+    double F;
+
+    if(m02 == 0. && m12 != 0.) {
+        F=0.5 * m12;
+    } else if(m02 != 0. && m12 == 0.){
+        F=0.5 * m02;
+    } else if((m02 == 0. && m12 == 0.) || (fabs(m02-m12) < LEPS)){
+        F=0.;
+    } else if (m02 != 0 && m12 != 0){
+        F=0.5 * (m02 + m12) - (m02 * m12) / (m02 - m12) * log(m02 / m12);
+    } else
+        throw std::runtime_error("Error in GeneralTHDM::F()");
+    return (F);
+}
+
+
+
+double GeneralTHDM::GTHDMDeltaS() const
+{
+
+    
+    //MAYBE WE CAN USE DIRECTLY THE PARAMETERS mH1sq, mH2sq, mH3sq, mHp2. IT'S A NONESENSE TO DEFINE THIS AGAIN...
+    double mH1_2 = mH1sq;
+    double mH2_2 = mH2sq;
+    double mH3_2 = mH3sq;
+    double mHp2= getmHp2();
+    
+    double mHref_2 = getmH1sq();  
+    double  R11 = 0.0;
+    double  R21 = 0.0;
+    double  R31 = cosalpha2*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
+
+    //THIS NEEDS TO BE CHECKED, MAYBE BETTER TO DEFINE THIS MATRIX ELEMENTS AS PARAMETERS
+    if(getSMHiggs()){
+           R11 = cosalpha1*cosalpha2;;
+           R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+    }
+    else{
+           R21 = cosalpha1*cosalpha2;
+           R11 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+    }
+    
+    double  R11_2 = R11*R11;
+    double  R21_2 = R21*R21;
+    double  R31_2 = R31*R31;
+
+    //std::cout<<"\033[1;33m R11 =  \033[0m "<<  R11 <<std::endl;
+    //std::cout<<"\033[1;33m R21 =  \033[0m "<<  R21 <<std::endl;
+    //std::cout<<"\033[1;33m R31 =  \033[0m "<<  R31 <<std::endl;
+    
+    
+    double MZ= getMz();
+    double MZ2 = MZ*MZ;
+    
+    gslpp::complex B00prime_MZ2_MZ2_mH_2_mH_3;
+    gslpp::complex B00prime_MZ2_MZ2_mHp2_mHp2;
+    gslpp::complex B00prime_MZ2_MZ2_mH_1_mH_3;
+    gslpp::complex B00prime_MZ2_MZ2_mH_1_mH_2;
+
+    
+    gslpp::complex B00prime_MZ2_MZ2_MZ2_mH2_2;
+    gslpp::complex B00prime_MZ2_MZ2_MZ2_mH1_2;
+    gslpp::complex B0prime_MZ2_MZ2_MZ2_mH2_2;
+    gslpp::complex B0prime_MZ2_MZ2_MZ2_mH1_2;
+    
+    gslpp::complex B00prime_MZ2_MZ2_MZ2_mH3_2;
+    gslpp::complex B0prime_MZ2_MZ2_MZ2_mH3_2;
+    
+    gslpp::complex B00prime_MZ2_MZ2_MZ2_mHref_2;
+    gslpp::complex B0prime_MZ2_MZ2_MZ2_mHref_2;
+
+
+
+    B00prime_MZ2_MZ2_mH_2_mH_3 = myGTHDMcache->B00_MZ2_MZ2_mHh2_mA2(MZ2,mH2_2,mH3_2) - myGTHDMcache->B00_MZ2_0_mHh2_mA2(MZ2,mH2_2,mH3_2);
+    B00prime_MZ2_MZ2_mHp2_mHp2 = myGTHDMcache->B00_MZ2_MZ2_mHp2_mHp2(MZ2,mHp2) - myGTHDMcache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2);
+    B00prime_MZ2_MZ2_mH_1_mH_3 = myGTHDMcache->B00_MZ2_MZ2_mHl2_mA2(MZ2,mH1_2,mH3_2) - myGTHDMcache->B00_MZ2_0_mHl2_mA2(MZ2,mH1_2,mH3_2);
+    B00prime_MZ2_MZ2_mH_1_mH_2 = myGTHDMcache->B00_MZ2_MZ2_mHl2_mA2(MZ2,mH1_2,mH2_2) - myGTHDMcache->B00_MZ2_0_mHl2_mA2(MZ2,mH1_2,mH2_2);
+
+    
+    B00prime_MZ2_MZ2_MZ2_mH2_2 = myGTHDMcache->B00_MZ2_MZ2_MZ2_mHh2(MZ2,mH2_2) - myGTHDMcache->B00_MZ2_0_MZ2_mHh2(MZ2,mH2_2);
+    B00prime_MZ2_MZ2_MZ2_mH1_2 = myGTHDMcache->B00_MZ2_MZ2_MZ2_mHl2(MZ2,mH1_2) - myGTHDMcache->B00_MZ2_0_MZ2_mHl2(MZ2,mH1_2);
+    B0prime_MZ2_MZ2_MZ2_mH2_2 = myGTHDMcache->B0_MZ2_MZ2_MZ2_mHh2(MZ2,mH2_2) - myGTHDMcache->B0_MZ2_0_MZ2_mHh2(MZ2,mH2_2);
+    B0prime_MZ2_MZ2_MZ2_mH1_2 = myGTHDMcache->B0_MZ2_MZ2_MZ2_mHl2(MZ2,mH1_2) - myGTHDMcache->B0_MZ2_0_MZ2_mHl2(MZ2,mH1_2);
+    B00prime_MZ2_MZ2_MZ2_mH3_2 = myGTHDMcache->B00_MZ2_MZ2_MZ2_mHh2(MZ2,mH3_2) - myGTHDMcache->B00_MZ2_0_MZ2_mHh2(MZ2,mH3_2);
+    B0prime_MZ2_MZ2_MZ2_mH3_2 = myGTHDMcache->B0_MZ2_MZ2_MZ2_mHh2(MZ2,mH3_2) - myGTHDMcache->B0_MZ2_0_MZ2_mHh2(MZ2,mH3_2);
+
+    B00prime_MZ2_MZ2_MZ2_mHref_2 = myGTHDMcache->B00_MZ2_MZ2_MZ2_mHh2(MZ2,mHref_2) - myGTHDMcache->B00_MZ2_0_MZ2_mHh2(MZ2,mHref_2);
+    B0prime_MZ2_MZ2_MZ2_mHref_2 = myGTHDMcache->B0_MZ2_MZ2_MZ2_mHh2(MZ2,mHref_2) - myGTHDMcache->B0_MZ2_0_MZ2_mHh2(MZ2,mHref_2);
+
+
+
+    
+    return 1/MZ2/M_PI*( R11_2*(B00prime_MZ2_MZ2_MZ2_mH1_2.real() - MZ2*B0prime_MZ2_MZ2_MZ2_mH1_2.real())+
+            R21_2*(B00prime_MZ2_MZ2_MZ2_mH2_2.real() - MZ2*B0prime_MZ2_MZ2_MZ2_mH2_2.real())+
+            R31_2*(B00prime_MZ2_MZ2_MZ2_mH3_2.real() - MZ2*B0prime_MZ2_MZ2_MZ2_mH3_2.real())+
+             R11_2*B00prime_MZ2_MZ2_mH_2_mH_3.real() + R21_2*B00prime_MZ2_MZ2_mH_1_mH_3.real()
+             +R31_2*B00prime_MZ2_MZ2_mH_1_mH_2.real() - B00prime_MZ2_MZ2_mHp2_mHp2.real()
+              - B00prime_MZ2_MZ2_MZ2_mHref_2.real() + MZ2*B0prime_MZ2_MZ2_MZ2_mHref_2.real());
+     
+}
+
+
+
+double GeneralTHDM::GTHDMDeltaT() const
+{
+
+    gslpp::complex I = gslpp::complex::i();
+    double mH1_2 = mH1sq;
+    double mH2_2 = mH2sq;
+    double mH3_2 = mH3sq;
+    double mHp2 = getmHp2();
+    
+    double mHref_2 = mH1sq;
+        
+        
+        
+    double  R11 = 0.0;
+    double  R12 = 0.0;
+    double  R13 = 0.0;
+    double  R21 = 0.0;
+    double  R22 = 0.0;
+    double  R23 = 0.0;
+    double R31 = cosalpha2*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
+    double R32 = sinalpha1*sinalpha2*cosalpha3 - cosalpha1*sinalpha3;
+    double R33 = cosalpha2*cosalpha3;
+    
+    
+    if(getSMHiggs()){
+        R11 = cosalpha1*cosalpha2;
+        R12 = sinalpha1*cosalpha2;
+        R13 = -sinalpha2;
+        R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+        R22 = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3;
+        R23 = cosalpha2*sinalpha3;
+    }
+    else{
+        
+        R21 = cosalpha1*cosalpha2; //R21 is R11 in this case
+        R22 = sinalpha1*cosalpha2; //R22 is R12 in this case
+        R23 = -sinalpha2;          //R23 is R13 in this case
+        R11 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3; //R11 is R21 in this case
+        R12 = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3; //R12 is R22 in this case
+        R13 = cosalpha2*sinalpha3; //R13 is R23 in this case
+    }
+    
+        double  R11_2 = R11*R11;
+        double  R21_2 = R21*R21;
+        double  R31_2 = R31*R31;
+     
+    double MZ=getMz();
+    double MZ2 = MZ*MZ;
+    
+    double MW=Mw_tree();
+    double MW2 = MW*MW;
+    
+    double s_W2 = 1.0-c02();
+
+    gslpp::complex B0_MZ2_0_MZ2_mH1_2;
+    gslpp::complex B0_MZ2_0_MZ2_mH2_2;
+    gslpp::complex B0_MZ2_0_MZ2_mH3_2;
+    gslpp::complex B0_MZ2_0_MZ2_mHref_2;
+
+
+    gslpp::complex B0_MZ2_0_MW2_mH1_2;
+    gslpp::complex B0_MZ2_0_MW2_mH2_2;
+    gslpp::complex B0_MZ2_0_MW2_mH3_2;
+    gslpp::complex B0_MZ2_0_MW2_mHref_2;
+
+
+    B0_MZ2_0_MZ2_mH1_2 = myGTHDMcache->B0_MZ2_0_MZ2_mHh2(MZ2,mH1_2);
+    B0_MZ2_0_MZ2_mH2_2 = myGTHDMcache->B0_MZ2_0_MZ2_mHl2(MZ2,mH2_2);
+    B0_MZ2_0_MZ2_mH3_2 = myGTHDMcache->B0_MZ2_0_MZ2_mHl2(MZ2,mH3_2);
+    B0_MZ2_0_MZ2_mHref_2 = myGTHDMcache->B0_MZ2_0_MZ2_mHl2(MZ2,mHref_2);
+
+    
+    B0_MZ2_0_MW2_mH1_2 = myGTHDMcache->B0_MZ2_0_MW2_mHh2(MZ2,MW2,mH1_2);
+    B0_MZ2_0_MW2_mH2_2 = myGTHDMcache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mH2_2);
+    B0_MZ2_0_MW2_mH3_2 = myGTHDMcache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mH3_2);
+    B0_MZ2_0_MW2_mHref_2 = myGTHDMcache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mHref_2);
+
+      
+    return 1. / 16. / M_PI / MW2 / s_W2*((R12 + I*R13).abs2()*F(mHp2, mH1_2)+(R22 + I*R23).abs2()*F(mHp2, mH2_2)+
+             (R32 + I*R33).abs2()*F(mHp2, mH3_2)- R11_2*F(mH2_2, mH3_2) - R21_2*F(mH1_2, mH3_2) - R31_2*F(mH1_2, mH2_2)
+            + R11_2*(F(MW2, mH1_2) - F(MZ2, mH1_2) - 4.0*MW2*B0_MZ2_0_MW2_mH1_2.real() + 4.0*MZ2*B0_MZ2_0_MZ2_mH1_2.real())
+            + R21_2*(F(MW2, mH2_2) - F(MZ2, mH2_2) - 4.0*MW2*B0_MZ2_0_MW2_mH2_2.real() + 4.0*MZ2*B0_MZ2_0_MZ2_mH2_2.real())
+            + R31_2*(F(MW2, mH3_2) - F(MZ2, mH3_2) - 4.0*MW2*B0_MZ2_0_MW2_mH3_2.real() + 4.0*MZ2*B0_MZ2_0_MZ2_mH3_2.real())
+            -(F(MW2, mHref_2) - F(MZ2, mHref_2) - 4.0*MW2*B0_MZ2_0_MW2_mHref_2.real() + 4.0*MZ2*B0_MZ2_0_MZ2_mHref_2.real()));
+
+}
+
+
+
+double GeneralTHDM::GTHDMDeltaU() const
+{
+    
+    gslpp::complex I = gslpp::complex::i();
+    double mH1_2 = mH1sq;
+    double mH2_2 = mH2sq;
+    double mH3_2 = mH3sq;
+    double mHp2 = getmHp2();
+    
+    double mHref_2 = mH1sq;
+        
+        
+    
+          
+    double  R11 = 0.0;
+    double  R12 = 0.0;
+    double  R13 = 0.0;
+    double  R21 = 0.0;
+    double  R22 = 0.0;
+    double  R23 = 0.0;
+    double  R31 = cosalpha2*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
+    double  R32 = sinalpha1*sinalpha2*cosalpha3 - cosalpha1*sinalpha3;
+    double  R33 = cosalpha2*cosalpha3;
+
+    
+    
+    if(getSMHiggs()){
+        R11 = cosalpha1*cosalpha2;
+        R12 = sinalpha1*cosalpha2;
+        R13 = -sinalpha2;
+        R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+        R22 = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3;
+        R23 = cosalpha2*sinalpha3;
+    }
+    else{
+        
+        R21 = cosalpha1*cosalpha2; //R21 is R11 in this case
+        R22 = sinalpha1*cosalpha2; //R22 is R12 in this case
+        R23 = -sinalpha2;          //R23 is R13 in this case
+        R11 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3; //R11 is R21 in this case
+        R12 = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3; //R12 is R22 in this case
+        R13 = cosalpha2*sinalpha3; //R13 is R23 in this case
+    }
+    
+    
+    double  R11_2 = R11*R11;
+    double  R21_2 = R21*R21;
+    double  R31_2 = R31*R31;
+
+    double MZ=getMz();
+    double MZ2 = MZ*MZ;
+    
+    double MW=Mw_tree();
+    double MW2 = MW*MW;
+
+
+    gslpp::complex B00prime_MZ2_MW2_mH1_2_mHp2;
+    gslpp::complex B00prime_MZ2_MW2_mH2_2_mHp2;
+    gslpp::complex B00prime_MZ2_MW2_mH3_2_mHp2;
+    gslpp::complex B00prime_MZ2_MW2_mHref_2_mHp2;
+
+
+    
+    gslpp::complex B00prime_MZ2_MW2_mHp2_mHp2;
+    
+    
+    gslpp::complex B00prime_MZ2_MW2_MW2_mH1_2;
+    gslpp::complex B00prime_MZ2_MW2_MW2_mH2_2;
+    gslpp::complex B00prime_MZ2_MW2_MW2_mH3_2;
+    gslpp::complex B00prime_MZ2_MW2_MW2_mHref_2;
+
+    
+    gslpp::complex B0prime_MZ2_MW2_MW2_mH1_2;
+    gslpp::complex B0prime_MZ2_MW2_MW2_mH2_2;
+    gslpp::complex B0prime_MZ2_MW2_MW2_mH3_2;
+    gslpp::complex B0prime_MZ2_MW2_MW2_mHref_2;
+
+
+
+    B00prime_MZ2_MW2_mH1_2_mHp2 = myGTHDMcache->B00_MZ2_MW2_mHl2_mHp2(MZ2,MW2,mH1_2,mHp2) - myGTHDMcache->B00_MZ2_0_mHl2_mHp2(MZ2,mH1_2,mHp2);
+    B00prime_MZ2_MW2_mH2_2_mHp2 = myGTHDMcache->B00_MZ2_MW2_mHh2_mHp2(MZ2,MW2,mH2_2,mHp2) - myGTHDMcache->B00_MZ2_0_mHh2_mHp2(MZ2,mH2_2,mHp2);
+    B00prime_MZ2_MW2_mH3_2_mHp2 = myGTHDMcache->B00_MZ2_MW2_mHh2_mHp2(MZ2,MW2,mH3_2,mHp2) - myGTHDMcache->B00_MZ2_0_mHh2_mHp2(MZ2,mH3_2,mHp2);
+    B00prime_MZ2_MW2_mHref_2_mHp2 = myGTHDMcache->B00_MZ2_MW2_mHl2_mHp2(MZ2,MW2,mHref_2,mHp2) - myGTHDMcache->B00_MZ2_0_mHl2_mHp2(MZ2,mHref_2,mHp2);
+
+    B00prime_MZ2_MW2_mHp2_mHp2 = myGTHDMcache->B00_MZ2_MW2_mHp2_mHp2(MZ2,MW2,mHp2) - myGTHDMcache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2);
+
+    B00prime_MZ2_MW2_MW2_mH1_2 = myGTHDMcache->B00_MZ2_MW2_MW2_mHl2(MZ2,MW2,mH1_2) - myGTHDMcache->B00_MZ2_0_MW2_mHl2(MZ2,MW2,mH1_2);
+    B00prime_MZ2_MW2_MW2_mH2_2 = myGTHDMcache->B00_MZ2_MW2_MW2_mHh2(MZ2,MW2,mH2_2) - myGTHDMcache->B00_MZ2_0_MW2_mHh2(MZ2,MW2,mH2_2);
+    B00prime_MZ2_MW2_MW2_mH3_2 = myGTHDMcache->B00_MZ2_MW2_MW2_mHh2(MZ2,MW2,mH3_2) - myGTHDMcache->B00_MZ2_0_MW2_mHh2(MZ2,MW2,mH3_2);
+    B00prime_MZ2_MW2_MW2_mHref_2 = myGTHDMcache->B00_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHref_2) - myGTHDMcache->B00_MZ2_0_MW2_mHl2(MZ2,MW2,mHref_2);
+
+    B0prime_MZ2_MW2_MW2_mH1_2 = myGTHDMcache->B0_MZ2_MW2_MW2_mHl2(MZ2,MW2,mH1_2) - myGTHDMcache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mH1_2);
+    B0prime_MZ2_MW2_MW2_mH2_2 = myGTHDMcache->B0_MZ2_MW2_MW2_mHh2(MZ2,MW2,mH2_2) - myGTHDMcache->B0_MZ2_0_MW2_mHh2(MZ2,MW2,mH2_2);
+    B0prime_MZ2_MW2_MW2_mH3_2 = myGTHDMcache->B0_MZ2_MW2_MW2_mHh2(MZ2,MW2,mH3_2) - myGTHDMcache->B0_MZ2_0_MW2_mHh2(MZ2,MW2,mH3_2);
+    B0prime_MZ2_MW2_MW2_mHref_2 = myGTHDMcache->B0_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHref_2) - myGTHDMcache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mHref_2);
+
+    
+    return - GTHDMDeltaS() + 1. / M_PI / MZ2 * (- R11_2*MW2*B0prime_MZ2_MW2_MW2_mH1_2.real() - R21_2*MW2*B0prime_MZ2_MW2_MW2_mH2_2.real() - R31_2*MW2*B0prime_MZ2_MW2_MW2_mH3_2.real() 
+    + MW2*B0prime_MZ2_MW2_MW2_mHref_2.real() - B00prime_MZ2_MW2_MW2_mHref_2.real()
+    + R11_2* B00prime_MZ2_MW2_MW2_mH1_2.real() +R21_2* B00prime_MZ2_MW2_MW2_mH2_2.real() +R31_2* B00prime_MZ2_MW2_MW2_mH3_2.real()
+    + (R12+I*R13).abs2()*B00prime_MZ2_MW2_mH1_2_mHp2.real() + (R22+I*R23).abs2()*B00prime_MZ2_MW2_mH2_2_mHp2.real()
+    + (R32+I*R33).abs2()*B00prime_MZ2_MW2_mH3_2_mHp2.real() - 2. * B00prime_MZ2_MW2_mHp2_mHp2.real());
+
+    
+    
+}
+
+
+
+
+
 //Here we had before the at tree level but it would be better to include the full expression (including the oblique corrections).
 //Maybe it was the tree level because we wanted to treat it as an input, think a bit about this but it doesn't seem to make any sense
 double GeneralTHDM::Mw() const{
-    return (trueSM.Mw());
+
+
+    //std::cout<<"\033[1;33m GTHDMDeltaS() =  \033[0m "<<  GTHDMDeltaS() <<std::endl;
+    //std::cout<<"\033[1;32m GTHDMDeltaT() =  \033[0m "<<  GTHDMDeltaT() <<std::endl;
+    //std::cout<<"\033[1;31m GTHDMDeltaU() =  \033[0m "<<  GTHDMDeltaU() <<std::endl;
+    
+    //std::cout<<"\033[1;31m trueSM.Mw() =  \033[0m "<<  trueSM.Mw() <<std::endl;
+    
+    double myMw = trueSM.Mw();
+
+    double alpha = trueSM.alphaMz();
+    double c2 = trueSM.cW2();
+    double s2 = trueSM.sW2();
+
+    myMw *= 1.0 - alpha / 4.0 / (c2 - s2)
+            *(GTHDMDeltaS() - 2.0 * c2 * GTHDMDeltaT() - (c2 - s2) * GTHDMDeltaU() / 2.0 / s2)
+            - s2 / 2.0 / (c2 - s2) * DeltaGF();
+    
+    
+    //std::cout<<"\033[1;31m myMw =  \033[0m "<<  myMw <<std::endl;
+     
+    return (myMw);
+//    return (trueSM.Mw());
 //    return (Mw_tree());
 }
