@@ -290,10 +290,11 @@ class EWSMTwoFermionsLEP2;
  * <tr>
  *   <td class="mod_name">%FixMuwMut</td>
  *   <td class="mod_valu"><b>FALSE</b>&nbsp;/&nbsp;TRUE</td>
- *   <td class="mod_desc">This flag controls the way the weak matching scale is varied. 
+ *   <td class="mod_desc">This flag controls the way the weak matching scale and the top quark decoupling scale are varied. 
  *   If set to FALSE, the @f$\mu_W@f$ parameter is introduced to float the matching scale independently of 
  *   the top decoupling scale @f$\mu_t@f$.
- *   If set to TRUE, the @f$\mu_W@f$ parameter is fixed to @f$\mu_t \M_W / \m_t@f$
+ *   If set to TRUE, the @f$\mu_t@f$ parameter is fixed to @f$\mu_W / M_W * \m_t@f$
+ *   Notice that in this case the @f$\mu_t@f$ parameter defined in QCD becomes irrelevant, therefore it is advisable to fix it to a constant in the configuration file
  *   The default value is FALSE.</td>
  * </tr>
  * <tr>
@@ -2691,23 +2692,11 @@ protected:
      */
     virtual void computeCKM();
 
-    /**
-     * @brief The method to compute the Yukawa matrices.
-     * 
-     * @attention This function has not been correctly implemented yet. 
-     */
-    virtual void computeYukawas();
-
     Particle leptons[6]; ///< An array of Particle objects for the leptons. 
     CKM myCKM; ///< An object of type CKM. 
     PMNS myPMNS;
 //    gslpp::matrix<gslpp::complex> VCKM; ///< The %CKM matrix.
 //    gslpp::matrix<gslpp::complex> UPMNS; ///<  The %PMNS matrix.
-    gslpp::matrix<gslpp::complex> Yu; ///< The Yukawa matrix of the up-type quarks.
-    gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa matrix of the down-type quarks.
-    gslpp::matrix<gslpp::complex> Yn; ///< The Yukawa matrix of the neutrinos.
-    gslpp::matrix<gslpp::complex> Ye; ///< The Yukawa matrix of the charged leptons.
-
     mutable Matching<StandardModelMatching,StandardModel> SMM; ///< An object of type Matching.
     
     // model parameters
@@ -2736,7 +2725,7 @@ protected:
     double Vcb; ///< @f$\vert V_{cb} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double Vub; ///< @f$\vert V_{ub} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double gamma; ///< @f$\gamma @f$ used as an input for FlagWolfenstein = FALSE
-    double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV, used as input for FlagFixMuwMut = FALSE
+    double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV
     double s12, s13, s23, delta, alpha21, alpha31;
 
     // non-model parameters
@@ -2985,6 +2974,8 @@ protected:
     bool requireYn; ///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
 
     Flavour SMFlavour; ///< An object of type Flavour.
+    bool FlagFixMuwMut; ///< A boolean for the model flag %FixMuwMut.
+
     
     /* BEGIN: REMOVE FROM THE PACKAGE */
     //////////////////////////////////////////////////////////////////////// 
@@ -3298,7 +3289,6 @@ private:
     std::string FlagKappaZ; ///< A string for the model flag %KappaZ.
     bool FlagWolfenstein; ///< A boolean for the model flag %Wolfenstein.
     bool FlagUseVud; ///< A boolean for the model flag %UseVud.
-    bool FlagFixMuwMut; ///< A boolean for the model flag %FixMuwMut.
 
     bool FlagMWinput; ///< A boolean for the model flag %MWinput.    
     bool FlagSMAux; ///< A boolean for the model flag %SMAux.

@@ -136,8 +136,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::make_pair("A", std::cref(A)));
     ModelParamMap.insert(std::make_pair("rhob", std::cref(rhob)));
     ModelParamMap.insert(std::make_pair("etab", std::cref(etab)));
-    if (!FlagFixMuwMut)
-        ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
+    ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
     
     iterationNo = 0;
     realorder = LO;
@@ -195,10 +194,15 @@ bool StandardModel::Init(const std::map<std::string, double>& DPars)
         if (it->first.compare("AlsM") == 0 || it->first.compare("MAls") == 0)
             throw std::runtime_error("ERROR: inappropriate parameter " + it->first
                 + " in model initialization");
+        else if (FlagFixMuwMut && it->first.compare("mut") == 0)
+            throw std::runtime_error("ERROR: cannot use " + it->first
+                + " when FlagFixMuwMut is true: use only muw");
 
     std::map<std::string, double> myDPars(DPars);
     myDPars["AlsM"] = myDPars.at("AlsMz"); // do not change!
     myDPars["MAls"] = myDPars.at("Mz");
+    if (FlagFixMuwMut)
+        myDPars["mut"] = myDPars.at("muw") * 163. / 80.4 ;
     return (QCD::Init(myDPars));
 }
 
@@ -244,12 +248,6 @@ bool StandardModel::PostUpdate()
         computeYukawas();
     }
 
-    /* Update muw if FlagFixMuwMut is activated */
-    
-    if (FlagFixMuwMut)  {
-        muw = mut * 80.4 / 163.;
-    }
-    
     /* Check whether the parameters for the EWPO are updated or not */
     if (!checkSMparamsForEWPO()) {
         useDeltaAlphaLepton_cache = false;
@@ -306,25 +304,19 @@ void StandardModel::setParameter(const std::string name, const double& value)
         delR0c = value;
     else if (name.compare("delR0b") == 0)
         delR0b = value;
-    else if (name.compare("mneutrino_1") == 0) {
+    else if (name.compare("mneutrino_1") == 0) 
         leptons[NEUTRINO_1].setMass(value);
-        requireYn = true;
-    } else if (name.compare("mneutrino_2") == 0) {
+    else if (name.compare("mneutrino_2") == 0) 
         leptons[NEUTRINO_2].setMass(value);
-        requireYn = true;
-    } else if (name.compare("mneutrino_3") == 0) {
+    else if (name.compare("mneutrino_3") == 0) 
         leptons[NEUTRINO_3].setMass(value);
-        requireYn = true;
-    } else if (name.compare("melectron") == 0) {
+    else if (name.compare("melectron") == 0) 
         leptons[ELECTRON].setMass(value);
-        requireYe = true;
-    } else if (name.compare("mmu") == 0) {
+    else if (name.compare("mmu") == 0) 
         leptons[MU].setMass(value);
-        requireYe = true;
-    } else if (name.compare("mtau") == 0) {
+    else if (name.compare("mtau") == 0) 
         leptons[TAU].setMass(value);
-        requireYe = true;
-    } else if (name.compare("lambda") == 0 && FlagWolfenstein) {
+    else if (name.compare("lambda") == 0 && FlagWolfenstein) {
         lambda = value;
         requireCKM = true;
     } else if (name.compare("A") == 0 && FlagWolfenstein) {
@@ -351,8 +343,12 @@ void StandardModel::setParameter(const std::string name, const double& value)
     } else if (name.compare("gamma") == 0 && !FlagWolfenstein) {
         gamma = value;
         requireCKM = true;
-    } else if (name.compare("muw") == 0 && !FlagFixMuwMut)
-        muw = value;
+    } else if (name.compare("muw") == 0) {
+            /* Update mut if FlagFixMuwMut is activated */
+        muw = value;            
+        if (FlagFixMuwMut)  {
+            mut = muw / 80.4 * 163.;
+        }
     else
         QCD::setParameter(name, value);
 }
@@ -397,7 +393,8 @@ void StandardModel::computeCKM()
     myPMNS.computePMNS(s12, s13, s23, delta, alpha21, alpha31); // WARNING: This does not do anything since the input values are not set.
 }
 
-void StandardModel::computeYukawas()
+///////////////////////////////////////////////////////////////////////////
+// Flagsvoid StandardModel::computeYukawas()
 {
     if (requireYu || requireCKM) {
         Yu.reset();
@@ -406,7 +403,7 @@ void StandardModel::computeYukawas()
 //            std::cout << quarks[UP + 2 * i].getName() << " mass at EW scale is " << this->getmq(quark(UP + 2 * i),  v() / sqrt(2.)) << std::endl;
         }
 //        std::cout << "(top MSbar mass is " << this->Mp2Mbar(this->getMtpole()) << ")" << std::endl;
-        Yu = myCKM.getCKM().transpose() * Yu;
+        Yu = Yu * myCKM.getCKM();
     }
     if (requireYd) {
         Yd.reset();
@@ -429,8 +426,6 @@ void StandardModel::computeYukawas()
 }
 
 
-///////////////////////////////////////////////////////////////////////////
-// Flags
 
 bool StandardModel::setFlag(const std::string name, const bool value)
 {
