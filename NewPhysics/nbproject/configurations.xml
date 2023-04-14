@@ -23,7 +23,10 @@
       <itemPath>src/NPHiggs.h</itemPath>
       <itemPath>src/NPSMEFT6dtopquark.h</itemPath>
       <itemPath>src/NPSMEFTd6.h</itemPath>
+      <itemPath>src/NPSMEFTd6General.h</itemPath>
+      <itemPath>src/NPSMEFTd6GeneralMatching.h</itemPath>
       <itemPath>src/NPSMEFTd6Matching.h</itemPath>
+      <itemPath>src/NPSMEFTd6_QFU_LFU.h</itemPath>
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
       <itemPath>src/NPSTUZbbbarLR.h</itemPath>
@@ -60,7 +63,10 @@
       <itemPath>src/NPHiggs.cpp</itemPath>
       <itemPath>src/NPSMEFT6dtopquark.cpp</itemPath>
       <itemPath>src/NPSMEFTd6.cpp</itemPath>
+      <itemPath>src/NPSMEFTd6General.cpp</itemPath>
+      <itemPath>src/NPSMEFTd6GeneralMatching.cpp</itemPath>
       <itemPath>src/NPSMEFTd6Matching.cpp</itemPath>
+      <itemPath>src/NPSMEFTd6_QFU_LFU.cpp</itemPath>
       <itemPath>src/NPSTU.cpp</itemPath>
       <itemPath>src/NPSTUVWXY.cpp</itemPath>
       <itemPath>src/NPSTUZbbbarLR.cpp</itemPath>
@@ -101,12 +107,25 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
+        <requiredProjects>
+          <makeArtifact PL="../SMEFTRGEvolutor"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../SMEFTRGEvolutor"
+                        BC="${MAKE} -j -f Makefile CONF=Debug"
+                        CC="${MAKE} -j -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
       <item path="src/DiBosonThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -184,9 +203,21 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6General.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6General.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6GeneralMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6GeneralMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6_QFU_LFU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -258,6 +289,18 @@
         </asmTool>
         <archiverTool>
         </archiverTool>
+        <requiredProjects>
+          <makeArtifact PL="../SMEFTRGEvolutor"
+                        CT="3"
+                        CN="Release"
+                        AC="false"
+                        BL="false"
+                        WD="../SMEFTRGEvolutor"
+                        BC="${MAKE} -j -f Makefile CONF=Release"
+                        CC="${MAKE} -j -f Makefile CONF=Release clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
       <item path="src/DiBosonThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -335,9 +378,21 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6General.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6General.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6GeneralMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6GeneralMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6_QFU_LFU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -487,9 +542,21 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6General.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6General.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6GeneralMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6GeneralMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6_QFU_LFU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -630,9 +697,21 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6General.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6General.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6GeneralMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6GeneralMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6_QFU_LFU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>

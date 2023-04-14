@@ -96,6 +96,9 @@ std::string InputParser::ReadParameters(const std::string filename_i,
                 else sleep (2);
             }
             
+            if (tmpMP.getname().compare("lambdaNP") == 0 && (tmpMP.geterrf() > 0. || tmpMP.geterrg() > 0.))
+                if(rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + tmpMP.getname() + " cannot float in the MonteCarlo run ");
+            
             if (beg != tok->end())
                 if (rank == 0) std::cout << "WARNING: unread information in parameter " << tmpMP.getname() << std::endl;
             checkDuplicateParameter[tmpMP.getname()] = boost::make_tuple(true, filename, lineNo);

@@ -44,6 +44,15 @@ public:
     void computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v, bool useVud = false);
 
     /**
+     * @brief A set method to calculate the CKM matrix from the sines of the angles and @f$ \delta @f$
+     * @param[in] s12_in the sine of the @f$ \theta_{12} @f$ angle
+     * @param[in] s23_in the sine of the @f$ \theta_{23} @f$ angle
+     * @param[in] s13_in the sine of the @f$ \theta_{13} @f$ angle
+     * @param[in] delta_in the CKM phase @f$ \delta @f$
+     */
+    void computeCKMfromAngles(double s12_in, double s23_in, double s13_in, double delta_in);
+
+    /**
      * @brief A member for returning the CKM matrix.
      * @return the CKM matrix
      */
