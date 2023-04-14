@@ -115,8 +115,6 @@ bool QCD::Init(const std::map<std::string, double>& DPars)
 
 bool QCD::PreUpdate()
 {
-    requireYu = false;
-    requireYd = false;
     computemt = false;
 
     return (true);
@@ -287,37 +285,27 @@ void QCD::setParameter(const std::string name, const double& value)
     if (name.compare("AlsM") == 0) {
         AlsM = value;
         computemt = true;
-        requireYu = true;
-        requireYd = true;
     } else if (name.compare("MAls") == 0) {
         MAls = value;
         computemt = true;
-        requireYu = true;
-        requireYd = true;
     } else if (name.compare("mup") == 0) {
         if (value < MEPS) UpdateError = true;
         quarks[UP].setMass(value);
-        requireYu = true;
     } else if (name.compare("mdown") == 0) {
         if (value < MEPS) UpdateError = true;
         quarks[DOWN].setMass(value);
-        requireYd = true;
     } else if (name.compare("mcharm") == 0) {
         quarks[CHARM].setMass(value);
         quarks[CHARM].setMass_scale(value);
-        requireYu = true;
     } else if (name.compare("mstrange") == 0) {
         if (value < MEPS) UpdateError = true;
         quarks[STRANGE].setMass(value);
-        requireYd = true;
     } else if (name.compare("mtop") == 0) {
         mtpole = value;
-        requireYu = true;
         computemt = true;
     } else if (name.compare("mbottom") == 0) {
         quarks[BOTTOM].setMass(value);
         quarks[BOTTOM].setMass_scale(value);
-        requireYd = true;
     } else if (name.compare("muc") == 0)
         muc = value;
     else if (name.compare("mub") == 0)
@@ -1322,4 +1310,37 @@ double QCD::MS2DRqmass(const double MSbar) const
 double QCD::MS2DRqmass(const double MSscale, const double MSbar) const
 {
     return (MSbar / (1. + Als(MSscale, FULLNLO) / 4. / M_PI * CF));
+}
+
+double QCD::Mofmu2MbarTMP(double *mu, double *params) const
+{
+    double mofmu = params[0];
+    double muI = params[1];
+    return (*mu - Mrun(*mu, muI, mofmu));
+}
+
+double QCD::Mofmu2Mbar(const double m, double mu) const
+{
+
+    //First move to the right region by running to m
+    
+    double mlow = Mrun(m, mu, m);
+    TF1 f("f", this, &QCD::Mofmu2MbarTMP, mlow / 2., 2. * mlow, 2, "QCD", "mofmu2mbara");
+
+    ROOT::Math::WrappedTF1 wf1(f);
+    
+    double params[2];
+    params[0] = mlow;
+    params[1] = m;
+    wf1.SetParameters(params);
+
+    ROOT::Math::BrentRootFinder brf;
+
+    brf.SetFunction(wf1, .7 * mlow, 1.3 * mlow);
+    if (brf.Solve())
+        mlow = brf.Root();
+    else
+        throw std::runtime_error("error in QCD::mp2mbar");
+
+    return (mlow);
 }

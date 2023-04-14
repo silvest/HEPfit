@@ -876,6 +876,14 @@ public:
     double Mp2Mbar(const double mp, const orders order = FULLNNLO) const;
 
     /**
+     * @brief Converts a quark running mass at an arbitrary scale to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$.
+     * @param[in] m the running mass at the scale @f$\mu@f$ in GeV
+     * @param[in] mu the scale @f$\mu@f$ in GeV
+     * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     */
+    double Mofmu2Mbar(const double m, const double mu) const;
+
+    /**
      * @brief Converts a quark mass from the @f$\overline{\mathrm{MS}}@f$ scheme to
      * the @f$\overline{\mathrm{DR}}@f$ scheme.
      * @param[in] MSscale the scale at which the @f$\overline{\mathrm{MS}}@f$ mass is defined
@@ -917,7 +925,7 @@ protected:
      * @return MSbar \f$m_q(m_q)\f$
      */
     double MassOfNf(int nf) const;
-
+    
     bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
     bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.
     bool requireYd; ///< Switch for generating the Yukawa couplings to the down-type quarks.
@@ -1060,6 +1068,15 @@ private:
      * @return the difference in the pole mass and the pole mass as computed from the \f$\overline{\rm MS}\f$ mass
      */
     double Mp2MbarTMP(double *mu, double *params) const;
+    
+    /**
+     * @brief The member used for finding the numerical solution to the \f$\overline{\rm MS}\f$ mass from \f$m(\mu_i)\f$
+     * mass.
+     * @param[in] mu a pointer to the \f$\overline{\rm MS}\f$ mass
+     * @param[in] params a pointer to a vector containing \f$m(\mu_i)\f$ and \f$\mu_i\f$
+     * @return the difference of  mass and  \f$m(\mu)\f$ and \f$\mu\f$
+     */
+    double Mofmu2MbarTMP(double *mu, double *params) const;
 };
 
 #endif	/* QCD_H */

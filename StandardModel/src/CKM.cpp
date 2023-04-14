@@ -52,6 +52,37 @@ void CKM::computeCKMfromAngles()
     V.assign(2, 2, c23*c13);  
 }
 
+void CKM::computeCKMfromAngles(double s12_in, double s23_in, double s13_in, double delta_in)
+{   
+    s12 = s12_in;
+    s13 = s13_in;
+    s23 = s23_in;
+    delta = delta_in
+    
+    c12 = sqrt(1.-s12*s12);
+    c13 = sqrt(1.-s13*s13);
+    c23 = sqrt(1.-s23*s23);
+    
+    V.assign(0, 0, c12*c13);
+    V.assign(0, 1, s12*c13);
+    V.assign(0, 2, gslpp::complex(s13, -delta, true));
+
+    V.assign(1, 0 , -s12 * c23 - gslpp::complex(c12 * s23*s13, delta, true));
+    V.assign(1, 1, c12 * c23 - gslpp::complex(s12 * s23*s13, delta, true));
+    V.assign(1, 2, s23*c13);
+
+    V.assign(2, 0, s12 * s23 - gslpp::complex(c12 * c23*s13, delta, true));
+    V.assign(2, 1, -c12 * s23 - gslpp::complex(s12 * c23*s13, delta, true));
+    V.assign(2, 2, c23*c13);  
+    
+    // Wolfenstein to all orders
+    Lambda = s12;
+    A = s23 / Lambda / Lambda;
+    gslpp::complex Rb = V(0, 0) * V(0, 2).conjugate() / (V(1, 0) * V(1, 2).conjugate());
+    Rho = -Rb.real();
+    Eta = -Rb.imag();
+}
+
 void CKM::computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v, bool useVud)
 {
     s13 = Vub_v;
