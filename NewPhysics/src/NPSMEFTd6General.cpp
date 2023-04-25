@@ -3260,7 +3260,7 @@ bool NPSMEFTd6General::PostUpdate()
     Yu.reset();
     Yd.reset();
     Ye.reset();
-    Yu.assignre(0,0,Yu_LNP);
+    Yu.assignre(0,0,Yu_LNP);// Maybe it's worth to add the _LNP also in the Yukawa matrices although these would be different to those computed by computeYukawas()
     Yu.assignre(1,1,Yc_LNP);
     Yu.assignre(2,2,Yt_LNP);
     Yd.assignre(0,0,Yd_LNP);
@@ -3311,7 +3311,7 @@ bool NPSMEFTd6General::PostUpdate()
     v2= v02 (1. + 3.*v02/(4.*lamH)*SMEFTEvol.GetCoefficient("CH")));
     
     // redefining the Higgs mass
-    mHl = sqrt( 2. * lamH * vtrue2 ) * ( 1. + 
+    mHl = sqrt( 2. * lamH * v2 ) * ( 1. + 
             (- 1.5 / lamH * SMEFTEvol.GetCoefficient("CH") - 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * SMEFTEvol.GetCoefficient("CHbox")) * v2 );
     
     double g1 = SMEFTEvol.GetCoefficient("g1");
@@ -3319,7 +3319,7 @@ bool NPSMEFTd6General::PostUpdate()
     double g2 = SMEFTEvol.GetCoefficient("g2");
     double g22 = g2*g2;
     
-    Mz = sqrt(vtrue2 * (g12 + g22) / 4. * ( 1 + 
+    Mz = sqrt(v2 * (g12 + g22) / 4. * ( 1 + 
             ( 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * g1 * g2 / (g12 + g22) *  SMEFTEvol.GetCoefficient("CHWB")) 
             * v2 ) );
     
@@ -3345,6 +3345,184 @@ bool NPSMEFTd6General::PostUpdate()
     ComputeYukawas();
     ComputeQuarkMassesAndCKMFromYukawas();
     
+    //Now we will define all the WC at the EW scale. Those with flavour indices will be
+    //defined as arrays. Some of the operators are not invariant under weak basis transformations,
+    //we will conveniently redefine those coefficients using the proper rotation.
+    CG = SMEFTEvol.GetCoefficient("CG");  
+    CW = SMEFTEvol.GetCoefficient("CW");  
+    CHG = SMEFTEvol.GetCoefficient("CHG");  
+    CHW = SMEFTEvol.GetCoefficient("CHW");  
+    CHB = SMEFTEvol.GetCoefficient("CHB");  
+    CHWB = SMEFTEvol.GetCoefficient("CHWB");  
+    CHD = SMEFTEvol.GetCoefficient("CHD");  
+    CHbox = SMEFTEvol.GetCoefficient("CHbox");  
+    CH = SMEFTEvol.GetCoefficient("CH");  
+    CGtilde = SMEFTEvol.GetCoefficient("CGtilde");  
+    CWtilde = SMEFTEvol.GetCoefficient("CWtilde");  
+    CHGtilde = SMEFTEvol.GetCoefficient("CHGtilde");  
+    CHWtilde = SMEFTEvol.GetCoefficient("CHWtilde");  
+    CHBtilde = SMEFTEvol.GetCoefficient("CHBtilde");  
+    CHWtildeB = SMEFTEvol.GetCoefficient("CHWtildeB");  
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            CHL1[i][j] = SMEFTEvol.GetCoefficient("CHL1R, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CHL1I, i, j"); 
+            CHL3[i][j] = SMEFTEvol.GetCoefficient("CHL3R, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CHL3I, i, j"); 
+            CHe[i][j] = SMEFTEvol.GetCoefficient("CHeR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CHeI, i, j"); 
+            CHQ1[i][j] = SMEFTEvol.GetCoefficient("CHQ1R, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CHQ1I, i, j"); 
+            CHQ3[i][j] = SMEFTEvol.GetCoefficient("CHQ3R, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CHQ3I, i, j"); 
+            CHu[i][j] = SMEFTEvol.GetCoefficient("CHuR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CHuI, i, j"); 
+            CHd[i][j] = SMEFTEvol.GetCoefficient("CHdR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CHdI, i, j"); 
+            CHud[i][j] = SMEFTEvol.GetCoefficient("CHudR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CHudI, i, j"); 
+            CeH[i][j] = SMEFTEvol.GetCoefficient("CeHR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CeHI, i, j"); 
+            CuH[i][j] = SMEFTEvol.GetCoefficient("CuHR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CuHI, i, j"); 
+            CdH[i][j] = SMEFTEvol.GetCoefficient("CdHR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CdHI, i, j"); 
+            CuG[i][j] = SMEFTEvol.GetCoefficient("CuGR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CuGI, i, j"); 
+            CuW[i][j] = SMEFTEvol.GetCoefficient("CuWR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CuWI, i, j"); 
+            CuB[i][j] = SMEFTEvol.GetCoefficient("CuBR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CuBI, i, j"); 
+            CdG[i][j] = SMEFTEvol.GetCoefficient("CdGR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CdGI, i, j"); 
+            CdW[i][j] = SMEFTEvol.GetCoefficient("CdWR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CdWI, i, j"); 
+            CdB[i][j] = SMEFTEvol.GetCoefficient("CdBR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CdBI, i, j"); 
+            CeW[i][j] = SMEFTEvol.GetCoefficient("CeWR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CeWI, i, j"); 
+            CeB[i][j] = SMEFTEvol.GetCoefficient("CeBR, i, j") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CeBI, i, j"); 
+            for (int k = 0; k < 3; k++) {
+                for (int l = 0; l < 3; l++) {
+                    CLL[i][j][k][l] = SMEFTEvol.GetCoefficient("CLLR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLLI, i, j, k, l"); 
+                    CLQ1[i][j][k][l] = SMEFTEvol.GetCoefficient("CLQ1R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLQ1I, i, j, k, l"); 
+                    CLQ3[i][j][k][l] = SMEFTEvol.GetCoefficient("CLQ3R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLQ3I, i, j, k, l"); 
+                    Cee[i][j][k][l] = SMEFTEvol.GetCoefficient("CeeR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CeeI, i, j, k, l"); 
+                    Ceu[i][j][k][l] = SMEFTEvol.GetCoefficient("CeuR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CeuI, i, j, k, l"); 
+                    Ced[i][j][k][l] = SMEFTEvol.GetCoefficient("CedR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CedI, i, j, k, l"); 
+                    CLe[i][j][k][l] = SMEFTEvol.GetCoefficient("CLeR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLeI, i, j, k, l"); 
+                    CLu[i][j][k][l] = SMEFTEvol.GetCoefficient("CLuR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLuI, i, j, k, l"); 
+                    CLd[i][j][k][l] = SMEFTEvol.GetCoefficient("CLdR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLdI, i, j, k, l"); 
+                    CQe[i][j][k][l] = SMEFTEvol.GetCoefficient("CQeR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQeI, i, j, k, l"); 
+                    CLedQ[i][j][k][l] = SMEFTEvol.GetCoefficient("CLedQR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLedQI, i, j, k, l"); 
+                    CQQ1[i][j][k][l] = SMEFTEvol.GetCoefficient("CQQ1R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQQ1I, i, j, k, l"); 
+                    CQQ3[i][j][k][l] = SMEFTEvol.GetCoefficient("CQQ3R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQQ3I, i, j, k, l"); 
+                    Cuu[i][j][k][l] = SMEFTEvol.GetCoefficient("CuuR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CuuI, i, j, k, l"); 
+                    Cdd[i][j][k][l] = SMEFTEvol.GetCoefficient("CddR, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CddI, i, j, k, l"); 
+                    Cud1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud1R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("Cud1I, i, j, k, l"); 
+                    Cud8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud8R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("Cud8I, i, j, k, l"); 
+                    CQu1[i][j][k][l] = SMEFTEvol.GetCoefficient("CQu1R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQu1I, i, j, k, l"); 
+                    CQu8[i][j][k][l] = SMEFTEvol.GetCoefficient("CQu8R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQu8I, i, j, k, l"); 
+                    CQd1[i][j][k][l] = SMEFTEvol.GetCoefficient("CQd1R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQd1I, i, j, k, l"); 
+                    CQd8[i][j][k][l] = SMEFTEvol.GetCoefficient("CQd8R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQd8I, i, j, k, l"); 
+                    CQuQd1[i][j][k][l] = SMEFTEvol.GetCoefficient("CQuQd1R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQuQd1I, i, j, k, l"); 
+                    CQuQd8[i][j][k][l] = SMEFTEvol.GetCoefficient("CQuQd8R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CQuQd8I, i, j, k, l"); 
+                    CLeQu1[i][j][k][l] = SMEFTEvol.GetCoefficient("CLeQu1R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLeQu1I, i, j, k, l"); 
+                    CLeQu3[i][j][k][l] = SMEFTEvol.GetCoefficient("CLeQu3R, i, j, k, l") + gslpp::complex::i() * SMEFTEvol.GetCoefficient("CLeQu3I, i, j, k, l"); 
+                  
+                }
+            }
+        }
+    }
+    
+
+    std::complex<double> CHuAux[2][2]; 
+    std::memcpy(CHu, CHuAux, sizeof(CHu));
+    std::memset(CHu, 0, sizeof (CHu));
+    std::complex<double> CGuAux[2][2]; 
+    std::memcpy(CGu, CGuAux, sizeof(CGu));
+    std::memset(CGu, 0, sizeof (CGu));
+    std::complex<double> CWuAux[2][2]; 
+    std::memcpy(CWu, CWuAux, sizeof(CWu));
+    std::memset(CWu, 0, sizeof (CWu));
+    std::complex<double> CBuAux[2][2]; 
+    std::memcpy(CBu, CBuAux, sizeof(CBu));
+    std::memset(CBu, 0, sizeof (CBu));
+    
+    std::complex<double> CHdAux[2][2]; 
+    std::memcpy(CHd, CHdAux, sizeof(CHd));
+    std::memset(CHd, 0, sizeof (CHd));
+    std::complex<double> CGdAux[2][2]; 
+    std::memcpy(CGd, CGdAux, sizeof(CGd));
+    std::memset(CGd, 0, sizeof (CGd));
+    std::complex<double> CWdAux[2][2]; 
+    std::memcpy(CWd, CWdAux, sizeof(CWd));
+    std::memset(CWd, 0, sizeof (CWd));
+    std::complex<double> CBdAux[2][2]; 
+    std::memcpy(CBd, CBdAux, sizeof(CBd));
+    std::memset(CBd, 0, sizeof (CBd));
+    
+    std::complex<double> CHeAux[2][2]; 
+    std::memcpy(CHe, CHeAux, sizeof(CHe));
+    std::memset(CHe, 0, sizeof (CHe));
+    std::complex<double> CWeAux[2][2]; 
+    std::memcpy(CWe, CWeAux, sizeof(CWe));
+    std::memset(CWe, 0, sizeof (CWe));
+    std::complex<double> CBeAux[2][2]; 
+    std::memcpy(CBe, CBeAux, sizeof(CBe));
+    std::memset(CBe, 0, sizeof (CBe));
+    
+    std::complex<double> CQuQd1Aux[2][2][2][2]; 
+    std::memcpy(CQuQd1, CQuQd1Aux, sizeof(CQuQd1));
+    std::memset(CQuQd1, 0, sizeof (CQuQd1));
+    std::complex<double> CQuQd8Aux[2][2][2][2]; 
+    std::memcpy(CQuQd8, CQuQd8Aux, sizeof(CQuQd8));
+    std::memset(CQuQd8, 0, sizeof (CQuQd8));
+    
+    std::complex<double> CLeQu1Aux[2][2][2][2]; 
+    std::memcpy(CLeQu1, CLeQu1Aux, sizeof(CLeQu1));
+    std::memset(CLeQu1, 0, sizeof (CLeQu1));
+    std::complex<double> CLeQu3Aux[2][2][2][2]; 
+    std::memcpy(CLeQu3, CLeQu3Aux, sizeof(CLeQu3));
+    std::memset(CLeQu3, 0, sizeof (CLeQu3));
+    
+    
+    
+    gslpp::matrix<gslpp::complex> Vq(3, 3, 0.);
+    
+    if(SMEFTBasisFlag.compare("UP")==0)
+        Vq=Vu;
+    else if(SMEFTBasisFlag.compare("DOWN")==0)
+        Vq=Vd;
+    else
+        throw std::runtime_error("ERROR: inappropriate value of SMEFTBasisFlag");
+    
+    
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            
+            for (int p = 0; p < 3; p++) {
+            for (int r = 0; r < 3; r++) {
+                CHu[i][j]+=CHuAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);
+                CGu[i][j]+=CGuAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);
+                CWu[i][j]+=CWuAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);
+                CBu[i][j]+=CBuAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);
+                
+                CHd[i][j]+=CHdAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);
+                CGd[i][j]+=CGdAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);
+                CWd[i][j]+=CWdAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);
+                CBd[i][j]+=CBdAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);
+                
+                CHe[i][j]+=CHeAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);
+                CWe[i][j]+=CWeAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);
+                CBe[i][j]+=CBeAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);
+                
+            }
+            }
+            
+            
+            for (int k = 0; k < 3; k++) {
+                for (int l = 0; l < 3; l++) {
+                    for (int p = 0; p < 3; p++) {
+                    for (int r = 0; r < 3; r++) {
+                    for (int s = 0; s < 3; s++) {
+                    for (int t = 0; t < 3; t++) {
+                        CQuQd1[i][j][k][l]+=CQuQd1Aux[p][r][s][t]*Vq(p,i).conjugate()*Uu(r,j)*Vq(s,k).conjugate()*Ud(t,l);
+                        CQuQd8[i][j][k][l]+=CQuQd8Aux[p][r][s][t]*Vq(p,i).conjugate()*Uu(r,j)*Vq(s,k).conjugate()*Ud(t,l);
+                        
+                        CLeQu1[i][j][k][l]+=CLeQu1Aux[p][r][s][t]*Ve(p,i).conjugate()*Ue(r,j)*Vq(s,k).conjugate()*Uu(t,l);
+                        CLeQu3[i][j][k][l]+=CLeQu3Aux[p][r][s][t]*Ve(p,i).conjugate()*Ue(r,j)*Vq(s,k).conjugate()*Uu(t,l);
+                    }
+                    }    
+                    }
+                    }
+                }
+            }
+        }
+    }
     
     
     if (!NPbase::PostUpdate()) return (false);
