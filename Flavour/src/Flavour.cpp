@@ -131,6 +131,11 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsgamma(double mu, bool noSM
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffsgamma(mu, noSM, scheme);
 }
 
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsgamma_Buras(double mu, bool noSM, schemes scheme) const
+{
+    return getPtr<HeffDB1>(HDB1)->ComputeCoeffsgamma_Buras(mu, noSM, scheme);
+}
+
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimesgamma(double mu, schemes scheme) const
 {
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffprimesgamma(mu, scheme);

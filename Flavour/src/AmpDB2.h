@@ -65,8 +65,8 @@ public:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$
     */
-    gslpp::complex getGamma12_Bd(orders order){
-        return Gamma12_Bd(order);
+    gslpp::complex getGamma12oM12_Bd(orders order){
+        return Gamma12oM12_Bd(order);
     }
 
     /**
@@ -74,12 +74,16 @@ public:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$
     */
-    gslpp::complex getGamma12_Bs(orders order){
-        return Gamma12_Bs(order);
+    gslpp::complex getGamma12oM12_Bs(orders order){
+        return Gamma12oM12_Bs(order);
     }
     
-    double getAsl(orders order, QCD::lepton lep){
-        return Asl(order, lep);
+    double getAsl_d(orders order){
+        return Asl_d(order);
+    }
+    
+    double getAsl_s(orders order){
+        return Asl_s(order);
     }
 
     gslpp::complex getPBd(){
@@ -110,7 +114,7 @@ protected:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$
     */
-    gslpp::complex Gamma12_Bd(orders order);
+    gslpp::complex Gamma12oM12_Bd(orders order);
     
 
     /**
@@ -118,15 +122,22 @@ protected:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$
     */
-    gslpp::complex Gamma12_Bs(orders order);
+    gslpp::complex Gamma12oM12_Bs(orders order);
     
     
     /**
-    * @brief A method to compute the CP asymmetry in semileptonic B decays in the S
+    * @brief A method to compute the CP asymmetry in semileptonic B decays in the SM
     * @param[in] order the %QCD order of the computation
     * @return @f$A_{sl}@f$
     */
-    double Asl(orders order, QCD::lepton lep);
+    double Asl_d(orders order);
+    
+    /**
+    * @brief A method to compute the CP asymmetry in semileptonic B_s decays in the SM
+    * @param[in] order the %QCD order of the computation
+    * @return @f$A_{sl}@f$
+    */
+    double Asl_s(orders order);
     
     /**
     * @brief A method to compute the ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value.
@@ -152,6 +163,9 @@ private:
     double mu_2;    
     gslpp::vector<gslpp::complex> c(quark q); //requires computeCKMelements(); before use
     gslpp::complex delta_1overm(quark q); //requires computeCKMelements(); before use
+    
+//resummation to use z_bar instead of z and  eliminate z ln z terms (hep-ph/0612167)
+    bool flag_resumz;
     
 //access calculated function values
     double F0(quarks qq, int k, int i, int j);
@@ -185,7 +199,7 @@ private:
     int index_deltas(quarks qq, quark q);
 
     //CKM elements
-    void computeCKMelements();
+    void computeCKMandMasses(); //requires mu_1
 
     gslpp::complex VtbVtd;
     gslpp::complex VtbVts;
@@ -235,7 +249,8 @@ private:
     double MW2;
     
     //Buras basis pdf/hep-ph/9512380v1
-    void computeWilsonCoeffs(QCD::lepton lep);
+    void computeWilsonCoeffs();
+    void computeWilsonCoeffsDB1bsg();
     gslpp::complex cacheC[6];
     gslpp::complex C_8G; //check
     gslpp::complex C(int i);

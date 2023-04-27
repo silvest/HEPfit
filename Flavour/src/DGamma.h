@@ -1,53 +1,51 @@
-/* 
+/*
  * Copyright (C) 2023 HEPfit Collaboration
- *
- *
+ * 
+ * 
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef ASL_H
-#define ASL_H
+
+#ifndef DGAMMA_H
+#define DGAMMA_H
 #include "ThObservable.h"
 #include "AmpDB2.h"
 
-#include "gslpp.h"
-
-
-class Asl_d : public ThObservable, AmpDB2{
+class DGamma_d : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_d(const StandardModel& SM_i);
+    DGamma_d(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_d();
-    
-    double computeThValue ();
-
-    private:
-};
-
-class Asl_s : public ThObservable, AmpDB2{
-public:
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    Asl_s(const StandardModel& SM_i);
-    
-    /**
-     * @brief Destructor.
-     */
-    virtual ~Asl_s();
+    virtual ~DGamma_d();
     
     double computeThValue();
 
     private:
 };
- 
-#endif /* ASL_H */
+
+class DGamma_s : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s();
+    
+    double computeThValue();
+
+    private:
+};
+
+#endif /* DGAMMA_H */
 

@@ -8,6 +8,7 @@
 #include "AmpDB2.h"
 #include "EvolDF2.h"
 #include "HeffDF2.h"
+#include <chrono>
 
 AmpDB2::AmpDB2(const StandardModel& SM_i)
 : mySM(SM_i)
@@ -35,6 +36,10 @@ gslpp::complex AmpDB2::RBs(orders order)
     gslpp::vector<double> me(mySM.getBBs().getBpars());
     double MBs = mySM.getMesons(QCD::B_S).getMass();
     double Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    //better?
+//    double Mb = mySM.Mrun(mySM.getBBs().getMu(),
+//            mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
+//            mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
     double Ms = mySM.Mrun(mySM.getBBs().getMu(),
                 mySM.getQuarks(QCD::STRANGE).getMass_scale(),
                 mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
@@ -75,6 +80,7 @@ gslpp::complex AmpDB2::M12_Bd(orders order) {
             mySM.getBBd().getScheme());
 
     gslpp::vector<double> me(mySM.getBBd().getBpars());
+    std::cout << "me0" << me(0) << "\n";
     double MBd = mySM.getMesons(QCD::B_D).getMass();
     double Mb = mySM.Mrun(mySM.getBBd().getMu(),
             mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -115,6 +121,7 @@ gslpp::complex AmpDB2::M12_Bs(orders order) {
     if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
 
+    //Wilson coefficients in same mass scale and scheme as B parameters
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
             mySM.getBBs().getMu(),
             mySM.getBBs().getScheme());
@@ -122,11 +129,18 @@ gslpp::complex AmpDB2::M12_Bs(orders order) {
     gslpp::vector<double> me(mySM.getBBs().getBpars());
     double MBs = mySM.getMesons(QCD::B_S).getMass();
     double Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    //better?
+//    double Mb = mySM.Mrun(mySM.getBBs().getMu(),
+//            mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
+//            mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
     double Ms = mySM.Mrun(mySM.getBBs().getMu(),
             mySM.getQuarks(QCD::STRANGE).getMass_scale(),
             mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
     double KBs = MBs / (Mb + Ms) * MBs / (Mb + Ms);
     double Fbs = mySM.getMesons(QCD::B_S).getDecayconst();
+    
+    //matrix elements as in hep-ph/9604387v2 with KBs independent terms in 4 and 5
+    //differ by factor of 2 to arXiv:1602.03560v2 etc.
     me(0) *= 1. / 3. * MBs * Fbs*Fbs;
     me(1) *= -5. / 24. * KBs * MBs * Fbs*Fbs;
     me(2) *= 1. / 24. * KBs * MBs * Fbs*Fbs;
@@ -176,6 +190,7 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
 
 void AmpDB2::compute_matrixelements(quark q){
     double Mq;
+    double MBq;
     double MBq2;
     double KBq;
     double FBq2;
@@ -204,13 +219,39 @@ void AmpDB2::compute_matrixelements(quark q){
     me(3) *=       2. * KBq * MBq2 * FBq2;
     me(4) *=  2. / 3. * KBq * MBq2 * FBq2;
     
-    me_R(0) += Mq/Mb * me(0);
+    me_R(0) = Mq/Mb * me(3);
     //new lattice results?
-    me_R(1) += -2./3. * FBq2 * MBq2 * (MBq2 / Mb2 -1.);
-    me_R(2) +=  7./6. * FBq2 * MBq2 * (MBq2 / Mb2 -1.);
-    me_R(3) += me(2) + 0.5 * me(0) + me(1) - 2. * Mq/Mb * me(4) + me_R(1);
-    std::cout << "me" << me << "\n";
-    std::cout << "me_R " << me_R << "\n";
+    me_R(1) = -2./3. * FBq2 * MBq2 * (MBq2 / Mb2 -1.);
+    me_R(2) =  7./6. * FBq2 * MBq2 * (MBq2 / Mb2 -1.);
+    me_R(3) = me(2) + 0.5 * me(0) + me(1) - 2. * Mq/Mb * me(4) + me_R(1);
+    
+    
+    //as for M12 (different from equation (26))
+    switch (q) {
+        case d:
+            me = mySM.getBBd().getBpars();
+            MBq = MB;
+            Mq = mySM.Mrun(mySM.getBBd().getMu(),
+            mySM.getQuarks(QCD::DOWN).getMass_scale(),
+            mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+            break;
+        case s:
+            me = mySM.getBBs().getBpars();
+            MBq = MB_s;
+            Mq = mySM.Mrun(mySM.getBBs().getMu(),
+                mySM.getQuarks(QCD::STRANGE).getMass_scale(),
+                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO); 
+            break;
+    }
+    KBq = MBq2 / ((Mb + Mq) * (Mb + Mq));
+    me(0) *=  1. /  3. * MBq * FBq2;
+    me(1) *= -5. / 24. * KBq * MBq * FBq2;
+    me(2) *=  1. / 24. * KBq * MBq * FBq2;
+    me(3) *=  1. /  4. * KBq * MBq * FBq2;
+    me(4) *=  1. / 12. * KBq * MBq * FBq2;    
+
+    //std::cout << "me" << me << "\n";
+    //std::cout << "me_R " << me_R << "\n";
     return;
 }
 
@@ -314,86 +355,82 @@ void AmpDB2::computeF0() {
 }
 
 //equations 43-48: F1 = B
+//with resummation of Mc via hep-ph/0307344 eq.(23) for that F0 has be computed before
 void AmpDB2::computeF1() {
     cacheF1[indexF(cu, 1, 1, 1)] = 109./6. - 37. * z + 1.5 * z2 + 52./3. * z3 + 2. * oneminusz2 * (5. + z) * logx_2 - 4. * oneminusz2 * (5. + 7. * z) * log1minusz -
-            2. * z * (10. + 14. * z - 15. * z2) * logz + 8. * (2. - 3. * z + z3) * log1minusz * logz + 16. * (2. - 3. * z + z3) * Dilogz;
+            2. * z * (10. + 14. * z - 15. * z2) * logz + 8. * (2. - 3. * z + z3) * log1minusz * logz + 16. * (2. - 3. * z + z3) * Dilogz
+            + flag_resumz * (32./3. * F0(cu, 1, 1, 1) - 8. * z * logz * 1.5 * (-3. + 3. * z2));
     cacheF1[indexF(cu, 2, 1, 1)] = -4./3. * (10. - 33. * z + 54. * z2 - 31. * z3) - 8. * oneminusz2 * (4. + 14. * z - 3. * z2) * log1minusz +
             8. * z * (2. - 23. * z + 21. * z2 - 3. * z3) * logz -
-            16. * oneminusz2 * (1. + 2. * z) * (2. * logx_2 - log1minusz * logz - 2. * Dilogz);
+            16. * oneminusz2 * (1. + 2. * z) * (2. * logx_2 - log1minusz * logz - 2. * Dilogz)
+            + flag_resumz * (32./3. * F0(cu, 2, 1, 1) - 8. * z * logz * 3. * 6. * (z - 1.) * z);
     cacheF1[indexF(cu, 1, 1, 2)] = 2. * (
            (-502. + 912. * z - 387. * z2 - 23. * z3) / 36. - oneminusz2 * (17. + 4. * z) * logx_1 + 2./3. * oneminusz2 * (5. + z) * logx_2 -
            oneminusz2 / (12. * z) * (2. + 33. * z + 94. * z2) * log1minusz - z/12. * (80. + 69. * z - 126. * z2) * logz +
            8./3. * (2. - 3. * z + z3) * (log1minusz * logz + 2. * Dilogz)
-           );
+           ) + flag_resumz * (32./3. * F0(cu, 1, 1, 2) - 8. * z * logz * 0.5 * (-3. + 3.* z2));
     cacheF1[indexF(cu, 2, 1, 2)] = 2. * (
            (-130. + 93. * z + 144. * z2 - 107. * z3) / 9. - 2./3. * oneminusz2 / z * (1. + 15. * z + 47. * z2 - 12. * z3) * log1minusz +
            2./3. * z * (8. - 93. * z + 87. * z2 - 12. * z3) * logz -
            8./3. * oneminusz2 * (1. + 2. * z) * (3. * logx_1 + 4. * logx_2 - 2. * log1minusz * logz - 4. * Dilogz)
-           );
+           ) + flag_resumz * (32./3. * F0(cu, 2, 1, 2) - 8. * z * logz * 6. * (z - 1.) * z);
     cacheF1[indexF(cu, 1, 2, 2)] = -M_PI2/3. * (1. - 5. * z + 4. * z2) + (-136. - 159. * z + 738. * z2 - 443. * z3) / 18. - 2 * oneminusz2 * (5. + 4. * z) * logx_1 +
            2./3. * oneminusz2 * (4. - z) * logx_2 + oneminusz2 / (6. * z) * (7. + 32. * z2 + 3. * z3) * log1minusz -
-           z/6. * (62. + 39. * z - 30. * z2 + 3. * z3) * logz + (5. - 3. * z - 18. * z2 + 16. * z3) / 3. * (log1minusz * logz + 2. * Dilogz);
+           z/6. * (62. + 39. * z - 30. * z2 + 3. * z3) * logz + (5. - 3. * z - 18. * z2 + 16. * z3) / 3. * (log1minusz * logz + 2. * Dilogz)
+            + flag_resumz * (32./3. * F0(cu, 1, 2, 2) - 8. * z * logz * -1.5 * oneminusz2);
     cacheF1[indexF(cu, 2, 2, 2)] = 8./3. * M_PI2 * (1. + z - 2. * z2) - 28./9. * (5. + 3. * z - 27. * z2 + 19. * z3) - 16. * oneminusz2 * (1. + 2. * z) * logx_1 +
            32./3. * oneminusz2 * (1. + 2. * z) * logx_2 - 4./3. * oneminusz2 / z * (1. - 12. * z - 16. * z2 - 3. * z3) * log1minusz +
-           4./3. * z * (2. -  3. * z + 18. * z2 - 3. * z3) * logz + 8./3. * (1. - 3. * z - 6. * z2 + 8. * z3) * (log1minusz * logz + 2. * Dilogz);
+           4./3. * z * (2. -  3. * z + 18. * z2 - 3. * z3) * logz + 8./3. * (1. - 3. * z - 6. * z2 + 8. * z3) * (log1minusz * logz + 2. * Dilogz)
+            + flag_resumz * (32./3. * F0(cu, 2, 2, 2) - 8. * z * logz * -6. * (z - 1.) * z);
+
     cacheF1[indexF(cc, 1, 1, 1)] = sqrt1minus4z * (109. - 226. * z + 168. * z2) / 6. - (52. - 104. * z - 16. * z2 + 56. * z3) * logsigma +
            2. * (5. - 8. * z) * sqrt1minus4z * logx_2 - 12. * sqrt1minus4z * (3. - 2. * z) * log1minus4z + 4. * (13. - 10. * z) * sqrt1minus4z * logz +
-           16. * (1. - 3. * z + 2. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2);
+           16. * (1. - 3. * z + 2. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2)
+            + flag_resumz * (32./3. * F0(cc, 1, 1, 1) - 8. * z * logz * 3. * (6. * z - 3.) / sqrt1minus4z);
     cacheF1[indexF(cc, 2, 1, 1)] = -8./3. * sqrt1minus4z * (5. - 23. * z - 42. * z2) - 16. * (4. - 2. * z - 7. * z2 + 14. * z3) * logsigma - 32. * sqrt1minus4z * (1. + 2. * z) * logx_2 -
            48. * sqrt1minus4z * (1. + 2. * z) * log1minus4z + 64. * sqrt1minus4z * (1. + 2. * z) * logz +
-           16. * (1. - 4. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2);
+           16. * (1. - 4. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2)
+            + flag_resumz * (32./3. * F0(cc, 2, 1, 1) - 8. * z * logz * 3. * -12. * z / sqrt1minus4z);
     cacheF1[indexF(cc, 1, 1, 2)] = -sqrt1minus4z * (127. - 199. * z - 75. * z2) / 9. + (2. - 259. * z + 662. * z2 - 76. * z3 - 200. * z4) * logsigma / (12. * z) -
            (17. - 26. * z) * sqrt1minus4z * logx_1 + 2./3. * (5. - 8. * z) * sqrt1minus4z * logx_2 - 4. * sqrt1minus4z * (3. - 2. * z) * log1minus4z -
            sqrt1minus4z * (2. - 255. * z + 316. * z2) * logz / (12. * z) +
-           16./3. * (1. - 3. * z + 2. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2);
+           16./3. * (1. - 3. * z + 2. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2)
+            + flag_resumz * (32./3. * F0(cc, 1, 1, 2) - 8. * z * logz * (6. * z - 3.) / sqrt1minus4z);
     cacheF1[indexF(cc, 2, 1, 2)] = -2. * sqrt1minus4z * (68. + 49. * z - 150. * z2) / 9. + 2./3. * (1. - 35. * z + 4. * z2 + 76. * z3 - 100. * z4) * logsigma/z +
            (16. - 64. * z2) * log2sigma - 8. * sqrt1minus4z * (1. + 2. * z) * logx_1 - 32./3. * sqrt1minus4z * (1. + 2. * z) * logx_2 -
            16. * sqrt1minus4z * (1. + 2. * z) * log1minus4z - 2./3. * sqrt1minus4z * (1. - 33. * z - 76. * z2) * logz/z +
-           16./3. * (1. - 4. * z2) * (2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2);
+           16./3. * (1. - 4. * z2) * (2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2)
+            + flag_resumz * (32./3. * F0(cc, 2, 1, 2) - 8. * z * logz * -12. * z / sqrt1minus4z);
     cacheF1[indexF(cc, 1, 2, 2)] = -M_PI2/3. * (1. - 10. * z) - sqrt1minus4z * (115. + 632. * z + 96. * z2) / 18. - (7. + 13. * z - 194. * z2 + 304. * z3 - 64. * z4) * logsigma / (6. * z) -
            2. * sqrt1minus4z * (5. - 2. * z) * logx_1 + 4./3. * (2. - 5. * z) * sqrt1minus4z * logx_2 - 4. * (1. - 6. * z) * sqrt1minus4z * log1minus4z +
            (13. - 54. * z + 8. * z2) * logsigma * log1minus4z / 3. + sqrt1minus4z * (7. + 27. * z - 250. * z2) * logz / (6. * z) +
-           (7. - 32. * z + 4. * z2) * (log2sigma - logsigma * logz) + 4./3. * (5. - 12. * z + 4. * z2) * Dilogsigma + 4./3. * (4. - 21. * z + 2. * z2) * Dilogsigma2;
+           (7. - 32. * z + 4. * z2) * (log2sigma - logsigma * logz) + 4./3. * (5. - 12. * z + 4. * z2) * Dilogsigma + 4./3. * (4. - 21. * z + 2. * z2) * Dilogsigma2
+            + flag_resumz * (32./3. * F0(cc, 1, 2, 2) - 8. * z * logz * 0.5 * -6. * sqrt1minus4z);
     cacheF1[indexF(cc, 2, 2, 2)] = 8./3. * M_PI2 * (1. + 2. * z) - 8./9. * sqrt1minus4z * (19. + 53. * z + 24. * z2) + 4./3. * (1. + 7. * z + 10. * z2 - 68. * z3 + 32. * z4) * logsigma/z -
             8. * (1. + 2. * z) * (1. + 2. * z) * log2sigma - 16. * sqrt1minus4z * (1. + 2. * z) * logx_1 + 32./3. * sqrt1minus4z * (1. + 2. * z) * logx_2 +
             16. * sqrt1minus4z * (1. + 2. * z) * log1minus4z - 8./3. * (1. + 6. * z + 8. * z2) * logsigma * log1minus4z -
             4./3. * sqrt1minus4z * (1. + 9. * z + 26. * z2) * logz / z + 8. * (1. + 2. * z) * (1. + 2. * z) * logsigma * logz +
-            32./3. * (1. - 4. * z2) * Dilogsigma - 32./3. * (1. + 3. * z + 2. * z2) * Dilogsigma2;
+            32./3. * (1. - 4. * z2) * Dilogsigma - 32./3. * (1. + 3. * z + 2. * z2) * Dilogsigma2
+            + flag_resumz * (32./3. * F0(cc, 2, 2, 2) - 8. * z * logz * 12. * z / sqrt1minus4z);
 
-    //differs dgamma.c
-    cacheF1[indexF(uu, 1, 1, 1)] = 109./6. + 10. * logx_2;
-    cacheF1[indexF(uu, 2, 1, 1)] = -40./3. - 32. * logx_2;
-    cacheF1[indexF(uu, 1, 1, 2)] = -127./9. + 4./12. - 17. * logx_1 + 10./3. * logx_2;
-    cacheF1[indexF(uu, 2, 1, 2)] = -(136. + 12.)/9. - 8. * logx_1 - 32./3. * logx_2;
-    cacheF1[indexF(uu, 1, 2, 2)] = -M_PI2/3. - (115. + 42.)/18. - 10. * logx_1 + 8./3. * logx_2;
-    cacheF1[indexF(uu, 2, 2, 2)] = 8. * M_PI2/3. - 8./9. * (19. - 3.) - 16. * logx_1 + 32./3. * logx_2;
+    cacheF1[indexF(uu, 1, 1, 1)] = 109./6. + 10. * logx_2
+            + flag_resumz * (32./3. * F0(uu, 1, 1, 1));
+    cacheF1[indexF(uu, 2, 1, 1)] = -40./3. - 32. * logx_2
+            + flag_resumz * (32./3. * F0(uu, 2, 1, 1));
+    cacheF1[indexF(uu, 1, 1, 2)] = -127./9. + 4./12. - 17. * logx_1 + 10./3. * logx_2
+            + flag_resumz * (32./3. * F0(uu, 1, 1, 2));            
+    cacheF1[indexF(uu, 2, 1, 2)] = -(136. + 12.)/9. - 8. * logx_1 - 32./3. * logx_2
+            + flag_resumz * (32./3. * F0(uu, 2, 1, 2));            
+    cacheF1[indexF(uu, 1, 2, 2)] = -M_PI2/3. - (115. + 42.)/18. - 10. * logx_1 + 8./3. * logx_2
+            + flag_resumz * (32./3. * F0(uu, 1, 2, 2));            
+    cacheF1[indexF(uu, 2, 2, 2)] = 8. * M_PI2/3. - 8./9. * (19. - 3.) - 16. * logx_1 + 32./3. * logx_2
+            + flag_resumz * (32./3. * F0(uu, 2, 2, 2));
+           
     for (int k = 1; k < 3; k++) {
         for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
             cacheF1[indexF(qq, k, 2, 1)] = cacheF1[indexF(qq, k, 1, 2)];
-        }        
+        }
     }
-   
-//    std::cout << "--- F ---" << "\n";
-//    std::cout << F0(cu, 1, 2, 1)<< "\n";
-//    std::cout << F0(cu, 1, 1, 2)<< "\n";
-//    std::cout << F1(cc, 2, 2, 1)<< "\n";
-//    std::cout << F1(cc, 2, 1, 2)<< "\n";
-//    
-//    std::cout << F0(cu, 2, 1, 2)<< "\n";
-//    std::cout << F0(cu, 2, 2, 2)<< "\n";
-//    std::cout << F0(cc, 1, 1, 1)<< "\n";
-//    std::cout << F0(cc, 1, 1, 2)<< "\n";
-//    std::cout << F0(cc, 1, 2, 2)<< "\n";
-//    std::cout << F0(cc, 2, 1, 1)<< "\n";
-//    std::cout << F0(cc, 2, 1, 2)<< "\n";
-//    std::cout << F0(cc, 2, 2, 2)<< "\n";
-//    std::cout << F0(uu, 1, 1, 1)<< "\n";
-//    std::cout << F0(uu, 1, 1, 2)<< "\n";
-//    std::cout << F0(uu, 1, 2, 2)<< "\n";
-//    std::cout << F0(uu, 2, 1, 1)<< "\n";
-//    std::cout << F0(uu, 2, 1, 2)<< "\n";
-//    std::cout << F0(uu, 2, 2, 2)<< "\n";
-    
     return;
 }
 
@@ -404,8 +441,6 @@ void AmpDB2::computeP() {
            sqrt1minus4z * (1. + 2. * z) * (2. * logx_1 - logz) / 9.;
     cacheP[indexP(cc, 2, 2, 2)] = 16./27. * sqrt1minus4z * (1. + 8. * z + 12. * z2) + 8./9. * logsigma - 32./3. * z2 * logsigma - 128./9. * z3 * logsigma +
             8./9. * sqrt1minus4z * (1. + 2. * z) * (2. * logx_1 - logz);
-
-    //differs to dgamma.c
     cacheP[indexP(uu, 1, 2, 2)] = -2./27. - 2./9. * logx_1;
     cacheP[indexP(uu, 2, 2, 2)] = 16./27. + 16./9. * logx_1;
 
@@ -487,55 +522,34 @@ void AmpDB2::computeD() {
         }
         cacheD[indexD(cu, k)] = result;
     }
-//    std::cout << "--- P ---" << "\n";
-//    std::cout << P(cu, 1, 2, 2)<< "\n";
-//    std::cout << P(cu, 2, 2, 2)<< "\n";
-//    std::cout << P(cc, 1, 2, 2)<< "\n";
-//    std::cout << P(cc, 2, 2, 2)<< "\n";
-//    std::cout << P(uu, 1, 2, 2)<< "\n";
-//    std::cout << P(uu, 2, 2, 2)<< "\n";
-//    
-//    std::cout << P(uu, 1, 1, 3)<< "\n";
-//    std::cout << P(uu, 2, 1, 3)<< "\n";
-//    std::cout << P(uu, 1, 2, 3)<< "\n";
-//    std::cout << P(uu, 2, 2, 3)<< "\n";
-//    std::cout << P(uu, 1, 1, 4)<< "\n";
-//    std::cout << P(uu, 2, 1, 4)<< "\n";
-//    std::cout << P(uu, 1, 2, 4)<< "\n";
-//    std::cout << P(uu, 2, 2, 4)<< "\n";
-//    std::cout << P(uu, 1, 1, 5)<< "\n";
-//    std::cout << P(uu, 2, 1, 5)<< "\n";
-//    std::cout << P(uu, 1, 2, 5)<< "\n";
-//    std::cout << P(uu, 2, 2, 5)<< "\n";
-//    std::cout << P(uu, 1, 1, 6)<< "\n";
-//    std::cout << P(uu, 2, 1, 6)<< "\n";
-//    std::cout << P(uu, 1, 2, 6)<< "\n";
-//    std::cout << P(uu, 2, 2, 6)<< "\n";
-//    std::cout << P(uu, 1, 2, 8)<< "\n";
-//    std::cout << P(uu, 2, 2, 8)<< "\n";    
-//    
-//    std::cout << P(cc, 1, 1, 3)<< "\n";
-//    std::cout << P(cc, 2, 1, 3)<< "\n";
-//    std::cout << P(cc, 1, 2, 3)<< "\n";
-//    std::cout << P(cc, 2, 2, 3)<< "\n";
-//    std::cout << P(cc, 1, 1, 4)<< "\n";
-//    std::cout << P(cc, 2, 1, 4)<< "\n";
-//    std::cout << P(cc, 1, 2, 4)<< "\n";
-//    std::cout << P(cc, 2, 2, 4)<< "\n";
-//    std::cout << P(cc, 1, 1, 5)<< "\n";
-//    std::cout << P(cc, 2, 1, 5)<< "\n";
-//    std::cout << P(cc, 1, 2, 5)<< "\n";
-//    std::cout << P(cc, 2, 2, 5)<< "\n";
-//    std::cout << P(cc, 1, 1, 6)<< "\n";
-//    std::cout << P(cc, 2, 1, 6)<< "\n";
-//    std::cout << P(cc, 1, 2, 6)<< "\n";
-//    std::cout << P(cc, 2, 2, 6)<< "\n";
-//    std::cout << P(cc, 1, 2, 8)<< "\n";
-//    std::cout << P(cc, 2, 2, 8)<< "\n";
     return;
 }
 
-void AmpDB2::computeCKMelements() {
+void AmpDB2::computeCKMandMasses() {
+    Md = mySM.getQuarks(QCD::DOWN).getMass();
+    Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    Ms = mySM.getQuarks(QCD::STRANGE).getMass();
+    
+    flag_resumz = true;
+    Mc = mySM.Mrun(mySM.getBBd().getMu(),
+            mySM.getQuarks(QCD::CHARM).getMass_scale(),
+            mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+    
+//    flag_resumz = false;
+//    Mc = mySM.getQuarks(QCD::CHARM).getMass();
+    
+    Mt = mySM.getQuarks(QCD::TOP).getMass();
+    MW = mySM.Mw();
+    MB = mySM.getMesons(QCD::B_D).getMass();
+    MB_s = mySM.getMesons(QCD::B_S).getMass();
+    Mb2 = Mb * Mb;
+    Mt2 = Mt * Mt;
+    MB2 = MB * MB;
+    MW2 = MW * MW;
+    z = Mc * Mc / Mb2;
+    
+    rhob = mySM.getCKM().getRhoBar();
+    etab = mySM.getCKM().getEtaBar();
     VtbVtd = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_td();
     VtbVts = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_ts();
     VtbVtd2 = VtbVtd * VtbVtd;
@@ -563,52 +577,31 @@ void AmpDB2::computeCKMelements() {
     Dilogsigma = gslpp_special_functions::dilog(sigma);
     Dilogsigma2 = gslpp_special_functions::dilog(sigma * sigma);
     
-    mu_1 = Mb;
+    mu_1 = mySM.getMub();
     mu_2 = Mb;
     x_1 = mu_1/Mb;
     x_2 = mu_2/Mb;
     logx_1 = log(x_1);
     logx_2 = log(x_2);
     
-//    std::cout << "---var---" << "\n" << Gf2 << "\n"
-//    << z << "\n"
-//    << logz << "\n"
-//    << log1minusz << "\n"
-//    << log1minus4z << "\n"
-//    << oneminusz2 << "\n"
-//    << sqrt1minus4z << "\n"
-//    << sigma << "\n"
-//    << logsigma << "\n"
-//    << log2sigma << "\n"
-//    << logx_1 << "\n"
-//    << logx_2 << "\n"
-//    << Dilogz << "\n"
-//    << Dilogsigma << "\n"
-//    << Dilogsigma2 << "\n"
-//    << mu_1 << "\n"
-//    << mu_2 << "\n"
-//    << x_1 << "\n"
-//    << x_2 << "\n"
-//    "---var---" << "\n";
-    
-    //check mu
-    as_4pi = mySM.getAlsM() / (4. * M_PI);
+    as_4pi = mySM.Alstilde5(mySM.getMub());
     return;
 }
 
-void AmpDB2::computeWilsonCoeffs(QCD::lepton lep){
-    gslpp::vector<gslpp::complex> ** WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(Mb, lep);
+void AmpDB2::computeWilsonCoeffs(){
+    gslpp::vector<gslpp::complex> ** WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(mu_1, QCD::NOLEPTON);
     for (int i = 0; i < 6; i++) {
         cacheC[i] = (*(WilsonCoeffs[LO]))(i) + (*(WilsonCoeffs[NLO]))(i);
     }
-    C_8G = 0.;
-
-    std::cout << "C_1 " << C(1) << " ";
-    std::cout << "C_2 " << C(2) << " ";
-    std::cout << "C_3 " << C(3) << "\n";
-    std::cout << "C_4 " << C(4) << " ";
-    std::cout << "C_5 " << C(5) << " ";
-    std::cout << "C_6 " << C(6) << "\n";
+    C_8G = (*(WilsonCoeffs[LO]))(7) + (*(WilsonCoeffs[NLO]))(7);
+    
+//    for(int i=0; i<=7; i++){
+//        if(i==6) i++;
+//        std::cout << "C_" << i << " "
+//                << (*(WilsonCoeffs[LO]))(i).gslpp::complex::real() << " "
+//                << (*(WilsonCoeffs[NLO]))(i).gslpp::complex::real() << "\n";       
+//    }
+//    std::cout << "--------\n" ;
 
     K_1 = 3. * C(1) * C(1) + 2. * C(1) * C(2);
     K_2 = C(2) * C(2);
@@ -618,32 +611,106 @@ void AmpDB2::computeWilsonCoeffs(QCD::lepton lep){
     K12 = K_1 + K_2;
 }
 
-gslpp::complex AmpDB2::Gamma12_Bd(orders order) {
+void AmpDB2::computeWilsonCoeffsDB1bsg(){
+    gslpp::vector<gslpp::complex> ** WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1);
+    for (int i = 0; i < 6; i++) {
+        cacheC[i] = (*(WilsonCoeffsDB1bsg[LO]))(i) + (*(WilsonCoeffsDB1bsg[NLO]))(i) + (*(WilsonCoeffsDB1bsg[NNLO]))(i);
+    }
+    C_8G = (*(WilsonCoeffsDB1bsg[LO]))(7) + (*(WilsonCoeffsDB1bsg[NLO]))(7) + (*(WilsonCoeffsDB1bsg[NNLO]))(7);
+
+    for(int i=0; i<=7; i++){
+        if(i==6) i++;
+        std::cout << "C_" << i << " "
+                << (*(WilsonCoeffsDB1bsg[LO]))(i).gslpp::complex::real() << " "
+                << (*(WilsonCoeffsDB1bsg[NLO]))(i).gslpp::complex::real() << " "
+                << (*(WilsonCoeffsDB1bsg[NNLO]))(i).gslpp::complex::real() << "\n";       
+    }
+    std::cout << "--------\n" ;
+    K_1 = 3. * C(1) * C(1) + 2. * C(1) * C(2);
+    K_2 = C(2) * C(2);
+    K_1prime = 2. * (3. * C(1) * C(3) + C(1) * C(4) + C(2) * C(3));
+    K_2prime = 2. * C(2) * C(4);
+    K_3prime = 2 * (3 * C(1) * C(5) + C(1) * C(6) + C(2) * C(5) + C(2) * C(6));
+    K12 = K_1 + K_2;
+}
+
+gslpp::complex AmpDB2::Gamma12oM12_Bd(orders order) {
+    //hep-ph/0308029v2
+    std::cout.precision(4);
     if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bd(): order not implemented");
-    else {
-        //hep-ph/0308029v2
+    if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < order % 3)
+        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
 
-        //equation 16
-        gslpp::complex Gamma12_Bd = -Gf2 * Mb2 / (24 * M_PI * MB) *
-                (c(d)(0) * me(0) + c(d)(1) * me(1) + delta_1overm(d));
-//        std::cout << "Parts " << Gf2 * Mb2 / (24 * M_PI * MB) << "\n" << c(d)(0) * me(0) << "\n" 
-//                << c(d)(1) * me(1) << "\n" << delta_1overm(d) << "\n";
-//        std::cout << "c: " << c(d) << "\n me: " << me << "\n delta: " << delta_1overm(d) << "\n";
-        return Gamma12_Bd;
-    }
+    //get M12 without matrix element
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd(
+            mySM.getBBd().getMu(),
+            mySM.getBBd().getScheme());
+    gslpp::complex M12overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+
+    //auto t2 = std::chrono::high_resolution_clock::now();
+    computeCKMandMasses();
+    computeWilsonCoeffs();
+    computeWilsonCoeffsDB1bsg();  
+    computeF0();
+    computeF1();
+    computeP();
+    computeD();
+    //auto t3 = std::chrono::high_resolution_clock::now();
+    //std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
+    compute_matrixelements(d);
+    compute_deltas_1overm(d);
+    
+    std::cout << "Test " << M12overme0 / (M12_Bd(FULLNLO)/me(0)) << "\n";
+    //compare with hep-ph/0307344
+    gslpp::complex VudVub = mySM.getCKM().getV_ud().conjugate() * mySM.getCKM().getV_ub();
+
+    std::cout << "a " <<
+            -Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *
+                (VtbVtd2 * (D(cc, 0) +  D(cc, 1) * me(1)/me(0) + deltas_1overm(cc, d)/me(0))).conjugate() << "\n";
+    std::cout << "b " <<
+            -Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *
+                (2. * VudVub * VtbVtd * (D(cu, 0)-D(cc, 0) +  (D(cu, 1)-D(cc, 1)) * me(1)/me(0) + (deltas_1overm(cu, d)-deltas_1overm(cc, d))/me(0))).conjugate() << "\n";
+    std::cout << "c " <<
+            -Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *
+                (VudVub*VudVub * (2.*D(cu, 0)-D(cc, 0)-D(uu, 0)) +  (2.*D(cu, 1)-D(cc, 1)-D(uu, 1)) * me(1)/me(0) + (2.*deltas_1overm(cu,d)-deltas_1overm(cc,d)-deltas_1overm(uu,d))/me(0)).conjugate() << "\n";
+        
+    //equation 16 divided by 12
+    gslpp::complex Gamma12oM12_Bd = -Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *
+                (c(d)(0) + c(d)(1) * me(1)/me(0) + delta_1overm(d)/me(0)).conjugate();
+    return Gamma12oM12_Bd;
 }
 
-gslpp::complex AmpDB2::Gamma12_Bs(orders order) {
-    if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bs(): order not implemented");
-    else {
-        //hep-ph/0308029v2
 
-        //equation 16
-        gslpp::complex Gamma12_Bs = -Gf2 * Mb2 / (24 * M_PI * MB_s) *
-                (c(s)(0) * me(0) + c(s)(1) * me(1) + delta_1overm(s));
-        return Gamma12_Bs;
-    }
+gslpp::complex AmpDB2::Gamma12oM12_Bs(orders order) {
+    //hep-ph/0308029v2
+    std::cout.precision(4);
+    if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bs(): order not implemented");  
+    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
+        throw std::runtime_error("DmBs::computeThValue(): requires cofficient of order not computed");
+
+    //get M12 without matrix element
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
+            mySM.getBBd().getMu(),
+            mySM.getBBd().getScheme());
+    gslpp::complex M12overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+         
+    computeCKMandMasses();
+    computeWilsonCoeffs();
+    computeWilsonCoeffsDB1bsg();    
+    computeF0();
+    computeF1();
+    computeP();
+    computeD();
+    compute_matrixelements(s);
+    compute_deltas_1overm(s);
+
+    std::cout << "Tests " << M12_Bs(FULLNLO) << "\n";    
+    //equation 16 divided by 12
+    gslpp::complex Gamma12oM12_Bs = -Gf2 * Mb2 / (24 * M_PI * MB_s) / M12overme0 *
+                (c(s)(0) + c(s)(1) * me(1)/me(0) + delta_1overm(s)/me(0)).conjugate();
+    return Gamma12oM12_Bs;
 }
+
 
 gslpp::complex AmpDB2::PBd() {
     double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
@@ -705,50 +772,12 @@ gslpp::complex AmpDB2::C(int i){
     return cacheC[i - 1];
 }
 
-double AmpDB2::Asl(orders order, QCD::lepton lep) {
-    rhob = mySM.getCKM().getRhoBar();
-    etab = mySM.getCKM().getEtaBar();
-    Md = mySM.getQuarks(QCD::DOWN).getMass();
-    Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
-    Mc = mySM.getQuarks(QCD::CHARM).getMass();
-    Ms = mySM.getQuarks(QCD::STRANGE).getMass();
-    Mt = mySM.getQuarks(QCD::TOP).getMass();
-    MW = mySM.Mw();
-    MB = mySM.getMesons(QCD::B_D).getMass();
-    MB_s = mySM.getMesons(QCD::B_S).getMass();
-
-    std::cout.precision(4);
-    //masses?
-//    std::cout << "Ms" << mySM.Mrun(mySM.getBBs().getMu(),
-//            mySM.getQuarks(QCD::STRANGE).getMass_scale(),
-//            mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO) << "\n";
-//    std::cout << "Ms" << mySM.getQuarks(QCD::STRANGE).getMass() << "\n";
-//    std::cout << "Mb_pole" << mySM.Mbar2Mp(Mb) << "\n";
-//    std::cout << "Mb" << Mb << "\n";
-//
-//    std::cout << "test: " << mySM.getFlavour().getHDF2().getUDF2().etabS0(mySM.getBBd().getMu()) << "\n";
-
-    Mb2 = Mb * Mb;
-    Mt2 = Mt * Mt;
-    MB2 = MB * MB;
-    MW2 = MW * MW;
-
-    z = Mc * Mc / Mb2;
-
-    computeWilsonCoeffs(lep);
-    computeCKMelements();
-    computeF0();
-    computeF1();
-    computeP();
-    computeD();
-    compute_matrixelements(d);
-    compute_deltas_1overm(d);
-    std::cout << "M12_Bd: " << M12_Bd(FULLNLO) << "\n";
-    std::cout << "Gamma12oderM12_Bd: "  << Gamma12_Bd(FULLNLO)/M12_Bd(FULLNLO) << "\n";
+double AmpDB2::Asl_d(orders order) {
+    computeCKMandMasses();
+    computeWilsonCoeffs();
 
     //mySM.getBBd().setFlagCsi(true);
-    std::cout << "getBpars() " << mySM.getBBd().getBpars() << "\n";
-
+    //std::cout << "getBpars() " << mySM.getBBd().getBpars() << "\n";
     B1 = mySM.getBBd().getBpars()(0);
     B2 = mySM.getBBd().getBpars()(1);
     B_sprime = MB2 / ((Mb + Md)*(Mb + Md)) * B2;
@@ -771,5 +800,9 @@ double AmpDB2::Asl(orders order, QCD::lepton lep) {
             + (K_1prime + K_2prime - K_3prime) / K12
             )
             ).real();
+}
+
+double AmpDB2::Asl_s(orders order) {
+    return 0;
 }
 

@@ -141,6 +141,15 @@ public:
     gslpp::vector<gslpp::complex>** ComputeCoeffprimesgamma(double mu, schemes scheme = NDR) const;
 
     /**
+     * @brief Computes the Wilson coefficient for the process \f$ b \to s \gamma \f$.
+     * @param[in] mu the lower matching scale for the process
+     * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
+     * @return returns the Wilson coefficients in the Buras basis for the process \f$ b \to s \gamma \f$
+     *
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma_Buras(double mu, bool noSM = false, schemes scheme = NDR) const;
+    
+    /**
      * @brief Computes the Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
      * @param[in] mu the lower matching scale for the process
      * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated

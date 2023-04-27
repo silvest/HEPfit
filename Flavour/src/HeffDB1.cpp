@@ -6,7 +6,6 @@
  */
     
 #include "HeffDB1.h"
-#include "gslpp_complex.h"
 #include "StandardModel.h"
 #include "EvolDF1nlep.h"
 #include "EvolDB1Mll.h"
@@ -24,9 +23,10 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
         coeffsgamma(8,NDR, NNLO),
         coeffprimesgamma(8,NDR, NNLO),
+        coeffsgamma_Buras(8,NDR, NNLO),
         coeffBMll (13,NDR, NLO),
         coeffprimeBMll (13, NDR, NLO),
-        coeffBMll_Buras (6, NDR, NLO),
+        coeffBMll_Buras (8, NDR, NLO),
         evolDF1BMll(new EvolDB1Mll(13, NDR, NLO, SM)),
         evolDB1bsg(new EvolDB1bsg(8, NDR, NNLO, SM)),
         u(new EvolDF1nlep(10, NDR, NLO, NLO_QED11, SM)),
@@ -920,7 +920,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, bool noSM
 
     const std::vector<WilsonCoefficient>& mcbsg = model.getMatching().CMbsg();
 
-    if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache && order_ini == BMll_order_ini_cache) {
+    if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache && order_ini == Bsgamma_order_ini_cache) {
         int check = 1;
         for (unsigned int i = order_ini; i < mcbsg.size(); i++) {
             if (mcbsg[i].getMu() == Bsgamma_Mu_cache[i]) {
@@ -956,6 +956,31 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, bool noSM
     }
 
     return coeffsgamma.getCoeff();
+}
+
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma_Buras(double mu, bool noSM, schemes scheme)
+{
+    //compute coefficients in Misiak basis:
+    ComputeCoeffsgamma(mu, noSM, scheme);
+    orders ordDF1 = coeffsgamma_Buras.getOrder();
+    
+    //transformation matrix up to O(a_s): Nuclear Physics B 520 (1998) 279-297, equation 58
+    MisiaktoBuras.assign(0, 0, R_inv_t - R_inv_t * model.Als(mu) / (4. * M_PI) * dR_t);
+
+    //store coeffs in a vector
+    for (int order = LO; order <= ordDF1; order++) {
+        for (unsigned int i = 0; i < 6; i++) {
+            tmp_coeffsgamma.assign(i, (*coeffsgamma.getCoeff(orders(order)))(i));
+        }
+        //do the change of basis for the first 6 coeffs
+        tmp_coeffsgamma = MisiaktoBuras * tmp_coeffsgamma;
+        for (unsigned int i = 0; i < 6; i++) {
+            coeffsgamma_Buras.setCoeff(i, tmp_coeffsgamma(i), orders(order));
+        }
+        coeffsgamma_Buras.setCoeff(6, (*coeffsgamma.getCoeff(orders(order)))(6), orders(order));
+        coeffsgamma_Buras.setCoeff(7, (*coeffsgamma.getCoeff(orders(order)))(7), orders(order));
+    }
+    return coeffsgamma_Buras.getCoeff();
 }
 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimesgamma(double mu, schemes scheme) 
@@ -1090,22 +1115,22 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll_Buras(double mu, QCD::
     //compute coefficients in Misiak basis:
     ComputeCoeffBMll(mu, lepton, noSM, scheme);
     orders ordDF1 = coeffBMll_Buras.getOrder();
-    unsigned int size = coeffBMll_Buras.getSize();
     
     //transformation matrix up to O(a_s): Nuclear Physics B 520 (1998) 279-297, equation 58
     MisiaktoBuras.assign(0, 0, R_inv_t - R_inv_t * model.Als(mu) / (4. * M_PI) * dR_t);
 
     //store coeffs in a vector
-    gslpp::vector< complex > tmp_coeffBMll(size, 0.);
     for (int order = LO; order <= ordDF1; order++) {
-        for (unsigned int i = 0; i < size; i++) {
+        for (unsigned int i = 0; i < 6; i++) {
             tmp_coeffBMll.assign(i, (*coeffBMll.getCoeff(orders(order)))(i));
         }
         //do the change of basis
         tmp_coeffBMll = MisiaktoBuras * tmp_coeffBMll;
-        for (unsigned int i = 0; i < size; i++) {
+        for (unsigned int i = 0; i < 6; i++) {
             coeffBMll_Buras.setCoeff(i, tmp_coeffBMll(i), orders(order));
         }
+        coeffBMll_Buras.setCoeff(6, (*coeffBMll.getCoeff(orders(order)))(6), orders(order));
+        coeffBMll_Buras.setCoeff(7, (*coeffBMll.getCoeff(orders(order)))(7), orders(order));
     }
     return coeffBMll_Buras.getCoeff();
 }
