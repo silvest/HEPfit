@@ -509,18 +509,6 @@ double BrHtoWWRatio::computeThValue()
     return myNPbase->BrHWWRatio();
 }
 
-BrHtoWW2l2vRatio::BrHtoWW2l2vRatio(const StandardModel& SM_i)
-: ThObservable(SM_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("BrHtoWW2l2vRatio called with a class whose parent is not NPbase");
-}
-
-double BrHtoWW2l2vRatio::computeThValue()
-{
-    return myNPbase->BrHWW2l2vRatio();
-}
-
 BrHtoZZRatio::BrHtoZZRatio(const StandardModel& SM_i)
 : ThObservable(SM_i)
 {
@@ -531,54 +519,6 @@ BrHtoZZRatio::BrHtoZZRatio(const StandardModel& SM_i)
 double BrHtoZZRatio::computeThValue()
 {
     return myNPbase->BrHZZRatio();
-}
-
-BrHtoZZ4lRatio::BrHtoZZ4lRatio(const StandardModel& SM_i)
-: ThObservable(SM_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("BrHtoZZ4lRatio called with a class whose parent is not NPbase");
-}
-
-double BrHtoZZ4lRatio::computeThValue()
-{
-    return myNPbase->BrHZZ4lRatio();
-}
-
-BrHtoZZ4eRatio::BrHtoZZ4eRatio(const StandardModel& SM_i)
-: ThObservable(SM_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("BrHtoZZ4eRatio called with a class whose parent is not NPbase");
-}
-
-double BrHtoZZ4eRatio::computeThValue()
-{
-    return myNPbase->BrHZZ4eRatio();
-}
-
-BrHtoZZ2e2muRatio::BrHtoZZ2e2muRatio(const StandardModel& SM_i)
-: ThObservable(SM_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("BrHtoZZ2e2muRatio called with a class whose parent is not NPbase");
-}
-
-double BrHtoZZ2e2muRatio::computeThValue()
-{
-    return myNPbase->BrHZZ2e2muRatio();
-}
-
-BrHtoZZ4muRatio::BrHtoZZ4muRatio(const StandardModel& SM_i)
-: ThObservable(SM_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("BrHtoZZ4muRatio called with a class whose parent is not NPbase");
-}
-
-double BrHtoZZ4muRatio::computeThValue()
-{
-    return myNPbase->BrHZZ4muRatio();
 }
 
 BrHtoVVRatio::BrHtoVVRatio(const StandardModel& SM_i)
@@ -732,7 +672,13 @@ BrHto2e2vRatio::BrHto2e2vRatio(const StandardModel& SM_i)
 
 double BrHto2e2vRatio::computeThValue()
 {
-    return myNPbase->BrH2e2vRatio();
+    // SM decay widths (from MG simulations)
+    double wH2e2vSM=0.93291e-06, wH2evSM=0.10152e-04;
+    
+    // Sum
+    double wH2e2vTSM=wH2e2vSM+wH2evSM;
+    
+    return ( (wH2e2vSM*(myNPbase->BrH2e2vRatio()) + wH2evSM*(myNPbase->BrH2evRatio())) / wH2e2vTSM );
 }
 
 
@@ -745,7 +691,13 @@ BrHto2mu2vRatio::BrHto2mu2vRatio(const StandardModel& SM_i)
 
 double BrHto2mu2vRatio::computeThValue()
 {
-    return myNPbase->BrH2mu2vRatio();
+    // SM decay widths (from MG simulations)
+    double wH2mu2vSM=0.93288e-06, wH2muvSM=0.10163e-04;
+    
+    // Sum
+    double wH2mu2vTSM=wH2mu2vSM+wH2muvSM;
+    
+    return ( (wH2mu2vSM*(myNPbase->BrH2mu2vRatio()) + wH2muvSM*(myNPbase->BrH2muvRatio())) / wH2mu2vTSM );    
 }
 
 

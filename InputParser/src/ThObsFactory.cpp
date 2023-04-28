@@ -1141,12 +1141,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtoinvRatio"] = boost::factory<BrHtoinvRatio*>();
     obsThFactory["BrHggRatio"] = boost::factory<BrHtoggRatio*>();
     obsThFactory["BrHWWRatio"] = boost::factory<BrHtoWWRatio*>();
-    obsThFactory["BrHWW2l2vRatio"] = boost::factory<BrHtoWW2l2vRatio*>();
     obsThFactory["BrHZZRatio"] = boost::factory<BrHtoZZRatio*>();
-    obsThFactory["BrHZZ4lRatio"] = boost::factory<BrHtoZZ4lRatio*>();
-    obsThFactory["BrHZZ4eRatio"] = boost::factory<BrHtoZZ4eRatio*>();
-    obsThFactory["BrHZZ2e2muRatio"] = boost::factory<BrHtoZZ2e2muRatio*>();
-    obsThFactory["BrHZZ4muRatio"] = boost::factory<BrHtoZZ4muRatio*>();
     obsThFactory["BrHZgaRatio"] = boost::factory<BrHtoZgaRatio*>();
     obsThFactory["BrHZgallRatio"] = boost::factory<BrHtoZgallRatio*>();
     obsThFactory["BrHZgaeeRatio"] = boost::factory<BrHtoZgaeeRatio*>();

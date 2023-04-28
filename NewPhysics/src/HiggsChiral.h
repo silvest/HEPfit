@@ -657,47 +657,11 @@ public:
      */
     virtual double BrHWWRatio() const;
     /**
-     * @brief The ratio of the Br@f$(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$) in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to WW^*\to l\nu l\nu)@f$/Br@f$(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHWW2l2vRatio() const;
-    /**
      * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
      */
     virtual double BrHZZRatio() const;
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$) in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 4l)@f$/Br@f$(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ4lRatio() const;
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 4e)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 4e)@f$/Br@f$(H\to ZZ* \to 4e)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ4eRatio() const;
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 2e 2\mu)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 2e 2\mu)@f$/Br@f$(H\to ZZ* \to 2e 2\mu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ2e2muRatio() const;
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 4\mu)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 4\mu)@f$/Br@f$(H\to ZZ* \to 4\mu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ4muRatio() const;
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 4\nu)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 4\nu)@f$/Br@f$(H\to ZZ* \to 4\nu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ4vRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to VV)@f$ in the current model
      * and in the Standard Model.
@@ -759,7 +723,7 @@ public:
      */
     virtual double BrHbbRatio() const;
     
-    // General 4 fermion final states    
+    /////////////////////// HIGGS TO 4 FERMION DECAYS /////////////////////////
     
     /**
      * @brief The ratio of the Br@f$(H\to 2L2L')@f$ (@f$L,L'=e,\mu,\tau@f$) in the current model

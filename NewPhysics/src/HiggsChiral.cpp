@@ -621,53 +621,11 @@ double HiggsChiral::BrHWWRatio() const
     return (computecV() * computecV() / computeGammaTotalRatio());
 }
 
-double HiggsChiral::BrHWW2l2vRatio() const
-{
-//    return GammaWW() / GammaTotal() / trueSM.computeBrHtoWW();
-
-    return BrHWWRatio();
-}
-
 double HiggsChiral::BrHZZRatio() const
 {
 //    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
     
     return (computecV() * computecV() / computeGammaTotalRatio());
-}
-
-double HiggsChiral::BrHZZ4lRatio() const
-{
-//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
-    
-    return BrHZZRatio();
-}
-
-double HiggsChiral::BrHZZ4eRatio() const
-{
-//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
-    
-    return BrHZZRatio();
-}
-
-double HiggsChiral::BrHZZ2e2muRatio() const
-{
-//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
-    
-    return BrHZZRatio();
-}
-
-double HiggsChiral::BrHZZ4muRatio() const
-{
-//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
-    
-    return BrHZZRatio();
-}
-
-double HiggsChiral::BrHZZ4vRatio() const
-{
-//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
-    
-    return BrHZZRatio();
 }
 
 double HiggsChiral::BrHVVRatio() const
@@ -740,7 +698,7 @@ double HiggsChiral::BrHbbRatio() const
     return (computecb() * computecb() / computeGammaTotalRatio());
 }
 
-    // General 4 fermion final states 
+    /////////////////////// HIGGS TO 4 FERMION DECAYS ///////////////////////// 
 
 double HiggsChiral::BrH2L2LRatio() const
 {    
@@ -1383,32 +1341,32 @@ double HiggsChiral::muTHUttHZZ(const double sqrt_s) const
 
 double HiggsChiral::muTHUggHZZ4l(const double sqrt_s) const
 {
-    return muggH(sqrt_s)*BrHZZ4lRatio();
+    return muggH(sqrt_s)*BrH4lRatio();
 }
 
 double HiggsChiral::muTHUVBFHZZ4l(const double sqrt_s) const
 {
-    return muVBF(sqrt_s)*BrHZZ4lRatio();
+    return muVBF(sqrt_s)*BrH4lRatio();
 }
 
 double HiggsChiral::muTHUZHZZ4l(const double sqrt_s) const
 {
-    return muZH(sqrt_s)*BrHZZ4lRatio();
+    return muZH(sqrt_s)*BrH4lRatio();
 }
 
 double HiggsChiral::muTHUWHZZ4l(const double sqrt_s) const
 {
-    return muWH(sqrt_s)*BrHZZ4lRatio();
+    return muWH(sqrt_s)*BrH4lRatio();
 }
 
 double HiggsChiral::muTHUVHZZ4l(const double sqrt_s) const
 {
-    return muVH(sqrt_s)*BrHZZ4lRatio();
+    return muVH(sqrt_s)*BrH4lRatio();
 }
 
 double HiggsChiral::muTHUttHZZ4l(const double sqrt_s) const
 {
-    return muttH(sqrt_s)*BrHZZ4lRatio();
+    return muttH(sqrt_s)*BrH4lRatio();
 }
 
 double HiggsChiral::muTHUggHWW(const double sqrt_s) const
@@ -1443,32 +1401,32 @@ double HiggsChiral::muTHUttHWW(const double sqrt_s) const
 
 double HiggsChiral::muTHUggHWW2l2v(const double sqrt_s) const
 {
-    return muggH(sqrt_s)*BrHWW2l2vRatio();
+    return muggH(sqrt_s)*BrH2l2vRatio();
 }
 
 double HiggsChiral::muTHUVBFHWW2l2v(const double sqrt_s) const
 {
-    return muVBF(sqrt_s)*BrHWW2l2vRatio();
+    return muVBF(sqrt_s)*BrH2l2vRatio();
 }
 
 double HiggsChiral::muTHUZHWW2l2v(const double sqrt_s) const
 {
-    return muZH(sqrt_s)*BrHWW2l2vRatio();
+    return muZH(sqrt_s)*BrH2l2vRatio();
 }
 
 double HiggsChiral::muTHUWHWW2l2v(const double sqrt_s) const
 {
-    return muWH(sqrt_s)*BrHWW2l2vRatio();
+    return muWH(sqrt_s)*BrH2l2vRatio();
 }
 
 double HiggsChiral::muTHUVHWW2l2v(const double sqrt_s) const
 {
-    return muVH(sqrt_s)*BrHWW2l2vRatio();
+    return muVH(sqrt_s)*BrH2l2vRatio();
 }
 
 double HiggsChiral::muTHUttHWW2l2v(const double sqrt_s) const
 {
-    return muttH(sqrt_s)*BrHWW2l2vRatio();
+    return muttH(sqrt_s)*BrH2l2vRatio();
 }
 
 double HiggsChiral::muTHUggHmumu(const double sqrt_s) const
@@ -1583,7 +1541,7 @@ double HiggsChiral::muTHUVHinv(const double sqrt_s) const
 
 double HiggsChiral::muTHUggHZZ4mu(const double sqrt_s) const
 {
-    return muggH(sqrt_s)*BrHZZ4muRatio();
+    return muggH(sqrt_s)*BrH4muRatio();
 }
 
 double HiggsChiral::muTHUggHZgamumu(const double sqrt_s) const

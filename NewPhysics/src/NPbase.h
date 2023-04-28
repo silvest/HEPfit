@@ -1641,81 +1641,11 @@ public:
     }
     
     /**
-     * @brief The ratio of the Br@f$(H\to W l\nu)@f$ (@f$l=e,\mu @f$) in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to Wl\nu)@f$/Br@f$(H\to Wl\nu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHWlvRatio() const
-    {
-        return 1.0;
-    }
-    
-    /**
-     * @brief The ratio of the Br@f$(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$) in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to WW^*\to l\nu l\nu)@f$/Br@f$(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHWW2l2vRatio() const
-    {
-        return 1.0;
-    }
-
-    /**
      * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
      */
     virtual double BrHZZRatio() const
-    {
-        return 1.0;
-    }
-    
-    /**
-     * @brief The ratio of the Br@f$(H\to Zll)@f$ (@f$l=e,\mu @f$) in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to Zll)@f$/Br@f$(H\to Zll)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZllRatio() const
-    {
-        return 1.0;
-    }
-    
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$) in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 4l)@f$/Br@f$(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ4lRatio() const
-    {
-        return 1.0;
-    }
-    
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 4e)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 4e)@f$/Br@f$(H\to ZZ* \to 4e)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ4eRatio() const
-    {
-        return 1.0;
-    }
-    
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 2e 2\mu)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 2e 2\mu)@f$/Br@f$(H\to ZZ* \to 2e 2\mu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ2e2muRatio() const
-    {
-        return 1.0;
-    }
-    
-    /**
-     * @brief The ratio of the Br@f$(H\to ZZ* \to 4\mu)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to ZZ* \to 4\mu)@f$/Br@f$(H\to ZZ* \to 4\mu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrHZZ4muRatio() const
     {
         return 1.0;
     }
@@ -1780,6 +1710,9 @@ public:
         return 1.0;
     }
     
+    /////////////////////// HIGGS TO 2 FERMION DECAYS /////////////////////////
+
+    
     /**
      * @brief The ratio of the Br@f$(H\to \mu^+\mu^-)@f$ in the current model
      * and in the Standard Model.
@@ -1820,19 +1753,207 @@ public:
         return 1.0;
     }
     
-    ///////////////////////OTHER HIGGS 4 FERMION BRANCHING RATIOS/////////////////////////
 
+    /////////////////////// HIGGS TO 4 FERMION DECAYS /////////////////////////
+    
     /**
-     * @brief The ratio of the Br@f$(H\to 2l 2\nu)@f$ (@f$l=e,\mu@f$) in the current model
+     * @brief The ratio of the Br@f$(H\to 2L2L')@f$ (@f$L,L'=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
-     * @return Br@f$(H\to 2l 2\nu)@f$/Br@f$(H\to 2l 2\nu)_{\mathrm{SM}}@f$
+     * @return Br@f$(H\to 2L2L')@f$/Br@f$(H\to 2L2L')_{\mathrm{SM}}@f$
      */
-    virtual double BrH2l2vRatio() const
+    virtual double BrH2L2LRatio() const
     {
-        return BrHWW2l2vRatio();
+        return 1.0;
     }
-
-
+    /**
+     * @brief The ratio of the Br@f$(H\to 2e 2\mu)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2L2L)@f$/Br@f$(H\to 2e 2\mu)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2e2muRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2v2v)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2v2v)@f$/Br@f$(H\to 2v2v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2v2vRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2L2v)@f$ (@f$L=e,\mu,\tau@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2L2v)@f$/Br@f$(H\to 2L2v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2L2vRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2L2v)@f$ (@f$L=e,\mu@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2L2v)@f$/Br@f$(H\to 2L2v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2L2v2Ratio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2e2v)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2e2v)@f$/Br@f$(H\to 2e2v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2e2vRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2\mu 2v)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2\mu 2v)@f$/Br@f$(H\to 2\mu 2v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2mu2vRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2u2u)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2u2u)@f$/Br@f$(H\to 2u2u)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2u2uRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2d2d)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2d2d)@f$/Br@f$(H\to 2d2d)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2d2dRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2u2d)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2u2d)@f$/Br@f$(H\to 2u2d)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2u2dRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2L2u)@f$ (@f$L=e,\mu,\tau@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2L2u)@f$/Br@f$(H\to 2L2u)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2L2uRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2L2d)@f$ (@f$L=e,\mu,\tau@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2L2d)@f$/Br@f$(H\to 2L2d)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2L2dRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2v2u)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2v2u)@f$/Br@f$(H\to 2v2u)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2v2uRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2v2d)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2v2d)@f$/Br@f$(H\to 2v2d)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2v2dRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 4L)@f$ (@f$L=e,\mu,\tau@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4L)@f$/Br@f$(H\to 4L)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4LRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 4L)@f$ (@f$L=e,\mu@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4L)@f$/Br@f$(H\to 4L)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4L2Ratio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 4e)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4e)@f$/Br@f$(H\to 4e)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4eRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 4\mu)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4\mu)@f$/Br@f$(H\to 4\mu)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4muRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 4v)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4v)@f$/Br@f$(H\to 4v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4vRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 4u)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4u)@f$/Br@f$(H\to 4u)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4uRatio() const
+    {
+        return 1.0;
+    }   
+    /**
+     * @brief The ratio of the Br@f$(H\to 4d)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4d)@f$/Br@f$(H\to 4d)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4dRatio() const
+    {
+        return 1.0;
+    }    
+    /**
+     * @brief The ratio of the Br@f$(H\to LvvL)@f$ (@f$L=e,\mu,\tau@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to LvvL)@f$/Br@f$(H\to LvvL)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHLvvLRatio() const
+    {
+        return 1.0;
+    }
     /**
      * @brief The ratio of the Br@f$(H\to e\nu \mu\nu)@f$ in the current model
      * and in the Standard Model.
@@ -1840,31 +1961,82 @@ public:
      */
     virtual double BrHevmuvRatio() const
     {
-        return BrHWW2l2vRatio();
+        return 1.0;
     }
-    
-
     /**
-     * @brief The ratio of the Br@f$(H\to 2e 2\nu)@f$ in the current model
+     * @brief The ratio of the Br@f$(H\to uddu)@f$ in the current model
      * and in the Standard Model.
-     * @return Br@f$(H\to 2e 2\nu)@f$/Br@f$(H\to 2e 2\nu)_{\mathrm{SM}}@f$
+     * @return Br@f$(H\to uddu)@f$/Br@f$(H\to uddu)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2e2vRatio() const
+    virtual double BrHudduRatio() const
     {
-        return BrHWW2l2vRatio();
+        return 1.0;
     }
-    
-    
     /**
-     * @brief The ratio of the Br@f$(H\to 2\mu 2\nu)@f$ in the current model
+     * @brief The ratio of the Br@f$(H\to Lvud)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
-     * @return Br@f$(H\to 2\mu 2\nu)@f$/Br@f$(H\to 2\mu 2\nu)_{\mathrm{SM}}@f$
+     * @return Br@f$(H\to Lvud)@f$/Br@f$(H\to Lvud)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2mu2vRatio() const
+    virtual double BrHLvudRatio() const
     {
-        return BrHWW2l2vRatio();
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2ud)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2ud)@f$/Br@f$(H\to 2ud)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2udRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2Lv)@f$ (@f$L=e,\mu,\tau@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2Lv)@f$/Br@f$(H\to 2Lv)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2LvRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2Lv)@f$ (@f$L=e,\mu@f$) in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2Lv)@f$/Br@f$(H\to 2Lv)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2Lv2Ratio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2ev)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2ev)@f$/Br@f$(H\to 2ev)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2evRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 2ev)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 2\mu v)@f$/Br@f$(H\to 2\mu v)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH2muvRatio() const
+    {
+        return 1.0;
+    }
+    /**
+     * @brief The ratio of the Br@f$(H\to 4f)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4f)@f$/Br@f$(H\to 4f)_{\mathrm{SM}}@f$
+     */
+    virtual double BrH4fRatio() const
+    {
+        return 1.0;
     }
     
+    // DECAYS INVOLVING ONLY ELECTRONS, MUONS OR NEUTRINOS IN THE FINAL STATES 
     
     /**
      * @brief The ratio of the Br@f$(H\to 4l)@f$ (@f$l=e,\mu@f$) in the current model
@@ -1873,67 +2045,41 @@ public:
      */
     virtual double BrH4lRatio() const
     {
-        return BrHZZ4lRatio();
+        return 1.0;
     }
-    
-    
     /**
-     * @brief The ratio of the Br@f$(H\to 4e)@f$ in the current model
+     * @brief The ratio of the Br@f$(H\to 2l2v)@f$ (@f$l=e,\mu@f$) in the current model
      * and in the Standard Model.
-     * @return Br@f$(H\to 4e)@f$/Br@f$(H\to 4e)_{\mathrm{SM}}@f$
+     * @return Br@f$(H\to 2l2v)@f$/Br@f$(H\to 2l2v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4eRatio() const
+    virtual double BrH2l2vRatio() const
     {
-        return BrHZZ4eRatio();
+        return 1.0;
     }
-    
-    
-    /**
-     * @brief The ratio of the Br@f$(H\to 4\mu)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to 4\mu)@f$/Br@f$(H\to 4\mu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrH4muRatio() const
-    {
-        return BrHZZ4muRatio();
-    }
-    
-        
-    /**
-     * @brief The ratio of the Br@f$(H\to 2e2\mu)@f$ in the current model
-     * and in the Standard Model.
-     * @return Br@f$(H\to 2e2\mu)@f$/Br@f$(H\to 2e2\mu)_{\mathrm{SM}}@f$
-     */
-    virtual double BrH2e2muRatio() const
-    {
-        return BrHZZ2e2muRatio();
-    }
-    
 
+    
+    ///////////////////////OTHER DEDICATED (SEMI-)LEPTONIC 4 FERMION DECAYS/////////////////////////
+    
     /**
-     * @brief The ratio of the Br@f$(H\to l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$ in the current model
+     * @brief The ratio of the Br@f$(H\to l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to l l j j)@f$/Br@f$(H\to l l j j)_{\mathrm{SM}}@f$
      */
     virtual double BrHlljjRatio() const
     {
-        return 1.0; 
+        return 1.0;
     }
-
-    
     /**
-     * @brief The ratio of the Br@f$(H\to l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$ in the current model
+     * @brief The ratio of the Br@f$(H\to l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to l \nu j j)@f$/Br@f$(H\to l \nu j j)_{\mathrm{SM}}@f$
      */
     virtual double BrHlvjjRatio() const
     {
-        return 1.0; 
+        return 1.0;
     }
-    
-    
     /**
-     * @brief The ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$, @f$l=e,\mu,~~j\not=b)@f$ in the current model
+     * @brief The ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to l \nu l \nu, l \nu j j)@f$/Br@f$(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
      */
@@ -1941,10 +2087,8 @@ public:
     {
         return 1.0;
     }
-    
-    
     /**
-     * @brief The ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$, @f$l=e,\mu,~~j\not=b)@f$ in the current model
+     * @brief The ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to l l \nu\nu, l l j j)@f$/Br@f$(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
      */
