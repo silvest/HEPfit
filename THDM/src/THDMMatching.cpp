@@ -18,7 +18,7 @@ THDMMatching::THDMMatching(const THDM & THDM_i) :
     myTHDM(THDM_i),
     myCKM(3, 3, 0.),
     mcdbs2(5, NDR, NLO),
-    mcbtaunu(3, NDR, LO),
+    mcbtaunu(4, NDR, LO),
     mcbsg(8, NDR, NNLO),
     mcprimebsg(8, NDR, NNLO),
     mcgminus2mu(2,NDR,NLO)

@@ -129,6 +129,22 @@ class QCD;
  *   <td class="mod_symb">@f$F_{D^\pm}@f$</td>
  *   <td class="mod_desc">The decay constant of the \f$ D^\pm \f$ meson in GeV.</td>
  * </tr>
+  * <tr>
+ *   <td class="mod_name">%MDs</td>
+ *   <td class="mod_symb">@f$M_{D_s^\pm}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ D_s^\pm \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tDs</td>
+ *   <td class="mod_symb">@f$\tau_{D_s^\pm}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ D_s^\pm \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FDs</td>
+ *   <td class="mod_symb">@f$F_{D_s^\pm}@f$</td>
+ *   <td class="mod_desc">The decay constant of the \f$ D_s^\pm \f$ meson in GeV.</td>
+ * </tr>
+
  * <tr>
  *   <td class="mod_name">%MBd</td>
  *   <td class="mod_symb">@f$M_{B_d}@f$</td>

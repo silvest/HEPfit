@@ -11,6 +11,7 @@
 class StandardModel;
 class HeffDF2;
 class HeffDB1;
+class HeffDC1;
 class HeffDS1;
 class MVll;
 class MPll;
@@ -52,6 +53,14 @@ public:
      *
      */
     HeffDS1& getHDS1() const;
+    
+    
+    /**
+     * @brief The member that returns an object of the class HeffDC1.
+     * @return returns the Hamiltonian for the \f$ \Delta C = 1 \f$ processes.
+     *
+     */
+    HeffDC1& getHDC1() const;
 
     /**
      * @brief The member that returns an object of the class HeffDB1.
@@ -109,6 +118,10 @@ public:
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR) const;
 
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
+    
+    
     /**
      * @brief Computes the Wilson coefficient for the process \f$ B_d \to \tau \nu \f$.
      * @param[in] mu the lower matching scale for the process
@@ -269,6 +282,7 @@ private:
     const StandardModel & mySM;
     mutable std::shared_ptr<HeffDF2> HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
     mutable std::shared_ptr<HeffDB1> HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
+    mutable std::shared_ptr<HeffDC1> HDC1; ///< An Object for the Hamiltonian of the \f$ \Delta C = 1 \f$ processes.
     mutable std::shared_ptr<HeffDS1> HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
     mutable std::map<std::vector<int>, std::shared_ptr<MVll> > MVllMap;
     mutable std::map<std::vector<int>, std::shared_ptr<MVlnu> > MVlnuMap;

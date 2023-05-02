@@ -4390,6 +4390,17 @@ ThObsFactory::ThObsFactory()
     obsThFactory["btaunu"] = bind(boost::factory<Btaunu*>(), _1, StandardModel::B_P);
     obsThFactory["bctaunu"] = bind(boost::factory<Btaunu*>(), _1, StandardModel::B_C);
     
+    
+    //----- D to lepton nu  -----
+    obsThFactory["Dmuonnu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_P, StandardModel::MU);
+    obsThFactory["Dtaunu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_P, StandardModel::TAU);
+    
+    obsThFactory["Dsmuonnu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_S, StandardModel::MU);
+    obsThFactory["Dstaunu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_S, StandardModel::TAU);
+    
+    
+    
+    
     /* BEGIN: REMOVE FROM THE PACKAGE */
     obsThFactory["Deltaamu"] = boost::factory<Deltaamu*>();
     /* END: REMOVE FROM THE PACKAGE */

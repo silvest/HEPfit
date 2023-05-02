@@ -18,7 +18,8 @@ GeneralTHDMMatching::GeneralTHDMMatching(const GeneralTHDM & GeneralTHDM_i) :
     myGTHDM(GeneralTHDM_i),
     myCKM(3, 3, 0.),
     mcdbs2(5, NDR, NLO),
-    mcbtaunu(3, NDR, LO),
+    mcbtaunu(4, NDR, LO),
+    mccleptonnu(4, NDR, LO),
     mcBMll(13, NDR, NLO),
     mcbsg(8, NDR, NNLO),
     mcgminus2mu(2, NDR, NLO),
@@ -1292,18 +1293,35 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
 }
 
 
+/*******************************************************************************
+ * Wilson coefficients calculus, Misiak base for B -> \tau \nu                  *  
+ * ****************************************************************************/
+
 std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu(QCD::meson meson_i) {
 
+    
+    if (!myGTHDM.getATHDMflag())
+    {
+        throw std::runtime_error("CMbtaunu is only available in the ATHDM at the moment.");
+        return (vmcbsg);
+    }
+    else{
+        
+    
     double Muw = myGTHDM.getMuw();
     double GF = myGTHDM.getGF();
     myCKM = myGTHDM.getVCKM();
     double mB = myGTHDM.getMesons(meson_i).getMass();
-    //double tanb = myGTHDM.gettanb();
-    //Assuming that the couplings for the fermions of same charged are the same
-    gslpp::complex zetab=myGTHDM.getNd_11();
+    gslpp::complex zetad=myGTHDM.getNd_11();
+    gslpp::complex zetau=myGTHDM.getNu_11();
     gslpp::complex zetal=myGTHDM.getNl_11();
     double mHp2=myGTHDM.getmHp2();
-
+    
+    double mb = myGTHDM.getQuarks(QCD::BOTTOM).getMass();
+    double mu = myGTHDM.getQuarks(QCD::UP).getMass();
+    double mc = myGTHDM.getQuarks(QCD::CHARM).getMass();
+    
+    //vmcbtaunu.clear();//Already done when calling the SM version
     vmcbtaunu = StandardModelMatching::CMbtaunu(meson_i);
     mcbtaunu.setMu(Muw);
  
@@ -1311,8 +1329,8 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu(QCD::meson meson_i
         case NNLO:
         case NLO:
         case LO:
-            if (meson_i == QCD::B_P) mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / negsquareroot(2.) * mB*mB*zetab*zetal/mHp2, LO);
-            else if (meson_i == QCD::B_C) mcbtaunu.setCoeff(0, -4.*GF * myCKM(1,2) / negsquareroot(2.) * mB*mB*zetab*zetal/mHp2, LO);
+            if (meson_i == QCD::B_P) mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.)*(mB*mB*zetal.conjugate()*(mb*zetad+mu*zetau)/mHp2/(mb+mu)) , LO);
+            else if (meson_i == QCD::B_C) mcbtaunu.setCoeff(0, -4.*GF * myCKM(1,2) / sqrt(2.)*(mB*mB*zetal.conjugate()*(mb*zetad+mc*zetau)/mHp2/(mb+mc)), LO);
             else throw std::runtime_error("GeneralTHDMMatching::CMbtaunu(): meson not implemeted"); 
             break;
         default:
@@ -1320,11 +1338,86 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu(QCD::meson meson_i
             out << mcbtaunu.getOrder();
             throw std::runtime_error("GeneralTHDMMatching::CMbtaunu(): order " + out.str() + "not implemented");
     }
-
+    
     vmcbtaunu.push_back(mcbtaunu);
+    
     return(vmcbtaunu);
-
+    }
 }
+
+
+
+/*******************************************************************************
+ * Wilson coefficients calculus, LEFT base for D -> \lepton \nu                  *  
+ * ****************************************************************************/
+
+std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) {
+
+    if (!myGTHDM.getATHDMflag())
+    {
+        throw std::runtime_error("CMcleptonnu is only available in the ATHDM at the moment.");
+        return (vmcbsg);
+    }
+    else{
+        
+    
+    double Muw = myGTHDM.getMuw();
+    double GF = myGTHDM.getGF();
+    myCKM = myGTHDM.getVCKM();
+    double mD = myGTHDM.getMesons(meson_i).getMass();
+    gslpp::complex zetad=myGTHDM.getNd_11();
+    gslpp::complex zetal=myGTHDM.getNl_11();
+    gslpp::complex zetau=myGTHDM.getNu_11();
+    double mHp2=myGTHDM.getmHp2();
+    
+    double mc = myGTHDM.getQuarks(QCD::CHARM).getMass();
+    double md = myGTHDM.getQuarks(QCD::DOWN).getMass();
+    double ms = myGTHDM.getQuarks(QCD::STRANGE).getMass();
+    
+    double mtau = myGTHDM.getLeptons(StandardModel::TAU).getMass();
+    double mmuon = myGTHDM.getLeptons(StandardModel::MU).getMass();
+    
+    
+    //vmccleptonnu.clear();//Already done when calling the SM version
+    vmccleptonnu = StandardModelMatching::CMcleptonnu(meson_i, lepton_i);
+    mccleptonnu.setMu(Muw);
+ 
+    switch (mccleptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            
+            switch (meson_i){
+                case QCD::D_P:
+                    mccleptonnu.setCoeff(0, -4.*GF * myCKM(1,0) / sqrt(2.)*(mD*mD*zetal.conjugate()*(md*zetad+mc*zetau)/mHp2/(mc+md)), LO);
+                break;
+                case QCD::D_S:
+                    mccleptonnu.setCoeff(0, -4.*GF * myCKM(1,1) / sqrt(2.)*(mD*mD*zetal.conjugate()*(ms*zetad+mc*zetau)/mHp2/(mc+ms)), LO);
+                break;
+                // We need to include also D_s, for that we need to include that meson in the SM
+                default:
+                    throw std::runtime_error("GeneralTHDMMatching::CMcleptonnu(): doesn't include that meson");
+                
+            }
+            
+            
+            
+            break;
+        default:
+            std::stringstream out;
+            out << mccleptonnu.getOrder();
+            throw std::runtime_error("GeneralTHDMMatching::CMcleptonnu(): order " + out.str() + "not implemented");
+    }
+    
+    vmccleptonnu.push_back(mccleptonnu);
+    
+    return(vmccleptonnu);
+    
+    }
+}
+
+
+
 
 std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbsg() 
 {

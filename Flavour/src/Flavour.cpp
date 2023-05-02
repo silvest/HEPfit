@@ -12,6 +12,7 @@
 #include "MPll.h"
 #include "HeffDF2.h"
 #include "HeffDS1.h"
+#include "HeffDC1.h"
 #include "HeffDB1.h"
 #include "MVgamma.h"
 #include "MVlnu.h"
@@ -50,6 +51,12 @@ HeffDS1& Flavour::getHDS1() const
 {
     return *getPtr<HeffDS1>(HDS1);
 }
+
+HeffDC1& Flavour::getHDC1() const
+{
+    return *getPtr<HeffDC1>(HDC1);
+}
+
 
 HeffDB1& Flavour::getHDB1() const
 {
@@ -100,6 +107,15 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1mumu() const
 {
     return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1mumu();
 }
+
+
+
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const
+{
+    return getPtr<HeffDC1>(HDC1)->ComputeCoeffcleptonnu(meson_i,lepton_i);
+}
+
+
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsmumu(double mu, schemes scheme) const
 {

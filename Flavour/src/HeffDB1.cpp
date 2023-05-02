@@ -20,7 +20,7 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         coeffnlep01 (10, NDR, NLO), coeffnlep01A(10, NDR, NLO), coeffnlep01B(4, NDR, NLO), coeffnlep00CC(10, NDR, NLO),
         coeffnlep11 (10, NDR, NLO), coeffnlep11A(10, NDR, NLO), coeffnlep11B(4, NDR, NLO), coeffnlep10CC(10, NDR, NLO),
         coeffsmumu (8, NDR, NNLO, NLO_QED22), coeffdmumu (8, NDR, NNLO, NLO_QED22),
-        coeffbtaunu (3, NDR, LO),
+        coeffbtaunu (4, NDR, LO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
         coeffsgamma(8,NDR, NNLO),
         coeffprimesgamma(8,NDR, NNLO),
@@ -857,6 +857,15 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
     }   
     return coeffdmumu.getCoeff();
 }
+
+
+ /******************************************************************************
+ * evolution Wilson Coefficien B-> tau nu                                  * 
+ * LEFT basis. The WC are written in the LEFT basis of arxiv:1709.04486
+ *the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114
+ *in a similar basis
+                                                             *
+ ******************************************************************************/
 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffbtaunu(QCD::meson meson_i) 
 {

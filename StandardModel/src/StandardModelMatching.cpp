@@ -35,7 +35,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbdnn(1, NDR, NLO),
         mcbsmm(8, NDR, NNLO, NLO_QED22),
         mcbdmm(8, NDR, NNLO, NLO_QED22),
-        mcbtaunu(3, NDR, LO),
+        mcbtaunu(4, NDR, LO),
+        mccleptonnu(4, NDR, LO),
         mcDLij(2, NDR, LO),
         mcDLi3j(20, NDR, LO),
         mcmueconv(8, NDR, LO),
@@ -1916,6 +1917,52 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
 }     
 
     
+ 
+ 
+ 
+ 
+ /*******************************************************************************
+ * Wilson coefficients calcoulus, LEFT basis [1709.04486] for (D -> lepton nu) from [1706.00410]                *
+ * ****************************************************************************/
+
+ 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
+{
+    
+    vmccleptonnu.clear();
+    
+    mccleptonnu.setMu(Muw);
+ 
+    switch (mccleptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            switch (meson_i){
+                case QCD::D_P:
+                    mccleptonnu.setCoeff(0, 4.*GF * Vckm(1,0) / sqrt(2.) , LO);
+                break;
+                case QCD::D_S:
+                    mccleptonnu.setCoeff(0, 4.*GF * Vckm(1,1) / sqrt(2.) , LO);
+                break;
+                // We need to include also D_s, for that we need to include that meson in the SM
+                default:
+                throw std::runtime_error("StandardModelMatching::CMcleptonnu(): doesn't include that meson");
+                
+            }
+           
+        break;
+        default:
+            std::stringstream out;
+            out << mccleptonnu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMbtaunu(): order " + out.str() + "not implemented");
+    }
+    
+    vmccleptonnu.push_back(mccleptonnu);
+    return(vmccleptonnu);
+    
+}     
+ 
+ 
 /******************************************************************************/
 
 /*******************************************************************************

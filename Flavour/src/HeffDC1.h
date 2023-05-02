@@ -11,6 +11,7 @@
 class StandardModel;
 class EvolDC1;
 class EvolDC1Buras;
+#include "QCD.h"
 #include "WilsonCoefficient.h"
 #include "gslpp.h"
 #include <sstream>
@@ -43,6 +44,9 @@ public:
      * @return a vector<complex> pointer to pointer method for the evolved Wilson coefficients 
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffDC1_pi(double mu, schemes scheme = NDR);
+    
+    
+
     /**
      * @brief a method returning the evolved Wilson related to \f$ D^{0} \, \rightarrow \, K^{+} \, K^{-} \f$ 
      * @details it returns the Wilson coefficients of the process \f$ D^{0} \, \rightarrow \, K^{+} \, K^{-} \f$
@@ -52,6 +56,16 @@ public:
      * @return a vector<complex> pointer to pointer method for the evolved Wilson coefficients 
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffDC1_K(double mu, schemes scheme = NDR);
+    
+    
+    /**
+     * 
+     * @param scheme
+     * @return short distance contribution to the rare decay \f$ D \rightarrow \lepton \nu \f$
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i);
+
+    
     /**
      *  
      * @return an object of WilsonCoefficient class
@@ -83,7 +97,7 @@ public:
     
 private :
     const StandardModel& model;
-    WilsonCoefficient coeffdc1, coeffdc1g;
+    WilsonCoefficient coeffdc1, coeffdc1g, coeffcleptonnu;
     std::unique_ptr<EvolDC1> ug;
     std::unique_ptr<EvolDC1Buras> u;
     gslpp::matrix<gslpp::complex> ckm, COEFF_pi, COEFF_K;

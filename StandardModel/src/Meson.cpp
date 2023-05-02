@@ -79,6 +79,12 @@ void Meson::ModelParameterMapInsert(std::map< std::string, std::reference_wrappe
         ModelParamMap.insert(std::make_pair("FDP", std::cref(decayconst)));
         return;
     }
+    if (name.compare("D_S") == 0) {
+        ModelParamMap.insert(std::make_pair("MDs", std::cref(mass)));
+        ModelParamMap.insert(std::make_pair("tDs", std::cref(lifetime)));
+        ModelParamMap.insert(std::make_pair("FDs", std::cref(decayconst)));
+        return;
+    }
     if (name.compare("B_D") == 0) {
         ModelParamMap.insert(std::make_pair("MBd", std::cref(mass)));
         ModelParamMap.insert(std::make_pair("tBd", std::cref(lifetime)));
@@ -170,6 +176,7 @@ std::vector<std::string> Meson::parameterList(std::string name_i)
     if (name_i.compare("K_S") == 0) return make_vector<std::string>() << "MK0" << "tKs" << "FK";
     if (name_i.compare("D_0") == 0) return make_vector<std::string>() << "MD"  << "tD"  << "FD";
     if (name_i.compare("D_P") == 0) return make_vector<std::string>() << "MDP"  << "tDP"  << "FDP";
+    if (name_i.compare("D_S") == 0) return make_vector<std::string>() << "MDs"  << "tDs"  << "FDs";
     if (name_i.compare("B_D") == 0) return make_vector<std::string>() << "MBd" << "tBd" << "FBsoFBd" << "lambdaB";
     if (name_i.compare("B_P") == 0) return make_vector<std::string>() << "MBp" << "tBp" << "FBsoFBd" << "lambdaB";
     if (name_i.compare("B_S") == 0) return make_vector<std::string>() << "MBs" << "tBs" << "FBs" << "lambdaB" << "DGs_Gs";
@@ -288,6 +295,20 @@ bool Meson::setParameter(std::string name_i, double value)
             return true;
         }
         if (name_i.compare("FDP") == 0) {
+            decayconst = value;
+            return true;
+        }
+    }
+    if (name.compare("D_S") == 0) {
+        if (name_i.compare("MDs") == 0) {
+            mass = value;
+            return true;
+        }
+        if (name_i.compare("tDs") == 0) {
+            lifetime = value;
+            return true;
+        }
+        if (name_i.compare("FDs") == 0) {
             decayconst = value;
             return true;
         }
