@@ -3230,9 +3230,39 @@ void NPSMEFTd6General::computeQuarkMassesAndCKMFromYukawas()
 
     //Computing the CKM - first with arbitrary phases
     myCKM = (Vu.hconjugate()) * Vd;
+    //CKMUnphys=myCKM
+
+    
     //Compute the CKM matrix in the Standard convention
     myCKM.computeCKM(myCKM.getV_us().abs(),myCKM.getV_cb().abs(),myCKM.getV_ub().abs(),myCKM.computeGamma());
-
+    
+    //We need to get track of the initial phase to rotate the WC
+    //Is there a better way of doing it?
+    //double a11 = (gslpp::complex(CKMUnphys(0, 0) / CKM(0, 0))).arg();
+    //double a12 = (gslpp::complex(CKMUnphys(0, 1) / CKM(0, 1))).arg();
+    //double a13 = (gslpp::complex(CKMUnphys(0, 2) / CKM(0, 2))).arg();
+    //
+    //double a23 = (gslpp::complex(CKMUnphys(1, 0) / CKM(1, 0))).arg() - a11 + a13;
+    //double a33 = (gslpp::complex(CKMUnphys(2, 0) / CKM(2, 0))).arg() - a11 + a13;
+    //
+    //gslpp::matrix<gslpp::complex> phi1(3, 3, 0.);
+    //phi1.assign(0, 0, 1.);
+    //phi1.assign(1, 1, gslpp::complex(1., a23 - a13, true));
+    //phi1.assign(2, 2, gslpp::complex(1., a33 - a13, true));
+    //
+    //gslpp::matrix<gslpp::complex> phi2dag(3, 3, 0.);
+    //phi2dag.assign(0, 0, gslpp::complex(1., - a11, true));
+    //phi2dag.assign(1, 1, gslpp::complex(1., - a12, true));
+    //phi2dag.assign(2, 2, gslpp::complex(1., - a13, true));
+    //
+    //gslpp::matrix<gslpp::complex> phie(3, 3, 0.);
+    //phie.assign(0, 0, gslpp::complex(1., - (Re(0, 0)).arg(), true));
+    //phie.assign(1, 1, gslpp::complex(1., - (Re(1, 1)).arg(), true));
+    //phie.assign(2, 2, gslpp::complex(1., - (Re(2, 2)).arg(), true));
+    
+    
+    
+    
     quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(),muw,Su(0)));
     quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(),muw,Sd(0)));
     quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(),muw,Sd(1)));
@@ -3348,6 +3378,7 @@ bool NPSMEFTd6General::PostUpdate()
     //Now we will define all the WC at the EW scale. Those with flavour indices will be
     //defined as arrays. Some of the operators are not invariant under weak basis transformations,
     //we will conveniently redefine those coefficients using the proper rotation.
+    //Probably it's much better to do these things in an external function
     CG = SMEFTEvol.GetCoefficient("CG");  
     CW = SMEFTEvol.GetCoefficient("CW");  
     CHG = SMEFTEvol.GetCoefficient("CHG");  
@@ -3419,63 +3450,157 @@ bool NPSMEFTd6General::PostUpdate()
     }
     
 
-    std::complex<double> CHuAux[2][2]; 
-    std::memcpy(CHu, CHuAux, sizeof(CHu));
-    std::memset(CHu, 0, sizeof (CHu));
-    std::complex<double> CGuAux[2][2]; 
-    std::memcpy(CGu, CGuAux, sizeof(CGu));
-    std::memset(CGu, 0, sizeof (CGu));
-    std::complex<double> CWuAux[2][2]; 
-    std::memcpy(CWu, CWuAux, sizeof(CWu));
-    std::memset(CWu, 0, sizeof (CWu));
-    std::complex<double> CBuAux[2][2]; 
-    std::memcpy(CBu, CBuAux, sizeof(CBu));
-    std::memset(CBu, 0, sizeof (CBu));
-    
-    std::complex<double> CHdAux[2][2]; 
-    std::memcpy(CHd, CHdAux, sizeof(CHd));
-    std::memset(CHd, 0, sizeof (CHd));
-    std::complex<double> CGdAux[2][2]; 
-    std::memcpy(CGd, CGdAux, sizeof(CGd));
-    std::memset(CGd, 0, sizeof (CGd));
-    std::complex<double> CWdAux[2][2]; 
-    std::memcpy(CWd, CWdAux, sizeof(CWd));
-    std::memset(CWd, 0, sizeof (CWd));
-    std::complex<double> CBdAux[2][2]; 
-    std::memcpy(CBd, CBdAux, sizeof(CBd));
-    std::memset(CBd, 0, sizeof (CBd));
-    
-    std::complex<double> CHeAux[2][2]; 
-    std::memcpy(CHe, CHeAux, sizeof(CHe));
-    std::memset(CHe, 0, sizeof (CHe));
-    std::complex<double> CWeAux[2][2]; 
-    std::memcpy(CWe, CWeAux, sizeof(CWe));
-    std::memset(CWe, 0, sizeof (CWe));
-    std::complex<double> CBeAux[2][2]; 
-    std::memcpy(CBe, CBeAux, sizeof(CBe));
-    std::memset(CBe, 0, sizeof (CBe));
-    
-    std::complex<double> CQuQd1Aux[2][2][2][2]; 
-    std::memcpy(CQuQd1, CQuQd1Aux, sizeof(CQuQd1));
-    std::memset(CQuQd1, 0, sizeof (CQuQd1));
-    std::complex<double> CQuQd8Aux[2][2][2][2]; 
-    std::memcpy(CQuQd8, CQuQd8Aux, sizeof(CQuQd8));
-    std::memset(CQuQd8, 0, sizeof (CQuQd8));
-    
-    std::complex<double> CLeQu1Aux[2][2][2][2]; 
-    std::memcpy(CLeQu1, CLeQu1Aux, sizeof(CLeQu1));
-    std::memset(CLeQu1, 0, sizeof (CLeQu1));
-    std::complex<double> CLeQu3Aux[2][2][2][2]; 
-    std::memcpy(CLeQu3, CLeQu3Aux, sizeof(CLeQu3));
-    std::memset(CLeQu3, 0, sizeof (CLeQu3));
+ std::complex<double> CHL1Aux[2][2];  
+ std::memcpy(CHL1, CHL1Aux, sizeof(CHL1));  
+ std::memset(CHL1, 0, sizeof(CHL1));  
+ std::complex<double> CHL3Aux[2][2];  
+ std::memcpy(CHL3, CHL3Aux, sizeof(CHL3));  
+ std::memset(CHL3, 0, sizeof(CHL3));  
+ std::complex<double> CHeAux[2][2];  
+ std::memcpy(CHe, CHeAux, sizeof(CHe));  
+ std::memset(CHe, 0, sizeof(CHe));  
+ std::complex<double> CHQ1Aux[2][2];  
+ std::memcpy(CHQ1, CHQ1Aux, sizeof(CHQ1));  
+ std::memset(CHQ1, 0, sizeof(CHQ1));  
+ std::complex<double> CHQ3Aux[2][2];  
+ std::memcpy(CHQ3, CHQ3Aux, sizeof(CHQ3));  
+ std::memset(CHQ3, 0, sizeof(CHQ3));  
+ std::complex<double> CHuAux[2][2];  
+ std::memcpy(CHu, CHuAux, sizeof(CHu));  
+ std::memset(CHu, 0, sizeof(CHu));  
+ std::complex<double> CHdAux[2][2];  
+ std::memcpy(CHd, CHdAux, sizeof(CHd));  
+ std::memset(CHd, 0, sizeof(CHd));  
+ std::complex<double> CHudAux[2][2];  
+ std::memcpy(CHud, CHudAux, sizeof(CHud));  
+ std::memset(CHud, 0, sizeof(CHud));  
+ std::complex<double> CeHAux[2][2];  
+ std::memcpy(CeH, CeHAux, sizeof(CeH));  
+ std::memset(CeH, 0, sizeof(CeH));  
+ std::complex<double> CuHAux[2][2];  
+ std::memcpy(CuH, CuHAux, sizeof(CuH));  
+ std::memset(CuH, 0, sizeof(CuH));  
+ std::complex<double> CdHAux[2][2];  
+ std::memcpy(CdH, CdHAux, sizeof(CdH));  
+ std::memset(CdH, 0, sizeof(CdH));  
+ std::complex<double> CuGAux[2][2];  
+ std::memcpy(CuG, CuGAux, sizeof(CuG));  
+ std::memset(CuG, 0, sizeof(CuG));  
+ std::complex<double> CuWAux[2][2];  
+ std::memcpy(CuW, CuWAux, sizeof(CuW));  
+ std::memset(CuW, 0, sizeof(CuW));  
+ std::complex<double> CuBAux[2][2];  
+ std::memcpy(CuB, CuBAux, sizeof(CuB));  
+ std::memset(CuB, 0, sizeof(CuB));  
+ std::complex<double> CdGAux[2][2];  
+ std::memcpy(CdG, CdGAux, sizeof(CdG));  
+ std::memset(CdG, 0, sizeof(CdG));  
+ std::complex<double> CdWAux[2][2];  
+ std::memcpy(CdW, CdWAux, sizeof(CdW));  
+ std::memset(CdW, 0, sizeof(CdW));  
+ std::complex<double> CdBAux[2][2];  
+ std::memcpy(CdB, CdBAux, sizeof(CdB));  
+ std::memset(CdB, 0, sizeof(CdB));  
+ std::complex<double> CeWAux[2][2];  
+ std::memcpy(CeW, CeWAux, sizeof(CeW));  
+ std::memset(CeW, 0, sizeof(CeW));  
+ std::complex<double> CeBAux[2][2];  
+ std::memcpy(CeB, CeBAux, sizeof(CeB));  
+ std::memset(CeB, 0, sizeof(CeB));  
+ std::complex<double> CLLAux[2][2][2][2];  
+ std::memcpy(CLL, CLLAux, sizeof(CLL));  
+ std::memset(CLL, 0, sizeof(CLL));  
+ std::complex<double> CLQ1Aux[2][2][2][2];  
+ std::memcpy(CLQ1, CLQ1Aux, sizeof(CLQ1));  
+ std::memset(CLQ1, 0, sizeof(CLQ1));  
+ std::complex<double> CLQ3Aux[2][2][2][2];  
+ std::memcpy(CLQ3, CLQ3Aux, sizeof(CLQ3));  
+ std::memset(CLQ3, 0, sizeof(CLQ3));  
+ std::complex<double> CeeAux[2][2][2][2];  
+ std::memcpy(Cee, CeeAux, sizeof(Cee));  
+ std::memset(Cee, 0, sizeof(Cee));  
+ std::complex<double> CeuAux[2][2][2][2];  
+ std::memcpy(Ceu, CeuAux, sizeof(Ceu));  
+ std::memset(Ceu, 0, sizeof(Ceu));  
+ std::complex<double> CedAux[2][2][2][2];  
+ std::memcpy(Ced, CedAux, sizeof(Ced));  
+ std::memset(Ced, 0, sizeof(Ced));  
+ std::complex<double> CLeAux[2][2][2][2];  
+ std::memcpy(CLe, CLeAux, sizeof(CLe));  
+ std::memset(CLe, 0, sizeof(CLe));  
+ std::complex<double> CLuAux[2][2][2][2];  
+ std::memcpy(CLu, CLuAux, sizeof(CLu));  
+ std::memset(CLu, 0, sizeof(CLu));  
+ std::complex<double> CLdAux[2][2][2][2];  
+ std::memcpy(CLd, CLdAux, sizeof(CLd));  
+ std::memset(CLd, 0, sizeof(CLd));  
+ std::complex<double> CQeAux[2][2][2][2];  
+ std::memcpy(CQe, CQeAux, sizeof(CQe));  
+ std::memset(CQe, 0, sizeof(CQe));  
+ std::complex<double> CLedQAux[2][2][2][2];  
+ std::memcpy(CLedQ, CLedQAux, sizeof(CLedQ));  
+ std::memset(CLedQ, 0, sizeof(CLedQ));  
+ std::complex<double> CQQ1Aux[2][2][2][2];  
+ std::memcpy(CQQ1, CQQ1Aux, sizeof(CQQ1));  
+ std::memset(CQQ1, 0, sizeof(CQQ1));  
+ std::complex<double> CQQ3Aux[2][2][2][2];  
+ std::memcpy(CQQ3, CQQ3Aux, sizeof(CQQ3));  
+ std::memset(CQQ3, 0, sizeof(CQQ3));  
+ std::complex<double> CuuAux[2][2][2][2];  
+ std::memcpy(Cuu, CuuAux, sizeof(Cuu));  
+ std::memset(Cuu, 0, sizeof(Cuu));  
+ std::complex<double> CddAux[2][2][2][2];  
+ std::memcpy(Cdd, CddAux, sizeof(Cdd));  
+ std::memset(Cdd, 0, sizeof(Cdd));  
+ std::complex<double> Cud1Aux[2][2][2][2];  
+ std::memcpy(Cud1, Cud1Aux, sizeof(Cud1));  
+ std::memset(Cud1, 0, sizeof(Cud1));  
+ std::complex<double> Cud8Aux[2][2][2][2];  
+ std::memcpy(Cud8, Cud8Aux, sizeof(Cud8));  
+ std::memset(Cud8, 0, sizeof(Cud8));  
+ std::complex<double> CQu1Aux[2][2][2][2];  
+ std::memcpy(CQu1, CQu1Aux, sizeof(CQu1));  
+ std::memset(CQu1, 0, sizeof(CQu1));  
+ std::complex<double> CQu8Aux[2][2][2][2];  
+ std::memcpy(CQu8, CQu8Aux, sizeof(CQu8));  
+ std::memset(CQu8, 0, sizeof(CQu8));  
+ std::complex<double> CQd1Aux[2][2][2][2];  
+ std::memcpy(CQd1, CQd1Aux, sizeof(CQd1));  
+ std::memset(CQd1, 0, sizeof(CQd1));  
+ std::complex<double> CQd8Aux[2][2][2][2];  
+ std::memcpy(CQd8, CQd8Aux, sizeof(CQd8));  
+ std::memset(CQd8, 0, sizeof(CQd8));  
+ std::complex<double> CQuQd1Aux[2][2][2][2];  
+ std::memcpy(CQuQd1, CQuQd1Aux, sizeof(CQuQd1));  
+ std::memset(CQuQd1, 0, sizeof(CQuQd1));  
+ std::complex<double> CQuQd8Aux[2][2][2][2];  
+ std::memcpy(CQuQd8, CQuQd8Aux, sizeof(CQuQd8));  
+ std::memset(CQuQd8, 0, sizeof(CQuQd8));  
+ std::complex<double> CLeQu1Aux[2][2][2][2];  
+ std::memcpy(CLeQu1, CLeQu1Aux, sizeof(CLeQu1));  
+ std::memset(CLeQu1, 0, sizeof(CLeQu1));  
+ std::complex<double> CLeQu3Aux[2][2][2][2];  
+ std::memcpy(CLeQu3, CLeQu3Aux, sizeof(CLeQu3));  
+ std::memset(CLeQu3, 0, sizeof(CLeQu3));  
+
+
+
+
     
     
     
     gslpp::matrix<gslpp::complex> Vq(3, 3, 0.);
-    
+    //Ue=Ue*phie;//We need to add the phase of the CKM
+    //Ve=Ve*phie;//We need to add the phase of the CKM
+    //Uu=Uu*phi1;//We need to add the phase of the original CKM
+    //Ud=Ud*phi2dag;//We need to add the phase of the original CKM
     if(SMEFTBasisFlag.compare("UP")==0)
+
+        //Vq=Vu*phi1;//We need to add the phase of the original CKM
         Vq=Vu;
     else if(SMEFTBasisFlag.compare("DOWN")==0)
+        
+        //Vq=Vd*phi2dag;//We need to add the phase of the original CKM
         Vq=Vd;
     else
         throw std::runtime_error("ERROR: inappropriate value of SMEFTBasisFlag");
@@ -3486,19 +3611,28 @@ bool NPSMEFTd6General::PostUpdate()
             
             for (int p = 0; p < 3; p++) {
             for (int r = 0; r < 3; r++) {
-                CHu[i][j]+=CHuAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);
-                CGu[i][j]+=CGuAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);
-                CWu[i][j]+=CWuAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);
-                CBu[i][j]+=CBuAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);
-                
-                CHd[i][j]+=CHdAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);
-                CGd[i][j]+=CGdAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);
-                CWd[i][j]+=CWdAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);
-                CBd[i][j]+=CBdAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);
-                
-                CHe[i][j]+=CHeAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);
-                CWe[i][j]+=CWeAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);
-                CBe[i][j]+=CBeAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);
+                CHL1[i][j]+=CHL1Aux[p][r]*Ve(p,i).conjugate()*Ve(r,j);  
+                CHL3[i][j]+=CHL3Aux[p][r]*Ve(p,i).conjugate()*Ve(r,j);  
+                CHe[i][j]+=CHeAux[p][r]*Ue(p,i).conjugate()*Ue(r,j);  
+                CHQ1[i][j]+=CHQ1Aux[p][r]*Vq(p,i).conjugate()*Vq(r,j);  
+                CHQ3[i][j]+=CHQ3Aux[p][r]*Vq(p,i).conjugate()*Vq(r,j);  
+                CHu[i][j]+=CHuAux[p][r]*Uu(p,i).conjugate()*Uu(r,j);  
+                CHd[i][j]+=CHdAux[p][r]*Ud(p,i).conjugate()*Ud(r,j);  
+                CHud[i][j]+=CHudAux[p][r]*Uu(p,i).conjugate()*Ud(r,j);  
+
+                CeH[i][j]+=CeHAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);  
+                CuH[i][j]+=CuHAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);  
+                CdH[i][j]+=CdHAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);  
+
+                CuG[i][j]+=CuGAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);  
+                CuW[i][j]+=CuWAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);  
+                CuB[i][j]+=CuBAux[p][r]*Vq(p,i).conjugate()*Uu(r,j);  
+                CdG[i][j]+=CdGAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);  
+                CdW[i][j]+=CdWAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);  
+                CdB[i][j]+=CdBAux[p][r]*Vq(p,i).conjugate()*Ud(r,j);  
+                CeW[i][j]+=CeWAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);  
+                CeB[i][j]+=CeBAux[p][r]*Ve(p,i).conjugate()*Ue(r,j);  
+
                 
             }
             }
@@ -3510,11 +3644,37 @@ bool NPSMEFTd6General::PostUpdate()
                     for (int r = 0; r < 3; r++) {
                     for (int s = 0; s < 3; s++) {
                     for (int t = 0; t < 3; t++) {
-                        CQuQd1[i][j][k][l]+=CQuQd1Aux[p][r][s][t]*Vq(p,i).conjugate()*Uu(r,j)*Vq(s,k).conjugate()*Ud(t,l);
-                        CQuQd8[i][j][k][l]+=CQuQd8Aux[p][r][s][t]*Vq(p,i).conjugate()*Uu(r,j)*Vq(s,k).conjugate()*Ud(t,l);
+
                         
-                        CLeQu1[i][j][k][l]+=CLeQu1Aux[p][r][s][t]*Ve(p,i).conjugate()*Ue(r,j)*Vq(s,k).conjugate()*Uu(t,l);
-                        CLeQu3[i][j][k][l]+=CLeQu3Aux[p][r][s][t]*Ve(p,i).conjugate()*Ue(r,j)*Vq(s,k).conjugate()*Uu(t,l);
+                        CLL[i][j][k][l]+=CLLAux[p][r]*Ve(p,i).conjugate()*Ve(r,j)*Ve(s,k).conjugate()*Ve(t,l);  
+                        CLQ1[i][j][k][l]+=CLQ1Aux[p][r]*Ve(p,i).conjugate()*Ve(r,j)*Vq(s,k).conjugate()*Vq(t,l);  
+                        CLQ3[i][j][k][l]+=CLQ3Aux[p][r]*Ve(p,i).conjugate()*Ve(r,j)*Vq(s,k).conjugate()*Vq(t,l);  
+                    
+                        Cee[i][j][k][l]+=CeeAux[p][r]*Ue(p,i).conjugate()*Ue(r,j)*Ue(s,k).conjugate()*Ue(t,l);  
+                        Ceu[i][j][k][l]+=CeuAux[p][r]*Ue(p,i).conjugate()*Ue(r,j)*Uu(s,k).conjugate()*Uu(t,l);  
+                        Ced[i][j][k][l]+=CedAux[p][r]*Ue(p,i).conjugate()*Ue(r,j)*Ud(s,k).conjugate()*Ud(t,l);  
+                    
+                        CLe[i][j][k][l]+=CLeAux[p][r]*Ve(p,i).conjugate()*Ve(r,j)*Ue(s,k).conjugate()*Ue(t,l);  
+                        CLu[i][j][k][l]+=CLuAux[p][r]*Ve(p,i).conjugate()*Ve(r,j)*Uu(s,k).conjugate()*Uu(t,l);  
+                        CLd[i][j][k][l]+=CLdAux[p][r]*Ve(p,i).conjugate()*Ve(r,j)*Ud(s,k).conjugate()*Ud(t,l);  
+                        CQe[i][j][k][l]+=CQeAux[p][r]*Vq(p,i).conjugate()*Vq(r,j)*Ue(s,k).conjugate()*Ue(t,l);  
+                    
+                        CLedQ[i][j][k][l]+=CLedQAux[p][r]*Ve(p,i).conjugate()*Ue(r,j)*Ud(s,k).conjugate()*Vq(t,l);  
+                    
+                        CQQ1[i][j][k][l]+=CQQ1Aux[p][r]*Vq(p,i).conjugate()*Vq(r,j)*Vq(s,k).conjugate()*Vq(t,l);  
+                        CQQ3[i][j][k][l]+=CQQ3Aux[p][r]*Vq(p,i).conjugate()*Vq(r,j)*Vq(s,k).conjugate()*Vq(t,l);  
+                        Cuu[i][j][k][l]+=CuuAux[p][r]*Uu(p,i).conjugate()*Uu(r,j)*Uu(s,k).conjugate()*Uu(t,l);  
+                        Cdd[i][j][k][l]+=CddAux[p][r]*Ud(p,i).conjugate()*Ud(r,j)*Ud(s,k).conjugate()*Ud(t,l);  
+                        Cud1[i][j][k][l]+=Cud1Aux[p][r]*Uu(p,i).conjugate()*Uu(r,j)*Ud(s,k).conjugate()*Ud(t,l);  
+                        Cud8[i][j][k][l]+=Cud8Aux[p][r]*Uu(p,i).conjugate()*Uu(r,j)*Ud(s,k).conjugate()*Ud(t,l);  
+                        CQu1[i][j][k][l]+=CQu1Aux[p][r]*Vq(p,i).conjugate()*Vq(r,j)*Uu(s,k).conjugate()*Uu(t,l);  
+                        CQu8[i][j][k][l]+=CQu8Aux[p][r]*Vq(p,i).conjugate()*Vq(r,j)*Uu(s,k).conjugate()*Uu(t,l);  
+                        CQd1[i][j][k][l]+=CQd1Aux[p][r]*Vq(p,i).conjugate()*Vq(r,j)*Ud(s,k).conjugate()*Ud(t,l);  
+                        CQd8[i][j][k][l]+=CQd8Aux[p][r]*Vq(p,i).conjugate()*Vq(r,j)*Ud(s,k).conjugate()*Ud(t,l);  
+                        CQuQd1[i][j][k][l]+=CQuQd1Aux[p][r]*Vq(p,i).conjugate()*Uu(r,j)*Vq(s,k).conjugate()*Ud(t,l);  
+                        CQuQd8[i][j][k][l]+=CQuQd8Aux[p][r]*Vq(p,i).conjugate()*Uu(r,j)*Vq(s,k).conjugate()*Ud(t,l);  
+                        CLeQu1[i][j][k][l]+=CLeQu1Aux[p][r]*Ve(p,i).conjugate()*Ue(r,j)*Vq(s,k).conjugate()*Uu(t,l);  
+                        CLeQu3[i][j][k][l]+=CLeQu3Aux[p][r]*Ve(p,i).conjugate()*Ue(r,j)*Vq(s,k).conjugate()*Uu(t,l); 
                     }
                     }    
                     }
