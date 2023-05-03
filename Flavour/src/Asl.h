@@ -10,8 +10,6 @@
 #include "ThObservable.h"
 #include "AmpDB2.h"
 
-#include "gslpp.h"
-
 
 class Asl_d : public ThObservable, AmpDB2{
 public:
@@ -43,6 +41,78 @@ public:
      * @brief Destructor.
      */
     virtual ~Asl_s();
+    
+    double computeThValue();
+
+    private:
+};
+
+class Asl_d_NLO : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_d_NLO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_d_NLO();
+    
+    double computeThValue ();
+
+    private:
+};
+
+class Asl_s_NLO : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_NLO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_NLO();
+    
+    double computeThValue();
+
+    private:
+};
+
+class Asl_d_NLO1 : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_d_NLO1(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_d_NLO1();
+    
+    double computeThValue ();
+
+    private:
+};
+
+class Asl_s_NLO1 : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_NLO1(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_NLO1();
     
     double computeThValue();
 

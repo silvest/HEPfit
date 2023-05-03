@@ -3926,8 +3926,16 @@ ThObsFactory::ThObsFactory()
     //-----  Flavour observables  -----
     obsThFactory["Asl_d"] = boost::factory<Asl_d*>();
     obsThFactory["Asl_s"] = boost::factory<Asl_s*>();
+    obsThFactory["Asl_d_NLO"] = boost::factory<Asl_d_NLO*>();
+    obsThFactory["Asl_s_NLO"] = boost::factory<Asl_s_NLO*>();
+    obsThFactory["Asl_d_NLO1"] = boost::factory<Asl_d_NLO1*>();
+    obsThFactory["Asl_s_NLO1"] = boost::factory<Asl_s_NLO1*>();
     obsThFactory["DGamma_d"] = boost::factory<DGamma_d*>();
     obsThFactory["DGamma_s"] = boost::factory<DGamma_s*>();
+    obsThFactory["DGamma_d_NLO"] = boost::factory<DGamma_d_NLO*>();
+    obsThFactory["DGamma_s_NLO"] = boost::factory<DGamma_s_NLO*>();
+    obsThFactory["DGamma_d_NLO1"] = boost::factory<DGamma_d_NLO1*>();
+    obsThFactory["DGamma_s_NLO1"] = boost::factory<DGamma_s_NLO1*>();
     //----- DF = 2  -----
     obsThFactory["DmBd"] = boost::factory<DmBd*>();
     obsThFactory["DmBs"] = boost::factory<DmBs*>();

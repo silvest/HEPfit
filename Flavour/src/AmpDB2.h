@@ -66,7 +66,7 @@ public:
     * @return @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$
     */
     gslpp::complex getGamma12oM12_Bd(orders order){
-        return Gamma12oM12_Bd(order);
+        return Gamma12overM12_Bd(order);
     }
 
     /**
@@ -75,16 +75,19 @@ public:
     * @return @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$
     */
     gslpp::complex getGamma12oM12_Bs(orders order){
-        return Gamma12oM12_Bs(order);
+        return Gamma12overM12_Bs(order);
     }
     
-    double getAsl_d(orders order){
-        return Asl_d(order);
-    }
+    gslpp::complex Gamma12overM12_BdFULLNLO1();
+    gslpp::complex Gamma12overM12_BsFULLNLO1();
     
-    double getAsl_s(orders order){
-        return Asl_s(order);
-    }
+//    double getAsl_d(orders order){
+//        return Asl_d(order);
+//    }
+//    
+//    double getAsl_s(orders order){
+//        return Asl_s(order);
+//    }
 
     gslpp::complex getPBd(){
         return PBd();
@@ -114,7 +117,7 @@ protected:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$
     */
-    gslpp::complex Gamma12oM12_Bd(orders order);
+    gslpp::complex Gamma12overM12_Bd(orders order);
     
 
     /**
@@ -122,7 +125,7 @@ protected:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$
     */
-    gslpp::complex Gamma12oM12_Bs(orders order);
+    gslpp::complex Gamma12overM12_Bs(orders order);
     
     
     /**
@@ -273,6 +276,27 @@ private:
     double S_0;
     
     gslpp::complex kappa;
+    
+    //NNLO
+    void computeWilsonCoeffsMisiak();
+    gslpp::complex Gamma12overM12_Bd_NNLO();
+    void compute_pp_s();
+    int index_p(quarks qq, int i, int j, int n);
+    double cache_p[576];
+    double cache_ps[576];
+    gslpp::complex H();
+    gslpp::complex H_s();
+    gslpp::complex H(quarks qq);
+    gslpp::complex H_s(quarks qq);
+    double p(quarks qq, int i, int j);
+    double p_s(quarks qq, int i, int j);
+    double p(quarks qq, int i, int j, int n);
+    double p_s(quarks qq, int i, int j, int n);
+    gslpp::complex lambda_c;
+    gslpp::complex lambda_u;
+    //for checking cache;
+    double z_old, mu_1_old, mu_2_old = 0.;
+    const double M_PI4 = M_PI2 * M_PI2;
 };
 
 /**

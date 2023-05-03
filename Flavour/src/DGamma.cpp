@@ -11,6 +11,7 @@
 #include "AmpDB2.h"
 #include "std_make_vector.h"
 
+
 DGamma_d::DGamma_d(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i) {
     setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
@@ -20,7 +21,7 @@ DGamma_d::~DGamma_d() {
 }
 
 double DGamma_d::computeThValue() {
-    return -Gamma12oM12_Bd(FULLNLO).real() * SM.getOptionalParameter("DmBd_ex");
+    return -Gamma12overM12_Bd(FULLNNLO).real() * SM.getOptionalParameter("DmBd_ex");
 }
 
 DGamma_s::DGamma_s(const StandardModel& SM_i)
@@ -32,6 +33,53 @@ DGamma_s::~DGamma_s() {
 }
 
 double DGamma_s::computeThValue() {
-    return -Gamma12oM12_Bs(FULLNLO).real() * SM.getOptionalParameter("DmBs_ex");
+    return -Gamma12overM12_Bs(FULLNLO).real() * SM.getOptionalParameter("DmBs_ex");
 }
 
+DGamma_d_NLO::DGamma_d_NLO(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i) {
+    setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
+}
+
+DGamma_d_NLO::~DGamma_d_NLO() {
+}
+
+double DGamma_d_NLO::computeThValue() {
+    return -Gamma12overM12_Bd(FULLNLO).real() * SM.getOptionalParameter("DmBd_ex");
+}
+
+DGamma_s_NLO::DGamma_s_NLO(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i) {
+    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+}
+
+DGamma_s_NLO::~DGamma_s_NLO() {
+}
+
+double DGamma_s_NLO::computeThValue() {
+    return -Gamma12overM12_Bs(FULLNLO).real() * SM.getOptionalParameter("DmBs_ex");
+}
+
+DGamma_d_NLO1::DGamma_d_NLO1(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i) {
+    setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
+}
+
+DGamma_d_NLO1::~DGamma_d_NLO1() {
+}
+
+double DGamma_d_NLO1::computeThValue() {
+    return -Gamma12overM12_BdFULLNLO1().real() * SM.getOptionalParameter("DmBd_ex");
+}
+
+DGamma_s_NLO1::DGamma_s_NLO1(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i) {
+    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+}
+
+DGamma_s_NLO1::~DGamma_s_NLO1() {
+}
+
+double DGamma_s_NLO1::computeThValue() {
+    return -Gamma12overM12_BsFULLNLO1().real() * SM.getOptionalParameter("DmBs_ex");
+}

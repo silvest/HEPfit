@@ -634,9 +634,11 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
     K12 = K_1 + K_2;
 }
 
-gslpp::complex AmpDB2::Gamma12oM12_Bd(orders order) {
+gslpp::complex AmpDB2::Gamma12overM12_Bd(orders order) {
     //hep-ph/0308029v2
     std::cout.precision(4);
+    std::cout << mySM.getFlavour().getHDF2().getCoeffBd().getOrder() << " " << order % 3 << "\n" ;
+    if (order == FULLNNLO) return Gamma12overM12_Bd_NNLO();
     if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bd(): order not implemented");
     if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
@@ -681,7 +683,7 @@ gslpp::complex AmpDB2::Gamma12oM12_Bd(orders order) {
 }
 
 
-gslpp::complex AmpDB2::Gamma12oM12_Bs(orders order) {
+gslpp::complex AmpDB2::Gamma12overM12_Bs(orders order) {
     //hep-ph/0308029v2
     std::cout.precision(4);
     if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bs(): order not implemented");  
@@ -772,37 +774,554 @@ gslpp::complex AmpDB2::C(int i){
     return cacheC[i - 1];
 }
 
-double AmpDB2::Asl_d(orders order) {
+//double AmpDB2::Asl_d(orders order) {
+//    computeCKMandMasses();
+//    computeWilsonCoeffs();
+//
+//    //mySM.getBBd().setFlagCsi(true);
+//    //std::cout << "getBpars() " << mySM.getBBd().getBpars() << "\n";
+//    B1 = mySM.getBBd().getBpars()(0);
+//    B2 = mySM.getBBd().getBpars()(1);
+//    B_sprime = MB2 / ((Mb + Md)*(Mb + Md)) * B2;
+//
+//    eta_B = 0.55;
+//    eta_Bb = eta_B * pow(mySM.Als(Mb), -6. / 23.) * (1. + mySM.Als(Mb) / (4. * M_PI) * 5165. / 3174.);
+//    S_0 = StandardModelMatching(mySM).S0(Mt2 / MW2, Mt2 / MW2);
+//    //std::cout << "eta_bar*S0" << eta_Bb*S_0 << "\n";
+//
+//    kappa = 4. * M_PI * Mb2 / MW2 * K12 / (eta_Bb * S_0) * z;
+//
+//    //StandardModel CP asymmetry in semileptonic B decay from hep-ph/0202010v2
+//    return (-kappa * etab / ((1. - rhob) * (1. - rhob) + etab * etab)
+//            *
+//            (
+//            1. + z * (5. / 4. * B_sprime / B1 * (K_2 - K_1) / K12 - K_2 / K12)
+//            + z * z * (K_2 - K_1) / K12 * (1. / 3. - 5. / 6. * B_sprime / B1)
+//            + 2. * z * z * (1. - etab) / ((1. - rhob) * (1. - rhob) + etab * etab) * (K_2 - K_1) / K12 * (5. / 2. * B_sprime / B1 - 1.)
+//            + z * (7. * K_1 + 3 * K_2) / (2. * K12 * B1) * (MB2 - Mb2) / Mb2
+//            + (K_1prime + K_2prime - K_3prime) / K12
+//            )
+//            ).real();
+//}
+//
+//double AmpDB2::Asl_s(orders order) {
+//    return 0;
+//}
+
+gslpp::complex AmpDB2::Gamma12overM12_BdFULLNLO1(){
+    return 0.;
+}
+gslpp::complex AmpDB2::Gamma12overM12_BsFULLNLO1(){
+    return 0.;
+}
+
+void AmpDB2::computeWilsonCoeffsMisiak(){
+    gslpp::vector<gslpp::complex> ** WilsonCoeffsMisiak = mySM.getFlavour().ComputeCoeffsgamma(mu_1);
+    for (int i = 0; i < 6; i++) {
+        cacheC[i] = (*(WilsonCoeffsMisiak[LO]))(i) + (*(WilsonCoeffsMisiak[NLO]))(i) + (*(WilsonCoeffsMisiak[NNLO]))(i);
+    }
+    C_8G = (*(WilsonCoeffsMisiak[LO]))(7) + (*(WilsonCoeffsMisiak[NLO]))(7) + (*(WilsonCoeffsMisiak[NNLO]))(7);
+
+    for(int i=0; i<=7; i++){
+        if(i==6) i++;
+        std::cout << "C_" << i << " "
+                << (*(WilsonCoeffsMisiak[LO]))(i).gslpp::complex::real() << " "
+                << (*(WilsonCoeffsMisiak[NLO]))(i).gslpp::complex::real() << " "
+                << (*(WilsonCoeffsMisiak[NNLO]))(i).gslpp::complex::real() << "\n";       
+    }
+    std::cout << "--------\n" ;
+    K_1 = 3. * C(1) * C(1) + 2. * C(1) * C(2);
+    K_2 = C(2) * C(2);
+    K12 = K_1 + K_2;
+}
+
+//Marvin Gerlach 2022, Meson width differences and asymmetries 
+gslpp::complex AmpDB2::Gamma12overM12_Bd_NNLO(){
+    mu_1 = mySM.getMub();
+    computeWilsonCoeffsMisiak();
+    lambda_c = mySM.getCKM().getV_cd().conjugate() * mySM.getCKM().getV_cb(); //lambda_c = mySM.getCKM().getV_cs().conjugate() * mySM.getCKM().getV_cb();
+    lambda_u = mySM.getCKM().getV_ud().conjugate() * mySM.getCKM().getV_ub(); //lambda_u = mySM.getCKM().getV_us().conjugate() * mySM.getCKM().getV_ub();
+    Gf2 = mySM.getGF() * mySM.getGF();
+
+    
+
+    Ms = mySM.getQuarks(QCD::STRANGE).getMass();
+    Mc = mySM.Mrun(mySM.getBBd().getMu(),
+            mySM.getQuarks(QCD::CHARM).getMass_scale(),
+            mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);    
+    Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    Mb2 = Mb * Mb;
+    z = Mc * Mc / Mb2;
+    mu_2 = Mb;
+    as_4pi = mySM.Alstilde5(mu_1);
+    //MB
+    //MB_s
+    auto t2 = std::chrono::high_resolution_clock::now();
+    compute_pp_s();
+    auto t3 = std::chrono::high_resolution_clock::now();
+
+    //if (z==z_old)
+    
+    //get M12 without matrix element
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd( //gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
+            mySM.getBBd().getMu(),
+            mySM.getBBd().getScheme());
+    gslpp::complex M12overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+    
+    //MB, me
     computeCKMandMasses();
-    computeWilsonCoeffs();
-
-    //mySM.getBBd().setFlagCsi(true);
-    //std::cout << "getBpars() " << mySM.getBBd().getBpars() << "\n";
-    B1 = mySM.getBBd().getBpars()(0);
-    B2 = mySM.getBBd().getBpars()(1);
-    B_sprime = MB2 / ((Mb + Md)*(Mb + Md)) * B2;
-
-    eta_B = 0.55;
-    eta_Bb = eta_B * pow(mySM.Als(Mb), -6. / 23.) * (1. + mySM.Als(Mb) / (4. * M_PI) * 5165. / 3174.);
-    S_0 = StandardModelMatching(mySM).S0(Mt2 / MW2, Mt2 / MW2);
-    //std::cout << "eta_bar*S0" << eta_Bb*S_0 << "\n";
-
-    kappa = 4. * M_PI * Mb2 / MW2 * K12 / (eta_Bb * S_0) * z;
-
-    //StandardModel CP asymmetry in semileptonic B decay from hep-ph/0202010v2
-    return (-kappa * etab / ((1. - rhob) * (1. - rhob) + etab * etab)
-            *
-            (
-            1. + z * (5. / 4. * B_sprime / B1 * (K_2 - K_1) / K12 - K_2 / K12)
-            + z * z * (K_2 - K_1) / K12 * (1. / 3. - 5. / 6. * B_sprime / B1)
-            + 2. * z * z * (1. - etab) / ((1. - rhob) * (1. - rhob) + etab * etab) * (K_2 - K_1) / K12 * (5. / 2. * B_sprime / B1 - 1.)
-            + z * (7. * K_1 + 3 * K_2) / (2. * K12 * B1) * (MB2 - Mb2) / Mb2
-            + (K_1prime + K_2prime - K_3prime) / K12
-            )
-            ).real();
+    compute_matrixelements(d); //compute_matrixelements(s);
+    compute_deltas_1overm(d); //compute_deltas_1overm(s);
+    
+   //equation (6.1)
+    gslpp::complex Gamma12overM12_Bd = Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *  //gslpp::complex Gamma12overM12_Bs = Gf2 * Mb2 / (24 * M_PI * MB_s) / M12overme0 *
+            (H() + H_s() * me(1)/me(0) + delta_1overm(d)/me(0));                    //        (H() + H_s() * me(1)/me(0) + delta_1overm(s)/me(0));
+    //z_old=z;
+    std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
+    return Gamma12overM12_Bd;        
 }
 
-double AmpDB2::Asl_s(orders order) {
-    return 0;
+//equation (6.2)
+gslpp::complex AmpDB2::H(){
+    return -lambda_c*lambda_c * H(cc) - 2. * lambda_c*lambda_u * H(cu) - lambda_u*lambda_u * H(uu);
+}
+gslpp::complex AmpDB2::H_s(){
+        return -lambda_c*lambda_c * H_s(cc) - 2. * lambda_c*lambda_u * H_s(cu) - lambda_u*lambda_u * H_s(uu);
 }
 
+//equation (6.4)
+gslpp::complex AmpDB2::H(quarks qq){
+    gslpp::complex result = 0.;
+    for (int i=1; i<=8; i++){
+        if (i==7) i++;
+        for (int j=i; j<=8; j++){
+            if(j==7) j++;
+            result += C(i) * C(j) * p(qq, i, j);
+        }
+    }
+    return result;
+}
+gslpp::complex AmpDB2::H_s(quarks qq){
+    gslpp::complex result = 0.;
+    for (int i=1; i<=8; i++){
+        if (i==7) i++;
+        for (int j=i; j<=8; j++){
+            if(j==7) j++;
+            result += C(i) * C(j) * p_s(qq, i, j);
+        }
+    }
+    return result;
+}
+
+//equation (6.5)
+double AmpDB2::p(quarks qq, int i, int j){
+    return p(qq, i, j, 0) + 
+            as_4pi * p(qq, i, j, 1) +
+            as_4pi * as_4pi * p(qq, i, j, 2);
+            //+ as_4pi * as_4pi * as_4pi * p(qq, i, j, 3);
+}
+double AmpDB2::p_s(quarks qq, int i, int j){
+    return p_s(qq, i, j, 0) + 
+            as_4pi * p_s(qq, i, j, 1) +
+            as_4pi * as_4pi * p_s(qq, i, j, 2);
+            //+ as_4pi * as_4pi * as_4pi * p_s(qq, i, j, 3);
+}
+
+double AmpDB2::p(quarks qq, int i, int j, int n){
+    return cache_p[index_p(qq, i, j, n)];
+}
+double AmpDB2::p_s(quarks qq, int i, int j, int n){
+    return cache_ps[index_p(qq, i, j, n)];    
+}
+
+int AmpDB2::index_p(quarks qq, int i, int j, int n){
+    return n * 192 + qq * 64 + (i - 1) * 8 + (j - 1);
+}
+
+
+void AmpDB2::compute_pp_s(){
+    //input didn't change nothing to compute
+    if (z == z_old and mu_1 == mu_1_old and mu_2 == mu_2_old) return;
+    
+    //remember value of z after setting it to 0 for calculation of uu coefficients
+    double cache_z = z;
+    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {    
+        //equation (6.6)
+        cache_p[index_p(qq, 1, 1, 0)]= 23./72. - 11./6. * z;
+        cache_p[index_p(qq, 1, 2, 0)]= 1./6. - 2. * z;
+        cache_p[index_p(qq, 2, 2, 0)]= 1. - 3. * z;
+        cache_ps[index_p(qq, 1, 1, 0)]= -5./9.;
+        cache_ps[index_p(qq, 1, 2, 0)]= -4./3.;
+        cache_ps[index_p(qq, 2, 2, 0)]= 1.;
+
+        //equation (6.7)
+        cache_p[index_p(qq, 1, 3, 0)]= 4./3.;
+        cache_p[index_p(qq, 1, 4, 0)]= -5./36.;
+        cache_p[index_p(qq, 1, 5, 0)]= 64./3. - 96. * z;
+        cache_p[index_p(qq, 1, 6, 0)]= 4. * z - 20./9.;
+        cache_p[index_p(qq, 2, 3, 0)]= 1.;
+        cache_p[index_p(qq, 2, 4, 0)]= 5./6.;
+        cache_p[index_p(qq, 2, 5, 0)]= 16. - 72. * z;
+        cache_p[index_p(qq, 2, 6, 0)]= 40./3. - 24. * z;
+
+        cache_ps[index_p(qq, 1, 3, 0)]= -8./3.;
+        cache_ps[index_p(qq, 1, 4, 0)]= -2./9.;
+        cache_ps[index_p(qq, 1, 5, 0)]= -128./3.;
+        cache_ps[index_p(qq, 1, 6, 0)]= -32./9.;
+        cache_ps[index_p(qq, 2, 3, 0)]= -2.;
+        cache_ps[index_p(qq, 2, 4, 0)]= 4./3.;
+        cache_ps[index_p(qq, 2, 5, 0)]= -32.;
+        cache_ps[index_p(qq, 2, 6, 0)]= 64./3.;
+        
+        //equation (6.9)
+        z = 0;
+    }
+    z = cache_z;
+    
+    //equation (6.8)
+    double n_l = 3.;
+    double n_v = 1.;
+    cache_p[index_p(cc, 3, 3, 0)]= 3. * (n_l + n_v) + 2.;
+    cache_p[index_p(cc, 3, 4, 0)]= 7./3.;
+    cache_p[index_p(cc, 3, 5, 0)]= 60. * (n_l + n_v) + 64.;
+    cache_p[index_p(cc, 3, 6, 0)]= 112./3;
+    cache_p[index_p(cc, 4, 4, 0)]= 5. * (n_l + n_v) / 12. + 13./72.;
+    cache_p[index_p(cc, 4, 5, 0)]= 112./3.;
+    cache_p[index_p(cc, 4, 6, 0)]= 25./3. * (n_l + n_v) + 52./9.;
+    cache_p[index_p(cc, 5, 5, 0)]= -1296. * n_v * z + 408. * (n_l + n_v) + 512.;
+    cache_p[index_p(cc, 5, 6, 0)]= 1792./3.;
+    cache_p[index_p(cc, 6, 6, 0)]= -72. * n_v * z + 170./3. * (n_l + n_v) + 416./9.;
+    
+    cache_ps[index_p(cc, 3, 3, 0)]= -6. * (n_l + n_v) - 1.;
+    cache_ps[index_p(cc, 3, 4, 0)]= -8./3;
+    cache_ps[index_p(cc, 3, 5, 0)]= -120. * (n_l + n_v) - 32.;
+    cache_ps[index_p(cc, 3, 6, 0)]= -128./3.;
+    cache_ps[index_p(cc, 4, 4, 0)]= 2./3. * (n_l + n_v) - 7./9.;
+    cache_ps[index_p(cc, 4, 5, 0)]= -128./3;
+    cache_ps[index_p(cc, 4, 6, 0)]= 40./3. * (n_l + n_v) - 224./9.;
+    cache_ps[index_p(cc, 5, 5, 0)]= -816. * (n_l + n_v) - 256.;
+    cache_ps[index_p(cc, 5, 6, 0)]= -2048./3.;
+    cache_ps[index_p(cc, 6, 6, 0)]= 272./3. * (n_l + n_v) - 1792./9.;
+    
+    //equation (6.9)    
+    for (int i=3; i<=6; i++){
+        for (int j=i; j<=6; j++){
+            cache_p[index_p(uu, i, j, 0)] = cache_p[index_p(cc, i, j, 0)];
+            cache_ps[index_p(uu, i, j, 0)] = cache_ps[index_p(cc, i, j, 0)];            
+        }
+    }
+    
+    //equation (6.10)
+    for (int i=1; i<=6; i++){
+        for (int j=i; j<=6; j++){
+            cache_p[index_p(cu, i, j, 0)] =
+                    0.5 * (cache_p[index_p(cc, i, j, 0)] +cache_p[index_p(uu, i, j, 0)]);
+            cache_ps[index_p(cu, i, j, 0)] =
+                    0.5 * (cache_ps[index_p(cc, i, j, 0)] +cache_ps[index_p(uu, i, j, 0)]);
+        }
+    }
+    
+    logz = log(z);
+    double L_1 = 2. * log(mu_1/Mb);
+    double L_2 = 2. * log(mu_2/Mb);
+    double sqrt3 = sqrt(3);
+    
+    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {    
+        //equation (6.11)
+        cache_p[index_p(qq, 1, 1, 1)]= z * (-14./3. * L_1 - 11./3. * L_2 - 44./3. * logz + M_PI2/54. - 4133./216.)
+                + 337./324. * L_1 + 149./108. * L_2 - 5./108. * M_PI2 + 1789./486.;
+        cache_p[index_p(qq, 1, 2, 1)]= z * (26. * L_1 - 4. * L_2 - 16. * logz - 2./9. * M_PI2 + 1199./18.)
+                - 323./54. * L_1 + 19./9. * L_2 - 5./9. * M_PI2 + 1346./81.;
+        cache_p[index_p(qq, 2, 2, 1)]= z * (12. * L_1 - 6. * L_2 - 24. * logz + 2./3. * M_PI2 + 115./6.)
+                - 14./9. * L_1 + 2./3. * L_2 - 5./3. * M_PI2 + 91./54.;
+        cache_ps[index_p(qq, 1, 1, 1)]= -38./81. * L_1 - 40./27. * L_2 + (-1159./27. - 4./27. * M_PI2) * z - 2./27. * M_PI2 + 2./243.;
+        cache_ps[index_p(qq, 1, 2, 1)]= 44./27. * L_1 - 32./9. * L_2 + (16./9. * M_PI2 - 656./9.) * z - 8./9. * M_PI2 + 280./81.;
+        cache_ps[index_p(qq, 2, 2, 1)]= 64./9. * L_1 + 8./3. * L_2 + (116./3. - 16./3. * M_PI2) * z - 8./3. * M_PI2 + 728./27.;
+        //equation (6.14)
+        cache_p[index_p(qq, 1, 3, 1)]= (320./9. - 4. * L_1) * z + 47./18. * L_1 + 56./9. * L_2 - 5./(18. * sqrt3) * M_PI + 1523./108.;
+        cache_p[index_p(qq, 1, 4, 1)]= (59./3. * L_1 + 5./9. * M_PI2 + 4565./108.) * z - 281./108. * L_1 + L_2 / 54. + 5./18. * M_PI2
+                - 25./(108. * sqrt3) * M_PI - 712./81.;
+        cache_p[index_p(qq, 1, 5, 1)]= z * (-136. * L_1 - 192. * L_2 - 768. * logz - 16408./9.)
+                + 376./9. * L_1 + 896./9. * L_2 - 40./(9. * sqrt3) * M_PI + 318.;
+        cache_p[index_p(qq, 1, 6, 1)]= z * (764./3. * L_1 + 8. * L_2 + 32. * logz + 8./9. * M_PI2 + 22850./27.)
+                - 1259./27. * L_1 + 8./27. * L_2 + 40./9. * M_PI2 - 55./(27. * sqrt3) * M_PI - 4243./27.;
+        cache_p[index_p(qq, 2, 3, 1)]= (24. * L_1 + 170./3.) * z - 47./3. * L_1 + 14./3. * L_2 + 5./(3. * sqrt3) * M_PI - 677./18;
+        cache_p[index_p(qq, 2, 4, 1)]= (26. * L_1 - 10./3. * M_PI2 + 1429./18.) * z - 35./9. * L_1 - L_2 / 9. - 5./3. * M_PI2
+                + 25./(18. * sqrt3) * M_PI - 88./27.;
+        cache_p[index_p(qq, 2, 5, 1)]= z * (816. * L_1 - 144. * L_2 - 576 * logz + 3656./3.)
+                - 752./3. * L_1 + 224./3. * L_2 + 80./(3. * sqrt3) * M_PI - 580.;
+        cache_p[index_p(qq, 2, 6, 1)]= z * (128. * L_1 - 48. * L_2 - 192. * logz - 16./3. * M_PI2 + 6140./9.)
+                - 290./9. * L_1 - 16./9. * L_2 - 80./3. * M_PI2 + 110./(9. * sqrt3) * M_PI - 442./9.;
+
+        cache_ps[index_p(qq, 1, 3, 1)]= -4./3. * L_1 - 64./9. * L_2 - 1720./9. * z - 4./(9. * sqrt3) * M_PI - 130./27.;
+        cache_ps[index_p(qq, 1, 4, 1)]= 2. * L_1 - 16./27. * L_2 + (80./27. + 8./9. * M_PI2) * z + 4./9. * M_PI2 - 10./(27. * sqrt3) * M_PI + 404./81.;
+        cache_ps[index_p(qq, 1, 5, 1)]= -64./3. * L_1 - 1024./9. * L_2 - 27952./9. * z - 64./(9 * sqrt3) * M_PI - 2128./9.;
+        cache_ps[index_p(qq, 1, 6, 1)]= 24. * L_1 - 256./27. * L_2 + (128./9. * M_PI2 - 520./27.) * z - 64./9. * M_PI2
+                - 88./(27. * sqrt3) * M_PI + 2824./27.;
+        cache_ps[index_p(qq, 2, 3, 1)]= 8. * L_1 - 16./3. * L_2 - 448./3. * z + 8./(3. * sqrt3) * M_PI + 116./9.;
+        cache_ps[index_p(qq, 2, 4, 1)]= 32./9. * L_2 + (488./9. - 16./3. * M_PI2) * z - 8./3. * M_PI2 + 20./(9. * sqrt3) * M_PI + 272./27.;
+        cache_ps[index_p(qq, 2, 5, 1)]= 128. * L_1 - 256./3. * L_2 - 6304./3. * z + 128./(3. * sqrt3) * M_PI + 32./3.;
+        cache_ps[index_p(qq, 2, 6, 1)]= 48. * L_1 + 512./9. * L_2 + (7520./9. - 256./3. * M_PI2) * z
+                - 128./3. * M_PI2 + 176./(9. * sqrt3) * M_PI + 1840./9.;
+
+        //equation (6.13) and equation (6.15)
+        z = 0;
+    }
+    z = cache_z;
+    //equation (6.15)
+    cache_p[index_p(uu, 1, 4, 1)] += 5./9. * z;
+    cache_p[index_p(uu, 1, 6, 1)] += 50./9. * z;
+    cache_p[index_p(uu, 2, 4, 1)] += - 10./3. * z;
+    cache_p[index_p(uu, 2, 6, 1)] += - 100./3. * z;
+
+    cache_ps[index_p(uu, 1, 4, 1)] += 8./9. * z;
+    cache_ps[index_p(uu, 1, 6, 1)] += 80./9. * z;
+    cache_ps[index_p(uu, 2, 4, 1)] += - 16./3. * z;
+    cache_ps[index_p(uu, 2, 6, 1)] += - 160./3. * z; 
+    
+    //equation (6.13) and (6.16)
+    for (int i=1; i<=2; i++){
+        for (int j=i; j<=6; j++){
+            cache_p[index_p(cu, i, j, 1)] =
+                    0.5 * (cache_p[index_p(cc, i, j, 1)] + cache_p[index_p(uu, i, j, 1)]);
+            cache_ps[index_p(cu, i, j, 1)] =
+                    0.5 * (cache_ps[index_p(cc, i, j, 1)] + cache_ps[index_p(uu, i, j, 1)]);
+        }
+    }
+    
+    //equation (6.18)
+    cache_p[index_p(cc, 3, 3, 1)] = -154./9. * L_1 + 184./3. * L_2 + 90. * z - 5./3. * M_PI2 + 5./(3. * sqrt3) * M_PI + 1390./27.;
+    cache_p[index_p(cc, 3, 4, 1)] = -811./54. * L_1 + 74./9. * L_2 - 10./3. * z - 10./9. * M_PI2 + 70./(9. * sqrt3) * M_PI - 27991./324.;
+    cache_p[index_p(cc, 3, 5, 1)] = -4928./9. * L_1 + 3872./3. * L_2 + 1800. * z - 160./3. * M_PI2 + 160./(3. * sqrt3) * M_PI
+            + 16880./27.;
+    cache_p[index_p(cc, 3, 6, 1)] = (144. * L_1 + 440./3.) * z - 12932./27. * L_1 + 1184./9. * L_2 - 160./9. * M_PI2
+            + 670./(9. * sqrt3) * M_PI - 131410./81.;
+    cache_p[index_p(cc, 4, 4, 1)] = 181./162. * L_1 + 127./108. * L_2 + (323./36. - 5./3. * M_PI2) * z - 335./108. * M_PI2
+            + 575/(108. * sqrt3) * M_PI + 779./486.;
+    cache_p[index_p(cc, 4, 5, 1)] = (576. * L_1 + 3836./3.) * z - 14912./27. * L_1 + 1184./9. * L_2 - 160./9. * M_PI2
+            + 1120./(9. * sqrt3) * M_PI - 127990./81.;
+    cache_p[index_p(cc, 4, 6, 1)] = (60. * L_1 - 100./3. * M_PI2 + 2455./9.) * z - 8759./81. * L_1 + 1088./27. * L_2
+            - 1600./27. * M_PI2 + 2665./(27. * sqrt3) * M_PI - 50083./243.;
+    cache_p[index_p(cc, 5, 5, 1)] = z * (-2592. * L_2 - 10368. * logz - 33120.) - 39424./9. * L_1
+            + 26944./3. * L_2 - 1280./3. * M_PI2 + 1280./(3. * sqrt3) * M_PI + 347104./27.;
+    cache_p[index_p(cc, 5, 6, 1)] = (7200. * L_1 + 74000./3.) * z - 240608./27. * L_1 + 18944./9. * L_2
+            - 2560./9. * M_PI2 + 10720./(9. * sqrt3) * M_PI - 2253568./81.;
+    cache_p[index_p(cc, 6, 6, 1)] = z * (-48. * L_1 - 144. * L_2 - 576. * logz - 248./3. * M_PI2 + 12290./9.)
+            - 59632./81. * L_1 + 8848./27. * L_2 - 10640./27. * M_PI2 + 12320./(27. * sqrt3) * M_PI - 662144./243.;
+    
+    cache_ps[index_p(cc, 3, 3, 1)] = 176./9. * L_1 - 200./3. * L_2 - 432. * z - 8./3. * M_PI2 + 8./(3. * sqrt3) * M_PI - 620./27.;
+    cache_ps[index_p(cc, 3, 4, 1)] = 268./27. * L_1 - 64./9. * L_2 - 16./3. * z - 16./9. * M_PI2 + 112./(9. * sqrt3) * M_PI + 3506./81.;
+    cache_ps[index_p(cc, 3, 5, 1)] = 5632./9. * L_1 - 4096./3. * L_2 - 8640. * z - 256./3. * M_PI2 + 256./(3. * sqrt3) * M_PI + 9728./27.;
+    cache_ps[index_p(cc, 3, 6, 1)] = 9184./27. * L_1 - 1024./9. * L_2 - 160./3. * z - 256./9. * M_PI2 + 1072./(9. * sqrt3) * M_PI + 88688./81.;
+    cache_ps[index_p(cc, 4, 4, 1)] = 1028./81. * L_1 + 136./27. * L_2 - 8./3. * M_PI2 * z + 230./9. * z - 134./27 * M_PI2 + 230./(27. * sqrt3) * M_PI
+            + 6214./243.;
+    cache_ps[index_p(cc, 4, 5, 1)] = 9472./27. * L_1 - 1024./9. * L_2 + 608./3. * z - 256./9. * M_PI2 + 1792./(9. * sqrt3) + 64784./81.;
+    cache_ps[index_p(cc, 4, 6, 1)] = 10792./81. * L_1 + 2048./27. * L_2 - 160./3. * M_PI2 * z + 3568./9. * z - 2560./27. * M_PI2
+            + 4264./(27. * sqrt3) * M_PI + 123080./243.;
+    cache_ps[index_p(cc, 5, 5, 1)] = 45056./9. * L_1 - 28160./3. * L_2 - 58752. * z - 2048./3. * M_PI2 - 2048./(3. * sqrt3) * M_PI
+            - 349184./27.;
+    cache_ps[index_p(cc, 5, 6, 1)] = 167680./27. * L_1 - 16384./9. * L_2 + 6080./3. * z - 4096./9. * M_PI2 + 17152./(9. * sqrt3) * M_PI
+            + 1502720./81.;
+    cache_ps[index_p(cc, 6, 6, 1)] = 75392./81. * L_1 + 11776./27. * L_2 - 1088./3. * M_PI2 * z + 23696./9. * z - 17024./27. * M_PI2
+            + 19712./(27. * sqrt3) * M_PI + 717184./243.;
+    
+    //equation (6.17)
+    for (int i=3; i<=6; i++){
+        for (int j=i; j<=6; j++){
+            cache_p[index_p(cu, i, j, 1)] = cache_p[index_p(cc, i, j, 1)];
+            cache_p[index_p(uu, i, j, 1)] = cache_p[index_p(cc, i, j, 1)];
+            cache_ps[index_p(cu, i, j, 1)] = cache_ps[index_p(cc, i, j, 1)];
+            cache_ps[index_p(uu, i, j, 1)] = cache_ps[index_p(cc, i, j, 1)];
+        }
+    }
+    
+    //equation (6.19)
+    cache_p[index_p(cc, 1, 8, 1)] = 5./18.;
+    cache_p[index_p(cc, 2, 8, 1)] = -5./3.;
+    cache_ps[index_p(cc, 1, 8, 1)] = 4./9.;
+    cache_ps[index_p(cc, 2, 8, 1)] = -8./3.;
+    
+    //equation (6.21)
+    cache_p[index_p(cc, 3, 8, 1)] = -32./3.;
+    cache_p[index_p(cc, 4, 8, 1)] = -169./18.;
+    cache_p[index_p(cc, 5, 8, 1)] = -512./3.;
+    cache_p[index_p(cc, 6, 8, 1)] = -992./9.;
+    cache_ps[index_p(cc, 3, 8, 1)] = 64./3.;
+    cache_ps[index_p(cc, 4, 8, 1)] = -20./9.;
+    cache_ps[index_p(cc, 5, 8, 1)] = 1024./3.;
+    cache_ps[index_p(cc, 6, 8, 1)] = 256./9.;
+    
+    //equation (6.20)
+    for (int i=1; i<=6; i++){
+        cache_p[index_p(cu, i, 8, 1)] = cache_p[index_p(cc, i, 8, 1)];
+        cache_p[index_p(uu, i, 8, 1)] = cache_p[index_p(cc, i, 8, 1)];
+        cache_ps[index_p(cu, i, 8, 1)] = cache_ps[index_p(cc, i, 8, 1)];
+        cache_ps[index_p(uu, i, 8, 1)] = cache_ps[index_p(cc, i, 8, 1)];
+    }
+    
+    double L_12 = L_1 * L_1;
+    double L_22 = L_2 * L_2;
+    
+    //equations (3.102, 6.23, 6.25)
+    double zeta3 = 1.20206;
+    double t_2 = -0.389012;
+    double Cl2PI3 = 1.014941;
+    
+    double sqrt5 = sqrt(5);
+    double log2z = logz * logz;
+    double log2 = log(2);
+    double log3 = log(3);
+    double log12sqrt52 = log(0.5 + sqrt5/2.);
+    double sqrtz = sqrt(z);
+    
+    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {
+        //equation (6.22)
+        cache_p[index_p(qq, 1, 1, 2)] = z * (-1348./9. * L_1 * logz - 88./3. * L_2  * logz - 2347./54. * L_12 + 187./18. * L_22
+                + 31./54. * M_PI2 * L_1 - 722039./1944. * L_1 - 337./9. * L_1 * L_2 + 19./81. * M_PI2 * L_2 + 1891./81. * L_2
+                + 22./9. * log2z + 4./27. * M_PI2 * logz - 1591./3. * logz + 128581./216. * zeta3
+                - 13637./116640. * M_PI4 + 203./81. * sqrt5 * M_PI2 + 235469./3888. * M_PI2 - 25./(162. * sqrt3) * M_PI
+                - 601385353./583200. + 176./27. * M_PI2 * log2 - 4321./324. * M_PI2 * log2
+                - 68./27. * M_PI2 * log12sqrt52) + 3211./324. * L_12 + 12911./972. * L_2 * L_1 - 5./4. * M_PI2 * L_1
+                - 25./(972. * sqrt3) * M_PI * L_1 + 1320817./17496. * L_1 - 311./216. * L_22 + M_PI2 * L_2 /162. + 259603./11664. * L_2
+                + 5./(162. * sqrt3) * t_2 + 28333./486. * zeta3 + 23./4860. * M_PI4 - 2197./972 * sqrt5 * M_PI2 - 216641./69984. * M_PI2
+                - 25./(1458. * sqrt3) * M_PI + 814589597./4199040. - 71./972. * M_PI2 * log2 - 5./(1944. * sqrt3) * M_PI * log3
+                - 169./81. * M_PI2 * log12sqrt52 * 56./(243. * sqrt3) * Cl2PI3
+                + n_v * (0.0617284 * L_1 * z + 4.60031 * z + 4.75206 * sqrtz - 5.55556 * z * logz);
+        cache_p[index_p(qq, 1, 2, 2)] = z * (256./3. * L_1 * logz - 32. * L_2 * logz + 1193./9. * L_12 + 34./3. * L_22
+                - 44./9. * M_PI2 * L_1 + 117563./162. * L_1 + 64./3. * L_1 * L_2 - 76./27. * M_PI2 * L_2 + 6350./27. * L_2
+                + 8./3. * log2z - 16./9. * M_PI2 * logz + 364./3. * logz + 85027./90. * zeta3
+                + 20833./4860. * M_PI4 + 548./(27. * sqrt5) * M_PI2 - 11245./162. * M_PI2 + 50./(27. * sqrt3) * M_PI + 12685151./9720.
+                + 64./9. * M_PI2 * log2 - 1361./27. * M_PI2 * log2 - 176./45. * M_PI2 * log12sqrt52)
+                - 1751./54. * L_12 + 166./81. * L_2 * L_1 + 10. * M_PI2 * L_1 + 25./(81. * sqrt3) * M_PI * L_1 - 1026907./5832. * L_1
+                - L_22/18. - 2./27. * M_PI2 * L_2 - 619./972. * L_2 - 10./(27. * sqrt3) * t_2 + 10573./324. * zeta3 - 799./810. * M_PI4
+                - 299./81. * sqrt5 * M_PI2 + 497221./11664. * M_PI2 + 50./(243. * sqrt3) * M_PI - 95740679./349920.
+                + 596./81. * M_PI2 * log2 + 5./(162. * sqrt3) * M_PI * log3 - 92./27. * M_PI2 * log12sqrt52
+                - 224./(81. * sqrt3) * Cl2PI3 + n_v * (-0.740741 * L_1 * z - 85.8705 * z
+                + 48.2515 * sqrtz + 2.66667 * z * logz);
+        cache_p[index_p(qq, 2, 2, 2)] = z * (-88. * L_1 * logz - 48. * L_2 * logz - 122./3. * L_12 + 17. * L_22 + 26./3. * M_PI2 * L_1
+                - 16583./54. * L_1 - 22. * L_1 * L_2 + 76./9. * M_PI2 * L_2 - 109./18. * L_2 + 4. * log2z
+                + 16./3. * M_PI2 * logz - 464. * logz + 2521./15. * zeta3 + 5203./3240 * M_PI4
+                + 28./(9. * sqrt5) * M_PI2 + 7097./108. * M_PI2 - 50./(9. * sqrt3) * M_PI - 12332857./16200. + 32./3. * M_PI2 * log2
+                - 274./9. * M_PI2 * log2 - 16./15. * M_PI2 * log12sqrt52) + 239./18. * L_12
+                - 202./27. * L_2 * L_1 - 15. * M_PI2 * L_1 - 25./(27. * sqrt3) * M_PI * L_1 + 106199./972. * L_1 - 19./3. * L_22
+                + 2./9. * M_PI2 * L_2 - 5117./81. * L_2 + 10./(9. * sqrt3) * t_2 - 3157./54. * zeta3 + 971./540. * M_PI4
+                - 13./27. * sqrt5 * M_PI2 - 177247./3888. * M_PI2 - 50./(81. * sqrt3) * M_PI + 74041./14580. + 148./27. * M_PI2 * log2
+                + 5./(54. * sqrt3) * M_PI * log3 - 4./9. * M_PI2 * log12sqrt52 + 224./(27. * sqrt3) * Cl2PI3
+                + n_v * (2.22222 * L_1 * z + 70.6121 * z - 105.276 * sqrtz - 32. * z * logz);
+        cache_ps[index_p(qq, 1, 1, 2)] = z * (-4. * M_PI2 * L_1 - 98023./243. * L_1 - 32./81. * M_PI2 * L_2 - 9272./81. * L_2
+                - 32./27. * M_PI2 * logz - 9272./27. * logz + 29./3. * zeta3 - 27529./14580. * M_PI4
+                - 344./81. * sqrt5 * M_PI2 - 7103./486 * M_PI2 - 20./(81. * sqrt3) * M_PI - 33198263./36450.
+                + 1826./81. * M_PI2 * log2) - 902./243. * L_12 - 3064./243. * L_2 * L_1 - 2. * M_PI2 * L_1
+                - 10./(243. * sqrt3) * M_PI * L_1 - 77617./2187. * L_1 + 260./27. * L_22 - 16./81. * M_PI2 * L_2 - 5504./729 * L_2
+                + 4./(81. * sqrt3) * t_2 + 28528./243. * zeta3 + 449./1215. * M_PI4 + 1118./243. * sqrt5 * M_PI2 - 44209./8748. * M_PI2
+                - 20./(729. * sqrt3) * M_PI - 67489177./262440. - 3506./243. * M_PI2 * log2 - M_PI * log3 / (243. * sqrt3)
+                + 344./81. * M_PI2 * log12sqrt52 + 104./(243. * sqrt3) * Cl2PI3
+                + n_v * (0.0987654 * L_1 * z - 26.8617 * z + 27.7812 * sqrtz);
+        cache_ps[index_p(qq, 1, 2, 2)] = z * (32. * M_PI2 * L_1 - 23276./81. * L_1 + 128./27. * M_PI2 * L_2 - 5248./27. * L_2
+                + 128./9. * M_PI2 * logz - 5248./9. * logz - 244. * zeta3 + 5692./1215. * M_PI4
+                - 160./27. * sqrt5 * M_PI2 + 3238./81. * M_PI2 + 80./(27. * sqrt3) * M_PI + 5060009./12150.
+                + 208./27. * M_PI2 * log2) + 44./81. * L_12 - 1856./81. * L_2 * L_1 + 16. * M_PI2 * L_1 + 40./(81. * sqrt3) * M_PI * L_1
+                - 28733./729. * L_1 + 208./9. * L_22 + 64./27. * M_PI2 * L_2 - 2176./243. * L_2 - 16./(27. * sqrt3) * t_2
+                + 13934./81. * zeta3 + 226./405. * M_PI4 + 520./81. * sqrt5 * M_PI2 + 39995./1458. * M_PI2 + 80./(243. * sqrt3) * M_PI
+                - 1336127./2187. - 1624./81. * M_PI2 * log2 + 4./(81. * sqrt3) * M_PI * log3
+                + 160./27. * M_PI2 * log12sqrt52 - 416./(81. * sqrt3) * Cl2PI3
+                + n_v * (-1.18519 * L_1 * z - 72.3265 * z + 87.73 * sqrtz);
+        cache_ps[index_p(qq, 2, 2, 2)] = z * (-48. * M_PI2 * L_1 + 18740./27. * L_1 - 128./9. * M_PI2 * L_2 + 928./9. * L_2
+                - 128./3. * M_PI2 * logz + 928./3. * logz - 600. * zeta3 + 7991./405 * M_PI4
+                - 32./9. * sqrt5 * M_PI2 - 8038./27. * M_PI2 - 80./(9. * sqrt3) * M_PI + 6836747./2025.
+                + 272./9. * M_PI2 * log2) + 604./27. * L_12 + 1064./27. * L_2 * L_1 - 24. * M_PI2 * L_1 - 40./(27. * sqrt3) * M_PI * L_1
+                + 40370./243. * L_1 - 52./3. * L_22 - 64./9. * M_PI2 * L_2 + 6928./81. * L_2 + 16./(9. * sqrt3) * t_2
+                - 4388./27. * zeta3 + 398./135. * M_PI4 + 104./27. * sqrt5 * M_PI2 - 41279./486. * M_PI2 - 80./(81. * sqrt3) * M_PI
+                + 27476329./58320. - 656./27. * M_PI2 * log2 - 4./(27. * sqrt3) * M_PI * log3
+                + 32./9. * M_PI2 * log12sqrt52 + 416./(27. * sqrt3) * Cl2PI3
+                + n_v * (3.55556 * L_1 * z + 176.979 * z -105.276 * sqrtz);
+    
+        //equation (6.26)
+        z = 0;
+    }
+    z = cache_z;
+    
+    //equation (6.26)
+    cache_p[index_p(uu, 1, 1, 2)] += n_v * (-5.55556 * z * logz + 0.0617284 * L_1 * z + 4.60031 * z + 4.75206 * sqrtz);
+    cache_p[index_p(uu, 1, 2, 2)] += n_v * (2.66667 * z * logz - 0.740741 * L_1 * z - 85.8705 * z + 48.2515 * sqrtz);
+    cache_p[index_p(uu, 2, 2, 2)] += n_v * (-32. * z * logz + 2.22222 * L_1 * z + 70.6121 * z - 105.276 * sqrtz);
+    cache_ps[index_p(uu, 1, 1, 2)] += n_v * (0.0987654 * L_1 * z - 26.8617 * z + 27.7812 * sqrtz);
+    cache_ps[index_p(uu, 1, 2, 2)] += n_v * (-1.18519 * L_1 * z - 72.3265 * z + 87.73 * sqrtz);
+    cache_ps[index_p(uu, 2, 2, 2)] += n_v * (3.55556 * L_1 * z + 176.979 * z - 105.276 * sqrtz);
+    
+    //equation (6.27)
+    for (int i=1; i<=2; i++){
+        for (int j=i; j<=2; j++){
+            cache_p[index_p(cu, i, j, 2)] = 0.5 * (cache_p[index_p(cc, i, j, 2)] + cache_p[index_p(uu, i, j, 2)]);
+            cache_ps[index_p(cu, i, j, 2)] = 0.5 * (cache_ps[index_p(cc, i, j, 2)] + cache_ps[index_p(uu, i, j, 2)]);
+        }
+    }
+    
+    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {
+        //equation (6.28)
+        cache_p[index_p(qq, 1, 8, 2)] = 208./81. * L_1 - L_2/27. + (2615./54. - 10./9. * M_PI2) * z - 5./9. * M_PI2 + 25./(54. * sqrt3) * M_PI
+                - 115./486.;
+        cache_p[index_p(qq, 2, 8, 2)] = -11./27. * L_1 + 2./9. * L_2 + (20./3. * M_PI2 - 833./9.) * z + 10./3. * M_PI2 - 25./(9. * sqrt3) * M_PI
+                - 3125./81.;
+        cache_ps[index_p(qq, 1, 8, 2)] = 448./81. * L_1 + 32./27. * L_2 + (1192./27. - 16./9. * M_PI2) * z - 8./9. * M_PI2 + 20./(27. * sqrt3) * M_PI
+                + 3580./243.;
+        cache_ps[index_p(qq, 2, 8, 2)] = -248./27. * L_1 - 64./9. * L_2 + (32./3. * M_PI2 - 1088./9.) * z + 16./3. * M_PI2 - 40./(9. * sqrt3) * M_PI
+                - 4568./81.;
+        
+        //equation (6.30)
+        cache_p[index_p(qq, 3, 8, 2)] = -85./27. * L_1 - 448./9. * L_2 - 196./3. * z + 25./6. * M_PI2 - 107./(18. * sqrt3) * M_PI - 17201./81.;
+        cache_p[index_p(qq, 4, 8, 2)] = -3269./162. * L_1 - 427./27. * L_2 + (20./3. * M_PI2 - 404./3.) * z + 169./12. * M_PI2
+                -514./(27. * sqrt3) * M_PI - 43016./243.;
+        cache_p[index_p(qq, 5, 8, 2)] = 5120./27. * L_1 - 7168./9. * L_2 - 760./3. * z + 770./9. * M_PI2 - 28./(9. * sqrt3) * M_PI - 430238./81.;
+        cache_p[index_p(qq, 6, 8, 2)] = -8962./81. * L_1 - 6976./27. * L_2 + (200./3. * M_PI2 - 4222./3.) * z + 3761./27. * M_PI2
+                - 3220./(27. * sqrt3) * M_PI - 474656./243.;
+        cache_ps[index_p(qq, 3, 8, 2)] = 440./27. * L_1 + 512./9. * L_2 + 608./3. * z - 596./27. * M_PI2 - 52./(9. * sqrt3) * M_PI + 22504./81.;
+        cache_ps[index_p(qq, 4, 8, 2)] = -4804./81. * L_1 - 160./27. * L_2 + (32./3. * M_PI2 - 128./3.) * z + 1090./81. * M_PI2
+                - 1120./(27. * sqrt3) * M_PI - 46988./243.;
+        cache_ps[index_p(qq, 5, 8, 2)] = 17408./27. * L_1 + 8192./9. * L_2 + 11456./3. * z - 8912./27. * M_PI2 - 1984./(9. * sqrt3) * M_PI
+                + 420304./81.;
+        cache_ps[index_p(qq, 6, 8, 2)] = -28624./81. * L_1 + 2048./27. * L_2 + (320./3. * M_PI2 - 160./3.) * z + 5608./81. * M_PI2
+                - 8416./(27. * sqrt3) * M_PI - 423440./243.;
+        
+        //equation (6.31) and equation (6.29)
+        z = 0;
+    }
+    z = cache_z;
+    
+    //equation (6.29)
+    cache_p[index_p(uu, 1, 8, 2)] += -10./9. * z;
+    cache_p[index_p(uu, 2, 8, 2)] += 20./3. * z;
+    cache_ps[index_p(uu, 1, 8, 2)] += -16./9. * z;
+    cache_ps[index_p(uu, 1, 8, 2)] += 32./3. * z;
+    
+    //equation (6.31)
+    cache_p[index_p(uu, 3, 8, 2)] += -196./3. * z;
+    cache_p[index_p(uu, 4, 8, 2)] += (-404./3. + 20./3. * M_PI2) * z;
+    cache_p[index_p(uu, 5, 8, 2)] += -760./3. * z;
+    cache_p[index_p(uu, 6, 8, 2)] += (-4222./3. + 200./3. * M_PI2) * z;
+    cache_ps[index_p(uu, 3, 8, 2)] += 608./3.* z;
+    cache_ps[index_p(uu, 4, 8, 2)] += (-128./3. + 32./3. * M_PI2) * z;
+    cache_ps[index_p(uu, 5, 8, 2)] += 11456./3.* z;
+    cache_ps[index_p(uu, 6, 8, 2)] += (-160./3. + 320./3. * M_PI2) * z;
+    
+    //as in equation (6.20)
+    for (int i=1; i<=6; i++){
+        cache_p[index_p(cu, i, 8, 2)] =
+                0.5 * (cache_p[index_p(cc, i, 8, 2)] + cache_p[index_p(uu, i, 8, 2)]);
+        cache_ps[index_p(cu, i, 8, 2)] =
+                0.5 * (cache_ps[index_p(cc, i, 8, 2)] + cache_ps[index_p(uu, i, 8, 2)]);
+    }
+    
+    //equation (6.32)
+    cache_p[index_p(cc, 8, 8, 2)] = -13./18.;
+    cache_p[index_p(cu, 8, 8, 2)] = -13./18.;
+    cache_p[index_p(uu, 8, 8, 2)] = -13./18.;
+    cache_ps[index_p(cc, 8, 8, 2)] = -68./9.;
+    cache_ps[index_p(cu, 8, 8, 2)] = -68./9.;
+    cache_ps[index_p(uu, 8, 8, 2)] = -68./9.;
+
+    z_old = z;
+    mu_1_old = mu_1;
+    mu_2_old = mu_2;
+    return;
+}

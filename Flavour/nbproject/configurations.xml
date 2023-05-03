@@ -26,7 +26,7 @@
       <itemPath>src/CPenguinBox.h</itemPath>
       <itemPath>src/CPenguinBoxMu.h</itemPath>
       <itemPath>src/Charm_Kpnunu.h</itemPath>
-      <itemPath>src/Dgamma.h</itemPath>
+      <itemPath>src/DGamma.h</itemPath>
       <itemPath>src/DmBd.h</itemPath>
       <itemPath>src/DmBs.h</itemPath>
       <itemPath>src/DmK.h</itemPath>
@@ -311,7 +311,7 @@
       </item>
       <item path="src/DGamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/Dgamma.h" ex="false" tool="3" flavor2="0">
+      <item path="src/DGamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -641,7 +641,7 @@
       </item>
       <item path="src/DGamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/Dgamma.h" ex="false" tool="3" flavor2="0">
+      <item path="src/DGamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -972,7 +972,7 @@
       </item>
       <item path="src/DGamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/Dgamma.h" ex="false" tool="3" flavor2="0">
+      <item path="src/DGamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1301,7 +1301,7 @@
       </item>
       <item path="src/DGamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/Dgamma.h" ex="false" tool="3" flavor2="0">
+      <item path="src/DGamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
