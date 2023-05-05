@@ -43,51 +43,44 @@ public:
     AmpDB2(const StandardModel& SM_i);
 
     /**
-    * @brief The value of @f$M_{12}^{bd}@f$.
+    * @brief The value of @f$M_{21}^{bd}@f$.
     * @param[in] order the %QCD order of the computation
-    * @return @f$M_{12}^{bd}@f$
+    * @return @f$M_{21}^{bd}@f$
     */
-    gslpp::complex getM12_Bd(orders order){
-        return M12_Bd(order);
+    gslpp::complex getM21_Bd(orders order){
+        return M21_Bd(order);
     }
 
     /**
-    * @brief The value of @f$M_{12}^{bs}@f$.
+    * @brief The value of @f$M_{21}^{bs}@f$.
     * @param[in] order the %QCD order of the computation
-    * @return @f$M_{12}^{bs}@f$
+    * @return @f$M_{21}^{bs}@f$
     */
-    gslpp::complex getM12_Bs(orders order){
-        return M12_Bs(order);
+    gslpp::complex getM21_Bs(orders order){
+        return M21_Bs(order);
     }
     
     /**
-    * @brief The value of @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$.
+    * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$.
     * @param[in] order the %QCD order of the computation
-    * @return @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
     */
-    gslpp::complex getGamma12oM12_Bd(orders order){
-        return Gamma12overM12_Bd(order);
+    gslpp::complex getGamma21overM21_Bd(orders order){
+        return Gamma21overM21_Bd(order);
     }
 
     /**
-    * @brief The value of @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$.
+    * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$.
     * @param[in] order the %QCD order of the computation
-    * @return @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
     */
-    gslpp::complex getGamma12oM12_Bs(orders order){
-        return Gamma12overM12_Bs(order);
+    gslpp::complex getGamma21overM21_Bs(orders order){
+        return Gamma21overM21_Bs(order);
     }
     
-    gslpp::complex Gamma12overM12_BdFULLNLO1();
-    gslpp::complex Gamma12overM12_BsFULLNLO1();
+    gslpp::complex Gamma21overM21_BdFULLNLO1();
+    gslpp::complex Gamma21overM21_BsFULLNLO1();
     
-//    double getAsl_d(orders order){
-//        return Asl_d(order);
-//    }
-//    
-//    double getAsl_s(orders order){
-//        return Asl_s(order);
-//    }
 
     gslpp::complex getPBd(){
         return PBd();
@@ -99,53 +92,39 @@ public:
     
 protected:
     /**
-    * @brief A method to compute @f$M_{12}^{bd}@f$.
+    * @brief A method to compute @f$M_{21}^{bd}@f$.
     * @param[in] order the %QCD order of the computation
-    * @return @f$M_{12}^{bd}@f$
+    * @return @f$M_{21}^{bd}@f$
     */
-    gslpp::complex M12_Bd(orders order);
+    gslpp::complex M21_Bd(orders order);
     
     /**
-    * @brief A method to compute @f$M_{12}^{bs}@f$.
+    * @brief A method to compute @f$M_{21}^{bs}@f$.
     * @param[in] order the %QCD order of the computation
-    * @return @f$M_{12}^{bs}@f$
+    * @return @f$M_{21}^{bs}@f$
     */
-    gslpp::complex M12_Bs(orders order);
+    gslpp::complex M21_Bs(orders order);
 
     /**
-    * @brief A method to compute @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$.
+    * @brief A method to compute @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$.
     * @param[in] order the %QCD order of the computation
-    * @return @f$\frac{\Gamma_{12},M_{12}}^{bd}@f$
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
     */
-    gslpp::complex Gamma12overM12_Bd(orders order);
+    gslpp::complex Gamma21overM21_Bd(orders order);
     
 
     /**
-    * @brief A method to compute @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$.
+    * @brief A method to compute @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$.
     * @param[in] order the %QCD order of the computation
-    * @return @f$\frac{\Gamma_{12},M_{12}}^{bs}@f$
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
     */
-    gslpp::complex Gamma12overM12_Bs(orders order);
+    gslpp::complex Gamma21overM21_Bs(orders order);
     
-    
-    /**
-    * @brief A method to compute the CP asymmetry in semileptonic B decays in the SM
-    * @param[in] order the %QCD order of the computation
-    * @return @f$A_{sl}@f$
-    */
-    double Asl_d(orders order);
-    
-    /**
-    * @brief A method to compute the CP asymmetry in semileptonic B_s decays in the SM
-    * @param[in] order the %QCD order of the computation
-    * @return @f$A_{sl}@f$
-    */
-    double Asl_s(orders order);
     
     /**
     * @brief A method to compute the ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value.
     * @param[in] order the %QCD order of the computation
-    * @return @f$\vert (M_{12}^{bs})_\mathrm{full}/(M_{12}^{bs})_\mathrm{SM}\vert@f$
+    * @return @f$\vert (M_{21}^{bs})_\mathrm{full}/(M_{21}^{bs})_\mathrm{SM}\vert@f$
     */
     gslpp::complex RBs(orders order);
     gslpp::complex PBd();

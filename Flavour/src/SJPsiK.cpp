@@ -10,5 +10,5 @@
 
 double SJPsiK::computeThValue() 
 {
-    return sin(-M12_Bd(FULLNLO).arg() - 2.*(SM.getCKM().computelamc_s()*SM.getCKM().computelamc()).arg() + 2.*SM.getPhiBd());
+    return sin(-M21_Bd(FULLNLO).arg() - 2.*(SM.getCKM().computelamc_s()*SM.getCKM().computelamc()).arg() + 2.*SM.getPhiBd());
 }

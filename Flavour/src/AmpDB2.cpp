@@ -71,7 +71,7 @@ gslpp::complex AmpDB2::RBs(orders order)
     }
 }
 
-gslpp::complex AmpDB2::M12_Bd(orders order) {
+gslpp::complex AmpDB2::M21_Bd(orders order) {
     if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
 
@@ -117,7 +117,7 @@ gslpp::complex AmpDB2::M12_Bd(orders order) {
     }
 }
 
-gslpp::complex AmpDB2::M12_Bs(orders order) {
+gslpp::complex AmpDB2::M21_Bs(orders order) {
     if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
 
@@ -634,7 +634,7 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
     K12 = K_1 + K_2;
 }
 
-gslpp::complex AmpDB2::Gamma12overM12_Bd(orders order) {
+gslpp::complex AmpDB2::Gamma21overM21_Bd(orders order) {
     //hep-ph/0308029v2
     std::cout.precision(4);
     std::cout << mySM.getFlavour().getHDF2().getCoeffBd().getOrder() << " " << order % 3 << "\n" ;
@@ -647,7 +647,7 @@ gslpp::complex AmpDB2::Gamma12overM12_Bd(orders order) {
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd(
             mySM.getBBd().getMu(),
             mySM.getBBd().getScheme());
-    gslpp::complex M12overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+    gslpp::complex M21overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
 
     //auto t2 = std::chrono::high_resolution_clock::now();
     computeCKMandMasses();
@@ -662,28 +662,28 @@ gslpp::complex AmpDB2::Gamma12overM12_Bd(orders order) {
     compute_matrixelements(d);
     compute_deltas_1overm(d);
     
-    std::cout << "Test " << M12overme0 / (M12_Bd(FULLNLO)/me(0)) << "\n";
+    std::cout << "Test " << M21overme0 / (M21_Bd(FULLNLO)/me(0)) << "\n";
     //compare with hep-ph/0307344
     gslpp::complex VudVub = mySM.getCKM().getV_ud().conjugate() * mySM.getCKM().getV_ub();
 
     std::cout << "a " <<
-            -Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *
+            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
                 (VtbVtd2 * (D(cc, 0) +  D(cc, 1) * me(1)/me(0) + deltas_1overm(cc, d)/me(0))).conjugate() << "\n";
     std::cout << "b " <<
-            -Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *
+            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
                 (2. * VudVub * VtbVtd * (D(cu, 0)-D(cc, 0) +  (D(cu, 1)-D(cc, 1)) * me(1)/me(0) + (deltas_1overm(cu, d)-deltas_1overm(cc, d))/me(0))).conjugate() << "\n";
     std::cout << "c " <<
-            -Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *
+            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
                 (VudVub*VudVub * (2.*D(cu, 0)-D(cc, 0)-D(uu, 0)) +  (2.*D(cu, 1)-D(cc, 1)-D(uu, 1)) * me(1)/me(0) + (2.*deltas_1overm(cu,d)-deltas_1overm(cc,d)-deltas_1overm(uu,d))/me(0)).conjugate() << "\n";
         
     //equation 16 divided by 12
-    gslpp::complex Gamma12oM12_Bd = -Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *
-                (c(d)(0) + c(d)(1) * me(1)/me(0) + delta_1overm(d)/me(0)).conjugate();
+    gslpp::complex Gamma12oM12_Bd = -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
+                (c(d)(0) + c(d)(1) * me(1)/me(0) + delta_1overm(d)/me(0));
     return Gamma12oM12_Bd;
 }
 
 
-gslpp::complex AmpDB2::Gamma12overM12_Bs(orders order) {
+gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order) {
     //hep-ph/0308029v2
     std::cout.precision(4);
     if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bs(): order not implemented");  
@@ -694,7 +694,7 @@ gslpp::complex AmpDB2::Gamma12overM12_Bs(orders order) {
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
             mySM.getBBd().getMu(),
             mySM.getBBd().getScheme());
-    gslpp::complex M12overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+    gslpp::complex M21overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
          
     computeCKMandMasses();
     computeWilsonCoeffs();
@@ -706,11 +706,11 @@ gslpp::complex AmpDB2::Gamma12overM12_Bs(orders order) {
     compute_matrixelements(s);
     compute_deltas_1overm(s);
 
-    std::cout << "Tests " << M12_Bs(FULLNLO) << "\n";    
+    std::cout << "Tests " << M21_Bs(FULLNLO) << "\n";    
     //equation 16 divided by 12
-    gslpp::complex Gamma12oM12_Bs = -Gf2 * Mb2 / (24 * M_PI * MB_s) / M12overme0 *
-                (c(s)(0) + c(s)(1) * me(1)/me(0) + delta_1overm(s)/me(0)).conjugate();
-    return Gamma12oM12_Bs;
+    gslpp::complex Gamma21overM21_Bs = -Gf2 * Mb2 / (24 * M_PI * MB_s) / M21overme0 *
+                (c(s)(0) + c(s)(1) * me(1)/me(0) + delta_1overm(s)/me(0));
+    return Gamma21overM21_Bs;
 }
 
 
@@ -808,10 +808,10 @@ gslpp::complex AmpDB2::C(int i){
 //    return 0;
 //}
 
-gslpp::complex AmpDB2::Gamma12overM12_BdFULLNLO1(){
+gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO1(){
     return 0.;
 }
-gslpp::complex AmpDB2::Gamma12overM12_BsFULLNLO1(){
+gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO1(){
     return 0.;
 }
 
@@ -866,7 +866,7 @@ gslpp::complex AmpDB2::Gamma12overM12_Bd_NNLO(){
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd( //gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
             mySM.getBBd().getMu(),
             mySM.getBBd().getScheme());
-    gslpp::complex M12overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+    gslpp::complex M21overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
     
     //MB, me
     computeCKMandMasses();
@@ -874,11 +874,11 @@ gslpp::complex AmpDB2::Gamma12overM12_Bd_NNLO(){
     compute_deltas_1overm(d); //compute_deltas_1overm(s);
     
    //equation (6.1)
-    gslpp::complex Gamma12overM12_Bd = Gf2 * Mb2 / (24 * M_PI * MB) / M12overme0 *  //gslpp::complex Gamma12overM12_Bs = Gf2 * Mb2 / (24 * M_PI * MB_s) / M12overme0 *
-            (H() + H_s() * me(1)/me(0) + delta_1overm(d)/me(0));                    //        (H() + H_s() * me(1)/me(0) + delta_1overm(s)/me(0));
+    gslpp::complex Gamma21overM21_Bd = Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *  //gslpp::complex Gamma12overM12_Bs = Gf2 * Mb2 / (24 * M_PI * MB_s) / M12overme0 *
+            (H() + H_s() * me(1)/me(0) + delta_1overm(d)/me(0)).conjugate();                    //        (H() + H_s() * me(1)/me(0) + delta_1overm(s)/me(0));
     //z_old=z;
     std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
-    return Gamma12overM12_Bd;        
+    return Gamma21overM21_Bd;        
 }
 
 //equation (6.2)

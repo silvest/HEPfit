@@ -10,5 +10,5 @@
 
 double C2beta::computeThValue() 
 {
-    return cos(-M12_Bd(FULLNLO).arg() + 2.*SM.getPhiBd());
+    return cos(-M21_Bd(FULLNLO).arg() + 2.*SM.getPhiBd());
 }
