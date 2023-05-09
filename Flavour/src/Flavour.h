@@ -10,6 +10,7 @@
 
 class StandardModel;
 class HeffDF2;
+class HeffDF1_Plepnu;
 class HeffDB1;
 class HeffDC1;
 class HeffDS1;
@@ -46,6 +47,14 @@ public:
      *
      */
     HeffDF2& getHDF2() const;
+    
+    
+    /**
+     * @brief The member that returns an object of the class HeffDF1_Plepnu.
+     * @return returns the Hamiltonian for the \f$ \Delta F = 1 \f$ processes pion leptonic decay
+     *
+     */
+    HeffDF1_Plepnu& getHDF1_Plepnu() const;
 
     /**
      * @brief The member that returns an object of the class HeffDS1.
@@ -120,6 +129,14 @@ public:
 
     
     gslpp::vector<gslpp::complex>** ComputeCoeffcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
+    
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
+    
+    
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
+    
     
     
     /**
@@ -281,6 +298,7 @@ private:
     template <typename T, typename... Args> T& getM(std::map<std::vector<int>,std::shared_ptr<T> >& map, Args ... args) const;
     const StandardModel & mySM;
     mutable std::shared_ptr<HeffDF2> HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
+    mutable std::shared_ptr<HeffDF1_Plepnu> HDF1_Plepnu; ///< An Object for the Hamiltonian of the \f$ \Delta F = 1 \f$ processes Pion leptonic decay.
     mutable std::shared_ptr<HeffDB1> HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
     mutable std::shared_ptr<HeffDC1> HDC1; ///< An Object for the Hamiltonian of the \f$ \Delta C = 1 \f$ processes.
     mutable std::shared_ptr<HeffDS1> HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.

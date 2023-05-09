@@ -7,32 +7,33 @@
 
 
 
-#ifndef DLEPTONNU_H
-#define DLEPTONNU_H
+#ifndef KMUNU_O_PMUNU_H
+#define KMUNU_O_PMUNU_H
 
 
 
 #include "ThObservable.h"
 #include "QCD.h"
 
+
 class StandardModel;
 
 /**
- * @class Dleptonnu
+ * @class Kmunu_o_Pmunu
  * @ingroup Flavour
- * @brief A class for @f$D\to \lepton \nu @f$
+ * @brief A class for @f$ (K\to \lepton \nu) / (\pi \to \lepton \nu) @f$
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
- * branching ratio of \f$D\to \lepton \nu\f.
+ * branching ratio of @f$ (K\to \lepton \nu) / (\pi \to \lepton \nu) @f$.
  */
-class Dleptonnu : public ThObservable {
+class Kmunu_o_Pmunu : public ThObservable {
 public:   
     /**
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    Dleptonnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::lepton lepton_i);
+    Kmunu_o_Pmunu(const StandardModel& SM_i);
     
     /**
      * 
@@ -43,13 +44,14 @@ public:
     
 protected:
     
+    
 private:
     
-    QCD::meson meson;
-    QCD::lepton lepton;
+
     
 };
 
 
-#endif /* DLEPTONNU_H */
+
+#endif /* KMUNU_O_PMUNU_H */
 

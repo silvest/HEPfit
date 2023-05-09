@@ -11,6 +11,7 @@
 #include "MVll.h"
 #include "MPll.h"
 #include "HeffDF2.h"
+#include "HeffDF1_Plepnu.h"
 #include "HeffDS1.h"
 #include "HeffDC1.h"
 #include "HeffDB1.h"
@@ -45,6 +46,11 @@ bool Flavour::setFlag(const std::string name, const bool value)
 HeffDF2& Flavour::getHDF2() const
 {
     return *getPtr<HeffDF2>(HDF2);
+}
+
+HeffDF1_Plepnu& Flavour::getHDF1_Plepnu() const
+{
+    return *getPtr<HeffDF1_Plepnu>(HDF1_Plepnu);
 }
 
 HeffDS1& Flavour::getHDS1() const
@@ -113,6 +119,19 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1mumu() const
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const
 {
     return getPtr<HeffDC1>(HDC1)->ComputeCoeffcleptonnu(meson_i,lepton_i);
+}
+
+
+
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const
+{
+    return getPtr<HeffDS1>(HDS1)->ComputeCoeffsleptonnu(meson_i,lepton_i);
+}
+
+
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const
+{
+    return getPtr<HeffDF1_Plepnu>(HDF1_Plepnu)->ComputeCoeffuleptonnu(meson_i,lepton_i);
 }
 
 

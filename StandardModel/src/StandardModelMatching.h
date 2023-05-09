@@ -181,6 +181,22 @@ public:
     virtual  std::vector<WilsonCoefficient>& CMcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
     
     
+    
+    /**
+     * 
+     * @return Wilson coefficient for \f$ K \rightarrow \lepton \nu \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
+    
+    
+    
+    /**
+     * 
+     * @return Wilson coefficient for \f$ \pi \rightarrow \lepton \nu \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
+    
+    
     /**
      * 
      * @return Wilson coefficients for \f$ B_{s} \rightarrow X_{s} \nu \nu \f$
@@ -656,7 +672,7 @@ public:
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
-    std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu, vmccleptonnu;
+    std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu, vmccleptonnu, vmcsleptonnu, vmculeptonnu;
     std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j, vmcmueconv, vmcgminus2mu;
     std::vector<WilsonCoefficientNew> vmcDF1;
 
@@ -669,7 +685,7 @@ private:
     double S18(double x) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
     WilsonCoefficient mcbsg, mcprimebsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
-    WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mcbtaunu, mccleptonnu;
+    WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mcbtaunu, mccleptonnu, mcsleptonnu, mculeptonnu;
     WilsonCoefficient mcDLij, mcDLi3j, mcmueconv, mcgminus2mu;
     WilsonCoefficientNew mcC, mcP, mcM, mcL, mcQ, mcB;
     

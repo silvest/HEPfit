@@ -37,6 +37,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbdmm(8, NDR, NNLO, NLO_QED22),
         mcbtaunu(4, NDR, LO),
         mccleptonnu(4, NDR, LO),
+        mcsleptonnu(4, NDR, LO),
+        mculeptonnu(4, NDR, LO),
         mcDLij(2, NDR, LO),
         mcDLi3j(20, NDR, LO),
         mcmueconv(8, NDR, LO),
@@ -1923,9 +1925,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  
  /*******************************************************************************
  * Wilson coefficients calcoulus, LEFT basis [1709.04486] for (D -> lepton nu) from [1706.00410]                *
- * ****************************************************************************/
-
- 
+ * ****************************************************************************/ 
   std::vector<WilsonCoefficient>& StandardModelMatching::CMcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
 {
     
@@ -1944,7 +1944,6 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
                 case QCD::D_S:
                     mccleptonnu.setCoeff(0, 4.*GF * Vckm(1,1) / sqrt(2.) , LO);
                 break;
-                // We need to include also D_s, for that we need to include that meson in the SM
                 default:
                 throw std::runtime_error("StandardModelMatching::CMcleptonnu(): doesn't include that meson");
                 
@@ -1954,7 +1953,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
         default:
             std::stringstream out;
             out << mccleptonnu.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbtaunu(): order " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMcleptonnu(): order " + out.str() + "not implemented");
     }
     
     vmccleptonnu.push_back(mccleptonnu);
@@ -1963,6 +1962,84 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
 }     
  
  
+  
+  
+  
+  
+ /*******************************************************************************
+ * Wilson coefficients calculus, LEFT basis [1709.04486] for (K -> lepton nu) from [1706.00410]                *
+ * ****************************************************************************/ 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
+{
+    
+    vmcsleptonnu.clear();
+    
+    mcsleptonnu.setMu(Muw);
+ 
+    switch (mcsleptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            switch (meson_i){
+                case QCD::K_P:
+                    mcsleptonnu.setCoeff(0, 4.*GF * Vckm(0,1) / sqrt(2.) , LO);
+                break;
+                default:
+                throw std::runtime_error("StandardModelMatching::CMsleptonnu(): doesn't include that meson");
+                
+            }
+           
+        break;
+        default:
+            std::stringstream out;
+            out << mcsleptonnu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMsleptonnu(): order " + out.str() + "not implemented");
+    }
+    
+    vmcsleptonnu.push_back(mcsleptonnu);
+    return(vmcsleptonnu);
+    
+}     
+
+  
+  
+
+  
+ /*******************************************************************************
+ * Wilson coefficients calculus, LEFT basis [1709.04486] for (\pi -> lepton nu) from [1706.00410]                *
+ * ****************************************************************************/ 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
+{
+    
+    vmculeptonnu.clear();
+    
+    mculeptonnu.setMu(Muw);
+ 
+    switch (mculeptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            switch (meson_i){
+                case QCD::P_P:
+                    mculeptonnu.setCoeff(0, 4.*GF * Vckm(0,0) / sqrt(2.) , LO);
+                break;
+                default:
+                throw std::runtime_error("StandardModelMatching::CMuleptonnu(): doesn't include that meson");
+                
+            }
+           
+        break;
+        default:
+            std::stringstream out;
+            out << mculeptonnu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMuleptonnu(): order " + out.str() + "not implemented");
+    }
+    
+    vmculeptonnu.push_back(mculeptonnu);
+    return(vmculeptonnu);
+    
+}  
+  
 /******************************************************************************/
 
 /*******************************************************************************

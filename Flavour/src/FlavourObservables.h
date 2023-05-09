@@ -26,6 +26,8 @@
 #include "Mll.h"
 #include "Btaunu.h"
 #include "Dleptonnu.h"
+#include "Kmunu_o_Pmunu.h"
+#include "tauKnu_o_tauPnu.h"
 #include "bsgamma.h"
 #include "M12D.h"
 #include "ArgD.h"

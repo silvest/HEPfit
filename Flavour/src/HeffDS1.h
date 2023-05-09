@@ -11,6 +11,7 @@
 class StandardModel;
 class EvolDF1nlep;
 class EvolDB1Mll;
+#include "QCD.h"
 #include "WilsonCoefficient.h"
 #include <sstream>
 #include <memory>
@@ -45,6 +46,17 @@ public:
     
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1mumu();
     
+    
+    /**
+     * 
+     * @param scheme
+     * @return short distance contribution to the rare decay \f$ K \rightarrow \lepton \nu \f$
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i);
+    
+    
+    
+    
     WilsonCoefficient getCoeffDS1PP() const {
         return coeffds1;
     }
@@ -73,10 +85,14 @@ public:
         return model;
     }
     
+    
+     
+
+    
 private :
     const StandardModel& model;
     
-    WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu, coeffds1mumu;
+    WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu, coeffds1mumu, coeffsleptonnu;
     std::unique_ptr<EvolDF1nlep> u;
     std::unique_ptr<EvolDB1Mll> uM;
     

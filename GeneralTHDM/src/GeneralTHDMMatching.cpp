@@ -20,6 +20,8 @@ GeneralTHDMMatching::GeneralTHDMMatching(const GeneralTHDM & GeneralTHDM_i) :
     mcdbs2(5, NDR, NLO),
     mcbtaunu(4, NDR, LO),
     mccleptonnu(4, NDR, LO),
+    mcsleptonnu(4, NDR, LO),
+    mculeptonnu(4, NDR, LO),
     mcBMll(13, NDR, NLO),
     mcbsg(8, NDR, NNLO),
     mcgminus2mu(2, NDR, NLO),
@@ -1415,6 +1417,139 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMcleptonnu(QCD::meson meso
     
     }
 }
+
+
+
+
+ /*******************************************************************************
+ * Wilson coefficients calculus, LEFT basis [1709.04486] for (K -> lepton nu) from [1706.00410]                *
+ * ****************************************************************************/ 
+  std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
+{
+    
+    if (!myGTHDM.getATHDMflag())
+    {
+        throw std::runtime_error("CMsleptonnu is only available in the ATHDM at the moment.");
+        return (vmcbsg);
+    }
+    else{
+        
+    
+    double Muw = myGTHDM.getMuw();
+    double GF = myGTHDM.getGF();
+    myCKM = myGTHDM.getVCKM();
+    double mK = myGTHDM.getMesons(meson_i).getMass();
+    gslpp::complex zetad=myGTHDM.getNd_11();
+    gslpp::complex zetal=myGTHDM.getNl_11();
+    gslpp::complex zetau=myGTHDM.getNu_11();
+    double mHp2=myGTHDM.getmHp2();
+    
+    double mu = myGTHDM.getQuarks(QCD::UP).getMass();
+    double ms = myGTHDM.getQuarks(QCD::STRANGE).getMass();  
+      
+      
+    vmcsleptonnu.clear();
+    
+    mcsleptonnu.setMu(Muw);
+ 
+    switch (mcsleptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            switch (meson_i){
+                case QCD::K_P:
+                    mcsleptonnu.setCoeff(0, -4.*GF * myCKM(0,1) / sqrt(2.)*(mK*mK*zetal.conjugate()*(ms*zetad+mu*zetau)/mHp2/(ms+mu)), LO);
+                break;
+                default:
+                throw std::runtime_error("GeneralTHDMMatching::CMsleptonnu(): doesn't include that meson");
+                
+            }
+           
+        break;
+        default:
+            std::stringstream out;
+            out << mcsleptonnu.getOrder();
+            throw std::runtime_error("GeneralTHDMMatching::CMsleptonnu(): order " + out.str() + "not implemented");
+    }
+    
+    
+    
+    vmcsleptonnu.push_back(mcsleptonnu);
+    return(vmcsleptonnu);
+    
+    }
+}     
+
+  
+  
+
+  
+ /*******************************************************************************
+ * Wilson coefficients calculus, LEFT basis [1709.04486] for (\pi -> lepton nu) from [1706.00410]                *
+ * ****************************************************************************/ 
+  std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
+{
+      
+      
+    if (!myGTHDM.getATHDMflag())
+    {
+        throw std::runtime_error("CMuleptonnu is only available in the ATHDM at the moment.");
+        return (vmcbsg);
+    }
+    else{
+        
+    
+    double Muw = myGTHDM.getMuw();
+    double GF = myGTHDM.getGF();
+    myCKM = myGTHDM.getVCKM();
+    double mP = myGTHDM.getMesons(meson_i).getMass();
+    gslpp::complex zetad=myGTHDM.getNd_11();
+    gslpp::complex zetal=myGTHDM.getNl_11();
+    gslpp::complex zetau=myGTHDM.getNu_11();
+    double mHp2=myGTHDM.getmHp2();
+    
+    double mu = myGTHDM.getQuarks(QCD::UP).getMass();
+    double md = myGTHDM.getQuarks(QCD::DOWN).getMass();
+
+    
+    
+    vmculeptonnu.clear();
+    
+    mculeptonnu.setMu(Muw);
+ 
+    switch (mculeptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            switch (meson_i){
+                case QCD::P_P:
+                    mculeptonnu.setCoeff(0, -4.*GF * myCKM(0,0) / sqrt(2.)*(mP*mP*zetal.conjugate()*(md*zetad+mu*zetau)/mHp2/(md+mu)) , LO);
+                break;
+                default:
+                throw std::runtime_error("GeneralTHDMMatching::CMuleptonnu(): doesn't include that meson");
+                
+            }
+           
+        break;
+        default:
+            std::stringstream out;
+            out << mculeptonnu.getOrder();
+            throw std::runtime_error("GeneralTHDMMatching::CMuleptonnu(): order " + out.str() + "not implemented");
+    }
+    
+    vmculeptonnu.push_back(mculeptonnu);
+    return(vmculeptonnu);
+    
+    
+    }
+    
+    
+}  
+  
+  
+  
+  
+
 
 
 

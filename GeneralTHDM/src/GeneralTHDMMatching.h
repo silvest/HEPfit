@@ -231,6 +231,26 @@ public:
     virtual  std::vector<WilsonCoefficient>& CMcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
     
     
+    /**
+     * 
+     * @return Wilson coefficient for \f$ K \rightarrow \lepton \nu \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
+    
+    
+    
+    /**
+     * 
+     * @return Wilson coefficient for \f$ \pi \rightarrow \lepton \nu \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
+    
+    
+    
+    
+    
+    
+    
     virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
     
     
@@ -372,7 +392,7 @@ private:
     const GeneralTHDM & myGTHDM;
 
     gslpp::matrix<gslpp::complex> myCKM;
-    WilsonCoefficient mcdbs2, mcbtaunu, mccleptonnu, mcBMll, mcbsg, mcgminus2mu, mcbsmm;
+    WilsonCoefficient mcdbs2, mcbtaunu, mccleptonnu, mcsleptonnu, mculeptonnu, mcBMll, mcbsg, mcgminus2mu, mcbsmm;
 
     double GF, mMU;
     gslpp::complex CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];

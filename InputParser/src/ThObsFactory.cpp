@@ -4399,6 +4399,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Dstaunu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_S, StandardModel::TAU);
     
     
+    //----- K to muon nu / Pi to muon nu  -----
+    obsThFactory["Kmunu_o_Pmunu"] = boost::factory<Kmunu_o_Pmunu*>();
+    
+    
+    //----- tau to K nu / tau to Pi nu  -----
+    obsThFactory["tauKnu_o_tauPnu"] = boost::factory<tauKnu_o_tauPnu*>();
     
     
     /* BEGIN: REMOVE FROM THE PACKAGE */

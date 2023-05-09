@@ -13,6 +13,12 @@
 class GeneralTHDM;
 class GeneralTHDMcache;
 
+/////// IMPORTANT!!!
+/////// So far these branching ratios don't seem to be used since we use the signal strenghts as observables
+/////// It seems that the code could be optimised and at least use this definitions when computing the signal
+/////// strengths, which is done in the GeneralTHDM.cpp. We'll leave it as it is for the moment though.
+
+
 /**
  * @class GTHDM_BR_h_bb
  * @ingroup GTHDM
