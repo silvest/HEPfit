@@ -1323,7 +1323,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu(QCD::meson meson_i
     double mu = myGTHDM.getQuarks(QCD::UP).getMass();
     double mc = myGTHDM.getQuarks(QCD::CHARM).getMass();
     
-    //vmcbtaunu.clear();//Already done when calling the SM version
+
     vmcbtaunu = StandardModelMatching::CMbtaunu(meson_i);
     mcbtaunu.setMu(Muw);
  
@@ -1380,7 +1380,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMcleptonnu(QCD::meson meso
     double mmuon = myGTHDM.getLeptons(StandardModel::MU).getMass();
     
     
-    //vmccleptonnu.clear();//Already done when calling the SM version
+
     vmccleptonnu = StandardModelMatching::CMcleptonnu(meson_i, lepton_i);
     mccleptonnu.setMu(Muw);
  
@@ -1448,8 +1448,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMcleptonnu(QCD::meson meso
     double ms = myGTHDM.getQuarks(QCD::STRANGE).getMass();  
       
       
-    vmcsleptonnu.clear();
-    
+    vmcsleptonnu = StandardModelMatching::CMsleptonnu(meson_i, lepton_i);
     mcsleptonnu.setMu(Muw);
  
     switch (mcsleptonnu.getOrder()) {
@@ -1513,7 +1512,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMcleptonnu(QCD::meson meso
 
     
     
-    vmculeptonnu.clear();
+    vmculeptonnu = StandardModelMatching::CMuleptonnu(meson_i, lepton_i);
     
     mculeptonnu.setMu(Muw);
  
