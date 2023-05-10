@@ -33,7 +33,7 @@ DGamma_s::~DGamma_s() {
 }
 
 double DGamma_s::computeThValue() {
-    return -Gamma21overM21_Bs(FULLNLO).real() * SM.getOptionalParameter("DmBs_ex");
+    return -Gamma21overM21_Bs(FULLNNLO).real() * SM.getOptionalParameter("DmBs_ex");
 }
 
 DGamma_d_NLO::DGamma_d_NLO(const StandardModel& SM_i)

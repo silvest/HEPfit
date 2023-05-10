@@ -80,7 +80,6 @@ gslpp::complex AmpDB2::M21_Bd(orders order) {
             mySM.getBBd().getScheme());
 
     gslpp::vector<double> me(mySM.getBBd().getBpars());
-    std::cout << "me0" << me(0) << "\n";
     double MBd = mySM.getMesons(QCD::B_D).getMass();
     double Mb = mySM.Mrun(mySM.getBBd().getMu(),
             mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -197,12 +196,14 @@ void AmpDB2::compute_matrixelements(quark q){
     switch (q) {
         case d:
             me = mySM.getBBd().getBpars();
+            me1tilde = 1.2; //mySM.getOptionalParameter("BBd2tilde");
             Mq = Md;
             MBq2 = MB2;
             FBq2 = mySM.getMesons(QCD::B_D).getDecayconst() * mySM.getMesons(QCD::B_D).getDecayconst();
             break;
         case s:
             me = mySM.getBBs().getBpars();
+            me1tilde = 1.31; // mySM.getOptionalParameter("BBs2tilde");
             Mq = Ms;
             MBq2 = MB_s * MB_s;
             FBq2 = mySM.getMesons(QCD::B_S).getDecayconst() * mySM.getMesons(QCD::B_S).getDecayconst();            
@@ -219,14 +220,18 @@ void AmpDB2::compute_matrixelements(quark q){
     me(3) *=       2. * KBq * MBq2 * FBq2;
     me(4) *=  2. / 3. * KBq * MBq2 * FBq2;
     
+    //equation (7.5)
+    me1tilde *= 1. / 3. * MBq2 * FBq2;
+    
     me_R(0) = Mq/Mb * me(3);
     //new lattice results?
     me_R(1) = -2./3. * FBq2 * MBq2 * (MBq2 / Mb2 -1.);
     me_R(2) =  7./6. * FBq2 * MBq2 * (MBq2 / Mb2 -1.);
     me_R(3) = me(2) + 0.5 * me(0) + me(1) - 2. * Mq/Mb * me(4) + me_R(1);
     
+     
     
-    //as for M12 (different from equation (26))
+    //as for M21 (different from equation (26))
     switch (q) {
         case d:
             me = mySM.getBBd().getBpars();
@@ -250,13 +255,14 @@ void AmpDB2::compute_matrixelements(quark q){
     me(3) *=  1. /  4. * KBq * MBq * FBq2;
     me(4) *=  1. / 12. * KBq * MBq * FBq2;    
 
-    //std::cout << "me" << me << "\n";
-    //std::cout << "me_R " << me_R << "\n";
+    std::cout << "me" << me << "\n";
+    std::cout << "me_R " << me_R << "\n";
     return;
 }
 
 //equation 18
 gslpp::complex AmpDB2::delta_1overm(quark q) {
+    //return 0.;
     switch (q) {
         case d:
             compute_deltas_1overm(q);
@@ -525,31 +531,10 @@ void AmpDB2::computeD() {
     return;
 }
 
-void AmpDB2::computeCKMandMasses() {
-    Md = mySM.getQuarks(QCD::DOWN).getMass();
-    Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
-    Ms = mySM.getQuarks(QCD::STRANGE).getMass();
+void AmpDB2::computeCKMandMasses(orders order) {
+    if (order != NLO and order != NNLO)
+        throw(std::runtime_error("computeCKMandMasses() order not present"));
     
-    flag_resumz = true;
-    Mc = mySM.Mrun(mySM.getBBd().getMu(),
-            mySM.getQuarks(QCD::CHARM).getMass_scale(),
-            mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
-    
-//    flag_resumz = false;
-//    Mc = mySM.getQuarks(QCD::CHARM).getMass();
-    
-    Mt = mySM.getQuarks(QCD::TOP).getMass();
-    MW = mySM.Mw();
-    MB = mySM.getMesons(QCD::B_D).getMass();
-    MB_s = mySM.getMesons(QCD::B_S).getMass();
-    Mb2 = Mb * Mb;
-    Mt2 = Mt * Mt;
-    MB2 = MB * MB;
-    MW2 = MW * MW;
-    z = Mc * Mc / Mb2;
-    
-    rhob = mySM.getCKM().getRhoBar();
-    etab = mySM.getCKM().getEtaBar();
     VtbVtd = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_td();
     VtbVts = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_ts();
     VtbVtd2 = VtbVtd * VtbVtd;
@@ -558,38 +543,67 @@ void AmpDB2::computeCKMandMasses() {
     VcbVcs = mySM.getCKM().getV_cb().conjugate() * mySM.getCKM().getV_cs();
     VcbVcd2 = VcbVcd * VcbVcd;
     VcbVcs2 = VcbVcs * VcbVcs;
-
-    //update others
+    
     Gf2 = mySM.getGF() * mySM.getGF();
-    z2 = z * z;
-    z3 = z2 * z;
-    z4 = z3 * z;
-    logz = log(z);
-    log1minusz = log(1 - z);
-    log1minus4z = log(1. - 4. * z);
-    oneminusz2 = (1 - z) * (1 - z);
-    sqrt1minus4z = sqrt(1 - 4 * z);
-    sigma = (1 - sqrt1minus4z)/(1 + sqrt1minus4z);
-    logsigma = log(sigma);
-    log2sigma = logsigma * logsigma;
-
-    Dilogz = gslpp_special_functions::dilog(z);
-    Dilogsigma = gslpp_special_functions::dilog(sigma);
-    Dilogsigma2 = gslpp_special_functions::dilog(sigma * sigma);
+    Md = mySM.getQuarks(QCD::DOWN).getMass();
+    Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    Ms = mySM.getQuarks(QCD::STRANGE).getMass();
+    MB = mySM.getMesons(QCD::B_D).getMass();
+    MB_s = mySM.getMesons(QCD::B_S).getMass();
+    Mb2 = Mb * Mb;
+    MB2 = MB * MB;
     
     mu_1 = mySM.getMub();
     mu_2 = Mb;
-    x_1 = mu_1/Mb;
-    x_2 = mu_2/Mb;
-    logx_1 = log(x_1);
-    logx_2 = log(x_2);
-    
     as_4pi = mySM.Alstilde5(mySM.getMub());
+    
+    if (order == NLO){
+        Mc = mySM.Mrun(mySM.getBBd().getMu(),
+            mySM.getQuarks(QCD::CHARM).getMass_scale(),
+            mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+    
+//        flag_resumz = false;
+//        Mc = mySM.getQuarks(QCD::CHARM).getMass();
+        
+        x_1 = mu_1/Mb;
+        x_2 = mu_2/Mb;
+        logx_1 = log(x_1);
+        logx_2 = log(x_2);
+    }
+    if (order == NNLO){
+        Mc = mySM.Mrun(mySM.getBBd().getMu(),
+            mySM.getQuarks(QCD::CHARM).getMass_scale(),
+            mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+    }
+    
+    z = Mc * Mc / Mb2;
+    z2 = z * z;
+    logz = log(z);
+    oneminusz2 = (1. - z) * (1. - z);
+    sqrt1minus4z = sqrt(1. - 4. * z);
+    
+    if (order == NLO){
+        z3 = z2 * z;
+        z4 = z3 * z;
+
+        log1minusz = log(1. - z);
+        log1minus4z = log(1. - 4. * z);
+
+        sigma = (1. - sqrt1minus4z)/(1. + sqrt1minus4z);
+        logsigma = log(sigma);
+        log2sigma = logsigma * logsigma;
+
+        Dilogz = gslpp_special_functions::dilog(z);
+        Dilogsigma = gslpp_special_functions::dilog(sigma);
+        Dilogsigma2 = gslpp_special_functions::dilog(sigma * sigma);
+    }
     return;
 }
 
 void AmpDB2::computeWilsonCoeffs(){
-    gslpp::vector<gslpp::complex> ** WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(mu_1, QCD::NOLEPTON);
+    double currentInput_computeWilsonCoeffs = mu_1;
+    if (lastInput_computeWilsonCoeffs == currentInput_computeWilsonCoeffs) return;
+   gslpp::vector<gslpp::complex> ** WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(mu_1, QCD::NOLEPTON);
     for (int i = 0; i < 6; i++) {
         cacheC[i] = (*(WilsonCoeffs[LO]))(i) + (*(WilsonCoeffs[NLO]))(i);
     }
@@ -605,13 +619,13 @@ void AmpDB2::computeWilsonCoeffs(){
 
     K_1 = 3. * C(1) * C(1) + 2. * C(1) * C(2);
     K_2 = C(2) * C(2);
-    K_1prime = 2. * (3. * C(1) * C(3) + C(1) * C(4) + C(2) * C(3));
-    K_2prime = 2. * C(2) * C(4);
-    K_3prime = 2 * (3 * C(1) * C(5) + C(1) * C(6) + C(2) * C(5) + C(2) * C(6));
-    K12 = K_1 + K_2;
+    lastInput_computeWilsonCoeffs = mu_1;
 }
 
 void AmpDB2::computeWilsonCoeffsDB1bsg(){
+    double currentInput_computeWilsonCoeffsDB1bsg = mu_1;
+    if (lastInput_computeWilsonCoeffsDB1bsg == currentInput_computeWilsonCoeffsDB1bsg) return;
+ 
     gslpp::vector<gslpp::complex> ** WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1);
     for (int i = 0; i < 6; i++) {
         cacheC[i] = (*(WilsonCoeffsDB1bsg[LO]))(i) + (*(WilsonCoeffsDB1bsg[NLO]))(i) + (*(WilsonCoeffsDB1bsg[NNLO]))(i);
@@ -628,88 +642,82 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
     std::cout << "--------\n" ;
     K_1 = 3. * C(1) * C(1) + 2. * C(1) * C(2);
     K_2 = C(2) * C(2);
-    K_1prime = 2. * (3. * C(1) * C(3) + C(1) * C(4) + C(2) * C(3));
-    K_2prime = 2. * C(2) * C(4);
-    K_3prime = 2 * (3 * C(1) * C(5) + C(1) * C(6) + C(2) * C(5) + C(2) * C(6));
-    K12 = K_1 + K_2;
+    lastInput_computeWilsonCoeffsDB1bsg = currentInput_computeWilsonCoeffsDB1bsg;
+    return;
 }
 
 gslpp::complex AmpDB2::Gamma21overM21_Bd(orders order) {
-    //hep-ph/0308029v2
     std::cout.precision(4);
-    std::cout << mySM.getFlavour().getHDF2().getCoeffBd().getOrder() << " " << order % 3 << "\n" ;
-    if (order == FULLNNLO) return Gamma12overM12_Bd_NNLO();
-    if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bd(): order not implemented");
-    if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < order % 3)
-        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
-
-    //get M12 without matrix element
+    //Marvin Gerlach 2022, Meson width differences and asymmetries 
+    orderofp[2] = true;
+    if (order == FULLNLO) {
+        orderofp[2] = false;
+        order = FULLNNLO;
+    }
+    if (order != FULLNNLO) throw std::runtime_error("AmpDB2::Gamma21overM21_Bd(): order not implemented");
+//    if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < order % 3)
+//        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
+    
+    //get M21 without matrix element
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd(
             mySM.getBBd().getMu(),
             mySM.getBBd().getScheme());
     gslpp::complex M21overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+    
+    computeCKMandMasses(NNLO);
+    computeWilsonCoeffsMisiak();
+    lambda_c = mySM.getCKM().getV_cd().conjugate() * mySM.getCKM().getV_cb();
+    lambda_u = mySM.getCKM().getV_ud().conjugate() * mySM.getCKM().getV_ub();
 
     //auto t2 = std::chrono::high_resolution_clock::now();
-    computeCKMandMasses();
-    computeWilsonCoeffs();
-    computeWilsonCoeffsDB1bsg();  
-    computeF0();
-    computeF1();
-    computeP();
-    computeD();
+    compute_pp_s();
     //auto t3 = std::chrono::high_resolution_clock::now();
-    //std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
-    compute_matrixelements(d);
-    compute_deltas_1overm(d);
-    
-    std::cout << "Test " << M21overme0 / (M21_Bd(FULLNLO)/me(0)) << "\n";
-    //compare with hep-ph/0307344
-    gslpp::complex VudVub = mySM.getCKM().getV_ud().conjugate() * mySM.getCKM().getV_ub();
 
-    std::cout << "a " <<
-            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
-                (VtbVtd2 * (D(cc, 0) +  D(cc, 1) * me(1)/me(0) + deltas_1overm(cc, d)/me(0))).conjugate() << "\n";
-    std::cout << "b " <<
-            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
-                (2. * VudVub * VtbVtd * (D(cu, 0)-D(cc, 0) +  (D(cu, 1)-D(cc, 1)) * me(1)/me(0) + (deltas_1overm(cu, d)-deltas_1overm(cc, d))/me(0))).conjugate() << "\n";
-    std::cout << "c " <<
-            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
-                (VudVub*VudVub * (2.*D(cu, 0)-D(cc, 0)-D(uu, 0)) +  (2.*D(cu, 1)-D(cc, 1)-D(uu, 1)) * me(1)/me(0) + (2.*deltas_1overm(cu,d)-deltas_1overm(cc,d)-deltas_1overm(uu,d))/me(0)).conjugate() << "\n";
-        
-    //equation 16 divided by 12
-    gslpp::complex Gamma12oM12_Bd = -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
-                (c(d)(0) + c(d)(1) * me(1)/me(0) + delta_1overm(d)/me(0));
-    return Gamma12oM12_Bd;
+    compute_matrixelements(d); //compute_matrixelements(s);
+    compute_deltas_1overm(d); //compute_deltas_1overm(s);
+    
+   //equation (6.1)
+    gslpp::complex Gamma21overM21_Bd = Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
+            ((H() + H_s() * me1tilde/me(0)).conjugate() + delta_1overm(d)/me(0));
+
+    //std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
+    return Gamma21overM21_Bd;        
 }
 
 
 gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order) {
-    //hep-ph/0308029v2
-    std::cout.precision(4);
-    if (order != FULLNLO) throw std::runtime_error("AmpDB2::Gamma12overM12_Bs(): order not implemented");  
-    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
-        throw std::runtime_error("DmBs::computeThValue(): requires cofficient of order not computed");
-
-    //get M12 without matrix element
+    //Marvin Gerlach 2022, Meson width differences and asymmetries 
+    std::cout.precision(4);    
+    orderofp[2] = true;
+    if (order == FULLNLO) {
+        orderofp[2] = false;
+        order = FULLNNLO;
+    }
+    if (order != FULLNNLO) throw std::runtime_error("AmpDB2::Gamma21overM21_Bs(): order not implemented");
+//    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
+//        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
+    
+    //get M21 without matrix element
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
-            mySM.getBBd().getMu(),
-            mySM.getBBd().getScheme());
+            mySM.getBBs().getMu(),
+            mySM.getBBs().getScheme());
     gslpp::complex M21overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
-         
-    computeCKMandMasses();
-    computeWilsonCoeffs();
-    computeWilsonCoeffsDB1bsg();    
-    computeF0();
-    computeF1();
-    computeP();
-    computeD();
+    
+    computeCKMandMasses(NNLO);
+    computeWilsonCoeffsMisiak();
+    lambda_c = mySM.getCKM().getV_cs().conjugate() * mySM.getCKM().getV_cb();
+    lambda_u = mySM.getCKM().getV_us().conjugate() * mySM.getCKM().getV_ub();
+
+    compute_pp_s();
+
     compute_matrixelements(s);
     compute_deltas_1overm(s);
+    
+   //equation (6.1)
+    gslpp::complex Gamma21overM21_Bs = Gf2 * Mb2 / (24 * M_PI * MB_s) / M21overme0 *
+            ((H() + H_s() * me1tilde/me(0)).conjugate() + delta_1overm(s)/me(0));
 
-    std::cout << "Tests " << M21_Bs(FULLNLO) << "\n";    
-    //equation 16 divided by 12
-    gslpp::complex Gamma21overM21_Bs = -Gf2 * Mb2 / (24 * M_PI * MB_s) / M21overme0 *
-                (c(s)(0) + c(s)(1) * me(1)/me(0) + delta_1overm(s)/me(0));
+    //std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
     return Gamma21overM21_Bs;
 }
 
@@ -774,48 +782,75 @@ gslpp::complex AmpDB2::C(int i){
     return cacheC[i - 1];
 }
 
-//double AmpDB2::Asl_d(orders order) {
-//    computeCKMandMasses();
-//    computeWilsonCoeffs();
-//
-//    //mySM.getBBd().setFlagCsi(true);
-//    //std::cout << "getBpars() " << mySM.getBBd().getBpars() << "\n";
-//    B1 = mySM.getBBd().getBpars()(0);
-//    B2 = mySM.getBBd().getBpars()(1);
-//    B_sprime = MB2 / ((Mb + Md)*(Mb + Md)) * B2;
-//
-//    eta_B = 0.55;
-//    eta_Bb = eta_B * pow(mySM.Als(Mb), -6. / 23.) * (1. + mySM.Als(Mb) / (4. * M_PI) * 5165. / 3174.);
-//    S_0 = StandardModelMatching(mySM).S0(Mt2 / MW2, Mt2 / MW2);
-//    //std::cout << "eta_bar*S0" << eta_Bb*S_0 << "\n";
-//
-//    kappa = 4. * M_PI * Mb2 / MW2 * K12 / (eta_Bb * S_0) * z;
-//
-//    //StandardModel CP asymmetry in semileptonic B decay from hep-ph/0202010v2
-//    return (-kappa * etab / ((1. - rhob) * (1. - rhob) + etab * etab)
-//            *
-//            (
-//            1. + z * (5. / 4. * B_sprime / B1 * (K_2 - K_1) / K12 - K_2 / K12)
-//            + z * z * (K_2 - K_1) / K12 * (1. / 3. - 5. / 6. * B_sprime / B1)
-//            + 2. * z * z * (1. - etab) / ((1. - rhob) * (1. - rhob) + etab * etab) * (K_2 - K_1) / K12 * (5. / 2. * B_sprime / B1 - 1.)
-//            + z * (7. * K_1 + 3 * K_2) / (2. * K12 * B1) * (MB2 - Mb2) / Mb2
-//            + (K_1prime + K_2prime - K_3prime) / K12
-//            )
-//            ).real();
-//}
-//
-//double AmpDB2::Asl_s(orders order) {
-//    return 0;
-//}
 
 gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO1(){
-    return 0.;
+    //hep-ph/0308029v2
+    std::cout.precision(4);
+
+    //get M21 without matrix element
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd(
+            mySM.getBBd().getMu(),
+            mySM.getBBd().getScheme());
+    gslpp::complex M21overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+         
+    computeCKMandMasses(NLO);
+    computeWilsonCoeffsDB1bsg();  
+    computeF0();
+    computeF1();
+    computeP();
+    computeD();
+    compute_matrixelements(d);
+    compute_deltas_1overm(d);
+    
+    //std::cout << "Test " << M21overme0 / (M21_Bd(FULLNLO)/me(0)) << "\n";
+    
+    //compare with hep-ph/0307344
+//    gslpp::complex VudVub = mySM.getCKM().getV_ud().conjugate() * mySM.getCKM().getV_ub();
+//
+//    std::cout << "a " <<
+//            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
+//                (VtbVtd2 * (D(cc, 0) +  D(cc, 1) * me(1)/me(0) + deltas_1overm(cc, d)/me(0))).conjugate() << "\n";
+//    std::cout << "b " <<
+//            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
+//                (2. * VudVub * VtbVtd * (D(cu, 0)-D(cc, 0) +  (D(cu, 1)-D(cc, 1)) * me(1)/me(0) + (deltas_1overm(cu, d)-deltas_1overm(cc, d))/me(0))).conjugate() << "\n";
+//    std::cout << "c " <<
+//            -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
+//                (VudVub*VudVub * (2.*D(cu, 0)-D(cc, 0)-D(uu, 0)) +  (2.*D(cu, 1)-D(cc, 1)-D(uu, 1)) * me(1)/me(0) + (2.*deltas_1overm(cu,d)-deltas_1overm(cc,d)-deltas_1overm(uu,d))/me(0)).conjugate() << "\n";
+        
+    //equation 16 divided by 12
+    gslpp::complex Gamma21overM21_Bd = -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
+                (c(d)(0) + c(d)(1) * me(1)/me(0) + delta_1overm(d)/me(0));
+    return Gamma21overM21_Bd;
 }
+
 gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO1(){
-    return 0.;
+    //hep-ph/0308029v2
+    std::cout.precision(4);
+
+    //get M21 without matrix element
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
+            mySM.getBBs().getMu(),
+            mySM.getBBs().getScheme());
+    gslpp::complex M21overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+         
+    computeCKMandMasses(NLO);
+    computeWilsonCoeffsDB1bsg();    
+    computeF0();
+    computeF1();
+    computeP();
+    computeD();
+    compute_matrixelements(s);
+    compute_deltas_1overm(s);
+
+    //equation 16 divided by 12
+    gslpp::complex Gamma21overM21_Bs = -Gf2 * Mb2 / (24 * M_PI * MB_s) / M21overme0 *
+                (c(s)(0) + c(s)(1) * me(1)/me(0) + delta_1overm(s)/me(0));
+    return Gamma21overM21_Bs;
 }
 
 void AmpDB2::computeWilsonCoeffsMisiak(){
+    double currentInput_computeWilsonCoeffsMisiak = mu_1;
+    if (lastInput_computeWilsonCoeffsMisiak == currentInput_computeWilsonCoeffsMisiak) return;
     gslpp::vector<gslpp::complex> ** WilsonCoeffsMisiak = mySM.getFlavour().ComputeCoeffsgamma(mu_1);
     for (int i = 0; i < 6; i++) {
         cacheC[i] = (*(WilsonCoeffsMisiak[LO]))(i) + (*(WilsonCoeffsMisiak[NLO]))(i) + (*(WilsonCoeffsMisiak[NNLO]))(i);
@@ -832,54 +867,9 @@ void AmpDB2::computeWilsonCoeffsMisiak(){
     std::cout << "--------\n" ;
     K_1 = 3. * C(1) * C(1) + 2. * C(1) * C(2);
     K_2 = C(2) * C(2);
-    K12 = K_1 + K_2;
+    lastInput_computeWilsonCoeffsMisiak = currentInput_computeWilsonCoeffsMisiak;
 }
 
-//Marvin Gerlach 2022, Meson width differences and asymmetries 
-gslpp::complex AmpDB2::Gamma12overM12_Bd_NNLO(){
-    mu_1 = mySM.getMub();
-    computeWilsonCoeffsMisiak();
-    lambda_c = mySM.getCKM().getV_cd().conjugate() * mySM.getCKM().getV_cb(); //lambda_c = mySM.getCKM().getV_cs().conjugate() * mySM.getCKM().getV_cb();
-    lambda_u = mySM.getCKM().getV_ud().conjugate() * mySM.getCKM().getV_ub(); //lambda_u = mySM.getCKM().getV_us().conjugate() * mySM.getCKM().getV_ub();
-    Gf2 = mySM.getGF() * mySM.getGF();
-
-    
-
-    Ms = mySM.getQuarks(QCD::STRANGE).getMass();
-    Mc = mySM.Mrun(mySM.getBBd().getMu(),
-            mySM.getQuarks(QCD::CHARM).getMass_scale(),
-            mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);    
-    Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
-    Mb2 = Mb * Mb;
-    z = Mc * Mc / Mb2;
-    mu_2 = Mb;
-    as_4pi = mySM.Alstilde5(mu_1);
-    //MB
-    //MB_s
-    auto t2 = std::chrono::high_resolution_clock::now();
-    compute_pp_s();
-    auto t3 = std::chrono::high_resolution_clock::now();
-
-    //if (z==z_old)
-    
-    //get M12 without matrix element
-    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd( //gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
-            mySM.getBBd().getMu(),
-            mySM.getBBd().getScheme());
-    gslpp::complex M21overme0 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
-    
-    //MB, me
-    computeCKMandMasses();
-    compute_matrixelements(d); //compute_matrixelements(s);
-    compute_deltas_1overm(d); //compute_deltas_1overm(s);
-    
-   //equation (6.1)
-    gslpp::complex Gamma21overM21_Bd = Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *  //gslpp::complex Gamma12overM12_Bs = Gf2 * Mb2 / (24 * M_PI * MB_s) / M12overme0 *
-            (H() + H_s() * me(1)/me(0) + delta_1overm(d)/me(0)).conjugate();                    //        (H() + H_s() * me(1)/me(0) + delta_1overm(s)/me(0));
-    //z_old=z;
-    std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
-    return Gamma21overM21_Bd;        
-}
 
 //equation (6.2)
 gslpp::complex AmpDB2::H(){
@@ -915,15 +905,15 @@ gslpp::complex AmpDB2::H_s(quarks qq){
 
 //equation (6.5)
 double AmpDB2::p(quarks qq, int i, int j){
-    return p(qq, i, j, 0) + 
-            as_4pi * p(qq, i, j, 1) +
-            as_4pi * as_4pi * p(qq, i, j, 2);
+    return p(qq, i, j, 0) * orderofp[0] + 
+            as_4pi * p(qq, i, j, 1) * orderofp[1] +
+            as_4pi * as_4pi * p(qq, i, j, 2) * orderofp[2];
             //+ as_4pi * as_4pi * as_4pi * p(qq, i, j, 3);
 }
 double AmpDB2::p_s(quarks qq, int i, int j){
-    return p_s(qq, i, j, 0) + 
-            as_4pi * p_s(qq, i, j, 1) +
-            as_4pi * as_4pi * p_s(qq, i, j, 2);
+    return p_s(qq, i, j, 0) * orderofp[0] + 
+            as_4pi * p_s(qq, i, j, 1) * orderofp[1] +
+            as_4pi * as_4pi * p_s(qq, i, j, 2) * orderofp[2];
             //+ as_4pi * as_4pi * as_4pi * p_s(qq, i, j, 3);
 }
 
@@ -941,7 +931,8 @@ int AmpDB2::index_p(quarks qq, int i, int j, int n){
 
 void AmpDB2::compute_pp_s(){
     //input didn't change nothing to compute
-    if (z == z_old and mu_1 == mu_1_old and mu_2 == mu_2_old) return;
+    double currentInput_compute_pp_s[3] = {z, mu_1, mu_2};
+    if (lastInput_compute_pp_s == currentInput_compute_pp_s) return;
     
     //remember value of z after setting it to 0 for calculation of uu coefficients
     double cache_z = z;
@@ -1021,7 +1012,6 @@ void AmpDB2::compute_pp_s(){
         }
     }
     
-    logz = log(z);
     double L_1 = 2. * log(mu_1/Mb);
     double L_2 = 2. * log(mu_2/Mb);
     double sqrt3 = sqrt(3);
@@ -1320,8 +1310,8 @@ void AmpDB2::compute_pp_s(){
     cache_ps[index_p(cu, 8, 8, 2)] = -68./9.;
     cache_ps[index_p(uu, 8, 8, 2)] = -68./9.;
 
-    z_old = z;
-    mu_1_old = mu_1;
-    mu_2_old = mu_2;
+    lastInput_compute_pp_s[0] = z;
+    lastInput_compute_pp_s[1] = mu_1;
+    lastInput_compute_pp_s[2] = mu_2;
     return;
 }

@@ -143,11 +143,11 @@ public:
 private:    
     double mu_1;
     double mu_2;    
-    gslpp::vector<gslpp::complex> c(quark q); //requires computeCKMelements(); before use
-    gslpp::complex delta_1overm(quark q); //requires computeCKMelements(); before use
+    gslpp::vector<gslpp::complex> c(quark q); //requires computeCKMandMasses(); before use
+    gslpp::complex delta_1overm(quark q); //requires computeCKMandMasses(); before use
     
 //resummation to use z_bar instead of z and  eliminate z ln z terms (hep-ph/0612167)
-    bool flag_resumz;
+    bool flag_resumz = true;
     
 //access calculated function values
     double F0(quarks qq, int k, int i, int j);
@@ -155,8 +155,9 @@ private:
     double F(quarks qq, int k, int i, int j);
     double P(quarks qq, int k, int i, int j);
     gslpp::complex D(quarks qq, int k);
-    gslpp::complex deltas_1overm(quarks qq, quark q);
+    gslpp::complex deltas_1overm(quarks qq, quark q);  //require computeCKMandMasses
     gslpp::vector<double> me = gslpp::vector<double>(5, 0.);
+    double me1tilde;
     gslpp::vector<double> me_R = gslpp::vector<double>(4, 0.);
     
 //calculate function values
@@ -164,8 +165,8 @@ private:
     void computeF1();   
     void computeP();
     void computeD(); //requires F and P
-    void compute_deltas_1overm(quark q);
-    void compute_matrixelements(quark q);
+    void compute_deltas_1overm(quark q); //require Wilson and computeCKMandMasses
+    void compute_matrixelements(quark q); //require computeCKMandMasses
 
 //array for caching function values
     double cacheF0[24];
@@ -181,7 +182,7 @@ private:
     int index_deltas(quarks qq, quark q);
 
     //CKM elements
-    void computeCKMandMasses(); //requires mu_1
+    void computeCKMandMasses(orders order);
 
     gslpp::complex VtbVtd;
     gslpp::complex VtbVts;
@@ -194,6 +195,7 @@ private:
     
     //cache for often used values
     double Gf2;
+    double z;
     double z2; //z^2
     double z3; //z^3
     double z4; //z^4
@@ -219,46 +221,28 @@ private:
     double Ms;
     double Mc;
     double Mb;
-    double Mt;
-    double MW;
     double MB;
     double MB_s;
-    double rhob;
-    double etab;
     double Mb2;
-    double Mt2;
     double MB2;
-    double MW2;
     
     //Buras basis pdf/hep-ph/9512380v1
     void computeWilsonCoeffs();
+    double lastInput_computeWilsonCoeffs = NAN;
     void computeWilsonCoeffsDB1bsg();
+    double lastInput_computeWilsonCoeffsDB1bsg = NAN;
     gslpp::complex cacheC[6];
-    gslpp::complex C_8G; //check
+    gslpp::complex C_8G;
     gslpp::complex C(int i);
     
     //combinations of Wilson coeffients arxiv.org/abs/hep-ph/0202010
     gslpp::complex K_1;
     gslpp::complex K_2;
-    gslpp::complex K_1prime;
-    gslpp::complex K_2prime;
-    gslpp::complex K_3prime;
     
-    double z;
-    gslpp::complex K12;
-
-    double B1;
-    double B2; //or B_s
-    double B_sprime;
-    double eta_B;
-    double eta_Bb;
-    double S_0;
-    
-    gslpp::complex kappa;
     
     //NNLO
     void computeWilsonCoeffsMisiak();
-    gslpp::complex Gamma12overM12_Bd_NNLO();
+    double lastInput_computeWilsonCoeffsMisiak = NAN;
     void compute_pp_s();
     int index_p(quarks qq, int i, int j, int n);
     double cache_p[576];
@@ -274,8 +258,10 @@ private:
     gslpp::complex lambda_c;
     gslpp::complex lambda_u;
     //for checking cache;
-    double z_old, mu_1_old, mu_2_old = 0.;
+    double lastInput_compute_pp_s[3] = {NAN, NAN, NAN};
+    
     const double M_PI4 = M_PI2 * M_PI2;
+    bool orderofp[3] = {true, true, true};
 };
 
 /**
