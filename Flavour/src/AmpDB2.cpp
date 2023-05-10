@@ -11,10 +11,28 @@
 #include <chrono>
 
 AmpDB2::AmpDB2(const StandardModel& SM_i)
-: mySM(SM_i)
+: mySM(SM_i), meMStoRI(5, 0.), coeffsMStoRI(3, 0.)
 {
     mySM.initializeBParameter("BBs");
     mySM.initializeBParameter("BBd");
+    
+    double log2 = log(2);
+    double meMStoRI0[5] = {-3. - 5./3.+8.*log2, 0., 0., 0., 0.},
+    meMStoRI1[5] = {0., -13./3. + 67./9.+44./9.*log2, -1./3. - 1./9.+28./9.*log2, 0., 0.},
+    meMStoRI2[5] = {0., -29./6 - 28./9.+28./9.*log2, 7./6. - 68./9.+44./9.*log2, 0., 0.},
+    meMStoRI3[5] = {0., 0., 0., -5./3. + 13.-2./3.*log2, -3. + 1.+2.*log2},
+    meMStoRI4[5] = {0., 0., 0., -7./2. + 11./2.+2.*log2, -1./6. - 1./2.-2./3.*log2};
+    meMStoRI.assign(0, meMStoRI0);
+    meMStoRI.assign(1, meMStoRI1);
+    meMStoRI.assign(2, meMStoRI2);
+    meMStoRI.assign(3, meMStoRI3);
+    meMStoRI.assign(4, meMStoRI4);
+    for (int i=0; i<=2; i++ ) {
+        for (int j=0; j<=2; j++ ) {
+            coeffsMStoRI.assign(i, j, meMStoRI(i,j));
+        }
+    }
+    //std::cout << meMStoRI << "\n";
 }
 
 gslpp::complex AmpDB2::RBs(orders order)
@@ -161,7 +179,7 @@ gslpp::complex AmpDB2::M21_Bs(orders order) {
 
 //equation 18
 gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
-    gslpp::vector< complex > c(2, 0.);
+    gslpp::vector< complex > c(3, 0.);
     switch (q) {
         case d:
             for (int i = 0; i <= 1; i++) {
@@ -170,8 +188,8 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
                         + VcbVcd2 * (D(cc, i) + D(uu, i) - 2. * D(cu, i))
                         );
             }
-            std::cout << "D " << D(uu, 1) << " " << D(uu,1)-D(cu,1) << " " << D(cc,1)+D(uu,1)-2.*D(cu,1) << "\n";
-            std::cout << "D " << D(uu, 2) << " " << D(uu,2)-D(cu,2) << " " << D(cc,2)+D(uu,2)-2.*D(cu,2) << "\n";            
+            //std::cout << "D " << D(uu, 1) << " " << D(uu,1)-D(cu,1) << " " << D(cc,1)+D(uu,1)-2.*D(cu,1) << "\n";
+            //std::cout << "D " << D(uu, 2) << " " << D(uu,2)-D(cu,2) << " " << D(cc,2)+D(uu,2)-2.*D(cu,2) << "\n";            
             break;
         case s:
             for (int i = 0; i <= 1; i++) {
@@ -184,6 +202,8 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
         default:
             throw std::runtime_error("AmpDB2::c(quark q, double mu_2): invalid quark index: ");
     }
+    //change to RI
+    //result += as_4pi * coeffsMStoRI.transpose() * result;
     return c;
 }
 
@@ -220,8 +240,14 @@ void AmpDB2::compute_matrixelements(quark q){
     me(3) *=       2. * KBq * MBq2 * FBq2;
     me(4) *=  2. / 3. * KBq * MBq2 * FBq2;
     
+    //switch to RI
+    //me = me - as_4pi * meMStoRI;
+    
     //equation (7.5)
+    //should be just me(2)
     me1tilde *= 1. / 3. * MBq2 * FBq2;
+    //std::cout << "me " << me1tilde << " " << me(2) << "\n";
+    //me1tilde = me(2);
     
     me_R(0) = Mq/Mb * me(3);
     //new lattice results?
@@ -678,7 +704,7 @@ gslpp::complex AmpDB2::Gamma21overM21_Bd(orders order) {
     
    //equation (6.1)
     gslpp::complex Gamma21overM21_Bd = Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
-            ((H() + H_s() * me1tilde/me(0)).conjugate() + delta_1overm(d)/me(0));
+            ((H(0) + H(1) * me(1)/me(0) + H(2) * me1tilde/me(0)).conjugate() + delta_1overm(d)/me(0));
 
     //std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
     return Gamma21overM21_Bd;        
@@ -715,7 +741,7 @@ gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order) {
     
    //equation (6.1)
     gslpp::complex Gamma21overM21_Bs = Gf2 * Mb2 / (24 * M_PI * MB_s) / M21overme0 *
-            ((H() + H_s() * me1tilde/me(0)).conjugate() + delta_1overm(s)/me(0));
+            ((H(0) + H(1) * me(1)/me(0) + H(2) * me1tilde/me(0)).conjugate() + delta_1overm(s)/me(0));
 
     //std::cout << "Computes_d" << (std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2)).count() << "\n";
     return Gamma21overM21_Bs;
@@ -819,7 +845,7 @@ gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO1(){
         
     //equation 16 divided by 12
     gslpp::complex Gamma21overM21_Bd = -Gf2 * Mb2 / (24 * M_PI * MB) / M21overme0 *
-                (c(d)(0) + c(d)(1) * me(1)/me(0) + delta_1overm(d)/me(0));
+                (c(d)(0) + c(d)(1) * me(1)/me(0) + c(d)(2) * me(2)/me(0) + delta_1overm(d)/me(0));
     return Gamma21overM21_Bd;
 }
 
@@ -844,7 +870,7 @@ gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO1(){
 
     //equation 16 divided by 12
     gslpp::complex Gamma21overM21_Bs = -Gf2 * Mb2 / (24 * M_PI * MB_s) / M21overme0 *
-                (c(s)(0) + c(s)(1) * me(1)/me(0) + delta_1overm(s)/me(0));
+                (c(s)(0) + c(s)(1) * me(1)/me(0) + c(s)(2) * me(2)/me(0) + delta_1overm(s)/me(0));
     return Gamma21overM21_Bs;
 }
 
@@ -873,10 +899,12 @@ void AmpDB2::computeWilsonCoeffsMisiak(){
 
 //equation (6.2)
 gslpp::complex AmpDB2::H(){
-    return -lambda_c*lambda_c * H(cc) - 2. * lambda_c*lambda_u * H(cu) - lambda_u*lambda_u * H(uu);
-}
-gslpp::complex AmpDB2::H_s(){
-        return -lambda_c*lambda_c * H_s(cc) - 2. * lambda_c*lambda_u * H_s(cu) - lambda_u*lambda_u * H_s(uu);
+    gslpp::vector< complex > H(3, 0.);
+    H.assign(0, -lambda_c*lambda_c * H(cc) - 2. * lambda_c*lambda_u * H(cu) - lambda_u*lambda_u * H(uu));
+    H.assign(2, -lambda_c*lambda_c * H_s(cc) - 2. * lambda_c*lambda_u * H_s(cu) - lambda_u*lambda_u * H_s(uu));
+    //change to RI
+    //H += as_4pi * coeffsMStoRI.transpose() * H;
+    return H;
 }
 
 //equation (6.4)

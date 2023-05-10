@@ -262,6 +262,11 @@ private:
     
     const double M_PI4 = M_PI2 * M_PI2;
     bool orderofp[3] = {true, true, true};
+        
+    //RI
+    //arXiv:hep-ph/0606197v1, scheme dependent different from Mathematica
+    gslpp::matrix<double> meMStoRI;
+    gslpp::matrix<double> coeffsMStoRI;
 };
 
 /**
