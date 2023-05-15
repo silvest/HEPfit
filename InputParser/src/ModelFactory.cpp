@@ -13,15 +13,9 @@
 #include "NPHiggs.h"
 #include "NPZbbbar.h"
 #include "NPZbbbarLinearized.h"
-#include "NPEffectiveBS.h"
-#include "NPEffectiveGIMR.h"
-#include "NPEffectiveGIMRprime.h"
 #include "NPSMEFTd6.h"
 #include "NPSMEFT6dtopquark.h"
 #include "SigmaBR.h"
-#include "HiggsKvKf.h"
-#include "HiggsKvKfgen.h"
-#include "HiggsKvgenKfgen.h"
 #include "HiggsKigen.h"
 #include "HiggsChiral.h"
 #include "GeneralSUSY.h"
@@ -59,26 +53,13 @@ ModelFactory::ModelFactory()
     modelFactory["NPZbbbarLR"] = bind(boost::factory<NPZbbbar*>(), true);
     modelFactory["NPZbbbarLinearized"] = bind(boost::factory<NPZbbbarLinearized*>(), false);
     modelFactory["NPZbbbarLinearizedLR"] = bind(boost::factory<NPZbbbarLinearized*>(), true);
-    modelFactory["NPEffectiveBS"] = bind(boost::factory<NPEffectiveBS*>(), false, false);
-    modelFactory["NPEffectiveBS_LFU"] = bind(boost::factory<NPEffectiveBS*>(), true, false);
-    modelFactory["NPEffectiveBS_QFU"] = bind(boost::factory<NPEffectiveBS*>(), false, true);
-    modelFactory["NPEffectiveBS_LFU_QFU"] = bind(boost::factory<NPEffectiveBS*>(), true, true);
-    modelFactory["NPEffectiveGIMR"] = bind(boost::factory<NPEffectiveGIMR*>(), false, false);
-    modelFactory["NPEffectiveGIMRprime"] = bind(boost::factory<NPEffectiveGIMRprime*>(), false, false);
     modelFactory["NPSMEFTd6"] = bind(boost::factory<NPSMEFTd6*>(), false, false);
     
     modelFactory["NPSMEFT6dtopquark"] = boost::factory<NPSMEFT6dtopquark*>();
 
     //modelFactory["NPSMEFT6dtopquark"] = bind(boost::factory<NPSMEFT6dtopquark*>(), false, false);
     modelFactory["SigmaBR"] = boost::factory<SigmaBR*>();
-    //modelFactory["NPEffectiveGIMR_LFU"] = bind(boost::factory<NPEffectiveGIMR*>(), true, false);
-    //modelFactory["NPEffectiveGIMR_QFU"] = bind(boost::factory<NPEffectiveGIMR*>(), false, true);
-    modelFactory["NPEffectiveGIMR_LFU_QFU"] = bind(boost::factory<NPEffectiveGIMR*>(), true, true);
-    modelFactory["NPEffectiveGIMRprime_LFU_QFU"] = bind(boost::factory<NPEffectiveGIMRprime*>(), true, true);
     modelFactory["NPSMEFTd6_LFU_QFU"] = bind(boost::factory<NPSMEFTd6*>(), true, true);
-    modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
-    modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
-    modelFactory["HiggsKvgenKfgen"] = boost::factory<HiggsKvgenKfgen*>();
     modelFactory["HiggsKigen"] = boost::factory<HiggsKigen*>();
     modelFactory["HiggsChiral"] = boost::factory<HiggsChiral*>();
     modelFactory["NPDF2"] = boost::factory<NPDF2*>();
