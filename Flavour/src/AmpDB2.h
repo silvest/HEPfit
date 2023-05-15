@@ -145,9 +145,10 @@ private:
     double mu_2;    
     gslpp::vector<gslpp::complex> c(quark q); //requires computeCKMandMasses(); before use
     gslpp::complex delta_1overm(quark q); //requires computeCKMandMasses(); before use
+    gslpp::complex delta_1overm_NLO1(quark q); //requires computeCKMandMasses(); before use
     
 //resummation to use z_bar instead of z and  eliminate z ln z terms (hep-ph/0612167)
-    bool flag_resumz = true;
+    bool flag_resumz;
     
 //access calculated function values
     double F0(quarks qq, int k, int i, int j);
@@ -166,6 +167,7 @@ private:
     void computeP();
     void computeD(); //requires F and P
     void compute_deltas_1overm(quark q); //require Wilson and computeCKMandMasses
+    void compute_deltas_1overm_NLO1(quark q); //require Wilson and computeCKMandMasses
     void compute_matrixelements(quark q); //require computeCKMandMasses
 
 //array for caching function values
@@ -216,6 +218,12 @@ private:
     double Dilogsigma2; //Li_2(sigma^2)
     const double M_PI2 = M_PI * M_PI;
     double as_4pi; //alpha_s/(4Pi)
+    
+    // with Mc(Mc) and not Mc(mub)
+    double zc;
+    double zc2;
+    double oneminuszc2;
+    double sqrt1minus4zc;
     
     double Md;
     double Ms;
@@ -268,6 +276,16 @@ private:
     gslpp::matrix<double> meMStoRI;
     gslpp::matrix<double> coeffsMStoRI;
     bool flag_RI;
+    
+    //hep-ph/0612167
+    void compute_g();
+    gslpp::complex g(quarks qq, int i);
+    gslpp::complex gtilde(quarks qq, int i);
+    gslpp::complex cacheg[12];
+    gslpp::complex cachegtilde[12];
+    int indexg(quarks qq, int i);
+    gslpp::complex C_1LO;
+    gslpp::complex C_2LO;
 };
 
 /**
