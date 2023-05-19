@@ -1186,9 +1186,9 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton)
     // Lambda is not a paraemeter of the model so now mu is set to 0 -> the model is aligned at the ew scale
     double mu = 0;
   
-    double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambda7H;
-    double Relambda7=myGTHDM.getMyGTHDMCache()->Relambda7H;
-    double lambda3=myGTHDM.getMyGTHDMCache()->lambda3H;
+    double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambda7;
+    double Relambda7=myGTHDM.getMyGTHDMCache()->Relambda7;
+    double lambda3=myGTHDM.getMyGTHDMCache()->lambda3;
     
     double  R11 = myGTHDM.getMyGTHDMCache()->R11_GTHDM;
     double  R12 = myGTHDM.getMyGTHDMCache()->R12_GTHDM;

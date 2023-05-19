@@ -2844,14 +2844,21 @@ public:
     double M33_2;
 
     //Remaining parameters of the generic potential depending on the input parameters
-    double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda2,lambda3,lambda4,Imlambda6,Imlambda7;//THIS IS WRONG NOW THERE IS NO SUCH A THING AS GENERIC POTENTIAL
+    double m11sq,m22sq,Rem12sq,Imm12sq,lambda1,lambda3,lambda4,Imlambda6,Imlambda7;
+    //We define also the independent parameters of our model just to make them accessible from the cache
+    //Before they were private
+    double lambda2, Relambda5, Imlambda5, Relambda6, Relambda7;
+    
     
     //Parameters of the Higgs potential depending on the input parameters
-    double m11sqH,m22sqH,Rem12sqH,Imm12sqH,lambda1H,lambda2H,lambda3H,lambda4H,Relambda5H,Imlambda5H,Relambda6H,Imlambda6H,Relambda7H,Imlambda7H;
+    //As said before, these are our parameters, always in the Higgs basis. Unfortunately in the code everything is mixed
+    //We will keep them for the moment since they are used in several functions but we would need to use only ones for accuracy
+    //double m11sqH,m22sqH,Rem12sqH,Imm12sqH,lambda1H,lambda2H,lambda3H,lambda4H,Relambda5H,Imlambda5H,Relambda6H,Imlambda6H,Relambda7H,Imlambda7H;
     
     double M2; 
     
    
+    //It doesn't make sense to have the angle with the subscript GTHDM, they are the same as the other ones
     double R11_GTHDM, R12_GTHDM, R13_GTHDM;
     double R21_GTHDM, R22_GTHDM, R23_GTHDM;
     double R31_GTHDM, R32_GTHDM, R33_GTHDM;
@@ -2927,11 +2934,12 @@ private:
     double sina2;
     double cosa3;
     double sina3;
-   // double mHpsq;
-    double Relambda5;
-    double Imlambda5;
-    double Relambda6;
-    double Relambda7;
+   //// double mHpsq;
+    //double lambda2; Let's make these parameters public so we can also access to them from outside
+    //double Relambda5;
+    //double Imlambda5;
+    //double Relambda6;
+    //double Relambda7;
     
     double Q_GTHDM;
 //    double bma;

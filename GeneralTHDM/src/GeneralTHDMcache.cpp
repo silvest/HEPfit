@@ -4985,7 +4985,7 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
     
     double GeneralTHDMcache::lambdaipm(const double Ri1,const double Ri2, const double Ri3) const
     {
-        return vev*(lambda3H*Ri1 + Relambda7H*Ri2 - Imlambda7H*Ri3);
+        return vev*(lambda3*Ri1 + Relambda7*Ri2 - Imlambda7*Ri3);
     }
        
 void GeneralTHDMcache::computeSignalStrengths()
@@ -5238,10 +5238,10 @@ void GeneralTHDMcache::computeSignalStrengths()
      
    double lambda133 = 0;
     if(myGTHDM->getSMHiggs()){
-     lambda133 = (vev)*(Relambda7H*R21 - (2.0*Relambda5H - lambda3H - lambda4H)*R11);
+     lambda133 = (vev)*(Relambda7*R21 - (2.0*Relambda5 - lambda3 - lambda4)*R11);
     }
     else{
-     lambda133 = (vev)*(Relambda7H*R22 - (2.0*Relambda5H - lambda3H - lambda4H)*R12);
+     lambda133 = (vev)*(Relambda7*R22 - (2.0*Relambda5 - lambda3 - lambda4)*R12);
     }
    
    
@@ -5641,7 +5641,16 @@ Gammaphi2tot= Gammaphi2tot + Gammaphi2_tt+Gammaphi2_cc
             +Gammaphi2_phi1phi1+Gammaphi2_phi3phi3+Gammaphi2_HpHm
             +Gammaphi2_phi1Z+Gammaphi2_phi3Z+Gammaphi2_HpW;
 
+    
+    //std::cout<<"\033[1;34m   R11 =\033[0m "<< R11 <<std::endl;
+    
+    //std::cout<<"\033[1;34m   R23 =\033[0m "<< R23 <<std::endl;
+    //std::cout<<"\033[1;34m   R22 =\033[0m "<< R22 <<std::endl;
 
+    //std::cout<<"\033[1;34m   lambdaphi2HpHm =\033[0m "<< lambdaphi2HpHm <<std::endl;
+    //std::cout<<"\033[1;34m   lambdaphi2HpHm =\033[0m "<< lambdaphi2HpHm <<std::endl;
+    //std::cout<<"\033[1;34m   Gammaphi2_HpHm =\033[0m "<< Gammaphi2_HpHm <<std::endl;
+    //std::cout<<"\033[1;34m   Gammaphi2_HpW =\033[0m "<< Gammaphi2_HpW <<std::endl;
   
     
 
@@ -5936,7 +5945,20 @@ Gammaphi3tot= Gammaphi3_tt+Gammaphi3_cc+Gammaphi3_bb
         +Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z
         +Gammaphi3_HpW;
 
+
+
+                
+    //std::cout<<"\033[1;34m   R31 =\033[0m "<< R31 <<std::endl;   
+    //std::cout<<"\033[1;34m   R32 =\033[0m "<< R32 <<std::endl;   
+    //std::cout<<"\033[1;34m   R33 =\033[0m "<< R33 <<std::endl;   
+            
+    //std::cout<<"\033[1;34m   lambdaphi3HpHm =\033[0m "<< lambdaphi3HpHm <<std::endl;
+    //std::cout<<"\033[1;34m   lambdaphi3HpHm =\033[0m "<< lambdaphi3HpHm <<std::endl;
+    //std::cout<<"\033[1;34m   Gammaphi3_HpHm =\033[0m "<< Gammaphi3_HpHm <<std::endl;
+    //std::cout<<"\033[1;34m   Gammaphi3_HpW =\033[0m "<< Gammaphi3_HpW <<std::endl;
     
+    
+
 
 
 
@@ -6434,6 +6456,8 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     //std::cout<<"\033[1;34m bb_phi2_tautau_TH8 = \033[0m "<<bb_phi2_tautau_TH8<<std::endl;
     //std::cout<<"\033[1;34m bb_phi3_tautau_TH8 = \033[0m "<<bb_phi3_tautau_TH8<<std::endl;
     //std::cout<<"\033[1;34m gg_phi2_tautau_TH13 = \033[0m "<<gg_phi2_tautau_TH13<<std::endl;
+    //std::cout<<"\033[1;34m Br_phi3totautau = \033[0m "<<Br_phi3totautau<<std::endl;
+    //std::cout<<"\033[1;34m SigmaggF_phi3_13 = \033[0m "<<SigmaggF_phi3_13<<std::endl;
     //std::cout<<"\033[1;34m gg_phi3_tautau_TH13 = \033[0m "<<gg_phi3_tautau_TH13<<std::endl;
     //std::cout<<"\033[1;34m bb_phi2_tautau_TH13 = \033[0m "<<bb_phi2_tautau_TH13<<std::endl;
     //std::cout<<"\033[1;34m bb_phi3_tautau_TH13 = \033[0m "<<bb_phi3_tautau_TH13<<std::endl;
@@ -7155,6 +7179,8 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
                                                         
         //std::cout<<"\033[1;31m   stop40 \033[0m "<<std::endl;
         
+        //std::cout<<"\033[1;31m   ip_ex_gg_phi_tautau_ATLAS13(m2) \033[0m "<< ip_ex_gg_phi_tautau_ATLAS13(m3) <<std::endl;
+        //std::cout<<"\033[1;31m   gg_phi3_tautau_TH13 \033[0m "<< gg_phi3_tautau_TH13 <<std::endl;
         
         THoEX_gg_phi3_tautau_ATLAS13=gg_phi3_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(m3);     
     //    if(THoEX_gg_phi3_tautau_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
@@ -7162,6 +7188,9 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     if(m2>=  90.0 && m2<3200.0) {
                                                                 
         //std::cout<<"\033[1;31m   stop41 \033[0m "<<std::endl;
+        
+        //std::cout<<"\033[1;31m   ip_ex_gg_phi_tautau_CMS13(m2) \033[0m "<< ip_ex_gg_phi_tautau_CMS13(m2) <<std::endl;
+        //std::cout<<"\033[1;31m   gg_phi2_tautau_TH13 \033[0m "<< gg_phi2_tautau_TH13 <<std::endl;
         
         THoEX_gg_phi2_tautau_CMS13=gg_phi2_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(m2);    
     //    if(THoEX_gg_phi2_tautau_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();    

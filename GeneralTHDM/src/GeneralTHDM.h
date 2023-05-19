@@ -825,8 +825,8 @@ public:
     }
     
     /**
-     * @brief A getter for the Real part of the Higgs potential parameter @f$lambda_{5}@f$
-     * @return Real part of the Higgs potential parameter @f$lambda_{5}@f$
+     * @brief A getter for the Real part of the Higgs potential parameter @f$lambda_{4}@f$
+     * @return Real part of the Higgs potential parameter @f$lambda_{4}@f$
      */
     double getlambda4() const {
         return lambda4;
