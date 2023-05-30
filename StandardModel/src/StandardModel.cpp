@@ -349,6 +349,7 @@ void StandardModel::setParameter(const std::string name, const double& value)
         if (FlagFixMuwMut)  {
             mut = muw / 80.4 * 163.;
         }
+    }
     else
         QCD::setParameter(name, value);
 }
@@ -394,7 +395,12 @@ void StandardModel::computeCKM()
 }
 
 ///////////////////////////////////////////////////////////////////////////
-// Flagsvoid StandardModel::computeYukawas()
+
+
+
+
+
+void StandardModel::computeYukawas()
 {
     if (requireYu || requireCKM) {
         Yu.reset();

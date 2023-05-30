@@ -2691,6 +2691,11 @@ protected:
      * @brief The method to compute the %CKM matrix.
      */
     virtual void computeCKM();
+    
+    /**
+     * @brief The method to compute the %Yukawas matrix.
+     */
+    virtual void computeYukawas();
 
     Particle leptons[6]; ///< An array of Particle objects for the leptons. 
     CKM myCKM; ///< An object of type CKM. 
@@ -2698,6 +2703,11 @@ protected:
 //    gslpp::matrix<gslpp::complex> VCKM; ///< The %CKM matrix.
 //    gslpp::matrix<gslpp::complex> UPMNS; ///<  The %PMNS matrix.
     mutable Matching<StandardModelMatching,StandardModel> SMM; ///< An object of type Matching.
+    gslpp::matrix<gslpp::complex> Yu; ///< The Yukawa matrix of the up-type quarks.
+    gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa matrix of the down-type quarks.
+    gslpp::matrix<gslpp::complex> Yn; ///< The Yukawa matrix of the neutrinos.
+    gslpp::matrix<gslpp::complex> Ye; ///< The Yukawa matrix of the charged leptons.
+    
     
     // model parameters
     double AlsMz; ///< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$.

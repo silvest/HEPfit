@@ -57,7 +57,7 @@ void CKM::computeCKMfromAngles(double s12_in, double s23_in, double s13_in, doub
     s12 = s12_in;
     s13 = s13_in;
     s23 = s23_in;
-    delta = delta_in
+    delta = delta_in;
     
     c12 = sqrt(1.-s12*s12);
     c13 = sqrt(1.-s13*s13);

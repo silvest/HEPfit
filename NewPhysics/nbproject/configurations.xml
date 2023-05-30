@@ -66,7 +66,6 @@
       <itemPath>src/NPSMEFTd6General.cpp</itemPath>
       <itemPath>src/NPSMEFTd6GeneralMatching.cpp</itemPath>
       <itemPath>src/NPSMEFTd6Matching.cpp</itemPath>
-      <itemPath>src/NPSMEFTd6_QFU_LFU.cpp</itemPath>
       <itemPath>src/NPSTU.cpp</itemPath>
       <itemPath>src/NPSTUVWXY.cpp</itemPath>
       <itemPath>src/NPSTUZbbbarLR.cpp</itemPath>
@@ -89,6 +88,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>../../RGESolver/Solver/src</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="3">
@@ -214,8 +216,6 @@
       <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPSMEFTd6_QFU_LFU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -390,8 +390,6 @@
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPSMEFTd6_QFU_LFU.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
@@ -554,8 +552,6 @@
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPSMEFTd6_QFU_LFU.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
@@ -708,8 +704,6 @@
       <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPSMEFTd6_QFU_LFU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
