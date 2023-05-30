@@ -11,7 +11,7 @@
 #include "gslpp.h"
 #include "StandardModelMatching.h"
 
-class NPSMEFTd6_General;
+class NPSMEFTd6General;
 
 /**
  * @class NPSMEFTd6GeneralMatching
@@ -23,7 +23,7 @@ class NPSMEFTd6_General;
  */
 class NPSMEFTd6GeneralMatching : public StandardModelMatching {
 public:
-    NPSMEFTd6GeneralMatching(const NPSMEFTd6_General & NPSMEFTd6_General_i);
+    NPSMEFTd6GeneralMatching(const NPSMEFTd6General & NPSMEFTd6General_i);
     
     virtual ~NPSMEFTd6GeneralMatching();
     
@@ -36,7 +36,7 @@ public:
     void updateNPSMEFTd6GeneralParameters();
     
 private:
-    const NPSMEFTd6_General & mySMEFT;
+    const NPSMEFTd6General & mySMEFT;
     
 };
 

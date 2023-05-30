@@ -267,14 +267,14 @@
  *   \f${\cal O}_{H}=\big(H^\dagger H\big)^3\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CHL1_kk, CHL1_klr, CHL1_kli </td>
+ *   <td class="mod_name">%CHl1_kk, CHl1_klr, CHl1_kli </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(1)})_{kk}, \mbox{Re}\big[(C_{HL}^{(1)})_{kl}\big], \mbox{Im}\big[(C_{HL}^{(1)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{HL}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{L^i}\,\gamma^\mu L^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CHL3_kk, CHL3_klr, CHL3_kli </td>
+ *   <td class="mod_name">%CHl3_kk, CHl3_klr, CHl3_kli </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{kk}, \mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
@@ -288,14 +288,14 @@
  *   \big(\overline{E^i}\,\gamma^\mu E^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CHQ1_kk, CHQ1_klr, CHQ1_kli </td>
+ *   <td class="mod_name">%CHq1_kk, CHq1_klr, CHq1_kli </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(1)})_{kk}, \mbox{Re}\big[(C_{HQ}^{(1)})_{kl}\big], \mbox{Im}\big[(C_{HQ}^{(1)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{HQ}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{Q^i}\,\gamma^\mu Q^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CHQ3_kk, CHQ3_klr, CHQ3_kli </td>
+ *   <td class="mod_name">%CHq3_kk, CHq3_klr, CHq3_kli </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{kk}, \mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
@@ -392,21 +392,21 @@
  *   \f$({\cal O}_{eB})_{ij} =\big(\overline{L^i}\sigma^{\mu\nu} E^j\big)H B_{\mu\nu}\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLL_1221, CLL_2112 </td>
+ *   <td class="mod_name">%Cll_1221, Cll_2112 </td>
  *   <td class="mod_symb">\f$(C_{LL})_{1221,2112}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LL})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{L^k}\,\gamma_\mu L^l\big)\f$, for \f$ijkl=1221,2112\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLQ1 </td>
+ *   <td class="mod_name">%Clq1 </td>
  *   <td class="mod_symb">\f$C_{LQ}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LQ}^{(1)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLQ3 </td>
+ *   <td class="mod_name">%Clq3 </td>
  *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \sigma_a L^j\big)
@@ -434,42 +434,42 @@
  *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLe </td>
+ *   <td class="mod_name">%Cle </td>
  *   <td class="mod_symb">\f$C_{LE}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LE})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLu </td>
+ *   <td class="mod_name">%Clu </td>
  *   <td class="mod_symb">\f$C_{LU}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LU})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{U^k}\,\gamma_\mu U^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLd </td>
+ *   <td class="mod_name">%Cld </td>
  *   <td class="mod_symb">\f$C_{LD}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LD})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQe </td>
+ *   <td class="mod_name">%Cqe </td>
  *   <td class="mod_symb">\f$C_{QE}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QE})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
  * </tr> 
  * <tr>
- *   <td class="mod_name">%CQQ1_1133, CQQ1_1331, CQQ1_3333 </td>
+ *   <td class="mod_name">%Cqq1_1133, Cqq1_1331, Cqq1_3333 </td>
  *   <td class="mod_symb">\f$C_{QQ}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QQ}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQQ3_1133, CQQ3_1331, CQQ3_3333 </td>
+ *   <td class="mod_name">%Cqq3_1133, Cqq3_1331, Cqq3_3333 </td>
  *   <td class="mod_symb">\f$C_{QQ}^{(3)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QQ}^{(3)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu \sigma_a Q^j\big)
@@ -497,42 +497,42 @@
  *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQu1_1133, CQu1_3311, CQu1_3333 </td>
+ *   <td class="mod_name">%Cqu1_1133, Cqu1_3311, Cqu1_3333 </td>
  *   <td class="mod_symb">\f$C_{Qu}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{Qu}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{u^k}\,\gamma_\mu u^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQu8_1133, CQu8_3311, CQu8_3333 </td>
+ *   <td class="mod_name">%Cqu8_1133, Cqu8_3311, Cqu8_3333 </td>
  *   <td class="mod_symb">\f$C_{Qu}^{(8)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{Qu}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
  *   \big(\overline{u^k}\,\gamma_\mu T^A u^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQd1_3311, CQd1_3333 </td>
+ *   <td class="mod_name">%Cqd1_3311, Cqd1_3333 </td>
  *   <td class="mod_symb">\f$C_{Qd}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{Qd}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{d^k}\,\gamma_\mu d^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQd8_3311, CQd8_3333 </td>
+ *   <td class="mod_name">%Cqd8_3311, Cqd8_3333 </td>
  *   <td class="mod_symb">\f$C_{Qd}^{(8)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{Qd}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
  *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
  * </tr> 
  * <tr>
- *   <td class="mod_name">%CQuQd1_3333 </td>
+ *   <td class="mod_name">%Cquqd1_3333 </td>
  *   <td class="mod_symb">\f$C_{QuQd}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QuQd}^{(1)})_{ijkl}=\big(\overline{Q^i}\, u^j\big) i\sigma_2
  *   \big(\overline{Q^k}^T\, d^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQuQd8_3333 </td>
+ *   <td class="mod_name">%Cquqd8_3333 </td>
  *   <td class="mod_symb">\f$C_{QuQd}^{(8)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QuQd}^{(8)})_{ijkl}=\big(\overline{Q^i}\, T^A u^j\big) i\sigma_2
@@ -751,14 +751,14 @@
  *   \f${\cal O}_{H}=\big(H^\dagger H\big)^3\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CHL1</td>
+ *   <td class="mod_name">%CHl1</td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(1)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{HL}^{(1)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{L^i}\,\gamma^\mu L^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CHL3 </td>
+ *   <td class="mod_name">%CHl3 </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{HL}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
@@ -772,14 +772,14 @@
  *   \big(\overline{E^i}\,\gamma^\mu E^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CHQ1 </td>
+ *   <td class="mod_name">%CHq1 </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(1)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{HQ}^{(1)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{Q^i}\,\gamma^\mu Q^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CHQ3 </td>
+ *   <td class="mod_name">%CHq3 </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{ii}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{HQ}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
@@ -876,21 +876,21 @@
  *   \f$({\cal O}_{eB})_{jj} =\big(\overline{L^j}\sigma^{\mu\nu} E^j\big)H B_{\mu\nu}\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLL </td>
+ *   <td class="mod_name">%Cll </td>
  *   <td class="mod_symb">\f$(C_{LL})_{1221,2112}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LL})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{L^k}\,\gamma_\mu L^l\big)\f$, for \f$ijkl=1221,2112\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLQ1 </td>
+ *   <td class="mod_name">%Clq1 </td>
  *   <td class="mod_symb">\f$C_{LQ}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LQ}^{(1)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLQ3 </td>
+ *   <td class="mod_name">%Clq3 </td>
  *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \sigma_a L^j\big)
@@ -918,42 +918,42 @@
  *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLe </td>
+ *   <td class="mod_name">%Cle </td>
  *   <td class="mod_symb">\f$C_{LE}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LE})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLu </td>
+ *   <td class="mod_name">%Clu </td>
  *   <td class="mod_symb">\f$C_{LU}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LU})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{U^k}\,\gamma_\mu U^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLd </td>
+ *   <td class="mod_name">%Cld </td>
  *   <td class="mod_symb">\f$C_{LD}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{LD})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
  *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQe </td>
+ *   <td class="mod_name">%Cqe </td>
  *   <td class="mod_symb">\f$C_{QE}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QE})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQQ1 </td>
+ *   <td class="mod_name">%Cqq1 </td>
  *   <td class="mod_symb">\f$C_{QQ}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QQ}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQQ3 </td>
+ *   <td class="mod_name">%Cqq3 </td>
  *   <td class="mod_symb">\f$C_{QQ}^{(3)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QQ}^{(3)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu \sigma_a Q^j\big)
@@ -981,42 +981,42 @@
  *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQu1 </td>
+ *   <td class="mod_name">%Cqu1 </td>
  *   <td class="mod_symb">\f$C_{Qu}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{Qu}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{u^k}\,\gamma_\mu u^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQu8 </td>
+ *   <td class="mod_name">%Cqu8 </td>
  *   <td class="mod_symb">\f$C_{Qu}^{(8)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{Qu}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
  *   \big(\overline{u^k}\,\gamma_\mu T^A u^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQd1 </td>
+ *   <td class="mod_name">%Cqd1 </td>
  *   <td class="mod_symb">\f$C_{Qd}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{Qd}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
  *   \big(\overline{d^k}\,\gamma_\mu d^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQd8 </td>
+ *   <td class="mod_name">%Cqd8 </td>
  *   <td class="mod_symb">\f$C_{Qd}^{(8)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{Qd}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
  *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQuQd1 </td>
+ *   <td class="mod_name">%Cquqd1 </td>
  *   <td class="mod_symb">\f$C_{QuQd}^{(1)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QuQd}^{(1)})_{ijkl}=\big(\overline{Q^i}\, u^j\big) i\sigma_2
  *   \big(\overline{Q^k}^T\, d^l\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CQuQd8 </td>
+ *   <td class="mod_name">%Cquqd8 </td>
  *   <td class="mod_symb">\f$C_{QuQd}^{(8)}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f$({\cal O}_{QuQd}^{(8)})_{ijkl}=\big(\overline{Q^i}\, T^A u^j\big) i\sigma_2
@@ -1069,8 +1069,8 @@
  * <tr>
  *   <td class="mod_name">%PartialQFU</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if using CHQ1_11=CHQ1_22, 
- *   CHQ3_11=CHQ3_22, CHU_11=CHU_22, CHD_11=CHD_22, CHud_11=CHud_22.}
+ *   <td class="mod_desc">This flag is set to TRUE if using CHq1_11=CHq1_22, 
+ *   CHq3_11=CHq3_22, CHU_11=CHU_22, CHD_11=CHD_22, CHud_11=CHud_22.}
  *   Only applies in the Non QFU case. In that case only the (1,1) component is taken into account.
  *   The default value is FALSE.</td>
  * </tr>
@@ -1529,13 +1529,13 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-    double CLL_mu() const;
-    double CLL_tau() const;
-    double CLL_up() const;
-    double CLL_down() const;
-    double CLL_charm() const;
-    double CLL_strange() const;
-    double CLL_bottom() const;
+    double Cll_mu() const;
+    double Cll_tau() const;
+    double Cll_up() const;
+    double Cll_down() const;
+    double Cll_charm() const;
+    double Cll_strange() const;
+    double Cll_bottom() const;
 
     double CLR_mu() const;
     double CLR_tau() const;
@@ -6317,21 +6317,37 @@ public:
     ////////////////////////////////////////////////////////////////////////
 protected:
 
-    virtual void ComputeQuarkMassFromMCParameters(quark q) const;
+    //Old definition we won't use it
+    //virtual void ComputeQuarkMassFromMCParameters(quark q);
 
     /**
      * @brief @copybrief Model::setParameter()
      * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
+    
+    
+    /**
+     * @brief The method to compute the %Yukawas matrix.
+     */
+    virtual void computeYukawas();
+    
+    
+    /**
+     * @brief An auxiliary method to compute quark masses and CKM parameters from Yukawa couplings
+     */
+    void computeQuarkMassesAndCKMFromYukawas();
+    
+    
+    
     mutable Matching<NPSMEFTd6GeneralMatching, NPSMEFTd6General> NPSMEFTd6GM;
 
     std::string SMEFTBasisFlag;
     CKM CKM_LNP;
 
-    std::array
 
-            double g1_LNP = 0;
+
+    double g1_LNP = 0;
     double g2_LNP = 0;
     double g3_LNP = 0;
     double lambdaH_LNP = 0;
@@ -6368,16 +6384,16 @@ protected:
     double CHWtilde_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}\f$.
     double CHBtilde_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}\f$.
     double CHWtildeB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}\f$.
-    double CHL1_11r_LNP = 0., CHL1_12r_LNP = 0., CHL1_13r_LNP = 0., CHL1_22r_LNP = 0., CHL1_23r_LNP = 0., CHL1_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$ (Real part and pure real operator).
-    double CHL1_12i_LNP = 0., CHL1_13i_LNP = 0., CHL1_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$ (Imaginary part).
-    double CHL3_11r_LNP = 0., CHL3_12r_LNP = 0., CHL3_13r_LNP = 0., CHL3_22r_LNP = 0., CHL3_23r_LNP = 0., CHL3_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(3)})_{ij}\f$ (Real part and pure real operator).
-    double CHL3_12i_LNP = 0., CHL3_13i_LNP = 0., CHL3_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(3)})_{ij}\f$ (Imaginary part).
+    double CHl1_11r_LNP = 0., CHl1_12r_LNP = 0., CHl1_13r_LNP = 0., CHl1_22r_LNP = 0., CHl1_23r_LNP = 0., CHl1_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$ (Real part and pure real operator).
+    double CHl1_12i_LNP = 0., CHl1_13i_LNP = 0., CHl1_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$ (Imaginary part).
+    double CHl3_11r_LNP = 0., CHl3_12r_LNP = 0., CHl3_13r_LNP = 0., CHl3_22r_LNP = 0., CHl3_23r_LNP = 0., CHl3_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(3)})_{ij}\f$ (Real part and pure real operator).
+    double CHl3_12i_LNP = 0., CHl3_13i_LNP = 0., CHl3_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(3)})_{ij}\f$ (Imaginary part).
     double CHe_11r_LNP = 0., CHe_12r_LNP = 0., CHe_13r_LNP = 0., CHe_22r_LNP = 0., CHe_23r_LNP = 0., CHe_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}\f$ (Real part and pure real operator).
     double CHe_12i_LNP = 0., CHe_13i_LNP = 0., CHe_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}\f$ (Imaginary part).
-    double CHQ1_11r_LNP = 0., CHQ1_12r_LNP = 0., CHQ1_13r_LNP = 0., CHQ1_22r_LNP = 0., CHQ1_23r_LNP = 0., CHQ1_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(1)})_{ij}\f$ (Real part and pure real operator).
-    double CHQ1_12i_LNP = 0., CHQ1_13i_LNP = 0., CHQ1_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(1)})_{ij}\f$ (Imaginary part).
-    double CHQ3_11r_LNP = 0., CHQ3_12r_LNP = 0., CHQ3_13r_LNP = 0., CHQ3_22r_LNP = 0., CHQ3_23r_LNP = 0., CHQ3_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}\f$ (Real part and pure real operator).
-    double CHQ3_12i_LNP = 0., CHQ3_13i_LNP = 0., CHQ3_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}\f$ (Imaginary part).
+    double CHq1_11r_LNP = 0., CHq1_12r_LNP = 0., CHq1_13r_LNP = 0., CHq1_22r_LNP = 0., CHq1_23r_LNP = 0., CHq1_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(1)})_{ij}\f$ (Real part and pure real operator).
+    double CHq1_12i_LNP = 0., CHq1_13i_LNP = 0., CHq1_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(1)})_{ij}\f$ (Imaginary part).
+    double CHq3_11r_LNP = 0., CHq3_12r_LNP = 0., CHq3_13r_LNP = 0., CHq3_22r_LNP = 0., CHq3_23r_LNP = 0., CHq3_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}\f$ (Real part and pure real operator).
+    double CHq3_12i_LNP = 0., CHq3_13i_LNP = 0., CHq3_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}\f$ (Imaginary part).
     double CHu_11r_LNP = 0., CHu_12r_LNP = 0., CHu_13r_LNP = 0., CHu_22r_LNP = 0., CHu_23r_LNP = 0., CHu_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}\f$ (Real part and pure real operator).
     double CHu_12i_LNP = 0., CHu_13i_LNP = 0., CHu_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}\f$ (Imaginary part).
     double CHd_11r_LNP = 0., CHd_12r_LNP = 0., CHd_13r_LNP = 0., CHd_22r_LNP = 0., CHd_23r_LNP = 0., CHd_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}\f$ (Real part and pure real operator).
@@ -6406,29 +6422,29 @@ protected:
     double CeW_11i_LNP = 0., CeW_12i_LNP = 0., CeW_13i_LNP = 0., CeW_21i_LNP = 0., CeW_22i_LNP = 0., CeW_23i_LNP = 0., CeW_31i_LNP = 0., CeW_32i_LNP = 0., CeW_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}\f$ (Imaginary part).
     double CeB_11r_LNP = 0., CeB_12r_LNP = 0., CeB_13r_LNP = 0., CeB_21r_LNP = 0., CeB_22r_LNP = 0., CeB_23r_LNP = 0., CeB_31r_LNP = 0., CeB_32r_LNP = 0., CeB_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}\f$ (Real part and pure real operator).
     double CeB_11i_LNP = 0., CeB_12i_LNP = 0., CeB_13i_LNP = 0., CeB_21i_LNP = 0., CeB_22i_LNP = 0., CeB_23i_LNP = 0., CeB_31i_LNP = 0., CeB_32i_LNP = 0., CeB_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}\f$ (Imaginary part).
-    double CLL_1111r_LNP = 0., CLL_1112r_LNP = 0., CLL_1113r_LNP = 0., CLL_1122r_LNP = 0., CLL_1123r_LNP = 0., CLL_1133r_LNP = 0., CLL_1212r_LNP = 0., CLL_1213r_LNP = 0., CLL_1221r_LNP = 0.,
-            CLL_1222r_LNP = 0., CLL_1223r_LNP = 0., CLL_1231r_LNP = 0., CLL_1232r_LNP = 0., CLL_1233r_LNP = 0., CLL_1313r_LNP = 0., CLL_1322r_LNP = 0., CLL_1323r_LNP = 0., CLL_1331r_LNP = 0.,
-            CLL_1332r_LNP = 0., CLL_1333r_LNP = 0., CLL_2222r_LNP = 0., CLL_2223r_LNP = 0., CLL_2233r_LNP = 0., CLL_2323r_LNP = 0., CLL_2332r_LNP = 0., CLL_2333r_LNP = 0., CLL_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Real part and pure real operator).
-    double CLL_1112i_LNP = 0., CLL_1113i_LNP = 0., CLL_1123i_LNP = 0., CLL_1212i_LNP = 0., CLL_1213i_LNP = 0., CLL_1222i_LNP = 0., CLL_1223i_LNP = 0., CLL_1231i_LNP = 0., CLL_1232i_LNP = 0.,
-            CLL_1233i_LNP = 0., CLL_1313i_LNP = 0., CLL_1322i_LNP = 0., CLL_1323i_LNP = 0., CLL_1332i_LNP = 0., CLL_1333i_LNP = 0., CLL_2223i_LNP = 0., CLL_2323i_LNP = 0., CLL_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Imaginary part).
-    double CLQ1_1111r_LNP = 0., CLQ1_1112r_LNP = 0., CLQ1_1113r_LNP = 0., CLQ1_1122r_LNP = 0., CLQ1_1123r_LNP = 0., CLQ1_1133r_LNP = 0., CLQ1_1211r_LNP = 0., CLQ1_1212r_LNP = 0., CLQ1_1213r_LNP = 0.,
-            CLQ1_1221r_LNP = 0., CLQ1_1222r_LNP = 0., CLQ1_1223r_LNP = 0., CLQ1_1231r_LNP = 0., CLQ1_1232r_LNP = 0., CLQ1_1233r_LNP = 0., CLQ1_1311r_LNP = 0., CLQ1_1312r_LNP = 0., CLQ1_1313r_LNP = 0.,
-            CLQ1_1321r_LNP = 0., CLQ1_1322r_LNP = 0., CLQ1_1323r_LNP = 0., CLQ1_1331r_LNP = 0., CLQ1_1332r_LNP = 0., CLQ1_1333r_LNP = 0., CLQ1_2211r_LNP = 0., CLQ1_2212r_LNP = 0., CLQ1_2213r_LNP = 0.,
-            CLQ1_2222r_LNP = 0., CLQ1_2223r_LNP = 0., CLQ1_2233r_LNP = 0., CLQ1_2311r_LNP = 0., CLQ1_2312r_LNP = 0., CLQ1_2313r_LNP = 0., CLQ1_2321r_LNP = 0., CLQ1_2322r_LNP = 0., CLQ1_2323r_LNP = 0.,
-            CLQ1_2331r_LNP = 0., CLQ1_2332r_LNP = 0., CLQ1_2333r_LNP = 0., CLQ1_3311r_LNP = 0., CLQ1_3312r_LNP = 0., CLQ1_3313r_LNP = 0., CLQ1_3322r_LNP = 0., CLQ1_3323r_LNP = 0., CLQ1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
-    double CLQ1_1112i_LNP = 0., CLQ1_1113i_LNP = 0., CLQ1_1123i_LNP = 0., CLQ1_1211i_LNP = 0., CLQ1_1212i_LNP = 0., CLQ1_1213i_LNP = 0., CLQ1_1221i_LNP = 0., CLQ1_1222i_LNP = 0., CLQ1_1223i_LNP = 0.,
-            CLQ1_1231i_LNP = 0., CLQ1_1232i_LNP = 0., CLQ1_1233i_LNP = 0., CLQ1_1311i_LNP = 0., CLQ1_1312i_LNP = 0., CLQ1_1313i_LNP = 0., CLQ1_1321i_LNP = 0., CLQ1_1322i_LNP = 0., CLQ1_1323i_LNP = 0.,
-            CLQ1_1331i_LNP = 0., CLQ1_1332i_LNP = 0., CLQ1_1333i_LNP = 0., CLQ1_2212i_LNP = 0., CLQ1_2213i_LNP = 0., CLQ1_2223i_LNP = 0., CLQ1_2312i_LNP = 0., CLQ1_2313i_LNP = 0., CLQ1_2321i_LNP = 0.,
-            CLQ1_2322i_LNP = 0., CLQ1_2323i_LNP = 0., CLQ1_2331i_LNP = 0., CLQ1_2332i_LNP = 0., CLQ1_2333i_LNP = 0., CLQ1_3311i_LNP = 0., CLQ1_3312i_LNP = 0., CLQ1_3313i_LNP = 0., CLQ1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}\f$ (Imaginary part).
-    double CLQ3_1111r_LNP = 0., CLQ3_1112r_LNP = 0., CLQ3_1113r_LNP = 0., CLQ3_1122r_LNP = 0., CLQ3_1123r_LNP = 0., CLQ3_1133r_LNP = 0., CLQ3_1211r_LNP = 0., CLQ3_1212r_LNP = 0., CLQ3_1213r_LNP = 0.,
-            CLQ3_1221r_LNP = 0., CLQ3_1222r_LNP = 0., CLQ3_1223r_LNP = 0., CLQ3_1231r_LNP = 0., CLQ3_1232r_LNP = 0., CLQ3_1233r_LNP = 0., CLQ3_1311r_LNP = 0., CLQ3_1312r_LNP = 0., CLQ3_1313r_LNP = 0.,
-            CLQ3_1321r_LNP = 0., CLQ3_1322r_LNP = 0., CLQ3_1323r_LNP = 0., CLQ3_1331r_LNP = 0., CLQ3_1332r_LNP = 0., CLQ3_1333r_LNP = 0., CLQ3_2211r_LNP = 0., CLQ3_2212r_LNP = 0., CLQ3_2213r_LNP = 0.,
-            CLQ3_2222r_LNP = 0., CLQ3_2223r_LNP = 0., CLQ3_2233r_LNP = 0., CLQ3_2311r_LNP = 0., CLQ3_2312r_LNP = 0., CLQ3_2313r_LNP = 0., CLQ3_2321r_LNP = 0., CLQ3_2322r_LNP = 0., CLQ3_2323r_LNP = 0.,
-            CLQ3_2331r_LNP = 0., CLQ3_2332r_LNP = 0., CLQ3_2333r_LNP = 0., CLQ3_3311r_LNP = 0., CLQ3_3312r_LNP = 0., CLQ3_3313r_LNP = 0., CLQ3_3322r_LNP = 0., CLQ3_3323r_LNP = 0., CLQ3_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
-    double CLQ3_1112i_LNP = 0., CLQ3_1113i_LNP = 0., CLQ3_1123i_LNP = 0., CLQ3_1211i_LNP = 0., CLQ3_1212i_LNP = 0., CLQ3_1213i_LNP = 0., CLQ3_1221i_LNP = 0., CLQ3_1222i_LNP = 0., CLQ3_1223i_LNP = 0.,
-            CLQ3_1231i_LNP = 0., CLQ3_1232i_LNP = 0., CLQ3_1233i_LNP = 0., CLQ3_1311i_LNP = 0., CLQ3_1312i_LNP = 0., CLQ3_1313i_LNP = 0., CLQ3_1321i_LNP = 0., CLQ3_1322i_LNP = 0., CLQ3_1323i_LNP = 0.,
-            CLQ3_1331i_LNP = 0., CLQ3_1332i_LNP = 0., CLQ3_1333i_LNP = 0., CLQ3_2212i_LNP = 0., CLQ3_2213i_LNP = 0., CLQ3_2223i_LNP = 0., CLQ3_2312i_LNP = 0., CLQ3_2313i_LNP = 0., CLQ3_2321i_LNP = 0.,
-            CLQ3_2322i_LNP = 0., CLQ3_2323i_LNP = 0., CLQ3_2331i_LNP = 0., CLQ3_2332i_LNP = 0., CLQ3_2333i_LNP = 0., CLQ3_3311i_LNP = 0., CLQ3_3312i_LNP = 0., CLQ3_3313i_LNP = 0., CLQ3_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}\f$ (Imaginary part).
+    double Cll_1111r_LNP = 0., Cll_1112r_LNP = 0., Cll_1113r_LNP = 0., Cll_1122r_LNP = 0., Cll_1123r_LNP = 0., Cll_1133r_LNP = 0., Cll_1212r_LNP = 0., Cll_1213r_LNP = 0., Cll_1221r_LNP = 0.,
+            Cll_1222r_LNP = 0., Cll_1223r_LNP = 0., Cll_1231r_LNP = 0., Cll_1232r_LNP = 0., Cll_1233r_LNP = 0., Cll_1313r_LNP = 0., Cll_1322r_LNP = 0., Cll_1323r_LNP = 0., Cll_1331r_LNP = 0.,
+            Cll_1332r_LNP = 0., Cll_1333r_LNP = 0., Cll_2222r_LNP = 0., Cll_2223r_LNP = 0., Cll_2233r_LNP = 0., Cll_2323r_LNP = 0., Cll_2332r_LNP = 0., Cll_2333r_LNP = 0., Cll_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Real part and pure real operator).
+    double Cll_1112i_LNP = 0., Cll_1113i_LNP = 0., Cll_1123i_LNP = 0., Cll_1212i_LNP = 0., Cll_1213i_LNP = 0., Cll_1222i_LNP = 0., Cll_1223i_LNP = 0., Cll_1231i_LNP = 0., Cll_1232i_LNP = 0.,
+            Cll_1233i_LNP = 0., Cll_1313i_LNP = 0., Cll_1322i_LNP = 0., Cll_1323i_LNP = 0., Cll_1332i_LNP = 0., Cll_1333i_LNP = 0., Cll_2223i_LNP = 0., Cll_2323i_LNP = 0., Cll_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Imaginary part).
+    double Clq1_1111r_LNP = 0., Clq1_1112r_LNP = 0., Clq1_1113r_LNP = 0., Clq1_1122r_LNP = 0., Clq1_1123r_LNP = 0., Clq1_1133r_LNP = 0., Clq1_1211r_LNP = 0., Clq1_1212r_LNP = 0., Clq1_1213r_LNP = 0.,
+            Clq1_1221r_LNP = 0., Clq1_1222r_LNP = 0., Clq1_1223r_LNP = 0., Clq1_1231r_LNP = 0., Clq1_1232r_LNP = 0., Clq1_1233r_LNP = 0., Clq1_1311r_LNP = 0., Clq1_1312r_LNP = 0., Clq1_1313r_LNP = 0.,
+            Clq1_1321r_LNP = 0., Clq1_1322r_LNP = 0., Clq1_1323r_LNP = 0., Clq1_1331r_LNP = 0., Clq1_1332r_LNP = 0., Clq1_1333r_LNP = 0., Clq1_2211r_LNP = 0., Clq1_2212r_LNP = 0., Clq1_2213r_LNP = 0.,
+            Clq1_2222r_LNP = 0., Clq1_2223r_LNP = 0., Clq1_2233r_LNP = 0., Clq1_2311r_LNP = 0., Clq1_2312r_LNP = 0., Clq1_2313r_LNP = 0., Clq1_2321r_LNP = 0., Clq1_2322r_LNP = 0., Clq1_2323r_LNP = 0.,
+            Clq1_2331r_LNP = 0., Clq1_2332r_LNP = 0., Clq1_2333r_LNP = 0., Clq1_3311r_LNP = 0., Clq1_3312r_LNP = 0., Clq1_3313r_LNP = 0., Clq1_3322r_LNP = 0., Clq1_3323r_LNP = 0., Clq1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
+    double Clq1_1112i_LNP = 0., Clq1_1113i_LNP = 0., Clq1_1123i_LNP = 0., Clq1_1211i_LNP = 0., Clq1_1212i_LNP = 0., Clq1_1213i_LNP = 0., Clq1_1221i_LNP = 0., Clq1_1222i_LNP = 0., Clq1_1223i_LNP = 0.,
+            Clq1_1231i_LNP = 0., Clq1_1232i_LNP = 0., Clq1_1233i_LNP = 0., Clq1_1311i_LNP = 0., Clq1_1312i_LNP = 0., Clq1_1313i_LNP = 0., Clq1_1321i_LNP = 0., Clq1_1322i_LNP = 0., Clq1_1323i_LNP = 0.,
+            Clq1_1331i_LNP = 0., Clq1_1332i_LNP = 0., Clq1_1333i_LNP = 0., Clq1_2212i_LNP = 0., Clq1_2213i_LNP = 0., Clq1_2223i_LNP = 0., Clq1_2312i_LNP = 0., Clq1_2313i_LNP = 0., Clq1_2321i_LNP = 0.,
+            Clq1_2322i_LNP = 0., Clq1_2323i_LNP = 0., Clq1_2331i_LNP = 0., Clq1_2332i_LNP = 0., Clq1_2333i_LNP = 0., Clq1_3311i_LNP = 0., Clq1_3312i_LNP = 0., Clq1_3313i_LNP = 0., Clq1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}\f$ (Imaginary part).
+    double Clq3_1111r_LNP = 0., Clq3_1112r_LNP = 0., Clq3_1113r_LNP = 0., Clq3_1122r_LNP = 0., Clq3_1123r_LNP = 0., Clq3_1133r_LNP = 0., Clq3_1211r_LNP = 0., Clq3_1212r_LNP = 0., Clq3_1213r_LNP = 0.,
+            Clq3_1221r_LNP = 0., Clq3_1222r_LNP = 0., Clq3_1223r_LNP = 0., Clq3_1231r_LNP = 0., Clq3_1232r_LNP = 0., Clq3_1233r_LNP = 0., Clq3_1311r_LNP = 0., Clq3_1312r_LNP = 0., Clq3_1313r_LNP = 0.,
+            Clq3_1321r_LNP = 0., Clq3_1322r_LNP = 0., Clq3_1323r_LNP = 0., Clq3_1331r_LNP = 0., Clq3_1332r_LNP = 0., Clq3_1333r_LNP = 0., Clq3_2211r_LNP = 0., Clq3_2212r_LNP = 0., Clq3_2213r_LNP = 0.,
+            Clq3_2222r_LNP = 0., Clq3_2223r_LNP = 0., Clq3_2233r_LNP = 0., Clq3_2311r_LNP = 0., Clq3_2312r_LNP = 0., Clq3_2313r_LNP = 0., Clq3_2321r_LNP = 0., Clq3_2322r_LNP = 0., Clq3_2323r_LNP = 0.,
+            Clq3_2331r_LNP = 0., Clq3_2332r_LNP = 0., Clq3_2333r_LNP = 0., Clq3_3311r_LNP = 0., Clq3_3312r_LNP = 0., Clq3_3313r_LNP = 0., Clq3_3322r_LNP = 0., Clq3_3323r_LNP = 0., Clq3_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
+    double Clq3_1112i_LNP = 0., Clq3_1113i_LNP = 0., Clq3_1123i_LNP = 0., Clq3_1211i_LNP = 0., Clq3_1212i_LNP = 0., Clq3_1213i_LNP = 0., Clq3_1221i_LNP = 0., Clq3_1222i_LNP = 0., Clq3_1223i_LNP = 0.,
+            Clq3_1231i_LNP = 0., Clq3_1232i_LNP = 0., Clq3_1233i_LNP = 0., Clq3_1311i_LNP = 0., Clq3_1312i_LNP = 0., Clq3_1313i_LNP = 0., Clq3_1321i_LNP = 0., Clq3_1322i_LNP = 0., Clq3_1323i_LNP = 0.,
+            Clq3_1331i_LNP = 0., Clq3_1332i_LNP = 0., Clq3_1333i_LNP = 0., Clq3_2212i_LNP = 0., Clq3_2213i_LNP = 0., Clq3_2223i_LNP = 0., Clq3_2312i_LNP = 0., Clq3_2313i_LNP = 0., Clq3_2321i_LNP = 0.,
+            Clq3_2322i_LNP = 0., Clq3_2323i_LNP = 0., Clq3_2331i_LNP = 0., Clq3_2332i_LNP = 0., Clq3_2333i_LNP = 0., Clq3_3311i_LNP = 0., Clq3_3312i_LNP = 0., Clq3_3313i_LNP = 0., Clq3_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}\f$ (Imaginary part).
     double Cee_1111r_LNP = 0., Cee_1112r_LNP = 0., Cee_1113r_LNP = 0., Cee_1122r_LNP = 0., Cee_1123r_LNP = 0., Cee_1133r_LNP = 0., Cee_1212r_LNP = 0., Cee_1213r_LNP = 0., Cee_1222r_LNP = 0.,
             Cee_1223r_LNP = 0., Cee_1232r_LNP = 0., Cee_1233r_LNP = 0., Cee_1313r_LNP = 0., Cee_1323r_LNP = 0., Cee_1333r_LNP = 0., Cee_2222r_LNP = 0., Cee_2223r_LNP = 0., Cee_2233r_LNP = 0.,
             Cee_2323r_LNP = 0., Cee_2333r_LNP = 0., Cee_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}\f$ (Real part and pure real operator).
@@ -6452,70 +6468,70 @@ protected:
             Ced_1231i_LNP = 0., Ced_1232i_LNP = 0., Ced_1233i_LNP = 0., Ced_1311i_LNP = 0., Ced_1312i_LNP = 0., Ced_1313i_LNP = 0., Ced_1321i_LNP = 0., Ced_1322i_LNP = 0., Ced_1323i_LNP = 0.,
             Ced_1331i_LNP = 0., Ced_1332i_LNP = 0., Ced_1333i_LNP = 0., Ced_2212i_LNP = 0., Ced_2213i_LNP = 0., Ced_2223i_LNP = 0., Ced_2312i_LNP = 0., Ced_2313i_LNP = 0., Ced_2321i_LNP = 0.,
             Ced_2322i_LNP = 0., Ced_2323i_LNP = 0., Ced_2331i_LNP = 0., Ced_2332i_LNP = 0., Ced_2333i_LNP = 0., Ced_3311i_LNP = 0., Ced_3312i_LNP = 0., Ced_3313i_LNP = 0., Ced_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ed})_{ijkm}\f$ (Imaginary part).
-    double CLe_1111r_LNP = 0., CLe_1112r_LNP = 0., CLe_1113r_LNP = 0., CLe_1122r_LNP = 0., CLe_1123r_LNP = 0., CLe_1133r_LNP = 0., CLe_1211r_LNP = 0., CLe_1212r_LNP = 0., CLe_1213r_LNP = 0.,
-            CLe_1221r_LNP = 0., CLe_1222r_LNP = 0., CLe_1223r_LNP = 0., CLe_1231r_LNP = 0., CLe_1232r_LNP = 0., CLe_1233r_LNP = 0., CLe_1311r_LNP = 0., CLe_1312r_LNP = 0., CLe_1313r_LNP = 0.,
-            CLe_1321r_LNP = 0., CLe_1322r_LNP = 0., CLe_1323r_LNP = 0., CLe_1331r_LNP = 0., CLe_1332r_LNP = 0., CLe_1333r_LNP = 0., CLe_2211r_LNP = 0., CLe_2212r_LNP = 0., CLe_2213r_LNP = 0.,
-            CLe_2222r_LNP = 0., CLe_2223r_LNP = 0., CLe_2233r_LNP = 0., CLe_2311r_LNP = 0., CLe_2312r_LNP = 0., CLe_2313r_LNP = 0., CLe_2321r_LNP = 0., CLe_2322r_LNP = 0., CLe_2323r_LNP = 0.,
-            CLe_2331r_LNP = 0., CLe_2332r_LNP = 0., CLe_2333r_LNP = 0., CLe_3311r_LNP = 0., CLe_3312r_LNP = 0., CLe_3313r_LNP = 0., CLe_3322r_LNP = 0., CLe_3323r_LNP = 0., CLe_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}\f$ (Real part and pure real operator).
-    double CLe_1112i_LNP = 0., CLe_1113i_LNP = 0., CLe_1123i_LNP = 0., CLe_1211i_LNP = 0., CLe_1212i_LNP = 0., CLe_1213i_LNP = 0., CLe_1221i_LNP = 0., CLe_1222i_LNP = 0., CLe_1223i_LNP = 0.,
-            CLe_1231i_LNP = 0., CLe_1232i_LNP = 0., CLe_1233i_LNP = 0., CLe_1311i_LNP = 0., CLe_1312i_LNP = 0., CLe_1313i_LNP = 0., CLe_1321i_LNP = 0., CLe_1322i_LNP = 0., CLe_1323i_LNP = 0.,
-            CLe_1331i_LNP = 0., CLe_1332i_LNP = 0., CLe_1333i_LNP = 0., CLe_2212i_LNP = 0., CLe_2213i_LNP = 0., CLe_2223i_LNP = 0., CLe_2312i_LNP = 0., CLe_2313i_LNP = 0., CLe_2321i_LNP = 0.,
-            CLe_2322i_LNP = 0., CLe_2323i_LNP = 0., CLe_2331i_LNP = 0., CLe_2332i_LNP = 0., CLe_2333i_LNP = 0., CLe_3311i_LNP = 0., CLe_3312i_LNP = 0., CLe_3313i_LNP = 0., CLe_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}\f$ (Imaginary part).
-    double CLu_1111r_LNP = 0., CLu_1112r_LNP = 0., CLu_1113r_LNP = 0., CLu_1122r_LNP = 0., CLu_1123r_LNP = 0., CLu_1133r_LNP = 0., CLu_1211r_LNP = 0., CLu_1212r_LNP = 0., CLu_1213r_LNP = 0.,
-            CLu_1221r_LNP = 0., CLu_1222r_LNP = 0., CLu_1223r_LNP = 0., CLu_1231r_LNP = 0., CLu_1232r_LNP = 0., CLu_1233r_LNP = 0., CLu_1311r_LNP = 0., CLu_1312r_LNP = 0., CLu_1313r_LNP = 0.,
-            CLu_1321r_LNP = 0., CLu_1322r_LNP = 0., CLu_1323r_LNP = 0., CLu_1331r_LNP = 0., CLu_1332r_LNP = 0., CLu_1333r_LNP = 0., CLu_2211r_LNP = 0., CLu_2212r_LNP = 0., CLu_2213r_LNP = 0.,
-            CLu_2222r_LNP = 0., CLu_2223r_LNP = 0., CLu_2233r_LNP = 0., CLu_2311r_LNP = 0., CLu_2312r_LNP = 0., CLu_2313r_LNP = 0., CLu_2321r_LNP = 0., CLu_2322r_LNP = 0., CLu_2323r_LNP = 0.,
-            CLu_2331r_LNP = 0., CLu_2332r_LNP = 0., CLu_2333r_LNP = 0., CLu_3311r_LNP = 0., CLu_3312r_LNP = 0., CLu_3313r_LNP = 0., CLu_3322r_LNP = 0., CLu_3323r_LNP = 0., CLu_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}\f$ (Real part and pure real operator).
-    double CLu_1112i_LNP = 0., CLu_1113i_LNP = 0., CLu_1123i_LNP = 0., CLu_1211i_LNP = 0., CLu_1212i_LNP = 0., CLu_1213i_LNP = 0., CLu_1221i_LNP = 0., CLu_1222i_LNP = 0., CLu_1223i_LNP = 0.,
-            CLu_1231i_LNP = 0., CLu_1232i_LNP = 0., CLu_1233i_LNP = 0., CLu_1311i_LNP = 0., CLu_1312i_LNP = 0., CLu_1313i_LNP = 0., CLu_1321i_LNP = 0., CLu_1322i_LNP = 0., CLu_1323i_LNP = 0.,
-            CLu_1331i_LNP = 0., CLu_1332i_LNP = 0., CLu_1333i_LNP = 0., CLu_2212i_LNP = 0., CLu_2213i_LNP = 0., CLu_2223i_LNP = 0., CLu_2312i_LNP = 0., CLu_2313i_LNP = 0., CLu_2321i_LNP = 0.,
-            CLu_2322i_LNP = 0., CLu_2323i_LNP = 0., CLu_2331i_LNP = 0., CLu_2332i_LNP = 0., CLu_2333i_LNP = 0., CLu_3311i_LNP = 0., CLu_3312i_LNP = 0., CLu_3313i_LNP = 0., CLu_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}\f$ (Imaginary part).
-    double CLd_1111r_LNP = 0., CLd_1112r_LNP = 0., CLd_1113r_LNP = 0., CLd_1122r_LNP = 0., CLd_1123r_LNP = 0., CLd_1133r_LNP = 0., CLd_1211r_LNP = 0., CLd_1212r_LNP = 0., CLd_1213r_LNP = 0.,
-            CLd_1221r_LNP = 0., CLd_1222r_LNP = 0., CLd_1223r_LNP = 0., CLd_1231r_LNP = 0., CLd_1232r_LNP = 0., CLd_1233r_LNP = 0., CLd_1311r_LNP = 0., CLd_1312r_LNP = 0., CLd_1313r_LNP = 0.,
-            CLd_1321r_LNP = 0., CLd_1322r_LNP = 0., CLd_1323r_LNP = 0., CLd_1331r_LNP = 0., CLd_1332r_LNP = 0., CLd_1333r_LNP = 0., CLd_2211r_LNP = 0., CLd_2212r_LNP = 0., CLd_2213r_LNP = 0.,
-            CLd_2222r_LNP = 0., CLd_2223r_LNP = 0., CLd_2233r_LNP = 0., CLd_2311r_LNP = 0., CLd_2312r_LNP = 0., CLd_2313r_LNP = 0., CLd_2321r_LNP = 0., CLd_2322r_LNP = 0., CLd_2323r_LNP = 0.,
-            CLd_2331r_LNP = 0., CLd_2332r_LNP = 0., CLd_2333r_LNP = 0., CLd_3311r_LNP = 0., CLd_3312r_LNP = 0., CLd_3313r_LNP = 0., CLd_3322r_LNP = 0., CLd_3323r_LNP = 0., CLd_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}\f$ (Real part and pure real operator).
-    double CLd_1112i_LNP = 0., CLd_1113i_LNP = 0., CLd_1123i_LNP = 0., CLd_1211i_LNP = 0., CLd_1212i_LNP = 0., CLd_1213i_LNP = 0., CLd_1221i_LNP = 0., CLd_1222i_LNP = 0., CLd_1223i_LNP = 0.,
-            CLd_1231i_LNP = 0., CLd_1232i_LNP = 0., CLd_1233i_LNP = 0., CLd_1311i_LNP = 0., CLd_1312i_LNP = 0., CLd_1313i_LNP = 0., CLd_1321i_LNP = 0., CLd_1322i_LNP = 0., CLd_1323i_LNP = 0.,
-            CLd_1331i_LNP = 0., CLd_1332i_LNP = 0., CLd_1333i_LNP = 0., CLd_2212i_LNP = 0., CLd_2213i_LNP = 0., CLd_2223i_LNP = 0., CLd_2312i_LNP = 0., CLd_2313i_LNP = 0., CLd_2321i_LNP = 0.,
-            CLd_2322i_LNP = 0., CLd_2323i_LNP = 0., CLd_2331i_LNP = 0., CLd_2332i_LNP = 0., CLd_2333i_LNP = 0., CLd_3311i_LNP = 0., CLd_3312i_LNP = 0., CLd_3313i_LNP = 0., CLd_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}\f$ (Imaginary part).
-    double CQe_1111r_LNP = 0., CQe_1112r_LNP = 0., CQe_1113r_LNP = 0., CQe_1122r_LNP = 0., CQe_1123r_LNP = 0., CQe_1133r_LNP = 0., CQe_1211r_LNP = 0., CQe_1212r_LNP = 0., CQe_1213r_LNP = 0.,
-            CQe_1221r_LNP = 0., CQe_1222r_LNP = 0., CQe_1223r_LNP = 0., CQe_1231r_LNP = 0., CQe_1232r_LNP = 0., CQe_1233r_LNP = 0., CQe_1311r_LNP = 0., CQe_1312r_LNP = 0., CQe_1313r_LNP = 0.,
-            CQe_1321r_LNP = 0., CQe_1322r_LNP = 0., CQe_1323r_LNP = 0., CQe_1331r_LNP = 0., CQe_1332r_LNP = 0., CQe_1333r_LNP = 0., CQe_2211r_LNP = 0., CQe_2212r_LNP = 0., CQe_2213r_LNP = 0.,
-            CQe_2222r_LNP = 0., CQe_2223r_LNP = 0., CQe_2233r_LNP = 0., CQe_2311r_LNP = 0., CQe_2312r_LNP = 0., CQe_2313r_LNP = 0., CQe_2321r_LNP = 0., CQe_2322r_LNP = 0., CQe_2323r_LNP = 0.,
-            CQe_2331r_LNP = 0., CQe_2332r_LNP = 0., CQe_2333r_LNP = 0., CQe_3311r_LNP = 0., CQe_3312r_LNP = 0., CQe_3313r_LNP = 0., CQe_3322r_LNP = 0., CQe_3323r_LNP = 0., CQe_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}\f$ (Real part and pure real operator).
-    double CQe_1112i_LNP = 0., CQe_1113i_LNP = 0., CQe_1123i_LNP = 0., CQe_1211i_LNP = 0., CQe_1212i_LNP = 0., CQe_1213i_LNP = 0., CQe_1221i_LNP = 0., CQe_1222i_LNP = 0., CQe_1223i_LNP = 0.,
-            CQe_1231i_LNP = 0., CQe_1232i_LNP = 0., CQe_1233i_LNP = 0., CQe_1311i_LNP = 0., CQe_1312i_LNP = 0., CQe_1313i_LNP = 0., CQe_1321i_LNP = 0., CQe_1322i_LNP = 0., CQe_1323i_LNP = 0.,
-            CQe_1331i_LNP = 0., CQe_1332i_LNP = 0., CQe_1333i_LNP = 0., CQe_2212i_LNP = 0., CQe_2213i_LNP = 0., CQe_2223i_LNP = 0., CQe_2312i_LNP = 0., CQe_2313i_LNP = 0., CQe_2321i_LNP = 0.,
-            CQe_2322i_LNP = 0., CQe_2323i_LNP = 0., CQe_2331i_LNP = 0., CQe_2332i_LNP = 0., CQe_2333i_LNP = 0., CQe_3311i_LNP = 0., CQe_3312i_LNP = 0., CQe_3313i_LNP = 0., CQe_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}\f$ (Imaginary part).
-    double CLedQ_1111r_LNP = 0., CLedQ_1112r_LNP = 0., CLedQ_1113r_LNP = 0., CLedQ_1121r_LNP = 0., CLedQ_1122r_LNP = 0., CLedQ_1123r_LNP = 0., CLedQ_1131r_LNP = 0., CLedQ_1132r_LNP = 0., CLedQ_1133r_LNP = 0.,
-            CLedQ_1211r_LNP = 0., CLedQ_1212r_LNP = 0., CLedQ_1213r_LNP = 0., CLedQ_1221r_LNP = 0., CLedQ_1222r_LNP = 0., CLedQ_1223r_LNP = 0., CLedQ_1231r_LNP = 0., CLedQ_1232r_LNP = 0., CLedQ_1233r_LNP = 0.,
-            CLedQ_1311r_LNP = 0., CLedQ_1312r_LNP = 0., CLedQ_1313r_LNP = 0., CLedQ_1321r_LNP = 0., CLedQ_1322r_LNP = 0., CLedQ_1323r_LNP = 0., CLedQ_1331r_LNP = 0., CLedQ_1332r_LNP = 0., CLedQ_1333r_LNP = 0.,
-            CLedQ_2111r_LNP = 0., CLedQ_2112r_LNP = 0., CLedQ_2113r_LNP = 0., CLedQ_2121r_LNP = 0., CLedQ_2122r_LNP = 0., CLedQ_2123r_LNP = 0., CLedQ_2131r_LNP = 0., CLedQ_2132r_LNP = 0., CLedQ_2133r_LNP = 0.,
-            CLedQ_2211r_LNP = 0., CLedQ_2212r_LNP = 0., CLedQ_2213r_LNP = 0., CLedQ_2221r_LNP = 0., CLedQ_2222r_LNP = 0., CLedQ_2223r_LNP = 0., CLedQ_2231r_LNP = 0., CLedQ_2232r_LNP = 0., CLedQ_2233r_LNP = 0.,
-            CLedQ_2311r_LNP = 0., CLedQ_2312r_LNP = 0., CLedQ_2313r_LNP = 0., CLedQ_2321r_LNP = 0., CLedQ_2322r_LNP = 0., CLedQ_2323r_LNP = 0., CLedQ_2331r_LNP = 0., CLedQ_2332r_LNP = 0., CLedQ_2333r_LNP = 0.,
-            CLedQ_3111r_LNP = 0., CLedQ_3112r_LNP = 0., CLedQ_3113r_LNP = 0., CLedQ_3121r_LNP = 0., CLedQ_3122r_LNP = 0., CLedQ_3123r_LNP = 0., CLedQ_3131r_LNP = 0., CLedQ_3132r_LNP = 0., CLedQ_3133r_LNP = 0.,
-            CLedQ_3211r_LNP = 0., CLedQ_3212r_LNP = 0., CLedQ_3213r_LNP = 0., CLedQ_3221r_LNP = 0., CLedQ_3222r_LNP = 0., CLedQ_3223r_LNP = 0., CLedQ_3231r_LNP = 0., CLedQ_3232r_LNP = 0., CLedQ_3233r_LNP = 0.,
-            CLedQ_3311r_LNP = 0., CLedQ_3312r_LNP = 0., CLedQ_3313r_LNP = 0., CLedQ_3321r_LNP = 0., CLedQ_3322r_LNP = 0., CLedQ_3323r_LNP = 0., CLedQ_3331r_LNP = 0., CLedQ_3332r_LNP = 0., CLedQ_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}\f$ (Real part and pure real operator).
-    double CLedQ_1111i_LNP = 0., CLedQ_1112i_LNP = 0., CLedQ_1113i_LNP = 0., CLedQ_1121i_LNP = 0., CLedQ_1122i_LNP = 0., CLedQ_1123i_LNP = 0., CLedQ_1131i_LNP = 0., CLedQ_1132i_LNP = 0., CLedQ_1133i_LNP = 0.,
-            CLedQ_1211i_LNP = 0., CLedQ_1212i_LNP = 0., CLedQ_1213i_LNP = 0., CLedQ_1221i_LNP = 0., CLedQ_1222i_LNP = 0., CLedQ_1223i_LNP = 0., CLedQ_1231i_LNP = 0., CLedQ_1232i_LNP = 0., CLedQ_1233i_LNP = 0.,
-            CLedQ_1311i_LNP = 0., CLedQ_1312i_LNP = 0., CLedQ_1313i_LNP = 0., CLedQ_1321i_LNP = 0., CLedQ_1322i_LNP = 0., CLedQ_1323i_LNP = 0., CLedQ_1331i_LNP = 0., CLedQ_1332i_LNP = 0., CLedQ_1333i_LNP = 0.,
-            CLedQ_2111i_LNP = 0., CLedQ_2112i_LNP = 0., CLedQ_2113i_LNP = 0., CLedQ_2121i_LNP = 0., CLedQ_2122i_LNP = 0., CLedQ_2123i_LNP = 0., CLedQ_2131i_LNP = 0., CLedQ_2132i_LNP = 0., CLedQ_2133i_LNP = 0.,
-            CLedQ_2211i_LNP = 0., CLedQ_2212i_LNP = 0., CLedQ_2213i_LNP = 0., CLedQ_2221i_LNP = 0., CLedQ_2222i_LNP = 0., CLedQ_2223i_LNP = 0., CLedQ_2231i_LNP = 0., CLedQ_2232i_LNP = 0., CLedQ_2233i_LNP = 0.,
-            CLedQ_2311i_LNP = 0., CLedQ_2312i_LNP = 0., CLedQ_2313i_LNP = 0., CLedQ_2321i_LNP = 0., CLedQ_2322i_LNP = 0., CLedQ_2323i_LNP = 0., CLedQ_2331i_LNP = 0., CLedQ_2332i_LNP = 0., CLedQ_2333i_LNP = 0.,
-            CLedQ_3111i_LNP = 0., CLedQ_3112i_LNP = 0., CLedQ_3113i_LNP = 0., CLedQ_3121i_LNP = 0., CLedQ_3122i_LNP = 0., CLedQ_3123i_LNP = 0., CLedQ_3131i_LNP = 0., CLedQ_3132i_LNP = 0., CLedQ_3133i_LNP = 0.,
-            CLedQ_3211i_LNP = 0., CLedQ_3212i_LNP = 0., CLedQ_3213i_LNP = 0., CLedQ_3221i_LNP = 0., CLedQ_3222i_LNP = 0., CLedQ_3223i_LNP = 0., CLedQ_3231i_LNP = 0., CLedQ_3232i_LNP = 0., CLedQ_3233i_LNP = 0.,
-            CLedQ_3311i_LNP = 0., CLedQ_3312i_LNP = 0., CLedQ_3313i_LNP = 0., CLedQ_3321i_LNP = 0., CLedQ_3322i_LNP = 0., CLedQ_3323i_LNP = 0., CLedQ_3331i_LNP = 0., CLedQ_3332i_LNP = 0., CLedQ_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}\f$ (Imaginary part).
-    double CQQ1_1111r_LNP = 0., CQQ1_1112r_LNP = 0., CQQ1_1113r_LNP = 0., CQQ1_1122r_LNP = 0., CQQ1_1123r_LNP = 0., CQQ1_1133r_LNP = 0., CQQ1_1212r_LNP = 0., CQQ1_1213r_LNP = 0., CQQ1_1221r_LNP = 0.,
-            CQQ1_1222r_LNP = 0., CQQ1_1223r_LNP = 0., CQQ1_1231r_LNP = 0., CQQ1_1232r_LNP = 0., CQQ1_1233r_LNP = 0., CQQ1_1313r_LNP = 0., CQQ1_1322r_LNP = 0., CQQ1_1323r_LNP = 0., CQQ1_1331r_LNP = 0.,
-            CQQ1_1332r_LNP = 0., CQQ1_1333r_LNP = 0., CQQ1_2222r_LNP = 0., CQQ1_2223r_LNP = 0., CQQ1_2233r_LNP = 0., CQQ1_2323r_LNP = 0., CQQ1_2332r_LNP = 0., CQQ1_2333r_LNP = 0., CQQ1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
-    double CQQ1_1112i_LNP = 0., CQQ1_1113i_LNP = 0., CQQ1_1123i_LNP = 0., CQQ1_1212i_LNP = 0., CQQ1_1213i_LNP = 0., CQQ1_1222i_LNP = 0., CQQ1_1223i_LNP = 0., CQQ1_1231i_LNP = 0., CQQ1_1232i_LNP = 0.,
-            CQQ1_1233i_LNP = 0., CQQ1_1313i_LNP = 0., CQQ1_1322i_LNP = 0., CQQ1_1323i_LNP = 0., CQQ1_1332i_LNP = 0., CQQ1_1333i_LNP = 0., CQQ1_2223i_LNP = 0., CQQ1_2323i_LNP = 0., CQQ1_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Imaginary part).
-    double CQQ3_1111r_LNP = 0., CQQ3_1112r_LNP = 0., CQQ3_1113r_LNP = 0., CQQ3_1122r_LNP = 0., CQQ3_1123r_LNP = 0., CQQ3_1133r_LNP = 0., CQQ3_1212r_LNP = 0., CQQ3_1213r_LNP = 0., CQQ3_1221r_LNP = 0.,
-            CQQ3_1222r_LNP = 0., CQQ3_1223r_LNP = 0., CQQ3_1231r_LNP = 0., CQQ3_1232r_LNP = 0., CQQ3_1233r_LNP = 0., CQQ3_1313r_LNP = 0., CQQ3_1322r_LNP = 0., CQQ3_1323r_LNP = 0., CQQ3_1331r_LNP = 0.,
-            CQQ3_1332r_LNP = 0., CQQ3_1333r_LNP = 0., CQQ3_2222r_LNP = 0., CQQ3_2223r_LNP = 0., CQQ3_2233r_LNP = 0., CQQ3_2323r_LNP = 0., CQQ3_2332r_LNP = 0., CQQ3_2333r_LNP = 0., CQQ3_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
-    double CQQ3_1112i_LNP = 0., CQQ3_1113i_LNP = 0., CQQ3_1123i_LNP = 0., CQQ3_1212i_LNP = 0., CQQ3_1213i_LNP = 0., CQQ3_1222i_LNP = 0., CQQ3_1223i_LNP = 0., CQQ3_1231i_LNP = 0., CQQ3_1232i_LNP = 0.,
-            CQQ3_1233i_LNP = 0., CQQ3_1313i_LNP = 0., CQQ3_1322i_LNP = 0., CQQ3_1323i_LNP = 0., CQQ3_1332i_LNP = 0., CQQ3_1333i_LNP = 0., CQQ3_2223i_LNP = 0., CQQ3_2323i_LNP = 0., CQQ3_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Imaginary part).
+    double Cle_1111r_LNP = 0., Cle_1112r_LNP = 0., Cle_1113r_LNP = 0., Cle_1122r_LNP = 0., Cle_1123r_LNP = 0., Cle_1133r_LNP = 0., Cle_1211r_LNP = 0., Cle_1212r_LNP = 0., Cle_1213r_LNP = 0.,
+            Cle_1221r_LNP = 0., Cle_1222r_LNP = 0., Cle_1223r_LNP = 0., Cle_1231r_LNP = 0., Cle_1232r_LNP = 0., Cle_1233r_LNP = 0., Cle_1311r_LNP = 0., Cle_1312r_LNP = 0., Cle_1313r_LNP = 0.,
+            Cle_1321r_LNP = 0., Cle_1322r_LNP = 0., Cle_1323r_LNP = 0., Cle_1331r_LNP = 0., Cle_1332r_LNP = 0., Cle_1333r_LNP = 0., Cle_2211r_LNP = 0., Cle_2212r_LNP = 0., Cle_2213r_LNP = 0.,
+            Cle_2222r_LNP = 0., Cle_2223r_LNP = 0., Cle_2233r_LNP = 0., Cle_2311r_LNP = 0., Cle_2312r_LNP = 0., Cle_2313r_LNP = 0., Cle_2321r_LNP = 0., Cle_2322r_LNP = 0., Cle_2323r_LNP = 0.,
+            Cle_2331r_LNP = 0., Cle_2332r_LNP = 0., Cle_2333r_LNP = 0., Cle_3311r_LNP = 0., Cle_3312r_LNP = 0., Cle_3313r_LNP = 0., Cle_3322r_LNP = 0., Cle_3323r_LNP = 0., Cle_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}\f$ (Real part and pure real operator).
+    double Cle_1112i_LNP = 0., Cle_1113i_LNP = 0., Cle_1123i_LNP = 0., Cle_1211i_LNP = 0., Cle_1212i_LNP = 0., Cle_1213i_LNP = 0., Cle_1221i_LNP = 0., Cle_1222i_LNP = 0., Cle_1223i_LNP = 0.,
+            Cle_1231i_LNP = 0., Cle_1232i_LNP = 0., Cle_1233i_LNP = 0., Cle_1311i_LNP = 0., Cle_1312i_LNP = 0., Cle_1313i_LNP = 0., Cle_1321i_LNP = 0., Cle_1322i_LNP = 0., Cle_1323i_LNP = 0.,
+            Cle_1331i_LNP = 0., Cle_1332i_LNP = 0., Cle_1333i_LNP = 0., Cle_2212i_LNP = 0., Cle_2213i_LNP = 0., Cle_2223i_LNP = 0., Cle_2312i_LNP = 0., Cle_2313i_LNP = 0., Cle_2321i_LNP = 0.,
+            Cle_2322i_LNP = 0., Cle_2323i_LNP = 0., Cle_2331i_LNP = 0., Cle_2332i_LNP = 0., Cle_2333i_LNP = 0., Cle_3311i_LNP = 0., Cle_3312i_LNP = 0., Cle_3313i_LNP = 0., Cle_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}\f$ (Imaginary part).
+    double Clu_1111r_LNP = 0., Clu_1112r_LNP = 0., Clu_1113r_LNP = 0., Clu_1122r_LNP = 0., Clu_1123r_LNP = 0., Clu_1133r_LNP = 0., Clu_1211r_LNP = 0., Clu_1212r_LNP = 0., Clu_1213r_LNP = 0.,
+            Clu_1221r_LNP = 0., Clu_1222r_LNP = 0., Clu_1223r_LNP = 0., Clu_1231r_LNP = 0., Clu_1232r_LNP = 0., Clu_1233r_LNP = 0., Clu_1311r_LNP = 0., Clu_1312r_LNP = 0., Clu_1313r_LNP = 0.,
+            Clu_1321r_LNP = 0., Clu_1322r_LNP = 0., Clu_1323r_LNP = 0., Clu_1331r_LNP = 0., Clu_1332r_LNP = 0., Clu_1333r_LNP = 0., Clu_2211r_LNP = 0., Clu_2212r_LNP = 0., Clu_2213r_LNP = 0.,
+            Clu_2222r_LNP = 0., Clu_2223r_LNP = 0., Clu_2233r_LNP = 0., Clu_2311r_LNP = 0., Clu_2312r_LNP = 0., Clu_2313r_LNP = 0., Clu_2321r_LNP = 0., Clu_2322r_LNP = 0., Clu_2323r_LNP = 0.,
+            Clu_2331r_LNP = 0., Clu_2332r_LNP = 0., Clu_2333r_LNP = 0., Clu_3311r_LNP = 0., Clu_3312r_LNP = 0., Clu_3313r_LNP = 0., Clu_3322r_LNP = 0., Clu_3323r_LNP = 0., Clu_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}\f$ (Real part and pure real operator).
+    double Clu_1112i_LNP = 0., Clu_1113i_LNP = 0., Clu_1123i_LNP = 0., Clu_1211i_LNP = 0., Clu_1212i_LNP = 0., Clu_1213i_LNP = 0., Clu_1221i_LNP = 0., Clu_1222i_LNP = 0., Clu_1223i_LNP = 0.,
+            Clu_1231i_LNP = 0., Clu_1232i_LNP = 0., Clu_1233i_LNP = 0., Clu_1311i_LNP = 0., Clu_1312i_LNP = 0., Clu_1313i_LNP = 0., Clu_1321i_LNP = 0., Clu_1322i_LNP = 0., Clu_1323i_LNP = 0.,
+            Clu_1331i_LNP = 0., Clu_1332i_LNP = 0., Clu_1333i_LNP = 0., Clu_2212i_LNP = 0., Clu_2213i_LNP = 0., Clu_2223i_LNP = 0., Clu_2312i_LNP = 0., Clu_2313i_LNP = 0., Clu_2321i_LNP = 0.,
+            Clu_2322i_LNP = 0., Clu_2323i_LNP = 0., Clu_2331i_LNP = 0., Clu_2332i_LNP = 0., Clu_2333i_LNP = 0., Clu_3311i_LNP = 0., Clu_3312i_LNP = 0., Clu_3313i_LNP = 0., Clu_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}\f$ (Imaginary part).
+    double Cld_1111r_LNP = 0., Cld_1112r_LNP = 0., Cld_1113r_LNP = 0., Cld_1122r_LNP = 0., Cld_1123r_LNP = 0., Cld_1133r_LNP = 0., Cld_1211r_LNP = 0., Cld_1212r_LNP = 0., Cld_1213r_LNP = 0.,
+            Cld_1221r_LNP = 0., Cld_1222r_LNP = 0., Cld_1223r_LNP = 0., Cld_1231r_LNP = 0., Cld_1232r_LNP = 0., Cld_1233r_LNP = 0., Cld_1311r_LNP = 0., Cld_1312r_LNP = 0., Cld_1313r_LNP = 0.,
+            Cld_1321r_LNP = 0., Cld_1322r_LNP = 0., Cld_1323r_LNP = 0., Cld_1331r_LNP = 0., Cld_1332r_LNP = 0., Cld_1333r_LNP = 0., Cld_2211r_LNP = 0., Cld_2212r_LNP = 0., Cld_2213r_LNP = 0.,
+            Cld_2222r_LNP = 0., Cld_2223r_LNP = 0., Cld_2233r_LNP = 0., Cld_2311r_LNP = 0., Cld_2312r_LNP = 0., Cld_2313r_LNP = 0., Cld_2321r_LNP = 0., Cld_2322r_LNP = 0., Cld_2323r_LNP = 0.,
+            Cld_2331r_LNP = 0., Cld_2332r_LNP = 0., Cld_2333r_LNP = 0., Cld_3311r_LNP = 0., Cld_3312r_LNP = 0., Cld_3313r_LNP = 0., Cld_3322r_LNP = 0., Cld_3323r_LNP = 0., Cld_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}\f$ (Real part and pure real operator).
+    double Cld_1112i_LNP = 0., Cld_1113i_LNP = 0., Cld_1123i_LNP = 0., Cld_1211i_LNP = 0., Cld_1212i_LNP = 0., Cld_1213i_LNP = 0., Cld_1221i_LNP = 0., Cld_1222i_LNP = 0., Cld_1223i_LNP = 0.,
+            Cld_1231i_LNP = 0., Cld_1232i_LNP = 0., Cld_1233i_LNP = 0., Cld_1311i_LNP = 0., Cld_1312i_LNP = 0., Cld_1313i_LNP = 0., Cld_1321i_LNP = 0., Cld_1322i_LNP = 0., Cld_1323i_LNP = 0.,
+            Cld_1331i_LNP = 0., Cld_1332i_LNP = 0., Cld_1333i_LNP = 0., Cld_2212i_LNP = 0., Cld_2213i_LNP = 0., Cld_2223i_LNP = 0., Cld_2312i_LNP = 0., Cld_2313i_LNP = 0., Cld_2321i_LNP = 0.,
+            Cld_2322i_LNP = 0., Cld_2323i_LNP = 0., Cld_2331i_LNP = 0., Cld_2332i_LNP = 0., Cld_2333i_LNP = 0., Cld_3311i_LNP = 0., Cld_3312i_LNP = 0., Cld_3313i_LNP = 0., Cld_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}\f$ (Imaginary part).
+    double Cqe_1111r_LNP = 0., Cqe_1112r_LNP = 0., Cqe_1113r_LNP = 0., Cqe_1122r_LNP = 0., Cqe_1123r_LNP = 0., Cqe_1133r_LNP = 0., Cqe_1211r_LNP = 0., Cqe_1212r_LNP = 0., Cqe_1213r_LNP = 0.,
+            Cqe_1221r_LNP = 0., Cqe_1222r_LNP = 0., Cqe_1223r_LNP = 0., Cqe_1231r_LNP = 0., Cqe_1232r_LNP = 0., Cqe_1233r_LNP = 0., Cqe_1311r_LNP = 0., Cqe_1312r_LNP = 0., Cqe_1313r_LNP = 0.,
+            Cqe_1321r_LNP = 0., Cqe_1322r_LNP = 0., Cqe_1323r_LNP = 0., Cqe_1331r_LNP = 0., Cqe_1332r_LNP = 0., Cqe_1333r_LNP = 0., Cqe_2211r_LNP = 0., Cqe_2212r_LNP = 0., Cqe_2213r_LNP = 0.,
+            Cqe_2222r_LNP = 0., Cqe_2223r_LNP = 0., Cqe_2233r_LNP = 0., Cqe_2311r_LNP = 0., Cqe_2312r_LNP = 0., Cqe_2313r_LNP = 0., Cqe_2321r_LNP = 0., Cqe_2322r_LNP = 0., Cqe_2323r_LNP = 0.,
+            Cqe_2331r_LNP = 0., Cqe_2332r_LNP = 0., Cqe_2333r_LNP = 0., Cqe_3311r_LNP = 0., Cqe_3312r_LNP = 0., Cqe_3313r_LNP = 0., Cqe_3322r_LNP = 0., Cqe_3323r_LNP = 0., Cqe_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}\f$ (Real part and pure real operator).
+    double Cqe_1112i_LNP = 0., Cqe_1113i_LNP = 0., Cqe_1123i_LNP = 0., Cqe_1211i_LNP = 0., Cqe_1212i_LNP = 0., Cqe_1213i_LNP = 0., Cqe_1221i_LNP = 0., Cqe_1222i_LNP = 0., Cqe_1223i_LNP = 0.,
+            Cqe_1231i_LNP = 0., Cqe_1232i_LNP = 0., Cqe_1233i_LNP = 0., Cqe_1311i_LNP = 0., Cqe_1312i_LNP = 0., Cqe_1313i_LNP = 0., Cqe_1321i_LNP = 0., Cqe_1322i_LNP = 0., Cqe_1323i_LNP = 0.,
+            Cqe_1331i_LNP = 0., Cqe_1332i_LNP = 0., Cqe_1333i_LNP = 0., Cqe_2212i_LNP = 0., Cqe_2213i_LNP = 0., Cqe_2223i_LNP = 0., Cqe_2312i_LNP = 0., Cqe_2313i_LNP = 0., Cqe_2321i_LNP = 0.,
+            Cqe_2322i_LNP = 0., Cqe_2323i_LNP = 0., Cqe_2331i_LNP = 0., Cqe_2332i_LNP = 0., Cqe_2333i_LNP = 0., Cqe_3311i_LNP = 0., Cqe_3312i_LNP = 0., Cqe_3313i_LNP = 0., Cqe_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}\f$ (Imaginary part).
+    double Cledq_1111r_LNP = 0., Cledq_1112r_LNP = 0., Cledq_1113r_LNP = 0., Cledq_1121r_LNP = 0., Cledq_1122r_LNP = 0., Cledq_1123r_LNP = 0., Cledq_1131r_LNP = 0., Cledq_1132r_LNP = 0., Cledq_1133r_LNP = 0.,
+            Cledq_1211r_LNP = 0., Cledq_1212r_LNP = 0., Cledq_1213r_LNP = 0., Cledq_1221r_LNP = 0., Cledq_1222r_LNP = 0., Cledq_1223r_LNP = 0., Cledq_1231r_LNP = 0., Cledq_1232r_LNP = 0., Cledq_1233r_LNP = 0.,
+            Cledq_1311r_LNP = 0., Cledq_1312r_LNP = 0., Cledq_1313r_LNP = 0., Cledq_1321r_LNP = 0., Cledq_1322r_LNP = 0., Cledq_1323r_LNP = 0., Cledq_1331r_LNP = 0., Cledq_1332r_LNP = 0., Cledq_1333r_LNP = 0.,
+            Cledq_2111r_LNP = 0., Cledq_2112r_LNP = 0., Cledq_2113r_LNP = 0., Cledq_2121r_LNP = 0., Cledq_2122r_LNP = 0., Cledq_2123r_LNP = 0., Cledq_2131r_LNP = 0., Cledq_2132r_LNP = 0., Cledq_2133r_LNP = 0.,
+            Cledq_2211r_LNP = 0., Cledq_2212r_LNP = 0., Cledq_2213r_LNP = 0., Cledq_2221r_LNP = 0., Cledq_2222r_LNP = 0., Cledq_2223r_LNP = 0., Cledq_2231r_LNP = 0., Cledq_2232r_LNP = 0., Cledq_2233r_LNP = 0.,
+            Cledq_2311r_LNP = 0., Cledq_2312r_LNP = 0., Cledq_2313r_LNP = 0., Cledq_2321r_LNP = 0., Cledq_2322r_LNP = 0., Cledq_2323r_LNP = 0., Cledq_2331r_LNP = 0., Cledq_2332r_LNP = 0., Cledq_2333r_LNP = 0.,
+            Cledq_3111r_LNP = 0., Cledq_3112r_LNP = 0., Cledq_3113r_LNP = 0., Cledq_3121r_LNP = 0., Cledq_3122r_LNP = 0., Cledq_3123r_LNP = 0., Cledq_3131r_LNP = 0., Cledq_3132r_LNP = 0., Cledq_3133r_LNP = 0.,
+            Cledq_3211r_LNP = 0., Cledq_3212r_LNP = 0., Cledq_3213r_LNP = 0., Cledq_3221r_LNP = 0., Cledq_3222r_LNP = 0., Cledq_3223r_LNP = 0., Cledq_3231r_LNP = 0., Cledq_3232r_LNP = 0., Cledq_3233r_LNP = 0.,
+            Cledq_3311r_LNP = 0., Cledq_3312r_LNP = 0., Cledq_3313r_LNP = 0., Cledq_3321r_LNP = 0., Cledq_3322r_LNP = 0., Cledq_3323r_LNP = 0., Cledq_3331r_LNP = 0., Cledq_3332r_LNP = 0., Cledq_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}\f$ (Real part and pure real operator).
+    double Cledq_1111i_LNP = 0., Cledq_1112i_LNP = 0., Cledq_1113i_LNP = 0., Cledq_1121i_LNP = 0., Cledq_1122i_LNP = 0., Cledq_1123i_LNP = 0., Cledq_1131i_LNP = 0., Cledq_1132i_LNP = 0., Cledq_1133i_LNP = 0.,
+            Cledq_1211i_LNP = 0., Cledq_1212i_LNP = 0., Cledq_1213i_LNP = 0., Cledq_1221i_LNP = 0., Cledq_1222i_LNP = 0., Cledq_1223i_LNP = 0., Cledq_1231i_LNP = 0., Cledq_1232i_LNP = 0., Cledq_1233i_LNP = 0.,
+            Cledq_1311i_LNP = 0., Cledq_1312i_LNP = 0., Cledq_1313i_LNP = 0., Cledq_1321i_LNP = 0., Cledq_1322i_LNP = 0., Cledq_1323i_LNP = 0., Cledq_1331i_LNP = 0., Cledq_1332i_LNP = 0., Cledq_1333i_LNP = 0.,
+            Cledq_2111i_LNP = 0., Cledq_2112i_LNP = 0., Cledq_2113i_LNP = 0., Cledq_2121i_LNP = 0., Cledq_2122i_LNP = 0., Cledq_2123i_LNP = 0., Cledq_2131i_LNP = 0., Cledq_2132i_LNP = 0., Cledq_2133i_LNP = 0.,
+            Cledq_2211i_LNP = 0., Cledq_2212i_LNP = 0., Cledq_2213i_LNP = 0., Cledq_2221i_LNP = 0., Cledq_2222i_LNP = 0., Cledq_2223i_LNP = 0., Cledq_2231i_LNP = 0., Cledq_2232i_LNP = 0., Cledq_2233i_LNP = 0.,
+            Cledq_2311i_LNP = 0., Cledq_2312i_LNP = 0., Cledq_2313i_LNP = 0., Cledq_2321i_LNP = 0., Cledq_2322i_LNP = 0., Cledq_2323i_LNP = 0., Cledq_2331i_LNP = 0., Cledq_2332i_LNP = 0., Cledq_2333i_LNP = 0.,
+            Cledq_3111i_LNP = 0., Cledq_3112i_LNP = 0., Cledq_3113i_LNP = 0., Cledq_3121i_LNP = 0., Cledq_3122i_LNP = 0., Cledq_3123i_LNP = 0., Cledq_3131i_LNP = 0., Cledq_3132i_LNP = 0., Cledq_3133i_LNP = 0.,
+            Cledq_3211i_LNP = 0., Cledq_3212i_LNP = 0., Cledq_3213i_LNP = 0., Cledq_3221i_LNP = 0., Cledq_3222i_LNP = 0., Cledq_3223i_LNP = 0., Cledq_3231i_LNP = 0., Cledq_3232i_LNP = 0., Cledq_3233i_LNP = 0.,
+            Cledq_3311i_LNP = 0., Cledq_3312i_LNP = 0., Cledq_3313i_LNP = 0., Cledq_3321i_LNP = 0., Cledq_3322i_LNP = 0., Cledq_3323i_LNP = 0., Cledq_3331i_LNP = 0., Cledq_3332i_LNP = 0., Cledq_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}\f$ (Imaginary part).
+    double Cqq1_1111r_LNP = 0., Cqq1_1112r_LNP = 0., Cqq1_1113r_LNP = 0., Cqq1_1122r_LNP = 0., Cqq1_1123r_LNP = 0., Cqq1_1133r_LNP = 0., Cqq1_1212r_LNP = 0., Cqq1_1213r_LNP = 0., Cqq1_1221r_LNP = 0.,
+            Cqq1_1222r_LNP = 0., Cqq1_1223r_LNP = 0., Cqq1_1231r_LNP = 0., Cqq1_1232r_LNP = 0., Cqq1_1233r_LNP = 0., Cqq1_1313r_LNP = 0., Cqq1_1322r_LNP = 0., Cqq1_1323r_LNP = 0., Cqq1_1331r_LNP = 0.,
+            Cqq1_1332r_LNP = 0., Cqq1_1333r_LNP = 0., Cqq1_2222r_LNP = 0., Cqq1_2223r_LNP = 0., Cqq1_2233r_LNP = 0., Cqq1_2323r_LNP = 0., Cqq1_2332r_LNP = 0., Cqq1_2333r_LNP = 0., Cqq1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cqq1_1112i_LNP = 0., Cqq1_1113i_LNP = 0., Cqq1_1123i_LNP = 0., Cqq1_1212i_LNP = 0., Cqq1_1213i_LNP = 0., Cqq1_1222i_LNP = 0., Cqq1_1223i_LNP = 0., Cqq1_1231i_LNP = 0., Cqq1_1232i_LNP = 0.,
+            Cqq1_1233i_LNP = 0., Cqq1_1313i_LNP = 0., Cqq1_1322i_LNP = 0., Cqq1_1323i_LNP = 0., Cqq1_1332i_LNP = 0., Cqq1_1333i_LNP = 0., Cqq1_2223i_LNP = 0., Cqq1_2323i_LNP = 0., Cqq1_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Imaginary part).
+    double Cqq3_1111r_LNP = 0., Cqq3_1112r_LNP = 0., Cqq3_1113r_LNP = 0., Cqq3_1122r_LNP = 0., Cqq3_1123r_LNP = 0., Cqq3_1133r_LNP = 0., Cqq3_1212r_LNP = 0., Cqq3_1213r_LNP = 0., Cqq3_1221r_LNP = 0.,
+            Cqq3_1222r_LNP = 0., Cqq3_1223r_LNP = 0., Cqq3_1231r_LNP = 0., Cqq3_1232r_LNP = 0., Cqq3_1233r_LNP = 0., Cqq3_1313r_LNP = 0., Cqq3_1322r_LNP = 0., Cqq3_1323r_LNP = 0., Cqq3_1331r_LNP = 0.,
+            Cqq3_1332r_LNP = 0., Cqq3_1333r_LNP = 0., Cqq3_2222r_LNP = 0., Cqq3_2223r_LNP = 0., Cqq3_2233r_LNP = 0., Cqq3_2323r_LNP = 0., Cqq3_2332r_LNP = 0., Cqq3_2333r_LNP = 0., Cqq3_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cqq3_1112i_LNP = 0., Cqq3_1113i_LNP = 0., Cqq3_1123i_LNP = 0., Cqq3_1212i_LNP = 0., Cqq3_1213i_LNP = 0., Cqq3_1222i_LNP = 0., Cqq3_1223i_LNP = 0., Cqq3_1231i_LNP = 0., Cqq3_1232i_LNP = 0.,
+            Cqq3_1233i_LNP = 0., Cqq3_1313i_LNP = 0., Cqq3_1322i_LNP = 0., Cqq3_1323i_LNP = 0., Cqq3_1332i_LNP = 0., Cqq3_1333i_LNP = 0., Cqq3_2223i_LNP = 0., Cqq3_2323i_LNP = 0., Cqq3_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Imaginary part).
     double Cuu_1111r_LNP = 0., Cuu_1112r_LNP = 0., Cuu_1113r_LNP = 0., Cuu_1122r_LNP = 0., Cuu_1123r_LNP = 0., Cuu_1133r_LNP = 0., Cuu_1212r_LNP = 0., Cuu_1213r_LNP = 0., Cuu_1221r_LNP = 0.,
             Cuu_1222r_LNP = 0., Cuu_1223r_LNP = 0., Cuu_1231r_LNP = 0., Cuu_1232r_LNP = 0., Cuu_1233r_LNP = 0., Cuu_1313r_LNP = 0., Cuu_1322r_LNP = 0., Cuu_1323r_LNP = 0., Cuu_1331r_LNP = 0.,
             Cuu_1332r_LNP = 0., Cuu_1333r_LNP = 0., Cuu_2222r_LNP = 0., Cuu_2223r_LNP = 0., Cuu_2233r_LNP = 0., Cuu_2323r_LNP = 0., Cuu_2332r_LNP = 0., Cuu_2333r_LNP = 0., Cuu_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}\f$ (Real part and pure real operator).
@@ -6544,218 +6560,184 @@ protected:
             Cud8_1231i_LNP = 0., Cud8_1232i_LNP = 0., Cud8_1233i_LNP = 0., Cud8_1311i_LNP = 0., Cud8_1312i_LNP = 0., Cud8_1313i_LNP = 0., Cud8_1321i_LNP = 0., Cud8_1322i_LNP = 0., Cud8_1323i_LNP = 0.,
             Cud8_1331i_LNP = 0., Cud8_1332i_LNP = 0., Cud8_1333i_LNP = 0., Cud8_2212i_LNP = 0., Cud8_2213i_LNP = 0., Cud8_2223i_LNP = 0., Cud8_2312i_LNP = 0., Cud8_2313i_LNP = 0., Cud8_2321i_LNP = 0.,
             Cud8_2322i_LNP = 0., Cud8_2323i_LNP = 0., Cud8_2331i_LNP = 0., Cud8_2332i_LNP = 0., Cud8_2333i_LNP = 0., Cud8_3311i_LNP = 0., Cud8_3312i_LNP = 0., Cud8_3313i_LNP = 0., Cud8_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}\f$ (Imaginary part).
-    double CQu1_1111r_LNP = 0., CQu1_1112r_LNP = 0., CQu1_1113r_LNP = 0., CQu1_1122r_LNP = 0., CQu1_1123r_LNP = 0., CQu1_1133r_LNP = 0., CQu1_1211r_LNP = 0., CQu1_1212r_LNP = 0., CQu1_1213r_LNP = 0.,
-            CQu1_1221r_LNP = 0., CQu1_1222r_LNP = 0., CQu1_1223r_LNP = 0., CQu1_1231r_LNP = 0., CQu1_1232r_LNP = 0., CQu1_1233r_LNP = 0., CQu1_1311r_LNP = 0., CQu1_1312r_LNP = 0., CQu1_1313r_LNP = 0.,
-            CQu1_1321r_LNP = 0., CQu1_1322r_LNP = 0., CQu1_1323r_LNP = 0., CQu1_1331r_LNP = 0., CQu1_1332r_LNP = 0., CQu1_1333r_LNP = 0., CQu1_2211r_LNP = 0., CQu1_2212r_LNP = 0., CQu1_2213r_LNP = 0.,
-            CQu1_2222r_LNP = 0., CQu1_2223r_LNP = 0., CQu1_2233r_LNP = 0., CQu1_2311r_LNP = 0., CQu1_2312r_LNP = 0., CQu1_2313r_LNP = 0., CQu1_2321r_LNP = 0., CQu1_2322r_LNP = 0., CQu1_2323r_LNP = 0.,
-            CQu1_2331r_LNP = 0., CQu1_2332r_LNP = 0., CQu1_2333r_LNP = 0., CQu1_3311r_LNP = 0., CQu1_3312r_LNP = 0., CQu1_3313r_LNP = 0., CQu1_3322r_LNP = 0., CQu1_3323r_LNP = 0., CQu1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
-    double CQu1_1112i_LNP = 0., CQu1_1113i_LNP = 0., CQu1_1123i_LNP = 0., CQu1_1211i_LNP = 0., CQu1_1212i_LNP = 0., CQu1_1213i_LNP = 0., CQu1_1221i_LNP = 0., CQu1_1222i_LNP = 0., CQu1_1223i_LNP = 0.,
-            CQu1_1231i_LNP = 0., CQu1_1232i_LNP = 0., CQu1_1233i_LNP = 0., CQu1_1311i_LNP = 0., CQu1_1312i_LNP = 0., CQu1_1313i_LNP = 0., CQu1_1321i_LNP = 0., CQu1_1322i_LNP = 0., CQu1_1323i_LNP = 0.,
-            CQu1_1331i_LNP = 0., CQu1_1332i_LNP = 0., CQu1_1333i_LNP = 0., CQu1_2212i_LNP = 0., CQu1_2213i_LNP = 0., CQu1_2223i_LNP = 0., CQu1_2312i_LNP = 0., CQu1_2313i_LNP = 0., CQu1_2321i_LNP = 0.,
-            CQu1_2322i_LNP = 0., CQu1_2323i_LNP = 0., CQu1_2331i_LNP = 0., CQu1_2332i_LNP = 0., CQu1_2333i_LNP = 0., CQu1_3311i_LNP = 0., CQu1_3312i_LNP = 0., CQu1_3313i_LNP = 0., CQu1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}\f$ (Imaginary part).
-    double CQu8_1111r_LNP = 0., CQu8_1112r_LNP = 0., CQu8_1113r_LNP = 0., CQu8_1122r_LNP = 0., CQu8_1123r_LNP = 0., CQu8_1133r_LNP = 0., CQu8_1211r_LNP = 0., CQu8_1212r_LNP = 0., CQu8_1213r_LNP = 0.,
-            CQu8_1221r_LNP = 0., CQu8_1222r_LNP = 0., CQu8_1223r_LNP = 0., CQu8_1231r_LNP = 0., CQu8_1232r_LNP = 0., CQu8_1233r_LNP = 0., CQu8_1311r_LNP = 0., CQu8_1312r_LNP = 0., CQu8_1313r_LNP = 0.,
-            CQu8_1321r_LNP = 0., CQu8_1322r_LNP = 0., CQu8_1323r_LNP = 0., CQu8_1331r_LNP = 0., CQu8_1332r_LNP = 0., CQu8_1333r_LNP = 0., CQu8_2211r_LNP = 0., CQu8_2212r_LNP = 0., CQu8_2213r_LNP = 0.,
-            CQu8_2222r_LNP = 0., CQu8_2223r_LNP = 0., CQu8_2233r_LNP = 0., CQu8_2311r_LNP = 0., CQu8_2312r_LNP = 0., CQu8_2313r_LNP = 0., CQu8_2321r_LNP = 0., CQu8_2322r_LNP = 0., CQu8_2323r_LNP = 0.,
-            CQu8_2331r_LNP = 0., CQu8_2332r_LNP = 0., CQu8_2333r_LNP = 0., CQu8_3311r_LNP = 0., CQu8_3312r_LNP = 0., CQu8_3313r_LNP = 0., CQu8_3322r_LNP = 0., CQu8_3323r_LNP = 0., CQu8_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
-    double CQu8_1112i_LNP = 0., CQu8_1113i_LNP = 0., CQu8_1123i_LNP = 0., CQu8_1211i_LNP = 0., CQu8_1212i_LNP = 0., CQu8_1213i_LNP = 0., CQu8_1221i_LNP = 0., CQu8_1222i_LNP = 0., CQu8_1223i_LNP = 0.,
-            CQu8_1231i_LNP = 0., CQu8_1232i_LNP = 0., CQu8_1233i_LNP = 0., CQu8_1311i_LNP = 0., CQu8_1312i_LNP = 0., CQu8_1313i_LNP = 0., CQu8_1321i_LNP = 0., CQu8_1322i_LNP = 0., CQu8_1323i_LNP = 0.,
-            CQu8_1331i_LNP = 0., CQu8_1332i_LNP = 0., CQu8_1333i_LNP = 0., CQu8_2212i_LNP = 0., CQu8_2213i_LNP = 0., CQu8_2223i_LNP = 0., CQu8_2312i_LNP = 0., CQu8_2313i_LNP = 0., CQu8_2321i_LNP = 0.,
-            CQu8_2322i_LNP = 0., CQu8_2323i_LNP = 0., CQu8_2331i_LNP = 0., CQu8_2332i_LNP = 0., CQu8_2333i_LNP = 0., CQu8_3311i_LNP = 0., CQu8_3312i_LNP = 0., CQu8_3313i_LNP = 0., CQu8_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}\f$ (Imaginary part).
-    double CQd1_1111r_LNP = 0., CQd1_1112r_LNP = 0., CQd1_1113r_LNP = 0., CQd1_1122r_LNP = 0., CQd1_1123r_LNP = 0., CQd1_1133r_LNP = 0., CQd1_1211r_LNP = 0., CQd1_1212r_LNP = 0., CQd1_1213r_LNP = 0.,
-            CQd1_1221r_LNP = 0., CQd1_1222r_LNP = 0., CQd1_1223r_LNP = 0., CQd1_1231r_LNP = 0., CQd1_1232r_LNP = 0., CQd1_1233r_LNP = 0., CQd1_1311r_LNP = 0., CQd1_1312r_LNP = 0., CQd1_1313r_LNP = 0.,
-            CQd1_1321r_LNP = 0., CQd1_1322r_LNP = 0., CQd1_1323r_LNP = 0., CQd1_1331r_LNP = 0., CQd1_1332r_LNP = 0., CQd1_1333r_LNP = 0., CQd1_2211r_LNP = 0., CQd1_2212r_LNP = 0., CQd1_2213r_LNP = 0.,
-            CQd1_2222r_LNP = 0., CQd1_2223r_LNP = 0., CQd1_2233r_LNP = 0., CQd1_2311r_LNP = 0., CQd1_2312r_LNP = 0., CQd1_2313r_LNP = 0., CQd1_2321r_LNP = 0., CQd1_2322r_LNP = 0., CQd1_2323r_LNP = 0.,
-            CQd1_2331r_LNP = 0., CQd1_2332r_LNP = 0., CQd1_2333r_LNP = 0., CQd1_3311r_LNP = 0., CQd1_3312r_LNP = 0., CQd1_3313r_LNP = 0., CQd1_3322r_LNP = 0., CQd1_3323r_LNP = 0., CQd1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
-    double CQd1_1112i_LNP = 0., CQd1_1113i_LNP = 0., CQd1_1123i_LNP = 0., CQd1_1211i_LNP = 0., CQd1_1212i_LNP = 0., CQd1_1213i_LNP = 0., CQd1_1221i_LNP = 0., CQd1_1222i_LNP = 0., CQd1_1223i_LNP = 0.,
-            CQd1_1231i_LNP = 0., CQd1_1232i_LNP = 0., CQd1_1233i_LNP = 0., CQd1_1311i_LNP = 0., CQd1_1312i_LNP = 0., CQd1_1313i_LNP = 0., CQd1_1321i_LNP = 0., CQd1_1322i_LNP = 0., CQd1_1323i_LNP = 0.,
-            CQd1_1331i_LNP = 0., CQd1_1332i_LNP = 0., CQd1_1333i_LNP = 0., CQd1_2212i_LNP = 0., CQd1_2213i_LNP = 0., CQd1_2223i_LNP = 0., CQd1_2312i_LNP = 0., CQd1_2313i_LNP = 0., CQd1_2321i_LNP = 0.,
-            CQd1_2322i_LNP = 0., CQd1_2323i_LNP = 0., CQd1_2331i_LNP = 0., CQd1_2332i_LNP = 0., CQd1_2333i_LNP = 0., CQd1_3311i_LNP = 0., CQd1_3312i_LNP = 0., CQd1_3313i_LNP = 0., CQd1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}\f$ (Imaginary part).
-    double CQd8_1111r_LNP = 0., CQd8_1112r_LNP = 0., CQd8_1113r_LNP = 0., CQd8_1122r_LNP = 0., CQd8_1123r_LNP = 0., CQd8_1133r_LNP = 0., CQd8_1211r_LNP = 0., CQd8_1212r_LNP = 0., CQd8_1213r_LNP = 0.,
-            CQd8_1221r_LNP = 0., CQd8_1222r_LNP = 0., CQd8_1223r_LNP = 0., CQd8_1231r_LNP = 0., CQd8_1232r_LNP = 0., CQd8_1233r_LNP = 0., CQd8_1311r_LNP = 0., CQd8_1312r_LNP = 0., CQd8_1313r_LNP = 0.,
-            CQd8_1321r_LNP = 0., CQd8_1322r_LNP = 0., CQd8_1323r_LNP = 0., CQd8_1331r_LNP = 0., CQd8_1332r_LNP = 0., CQd8_1333r_LNP = 0., CQd8_2211r_LNP = 0., CQd8_2212r_LNP = 0., CQd8_2213r_LNP = 0.,
-            CQd8_2222r_LNP = 0., CQd8_2223r_LNP = 0., CQd8_2233r_LNP = 0., CQd8_2311r_LNP = 0., CQd8_2312r_LNP = 0., CQd8_2313r_LNP = 0., CQd8_2321r_LNP = 0., CQd8_2322r_LNP = 0., CQd8_2323r_LNP = 0.,
-            CQd8_2331r_LNP = 0., CQd8_2332r_LNP = 0., CQd8_2333r_LNP = 0., CQd8_3311r_LNP = 0., CQd8_3312r_LNP = 0., CQd8_3313r_LNP = 0., CQd8_3322r_LNP = 0., CQd8_3323r_LNP = 0., CQd8_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
-    double CQd8_1112i_LNP = 0., CQd8_1113i_LNP = 0., CQd8_1123i_LNP = 0., CQd8_1211i_LNP = 0., CQd8_1212i_LNP = 0., CQd8_1213i_LNP = 0., CQd8_1221i_LNP = 0., CQd8_1222i_LNP = 0., CQd8_1223i_LNP = 0.,
-            CQd8_1231i_LNP = 0., CQd8_1232i_LNP = 0., CQd8_1233i_LNP = 0., CQd8_1311i_LNP = 0., CQd8_1312i_LNP = 0., CQd8_1313i_LNP = 0., CQd8_1321i_LNP = 0., CQd8_1322i_LNP = 0., CQd8_1323i_LNP = 0.,
-            CQd8_1331i_LNP = 0., CQd8_1332i_LNP = 0., CQd8_1333i_LNP = 0., CQd8_2212i_LNP = 0., CQd8_2213i_LNP = 0., CQd8_2223i_LNP = 0., CQd8_2312i_LNP = 0., CQd8_2313i_LNP = 0., CQd8_2321i_LNP = 0.,
-            CQd8_2322i_LNP = 0., CQd8_2323i_LNP = 0., CQd8_2331i_LNP = 0., CQd8_2332i_LNP = 0., CQd8_2333i_LNP = 0., CQd8_3311i_LNP = 0., CQd8_3312i_LNP = 0., CQd8_3313i_LNP = 0., CQd8_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}\f$ (Imaginary part).
-    double CQuQd1_1111r_LNP = 0., CQuQd1_1112r_LNP = 0., CQuQd1_1113r_LNP = 0., CQuQd1_1121r_LNP = 0., CQuQd1_1122r_LNP = 0., CQuQd1_1123r_LNP = 0., CQuQd1_1131r_LNP = 0., CQuQd1_1132r_LNP = 0., CQuQd1_1133r_LNP = 0.,
-            CQuQd1_1211r_LNP = 0., CQuQd1_1212r_LNP = 0., CQuQd1_1213r_LNP = 0., CQuQd1_1221r_LNP = 0., CQuQd1_1222r_LNP = 0., CQuQd1_1223r_LNP = 0., CQuQd1_1231r_LNP = 0., CQuQd1_1232r_LNP = 0., CQuQd1_1233r_LNP = 0.,
-            CQuQd1_1311r_LNP = 0., CQuQd1_1312r_LNP = 0., CQuQd1_1313r_LNP = 0., CQuQd1_1321r_LNP = 0., CQuQd1_1322r_LNP = 0., CQuQd1_1323r_LNP = 0., CQuQd1_1331r_LNP = 0., CQuQd1_1332r_LNP = 0., CQuQd1_1333r_LNP = 0.,
-            CQuQd1_2111r_LNP = 0., CQuQd1_2112r_LNP = 0., CQuQd1_2113r_LNP = 0., CQuQd1_2121r_LNP = 0., CQuQd1_2122r_LNP = 0., CQuQd1_2123r_LNP = 0., CQuQd1_2131r_LNP = 0., CQuQd1_2132r_LNP = 0., CQuQd1_2133r_LNP = 0.,
-            CQuQd1_2211r_LNP = 0., CQuQd1_2212r_LNP = 0., CQuQd1_2213r_LNP = 0., CQuQd1_2221r_LNP = 0., CQuQd1_2222r_LNP = 0., CQuQd1_2223r_LNP = 0., CQuQd1_2231r_LNP = 0., CQuQd1_2232r_LNP = 0., CQuQd1_2233r_LNP = 0.,
-            CQuQd1_2311r_LNP = 0., CQuQd1_2312r_LNP = 0., CQuQd1_2313r_LNP = 0., CQuQd1_2321r_LNP = 0., CQuQd1_2322r_LNP = 0., CQuQd1_2323r_LNP = 0., CQuQd1_2331r_LNP = 0., CQuQd1_2332r_LNP = 0., CQuQd1_2333r_LNP = 0.,
-            CQuQd1_3111r_LNP = 0., CQuQd1_3112r_LNP = 0., CQuQd1_3113r_LNP = 0., CQuQd1_3121r_LNP = 0., CQuQd1_3122r_LNP = 0., CQuQd1_3123r_LNP = 0., CQuQd1_3131r_LNP = 0., CQuQd1_3132r_LNP = 0., CQuQd1_3133r_LNP = 0.,
-            CQuQd1_3211r_LNP = 0., CQuQd1_3212r_LNP = 0., CQuQd1_3213r_LNP = 0., CQuQd1_3221r_LNP = 0., CQuQd1_3222r_LNP = 0., CQuQd1_3223r_LNP = 0., CQuQd1_3231r_LNP = 0., CQuQd1_3232r_LNP = 0., CQuQd1_3233r_LNP = 0.,
-            CQuQd1_3311r_LNP = 0., CQuQd1_3312r_LNP = 0., CQuQd1_3313r_LNP = 0., CQuQd1_3321r_LNP = 0., CQuQd1_3322r_LNP = 0., CQuQd1_3323r_LNP = 0., CQuQd1_3331r_LNP = 0., CQuQd1_3332r_LNP = 0., CQuQd1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
-    double CQuQd1_1111i_LNP = 0., CQuQd1_1112i_LNP = 0., CQuQd1_1113i_LNP = 0., CQuQd1_1121i_LNP = 0., CQuQd1_1122i_LNP = 0., CQuQd1_1123i_LNP = 0., CQuQd1_1131i_LNP = 0., CQuQd1_1132i_LNP = 0., CQuQd1_1133i_LNP = 0.,
-            CQuQd1_1211i_LNP = 0., CQuQd1_1212i_LNP = 0., CQuQd1_1213i_LNP = 0., CQuQd1_1221i_LNP = 0., CQuQd1_1222i_LNP = 0., CQuQd1_1223i_LNP = 0., CQuQd1_1231i_LNP = 0., CQuQd1_1232i_LNP = 0., CQuQd1_1233i_LNP = 0.,
-            CQuQd1_1311i_LNP = 0., CQuQd1_1312i_LNP = 0., CQuQd1_1313i_LNP = 0., CQuQd1_1321i_LNP = 0., CQuQd1_1322i_LNP = 0., CQuQd1_1323i_LNP = 0., CQuQd1_1331i_LNP = 0., CQuQd1_1332i_LNP = 0., CQuQd1_1333i_LNP = 0.,
-            CQuQd1_2111i_LNP = 0., CQuQd1_2112i_LNP = 0., CQuQd1_2113i_LNP = 0., CQuQd1_2121i_LNP = 0., CQuQd1_2122i_LNP = 0., CQuQd1_2123i_LNP = 0., CQuQd1_2131i_LNP = 0., CQuQd1_2132i_LNP = 0., CQuQd1_2133i_LNP = 0.,
-            CQuQd1_2211i_LNP = 0., CQuQd1_2212i_LNP = 0., CQuQd1_2213i_LNP = 0., CQuQd1_2221i_LNP = 0., CQuQd1_2222i_LNP = 0., CQuQd1_2223i_LNP = 0., CQuQd1_2231i_LNP = 0., CQuQd1_2232i_LNP = 0., CQuQd1_2233i_LNP = 0.,
-            CQuQd1_2311i_LNP = 0., CQuQd1_2312i_LNP = 0., CQuQd1_2313i_LNP = 0., CQuQd1_2321i_LNP = 0., CQuQd1_2322i_LNP = 0., CQuQd1_2323i_LNP = 0., CQuQd1_2331i_LNP = 0., CQuQd1_2332i_LNP = 0., CQuQd1_2333i_LNP = 0.,
-            CQuQd1_3111i_LNP = 0., CQuQd1_3112i_LNP = 0., CQuQd1_3113i_LNP = 0., CQuQd1_3121i_LNP = 0., CQuQd1_3122i_LNP = 0., CQuQd1_3123i_LNP = 0., CQuQd1_3131i_LNP = 0., CQuQd1_3132i_LNP = 0., CQuQd1_3133i_LNP = 0.,
-            CQuQd1_3211i_LNP = 0., CQuQd1_3212i_LNP = 0., CQuQd1_3213i_LNP = 0., CQuQd1_3221i_LNP = 0., CQuQd1_3222i_LNP = 0., CQuQd1_3223i_LNP = 0., CQuQd1_3231i_LNP = 0., CQuQd1_3232i_LNP = 0., CQuQd1_3233i_LNP = 0.,
-            CQuQd1_3311i_LNP = 0., CQuQd1_3312i_LNP = 0., CQuQd1_3313i_LNP = 0., CQuQd1_3321i_LNP = 0., CQuQd1_3322i_LNP = 0., CQuQd1_3323i_LNP = 0., CQuQd1_3331i_LNP = 0., CQuQd1_3332i_LNP = 0., CQuQd1_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}\f$ (Imaginary part).
-    double CQuQd8_1111r_LNP = 0., CQuQd8_1112r_LNP = 0., CQuQd8_1113r_LNP = 0., CQuQd8_1121r_LNP = 0., CQuQd8_1122r_LNP = 0., CQuQd8_1123r_LNP = 0., CQuQd8_1131r_LNP = 0., CQuQd8_1132r_LNP = 0., CQuQd8_1133r_LNP = 0.,
-            CQuQd8_1211r_LNP = 0., CQuQd8_1212r_LNP = 0., CQuQd8_1213r_LNP = 0., CQuQd8_1221r_LNP = 0., CQuQd8_1222r_LNP = 0., CQuQd8_1223r_LNP = 0., CQuQd8_1231r_LNP = 0., CQuQd8_1232r_LNP = 0., CQuQd8_1233r_LNP = 0.,
-            CQuQd8_1311r_LNP = 0., CQuQd8_1312r_LNP = 0., CQuQd8_1313r_LNP = 0., CQuQd8_1321r_LNP = 0., CQuQd8_1322r_LNP = 0., CQuQd8_1323r_LNP = 0., CQuQd8_1331r_LNP = 0., CQuQd8_1332r_LNP = 0., CQuQd8_1333r_LNP = 0.,
-            CQuQd8_2111r_LNP = 0., CQuQd8_2112r_LNP = 0., CQuQd8_2113r_LNP = 0., CQuQd8_2121r_LNP = 0., CQuQd8_2122r_LNP = 0., CQuQd8_2123r_LNP = 0., CQuQd8_2131r_LNP = 0., CQuQd8_2132r_LNP = 0., CQuQd8_2133r_LNP = 0.,
-            CQuQd8_2211r_LNP = 0., CQuQd8_2212r_LNP = 0., CQuQd8_2213r_LNP = 0., CQuQd8_2221r_LNP = 0., CQuQd8_2222r_LNP = 0., CQuQd8_2223r_LNP = 0., CQuQd8_2231r_LNP = 0., CQuQd8_2232r_LNP = 0., CQuQd8_2233r_LNP = 0.,
-            CQuQd8_2311r_LNP = 0., CQuQd8_2312r_LNP = 0., CQuQd8_2313r_LNP = 0., CQuQd8_2321r_LNP = 0., CQuQd8_2322r_LNP = 0., CQuQd8_2323r_LNP = 0., CQuQd8_2331r_LNP = 0., CQuQd8_2332r_LNP = 0., CQuQd8_2333r_LNP = 0.,
-            CQuQd8_3111r_LNP = 0., CQuQd8_3112r_LNP = 0., CQuQd8_3113r_LNP = 0., CQuQd8_3121r_LNP = 0., CQuQd8_3122r_LNP = 0., CQuQd8_3123r_LNP = 0., CQuQd8_3131r_LNP = 0., CQuQd8_3132r_LNP = 0., CQuQd8_3133r_LNP = 0.,
-            CQuQd8_3211r_LNP = 0., CQuQd8_3212r_LNP = 0., CQuQd8_3213r_LNP = 0., CQuQd8_3221r_LNP = 0., CQuQd8_3222r_LNP = 0., CQuQd8_3223r_LNP = 0., CQuQd8_3231r_LNP = 0., CQuQd8_3232r_LNP = 0., CQuQd8_3233r_LNP = 0.,
-            CQuQd8_3311r_LNP = 0., CQuQd8_3312r_LNP = 0., CQuQd8_3313r_LNP = 0., CQuQd8_3321r_LNP = 0., CQuQd8_3322r_LNP = 0., CQuQd8_3323r_LNP = 0., CQuQd8_3331r_LNP = 0., CQuQd8_3332r_LNP = 0., CQuQd8_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
-    double CQuQd8_1111i_LNP = 0., CQuQd8_1112i_LNP = 0., CQuQd8_1113i_LNP = 0., CQuQd8_1121i_LNP = 0., CQuQd8_1122i_LNP = 0., CQuQd8_1123i_LNP = 0., CQuQd8_1131i_LNP = 0., CQuQd8_1132i_LNP = 0., CQuQd8_1133i_LNP = 0.,
-            CQuQd8_1211i_LNP = 0., CQuQd8_1212i_LNP = 0., CQuQd8_1213i_LNP = 0., CQuQd8_1221i_LNP = 0., CQuQd8_1222i_LNP = 0., CQuQd8_1223i_LNP = 0., CQuQd8_1231i_LNP = 0., CQuQd8_1232i_LNP = 0., CQuQd8_1233i_LNP = 0.,
-            CQuQd8_1311i_LNP = 0., CQuQd8_1312i_LNP = 0., CQuQd8_1313i_LNP = 0., CQuQd8_1321i_LNP = 0., CQuQd8_1322i_LNP = 0., CQuQd8_1323i_LNP = 0., CQuQd8_1331i_LNP = 0., CQuQd8_1332i_LNP = 0., CQuQd8_1333i_LNP = 0.,
-            CQuQd8_2111i_LNP = 0., CQuQd8_2112i_LNP = 0., CQuQd8_2113i_LNP = 0., CQuQd8_2121i_LNP = 0., CQuQd8_2122i_LNP = 0., CQuQd8_2123i_LNP = 0., CQuQd8_2131i_LNP = 0., CQuQd8_2132i_LNP = 0., CQuQd8_2133i_LNP = 0.,
-            CQuQd8_2211i_LNP = 0., CQuQd8_2212i_LNP = 0., CQuQd8_2213i_LNP = 0., CQuQd8_2221i_LNP = 0., CQuQd8_2222i_LNP = 0., CQuQd8_2223i_LNP = 0., CQuQd8_2231i_LNP = 0., CQuQd8_2232i_LNP = 0., CQuQd8_2233i_LNP = 0.,
-            CQuQd8_2311i_LNP = 0., CQuQd8_2312i_LNP = 0., CQuQd8_2313i_LNP = 0., CQuQd8_2321i_LNP = 0., CQuQd8_2322i_LNP = 0., CQuQd8_2323i_LNP = 0., CQuQd8_2331i_LNP = 0., CQuQd8_2332i_LNP = 0., CQuQd8_2333i_LNP = 0.,
-            CQuQd8_3111i_LNP = 0., CQuQd8_3112i_LNP = 0., CQuQd8_3113i_LNP = 0., CQuQd8_3121i_LNP = 0., CQuQd8_3122i_LNP = 0., CQuQd8_3123i_LNP = 0., CQuQd8_3131i_LNP = 0., CQuQd8_3132i_LNP = 0., CQuQd8_3133i_LNP = 0.,
-            CQuQd8_3211i_LNP = 0., CQuQd8_3212i_LNP = 0., CQuQd8_3213i_LNP = 0., CQuQd8_3221i_LNP = 0., CQuQd8_3222i_LNP = 0., CQuQd8_3223i_LNP = 0., CQuQd8_3231i_LNP = 0., CQuQd8_3232i_LNP = 0., CQuQd8_3233i_LNP = 0.,
-            CQuQd8_3311i_LNP = 0., CQuQd8_3312i_LNP = 0., CQuQd8_3313i_LNP = 0., CQuQd8_3321i_LNP = 0., CQuQd8_3322i_LNP = 0., CQuQd8_3323i_LNP = 0., CQuQd8_3331i_LNP = 0., CQuQd8_3332i_LNP = 0., CQuQd8_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}\f$ (Imaginary part).
-    double CLeQu1_1111r_LNP = 0., CLeQu1_1112r_LNP = 0., CLeQu1_1113r_LNP = 0., CLeQu1_1121r_LNP = 0., CLeQu1_1122r_LNP = 0., CLeQu1_1123r_LNP = 0., CLeQu1_1131r_LNP = 0., CLeQu1_1132r_LNP = 0., CLeQu1_1133r_LNP = 0.,
-            CLeQu1_1211r_LNP = 0., CLeQu1_1212r_LNP = 0., CLeQu1_1213r_LNP = 0., CLeQu1_1221r_LNP = 0., CLeQu1_1222r_LNP = 0., CLeQu1_1223r_LNP = 0., CLeQu1_1231r_LNP = 0., CLeQu1_1232r_LNP = 0., CLeQu1_1233r_LNP = 0.,
-            CLeQu1_1311r_LNP = 0., CLeQu1_1312r_LNP = 0., CLeQu1_1313r_LNP = 0., CLeQu1_1321r_LNP = 0., CLeQu1_1322r_LNP = 0., CLeQu1_1323r_LNP = 0., CLeQu1_1331r_LNP = 0., CLeQu1_1332r_LNP = 0., CLeQu1_1333r_LNP = 0.,
-            CLeQu1_2111r_LNP = 0., CLeQu1_2112r_LNP = 0., CLeQu1_2113r_LNP = 0., CLeQu1_2121r_LNP = 0., CLeQu1_2122r_LNP = 0., CLeQu1_2123r_LNP = 0., CLeQu1_2131r_LNP = 0., CLeQu1_2132r_LNP = 0., CLeQu1_2133r_LNP = 0.,
-            CLeQu1_2211r_LNP = 0., CLeQu1_2212r_LNP = 0., CLeQu1_2213r_LNP = 0., CLeQu1_2221r_LNP = 0., CLeQu1_2222r_LNP = 0., CLeQu1_2223r_LNP = 0., CLeQu1_2231r_LNP = 0., CLeQu1_2232r_LNP = 0., CLeQu1_2233r_LNP = 0.,
-            CLeQu1_2311r_LNP = 0., CLeQu1_2312r_LNP = 0., CLeQu1_2313r_LNP = 0., CLeQu1_2321r_LNP = 0., CLeQu1_2322r_LNP = 0., CLeQu1_2323r_LNP = 0., CLeQu1_2331r_LNP = 0., CLeQu1_2332r_LNP = 0., CLeQu1_2333r_LNP = 0.,
-            CLeQu1_3111r_LNP = 0., CLeQu1_3112r_LNP = 0., CLeQu1_3113r_LNP = 0., CLeQu1_3121r_LNP = 0., CLeQu1_3122r_LNP = 0., CLeQu1_3123r_LNP = 0., CLeQu1_3131r_LNP = 0., CLeQu1_3132r_LNP = 0., CLeQu1_3133r_LNP = 0.,
-            CLeQu1_3211r_LNP = 0., CLeQu1_3212r_LNP = 0., CLeQu1_3213r_LNP = 0., CLeQu1_3221r_LNP = 0., CLeQu1_3222r_LNP = 0., CLeQu1_3223r_LNP = 0., CLeQu1_3231r_LNP = 0., CLeQu1_3232r_LNP = 0., CLeQu1_3233r_LNP = 0.,
-            CLeQu1_3311r_LNP = 0., CLeQu1_3312r_LNP = 0., CLeQu1_3313r_LNP = 0., CLeQu1_3321r_LNP = 0., CLeQu1_3322r_LNP = 0., CLeQu1_3323r_LNP = 0., CLeQu1_3331r_LNP = 0., CLeQu1_3332r_LNP = 0., CLeQu1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
-    double CLeQu1_1111i_LNP = 0., CLeQu1_1112i_LNP = 0., CLeQu1_1113i_LNP = 0., CLeQu1_1121i_LNP = 0., CLeQu1_1122i_LNP = 0., CLeQu1_1123i_LNP = 0., CLeQu1_1131i_LNP = 0., CLeQu1_1132i_LNP = 0., CLeQu1_1133i_LNP = 0.,
-            CLeQu1_1211i_LNP = 0., CLeQu1_1212i_LNP = 0., CLeQu1_1213i_LNP = 0., CLeQu1_1221i_LNP = 0., CLeQu1_1222i_LNP = 0., CLeQu1_1223i_LNP = 0., CLeQu1_1231i_LNP = 0., CLeQu1_1232i_LNP = 0., CLeQu1_1233i_LNP = 0.,
-            CLeQu1_1311i_LNP = 0., CLeQu1_1312i_LNP = 0., CLeQu1_1313i_LNP = 0., CLeQu1_1321i_LNP = 0., CLeQu1_1322i_LNP = 0., CLeQu1_1323i_LNP = 0., CLeQu1_1331i_LNP = 0., CLeQu1_1332i_LNP = 0., CLeQu1_1333i_LNP = 0.,
-            CLeQu1_2111i_LNP = 0., CLeQu1_2112i_LNP = 0., CLeQu1_2113i_LNP = 0., CLeQu1_2121i_LNP = 0., CLeQu1_2122i_LNP = 0., CLeQu1_2123i_LNP = 0., CLeQu1_2131i_LNP = 0., CLeQu1_2132i_LNP = 0., CLeQu1_2133i_LNP = 0.,
-            CLeQu1_2211i_LNP = 0., CLeQu1_2212i_LNP = 0., CLeQu1_2213i_LNP = 0., CLeQu1_2221i_LNP = 0., CLeQu1_2222i_LNP = 0., CLeQu1_2223i_LNP = 0., CLeQu1_2231i_LNP = 0., CLeQu1_2232i_LNP = 0., CLeQu1_2233i_LNP = 0.,
-            CLeQu1_2311i_LNP = 0., CLeQu1_2312i_LNP = 0., CLeQu1_2313i_LNP = 0., CLeQu1_2321i_LNP = 0., CLeQu1_2322i_LNP = 0., CLeQu1_2323i_LNP = 0., CLeQu1_2331i_LNP = 0., CLeQu1_2332i_LNP = 0., CLeQu1_2333i_LNP = 0.,
-            CLeQu1_3111i_LNP = 0., CLeQu1_3112i_LNP = 0., CLeQu1_3113i_LNP = 0., CLeQu1_3121i_LNP = 0., CLeQu1_3122i_LNP = 0., CLeQu1_3123i_LNP = 0., CLeQu1_3131i_LNP = 0., CLeQu1_3132i_LNP = 0., CLeQu1_3133i_LNP = 0.,
-            CLeQu1_3211i_LNP = 0., CLeQu1_3212i_LNP = 0., CLeQu1_3213i_LNP = 0., CLeQu1_3221i_LNP = 0., CLeQu1_3222i_LNP = 0., CLeQu1_3223i_LNP = 0., CLeQu1_3231i_LNP = 0., CLeQu1_3232i_LNP = 0., CLeQu1_3233i_LNP = 0.,
-            CLeQu1_3311i_LNP = 0., CLeQu1_3312i_LNP = 0., CLeQu1_3313i_LNP = 0., CLeQu1_3321i_LNP = 0., CLeQu1_3322i_LNP = 0., CLeQu1_3323i_LNP = 0., CLeQu1_3331i_LNP = 0., CLeQu1_3332i_LNP = 0., CLeQu1_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}\f$ (Imaginary part).
-    double CLeQu3_1111r_LNP = 0., CLeQu3_1112r_LNP = 0., CLeQu3_1113r_LNP = 0., CLeQu3_1121r_LNP = 0., CLeQu3_1122r_LNP = 0., CLeQu3_1123r_LNP = 0., CLeQu3_1131r_LNP = 0., CLeQu3_1132r_LNP = 0., CLeQu3_1133r_LNP = 0.,
-            CLeQu3_1211r_LNP = 0., CLeQu3_1212r_LNP = 0., CLeQu3_1213r_LNP = 0., CLeQu3_1221r_LNP = 0., CLeQu3_1222r_LNP = 0., CLeQu3_1223r_LNP = 0., CLeQu3_1231r_LNP = 0., CLeQu3_1232r_LNP = 0., CLeQu3_1233r_LNP = 0.,
-            CLeQu3_1311r_LNP = 0., CLeQu3_1312r_LNP = 0., CLeQu3_1313r_LNP = 0., CLeQu3_1321r_LNP = 0., CLeQu3_1322r_LNP = 0., CLeQu3_1323r_LNP = 0., CLeQu3_1331r_LNP = 0., CLeQu3_1332r_LNP = 0., CLeQu3_1333r_LNP = 0.,
-            CLeQu3_2111r_LNP = 0., CLeQu3_2112r_LNP = 0., CLeQu3_2113r_LNP = 0., CLeQu3_2121r_LNP = 0., CLeQu3_2122r_LNP = 0., CLeQu3_2123r_LNP = 0., CLeQu3_2131r_LNP = 0., CLeQu3_2132r_LNP = 0., CLeQu3_2133r_LNP = 0.,
-            CLeQu3_2211r_LNP = 0., CLeQu3_2212r_LNP = 0., CLeQu3_2213r_LNP = 0., CLeQu3_2221r_LNP = 0., CLeQu3_2222r_LNP = 0., CLeQu3_2223r_LNP = 0., CLeQu3_2231r_LNP = 0., CLeQu3_2232r_LNP = 0., CLeQu3_2233r_LNP = 0.,
-            CLeQu3_2311r_LNP = 0., CLeQu3_2312r_LNP = 0., CLeQu3_2313r_LNP = 0., CLeQu3_2321r_LNP = 0., CLeQu3_2322r_LNP = 0., CLeQu3_2323r_LNP = 0., CLeQu3_2331r_LNP = 0., CLeQu3_2332r_LNP = 0., CLeQu3_2333r_LNP = 0.,
-            CLeQu3_3111r_LNP = 0., CLeQu3_3112r_LNP = 0., CLeQu3_3113r_LNP = 0., CLeQu3_3121r_LNP = 0., CLeQu3_3122r_LNP = 0., CLeQu3_3123r_LNP = 0., CLeQu3_3131r_LNP = 0., CLeQu3_3132r_LNP = 0., CLeQu3_3133r_LNP = 0.,
-            CLeQu3_3211r_LNP = 0., CLeQu3_3212r_LNP = 0., CLeQu3_3213r_LNP = 0., CLeQu3_3221r_LNP = 0., CLeQu3_3222r_LNP = 0., CLeQu3_3223r_LNP = 0., CLeQu3_3231r_LNP = 0., CLeQu3_3232r_LNP = 0., CLeQu3_3233r_LNP = 0.,
-            CLeQu3_3311r_LNP = 0., CLeQu3_3312r_LNP = 0., CLeQu3_3313r_LNP = 0., CLeQu3_3321r_LNP = 0., CLeQu3_3322r_LNP = 0., CLeQu3_3323r_LNP = 0., CLeQu3_3331r_LNP = 0., CLeQu3_3332r_LNP = 0., CLeQu3_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
-    double CLeQu3_1111i_LNP = 0., CLeQu3_1112i_LNP = 0., CLeQu3_1113i_LNP = 0., CLeQu3_1121i_LNP = 0., CLeQu3_1122i_LNP = 0., CLeQu3_1123i_LNP = 0., CLeQu3_1131i_LNP = 0., CLeQu3_1132i_LNP = 0., CLeQu3_1133i_LNP = 0.,
-            CLeQu3_1211i_LNP = 0., CLeQu3_1212i_LNP = 0., CLeQu3_1213i_LNP = 0., CLeQu3_1221i_LNP = 0., CLeQu3_1222i_LNP = 0., CLeQu3_1223i_LNP = 0., CLeQu3_1231i_LNP = 0., CLeQu3_1232i_LNP = 0., CLeQu3_1233i_LNP = 0.,
-            CLeQu3_1311i_LNP = 0., CLeQu3_1312i_LNP = 0., CLeQu3_1313i_LNP = 0., CLeQu3_1321i_LNP = 0., CLeQu3_1322i_LNP = 0., CLeQu3_1323i_LNP = 0., CLeQu3_1331i_LNP = 0., CLeQu3_1332i_LNP = 0., CLeQu3_1333i_LNP = 0.,
-            CLeQu3_2111i_LNP = 0., CLeQu3_2112i_LNP = 0., CLeQu3_2113i_LNP = 0., CLeQu3_2121i_LNP = 0., CLeQu3_2122i_LNP = 0., CLeQu3_2123i_LNP = 0., CLeQu3_2131i_LNP = 0., CLeQu3_2132i_LNP = 0., CLeQu3_2133i_LNP = 0.,
-            CLeQu3_2211i_LNP = 0., CLeQu3_2212i_LNP = 0., CLeQu3_2213i_LNP = 0., CLeQu3_2221i_LNP = 0., CLeQu3_2222i_LNP = 0., CLeQu3_2223i_LNP = 0., CLeQu3_2231i_LNP = 0., CLeQu3_2232i_LNP = 0., CLeQu3_2233i_LNP = 0.,
-            CLeQu3_2311i_LNP = 0., CLeQu3_2312i_LNP = 0., CLeQu3_2313i_LNP = 0., CLeQu3_2321i_LNP = 0., CLeQu3_2322i_LNP = 0., CLeQu3_2323i_LNP = 0., CLeQu3_2331i_LNP = 0., CLeQu3_2332i_LNP = 0., CLeQu3_2333i_LNP = 0.,
-            CLeQu3_3111i_LNP = 0., CLeQu3_3112i_LNP = 0., CLeQu3_3113i_LNP = 0., CLeQu3_3121i_LNP = 0., CLeQu3_3122i_LNP = 0., CLeQu3_3123i_LNP = 0., CLeQu3_3131i_LNP = 0., CLeQu3_3132i_LNP = 0., CLeQu3_3133i_LNP = 0.,
-            CLeQu3_3211i_LNP = 0., CLeQu3_3212i_LNP = 0., CLeQu3_3213i_LNP = 0., CLeQu3_3221i_LNP = 0., CLeQu3_3222i_LNP = 0., CLeQu3_3223i_LNP = 0., CLeQu3_3231i_LNP = 0., CLeQu3_3232i_LNP = 0., CLeQu3_3233i_LNP = 0.,
-            CLeQu3_3311i_LNP = 0., CLeQu3_3312i_LNP = 0., CLeQu3_3313i_LNP = 0., CLeQu3_3321i_LNP = 0., CLeQu3_3322i_LNP = 0., CLeQu3_3323i_LNP = 0., CLeQu3_3331i_LNP = 0., CLeQu3_3332i_LNP = 0., CLeQu3_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
+    double Cqu1_1111r_LNP = 0., Cqu1_1112r_LNP = 0., Cqu1_1113r_LNP = 0., Cqu1_1122r_LNP = 0., Cqu1_1123r_LNP = 0., Cqu1_1133r_LNP = 0., Cqu1_1211r_LNP = 0., Cqu1_1212r_LNP = 0., Cqu1_1213r_LNP = 0.,
+            Cqu1_1221r_LNP = 0., Cqu1_1222r_LNP = 0., Cqu1_1223r_LNP = 0., Cqu1_1231r_LNP = 0., Cqu1_1232r_LNP = 0., Cqu1_1233r_LNP = 0., Cqu1_1311r_LNP = 0., Cqu1_1312r_LNP = 0., Cqu1_1313r_LNP = 0.,
+            Cqu1_1321r_LNP = 0., Cqu1_1322r_LNP = 0., Cqu1_1323r_LNP = 0., Cqu1_1331r_LNP = 0., Cqu1_1332r_LNP = 0., Cqu1_1333r_LNP = 0., Cqu1_2211r_LNP = 0., Cqu1_2212r_LNP = 0., Cqu1_2213r_LNP = 0.,
+            Cqu1_2222r_LNP = 0., Cqu1_2223r_LNP = 0., Cqu1_2233r_LNP = 0., Cqu1_2311r_LNP = 0., Cqu1_2312r_LNP = 0., Cqu1_2313r_LNP = 0., Cqu1_2321r_LNP = 0., Cqu1_2322r_LNP = 0., Cqu1_2323r_LNP = 0.,
+            Cqu1_2331r_LNP = 0., Cqu1_2332r_LNP = 0., Cqu1_2333r_LNP = 0., Cqu1_3311r_LNP = 0., Cqu1_3312r_LNP = 0., Cqu1_3313r_LNP = 0., Cqu1_3322r_LNP = 0., Cqu1_3323r_LNP = 0., Cqu1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cqu1_1112i_LNP = 0., Cqu1_1113i_LNP = 0., Cqu1_1123i_LNP = 0., Cqu1_1211i_LNP = 0., Cqu1_1212i_LNP = 0., Cqu1_1213i_LNP = 0., Cqu1_1221i_LNP = 0., Cqu1_1222i_LNP = 0., Cqu1_1223i_LNP = 0.,
+            Cqu1_1231i_LNP = 0., Cqu1_1232i_LNP = 0., Cqu1_1233i_LNP = 0., Cqu1_1311i_LNP = 0., Cqu1_1312i_LNP = 0., Cqu1_1313i_LNP = 0., Cqu1_1321i_LNP = 0., Cqu1_1322i_LNP = 0., Cqu1_1323i_LNP = 0.,
+            Cqu1_1331i_LNP = 0., Cqu1_1332i_LNP = 0., Cqu1_1333i_LNP = 0., Cqu1_2212i_LNP = 0., Cqu1_2213i_LNP = 0., Cqu1_2223i_LNP = 0., Cqu1_2312i_LNP = 0., Cqu1_2313i_LNP = 0., Cqu1_2321i_LNP = 0.,
+            Cqu1_2322i_LNP = 0., Cqu1_2323i_LNP = 0., Cqu1_2331i_LNP = 0., Cqu1_2332i_LNP = 0., Cqu1_2333i_LNP = 0., Cqu1_3311i_LNP = 0., Cqu1_3312i_LNP = 0., Cqu1_3313i_LNP = 0., Cqu1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}\f$ (Imaginary part).
+    double Cqu8_1111r_LNP = 0., Cqu8_1112r_LNP = 0., Cqu8_1113r_LNP = 0., Cqu8_1122r_LNP = 0., Cqu8_1123r_LNP = 0., Cqu8_1133r_LNP = 0., Cqu8_1211r_LNP = 0., Cqu8_1212r_LNP = 0., Cqu8_1213r_LNP = 0.,
+            Cqu8_1221r_LNP = 0., Cqu8_1222r_LNP = 0., Cqu8_1223r_LNP = 0., Cqu8_1231r_LNP = 0., Cqu8_1232r_LNP = 0., Cqu8_1233r_LNP = 0., Cqu8_1311r_LNP = 0., Cqu8_1312r_LNP = 0., Cqu8_1313r_LNP = 0.,
+            Cqu8_1321r_LNP = 0., Cqu8_1322r_LNP = 0., Cqu8_1323r_LNP = 0., Cqu8_1331r_LNP = 0., Cqu8_1332r_LNP = 0., Cqu8_1333r_LNP = 0., Cqu8_2211r_LNP = 0., Cqu8_2212r_LNP = 0., Cqu8_2213r_LNP = 0.,
+            Cqu8_2222r_LNP = 0., Cqu8_2223r_LNP = 0., Cqu8_2233r_LNP = 0., Cqu8_2311r_LNP = 0., Cqu8_2312r_LNP = 0., Cqu8_2313r_LNP = 0., Cqu8_2321r_LNP = 0., Cqu8_2322r_LNP = 0., Cqu8_2323r_LNP = 0.,
+            Cqu8_2331r_LNP = 0., Cqu8_2332r_LNP = 0., Cqu8_2333r_LNP = 0., Cqu8_3311r_LNP = 0., Cqu8_3312r_LNP = 0., Cqu8_3313r_LNP = 0., Cqu8_3322r_LNP = 0., Cqu8_3323r_LNP = 0., Cqu8_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cqu8_1112i_LNP = 0., Cqu8_1113i_LNP = 0., Cqu8_1123i_LNP = 0., Cqu8_1211i_LNP = 0., Cqu8_1212i_LNP = 0., Cqu8_1213i_LNP = 0., Cqu8_1221i_LNP = 0., Cqu8_1222i_LNP = 0., Cqu8_1223i_LNP = 0.,
+            Cqu8_1231i_LNP = 0., Cqu8_1232i_LNP = 0., Cqu8_1233i_LNP = 0., Cqu8_1311i_LNP = 0., Cqu8_1312i_LNP = 0., Cqu8_1313i_LNP = 0., Cqu8_1321i_LNP = 0., Cqu8_1322i_LNP = 0., Cqu8_1323i_LNP = 0.,
+            Cqu8_1331i_LNP = 0., Cqu8_1332i_LNP = 0., Cqu8_1333i_LNP = 0., Cqu8_2212i_LNP = 0., Cqu8_2213i_LNP = 0., Cqu8_2223i_LNP = 0., Cqu8_2312i_LNP = 0., Cqu8_2313i_LNP = 0., Cqu8_2321i_LNP = 0.,
+            Cqu8_2322i_LNP = 0., Cqu8_2323i_LNP = 0., Cqu8_2331i_LNP = 0., Cqu8_2332i_LNP = 0., Cqu8_2333i_LNP = 0., Cqu8_3311i_LNP = 0., Cqu8_3312i_LNP = 0., Cqu8_3313i_LNP = 0., Cqu8_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}\f$ (Imaginary part).
+    double Cqd1_1111r_LNP = 0., Cqd1_1112r_LNP = 0., Cqd1_1113r_LNP = 0., Cqd1_1122r_LNP = 0., Cqd1_1123r_LNP = 0., Cqd1_1133r_LNP = 0., Cqd1_1211r_LNP = 0., Cqd1_1212r_LNP = 0., Cqd1_1213r_LNP = 0.,
+            Cqd1_1221r_LNP = 0., Cqd1_1222r_LNP = 0., Cqd1_1223r_LNP = 0., Cqd1_1231r_LNP = 0., Cqd1_1232r_LNP = 0., Cqd1_1233r_LNP = 0., Cqd1_1311r_LNP = 0., Cqd1_1312r_LNP = 0., Cqd1_1313r_LNP = 0.,
+            Cqd1_1321r_LNP = 0., Cqd1_1322r_LNP = 0., Cqd1_1323r_LNP = 0., Cqd1_1331r_LNP = 0., Cqd1_1332r_LNP = 0., Cqd1_1333r_LNP = 0., Cqd1_2211r_LNP = 0., Cqd1_2212r_LNP = 0., Cqd1_2213r_LNP = 0.,
+            Cqd1_2222r_LNP = 0., Cqd1_2223r_LNP = 0., Cqd1_2233r_LNP = 0., Cqd1_2311r_LNP = 0., Cqd1_2312r_LNP = 0., Cqd1_2313r_LNP = 0., Cqd1_2321r_LNP = 0., Cqd1_2322r_LNP = 0., Cqd1_2323r_LNP = 0.,
+            Cqd1_2331r_LNP = 0., Cqd1_2332r_LNP = 0., Cqd1_2333r_LNP = 0., Cqd1_3311r_LNP = 0., Cqd1_3312r_LNP = 0., Cqd1_3313r_LNP = 0., Cqd1_3322r_LNP = 0., Cqd1_3323r_LNP = 0., Cqd1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cqd1_1112i_LNP = 0., Cqd1_1113i_LNP = 0., Cqd1_1123i_LNP = 0., Cqd1_1211i_LNP = 0., Cqd1_1212i_LNP = 0., Cqd1_1213i_LNP = 0., Cqd1_1221i_LNP = 0., Cqd1_1222i_LNP = 0., Cqd1_1223i_LNP = 0.,
+            Cqd1_1231i_LNP = 0., Cqd1_1232i_LNP = 0., Cqd1_1233i_LNP = 0., Cqd1_1311i_LNP = 0., Cqd1_1312i_LNP = 0., Cqd1_1313i_LNP = 0., Cqd1_1321i_LNP = 0., Cqd1_1322i_LNP = 0., Cqd1_1323i_LNP = 0.,
+            Cqd1_1331i_LNP = 0., Cqd1_1332i_LNP = 0., Cqd1_1333i_LNP = 0., Cqd1_2212i_LNP = 0., Cqd1_2213i_LNP = 0., Cqd1_2223i_LNP = 0., Cqd1_2312i_LNP = 0., Cqd1_2313i_LNP = 0., Cqd1_2321i_LNP = 0.,
+            Cqd1_2322i_LNP = 0., Cqd1_2323i_LNP = 0., Cqd1_2331i_LNP = 0., Cqd1_2332i_LNP = 0., Cqd1_2333i_LNP = 0., Cqd1_3311i_LNP = 0., Cqd1_3312i_LNP = 0., Cqd1_3313i_LNP = 0., Cqd1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}\f$ (Imaginary part).
+    double Cqd8_1111r_LNP = 0., Cqd8_1112r_LNP = 0., Cqd8_1113r_LNP = 0., Cqd8_1122r_LNP = 0., Cqd8_1123r_LNP = 0., Cqd8_1133r_LNP = 0., Cqd8_1211r_LNP = 0., Cqd8_1212r_LNP = 0., Cqd8_1213r_LNP = 0.,
+            Cqd8_1221r_LNP = 0., Cqd8_1222r_LNP = 0., Cqd8_1223r_LNP = 0., Cqd8_1231r_LNP = 0., Cqd8_1232r_LNP = 0., Cqd8_1233r_LNP = 0., Cqd8_1311r_LNP = 0., Cqd8_1312r_LNP = 0., Cqd8_1313r_LNP = 0.,
+            Cqd8_1321r_LNP = 0., Cqd8_1322r_LNP = 0., Cqd8_1323r_LNP = 0., Cqd8_1331r_LNP = 0., Cqd8_1332r_LNP = 0., Cqd8_1333r_LNP = 0., Cqd8_2211r_LNP = 0., Cqd8_2212r_LNP = 0., Cqd8_2213r_LNP = 0.,
+            Cqd8_2222r_LNP = 0., Cqd8_2223r_LNP = 0., Cqd8_2233r_LNP = 0., Cqd8_2311r_LNP = 0., Cqd8_2312r_LNP = 0., Cqd8_2313r_LNP = 0., Cqd8_2321r_LNP = 0., Cqd8_2322r_LNP = 0., Cqd8_2323r_LNP = 0.,
+            Cqd8_2331r_LNP = 0., Cqd8_2332r_LNP = 0., Cqd8_2333r_LNP = 0., Cqd8_3311r_LNP = 0., Cqd8_3312r_LNP = 0., Cqd8_3313r_LNP = 0., Cqd8_3322r_LNP = 0., Cqd8_3323r_LNP = 0., Cqd8_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cqd8_1112i_LNP = 0., Cqd8_1113i_LNP = 0., Cqd8_1123i_LNP = 0., Cqd8_1211i_LNP = 0., Cqd8_1212i_LNP = 0., Cqd8_1213i_LNP = 0., Cqd8_1221i_LNP = 0., Cqd8_1222i_LNP = 0., Cqd8_1223i_LNP = 0.,
+            Cqd8_1231i_LNP = 0., Cqd8_1232i_LNP = 0., Cqd8_1233i_LNP = 0., Cqd8_1311i_LNP = 0., Cqd8_1312i_LNP = 0., Cqd8_1313i_LNP = 0., Cqd8_1321i_LNP = 0., Cqd8_1322i_LNP = 0., Cqd8_1323i_LNP = 0.,
+            Cqd8_1331i_LNP = 0., Cqd8_1332i_LNP = 0., Cqd8_1333i_LNP = 0., Cqd8_2212i_LNP = 0., Cqd8_2213i_LNP = 0., Cqd8_2223i_LNP = 0., Cqd8_2312i_LNP = 0., Cqd8_2313i_LNP = 0., Cqd8_2321i_LNP = 0.,
+            Cqd8_2322i_LNP = 0., Cqd8_2323i_LNP = 0., Cqd8_2331i_LNP = 0., Cqd8_2332i_LNP = 0., Cqd8_2333i_LNP = 0., Cqd8_3311i_LNP = 0., Cqd8_3312i_LNP = 0., Cqd8_3313i_LNP = 0., Cqd8_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}\f$ (Imaginary part).
+    double Cquqd1_1111r_LNP = 0., Cquqd1_1112r_LNP = 0., Cquqd1_1113r_LNP = 0., Cquqd1_1121r_LNP = 0., Cquqd1_1122r_LNP = 0., Cquqd1_1123r_LNP = 0., Cquqd1_1131r_LNP = 0., Cquqd1_1132r_LNP = 0., Cquqd1_1133r_LNP = 0.,
+            Cquqd1_1211r_LNP = 0., Cquqd1_1212r_LNP = 0., Cquqd1_1213r_LNP = 0., Cquqd1_1221r_LNP = 0., Cquqd1_1222r_LNP = 0., Cquqd1_1223r_LNP = 0., Cquqd1_1231r_LNP = 0., Cquqd1_1232r_LNP = 0., Cquqd1_1233r_LNP = 0.,
+            Cquqd1_1311r_LNP = 0., Cquqd1_1312r_LNP = 0., Cquqd1_1313r_LNP = 0., Cquqd1_1321r_LNP = 0., Cquqd1_1322r_LNP = 0., Cquqd1_1323r_LNP = 0., Cquqd1_1331r_LNP = 0., Cquqd1_1332r_LNP = 0., Cquqd1_1333r_LNP = 0.,
+            Cquqd1_2111r_LNP = 0., Cquqd1_2112r_LNP = 0., Cquqd1_2113r_LNP = 0., Cquqd1_2121r_LNP = 0., Cquqd1_2122r_LNP = 0., Cquqd1_2123r_LNP = 0., Cquqd1_2131r_LNP = 0., Cquqd1_2132r_LNP = 0., Cquqd1_2133r_LNP = 0.,
+            Cquqd1_2211r_LNP = 0., Cquqd1_2212r_LNP = 0., Cquqd1_2213r_LNP = 0., Cquqd1_2221r_LNP = 0., Cquqd1_2222r_LNP = 0., Cquqd1_2223r_LNP = 0., Cquqd1_2231r_LNP = 0., Cquqd1_2232r_LNP = 0., Cquqd1_2233r_LNP = 0.,
+            Cquqd1_2311r_LNP = 0., Cquqd1_2312r_LNP = 0., Cquqd1_2313r_LNP = 0., Cquqd1_2321r_LNP = 0., Cquqd1_2322r_LNP = 0., Cquqd1_2323r_LNP = 0., Cquqd1_2331r_LNP = 0., Cquqd1_2332r_LNP = 0., Cquqd1_2333r_LNP = 0.,
+            Cquqd1_3111r_LNP = 0., Cquqd1_3112r_LNP = 0., Cquqd1_3113r_LNP = 0., Cquqd1_3121r_LNP = 0., Cquqd1_3122r_LNP = 0., Cquqd1_3123r_LNP = 0., Cquqd1_3131r_LNP = 0., Cquqd1_3132r_LNP = 0., Cquqd1_3133r_LNP = 0.,
+            Cquqd1_3211r_LNP = 0., Cquqd1_3212r_LNP = 0., Cquqd1_3213r_LNP = 0., Cquqd1_3221r_LNP = 0., Cquqd1_3222r_LNP = 0., Cquqd1_3223r_LNP = 0., Cquqd1_3231r_LNP = 0., Cquqd1_3232r_LNP = 0., Cquqd1_3233r_LNP = 0.,
+            Cquqd1_3311r_LNP = 0., Cquqd1_3312r_LNP = 0., Cquqd1_3313r_LNP = 0., Cquqd1_3321r_LNP = 0., Cquqd1_3322r_LNP = 0., Cquqd1_3323r_LNP = 0., Cquqd1_3331r_LNP = 0., Cquqd1_3332r_LNP = 0., Cquqd1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cquqd1_1111i_LNP = 0., Cquqd1_1112i_LNP = 0., Cquqd1_1113i_LNP = 0., Cquqd1_1121i_LNP = 0., Cquqd1_1122i_LNP = 0., Cquqd1_1123i_LNP = 0., Cquqd1_1131i_LNP = 0., Cquqd1_1132i_LNP = 0., Cquqd1_1133i_LNP = 0.,
+            Cquqd1_1211i_LNP = 0., Cquqd1_1212i_LNP = 0., Cquqd1_1213i_LNP = 0., Cquqd1_1221i_LNP = 0., Cquqd1_1222i_LNP = 0., Cquqd1_1223i_LNP = 0., Cquqd1_1231i_LNP = 0., Cquqd1_1232i_LNP = 0., Cquqd1_1233i_LNP = 0.,
+            Cquqd1_1311i_LNP = 0., Cquqd1_1312i_LNP = 0., Cquqd1_1313i_LNP = 0., Cquqd1_1321i_LNP = 0., Cquqd1_1322i_LNP = 0., Cquqd1_1323i_LNP = 0., Cquqd1_1331i_LNP = 0., Cquqd1_1332i_LNP = 0., Cquqd1_1333i_LNP = 0.,
+            Cquqd1_2111i_LNP = 0., Cquqd1_2112i_LNP = 0., Cquqd1_2113i_LNP = 0., Cquqd1_2121i_LNP = 0., Cquqd1_2122i_LNP = 0., Cquqd1_2123i_LNP = 0., Cquqd1_2131i_LNP = 0., Cquqd1_2132i_LNP = 0., Cquqd1_2133i_LNP = 0.,
+            Cquqd1_2211i_LNP = 0., Cquqd1_2212i_LNP = 0., Cquqd1_2213i_LNP = 0., Cquqd1_2221i_LNP = 0., Cquqd1_2222i_LNP = 0., Cquqd1_2223i_LNP = 0., Cquqd1_2231i_LNP = 0., Cquqd1_2232i_LNP = 0., Cquqd1_2233i_LNP = 0.,
+            Cquqd1_2311i_LNP = 0., Cquqd1_2312i_LNP = 0., Cquqd1_2313i_LNP = 0., Cquqd1_2321i_LNP = 0., Cquqd1_2322i_LNP = 0., Cquqd1_2323i_LNP = 0., Cquqd1_2331i_LNP = 0., Cquqd1_2332i_LNP = 0., Cquqd1_2333i_LNP = 0.,
+            Cquqd1_3111i_LNP = 0., Cquqd1_3112i_LNP = 0., Cquqd1_3113i_LNP = 0., Cquqd1_3121i_LNP = 0., Cquqd1_3122i_LNP = 0., Cquqd1_3123i_LNP = 0., Cquqd1_3131i_LNP = 0., Cquqd1_3132i_LNP = 0., Cquqd1_3133i_LNP = 0.,
+            Cquqd1_3211i_LNP = 0., Cquqd1_3212i_LNP = 0., Cquqd1_3213i_LNP = 0., Cquqd1_3221i_LNP = 0., Cquqd1_3222i_LNP = 0., Cquqd1_3223i_LNP = 0., Cquqd1_3231i_LNP = 0., Cquqd1_3232i_LNP = 0., Cquqd1_3233i_LNP = 0.,
+            Cquqd1_3311i_LNP = 0., Cquqd1_3312i_LNP = 0., Cquqd1_3313i_LNP = 0., Cquqd1_3321i_LNP = 0., Cquqd1_3322i_LNP = 0., Cquqd1_3323i_LNP = 0., Cquqd1_3331i_LNP = 0., Cquqd1_3332i_LNP = 0., Cquqd1_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}\f$ (Imaginary part).
+    double Cquqd8_1111r_LNP = 0., Cquqd8_1112r_LNP = 0., Cquqd8_1113r_LNP = 0., Cquqd8_1121r_LNP = 0., Cquqd8_1122r_LNP = 0., Cquqd8_1123r_LNP = 0., Cquqd8_1131r_LNP = 0., Cquqd8_1132r_LNP = 0., Cquqd8_1133r_LNP = 0.,
+            Cquqd8_1211r_LNP = 0., Cquqd8_1212r_LNP = 0., Cquqd8_1213r_LNP = 0., Cquqd8_1221r_LNP = 0., Cquqd8_1222r_LNP = 0., Cquqd8_1223r_LNP = 0., Cquqd8_1231r_LNP = 0., Cquqd8_1232r_LNP = 0., Cquqd8_1233r_LNP = 0.,
+            Cquqd8_1311r_LNP = 0., Cquqd8_1312r_LNP = 0., Cquqd8_1313r_LNP = 0., Cquqd8_1321r_LNP = 0., Cquqd8_1322r_LNP = 0., Cquqd8_1323r_LNP = 0., Cquqd8_1331r_LNP = 0., Cquqd8_1332r_LNP = 0., Cquqd8_1333r_LNP = 0.,
+            Cquqd8_2111r_LNP = 0., Cquqd8_2112r_LNP = 0., Cquqd8_2113r_LNP = 0., Cquqd8_2121r_LNP = 0., Cquqd8_2122r_LNP = 0., Cquqd8_2123r_LNP = 0., Cquqd8_2131r_LNP = 0., Cquqd8_2132r_LNP = 0., Cquqd8_2133r_LNP = 0.,
+            Cquqd8_2211r_LNP = 0., Cquqd8_2212r_LNP = 0., Cquqd8_2213r_LNP = 0., Cquqd8_2221r_LNP = 0., Cquqd8_2222r_LNP = 0., Cquqd8_2223r_LNP = 0., Cquqd8_2231r_LNP = 0., Cquqd8_2232r_LNP = 0., Cquqd8_2233r_LNP = 0.,
+            Cquqd8_2311r_LNP = 0., Cquqd8_2312r_LNP = 0., Cquqd8_2313r_LNP = 0., Cquqd8_2321r_LNP = 0., Cquqd8_2322r_LNP = 0., Cquqd8_2323r_LNP = 0., Cquqd8_2331r_LNP = 0., Cquqd8_2332r_LNP = 0., Cquqd8_2333r_LNP = 0.,
+            Cquqd8_3111r_LNP = 0., Cquqd8_3112r_LNP = 0., Cquqd8_3113r_LNP = 0., Cquqd8_3121r_LNP = 0., Cquqd8_3122r_LNP = 0., Cquqd8_3123r_LNP = 0., Cquqd8_3131r_LNP = 0., Cquqd8_3132r_LNP = 0., Cquqd8_3133r_LNP = 0.,
+            Cquqd8_3211r_LNP = 0., Cquqd8_3212r_LNP = 0., Cquqd8_3213r_LNP = 0., Cquqd8_3221r_LNP = 0., Cquqd8_3222r_LNP = 0., Cquqd8_3223r_LNP = 0., Cquqd8_3231r_LNP = 0., Cquqd8_3232r_LNP = 0., Cquqd8_3233r_LNP = 0.,
+            Cquqd8_3311r_LNP = 0., Cquqd8_3312r_LNP = 0., Cquqd8_3313r_LNP = 0., Cquqd8_3321r_LNP = 0., Cquqd8_3322r_LNP = 0., Cquqd8_3323r_LNP = 0., Cquqd8_3331r_LNP = 0., Cquqd8_3332r_LNP = 0., Cquqd8_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cquqd8_1111i_LNP = 0., Cquqd8_1112i_LNP = 0., Cquqd8_1113i_LNP = 0., Cquqd8_1121i_LNP = 0., Cquqd8_1122i_LNP = 0., Cquqd8_1123i_LNP = 0., Cquqd8_1131i_LNP = 0., Cquqd8_1132i_LNP = 0., Cquqd8_1133i_LNP = 0.,
+            Cquqd8_1211i_LNP = 0., Cquqd8_1212i_LNP = 0., Cquqd8_1213i_LNP = 0., Cquqd8_1221i_LNP = 0., Cquqd8_1222i_LNP = 0., Cquqd8_1223i_LNP = 0., Cquqd8_1231i_LNP = 0., Cquqd8_1232i_LNP = 0., Cquqd8_1233i_LNP = 0.,
+            Cquqd8_1311i_LNP = 0., Cquqd8_1312i_LNP = 0., Cquqd8_1313i_LNP = 0., Cquqd8_1321i_LNP = 0., Cquqd8_1322i_LNP = 0., Cquqd8_1323i_LNP = 0., Cquqd8_1331i_LNP = 0., Cquqd8_1332i_LNP = 0., Cquqd8_1333i_LNP = 0.,
+            Cquqd8_2111i_LNP = 0., Cquqd8_2112i_LNP = 0., Cquqd8_2113i_LNP = 0., Cquqd8_2121i_LNP = 0., Cquqd8_2122i_LNP = 0., Cquqd8_2123i_LNP = 0., Cquqd8_2131i_LNP = 0., Cquqd8_2132i_LNP = 0., Cquqd8_2133i_LNP = 0.,
+            Cquqd8_2211i_LNP = 0., Cquqd8_2212i_LNP = 0., Cquqd8_2213i_LNP = 0., Cquqd8_2221i_LNP = 0., Cquqd8_2222i_LNP = 0., Cquqd8_2223i_LNP = 0., Cquqd8_2231i_LNP = 0., Cquqd8_2232i_LNP = 0., Cquqd8_2233i_LNP = 0.,
+            Cquqd8_2311i_LNP = 0., Cquqd8_2312i_LNP = 0., Cquqd8_2313i_LNP = 0., Cquqd8_2321i_LNP = 0., Cquqd8_2322i_LNP = 0., Cquqd8_2323i_LNP = 0., Cquqd8_2331i_LNP = 0., Cquqd8_2332i_LNP = 0., Cquqd8_2333i_LNP = 0.,
+            Cquqd8_3111i_LNP = 0., Cquqd8_3112i_LNP = 0., Cquqd8_3113i_LNP = 0., Cquqd8_3121i_LNP = 0., Cquqd8_3122i_LNP = 0., Cquqd8_3123i_LNP = 0., Cquqd8_3131i_LNP = 0., Cquqd8_3132i_LNP = 0., Cquqd8_3133i_LNP = 0.,
+            Cquqd8_3211i_LNP = 0., Cquqd8_3212i_LNP = 0., Cquqd8_3213i_LNP = 0., Cquqd8_3221i_LNP = 0., Cquqd8_3222i_LNP = 0., Cquqd8_3223i_LNP = 0., Cquqd8_3231i_LNP = 0., Cquqd8_3232i_LNP = 0., Cquqd8_3233i_LNP = 0.,
+            Cquqd8_3311i_LNP = 0., Cquqd8_3312i_LNP = 0., Cquqd8_3313i_LNP = 0., Cquqd8_3321i_LNP = 0., Cquqd8_3322i_LNP = 0., Cquqd8_3323i_LNP = 0., Cquqd8_3331i_LNP = 0., Cquqd8_3332i_LNP = 0., Cquqd8_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}\f$ (Imaginary part).
+    double Clequ1_1111r_LNP = 0., Clequ1_1112r_LNP = 0., Clequ1_1113r_LNP = 0., Clequ1_1121r_LNP = 0., Clequ1_1122r_LNP = 0., Clequ1_1123r_LNP = 0., Clequ1_1131r_LNP = 0., Clequ1_1132r_LNP = 0., Clequ1_1133r_LNP = 0.,
+            Clequ1_1211r_LNP = 0., Clequ1_1212r_LNP = 0., Clequ1_1213r_LNP = 0., Clequ1_1221r_LNP = 0., Clequ1_1222r_LNP = 0., Clequ1_1223r_LNP = 0., Clequ1_1231r_LNP = 0., Clequ1_1232r_LNP = 0., Clequ1_1233r_LNP = 0.,
+            Clequ1_1311r_LNP = 0., Clequ1_1312r_LNP = 0., Clequ1_1313r_LNP = 0., Clequ1_1321r_LNP = 0., Clequ1_1322r_LNP = 0., Clequ1_1323r_LNP = 0., Clequ1_1331r_LNP = 0., Clequ1_1332r_LNP = 0., Clequ1_1333r_LNP = 0.,
+            Clequ1_2111r_LNP = 0., Clequ1_2112r_LNP = 0., Clequ1_2113r_LNP = 0., Clequ1_2121r_LNP = 0., Clequ1_2122r_LNP = 0., Clequ1_2123r_LNP = 0., Clequ1_2131r_LNP = 0., Clequ1_2132r_LNP = 0., Clequ1_2133r_LNP = 0.,
+            Clequ1_2211r_LNP = 0., Clequ1_2212r_LNP = 0., Clequ1_2213r_LNP = 0., Clequ1_2221r_LNP = 0., Clequ1_2222r_LNP = 0., Clequ1_2223r_LNP = 0., Clequ1_2231r_LNP = 0., Clequ1_2232r_LNP = 0., Clequ1_2233r_LNP = 0.,
+            Clequ1_2311r_LNP = 0., Clequ1_2312r_LNP = 0., Clequ1_2313r_LNP = 0., Clequ1_2321r_LNP = 0., Clequ1_2322r_LNP = 0., Clequ1_2323r_LNP = 0., Clequ1_2331r_LNP = 0., Clequ1_2332r_LNP = 0., Clequ1_2333r_LNP = 0.,
+            Clequ1_3111r_LNP = 0., Clequ1_3112r_LNP = 0., Clequ1_3113r_LNP = 0., Clequ1_3121r_LNP = 0., Clequ1_3122r_LNP = 0., Clequ1_3123r_LNP = 0., Clequ1_3131r_LNP = 0., Clequ1_3132r_LNP = 0., Clequ1_3133r_LNP = 0.,
+            Clequ1_3211r_LNP = 0., Clequ1_3212r_LNP = 0., Clequ1_3213r_LNP = 0., Clequ1_3221r_LNP = 0., Clequ1_3222r_LNP = 0., Clequ1_3223r_LNP = 0., Clequ1_3231r_LNP = 0., Clequ1_3232r_LNP = 0., Clequ1_3233r_LNP = 0.,
+            Clequ1_3311r_LNP = 0., Clequ1_3312r_LNP = 0., Clequ1_3313r_LNP = 0., Clequ1_3321r_LNP = 0., Clequ1_3322r_LNP = 0., Clequ1_3323r_LNP = 0., Clequ1_3331r_LNP = 0., Clequ1_3332r_LNP = 0., Clequ1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
+    double Clequ1_1111i_LNP = 0., Clequ1_1112i_LNP = 0., Clequ1_1113i_LNP = 0., Clequ1_1121i_LNP = 0., Clequ1_1122i_LNP = 0., Clequ1_1123i_LNP = 0., Clequ1_1131i_LNP = 0., Clequ1_1132i_LNP = 0., Clequ1_1133i_LNP = 0.,
+            Clequ1_1211i_LNP = 0., Clequ1_1212i_LNP = 0., Clequ1_1213i_LNP = 0., Clequ1_1221i_LNP = 0., Clequ1_1222i_LNP = 0., Clequ1_1223i_LNP = 0., Clequ1_1231i_LNP = 0., Clequ1_1232i_LNP = 0., Clequ1_1233i_LNP = 0.,
+            Clequ1_1311i_LNP = 0., Clequ1_1312i_LNP = 0., Clequ1_1313i_LNP = 0., Clequ1_1321i_LNP = 0., Clequ1_1322i_LNP = 0., Clequ1_1323i_LNP = 0., Clequ1_1331i_LNP = 0., Clequ1_1332i_LNP = 0., Clequ1_1333i_LNP = 0.,
+            Clequ1_2111i_LNP = 0., Clequ1_2112i_LNP = 0., Clequ1_2113i_LNP = 0., Clequ1_2121i_LNP = 0., Clequ1_2122i_LNP = 0., Clequ1_2123i_LNP = 0., Clequ1_2131i_LNP = 0., Clequ1_2132i_LNP = 0., Clequ1_2133i_LNP = 0.,
+            Clequ1_2211i_LNP = 0., Clequ1_2212i_LNP = 0., Clequ1_2213i_LNP = 0., Clequ1_2221i_LNP = 0., Clequ1_2222i_LNP = 0., Clequ1_2223i_LNP = 0., Clequ1_2231i_LNP = 0., Clequ1_2232i_LNP = 0., Clequ1_2233i_LNP = 0.,
+            Clequ1_2311i_LNP = 0., Clequ1_2312i_LNP = 0., Clequ1_2313i_LNP = 0., Clequ1_2321i_LNP = 0., Clequ1_2322i_LNP = 0., Clequ1_2323i_LNP = 0., Clequ1_2331i_LNP = 0., Clequ1_2332i_LNP = 0., Clequ1_2333i_LNP = 0.,
+            Clequ1_3111i_LNP = 0., Clequ1_3112i_LNP = 0., Clequ1_3113i_LNP = 0., Clequ1_3121i_LNP = 0., Clequ1_3122i_LNP = 0., Clequ1_3123i_LNP = 0., Clequ1_3131i_LNP = 0., Clequ1_3132i_LNP = 0., Clequ1_3133i_LNP = 0.,
+            Clequ1_3211i_LNP = 0., Clequ1_3212i_LNP = 0., Clequ1_3213i_LNP = 0., Clequ1_3221i_LNP = 0., Clequ1_3222i_LNP = 0., Clequ1_3223i_LNP = 0., Clequ1_3231i_LNP = 0., Clequ1_3232i_LNP = 0., Clequ1_3233i_LNP = 0.,
+            Clequ1_3311i_LNP = 0., Clequ1_3312i_LNP = 0., Clequ1_3313i_LNP = 0., Clequ1_3321i_LNP = 0., Clequ1_3322i_LNP = 0., Clequ1_3323i_LNP = 0., Clequ1_3331i_LNP = 0., Clequ1_3332i_LNP = 0., Clequ1_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}\f$ (Imaginary part).
+    double Clequ3_1111r_LNP = 0., Clequ3_1112r_LNP = 0., Clequ3_1113r_LNP = 0., Clequ3_1121r_LNP = 0., Clequ3_1122r_LNP = 0., Clequ3_1123r_LNP = 0., Clequ3_1131r_LNP = 0., Clequ3_1132r_LNP = 0., Clequ3_1133r_LNP = 0.,
+            Clequ3_1211r_LNP = 0., Clequ3_1212r_LNP = 0., Clequ3_1213r_LNP = 0., Clequ3_1221r_LNP = 0., Clequ3_1222r_LNP = 0., Clequ3_1223r_LNP = 0., Clequ3_1231r_LNP = 0., Clequ3_1232r_LNP = 0., Clequ3_1233r_LNP = 0.,
+            Clequ3_1311r_LNP = 0., Clequ3_1312r_LNP = 0., Clequ3_1313r_LNP = 0., Clequ3_1321r_LNP = 0., Clequ3_1322r_LNP = 0., Clequ3_1323r_LNP = 0., Clequ3_1331r_LNP = 0., Clequ3_1332r_LNP = 0., Clequ3_1333r_LNP = 0.,
+            Clequ3_2111r_LNP = 0., Clequ3_2112r_LNP = 0., Clequ3_2113r_LNP = 0., Clequ3_2121r_LNP = 0., Clequ3_2122r_LNP = 0., Clequ3_2123r_LNP = 0., Clequ3_2131r_LNP = 0., Clequ3_2132r_LNP = 0., Clequ3_2133r_LNP = 0.,
+            Clequ3_2211r_LNP = 0., Clequ3_2212r_LNP = 0., Clequ3_2213r_LNP = 0., Clequ3_2221r_LNP = 0., Clequ3_2222r_LNP = 0., Clequ3_2223r_LNP = 0., Clequ3_2231r_LNP = 0., Clequ3_2232r_LNP = 0., Clequ3_2233r_LNP = 0.,
+            Clequ3_2311r_LNP = 0., Clequ3_2312r_LNP = 0., Clequ3_2313r_LNP = 0., Clequ3_2321r_LNP = 0., Clequ3_2322r_LNP = 0., Clequ3_2323r_LNP = 0., Clequ3_2331r_LNP = 0., Clequ3_2332r_LNP = 0., Clequ3_2333r_LNP = 0.,
+            Clequ3_3111r_LNP = 0., Clequ3_3112r_LNP = 0., Clequ3_3113r_LNP = 0., Clequ3_3121r_LNP = 0., Clequ3_3122r_LNP = 0., Clequ3_3123r_LNP = 0., Clequ3_3131r_LNP = 0., Clequ3_3132r_LNP = 0., Clequ3_3133r_LNP = 0.,
+            Clequ3_3211r_LNP = 0., Clequ3_3212r_LNP = 0., Clequ3_3213r_LNP = 0., Clequ3_3221r_LNP = 0., Clequ3_3222r_LNP = 0., Clequ3_3223r_LNP = 0., Clequ3_3231r_LNP = 0., Clequ3_3232r_LNP = 0., Clequ3_3233r_LNP = 0.,
+            Clequ3_3311r_LNP = 0., Clequ3_3312r_LNP = 0., Clequ3_3313r_LNP = 0., Clequ3_3321r_LNP = 0., Clequ3_3322r_LNP = 0., Clequ3_3323r_LNP = 0., Clequ3_3331r_LNP = 0., Clequ3_3332r_LNP = 0., Clequ3_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
+    double Clequ3_1111i_LNP = 0., Clequ3_1112i_LNP = 0., Clequ3_1113i_LNP = 0., Clequ3_1121i_LNP = 0., Clequ3_1122i_LNP = 0., Clequ3_1123i_LNP = 0., Clequ3_1131i_LNP = 0., Clequ3_1132i_LNP = 0., Clequ3_1133i_LNP = 0.,
+            Clequ3_1211i_LNP = 0., Clequ3_1212i_LNP = 0., Clequ3_1213i_LNP = 0., Clequ3_1221i_LNP = 0., Clequ3_1222i_LNP = 0., Clequ3_1223i_LNP = 0., Clequ3_1231i_LNP = 0., Clequ3_1232i_LNP = 0., Clequ3_1233i_LNP = 0.,
+            Clequ3_1311i_LNP = 0., Clequ3_1312i_LNP = 0., Clequ3_1313i_LNP = 0., Clequ3_1321i_LNP = 0., Clequ3_1322i_LNP = 0., Clequ3_1323i_LNP = 0., Clequ3_1331i_LNP = 0., Clequ3_1332i_LNP = 0., Clequ3_1333i_LNP = 0.,
+            Clequ3_2111i_LNP = 0., Clequ3_2112i_LNP = 0., Clequ3_2113i_LNP = 0., Clequ3_2121i_LNP = 0., Clequ3_2122i_LNP = 0., Clequ3_2123i_LNP = 0., Clequ3_2131i_LNP = 0., Clequ3_2132i_LNP = 0., Clequ3_2133i_LNP = 0.,
+            Clequ3_2211i_LNP = 0., Clequ3_2212i_LNP = 0., Clequ3_2213i_LNP = 0., Clequ3_2221i_LNP = 0., Clequ3_2222i_LNP = 0., Clequ3_2223i_LNP = 0., Clequ3_2231i_LNP = 0., Clequ3_2232i_LNP = 0., Clequ3_2233i_LNP = 0.,
+            Clequ3_2311i_LNP = 0., Clequ3_2312i_LNP = 0., Clequ3_2313i_LNP = 0., Clequ3_2321i_LNP = 0., Clequ3_2322i_LNP = 0., Clequ3_2323i_LNP = 0., Clequ3_2331i_LNP = 0., Clequ3_2332i_LNP = 0., Clequ3_2333i_LNP = 0.,
+            Clequ3_3111i_LNP = 0., Clequ3_3112i_LNP = 0., Clequ3_3113i_LNP = 0., Clequ3_3121i_LNP = 0., Clequ3_3122i_LNP = 0., Clequ3_3123i_LNP = 0., Clequ3_3131i_LNP = 0., Clequ3_3132i_LNP = 0., Clequ3_3133i_LNP = 0.,
+            Clequ3_3211i_LNP = 0., Clequ3_3212i_LNP = 0., Clequ3_3213i_LNP = 0., Clequ3_3221i_LNP = 0., Clequ3_3222i_LNP = 0., Clequ3_3223i_LNP = 0., Clequ3_3231i_LNP = 0., Clequ3_3232i_LNP = 0., Clequ3_3233i_LNP = 0.,
+            Clequ3_3311i_LNP = 0., Clequ3_3312i_LNP = 0., Clequ3_3313i_LNP = 0., Clequ3_3321i_LNP = 0., Clequ3_3322i_LNP = 0., Clequ3_3323i_LNP = 0., Clequ3_3331i_LNP = 0., Clequ3_3332i_LNP = 0., Clequ3_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
 
-    gslpp::complex CG = 0.; ///< The dimension-6 operator coefficient \f$C_{G}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CW = 0.; ///< The dimension-6 operator coefficient \f$C_{W}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHG = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHW = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHB = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHWB = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHD = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHbox = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CH = 0.; ///< The dimension-6 operator coefficient \f$C_{H}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{G}}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{W}}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{G}}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHBtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}(\Lambda_{\rm{EW}})\f$.
-    gslpp::complex CHWtildeB = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}(\Lambda_{\rm{EW}})\f$.
-    std::complex<double> CHL1[2][2]; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CHL1, 0, sizeof (CHL1));
-    std::complex<double> CHL3[2][2]; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CHL3, 0, sizeof (CHL3));
-    std::complex<double> CHe[2][2]; ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CHe, 0, sizeof (CHe));
-    std::complex<double> CHQ1[2][2]; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CHQ1, 0, sizeof (CHQ1));
-    std::complex<double> CHQ3[2][2]; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CHQ3, 0, sizeof (CHQ3));
-    std::complex<double> CHu[2][2]; ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CHu, 0, sizeof (CHu));
-    std::complex<double> CHd[2][2]; ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CHd, 0, sizeof (CHd));
-    std::complex<double> CHud[2][2]; ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CHud, 0, sizeof (CHud));
-    std::complex<double> CeH[2][2]; ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CeH, 0, sizeof (CeH));
-    std::complex<double> CuH[2][2]; ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CuH, 0, sizeof (CuH));
-    std::complex<double> CdH[2][2]; ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CdH, 0, sizeof (CdH));
-    std::complex<double> CuG[2][2]; ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CuG, 0, sizeof (CuG));
-    std::complex<double> CuW[2][2]; ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CuW, 0, sizeof (CuW));
-    std::complex<double> CuB[2][2]; ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CuB, 0, sizeof (CuB));
-    std::complex<double> CdG[2][2]; ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CdG, 0, sizeof (CdG));
-    std::complex<double> CdW[2][2]; ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CdW, 0, sizeof (CdW));
-    std::complex<double> CdB[2][2]; ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CdB, 0, sizeof (CdB));
-    std::complex<double> CeW[2][2]; ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CeW, 0, sizeof (CeW));
-    std::complex<double> CeB[2][2]; ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CeB, 0, sizeof (CeB));
-    std::complex<double> CLL[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLL, 0, sizeof (CLL));
-    std::complex<double> CLQ1[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLQ1, 0, sizeof (CLQ1));
-    std::complex<double> CLQ3[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLQ3, 0, sizeof (CLQ3));
-    std::complex<double> Cee[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(Cee, 0, sizeof (Cee));
-    std::complex<double> Ceu[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{eu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(Ceu, 0, sizeof (Ceu));
-    std::complex<double> Ced[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{ed})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(Ced, 0, sizeof (Ced));
-    std::complex<double> CLe[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLe, 0, sizeof (CLe));
-    std::complex<double> CLu[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLu, 0, sizeof (CLu));
-    std::complex<double> CLd[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLd, 0, sizeof (CLd));
-    std::complex<double> CQe[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQe, 0, sizeof (CQe));
-    std::complex<double> CLedQ[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLedQ, 0, sizeof (CLedQ));
-    std::complex<double> CQQ1[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQQ1, 0, sizeof (CQQ1));
-    std::complex<double> CQQ3[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQQ3, 0, sizeof (CQQ3));
-    std::complex<double> Cuu[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(Cuu, 0, sizeof (Cuu));
-    std::complex<double> Cdd[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(Cdd, 0, sizeof (Cdd));
-    std::complex<double> Cud1[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(Cud1, 0, sizeof (Cud1));
-    std::complex<double> Cud8[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(Cud8, 0, sizeof (Cud8));
-    std::complex<double> CQu1[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQu1, 0, sizeof (CQu1));
-    std::complex<double> CQu8[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQu8, 0, sizeof (CQu8));
-    std::complex<double> CQd1[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQd1, 0, sizeof (CQd1));
-    std::complex<double> CQd8[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQd8, 0, sizeof (CQd8));
-    std::complex<double> CQuQd1[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQuQd1, 0, sizeof (CQuQd1));
-    std::complex<double> CQuQd8[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CQuQd8, 0, sizeof (CQuQd8));
-    std::complex<double> CLeQu1[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLeQu1, 0, sizeof (CLeQu1));
-    std::complex<double> CLeQu3[2][2][2][2]; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-    std::memset(CLeQu3, 0, sizeof (CLeQu3));
+ gslpp::complex CG = 0.; ///< The dimension-6 operator coefficient \f$C_{G}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CW = 0.; ///< The dimension-6 operator coefficient \f$C_{W}(\Lambda_{\rm{EW}})\f$.
+ //gslpp::complex C2B = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}(\Lambda_{\rm{EW}})\f$.
+ //gslpp::complex C2W = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}(\Lambda_{\rm{EW}})\f$.
+ //gslpp::complex C2BS = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}^{SILH}(\Lambda_{\rm{EW}})\f$.
+ //gslpp::complex C2WS = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}^{SILH}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHG = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHW = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHB = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}(\Lambda_{\rm{EW}})\f$.
+ //gslpp::complex CDHB = 0.; ///< The dimension-6 operator coefficient \f$C_{DHB}(\Lambda_{\rm{EW}})\f$.
+ //gslpp::complex CDHW = 0.; ///< The dimension-6 operator coefficient \f$C_{DHW}(\Lambda_{\rm{EW}})\f$.
+ //gslpp::complex CDB = 0.; ///< The dimension-6 operator coefficient \f$C_{DB}(\Lambda_{\rm{EW}})\f$.
+ //gslpp::complex CDW = 0.; ///< The dimension-6 operator coefficient \f$C_{DW}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHWB = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHD = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}(\Lambda_{\rm{EW}})\f$.
+// gslpp::complex CT = 0.; ///< The dimension-6 operator coefficient \f$C_{T}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHbox = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CH = 0.; ///< The dimension-6 operator coefficient \f$C_{H}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{G}}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{W}}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{G}}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHBtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}(\Lambda_{\rm{EW}})\f$.
+ gslpp::complex CHWtildeB = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}(\Lambda_{\rm{EW}})\f$.
+
+ std::complex<double> CHl1[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CHl3[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CHe[3][3];  ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CHq1[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hq}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CHq3[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hq}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CHu[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CHd[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CHud[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CeH[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CuH[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CdH[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CuG[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CuW[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CuB[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CdG[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CdW[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CdB[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CeW[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> CeB[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cll[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Clq1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Clq3[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cee[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Ceu[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{eu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Ced[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ed})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cle[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Clu[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cld[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cqe[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cledq[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cqq1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cqq3[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cuu[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cdd[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cud1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cud8[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cqu1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cqu8[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cqd1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cqd8[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cquqd1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Cquqd8[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Clequ1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ std::complex<double> Clequ3[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
 
 
     double Lambda_NP; ///< The new physics scale [GeV].
@@ -6945,6 +6927,7 @@ protected:
     //  Internal parameters    
     //  ----------------------------------------------------------------------------
 
+    double LambdaNP; ///< The new physics scale [GeV\f$^2\f$].
     double LambdaNP2; ///< The square of the new physics scale [GeV\f$^2\f$].
     double LambdaNPm2; ///< The inverse square of the new physics scale [GeV\f$^{-2}\f$].
 
@@ -7083,15 +7066,18 @@ protected:
 
     double gADLL_1221;
 
-    gslpp::matrix<gslpp::complex> Uu(3, 3, 0.);
-    gslpp::matrix<gslpp::complex> Vu(3, 3, 0.);
+    gslpp::matrix<gslpp::complex> Uu;
+    gslpp::matrix<gslpp::complex> Vu;
 
-    gslpp::matrix<gslpp::complex> Ud(3, 3, 0.);
-    gslpp::matrix<gslpp::complex> Vd(3, 3, 0.);
+    gslpp::matrix<gslpp::complex> Ud;
+    gslpp::matrix<gslpp::complex> Vd;
 
-    gslpp::matrix<gslpp::complex> Ue(3, 3, 0.);
-    gslpp::matrix<gslpp::complex> Ve(3, 3, 0.);
+    gslpp::matrix<gslpp::complex> Ue;
+    gslpp::matrix<gslpp::complex> Ve;
 
+    gslpp::matrix<gslpp::complex> phi1;
+    gslpp::matrix<gslpp::complex> phi2dag;
+    gslpp::matrix<gslpp::complex> phie;
 
     double v2; ///< The square of the EW vev.
     double v2_over_LambdaNP2; ///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
@@ -7223,10 +7209,7 @@ protected:
     gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa matrix of the down-type quarks.
     gslpp::matrix<gslpp::complex> Ye; ///< The Yukawa matrix of the charged leptons.
 
-    /**
-     * @brief An auxiliary method to compute quark masses and CKM parameters from Yukawa couplings
-     */
-    void computeQuarkMassesAndCKMFromYukawas();
+    
 
     ////////////////////////////////////////////////////////////////////////
 private:
@@ -7244,7 +7227,7 @@ private:
     bool FlagMWinput; ///< A boolean for the model flag %MWinput. 
 
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
-    double ZeroAle(double *dAle5h) const;
+    double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
 
 };
 
