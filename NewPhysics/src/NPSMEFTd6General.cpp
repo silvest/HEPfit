@@ -3367,7 +3367,7 @@ bool NPSMEFTd6General::PostUpdate()
         }
     }
     
-    SMEFTEvol.EvolveToBasis("Numeric", Lambda_NP, muw, SMEFTBasisFlag);
+    SMEFTEvol.Evolve("Numeric", Lambda_NP, muw);
     
     // redefining the gluon field and the strong coupling, explicit SMEFT corrections cancel, so we use the SM relation
     AlsMz = SMEFTEvol.GetCoefficient("g3");
@@ -3375,26 +3375,29 @@ bool NPSMEFTd6General::PostUpdate()
     
     double muH2 = SMEFTEvol.GetCoefficient("mh2")/2.;
     double lamH = SMEFTEvol.GetCoefficient("lambda");
-    double v02 = muH2/lamH;
-    v2= v02*(1. + 3.*v02/(4.*lamH)*SMEFTEvol.GetCoefficient("CH"));
+    v02 = muH2/lamH;
+    delta_v02_rel = 3.*v02/(4.*lamH)*SMEFTEvol.GetCoefficient("CH");
+    
+    v2 = v02*(1. + delta_v2_rel);
     
     // redefining the Higgs mass
-    mHl = sqrt( 2. * lamH * v2 ) * ( 1. + 
-            (- 1.5 / lamH * SMEFTEvol.GetCoefficient("CH") - 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * SMEFTEvol.GetCoefficient("CHbox")) * v2 );
+    mHl = sqrt( 2. * lamH * v02 ) * ( 1. + delta_v2_rel +
+            (- 1.5 / lamH * SMEFTEvol.GetCoefficient("CH") - 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * SMEFTEvol.GetCoefficient("CHbox")) * v02 );
     
     double g1 = SMEFTEvol.GetCoefficient("g1");
     double g12 = g1*g1;
     double g2 = SMEFTEvol.GetCoefficient("g2");
     double g22 = g2*g2;
     
-    Mz = sqrt(v2 * (g12 + g22) / 4. * ( 1 + 
+    Mz = sqrt(v02 * (g12 + g22) / 4. * ( 1 + delta_v2_rel + 
             ( 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * g1 * g2 / (g12 + g22) *  SMEFTEvol.GetCoefficient("CHWB")) 
-            * v2 ) );
+            * v02 ) );
     
-    GF = 1./sqrt(2.)/v2*(1 + (SMEFTEvol.GetCoefficient("CHl3",1,1)+ SMEFTEvol.GetCoefficient("CHl3", 2, 2) - 0.5 * (SMEFTEvol.GetCoefficient("Cll", 1, 2, 2, 1) + 
-            SMEFTEvol.GetCoefficient("Cll", 2, 1, 1, 2))) * v2);
+    GF = 1./sqrt(2.)/v02*(1 + delta_v2_rel 
+            + (SMEFTEvol.GetCoefficient("CHl3",1,1)+ SMEFTEvol.GetCoefficient("CHl3", 2, 2) - 0.5 * (SMEFTEvol.GetCoefficient("Cll", 1, 2, 2, 1) + 
+            SMEFTEvol.GetCoefficient("Cll", 2, 1, 1, 2))) * v02);
     
-    aleMz = (g12*g22)/(g12 + g22)/4./M_PI * (1. - 2.*g1*g2/(g12+g22) * SMEFTEvol.GetCoefficient("CHWB") * v2);
+    aleMz = (g12*g22)/(g12 + g22)/4./M_PI * (1. - 2.*g1*g2/(g12+g22) * SMEFTEvol.GetCoefficient("CHWB") * v02);
     
     
     //We solve for dAle5Mz from aleMz. If the solution is outside a 20sigma range we put the value to the boundary.

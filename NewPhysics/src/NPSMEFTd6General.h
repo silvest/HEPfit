@@ -6669,75 +6669,119 @@ protected:
             Clequ3_3211i_LNP = 0., Clequ3_3212i_LNP = 0., Clequ3_3213i_LNP = 0., Clequ3_3221i_LNP = 0., Clequ3_3222i_LNP = 0., Clequ3_3223i_LNP = 0., Clequ3_3231i_LNP = 0., Clequ3_3232i_LNP = 0., Clequ3_3233i_LNP = 0.,
             Clequ3_3311i_LNP = 0., Clequ3_3312i_LNP = 0., Clequ3_3313i_LNP = 0., Clequ3_3321i_LNP = 0., Clequ3_3322i_LNP = 0., Clequ3_3323i_LNP = 0., Clequ3_3331i_LNP = 0., Clequ3_3332i_LNP = 0., Clequ3_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
 
- gslpp::complex CG = 0.; ///< The dimension-6 operator coefficient \f$C_{G}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CW = 0.; ///< The dimension-6 operator coefficient \f$C_{W}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex C2B = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex C2W = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex C2BS = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}^{SILH}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex C2WS = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}^{SILH}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHG = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHW = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHB = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex CDHB = 0.; ///< The dimension-6 operator coefficient \f$C_{DHB}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex CDHW = 0.; ///< The dimension-6 operator coefficient \f$C_{DHW}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex CDB = 0.; ///< The dimension-6 operator coefficient \f$C_{DB}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex CDW = 0.; ///< The dimension-6 operator coefficient \f$C_{DW}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHWB = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHD = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}(\Lambda_{\rm{EW}})\f$.
-// gslpp::complex CT = 0.; ///< The dimension-6 operator coefficient \f$C_{T}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHbox = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CH = 0.; ///< The dimension-6 operator coefficient \f$C_{H}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{G}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{W}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{G}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHBtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHWtildeB = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}(\Lambda_{\rm{EW}})\f$.
+ double CG = 0.; ///< The dimension-6 operator coefficient \f$C_{G}(\Lambda_{\rm{EW}})\f$.
+ double CW = 0.; ///< The dimension-6 operator coefficient \f$C_{W}(\Lambda_{\rm{EW}})\f$.
+ //double C2B = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}(\Lambda_{\rm{EW}})\f$.
+ //double C2W = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}(\Lambda_{\rm{EW}})\f$.
+ //double C2BS = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}^{SILH}(\Lambda_{\rm{EW}})\f$.
+ //double C2WS = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}^{SILH}(\Lambda_{\rm{EW}})\f$.
+ double CHG = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}(\Lambda_{\rm{EW}})\f$.
+ double CHW = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}(\Lambda_{\rm{EW}})\f$.
+ double CHB = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}(\Lambda_{\rm{EW}})\f$.
+ //double CDHB = 0.; ///< The dimension-6 operator coefficient \f$C_{DHB}(\Lambda_{\rm{EW}})\f$.
+ //double CDHW = 0.; ///< The dimension-6 operator coefficient \f$C_{DHW}(\Lambda_{\rm{EW}})\f$.
+ //double CDB = 0.; ///< The dimension-6 operator coefficient \f$C_{DB}(\Lambda_{\rm{EW}})\f$.
+ //double CDW = 0.; ///< The dimension-6 operator coefficient \f$C_{DW}(\Lambda_{\rm{EW}})\f$.
+ double CHWB = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}(\Lambda_{\rm{EW}})\f$.
+ double CHD = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}(\Lambda_{\rm{EW}})\f$.
+// double CT = 0.; ///< The dimension-6 operator coefficient \f$C_{T}(\Lambda_{\rm{EW}})\f$.
+ double CHbox = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}(\Lambda_{\rm{EW}})\f$.
+ double CH = 0.; ///< The dimension-6 operator coefficient \f$C_{H}(\Lambda_{\rm{EW}})\f$.
+ double CGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{G}}(\Lambda_{\rm{EW}})\f$.
+ double CWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{W}}(\Lambda_{\rm{EW}})\f$.
+ double CHGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{G}}(\Lambda_{\rm{EW}})\f$.
+ double CHWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}(\Lambda_{\rm{EW}})\f$.
+ double CHBtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}(\Lambda_{\rm{EW}})\f$.
+ double CHWtildeB = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}(\Lambda_{\rm{EW}})\f$.
 
- std::complex<double> CHl1[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CHl3[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CHe[3][3];  ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CHq1[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hq}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CHq3[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hq}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CHu[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CHd[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CHud[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CeH[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CuH[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CdH[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CuG[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CuW[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CuB[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CdG[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CdW[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CdB[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CeW[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> CeB[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cll[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Clq1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Clq3[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cee[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Ceu[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{eu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Ced[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ed})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cle[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Clu[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cld[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cqe[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cledq[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cqq1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cqq3[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cuu[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cdd[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cud1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cud8[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cqu1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cqu8[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cqd1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cqd8[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cquqd1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Cquqd8[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Clequ1[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
- std::complex<double> Clequ3[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CHl1R[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHl1I[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHl3R[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHl3I[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHeR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHeI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHq1R[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hq}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHq1I[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hq}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHq3R[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hq}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHq3I[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hq}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHuR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHuI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHdR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHdI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHudR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CHudI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CeHR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CeHI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CuHR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CuHI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CdHR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CdHI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CuGR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CuGI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CuWR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CuWI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CuBR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CuBI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CdGR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CdGI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CdWR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CdWI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CdBR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CdBI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CeWR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CeWI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CeBR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CeBI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ double CllR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CllI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Clq1R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Clq1I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Clq3R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Clq3I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CeeR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CeeI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CeuR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{eu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CeuI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{eu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CedR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ed})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CedI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ed})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CleR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CleI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CluR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CluI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CldR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CldI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CqeR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CqeI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CledqR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CledqI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqq1R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqq1I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqq3R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqq3I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CuuR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CuuI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CddR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double CddI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cud1R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cud1I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cud8R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cud8I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqu1R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqu1I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqu8R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqu8I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqd1R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqd1I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqd8R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cqd8I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cquqd1R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cquqd1I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cquqd8R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Cquqd8I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Clequ1R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Clequ1I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Clequ3R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
+ double Clequ3I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
 
 
     double Lambda_NP; ///< The new physics scale [GeV].
@@ -7080,6 +7124,8 @@ protected:
     gslpp::matrix<gslpp::complex> phie;
 
     double v2; ///< The square of the EW vev.
+    double v02; ///< The square of the EW vev, without the contribution of the dimension six operators.
+    double delta_v2_rel; ///< The relative correction to the square of the EW vev due to dimension six operators. 
     double v2_over_LambdaNP2; ///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
     double aleMz; ///< The em constant at Mz. 
     double eeMz; ///< The em coupling at Mz.
