@@ -1147,8 +1147,10 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6General (including the 18 parameters needed for the SM). 
      */
-    static const int NNPSMEFTd6GeneralVars = 2708 + 18;
+    //static const int NNPSMEFTd6GeneralVars = 2708 + 18;
+    static const int NNPSMEFTd6GeneralVars = 2708;
 
+    
     /**
      * @brief A string array containing the labels of the model parameters in
      * %NPSMEFTd6General if the model flag FlagRotateCHWCHB=false.
@@ -6328,6 +6330,13 @@ protected:
     
     
     /**
+     * @brief This function computes the SM parameters needed for the evolutor, neglecting any NP contribution.
+     * 
+     */
+    void ChangeToEvolutorsBasisPureSM();
+    
+    
+    /**
      * @brief The method to compute the %Yukawas matrix.
      */
     virtual void computeYukawas();
@@ -6340,31 +6349,59 @@ protected:
     
     
     
+    /**
+     * @brief An auxiliary method to get the WC from the evolutor
+     */
+    void getWCFromEvolutor();
+    
+    
+    
     mutable Matching<NPSMEFTd6GeneralMatching, NPSMEFTd6General> NPSMEFTd6GM;
 
     std::string SMEFTBasisFlag;
-    CKM CKM_LNP;
 
+    
+    
+    
+    //For the SM parameters used in the evolutor we start at the EW scale
+    double g1_LEW = 0;
+    double g2_LEW = 0;
+    double g3_LEW = 0;
+    double lambdaH_LEW = 0;
+    double mH2_LEW = 0;
+    double me_LEW = 0;
+    double mmu_LEW = 0;
+    double mtau_LEW = 0;
+    double mu_LEW = 0;
+    double mc_LEW = 0;
+    double mt_LEW = 0;
+    double md_LEW = 0;
+    double ms_LEW = 0;
+    double mb_LEW = 0;
+    double s12CKM_LEW = 0.;
+    double s13CKM_LEW = 0.;
+    double s23CKM_LEW = 0.;
+    double dCKM_LEW = 0.;
 
-
-    double g1_LNP = 0;
-    double g2_LNP = 0;
-    double g3_LNP = 0;
-    double lambdaH_LNP = 0;
-    double muH_LNP = 0;
-    double Ye_LNP = 0;
-    double Ymu_LNP = 0;
-    double Ytau_LNP = 0;
-    double Yu_LNP = 0;
-    double Yc_LNP = 0;
-    double Yt_LNP = 0;
-    double Yd_LNP = 0;
-    double Ys_LNP = 0;
-    double Yb_LNP = 0;
-    double s12CKM_LNP = 0.;
-    double s13CKM_LNP = 0.;
-    double s23CKM_LNP = 0.;
-    double dCKM_LNP = 0.;
+    //We won't need the SM at the NP scale anymore
+    //double g1_LNP = 0;
+    //double g2_LNP = 0;
+    //double g3_LNP = 0;
+    //double lambdaH_LNP = 0;
+    //double muH_LNP = 0;
+    //double Ye_LNP = 0;
+    //double Ymu_LNP = 0;
+    //double Ytau_LNP = 0;
+    //double Yu_LNP = 0;
+    //double Yc_LNP = 0;
+    //double Yt_LNP = 0;
+    //double Yd_LNP = 0;
+    //double Ys_LNP = 0;
+    //double Yb_LNP = 0;
+    //double s12CKM_LNP = 0.;
+    //double s13CKM_LNP = 0.;
+    //double s23CKM_LNP = 0.;
+    //double dCKM_LNP = 0.;
     double CG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double CW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
     double CHG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
@@ -6669,31 +6706,37 @@ protected:
             Clequ3_3211i_LNP = 0., Clequ3_3212i_LNP = 0., Clequ3_3213i_LNP = 0., Clequ3_3221i_LNP = 0., Clequ3_3222i_LNP = 0., Clequ3_3223i_LNP = 0., Clequ3_3231i_LNP = 0., Clequ3_3232i_LNP = 0., Clequ3_3233i_LNP = 0.,
             Clequ3_3311i_LNP = 0., Clequ3_3312i_LNP = 0., Clequ3_3313i_LNP = 0., Clequ3_3321i_LNP = 0., Clequ3_3322i_LNP = 0., Clequ3_3323i_LNP = 0., Clequ3_3331i_LNP = 0., Clequ3_3332i_LNP = 0., Clequ3_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
 
- gslpp::complex CG = 0.; ///< The dimension-6 operator coefficient \f$C_{G}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CW = 0.; ///< The dimension-6 operator coefficient \f$C_{W}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex C2B = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex C2W = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex C2BS = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}^{SILH}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex C2WS = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}^{SILH}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHG = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHW = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHB = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex CDHB = 0.; ///< The dimension-6 operator coefficient \f$C_{DHB}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex CDHW = 0.; ///< The dimension-6 operator coefficient \f$C_{DHW}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex CDB = 0.; ///< The dimension-6 operator coefficient \f$C_{DB}(\Lambda_{\rm{EW}})\f$.
- //gslpp::complex CDW = 0.; ///< The dimension-6 operator coefficient \f$C_{DW}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHWB = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHD = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}(\Lambda_{\rm{EW}})\f$.
-// gslpp::complex CT = 0.; ///< The dimension-6 operator coefficient \f$C_{T}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHbox = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CH = 0.; ///< The dimension-6 operator coefficient \f$C_{H}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{G}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{W}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{G}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHBtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}(\Lambda_{\rm{EW}})\f$.
- gslpp::complex CHWtildeB = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}(\Lambda_{\rm{EW}})\f$.
+ double CG = 0.; ///< The dimension-6 operator coefficient \f$C_{G}(\Lambda_{\rm{EW}})\f$.
+ double CW = 0.; ///< The dimension-6 operator coefficient \f$C_{W}(\Lambda_{\rm{EW}})\f$.
+ double CHG = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}(\Lambda_{\rm{EW}})\f$.
+ double CHW = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}(\Lambda_{\rm{EW}})\f$.
+ double CHB = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}(\Lambda_{\rm{EW}})\f$.
+ double CHWB = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}(\Lambda_{\rm{EW}})\f$.
+ double CHD = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}(\Lambda_{\rm{EW}})\f$.
+ double CHbox = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}(\Lambda_{\rm{EW}})\f$.
+ double CH = 0.; ///< The dimension-6 operator coefficient \f$C_{H}(\Lambda_{\rm{EW}})\f$.
+ double CGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{G}}(\Lambda_{\rm{EW}})\f$.
+ double CWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{W}}(\Lambda_{\rm{EW}})\f$.
+ double CHGtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{G}}(\Lambda_{\rm{EW}})\f$.
+ double CHWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}(\Lambda_{\rm{EW}})\f$.
+ double CHBtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}(\Lambda_{\rm{EW}})\f$.
+ double CHWtildeB = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}(\Lambda_{\rm{EW}})\f$.
 
+ 
+ ////////////////////////////////////////////////////////////////////////////////////////////////
+ //These operators should be written in terms of those of the Warsaw basis
+ double C2B = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}(\Lambda_{\rm{EW}})\f$.
+ double C2W = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}(\Lambda_{\rm{EW}})\f$.
+ double C2BS = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}^{SILH}(\Lambda_{\rm{EW}})\f$.
+ double C2WS = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}^{SILH}(\Lambda_{\rm{EW}})\f$.
+ double CDHB = 0.; ///< The dimension-6 operator coefficient \f$C_{DHB}(\Lambda_{\rm{EW}})\f$.
+ double CDHW = 0.; ///< The dimension-6 operator coefficient \f$C_{DHW}(\Lambda_{\rm{EW}})\f$.
+ double CDB = 0.; ///< The dimension-6 operator coefficient \f$C_{DB}(\Lambda_{\rm{EW}})\f$.
+ double CDW = 0.; ///< The dimension-6 operator coefficient \f$C_{DW}(\Lambda_{\rm{EW}})\f$.
+ double CT = 0.; ///< The dimension-6 operator coefficient \f$C_{T}(\Lambda_{\rm{EW}})\f$.
+ ////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+ 
  std::complex<double> CHl1[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
  std::complex<double> CHl3[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
  std::complex<double> CHe[3][3];  ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}(\Lambda_{\rm{EW}})\f$.
@@ -7065,19 +7108,8 @@ protected:
     double CiLL_2112;
 
     double gADLL_1221;
-
-    gslpp::matrix<gslpp::complex> Uu;
-    gslpp::matrix<gslpp::complex> Vu;
-
-    gslpp::matrix<gslpp::complex> Ud;
-    gslpp::matrix<gslpp::complex> Vd;
-
-    gslpp::matrix<gslpp::complex> Ue;
-    gslpp::matrix<gslpp::complex> Ve;
-
-    gslpp::matrix<gslpp::complex> phi1;
-    gslpp::matrix<gslpp::complex> phi2dag;
-    gslpp::matrix<gslpp::complex> phie;
+    
+    
 
     double v2; ///< The square of the EW vev.
     double v2_over_LambdaNP2; ///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
@@ -7127,7 +7159,12 @@ protected:
     double cRGEon; ///< Another parameter to control the inclusion of log-enhanced contributions via RG effects. It multiplies the logarithmic contribution to some observables, so it takes values 0/1 to deactivate/activate the log terms.
 
     double cAsch, cWsch; ///< Parameters to control the SM EW input scheme: Alpha or MW.
-
+    
+    double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
+    double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
+    double Yukd,Yuks,Yukb;///< SM d-quark Yukawas
+    
+    
     // STXS ci: denote them as ai to separate from the normal conventions 
     double aiG, ai3G, ai2G;
     double aiT, aiH, aiWW, aiB, aiHW, aiHB;
@@ -7205,9 +7242,6 @@ protected:
      */
     gslpp::complex CfB_diag(const Particle f) const;
 
-    gslpp::matrix<gslpp::complex> Yu; ///< The Yukawa matrix of the up-type quarks.
-    gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa matrix of the down-type quarks.
-    gslpp::matrix<gslpp::complex> Ye; ///< The Yukawa matrix of the charged leptons.
 
     
 

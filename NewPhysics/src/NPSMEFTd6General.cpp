@@ -19,10 +19,10 @@ using namespace boost::placeholders;
 
 const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
         = {
-    "g1_LNP", "g2_LNP", "g3_LNP", "lambdaH_LNP", "muH_LNP",
-    "Yu_LNP", "Yc_LNP", "Yt_LNP",  "Yd_LNP", "Ys_LNP", "Yb_LNP",
-    "Ye_LNP", "Ymu_LNP", "Ytau_LNP",
-    "s12CKM_LNP", "s13CKM_LNP", "s23CKM_LNP", "dCKM_LNP",
+//    "g1_LNP", "g2_LNP", "g3_LNP", "lambdaH_LNP", "muH_LNP",
+//    "Yu_LNP", "Yc_LNP", "Yt_LNP",  "Yd_LNP", "Ys_LNP", "Yb_LNP",
+//    "Ye_LNP", "Ymu_LNP", "Ytau_LNP",
+//    "s12CKM_LNP", "s13CKM_LNP", "s23CKM_LNP", "dCKM_LNP",
     "CG_LNP", "CW_LNP", "CHG_LNP", "CHW_LNP", "CHB_LNP",
     "CHWB_LNP", "CHD_LNP", "CHbox_LNP", "CH_LNP",
     "CGtilde_LNP", "CWtilde_LNP", "CHGtilde_LNP", "CHWtilde_LNP", "CHBtilde_LNP", "CHWtildeB_LNP",
@@ -351,11 +351,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
 
 NPSMEFTd6General::NPSMEFTd6General()
 :
-        NPbase(), NPSMEFTd6GM(*this), SMEFTEvol(), CKM_LNP(),
-        Uu(3, 0.0), Vu(3, 0.0), Ud(3, 0.0), 
-        Vd(3, 0.0), Ue(3, 0.0), Ve(3, 0.0),
-        phi1(3, 0.0), phi2dag(3, 0.0), phie(3, 0.0),
-        Yu(3, 0.0), Yd(3, 0.0), Ye(3, 0.0)
+        NPbase(), NPSMEFTd6GM(*this), SMEFTEvol()
 {
 
 
@@ -372,7 +368,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     FlagMWinput = false;
     setModelLinearized();
 
-    //w_WW = gsl_integration_cquad_workspace_alloc(100);
+    w_WW = gsl_integration_cquad_workspace_alloc(100);
 
 
     
@@ -382,24 +378,6 @@ NPSMEFTd6General::NPSMEFTd6General()
     
     ModelParamMap.insert(std::make_pair("CHWHB_gaga",  std::cref(CHWHB_gaga)));
     ModelParamMap.insert(std::make_pair("CHWHB_gagaorth",  std::cref(CHWHB_gagaorth)));
-    ModelParamMap.insert(std::make_pair("g1_LNP",  std::cref(g1_LNP)));
-    ModelParamMap.insert(std::make_pair("g2_LNP",  std::cref(g2_LNP)));
-    ModelParamMap.insert(std::make_pair("g3_LNP",  std::cref(g3_LNP)));
-    ModelParamMap.insert(std::make_pair("lambdaH_LNP",  std::cref(lambdaH_LNP)));
-    ModelParamMap.insert(std::make_pair("muH_LNP",  std::cref(muH_LNP)));
-    ModelParamMap.insert(std::make_pair("Ye_LNP",  std::cref(Ye_LNP)));
-    ModelParamMap.insert(std::make_pair("Ymu_LNP",  std::cref(Ymu_LNP)));
-    ModelParamMap.insert(std::make_pair("Ytau_LNP",  std::cref(Ytau_LNP)));
-    ModelParamMap.insert(std::make_pair("Yu_LNP",  std::cref(Yu_LNP)));
-    ModelParamMap.insert(std::make_pair("Yc_LNP",  std::cref(Yc_LNP)));
-    ModelParamMap.insert(std::make_pair("Yt_LNP",  std::cref(Yt_LNP)));
-    ModelParamMap.insert(std::make_pair("Yd_LNP",  std::cref(Yd_LNP)));
-    ModelParamMap.insert(std::make_pair("Ys_LNP",  std::cref(Ys_LNP)));
-    ModelParamMap.insert(std::make_pair("Yb_LNP",  std::cref(Yb_LNP)));
-    ModelParamMap.insert(std::make_pair("s12CKM_LNP",  std::cref(s12CKM_LNP)));
-    ModelParamMap.insert(std::make_pair("s13CKM_LNP",  std::cref(s13CKM_LNP)));
-    ModelParamMap.insert(std::make_pair("s23CKM_LNP",  std::cref(s23CKM_LNP)));
-    ModelParamMap.insert(std::make_pair("dCKM_LNP",  std::cref(dCKM_LNP)));
     ModelParamMap.insert(std::make_pair("CG_LNP",  std::cref(CG_LNP)));
     ModelParamMap.insert(std::make_pair("CW_LNP",  std::cref(CW_LNP)));
     ModelParamMap.insert(std::make_pair("CHG_LNP",  std::cref(CHG_LNP)));
@@ -3115,51 +3093,11 @@ NPSMEFTd6General::NPSMEFTd6General()
         cAsch = 1.;
         cWsch = 0.;
     }
-    
-     
-    
+      
 }
 
-bool NPSMEFTd6General::Init(const std::map<std::string, double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        if (it->first.compare("lambda") == 0 || it->first.compare("A") == 0 || it->first.compare("rhob") == 0 
-                || it->first.compare("etab") == 0 || it->first.compare("Mz") == 0 || it->first.compare("AlsMz") == 0 || it->first.compare("GF") == 0
-                || it->first.compare("dAle5Mz") == 0 || it->first.compare("mHl") == 0 || it->first.compare("mup") == 0 || it->first.compare("mdown") == 0 
-                || it->first.compare("mcharm") == 0 || it->first.compare("mstrange") == 0 || it->first.compare("mtop") == 0 || it->first.compare("mbottom") == 0
-                || it->first.compare("melectron") == 0 || it->first.compare("mmu") == 0 || it->first.compare("mtau") == 0)
-            throw std::runtime_error("ERROR: inappropriate parameter " + it->first
-                + " in model initialization; in this model low-scale SM parameters are replaced by SM parameters at the New Physics scale");
 
-    std::map<std::string, double> myDPars(DPars);
-    myDPars["lambda"] = myDPars.at("s12CKM_LNP"); // do not change!
-    myDPars["A"] = myDPars.at("s23CKM_LNP") / myDPars.at("s12CKM_LNP") / myDPars.at("s12CKM_LNP"); // do not change!
-    CKM_LNP.computeCKMfromAngles(myDPars.at("s12CKM_LNP"),myDPars.at("s23CKM_LNP"),myDPars.at("s13CKM_LNP"),myDPars.at("dCKM_LNP"));
-    myDPars["rhob"] = CKM_LNP.getRhoBar();// do not change!
-    myDPars["etab"] =  CKM_LNP.getEtaBar();// do not change!
-    myDPars["mHl"] = sqrt(2.)*myDPars.at("muH_LNP"); // do not change!
-    double g12 = myDPars.at("g1_LNP")*myDPars.at("g1_LNP");
-    double g22 = myDPars.at("g2_LNP")*myDPars.at("g2_LNP");
-    myDPars["Mz"] = myDPars.at("muH_LNP")*sqrt((g12+g22)/myDPars.at("lambdaH_LNP"))/2.;
-    myDPars["GF"] = myDPars.at("lambdaH_LNP")/sqrt(2.)/myDPars.at("muH_LNP")/myDPars.at("muH_LNP"); // do not change!
-    myDPars["AlsMz"] = myDPars.at("g3_LNP")*myDPars.at("g3_LNP")/4./M_PI;
-    myDPars["dAle5Mz"] = 2.766e-2; //just for the init function, we will then solve for this parameter
-    double fact = myDPars.at("muH_LNP")/sqrt(2.*myDPars.at("lambdaH_LNP"));
-    myDPars["mup"] = myDPars.at("Yu_LNP")*fact;
-    myDPars["mcharm"] = myDPars.at("Yc_LNP")*fact;
-    myDPars["mtop"] = myDPars.at("Yt_LNP")*fact;
-    myDPars["mdown"] = myDPars.at("Yd_LNP")*fact;
-    myDPars["mstrange"] = myDPars.at("Ys_LNP")*fact;
-    myDPars["mbottom"] = myDPars.at("Yb_LNP")*fact;
-    myDPars["melectron"] = myDPars.at("Ye_LNP")*fact;
-    myDPars["mmuon"] = myDPars.at("Ymu_LNP")*fact;
-    myDPars["mtau"] = myDPars.at("Ytau_LNP")*fact;
-    Lambda_NP = myDPars.at("Lambda_NP"); //done here since it's needed for the numerical value of Wilson Coefficients in SetParameters()
-    LambdaNP2 = Lambda_NP * Lambda_NP;
-    LambdaNPm2 = 1. / LambdaNP2;
-    
-    return (StandardModel::Init(myDPars));
-}
+
 
 bool NPSMEFTd6General::PreUpdate()
 {
@@ -3171,316 +3109,62 @@ bool NPSMEFTd6General::PreUpdate()
 }
 
 
-//Old function we won't do it with this one
-/*
-void NPSMEFTd6General::ComputeQuarkMassFromMCParameters(quark q)
+
+void NPSMEFTd6General::ChangeToEvolutorsBasisPureSM()
 {
-    // Contributions from SMEFT operators should be added here!!! To be done
-    switch (q)
-    {
-        case UP:
-            quarks[q].setMass(mup);
-        break;
-        case DOWN:
-            quarks[q].setMass(mdown);
-        break;
-        case STRANGE:
-            quarks[q].setMass(mstrange);
-        break;
-        case CHARM:
-            quarks[q].setMass(mcharm);
-            quarks[q].setMass_scale(mcharm);
-        break;
-        case BOTTOM:
-            quarks[q].setMass(mbottom);
-            quarks[q].setMass_scale(mbottom);
-        break;
-        case TOP:
-            quarks[q].setMass(163.); //temporary setting to compute thresholds in alpha_s in the pole to MSbar conversion, since the corresponding MSbar mass is yet to be computed
-            quarks[q].setMass(Mp2Mbar(mtpole, FULLNNLO));
-            quarks[q].setMass_scale(quarks[q].getMass());
-        break;
-    }
-}
-*/
-
-
-void NPSMEFTd6General::computeYukawas()
-{
-    for(int i = 0; i < 3; i++)
-        for(int j=0; j < 3; j++)
-        {
-            Yu.assignre(i, j, SMEFTEvol.GetCoefficient("YuR",i,j));
-            Yu.assignim(i, j, SMEFTEvol.GetCoefficient("YuI",i,j));
-            Yd.assignre(i, j, SMEFTEvol.GetCoefficient("YdR",i,j));
-            Yd.assignim(i, j, SMEFTEvol.GetCoefficient("YdI",i,j));
-            Ye.assignre(i, j, SMEFTEvol.GetCoefficient("YeR",i,j));
-            Ye.assignim(i, j, SMEFTEvol.GetCoefficient("YeI",i,j));
-        }
-}
-
-void NPSMEFTd6General::computeQuarkMassesAndCKMFromYukawas()
-{
+    //In this function we switch from the SM parameters used in the SM class to those needed for the evolutor using the SM expressions
+    
+    g1_LEW = sqrt(2*sqrt(2)*GF*(Mz*Mz - sqrt(Mz*Mz*(Mz*Mz - (2*sqrt(2)*M_PI*trueSM.alphaMz())/GF))));
+    g2_LEW = sqrt(2*sqrt(2)*GF*(Mz*Mz + sqrt(Mz*Mz*(Mz*Mz - (2*sqrt(2)*M_PI*trueSM.alphaMz())/GF))));
+    g3_LEW = sqrt(4*M_PI*AlsMz);
+    mH2_LEW = mHl*mHl;
+    lambdaH_LEW = (GF*mHl*mHl)/sqrt(2);
+    
+    me_LEW = leptons[ELECTRON].getMass();
+    mmu_LEW = leptons[MU].getMass();
+    mtau_LEW = leptons[TAU].getMass();
     
     
-    double fact = sqrt(v2/2.);
-    gslpp::matrix<gslpp::complex> mmu = Yu;
-    gslpp::matrix<gslpp::complex> mmd = Yd;
-    gslpp::matrix<gslpp::complex> mme = Ye;
+    mu_LEW = Mrun(muw, quarks[UP].getMass_scale(), quarks[UP].getMass());
+    mc_LEW = Mrun(muw, quarks[CHARM].getMass());
+    mt_LEW = Mrun(muw, quarks[TOP].getMass());
     
-    gslpp::matrix<gslpp::complex> dmmu(3, 3, 0.);
-    gslpp::matrix<gslpp::complex> dmmd(3, 3, 0.);
-    gslpp::matrix<gslpp::complex> dmme(3, 3, 0.);
+    md_LEW = Mrun(muw, quarks[DOWN].getMass_scale(), quarks[DOWN].getMass());
+    ms_LEW = Mrun(muw, quarks[STRANGE].getMass_scale(), quarks[STRANGE].getMass());
+    mb_LEW = Mrun(muw, quarks[BOTTOM].getMass());
     
-    for(int i = 0; i < 3; i++)
-        for(int j=0; j < 3; j++)
-        {
-            dmmu.assignre(i, j, SMEFTEvol.GetCoefficient("CuHR",i,j));
-            dmmu.assignim(i, j, SMEFTEvol.GetCoefficient("CuHI",i,j));
-            dmmd.assignre(i, j, SMEFTEvol.GetCoefficient("CdHR",i,j));
-            dmmd.assignim(i, j, SMEFTEvol.GetCoefficient("CdHI",i,j));
-            dmme.assignre(i, j, SMEFTEvol.GetCoefficient("CeHR",i,j));
-            dmme.assignim(i, j, SMEFTEvol.GetCoefficient("CeHI",i,j));
-        }
+    CKM aux_CKM;
+    aux_CKM.computeCKMwithWolfenstein(lambda, A, rhob, etab);
+    s12CKM_LEW = aux_CKM.gets12();
+    s13CKM_LEW = aux_CKM.gets13();
+    s23CKM_LEW = aux_CKM.gets23();
+    dCKM_LEW = aux_CKM.getdelta();
     
-    mmu = fact*(mmu - v2/2.*dmmu.hconjugate());
-    mmd = fact*(mmd - v2/2.*dmmd.hconjugate());
-    mme = fact*(mme - v2/2.*dmme.hconjugate());
-    
-    gslpp::vector<double> Su(3, 0.);
-
-    gslpp::vector<double> Sd(3, 0.);
-
-    gslpp::vector<double> Se(3, 0.);
-
-    mmu.singularvalue(Uu, Vu, Su);
-    mmd.singularvalue(Ud, Vd, Sd);
-    mme.singularvalue(Ue, Ve, Se);
-
-    //Computing the CKM - first with arbitrary phases
-    gslpp::matrix<gslpp::complex> CKMUnphys = (Vu.hconjugate()) * Vd;
-    //myCKM = (Vu.hconjugate()) * Vd;
-    //CKMUnphys=myCKM
-
-    
-    //Compute the CKM matrix in the Standard convention
-    //myCKM.computeCKM(myCKM.getV_us().abs(),myCKM.getV_cb().abs(),myCKM.getV_ub().abs(),myCKM.computeGamma());
-    double gamma=(-CKMUnphys(0, 0)*CKMUnphys(0, 2).conjugate()/(CKMUnphys(1, 0)*CKMUnphys(1, 2).conjugate())).arg();
-    myCKM.computeCKM(CKMUnphys(0,1).abs(), CKMUnphys(1,2).abs(), CKMUnphys(0,2).abs(), gamma);
-
-    //We need to get track of the initial phase to rotate the WC
-    //Is there a better way of doing it?
-    //double a11 = (gslpp::complex(CKMUnphys(0, 0) / CKM(0, 0))).arg();
-    double a11 = (gslpp::complex(CKMUnphys(0, 0) / myCKM.getV_ud())).arg();
-    //double a12 = (gslpp::complex(CKMUnphys(0, 1) / CKM(0, 1))).arg();
-    double a12 = (gslpp::complex(CKMUnphys(0, 1) / myCKM.getV_us())).arg();
-    //double a13 = (gslpp::complex(CKMUnphys(0, 2) / CKM(0, 2))).arg();
-    double a13 = (gslpp::complex(CKMUnphys(0, 2) / myCKM.getV_ub())).arg();
-    
-    //double a23 = (gslpp::complex(CKMUnphys(1, 0) / CKM(1, 0))).arg() - a11 + a13;
-    double a23 = (gslpp::complex(CKMUnphys(1, 0) / myCKM.getV_cd())).arg() - a11 + a13;
-    //double a33 = (gslpp::complex(CKMUnphys(2, 0) / CKM(2, 0))).arg() - a11 + a13;
-    double a33 = (gslpp::complex(CKMUnphys(2, 0) / myCKM.getV_td())).arg() - a11 + a13;
-    
-    
-    //gslpp::matrix<gslpp::complex> phi1(3, 3, 0.);
-    phi1.assign(0, 0, 1.);
-    phi1.assign(1, 1, gslpp::complex(1., a23 - a13, true));
-    phi1.assign(2, 2, gslpp::complex(1., a33 - a13, true));
-    
-    //gslpp::matrix<gslpp::complex> phi2dag(3, 3, 0.);
-    phi2dag.assign(0, 0, gslpp::complex(1., - a11, true));
-    phi2dag.assign(1, 1, gslpp::complex(1., - a12, true));
-    phi2dag.assign(2, 2, gslpp::complex(1., - a13, true));
-    
-    //gslpp::matrix<gslpp::complex> phie(3, 3, 0.);
-    phie.assign(0, 0, gslpp::complex(1., - (Ue(0, 0)).arg(), true));
-    phie.assign(1, 1, gslpp::complex(1., - (Ue(1, 1)).arg(), true));
-    phie.assign(2, 2, gslpp::complex(1., - (Ue(2, 2)).arg(), true));
-    
-    
-    
-    
-    quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(),muw,Su(0)));
-    quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(),muw,Sd(0)));
-    quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(),muw,Sd(1)));
-    quarks[CHARM].setMass(Mofmu2Mbar(Su(1),muw));
-    quarks[CHARM].setMass_scale(quarks[CHARM].getMass());
-    quarks[BOTTOM].setMass(Mofmu2Mbar(Sd(2),muw));
-    quarks[BOTTOM].setMass_scale(quarks[BOTTOM].getMass());
-    quarks[TOP].setMass(Mofmu2Mbar(Su(2),muw));
-    quarks[TOP].setMass_scale(quarks[TOP].getMass());
-    mtpole = Mbar2Mp(quarks[TOP].getMass());
-
 }
 
 
 
-bool NPSMEFTd6General::PostUpdate()
+
+
+void NPSMEFTd6General::getWCFromEvolutor()
 {
-
-    SMEFTEvol.SetCoefficient("g1",g1_LNP);
-    SMEFTEvol.SetCoefficient("g2",g2_LNP);
-    SMEFTEvol.SetCoefficient("g3",g3_LNP);
-    SMEFTEvol.SetCoefficient("lambda",lambdaH_LNP);
-    SMEFTEvol.SetCoefficient("mH2",2.*muH_LNP*muH_LNP);
-    CKM_LNP.computeCKMfromAngles(s12CKM_LNP,s23CKM_LNP,s13CKM_LNP,dCKM_LNP);
-    Yu.reset();
-    Yd.reset();
-    Ye.reset();
-    Yu.assignre(0,0,Yu_LNP);// Maybe it's worth to add the _LNP also in the Yukawa matrices although these would be different to those computed by computeYukawas()
-    Yu.assignre(1,1,Yc_LNP);
-    Yu.assignre(2,2,Yt_LNP);
-    Yd.assignre(0,0,Yd_LNP);
-    Yd.assignre(1,1,Ys_LNP);
-    Yd.assignre(2,2,Yb_LNP);
-    Ye.assignre(0,0,Ye_LNP);
-    Ye.assignre(1,1,Ymu_LNP);
-    Ye.assignre(2,2,Ytau_LNP);
-    if(SMEFTBasisFlag.compare("UP")==0)
-        Yd = Yd * CKM_LNP.getCKM().hconjugate();
-    else if(SMEFTBasisFlag.compare("DOWN")==0)
-        Yu = Yu * CKM_LNP.getCKM();
-    else
-        throw std::runtime_error("ERROR: inappropriate value of SMEFTBasisFlag");
-    
-    for(int i = 0; i < 3; i++)
-    {
-        SMEFTEvol.SetCoefficient("YeR",Ye(i,i).real(),i,i);
-        if(SMEFTBasisFlag.compare("UP")==0)
-        {
-            SMEFTEvol.SetCoefficient("YuR",Yu(i,i).real(),i,i);
-            for(int j=0; j < 3; j++)    
-            {
-               SMEFTEvol.SetCoefficient("YdR",Yd(i,j).real(),i,j);
-               SMEFTEvol.SetCoefficient("YdI",Yd(i,j).imag(),i,j);
-            }
-        }
-        else
-        {
-            SMEFTEvol.SetCoefficient("YdR",Yd(i,i).real(),i,i);
-            for(int j=0; j < 3; j++)    
-            {
-               SMEFTEvol.SetCoefficient("YuR",Yu(i,j).real(),i,j);
-               SMEFTEvol.SetCoefficient("YuI",Yu(i,j).imag(),i,j);
-            }
-        }
-    }
-    
-    SMEFTEvol.EvolveToBasis("Numeric", Lambda_NP, muw, SMEFTBasisFlag);
-    
-    // redefining the gluon field and the strong coupling, explicit SMEFT corrections cancel, so we use the SM relation
-    AlsMz = SMEFTEvol.GetCoefficient("g3");
-    AlsMz *= AlsMz/4./M_PI;
-    
-    double muH2 = SMEFTEvol.GetCoefficient("mh2")/2.;
-    double lamH = SMEFTEvol.GetCoefficient("lambda");
-    double v02 = muH2/lamH;
-    v2= v02*(1. + 3.*v02/(4.*lamH)*SMEFTEvol.GetCoefficient("CH"));
-    
-    // redefining the Higgs mass
-    mHl = sqrt( 2. * lamH * v2 ) * ( 1. + 
-            (- 1.5 / lamH * SMEFTEvol.GetCoefficient("CH") - 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * SMEFTEvol.GetCoefficient("CHbox")) * v2 );
-    
-    double g1 = SMEFTEvol.GetCoefficient("g1");
-    double g12 = g1*g1;
-    double g2 = SMEFTEvol.GetCoefficient("g2");
-    double g22 = g2*g2;
-    
-    Mz = sqrt(v2 * (g12 + g22) / 4. * ( 1 + 
-            ( 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * g1 * g2 / (g12 + g22) *  SMEFTEvol.GetCoefficient("CHWB")) 
-            * v2 ) );
-    
-    GF = 1./sqrt(2.)/v2*(1 + (SMEFTEvol.GetCoefficient("CHl3",1,1)+ SMEFTEvol.GetCoefficient("CHl3", 2, 2) - 0.5 * (SMEFTEvol.GetCoefficient("Cll", 1, 2, 2, 1) + 
-            SMEFTEvol.GetCoefficient("Cll", 2, 1, 1, 2))) * v2);
-    
-    aleMz = (g12*g22)/(g12 + g22)/4./M_PI * (1. - 2.*g1*g2/(g12+g22) * SMEFTEvol.GetCoefficient("CHWB") * v2);
-    
-    
-    //We solve for dAle5Mz from aleMz. If the solution is outside a 20sigma range we put the value to the boundary.
-    double xmin = .02566, xmax = .02966;
-    TF1 f = TF1("f", this, &NPSMEFTd6General::ZeroAle, xmin, xmax, 0, "NPSMEFTd6General", "ZeroAle");
-    ROOT::Math::WrappedTF1 wf1(f);
-    ROOT::Math::BrentRootFinder brf;
-    brf.SetFunction(wf1, xmin, xmax);
-
-    double emptyparam = 0.;
-    if (brf.Solve()) dAle5Mz = brf.Root();
-    else if (fabs(ZeroAle(&xmin, &emptyparam)) >  fabs(ZeroAle(&xmax,&emptyparam))) dAle5Mz = .02966; //rough but the point will be killed anyway by the measurement of dAle5Mz
-    else dAle5Mz = .02566; //rough but the point will be killed anyway by the measurement of dAle5Mz
-    
-    // Quark masses
-    computeYukawas();
-    computeQuarkMassesAndCKMFromYukawas();
-    
-    //Now we will define all the WC at the EW scale. Those with flavour indices will be
-    //defined as arrays. Some of the operators are not invariant under weak basis transformations,
-    //we will conveniently redefine those coefficients using the proper rotation.
-    //Probably it's much better to do these things in an external function
-    std::complex<double> CHl1Aux[3][3] = {};
-    std::complex<double> CHl3Aux[3][3] = {};
-    std::complex<double> CHeAux[3][3] = {};
-    std::complex<double> CHq1Aux[3][3] = {};
-    std::complex<double> CHq3Aux[3][3] = {};
-    std::complex<double> CHuAux[3][3] = {};
-    std::complex<double> CHdAux[3][3] = {};
-    std::complex<double> CHudAux[3][3] = {};
-    std::complex<double> CeHAux[3][3] = {};
-    std::complex<double> CuHAux[3][3] = {};
-    std::complex<double> CdHAux[3][3] = {};
-    std::complex<double> CuGAux[3][3] = {};
-    std::complex<double> CuWAux[3][3] = {};
-    std::complex<double> CuBAux[3][3] = {};
-    std::complex<double> CdGAux[3][3] = {};
-    std::complex<double> CdWAux[3][3] = {};
-    std::complex<double> CdBAux[3][3] = {};
-    std::complex<double> CeWAux[3][3] = {};
-    std::complex<double> CeBAux[3][3] = {};
-    std::complex<double> CllAux[3][3][3][3] = {};
-    std::complex<double> Clq1Aux[3][3][3][3] = {};
-    std::complex<double> Clq3Aux[3][3][3][3] = {};
-    std::complex<double> CeeAux[3][3][3][3] = {};
-    std::complex<double> CeuAux[3][3][3][3] = {};
-    std::complex<double> CedAux[3][3][3][3] = {};
-    std::complex<double> CleAux[3][3][3][3] = {};
-    std::complex<double> CluAux[3][3][3][3] = {};
-    std::complex<double> CldAux[3][3][3][3] = {};
-    std::complex<double> CqeAux[3][3][3][3] = {};
-    std::complex<double> CledqAux[3][3][3][3] = {};
-    std::complex<double> Cqq1Aux[3][3][3][3] = {};
-    std::complex<double> Cqq3Aux[3][3][3][3] = {};
-    std::complex<double> CuuAux[3][3][3][3] = {};
-    std::complex<double> CddAux[3][3][3][3] = {};
-    std::complex<double> Cud1Aux[3][3][3][3] = {};
-    std::complex<double> Cud8Aux[3][3][3][3] = {};
-    std::complex<double> Cqu1Aux[3][3][3][3] = {};
-    std::complex<double> Cqu8Aux[3][3][3][3] = {};
-    std::complex<double> Cqd1Aux[3][3][3][3] = {};
-    std::complex<double> Cqd8Aux[3][3][3][3] = {};
-    std::complex<double> Cquqd1Aux[3][3][3][3] = {};
-    std::complex<double> Cquqd8Aux[3][3][3][3] = {};
-    std::complex<double> Clequ1Aux[3][3][3][3] = {};
-    std::complex<double> Clequ3Aux[3][3][3][3] = {};
-
-
-
 
     CG = SMEFTEvol.GetCoefficient("CG");  
     CW = SMEFTEvol.GetCoefficient("CW");  
-    //C2B = SMEFTEvol.GetCoefficient("C2B");  
-    //C2W = SMEFTEvol.GetCoefficient("C2W");  
-    //C2BS = SMEFTEvol.GetCoefficient("C2BS");  
-    //C2WS = SMEFTEvol.GetCoefficient("C2WS");  
+    C2B = 0.; //Relate with operators from the Warsaw basis
+    C2W = 0.; //Relate with operators from the Warsaw basis
+    C2BS = 0.; //Relate with operators from the Warsaw basis
+    C2WS = 0.; //Relate with operators from the Warsaw basis 
     CHG = SMEFTEvol.GetCoefficient("CHG");  
     CHW = SMEFTEvol.GetCoefficient("CHW");  
     CHB = SMEFTEvol.GetCoefficient("CHB");  
-    //CDHB = SMEFTEvol.GetCoefficient("CDHB");  
-    //CDHW = SMEFTEvol.GetCoefficient("CDHW");  
-    //CDB = SMEFTEvol.GetCoefficient("CDB");  
-    //CDW = SMEFTEvol.GetCoefficient("CDW");  
+    CDHB = 0.; //Relate with operators from the Warsaw basis
+    CDHW = 0.; //Relate with operators from the Warsaw basis
+    CDB = 0.; //Relate with operators from the Warsaw basis
+    CDW = 0.; //Relate with operators from the Warsaw basis
     CHWB = SMEFTEvol.GetCoefficient("CHWB");  
     CHD = SMEFTEvol.GetCoefficient("CHD");  
-    //CT = SMEFTEvol.GetCoefficient("CT");  
+    CT = 0.;//Relate with operators from the Warsaw basis
     CHbox = SMEFTEvol.GetCoefficient("CHbox");  
     CH = SMEFTEvol.GetCoefficient("CH");  
     CGtilde = SMEFTEvol.GetCoefficient("CGtilde");  
@@ -3490,254 +3174,144 @@ bool NPSMEFTd6General::PostUpdate()
     CHBtilde = SMEFTEvol.GetCoefficient("CHBtilde");  
     CHWtildeB = SMEFTEvol.GetCoefficient("CHWtildeB");  
 
-
-
-
-
-for (int i = 0; i < 3; i++) {
-for (int j = 0; j < 3; j++) {
-
-    CHl1Aux[i][j].real(SMEFTEvol.GetCoefficient("CHl1R, i, j"));
-    CHl1Aux[i][j].imag(SMEFTEvol.GetCoefficient("CHl1I, i, j"));
-    CHl3Aux[i][j].real(SMEFTEvol.GetCoefficient("CHl3R, i, j"));
-    CHl3Aux[i][j].imag(SMEFTEvol.GetCoefficient("CHl3I, i, j"));
-    CHeAux[i][j].real(SMEFTEvol.GetCoefficient("CHeR, i, j"));
-    CHeAux[i][j].imag(SMEFTEvol.GetCoefficient("CHeI, i, j"));
-    CHq1Aux[i][j].real(SMEFTEvol.GetCoefficient("CHq1R, i, j"));
-    CHq1Aux[i][j].imag(SMEFTEvol.GetCoefficient("CHq1I, i, j"));
-    CHq3Aux[i][j].real(SMEFTEvol.GetCoefficient("CHq3R, i, j"));
-    CHq3Aux[i][j].imag(SMEFTEvol.GetCoefficient("CHq3I, i, j"));
-    CHuAux[i][j].real(SMEFTEvol.GetCoefficient("CHuR, i, j"));
-    CHuAux[i][j].imag(SMEFTEvol.GetCoefficient("CHuI, i, j"));
-    CHdAux[i][j].real(SMEFTEvol.GetCoefficient("CHdR, i, j"));
-    CHdAux[i][j].imag(SMEFTEvol.GetCoefficient("CHdI, i, j"));
-    CHudAux[i][j].real(SMEFTEvol.GetCoefficient("CHudR, i, j"));
-    CHudAux[i][j].imag(SMEFTEvol.GetCoefficient("CHudI, i, j"));
-    CeHAux[i][j].real(SMEFTEvol.GetCoefficient("CeHR, i, j"));
-    CeHAux[i][j].imag(SMEFTEvol.GetCoefficient("CeHI, i, j"));
-    CuHAux[i][j].real(SMEFTEvol.GetCoefficient("CuHR, i, j"));
-    CuHAux[i][j].imag(SMEFTEvol.GetCoefficient("CuHI, i, j"));
-    CdHAux[i][j].real(SMEFTEvol.GetCoefficient("CdHR, i, j"));
-    CdHAux[i][j].imag(SMEFTEvol.GetCoefficient("CdHI, i, j"));
-    CuGAux[i][j].real(SMEFTEvol.GetCoefficient("CuGR, i, j"));
-    CuGAux[i][j].imag(SMEFTEvol.GetCoefficient("CuGI, i, j"));
-    CuWAux[i][j].real(SMEFTEvol.GetCoefficient("CuWR, i, j"));
-    CuWAux[i][j].imag(SMEFTEvol.GetCoefficient("CuWI, i, j"));
-    CuBAux[i][j].real(SMEFTEvol.GetCoefficient("CuBR, i, j"));
-    CuBAux[i][j].imag(SMEFTEvol.GetCoefficient("CuBI, i, j"));
-    CdGAux[i][j].real(SMEFTEvol.GetCoefficient("CdGR, i, j"));
-    CdGAux[i][j].imag(SMEFTEvol.GetCoefficient("CdGI, i, j"));
-    CdWAux[i][j].real(SMEFTEvol.GetCoefficient("CdWR, i, j"));
-    CdWAux[i][j].imag(SMEFTEvol.GetCoefficient("CdWI, i, j"));
-    CdBAux[i][j].real(SMEFTEvol.GetCoefficient("CdBR, i, j"));
-    CdBAux[i][j].imag(SMEFTEvol.GetCoefficient("CdBI, i, j"));
-    CeWAux[i][j].real(SMEFTEvol.GetCoefficient("CeWR, i, j"));
-    CeWAux[i][j].imag(SMEFTEvol.GetCoefficient("CeWI, i, j"));
-    CeBAux[i][j].real(SMEFTEvol.GetCoefficient("CeBR, i, j"));
-    CeBAux[i][j].imag(SMEFTEvol.GetCoefficient("CeBI, i, j"));
- 
- for (int k = 0; k < 3; k++) {
-for (int l = 0; l < 3; l++) {
-    
-    
-    CllAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CllR, i, j, k, l"));
-    CllAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CllI, i, j, k, l"));
-    Clq1Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Clq1R, i, j, k, l"));
-    Clq1Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Clq1I, i, j, k, l"));
-    Clq3Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Clq3R, i, j, k, l"));
-    Clq3Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Clq3I, i, j, k, l"));
-    CeeAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CeeR, i, j, k, l"));
-    CeeAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CeeI, i, j, k, l"));
-    CeuAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CeuR, i, j, k, l"));
-    CeuAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CeuI, i, j, k, l"));
-    CedAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CedR, i, j, k, l"));
-    CedAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CedI, i, j, k, l"));
-    CleAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CleR, i, j, k, l"));
-    CleAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CleI, i, j, k, l"));
-    CluAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CluR, i, j, k, l"));
-    CluAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CluI, i, j, k, l"));
-    CldAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CldR, i, j, k, l"));
-    CldAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CldI, i, j, k, l"));
-    CqeAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CqeR, i, j, k, l"));
-    CqeAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CqeI, i, j, k, l"));
-    CledqAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CledqR, i, j, k, l"));
-    CledqAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CledqI, i, j, k, l"));
-    Cqq1Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqq1R, i, j, k, l"));
-    Cqq1Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqq1I, i, j, k, l"));
-    Cqq3Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqq3R, i, j, k, l"));
-    Cqq3Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqq3I, i, j, k, l"));
-    CuuAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CuuR, i, j, k, l"));
-    CuuAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CuuI, i, j, k, l"));
-    CddAux[i][j][k][l].real(SMEFTEvol.GetCoefficient("CddR, i, j, k, l"));
-    CddAux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CddI, i, j, k, l"));
-    Cud1Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cud1R, i, j, k, l"));
-    Cud1Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cud1I, i, j, k, l"));
-    Cud8Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cud8R, i, j, k, l"));
-    Cud8Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cud8I, i, j, k, l"));
-    Cqu1Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqu1R, i, j, k, l"));
-    Cqu1Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqu1I, i, j, k, l"));
-    Cqu8Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqu8R, i, j, k, l"));
-    Cqu8Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqu8I, i, j, k, l"));
-    Cqd1Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqd1R, i, j, k, l"));
-    Cqd1Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqd1I, i, j, k, l"));
-    Cqd8Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqd8R, i, j, k, l"));
-    Cqd8Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqd8I, i, j, k, l"));
-    Cquqd1Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cquqd1R, i, j, k, l"));
-    Cquqd1Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cquqd1I, i, j, k, l"));
-    Cquqd8Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cquqd8R, i, j, k, l"));
-    Cquqd8Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cquqd8I, i, j, k, l"));
-    Clequ1Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Clequ1R, i, j, k, l"));
-    Clequ1Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Clequ1I, i, j, k, l"));
-    Clequ3Aux[i][j][k][l].real(SMEFTEvol.GetCoefficient("Clequ3R, i, j, k, l"));
-    Clequ3Aux[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Clequ3I, i, j, k, l"));
- 
- 
-    
-}
-}
- 
-}
-}
-
-
-
-
-
-
-    
-    gslpp::matrix<gslpp::complex> Vq(3, 3, 0.);
-    Ue=Ue*phie;//We need to add the phase of the CKM
-    Ve=Ve*phie;//We need to add the phase of the CKM
-    Uu=Uu*phi1;//We need to add the phase of the original CKM
-    Ud=Ud*phi2dag;//We need to add the phase of the original CKM
-    if(SMEFTBasisFlag.compare("UP")==0){
-
-        Vq=Vu*phi1;//We need to add the phase of the original CKM
-        //Vq=Vu;
-    }
-    else if(SMEFTBasisFlag.compare("DOWN")==0){
-        
-        Vq=Vd*phi2dag;//We need to add the phase of the original CKM
-        //Vq=Vd;
-    }
-    else
-        throw std::runtime_error("ERROR: inappropriate value of SMEFTBasisFlag");
-    
-    //Let's convert the gslpp::matrix<gslpp::complex> variables into std::complex arrays to simplify the operations
-    std::complex<double> Ue_std[3][3] = {};
-    std::complex<double> Ve_std[3][3] = {};
-    std::complex<double> Uu_std[3][3] = {};
-    std::complex<double> Ud_std[3][3] = {};
-    std::complex<double> Vq_std[3][3] = {};
-    
-    for (int i = 0; i < 3; i++){
-        for (int j = 0; j < 3; j++) {
-            Ue_std[i][j].real(Ue(i,j).real());
-            Ue_std[i][j].imag(Ue(i,j).imag());
-            Ve_std[i][j].real(Ve(i,j).real());
-            Ve_std[i][j].imag(Ve(i,j).imag());
-            Uu_std[i][j].real(Uu(i,j).real());
-            Uu_std[i][j].imag(Uu(i,j).imag());
-            Ud_std[i][j].real(Ud(i,j).real());
-            Ud_std[i][j].imag(Ud(i,j).imag());
-            Vq_std[i][j].real(Vq(i,j).real());
-            Vq_std[i][j].imag(Vq(i,j).imag());
-        }
-    }
-    
-    
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            
-            for (int p = 0; p < 3; p++) {
-            for (int r = 0; r < 3; r++) {
-                
-                CHl1[i][j]+=CHl1Aux[p][r]*std::conj(Ve_std[p][i])*Ve_std[r][j];  
-                CHl3[i][j]+=CHl3Aux[p][r]*std::conj(Ve_std[p][i])*Ve_std[r][j];  
-                CHe[i][j]+=CHeAux[p][r]*std::conj(Ue_std[p][i])*Ue_std[r][j];  
-                CHq1[i][j]+=CHq1Aux[p][r]*std::conj(Vq_std[p][i])*Vq_std[r][j];  
-                CHq3[i][j]+=CHq3Aux[p][r]*std::conj(Vq_std[p][i])*Vq_std[r][j];  
-                CHu[i][j]+=CHuAux[p][r]*std::conj(Uu_std[p][i])*Uu_std[r][j];  
-                CHd[i][j]+=CHdAux[p][r]*std::conj(Ud_std[p][i])*Ud_std[r][j];  
-                CHud[i][j]+=CHudAux[p][r]*std::conj(Uu_std[p][i])*Ud_std[r][j];  
 
-                CeH[i][j]+=CeHAux[p][r]*std::conj(Ve_std[p][i])*Ue_std[r][j];  
-                CuH[i][j]+=CuHAux[p][r]*std::conj(Vq_std[p][i])*Uu_std[r][j];  
-                CdH[i][j]+=CdHAux[p][r]*std::conj(Vq_std[p][i])*Ud_std[r][j];  
-
-                CuG[i][j]+=CuGAux[p][r]*std::conj(Vq_std[p][i])*Uu_std[r][j];  
-                CuW[i][j]+=CuWAux[p][r]*std::conj(Vq_std[p][i])*Uu_std[r][j];  
-                CuB[i][j]+=CuBAux[p][r]*std::conj(Vq_std[p][i])*Uu_std[r][j];  
-                CdG[i][j]+=CdGAux[p][r]*std::conj(Vq_std[p][i])*Ud_std[r][j];  
-                CdW[i][j]+=CdWAux[p][r]*std::conj(Vq_std[p][i])*Ud_std[r][j];  
-                CdB[i][j]+=CdBAux[p][r]*std::conj(Vq_std[p][i])*Ud_std[r][j];  
-                CeW[i][j]+=CeWAux[p][r]*std::conj(Ve_std[p][i])*Ue_std[r][j];  
-                CeB[i][j]+=CeBAux[p][r]*std::conj(Ve_std[p][i])*Ue_std[r][j];  
-
-
-
-            }
-            }
-            
-            
+            CHl1[i][j].real(SMEFTEvol.GetCoefficient("CHl1R, i, j"));
+            CHl1[i][j].imag(SMEFTEvol.GetCoefficient("CHl1I, i, j"));
+            CHl3[i][j].real(SMEFTEvol.GetCoefficient("CHl3R, i, j"));
+            CHl3[i][j].imag(SMEFTEvol.GetCoefficient("CHl3I, i, j"));
+            CHe[i][j].real(SMEFTEvol.GetCoefficient("CHeR, i, j"));
+            CHe[i][j].imag(SMEFTEvol.GetCoefficient("CHeI, i, j"));
+            CHq1[i][j].real(SMEFTEvol.GetCoefficient("CHq1R, i, j"));
+            CHq1[i][j].imag(SMEFTEvol.GetCoefficient("CHq1I, i, j"));
+            CHq3[i][j].real(SMEFTEvol.GetCoefficient("CHq3R, i, j"));
+            CHq3[i][j].imag(SMEFTEvol.GetCoefficient("CHq3I, i, j"));
+            CHu[i][j].real(SMEFTEvol.GetCoefficient("CHuR, i, j"));
+            CHu[i][j].imag(SMEFTEvol.GetCoefficient("CHuI, i, j"));
+            CHd[i][j].real(SMEFTEvol.GetCoefficient("CHdR, i, j"));
+            CHd[i][j].imag(SMEFTEvol.GetCoefficient("CHdI, i, j"));
+            CHud[i][j].real(SMEFTEvol.GetCoefficient("CHudR, i, j"));
+            CHud[i][j].imag(SMEFTEvol.GetCoefficient("CHudI, i, j"));
+            CeH[i][j].real(SMEFTEvol.GetCoefficient("CeHR, i, j"));
+            CeH[i][j].imag(SMEFTEvol.GetCoefficient("CeHI, i, j"));
+            CuH[i][j].real(SMEFTEvol.GetCoefficient("CuHR, i, j"));
+            CuH[i][j].imag(SMEFTEvol.GetCoefficient("CuHI, i, j"));
+            CdH[i][j].real(SMEFTEvol.GetCoefficient("CdHR, i, j"));
+            CdH[i][j].imag(SMEFTEvol.GetCoefficient("CdHI, i, j"));
+            CuG[i][j].real(SMEFTEvol.GetCoefficient("CuGR, i, j"));
+            CuG[i][j].imag(SMEFTEvol.GetCoefficient("CuGI, i, j"));
+            CuW[i][j].real(SMEFTEvol.GetCoefficient("CuWR, i, j"));
+            CuW[i][j].imag(SMEFTEvol.GetCoefficient("CuWI, i, j"));
+            CuB[i][j].real(SMEFTEvol.GetCoefficient("CuBR, i, j"));
+            CuB[i][j].imag(SMEFTEvol.GetCoefficient("CuBI, i, j"));
+            CdG[i][j].real(SMEFTEvol.GetCoefficient("CdGR, i, j"));
+            CdG[i][j].imag(SMEFTEvol.GetCoefficient("CdGI, i, j"));
+            CdW[i][j].real(SMEFTEvol.GetCoefficient("CdWR, i, j"));
+            CdW[i][j].imag(SMEFTEvol.GetCoefficient("CdWI, i, j"));
+            CdB[i][j].real(SMEFTEvol.GetCoefficient("CdBR, i, j"));
+            CdB[i][j].imag(SMEFTEvol.GetCoefficient("CdBI, i, j"));
+            CeW[i][j].real(SMEFTEvol.GetCoefficient("CeWR, i, j"));
+            CeW[i][j].imag(SMEFTEvol.GetCoefficient("CeWI, i, j"));
+            CeB[i][j].real(SMEFTEvol.GetCoefficient("CeBR, i, j"));
+            CeB[i][j].imag(SMEFTEvol.GetCoefficient("CeBI, i, j"));
+ 
             for (int k = 0; k < 3; k++) {
                 for (int l = 0; l < 3; l++) {
-                    for (int p = 0; p < 3; p++) {
-                    for (int r = 0; r < 3; r++) {
-                    for (int s = 0; s < 3; s++) {
-                    for (int t = 0; t < 3; t++) {
-
-                        
-                    Cll[i][j][k][l]+=CllAux[p][r][s][t]*std::conj(Ve_std[p][i])*Ve_std[r][j]*std::conj(Ve_std[s][k])*Ve_std[t][l];  
-                    Clq1[i][j][k][l]+=Clq1Aux[p][r][s][t]*std::conj(Ve_std[p][i])*Ve_std[r][j]*std::conj(Vq_std[s][k])*Vq_std[t][l];  
-                    Clq3[i][j][k][l]+=Clq3Aux[p][r][s][t]*std::conj(Ve_std[p][i])*Ve_std[r][j]*std::conj(Vq_std[s][k])*Vq_std[t][l];  
-
-                    Cee[i][j][k][l]+=CeeAux[p][r][s][t]*std::conj(Ue_std[p][i])*Ue_std[r][j]*std::conj(Ue_std[s][k])*Ue_std[t][l];  
-                    Ceu[i][j][k][l]+=CeuAux[p][r][s][t]*std::conj(Ue_std[p][i])*Ue_std[r][j]*std::conj(Uu_std[s][k])*Uu_std[t][l];  
-                    Ced[i][j][k][l]+=CedAux[p][r][s][t]*std::conj(Ue_std[p][i])*Ue_std[r][j]*std::conj(Ud_std[s][k])*Ud_std[t][l];  
-
-                    Cle[i][j][k][l]+=CleAux[p][r][s][t]*std::conj(Ve_std[p][i])*Ve_std[r][j]*std::conj(Ue_std[s][k])*Ue_std[t][l];  
-                    Clu[i][j][k][l]+=CluAux[p][r][s][t]*std::conj(Ve_std[p][i])*Ve_std[r][j]*std::conj(Uu_std[s][k])*Uu_std[t][l];  
-                    Cld[i][j][k][l]+=CldAux[p][r][s][t]*std::conj(Ve_std[p][i])*Ve_std[r][j]*std::conj(Ud_std[s][k])*Ud_std[t][l];  
-                    Cqe[i][j][k][l]+=CqeAux[p][r][s][t]*std::conj(Vq_std[p][i])*Vq_std[r][j]*std::conj(Ue_std[s][k])*Ue_std[t][l];  
-
-                    Cledq[i][j][k][l]+=CledqAux[p][r][s][t]*std::conj(Ve_std[p][i])*Ue_std[r][j]*std::conj(Ud_std[s][k])*Vq_std[t][l];  
-
-                    Cqq1[i][j][k][l]+=Cqq1Aux[p][r][s][t]*std::conj(Vq_std[p][i])*Vq_std[r][j]*std::conj(Vq_std[s][k])*Vq_std[t][l];  
-                    Cqq3[i][j][k][l]+=Cqq3Aux[p][r][s][t]*std::conj(Vq_std[p][i])*Vq_std[r][j]*std::conj(Vq_std[s][k])*Vq_std[t][l];  
-                    Cuu[i][j][k][l]+=CuuAux[p][r][s][t]*std::conj(Uu_std[p][i])*Uu_std[r][j]*std::conj(Uu_std[s][k])*Uu_std[t][l];  
-                    Cdd[i][j][k][l]+=CddAux[p][r][s][t]*std::conj(Ud_std[p][i])*Ud_std[r][j]*std::conj(Ud_std[s][k])*Ud_std[t][l];  
-                    Cud1[i][j][k][l]+=Cud1Aux[p][r][s][t]*std::conj(Uu_std[p][i])*Uu_std[r][j]*std::conj(Ud_std[s][k])*Ud_std[t][l];  
-                    Cud8[i][j][k][l]+=Cud8Aux[p][r][s][t]*std::conj(Uu_std[p][i])*Uu_std[r][j]*std::conj(Ud_std[s][k])*Ud_std[t][l];  
-                    Cqu1[i][j][k][l]+=Cqu1Aux[p][r][s][t]*std::conj(Vq_std[p][i])*Vq_std[r][j]*std::conj(Uu_std[s][k])*Uu_std[t][l];  
-                    Cqu8[i][j][k][l]+=Cqu8Aux[p][r][s][t]*std::conj(Vq_std[p][i])*Vq_std[r][j]*std::conj(Uu_std[s][k])*Uu_std[t][l];  
-                    Cqd1[i][j][k][l]+=Cqd1Aux[p][r][s][t]*std::conj(Vq_std[p][i])*Vq_std[r][j]*std::conj(Ud_std[s][k])*Ud_std[t][l];  
-                    Cqd8[i][j][k][l]+=Cqd8Aux[p][r][s][t]*std::conj(Vq_std[p][i])*Vq_std[r][j]*std::conj(Ud_std[s][k])*Ud_std[t][l];  
-                    Cquqd1[i][j][k][l]+=Cquqd1Aux[p][r][s][t]*std::conj(Vq_std[p][i])*Uu_std[r][j]*std::conj(Vq_std[s][k])*Ud_std[t][l];  
-                    Cquqd8[i][j][k][l]+=Cquqd8Aux[p][r][s][t]*std::conj(Vq_std[p][i])*Uu_std[r][j]*std::conj(Vq_std[s][k])*Ud_std[t][l];  
-                    Clequ1[i][j][k][l]+=Clequ1Aux[p][r][s][t]*std::conj(Ve_std[p][i])*Ue_std[r][j]*std::conj(Vq_std[s][k])*Uu_std[t][l];  
-                    Clequ3[i][j][k][l]+=Clequ3Aux[p][r][s][t]*std::conj(Ve_std[p][i])*Ue_std[r][j]*std::conj(Vq_std[s][k])*Uu_std[t][l];  
-
-
-                    }
-                    }    
-                    }
-                    }
+        
+                    Cll[i][j][k][l].real(SMEFTEvol.GetCoefficient("CllR, i, j, k, l"));
+                    Cll[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CllI, i, j, k, l"));
+                    Clq1[i][j][k][l].real(SMEFTEvol.GetCoefficient("Clq1R, i, j, k, l"));
+                    Clq1[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Clq1I, i, j, k, l"));
+                    Clq3[i][j][k][l].real(SMEFTEvol.GetCoefficient("Clq3R, i, j, k, l"));
+                    Clq3[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Clq3I, i, j, k, l"));
+                    Cee[i][j][k][l].real(SMEFTEvol.GetCoefficient("CeeR, i, j, k, l"));
+                    Cee[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CeeI, i, j, k, l"));
+                    Ceu[i][j][k][l].real(SMEFTEvol.GetCoefficient("CeuR, i, j, k, l"));
+                    Ceu[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CeuI, i, j, k, l"));
+                    Ced[i][j][k][l].real(SMEFTEvol.GetCoefficient("CedR, i, j, k, l"));
+                    Ced[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CedI, i, j, k, l"));
+                    Cle[i][j][k][l].real(SMEFTEvol.GetCoefficient("CleR, i, j, k, l"));
+                    Cle[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CleI, i, j, k, l"));
+                    Clu[i][j][k][l].real(SMEFTEvol.GetCoefficient("CluR, i, j, k, l"));
+                    Clu[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CluI, i, j, k, l"));
+                    Cld[i][j][k][l].real(SMEFTEvol.GetCoefficient("CldR, i, j, k, l"));
+                    Cld[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CldI, i, j, k, l"));
+                    Cqe[i][j][k][l].real(SMEFTEvol.GetCoefficient("CqeR, i, j, k, l"));
+                    Cqe[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CqeI, i, j, k, l"));
+                    Cledq[i][j][k][l].real(SMEFTEvol.GetCoefficient("CledqR, i, j, k, l"));
+                    Cledq[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CledqI, i, j, k, l"));
+                    Cqq1[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqq1R, i, j, k, l"));
+                    Cqq1[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqq1I, i, j, k, l"));
+                    Cqq3[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqq3R, i, j, k, l"));
+                    Cqq3[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqq3I, i, j, k, l"));
+                    Cuu[i][j][k][l].real(SMEFTEvol.GetCoefficient("CuuR, i, j, k, l"));
+                    Cuu[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CuuI, i, j, k, l"));
+                    Cdd[i][j][k][l].real(SMEFTEvol.GetCoefficient("CddR, i, j, k, l"));
+                    Cdd[i][j][k][l].imag(SMEFTEvol.GetCoefficient("CddI, i, j, k, l"));
+                    Cud1[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cud1R, i, j, k, l"));
+                    Cud1[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cud1I, i, j, k, l"));
+                    Cud8[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cud8R, i, j, k, l"));
+                    Cud8[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cud8I, i, j, k, l"));
+                    Cqu1[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqu1R, i, j, k, l"));
+                    Cqu1[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqu1I, i, j, k, l"));
+                    Cqu8[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqu8R, i, j, k, l"));
+                    Cqu8[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqu8I, i, j, k, l"));
+                    Cqd1[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqd1R, i, j, k, l"));
+                    Cqd1[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqd1I, i, j, k, l"));
+                    Cqd8[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cqd8R, i, j, k, l"));
+                    Cqd8[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cqd8I, i, j, k, l"));
+                    Cquqd1[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cquqd1R, i, j, k, l"));
+                    Cquqd1[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cquqd1I, i, j, k, l"));
+                    Cquqd8[i][j][k][l].real(SMEFTEvol.GetCoefficient("Cquqd8R, i, j, k, l"));
+                    Cquqd8[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Cquqd8I, i, j, k, l"));
+                    Clequ1[i][j][k][l].real(SMEFTEvol.GetCoefficient("Clequ1R, i, j, k, l"));
+                    Clequ1[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Clequ1I, i, j, k, l"));
+                    Clequ3[i][j][k][l].real(SMEFTEvol.GetCoefficient("Clequ3R, i, j, k, l"));
+                    Clequ3[i][j][k][l].imag(SMEFTEvol.GetCoefficient("Clequ3I, i, j, k, l"));
+ 
                 }
             }
         }
     }
-    
+}
+
+
+
+
+bool NPSMEFTd6General::PostUpdate()
+{
     
     if (!NPbase::PostUpdate()) return (false);
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////  From here on we will comment everything since everything comes from the previous code /////    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
     
-/*    // SM parameters using tree-level relations, depending on the input scheme
+    ChangeToEvolutorsBasisPureSM();
+    double Mu_LEW[3]={mu_LEW, mc_LEW, mt_LEW};
+    double Md_LEW[3]={md_LEW, ms_LEW, mb_LEW};
+    double Me_LEW[3]={me_LEW, mmu_LEW, mtau_LEW};
+    
+    SMEFTEvol.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW, 
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+
+    
+    
+    
+    SMEFTEvol.EvolveToBasis("Numeric", Lambda_NP, muw, SMEFTBasisFlag);
+    
+    getWCFromEvolutor();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    // SM parameters using tree-level relations, depending on the input scheme
     aleMz = trueSM.alphaMz();
     eeMz = cAsch * sqrt(4.0 * M_PI * aleMz)
             + cWsch * sqrt(4.0 * sqrt(2.0) * GF * Mw_inp * Mw_inp * (1.0 - Mw_inp * Mw_inp / Mz / Mz));
@@ -3865,84 +3439,34 @@ for (int l = 0; l < 3; l++) {
     aiHW = CDHW * Mw_tree * Mw_tree / 2.0 / g2_tree / LambdaNP2;
     aiHB = CDHB * Mw_tree * Mw_tree / 2.0 / g1_tree / LambdaNP2;
     aiA = CHB * Mw_tree * Mw_tree / g1_tree / g1_tree / LambdaNP2;
-    aiHQ = CHq1_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aipHQ = CHq3_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aiHL = CHl1_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aipHL = CHl3_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP. From HEL Lagrangian. Not in original note
-    aiHu = CHu_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aiHd = CHd_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aiHe = CHe_11 * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aiu = -CuH_33r * v2_over_LambdaNP2 / Yukt;
-    aiuG = CuG_33r * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / Yukt / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
+    aiHQ = CHq1[0][0].real() * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aipHQ = CHq3[0][0].real() * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHL = CHl1[0][0].real() * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aipHL = CHl3[0][0].real() * v2_over_LambdaNP2; // Valid only for flavour universal NP. From HEL Lagrangian. Not in original note
+    aiHu = CHu[0][0].real() * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHd = CHd[0][0].real() * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHe = CHe[0][0].real() * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiu = -CuH[2][2].real() * v2_over_LambdaNP2 / Yukt;
+    aiuG = CuG[2][2].real() * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / Yukt / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
 
 
     //  Dim 6 SMEFT matching
 
     NPSMEFTd6GM.getObj().updateNPSMEFTd6GeneralParameters();
 
- */
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////  Until here /////    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    
     
     return (true);
 }
 
 
 
-double NPSMEFTd6General::ZeroAle(double *dAle5h, double *params) //the signature of the function must contain two double pointers to be used with TF1
-    {
-        dAle5Mz = *dAle5h;
-        return (alphaMz() - aleMz);
-    }
 
 
 void NPSMEFTd6General::setParameter(const std::string name, const double& value)
 {
     
 
-
-    if (name.compare("g1_LNP") == 0)
-        g1_LNP = value;
-    else if (name.compare("g2_LNP") == 0)
-        g2_LNP = value;
-    else if (name.compare("g3_LNP") == 0)
-        g3_LNP = value;
-    else if (name.compare("lambdaH_LNP") == 0)
-        lambdaH_LNP = value;
-    else if (name.compare("muH_LNP") == 0)
-        muH_LNP = value;
-    else if (name.compare("Ye_LNP") == 0)
-        Ye_LNP = value;
-    else if (name.compare("Ymu_LNP") == 0)
-        Ymu_LNP = value;
-    else if (name.compare("Ytau_LNP") == 0)
-        Ytau_LNP = value;
-    else if (name.compare("Yu_LNP") == 0)
-        Yu_LNP = value;
-    else if (name.compare("Yc_LNP") == 0)
-        Yc_LNP = value;
-    else if (name.compare("Yt_LNP") == 0)
-        Yt_LNP = value;
-    else if (name.compare("Yd_LNP") == 0)
-        Yd_LNP = value;
-    else if (name.compare("Ys_LNP") == 0)
-        Ys_LNP = value;
-    else if (name.compare("Yb_LNP") == 0)
-        Yb_LNP = value;
-    else if (name.compare("s12CKM_LNP") == 0)
-        s12CKM_LNP = value;
-    else if (name.compare("s13CKM_LNP") == 0)
-        s13CKM_LNP = value;
-    else if (name.compare("s23CKM_LNP") == 0)
-        s23CKM_LNP = value;
-    else if (name.compare("dCKM_LNP") == 0)
-        dCKM_LNP = value;
-    else if (name.compare("CG_LNP") == 0) {
+    if (name.compare("CG_LNP") == 0) {
         CG_LNP = value;
         SMEFTEvol.SetCoefficient("CG", value  * LambdaNPm2);
     } else if (name.compare("CW_LNP") == 0) {
