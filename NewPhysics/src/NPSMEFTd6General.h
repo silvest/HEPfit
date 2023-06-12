@@ -1223,41 +1223,41 @@ public:
      * and @f$G_{\mu,\mathrm{SM}}@f$ is the Fermi constant in the SM.
      * @return @f$\Delta G@f$
      */
-    virtual double DeltaGF() const;
+    ////virtual double DeltaGF() const;
 
     /**
      * @brief The oblique parameter \f$S\f$.
      * (Simplified implementation. Contribution only from @f$O_{HWB}@f$.)
      * @return the value of @f$S@f$
      */
-    virtual double obliqueS() const;
+    ////virtual double obliqueS() const;
 
     /**
      * @brief The oblique parameter \f$T\f$.
      * (Simplified implementation. Contribution only from @f$O_{HD}@f$.)
      * @return the value of @f$T@f$
      */
-    virtual double obliqueT() const;
+    ////virtual double obliqueT() const;
 
     /**
      * @brief The oblique parameter \f$U\f$.
      * @return the value of @f$U@f$
      */
-    virtual double obliqueU() const;
+    ////virtual double obliqueU() const;
 
     /**
      * @brief The oblique parameter \f$W\f$.
      * (Simplified implementation. Contribution only from @f$O_{2W}@f$.)
      * @return the value of @f$W@f$
      */
-    virtual double obliqueW() const;
+    ////virtual double obliqueW() const;
 
     /**
      * @brief The oblique parameter \f$Y\f$.
      * (Simplified implementation. Contribution only from @f$O_{2B}@f$.)
      * @return the value of @f$Y@f$
      */
-    virtual double obliqueY() const;
+    ////virtual double obliqueY() const;
 
 
     /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
@@ -1266,133 +1266,133 @@ public:
      * @brief The relative correction to the mass of the @f$Z@f$ boson, @f$\delta M_Z/M_Z@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta M_Z/M_Z@f$
      */
-    virtual double deltaMz() const;
+    ////virtual double deltaMz() const;
 
     /**
      * @brief The relative correction to the mass of the @f$Z@f$ boson squared, @f$(\delta M_Z/M_Z)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta M_Z/M_Z)^2@f$
      */
-    virtual double deltaMz2() const;
+    ////virtual double deltaMz2() const;
 
     /**
      * @brief The relative correction to the mass of the @f$H@f$ boson, @f$\delta M_H/M_H@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta M_H/M_H@f$
      */
-    virtual double deltaMh() const;
+    ////virtual double deltaMh() const;
 
     /**
      * @brief The relative correction to the mass of the @f$H@f$ boson squared, @f$(\delta M_H/M_H)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta M_H/M_H)^2@f$
      */
-    virtual double deltaMh2() const;
+    ////virtual double deltaMh2() const;
 
     /**
      * @brief The relative correction to the mass of the @f$t@f$ quark, @f$\delta m_t/m_t@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta m_t/m_t@f$
      */
-    virtual double deltamt() const;
+    ////virtual double deltamt() const;
 
     /**
      * @brief The relative correction to the mass of the @f$t@f$ quark squared, @f$(\delta m_t/m_t)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta m_t/m_t)^2@f$
      */
-    virtual double deltamt2() const;
+    ////virtual double deltamt2() const;
 
     /**
      * @brief The relative correction to the mass of the @f$b@f$ quark, @f$\delta m_b/m_b@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta m_b/m_b@f$
      */
-    virtual double deltamb() const;
+    ////virtual double deltamb() const;
 
     /**
      * @brief The relative correction to the mass of the @f$b@f$ quark squared, @f$(\delta m_b/m_b)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta m_b/m_b)^2@f$
      */
-    virtual double deltamb2() const;
+    ////virtual double deltamb2() const;
 
     /**
      * @brief The relative correction to the mass of the @f$c@f$ quark, @f$\delta m_c/m_c@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta m_c/m_c@f$
      */
-    virtual double deltamc() const;
+    ////virtual double deltamc() const;
 
     /**
      * @brief The relative correction to the mass of the @f$c@f$ quark squared, @f$(\delta m_c/m_c)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta m_c/m_c)^2@f$
      */
-    virtual double deltamc2() const;
+    ////virtual double deltamc2() const;
 
     /**
      * @brief The relative correction to the mass of the @f$\tau@f$ lepton, @f$\delta m_\tau/m_\tau@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta m_\tau/m_\tau@f$
      */
-    virtual double deltamtau() const;
+    ////virtual double deltamtau() const;
 
     /**
      * @brief The relative correction to the mass of the @f$\tau@f$ lepton squared, @f$(\delta m_\tau/m_\tau)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta m_\tau/m_\tau)^2@f$
      */
-    virtual double deltamtau2() const;
+    ////virtual double deltamtau2() const;
 
     /**
      * @brief The relative correction to the muon decay constant, @f$\delta G_\mu/G_\mu@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta G_\mu/G_\mu@f$
      */
-    virtual double deltaGmu() const;
+    ////virtual double deltaGmu() const;
 
     /**
      * @brief The relative correction to the muon decay constant, @f$(\delta G_\mu/G_\mu)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta G_\mu/G_\mu)^2@f$
      */
-    virtual double deltaGmu2() const;
+    ////virtual double deltaGmu2() const;
 
     /**
      * @brief The relative correction to the electromagnetic constant at the Z pole, @f$\delta \alpha(M_Z^2)/\alpha(M_Z^2)@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta \alpha(M_Z^2)/\alpha(M_Z^2)@f$
      */
-    virtual double deltaaMZ() const;
+    ////virtual double deltaaMZ() const;
 
     /**
      * @brief The relative correction to the electromagnetic constant at the Z pole, @f$(\delta \alpha(M_Z^2)/\alpha(M_Z^2))^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta \alpha(M_Z^2)/\alpha(M_Z^2))^2@f$
      */
-    virtual double deltaaMZ2() const;
+    ////virtual double deltaaMZ2() const;
 
     /**
      * @brief The relative correction to the electromagnetic constant at zero momentum, @f$\delta \alpha(0)/\alpha(0)@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta \alpha(0)/\alpha(0)@f$
      */
-    virtual double deltaa0() const;
+    ////virtual double deltaa0() const;
 
     /**
      * @brief The relative correction to the electromagnetic constant at zero momentum, @f$(\delta \alpha(0)/\alpha(0))^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta \alpha(0)/\alpha(0))^2@f$
      */
-    virtual double deltaa02() const;
+    ////virtual double deltaa02() const;
 
     /**
      * @brief The relative correction to the strong coupling constant at the Z pole, @f$\delta \alpha_S(M_Z^2)/\alpha_S(M_Z^2)@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta \alpha_S(M_Z^2)/\alpha_S(M_Z^2)@f$
      */
-    virtual double deltaaSMZ() const;
+    ////virtual double deltaaSMZ() const;
 
     /**
      * @brief The relative correction to the strong coupling constant at the Z pole, @f$(\delta \alpha_S(M_Z^2)/\alpha_S(M_Z^2))^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta \alpha_S(M_Z^2)/\alpha_S(M_Z^2))^2@f$
      */
-    virtual double deltaaSMZ2() const;
+    ////virtual double deltaaSMZ2() const;
 
     /**
      * @brief The relative correction to the mass of the @f$W@f$ boson, @f$\delta M_W/M_W@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$\delta M_W/M_W@f$
      */
-    virtual double deltaMw() const;
+    ////virtual double deltaMw() const;
 
     /**
      * @brief The relative correction to the mass of the @f$W@f$ boson squared, @f$(\delta M_W/M_W)^2@f$, with respect to ref. point used in the SM calculation of Higgs observables.
      * @return @f$(\delta M_W/M_W)^2@f$
      */
-    virtual double deltaMw2() const;
+    ////virtual double deltaMw2() const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -1400,25 +1400,25 @@ public:
      * @brief The electromagnetic coupling at the @f$Z@f$-mass scale.
      * @return @f$\alpha(M_Z^2)@f$
      */
-    virtual double alphaMz() const;
+    ////virtual double alphaMz() const;
 
     /**
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
      * @return @f$M_W@f$ in GeV
      */
-    virtual double Mw() const;
+    ////virtual double Mw() const;
 
     /**
      * @brief The relative NP corrections to the mass of the @f$W@f$ boson, @f$\delta M_W/M_W@f$.
      * @return @f$\delta M_W/M_W@f$
      */
-    virtual double deltaMwd6() const;
+    ////virtual double deltaMwd6() const;
 
     /**
      * @brief The relative NP corrections to the mass of the @f$W@f$ boson squared, @f$(\delta M_W/M_W)^2@f$.
      * @return @f$(\delta M_W/M_W)^2@f$
      */
-    virtual double deltaMwd62() const;
+    ////virtual double deltaMwd62() const;
 
     /**
      * @brief The new physics contribution to the decay width of the @f$W@f$ boson into a given fermion pair, @f$\delta \Gamma_Z^{f}@f$.
@@ -1426,7 +1426,7 @@ public:
      * @param[in] fj a lepton or quark
      * @return @f$\delta \Gamma_W^{ff}@f$ in GeV
      */
-    virtual double deltaGamma_Wff(const Particle fi, const Particle fj) const;
+    ////virtual double deltaGamma_Wff(const Particle fi, const Particle fj) const;
 
     /**
      * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
@@ -1434,57 +1434,57 @@ public:
      * @param[in] fj a lepton or quark
      * @return @f$\Gamma^W_{ij}@f$
      */
-    virtual double GammaW(const Particle fi, const Particle fj) const;
+    ////virtual double GammaW(const Particle fi, const Particle fj) const;
 
     /**
      * @brief The new physics contribution to the total decay width of the @f$W@f$ boson, @f$\delta \Gamma_W@f$.
      * @return @f$\delta \Gamma_W@f$ in GeV
      */
-    virtual double deltaGamma_W() const;
+    ////virtual double deltaGamma_W() const;
 
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
      */
-    virtual double GammaW() const;
+    ////virtual double GammaW() const;
 
     /**
      * @brief The relative NP corrections to the width of the @f$W@f$ boson, @f$\delta \Gamma_W/\Gamma_W@f$.
      * @return @f$\delta \Gamma_W/\Gamma_W@f$
      */
-    virtual double deltaGwd6() const;
+    ////virtual double deltaGwd6() const;
 
     /**
      * @brief The relative NP corrections to the width of the @f$W@f$ boson squared, @f$(\delta \Gamma_W/\Gamma_W)^2@f$.
      * @return @f$(\delta \Gamma_W/\Gamma_W)^2@f$
      */
-    virtual double deltaGwd62() const;
+    ////virtual double deltaGwd62() const;
 
     /**
      * @brief The relative NP corrections to the width of the @f$Z@f$ boson, @f$\delta \Gamma_Z/\Gamma_Z@f$.
      * @return @f$\delta \Gamma_Z/\Gamma_Z@f$
      */
-    virtual double deltaGzd6() const;
+    ////virtual double deltaGzd6() const;
 
     /**
      * @brief The relative NP corrections to the width of the @f$Z@f$ boson squared, @f$(\delta \Gamma_Z/\Gamma_Z)^2@f$.
      * @return @f$(\delta \Gamma_Z/\Gamma_Z)^2@f$
      */
-    virtual double deltaGzd62() const;
+    ////virtual double deltaGzd62() const;
 
     /**
      * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_V^f@f$
      */
-    virtual double deltaGV_f(const Particle p) const;
+    ////virtual double deltaGV_f(const Particle p) const;
 
     /**
      * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_A^f@f$
      */
-    virtual double deltaGA_f(const Particle p) const;
+    ////virtual double deltaGA_f(const Particle p) const;
 
     /**
      * @brief New physics contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
@@ -1492,7 +1492,7 @@ public:
      * @return @f$\delta g_L^f@f$
      */
     // no generation mixing
-    double deltaGL_f(const Particle p) const;
+    //double deltaGL_f(const Particle p) const;
 
     /**
      * @brief New physics contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
@@ -1500,31 +1500,31 @@ public:
      * @return @f$\delta g_R^f@f$
      */
     // no generation mixing
-    double deltaGR_f(const Particle p) const;
+    //double deltaGR_f(const Particle p) const;
 
     /**
      * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
      * @return @f$Br(W\to f_i f_j)@f$ in GeV
      */
-    virtual double BrW(const Particle fi, const Particle fj) const;
+    ////virtual double BrW(const Particle fi, const Particle fj) const;
 
     /**
      * @brief The lepton universality ratio @f$R_{W,l_i/l_j)=\Gamma(W\to l_i \nu_i)/\Gamma(W\to l_j \nu_j)@f$.
      * @return @f$R_{W,l_i/l_j)@f$ in GeV
      */
-    virtual double RWlilj(const Particle li, const Particle lj) const;
+    ////virtual double RWlilj(const Particle li, const Particle lj) const;
 
     /**
      * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
      * @return @f$R_{W,c)@f$ in GeV
      */
-    virtual double RWc() const;
+    ////virtual double RWc() const;
 
     /**
      * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */
-    virtual double RZlilj(const Particle li, const Particle lj) const;
+    ////virtual double RZlilj(const Particle li, const Particle lj) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1570,7 +1570,7 @@ public:
      * @return @f$\delta g_{Wff}^{L}@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
+    //virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
      * @param[in] pbar a lepton or quark
@@ -1578,89 +1578,89 @@ public:
      * @return @f$\delta g_{Wff}^{R}@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
+    //virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
      * @return @f$\delta g_{HGG}@f$
      */
-    virtual double deltaG_hgg() const;
+    ////virtual double deltaG_hgg() const;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @return @f$\delta g_{HGG}/g_{HGG}^SM}@f$
      */
-    virtual double deltaG_hggRatio() const;
+    ////virtual double deltaG_hggRatio() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(1)}@f$
      */
-    virtual double deltaG1_hWW() const;
+    ////virtual double deltaG1_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(2)}@f$
      */
-    virtual double deltaG2_hWW() const;
+    ////virtual double deltaG2_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
      * @return @f$\delta g_{HWW}^{(3)}@f$
      */
-    virtual double deltaG3_hWW() const;
+    ////virtual double deltaG3_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
      * @return @f$\delta g_{HZZ}^{(1)}@f$
      */
-    virtual double deltaG1_hZZ() const;
+    ////virtual double deltaG1_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
      * @return @f$\delta g_{HZZ}^{(2)}@f$
      */
-    virtual double deltaG2_hZZ() const;
+    ////virtual double deltaG2_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
      * @return @f$\delta g_{HZZ}^{(3)}@f$
      */
-    virtual double deltaG3_hZZ() const;
+    ////virtual double deltaG3_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(1)}@f$
      */
-    virtual double deltaG1_hZA() const;
+    ////virtual double deltaG1_hZA() const;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{A \mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @return @f$\delta g_{HZA}^{(1)}/g_{HZA}^{(1),SM}@f$
      */
-    virtual double deltaG1_hZARatio() const;
+    ////virtual double deltaG1_hZARatio() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(2)}@f$
      */
-    virtual double deltaG2_hZA() const;
+    ////virtual double deltaG2_hZA() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
      * @return @f$\delta g_{HAA}@f$
      */
-    virtual double deltaG_hAA() const;
+    ////virtual double deltaG_hAA() const;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @return @f$\delta g_{HAA}/g_{HAA}^SM}@f$
      */
-    virtual double deltaG_hAARatio() const;
+    ////virtual double deltaG_hAARatio() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
      * @param[in] p a lepton or quark
      * @return @f$\delta g_{Hff}@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaG_hff(const Particle p) const;
+    //virtual gslpp::complex deltaG_hff(const Particle p) const;
 
     /**
      * @brief The new physics contribution to the Higgs self-coupling @f$ H H H@f$. Normalized to the SM value.
      * @return @f$\delta g_{HHH}/g_{HHH}^SM}@f$
      */
-    virtual double deltaG_hhhRatio() const;
+    ////virtual double deltaG_hhhRatio() const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_\mu \bar{f_L}\gamma^mu f_L@f$.
@@ -1686,7 +1686,7 @@ public:
      * @return @f$\delta g_{ZffH}^{L}@f$
      */
     // no generation mixing
-    double deltaGL_Zffh(const Particle p) const;
+    //double deltaGL_Zffh(const Particle p) const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_\mu \bar{f_R}\gamma^mu f_R@f$.
@@ -1694,7 +1694,7 @@ public:
      * @return @f$\delta g_{ZffH}^{R}@f$
      */
     // no generation mixing 
-    double deltaGR_Zffh(const Particle p) const;
+    //double deltaGR_Zffh(const Particle p) const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
@@ -1748,7 +1748,7 @@ public:
      * @brief The new physics contribution to the coupling of the effective interaction @f$f_{ABC} G_{\mu\nu}^A G_{\nu\rho}^B G_{\rho\mu}^C@f$.
      * @return @f$\delta g_{3G}@f$
      */
-    double deltag3G() const;
+    //double deltag3G() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1817,7 +1817,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH}@f$
      */
-    virtual double muggH(const double sqrt_s) const;
+    ////virtual double muggH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggHH}@f$ between the gluon-gluon fusion di-Higgs
      * production cross-section in the current model and in the Standard Model.
@@ -1825,14 +1825,14 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggHH}@f$
      */
-    virtual double muggHH(const double sqrt_s) const;
+    ////virtual double muggHH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs
      * production cross-section in the current model and in the Standard Model. 
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF}@f$
      */
-    virtual double muVBF(const double sqrt_s) const;
+    ////virtual double muVBF(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF+\gamma}@f$ between the vector-boson fusion Higgs
      * production cross-section in association with a hard photon in the current model
@@ -1840,7 +1840,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF+\gamma}@f$
      */
-    virtual double muVBFgamma(const double sqrt_s) const;
+    ////virtual double muVBFgamma(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
      * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
@@ -1848,7 +1848,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{eeWBF}@f$
      */
-    virtual double mueeWBF(const double sqrt_s) const;
+    ////virtual double mueeWBF(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
      * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
@@ -1857,7 +1857,7 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeWBF}@f$
      */
-    virtual double mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
      * @f$ e^+e^- \to H\nu\bar{\nu} @f$ associated production
@@ -1865,7 +1865,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
      */
-    virtual double mueeHvv(const double sqrt_s) const;
+    ////virtual double mueeHvv(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
      * @f$ e^+e^- \to H\nu\bar{\nu} @f$ associated production
@@ -1874,7 +1874,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
      */
-    virtual double mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
      * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
@@ -1882,7 +1882,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{eeZBF}@f$
      */
-    virtual double mueeZBF(const double sqrt_s) const;
+    ////virtual double mueeZBF(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
      * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
@@ -1891,7 +1891,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeZBF}@f$
      */
-    virtual double mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{epWBF}@f$ between the 
      * @f$ e^{-} p\to \nu j H @f$ production
@@ -1899,7 +1899,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{epWBF}@f$
      */
-    virtual double muepWBF(const double sqrt_s) const;
+    ////virtual double muepWBF(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{epZBF}@f$ between the 
      * @f$ e^{-} p\to e^{-} j H @f$ production
@@ -1907,35 +1907,35 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{epZBF}@f$
      */
-    virtual double muepZBF(const double sqrt_s) const;
+    ////virtual double muepZBF(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
      * cross-section in the current model and in the Standard Model. 
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH}@f$
      */
-    virtual double muWH(const double sqrt_s) const;
+    ////virtual double muWH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
      * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH}@f$
      */
-    virtual double muWHpT250(const double sqrt_s) const;
+    ////virtual double muWHpT250(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH}@f$
      */
-    virtual double muZH(const double sqrt_s) const;
+    ////virtual double muZH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production
      * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH}@f$
      */
-    virtual double muZHpT250(const double sqrt_s) const;
+    ////virtual double muZHpT250(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
      * @f$e^{+}e^{-}\to ZH@f$ associated production
@@ -1943,7 +1943,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{eeZH}@f$
      */
-    virtual double mueeZH(const double sqrt_s) const;
+    ////virtual double mueeZH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to e^+ e^-, \mu^+ \mu^- @f$ associated production
@@ -1951,7 +1951,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
      */
-    virtual double mueeZllH(const double sqrt_s) const;
+    ////virtual double mueeZllH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to q \bar{q}}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to q \bar{q} @f$ associated production
@@ -1959,7 +1959,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{eeZH, Z \to q \bar{q}}@f$
      */
-    virtual double mueeZqqH(const double sqrt_s) const;
+    ////virtual double mueeZqqH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH @f$ associated production
@@ -1968,7 +1968,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeZH}@f$
      */
-    virtual double mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to e^+ e^-, \mu^+ \mu^- @f$ associated production
@@ -1977,7 +1977,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
      */
-    virtual double mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to q \bar{q}}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to q \bar{q} @f$ associated production
@@ -1986,7 +1986,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeZH, Z \to q \bar{q}}@f$
      */
-    virtual double mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief the angular parameter @f$a@f$ from 
      * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
@@ -1994,7 +1994,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$a_{eeZH}@f$
      */
-    virtual double aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief the angular parameter @f$b@f$ from 
      * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
@@ -2002,42 +2002,42 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$b_{eeZH}@f$
      */
-    virtual double bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH}@f$
      */
-    virtual double muVH(const double sqrt_s) const;
+    ////virtual double muVH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH}@f$
      */
-    virtual double muVHpT250(const double sqrt_s) const;
+    ////virtual double muVHpT250(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF+VH}@f$ between the sum of VBF and WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF+VH}@f$
      */
-    virtual double muVBFpVH(const double sqrt_s) const;
+    ////virtual double muVBFpVH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated 
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH}@f$
      */
-    virtual double muttH(const double sqrt_s) const;
+    ////virtual double muttH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{tHq}@f$ between the t-q-Higgs associated 
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{tHq}@f$
      */
-    virtual double mutHq(const double sqrt_s) const;
+    ////virtual double mutHq(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH+ttH}@f$ between the sum of gluon-gluon fusion
      * and t-tbar-Higgs associated 
@@ -2045,7 +2045,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH+ttH}@f$
      */
-    virtual double muggHpttH(const double sqrt_s) const;
+    ////virtual double muggHpttH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eettH}@f$ between the 
      * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
@@ -2053,7 +2053,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{eettH}@f$
      */
-    virtual double mueettH(const double sqrt_s) const;
+    ////virtual double mueettH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{eettH}@f$ between the 
      * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
@@ -2062,14 +2062,14 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eettH}@f$
      */
-    virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    ////virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu H}@f$
      */
-    virtual double mummH(const double sqrt_s) const;
+    ////virtual double mummH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
      * production cross-section in the current model and in the Standard Model, 
@@ -2077,35 +2077,35 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu H}@f$
      */
-    virtual double mummHNWA(const double sqrt_s) const;
+    ////virtual double mummHNWA(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{\mu\mu ZH}@f$ between the @f$\sigma(\mu \mu \to Z H)}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu ZH}@f$
      */
-    virtual double mummZH(const double sqrt_s) const;
+    ////virtual double mummZH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H\nu\nu}@f$ between the @f$\sigma(\mu \mu \to H \nu \nu)}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu H\nu\nu}@f$
      */
-    virtual double mummHvv(const double sqrt_s) const;
+    ////virtual double mummHvv(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H\mu\mu}@f$ between the @f$\sigma(\mu \mu \to H \mu \mu)}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu H\mu\mu}@f$
      */
-    virtual double mummHmm(const double sqrt_s) const;
+    ////virtual double mummHmm(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{\mu\mu ttH}@f$ between the @f$\sigma(\mu \mu \to t\bar{t} H )}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu ttH}@f$
      */
-    virtual double mummttH(const double sqrt_s) const;
+    ////virtual double mummttH(const double sqrt_s) const;
 
     ////////////HIGGS DECAY WIDTHS AND BRANCHING RATIOS/////////////
     /**
@@ -2113,82 +2113,82 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    virtual double computeGammaTotalRatio() const;
+    ////virtual double computeGammaTotalRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
      * in the current model and in the Standard Model. Only terms that are
      * linear in the effective Lagrangian coefficients.
      * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    virtual double deltaGammaTotalRatio1() const;
+    ////virtual double deltaGammaTotalRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
      * in the current model and in the Standard Model. Only terms that are
      * linear in the effective Lagrangian coefficients. Neglecting SM theory errors.
      * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    virtual double deltaGammaTotalRatio1noError() const;
+    ////virtual double deltaGammaTotalRatio1noError() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
      * in the current model and in the Standard Model. Only terms that are
      * quadratic in the effective Lagrangian coefficients.
      * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    virtual double deltaGammaTotalRatio2() const;
+    ////virtual double deltaGammaTotalRatio2() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to gg)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
      */
-    double GammaHggRatio() const;
+    //double GammaHggRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to gg)@f$
      * in the current model and in the Standard Model. Only terms that are
      * linear in the effective Lagrangian coefficients.
      * @return @f$\delta \Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHggRatio1() const;
+    //double deltaGammaHggRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to gg)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHggRatio2() const;
+    //double deltaGammaHggRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to gg)@f$/Br@f$(H\to gg)_{\mathrm{SM}}@f$
      */
-    virtual double BrHggRatio() const;
+    ////virtual double BrHggRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to WW)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
-    double GammaHWWRatio() const;
+    //double GammaHWWRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWWRatio1() const;
+    //double deltaGammaHWWRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWWRatio2() const;
+    //double deltaGammaHWWRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to WW)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to WW)@f$/Br@f$(H\to WW)_{\mathrm{SM}}@f$
      */
-    virtual double BrHWWRatio() const;
+    ////virtual double BrHWWRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to W l\nu)@f$ (@f$l=e,\mu @f$) in the current model
@@ -2196,447 +2196,447 @@ public:
      * @return @f$\Gamma(H\to Wl\nu)@f$/@f$\Gamma(H\to Wl\nu)_{\mathrm{SM}}@f$
      */
 
-    double GammaHWlvRatio() const;
+    //double GammaHWlvRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Wl\nu)@f$ (@f$l=e,\mu @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Wl\nu)@f$/@f$\Gamma(H\to Wl\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWlvRatio1() const;
+    //double deltaGammaHWlvRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Wl\nu)@f$ (@f$l=e,\mu @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Wl\nu)@f$/@f$\Gamma(H\to Wl\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWlvRatio2() const;
+    //double deltaGammaHWlvRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to W l\nu)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Wl\nu)@f$/Br@f$(H\to Wl\nu)_{\mathrm{SM}}@f$
      */
-    virtual double BrHWlvRatio() const;
+    ////virtual double BrHWlvRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to WW^*\to l\nu l\nu)@f$/@f$\Gamma(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
      */
-    double GammaHWW2l2vRatio() const;
+    //double GammaHWW2l2vRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to l\nu l\nu)@f$/@f$\Gamma(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW2l2vRatio1() const;
+    //double deltaGammaHWW2l2vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to l\nu l\nu)@f$/@f$\Gamma(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW2l2vRatio2() const;
+    //double deltaGammaHWW2l2vRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to WW^*\to l\nu l\nu)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to WW^*\to l\nu l\nu)@f$/Br@f$(H\to WW^*\to l\nu l\nu)_{\mathrm{SM}}@f$
      */
-    virtual double BrHWW2l2vRatio() const;
+    ////virtual double BrHWW2l2vRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to W j j)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to W j j)@f$/@f$\Gamma(H\to W j j)_{\mathrm{SM}}@f$
      */
-    double GammaHWjjRatio() const;
+    //double GammaHWjjRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to W j j)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to W j j)@f$/@f$\Gamma(H\to W j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWjjRatio1() const;
+    //double deltaGammaHWjjRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to W j j)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to W j j)@f$/@f$\Gamma(H\to W j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWjjRatio2() const;
+    //double deltaGammaHWjjRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to W j j)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to W j j)@f$/Br@f$(H\to W j j)_{\mathrm{SM}}@f$
      */
-    virtual double BrHWjjRatio() const;
+    ////virtual double BrHWjjRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to WW^*\to 4j)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to WW^*\to 4j)@f$/@f$\Gamma(H\to WW^*\to 4j)_{\mathrm{SM}}@f$
      */
-    double GammaHWW4jRatio() const;
+    //double GammaHWW4jRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW^*\to 4j)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to 4j)@f$/@f$\Gamma(H\to WW^*\to 4j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW4jRatio1() const;
+    //double deltaGammaHWW4jRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW^*\to 4j)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to 4j)@f$/@f$\Gamma(H\to WW^*\to 4j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW4jRatio2() const;
+    //double deltaGammaHWW4jRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to WW^*\to 4j)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to WW^*\to 4j)@f$/Br@f$(H\to WW^*\to 4j)_{\mathrm{SM}}@f$
      */
-    virtual double BrHWW4jRatio() const;
+    ////virtual double BrHWW4jRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to W f f)@f$, with @f$f@f$ any fermion, in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to W f f)@f$/@f$\Gamma(H\to W f f)_{\mathrm{SM}}@f$
      */
-    double GammaHWffRatio() const;
+    //double GammaHWffRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to W f f)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to W f f)@f$/@f$\Gamma(H\to W f f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWffRatio1() const;
+    //double deltaGammaHWffRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to W f f)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to W f f)@f$/@f$\Gamma(H\to W f f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWffRatio2() const;
+    //double deltaGammaHWffRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to W f f)@f$, with @f$f@f$ any fermion, in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to W f f)@f$/Br@f$(H\to W f f)_{\mathrm{SM}}@f$
      */
-    virtual double BrHWffRatio() const;
+    ////virtual double BrHWffRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to WW^*\to 4f)@f$, with @f$f@f$ any fermion, in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to WW^*\to 4f)@f$/@f$\Gamma(H\to WW^*\to 4f)_{\mathrm{SM}}@f$
      */
-    double GammaHWW4fRatio() const;
+    //double GammaHWW4fRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW^*\to 4f)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to 4f)@f$/@f$\Gamma(H\to WW^*\to 4f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW4fRatio1() const;
+    //double deltaGammaHWW4fRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW^*\to 4f)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW^*\to 4f)@f$/@f$\Gamma(H\to WW^*\to 4f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHWW4fRatio2() const;
+    //double deltaGammaHWW4fRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to WW^*\to 4f)@f$, with @f$f@f$ any fermion, in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to WW^*\to 4f)@f$/Br@f$(H\to WW^*\to 4f)_{\mathrm{SM}}@f$
      */
-    virtual double BrHWW4fRatio() const;
+    ////virtual double BrHWW4fRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
-    double GammaHZZRatio() const;
+    //double GammaHZZRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZRatio1() const;
+    //double deltaGammaHZZRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZRatio2() const;
+    //double deltaGammaHZZRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZRatio() const;
+    ////virtual double BrHZZRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Zll)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Zll)@f$/@f$\Gamma(H\to Zll)_{\mathrm{SM}}@f$
      */
-    double GammaHZllRatio() const;
+    //double GammaHZllRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Zll)@f$ (@f$l=e,\mu @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Zll)@f$/@f$\Gamma(H\to Zll)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZllRatio1() const;
+    //double deltaGammaHZllRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Zll)@f$ (@f$l=e,\mu @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Zll)@f$/@f$\Gamma(H\to Zll)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZllRatio2() const;
+    //double deltaGammaHZllRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to Zll)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Zll)@f$/Br@f$(H\to Zll)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZllRatio() const;
+    ////virtual double BrHZllRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Zee)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Zee)@f$/@f$\Gamma(H\to Zee)_{\mathrm{SM}}@f$
      */
-    double GammaHZeeRatio() const;
+    //double GammaHZeeRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Zee)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Zee)@f$/@f$\Gamma(H\to Zee)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZeeRatio1() const;
+    //double deltaGammaHZeeRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Zee)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Zee)@f$/@f$\Gamma(H\to Zee)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZeeRatio2() const;
+    //double deltaGammaHZeeRatio2() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Z\mu\mu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Z\mu\mu)@f$/@f$\Gamma(H\to Z\mu\mu)_{\mathrm{SM}}@f$
      */
-    double GammaHZmumuRatio() const;
+    //double GammaHZmumuRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\mu\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\mu\mu)@f$/@f$\Gamma(H\to Z\mu\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZmumuRatio1() const;
+    //double deltaGammaHZmumuRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\mu\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\mu\mu)@f$/@f$\Gamma(H\to Z\mu\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZmumuRatio2() const;
+    //double deltaGammaHZmumuRatio2() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 4l)@f$/@f$\Gamma(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ4lRatio() const;
+    //double GammaHZZ4lRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4l)@f$/@f$\Gamma(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4lRatio1() const;
+    //double deltaGammaHZZ4lRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4l)@f$/@f$\Gamma(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4lRatio2() const;
+    //double deltaGammaHZZ4lRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to ZZ* \to 4l)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ* \to 4l)@f$/Br@f$(H\to ZZ* \to 4l)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZ4lRatio() const;
+    ////virtual double BrHZZ4lRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ* \to 4e)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 4e)@f$/@f$\Gamma(H\to ZZ* \to 4e)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ4eRatio() const;
+    //double GammaHZZ4eRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4e)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4e)@f$/@f$\Gamma(H\to ZZ* \to 4e)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4eRatio1() const;
+    //double deltaGammaHZZ4eRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4e)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4e)@f$/@f$\Gamma(H\to ZZ* \to 4e)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4eRatio2() const;
+    //double deltaGammaHZZ4eRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to ZZ* \to 4e)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ* \to 4e)@f$/Br@f$(H\to ZZ* \to 4e)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZ4eRatio() const;
+    ////virtual double BrHZZ4eRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ* \to 2e2\mu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 2e2\mu)@f$/@f$\Gamma(H\to ZZ* \to 2e2\mu)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ2e2muRatio() const;
+    //double GammaHZZ2e2muRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 2e2\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 2e2\mu)@f$/@f$\Gamma(H\to ZZ* \to 2e2\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ2e2muRatio1() const;
+    //double deltaGammaHZZ2e2muRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 2e2\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 2e2\mu)@f$/@f$\Gamma(H\to ZZ* \to 2e2\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ2e2muRatio2() const;
+    //double deltaGammaHZZ2e2muRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to ZZ* \to 2e 2\mu)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ* \to 2e 2\mu)@f$/Br@f$(H\to ZZ* \to 2e 2\mu)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZ2e2muRatio() const;
+    ////virtual double BrHZZ2e2muRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ* \to 4\mu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 4\mu)@f$/@f$\Gamma(H\to ZZ* \to 4\mu)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ4muRatio() const;
+    //double GammaHZZ4muRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4\mu)@f$/@f$\Gamma(H\to ZZ* \to 4\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4muRatio1() const;
+    //double deltaGammaHZZ4muRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4\mu)@f$/@f$\Gamma(H\to ZZ* \to 4\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4muRatio2() const;
+    //double deltaGammaHZZ4muRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to ZZ* \to 4\mu)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ* \to 4\mu)@f$/Br@f$(H\to ZZ* \to 4\mu)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZ4muRatio() const;
+    ////virtual double BrHZZ4muRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Z\nu\nu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Z\nu\nu)@f$/@f$\Gamma(H\to Z\nu\nu)_{\mathrm{SM}}@f$
      */
-    double GammaHZvvRatio() const;
+    //double GammaHZvvRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\nu\nu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\nu\nu)@f$/@f$\Gamma(H\to Z\nu\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZvvRatio1() const;
+    //double deltaGammaHZvvRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\nu\nu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\nu\nu)@f$/@f$\Gamma(H\to Z\nu\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZvvRatio2() const;
+    //double deltaGammaHZvvRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to Z\nu\nu)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\nu\nu)@f$/Br@f$(H\to Z\nu\nu)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZvvRatio() const;
+    ////virtual double BrHZvvRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ* \to 4\nu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 4\nu)@f$/@f$\Gamma(H\to ZZ* \to 4\nu)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ4vRatio() const;
+    //double GammaHZZ4vRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4\nu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4\nu)@f$/@f$\Gamma(H\to ZZ* \to 4\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4vRatio1() const;
+    //double deltaGammaHZZ4vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4\nu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4\nu)@f$/@f$\Gamma(H\to ZZ* \to 4\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4vRatio2() const;
+    //double deltaGammaHZZ4vRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to ZZ* \to 4\nu)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ* \to 4\nu)@f$/Br@f$(H\to ZZ* \to 4\nu)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZ4vRatio() const;
+    ////virtual double BrHZZ4vRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Zu u)@f$ (@f$u=u,c @f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Zu u)@f$/@f$\Gamma(H\to Zu u)_{\mathrm{SM}}@f$
      */
-    double GammaHZuuRatio() const;
+    //double GammaHZuuRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z u u)@f$ (@f$u=u,c @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z u u)@f$/@f$\Gamma(H\to Z u u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZuuRatio1() const;
+    //double deltaGammaHZuuRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z u u)@f$ (@f$u=u,c @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z u u)@f$/@f$\Gamma(H\to Z u u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZuuRatio2() const;
+    //double deltaGammaHZuuRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to Z u u)@f$ (@f$u=u,c @f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z u u)@f$/Br@f$(H\to Z u u)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZuuRatio() const;
+    ////virtual double BrHZuuRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ* \to 4 u)@f$ (@f$u=u,c @f$) in the current model
@@ -2671,34 +2671,34 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ* \to 4 u)@f$/Br@f$(H\to ZZ* \to 4 u)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZ4uRatio() const;
+    ////virtual double BrHZZ4uRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Zd d)@f$ (@f$d=d,s,b @f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Zd d)@f$/@f$\Gamma(H\to Zd d)_{\mathrm{SM}}@f$
      */
-    double GammaHZddRatio() const;
+    //double GammaHZddRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z d d)@f$ (@f$d=d,s,b @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z d d)@f$/@f$\Gamma(H\to Z d d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZddRatio1() const;
+    //double deltaGammaHZddRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z d d)@f$ (@f$d=d,s,b @f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z d d)@f$/@f$\Gamma(H\to Z d d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZddRatio2() const;
+    //double deltaGammaHZddRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to Z d d)@f$ (@f$d=d,s,b @f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z d d)@f$/Br@f$(H\to Z d d)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZddRatio() const;
+    ////virtual double BrHZddRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ* \to 4 d)@f$ (@f$d=d,s,b @f$) in the current model
@@ -2733,248 +2733,248 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ* \to 4 d)@f$/Br@f$(H\to ZZ* \to 4 d)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZ4dRatio() const;
+    ////virtual double BrHZZ4dRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Zff)@f$, with @f$f@f$ any fermion, in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Zff)@f$/@f$\Gamma(H\to Zff)_{\mathrm{SM}}@f$
      */
-    double GammaHZffRatio() const;
+    //double GammaHZffRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z ff)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z f f)@f$/@f$\Gamma(H\to Z f f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZffRatio1() const;
+    //double deltaGammaHZffRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z ff)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z f f)@f$/@f$\Gamma(H\to Z f f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZffRatio2() const;
+    //double deltaGammaHZffRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to Zff)@f$, with @f$f@f$ any fermion, in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Zff)@f$/Br@f$(H\to Zff)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZffRatio() const;
+    ////virtual double BrHZffRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ* \to 4f)@f$, with @f$f@f$ any fermion, in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ* \to 4f)@f$/@f$\Gamma(H\to ZZ* \to 4f)_{\mathrm{SM}}@f$
      */
-    double GammaHZZ4fRatio() const;
+    //double GammaHZZ4fRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4f)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4f)@f$/@f$\Gamma(H\to ZZ* \to 4f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4fRatio1() const;
+    //double deltaGammaHZZ4fRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4f)@f$, with @f$f@f$ any fermion,
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ* \to 4f)@f$/@f$\Gamma(H\to ZZ* \to 4f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZZ4fRatio2() const;
+    //double deltaGammaHZZ4fRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to ZZ* \to 4f)@f$, with @f$f@f$ any fermion, in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ* \to 4f)@f$/Br@f$(H\to ZZ* \to 4f)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZZ4fRatio() const;
+    ////virtual double BrHZZ4fRatio() const;
 
     /**
      * @brief The ratio of the Br@f$(H\to VV)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to VV)@f$/Br@f$(H\to VV)_{\mathrm{SM}}@f$
      */
-    virtual double BrHVVRatio() const;
+    ////virtual double BrHVVRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Z\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
-    double GammaHZgaRatio() const;
+    //double GammaHZgaRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZgaRatio1() const;
+    //double deltaGammaHZgaRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHZgaRatio2() const;
+    //double deltaGammaHZgaRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma)@f$/Br@f$(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZgaRatio() const;
+    ////virtual double BrHZgaRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to ll\gamma)@f$/Br@f$(H\to Z\gamma\to ll\gamma)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZgallRatio() const;
+    ////virtual double BrHZgallRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma\to ee\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to ee\gamma)@f$/Br@f$(H\to Z\gamma\to ee\gamma)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZgaeeRatio() const;
+    ////virtual double BrHZgaeeRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma\to \mu\mu\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to \mu\mu\gamma)@f$/Br@f$(H\to Z\gamma\to \mu\mu\gamma)_{\mathrm{SM}}@f$
      */
-    virtual double BrHZgamumuRatio() const;
+    ////virtual double BrHZgamumuRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to \gamma\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
-    double GammaHgagaRatio() const;
+    //double GammaHgagaRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHgagaRatio1() const;
+    //double deltaGammaHgagaRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHgagaRatio2() const;
+    //double deltaGammaHgagaRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to \gamma\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to \gamma\gamma)@f$/Br@f$(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
-    virtual double BrHgagaRatio() const;
+    ////virtual double BrHgagaRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to \mu\mu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to \mu\mu)@f$/@f$\Gamma(H\to \mu\mu)_{\mathrm{SM}}@f$
      */
-    double GammaHmumuRatio() const;
+    //double GammaHmumuRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \mu\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \mu\mu)@f$/@f$\Gamma(H\to \mu\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHmumuRatio1() const;
+    //double deltaGammaHmumuRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \mu\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \mu\mu)@f$/@f$\Gamma(H\to \mu\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHmumuRatio2() const;
+    //double deltaGammaHmumuRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to \mu^+\mu^-)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to \mu^+\mu^-)@f$/Br@f$(H\to \mu^+\mu^-)_{\mathrm{SM}}@f$
      */
-    virtual double BrHmumuRatio() const;
+    ////virtual double BrHmumuRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to \tau\tau)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
      */
-    double GammaHtautauRatio() const;
+    //double GammaHtautauRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \tau\tau)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHtautauRatio1() const;
+    //double deltaGammaHtautauRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \tau\tau)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHtautauRatio2() const;
+    //double deltaGammaHtautauRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to \tau^+\tau^-)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to \tau^+\tau^-)@f$/Br@f$(H\to \tau^+\tau^-)_{\mathrm{SM}}@f$
      */
-    virtual double BrHtautauRatio() const;
+    ////virtual double BrHtautauRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to cc)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
      */
-    double GammaHccRatio() const;
+    //double GammaHccRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to cc)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHccRatio1() const;
+    //double deltaGammaHccRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to cc)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHccRatio2() const;
+    //double deltaGammaHccRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to c\bar{c})@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to c\bar{c})@f$/Br@f$(H\to c\bar{c})_{\mathrm{SM}}@f$
      */
-    virtual double BrHccRatio() const;
+    ////virtual double BrHccRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to bb)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
-    double GammaHbbRatio() const;
+    //double GammaHbbRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to bb)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHbbRatio1() const;
+    //double deltaGammaHbbRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to bb)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHbbRatio2() const;
+    //double deltaGammaHbbRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to b\bar{b})@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
      */
-    virtual double BrHbbRatio() const;
+    ////virtual double BrHbbRatio() const;
 
     // General 4 fermion final states
 
@@ -2983,108 +2983,108 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2L2L')@f$/@f$\Gamma(H\to 2L2L')_{\mathrm{SM}}@f$
      */
-    double GammaH2L2LRatio() const;
+    //double GammaH2L2LRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2L')@f$ (@f$L,L'=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2L')@f$/@f$\Gamma(H\to 2L2L')_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2LRatio1() const;
+    //double deltaGammaH2L2LRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2L')@f$ (@f$L,L'=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2L')@f$/@f$\Gamma(H\to 2L2L')_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2LRatio2() const;
+    //double deltaGammaH2L2LRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2L2L')@f$ (@f$L,L'=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2L')@f$/Br@f$(H\to 2L2L')_{\mathrm{SM}}@f$
      */
-    virtual double BrH2L2LRatio() const;
+    ////virtual double BrH2L2LRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2e 2\mu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2e 2\mu)@f$/@f$\Gamma(H\to 2e 2\mu)_{\mathrm{SM}}@f$
      */
-    double GammaH2e2muRatio() const;
+    //double GammaH2e2muRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2e 2\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2e 2\mu)@f$/@f$\Gamma(H\to 2e 2\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2e2muRatio1() const;
+    //double deltaGammaH2e2muRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2e 2\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2e 2\mu)@f$/@f$\Gamma(H\to 2e 2\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2e2muRatio2() const;
+    //double deltaGammaH2e2muRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2e 2\mu)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2L)@f$/Br@f$(H\to 2e 2\mu)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2e2muRatio() const;
+    ////virtual double BrH2e2muRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2v2v)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2v2v)@f$/@f$\Gamma(H\to 2v2v)_{\mathrm{SM}}@f$
      */
-    double GammaH2v2vRatio() const;
+    //double GammaH2v2vRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2v2v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2v2v)@f$/@f$\Gamma(H\to 2v2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2v2vRatio1() const;
+    //double deltaGammaH2v2vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2v2v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2v2v)@f$/@f$\Gamma(H\to 2v2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2v2vRatio2() const;
+    //double deltaGammaH2v2vRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2v2v)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2v2v)@f$/Br@f$(H\to 2v2v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2v2vRatio() const;
+    ////virtual double BrH2v2vRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2L2v)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2L2v)@f$/@f$\Gamma(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    double GammaH2L2vRatio() const;
+    //double GammaH2L2vRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2v)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2v)@f$/@f$\Gamma(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2vRatio1() const;
+    //double deltaGammaH2L2vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2v)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2v)@f$/@f$\Gamma(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2vRatio2() const;
+    //double deltaGammaH2L2vRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2L2v)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2v)@f$/Br@f$(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2L2vRatio() const;
+    ////virtual double BrH2L2vRatio() const;
 
 
     /**
@@ -3092,27 +3092,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2L2v)@f$/@f$\Gamma(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    double GammaH2L2v2Ratio() const;
+    //double GammaH2L2v2Ratio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2v)@f$ (@f$L=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2v)@f$/@f$\Gamma(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2v2Ratio1() const;
+    //double deltaGammaH2L2v2Ratio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2v)@f$ (@f$L=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2v)@f$/@f$\Gamma(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2v2Ratio2() const;
+    //double deltaGammaH2L2v2Ratio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2L2v)@f$ (@f$L=e,\mu@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2v)@f$/Br@f$(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2L2v2Ratio() const;
+    ////virtual double BrH2L2v2Ratio() const;
 
 
     /**
@@ -3120,27 +3120,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2e2v)@f$/@f$\Gamma(H\to 2e2v)_{\mathrm{SM}}@f$
      */
-    double GammaH2e2vRatio() const;
+    //double GammaH2e2vRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2e2v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2e2v)@f$/@f$\Gamma(H\to 2e2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2e2vRatio1() const;
+    //double deltaGammaH2e2vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2e2v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2e2v)@f$/@f$\Gamma(H\to 2e2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2e2vRatio2() const;
+    //double deltaGammaH2e2vRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2e2v)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2e2v)@f$/Br@f$(H\to 2e2v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2e2vRatio() const;
+    ////virtual double BrH2e2vRatio() const;
 
 
     /**
@@ -3148,27 +3148,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2\mu 2v)@f$/@f$\Gamma(H\to 2\mu 2v)_{\mathrm{SM}}@f$
      */
-    double GammaH2mu2vRatio() const;
+    //double GammaH2mu2vRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2\mu 2v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2\mu 2v)@f$/@f$\Gamma(H\to 2\mu 2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2mu2vRatio1() const;
+    //double deltaGammaH2mu2vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2\mu 2v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2\mu 2v)@f$/@f$\Gamma(H\to 2\mu 2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2mu2vRatio2() const;
+    //double deltaGammaH2mu2vRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2\mu 2v)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2\mu 2v)@f$/Br@f$(H\to 2\mu 2v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2mu2vRatio() const;
+    ////virtual double BrH2mu2vRatio() const;
 
 
     /**
@@ -3176,216 +3176,216 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2u2u)@f$/@f$\Gamma(H\to 2u2u)_{\mathrm{SM}}@f$
      */
-    double GammaH2u2uRatio() const;
+    //double GammaH2u2uRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2u2u)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2u2u)@f$/@f$\Gamma(H\to 2u2u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2u2uRatio1() const;
+    //double deltaGammaH2u2uRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2u2u)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2u2u)@f$/@f$\Gamma(H\to 2u2u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2u2uRatio2() const;
+    //double deltaGammaH2u2uRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2u2u)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2u2u)@f$/Br@f$(H\to 2u2u)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2u2uRatio() const;
+    ////virtual double BrH2u2uRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2d2d)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2d2d)@f$/@f$\Gamma(H\to 2d2d)_{\mathrm{SM}}@f$
      */
-    double GammaH2d2dRatio() const;
+    //double GammaH2d2dRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2d2d)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2d2d)@f$/@f$\Gamma(H\to 2d2d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2d2dRatio1() const;
+    //double deltaGammaH2d2dRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2d2d)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2d2d)@f$/@f$\Gamma(H\to 2d2d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2d2dRatio2() const;
+    //double deltaGammaH2d2dRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2d2d)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2d2d)@f$/Br@f$(H\to 2d2d)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2d2dRatio() const;
+    ////virtual double BrH2d2dRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2u2d)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2u2d)@f$/@f$\Gamma(H\to 2u2d)_{\mathrm{SM}}@f$
      */
-    double GammaH2u2dRatio() const;
+    //double GammaH2u2dRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2u2d)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2u2d)@f$/@f$\Gamma(H\to 2u2d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2u2dRatio1() const;
+    //double deltaGammaH2u2dRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2u2d)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2u2d)@f$/@f$\Gamma(H\to 2u2d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2u2dRatio2() const;
+    //double deltaGammaH2u2dRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2u2d)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2u2d)@f$/Br@f$(H\to 2u2d)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2u2dRatio() const;
+    ////virtual double BrH2u2dRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2L2u)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2L2u)@f$/@f$\Gamma(H\to 2L2u)_{\mathrm{SM}}@f$
      */
-    double GammaH2L2uRatio() const;
+    //double GammaH2L2uRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2u)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2u)@f$/@f$\Gamma(H\to 2L2u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2uRatio1() const;
+    //double deltaGammaH2L2uRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2u)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2u)@f$/@f$\Gamma(H\to 2L2u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2uRatio2() const;
+    //double deltaGammaH2L2uRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2L2u)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2u)@f$/Br@f$(H\to 2L2u)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2L2uRatio() const;
+    ////virtual double BrH2L2uRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2L2d)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2L2d)@f$/@f$\Gamma(H\to 2L2d)_{\mathrm{SM}}@f$
      */
-    double GammaH2L2dRatio() const;
+    //double GammaH2L2dRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2d)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2d)@f$/@f$\Gamma(H\to 2L2d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2dRatio1() const;
+    //double deltaGammaH2L2dRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2L2d)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2L2d)@f$/@f$\Gamma(H\to 2L2d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2L2dRatio2() const;
+    //double deltaGammaH2L2dRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2L2d)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2d)@f$/Br@f$(H\to 2L2d)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2L2dRatio() const;
+    ////virtual double BrH2L2dRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2v2u)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2v2u)@f$/@f$\Gamma(H\to 2v2u)_{\mathrm{SM}}@f$
      */
-    double GammaH2v2uRatio() const;
+    //double GammaH2v2uRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2v2u)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2v2u)@f$/@f$\Gamma(H\to 2v2u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2v2uRatio1() const;
+    //double deltaGammaH2v2uRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2v2u)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2v2u)@f$/@f$\Gamma(H\to 2v2u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2v2uRatio2() const;
+    //double deltaGammaH2v2uRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2v2u)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2v2u)@f$/Br@f$(H\to 2v2u)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2v2uRatio() const;
+    ////virtual double BrH2v2uRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2v2d)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2v2d)@f$/@f$\Gamma(H\to 2v2d)_{\mathrm{SM}}@f$
      */
-    double GammaH2v2dRatio() const;
+    //double GammaH2v2dRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2v2d)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2v2d)@f$/@f$\Gamma(H\to 2v2d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2v2dRatio1() const;
+    //double deltaGammaH2v2dRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2v2d)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2v2d)@f$/@f$\Gamma(H\to 2v2d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2v2dRatio2() const;
+    //double deltaGammaH2v2dRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2v2d)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2v2d)@f$/Br@f$(H\to 2v2d)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2v2dRatio() const;
+    ////virtual double BrH2v2dRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 4L)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4L)@f$/@f$\Gamma(H\to 4L)_{\mathrm{SM}}@f$
      */
-    double GammaH4LRatio() const;
+    //double GammaH4LRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4L)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4L)@f$/@f$\Gamma(H\to 4L)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4LRatio1() const;
+    //double deltaGammaH4LRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4L)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4L)@f$/@f$\Gamma(H\to 4L)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4LRatio2() const;
+    //double deltaGammaH4LRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4L)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4L)@f$/Br@f$(H\to 4L)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4LRatio() const;
+    ////virtual double BrH4LRatio() const;
 
 
     /**
@@ -3393,27 +3393,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4L)@f$/@f$\Gamma(H\to 4L)_{\mathrm{SM}}@f$
      */
-    double GammaH4L2Ratio() const;
+    //double GammaH4L2Ratio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4L)@f$ (@f$L=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4L)@f$/@f$\Gamma(H\to 4L)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4L2Ratio1() const;
+    //double deltaGammaH4L2Ratio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4L)@f$ (@f$L=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4L)@f$/@f$\Gamma(H\to 4L)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4L2Ratio2() const;
+    //double deltaGammaH4L2Ratio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4L)@f$ (@f$L=e,\mu@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4L)@f$/Br@f$(H\to 4L)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4L2Ratio() const;
+    ////virtual double BrH4L2Ratio() const;
 
 
     /**
@@ -3421,27 +3421,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4e)@f$/@f$\Gamma(H\to 4e)_{\mathrm{SM}}@f$
      */
-    double GammaH4eRatio() const;
+    //double GammaH4eRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4e)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4e)@f$/@f$\Gamma(H\to 4e)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4eRatio1() const;
+    //double deltaGammaH4eRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4e)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4e)@f$/@f$\Gamma(H\to 4e)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4eRatio2() const;
+    //double deltaGammaH4eRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4e)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4e)@f$/Br@f$(H\to 4e)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4eRatio() const;
+    ////virtual double BrH4eRatio() const;
 
 
     /**
@@ -3449,27 +3449,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4\mu)@f$/@f$\Gamma(H\to 4\mu)_{\mathrm{SM}}@f$
      */
-    double GammaH4muRatio() const;
+    //double GammaH4muRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4\mu)@f$/@f$\Gamma(H\to 4\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4muRatio1() const;
+    //double deltaGammaH4muRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4\mu)@f$/@f$\Gamma(H\to 4\mu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4muRatio2() const;
+    //double deltaGammaH4muRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4\mu)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4\mu)@f$/Br@f$(H\to 4\mu)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4muRatio() const;
+    ////virtual double BrH4muRatio() const;
 
 
     /**
@@ -3477,135 +3477,135 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4v)@f$/@f$\Gamma(H\to 4v)_{\mathrm{SM}}@f$
      */
-    double GammaH4vRatio() const;
+    //double GammaH4vRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4v)@f$/@f$\Gamma(H\to 4v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4vRatio1() const;
+    //double deltaGammaH4vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4v)@f$/@f$\Gamma(H\to 4v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4vRatio2() const;
+    //double deltaGammaH4vRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4v)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4v)@f$/Br@f$(H\to 4v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4vRatio() const;
+    ////virtual double BrH4vRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 4u)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4u)@f$/@f$\Gamma(H\to 4u)_{\mathrm{SM}}@f$
      */
-    double GammaH4uRatio() const;
+    //double GammaH4uRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4u)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4u)@f$/@f$\Gamma(H\to 4u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4uRatio1() const;
+    //double deltaGammaH4uRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4u)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4u)@f$/@f$\Gamma(H\to 4u)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4uRatio2() const;
+    //double deltaGammaH4uRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4u)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4u)@f$/Br@f$(H\to 4u)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4uRatio() const;
+    ////virtual double BrH4uRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 4d)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4d)@f$/@f$\Gamma(H\to 4d)_{\mathrm{SM}}@f$
      */
-    double GammaH4dRatio() const;
+    //double GammaH4dRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4d)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4d)@f$/@f$\Gamma(H\to 4d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4dRatio1() const;
+    //double deltaGammaH4dRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4d)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4d)@f$/@f$\Gamma(H\to 4d)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4dRatio2() const;
+    //double deltaGammaH4dRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4d)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4d)@f$/Br@f$(H\to 4d)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4dRatio() const;
+    ////virtual double BrH4dRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to LvvL)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to LvvL)@f$/@f$\Gamma(H\to LvvL)_{\mathrm{SM}}@f$
      */
-    double GammaHLvvLRatio() const;
+    //double GammaHLvvLRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to LvvL)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to LvvL)@f$/@f$\Gamma(H\to LvvL)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHLvvLRatio1() const;
+    //double deltaGammaHLvvLRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to LvvL)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to LvvL)@f$/@f$\Gamma(H\to LvvL)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHLvvLRatio2() const;
+    //double deltaGammaHLvvLRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to LvvL)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to LvvL)@f$/Br@f$(H\to LvvL)_{\mathrm{SM}}@f$
      */
-    virtual double BrHLvvLRatio() const;
+    ////virtual double BrHLvvLRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to e\nu \mu\nu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to e\nu \mu\nu)@f$/@f$\Gamma(H\to e\nu \mu\nu)_{\mathrm{SM}}@f$
      */
-    double GammaHevmuvRatio() const;
+    //double GammaHevmuvRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to e\nu \mu\nu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to e\nu \mu\nu)@f$/@f$\Gamma(H\to e\nu \mu\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHevmuvRatio1() const;
+    //double deltaGammaHevmuvRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to e\nu \mu\nu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to e\nu \mu\nu)@f$/@f$\Gamma(H\to e\nu \mu\nu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHevmuvRatio2() const;
+    //double deltaGammaHevmuvRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to e\nu \mu\nu)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to e\nu \mu\nu)@f$/Br@f$(H\to e\nu \mu\nu)_{\mathrm{SM}}@f$
      */
-    virtual double BrHevmuvRatio() const;
+    ////virtual double BrHevmuvRatio() const;
 
 
     /**
@@ -3613,135 +3613,135 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to uddu)@f$/@f$\Gamma(H\to uddu)_{\mathrm{SM}}@f$
      */
-    double GammaHudduRatio() const;
+    //double GammaHudduRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to uddu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to uddu)@f$/@f$\Gamma(H\to uddu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHudduRatio1() const;
+    //double deltaGammaHudduRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to uddu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to uddu)@f$/@f$\Gamma(H\to uddu)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHudduRatio2() const;
+    //double deltaGammaHudduRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to uddu)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to uddu)@f$/Br@f$(H\to uddu)_{\mathrm{SM}}@f$
      */
-    virtual double BrHudduRatio() const;
+    ////virtual double BrHudduRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Lvud)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Lvud)@f$/@f$\Gamma(H\to Lvud)_{\mathrm{SM}}@f$
      */
-    double GammaHLvudRatio() const;
+    //double GammaHLvudRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Lvud)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Lvud)@f$/@f$\Gamma(H\to Lvud)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHLvudRatio1() const;
+    //double deltaGammaHLvudRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Lvud)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Lvud)@f$/@f$\Gamma(H\to Lvud)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHLvudRatio2() const;
+    //double deltaGammaHLvudRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to Lvud)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Lvud)@f$/Br@f$(H\to Lvud)_{\mathrm{SM}}@f$
      */
-    virtual double BrHLvudRatio() const;
+    //virtual double BrHLvudRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2ud)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2ud)@f$/@f$\Gamma(H\to 2ud)_{\mathrm{SM}}@f$
      */
-    double GammaH2udRatio() const;
+    //double GammaH2udRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2ud)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2ud)@f$/@f$\Gamma(H\to 2ud)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2udRatio1() const;
+    //double deltaGammaH2udRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2ud)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2ud)@f$/@f$\Gamma(H\to 2ud)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2udRatio2() const;
+    //double deltaGammaH2udRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2ud)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2ud)@f$/Br@f$(H\to 2ud)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2udRatio() const;
+    //virtual double BrH2udRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2Lv)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2Lv)@f$/@f$\Gamma(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    double GammaH2LvRatio() const;
+    //double GammaH2LvRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2Lv)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2Lv)@f$/@f$\Gamma(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2LvRatio1() const;
+    //double deltaGammaH2LvRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2Lv)@f$ (@f$L=e,\mu,\tau@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2Lv)@f$/@f$\Gamma(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2LvRatio2() const;
+    //double deltaGammaH2LvRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2Lv)@f$ (@f$L=e,\mu,\tau@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2Lv)@f$/Br@f$(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2LvRatio() const;
+    //virtual double BrH2LvRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2Lv)@f$ (@f$L=e,\mu@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2Lv)@f$/@f$\Gamma(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    double GammaH2Lv2Ratio() const;
+    //double GammaH2Lv2Ratio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2Lv)@f$ (@f$L=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2Lv)@f$/@f$\Gamma(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2Lv2Ratio1() const;
+    //double deltaGammaH2Lv2Ratio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2Lv)@f$ (@f$L=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2Lv)@f$/@f$\Gamma(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2Lv2Ratio2() const;
+    //double deltaGammaH2Lv2Ratio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2Lv)@f$ (@f$L=e,\mu@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2Lv)@f$/Br@f$(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2Lv2Ratio() const;
+    //virtual double BrH2Lv2Ratio() const;
 
 
     /**
@@ -3749,27 +3749,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2ev)@f$/@f$\Gamma(H\to 2ev)_{\mathrm{SM}}@f$
      */
-    double GammaH2evRatio() const;
+    //double GammaH2evRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2ev)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2ev)@f$/@f$\Gamma(H\to 2ev)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2evRatio1() const;
+    //double deltaGammaH2evRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2ev)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2ev)@f$/@f$\Gamma(H\to 2ev)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2evRatio2() const;
+    //double deltaGammaH2evRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2ev)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2ev)@f$/Br@f$(H\to 2ev)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2evRatio() const;
+    //virtual double BrH2evRatio() const;
 
 
     /**
@@ -3777,27 +3777,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2\mu v)@f$/@f$\Gamma(H\to 2\mu v)_{\mathrm{SM}}@f$
      */
-    double GammaH2muvRatio() const;
+    //double GammaH2muvRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2\mu v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2\mu v)@f$/@f$\Gamma(H\to 2\mu v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2muvRatio1() const;
+    //double deltaGammaH2muvRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2\mu v)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2\mu v)@f$/@f$\Gamma(H\to 2\mu v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2muvRatio2() const;
+    //double deltaGammaH2muvRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2ev)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2\mu v)@f$/Br@f$(H\to 2\mu v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2muvRatio() const;
+    //virtual double BrH2muvRatio() const;
 
 
     /**
@@ -3805,27 +3805,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4f)@f$/@f$\Gamma(H\to 4f)_{\mathrm{SM}}@f$
      */
-    double GammaH4fRatio() const;
+    //double GammaH4fRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4f)@f$/@f$\Gamma(H\to 4f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4fRatio1() const;
+    //double deltaGammaH4fRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4f)@f$/@f$\Gamma(H\to 4f)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4fRatio2() const;
+    //double deltaGammaH4fRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4f)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4f)@f$/Br@f$(H\to 4f)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4fRatio() const;
+    //virtual double BrH4fRatio() const;
 
     // DECAYS INVOLVING ONLY ELECTRONS, MUONS OR NEUTRINOS IN THE FINAL STATES 
 
@@ -3834,54 +3834,54 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 4l)@f$/@f$\Gamma(H\to 4l)_{\mathrm{SM}}@f$
      */
-    double GammaH4lRatio() const;
+    //double GammaH4lRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4l)@f$ (@f$l=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4l)@f$/@f$\Gamma(H\to 4l)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4lRatio1() const;
+    //double deltaGammaH4lRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4l)@f$ (@f$l=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 4l)@f$/@f$\Gamma(H\to 4l)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH4lRatio2() const;
+    //double deltaGammaH4lRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 4l)@f$ (@f$l=e,\mu@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 4l)@f$/Br@f$(H\to 4l)_{\mathrm{SM}}@f$
      */
-    virtual double BrH4lRatio() const;
+    //virtual double BrH4lRatio() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2l2v)@f$ (@f$l=e,\mu@f$) in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to 2l2v)@f$/@f$\Gamma(H\to 2l2v)_{\mathrm{SM}}@f$
      */
-    double GammaH2l2vRatio() const;
+    //double GammaH2l2vRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2l2v)@f$ (@f$l=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2l2v)@f$/@f$\Gamma(H\to 2l2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2l2vRatio1() const;
+    //double deltaGammaH2l2vRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 2l2v)@f$ (@f$l=e,\mu@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to 2l2v)@f$/@f$\Gamma(H\to 2l2v)_{\mathrm{SM}}@f$
      */
-    double deltaGammaH2l2vRatio2() const;
+    //double deltaGammaH2l2vRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to 2l2v)@f$ (@f$l=e,\mu@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to 2l2v)@f$/Br@f$(H\to 2l2v)_{\mathrm{SM}}@f$
      */
-    virtual double BrH2l2vRatio() const;
+    //virtual double BrH2l2vRatio() const;
 
     ///////////////////////OTHER DEDICATED (SEMI-)LEPTONIC 4 FERMION DECAYS/////////////////////////
 
@@ -3890,27 +3890,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to l l j j)@f$/@f$\Gamma(H\to l l j j)_{\mathrm{SM}}@f$
      */
-    double GammaHlljjRatio() const;
+    //double GammaHlljjRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to l l j j)@f$/@f$\Gamma(H\to l l j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHlljjRatio1() const;
+    //double deltaGammaHlljjRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to l l j j)@f$/@f$\Gamma(H\to l l j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHlljjRatio2() const;
+    //double deltaGammaHlljjRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to l l j j)@f$/Br@f$(H\to l l j j)_{\mathrm{SM}}@f$
      */
-    virtual double BrHlljjRatio() const;
+    //virtual double BrHlljjRatio() const;
 
 
     /**
@@ -3918,27 +3918,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to l \nu j j)@f$/@f$\Gamma(H\to l \nu j j)_{\mathrm{SM}}@f$
      */
-    double GammaHlvjjRatio() const;
+    //double GammaHlvjjRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to l \nu j j)@f$/@f$\Gamma(H\to l \nu j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHlvjjRatio1() const;
+    //double deltaGammaHlvjjRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to l \nu j j)@f$/@f$\Gamma(H\to l \nu j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHlvjjRatio2() const;
+    //double deltaGammaHlvjjRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to l \nu j j)@f$/Br@f$(H\to l \nu j j)_{\mathrm{SM}}@f$
      */
-    virtual double BrHlvjjRatio() const;
+    //virtual double BrHlvjjRatio() const;
 
 
     /**
@@ -3946,27 +3946,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to l \nu l \nu, l \nu j j)@f$/@f$\Gamma(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
      */
-    double GammaHlv_lvorjjRatio() const;
+    //double GammaHlv_lvorjjRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l \nu l \nu, l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to l \nu l \nu, l \nu j j)@f$/@f$\Gamma(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHlv_lvorjjRatio1() const;
+    //double deltaGammaHlv_lvorjjRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l \nu l \nu, l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to l \nu l \nu, l \nu j j)@f$/@f$\Gamma(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHlv_lvorjjRatio2() const;
+    //double deltaGammaHlv_lvorjjRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to l \nu l \nu, l \nu j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to l \nu l \nu, l \nu j j)@f$/Br@f$(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
      */
-    virtual double BrHlv_lvorjjRatio() const;
+    //virtual double BrHlv_lvorjjRatio() const;
 
 
     /**
@@ -3974,27 +3974,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to l l \nu\nu, l l j j)@f$/@f$\Gamma(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
      */
-    double GammaHll_vvorjjRatio() const;
+    //double GammaHll_vvorjjRatio() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l l \nu\nu, l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to l l \nu\nu, l l j j)@f$/@f$\Gamma(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHll_vvorjjRatio1() const;
+    //double deltaGammaHll_vvorjjRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to l l \nu\nu, l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$)
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to l l \nu\nu, l l j j)@f$/@f$\Gamma(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
      */
-    double deltaGammaHll_vvorjjRatio2() const;
+    //double deltaGammaHll_vvorjjRatio2() const;
     /**
      * @brief The ratio of the Br@f$(H\to l l \nu\nu, l l j j)@f$ (@f$l=e,\mu,~~j\not=b@f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to l l \nu\nu, l l j j)@f$/Br@f$(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
      */
-    virtual double BrHll_vvorjjRatio() const;
+    //virtual double BrHll_vvorjjRatio() const;
 
     ///////////////////////OTHER HIGGS BRANCHING RATIOS/////////////////////////    
 
@@ -4002,30 +4002,30 @@ public:
      * @brief The branching ratio of the of the Higgs into exotic particles.
      * @return Br@f$(H\to exotic)@f$
      */
-    virtual double Br_H_exo() const;
+    //virtual double Br_H_exo() const;
     /**
      * @brief The branching ratio of the of the Higgs into invisible particles.
      * @return Br@f$(H\to invisible)@f$
      */
-    virtual double Br_H_inv() const;
+    //virtual double Br_H_inv() const;
     /**
      * @brief The branching ratio of the of the Higgs into invisible particles 
      * (only invisible new particles).
      * @return Br@f$(H\to invisible,NP)@f$
      */
-    virtual double Br_H_inv_NP() const;
+    //virtual double Br_H_inv_NP() const;
     /**
      * @brief The ratio of the Br@f$(H\to visible)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to visible)@f$/Br@f$(H\to visible)_{\mathrm{SM}}@f$
      */
-    virtual double BrHvisRatio() const;
+    //virtual double BrHvisRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to invisible)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to invisible)@f$/Br@f$(H\to ZZ \to invisible)_{\mathrm{SM}}@f$
      */
-    virtual double BrHtoinvRatio() const;
+    //virtual double BrHtoinvRatio() const;
 
     ///////////////////////SPECIAL OBSERVABLES/////////////////////////
 
@@ -4035,7 +4035,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
      */
-    virtual double muttHZbbboost(const double sqrt_s) const;
+    //virtual double muttHZbbboost(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs
@@ -4044,7 +4044,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\gamma\gamma}@f$
      */
-    virtual double muggHgaga(const double sqrt_s) const;
+    //virtual double muggHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,\gamma\gamma}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into 2 photons in the
@@ -4052,7 +4052,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\gamma\gamma}@f$
      */
-    virtual double muVBFHgaga(const double sqrt_s) const;
+    //virtual double muVBFHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,\gamma\gamma}@f$ between the ZH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4060,7 +4060,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\gamma\gamma}@f$
      */
-    virtual double muZHgaga(const double sqrt_s) const;
+    //virtual double muZHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,\gamma\gamma}@f$ between the WH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4068,7 +4068,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\gamma\gamma}@f$
      */
-    virtual double muWHgaga(const double sqrt_s) const;
+    //virtual double muWHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,\gamma\gamma}@f$ between the VH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4076,7 +4076,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\gamma\gamma}@f$
      */
-    virtual double muVHgaga(const double sqrt_s) const;
+    //virtual double muVHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,\gamma\gamma}@f$ between the ttH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4084,7 +4084,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\gamma\gamma}@f$
      */
-    virtual double muttHgaga(const double sqrt_s) const;
+    //virtual double muttHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,Z\gamma}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4092,7 +4092,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,Z\gamma}@f$
      */
-    virtual double muggHZga(const double sqrt_s) const;
+    //virtual double muggHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,Z\gamma}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4100,7 +4100,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,Z\gamma}@f$
      */
-    virtual double muVBFHZga(const double sqrt_s) const;
+    //virtual double muVBFHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,Z\gamma}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4108,7 +4108,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,Z\gamma}@f$
      */
-    virtual double muZHZga(const double sqrt_s) const;
+    //virtual double muZHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,Z\gamma}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4116,7 +4116,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,Z\gamma}@f$
      */
-    virtual double muWHZga(const double sqrt_s) const;
+    //virtual double muWHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,Z\gamma}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4124,7 +4124,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,Z\gamma}@f$
      */
-    virtual double muVHZga(const double sqrt_s) const;
+    //virtual double muVHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,Z\gamma}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4132,7 +4132,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,Z\gamma}@f$
      */
-    virtual double muttHZga(const double sqrt_s) const;
+    //virtual double muttHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4140,7 +4140,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ}@f$
      */
-    virtual double muggHZZ(const double sqrt_s) const;
+    //virtual double muggHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,ZZ}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4148,7 +4148,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,ZZ}@f$
      */
-    virtual double muVBFHZZ(const double sqrt_s) const;
+    //virtual double muVBFHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,ZZ}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4156,7 +4156,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,ZZ}@f$
      */
-    virtual double muZHZZ(const double sqrt_s) const;
+    //virtual double muZHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,ZZ}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4164,7 +4164,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,ZZ}@f$
      */
-    virtual double muWHZZ(const double sqrt_s) const;
+    //virtual double muWHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,ZZ}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4172,7 +4172,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,ZZ}@f$
      */
-    virtual double muVHZZ(const double sqrt_s) const;
+    //virtual double muVHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,ZZ}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4180,7 +4180,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ}@f$
      */
-    virtual double muttHZZ(const double sqrt_s) const;
+    //virtual double muttHZZ(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ\to 4l}@f$ between the gluon-gluon fusion Higgs
@@ -4189,7 +4189,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ\to 4l}@f$
      */
-    virtual double muggHZZ4l(const double sqrt_s) const;
+    //virtual double muggHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,ZZ\to 4l}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4197,7 +4197,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,ZZ\to 4l}@f$
      */
-    virtual double muVBFHZZ4l(const double sqrt_s) const;
+    //virtual double muVBFHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,ZZ\to 4l}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4205,7 +4205,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,ZZ\to 4l}@f$
      */
-    virtual double muZHZZ4l(const double sqrt_s) const;
+    //virtual double muZHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,ZZ\to 4l}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4213,7 +4213,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,ZZ\to 4l}@f$
      */
-    virtual double muWHZZ4l(const double sqrt_s) const;
+    //virtual double muWHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,ZZ\to 4l}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4221,7 +4221,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,ZZ\to 4l}@f$
      */
-    virtual double muVHZZ4l(const double sqrt_s) const;
+    //virtual double muVHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,ZZ\to 4l}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4229,7 +4229,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ\to 4l}@f$
      */
-    virtual double muttHZZ4l(const double sqrt_s) const;
+    //virtual double muttHZZ4l(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,WW}@f$ between the gluon-gluon fusion Higgs
@@ -4238,7 +4238,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,WW}@f$
      */
-    virtual double muggHWW(const double sqrt_s) const;
+    //virtual double muggHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,WW}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4246,7 +4246,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,WW}@f$
      */
-    virtual double muVBFHWW(const double sqrt_s) const;
+    //virtual double muVBFHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,WW}@f$ between the ZH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4254,7 +4254,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,WW}@f$
      */
-    virtual double muZHWW(const double sqrt_s) const;
+    //virtual double muZHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,WW}@f$ between the WH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4262,7 +4262,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,WW}@f$
      */
-    virtual double muWHWW(const double sqrt_s) const;
+    //virtual double muWHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,WW}@f$ between the VH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4270,7 +4270,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,WW}@f$
      */
-    virtual double muVHWW(const double sqrt_s) const;
+    //virtual double muVHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,WW}@f$ between the ttH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4278,7 +4278,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,WW}@f$
      */
-    virtual double muttHWW(const double sqrt_s) const;
+    //virtual double muttHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,WW\to 2l2\nu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4286,7 +4286,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,WW\to 2l2\nu}@f$
      */
-    virtual double muggHWW2l2v(const double sqrt_s) const;
+    //virtual double muggHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,WW\to 2l2\nu}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4294,7 +4294,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,WW\to 2l2\nu}@f$
      */
-    virtual double muVBFHWW2l2v(const double sqrt_s) const;
+    //virtual double muVBFHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,WW\to 2l2\nu}@f$ between the ZH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4302,7 +4302,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,WW\to 2l2\nu}@f$
      */
-    virtual double muZHWW2l2v(const double sqrt_s) const;
+    //virtual double muZHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,WW\to 2l2\nu}@f$ between the WH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4310,7 +4310,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,WW\to 2l2\nu}@f$
      */
-    virtual double muWHWW2l2v(const double sqrt_s) const;
+    //virtual double muWHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,WW\to 2l2\nu}@f$ between the VH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4318,7 +4318,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,WW\to 2l2\nu}@f$
      */
-    virtual double muVHWW2l2v(const double sqrt_s) const;
+    //virtual double muVHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,WW\to 2l2\nu}@f$ between the ttH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4326,7 +4326,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,WW\to 2l2\nu}@f$
      */
-    virtual double muttHWW2l2v(const double sqrt_s) const;
+    //virtual double muttHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,\mu\mu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4334,7 +4334,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\mu\mu}@f$
      */
-    virtual double muggHmumu(const double sqrt_s) const;
+    //virtual double muggHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,\mu\mu}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4342,7 +4342,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\mu\mu}@f$
      */
-    virtual double muVBFHmumu(const double sqrt_s) const;
+    //virtual double muVBFHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,\mu\mu}@f$ between the ZH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4350,7 +4350,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\mu\mu}@f$
      */
-    virtual double muZHmumu(const double sqrt_s) const;
+    //virtual double muZHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,\mu\mu}@f$ between the WH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4358,7 +4358,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\mu\mu}@f$
      */
-    virtual double muWHmumu(const double sqrt_s) const;
+    //virtual double muWHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,\mu\mu}@f$ between the VH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4366,7 +4366,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\mu\mu}@f$
      */
-    virtual double muVHmumu(const double sqrt_s) const;
+    //virtual double muVHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,\mu\mu}@f$ between the ttH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4374,7 +4374,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\mu\mu}@f$
      */
-    virtual double muttHmumu(const double sqrt_s) const;
+    //virtual double muttHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,\tau\tau}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4382,7 +4382,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\tau\tau}@f$
      */
-    virtual double muggHtautau(const double sqrt_s) const;
+    //virtual double muggHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,\tau\tau}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4390,7 +4390,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\tau\tau}@f$
      */
-    virtual double muVBFHtautau(const double sqrt_s) const;
+    //virtual double muVBFHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,\tau\tau}@f$ between the ZH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4398,7 +4398,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\tau\tau}@f$
      */
-    virtual double muZHtautau(const double sqrt_s) const;
+    //virtual double muZHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,\tau\tau}@f$ between the WH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4406,7 +4406,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\tau\tau}@f$
      */
-    virtual double muWHtautau(const double sqrt_s) const;
+    //virtual double muWHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,\tau\tau}@f$ between the VH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4414,7 +4414,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\tau\tau}@f$
      */
-    virtual double muVHtautau(const double sqrt_s) const;
+    //virtual double muVHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,\tau\tau}@f$ between the ttH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4422,7 +4422,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\tau\tau}@f$
      */
-    virtual double muttHtautau(const double sqrt_s) const;
+    //virtual double muttHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,bb}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4430,7 +4430,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,bb}@f$
      */
-    virtual double muggHbb(const double sqrt_s) const;
+    //virtual double muggHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,bb}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4438,7 +4438,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,bb}@f$
      */
-    virtual double muVBFHbb(const double sqrt_s) const;
+    //virtual double muVBFHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,bb}@f$ between the ZH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4446,7 +4446,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,bb}@f$
      */
-    virtual double muZHbb(const double sqrt_s) const;
+    //virtual double muZHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,bb}@f$ between the WH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4454,7 +4454,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,bb}@f$
      */
-    virtual double muWHbb(const double sqrt_s) const;
+    //virtual double muWHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,bb}@f$ between the VH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4462,7 +4462,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,bb}@f$
      */
-    virtual double muVHbb(const double sqrt_s) const;
+    //virtual double muVHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,bb}@f$ between the ttH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4470,7 +4470,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,bb}@f$
      */
-    virtual double muttHbb(const double sqrt_s) const;
+    //virtual double muttHbb(const double sqrt_s) const;
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
@@ -4485,7 +4485,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\gamma\gamma}@f$
      */
-    virtual double muTHUggHgaga(const double sqrt_s) const;
+    //virtual double muTHUggHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,\gamma\gamma}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into 2 photons in the
@@ -4493,7 +4493,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\gamma\gamma}@f$
      */
-    virtual double muTHUVBFHgaga(const double sqrt_s) const;
+    //virtual double muTHUVBFHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,\gamma\gamma}@f$ between the ZH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4501,7 +4501,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\gamma\gamma}@f$
      */
-    virtual double muTHUZHgaga(const double sqrt_s) const;
+    //virtual double muTHUZHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,\gamma\gamma}@f$ between the WH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4509,7 +4509,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\gamma\gamma}@f$
      */
-    virtual double muTHUWHgaga(const double sqrt_s) const;
+    //virtual double muTHUWHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,\gamma\gamma}@f$ between the VH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4517,7 +4517,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\gamma\gamma}@f$
      */
-    virtual double muTHUVHgaga(const double sqrt_s) const;
+    //virtual double muTHUVHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,\gamma\gamma}@f$ between the ttH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4525,7 +4525,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\gamma\gamma}@f$
      */
-    virtual double muTHUttHgaga(const double sqrt_s) const;
+    //virtual double muTHUttHgaga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,Z\gamma}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4533,7 +4533,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,Z\gamma}@f$
      */
-    virtual double muTHUggHZga(const double sqrt_s) const;
+    //virtual double muTHUggHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,Z\gamma}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4541,7 +4541,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,Z\gamma}@f$
      */
-    virtual double muTHUVBFHZga(const double sqrt_s) const;
+    //virtual double muTHUVBFHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,Z\gamma}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4549,7 +4549,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,Z\gamma}@f$
      */
-    virtual double muTHUZHZga(const double sqrt_s) const;
+    //virtual double muTHUZHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,Z\gamma}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4557,7 +4557,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,Z\gamma}@f$
      */
-    virtual double muTHUWHZga(const double sqrt_s) const;
+    //virtual double muTHUWHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,Z\gamma}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4565,7 +4565,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,Z\gamma}@f$
      */
-    virtual double muTHUVHZga(const double sqrt_s) const;
+    //virtual double muTHUVHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,Z\gamma}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4573,7 +4573,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,Z\gamma}@f$
      */
-    virtual double muTHUttHZga(const double sqrt_s) const;
+    //virtual double muTHUttHZga(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4581,7 +4581,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ}@f$
      */
-    virtual double muTHUggHZZ(const double sqrt_s) const;
+    //virtual double muTHUggHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,ZZ}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4589,7 +4589,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,ZZ}@f$
      */
-    virtual double muTHUVBFHZZ(const double sqrt_s) const;
+    //virtual double muTHUVBFHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,ZZ}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4597,7 +4597,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,ZZ}@f$
      */
-    virtual double muTHUZHZZ(const double sqrt_s) const;
+    //virtual double muTHUZHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,ZZ}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4605,7 +4605,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,ZZ}@f$
      */
-    virtual double muTHUWHZZ(const double sqrt_s) const;
+    //virtual double muTHUWHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,ZZ}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4613,7 +4613,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,ZZ}@f$
      */
-    virtual double muTHUVHZZ(const double sqrt_s) const;
+    //virtual double muTHUVHZZ(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,ZZ}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4621,7 +4621,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ}@f$
      */
-    virtual double muTHUttHZZ(const double sqrt_s) const;
+    //virtual double muTHUttHZZ(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ\to 4l}@f$ between the gluon-gluon fusion Higgs
@@ -4630,7 +4630,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ\to 4l}@f$
      */
-    virtual double muTHUggHZZ4l(const double sqrt_s) const;
+    //virtual double muTHUggHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,ZZ\to 4l}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4638,7 +4638,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,ZZ\to 4l}@f$
      */
-    virtual double muTHUVBFHZZ4l(const double sqrt_s) const;
+    //virtual double muTHUVBFHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,ZZ\to 4l}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4646,7 +4646,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,ZZ\to 4l}@f$
      */
-    virtual double muTHUZHZZ4l(const double sqrt_s) const;
+    //virtual double muTHUZHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,ZZ\to 4l}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4654,7 +4654,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,ZZ\to 4l}@f$
      */
-    virtual double muTHUWHZZ4l(const double sqrt_s) const;
+    //virtual double muTHUWHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,ZZ\to 4l}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4662,7 +4662,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,ZZ\to 4l}@f$
      */
-    virtual double muTHUVHZZ4l(const double sqrt_s) const;
+    //virtual double muTHUVHZZ4l(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,ZZ\to 4l}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4670,7 +4670,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ\to 4l}@f$
      */
-    virtual double muTHUttHZZ4l(const double sqrt_s) const;
+    //virtual double muTHUttHZZ4l(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,WW}@f$ between the gluon-gluon fusion Higgs
@@ -4679,7 +4679,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,WW}@f$
      */
-    virtual double muTHUggHWW(const double sqrt_s) const;
+    //virtual double muTHUggHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,WW}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4687,7 +4687,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,WW}@f$
      */
-    virtual double muTHUVBFHWW(const double sqrt_s) const;
+    //virtual double muTHUVBFHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,WW}@f$ between the ZH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4695,7 +4695,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,WW}@f$
      */
-    virtual double muTHUZHWW(const double sqrt_s) const;
+    //virtual double muTHUZHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,WW}@f$ between the WH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4703,7 +4703,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,WW}@f$
      */
-    virtual double muTHUWHWW(const double sqrt_s) const;
+    //virtual double muTHUWHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,WW}@f$ between the VH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4711,7 +4711,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,WW}@f$
      */
-    virtual double muTHUVHWW(const double sqrt_s) const;
+    //virtual double muTHUVHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,WW}@f$ between the ttH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4719,7 +4719,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,WW}@f$
      */
-    virtual double muTHUttHWW(const double sqrt_s) const;
+    //virtual double muTHUttHWW(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,WW\to 2l2\nu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4727,7 +4727,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,WW\to 2l2\nu}@f$
      */
-    virtual double muTHUggHWW2l2v(const double sqrt_s) const;
+    //virtual double muTHUggHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,WW\to 2l2\nu}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4735,7 +4735,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,WW\to 2l2\nu}@f$
      */
-    virtual double muTHUVBFHWW2l2v(const double sqrt_s) const;
+    //virtual double muTHUVBFHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,WW\to 2l2\nu}@f$ between the ZH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4743,7 +4743,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,WW\to 2l2\nu}@f$
      */
-    virtual double muTHUZHWW2l2v(const double sqrt_s) const;
+    //virtual double muTHUZHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,WW\to 2l2\nu}@f$ between the WH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4751,7 +4751,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,WW\to 2l2\nu}@f$
      */
-    virtual double muTHUWHWW2l2v(const double sqrt_s) const;
+    //virtual double muTHUWHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,WW\to 2l2\nu}@f$ between the VH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4759,7 +4759,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,WW\to 2l2\nu}@f$
      */
-    virtual double muTHUVHWW2l2v(const double sqrt_s) const;
+    //virtual double muTHUVHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,WW\to 2l2\nu}@f$ between the ttH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4767,7 +4767,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,WW\to 2l2\nu}@f$
      */
-    virtual double muTHUttHWW2l2v(const double sqrt_s) const;
+    //virtual double muTHUttHWW2l2v(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,\mu\mu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4775,7 +4775,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\mu\mu}@f$
      */
-    virtual double muTHUggHmumu(const double sqrt_s) const;
+    //virtual double muTHUggHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,\mu\mu}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4783,7 +4783,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\mu\mu}@f$
      */
-    virtual double muTHUVBFHmumu(const double sqrt_s) const;
+    //virtual double muTHUVBFHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,\mu\mu}@f$ between the ZH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4791,7 +4791,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\mu\mu}@f$
      */
-    virtual double muTHUZHmumu(const double sqrt_s) const;
+    //virtual double muTHUZHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,\mu\mu}@f$ between the WH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4799,7 +4799,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\mu\mu}@f$
      */
-    virtual double muTHUWHmumu(const double sqrt_s) const;
+    //virtual double muTHUWHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,\mu\mu}@f$ between the VH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4807,7 +4807,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\mu\mu}@f$
      */
-    virtual double muTHUVHmumu(const double sqrt_s) const;
+    //virtual double muTHUVHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,\mu\mu}@f$ between the ttH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4815,7 +4815,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\mu\mu}@f$
      */
-    virtual double muTHUttHmumu(const double sqrt_s) const;
+    //virtual double muTHUttHmumu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,\tau\tau}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4823,7 +4823,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\tau\tau}@f$
      */
-    virtual double muTHUggHtautau(const double sqrt_s) const;
+    //virtual double muTHUggHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,\tau\tau}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4831,7 +4831,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\tau\tau}@f$
      */
-    virtual double muTHUVBFHtautau(const double sqrt_s) const;
+    //virtual double muTHUVBFHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,\tau\tau}@f$ between the ZH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4839,7 +4839,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\tau\tau}@f$
      */
-    virtual double muTHUZHtautau(const double sqrt_s) const;
+    //virtual double muTHUZHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,\tau\tau}@f$ between the WH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4847,7 +4847,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\tau\tau}@f$
      */
-    virtual double muTHUWHtautau(const double sqrt_s) const;
+    //virtual double muTHUWHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,\tau\tau}@f$ between the VH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4855,7 +4855,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\tau\tau}@f$
      */
-    virtual double muTHUVHtautau(const double sqrt_s) const;
+    //virtual double muTHUVHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,\tau\tau}@f$ between the ttH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4863,7 +4863,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\tau\tau}@f$
      */
-    virtual double muTHUttHtautau(const double sqrt_s) const;
+    //virtual double muTHUttHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,bb}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4871,7 +4871,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,bb}@f$
      */
-    virtual double muTHUggHbb(const double sqrt_s) const;
+    //virtual double muTHUggHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,bb}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4879,7 +4879,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,bb}@f$
      */
-    virtual double muTHUVBFHbb(const double sqrt_s) const;
+    //virtual double muTHUVBFHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ZH,bb}@f$ between the ZH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4887,7 +4887,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,bb}@f$
      */
-    virtual double muTHUZHbb(const double sqrt_s) const;
+    //virtual double muTHUZHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{WH,bb}@f$ between the WH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4895,7 +4895,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,bb}@f$
      */
-    virtual double muTHUWHbb(const double sqrt_s) const;
+    //virtual double muTHUWHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,bb}@f$ between the VH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4903,7 +4903,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,bb}@f$
      */
-    virtual double muTHUVHbb(const double sqrt_s) const;
+    //virtual double muTHUVHbb(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ttH,bb}@f$ between the ttH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4911,7 +4911,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,bb}@f$
      */
-    virtual double muTHUttHbb(const double sqrt_s) const;
+    //virtual double muTHUttHbb(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{VBF}@f$ between the VBF
@@ -4921,7 +4921,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF}BR_{inv}@f$
      */
-    virtual double muTHUVBFBRinv(const double sqrt_s) const;
+    //virtual double muTHUVBFBRinv(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF,inv}@f$ between the VBF
      * production cross-section with subsequent decay into invisible states in the
@@ -4929,7 +4929,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,inv}@f$
      */
-    virtual double muTHUVBFHinv(const double sqrt_s) const;
+    //virtual double muTHUVBFHinv(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the VH
      * production cross-section in the
@@ -4938,7 +4938,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH}BR_{inv}@f$
      */
-    virtual double muTHUVHBRinv(const double sqrt_s) const;
+    //virtual double muTHUVHBRinv(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VH,inv}@f$ between the VH
      * production cross-section with subsequent decay into invisible states in the
@@ -4946,7 +4946,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,inv}@f$
      */
-    virtual double muTHUVHinv(const double sqrt_s) const;
+    //virtual double muTHUVHinv(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ\to 4\mu}@f$ between the gluon-gluon fusion Higgs
@@ -4955,7 +4955,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ\to 4\mu}@f$
      */
-    virtual double muTHUggHZZ4mu(const double sqrt_s) const;
+    //virtual double muTHUggHZZ4mu(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH,Z\gamma\to \gamma 2\mu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z \gamma\to \gamma 2\mu@f$ in the
@@ -4963,7 +4963,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,Z\gamma\to \gamma 2\mu}@f$
      */
-    virtual double muTHUggHZgamumu(const double sqrt_s) const;
+    //virtual double muTHUggHZgamumu(const double sqrt_s) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -4972,31 +4972,31 @@ public:
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
      * @return @f$\delta g_{1,Z}@f$
      */
-    virtual double deltag1ZNP() const;
+    //virtual double deltag1ZNP() const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{Z}@f$.
      * @return @f$\delta \kappa_{Z}@f$
      */
-    virtual double deltaKZNP() const;
+    //virtual double deltaKZNP() const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,\gamma}@f$.
      * @return @f$\delta g_{1,\gamma}@f$
      */
-    virtual double deltag1gaNP() const;
+    //virtual double deltag1gaNP() const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{\gamma}@f$.
      * @return @f$\delta \kappa_{\gamma}@f$
      */
-    virtual double deltaKgammaNP() const;
+    //virtual double deltaKgammaNP() const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
      * @return @f$\lambda_{Z}@f$
      */
-    virtual double lambdaZNP() const;
+    //virtual double lambdaZNP() const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5005,14 +5005,14 @@ public:
      * gauge coupling @f$g_{1,Z}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
      * @return @f$\delta g_{1,Z}@f$
      */
-    virtual double deltag1ZNPEff() const;
+    //virtual double deltag1ZNPEff() const;
 
     /**
      * @brief The new physics contribution to the effective anomalous triple 
      * gauge coupling @f$\kappa_{\gamma}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
      * @return @f$\delta \kappa_{\gamma}@f$
      */
-    virtual double deltaKgammaNPEff() const;
+    //virtual double deltaKgammaNPEff() const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5025,7 +5025,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$\delta sigma@f$ [pb]
      */
-    virtual double deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const;
+    //virtual double deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const;
 
     /**
      * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to 4f @f$, 
@@ -5036,7 +5036,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$sigma@f$ [pb]
      */
-    virtual double xseeWW4fLEP2(const double sqrt_s, const int fstate) const;
+    //virtual double xseeWW4fLEP2(const double sqrt_s, const int fstate) const;
 
     /**
      * @brief The new physics contribution to the total cross section in pb for @f$e^+ e^- \to W^+ W^-@f$, 
@@ -5044,7 +5044,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$\delta sigma@f$ [pb]
      */
-    virtual double deltaxseeWWtotLEP2(const double sqrt_s) const;
+    //virtual double deltaxseeWWtotLEP2(const double sqrt_s) const;
 
 
     /**
@@ -5053,7 +5053,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$sigma@f$ [pb]
      */
-    virtual double xseeWWtotLEP2(const double sqrt_s) const;
+    //virtual double xseeWWtotLEP2(const double sqrt_s) const;
 
     /**
      * @brief The new physics contribution to the differential cross section in pb for @f$e^+ e^- \to W^+ W^- \to lv jj @f$, 
@@ -5062,7 +5062,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$\delta d\sigma/d\cos{\theta}@f$ [pb]
      */
-    virtual double deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const;
+    //virtual double deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const;
 
     /**
      * @brief The differential cross section in pb for @f$e^+ e^- \to W^+ W^- \to lv jj @f$, 
@@ -5071,28 +5071,28 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$d\sigma/d\cos{\theta}@f$ [pb]
      */
-    virtual double dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const;
+    //virtual double dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const;
 
     /**
      * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
      * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.
      * @return @f$d\sigma/d\cos{\theta}@f$
      */
-    virtual double dxseeWWdcos(const double sqrt_s, const double cos) const;
+    //virtual double dxseeWWdcos(const double sqrt_s, const double cos) const;
 
     /**
      * @brief The integral of differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
      * with @f$\ell= e, \mu@f$ in a given bin of the @f$W@f$ polar angle.
      * @return @f$\int_{\cos{\theta_1}}^{\cos{\theta_2}} d\sigma/d\cos{\theta}@f$
      */
-    virtual double dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const;
+    //virtual double dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const;
 
     /**
      * @brief Total @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$ cross section in pb, 
      * with @f$\ell= e, \mu@f$.
      * @return @f$\sigma(e^+ e^- \to W^+ W^- \to jj \ell \nu) @f$
      */
-    virtual double xseeWW(const double sqrt_s) const;
+    //virtual double xseeWW(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{eeWW}@f$ between the 
@@ -5101,7 +5101,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{eeWW}@f$
      */
-    virtual double mueeWW(const double sqrt_s) const;
+    //virtual double mueeWW(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{eeWW}@f$ between the 
@@ -5111,7 +5111,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeWW}@f$
      */
-    virtual double mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    //virtual double mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5122,7 +5122,7 @@ public:
      * From arXiv:1807.01796 and the contribution to FCC CDR Vol 1. Implemented only in NPSMEFTd6General class.
      * @return @f$g_p^Z@f$
      */
-    virtual double ppZHprobe(const double sqrt_s) const;
+    //virtual double ppZHprobe(const double sqrt_s) const;
 
     /**
      * @brief The number of events in  @f$ p p \to WZ@f$
@@ -5131,7 +5131,7 @@ public:
      * Implemented only in NPSMEFTd6General class.
      * @return @f$N_{ev}^{p_{TV}}/N_{ev,SM}^{p_{TV}}@f$
      */
-    virtual double mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const;
+    //virtual double mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -5144,7 +5144,7 @@ public:
      * @brief The STXS0 bin @f$pp \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS0_qqH(const double sqrt_s) const;
+    //virtual double STXS0_qqH(const double sqrt_s) const;
 
 
     //----- Stage 1
@@ -5153,254 +5153,254 @@ public:
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH_VBFtopo_j3v(const double sqrt_s) const;
+    //virtual double STXS_ggH_VBFtopo_j3v(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH_VBFtopo_j3(const double sqrt_s) const;
+    //virtual double STXS_ggH_VBFtopo_j3(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH0j(const double sqrt_s) const;
+    //virtual double STXS_ggH0j(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH1j_pTH_0_60(const double sqrt_s) const;
+    //virtual double STXS_ggH1j_pTH_0_60(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH1j_pTH_60_120(const double sqrt_s) const;
+    //virtual double STXS_ggH1j_pTH_60_120(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH1j_pTH_120_200(const double sqrt_s) const;
+    //virtual double STXS_ggH1j_pTH_120_200(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH1j_pTH_200(const double sqrt_s) const;
+    //virtual double STXS_ggH1j_pTH_200(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH2j_pTH_0_200(const double sqrt_s) const;
+    //virtual double STXS_ggH2j_pTH_0_200(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH2j_pTH_0_60(const double sqrt_s) const;
-
-
-    /**
-     * @brief The STXS bin @f$gg \to H@f$.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual double STXS_ggH2j_pTH_60_120(const double sqrt_s) const;
+    //virtual double STXS_ggH2j_pTH_0_60(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH2j_pTH_120_200(const double sqrt_s) const;
+    //virtual double STXS_ggH2j_pTH_60_120(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ggH2j_pTH_200(const double sqrt_s) const;
+    //virtual double STXS_ggH2j_pTH_120_200(const double sqrt_s) const;
+
+
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    //virtual double STXS_ggH2j_pTH_200(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const;
-
-
-    /**
-     * @brief The STXS bin @f$qq \to H qq@f$.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual double STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const;
+    //virtual double STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const;
+    //virtual double STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const;
+
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHqq_nonVHtopo(const double sqrt_s) const;
+    //virtual double STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHqq_VHtopo(const double sqrt_s) const;
+    //virtual double STXS_qqHqq_nonVHtopo(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHqq_Rest(const double sqrt_s) const;
+    //virtual double STXS_qqHqq_VHtopo(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHqq_pTj_200(const double sqrt_s) const;
+    //virtual double STXS_qqHqq_Rest(const double sqrt_s) const;
+
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    //virtual double STXS_qqHqq_pTj_200(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHlv_pTV_0_250(const double sqrt_s) const;
-
-
-    /**
-     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual double STXS_qqHlv_pTV_0_150(const double sqrt_s) const;
+    //virtual double STXS_qqHlv_pTV_0_250(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const;
+    //virtual double STXS_qqHlv_pTV_0_150(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const;
+    //virtual double STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHlv_pTV_250(const double sqrt_s) const;
+    //virtual double STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const;
+
+
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    //virtual double STXS_qqHlv_pTV_250(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHll_pTV_0_150(const double sqrt_s) const;
+    //virtual double STXS_qqHll_pTV_0_150(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHll_pTV_150_250(const double sqrt_s) const;
-
-
-    /**
-     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual double STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const;
+    //virtual double STXS_qqHll_pTV_150_250(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const;
+    //virtual double STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const;
+
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_qqHll_pTV_250(const double sqrt_s) const;
+    //virtual double STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const;
+
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    //virtual double STXS_qqHll_pTV_250(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$ ttH + tH @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ttHtH(const double sqrt_s) const;
+    //virtual double STXS_ttHtH(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const;
+    //virtual double STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const;
+    //virtual double STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_WHqqHqq_VH2j(const double sqrt_s) const;
+    //virtual double STXS_WHqqHqq_VH2j(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_WHqqHqq_Rest(const double sqrt_s) const;
+    //virtual double STXS_WHqqHqq_Rest(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_WHqqHqq_pTj1_200(const double sqrt_s) const;
+    //virtual double STXS_WHqqHqq_pTj1_200(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const;
+    //virtual double STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const;
+    //virtual double STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ZHqqHqq_VH2j(const double sqrt_s) const;
+    //virtual double STXS_ZHqqHqq_VH2j(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ZHqqHqq_Rest(const double sqrt_s) const;
+    //virtual double STXS_ZHqqHqq_Rest(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const;
+    //virtual double STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const;
 
 
     //----- Stage 1.2 
@@ -5410,305 +5410,305 @@ public:
     /**
      * @brief The STXS BR @f$ H \to 4l @f$, @f$l=e,\mu@f$.
      */
-    virtual double STXS12_BrH4lRatio() const;
+    //virtual double STXS12_BrH4lRatio() const;
 
     /**
      * @brief The STXS BR @f$ H \to e\nu \mu\nu @f$.
      */
-    virtual double STXS12_BrHevmuvRatio() const;
+    //virtual double STXS12_BrHevmuvRatio() const;
 
     /**
      * @brief The STXS BR @f$ H \to \gamma \gamma @f$.
      */
-    virtual double STXS12_BrHgagaRatio() const;
+    //virtual double STXS12_BrHgagaRatio() const;
 
     /**
      * @brief The STXS BR @f$ H \to bb @f$.
      */
-    virtual double STXS12_BrHbbRatio() const;
+    //virtual double STXS12_BrHbbRatio() const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,~200<p_{TH} [GeV]<300@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,~300<p_{TH} [GeV]<450@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,~450<p_{TH} [GeV]<650@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,650<p_{TH} [GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j=0,~p_{TH} [GeV]<10@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j=0,~10<p_{TH} [GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j = 1,~p_{TH} [GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j = 1,~60<p_{TH} [GeV]<120@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j = 1,~120<p_{TH} [GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const;
+    //virtual double STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~m_{jj}[GeV]<350,~p_{TH} [GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~m_{jj}[GeV]<350,~60<p_{TH} [GeV]<120@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~m_{jj}[GeV]<350,~120<p_{TH} [GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH} [GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH} [GeV]<200,~25<p_{THjj}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH} [GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH} [GeV]<200,~25<p_{THjj}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggHll_pTV0_75(const double sqrt_s) const;
+    //virtual double STXS12_ggHll_pTV0_75(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$75<p_{TV}[GeV]<150@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggHll_pTV75_150(const double sqrt_s) const;
+    //virtual double STXS12_ggHll_pTV75_150(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$N_j = 0,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const;
+    //virtual double STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$N_j = 1,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const;
+    //virtual double STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$250 < p_{TV}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ggHll_pTV250_Inf(const double sqrt_s) const;
+    //virtual double STXS12_ggHll_pTV250_Inf(const double sqrt_s) const;
 
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j = 0@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_Nj0(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_Nj0(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j = 1@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_Nj1(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_Nj1(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~m_{jj}[GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~60<m_{jj}[GeV]<120@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~120<m_{jj}[GeV]<350@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV],~200<p_{TH}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200,~25<p_{THjj}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH}[GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH}[GeV]<200,~25<p_{THjj}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const;
+    //virtual double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHlv_pTV0_75(const double sqrt_s) const;
+    //virtual double STXS12_qqHlv_pTV0_75(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$75<p_{TV}[GeV]<150@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHlv_pTV75_150(const double sqrt_s) const;
+    //virtual double STXS12_qqHlv_pTV75_150(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$N_j = 0,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const;
+    //virtual double STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$N_j \geq 1,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const;
+    //virtual double STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$250<p_{TV}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const;
+    //virtual double STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHll_pTV0_75(const double sqrt_s) const;
+    //virtual double STXS12_qqHll_pTV0_75(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$75<p_{TV}[GeV]<150@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHll_pTV75_150(const double sqrt_s) const;
+    //virtual double STXS12_qqHll_pTV75_150(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$N_j = 0,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const;
+    //virtual double STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$N_j \geq 1,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const;
+    //virtual double STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$250<p_{TV}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_qqHll_pTV250_Inf(const double sqrt_s) const;
+    //virtual double STXS12_qqHll_pTV250_Inf(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$p_{TH}[GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ttH_pTH0_60(const double sqrt_s) const;
+    //virtual double STXS12_ttH_pTH0_60(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$60<p_{TH}[GeV]<120@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ttH_pTH60_120(const double sqrt_s) const;
+    //virtual double STXS12_ttH_pTH60_120(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$120<p_{TH}[GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ttH_pTH120_200(const double sqrt_s) const;
+    //virtual double STXS12_ttH_pTH120_200(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$200<p_{TH}[GeV]<300@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ttH_pTH200_300(const double sqrt_s) const;
+    //virtual double STXS12_ttH_pTH200_300(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$300<p_{TH}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_ttH_pTH300_Inf(const double sqrt_s) const;
+    //virtual double STXS12_ttH_pTH300_Inf(const double sqrt_s) const;
 
     /**
      * @brief The STXS bin @f$pp \to tH@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual double STXS12_tH(const double sqrt_s) const;
+    //virtual double STXS12_tH(const double sqrt_s) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5716,55 +5716,55 @@ public:
      * @brief The effective coupling @f$\kappa_{\mu,eff}=\sqrt{\Gamma_{H\mu\mu}/\Gamma_{H\mu\mu}^{SM}}@f$.
      * @return @f$\kappa_{\mu,eff}@f$
      */
-    virtual double kappamueff() const;
+    //virtual double kappamueff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{\tau,eff}=\sqrt{\Gamma_{H\tau\tau}/\Gamma_{H\tau\tau}^{SM}}@f$.
      * @return @f$\kappa_{\tau,eff}@f$
      */
-    virtual double kappataueff() const;
+    //virtual double kappataueff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{c,eff}=\sqrt{\Gamma_{Hcc}/\Gamma_{Hcc}^{SM}}@f$.
      * @return @f$\kappa_{c,eff}@f$
      */
-    virtual double kappaceff() const;
+    //virtual double kappaceff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{b,eff}=\sqrt{\Gamma_{Hbb}/\Gamma_{Hbb}^{SM}}@f$.
      * @return @f$\kappa_{b,eff}@f$
      */
-    virtual double kappabeff() const;
+    //virtual double kappabeff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{G,eff}=\sqrt{\Gamma_{HGG}/\Gamma_{HGG}^{SM}}@f$.
      * @return @f$\kappa_{G,eff}@f$
      */
-    virtual double kappaGeff() const;
+    //virtual double kappaGeff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{Z,eff}=\sqrt{\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}}@f$.
      * @return @f$\kappa_{Z,eff}@f$
      */
-    virtual double kappaZeff() const;
+    //virtual double kappaZeff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{W,eff}=\sqrt{\Gamma_{HWW}/\Gamma_{HWW}^{SM}}@f$.
      * @return @f$\kappa_{W,eff}@f$
      */
-    virtual double kappaWeff() const;
+    //virtual double kappaWeff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{A,eff}=\sqrt{\Gamma_{HAA}/\Gamma_{HAA}^{SM}}@f$.
      * @return @f$\kappa_{A,eff}@f$
      */
-    virtual double kappaAeff() const;
+    //virtual double kappaAeff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{ZA,eff}=\sqrt{\Gamma_{HZA}/\Gamma_{HZA}^{SM}}@f$.
      * @return @f$\kappa_{ZA,eff}@f$
      */
-    virtual double kappaZAeff() const;
+    //virtual double kappaZAeff() const;
 
     /////////////Basic interactions of the so-called Higgs basis////////////////
 
@@ -5778,7 +5778,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$\delta y_t@f$
      */
-    virtual double deltayt_HB() const;
+    //virtual double deltayt_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_b@f$.
@@ -5790,7 +5790,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$\delta y_b@f$
      */
-    virtual double deltayb_HB() const;
+    //virtual double deltayb_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
@@ -5802,7 +5802,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$\delta y_\tau@f$
      */
-    virtual double deltaytau_HB() const;
+    //virtual double deltaytau_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_c@f$.
@@ -5814,7 +5814,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$\delta y_c@f$
      */
-    virtual double deltayc_HB() const;
+    //virtual double deltayc_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
@@ -5826,7 +5826,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$\delta y_\mu@f$
      */
-    virtual double deltaymu_HB() const;
+    //virtual double deltaymu_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta c_z@f$.
@@ -5838,7 +5838,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$\delta c_z@f$
      */
-    virtual double deltacZ_HB() const;
+    //virtual double deltacZ_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
@@ -5850,7 +5850,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$c_{z\Box}@f$
      */
-    virtual double cZBox_HB() const;
+    //virtual double cZBox_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{zz}@f$.
@@ -5862,7 +5862,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$c_{zz}@f$
      */
-    virtual double cZZ_HB() const;
+    //virtual double cZZ_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
@@ -5874,7 +5874,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$c_{z\gamma}@f$
      */
-    virtual double cZga_HB() const;
+    //virtual double cZga_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
@@ -5886,7 +5886,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$c_{\gamma\gamma}@f$
      */
-    virtual double cgaga_HB() const;
+    //virtual double cgaga_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{gg}@f$.
@@ -5898,7 +5898,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$c_{gg}@f$
      */
-    virtual double cgg_HB() const;
+    //virtual double cgg_HB() const;
 
     /**
      * @brief The effective Higgs-basis coupling @f$c_{gg}^{Eff}@f$. (Similar to cgg_HB but including modifications of SM loops.)
@@ -5910,7 +5910,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$c_{gg}^{Eff}@f$
      */
-    virtual double cggEff_HB() const;
+    //virtual double cggEff_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
@@ -5922,7 +5922,7 @@ public:
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
      * @return @f$\lambda_{z}@f$
      */
-    virtual double lambz_HB() const;
+    //virtual double lambz_HB() const;
 
     /////////////Combinations of Warsaw basis coefficients constrained by EWPO////////////////
 
@@ -5931,84 +5931,84 @@ public:
      * @f$(\hat{C}_{HL}^{(1)})_{11}@f$.
      * @return @f$(\hat{C}_{HL}^{(1)})_{11}@f$
      */
-    virtual double CEWHL111() const;
+    //virtual double CEWHL111() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(1)})_{22}@f$.
      * @return @f$(\hat{C}_{HL}^{(1)})_{22}@f$
      */
-    virtual double CEWHL122() const;
+    //virtual double CEWHL122() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(1)})_{33}@f$.
      * @return @f$(\hat{C}_{HL}^{(1)})_{33}@f$
      */
-    virtual double CEWHL133() const;
+    //virtual double CEWHL133() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(3)})_{11}@f$.
      * @return @f$(\hat{C}_{HL}^{(3)})_{11}@f$
      */
-    virtual double CEWHL311() const;
+    //virtual double CEWHL311() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(3)})_{22}@f$.
      * @return @f$(\hat{C}_{HL}^{(3)})_{22}@f$
      */
-    virtual double CEWHL322() const;
+    //virtual double CEWHL322() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(3)})_{33}@f$.
      * @return @f$(\hat{C}_{HL}^{(3)})_{33}@f$
      */
-    virtual double CEWHL333() const;
+    //virtual double CEWHL333() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{11}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{11}@f$
      */
-    virtual double CEWHQ111() const;
+    //virtual double CEWHQ111() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{22}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{22}@f$
      */
-    virtual double CEWHQ122() const;
+    //virtual double CEWHQ122() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{33}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{33}@f$
      */
-    virtual double CEWHQ133() const;
+    //virtual double CEWHQ133() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{11}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{11}@f$
      */
-    virtual double CEWHQ311() const;
+    //virtual double CEWHQ311() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{22}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{22}@f$
      */
-    virtual double CEWHQ322() const;
+    //virtual double CEWHQ322() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{33}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{33}@f$
      */
-    virtual double CEWHQ333() const;
+    //virtual double CEWHQ333() const;
 
 
     /**
@@ -6016,7 +6016,7 @@ public:
      * @f$(\hat{C}_{HQ}^{(d)})_{33}@f$.
      * @return @f$(\hat{C}_{HQ}^{(d)})_{33}@f$
      */
-    virtual double CEWHQd33() const;
+    //virtual double CEWHQd33() const;
 
 
     /**
@@ -6024,21 +6024,21 @@ public:
      * @f$(\hat{C}_{He})_{11}@f$.
      * @return @f$(\hat{C}_{He})_{11}@f$
      */
-    virtual double CEWHe11() const;
+    //virtual double CEWHe11() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{He})_{22}@f$.
      * @return @f$(\hat{C}_{He})_{22}@f$
      */
-    virtual double CEWHe22() const;
+    //virtual double CEWHe22() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{He})_{33}@f$.
      * @return @f$(\hat{C}_{He})_{33}@f$
      */
-    virtual double CEWHe33() const;
+    //virtual double CEWHe33() const;
 
 
     /**
@@ -6046,21 +6046,21 @@ public:
      * @f$(\hat{C}_{Hu})_{11}@f$.
      * @return @f$(\hat{C}_{Hu})_{11}@f$
      */
-    virtual double CEWHu11() const;
+    //virtual double CEWHu11() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hu})_{22}@f$.
      * @return @f$(\hat{C}_{Hu})_{22}@f$
      */
-    virtual double CEWHu22() const;
+    //virtual double CEWHu22() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hu})_{33}@f$.
      * @return @f$(\hat{C}_{Hu})_{33}@f$
      */
-    virtual double CEWHu33() const;
+    //virtual double CEWHu33() const;
 
 
     /**
@@ -6068,21 +6068,21 @@ public:
      * @f$(\hat{C}_{Hd})_{11}@f$.
      * @return @f$(\hat{C}_{Hd})_{11}@f$
      */
-    virtual double CEWHd11() const;
+    //virtual double CEWHd11() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hd})_{22}@f$.
      * @return @f$(\hat{C}_{Hd})_{22}@f$
      */
-    virtual double CEWHd22() const;
+    //virtual double CEWHd22() const;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hd})_{33}@f$.
      * @return @f$(\hat{C}_{Hd})_{33}@f$
      */
-    virtual double CEWHd33() const;
+    //virtual double CEWHd33() const;
 
 
     /////////////Auxiliary observables////////////////
@@ -6092,194 +6092,194 @@ public:
      * (See code for details.)
      * @return AuxObs_NP1
      */
-    virtual double AuxObs_NP1() const;
+    //virtual double AuxObs_NP1() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP2
      * (See code for details.)
      * @return AuxObs_NP2
      */
-    virtual double AuxObs_NP2() const;
+    //virtual double AuxObs_NP2() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP3
      * (See code for details.)
      * @return AuxObs_NP3
      */
-    virtual double AuxObs_NP3() const;
+    //virtual double AuxObs_NP3() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP4
      * (See code for details.)
      * @return AuxObs_NP4
      */
-    virtual double AuxObs_NP4() const;
+    //virtual double AuxObs_NP4() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP5
      * (See code for details.)
      * @return AuxObs_NP5
      */
-    virtual double AuxObs_NP5() const;
+    //virtual double AuxObs_NP5() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP6
      * (See code for details.)
      * @return AuxObs_NP6
      */
-    virtual double AuxObs_NP6() const;
+    //virtual double AuxObs_NP6() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP7
      * (See code for details.)
      * @return AuxObs_NP7
      */
-    virtual double AuxObs_NP7() const;
+    //virtual double AuxObs_NP7() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP8
      * (See code for details.)
      * @return AuxObs_NP8
      */
-    virtual double AuxObs_NP8() const;
+    //virtual double AuxObs_NP8() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP9
      * (See code for details.)
      * @return AuxObs_NP9
      */
-    virtual double AuxObs_NP9() const;
+    //virtual double AuxObs_NP9() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP10
      * (See code for details.)
      * @return AuxObs_NP10
      */
-    virtual double AuxObs_NP10() const;
+    //virtual double AuxObs_NP10() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP11
      * (See code for details.)
      * @return AuxObs_NP11
      */
-    virtual double AuxObs_NP11() const;
+    //virtual double AuxObs_NP11() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP12
      * (See code for details.)
      * @return AuxObs_NP12
      */
-    virtual double AuxObs_NP12() const;
+    //virtual double AuxObs_NP12() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP13
      * @return AuxObs_NP13
      */
-    virtual double AuxObs_NP13() const;
+    //virtual double AuxObs_NP13() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP14
      * @return AuxObs_NP14
      */
-    virtual double AuxObs_NP14() const;
+    //virtual double AuxObs_NP14() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP15
      * @return AuxObs_NP15
      */
-    virtual double AuxObs_NP15() const;
+    //virtual double AuxObs_NP15() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP16
      * @return AuxObs_NP16
      */
-    virtual double AuxObs_NP16() const;
+    //virtual double AuxObs_NP16() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP17
      * @return AuxObs_NP17
      */
-    virtual double AuxObs_NP17() const;
+    //virtual double AuxObs_NP17() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP18
      * @return AuxObs_NP18
      */
-    virtual double AuxObs_NP18() const;
+    //virtual double AuxObs_NP18() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP19
      * @return AuxObs_NP19
      */
-    virtual double AuxObs_NP19() const;
+    //virtual double AuxObs_NP19() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP20
      * @return AuxObs_NP20
      */
-    virtual double AuxObs_NP20() const;
+    //virtual double AuxObs_NP20() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP21
      * (See code for details.)
      * @return AuxObs_NP21
      */
-    virtual double AuxObs_NP21() const;
+    //virtual double AuxObs_NP21() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP22
      * (See code for details.)
      * @return AuxObs_NP22
      */
-    virtual double AuxObs_NP22() const;
+    //virtual double AuxObs_NP22() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP23
      * @return AuxObs_NP23
      */
-    virtual double AuxObs_NP23() const;
+    //virtual double AuxObs_NP23() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP24
      * @return AuxObs_NP24
      */
-    virtual double AuxObs_NP24() const;
+    //virtual double AuxObs_NP24() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP25
      * @return AuxObs_NP25
      */
-    virtual double AuxObs_NP25() const;
+    //virtual double AuxObs_NP25() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP26
      * @return AuxObs_NP26
      */
-    virtual double AuxObs_NP26() const;
+    //virtual double AuxObs_NP26() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP27
      * @return AuxObs_NP27
      */
-    virtual double AuxObs_NP27() const;
+    //virtual double AuxObs_NP27() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP28
      * @return AuxObs_NP28
      */
-    virtual double AuxObs_NP28() const;
+    //virtual double AuxObs_NP28() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP29
      * @return AuxObs_NP29
      */
-    virtual double AuxObs_NP29() const;
+    //virtual double AuxObs_NP29() const;
 
     /**
      * @brief Auxiliary observable AuxObs_NP30
      * @return AuxObs_NP20
      */
-    virtual double AuxObs_NP30() const;
+    //virtual double AuxObs_NP30() const;
 
     const RGESolver& getSMEFTEvol() const {
         return SMEFTEvol;
@@ -7200,21 +7200,21 @@ protected:
      * @param[in] F a lepton or quark
      * @return @f$(\f$C_{HF}^{(1)})_{FF}\f$@f$
      */
-    double CHF1_diag(const Particle F) const;
+    //double CHF1_diag(const Particle F) const;
 
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(3)}\f$ corresponding to particle F.
      * @param[in] F a lepton or quark
      * @return @f$(\f$C_{HF}^{(3)})_{FF}\f$@f$
      */
-    double CHF3_diag(const Particle F) const;
+    //double CHF3_diag(const Particle F) const;
 
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HE,HU,HD}\f$ corresponding to particle f.
      * @param[in] f a lepton or quark
      * @return @f$(\f$C_{Hf})_{ff}\f$@f$
      */
-    double CHf_diag(const Particle f) const;
+    //double CHf_diag(const Particle f) const;
 
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{Hud}\f$ corresponding to particle f.

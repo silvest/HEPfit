@@ -17,6 +17,7 @@
 #include "NPEffectiveGIMR.h"
 #include "NPEffectiveGIMRprime.h"
 #include "NPSMEFTd6.h"
+#include "NPSMEFTd6General.h"
 #include "NPSMEFT6dtopquark.h"
 #include "SigmaBR.h"
 #include "HiggsKvKf.h"
@@ -66,6 +67,7 @@ ModelFactory::ModelFactory()
     modelFactory["NPEffectiveGIMR"] = bind(boost::factory<NPEffectiveGIMR*>(), false, false);
     modelFactory["NPEffectiveGIMRprime"] = bind(boost::factory<NPEffectiveGIMRprime*>(), false, false);
     modelFactory["NPSMEFTd6"] = bind(boost::factory<NPSMEFTd6*>(), false, false);
+    modelFactory["NPSMEFTd6General"] = boost::factory<NPSMEFTd6General*>();
     
     modelFactory["NPSMEFT6dtopquark"] = boost::factory<NPSMEFT6dtopquark*>();
 
