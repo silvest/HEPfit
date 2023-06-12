@@ -278,6 +278,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -452,6 +453,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -610,6 +612,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>

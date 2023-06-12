@@ -15,7 +15,7 @@
 #include <string.h>
 #include <stdexcept>
 #include <gsl/gsl_integration.h>
-#include <RGESolver.h>
+#include "RGESolver.h"
 
 /**
  * @class NPSMEFTd6General

@@ -400,6 +400,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../SMEFTRGEvolutor"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SMEFTRGEvolutor"
+                            BC="${MAKE} -j 6 -f Makefile CONF=Debug"
+                            CC="${MAKE} -j 6 -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"
                             CN="Debug"
@@ -843,6 +855,18 @@
                             BC="${MAKE} -j 8 -f Makefile CONF=Release"
                             CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SMEFTRGEvolutor"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SMEFTRGEvolutor"
+                            BC="${MAKE} -j 6 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 6 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1297,6 +1321,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../SMEFTRGEvolutor"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SMEFTRGEvolutor"
+                            BC="${MAKE} -j 6 -f Makefile CONF=Debug"
+                            CC="${MAKE} -j 6 -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../EW"
                             CT="3"
                             CN="Debug"
@@ -1726,6 +1762,18 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SMEFTRGEvolutor"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SMEFTRGEvolutor"
+                            BC="${MAKE} -j 6 -f Makefile CONF=Release"
+                            CC="${MAKE} -j 6 -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
