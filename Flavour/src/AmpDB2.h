@@ -156,7 +156,7 @@ private:
     double F(quarks qq, int k, int i, int j);
     double P(quarks qq, int k, int i, int j);
     gslpp::complex D(quarks qq, int k);
-    gslpp::complex deltas_1overm(quarks qq, quark q);  //require computeCKMandMasses
+    gslpp::complex deltas_1overm_NLO1(quarks qq, quark q);  //require computeCKMandMasses
     gslpp::vector<double> me = gslpp::vector<double>(5, 0.);
     gslpp::vector<double> me_R = gslpp::vector<double>(5, 0.); //R0 to R4
     gslpp::vector<double> me_Rtilde = gslpp::vector<double>(3, 0.);
@@ -175,6 +175,7 @@ private:
     double cacheF1[24];
     double cacheP[84];
     gslpp::complex cacheD[6];
+    gslpp::complex cache_deltas_1overm_NLO1[6];
     gslpp::complex cache_deltas_1overm[6];
 
 //returns position in the corresponding array
@@ -219,7 +220,7 @@ private:
     const double M_PI2 = M_PI * M_PI;
     double as_4pi; //alpha_s/(4Pi)
     
-    // with Mc(Mc) and not Mc(mub)
+    // z for 1/mb corrections
     double zc;
     double zc2;
     double oneminuszc2;
@@ -264,12 +265,10 @@ private:
     double p_s(quarks qq, int i, int j, int n);
     gslpp::complex lambda_c;
     gslpp::complex lambda_u;
-    //for checking cache;
     double lastInput_compute_pp_s[3] = {NAN, NAN, NAN};
     
     const double M_PI4 = M_PI2 * M_PI2;
     bool orderofp[3] = {true, true, true};
-    bool flag_Gerlach;
     
     //RI
     //arXiv:hep-ph/0606197v1, scheme dependent different from Mathematica
@@ -277,7 +276,8 @@ private:
     gslpp::matrix<double> coeffsMStoRI;
     bool flag_RI;
     
-    //hep-ph/0612167
+    //hep-ph/0612167 
+    gslpp::complex deltas_1overm(quarks qq, quark q);
     void compute_g();
     gslpp::complex g(quarks qq, int i);
     gslpp::complex gtilde(quarks qq, int i);
