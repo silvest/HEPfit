@@ -1036,7 +1036,8 @@ double QCD::threCorrForMass(const double nf_f, const double nf_i) const
     if (fabs(nf_f - nf_i) != 1.)
         throw std::runtime_error("Error in QCD::threCorrForMass()");
 
-    double mu_threshold, mf, log_mu2_mf2;
+    // hep-ph/9712201v2 eq. (48)
+    double mu_threshold, mf, log_mu2_mf2, AlsoverPi;
     if (nf_f > nf_i) {
         if (nf_f == 6.) {
             mu_threshold = mut;
@@ -1050,7 +1051,8 @@ double QCD::threCorrForMass(const double nf_f, const double nf_i) const
         } else
             throw std::runtime_error("Error in QCD::threCorrForMass()");
         log_mu2_mf2 = 2. * log(mu_threshold / mf);
-        return (1. + pow(Als(mu_threshold - MEPS, FULLNNLO) / M_PI, 2.)
+        AlsoverPi = Als(mu_threshold - MEPS, FULLNNLO) / M_PI;
+        return (1. + AlsoverPi * AlsoverPi
                 *(-log_mu2_mf2 * log_mu2_mf2 / 12. + 5. / 36. * log_mu2_mf2 - 89. / 432.));
     } else {
         if (nf_i == 6.) {
@@ -1065,7 +1067,8 @@ double QCD::threCorrForMass(const double nf_f, const double nf_i) const
         } else
             throw std::runtime_error("Error in QCD::threCorrForMass()");
         log_mu2_mf2 = 2. * log(mu_threshold / mf);
-        return (1. + pow(Als(mu_threshold + MEPS, FULLNNLO) / M_PI, 2.)
+        AlsoverPi = Als(mu_threshold + MEPS, FULLNNLO) / M_PI;
+        return (1. + AlsoverPi * AlsoverPi
                 *(log_mu2_mf2 * log_mu2_mf2 / 12. - 5. / 36. * log_mu2_mf2 + 89. / 432.));
     }
 }
@@ -1195,7 +1198,7 @@ double QCD::MrunTMP(const double mu_f, const double mu_i, const double m,
     if (order == NLO) return mNLO;
     if (order == FULLNLO) return (mLO + mNLO);
 
-    // NNLO contribution
+    // NNLO contribution: Chetyrkin, hep-ph/9703278v1  eq. (15)
     double b2 = Beta2(nf), g2 = Gamma2(nf);
     double A2 = b1 * b1 * g0 / (2. * b0 * b0 * b0) - b2 * g0 / (2. * b0 * b0) - b1 * g1 / (2. * b0 * b0) + g2 / (2. * b0);
     double mNNLO = mLO * (A1 * A1 / 2. * (af - ai)*(af - ai) + A2 / 2. * (af * af - ai * ai));
