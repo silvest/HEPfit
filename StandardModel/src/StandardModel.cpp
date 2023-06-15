@@ -921,6 +921,10 @@ double StandardModel::DeltaAlphaLepton(const double s) const
 double StandardModel::DeltaAlphaL5q() const
 {
     double Mz2 = Mz*Mz;
+    //std::cout<<"\033[1;32m DeltaAlphaLepton(Mz2) = \033[0m "<< DeltaAlphaLepton(Mz2) << std::endl;
+    //std::cout<<"\033[1;32m dAl5hMz = \033[0m "<< dAl5hMz << std::endl;
+    //std::cout<<"\033[1;32m dAle5Mz = \033[0m "<< dAle5Mz << std::endl;
+
     return (DeltaAlphaLepton(Mz2) + dAl5hMz);
 }
 
@@ -945,10 +949,13 @@ double StandardModel::DeltaAlphaTop(const double s) const
 
 double StandardModel::DeltaAlpha() const
 {
-    if (FlagCacheInStandardModel)
-        if (useDeltaAlpha_cache)
-            return DeltaAlpha_cache;
 
+    if (FlagCacheInStandardModel){
+        if (useDeltaAlpha_cache){
+            return DeltaAlpha_cache;
+        }
+    }
+  
     double Mz2 = Mz*Mz;
     DeltaAlpha_cache = DeltaAlphaL5q() + DeltaAlphaTop(Mz2);
     useDeltaAlpha_cache = true;
@@ -1018,8 +1025,12 @@ double StandardModel::Mw_tree() const
 {
     if (FlagMWinput){
         return Mw_inp;
-    } else
+    } else{
+        //std::cout<<"\033[1;32m  Mz = \033[0m " << Mz << std::endl;
+        //std::cout<<"\033[1;32m  ale = \033[0m " << ale << std::endl;
+        //std::cout<<"\033[1;32m  GF = \033[0m " << GF << std::endl;
         return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * ale / sqrt(2.0) / GF / Mz / Mz)));
+    }
 }
 
 double StandardModel::s02() const
@@ -1047,10 +1058,13 @@ double StandardModel::Mw() const
     if (FlagMWinput)
         return Mw_inp;
 
-    if (FlagCacheInStandardModel)
-        if (useMw_cache)
+    if (FlagCacheInStandardModel){
+        if (useMw_cache){
+            //std::cout<<"\033[1;33m  uses useMw_cache? = \033[0m "<< Mw_cache << std::endl;
             return Mw_cache;
-
+        }
+    }
+    
     double Mw;
     if (FlagMw.compare("APPROXIMATEFORMULA") == 0)
         Mw = myApproximateFormulae->Mw();
@@ -1089,8 +1103,9 @@ double StandardModel::Dalpha5hMz() const
 {
     if (FlagMWinput){
         return (myApproximateFormulae->dAlpha5hMw());
-    } else
+    } else{
         return dAle5Mz;
+    }
 }
 
 double StandardModel::cW2(double Mw_i) const

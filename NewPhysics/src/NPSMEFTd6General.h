@@ -1147,8 +1147,10 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6General (including the 18 parameters needed for the SM). 
      */
-    static const int NNPSMEFTd6GeneralVars = 2708 + 18;
+    //static const int NNPSMEFTd6GeneralVars = 2708 + 18;
+    static const int NNPSMEFTd6GeneralVars = 2500 + 18;
 
+    
     /**
      * @brief A string array containing the labels of the model parameters in
      * %NPSMEFTd6General if the model flag FlagRotateCHWCHB=false.
@@ -6334,6 +6336,31 @@ protected:
     
     
     /**
+     * @brief The total corrections to the electromagnetic coupling @f$\alpha@f$
+     * at the @f$Z@f$-mass scale, denoted as @f$\Delta\alpha(M_Z^2)@f$.
+     * @details
+     * @f[
+     * \Delta\alpha(M_Z^2) =
+     * \Delta\alpha_{\rm lept}(M_Z^2)
+     * + \Delta\alpha_{\rm had}^{(5)}(M_Z^2)
+     * + \Delta\alpha_{\rm top}(M_Z^2)\,.
+     * @f]
+     * @return @f$\Delta\alpha(M_Z^2)@f$
+     */
+    //double DeltaAlpha() const;
+    
+    /**
+     * @brief The 5-quark contribution to the running of the em constant to the @f$Z@f$ pole.
+     * @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$.
+     * @details
+     * In the SM depending on the flag MWinput this is given by the input parameter dAle5Mz (MWinput=false)
+     * or it is computed from Mw (MWinput=true). Here we overwrite this function and we use always dAle5Mz.
+     * @return @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$
+     */
+    virtual double Dalpha5hMz() const;
+    
+    
+    /**
      * @brief An auxiliary method to compute quark masses and CKM parameters from Yukawa couplings
      */
     void computeQuarkMassesAndCKMFromYukawas();
@@ -6344,7 +6371,7 @@ protected:
 
     std::string SMEFTBasisFlag;
     CKM CKM_LNP;
-
+    
 
 
     double g1_LNP = 0;

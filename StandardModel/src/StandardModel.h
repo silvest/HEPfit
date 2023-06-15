@@ -2677,8 +2677,7 @@ virtual double getmq(const QCD::quark q, const double mu) const
 {
     return m_q(q, mu, FULLNLO);
 }
-    ////////////////////////////////////////////////////////////////////////
-protected:
+
 
     /**
      * @brief A method to set the value of a parameter of %StandardModel.
@@ -2687,6 +2686,19 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
+
+
+    ////////////////////////////////////////////////////////////////////////
+protected:
+
+    /**
+     * @brief A method to set the value of a parameter of %StandardModel.
+     * @param[in] name name of a model parameter
+     * @param[in] value the value to be assigned to the parameter specified by name
+     */
+    //virtual void setParameter(const std::string name, const double& value);
+    //LET'S MOVE THIS TO PUBLIC FOR ONE SECOND
+    
     /**
      * @brief The method to compute the %CKM matrix.
      */
@@ -3277,6 +3289,10 @@ protected:
     double getIntegrand_AFBnumeratorWithISR_bottom207(double x) const; 
     
     /* END: REMOVE FROM THE PACKAGE */
+    
+    
+    mutable bool useDeltaAlpha_cache; 
+    
     ////////////////////////////////////////////////////////////////////////    
 private:
     EWSMcache* myEWSMcache; ///< A pointer to an object of type EWSMcache.
@@ -3315,7 +3331,7 @@ private:
     mutable gslpp::complex rhoZ_f_cache[12]; ///< A cache of the value of @f$\rho_Z^l@f$.
     mutable gslpp::complex kappaZ_f_cache[12]; ///< A cache of the value of @f$\kappa_Z^l@f$.
     mutable bool useDeltaAlphaLepton_cache;
-    mutable bool useDeltaAlpha_cache;
+    //mutable bool useDeltaAlpha_cache; //We move this to protected
     mutable bool useMw_cache;
     mutable bool useGammaW_cache;
     mutable bool useRhoZ_f_cache[12];

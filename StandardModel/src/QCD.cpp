@@ -1080,6 +1080,10 @@ double QCD::Mrun(const double mu_f, const double mu_i, const double m,
     }
 
     double nfi = Nf(mu_i), nff = Nf(mu_f);
+    
+    //std::cout<<"\033[1;31m  nfi = \033[0m " << nfi << std::endl;
+    //std::cout<<"\033[1;31m  nfi = \033[0m " << nff << std::endl;
+    
     double mu_threshold, mu_threshold2, mu_threshold3, mrun;
     if (nff == nfi)
         mrun = MrunTMP(mu_f, mu_i, m, order);
@@ -1088,8 +1092,11 @@ double QCD::Mrun(const double mu_f, const double mu_i, const double m,
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mrun(mu_f,mu_i,m,order)");
         mu_threshold = AboveTh(mu_i);
         mrun = MrunTMP(mu_threshold - MEPS, mu_i, m, order);
-        if (order == FULLNNLO)
+        if (order == FULLNNLO){
+        //    std::cout<<"\033[1;31m  mrun = \033[0m " << mrun << std::endl;
             mrun *= threCorrForMass(nfi + 1., nfi); // threshold corrections
+        //    std::cout<<"\033[1;31m  mrun = \033[0m " << mrun << std::endl;
+        }
         if (nff == nfi + 1.) {
             mrun = MrunTMP(mu_f, mu_threshold + MEPS, mrun, order);
         } else if (nff == nfi + 2.) {
@@ -1316,6 +1323,10 @@ double QCD::Mofmu2MbarTMP(double *mu, double *params) const
 {
     double mofmu = params[0];
     double muI = params[1];
+    //Mrun uses mc(mc), mb(mb) and mt(mt) but only on threCorrForMass
+    //The effect of this is completely negligible so we don't
+    //need to keep updating the value of the masses in quarks[TOP]...
+    
     return (*mu - Mrun(*mu, muI, mofmu));
 }
 

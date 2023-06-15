@@ -53,8 +53,12 @@ int NPbase::OutputOrder() const {
     return 1;       //Overwritten in NPSMEFTd6
 }                           
 
-double NPbase::alphaMz() const
-{
+
+//If we define the alphaMz from trueSM it doesn't take the value for
+//dAle5Mz coming from the inherited class. Then the ZeroAlpha() funtion of
+//NPSMEFTd6General fails.
+//double NPbase::alphaMz() const
+//{
     /*AG:begin
     // FlagMWinput flag to be implemented in NPbase, especially for alphaMz and Mw!
     double dalphaMz = 0.0;
@@ -68,10 +72,10 @@ double NPbase::alphaMz() const
     return (trueSM.alphaMz() + dalphaMz);
     //AG:end */
     
-    double myAlphaMz = trueSM.alphaMz();
-    
-    return myAlphaMz;
-}
+//    double myAlphaMz = trueSM.alphaMz();
+//    
+//    return myAlphaMz;
+//}
 
 double NPbase::Mw() const
 {
