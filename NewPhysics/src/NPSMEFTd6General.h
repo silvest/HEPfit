@@ -6366,6 +6366,12 @@ protected:
     void computeQuarkMassesAndCKMFromYukawas();
     
     
+    /**
+     * @brief An auxiliary method to compute the Wilson Coefficients back into the UP/DOWN basis
+     */
+    void BackRotation();
+    
+    
     
     mutable Matching<NPSMEFTd6GeneralMatching, NPSMEFTd6General> NPSMEFTd6GM;
 
@@ -7150,10 +7156,13 @@ protected:
     gslpp::matrix<gslpp::complex> phi2dag;
     gslpp::matrix<gslpp::complex> phie;
 
-    double v2; ///< The square of the EW vev.
-    double v02; ///< The square of the EW vev, without the contribution of the dimension six operators.
+    double v2; ///< The square of the true EW vev.
+    //double v02; ///< The square of the EW vev, without the contribution of the dimension six operators.
     double delta_v2_rel; ///< The relative correction to the square of the EW vev due to dimension six operators. 
     double v2_over_LambdaNP2; ///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
+    
+
+    
     double aleMz; ///< The em constant at Mz. 
     double eeMz; ///< The em coupling at Mz.
     double eeMz2; ///< The em coupling squared (at Mz).

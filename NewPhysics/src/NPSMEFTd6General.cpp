@@ -3345,210 +3345,8 @@ void NPSMEFTd6General::computeQuarkMassesAndCKMFromYukawas()
 
 
 
-bool NPSMEFTd6General::PostUpdate()
+void NPSMEFTd6General::BackRotation()
 {
-    
-
-    
-    SMEFTEvol.SetCoefficient("g1",g1_LNP);
-    SMEFTEvol.SetCoefficient("g2",g2_LNP);
-    SMEFTEvol.SetCoefficient("g3",g3_LNP);
-    SMEFTEvol.SetCoefficient("lambda",lambdaH_LNP);
-    SMEFTEvol.SetCoefficient("mh2",2.*muH_LNP*muH_LNP);
-    CKM_LNP.computeCKMfromAngles(s12CKM_LNP,s23CKM_LNP,s13CKM_LNP,dCKM_LNP);
-    Yu.reset();
-    Yd.reset();
-    Ye.reset();
-    Yu.assignre(0,0,Yu_LNP);// Maybe it's worth to add the _LNP also in the Yukawa matrices although these would be different to those computed by computeYukawas()
-    Yu.assignre(1,1,Yc_LNP);
-    Yu.assignre(2,2,Yt_LNP);
-    Yd.assignre(0,0,Yd_LNP);
-    Yd.assignre(1,1,Ys_LNP);
-    Yd.assignre(2,2,Yb_LNP);
-    Ye.assignre(0,0,Ye_LNP);
-    Ye.assignre(1,1,Ymu_LNP);
-    Ye.assignre(2,2,Ytau_LNP);
-    if(SMEFTBasisFlag.compare("UP")==0)
-        Yd = Yd * CKM_LNP.getCKM().hconjugate();
-    else if(SMEFTBasisFlag.compare("DOWN")==0)
-        Yu = Yu * CKM_LNP.getCKM();
-    else
-        throw std::runtime_error("ERROR: inappropriate value of SMEFTBasisFlag");
-    
-    
-    
-    for(int i = 0; i < 3; i++)
-    {
-        SMEFTEvol.SetCoefficient("YeR",Ye(i,i).real(),i,i);
-        if(SMEFTBasisFlag.compare("UP")==0)
-        {
-            SMEFTEvol.SetCoefficient("YuR",Yu(i,i).real(),i,i);
-            for(int j=0; j < 3; j++)    
-            {
-               SMEFTEvol.SetCoefficient("YdR",Yd(i,j).real(),i,j);
-               SMEFTEvol.SetCoefficient("YdI",Yd(i,j).imag(),i,j);
-            }
-        }
-        else
-        {
-            SMEFTEvol.SetCoefficient("YdR",Yd(i,i).real(),i,i);
-            for(int j=0; j < 3; j++)    
-            {
-               SMEFTEvol.SetCoefficient("YuR",Yu(i,j).real(),i,j);
-               SMEFTEvol.SetCoefficient("YuI",Yu(i,j).imag(),i,j);
-            }
-        }
-    }
-    
-    
-    SMEFTEvol.Evolve("Numeric", Lambda_NP, muw);
-    
-    
-    // redefining the gluon field and the strong coupling, explicit SMEFT corrections cancel, so we use the SM relation
-    AlsMz = SMEFTEvol.GetCoefficient("g3");
-    AlsMz *= AlsMz/4./M_PI;
-    
-    //In the SM these are fixed in the SetParameter. In this model 
-    //we don't use that part of SetParameter so we must define it here
-    QCD::setParameter("AlsM", AlsMz);
-    QCD::setParameter("MAls", muw);
-    
-    double muH2 = SMEFTEvol.GetCoefficient("mh2")/2.;
-    double lamH = SMEFTEvol.GetCoefficient("lambda");
-    v02 = muH2/lamH;
-    delta_v2_rel = 3.*v02/(4.*lamH)*SMEFTEvol.GetCoefficient("CH");
-    
-    v2 = v02*(1. + delta_v2_rel);
-    
-    // redefining the Higgs mass
-    mHl = sqrt( 2. * lamH * v02 ) * ( 1. + delta_v2_rel +
-            (- 1.5 / lamH * SMEFTEvol.GetCoefficient("CH") - 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * SMEFTEvol.GetCoefficient("CHbox")) * v02 );
-    
-    
-    
-    double g1 = SMEFTEvol.GetCoefficient("g1");
-    double g12 = g1*g1;
-    double g2 = SMEFTEvol.GetCoefficient("g2");
-    double g22 = g2*g2;
-    
-    Mz = sqrt(v02 * (g12 + g22) / 4. * ( 1 + delta_v2_rel + 
-            ( 0.5 * SMEFTEvol.GetCoefficient("CHD") + 2. * g1 * g2 / (g12 + g22) *  SMEFTEvol.GetCoefficient("CHWB")) 
-            * v02 ) );
-    
-
-    trueSM.setParameter("Mz", Mz);
-    //trueSM.computeCKM();
-    
-    //StandardModel::setParameter("Mz", Mz);
-    
-
-    GF = 1./sqrt(2.)/v02*(1 + delta_v2_rel 
-            + (SMEFTEvol.GetCoefficient("CHl3R",0,0) + SMEFTEvol.GetCoefficient("CHl3R", 1, 1) - 0.5 * (SMEFTEvol.GetCoefficient("CllR", 0, 1, 1, 0) + 
-            SMEFTEvol.GetCoefficient("CllR", 1, 0, 0, 1))) * v02);
-    
-    trueSM.setParameter("GF", GF);
-    
-    
-    aleMz = (g12*g22)/(g12 + g22)/4./M_PI * (1. - 2.*g1*g2/(g12+g22) * SMEFTEvol.GetCoefficient("CHWB") * v02);
-    
-    
-    /* Compute the 5-quark contribution to the running of alpha*/
-    dAl5hMz = Dalpha5hMz(); 
-    //IMPORTANT: This will be done again in the SM postUpdate, changing the definition according to the scheme
-    //Maybe we could just turn off the Mw scheme flag...
-    
-    /*std::cout<<"\033[1;33m  g1 = \033[0m " << g1 << std::endl;
-    std::cout<<"\033[1;33m  g2 = \033[0m " << g2 << std::endl;
-    std::cout<<"\033[1;33m  aleMz = \033[0m " << aleMz << std::endl;
-    std::cout<<"\033[1;33m  AlsMz = \033[0m " << AlsMz << std::endl;
-    std::cout<<"\033[1;33m  GF = \033[0m " << GF << std::endl;
-    std::cout<<"\033[1;33m  Mz = \033[0m " << Mz << std::endl;
-    std::cout<<"\033[1;33m  muH = \033[0m " << sqrt(muH2) << std::endl;
-    std::cout<<"\033[1;33m  lamH = \033[0m " << lamH << std::endl;
-    std::cout<<"\033[1;33m  sqrt(v02) = \033[0m " << sqrt(v02) << std::endl;
-    std::cout<<"\033[1;33m  mHl = \033[0m " << mHl << std::endl;
-    */
-    
-    //std::cout<<"\033[1;33m  trueSM.Mw_tree() = \033[0m " << trueSM.Mw_tree() << std::endl;
-    //std::cout<<"\033[1;33m  Mw = \033[0m " << Mw() << std::endl;
-    //std::cout<<"\033[1;33m  trueSM.Mw() = \033[0m " << trueSM.Mw() << std::endl;
-    
-    
-    
-    //We solve for dAle5Mz from aleMz. If the solution is outside a 20sigma range we put the value to the boundary.
-    //double xmin = .02566, xmax = .02966;
-    double xmin = .00566, xmax = .02966;
-    double emp = 0.;
-    
-    //std::cout<<"\033[1;33m  ZeroAle(&xmin, &emp)= \033[0m "<< ZeroAle(&xmin, &emp) << std::endl;
-    //std::cout<<"\033[1;33m  dAle5Mz= \033[0m "<< dAle5Mz << std::endl;
-    //std::cout<<"\033[1;33m  alphaMz()= \033[0m "<< alphaMz() << std::endl;
-    //std::cout<<"\033[1;33m  aleMz= \033[0m "<< aleMz << std::endl;
-    //std::cout<<"\033[1;33m  DeltaAlpha()= \033[0m "<< DeltaAlpha() << std::endl;
-    //std::cout<<"\033[1;33m  DeltaAlphaL5q()= \033[0m "<< DeltaAlphaL5q() << std::endl;
-    //std::cout<<"\033[1;33m  DeltaAlphaTop(Mz2)= \033[0m "<< DeltaAlphaTop(Mz*Mz) << std::endl;
-    //std::cout<<"\033[1;33m  DeltaAlphaLepton(Mz2) = \033[0m "<< DeltaAlphaLepton(Mz*Mz) << std::endl;
-    //std::cout<<"\033[1;33m  Mz= \033[0m "<< Mz << std::endl;
-    ////std::cout<<"\033[1;33m  FlagMWinput= \033[0m "<< FlagMWinput << std::endl;
-
-    
-    //std::cout<<"\033[1;33m  ZeroAle(&xmax, &emp)= \033[0m "<< ZeroAle(&xmax, &emp) << std::endl;
-    //std::cout<<"\033[1;33m  dAle5Mz= \033[0m "<< dAle5Mz << std::endl;
-    //std::cout<<"\033[1;33m  alphaMz()= \033[0m "<< alphaMz() << std::endl;
-    //std::cout<<"\033[1;33m  aleMz= \033[0m "<< aleMz << std::endl;
-    //std::cout<<"\033[1;33m  DeltaAlpha()= \033[0m "<< DeltaAlpha() << std::endl;
-    //std::cout<<"\033[1;33m  DeltaAlphaL5q()= \033[0m "<< DeltaAlphaL5q() << std::endl;
-    //std::cout<<"\033[1;33m  DeltaAlphaTop(Mz2)= \033[0m "<< DeltaAlphaTop(Mz*Mz) << std::endl;
-    //std::cout<<"\033[1;33m  DeltaAlphaLepton(Mz2) = \033[0m "<< DeltaAlphaLepton(Mz*Mz) << std::endl;
-    //std::cout<<"\033[1;33m  Mz= \033[0m "<< Mz << std::endl;
-    
-    
-    TF1 f = TF1("f", this, &NPSMEFTd6General::ZeroAle, xmin, xmax, 0, "NPSMEFTd6General", "ZeroAle");
-    ROOT::Math::WrappedTF1 wf1(f);
-    ROOT::Math::BrentRootFinder brf;
-    brf.SetFunction(wf1, xmin, xmax);
-
-    double emptyparam = 0.;
-    if (brf.Solve()) dAle5Mz = brf.Root();
-    else if (fabs(ZeroAle(&xmin, &emptyparam)) >  fabs(ZeroAle(&xmax,&emptyparam))) dAle5Mz = .02966; //rough but the point will be killed anyway by the measurement of dAle5Mz
-    else dAle5Mz = .02566; //rough but the point will be killed anyway by the measurement of dAle5Mz
-    
-
-    
-    // Quark masses
-    computeYukawas();
-        
-    computeQuarkMassesAndCKMFromYukawas();
-    
-   
-    //Now we will define all the WC at the EW scale. Those with flavour indices will be
-    //defined as arrays. Some of the operators are not invariant under weak basis transformations,
-    //we will conveniently redefine those coefficients using the proper rotation.
-    //Probably it's much better to do these things in an external function
-    CG = SMEFTEvol.GetCoefficient("CG");  
-    CW = SMEFTEvol.GetCoefficient("CW");  
-    //C2B = SMEFTEvol.GetCoefficient("C2B");  
-    //C2W = SMEFTEvol.GetCoefficient("C2W");  
-    //C2BS = SMEFTEvol.GetCoefficient("C2BS");  
-    //C2WS = SMEFTEvol.GetCoefficient("C2WS");  
-    CHG = SMEFTEvol.GetCoefficient("CHG");  
-    CHW = SMEFTEvol.GetCoefficient("CHW");  
-    CHB = SMEFTEvol.GetCoefficient("CHB");  
-    //CDHB = SMEFTEvol.GetCoefficient("CDHB");  
-    //CDHW = SMEFTEvol.GetCoefficient("CDHW");  
-    //CDB = SMEFTEvol.GetCoefficient("CDB");  
-    //CDW = SMEFTEvol.GetCoefficient("CDW");  
-    CHWB = SMEFTEvol.GetCoefficient("CHWB");  
-    CHD = SMEFTEvol.GetCoefficient("CHD");  
-    //CT = SMEFTEvol.GetCoefficient("CT");  
-    CHbox = SMEFTEvol.GetCoefficient("CHbox");  
-    CH = SMEFTEvol.GetCoefficient("CH");  
-    CGtilde = SMEFTEvol.GetCoefficient("CGtilde");  
-    CWtilde = SMEFTEvol.GetCoefficient("CWtilde");  
-    CHGtilde = SMEFTEvol.GetCoefficient("CHGtilde");  
-    CHWtilde = SMEFTEvol.GetCoefficient("CHWtilde");  
-    CHBtilde = SMEFTEvol.GetCoefficient("CHBtilde");  
-    CHWtildeB = SMEFTEvol.GetCoefficient("CHWtildeB");  
 
     
     gslpp::matrix<gslpp::complex> Vq(3, 3, 0.);
@@ -3569,8 +3367,8 @@ bool NPSMEFTd6General::PostUpdate()
     else
         throw std::runtime_error("ERROR: inappropriate value of SMEFTBasisFlag");
     
-
-
+    
+    
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             
@@ -3733,6 +3531,235 @@ bool NPSMEFTd6General::PostUpdate()
     }
     
 
+}
+
+
+
+bool NPSMEFTd6General::PostUpdate()
+{
+    
+    ///////////////////////////////////////////////////////
+    //Step 1: Set the initial conditions of the evolutor.//
+    ///////////////////////////////////////////////////////
+    //Note: The Wilson Coefficients are directly set by the SetParameter function, the Yukawas should be
+    //set here since we need to find them first but the coupling could also be set in SetParameter
+    
+    SMEFTEvol.SetCoefficient("g1",g1_LNP);
+    SMEFTEvol.SetCoefficient("g2",g2_LNP);
+    SMEFTEvol.SetCoefficient("g3",g3_LNP);
+    SMEFTEvol.SetCoefficient("lambda",lambdaH_LNP);
+    SMEFTEvol.SetCoefficient("mh2",2.*muH_LNP*muH_LNP);
+    CKM_LNP.computeCKMfromAngles(s12CKM_LNP,s23CKM_LNP,s13CKM_LNP,dCKM_LNP);
+    Yu.reset();
+    Yd.reset();
+    Ye.reset();
+    Yu.assignre(0,0,Yu_LNP);// Maybe it's worth to add the _LNP also in the Yukawa matrices although these would be different to those computed by computeYukawas()
+    Yu.assignre(1,1,Yc_LNP);
+    Yu.assignre(2,2,Yt_LNP);
+    Yd.assignre(0,0,Yd_LNP);
+    Yd.assignre(1,1,Ys_LNP);
+    Yd.assignre(2,2,Yb_LNP);
+    Ye.assignre(0,0,Ye_LNP);
+    Ye.assignre(1,1,Ymu_LNP);
+    Ye.assignre(2,2,Ytau_LNP);
+    if(SMEFTBasisFlag.compare("UP")==0)
+        Yd = Yd * CKM_LNP.getCKM().hconjugate();
+    else if(SMEFTBasisFlag.compare("DOWN")==0)
+        Yu = Yu * CKM_LNP.getCKM();
+    else
+        throw std::runtime_error("ERROR: inappropriate value of SMEFTBasisFlag");
+    
+    
+    
+    for(int i = 0; i < 3; i++)
+    {
+        SMEFTEvol.SetCoefficient("YeR",Ye(i,i).real(),i,i);
+        if(SMEFTBasisFlag.compare("UP")==0)
+        {
+            SMEFTEvol.SetCoefficient("YuR",Yu(i,i).real(),i,i);
+            for(int j=0; j < 3; j++)    
+            {
+               SMEFTEvol.SetCoefficient("YdR",Yd(i,j).real(),i,j);
+               SMEFTEvol.SetCoefficient("YdI",Yd(i,j).imag(),i,j);
+            }
+        }
+        else
+        {
+            SMEFTEvol.SetCoefficient("YdR",Yd(i,i).real(),i,i);
+            for(int j=0; j < 3; j++)    
+            {
+               SMEFTEvol.SetCoefficient("YuR",Yu(i,j).real(),i,j);
+               SMEFTEvol.SetCoefficient("YuI",Yu(i,j).imag(),i,j);
+            }
+        }
+    }
+    
+    
+    //////////////////////////////////////////////
+    //Step 2: Evolve the WC down to the EW scale//
+    //////////////////////////////////////////////
+    
+    SMEFTEvol.Evolve("Numeric", Lambda_NP, muw);
+    
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //Step 3: Get the bosonic WC which will redefine the couplings after renormalisation.//
+    ///////////////////////////////////////////////////////////////////////////////////////
+    
+    CG = SMEFTEvol.GetCoefficient("CG");  
+    CW = SMEFTEvol.GetCoefficient("CW");  
+    //C2B = SMEFTEvol.GetCoefficient("C2B");  
+    //C2W = SMEFTEvol.GetCoefficient("C2W");  
+    //C2BS = SMEFTEvol.GetCoefficient("C2BS");  
+    //C2WS = SMEFTEvol.GetCoefficient("C2WS");  
+    CHG = SMEFTEvol.GetCoefficient("CHG");  
+    CHW = SMEFTEvol.GetCoefficient("CHW");  
+    CHB = SMEFTEvol.GetCoefficient("CHB");  
+    //CDHB = SMEFTEvol.GetCoefficient("CDHB");  
+    //CDHW = SMEFTEvol.GetCoefficient("CDHW");  
+    //CDB = SMEFTEvol.GetCoefficient("CDB");  
+    //CDW = SMEFTEvol.GetCoefficient("CDW");  
+    CHWB = SMEFTEvol.GetCoefficient("CHWB");  
+    CHD = SMEFTEvol.GetCoefficient("CHD");  
+    //CT = SMEFTEvol.GetCoefficient("CT");  
+    CHbox = SMEFTEvol.GetCoefficient("CHbox");  
+    CH = SMEFTEvol.GetCoefficient("CH");  
+    CGtilde = SMEFTEvol.GetCoefficient("CGtilde");  
+    CWtilde = SMEFTEvol.GetCoefficient("CWtilde");  
+    CHGtilde = SMEFTEvol.GetCoefficient("CHGtilde");  
+    CHWtilde = SMEFTEvol.GetCoefficient("CHWtilde");  
+    CHBtilde = SMEFTEvol.GetCoefficient("CHBtilde");  
+    CHWtildeB = SMEFTEvol.GetCoefficient("CHWtildeB");  
+    
+    
+    ///////////////////////////////////////////////////////
+    //Step 4: Compute the true vacuum and true Higgs mass//
+    ///////////////////////////////////////////////////////
+    
+    double muH2 = SMEFTEvol.GetCoefficient("mh2")/2.;
+    double lamH = SMEFTEvol.GetCoefficient("lambda");
+    double v02 = muH2/lamH;
+    //double d_v2_rel = 3.*v02/(4.*lamH)*SMEFTEvol.GetCoefficient("CH");
+    v2 = v02*(1 + 3.*v02/(4.*lamH)*CH); //linear
+    //v2 = v02*(1 + 3.*v02/(4.*lamH)*CH + 9.*v02*v02/(8.*lamH*lamH)*CH*CH);  //quadratic
+    
+    double mHl2 = 2*lamH*v2 - v2*v2*(3*CH - 4*CHbox*lamH + CHD*lamH); // linear
+    //mHl2 = 2*lamH*v2 - v2*v2*(3*CH - 4*CHbox*lamH + CHD*lamH) - 0.5*v2*v2*v2*(4*CHbox-CHD)*(3*CH-4*CHbox*lamH+CHD*lamH); // quad. should be expanded
+    
+    // redefining the SM Higgs mass
+    mHl=sqrt(mHl2); 
+
+    ////////////////////////////////////////////////////
+    //Step 5: Compute the renormalized gauge couplings//
+    ////////////////////////////////////////////////////
+    
+   
+    double g1 = (1 + v2*CHB)*SMEFTEvol.GetCoefficient("g1"); //linear
+    //double g1 = (1 + v2*CHB + 3*v2*v2*CHB*CHB/2)*SMEFTEvol.GetCoefficient("g1"); //quadratic
+    double g12 = g1*g1;
+    
+    double g2 = (1 + v2*CHW)*SMEFTEvol.GetCoefficient("g2"); //linear
+    //double g2 = (1 + v2*CHW + 3*v2*v2*CHW*CHW/2)*SMEFTEvol.GetCoefficient("g2"); //quadratic
+    double g22 = g2*g2;
+    
+    double g3 = (1 + v2*CHG)*SMEFTEvol.GetCoefficient("g3"); //linear
+    //double g3 = (1 + v2*CHG + 3*v2*v2*CHG*CHG/2)*SMEFTEvol.GetCoefficient("g3"); //quadratic
+    double g32 = g3*g3;
+    
+    
+    //////////////////////////////////////////////////
+    //Step 6: Define the physical (and measured) Mz.//
+    //////////////////////////////////////////////////
+    
+    double Mz2 = (g22 + g12)*v2/4 + v2*v2/8*(CHD*(g22+g12)+4*CHW*g2*g1); //linear
+    //double Mz2 = (g22 + g12)*v2/4 + v2*v2/8*(CHD*(g22+g12)+4*CHW*g2*g1) + v2*v2*v2/4*(CHWB*CHWB*(g22+g12)+CHWB*(2*CHW+2*CHB+CHD)*g2*g1); //quadratic
+    
+    Mz = sqrt(Mz2);
+    
+    /////////////////////////////////////////////////////////////////////////
+    //Step 7: Define the measured strong coupling constant at the Mz scale.//
+    /////////////////////////////////////////////////////////////////////////
+    
+    double Alsmuw = g32/4./M_PI;
+    QCD::setParameter("AlsM", Alsmuw);
+    QCD::setParameter("MAls", muw);
+    
+    AlsMz = QCD::Als(Mz);
+    
+    //std::cout<<"\033[1;33m  Alsmuw = \033[0m " << Alsmuw << std::endl;
+    //std::cout<<"\033[1;33m  Mz = \033[0m " << Mz << std::endl;
+    //std::cout<<"\033[1;33m  AlsMz = \033[0m " << AlsMz << std::endl;
+
+    
+    ///////////////////////////////////////////////////////////////////////////
+    //Step 8: Define the measured electromagnetic constants at the muw scale.//
+    ///////////////////////////////////////////////////////////////////////////
+    
+    //Actually this is alpha at muw not at Mz
+    aleMz = (g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB/(g12+g22)/(g12+g22))/4/M_PI; //linear
+    //aleMz = (g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB*(1+v2*(CHB+CHW))/(g12+g22)/(g12+g22) + 4*g12*g12*g22*g22*v2*v2*CHWB*CHWB/(g12+g22)/(g12+g22)/(g12+g22))/4/M_PI; //quadratic
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //Step 9: Find the delta alpha hadronic that generates the computed value of alphaMz.//
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    /* Compute the 5-quark contribution to the running of alpha*/
+    dAl5hMz = Dalpha5hMz(); 
+    //IMPORTANT: This will be done again in the SM postUpdate, changing the definition according to the scheme
+    //Maybe we could just turn off the Mw scheme flag...
+    
+   
+    //We solve for dAle5Mz from aleMz. If the solution is outside a 20sigma range we put the value to the boundary.
+    //double xmin = .02566, xmax = .02966;
+    double xmin = .00566, xmax = .02966;
+    //double emp = 0.;
+    
+    TF1 f = TF1("f", this, &NPSMEFTd6General::ZeroAle, xmin, xmax, 0, "NPSMEFTd6General", "ZeroAle");
+    ROOT::Math::WrappedTF1 wf1(f);
+    ROOT::Math::BrentRootFinder brf;
+    brf.SetFunction(wf1, xmin, xmax);
+
+    double emptyparam = 0.;
+    if (brf.Solve()) dAle5Mz = brf.Root();
+    else if (fabs(ZeroAle(&xmin, &emptyparam)) >  fabs(ZeroAle(&xmax,&emptyparam))) dAle5Mz = .02966; //rough but the point will be killed anyway by the measurement of dAle5Mz
+    else dAle5Mz = .02566; //rough but the point will be killed anyway by the measurement of dAle5Mz
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //Step 10: Compute the quark masses and CKM matrix. //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    computeYukawas();  
+    computeQuarkMassesAndCKMFromYukawas();
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Step 11: Rotate the basis to the one in which the up or down mass matrix is diagonal and the other is diagonal once multiplied by the CKM matrix. //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    BackRotation();
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    //Step 12: Compute the value of GF which will be GF as extracted from the muon decay (Gmu).//
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    GF = 1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2); // linear
+    //GF = 1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2 + CHL3[0][0]*CHL3[1][1]*v2*v2); // quadratic
+    
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // We still need to update the parameters of the trueSM object if we want to use it
+    // we could also redefine the functions and avoid using it. 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // We could set the parameters like this but for doing it I've moved
+    // the setParameter function from protected to public. It's not the
+    // best solution.
+    trueSM.setParameter("Mz", Mz);
+    trueSM.setParameter("GF", GF);
+    
+    
     
     if (!NPbase::PostUpdate()) return (false);
 
