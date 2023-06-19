@@ -41,6 +41,7 @@ bool NPbase::Update(const std::map<std::string, double>& DPars)
 
 bool NPbase::PostUpdate()
 {
+    if (!trueSM.PostUpdate()) return (false);
     return StandardModel::PostUpdate();
 }
 
