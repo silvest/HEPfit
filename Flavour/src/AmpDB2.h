@@ -40,7 +40,7 @@ public:
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    AmpDB2(const StandardModel& SM_i);
+    AmpDB2(const StandardModel& SM_i, bool flag_RI = false);
 
     /**
     * @brief The value of @f$M_{21}^{bd}@f$.
@@ -60,13 +60,16 @@ public:
         return M21_Bs(order);
     }
     
+    //mass schemes used in 2205.07907
+    enum mass_schemes {pole, MSbar, PS};
+    
     /**
     * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$.
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
     */
-    gslpp::complex getGamma21overM21_Bd(orders order){
-        return Gamma21overM21_Bd(order);
+    gslpp::complex getGamma21overM21_Bd(orders order, mass_schemes mass_scheme = MSbar){
+        return Gamma21overM21_Bd(order, mass_scheme);
     }
 
     /**
@@ -74,8 +77,8 @@ public:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
     */
-    gslpp::complex getGamma21overM21_Bs(orders order){
-        return Gamma21overM21_Bs(order);
+    gslpp::complex getGamma21overM21_Bs(orders order, mass_schemes mass_scheme = MSbar){
+        return Gamma21overM21_Bs(order, mass_scheme);
     }
     
     gslpp::complex Gamma21overM21_BdFULLNLO1();
@@ -110,7 +113,7 @@ protected:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
     */
-    gslpp::complex Gamma21overM21_Bd(orders order);
+    gslpp::complex Gamma21overM21_Bd(orders order, mass_schemes mass_scheme);
     
 
     /**
@@ -118,7 +121,7 @@ protected:
     * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
     */
-    gslpp::complex Gamma21overM21_Bs(orders order);
+    gslpp::complex Gamma21overM21_Bs(orders order, mass_schemes mass_scheme);
     
     
     /**
@@ -140,7 +143,17 @@ public:
     enum quark {d,s};
     enum quarks {cc, cu, uu};
     
-private:    
+private:
+    double zeta3 = gslpp_special_functions::zeta(3);
+    double log2 = log(2);
+    double log3 = log(3);
+    double sqrt3 = sqrt(3);        
+    double sqrt5 = sqrt(5);
+    double log12sqrt52 = log(0.5 + sqrt5/2.);    
+    //equations (3.102, 6.23)
+    double t_2 = -0.389012;
+    double Cl2PI3 = 1.014941;
+    
     double mu_1;
     double mu_2;    
     gslpp::vector<gslpp::complex> c(quark q); //requires computeCKMandMasses(); before use
@@ -171,12 +184,12 @@ private:
     void compute_matrixelements(quark q); //require computeCKMandMasses
 
 //array for caching function values
-    double cacheF0[24];
-    double cacheF1[24];
-    double cacheP[84];
-    gslpp::complex cacheD[6];
-    gslpp::complex cache_deltas_1overm_NLO1[6];
-    gslpp::complex cache_deltas_1overm[6];
+    double cacheF0[24] = { 0. };
+    double cacheF1[24] = { 0. };
+    double cacheP[84] = { 0. };
+    gslpp::complex cacheD[6] = { 0. };
+    gslpp::complex cache_deltas_1overm_NLO1[6] = { 0. };
+    gslpp::complex cache_deltas_1overm[6] = { 0. };
 
 //returns position in the corresponding array
     int indexF(quarks qq, int k, int i, int j);
@@ -185,7 +198,7 @@ private:
     int index_deltas(quarks qq, quark q);
 
     //CKM elements
-    void computeCKMandMasses(orders order);
+    void computeCKMandMasses(orders order, mass_schemes mass_scheme = MSbar);
 
     gslpp::complex VtbVtd;
     gslpp::complex VtbVts;
@@ -218,13 +231,15 @@ private:
     double Dilogsigma; //Li_2(sigma)
     double Dilogsigma2; //Li_2(sigma^2)
     const double M_PI2 = M_PI * M_PI;
-    double as_4pi; //alpha_s/(4Pi)
+    double as_4pi_mu1; //[alpha_s/(4Pi)](mu_1)
+    double as_4pi_mu2; //[alpha_s/(4Pi)](mu_2)    
+    double as_4pi; //[alpha_s/(4Pi)](mb(mb))
     
     // z for 1/mb corrections
-    double zc;
-    double zc2;
-    double oneminuszc2;
-    double sqrt1minus4zc;
+    double z_1overm;
+    double z_1overm2;
+    double oneminusz_1overm2;
+    double sqrt1minus4z_1overm;
     
     double Md;
     double Ms;
@@ -233,14 +248,23 @@ private:
     double MB;
     double MB_s;
     double Mb2;
+    double Mb2_prefactor; //overall Mb^2 prefactor used in the NNLO implementation
     double MB2;
+    double Mb_Mb; //MSbar mass of bottom
+    double Mb_pole; //pole mass of bottom
+    double Mb_PS; //PS mass of bottom 
+    //parameter to calculate PS
+    double mu_f = 2.;
+    double K = 13.44 - 1.04 * 5.;
+    double a1 = 10.33 - 1.11 * 5.;
+    double b0 = 11. - 2. * 5. / 3.;
     
     //Buras basis pdf/hep-ph/9512380v1
     void computeWilsonCoeffs();
     double lastInput_computeWilsonCoeffs = NAN;
     void computeWilsonCoeffsDB1bsg();
     double lastInput_computeWilsonCoeffsDB1bsg = NAN;
-    gslpp::complex cacheC[6];
+    gslpp::complex cacheC[6] = { 0. };
     gslpp::complex C_8G;
     gslpp::complex C(int i);
     
@@ -253,9 +277,17 @@ private:
     void computeWilsonCoeffsMisiak();
     double lastInput_computeWilsonCoeffsMisiak = NAN;
     void compute_pp_s();
+    void poletoMSbar_pp_s();
+    //hep-ph/9912391v2  eq. (11)
+    double PoletoMS_as1 = 4./3.;                                
+    double PoletoMS_as2 = -(4. * (71./144. + M_PI2/18.) - 3019./288. + 1./6. * zeta3 - M_PI2/9. * log2 - M_PI2/3.);
+    void poletoPS_pp_s();   
+    double PoletoPS_as1;                
+    double PoletoPS_as2;
+    
     int index_p(quarks qq, int i, int j, int n);
-    double cache_p[576];
-    double cache_ps[576];
+    double cache_p[576] = { 0. };
+    double cache_ps[576] = { 0. };
     gslpp::vector<gslpp::complex> c_H();
     gslpp::complex H(quarks qq);
     gslpp::complex H_s(quarks qq);
@@ -270,8 +302,7 @@ private:
     const double M_PI4 = M_PI2 * M_PI2;
     bool orderofp[3] = {true, true, true};
     
-    //RI
-    //arXiv:hep-ph/0606197v1, scheme dependent different from Mathematica
+    //RI: hep-lat/0110091
     gslpp::matrix<double> meMStoRI;
     gslpp::matrix<double> coeffsMStoRI;
     bool flag_RI;
@@ -281,8 +312,8 @@ private:
     void compute_g();
     gslpp::complex g(quarks qq, int i);
     gslpp::complex gtilde(quarks qq, int i);
-    gslpp::complex cacheg[12];
-    gslpp::complex cachegtilde[12];
+    gslpp::complex cacheg[12] = { 0. };
+    gslpp::complex cachegtilde[12] = { 0. };
     int indexg(quarks qq, int i);
     gslpp::complex C_1LO;
     gslpp::complex C_2LO;

@@ -3924,16 +3924,27 @@ ThObsFactory::ThObsFactory()
     /* END: REMOVE FROM THE PACKAGE */
 
     //-----  Flavour observables  -----
+    //semileptonic asymmetry and DeltaGamma
     obsThFactory["Asl_d"] = boost::factory<Asl_d*>();
     obsThFactory["Asl_s"] = boost::factory<Asl_s*>();
     obsThFactory["Asl_d_NLO"] = boost::factory<Asl_d_NLO*>();
     obsThFactory["Asl_s_NLO"] = boost::factory<Asl_s_NLO*>();
     obsThFactory["Asl_d_NLO1"] = boost::factory<Asl_d_NLO1*>();
     obsThFactory["Asl_s_NLO1"] = boost::factory<Asl_s_NLO1*>();
-    obsThFactory["DGamma_d"] = boost::factory<DGamma_d*>();
-    obsThFactory["DGamma_s"] = boost::factory<DGamma_s*>();
-    obsThFactory["DGamma_d_NLO"] = boost::factory<DGamma_d_NLO*>();
-    obsThFactory["DGamma_s_NLO"] = boost::factory<DGamma_s_NLO*>();
+    obsThFactory["DGamma_d_pole"] = boost::factory<DGamma_d_pole*>();
+    obsThFactory["DGamma_s_pole"] = boost::factory<DGamma_s_pole*>();
+    obsThFactory["DGamma_d_MSbar"] = boost::factory<DGamma_d_MSbar*>();
+    obsThFactory["DGamma_s_MSbar"] = boost::factory<DGamma_s_MSbar*>();
+    obsThFactory["DGamma_d_PS"] = boost::factory<DGamma_d_PS*>();
+    obsThFactory["DGamma_s_PS"] = boost::factory<DGamma_s_PS*>();
+    obsThFactory["DGamma_d_MSbar_NLO"] = boost::factory<DGamma_d_MSbar_NLO*>();
+    obsThFactory["DGamma_s_MSbar_NLO"] = boost::factory<DGamma_s_MSbar_NLO*>();
+    obsThFactory["DGamma_d_PS_NLO"] = boost::factory<DGamma_d_PS_NLO*>();
+    obsThFactory["DGamma_s_PS_NLO"] = boost::factory<DGamma_s_PS_NLO*>();
+    obsThFactory["DGamma_d_MSbar_LO"] = boost::factory<DGamma_d_MSbar_LO*>();
+    obsThFactory["DGamma_s_MSbar_LO"] = boost::factory<DGamma_s_MSbar_LO*>();
+    obsThFactory["DGamma_d_PS_LO"] = boost::factory<DGamma_d_PS_LO*>();
+    obsThFactory["DGamma_s_PS_LO"] = boost::factory<DGamma_s_PS_LO*>();
     obsThFactory["DGamma_d_NLO1"] = boost::factory<DGamma_d_NLO1*>();
     obsThFactory["DGamma_s_NLO1"] = boost::factory<DGamma_s_NLO1*>();
     //----- DF = 2  -----
