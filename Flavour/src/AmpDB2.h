@@ -155,6 +155,7 @@ private:
     double Cl2PI3 = 1.014941;
     
     double mu_1;
+    double mu_1_overm;
     double mu_2;    
     gslpp::vector<gslpp::complex> c(quark q); //requires computeCKMandMasses(); before use
     gslpp::complex delta_1overm(quark q); //requires computeCKMandMasses(); before use

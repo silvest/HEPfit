@@ -15,6 +15,8 @@ AmpDB2::AmpDB2(const StandardModel& SM_i, bool flag_RI)
 {
     mySM.initializeBParameter("BBs");
     mySM.initializeBParameter("BBd");
+    mySM.initializeBParameter("BBs_subleading");
+    mySM.initializeBParameter("BBd_subleading");    
     this->flag_resumz = true;    
     this->flag_RI = flag_RI; 
     
@@ -240,6 +242,8 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     
     //mu_1 = mu_b = mu_c
     mu_1 = mySM.getMub();
+    mu_1_overm = mu_1; //4.2
+    //mu_1 = 4.2;
     
     //MSbar mass
     Mb_Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
@@ -315,7 +319,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     oneminusz2 = (1. - z) * (1. - z);
     sqrt1minus4z = sqrt(1. - 4. * z);
     
-    //z_1overm = Mc_mu1 * Mc_mu1 / (Mb_mu1 * Mb_mu1
+    //z_1overm = Mc_mu1 * Mc_mu1 / (Mb_mu1 * Mb_mu1);
     Mc = mySM.getQuarks(QCD::CHARM).getMass();
     z_1overm = Mc * Mc / (Mb_Mb * Mb_Mb);
     z_1overm2 = z_1overm * z_1overm;
@@ -365,7 +369,7 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
 //                << (*(WilsonCoeffsDB1bsg[NNLO]))(i).gslpp::complex::real() << "\n";       
 //    }
 //    std::cout << "--------\n" ;
-    WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(4.2);    
+    WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1_overm);    
     C_1LO = (*(WilsonCoeffsDB1bsg[LO]))(0);
     C_2LO = (*(WilsonCoeffsDB1bsg[LO]))(1);
     K_1 = 3. * C_1LO * C_1LO + 2. * C_1LO * C_2LO;
@@ -391,7 +395,7 @@ void AmpDB2::computeWilsonCoeffs(){
 //                << (*(WilsonCoeffs[NLO]))(i).gslpp::complex::real() << "\n";       
 //    }
 //    std::cout << "--------\n" ;
-    WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(4.2, QCD::NOLEPTON);
+    WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(mu_1_overm, QCD::NOLEPTON);
     C_1LO = (*(WilsonCoeffs[LO]))(0);
     C_2LO = (*(WilsonCoeffs[LO]))(1);
     K_1 = 3. * C_1LO * C_1LO + 2. * C_1LO * C_2LO;
@@ -675,20 +679,22 @@ void AmpDB2::compute_matrixelements(quark q){
     me_R(4) = 0.5 * (me(2) + 0.5 * me(0) + me(1) - 2. * Mq/Mbpow * me(4) + me_R(2));
     */
     
+    
     switch (q) {
-        case d:                 
+        case d:
             me_R(0) = -0.35;
-            me_R(1) = 0.;
-            me_Rtilde(0) = 0.;                
+            me_Rtilde(0) = mySM.getBBd_subleading().getBpars()(0);
+            me_R(1) = mySM.getBBd_subleading().getBpars()(1);       
+            me_R(2) = mySM.getBBd_subleading().getBpars()(2);                    
+            me_R(3) = mySM.getBBd_subleading().getBpars()(3);            
             break;
         case s:
-            me_R(0) = -0.43;
-            me_R(1) = 0.07;
-            me_Rtilde(0) = 0.04;                
+            me_Rtilde(0) = mySM.getBBs_subleading().getBpars()(0);
+            me_R(1) = mySM.getBBs_subleading().getBpars()(1);       
+            me_R(2) = mySM.getBBs_subleading().getBpars()(2);                    
+            me_R(3) = mySM.getBBs_subleading().getBpars()(3);            
             break;
-    }
-    me_R(2) = -0.18;
-    me_R(3) = 0.38;
+    } 
     me_R(0) *= MBq2 * FBq2;
     me_R(1) *= MBq2 * FBq2;
     me_R(2) *= MBq2 * FBq2;
@@ -698,7 +704,6 @@ void AmpDB2::compute_matrixelements(quark q){
     me_Rtilde(0) *= MBq2 * FBq2;        
     me_Rtilde(1) = -me_R(2);
     me_Rtilde(2) = me_R(3) + 0.5 * me_R(2);
-    //me_R(0) = 0.5 * (1. + 26./3. * as_4pi_mu2) * me(0) + me(1) + (1. + 8. * as_4pi_mu2) * me(2);
     
     double n_l = 3.; //number of massless quark flavors
     double n_h = 1.; //number of quarks with mass of mb
@@ -709,9 +714,17 @@ void AmpDB2::compute_matrixelements(quark q){
                         + 58./3. * L2 + 649./6. * L + 17./3. * M_PI2 + 11183./48. + 16./3. * M_PI2 * log2 - 8. * zeta3;
     double as2_me2 = (n_l + n_h) * (-8./3. * L2 - 104./9. * L - 16./9. * M_PI2 - 422./27.) + n_h * (16./3. * M_PI2 - 16.)
                         + 188./3. * L2 + 220. * L + 320./27. * M_PI2 + 326047./720. + 32./3. * M_PI2 * log2 - 16. * zeta3;
+    //std::cout << "me_R" << me_R << "\n";
     me_R(0) = 0.5 * (1. + 26./3. * as_4pi_mu2 + as2_me0 * as_4pi_mu2 * as_4pi_mu2) * me(0) + me(1) + (1. + 8. * as_4pi_mu2 + as2_me2 * as_4pi_mu2 * as_4pi_mu2) * me(2);
     //std::cout << "me" << me << "\n";
-    //std::cout << "me_R" << me_R << " meR(0): " << 0.5 * (1. + 26./3. * as_4pi_mu2) * me(0) + me(1) + (1. + 8. * as_4pi_mu2) * me(2) << "\n";
+    //std::cout << "me_R" << me_R(0) << " meR(0): " << 0.5 * (1. + 26./3. * as_4pi_mu2) * me(0) + me(1) + (1. + 8. * as_4pi_mu2) * me(2) << "\n";
+    
+    //fix matrix elements to get only the uncertainties  from me_R
+//    if (q==s) {me(0) = 0.813; me(1) = 0.817; me(2) = 0.816;}
+//    if (q==d) {me(0) = 0.806; me(1) = 0.769; me(2) = 0.747;}
+//    me(0) *=  8. / 3. * MBq2 * FBq2;
+//    me(1) *= -5. / 3. * KBq * MBq2 * FBq2;
+//    me(2) *=  1. / 3. * KBq * MBq2 * FBq2;
     return;
 }
 
