@@ -33,6 +33,7 @@ public:
     {
         ModelInitialized = false;
         flagSUSYmodel = false;
+        flagSMEFTmodel = false;
         flagLinearized = false;
     };
 
@@ -223,7 +224,14 @@ public:
         return flagGMmodel;
     }
 
-    
+    bool isModelSMEFT() const {
+        return flagSMEFTmodel;
+    }
+
+    void setModelSMEFT() {
+        flagSMEFTmodel = true;
+    }
+
     bool isModelLinearized() const{
         return flagLinearized;
     }
@@ -274,6 +282,7 @@ protected:
 private:
     std::string name; ///< The name of the model.
     bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
+    bool flagSMEFTmodel; ///< A boolean set to true if the model is General SMEFT
     bool flagSUSYmodel;///< A flag identifying the model as a SUSY model
     bool flagFWCDF2model;///< A flag identifying the model as a FlavourWilsonCoefficient_DF2 model
     bool flagTHDMmodel;///< A flag identifying the model as a THDM model

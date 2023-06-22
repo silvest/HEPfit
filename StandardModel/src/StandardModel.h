@@ -2679,15 +2679,6 @@ virtual double getmq(const QCD::quark q, const double mu) const
 }
 
 
-    /**
-     * @brief A method to set the value of a parameter of %StandardModel.
-     * @param[in] name name of a model parameter
-     * @param[in] value the value to be assigned to the parameter specified by name
-     */
-    virtual void setParameter(const std::string name, const double& value);
-
-
-
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -2696,9 +2687,8 @@ protected:
      * @param[in] name name of a model parameter
      * @param[in] value the value to be assigned to the parameter specified by name
      */
-    //virtual void setParameter(const std::string name, const double& value);
-    //LET'S MOVE THIS TO PUBLIC FOR ONE SECOND
-    
+    virtual void setParameter(const std::string name, const double& value);
+  
     /**
      * @brief The method to compute the %CKM matrix.
      */
@@ -2708,6 +2698,8 @@ protected:
      * @brief The method to compute the %Yukawas matrix.
      */
     virtual void computeYukawas();
+
+    double AleWithInit(double mu, double alsi, double mu_i, orders order) const;
 
     Particle leptons[6]; ///< An array of Particle objects for the leptons. 
     CKM myCKM; ///< An object of type CKM. 
@@ -3353,7 +3345,6 @@ private:
     int iterationNo;
     
     double AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const;
-    double AleWithInit(double mu, double alsi, double mu_i, orders order) const;
     static const int CacheSize = 5; ///< Defines the depth of the cache.
     mutable double als_cache[11][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double ale_cache[10][CacheSize]; ///< Cache for \f$\alpha_e\f$.

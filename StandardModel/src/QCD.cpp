@@ -161,7 +161,7 @@ bool QCD::PostUpdate()
         } else
             BParameterMap.at("BBd").setBpars(0, BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getBBsoBBd());
     }
-    if (computemt) {
+    if (computemt && !isModelSMEFT()) {
         quarks[TOP].setMass(163.); //temporary setting to compute thresholds in alpha_s in the pole to MSbar conversion, since the corresponding MSbar mass is yet to be computed
         quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNNLO));
 #if SUSYFIT_DEBUG & 2

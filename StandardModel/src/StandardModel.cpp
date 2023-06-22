@@ -237,6 +237,7 @@ bool StandardModel::PostUpdate()
 {
     if (!QCD::PostUpdate()) return (false);
 
+    if (!isModelSMEFT()) {
     /* Set the CKM and PMNS matrices */
     computeCKM();
     
@@ -248,6 +249,8 @@ bool StandardModel::PostUpdate()
         computeYukawas();
     }
 
+    }
+    
     /* Check whether the parameters for the EWPO are updated or not */
     if (!checkSMparamsForEWPO()) {
         useDeltaAlphaLepton_cache = false;

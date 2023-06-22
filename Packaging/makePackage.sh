@@ -10,18 +10,18 @@ VERSION="master"
 ###########################################################
 # Original source codes
 
-ORGDIR=".."
+ORGDIR="${HOME}/NetBeansProjects/HEPfit"
 BAT_VERSION="1.0.0"
 COMMIT=`git log | awk 'NR==1{print substr($2,1,7)}'`
 CUSTOM=`git status -uno | grep '\.cpp\|\.h' | wc -l | bc`
-if [ $CUSTOM -gt 0 ]; then
+if [ $CUSTOM > 0 ]; then
     COMMIT=${COMMIT}-CUSTOM
 fi
 ###########################################################
 # List of Netbeans projects
 
 PROJECTARRAY=()
-#PROJECTARRAY+=( "Analysis" )
+PROJECTARRAY+=( "Analysis" )
 PROJECTARRAY+=( "ComputeObservables" )
 PROJECTARRAY+=( "EventGeneration" )
 PROJECTARRAY+=( "EW" )
@@ -213,7 +213,7 @@ done
 # version and archive
 
 echo "VERSION: ${VERSION}-${COMMIT}" > HEPfit-${VERSION}-${COMMIT}/VERSION
-if [ $CUSTOM -gt 0 ]; then
+if [ $CUSTOM > 0 ]; then
     echo "\nMODIFIED FILES:" >> HEPfit-${VERSION}-${COMMIT}/VERSION
     myarr=($(git status -uno | grep '\.cpp\|\.h' | awk '{print "\t"$2}' | sed "s#../##"))
     for i in "${myarr[@]}"

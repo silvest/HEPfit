@@ -7285,13 +7285,7 @@ protected:
      * @param[in] f a lepton or quark
      * @return @f$(\f$C_{fB})_{ff}\f$@f$
      */
-    gslpp::complex CfB_diag(const Particle f) const;
-
-    gslpp::matrix<gslpp::complex> Yu; ///< The Yukawa matrix of the up-type quarks.
-    gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa matrix of the down-type quarks.
-    gslpp::matrix<gslpp::complex> Ye; ///< The Yukawa matrix of the charged leptons.
-
-    
+    gslpp::complex CfB_diag(const Particle f) const;    
 
     ////////////////////////////////////////////////////////////////////////
 private:
@@ -7311,6 +7305,9 @@ private:
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
 
+    std::map<std::string, double> DParsForTrueSM; //A map containing the parameters to be updated in trueSM after the SMEFT post-update
+    
+    
 };
 
 #endif /* NPSMEFTD6GENERAL_H */

@@ -355,8 +355,7 @@ NPSMEFTd6General::NPSMEFTd6General()
         NPbase(), NPSMEFTd6GM(*this), SMEFTEvol(), CKM_LNP(),
         Uu(3, 0.0), Vu(3, 0.0), Ud(3, 0.0), 
         Vd(3, 0.0), Ue(3, 0.0), Ve(3, 0.0),
-        phi1(3, 0.0), phi2dag(3, 0.0), phie(3, 0.0),
-        Yu(3, 0.0), Yd(3, 0.0), Ye(3, 0.0)
+        phi1(3, 0.0), phi2dag(3, 0.0), phie(3, 0.0)
 {
 
 
@@ -373,6 +372,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     FlagMWinput = false;
     SMEFTBasisFlag = "UP";
     setModelLinearized();
+    setModelSMEFT();
 
     //w_WW = gsl_integration_cquad_workspace_alloc(100);
 
@@ -3261,11 +3261,14 @@ void NPSMEFTd6General::computeQuarkMassesAndCKMFromYukawas()
     mmd.singularvalue(Ud, Vd, Sd);
     mme.singularvalue(Ue, Ve, Se);
 
+    setParameter("melectron",Se(0));
+    setParameter("mmu",Se(1));
+    setParameter("mtau",Se(2));
+ 
     //Computing the CKM - first with arbitrary phases
     gslpp::matrix<gslpp::complex> CKMUnphys = (Vu.hconjugate()) * Vd;
     //myCKM = (Vu.hconjugate()) * Vd;
     //CKMUnphys=myCKM
-
     
     //Compute the CKM matrix in the Standard convention
     //myCKM.computeCKM(myCKM.getV_us().abs(),myCKM.getV_cb().abs(),myCKM.getV_ub().abs(),myCKM.computeGamma());
@@ -3322,21 +3325,19 @@ void NPSMEFTd6General::computeQuarkMassesAndCKMFromYukawas()
     quarks[TOP].setMass(Su(2));
     
     
-    quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(),muw,Su(0)));
+    setParameter("mup",Mrun(quarks[UP].getMass_scale(),muw,Su(0)));
     //std::cout<<"\033[1;33m  quarks[UP].getMass() = \033[0m " << quarks[UP].getMass() << std::endl;
-    quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(),muw,Sd(0)));
+    setParameter("mdown",Mrun(quarks[DOWN].getMass_scale(),muw,Sd(0)));
     //std::cout<<"\033[1;33m  quarks[DOWN].getMass() = \033[0m " << quarks[DOWN].getMass() << std::endl;
-    quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(),muw,Sd(1)));
+    setParameter("mstrange",Mrun(quarks[STRANGE].getMass_scale(),muw,Sd(1)));
     //std::cout<<"\033[1;33m  quarks[STRANGE].getMass() = \033[0m " << quarks[STRANGE].getMass() << std::endl;
-    quarks[CHARM].setMass(Mofmu2Mbar(Su(1),muw));
-    quarks[CHARM].setMass_scale(quarks[CHARM].getMass());
+    setParameter("mcharm",Mofmu2Mbar(Su(1),muw));
     //std::cout<<"\033[1;33m  quarks[CHARM].getMass() = \033[0m " << quarks[CHARM].getMass() << std::endl;
-    quarks[BOTTOM].setMass(Mofmu2Mbar(Sd(2),muw));
-    quarks[BOTTOM].setMass_scale(quarks[BOTTOM].getMass());
+    setParameter("mbottom",Mofmu2Mbar(Sd(2),muw));
     //std::cout<<"\033[1;33m  quarks[BOTTOM].getMass() = \033[0m " << quarks[BOTTOM].getMass() << std::endl;
     quarks[TOP].setMass(Mofmu2Mbar(Su(2),muw));
     quarks[TOP].setMass_scale(quarks[TOP].getMass());
-    mtpole = Mbar2Mp(quarks[TOP].getMass());
+    setParameter("mtop",Mbar2Mp(quarks[TOP].getMass()));
     //std::cout<<"\033[1;33m  quarks[TOP].getMass() = \033[0m " << quarks[TOP].getMass() << std::endl;
     //std::cout<<"\033[1;33m  mtpole = \033[0m " << mtpole << std::endl;
 
@@ -3646,7 +3647,8 @@ bool NPSMEFTd6General::PostUpdate()
     //mHl2 = 2*lamH*v2 - v2*v2*(3*CH - 4*CHbox*lamH + CHD*lamH) - 0.5*v2*v2*v2*(4*CHbox-CHD)*(3*CH-4*CHbox*lamH+CHD*lamH); // quad. should be expanded
     
     // redefining the SM Higgs mass
-    mHl=sqrt(mHl2); 
+    setParameter("mHl",sqrt(mHl2)); 
+    DParsForTrueSM["mHl"] = getModelParam("mHl");
 
     ////////////////////////////////////////////////////
     //Step 5: Compute the renormalized gauge couplings//
@@ -3673,7 +3675,8 @@ bool NPSMEFTd6General::PostUpdate()
     double Mz2 = (g22 + g12)*v2/4 + v2*v2/8*(CHD*(g22+g12)+4*CHW*g2*g1); //linear
     //double Mz2 = (g22 + g12)*v2/4 + v2*v2/8*(CHD*(g22+g12)+4*CHW*g2*g1) + v2*v2*v2/4*(CHWB*CHWB*(g22+g12)+CHWB*(2*CHW+2*CHB+CHD)*g2*g1); //quadratic
     
-    Mz = sqrt(Mz2);
+    setParameter("Mz",sqrt(Mz2));
+    DParsForTrueSM["Mz"] = Mz;
     
     /////////////////////////////////////////////////////////////////////////
     //Step 7: Define the measured strong coupling constant at the Mz scale.//
@@ -3683,83 +3686,75 @@ bool NPSMEFTd6General::PostUpdate()
     QCD::setParameter("AlsM", Alsmuw);
     QCD::setParameter("MAls", muw);
     
-    AlsMz = QCD::Als(Mz);
+    setParameter("AlsMz",QCD::Als(Mz));
+
+    DParsForTrueSM["AlsMz"] = AlsMz;
     
     //std::cout<<"\033[1;33m  Alsmuw = \033[0m " << Alsmuw << std::endl;
     //std::cout<<"\033[1;33m  Mz = \033[0m " << Mz << std::endl;
     //std::cout<<"\033[1;33m  AlsMz = \033[0m " << AlsMz << std::endl;
 
-    
-    ///////////////////////////////////////////////////////////////////////////
-    //Step 8: Define the measured electromagnetic constants at the muw scale.//
-    ///////////////////////////////////////////////////////////////////////////
-    
-    //Actually this is alpha at muw not at Mz
-    aleMz = (g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB/(g12+g22)/(g12+g22))/4/M_PI; //linear
-    //aleMz = (g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB*(1+v2*(CHB+CHW))/(g12+g22)/(g12+g22) + 4*g12*g12*g22*g22*v2*v2*CHWB*CHWB/(g12+g22)/(g12+g22)/(g12+g22))/4/M_PI; //quadratic
-    
-    
     //////////////////////////////////////////////////////////////////////////////////////////
-    //Step 9: Find the delta alpha hadronic that generates the computed value of alphaMz.//
+    //Step 8: Compute the quark masses and CKM matrix. //
     //////////////////////////////////////////////////////////////////////////////////////////
-    
-    /* Compute the 5-quark contribution to the running of alpha*/
-    dAl5hMz = Dalpha5hMz(); 
-    //IMPORTANT: This will be done again in the SM postUpdate, changing the definition according to the scheme
-    //Maybe we could just turn off the Mw scheme flag...
-    
-   
-    //We solve for dAle5Mz from aleMz. If the solution is outside a 20sigma range we put the value to the boundary.
-    //double xmin = .02566, xmax = .02966;
-    double xmin = .00566, xmax = .02966;
-    //double emp = 0.;
-    
-    TF1 f = TF1("f", this, &NPSMEFTd6General::ZeroAle, xmin, xmax, 0, "NPSMEFTd6General", "ZeroAle");
-    ROOT::Math::WrappedTF1 wf1(f);
-    ROOT::Math::BrentRootFinder brf;
-    brf.SetFunction(wf1, xmin, xmax);
-
-    double emptyparam = 0.;
-    if (brf.Solve()) dAle5Mz = brf.Root();
-    else if (fabs(ZeroAle(&xmin, &emptyparam)) >  fabs(ZeroAle(&xmax,&emptyparam))) dAle5Mz = .02966; //rough but the point will be killed anyway by the measurement of dAle5Mz
-    else dAle5Mz = .02566; //rough but the point will be killed anyway by the measurement of dAle5Mz
-    
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //Step 10: Compute the quark masses and CKM matrix. //
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
+        
     computeYukawas();  
+    
+    
     computeQuarkMassesAndCKMFromYukawas();
+        
+    DParsForTrueSM["mup"] = getModelParam("mup");
+    DParsForTrueSM["mdown"] = getModelParam("mdown");
+    DParsForTrueSM["mstrange"] = getModelParam("mstrange");
+    DParsForTrueSM["mcharm"] = getModelParam("mcharm");
+    DParsForTrueSM["mbottom"] = getModelParam("mbottom");    
+    DParsForTrueSM["mtop"] = getModelParam("mtop");
+    DParsForTrueSM["melectron"] = getModelParam("melectron");
+    DParsForTrueSM["mmu"] = getModelParam("mmu");
+    DParsForTrueSM["mtau"] = getModelParam("mtau");
+    DParsForTrueSM["lambda"] = myCKM.getLambda();
+    DParsForTrueSM["A"] = myCKM.getA();
+    DParsForTrueSM["rhob"] = myCKM.getRhoBar();
+    DParsForTrueSM["etab"] = myCKM.getEtaBar();
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Step 11: Rotate the basis to the one in which the up or down mass matrix is diagonal and the other is diagonal once multiplied by the CKM matrix. //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
     BackRotation();
+
+    ///////////////////////////////////////////////////////////////////////////
+    //Step 9: Define the measured electromagnetic constants at the muw scale.//
+    ///////////////////////////////////////////////////////////////////////////
     
+    //Actually this is alpha at muw not at Mz
+    double alemuw = (g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB/(g12+g22)/(g12+g22))/4/M_PI; //linear
+    //alemuw = (g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB*(1+v2*(CHB+CHW))/(g12+g22)/(g12+g22) + 4*g12*g12*g22*g22*v2*v2*CHWB*CHWB/(g12+g22)/(g12+g22)/(g12+g22))/4/M_PI; //quadratic
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //Step 10: Find the delta alpha hadronic that generates the computed value of alphaMz.   //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    aleMz = AleWithInit(Mz, alemuw, muw, FULLNLO);
+    
+    setParameter("dAle5Mz",1. - ale/aleMz - DeltaAlphaTop(Mz2) - DeltaAlphaLepton(Mz2));
+    
+    DParsForTrueSM["dAle5Mz"] = getModelParam("dAle5Mz");
+            
     /////////////////////////////////////////////////////////////////////////////////////////////
     //Step 12: Compute the value of GF which will be GF as extracted from the muon decay (Gmu).//
     /////////////////////////////////////////////////////////////////////////////////////////////
     
     
-    GF = 1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2); // linear
+    setParameter("GF",1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2)); // linear
     //GF = 1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2 + CHL3[0][0]*CHL3[1][1]*v2*v2); // quadratic
+
+    DParsForTrueSM["GF"] = getModelParam("GF");
+
+
     
-    
-    
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // We still need to update the parameters of the trueSM object if we want to use it
-    // we could also redefine the functions and avoid using it. 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // We could set the parameters like this but for doing it I've moved
-    // the setParameter function from protected to public. It's not the
-    // best solution.
-    trueSM.setParameter("Mz", Mz);
-    trueSM.setParameter("GF", GF);
-    
-    
+    trueSM.Update(DParsForTrueSM);
     
     if (!NPbase::PostUpdate()) return (false);
 
