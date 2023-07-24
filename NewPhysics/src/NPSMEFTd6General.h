@@ -2646,8 +2646,8 @@ public:
      * @return @f$\Gamma(H\to ZZ* \to 4u)@f$/@f$\Gamma(H\to ZZ* \to 4u)_{\mathrm{SM}}@f$
      */
     //double GammaHZZ4uRatio() const {
-        return 1.0;
-    };
+    //    return 1.0;
+    //};
 
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4 u)@f$ (@f$u=u,c @f$)
@@ -2656,8 +2656,8 @@ public:
      * @return @f$\delta \Gamma(H\to ZZ* \to 4 u)@f$/@f$\Gamma(H\to ZZ* \to 4 u)_{\mathrm{SM}}@f$
      */
     //double deltaGammaHZZ4uRatio1() const {
-        return 0.0;
-    };
+    //    return 0.0;
+    //};
 
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4 u)@f$ (@f$u=u,c @f$)
@@ -2666,8 +2666,8 @@ public:
      * @return @f$\delta \Gamma(H\to ZZ* \to 4 u)@f$/@f$\Gamma(H\to ZZ* \to 4 u)_{\mathrm{SM}}@f$
      */
     //double deltaGammaHZZ4uRatio2() const {
-        return 0.0;
-    };
+    //    return 0.0;
+    //};
     /**
      * @brief The ratio of the Br@f$(H\to ZZ* \to 4 u)@f$ (@f$u=u,c @f$) in the current model
      * and in the Standard Model.
@@ -2708,8 +2708,8 @@ public:
      * @return @f$\Gamma(H\to ZZ* \to 4 d)@f$/@f$\Gamma(H\to ZZ* \to 4 d)_{\mathrm{SM}}@f$
      */
     //double GammaHZZ4dRatio() const {
-        return 1.0;
-    };
+    //    return 1.0;
+    //};
 
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4 d)@f$ (@f$d=d,s,b @f$)
@@ -2718,8 +2718,8 @@ public:
      * @return @f$\delta \Gamma(H\to ZZ* \to 4 d)@f$/@f$\Gamma(H\to ZZ* \to 4 d)_{\mathrm{SM}}@f$
      */
     //double deltaGammaHZZ4dRatio1() const {
-        return 0.0;
-    };
+    //    return 0.0;
+    //};
 
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ* \to 4 d)@f$ (@f$d=d,s,b @f$)
@@ -2728,8 +2728,8 @@ public:
      * @return @f$\delta \Gamma(H\to ZZ* \to 4 d)@f$/@f$\Gamma(H\to ZZ* \to 4 d)_{\mathrm{SM}}@f$
      */
     //double deltaGammaHZZ4dRatio2() const {
-        return 0.0;
-    };
+    //    return 0.0;
+    //};
     /**
      * @brief The ratio of the Br@f$(H\to ZZ* \to 4 d)@f$ (@f$d=d,s,b @f$) in the current model
      * and in the Standard Model.
