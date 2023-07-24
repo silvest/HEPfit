@@ -2122,21 +2122,21 @@ public:
      * linear in the effective Lagrangian coefficients.
      * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    ////virtual double deltaGammaTotalRatio1() const;
+    //virtual double deltaGammaTotalRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
      * in the current model and in the Standard Model. Only terms that are
      * linear in the effective Lagrangian coefficients. Neglecting SM theory errors.
      * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    ////virtual double deltaGammaTotalRatio1noError() const;
+    //virtual double deltaGammaTotalRatio1noError() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
      * in the current model and in the Standard Model. Only terms that are
      * quadratic in the effective Lagrangian coefficients.
      * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    ////virtual double deltaGammaTotalRatio2() const;
+    //virtual double deltaGammaTotalRatio2() const;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to gg)@f$ in the current model
@@ -7210,6 +7210,12 @@ protected:
 
     double cAsch, cWsch; ///< Parameters to control the SM EW input scheme: Alpha or MW.
 
+    
+    double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
+    double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
+    double Yukd,Yuks,Yukb;///< SM d-quark Yukawas
+    
+    
     // STXS ci: denote them as ai to separate from the normal conventions 
     double aiG, ai3G, ai2G;
     double aiT, aiH, aiWW, aiB, aiHW, aiHB;
@@ -7292,6 +7298,7 @@ private:
 
     RGESolver SMEFTEvol;
 
+    bool FlagRunning; ///< A boolean flag that is true if we want to perform the running 
     bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
     bool FlagRotateCHWCHB; ///< A boolean flag that is true if we use as parameters CHWHB_gaga and CHWHB_gagaorth instead of CHW and CHB.
     bool FlagPartialQFU; ///< A boolean flag that is true if assuming partial quark flavour universality between the 1st and 2nd family in the CHF operators.

@@ -360,7 +360,7 @@ NPSMEFTd6General::NPSMEFTd6General()
 
 
     
-    
+    FlagRunning = false;
     FlagQuadraticTerms = false;
     FlagRotateCHWCHB = false;
     FlagPartialQFU = false;
@@ -3545,6 +3545,7 @@ bool NPSMEFTd6General::PostUpdate()
     //Note: The Wilson Coefficients are directly set by the SetParameter function, the Yukawas should be
     //set here since we need to find them first but the coupling could also be set in SetParameter
     
+    
     SMEFTEvol.SetCoefficient("g1",g1_LNP);
     SMEFTEvol.SetCoefficient("g2",g2_LNP);
     SMEFTEvol.SetCoefficient("g3",g3_LNP);
@@ -3600,7 +3601,9 @@ bool NPSMEFTd6General::PostUpdate()
     //Step 2: Evolve the WC down to the EW scale//
     //////////////////////////////////////////////
     
-    SMEFTEvol.Evolve("Numeric", Lambda_NP, muw);
+    if(FlagRunning)
+        SMEFTEvol.Evolve("Numeric", Lambda_NP, muw);
+    
     
     ///////////////////////////////////////////////////////////////////////////////////////
     //Step 3: Get the bosonic WC which will redefine the couplings after renormalisation.//
@@ -3640,11 +3643,11 @@ bool NPSMEFTd6General::PostUpdate()
     double lamH = SMEFTEvol.GetCoefficient("lambda");
     double v02 = muH2/lamH;
     //double d_v2_rel = 3.*v02/(4.*lamH)*SMEFTEvol.GetCoefficient("CH");
-    v2 = v02*(1 + 3.*v02/(4.*lamH)*CH); //linear
-    //v2 = v02*(1 + 3.*v02/(4.*lamH)*CH + 9.*v02*v02/(8.*lamH*lamH)*CH*CH);  //quadratic
+    v2 = v02*(1 + 3.*v02/(4.*lamH)*CH/Lambda_NP/Lambda_NP); //linear
+    //v2 = v02*(1 + 3.*v02/(4.*lamH)*CH/Lambda_NP/Lambda_NP + 9.*v02*v02/(8.*lamH*lamH)*CH*CH/Lambda_NP/Lambda_NP/Lambda_NP/Lambda_NP);  //quadratic
     
-    double mHl2 = 2*lamH*v2 - v2*v2*(3*CH - 4*CHbox*lamH + CHD*lamH); // linear
-    //mHl2 = 2*lamH*v2 - v2*v2*(3*CH - 4*CHbox*lamH + CHD*lamH) - 0.5*v2*v2*v2*(4*CHbox-CHD)*(3*CH-4*CHbox*lamH+CHD*lamH); // quad. should be expanded
+    double mHl2 = 2*lamH*v2 - v2*v2*(3*CH - 4*CHbox*lamH + CHD*lamH)/Lambda_NP/Lambda_NP; // linear
+    //mHl2 = 2*lamH*v2 - v2*v2*(3*CH - 4*CHbox*lamH + CHD*lamH)/Lambda_NP/Lambda_NP - 0.5*v2*v2*v2*(4*CHbox-CHD)*(3*CH-4*CHbox*lamH+CHD*lamH)/Lambda_NP/Lambda_NP/Lambda_NP/Lambda_NP; // quad. should be expanded
     
     // redefining the SM Higgs mass
     setParameter("mHl",sqrt(mHl2)); 
@@ -3655,15 +3658,15 @@ bool NPSMEFTd6General::PostUpdate()
     ////////////////////////////////////////////////////
     
    
-    double g1 = (1 + v2*CHB)*SMEFTEvol.GetCoefficient("g1"); //linear
+    double g1 = (1 + v2*CHB/Lambda_NP/Lambda_NP)*SMEFTEvol.GetCoefficient("g1"); //linear
     //double g1 = (1 + v2*CHB + 3*v2*v2*CHB*CHB/2)*SMEFTEvol.GetCoefficient("g1"); //quadratic
     double g12 = g1*g1;
     
-    double g2 = (1 + v2*CHW)*SMEFTEvol.GetCoefficient("g2"); //linear
+    double g2 = (1 + v2*CHW/Lambda_NP/Lambda_NP)*SMEFTEvol.GetCoefficient("g2"); //linear
     //double g2 = (1 + v2*CHW + 3*v2*v2*CHW*CHW/2)*SMEFTEvol.GetCoefficient("g2"); //quadratic
     double g22 = g2*g2;
     
-    double g3 = (1 + v2*CHG)*SMEFTEvol.GetCoefficient("g3"); //linear
+    double g3 = (1 + v2*CHG/Lambda_NP/Lambda_NP)*SMEFTEvol.GetCoefficient("g3"); //linear
     //double g3 = (1 + v2*CHG + 3*v2*v2*CHG*CHG/2)*SMEFTEvol.GetCoefficient("g3"); //quadratic
     double g32 = g3*g3;
     
@@ -3672,7 +3675,7 @@ bool NPSMEFTd6General::PostUpdate()
     //Step 6: Define the physical (and measured) Mz.//
     //////////////////////////////////////////////////
     
-    double Mz2 = (g22 + g12)*v2/4 + v2*v2/8*(CHD*(g22+g12)+4*CHW*g2*g1); //linear
+    double Mz2 = (g22 + g12)*v2/4 + v2*v2/8*(CHD*(g22+g12)+4*CHW*g2*g1)/Lambda_NP/Lambda_NP; //linear
     //double Mz2 = (g22 + g12)*v2/4 + v2*v2/8*(CHD*(g22+g12)+4*CHW*g2*g1) + v2*v2*v2/4*(CHWB*CHWB*(g22+g12)+CHWB*(2*CHW+2*CHB+CHD)*g2*g1); //quadratic
     
     setParameter("Mz",sqrt(Mz2));
@@ -3718,23 +3721,61 @@ bool NPSMEFTd6General::PostUpdate()
     DParsForTrueSM["etab"] = myCKM.getEtaBar();
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //Step 11: Rotate the basis to the one in which the up or down mass matrix is diagonal and the other is diagonal once multiplied by the CKM matrix. //
+    //Step 9: Rotate the basis to the one in which the up or down mass matrix is diagonal and the other is diagonal once multiplied by the CKM matrix. //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //This function consumes too much time, let's turn it off for the moment since it's not needed when the CKM is the identity
+    if(FlagRunning)
+    //    BackRotation();
 
-    BackRotation();
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    //Step 10: Compute the value of GF which will be GF as extracted from the muon decay (Gmu).//
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    
+    setParameter("GF",1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2/Lambda_NP/Lambda_NP)); // linear
+    //GF = 1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2 + CHL3[0][0]*CHL3[1][1]*v2*v2); // quadratic
 
+    DParsForTrueSM["GF"] = getModelParam("GF");
+    
+    
     ///////////////////////////////////////////////////////////////////////////
-    //Step 9: Define the measured electromagnetic constants at the muw scale.//
+    //Step 11: Define auxiliary variables to switch between input schemes.//
     ///////////////////////////////////////////////////////////////////////////
     
-    //Actually this is alpha at muw not at Mz
-    double alemuw = (g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB/(g12+g22)/(g12+g22))/4/M_PI; //linear
-    //alemuw = (g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB*(1+v2*(CHB+CHW))/(g12+g22)/(g12+g22) + 4*g12*g12*g22*g22*v2*v2*CHWB*CHWB/(g12+g22)/(g12+g22)/(g12+g22))/4/M_PI; //quadratic
+    if (FlagMWinput){
+    //  MW scheme
+        cAsch = 0.;
+        cWsch = 1.;
+    } else {
+    //  ALpha scheme
+        cAsch = 1.;
+        cWsch = 0.;        
+    }
     
+    ////////////////////////////////////////////////////////////////////////////
+    //Step 12: Define the measured electromagnetic constants at the muw scale.//
+    ////////////////////////////////////////////////////////////////////////////
+    
+    double alemuw;
+    
+    //Mw_inp = cWsch*g2*sqrt(v2)/2;
+    //alemuw = cWsch*(sqrt(2)*GF*Mw_inp*Mw_inp*(Mz2-Mw_inp*Mw_inp)/Mz2/M_PI) +
+    //        cAsch*((g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB/(g12+g22)/(g12+g22)/Lambda_NP/Lambda_NP)/4/M_PI); //linear
+    
+    alemuw = ((g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB/(g12+g22)/(g12+g22)/Lambda_NP/Lambda_NP)/4/M_PI); //linear
+    
+    
+    //alemuw = cWsch*(sqrt(2)*GF*Mw_inp*Mw_inp*(Mz2-Mw_inp*Mw_inp)/Mz2/M_PI) +
+    //        cAsch*((g12*g22/(g12+g22)-2*g1*g12*g2*g22*v2*CHWB*(1+v2*(CHB+CHW)/Lambda_NP/Lambda_NP)/(g12+g22)/(g12+g22)/Lambda_NP/Lambda_NP +
+    //        4*g12*g12*g22*g22*v2*v2*CHWB*CHWB/(g12+g22)/(g12+g22)/(g12+g22))/4/M_PI/Lambda_NP/Lambda_NP); //quadratic
+    
+    
+        
     //////////////////////////////////////////////////////////////////////////////////////////
-    //Step 10: Find the delta alpha hadronic that generates the computed value of alphaMz.   //
+    //Step 13: Find the delta alpha hadronic that generates the computed value of alphaMz.   //
     //////////////////////////////////////////////////////////////////////////////////////////
+    
     
     aleMz = AleWithInit(Mz, alemuw, muw, FULLNLO);
     
@@ -3742,15 +3783,7 @@ bool NPSMEFTd6General::PostUpdate()
     
     DParsForTrueSM["dAle5Mz"] = getModelParam("dAle5Mz");
             
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    //Step 12: Compute the value of GF which will be GF as extracted from the muon decay (Gmu).//
-    /////////////////////////////////////////////////////////////////////////////////////////////
     
-    
-    setParameter("GF",1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2)); // linear
-    //GF = 1./sqrt(2.)/v2*(1 + (CHl3R[1][1] + CHl3R[0][0] - (CllR[0][1][1][0]+CllR[1][0][0][1])/2.)*v2 + CHL3[0][0]*CHL3[1][1]*v2*v2); // quadratic
-
-    DParsForTrueSM["GF"] = getModelParam("GF");
 
 
     
@@ -3764,28 +3797,36 @@ bool NPSMEFTd6General::PostUpdate()
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     
-/*    // SM parameters using tree-level relations, depending on the input scheme
-    aleMz = trueSM.alphaMz();
+    // SM parameters using tree-level relations, depending on the input scheme
+
+    //aleMz = trueSM.alphaMz(); //NOW aleMz is defined here in the postupdate
     eeMz = cAsch * sqrt(4.0 * M_PI * aleMz)
-            + cWsch * sqrt(4.0 * sqrt(2.0) * GF * Mw_inp * Mw_inp * (1.0 - Mw_inp * Mw_inp / Mz / Mz));
+           + cWsch * sqrt(4.0 * sqrt(2.0) * GF * Mw_inp * Mw_inp * (1.0 - Mw_inp * Mw_inp / Mz / Mz));
     eeMz2 = eeMz*eeMz;
 
+    //Here tree means using the tree-level relations with our input parameters
+    //Maybe it's convenient to change the notation since it's a bit confusing the meaning of tree-level here
     sW2_tree = cAsch * (0.5 * (1.0 - sqrt(1.0 - eeMz2 / (sqrt(2.0) * GF * Mz * Mz))))
             + cWsch * (1.0 - Mw_inp * Mw_inp / Mz / Mz);
     cW2_tree = 1.0 - sW2_tree;
 
+    
     sW_tree = sqrt(sW2_tree);
     cW_tree = sqrt(cW2_tree);
 
     g1_tree = eeMz / cW_tree;
     g2_tree = eeMz / sW_tree;
     g3_tree = sqrt(4.0 * M_PI * AlsMz);
+    
+    
 
     Mw_tree = cAsch * (Mz * cW_tree)
             + cWsch * Mw_inp;
 
+    
     lambdaH_tree = mHl * mHl / 2.0 / v2;
-
+    
+    
     gZvL = (leptons[NEUTRINO_1].getIsospin());
     gZlL = (leptons[ELECTRON].getIsospin()) - (leptons[ELECTRON].getCharge()) * sW2_tree;
     gZlR = -(leptons[ELECTRON].getCharge()) * sW2_tree;
@@ -3797,6 +3838,7 @@ bool NPSMEFTd6General::PostUpdate()
     UevL = 1.0; // Neglect PMNS effects
     VudL = 1.0; // Neglect CKM effects    
 
+    
     Yuke = sqrt(2.) * (leptons[ELECTRON].getMass()) / v();
     Yukmu = sqrt(2.) * (leptons[MU].getMass()) / v();
     Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
@@ -3812,21 +3854,34 @@ bool NPSMEFTd6General::PostUpdate()
     dZH1 = dZH / (1.0 - dZH);
 
     dZH2 = dZH * (1 + 3.0 * dZH) / (1.0 - dZH) / (1.0 - dZH);
-
+    
+    
+    
     //  2) Post-update operations related to assumptions in the form of the dimension-6 operators 
 
+    
+    // We do not rotate them anymore since we'll always use the Warsaw basis
     //  Rotated CHW and CHB parameters: Here I need to overwrite the model parameters (There are always 2 on/2 off but need the values of both in output)
-    if (FlagRotateCHWCHB) {
-        CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
-        CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
-    } else {
+    //if (FlagRotateCHWCHB) {
+    //    CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
+    //    CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
+    //} else {
         CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
         CHWHB_gagaorth = -cW2_tree * CHW + sW2_tree * CHB;
-    }
+    //}
 
+        
     //  3) Post-update operations working directly with the dimension six operators  
 
+    /*
+    LambdaNP2 = Lambda_NP*Lambda_NP;
+    v2_over_LambdaNP2 = v()*v() / LambdaNP2;
+        
     // Renormalization of gauge fields parameters
+    // I HAVE DOUBTS ABOUT THIS: cW is suppose to be actually the tree-level?
+    // THIS IS NOT THE cW2_tree AS DEFINED FROM THE INPUT VARIABLES!
+    // IT SHOULD BE AS DEFINED FROM THEORY VARIABLES
+    // At linear order it should be fine though, let's keep it like it is
     delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB + sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
     delta_AA = (sW2_tree * CHW + cW2_tree * CHB - sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
     delta_AZ = 2.0 * sW_tree * cW_tree * (CHW - CHB) * v2_over_LambdaNP2
@@ -3907,7 +3962,7 @@ bool NPSMEFTd6General::PostUpdate()
 
     NPSMEFTd6GM.getObj().updateNPSMEFTd6GeneralParameters();
 
- */
+    */
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //////  Until here /////    
@@ -3935,6 +3990,8 @@ double NPSMEFTd6General::Dalpha5hMz() const
         return dAle5Mz;
 }
 
+
+/* This function is not used anymore
 double NPSMEFTd6General::ZeroAle(double *dAle5h, double *params) //the signature of the function must contain two double pointers to be used with TF1
     {
         useDeltaAlpha_cache = false;
@@ -3942,6 +3999,7 @@ double NPSMEFTd6General::ZeroAle(double *dAle5h, double *params) //the signature
         dAl5hMz = Dalpha5hMz();  
         return (alphaMz() - aleMz);
 }
+*/
 
 void NPSMEFTd6General::setParameter(const std::string name, const double& value) {
 
