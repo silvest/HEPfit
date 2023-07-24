@@ -1148,7 +1148,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6General (including the 18 parameters needed for the SM). 
      */
     //static const int NNPSMEFTd6GeneralVars = 2708 + 18;
-    static const int NNPSMEFTd6GeneralVars = 2708;
+    static const int NNPSMEFTd6GeneralVars = 2708-208;
 
     
     /**
@@ -6295,14 +6295,6 @@ public:
         this->SMEFTBasisFlag = SMEFTBasisFlag;
     }
 
-    /**
-     * @brief A method to initialize the model parameters.
-     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
-
     gslpp::matrix<gslpp::complex> getYd() const {
         return Yd;
     }
@@ -6339,7 +6331,7 @@ protected:
     /**
      * @brief The method to compute the %Yukawas matrix.
      */
-    virtual void computeYukawas();
+    //virtual void computeYukawas();   TO BE FIXED ASAP!!!!!
     
     
     /**

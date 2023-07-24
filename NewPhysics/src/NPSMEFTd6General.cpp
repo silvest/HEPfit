@@ -309,7 +309,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Clequ3_3111i_LNP", "Clequ3_3112i_LNP", "Clequ3_3113i_LNP", "Clequ3_3121i_LNP", "Clequ3_3122i_LNP", "Clequ3_3123i_LNP", "Clequ3_3131i_LNP", "Clequ3_3132i_LNP", "Clequ3_3133i_LNP",
     "Clequ3_3211i_LNP", "Clequ3_3212i_LNP", "Clequ3_3213i_LNP", "Clequ3_3221i_LNP", "Clequ3_3222i_LNP", "Clequ3_3223i_LNP", "Clequ3_3231i_LNP", "Clequ3_3232i_LNP", "Clequ3_3233i_LNP",
     "Clequ3_3311i_LNP", "Clequ3_3312i_LNP", "Clequ3_3313i_LNP", "Clequ3_3321i_LNP", "Clequ3_3322i_LNP", "Clequ3_3323i_LNP", "Clequ3_3331i_LNP", "Clequ3_3332i_LNP", "Clequ3_3333i_LNP",
-    "Lambda_NP",
+    "Lambda_NP"/*,
     "BrHinv", "BrHexo",
     "dg1Z", "dKappaga", "lambZ",
     "eggFint", "eggFpar", "ettHint", "ettHpar",
@@ -344,7 +344,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "eZH_1314_Hbox", "eZH_1314_HQ1_11", "eZH_1314_Hu_11", "eZH_1314_Hd_11", "eZH_1314_HQ3_11", "eZH_1314_HD", "eZH_1314_HB", "eZH_1314_HW", "eZH_1314_HWB", "eZH_1314_DHB", "eZH_1314_DHW", "eZH_1314_DeltaGF",
     "ettH_2_HG", "ettH_2_G", "ettH_2_uG_33r", "ettH_2_DeltagHt",
     "ettH_78_HG", "ettH_78_G", "ettH_78_uG_33r", "ettH_78_DeltagHt",
-    "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
+    "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"*/};
 
 
 
@@ -3169,98 +3169,98 @@ void NPSMEFTd6General::getWCFromEvolutor()
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
 
-            CHl1[i][j] = SMEFTEvol.GetCoefficient("CHl1R", i, j));
-            CHl1[i][j] = SMEFTEvol.GetCoefficient("CHl1I", i, j));
-            CHl3[i][j] = SMEFTEvol.GetCoefficient("CHl3R", i, j));
-            CHl3[i][j] = SMEFTEvol.GetCoefficient("CHl3I", i, j));
-            CHe[i][j] = SMEFTEvol.GetCoefficient("CHeR", i, j));
-            CHe[i][j] = SMEFTEvol.GetCoefficient("CHeI", i, j));
-            CHq1[i][j] = SMEFTEvol.GetCoefficient("CHq1R", i, j));
-            CHq1[i][j] = SMEFTEvol.GetCoefficient("CHq1I", i, j));
-            CHq3[i][j] = SMEFTEvol.GetCoefficient("CHq3R", i, j));
-            CHq3[i][j] = SMEFTEvol.GetCoefficient("CHq3I", i, j));
-            CHu[i][j] = SMEFTEvol.GetCoefficient("CHuR", i, j));
-            CHu[i][j] = SMEFTEvol.GetCoefficient("CHuI", i, j));
-            CHd[i][j] = SMEFTEvol.GetCoefficient("CHdR", i, j));
-            CHd[i][j] = SMEFTEvol.GetCoefficient("CHdI", i, j));
-            CHud[i][j] = SMEFTEvol.GetCoefficient("CHudR", i, j));
-            CHud[i][j] = SMEFTEvol.GetCoefficient("CHudI", i, j));
-            CeH[i][j] = SMEFTEvol.GetCoefficient("CeHR", i, j));
-            CeH[i][j] = SMEFTEvol.GetCoefficient("CeHI", i, j));
-            CuH[i][j] = SMEFTEvol.GetCoefficient("CuHR", i, j));
-            CuH[i][j] = SMEFTEvol.GetCoefficient("CuHI", i, j));
-            CdH[i][j] = SMEFTEvol.GetCoefficient("CdHR", i, j));
-            CdH[i][j] = SMEFTEvol.GetCoefficient("CdHI", i, j));
-            CuG[i][j] = SMEFTEvol.GetCoefficient("CuGR", i, j));
-            CuG[i][j] = SMEFTEvol.GetCoefficient("CuGI", i, j));
-            CuW[i][j] = SMEFTEvol.GetCoefficient("CuWR", i, j));
-            CuW[i][j] = SMEFTEvol.GetCoefficient("CuWI", i, j));
-            CuB[i][j] = SMEFTEvol.GetCoefficient("CuBR", i, j));
-            CuB[i][j] = SMEFTEvol.GetCoefficient("CuBI", i, j));
-            CdG[i][j] = SMEFTEvol.GetCoefficient("CdGR", i, j));
-            CdG[i][j] = SMEFTEvol.GetCoefficient("CdGI", i, j));
-            CdW[i][j] = SMEFTEvol.GetCoefficient("CdWR", i, j));
-            CdW[i][j] = SMEFTEvol.GetCoefficient("CdWI", i, j));
-            CdB[i][j] = SMEFTEvol.GetCoefficient("CdBR", i, j));
-            CdB[i][j] = SMEFTEvol.GetCoefficient("CdBI", i, j));
-            CeW[i][j] = SMEFTEvol.GetCoefficient("CeWR", i, j));
-            CeW[i][j] = SMEFTEvol.GetCoefficient("CeWI", i, j));
-            CeB[i][j] = SMEFTEvol.GetCoefficient("CeBR", i, j));
-            CeB[i][j] = SMEFTEvol.GetCoefficient("CeBI", i, j));
+            CHl1R[i][j] = SMEFTEvol.GetCoefficient("CHl1R", i, j);
+            CHl1I[i][j] = SMEFTEvol.GetCoefficient("CHl1I", i, j);
+            CHl3R[i][j] = SMEFTEvol.GetCoefficient("CHl3R", i, j);
+            CHl3I[i][j] = SMEFTEvol.GetCoefficient("CHl3I", i, j);
+            CHeR[i][j] = SMEFTEvol.GetCoefficient("CHeR", i, j);
+            CHeI[i][j] = SMEFTEvol.GetCoefficient("CHeI", i, j);
+            CHq1R[i][j] = SMEFTEvol.GetCoefficient("CHq1R", i, j);
+            CHq1I[i][j] = SMEFTEvol.GetCoefficient("CHq1I", i, j);
+            CHq3R[i][j] = SMEFTEvol.GetCoefficient("CHq3R", i, j);
+            CHq3I[i][j] = SMEFTEvol.GetCoefficient("CHq3I", i, j);
+            CHuR[i][j] = SMEFTEvol.GetCoefficient("CHuR", i, j);
+            CHuI[i][j] = SMEFTEvol.GetCoefficient("CHuI", i, j);
+            CHdR[i][j] = SMEFTEvol.GetCoefficient("CHdR", i, j);
+            CHdI[i][j] = SMEFTEvol.GetCoefficient("CHdI", i, j);
+            CHudR[i][j] = SMEFTEvol.GetCoefficient("CHudR", i, j);
+            CHudI[i][j] = SMEFTEvol.GetCoefficient("CHudI", i, j);
+            CeHR[i][j] = SMEFTEvol.GetCoefficient("CeHR", i, j);
+            CeHI[i][j] = SMEFTEvol.GetCoefficient("CeHI", i, j);
+            CuHR[i][j] = SMEFTEvol.GetCoefficient("CuHR", i, j);
+            CuHI[i][j] = SMEFTEvol.GetCoefficient("CuHI", i, j);
+            CdHR[i][j] = SMEFTEvol.GetCoefficient("CdHR", i, j);
+            CdHI[i][j] = SMEFTEvol.GetCoefficient("CdHI", i, j);
+            CuGR[i][j] = SMEFTEvol.GetCoefficient("CuGR", i, j);
+            CuGI[i][j] = SMEFTEvol.GetCoefficient("CuGI", i, j);
+            CuWR[i][j] = SMEFTEvol.GetCoefficient("CuWR", i, j);
+            CuWI[i][j] = SMEFTEvol.GetCoefficient("CuWI", i, j);
+            CuBR[i][j] = SMEFTEvol.GetCoefficient("CuBR", i, j);
+            CuBI[i][j] = SMEFTEvol.GetCoefficient("CuBI", i, j);
+            CdGR[i][j] = SMEFTEvol.GetCoefficient("CdGR", i, j);
+            CdGI[i][j] = SMEFTEvol.GetCoefficient("CdGI", i, j);
+            CdWR[i][j] = SMEFTEvol.GetCoefficient("CdWR", i, j);
+            CdWI[i][j] = SMEFTEvol.GetCoefficient("CdWI", i, j);
+            CdBR[i][j] = SMEFTEvol.GetCoefficient("CdBR", i, j);
+            CdBI[i][j] = SMEFTEvol.GetCoefficient("CdBI", i, j);
+            CeWR[i][j] = SMEFTEvol.GetCoefficient("CeWR", i, j);
+            CeWI[i][j] = SMEFTEvol.GetCoefficient("CeWI", i, j);
+            CeBR[i][j] = SMEFTEvol.GetCoefficient("CeBR", i, j);
+            CeBI[i][j] = SMEFTEvol.GetCoefficient("CeBI", i, j);
  
             for (int k = 0; k < 3; k++) {
                 for (int l = 0; l < 3; l++) {
         
-                    Cll[i][j][k][l] = SMEFTEvol.GetCoefficient("CllR", i, j, k, l));
-                    Cll[i][j][k][l] = SMEFTEvol.GetCoefficient("CllI", i, j, k, l));
-                    Clq1[i][j][k][l] = SMEFTEvol.GetCoefficient("Clq1R", i, j, k, l));
-                    Clq1[i][j][k][l] = SMEFTEvol.GetCoefficient("Clq1I", i, j, k, l));
-                    Clq3[i][j][k][l] = SMEFTEvol.GetCoefficient("Clq3R", i, j, k, l));
-                    Clq3[i][j][k][l] = SMEFTEvol.GetCoefficient("Clq3I", i, j, k, l));
-                    Cee[i][j][k][l] = SMEFTEvol.GetCoefficient("CeeR", i, j, k, l));
-                    Cee[i][j][k][l] = SMEFTEvol.GetCoefficient("CeeI", i, j, k, l));
-                    Ceu[i][j][k][l] = SMEFTEvol.GetCoefficient("CeuR", i, j, k, l));
-                    Ceu[i][j][k][l] = SMEFTEvol.GetCoefficient("CeuI", i, j, k, l));
-                    Ced[i][j][k][l] = SMEFTEvol.GetCoefficient("CedR", i, j, k, l));
-                    Ced[i][j][k][l] = SMEFTEvol.GetCoefficient("CedI", i, j, k, l));
-                    Cle[i][j][k][l] = SMEFTEvol.GetCoefficient("CleR", i, j, k, l));
-                    Cle[i][j][k][l] = SMEFTEvol.GetCoefficient("CleI", i, j, k, l));
-                    Clu[i][j][k][l] = SMEFTEvol.GetCoefficient("CluR", i, j, k, l));
-                    Clu[i][j][k][l] = SMEFTEvol.GetCoefficient("CluI", i, j, k, l));
-                    Cld[i][j][k][l] = SMEFTEvol.GetCoefficient("CldR", i, j, k, l));
-                    Cld[i][j][k][l] = SMEFTEvol.GetCoefficient("CldI", i, j, k, l));
-                    Cqe[i][j][k][l] = SMEFTEvol.GetCoefficient("CqeR", i, j, k, l));
-                    Cqe[i][j][k][l] = SMEFTEvol.GetCoefficient("CqeI", i, j, k, l));
-                    Cledq[i][j][k][l] = SMEFTEvol.GetCoefficient("CledqR", i, j, k, l));
-                    Cledq[i][j][k][l] = SMEFTEvol.GetCoefficient("CledqI", i, j, k, l));
-                    Cqq1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqq1R", i, j, k, l));
-                    Cqq1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqq1I", i, j, k, l));
-                    Cqq3[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqq3R", i, j, k, l));
-                    Cqq3[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqq3I", i, j, k, l));
-                    Cuu[i][j][k][l] = SMEFTEvol.GetCoefficient("CuuR", i, j, k, l));
-                    Cuu[i][j][k][l] = SMEFTEvol.GetCoefficient("CuuI", i, j, k, l));
-                    Cdd[i][j][k][l] = SMEFTEvol.GetCoefficient("CddR", i, j, k, l));
-                    Cdd[i][j][k][l] = SMEFTEvol.GetCoefficient("CddI", i, j, k, l));
-                    Cud1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud1R", i, j, k, l));
-                    Cud1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud1I", i, j, k, l));
-                    Cud8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud8R", i, j, k, l));
-                    Cud8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud8I", i, j, k, l));
-                    Cqu1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqu1R", i, j, k, l));
-                    Cqu1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqu1I", i, j, k, l));
-                    Cqu8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqu8R", i, j, k, l));
-                    Cqu8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqu8I", i, j, k, l));
-                    Cqd1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqd1R", i, j, k, l));
-                    Cqd1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqd1I", i, j, k, l));
-                    Cqd8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqd8R", i, j, k, l));
-                    Cqd8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqd8I", i, j, k, l));
-                    Cquqd1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cquqd1R", i, j, k, l));
-                    Cquqd1[i][j][k][l] = SMEFTEvol.GetCoefficient("Cquqd1I", i, j, k, l));
-                    Cquqd8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cquqd8R", i, j, k, l));
-                    Cquqd8[i][j][k][l] = SMEFTEvol.GetCoefficient("Cquqd8I", i, j, k, l));
-                    Clequ1[i][j][k][l] = SMEFTEvol.GetCoefficient("Clequ1R", i, j, k, l));
-                    Clequ1[i][j][k][l] = SMEFTEvol.GetCoefficient("Clequ1I", i, j, k, l));
-                    Clequ3[i][j][k][l] = SMEFTEvol.GetCoefficient("Clequ3R", i, j, k, l));
-                    Clequ3[i][j][k][l] = SMEFTEvol.GetCoefficient("Clequ3I", i, j, k, l));
+                    CllR[i][j][k][l] = SMEFTEvol.GetCoefficient("CllR", i, j, k, l);
+                    CllI[i][j][k][l] = SMEFTEvol.GetCoefficient("CllI", i, j, k, l);
+                    Clq1R[i][j][k][l] = SMEFTEvol.GetCoefficient("Clq1R", i, j, k, l);
+                    Clq1I[i][j][k][l] = SMEFTEvol.GetCoefficient("Clq1I", i, j, k, l);
+                    Clq3R[i][j][k][l] = SMEFTEvol.GetCoefficient("Clq3R", i, j, k, l);
+                    Clq3I[i][j][k][l] = SMEFTEvol.GetCoefficient("Clq3I", i, j, k, l);
+                    CeeR[i][j][k][l] = SMEFTEvol.GetCoefficient("CeeR", i, j, k, l);
+                    CeeI[i][j][k][l] = SMEFTEvol.GetCoefficient("CeeI", i, j, k, l);
+                    CeuR[i][j][k][l] = SMEFTEvol.GetCoefficient("CeuR", i, j, k, l);
+                    CeuI[i][j][k][l] = SMEFTEvol.GetCoefficient("CeuI", i, j, k, l);
+                    CedR[i][j][k][l] = SMEFTEvol.GetCoefficient("CedR", i, j, k, l);
+                    CedI[i][j][k][l] = SMEFTEvol.GetCoefficient("CedI", i, j, k, l);
+                    CleR[i][j][k][l] = SMEFTEvol.GetCoefficient("CleR", i, j, k, l);
+                    CleI[i][j][k][l] = SMEFTEvol.GetCoefficient("CleI", i, j, k, l);
+                    CluR[i][j][k][l] = SMEFTEvol.GetCoefficient("CluR", i, j, k, l);
+                    CluI[i][j][k][l] = SMEFTEvol.GetCoefficient("CluI", i, j, k, l);
+                    CldR[i][j][k][l] = SMEFTEvol.GetCoefficient("CldR", i, j, k, l);
+                    CldI[i][j][k][l] = SMEFTEvol.GetCoefficient("CldI", i, j, k, l);
+                    CqeR[i][j][k][l] = SMEFTEvol.GetCoefficient("CqeR", i, j, k, l);
+                    CqeI[i][j][k][l] = SMEFTEvol.GetCoefficient("CqeI", i, j, k, l);
+                    CledqR[i][j][k][l] = SMEFTEvol.GetCoefficient("CledqR", i, j, k, l);
+                    CledqI[i][j][k][l] = SMEFTEvol.GetCoefficient("CledqI", i, j, k, l);
+                    Cqq1R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqq1R", i, j, k, l);
+                    Cqq1I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqq1I", i, j, k, l);
+                    Cqq3R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqq3R", i, j, k, l);
+                    Cqq3I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqq3I", i, j, k, l);
+                    CuuR[i][j][k][l] = SMEFTEvol.GetCoefficient("CuuR", i, j, k, l);
+                    CuuI[i][j][k][l] = SMEFTEvol.GetCoefficient("CuuI", i, j, k, l);
+                    CddR[i][j][k][l] = SMEFTEvol.GetCoefficient("CddR", i, j, k, l);
+                    CddI[i][j][k][l] = SMEFTEvol.GetCoefficient("CddI", i, j, k, l);
+                    Cud1R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud1R", i, j, k, l);
+                    Cud1I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud1I", i, j, k, l);
+                    Cud8R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud8R", i, j, k, l);
+                    Cud8I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cud8I", i, j, k, l);
+                    Cqu1R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqu1R", i, j, k, l);
+                    Cqu1I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqu1I", i, j, k, l);
+                    Cqu8R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqu8R", i, j, k, l);
+                    Cqu8I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqu8I", i, j, k, l);
+                    Cqd1R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqd1R", i, j, k, l);
+                    Cqd1I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqd1I", i, j, k, l);
+                    Cqd8R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqd8R", i, j, k, l);
+                    Cqd8I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cqd8I", i, j, k, l);
+                    Cquqd1R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cquqd1R", i, j, k, l);
+                    Cquqd1I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cquqd1I", i, j, k, l);
+                    Cquqd8R[i][j][k][l] = SMEFTEvol.GetCoefficient("Cquqd8R", i, j, k, l);
+                    Cquqd8I[i][j][k][l] = SMEFTEvol.GetCoefficient("Cquqd8I", i, j, k, l);
+                    Clequ1R[i][j][k][l] = SMEFTEvol.GetCoefficient("Clequ1R", i, j, k, l);
+                    Clequ1I[i][j][k][l] = SMEFTEvol.GetCoefficient("Clequ1I", i, j, k, l);
+                    Clequ3R[i][j][k][l] = SMEFTEvol.GetCoefficient("Clequ3R", i, j, k, l);
+                    Clequ3I[i][j][k][l] = SMEFTEvol.GetCoefficient("Clequ3I", i, j, k, l);
  
                 }
             }
@@ -3412,6 +3412,7 @@ bool NPSMEFTd6General::PostUpdate()
 
     delta_UgCC = (delta_e - 0.5 * delta_sW2);
 
+    /*
     //  NP corrections to Total Higgs width
     dGammaHTotR1 = deltaGammaTotalRatio1();
 
@@ -3427,6 +3428,7 @@ bool NPSMEFTd6General::PostUpdate()
     // The total theory error in the H width: set to 0.0 for the moment
     eHwidth = deltaGammaTotalRatio1() - deltaGammaTotalRatio1noError();
 
+     */
     //  Dimension-6 coefficients used in the STXS parameterization
     aiG = 16.0 * M_PI * M_PI * CHG * Mw_tree * Mw_tree / g3_tree / g3_tree / LambdaNP2;
     ai3G = CG * Mw_tree * Mw_tree / g3_tree / g3_tree / g3_tree / LambdaNP2;
