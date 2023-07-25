@@ -154,6 +154,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../boost/</pElem>
+            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` </commandLine>
         </ccTool>
@@ -244,6 +245,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost/include</pElem>
             <pElem>../GeorgiMachacek/src</pElem>
+            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -326,6 +328,7 @@
             <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost/</pElem>
+            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
