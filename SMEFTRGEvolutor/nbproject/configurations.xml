@@ -31,6 +31,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>src</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="3">
@@ -47,6 +50,7 @@
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a</output>
         </archiverTool>
         <requiredProjects>
           <makeArtifact PL="../gslpp"
@@ -77,7 +81,11 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -92,7 +100,7 @@
                         CT="3"
                         CN="Release"
                         AC="false"
-                        BL="false"
+                        BL="true"
                         WD="../gslpp"
                         BC="${MAKE} -j -f Makefile CONF=Release"
                         CC="${MAKE} -j -f Makefile CONF=Release clean"
@@ -100,17 +108,9 @@
           </makeArtifact>
         </requiredProjects>
       </compileType>
-      <item path="src/BetaFunction.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/RGESolver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/RGESolver.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/SMInput.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/SettersAndGetters.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/StaticMembers.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
