@@ -15,6 +15,7 @@
 #include "DiBosonThObservables.h"
 #include "FlavourObservables.h"
 #include "NPSMEFT6dtopquark.h"
+#include "NPBR_kpnunu.h"
 #include "MtMSbar.h"
 #include "alpha_s.h"
 #include "LeptonFlavourObservables.h"
@@ -29,7 +30,7 @@
 /* END: REMOVE FROM THE PACKAGE */
 #include <boost/lexical_cast.hpp>
 #include <boost/bind/bind.hpp>
-using namespace boost::placeholders;
+using namespace boost::placeholders; 
 
 ThObsFactory::ThObsFactory()
 {
@@ -1141,7 +1142,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtoinvRatio"] = boost::factory<BrHtoinvRatio*>();
     obsThFactory["BrHggRatio"] = boost::factory<BrHtoggRatio*>();
     obsThFactory["BrHWWRatio"] = boost::factory<BrHtoWWRatio*>();
+    obsThFactory["BrHWW2l2vRatio"] = boost::factory<BrHtoWW2l2vRatio*>();
     obsThFactory["BrHZZRatio"] = boost::factory<BrHtoZZRatio*>();
+    obsThFactory["BrHZZ4lRatio"] = boost::factory<BrHtoZZ4lRatio*>();
+    obsThFactory["BrHZZ4eRatio"] = boost::factory<BrHtoZZ4eRatio*>();
+    obsThFactory["BrHZZ2e2muRatio"] = boost::factory<BrHtoZZ2e2muRatio*>();
+    obsThFactory["BrHZZ4muRatio"] = boost::factory<BrHtoZZ4muRatio*>();
     obsThFactory["BrHZgaRatio"] = boost::factory<BrHtoZgaRatio*>();
     obsThFactory["BrHZgallRatio"] = boost::factory<BrHtoZgallRatio*>();
     obsThFactory["BrHZgaeeRatio"] = boost::factory<BrHtoZgaeeRatio*>();
@@ -3868,11 +3874,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Charge_Asymmetry_bin_tt_2000_2500"] = boost::factory<Charge_Asymmetry_bin_tt_2000_2500*>();
     obsThFactory["Charge_Asymmetry_bin_tt_2500_3000"] = boost::factory<Charge_Asymmetry_bin_tt_2500_3000*>();
     
-    //ttll LHC observables
-    obsThFactory["ttll_bin_100_120"] = boost::factory<ttll_bin_100_120*>();
-    obsThFactory["ttll_bin_120_140"] = boost::factory<ttll_bin_120_140*>();
-    obsThFactory["ttll_bin_140_180"] = boost::factory<ttll_bin_140_180*>();
-    obsThFactory["ttll_bin_180_500"] = boost::factory<ttll_bin_180_500*>();
     
     //OPTIMIZED OBSERVABLES
     //I don't really like this implementation, these constraints should be included in the prior,
@@ -3966,6 +3967,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["EpsilonP_O_Epsilon_y8"] = bind(boost::factory<WC_epspOeps*>(), _1, 7, 1.3);
     obsThFactory["EpsilonP_O_Epsilon_y9"] = bind(boost::factory<WC_epspOeps*>(), _1, 8, 1.3);
     obsThFactory["EpsilonP_O_Epsilon_y10"] = bind(boost::factory<WC_epspOeps*>(), _1, 9, 1.3);
+    obsThFactory["BR_Kppnunu"] = boost::factory<BR_Kppnunu*>();
+    obsThFactory["BR_Kp0nunu"] = boost::factory<BR_Kp0nunu*>();
+    //Same but with NP
+    obsThFactory["NPBR_kppnunu"] = boost::factory<NPBR_kppnunu*>();
+    obsThFactory["NPBR_kp0nunu"] = boost::factory<NPBR_kp0nunu*>();
+    
     /* END: REMOVE FROM THE PACKAGE */
     //----- CKM  -----
     obsThFactory["Vud"] = bind(boost::factory<VCKM*>(), _1, 1, 1);
@@ -4389,23 +4396,6 @@ ThObsFactory::ThObsFactory()
     //----- B to tau nu  -----
     obsThFactory["btaunu"] = bind(boost::factory<Btaunu*>(), _1, StandardModel::B_P);
     obsThFactory["bctaunu"] = bind(boost::factory<Btaunu*>(), _1, StandardModel::B_C);
-    
-    
-    //----- D to lepton nu  -----
-    obsThFactory["Dmuonnu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_P, StandardModel::MU);
-    obsThFactory["Dtaunu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_P, StandardModel::TAU);
-    
-    obsThFactory["Dsmuonnu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_S, StandardModel::MU);
-    obsThFactory["Dstaunu"] = bind(boost::factory<Dleptonnu*>(), _1, StandardModel::D_S, StandardModel::TAU);
-    
-    
-    //----- K to muon nu / Pi to muon nu  -----
-    obsThFactory["Kmunu_o_Pmunu"] = boost::factory<Kmunu_o_Pmunu*>();
-    
-    
-    //----- tau to K nu / tau to Pi nu  -----
-    obsThFactory["tauKnu_o_tauPnu"] = boost::factory<tauKnu_o_tauPnu*>();
-    
     
     /* BEGIN: REMOVE FROM THE PACKAGE */
     obsThFactory["Deltaamu"] = boost::factory<Deltaamu*>();
@@ -4945,7 +4935,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["obsBDstartaunu_A"] = boost::factory<obsBDstartaunu_A*>();
     obsThFactory["obsBDstartaunu_B"] = boost::factory<obsBDstartaunu_B*>();
     obsThFactory["THDMgminus2_mu"] = boost::factory<THDMgminus2_mu*>();
-
+    
     obsThFactory["Q_st"] = boost::factory<Q_st*>();
     obsThFactory["DeltaQ_THDM"] = boost::factory<DeltaQ_THDM*>();
     obsThFactory["g1atQ"] = boost::factory<g1atQ*>();

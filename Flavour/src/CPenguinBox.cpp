@@ -206,7 +206,7 @@ gslpp::matrix<double> CPenguinBox::RGevolB(int nf)
         default:
             std::stringstream out;
             out << nf;
-            throw std::runtime_error("CPenguinBox::RgevolP() " + out.str() + " wrong number of falvours");
+            throw std::runtime_error("CPenguinBox::RgevolP() " + out.str() + " wrong number of flavours");
     }
 }
 

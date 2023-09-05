@@ -60,17 +60,23 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Kppnunu(StandardModel& SM_i);
+    BR_Kppnunu(const StandardModel& SM_i);
     
     /**
      * 
      * @return theoretical value of |\f$ BR(K^{+} \rightarrow \pi^+ \nu \bar{\nu}) \f$|, 
-     * for example see hep-ph/0603079 section 2.3
+     * for example see hep-ph/0603079 section 2.2
      */
     double computeThValue();
     
     
-protected:
+    /**
+     * 
+     * @return k+ parameter for the BR. See 0705.2025v2 
+     */
+    double k_plus();
+    
+    
     
     /**
      * 
@@ -78,9 +84,9 @@ protected:
      * @param order_qed
      * @return the short distance contribution to the 
      * |\f$ BR(K^{+} \rightarrow \pi^{+} \nu \bar{\nu}) \f$|, for example
-     * see hep-ph/0603079 section 2.3
+     * see hep-ph/0603079 section 2.2
      */
-    gslpp::complex BRKppnunu(orders order, orders_qed order_qed);
+    double BRKppnunu(orders order, orders_qed order_qed);
     
     /**
      * 
@@ -91,7 +97,7 @@ protected:
     
 private:
     
-    StandardModel& mySM;
+    const StandardModel& mySM;
     Charm_Kpnunu CKpnunu;
 };
 

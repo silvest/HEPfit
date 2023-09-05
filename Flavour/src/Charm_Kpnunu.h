@@ -37,6 +37,18 @@ public:
      */
     ~Charm_Kpnunu();
 
+    double getEtab();
+    double getEtacb();
+    double getmc_mc();
+    double getEtac();
+    double getKc();
+    double getXi1c();
+    double getXi2c();
+    double getxc_mc();
+    double getxc_mc_qed();
+    double getxc();
+    
+    
     /**
      * 
      * @param order, QCD perturbation theory order 
@@ -80,6 +92,14 @@ public:
     /**
      * 
      * @param order, QCD perturbation theory order 
+     * @return coefficient recasting the QED Z-penguin contribution to BR of the process
+     */
+    double C_P_qed(orders_qed order_qed);
+
+
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
      * @return Wilson coefficients related to the EW box contribution, given
      * at the renormalization scale \f$ \mu_{W} \f$
      */
@@ -109,12 +129,71 @@ public:
     gslpp::vector<double> C_b(orders order);
 
     /**
+     * @brief This method solves the RGE equation: d/dlog(mu) C = gamma_transp C 
+     * from mu_w to mu_c relevant for the box and penguin contributions in Kpnunu decay.
+     * References: 0805.4119v1 and hep-ph/0603079v3
+     * @param order, order at which final Wilson coefficients are returned
+     * @param order_qed, qed order at which final Wilson coefficients are returned
+     * @param contribution, 0 for Box (dim=2) and 1 for Penguin (dim=3)
+     * @return The Wilson coefficient array evolved to \mu_c at specified order. 
+     * For box is: ( 4*CW^2 , CnuB ) and for penguin is: ( 4*Cp*CA , 4*Cm*CA , CnuP ) for qed and for qcd the same with CW=1 and CA=1.
+     */
+    gslpp::vector<double> C(orders order,orders_qed order_qed, int contribution);
+   
+    /**
+     * @brief This method returns the J matrices useful for the RGE of the charm penguin/box diagrams.
+     * @param order, order at which final J is returned
+     * @param contribution, 0 for Box (dim=2) and 1 for Penguin (dim=3)
+     * @return J matrices useful for the RGE of the charm penguin/box diagrams
+     */
+    gslpp::matrix<double> RGevol_J(orders order, int nf, int contribution);
+    
+    /**
+     * @brief This method returns the R matrices useful for the RGE of the charm penguin/box diagrams in qed.
+     * @param order_qed, qed order at which final R is returned
+     * @param contribution, 0 for Box (dim=2) and 1 for Penguin (dim=3)
+     * @return R at specified order, where R has to be considered multiplied like this: (alpha/4pi)/alphaS(muC)*R at O(1/alphaS) or LO_QED here and (alpha/4pi)*R at O(1) or NLO_QED11 here 
+     */
+    gslpp::matrix<double> RGevol_R(orders_qed order_qed, int nf, int contribution);
+
+
+    /**
+     * @brief 0805.4119v1 and hep-ph/0603079v3. To retrieve QCD CW at MuW just put NO_QED to order_qed and the qcd_order chosen to "order". To retrieve QED CW at MuW just put LO to order and the qed_order chosen to "qed_order"
+     * @param order_qed, QED order at which initial conditions are returned 
+     * @param order, QCD order at which initial conditions are returned 
+     * @param contribution, 0 for Box (dim=2) and 1 for Penguin (dim=3)
+     * @return The Wilson coefficient array  at \f$ \mu_{W} \f$ . For box is: ( 4*CW^2 , CnuB ) and for penguin is: ( 4*Cp*CA , 4*Cm*CA , CnuP ) for qed and for qcd the same with CW=1 and CA=1.
+     */
+    gslpp::vector<double> CWin_muw(orders order,orders_qed order_qed, int contribution);
+
+
+    /**
+     * 
+     * @brief Reference: 0805.4119v1 and hep-ph/0603079v3. To retrieve QCD ADM just put NO_QED to order_qed and the qcd_order chosen to "order". To retrieve QED ADM just put LO to order and the qed_order chosen to "qed_order"
+     * @param qed_order, QED perturbation theory order
+     * @param order, QCD perturbation theory order
+     * @param nf, Number of total active flavours
+     * @param contribution, 0 for Box (dim=2) and 1 for Penguin (dim=3)
+     * @return The TRANSPOSED Anomalous Dimension Matrix with nf flavours at specified order in QED for kpnunu decay.
+     */
+    gslpp::matrix<double> ADM(orders order,orders_qed order_qed , double nf, int contribution);
+
+
+    /**
      * 
      * @param order, QCD perturbation theory order 
      * @return coefficient recasting the EW box contribution related to the light leptons
      *  to the BR of the process
      */
     double C_Be(orders order);
+
+    /**
+     * 
+     * @param order_qed, QED perturbation theory order 
+     * @return coefficient recasting the QED box contribution related to the light leptons
+     *  to the BR of the process
+     */
+    double C_Be_qed(orders_qed order_qed);
 
     /**
      * 
@@ -126,15 +205,24 @@ public:
 
     /**
      * 
-     * @param order, QCD perturbation theory order 
-     * @return the phenomenological function P_C which contains the appropriate C_P, C_Be and C_Bt 
-     *  linear combination appearing explicitly in the final BR formula of the process 
+     * @param order_qed, QED perturbation theory order 
+     * @return coefficient recasting the QED box contribution related to the tau lepton
+     *  to the BR of the process
      */
-    double P_C(orders order);
+    double C_Bt_qed(orders_qed order_qed);
 
     /**
      * 
      * @param order, QCD perturbation theory order 
+     * @return the phenomenological function P_C which contains the appropriate C_P, C_Be and C_Bt 
+     *  linear combination appearing explicitly in the final BR formula of the process 
+     */
+    double P_C(orders order, orders_qed order_qed);
+
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @param order_qed, QED perturbation theory order
      * @return P_C + isospin correction + peculiar contribution of the top quark coming from the 
      * loop function X_t for this process (in respect with the one present also in 
      * \f$  K^{0} \rightarrow \pi^{0}  \nu \bar{\nu} \f$)
@@ -147,7 +235,7 @@ private:
     cbmuW1, cbmuW2;
     gslpp::matrix<double> U4p, U5p, J5p1, J4p1, J5p2, J4p2, dc_p,
     U4b, U5b, J5b1, J4b1, J5b2, J4b2, dc_b;
-    double etab, etacb, etac, mc, kc, xi1c, xi2c, xc, CP, CBe, CBt;
+    double CP,CBe,CBt,CP_qed,CBe_qed,CBt_qed;
 };
 
 #endif /* CHARM_KPNUNU_H */

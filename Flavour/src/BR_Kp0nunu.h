@@ -12,7 +12,9 @@ class StandardModel;
 #include "ThObservable.h"
 #include "OrderScheme.h"
 #include "gslpp.h"
-
+#include "Charm_Kpnunu.h"
+#include "StandardModelMatching.h"
+#include "EpsilonK.h"
 
 
 /**
@@ -55,7 +57,7 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Kp0nunu(StandardModel& SM_i);
+    BR_Kp0nunu(const StandardModel& SM_i);
     
     /**
      * 
@@ -64,8 +66,17 @@ public:
      */
     double computeThValue();
     
+    /**
+     * 
+     * @return the contribution of indirect CP violation to B(KL -> pi0 nu nubar). See hep-ph/9607447v1 
+     */
+    double r_epsK();
     
-protected:
+    /**
+     * 
+     * @return the contribution of indirect CP violation to B(KL -> pi0 nu nubar). See hep-ph/9607447v1 
+     */
+    double k_zero();
     
     /**
      * 
@@ -75,11 +86,13 @@ protected:
      * \f$ BR(K_{L} \rightarrow \pi^{0} \nu \bar{\nu}) \f$, for example
      * see hep-ph/0603079 section 2.3
      */
-    gslpp::complex BRKp0nunu(orders order, orders_qed order_qed);
-    
+    double BRKp0nunu(orders order, orders_qed order_qed);
+
 private:
     
-    StandardModel& mySM;
+    const StandardModel& mySM;
+    Charm_Kpnunu CKpnunu;
+    
 };
 
 #endif	/* BR_KP0NUNU_H */
