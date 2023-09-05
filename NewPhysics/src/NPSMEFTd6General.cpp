@@ -375,7 +375,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     
     //SMM.setObj((StandardModelMatching&) NPSMEFTd6GM.getObj());
     
-
+    if (getModelName().compare("NPSMEFTd6General") == 0) {
     
     ModelParamMap.insert(std::make_pair("CHWHB_gaga",  std::cref(CHWHB_gaga)));
     ModelParamMap.insert(std::make_pair("CHWHB_gagaorth",  std::cref(CHWHB_gagaorth)));
@@ -2883,6 +2883,9 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Clequ3_3331i_LNP",  std::cref(Clequ3_3331i_LNP)));
     ModelParamMap.insert(std::make_pair("Clequ3_3332i_LNP",  std::cref(Clequ3_3332i_LNP)));
     ModelParamMap.insert(std::make_pair("Clequ3_3333i_LNP",  std::cref(Clequ3_3333i_LNP)));
+    
+    }
+    
     ModelParamMap.insert(std::make_pair("Lambda_NP",  std::cref(Lambda_NP)));
     ModelParamMap.insert(std::make_pair("BrHinv",  std::cref(BrHinv)));
     ModelParamMap.insert(std::make_pair("BrHexo",  std::cref(BrHexo)));
