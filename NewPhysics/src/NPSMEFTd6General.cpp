@@ -77,7 +77,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Clq1_1112i_LNP", "Clq1_1113i_LNP", "Clq1_1123i_LNP", "Clq1_1211i_LNP", "Clq1_1212i_LNP", "Clq1_1213i_LNP", "Clq1_1221i_LNP", "Clq1_1222i_LNP", "Clq1_1223i_LNP",
     "Clq1_1231i_LNP", "Clq1_1232i_LNP", "Clq1_1233i_LNP", "Clq1_1311i_LNP", "Clq1_1312i_LNP", "Clq1_1313i_LNP", "Clq1_1321i_LNP", "Clq1_1322i_LNP", "Clq1_1323i_LNP",
     "Clq1_1331i_LNP", "Clq1_1332i_LNP", "Clq1_1333i_LNP", "Clq1_2212i_LNP", "Clq1_2213i_LNP", "Clq1_2223i_LNP", "Clq1_2312i_LNP", "Clq1_2313i_LNP", "Clq1_2321i_LNP",
-    "Clq1_2322i_LNP", "Clq1_2323i_LNP", "Clq1_2331i_LNP", "Clq1_2332i_LNP", "Clq1_2333i_LNP", "Clq1_3311i_LNP", "Clq1_3312i_LNP", "Clq1_3313i_LNP", "Clq1_3323i_LNP",
+    "Clq1_2322i_LNP", "Clq1_2323i_LNP", "Clq1_2331i_LNP", "Clq1_2332i_LNP", "Clq1_2333i_LNP", "Clq1_2311i_LNP", "Clq1_3312i_LNP", "Clq1_3313i_LNP", "Clq1_3323i_LNP",
     "Clq3_1111r_LNP", "Clq3_1112r_LNP", "Clq3_1113r_LNP", "Clq3_1122r_LNP", "Clq3_1123r_LNP", "Clq3_1133r_LNP", "Clq3_1211r_LNP", "Clq3_1212r_LNP", "Clq3_1213r_LNP",
     "Clq3_1221r_LNP", "Clq3_1222r_LNP", "Clq3_1223r_LNP", "Clq3_1231r_LNP", "Clq3_1232r_LNP", "Clq3_1233r_LNP", "Clq3_1311r_LNP", "Clq3_1312r_LNP", "Clq3_1313r_LNP",
     "Clq3_1321r_LNP", "Clq3_1322r_LNP", "Clq3_1323r_LNP", "Clq3_1331r_LNP", "Clq3_1332r_LNP", "Clq3_1333r_LNP", "Clq3_2211r_LNP", "Clq3_2212r_LNP", "Clq3_2213r_LNP",
@@ -86,7 +86,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Clq3_1112i_LNP", "Clq3_1113i_LNP", "Clq3_1123i_LNP", "Clq3_1211i_LNP", "Clq3_1212i_LNP", "Clq3_1213i_LNP", "Clq3_1221i_LNP", "Clq3_1222i_LNP", "Clq3_1223i_LNP",
     "Clq3_1231i_LNP", "Clq3_1232i_LNP", "Clq3_1233i_LNP", "Clq3_1311i_LNP", "Clq3_1312i_LNP", "Clq3_1313i_LNP", "Clq3_1321i_LNP", "Clq3_1322i_LNP", "Clq3_1323i_LNP",
     "Clq3_1331i_LNP", "Clq3_1332i_LNP", "Clq3_1333i_LNP", "Clq3_2212i_LNP", "Clq3_2213i_LNP", "Clq3_2223i_LNP", "Clq3_2312i_LNP", "Clq3_2313i_LNP", "Clq3_2321i_LNP",
-    "Clq3_2322i_LNP", "Clq3_2323i_LNP", "Clq3_2331i_LNP", "Clq3_2332i_LNP", "Clq3_2333i_LNP", "Clq3_3311i_LNP", "Clq3_3312i_LNP", "Clq3_3313i_LNP", "Clq3_3323i_LNP",
+    "Clq3_2322i_LNP", "Clq3_2323i_LNP", "Clq3_2331i_LNP", "Clq3_2332i_LNP", "Clq3_2333i_LNP", "Clq3_2311i_LNP", "Clq3_3312i_LNP", "Clq3_3313i_LNP", "Clq3_3323i_LNP",
     "Cee_1111r_LNP", "Cee_1112r_LNP", "Cee_1113r_LNP", "Cee_1122r_LNP", "Cee_1123r_LNP", "Cee_1133r_LNP", "Cee_1212r_LNP", "Cee_1213r_LNP", "Cee_1222r_LNP",
     "Cee_1223r_LNP", "Cee_1232r_LNP", "Cee_1233r_LNP", "Cee_1313r_LNP", "Cee_1323r_LNP", "Cee_1333r_LNP", "Cee_2222r_LNP", "Cee_2223r_LNP", "Cee_2233r_LNP",
     "Cee_2323r_LNP", "Cee_2333r_LNP", "Cee_3333r_LNP", "Cee_1112i_LNP", "Cee_1113i_LNP", "Cee_1123i_LNP", "Cee_1212i_LNP", "Cee_1213i_LNP", "Cee_1222i_LNP",
@@ -99,7 +99,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Ceu_1112i_LNP", "Ceu_1113i_LNP", "Ceu_1123i_LNP", "Ceu_1211i_LNP", "Ceu_1212i_LNP", "Ceu_1213i_LNP", "Ceu_1221i_LNP", "Ceu_1222i_LNP", "Ceu_1223i_LNP",
     "Ceu_1231i_LNP", "Ceu_1232i_LNP", "Ceu_1233i_LNP", "Ceu_1311i_LNP", "Ceu_1312i_LNP", "Ceu_1313i_LNP", "Ceu_1321i_LNP", "Ceu_1322i_LNP", "Ceu_1323i_LNP",
     "Ceu_1331i_LNP", "Ceu_1332i_LNP", "Ceu_1333i_LNP", "Ceu_2212i_LNP", "Ceu_2213i_LNP", "Ceu_2223i_LNP", "Ceu_2312i_LNP", "Ceu_2313i_LNP", "Ceu_2321i_LNP",
-    "Ceu_2322i_LNP", "Ceu_2323i_LNP", "Ceu_2331i_LNP", "Ceu_2332i_LNP", "Ceu_2333i_LNP", "Ceu_3311i_LNP", "Ceu_3312i_LNP", "Ceu_3313i_LNP", "Ceu_3323i_LNP",
+    "Ceu_2322i_LNP", "Ceu_2323i_LNP", "Ceu_2331i_LNP", "Ceu_2332i_LNP", "Ceu_2333i_LNP", "Ceu_2311i_LNP", "Ceu_3312i_LNP", "Ceu_3313i_LNP", "Ceu_3323i_LNP",
     "Ced_1111r_LNP", "Ced_1112r_LNP", "Ced_1113r_LNP", "Ced_1122r_LNP", "Ced_1123r_LNP", "Ced_1133r_LNP", "Ced_1211r_LNP", "Ced_1212r_LNP", "Ced_1213r_LNP",
     "Ced_1221r_LNP", "Ced_1222r_LNP", "Ced_1223r_LNP", "Ced_1231r_LNP", "Ced_1232r_LNP", "Ced_1233r_LNP", "Ced_1311r_LNP", "Ced_1312r_LNP", "Ced_1313r_LNP",
     "Ced_1321r_LNP", "Ced_1322r_LNP", "Ced_1323r_LNP", "Ced_1331r_LNP", "Ced_1332r_LNP", "Ced_1333r_LNP", "Ced_2211r_LNP", "Ced_2212r_LNP", "Ced_2213r_LNP",
@@ -108,7 +108,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Ced_1112i_LNP", "Ced_1113i_LNP", "Ced_1123i_LNP", "Ced_1211i_LNP", "Ced_1212i_LNP", "Ced_1213i_LNP", "Ced_1221i_LNP", "Ced_1222i_LNP", "Ced_1223i_LNP",
     "Ced_1231i_LNP", "Ced_1232i_LNP", "Ced_1233i_LNP", "Ced_1311i_LNP", "Ced_1312i_LNP", "Ced_1313i_LNP", "Ced_1321i_LNP", "Ced_1322i_LNP", "Ced_1323i_LNP",
     "Ced_1331i_LNP", "Ced_1332i_LNP", "Ced_1333i_LNP", "Ced_2212i_LNP", "Ced_2213i_LNP", "Ced_2223i_LNP", "Ced_2312i_LNP", "Ced_2313i_LNP", "Ced_2321i_LNP",
-    "Ced_2322i_LNP", "Ced_2323i_LNP", "Ced_2331i_LNP", "Ced_2332i_LNP", "Ced_2333i_LNP", "Ced_3311i_LNP", "Ced_3312i_LNP", "Ced_3313i_LNP", "Ced_3323i_LNP",
+    "Ced_2322i_LNP", "Ced_2323i_LNP", "Ced_2331i_LNP", "Ced_2332i_LNP", "Ced_2333i_LNP", "Ced_2311i_LNP", "Ced_3312i_LNP", "Ced_3313i_LNP", "Ced_3323i_LNP",
     "Cle_1111r_LNP", "Cle_1112r_LNP", "Cle_1113r_LNP", "Cle_1122r_LNP", "Cle_1123r_LNP", "Cle_1133r_LNP", "Cle_1211r_LNP", "Cle_1212r_LNP", "Cle_1213r_LNP",
     "Cle_1221r_LNP", "Cle_1222r_LNP", "Cle_1223r_LNP", "Cle_1231r_LNP", "Cle_1232r_LNP", "Cle_1233r_LNP", "Cle_1311r_LNP", "Cle_1312r_LNP", "Cle_1313r_LNP",
     "Cle_1321r_LNP", "Cle_1322r_LNP", "Cle_1323r_LNP", "Cle_1331r_LNP", "Cle_1332r_LNP", "Cle_1333r_LNP", "Cle_2211r_LNP", "Cle_2212r_LNP", "Cle_2213r_LNP",
@@ -117,7 +117,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cle_1112i_LNP", "Cle_1113i_LNP", "Cle_1123i_LNP", "Cle_1211i_LNP", "Cle_1212i_LNP", "Cle_1213i_LNP", "Cle_1221i_LNP", "Cle_1222i_LNP", "Cle_1223i_LNP",
     "Cle_1231i_LNP", "Cle_1232i_LNP", "Cle_1233i_LNP", "Cle_1311i_LNP", "Cle_1312i_LNP", "Cle_1313i_LNP", "Cle_1321i_LNP", "Cle_1322i_LNP", "Cle_1323i_LNP",
     "Cle_1331i_LNP", "Cle_1332i_LNP", "Cle_1333i_LNP", "Cle_2212i_LNP", "Cle_2213i_LNP", "Cle_2223i_LNP", "Cle_2312i_LNP", "Cle_2313i_LNP", "Cle_2321i_LNP",
-    "Cle_2322i_LNP", "Cle_2323i_LNP", "Cle_2331i_LNP", "Cle_2332i_LNP", "Cle_2333i_LNP", "Cle_3311i_LNP", "Cle_3312i_LNP", "Cle_3313i_LNP", "Cle_3323i_LNP",
+    "Cle_2322i_LNP", "Cle_2323i_LNP", "Cle_2331i_LNP", "Cle_2332i_LNP", "Cle_2333i_LNP", "Cle_2311i_LNP", "Cle_3312i_LNP", "Cle_3313i_LNP", "Cle_3323i_LNP",
     "Clu_1111r_LNP", "Clu_1112r_LNP", "Clu_1113r_LNP", "Clu_1122r_LNP", "Clu_1123r_LNP", "Clu_1133r_LNP", "Clu_1211r_LNP", "Clu_1212r_LNP", "Clu_1213r_LNP",
     "Clu_1221r_LNP", "Clu_1222r_LNP", "Clu_1223r_LNP", "Clu_1231r_LNP", "Clu_1232r_LNP", "Clu_1233r_LNP", "Clu_1311r_LNP", "Clu_1312r_LNP", "Clu_1313r_LNP",
     "Clu_1321r_LNP", "Clu_1322r_LNP", "Clu_1323r_LNP", "Clu_1331r_LNP", "Clu_1332r_LNP", "Clu_1333r_LNP", "Clu_2211r_LNP", "Clu_2212r_LNP", "Clu_2213r_LNP",
@@ -126,7 +126,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Clu_1112i_LNP", "Clu_1113i_LNP", "Clu_1123i_LNP", "Clu_1211i_LNP", "Clu_1212i_LNP", "Clu_1213i_LNP", "Clu_1221i_LNP", "Clu_1222i_LNP", "Clu_1223i_LNP",
     "Clu_1231i_LNP", "Clu_1232i_LNP", "Clu_1233i_LNP", "Clu_1311i_LNP", "Clu_1312i_LNP", "Clu_1313i_LNP", "Clu_1321i_LNP", "Clu_1322i_LNP", "Clu_1323i_LNP",
     "Clu_1331i_LNP", "Clu_1332i_LNP", "Clu_1333i_LNP", "Clu_2212i_LNP", "Clu_2213i_LNP", "Clu_2223i_LNP", "Clu_2312i_LNP", "Clu_2313i_LNP", "Clu_2321i_LNP",
-    "Clu_2322i_LNP", "Clu_2323i_LNP", "Clu_2331i_LNP", "Clu_2332i_LNP", "Clu_2333i_LNP", "Clu_3311i_LNP", "Clu_3312i_LNP", "Clu_3313i_LNP", "Clu_3323i_LNP",
+    "Clu_2322i_LNP", "Clu_2323i_LNP", "Clu_2331i_LNP", "Clu_2332i_LNP", "Clu_2333i_LNP", "Clu_2311i_LNP", "Clu_3312i_LNP", "Clu_3313i_LNP", "Clu_3323i_LNP",
     "Cld_1111r_LNP", "Cld_1112r_LNP", "Cld_1113r_LNP", "Cld_1122r_LNP", "Cld_1123r_LNP", "Cld_1133r_LNP", "Cld_1211r_LNP", "Cld_1212r_LNP", "Cld_1213r_LNP",
     "Cld_1221r_LNP", "Cld_1222r_LNP", "Cld_1223r_LNP", "Cld_1231r_LNP", "Cld_1232r_LNP", "Cld_1233r_LNP", "Cld_1311r_LNP", "Cld_1312r_LNP", "Cld_1313r_LNP",
     "Cld_1321r_LNP", "Cld_1322r_LNP", "Cld_1323r_LNP", "Cld_1331r_LNP", "Cld_1332r_LNP", "Cld_1333r_LNP", "Cld_2211r_LNP", "Cld_2212r_LNP", "Cld_2213r_LNP",
@@ -135,7 +135,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cld_1112i_LNP", "Cld_1113i_LNP", "Cld_1123i_LNP", "Cld_1211i_LNP", "Cld_1212i_LNP", "Cld_1213i_LNP", "Cld_1221i_LNP", "Cld_1222i_LNP", "Cld_1223i_LNP",
     "Cld_1231i_LNP", "Cld_1232i_LNP", "Cld_1233i_LNP", "Cld_1311i_LNP", "Cld_1312i_LNP", "Cld_1313i_LNP", "Cld_1321i_LNP", "Cld_1322i_LNP", "Cld_1323i_LNP",
     "Cld_1331i_LNP", "Cld_1332i_LNP", "Cld_1333i_LNP", "Cld_2212i_LNP", "Cld_2213i_LNP", "Cld_2223i_LNP", "Cld_2312i_LNP", "Cld_2313i_LNP", "Cld_2321i_LNP",
-    "Cld_2322i_LNP", "Cld_2323i_LNP", "Cld_2331i_LNP", "Cld_2332i_LNP", "Cld_2333i_LNP", "Cld_3311i_LNP", "Cld_3312i_LNP", "Cld_3313i_LNP", "Cld_3323i_LNP",
+    "Cld_2322i_LNP", "Cld_2323i_LNP", "Cld_2331i_LNP", "Cld_2332i_LNP", "Cld_2333i_LNP", "Cld_2311i_LNP", "Cld_3312i_LNP", "Cld_3313i_LNP", "Cld_3323i_LNP",
     "Cqe_1111r_LNP", "Cqe_1112r_LNP", "Cqe_1113r_LNP", "Cqe_1122r_LNP", "Cqe_1123r_LNP", "Cqe_1133r_LNP", "Cqe_1211r_LNP", "Cqe_1212r_LNP", "Cqe_1213r_LNP",
     "Cqe_1221r_LNP", "Cqe_1222r_LNP", "Cqe_1223r_LNP", "Cqe_1231r_LNP", "Cqe_1232r_LNP", "Cqe_1233r_LNP", "Cqe_1311r_LNP", "Cqe_1312r_LNP", "Cqe_1313r_LNP",
     "Cqe_1321r_LNP", "Cqe_1322r_LNP", "Cqe_1323r_LNP", "Cqe_1331r_LNP", "Cqe_1332r_LNP", "Cqe_1333r_LNP", "Cqe_2211r_LNP", "Cqe_2212r_LNP", "Cqe_2213r_LNP",
@@ -144,7 +144,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cqe_1112i_LNP", "Cqe_1113i_LNP", "Cqe_1123i_LNP", "Cqe_1211i_LNP", "Cqe_1212i_LNP", "Cqe_1213i_LNP", "Cqe_1221i_LNP", "Cqe_1222i_LNP", "Cqe_1223i_LNP",
     "Cqe_1231i_LNP", "Cqe_1232i_LNP", "Cqe_1233i_LNP", "Cqe_1311i_LNP", "Cqe_1312i_LNP", "Cqe_1313i_LNP", "Cqe_1321i_LNP", "Cqe_1322i_LNP", "Cqe_1323i_LNP",
     "Cqe_1331i_LNP", "Cqe_1332i_LNP", "Cqe_1333i_LNP", "Cqe_2212i_LNP", "Cqe_2213i_LNP", "Cqe_2223i_LNP", "Cqe_2312i_LNP", "Cqe_2313i_LNP", "Cqe_2321i_LNP",
-    "Cqe_2322i_LNP", "Cqe_2323i_LNP", "Cqe_2331i_LNP", "Cqe_2332i_LNP", "Cqe_2333i_LNP", "Cqe_3311i_LNP", "Cqe_3312i_LNP", "Cqe_3313i_LNP", "Cqe_3323i_LNP",
+    "Cqe_2322i_LNP", "Cqe_2323i_LNP", "Cqe_2331i_LNP", "Cqe_2332i_LNP", "Cqe_2333i_LNP", "Cqe_2311i_LNP", "Cqe_3312i_LNP", "Cqe_3313i_LNP", "Cqe_3323i_LNP",
     "Cledq_1111r_LNP", "Cledq_1112r_LNP", "Cledq_1113r_LNP", "Cledq_1121r_LNP", "Cledq_1122r_LNP", "Cledq_1123r_LNP", "Cledq_1131r_LNP", "Cledq_1132r_LNP", "Cledq_1133r_LNP",
     "Cledq_1211r_LNP", "Cledq_1212r_LNP", "Cledq_1213r_LNP", "Cledq_1221r_LNP", "Cledq_1222r_LNP", "Cledq_1223r_LNP", "Cledq_1231r_LNP", "Cledq_1232r_LNP", "Cledq_1233r_LNP",
     "Cledq_1311r_LNP", "Cledq_1312r_LNP", "Cledq_1313r_LNP", "Cledq_1321r_LNP", "Cledq_1322r_LNP", "Cledq_1323r_LNP", "Cledq_1331r_LNP", "Cledq_1332r_LNP", "Cledq_1333r_LNP",
@@ -191,7 +191,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cud1_1112i_LNP", "Cud1_1113i_LNP", "Cud1_1123i_LNP", "Cud1_1211i_LNP", "Cud1_1212i_LNP", "Cud1_1213i_LNP", "Cud1_1221i_LNP", "Cud1_1222i_LNP", "Cud1_1223i_LNP",
     "Cud1_1231i_LNP", "Cud1_1232i_LNP", "Cud1_1233i_LNP", "Cud1_1311i_LNP", "Cud1_1312i_LNP", "Cud1_1313i_LNP", "Cud1_1321i_LNP", "Cud1_1322i_LNP", "Cud1_1323i_LNP",
     "Cud1_1331i_LNP", "Cud1_1332i_LNP", "Cud1_1333i_LNP", "Cud1_2212i_LNP", "Cud1_2213i_LNP", "Cud1_2223i_LNP", "Cud1_2312i_LNP", "Cud1_2313i_LNP", "Cud1_2321i_LNP",
-    "Cud1_2322i_LNP", "Cud1_2323i_LNP", "Cud1_2331i_LNP", "Cud1_2332i_LNP", "Cud1_2333i_LNP", "Cud1_3311i_LNP", "Cud1_3312i_LNP", "Cud1_3313i_LNP", "Cud1_3323i_LNP",
+    "Cud1_2322i_LNP", "Cud1_2323i_LNP", "Cud1_2331i_LNP", "Cud1_2332i_LNP", "Cud1_2333i_LNP", "Cud1_2311i_LNP", "Cud1_3312i_LNP", "Cud1_3313i_LNP", "Cud1_3323i_LNP",
     "Cud8_1111r_LNP", "Cud8_1112r_LNP", "Cud8_1113r_LNP", "Cud8_1122r_LNP", "Cud8_1123r_LNP", "Cud8_1133r_LNP", "Cud8_1211r_LNP", "Cud8_1212r_LNP", "Cud8_1213r_LNP",
     "Cud8_1221r_LNP", "Cud8_1222r_LNP", "Cud8_1223r_LNP", "Cud8_1231r_LNP", "Cud8_1232r_LNP", "Cud8_1233r_LNP", "Cud8_1311r_LNP", "Cud8_1312r_LNP", "Cud8_1313r_LNP",
     "Cud8_1321r_LNP", "Cud8_1322r_LNP", "Cud8_1323r_LNP", "Cud8_1331r_LNP", "Cud8_1332r_LNP", "Cud8_1333r_LNP", "Cud8_2211r_LNP", "Cud8_2212r_LNP", "Cud8_2213r_LNP",
@@ -200,7 +200,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cud8_1112i_LNP", "Cud8_1113i_LNP", "Cud8_1123i_LNP", "Cud8_1211i_LNP", "Cud8_1212i_LNP", "Cud8_1213i_LNP", "Cud8_1221i_LNP", "Cud8_1222i_LNP", "Cud8_1223i_LNP",
     "Cud8_1231i_LNP", "Cud8_1232i_LNP", "Cud8_1233i_LNP", "Cud8_1311i_LNP", "Cud8_1312i_LNP", "Cud8_1313i_LNP", "Cud8_1321i_LNP", "Cud8_1322i_LNP", "Cud8_1323i_LNP",
     "Cud8_1331i_LNP", "Cud8_1332i_LNP", "Cud8_1333i_LNP", "Cud8_2212i_LNP", "Cud8_2213i_LNP", "Cud8_2223i_LNP", "Cud8_2312i_LNP", "Cud8_2313i_LNP", "Cud8_2321i_LNP",
-    "Cud8_2322i_LNP", "Cud8_2323i_LNP", "Cud8_2331i_LNP", "Cud8_2332i_LNP", "Cud8_2333i_LNP", "Cud8_3311i_LNP", "Cud8_3312i_LNP", "Cud8_3313i_LNP", "Cud8_3323i_LNP",
+    "Cud8_2322i_LNP", "Cud8_2323i_LNP", "Cud8_2331i_LNP", "Cud8_2332i_LNP", "Cud8_2333i_LNP", "Cud8_2311i_LNP", "Cud8_3312i_LNP", "Cud8_3313i_LNP", "Cud8_3323i_LNP",
     "Cqu1_1111r_LNP", "Cqu1_1112r_LNP", "Cqu1_1113r_LNP", "Cqu1_1122r_LNP", "Cqu1_1123r_LNP", "Cqu1_1133r_LNP", "Cqu1_1211r_LNP", "Cqu1_1212r_LNP", "Cqu1_1213r_LNP",
     "Cqu1_1221r_LNP", "Cqu1_1222r_LNP", "Cqu1_1223r_LNP", "Cqu1_1231r_LNP", "Cqu1_1232r_LNP", "Cqu1_1233r_LNP", "Cqu1_1311r_LNP", "Cqu1_1312r_LNP", "Cqu1_1313r_LNP",
     "Cqu1_1321r_LNP", "Cqu1_1322r_LNP", "Cqu1_1323r_LNP", "Cqu1_1331r_LNP", "Cqu1_1332r_LNP", "Cqu1_1333r_LNP", "Cqu1_2211r_LNP", "Cqu1_2212r_LNP", "Cqu1_2213r_LNP",
@@ -209,7 +209,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cqu1_1112i_LNP", "Cqu1_1113i_LNP", "Cqu1_1123i_LNP", "Cqu1_1211i_LNP", "Cqu1_1212i_LNP", "Cqu1_1213i_LNP", "Cqu1_1221i_LNP", "Cqu1_1222i_LNP", "Cqu1_1223i_LNP",
     "Cqu1_1231i_LNP", "Cqu1_1232i_LNP", "Cqu1_1233i_LNP", "Cqu1_1311i_LNP", "Cqu1_1312i_LNP", "Cqu1_1313i_LNP", "Cqu1_1321i_LNP", "Cqu1_1322i_LNP", "Cqu1_1323i_LNP",
     "Cqu1_1331i_LNP", "Cqu1_1332i_LNP", "Cqu1_1333i_LNP", "Cqu1_2212i_LNP", "Cqu1_2213i_LNP", "Cqu1_2223i_LNP", "Cqu1_2312i_LNP", "Cqu1_2313i_LNP", "Cqu1_2321i_LNP",
-    "Cqu1_2322i_LNP", "Cqu1_2323i_LNP", "Cqu1_2331i_LNP", "Cqu1_2332i_LNP", "Cqu1_2333i_LNP", "Cqu1_3311i_LNP", "Cqu1_3312i_LNP", "Cqu1_3313i_LNP", "Cqu1_3323i_LNP",
+    "Cqu1_2322i_LNP", "Cqu1_2323i_LNP", "Cqu1_2331i_LNP", "Cqu1_2332i_LNP", "Cqu1_2333i_LNP", "Cqu1_2311i_LNP", "Cqu1_3312i_LNP", "Cqu1_3313i_LNP", "Cqu1_3323i_LNP",
     "Cqu8_1111r_LNP", "Cqu8_1112r_LNP", "Cqu8_1113r_LNP", "Cqu8_1122r_LNP", "Cqu8_1123r_LNP", "Cqu8_1133r_LNP", "Cqu8_1211r_LNP", "Cqu8_1212r_LNP", "Cqu8_1213r_LNP",
     "Cqu8_1221r_LNP", "Cqu8_1222r_LNP", "Cqu8_1223r_LNP", "Cqu8_1231r_LNP", "Cqu8_1232r_LNP", "Cqu8_1233r_LNP", "Cqu8_1311r_LNP", "Cqu8_1312r_LNP", "Cqu8_1313r_LNP",
     "Cqu8_1321r_LNP", "Cqu8_1322r_LNP", "Cqu8_1323r_LNP", "Cqu8_1331r_LNP", "Cqu8_1332r_LNP", "Cqu8_1333r_LNP", "Cqu8_2211r_LNP", "Cqu8_2212r_LNP", "Cqu8_2213r_LNP",
@@ -218,7 +218,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cqu8_1112i_LNP", "Cqu8_1113i_LNP", "Cqu8_1123i_LNP", "Cqu8_1211i_LNP", "Cqu8_1212i_LNP", "Cqu8_1213i_LNP", "Cqu8_1221i_LNP", "Cqu8_1222i_LNP", "Cqu8_1223i_LNP",
     "Cqu8_1231i_LNP", "Cqu8_1232i_LNP", "Cqu8_1233i_LNP", "Cqu8_1311i_LNP", "Cqu8_1312i_LNP", "Cqu8_1313i_LNP", "Cqu8_1321i_LNP", "Cqu8_1322i_LNP", "Cqu8_1323i_LNP",
     "Cqu8_1331i_LNP", "Cqu8_1332i_LNP", "Cqu8_1333i_LNP", "Cqu8_2212i_LNP", "Cqu8_2213i_LNP", "Cqu8_2223i_LNP", "Cqu8_2312i_LNP", "Cqu8_2313i_LNP", "Cqu8_2321i_LNP",
-    "Cqu8_2322i_LNP", "Cqu8_2323i_LNP", "Cqu8_2331i_LNP", "Cqu8_2332i_LNP", "Cqu8_2333i_LNP", "Cqu8_3311i_LNP", "Cqu8_3312i_LNP", "Cqu8_3313i_LNP", "Cqu8_3323i_LNP",
+    "Cqu8_2322i_LNP", "Cqu8_2323i_LNP", "Cqu8_2331i_LNP", "Cqu8_2332i_LNP", "Cqu8_2333i_LNP", "Cqu8_2311i_LNP", "Cqu8_3312i_LNP", "Cqu8_3313i_LNP", "Cqu8_3323i_LNP",
     "Cqd1_1111r_LNP", "Cqd1_1112r_LNP", "Cqd1_1113r_LNP", "Cqd1_1122r_LNP", "Cqd1_1123r_LNP", "Cqd1_1133r_LNP", "Cqd1_1211r_LNP", "Cqd1_1212r_LNP", "Cqd1_1213r_LNP",
     "Cqd1_1221r_LNP", "Cqd1_1222r_LNP", "Cqd1_1223r_LNP", "Cqd1_1231r_LNP", "Cqd1_1232r_LNP", "Cqd1_1233r_LNP", "Cqd1_1311r_LNP", "Cqd1_1312r_LNP", "Cqd1_1313r_LNP",
     "Cqd1_1321r_LNP", "Cqd1_1322r_LNP", "Cqd1_1323r_LNP", "Cqd1_1331r_LNP", "Cqd1_1332r_LNP", "Cqd1_1333r_LNP", "Cqd1_2211r_LNP", "Cqd1_2212r_LNP", "Cqd1_2213r_LNP",
@@ -227,7 +227,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cqd1_1112i_LNP", "Cqd1_1113i_LNP", "Cqd1_1123i_LNP", "Cqd1_1211i_LNP", "Cqd1_1212i_LNP", "Cqd1_1213i_LNP", "Cqd1_1221i_LNP", "Cqd1_1222i_LNP", "Cqd1_1223i_LNP",
     "Cqd1_1231i_LNP", "Cqd1_1232i_LNP", "Cqd1_1233i_LNP", "Cqd1_1311i_LNP", "Cqd1_1312i_LNP", "Cqd1_1313i_LNP", "Cqd1_1321i_LNP", "Cqd1_1322i_LNP", "Cqd1_1323i_LNP",
     "Cqd1_1331i_LNP", "Cqd1_1332i_LNP", "Cqd1_1333i_LNP", "Cqd1_2212i_LNP", "Cqd1_2213i_LNP", "Cqd1_2223i_LNP", "Cqd1_2312i_LNP", "Cqd1_2313i_LNP", "Cqd1_2321i_LNP",
-    "Cqd1_2322i_LNP", "Cqd1_2323i_LNP", "Cqd1_2331i_LNP", "Cqd1_2332i_LNP", "Cqd1_2333i_LNP", "Cqd1_3311i_LNP", "Cqd1_3312i_LNP", "Cqd1_3313i_LNP", "Cqd1_3323i_LNP",
+    "Cqd1_2322i_LNP", "Cqd1_2323i_LNP", "Cqd1_2331i_LNP", "Cqd1_2332i_LNP", "Cqd1_2333i_LNP", "Cqd1_2311i_LNP", "Cqd1_3312i_LNP", "Cqd1_3313i_LNP", "Cqd1_3323i_LNP",
     "Cqd8_1111r_LNP", "Cqd8_1112r_LNP", "Cqd8_1113r_LNP", "Cqd8_1122r_LNP", "Cqd8_1123r_LNP", "Cqd8_1133r_LNP", "Cqd8_1211r_LNP", "Cqd8_1212r_LNP", "Cqd8_1213r_LNP",
     "Cqd8_1221r_LNP", "Cqd8_1222r_LNP", "Cqd8_1223r_LNP", "Cqd8_1231r_LNP", "Cqd8_1232r_LNP", "Cqd8_1233r_LNP", "Cqd8_1311r_LNP", "Cqd8_1312r_LNP", "Cqd8_1313r_LNP",
     "Cqd8_1321r_LNP", "Cqd8_1322r_LNP", "Cqd8_1323r_LNP", "Cqd8_1331r_LNP", "Cqd8_1332r_LNP", "Cqd8_1333r_LNP", "Cqd8_2211r_LNP", "Cqd8_2212r_LNP", "Cqd8_2213r_LNP",
@@ -236,7 +236,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Cqd8_1112i_LNP", "Cqd8_1113i_LNP", "Cqd8_1123i_LNP", "Cqd8_1211i_LNP", "Cqd8_1212i_LNP", "Cqd8_1213i_LNP", "Cqd8_1221i_LNP", "Cqd8_1222i_LNP", "Cqd8_1223i_LNP",
     "Cqd8_1231i_LNP", "Cqd8_1232i_LNP", "Cqd8_1233i_LNP", "Cqd8_1311i_LNP", "Cqd8_1312i_LNP", "Cqd8_1313i_LNP", "Cqd8_1321i_LNP", "Cqd8_1322i_LNP", "Cqd8_1323i_LNP",
     "Cqd8_1331i_LNP", "Cqd8_1332i_LNP", "Cqd8_1333i_LNP", "Cqd8_2212i_LNP", "Cqd8_2213i_LNP", "Cqd8_2223i_LNP", "Cqd8_2312i_LNP", "Cqd8_2313i_LNP", "Cqd8_2321i_LNP",
-    "Cqd8_2322i_LNP", "Cqd8_2323i_LNP", "Cqd8_2331i_LNP", "Cqd8_2332i_LNP", "Cqd8_2333i_LNP", "Cqd8_3311i_LNP", "Cqd8_3312i_LNP", "Cqd8_3313i_LNP", "Cqd8_3323i_LNP",
+    "Cqd8_2322i_LNP", "Cqd8_2323i_LNP", "Cqd8_2331i_LNP", "Cqd8_2332i_LNP", "Cqd8_2333i_LNP", "Cqd8_2311i_LNP", "Cqd8_3312i_LNP", "Cqd8_3313i_LNP", "Cqd8_3323i_LNP",
     "Cquqd1_1111r_LNP", "Cquqd1_1112r_LNP", "Cquqd1_1113r_LNP", "Cquqd1_1121r_LNP", "Cquqd1_1122r_LNP", "Cquqd1_1123r_LNP", "Cquqd1_1131r_LNP", "Cquqd1_1132r_LNP", "Cquqd1_1133r_LNP",
     "Cquqd1_1211r_LNP", "Cquqd1_1212r_LNP", "Cquqd1_1213r_LNP", "Cquqd1_1221r_LNP", "Cquqd1_1222r_LNP", "Cquqd1_1223r_LNP", "Cquqd1_1231r_LNP", "Cquqd1_1232r_LNP", "Cquqd1_1233r_LNP",
     "Cquqd1_1311r_LNP", "Cquqd1_1312r_LNP", "Cquqd1_1313r_LNP", "Cquqd1_1321r_LNP", "Cquqd1_1322r_LNP", "Cquqd1_1323r_LNP", "Cquqd1_1331r_LNP", "Cquqd1_1332r_LNP", "Cquqd1_1333r_LNP",
@@ -355,7 +355,8 @@ NPSMEFTd6General::NPSMEFTd6General()
 {
 
 
-    
+    FlagLeptonUniversal = false;
+    FlagQuarkUniversal = false;
     
     FlagQuadraticTerms = false;
     FlagRotateCHWCHB = false;
@@ -600,7 +601,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cle_2331i_LNP",  std::cref(Cle_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cle_2332i_LNP",  std::cref(Cle_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cle_2333i_LNP",  std::cref(Cle_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cle_3311i_LNP",  std::cref(Cle_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cle_2311i_LNP",  std::cref(Cle_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cle_3312i_LNP",  std::cref(Cle_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cle_3313i_LNP",  std::cref(Cle_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cle_3323i_LNP",  std::cref(Cle_3323i_LNP)));
@@ -1096,7 +1097,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cud1_2331i_LNP",  std::cref(Cud1_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud1_2332i_LNP",  std::cref(Cud1_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud1_2333i_LNP",  std::cref(Cud1_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cud1_3311i_LNP",  std::cref(Cud1_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cud1_2311i_LNP",  std::cref(Cud1_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud1_3312i_LNP",  std::cref(Cud1_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud1_3313i_LNP",  std::cref(Cud1_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud1_3323i_LNP",  std::cref(Cud1_3323i_LNP)));
@@ -1177,7 +1178,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cud8_2331i_LNP",  std::cref(Cud8_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud8_2332i_LNP",  std::cref(Cud8_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud8_2333i_LNP",  std::cref(Cud8_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cud8_3311i_LNP",  std::cref(Cud8_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cud8_2311i_LNP",  std::cref(Cud8_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud8_3312i_LNP",  std::cref(Cud8_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud8_3313i_LNP",  std::cref(Cud8_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cud8_3323i_LNP",  std::cref(Cud8_3323i_LNP)));
@@ -1258,7 +1259,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cqu1_2331i_LNP",  std::cref(Cqu1_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu1_2332i_LNP",  std::cref(Cqu1_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu1_2333i_LNP",  std::cref(Cqu1_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cqu1_3311i_LNP",  std::cref(Cqu1_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cqu1_2311i_LNP",  std::cref(Cqu1_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu1_3312i_LNP",  std::cref(Cqu1_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu1_3313i_LNP",  std::cref(Cqu1_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu1_3323i_LNP",  std::cref(Cqu1_3323i_LNP)));
@@ -1339,7 +1340,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cqu8_2331i_LNP",  std::cref(Cqu8_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu8_2332i_LNP",  std::cref(Cqu8_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu8_2333i_LNP",  std::cref(Cqu8_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cqu8_3311i_LNP",  std::cref(Cqu8_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cqu8_2311i_LNP",  std::cref(Cqu8_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu8_3312i_LNP",  std::cref(Cqu8_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu8_3313i_LNP",  std::cref(Cqu8_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqu8_3323i_LNP",  std::cref(Cqu8_3323i_LNP)));
@@ -1420,7 +1421,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cqd1_2331i_LNP",  std::cref(Cqd1_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd1_2332i_LNP",  std::cref(Cqd1_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd1_2333i_LNP",  std::cref(Cqd1_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cqd1_3311i_LNP",  std::cref(Cqd1_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cqd1_2311i_LNP",  std::cref(Cqd1_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd1_3312i_LNP",  std::cref(Cqd1_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd1_3313i_LNP",  std::cref(Cqd1_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd1_3323i_LNP",  std::cref(Cqd1_3323i_LNP)));
@@ -1501,7 +1502,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cqd8_2331i_LNP",  std::cref(Cqd8_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd8_2332i_LNP",  std::cref(Cqd8_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd8_2333i_LNP",  std::cref(Cqd8_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cqd8_3311i_LNP",  std::cref(Cqd8_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cqd8_2311i_LNP",  std::cref(Cqd8_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd8_3312i_LNP",  std::cref(Cqd8_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd8_3313i_LNP",  std::cref(Cqd8_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqd8_3323i_LNP",  std::cref(Cqd8_3323i_LNP)));
@@ -1583,7 +1584,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Clq1_2331i_LNP",  std::cref(Clq1_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq1_2332i_LNP",  std::cref(Clq1_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq1_2333i_LNP",  std::cref(Clq1_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Clq1_3311i_LNP",  std::cref(Clq1_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Clq1_2311i_LNP",  std::cref(Clq1_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq1_3312i_LNP",  std::cref(Clq1_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq1_3313i_LNP",  std::cref(Clq1_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq1_3323i_LNP",  std::cref(Clq1_3323i_LNP)));
@@ -1664,7 +1665,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Clq3_2331i_LNP",  std::cref(Clq3_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq3_2332i_LNP",  std::cref(Clq3_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq3_2333i_LNP",  std::cref(Clq3_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Clq3_3311i_LNP",  std::cref(Clq3_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Clq3_2311i_LNP",  std::cref(Clq3_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq3_3312i_LNP",  std::cref(Clq3_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq3_3313i_LNP",  std::cref(Clq3_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Clq3_3323i_LNP",  std::cref(Clq3_3323i_LNP)));
@@ -1745,7 +1746,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Ceu_2331i_LNP",  std::cref(Ceu_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Ceu_2332i_LNP",  std::cref(Ceu_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Ceu_2333i_LNP",  std::cref(Ceu_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Ceu_3311i_LNP",  std::cref(Ceu_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Ceu_2311i_LNP",  std::cref(Ceu_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Ceu_3312i_LNP",  std::cref(Ceu_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Ceu_3313i_LNP",  std::cref(Ceu_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Ceu_3323i_LNP",  std::cref(Ceu_3323i_LNP)));
@@ -1826,7 +1827,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Ced_2331i_LNP",  std::cref(Ced_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Ced_2332i_LNP",  std::cref(Ced_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Ced_2333i_LNP",  std::cref(Ced_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Ced_3311i_LNP",  std::cref(Ced_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Ced_2311i_LNP",  std::cref(Ced_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Ced_3312i_LNP",  std::cref(Ced_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Ced_3313i_LNP",  std::cref(Ced_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Ced_3323i_LNP",  std::cref(Ced_3323i_LNP)));
@@ -1907,7 +1908,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Clu_2331i_LNP",  std::cref(Clu_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Clu_2332i_LNP",  std::cref(Clu_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Clu_2333i_LNP",  std::cref(Clu_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Clu_3311i_LNP",  std::cref(Clu_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Clu_2311i_LNP",  std::cref(Clu_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Clu_3312i_LNP",  std::cref(Clu_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Clu_3313i_LNP",  std::cref(Clu_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Clu_3323i_LNP",  std::cref(Clu_3323i_LNP)));
@@ -1988,7 +1989,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cld_2331i_LNP",  std::cref(Cld_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cld_2332i_LNP",  std::cref(Cld_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cld_2333i_LNP",  std::cref(Cld_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cld_3311i_LNP",  std::cref(Cld_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cld_2311i_LNP",  std::cref(Cld_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cld_3312i_LNP",  std::cref(Cld_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cld_3313i_LNP",  std::cref(Cld_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cld_3323i_LNP",  std::cref(Cld_3323i_LNP)));
@@ -2069,7 +2070,7 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("Cqe_2331i_LNP",  std::cref(Cqe_2331i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqe_2332i_LNP",  std::cref(Cqe_2332i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqe_2333i_LNP",  std::cref(Cqe_2333i_LNP)));
-    ModelParamMap.insert(std::make_pair("Cqe_3311i_LNP",  std::cref(Cqe_3311i_LNP)));
+    ModelParamMap.insert(std::make_pair("Cqe_2311i_LNP",  std::cref(Cqe_2311i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqe_3312i_LNP",  std::cref(Cqe_3312i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqe_3313i_LNP",  std::cref(Cqe_3313i_LNP)));
     ModelParamMap.insert(std::make_pair("Cqe_3323i_LNP",  std::cref(Cqe_3323i_LNP)));
@@ -3088,6 +3089,81 @@ NPSMEFTd6General::NPSMEFTd6General()
     ModelParamMap.insert(std::make_pair("ettH_1314_uG_33r",  std::cref(ettH_1314_uG_33r)));
     ModelParamMap.insert(std::make_pair("ettH_1314_DeltagHt",  std::cref(ettH_1314_DeltagHt)));
 
+    
+    
+    
+    
+    if (FlagLeptonUniversal) {
+        //MISSING SEVERAL INITIALIZATIONS HERE
+        //(this is not completele necessary but consider adding them)
+        
+        CeH_12r_LNP = 0.0;
+        CeH_13r_LNP = 0.0;
+        CeH_23r_LNP = 0.0;
+        CeH_12i_LNP = 0.0;
+        CeH_13i_LNP = 0.0;
+        CeH_23i_LNP = 0.0;  
+        
+//  bsll/sbll entries only interesting (for the moment) if non-lepton universal. Set to 0 otherwise
+        Clq1_1123r_LNP = 0.0;
+        Clq1_2223r_LNP = 0.0;
+        Clq1_3323r_LNP = 0.0;
+        //Clq1_1132r_LNP = 0.0;
+        //Clq1_2232r_LNP = 0.0;
+        //Clq1_3332r_LNP = 0.0;
+        
+        Clq3_1123r_LNP = 0.0;
+        Clq3_2223r_LNP = 0.0;
+        Clq3_3323r_LNP = 0.0;
+        //Clq3_1132r_LNP = 0.0;
+        //Clq3_2232r_LNP = 0.0;
+        //Clq3_3332r_LNP = 0.0;
+        
+        Ced_1123r_LNP = 0.0;
+        Ced_2223r_LNP = 0.0;
+        Ced_3323r_LNP = 0.0;
+        //Ced_1132r_LNP = 0.0;
+        //Ced_2232r_LNP = 0.0;
+        //Ced_3332r_LNP = 0.0;  
+        
+        Cld_1123r_LNP = 0.0;
+        Cld_2223r_LNP = 0.0;
+        Cld_3323r_LNP = 0.0;
+        //Cld_1132r_LNP = 0.0;
+        //Cld_2232r_LNP = 0.0;
+        //Cld_3332r_LNP = 0.0;
+        
+        Cqe_2311r_LNP = 0.0;
+        Cqe_2322r_LNP = 0.0;
+        Cqe_2333r_LNP = 0.0;
+        //Cqe_3211r_LNP = 0.0;
+        //Cqe_3222r_LNP = 0.0;
+        //Cqe_3233r_LNP = 0.0;
+    }
+    
+    
+    if (FlagQuarkUniversal) {
+        //MISSING SEVERAL INITIALIZATIONS HERE
+        //(this is not completele necessary but consider adding them)
+        
+        CuH_12r_LNP = 0.0;
+        CuH_13r_LNP = 0.0;
+        CuH_23r_LNP = 0.0;
+        CuH_12i_LNP = 0.0;
+        CuH_13i_LNP = 0.0;
+        CuH_23i_LNP = 0.0;
+
+        CdH_12r_LNP = 0.0;
+        CdH_13r_LNP = 0.0;
+        CdH_23r_LNP = 0.0;
+        CdH_12i_LNP = 0.0;
+        CdH_13i_LNP = 0.0;
+        CdH_23i_LNP = 0.0;        
+    }
+    
+    
+    
+    
     if (FlagMWinput) {
         //  MW scheme
         cAsch = 0.;
@@ -3424,7 +3500,7 @@ bool NPSMEFTd6General::PostUpdate()
 
     delta_UgCC = (delta_e - 0.5 * delta_sW2);
 
-    /*
+    
     //  NP corrections to Total Higgs width
     dGammaHTotR1 = deltaGammaTotalRatio1();
 
@@ -3440,7 +3516,7 @@ bool NPSMEFTd6General::PostUpdate()
     // The total theory error in the H width: set to 0.0 for the moment
     eHwidth = deltaGammaTotalRatio1() - deltaGammaTotalRatio1noError();
 
-     */
+     
     //  Dimension-6 coefficients used in the STXS parameterization
     aiG = 16.0 * M_PI * M_PI * CHG * Mw_tree * Mw_tree / g3_tree / g3_tree / LambdaNP2;
     ai3G = CG * Mw_tree * Mw_tree / g3_tree / g3_tree / g3_tree / LambdaNP2;
@@ -3557,84 +3633,215 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
     } else if (name.compare("CHl1_11r_LNP") == 0) {
         CHl1_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 0, 0);
+        
+        if (FlagLeptonUniversal){
+            CHl1_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl1R", 0.0, 0, 1);
+            
+            CHl1_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl1R", 0.0, 0, 2);
+            
+            CHl1_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 1, 1);
+            
+            CHl1_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl1R", 0.0, 1, 2);
+            
+            CHl1_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 2, 2);
+            
+            CHl1_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl1I", 0.0, 0, 1);
+            
+            CHl1_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl1I", 0.0, 0, 2);
+            
+            CHl1_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl1I", 0.0, 1, 2);
+            
+        }
     } else if (name.compare("CHl1_12r_LNP") == 0) {
-        CHl1_12r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 0, 1);
+        if (!FlagLeptonUniversal){
+            CHl1_12r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CHl1_13r_LNP") == 0) {
-        CHl1_13r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 0, 2);
+        if (!FlagLeptonUniversal){
+            CHl1_13r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CHl1_22r_LNP") == 0) {
-        CHl1_22r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 1, 1);
+        if (!FlagLeptonUniversal){
+            CHl1_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CHl1_23r_LNP") == 0) {
-        CHl1_23r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 1, 2);
+        if (!FlagLeptonUniversal){
+            CHl1_23r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CHl1_33r_LNP") == 0) {
-        CHl1_33r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 2, 2);
+        if (!FlagLeptonUniversal){
+            CHl1_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1R", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CHl1_12i_LNP") == 0) {
-        CHl1_12i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl1I", value * LambdaNPm2, 0, 1);
+        if (!FlagLeptonUniversal){
+            CHl1_12i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1I", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CHl1_13i_LNP") == 0) {
-        CHl1_13i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl1I", value * LambdaNPm2, 0, 2);
+        if (!FlagLeptonUniversal){
+            CHl1_13i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1I", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CHl1_23i_LNP") == 0) {
-        CHl1_23i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl1I", value * LambdaNPm2, 1, 2);
+        if (!FlagLeptonUniversal){
+            CHl1_23i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl1I", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CHl3_11r_LNP") == 0) {
         CHl3_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 0, 0);
+        
+        if (FlagLeptonUniversal){
+            CHl3_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl3R", 0.0, 0, 1);
+            
+            CHl3_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl3R", 0.0, 0, 2);
+            
+            CHl3_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 1, 1);
+            
+            CHl3_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl3R", 0.0, 1, 2);
+            
+            CHl3_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 2, 2);
+            
+            CHl3_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl3I", 0.0, 0, 1);
+            
+            CHl3_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl3I", 0.0, 0, 2);
+            
+            CHl3_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHl3I", 0.0, 1, 2);
+            
+        }
+        
     } else if (name.compare("CHl3_12r_LNP") == 0) {
-        CHl3_12r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 0, 1);
+        if (!FlagLeptonUniversal){
+            CHl3_12r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CHl3_13r_LNP") == 0) {
-        CHl3_13r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 0, 2);
+        if (!FlagLeptonUniversal){
+            CHl3_13r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CHl3_22r_LNP") == 0) {
-        CHl3_22r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 1, 1);
+        if (!FlagLeptonUniversal){
+            CHl3_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CHl3_23r_LNP") == 0) {
-        CHl3_23r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 1, 2);
+        if (!FlagLeptonUniversal){
+            CHl3_23r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CHl3_33r_LNP") == 0) {
-        CHl3_33r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 2, 2);
+        if (!FlagLeptonUniversal){
+            CHl3_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3R", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CHl3_12i_LNP") == 0) {
-        CHl3_12i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl3I", value * LambdaNPm2, 0, 1);
+        if (!FlagLeptonUniversal){
+            CHl3_12i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3I", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CHl3_13i_LNP") == 0) {
-        CHl3_13i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl3I", value * LambdaNPm2, 0, 2);
+        if (!FlagLeptonUniversal){
+            CHl3_13i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3I", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CHl3_23i_LNP") == 0) {
-        CHl3_23i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHl3I", value * LambdaNPm2, 1, 2);
+        if (!FlagLeptonUniversal){
+            CHl3_23i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHl3I", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CHe_11r_LNP") == 0) {
         CHe_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 0, 0);
+        
+        if (FlagLeptonUniversal){
+            CHe_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHeR", 0.0, 0, 1);
+            
+            CHe_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHeR", 0.0, 0, 2);
+            
+            CHe_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 1, 1);
+            
+            CHe_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHeR", 0.0, 1, 2);
+            
+            CHe_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 2, 2);
+            
+            CHe_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHeI", 0.0, 0, 1);
+            
+            CHe_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHeI", 0.0, 0, 2);
+            
+            CHe_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CHeI", 0.0, 1, 2);
+            
+        }
+        
     } else if (name.compare("CHe_12r_LNP") == 0) {
-        CHe_12r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 0, 1);
+        if (!FlagLeptonUniversal){
+            CHe_12r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CHe_13r_LNP") == 0) {
-        CHe_13r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 0, 2);
+        if (!FlagLeptonUniversal){
+            CHe_13r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CHe_22r_LNP") == 0) {
-        CHe_22r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 1, 1);
+        if (!FlagLeptonUniversal){
+            CHe_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CHe_23r_LNP") == 0) {
-        CHe_23r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 1, 2);
+        if (!FlagLeptonUniversal){
+            CHe_23r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CHe_33r_LNP") == 0) {
-        CHe_33r_LNP = value;
-        SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 2, 2);
+        if (!FlagLeptonUniversal){
+            CHe_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeR", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CHe_12i_LNP") == 0) {
-        CHe_12i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHeI", value * LambdaNPm2, 0, 1);
+        if (!FlagLeptonUniversal){
+            CHe_12i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CHe_13i_LNP") == 0) {
-        CHe_13i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHeI", value * LambdaNPm2, 0, 2);
+        if (!FlagLeptonUniversal){
+            CHe_13i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CHe_23i_LNP") == 0) {
-        CHe_23i_LNP = value;
-        SMEFTEvol.SetCoefficient("CHeI", value * LambdaNPm2, 1, 2);
+        if (!FlagLeptonUniversal){
+            CHe_23i_LNP = value;
+            SMEFTEvol.SetCoefficient("CHeI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CHq1_11r_LNP") == 0) {
         CHq1_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CHq1R", value * LambdaNPm2, 0, 0);
@@ -3800,2785 +4007,5540 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
     } else if (name.compare("CeH_11r_LNP") == 0) {
         CeH_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 0, 0);
+        
+        if (FlagLeptonUniversal){
+            CeH_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHR", 0.0, 0, 1);
+           
+            
+            CeH_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHR", 0.0, 0, 2);
+            
+            
+            CeH_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHR", 0.0, 1, 0);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeH_22r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 1, 1);
+            
+            CeH_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHR", 0.0, 1, 2);
+            
+            
+            CeH_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHR", 0.0, 2, 0);
+            
+            CeH_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHR", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeH_33r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 2, 2);
+            
+           
+            
+            
+            CeH_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHI", 0.0, 0, 1);
+            
+            
+            CeH_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHI", 0.0, 0, 2);
+            
+            CeH_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHI", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeH_22i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 1, 1);
+            
+            CeH_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHI", 0.0, 1, 2);
+            
+            
+            CeH_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHI", 0.0, 2, 0);
+            
+            CeH_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeHI", 0.0, 2, 1);
+            
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeH_33i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
     } else if (name.compare("CeH_12r_LNP") == 0) {
-        CeH_12r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 0, 1);
+        if (!FlagLeptonUniversal){
+            CeH_12r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CeH_13r_LNP") == 0) {
-        CeH_13r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 0, 2);
+        if (!FlagLeptonUniversal){
+            CeH_13r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CeH_21r_LNP") == 0) {
-        CeH_21r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 1, 0);
+        if (!FlagLeptonUniversal){
+            CeH_21r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CeH_22r_LNP") == 0) {
-        CeH_22r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 1, 1);
+        //We actually relax the lepton unversality condition for the yukawa couplings
+        //if (!FlagLeptonUniversal){
+            CeH_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CeH_23r_LNP") == 0) {
-        CeH_23r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 1, 2);
+        if (!FlagLeptonUniversal){
+            CeH_23r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CeH_31r_LNP") == 0) {
-        CeH_31r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 2, 0);
+        if (!FlagLeptonUniversal){
+            CeH_31r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CeH_32r_LNP") == 0) {
-        CeH_32r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 2, 1);
+        if (!FlagLeptonUniversal){
+            CeH_32r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CeH_33r_LNP") == 0) {
-        CeH_33r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 2, 2);
+        //We actually relax the lepton unversality condition for the yukawa couplings
+        //if (!FlagLeptonUniversal){
+            CeH_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHR", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CeH_11i_LNP") == 0) {
-        CeH_11i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 0, 0);
+            CeH_11i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 0, 0);
+            
+            //We relax the lepton universal symmetry for the yukawa couplings
+            //if (FlagLeptonUniversal){
+            //    CeH_22i_LNP = value;
+            //    SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 1, 1);
+            //    
+            //   CeH_33i_LNP = value;
+            //    SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 2, 2);
+            //}
     } else if (name.compare("CeH_12i_LNP") == 0) {
-        CeH_12i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 0, 1);
+        if (!FlagLeptonUniversal){
+            CeH_12i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CeH_13i_LNP") == 0) {
-        CeH_13i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 0, 2);
+        if (!FlagLeptonUniversal){
+            CeH_13i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CeH_21i_LNP") == 0) {
-        CeH_21i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 1, 0);
+        if (!FlagLeptonUniversal){
+            CeH_21i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CeH_22i_LNP") == 0) {
-        CeH_22i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 1, 1);
+        //We actually relax the lepton unversality condition for the yukawa couplings
+        //if (!FlagLeptonUniversal){
+            CeH_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CeH_23i_LNP") == 0) {
-        CeH_23i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 1, 2);
+        if (!FlagLeptonUniversal){
+            CeH_23i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CeH_31i_LNP") == 0) {
-        CeH_31i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 2, 0);
+        if (!FlagLeptonUniversal){
+            CeH_31i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CeH_32i_LNP") == 0) {
-        CeH_32i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 2, 1);
+        if (!FlagLeptonUniversal){
+            CeH_32i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CeH_33i_LNP") == 0) {
-        CeH_33i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 2, 2);
+        //We actually relax the lepton unversality condition for the yukawa couplings
+        //if (!FlagLeptonUniversal){
+            CeH_33i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeHI", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CuH_11r_LNP") == 0) {
         CuH_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 0, 0);
+        
+        if (FlagQuarkUniversal){
+            CuH_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHR", 0.0, 0, 1);
+           
+            
+            CuH_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHR", 0.0, 0, 2);
+            
+            
+            CuH_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHR", 0.0, 1, 0);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CuH_22r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 1, 1);
+            
+            CuH_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHR", 0.0, 1, 2);
+            
+            
+            CuH_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHR", 0.0, 2, 0);
+            
+            CuH_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHR", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CuH_33r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 2, 2);
+            
+           
+            
+            
+            CuH_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHI", 0.0, 0, 1);
+            
+            
+            CuH_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHI", 0.0, 0, 2);
+            
+            CuH_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHI", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CuH_22i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 1, 1);
+            
+            CuH_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHI", 0.0, 1, 2);
+            
+            
+            CuH_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHI", 0.0, 2, 0);
+            
+            CuH_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuHI", 0.0, 2, 1);
+            
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CuH_33i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
     } else if (name.compare("CuH_12r_LNP") == 0) {
-        CuH_12r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 0, 1);
+        if (!FlagQuarkUniversal){
+            CuH_12r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CuH_13r_LNP") == 0) {
-        CuH_13r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 0, 2);
+        if (!FlagQuarkUniversal){
+            CuH_13r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CuH_21r_LNP") == 0) {
-        CuH_21r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 1, 0);
+        if (!FlagQuarkUniversal){
+            CuH_21r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CuH_22r_LNP") == 0) {
-        CuH_22r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 1, 1);
+        // We relax the quark universal assumption for the Yukawas
+        //if (!FlagQuarkUniversal){
+            CuH_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CuH_23r_LNP") == 0) {
-        CuH_23r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 1, 2);
+        if (!FlagQuarkUniversal){
+            CuH_23r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CuH_31r_LNP") == 0) {
-        CuH_31r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 2, 0);
+        if (!FlagQuarkUniversal){
+            CuH_31r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CuH_32r_LNP") == 0) {
-        CuH_32r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 2, 1);
+        if (!FlagQuarkUniversal){
+            CuH_32r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CuH_33r_LNP") == 0) {
-        CuH_33r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 2, 2);
+        // We relax the quark universal assumption for the Yukawas
+        //if (!FlagQuarkUniversal){
+            CuH_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHR", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CuH_11i_LNP") == 0) {
         CuH_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 0, 0);
+        
+        //We relax the quark universal symmetry for the yukawa couplings
+        //if (FlagQuarkUniversal){
+        //    CuH_22i_LNP = value;
+        //    SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 1, 1);
+        //    
+        //    CuH_33i_LNP = value;
+        //    SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 2, 2);
+        //}
+        
     } else if (name.compare("CuH_12i_LNP") == 0) {
-        CuH_12i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 0, 1);
+        if (!FlagQuarkUniversal){
+            CuH_12i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CuH_13i_LNP") == 0) {
-        CuH_13i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 0, 2);
+        if (!FlagQuarkUniversal){
+            CuH_13i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CuH_21i_LNP") == 0) {
-        CuH_21i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 1, 0);
+        if (!FlagQuarkUniversal){
+            CuH_21i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CuH_22i_LNP") == 0) {
-        CuH_22i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 1, 1);
+        //We relax the quark universal symmetry for the Yukawa couplings
+        //if (!FlagQuarkUniversal){
+            CuH_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CuH_23i_LNP") == 0) {
-        CuH_23i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 1, 2);
+        if (!FlagQuarkUniversal){
+            CuH_23i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CuH_31i_LNP") == 0) {
-        CuH_31i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 2, 0);
+        if (!FlagQuarkUniversal){
+            CuH_31i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CuH_32i_LNP") == 0) {
-        CuH_32i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 2, 1);
+        if (!FlagQuarkUniversal){
+            CuH_32i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CuH_33i_LNP") == 0) {
+        //We relax the quark universal symmetry for the Yukawa couplings
+        //if (!FlagQuarkUniversal){
         CuH_33i_LNP = value;
         SMEFTEvol.SetCoefficient("CuHI", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CdH_11r_LNP") == 0) {
         CdH_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 0, 0);
+        
+        if (FlagQuarkUniversal){
+            CdH_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHR", 0.0, 0, 1);
+           
+            
+            CdH_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHR", 0.0, 0, 2);
+            
+            
+            CdH_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHR", 0.0, 1, 0);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CdH_22r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 1, 1);
+            
+            CdH_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHR", 0.0, 1, 2);
+            
+            
+            CdH_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHR", 0.0, 2, 0);
+            
+            CdH_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHR", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CdH_33r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 2, 2);
+            
+
+            
+            CdH_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHI", 0.0, 0, 1);
+            
+            
+            CdH_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHI", 0.0, 0, 2);
+            
+            CdH_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHI", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CdH_22i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 1, 1);
+            
+            CdH_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHI", 0.0, 1, 2);
+            
+            
+            CdH_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHI", 0.0, 2, 0);
+            
+            CdH_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdHI", 0.0, 2, 1);
+            
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CdH_33i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("CdH_12r_LNP") == 0) {
-        CdH_12r_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 0, 1);
+        if (!FlagQuarkUniversal){
+            CdH_12r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CdH_13r_LNP") == 0) {
-        CdH_13r_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 0, 2);
+        if (!FlagQuarkUniversal){
+            CdH_13r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CdH_21r_LNP") == 0) {
-        CdH_21r_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 1, 0);
+        if (!FlagQuarkUniversal){
+            CdH_21r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CdH_22r_LNP") == 0) {
-        CdH_22r_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 1, 1);
+        //Relax the condition here
+        //if (!FlagQuarkUniversal){
+            CdH_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CdH_23r_LNP") == 0) {
-        CdH_23r_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 1, 2);
+        if (!FlagQuarkUniversal){
+            CdH_23r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CdH_31r_LNP") == 0) {
-        CdH_31r_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 2, 0);
+        if (!FlagQuarkUniversal){
+            CdH_31r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CdH_32r_LNP") == 0) {
-        CdH_32r_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 2, 1);
+        if (!FlagQuarkUniversal){
+            CdH_32r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CdH_33r_LNP") == 0) {
-        CdH_33r_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 2, 2);
+        // We relax the symmetry here
+        //if (!FlagQuarkUniversal){
+            CdH_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHR", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CdH_11i_LNP") == 0) {
         CdH_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 0, 0);
+        
+        //We relax the quark universal symmetry for the yukawa couplings
+        //if (FlagQuarkUniversal){
+        //    CdH_22i_LNP = value;
+        //    SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 1, 1);
+        //    
+        //    CdH_33i_LNP = value;
+        //    SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 2, 2);
+        //}
+        
+        
     } else if (name.compare("CdH_12i_LNP") == 0) {
-        CdH_12i_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 0, 1);
+        if (!FlagQuarkUniversal){
+            CdH_12i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CdH_13i_LNP") == 0) {
-        CdH_13i_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 0, 2);
+        if (!FlagQuarkUniversal){
+            CdH_13i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CdH_21i_LNP") == 0) {
-        CdH_21i_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 1, 0);
+        if (!FlagQuarkUniversal){
+            CdH_21i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CdH_22i_LNP") == 0) {
-        CdH_22i_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 1, 1);
+        //We relax the symmetry here
+        //if (!FlagQuarkUniversal){
+            CdH_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CdH_23i_LNP") == 0) {
-        CdH_23i_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 1, 2);
+        if (!FlagQuarkUniversal){
+            CdH_23i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CdH_31i_LNP") == 0) {
-        CdH_31i_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 2, 0);
+        if (!FlagQuarkUniversal){
+            CdH_31i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CdH_32i_LNP") == 0) {
-        CdH_32i_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 2, 1);
+        if (!FlagQuarkUniversal){
+            CdH_32i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CdH_33i_LNP") == 0) {
-        CdH_33i_LNP = value;
-        SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 2, 2);
+        //We relax the symmetry here
+        //if (!FlagQuarkUniversal){
+            CdH_33i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdHI", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CuG_11r_LNP") == 0) {
         CuG_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            CuG_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGR", 0.0, 0, 1);
+           
+            
+            CuG_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGR", 0.0, 0, 2);
+            
+            
+            CuG_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGR", 0.0, 1, 0);
+            
+            CuG_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 1, 1);
+            
+            CuG_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGR", 0.0, 1, 2);
+            
+            
+            CuG_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGR", 0.0, 2, 0);
+            
+            CuG_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGR", 0.0, 2, 1);
+            
+            CuG_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 2, 2);
+            
+           
+            
+            
+            CuG_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGI", 0.0, 0, 1);
+            
+            
+            CuG_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGI", 0.0, 0, 2);
+            
+            CuG_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGI", 0.0, 2, 1);
+            
+            CuG_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 1, 1);
+            
+            CuG_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGI", 0.0, 1, 2);
+            
+            
+            CuG_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGI", 0.0, 2, 0);
+            
+            CuG_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuGI", 0.0, 2, 1);
+            
+            
+            CuG_33i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("CuG_12r_LNP") == 0) {
-        CuG_12r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 0, 1);
+        if (!FlagQuarkUniversal){
+            CuG_12r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CuG_13r_LNP") == 0) {
-        CuG_13r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 0, 2);
+        if (!FlagQuarkUniversal){
+            CuG_13r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CuG_21r_LNP") == 0) {
-        CuG_21r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 1, 0);
+        if (!FlagQuarkUniversal){
+            CuG_21r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CuG_22r_LNP") == 0) {
-        CuG_22r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 1, 1);
+        if (!FlagQuarkUniversal){
+            CuG_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CuG_23r_LNP") == 0) {
-        CuG_23r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 1, 2);
+        if (!FlagQuarkUniversal){
+            CuG_23r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CuG_31r_LNP") == 0) {
-        CuG_31r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 2, 0);
+        if (!FlagQuarkUniversal){
+            CuG_31r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CuG_32r_LNP") == 0) {
-        CuG_32r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 2, 1);
+        if (!FlagQuarkUniversal){
+            CuG_32r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CuG_33r_LNP") == 0) {
-        CuG_33r_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 2, 2);
+        if (!FlagQuarkUniversal){
+            CuG_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGR", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CuG_11i_LNP") == 0) {
-        CuG_11i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 0, 0);
+        if (!FlagQuarkUniversal){
+            CuG_11i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 0, 0);
+        }
     } else if (name.compare("CuG_12i_LNP") == 0) {
-        CuG_12i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 0, 1);
+        if (!FlagQuarkUniversal){
+            CuG_12i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CuG_13i_LNP") == 0) {
-        CuG_13i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 0, 2);
+        if (!FlagQuarkUniversal){
+            CuG_13i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CuG_21i_LNP") == 0) {
-        CuG_21i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 1, 0);
+        if (!FlagQuarkUniversal){
+            CuG_21i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CuG_22i_LNP") == 0) {
-        CuG_22i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 1, 1);
+        if (!FlagQuarkUniversal){
+            CuG_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CuG_23i_LNP") == 0) {
-        CuG_23i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 1, 2);
+        if (!FlagQuarkUniversal){
+            CuG_23i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CuG_31i_LNP") == 0) {
-        CuG_31i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 2, 0);
+        if (!FlagQuarkUniversal){
+            CuG_31i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CuG_32i_LNP") == 0) {
-        CuG_32i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 2, 1);
+        if (!FlagQuarkUniversal){
+            CuG_32i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CuG_33i_LNP") == 0) {
-        CuG_33i_LNP = value;
-        SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 2, 2);
+        if (!FlagQuarkUniversal){
+            CuG_33i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuGI", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CuW_11r_LNP") == 0) {
         CuW_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 0, 0);
+        
+        if (FlagQuarkUniversal){
+            CuW_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWR", 0.0, 0, 1);
+           
+            
+            CuW_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWR", 0.0, 0, 2);
+            
+            
+            CuW_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWR", 0.0, 1, 0);
+            
+            CuW_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 1, 1);
+            
+            CuW_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWR", 0.0, 1, 2);
+            
+            
+            CuW_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWR", 0.0, 2, 0);
+            
+            CuW_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWR", 0.0, 2, 1);
+            
+            CuW_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 2, 2);
+            
+           
+            
+            
+            CuW_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWI", 0.0, 0, 1);
+            
+            
+            CuW_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWI", 0.0, 0, 2);
+            
+            CuW_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWI", 0.0, 2, 1);
+            
+            CuW_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 1, 1);
+            
+            CuW_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWI", 0.0, 1, 2);
+            
+            
+            CuW_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWI", 0.0, 2, 0);
+            
+            CuW_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuWI", 0.0, 2, 1);
+            
+            
+            CuW_33i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
     } else if (name.compare("CuW_12r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_12r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CuW_13r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_13r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CuW_21r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_21r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CuW_22r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_22r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CuW_23r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_23r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CuW_31r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_31r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CuW_32r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_32r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CuW_33r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_33r_LNP = value;
         SMEFTEvol.SetCoefficient("CuWR", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CuW_11i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 0, 0);
+        }
     } else if (name.compare("CuW_12i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_12i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CuW_13i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_13i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CuW_21i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_21i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CuW_22i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_22i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CuW_23i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_23i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CuW_31i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_31i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CuW_32i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_32i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CuW_33i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuW_33i_LNP = value;
         SMEFTEvol.SetCoefficient("CuWI", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CuB_11r_LNP") == 0) {
         CuB_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 0, 0);
+        
+        if (FlagQuarkUniversal){
+            CuB_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBR", 0.0, 0, 1);
+           
+            
+            CuB_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBR", 0.0, 0, 2);
+            
+            
+            CuB_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBR", 0.0, 1, 0);
+            
+            CuB_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 1, 1);
+            
+            CuB_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBR", 0.0, 1, 2);
+            
+            
+            CuB_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBR", 0.0, 2, 0);
+            
+            CuB_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBR", 0.0, 2, 1);
+            
+            CuB_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 2, 2);
+            
+           
+            
+            
+            CuB_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBI", 0.0, 0, 1);
+            
+            
+            CuB_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBI", 0.0, 0, 2);
+            
+            CuB_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBI", 0.0, 2, 1);
+            
+            CuB_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 1, 1);
+            
+            CuB_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBI", 0.0, 1, 2);
+            
+            
+            CuB_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBI", 0.0, 2, 0);
+            
+            CuB_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CuBI", 0.0, 2, 1);
+            
+            
+            CuB_33i_LNP = value;
+            SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
     } else if (name.compare("CuB_12r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_12r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CuB_13r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_13r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CuB_21r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_21r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CuB_22r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_22r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CuB_23r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_23r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CuB_31r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_31r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CuB_32r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_32r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CuB_33r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_33r_LNP = value;
         SMEFTEvol.SetCoefficient("CuBR", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CuB_11i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 0, 0);
+        }
     } else if (name.compare("CuB_12i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_12i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CuB_13i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_13i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CuB_21i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_21i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CuB_22i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_22i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CuB_23i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_23i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CuB_31i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_31i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CuB_32i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_32i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CuB_33i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CuB_33i_LNP = value;
         SMEFTEvol.SetCoefficient("CuBI", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CdG_11r_LNP") == 0) {
         CdG_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 0, 0);
+        
+        if (FlagQuarkUniversal){
+            CdG_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGR", 0.0, 0, 1);
+           
+            
+            CdG_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGR", 0.0, 0, 2);
+            
+            
+            CdG_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGR", 0.0, 1, 0);
+            
+            CdG_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 1, 1);
+            
+            CdG_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGR", 0.0, 1, 2);
+            
+            
+            CdG_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGR", 0.0, 2, 0);
+            
+            CdG_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGR", 0.0, 2, 1);
+            
+            CdG_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 2, 2);
+            
+           
+            
+            
+            CdG_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGI", 0.0, 0, 1);
+            
+            
+            CdG_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGI", 0.0, 0, 2);
+            
+            CdG_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGI", 0.0, 2, 1);
+            
+            CdG_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 1, 1);
+            
+            CdG_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGI", 0.0, 1, 2);
+            
+            
+            CdG_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGI", 0.0, 2, 0);
+            
+            CdG_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdGI", 0.0, 2, 1);
+            
+            
+            CdG_33i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("CdG_12r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_12r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CdG_13r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_13r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CdG_21r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_21r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CdG_22r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_22r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CdG_23r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_23r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CdG_31r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_31r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CdG_32r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_32r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CdG_33r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_33r_LNP = value;
         SMEFTEvol.SetCoefficient("CdGR", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CdG_11i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 0, 0);
+        }
     } else if (name.compare("CdG_12i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_12i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CdG_13i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_13i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CdG_21i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_21i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CdG_22i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_22i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CdG_23i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_23i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CdG_31i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_31i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CdG_32i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_32i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CdG_33i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdG_33i_LNP = value;
         SMEFTEvol.SetCoefficient("CdGI", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CdW_11r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 0, 0);
+        }
     } else if (name.compare("CdW_12r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_12r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CdW_13r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_13r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CdW_21r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_21r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CdW_22r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_22r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CdW_23r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_23r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CdW_31r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_31r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CdW_32r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_32r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CdW_33r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_33r_LNP = value;
         SMEFTEvol.SetCoefficient("CdWR", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CdW_11i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 0, 0);
+        }
     } else if (name.compare("CdW_12i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_12i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CdW_13i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_13i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CdW_21i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_21i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CdW_22i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_22i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CdW_23i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_23i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CdW_31i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_31i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CdW_32i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_32i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CdW_33i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdW_33i_LNP = value;
         SMEFTEvol.SetCoefficient("CdWI", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CdB_11r_LNP") == 0) {
         CdB_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            CdB_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBR", 0.0, 0, 1);
+           
+            
+            CdB_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBR", 0.0, 0, 2);
+            
+            
+            CdB_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBR", 0.0, 1, 0);
+            
+            CdB_22r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 1, 1);
+            
+            CdB_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBR", 0.0, 1, 2);
+            
+            
+            CdB_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBR", 0.0, 2, 0);
+            
+            CdB_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBR", 0.0, 2, 1);
+            
+            CdB_33r_LNP = value;
+            SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 2, 2);
+            
+           
+            
+            
+            CdB_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBI", 0.0, 0, 1);
+            
+            
+            CdB_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBI", 0.0, 0, 2);
+            
+            CdB_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBI", 0.0, 2, 1);
+            
+            CdB_22i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 1, 1);
+            
+            CdB_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBI", 0.0, 1, 2);
+            
+            
+            CdB_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBI", 0.0, 2, 0);
+            
+            CdB_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CdBI", 0.0, 2, 1);
+            
+            
+            CdB_33i_LNP = value;
+            SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("CdB_12r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_12r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CdB_13r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_13r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CdB_21r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_21r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CdB_22r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_22r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CdB_23r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_23r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CdB_31r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_31r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CdB_32r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_32r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CdB_33r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_33r_LNP = value;
         SMEFTEvol.SetCoefficient("CdBR", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CdB_11i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 0, 0);
+        }
     } else if (name.compare("CdB_12i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_12i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CdB_13i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_13i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CdB_21i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_21i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CdB_22i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_22i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 1, 1);
+        }
     } else if (name.compare("CdB_23i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_23i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CdB_31i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_31i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CdB_32i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_32i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CdB_33i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         CdB_33i_LNP = value;
         SMEFTEvol.SetCoefficient("CdBI", value * LambdaNPm2, 2, 2);
+        }
     } else if (name.compare("CeW_11r_LNP") == 0) {
         CeW_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 0, 0);
+        
+        
+        if (FlagLeptonUniversal){
+            CeW_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWR", 0.0, 0, 1);
+           
+            
+            CeW_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWR", 0.0, 0, 2);
+            
+            
+            CeW_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWR", 0.0, 1, 0);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeW_22r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 1, 1);
+            
+            CeW_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWR", 0.0, 1, 2);
+            
+            
+            CeW_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWR", 0.0, 2, 0);
+            
+            CeW_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWR", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeW_33r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 2, 2);
+            
+            
+            CeW_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWI", 0.0, 0, 1);
+            
+            
+            CeW_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWI", 0.0, 0, 2);
+            
+            CeW_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWI", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeW_22i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 1, 1);
+            
+            CeW_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWI", 0.0, 1, 2);
+            
+            CeW_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWI", 0.0, 2, 0);
+            
+            CeW_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeWI", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeW_33i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("CeW_12r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_12r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CeW_13r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_13r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CeW_21r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_21r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CeW_22r_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeW_22r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CeW_23r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_23r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CeW_31r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_31r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CeW_32r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_32r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CeW_33r_LNP") == 0) {
+        
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeW_33r_LNP = value;
         SMEFTEvol.SetCoefficient("CeWR", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CeW_11i_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeW_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 0, 0);
+        //}
     } else if (name.compare("CeW_12i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_12i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CeW_13i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_13i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CeW_21i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_21i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CeW_22i_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeW_22i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CeW_23i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_23i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CeW_31i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_31i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CeW_32i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeW_32i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CeW_33i_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeW_33i_LNP = value;
         SMEFTEvol.SetCoefficient("CeWI", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CeB_11r_LNP") == 0) {
         CeB_11r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 0, 0);
+        
+        if (FlagLeptonUniversal){
+            CeB_12r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBR", 0.0, 0, 1);
+           
+            
+            CeB_13r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBR", 0.0, 0, 2);
+            
+            
+            CeB_21r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBR", 0.0, 1, 0);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeB_22r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 1, 1);
+            
+            CeB_23r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBR", 0.0, 1, 2);
+            
+            
+            CeB_31r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBR", 0.0, 2, 0);
+            
+            CeB_32r_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBR", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeB_33r_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 2, 2);
+            
+            
+            CeB_12i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBI", 0.0, 0, 1);
+            
+            
+            CeB_13i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBI", 0.0, 0, 2);
+            
+            CeB_21i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBI", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeB_22i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 1, 1);
+            
+            CeB_23i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBI", 0.0, 1, 2);
+            
+            CeB_31i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBI", 0.0, 2, 0);
+            
+            CeB_32i_LNP = 0.0;
+            SMEFTEvol.SetCoefficient("CeBI", 0.0, 2, 1);
+            
+            //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+            //CeB_33i_LNP = value;
+            //SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 2, 2);
+            
+        }
+        
     } else if (name.compare("CeB_12r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_12r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CeB_13r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_13r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CeB_21r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_21r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CeB_22r_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeB_22r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CeB_23r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_23r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CeB_31r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_31r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CeB_32r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_32r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CeB_33r_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeB_33r_LNP = value;
         SMEFTEvol.SetCoefficient("CeBR", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("CeB_11i_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeB_11i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 0, 0);
+        //}
     } else if (name.compare("CeB_12i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_12i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 0, 1);
+        }
     } else if (name.compare("CeB_13i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_13i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 0, 2);
+        }
     } else if (name.compare("CeB_21i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_21i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 1, 0);
+        }
     } else if (name.compare("CeB_22i_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeB_22i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 1, 1);
+        //}
     } else if (name.compare("CeB_23i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_23i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 1, 2);
+        }
     } else if (name.compare("CeB_31i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_31i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 2, 0);
+        }
     } else if (name.compare("CeB_32i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         CeB_32i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 2, 1);
+        }
     } else if (name.compare("CeB_33i_LNP") == 0) {
+        //Technically flavour universality would also imply these to be equal to the same value but we relax that condition
+        //if (!FlagLeptonUniversal){
         CeB_33i_LNP = value;
         SMEFTEvol.SetCoefficient("CeBI", value * LambdaNPm2, 2, 2);
+        //}
     } else if (name.compare("Cll_1111r_LNP") == 0) {
         Cll_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal){
+            Cll_1221r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 1, 0);
+        
+            //Cll_2112r_LNP = value;
+            //Cll_2211r_LNP = value;
+        
+            Cll_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 1, 1);
+        
+            //Cll_3311r_LNP = value;
+        
+            Cll_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 2, 2);
+        
+            Cll_1331r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 2, 0);
+        
+            Cll_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 1, 1, 1);
+        
+            Cll_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cll_2332r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 2, 2, 1);
+        
+            //Cll_3113r_LNP = value;
+            
+            Cll_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
     } else if (name.compare("Cll_1112r_LNP") == 0) {
-        Cll_1112r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 0, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1112r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cll_1113r_LNP") == 0) {
-        Cll_1113r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1113r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cll_1122r_LNP") == 0) {
-        Cll_1122r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cll_1123r_LNP") == 0) {
-        Cll_1123r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1123r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cll_1133r_LNP") == 0) {
-        Cll_1133r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cll_1212r_LNP") == 0) {
-        Cll_1212r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 0, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1212r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cll_1213r_LNP") == 0) {
-        Cll_1213r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1213r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cll_1221r_LNP") == 0) {
-        Cll_1221r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 1, 0);
+        if (!FlagLeptonUniversal){
+            Cll_1221r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cll_1222r_LNP") == 0) {
-        Cll_1222r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cll_1223r_LNP") == 0) {
-        Cll_1223r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1223r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cll_1231r_LNP") == 0) {
-        Cll_1231r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 2, 0);
+        if (!FlagLeptonUniversal){
+            Cll_1231r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cll_1232r_LNP") == 0) {
-        Cll_1232r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 2, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1232r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cll_1233r_LNP") == 0) {
-        Cll_1233r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cll_1313r_LNP") == 0) {
-        Cll_1313r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1313r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cll_1322r_LNP") == 0) {
-        Cll_1322r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1322r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cll_1323r_LNP") == 0) {
-        Cll_1323r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1323r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cll_1331r_LNP") == 0) {
-        Cll_1331r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 2, 0);
+        if (!FlagLeptonUniversal){
+            Cll_1331r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cll_1332r_LNP") == 0) {
-        Cll_1332r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 2, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1332r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cll_1333r_LNP") == 0) {
-        Cll_1333r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cll_2222r_LNP") == 0) {
-        Cll_2222r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 1, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cll_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cll_2223r_LNP") == 0) {
-        Cll_2223r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 1, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_2223r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cll_2233r_LNP") == 0) {
-        Cll_2233r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 1, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cll_2323r_LNP") == 0) {
-        Cll_2323r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 2, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_2323r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cll_2332r_LNP") == 0) {
-        Cll_2332r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 2, 2, 1);
+        if (!FlagLeptonUniversal){
+            Cll_2332r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cll_2333r_LNP") == 0) {
-        Cll_2333r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_2333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cll_3333r_LNP") == 0) {
-        Cll_3333r_LNP = value;
-        SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 2, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CllR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cll_1112i_LNP") == 0) {
-        Cll_1112i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 0, 0, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1112i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cll_1113i_LNP") == 0) {
-        Cll_1113i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 0, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1113i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cll_1123i_LNP") == 0) {
-        Cll_1123i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 0, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1123i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cll_1212i_LNP") == 0) {
-        Cll_1212i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 0, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1212i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cll_1213i_LNP") == 0) {
-        Cll_1213i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1213i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cll_1222i_LNP") == 0) {
-        Cll_1222i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1222i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cll_1223i_LNP") == 0) {
-        Cll_1223i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1223i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cll_1231i_LNP") == 0) {
-        Cll_1231i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 2, 0);
+        if (!FlagLeptonUniversal){
+            Cll_1231i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cll_1232i_LNP") == 0) {
-        Cll_1232i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 2, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1232i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cll_1233i_LNP") == 0) {
-        Cll_1233i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1233i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cll_1313i_LNP") == 0) {
-        Cll_1313i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1313i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cll_1322i_LNP") == 0) {
-        Cll_1322i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1322i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cll_1323i_LNP") == 0) {
-        Cll_1323i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1323i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cll_1332i_LNP") == 0) {
-        Cll_1332i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 2, 1);
+        if (!FlagLeptonUniversal){
+            Cll_1332i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cll_1333i_LNP") == 0) {
-        Cll_1333i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_1333i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cll_2223i_LNP") == 0) {
-        Cll_2223i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 1, 1, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_2223i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cll_2323i_LNP") == 0) {
-        Cll_2323i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 1, 2, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cll_2323i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cll_2333i_LNP") == 0) {
-        Cll_2333i_LNP = value;
-        SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 1, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cll_2333i_LNP = value;
+            SMEFTEvol.SetCoefficient("CllI", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Clq1_1111r_LNP") == 0) {
         Clq1_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal && FlagQuarkUniversal){
+            
+            Clq1_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Clq1_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Clq1_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Clq1_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Clq1_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Clq1_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Clq1_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Clq1_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("Clq1_1112r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Clq1_1113r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Clq1_1122r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Clq1_1123r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Clq1_1133r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Clq1_1211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Clq1_1212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Clq1_1213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Clq1_1221r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Clq1_1222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Clq1_1223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Clq1_1231r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Clq1_1232r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Clq1_1233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Clq1_1311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Clq1_1312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Clq1_1313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Clq1_1321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Clq1_1322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Clq1_1323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Clq1_1331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Clq1_1332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Clq1_1333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Clq1_2211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Clq1_2212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Clq1_2213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Clq1_2222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Clq1_2223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Clq1_2233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Clq1_2311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Clq1_2312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Clq1_2313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Clq1_2321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Clq1_2322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Clq1_2323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Clq1_2331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Clq1_2332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Clq1_2333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Clq1_3311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Clq1_3312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Clq1_3313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Clq1_3322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Clq1_3323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Clq1_3333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Clq1_1112i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Clq1_1113i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Clq1_1123i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Clq1_1211i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Clq1_1212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Clq1_1213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Clq1_1221i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Clq1_1222i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Clq1_1223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Clq1_1231i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Clq1_1232i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Clq1_1233i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Clq1_1311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Clq1_1312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Clq1_1313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Clq1_1321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Clq1_1322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Clq1_1323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Clq1_1331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Clq1_1332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Clq1_1333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Clq1_2212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Clq1_2213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Clq1_2223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Clq1_2312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Clq1_2313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Clq1_2321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Clq1_2322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Clq1_2323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Clq1_2331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Clq1_2332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Clq1_2333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Clq1_3311i_LNP") == 0) {
-        Clq1_3311i_LNP = value;
+        }
+    } else if (name.compare("Clq1_2311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
+        Clq1_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Clq1_3312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Clq1_3313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Clq1_3323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq1_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq1I", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Clq3_1111r_LNP") == 0) {
+        
         Clq3_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal && FlagQuarkUniversal){
+            
+            Clq3_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Clq3_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Clq3_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Clq3_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Clq3_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Clq3_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Clq3_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Clq3_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
+        
     } else if (name.compare("Clq3_1112r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Clq3_1113r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Clq3_1122r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Clq3_1123r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Clq3_1133r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Clq3_1211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Clq3_1212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Clq3_1213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Clq3_1221r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Clq3_1222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Clq3_1223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Clq3_1231r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Clq3_1232r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Clq3_1233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Clq3_1311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Clq3_1312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Clq3_1313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Clq3_1321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Clq3_1322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Clq3_1323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Clq3_1331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Clq3_1332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Clq3_1333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Clq3_2211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Clq3_2212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Clq3_2213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Clq3_2222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Clq3_2223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Clq3_2233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Clq3_2311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Clq3_2312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Clq3_2313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Clq3_2321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Clq3_2322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Clq3_2323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Clq3_2331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Clq3_2332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Clq3_2333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Clq3_3311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Clq3_3312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Clq3_3313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Clq3_3322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Clq3_3323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Clq3_3333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Clq3_1112i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Clq3_1113i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Clq3_1123i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Clq3_1211i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Clq3_1212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Clq3_1213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Clq3_1221i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Clq3_1222i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Clq3_1223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Clq3_1231i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Clq3_1232i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Clq3_1233i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Clq3_1311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Clq3_1312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Clq3_1313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Clq3_1321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Clq3_1322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Clq3_1323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Clq3_1331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Clq3_1332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Clq3_1333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Clq3_2212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Clq3_2213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Clq3_2223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Clq3_2312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Clq3_2313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Clq3_2321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Clq3_2322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Clq3_2323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Clq3_2331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Clq3_2332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Clq3_2333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Clq3_3311i_LNP") == 0) {
-        Clq3_3311i_LNP = value;
+        }
+    } else if (name.compare("Clq3_2311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
+        Clq3_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Clq3_3312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Clq3_3313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Clq3_3323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clq3_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("Clq3I", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cee_1111r_LNP") == 0) {
         Cee_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagLeptonUniversal){
+        
+            Cee_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            //Cee_2211r_LNP = value;
+            
+            Cee_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cee_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cee_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            //Cee_3311r_LNP = value;
+            
+            Cee_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
     } else if (name.compare("Cee_1112r_LNP") == 0) {
-        Cee_1112r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 0, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1112r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cee_1113r_LNP") == 0) {
-        Cee_1113r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1113r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cee_1122r_LNP") == 0) {
-        Cee_1122r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cee_1123r_LNP") == 0) {
-        Cee_1123r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1123r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cee_1133r_LNP") == 0) {
-        Cee_1133r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cee_1212r_LNP") == 0) {
-        Cee_1212r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 0, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1212r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cee_1213r_LNP") == 0) {
-        Cee_1213r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1213r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cee_1222r_LNP") == 0) {
-        Cee_1222r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cee_1223r_LNP") == 0) {
-        Cee_1223r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1223r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cee_1232r_LNP") == 0) {
-        Cee_1232r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 2, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1232r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cee_1233r_LNP") == 0) {
-        Cee_1233r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cee_1313r_LNP") == 0) {
-        Cee_1313r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 2, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1313r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cee_1323r_LNP") == 0) {
-        Cee_1323r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 2, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1323r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cee_1333r_LNP") == 0) {
-        Cee_1333r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cee_2222r_LNP") == 0) {
-        Cee_2222r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 1, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cee_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cee_2223r_LNP") == 0) {
-        Cee_2223r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 1, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_2223r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cee_2233r_LNP") == 0) {
-        Cee_2233r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 1, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cee_2323r_LNP") == 0) {
-        Cee_2323r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 2, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_2323r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cee_2333r_LNP") == 0) {
-        Cee_2333r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_2333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cee_3333r_LNP") == 0) {
-        Cee_3333r_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 2, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cee_1112i_LNP") == 0) {
-        Cee_1112i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 0, 0, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1112i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cee_1113i_LNP") == 0) {
-        Cee_1113i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 0, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1113i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cee_1123i_LNP") == 0) {
-        Cee_1123i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 0, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1123i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cee_1212i_LNP") == 0) {
-        Cee_1212i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 0, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1212i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cee_1213i_LNP") == 0) {
-        Cee_1213i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1213i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cee_1222i_LNP") == 0) {
-        Cee_1222i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 1, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1222i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cee_1223i_LNP") == 0) {
-        Cee_1223i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1223i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cee_1232i_LNP") == 0) {
-        Cee_1232i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 2, 1);
+        if (!FlagLeptonUniversal){
+            Cee_1232i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cee_1233i_LNP") == 0) {
-        Cee_1233i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1233i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cee_1313i_LNP") == 0) {
-        Cee_1313i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 2, 0, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1313i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cee_1323i_LNP") == 0) {
-        Cee_1323i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 2, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1323i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cee_1333i_LNP") == 0) {
-        Cee_1333i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_1333i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cee_2223i_LNP") == 0) {
-        Cee_2223i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 1, 1, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_2223i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cee_2323i_LNP") == 0) {
-        Cee_2323i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 1, 2, 1, 2);
+        if (!FlagLeptonUniversal){
+            Cee_2323i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cee_2333i_LNP") == 0) {
-        Cee_2333i_LNP = value;
-        SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 1, 2, 2, 2);
+        if (!FlagLeptonUniversal){
+            Cee_2333i_LNP = value;
+            SMEFTEvol.SetCoefficient("CeeI", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Ceu_1111r_LNP") == 0) {
         Ceu_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal && FlagQuarkUniversal){
+        
+            Ceu_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Ceu_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Ceu_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Ceu_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Ceu_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Ceu_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Ceu_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Ceu_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
+        
     } else if (name.compare("Ceu_1112r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Ceu_1113r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Ceu_1122r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Ceu_1123r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Ceu_1133r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Ceu_1211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Ceu_1212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Ceu_1213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Ceu_1221r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Ceu_1222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Ceu_1223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Ceu_1231r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Ceu_1232r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Ceu_1233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Ceu_1311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Ceu_1312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Ceu_1313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Ceu_1321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Ceu_1322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Ceu_1323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Ceu_1331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Ceu_1332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Ceu_1333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Ceu_2211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Ceu_2212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Ceu_2213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Ceu_2222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Ceu_2223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Ceu_2233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Ceu_2311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Ceu_2312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Ceu_2313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Ceu_2321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Ceu_2322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Ceu_2323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Ceu_2331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Ceu_2332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Ceu_2333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Ceu_3311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Ceu_3312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Ceu_3313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Ceu_3322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Ceu_3323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Ceu_3333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("CeuR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Ceu_1112i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Ceu_1113i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Ceu_1123i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Ceu_1211i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Ceu_1212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Ceu_1213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Ceu_1221i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Ceu_1222i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Ceu_1223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Ceu_1231i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Ceu_1232i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Ceu_1233i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Ceu_1311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Ceu_1312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Ceu_1313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Ceu_1321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Ceu_1322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Ceu_1323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Ceu_1331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Ceu_1332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Ceu_1333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Ceu_2212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Ceu_2213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Ceu_2223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Ceu_2312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Ceu_2313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Ceu_2321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Ceu_2322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Ceu_2323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Ceu_2331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Ceu_2332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Ceu_2333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Ceu_3311i_LNP") == 0) {
-        Ceu_3311i_LNP = value;
+        }
+    } else if (name.compare("Ceu_2311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
+        Ceu_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Ceu_3312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Ceu_3313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Ceu_3323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ceu_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("CeuI", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Ced_1111r_LNP") == 0) {
         Ced_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal && FlagQuarkUniversal){
+        
+            Ced_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Ced_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Ced_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Ced_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Ced_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Ced_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Ced_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Ced_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
     } else if (name.compare("Ced_1112r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Ced_1113r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Ced_1122r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Ced_1123r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Ced_1133r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Ced_1211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Ced_1212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Ced_1213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Ced_1221r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Ced_1222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Ced_1223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Ced_1231r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Ced_1232r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Ced_1233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Ced_1311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Ced_1312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Ced_1313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Ced_1321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Ced_1322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Ced_1323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Ced_1331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Ced_1332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Ced_1333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Ced_2211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Ced_2212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Ced_2213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Ced_2222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Ced_2223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Ced_2233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Ced_2311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Ced_2312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Ced_2313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Ced_2321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Ced_2322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Ced_2323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Ced_2331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Ced_2332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Ced_2333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Ced_3311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Ced_3312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Ced_3313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Ced_3322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Ced_3323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Ced_3333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("CedR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Ced_1112i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Ced_1113i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Ced_1123i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Ced_1211i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Ced_1212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Ced_1213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Ced_1221i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Ced_1222i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Ced_1223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Ced_1231i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Ced_1232i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Ced_1233i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Ced_1311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Ced_1312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Ced_1313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Ced_1321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Ced_1322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Ced_1323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Ced_1331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Ced_1332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Ced_1333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Ced_2212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Ced_2213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Ced_2223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Ced_2312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Ced_2313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Ced_2321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Ced_2322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Ced_2323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Ced_2331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Ced_2332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Ced_2333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Ced_3311i_LNP") == 0) {
-        Ced_3311i_LNP = value;
+        }
+    } else if (name.compare("Ced_2311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
+        Ced_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Ced_3312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Ced_3313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Ced_3323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Ced_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("CedI", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cle_1111r_LNP") == 0) {
         Cle_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal){
+            
+            Cle_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cle_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Cle_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cle_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cle_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cle_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Cle_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Cle_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
     } else if (name.compare("Cle_1112r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cle_1113r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cle_1122r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cle_1123r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cle_1133r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cle_1211r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cle_1212r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cle_1213r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cle_1221r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cle_1222r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cle_1223r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cle_1231r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cle_1232r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cle_1233r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cle_1311r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cle_1312r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cle_1313r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cle_1321r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cle_1322r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cle_1323r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cle_1331r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cle_1332r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cle_1333r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cle_2211r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cle_2212r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cle_2213r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cle_2222r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cle_2223r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cle_2233r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cle_2311r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cle_2312r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cle_2313r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cle_2321r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cle_2322r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cle_2323r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cle_2331r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cle_2332r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cle_2333r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cle_3311r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cle_3312r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cle_3313r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cle_3322r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cle_3323r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cle_3333r_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("CleR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cle_1112i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cle_1113i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cle_1123i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cle_1211i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cle_1212i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cle_1213i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cle_1221i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cle_1222i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cle_1223i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cle_1231i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cle_1232i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cle_1233i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cle_1311i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cle_1312i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cle_1313i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cle_1321i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cle_1322i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cle_1323i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cle_1331i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cle_1332i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cle_1333i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cle_2212i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cle_2213i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cle_2223i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cle_2312i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cle_2313i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cle_2321i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cle_2322i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cle_2323i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cle_2331i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cle_2332i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cle_2333i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cle_3311i_LNP") == 0) {
-        Cle_3311i_LNP = value;
+        }
+    } else if (name.compare("Cle_2311i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
+        Cle_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cle_3312i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cle_3313i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cle_3323i_LNP") == 0) {
+        if (!FlagLeptonUniversal){
         Cle_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("CleI", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Clu_1111r_LNP") == 0) {
         Clu_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal && FlagQuarkUniversal){
+        
+            Clu_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Clu_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Clu_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Clu_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Clu_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
+        
     } else if (name.compare("Clu_1112r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Clu_1113r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Clu_1122r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Clu_1123r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Clu_1133r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Clu_1211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Clu_1212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Clu_1213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Clu_1221r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Clu_1222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Clu_1223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Clu_1231r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Clu_1232r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Clu_1233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Clu_1311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Clu_1312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Clu_1313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Clu_1321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Clu_1322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Clu_1323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Clu_1331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Clu_1332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Clu_1333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Clu_2211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Clu_2212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Clu_2213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Clu_2222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Clu_2223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Clu_2233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Clu_2311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Clu_2312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Clu_2313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Clu_2321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Clu_2322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Clu_2323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Clu_2331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Clu_2332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Clu_2333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Clu_3311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Clu_3312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Clu_3313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Clu_3322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Clu_3323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Clu_3333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("CluR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Clu_1112i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Clu_1113i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Clu_1123i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Clu_1211i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Clu_1212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Clu_1213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Clu_1221i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Clu_1222i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Clu_1223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Clu_1231i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Clu_1232i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Clu_1233i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Clu_1311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Clu_1312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Clu_1313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Clu_1321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Clu_1322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Clu_1323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Clu_1331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Clu_1332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Clu_1333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Clu_2212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Clu_2213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Clu_2223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Clu_2312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Clu_2313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Clu_2321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Clu_2322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Clu_2323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Clu_2331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Clu_2332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Clu_2333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Clu_3311i_LNP") == 0) {
-        Clu_3311i_LNP = value;
+        }
+    } else if (name.compare("Clu_2311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
+        Clu_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Clu_3312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Clu_3313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Clu_3323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Clu_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("CluI", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cld_1111r_LNP") == 0) {
+        
         Cld_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal && FlagQuarkUniversal){
+        
+            Cld_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cld_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cld_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cld_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cld_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
+        
     } else if (name.compare("Cld_1112r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cld_1113r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cld_1122r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cld_1123r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cld_1133r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cld_1211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cld_1212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cld_1213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cld_1221r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cld_1222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cld_1223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cld_1231r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cld_1232r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cld_1233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cld_1311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cld_1312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cld_1313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cld_1321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cld_1322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cld_1323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cld_1331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cld_1332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cld_1333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cld_2211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cld_2212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cld_2213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cld_2222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cld_2223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cld_2233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cld_2311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cld_2312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cld_2313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cld_2321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cld_2322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cld_2323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cld_2331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cld_2332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cld_2333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cld_3311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cld_3312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cld_3313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cld_3322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cld_3323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cld_3333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("CldR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cld_1112i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cld_1113i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cld_1123i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cld_1211i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cld_1212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cld_1213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cld_1221i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cld_1222i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cld_1223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cld_1231i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cld_1232i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cld_1233i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cld_1311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cld_1312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cld_1313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cld_1321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cld_1322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cld_1323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cld_1331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cld_1332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cld_1333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cld_2212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cld_2213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cld_2223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cld_2312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cld_2313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cld_2321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cld_2322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cld_2323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cld_2331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cld_2332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cld_2333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cld_3311i_LNP") == 0) {
-        Cld_3311i_LNP = value;
+        }
+    } else if (name.compare("Cld_2311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
+        Cld_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cld_3312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cld_3313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cld_3323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cld_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("CldI", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqe_1111r_LNP") == 0) {
+        
         Cqe_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagLeptonUniversal && FlagQuarkUniversal){
+        
+            Cqe_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cqe_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cqe_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cqe_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cqe_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
     } else if (name.compare("Cqe_1112r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqe_1113r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqe_1122r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cqe_1123r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqe_1133r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cqe_1211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqe_1212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqe_1213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqe_1221r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqe_1222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqe_1223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqe_1231r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqe_1232r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqe_1233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqe_1311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqe_1312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqe_1313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqe_1321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqe_1322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqe_1323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqe_1331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqe_1332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqe_1333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqe_2211r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cqe_2212r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqe_2213r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqe_2222r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cqe_2223r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqe_2233r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cqe_2311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cqe_2312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqe_2313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqe_2321r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqe_2322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqe_2323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqe_2331r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqe_2332r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqe_2333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cqe_3311r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqe_3312r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqe_3313r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqe_3322r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cqe_3323r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqe_3333r_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("CqeR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cqe_1112i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqe_1113i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqe_1123i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqe_1211i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqe_1212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqe_1213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqe_1221i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqe_1222i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqe_1223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqe_1231i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqe_1232i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqe_1233i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqe_1311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqe_1312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqe_1313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqe_1321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqe_1322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqe_1323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqe_1331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqe_1332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqe_1333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqe_2212i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqe_2213i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqe_2223i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqe_2312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqe_2313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqe_2321i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqe_2322i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqe_2323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqe_2331i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqe_2332i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqe_2333i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cqe_3311i_LNP") == 0) {
-        Cqe_3311i_LNP = value;
+        }
+    } else if (name.compare("Cqe_2311i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
+        Cqe_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqe_3312i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqe_3313i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqe_3323i_LNP") == 0) {
+        if (!FlagLeptonUniversal || !FlagQuarkUniversal){
         Cqe_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("CqeI", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cledq_1111r_LNP") == 0) {
+        
         Cledq_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CledqR", value * LambdaNPm2, 0, 0, 0, 0);
     } else if (name.compare("Cledq_1112r_LNP") == 0) {
@@ -7067,2001 +10029,3641 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
     } else if (name.compare("Cqq1_1111r_LNP") == 0) {
         Cqq1_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            Cqq1_1221r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 1, 0);
+        
+            //Cqq1_2112r_LNP = value;
+            //Cqq1_2211r_LNP = value;
+        
+            Cqq1_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 0, 1, 1);
+        
+            //Cqq1_3311r_LNP = value;
+        
+            Cqq1_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 0, 2, 2);
+        
+            Cqq1_1331r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 2, 2, 0);
+        
+            Cqq1_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 1, 1, 1);
+        
+            Cqq1_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cqq1_2332r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 2, 2, 1);
+        
+            //Cqq1_3113r_LNP = value;
+            
+            Cqq1_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
     } else if (name.compare("Cqq1_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqq1_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqq1_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cqq1_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqq1_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cqq1_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqq1_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqq1_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqq1_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqq1_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqq1_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqq1_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqq1_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqq1_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqq1_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqq1_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqq1_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqq1_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqq1_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqq1_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cqq1_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqq1_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cqq1_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqq1_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqq1_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cqq1_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cqq1_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqq1_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqq1_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqq1_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqq1_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqq1_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqq1_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqq1_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqq1_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqq1_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqq1_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqq1_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqq1_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqq1_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqq1_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqq1_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqq1_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqq1_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq1_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq1I", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cqq3_1111r_LNP") == 0) {
         Cqq3_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            Cqq3_1221r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 1, 0);
+        
+            //Cqq3_2112r_LNP = value;
+            //Cqq3_2211r_LNP = value;
+        
+            Cqq3_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 0, 1, 1);
+        
+            //Cqq3_3311r_LNP = value;
+        
+            Cqq3_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 0, 2, 2);
+        
+            Cqq3_1331r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 2, 2, 0);
+        
+            Cqq3_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 1, 1, 1);
+        
+            Cqq3_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cqq3_2332r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 2, 2, 1);
+        
+            //Cqq3_3113r_LNP = value;
+            
+            Cqq3_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
+        
     } else if (name.compare("Cqq3_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqq3_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqq3_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cqq3_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqq3_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cqq3_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqq3_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqq3_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqq3_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqq3_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqq3_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqq3_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqq3_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqq3_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqq3_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqq3_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqq3_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqq3_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqq3_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqq3_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cqq3_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqq3_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cqq3_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqq3_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqq3_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cqq3_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cqq3_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqq3_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqq3_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqq3_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqq3_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqq3_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqq3_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqq3_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqq3_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqq3_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqq3_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqq3_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqq3_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqq3_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqq3_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqq3_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqq3_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqq3_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqq3_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqq3I", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cuu_1111r_LNP") == 0) {
         Cuu_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        if (FlagQuarkUniversal){
+            Cuu_1221r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 1, 0);
+        
+            //Cuu_2112r_LNP = value;
+            //Cuu_2211r_LNP = value;
+        
+            Cuu_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 0, 1, 1);
+        
+            //Cuu_3311r_LNP = value;
+        
+            Cuu_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 0, 2, 2);
+        
+            Cuu_1331r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 2, 2, 0);
+        
+            Cuu_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 1, 1, 1);
+        
+            Cuu_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cuu_2332r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 2, 2, 1);
+        
+            //Cuu_3113r_LNP = value;
+            
+            Cuu_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
     } else if (name.compare("Cuu_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cuu_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cuu_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cuu_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cuu_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cuu_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cuu_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cuu_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cuu_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cuu_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cuu_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cuu_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cuu_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cuu_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cuu_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cuu_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cuu_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cuu_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cuu_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cuu_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cuu_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cuu_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cuu_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cuu_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cuu_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cuu_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("CuuR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cuu_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cuu_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cuu_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cuu_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cuu_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cuu_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cuu_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cuu_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cuu_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cuu_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cuu_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cuu_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cuu_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cuu_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cuu_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cuu_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cuu_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cuu_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cuu_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("CuuI", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cdd_1111r_LNP") == 0) {
         Cdd_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            Cdd_1221r_LNP = value;
+            SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 1, 0);
+        
+            //Cdd_2112r_LNP = value;
+            //Cdd_2211r_LNP = value;
+        
+            Cdd_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 0, 1, 1);
+        
+            //Cdd_3311r_LNP = value;
+        
+            Cdd_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 0, 2, 2);
+        
+            Cdd_1331r_LNP = value;
+            SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 2, 2, 0);
+        
+            Cdd_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 1, 1, 1);
+        
+            Cdd_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cdd_2332r_LNP = value;
+            SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 2, 2, 1);
+        
+            //Cdd_3113r_LNP = value;
+            
+            Cdd_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
+        
     } else if (name.compare("Cdd_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cdd_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cdd_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cdd_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cdd_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cdd_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cdd_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cdd_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cdd_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cdd_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cdd_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cdd_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cdd_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cdd_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cdd_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cdd_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cdd_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cdd_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cdd_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cdd_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cdd_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cdd_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cdd_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cdd_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cdd_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cdd_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("CddR", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cdd_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cdd_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cdd_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cdd_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cdd_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cdd_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cdd_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cdd_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cdd_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cdd_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cdd_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cdd_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cdd_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cdd_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cdd_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cdd_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cdd_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cdd_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cdd_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("CddI", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cud1_1111r_LNP") == 0) {
         Cud1_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            
+            Cud1_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cud1_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Cud1_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cud1_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cud1_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cud1_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Cud1_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Cud1_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
+        
     } else if (name.compare("Cud1_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cud1_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cud1_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cud1_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cud1_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cud1_1211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cud1_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cud1_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cud1_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cud1_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cud1_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cud1_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cud1_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cud1_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cud1_1311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cud1_1312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cud1_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cud1_1321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cud1_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cud1_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cud1_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cud1_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cud1_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cud1_2211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cud1_2212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cud1_2213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cud1_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cud1_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cud1_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cud1_2311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cud1_2312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cud1_2313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cud1_2321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cud1_2322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cud1_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cud1_2331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cud1_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cud1_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cud1_3311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cud1_3312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cud1_3313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cud1_3322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cud1_3323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cud1_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cud1_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cud1_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cud1_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cud1_1211i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cud1_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cud1_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cud1_1221i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cud1_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cud1_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cud1_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cud1_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cud1_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cud1_1311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cud1_1312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cud1_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cud1_1321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cud1_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cud1_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cud1_1331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cud1_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cud1_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cud1_2212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cud1_2213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cud1_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cud1_2312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cud1_2313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cud1_2321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cud1_2322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cud1_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cud1_2331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cud1_2332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cud1_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cud1_3311i_LNP") == 0) {
-        Cud1_3311i_LNP = value;
+        }
+    } else if (name.compare("Cud1_2311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
+        Cud1_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cud1_3312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cud1_3313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cud1_3323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud1_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud1I", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cud8_1111r_LNP") == 0) {
+        
+        
         Cud8_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            
+            Cud8_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cud8_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Cud8_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cud8_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cud8_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cud8_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Cud8_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Cud8_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
+        
+        
+        
     } else if (name.compare("Cud8_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cud8_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cud8_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cud8_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cud8_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cud8_1211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cud8_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cud8_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cud8_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cud8_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cud8_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cud8_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cud8_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cud8_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cud8_1311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cud8_1312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cud8_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cud8_1321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cud8_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cud8_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cud8_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cud8_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cud8_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cud8_2211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cud8_2212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cud8_2213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cud8_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cud8_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cud8_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cud8_2311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cud8_2312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cud8_2313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cud8_2321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cud8_2322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cud8_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cud8_2331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cud8_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cud8_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cud8_3311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cud8_3312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cud8_3313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cud8_3322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cud8_3323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cud8_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cud8_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cud8_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cud8_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cud8_1211i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cud8_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cud8_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cud8_1221i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cud8_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cud8_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cud8_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cud8_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cud8_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cud8_1311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cud8_1312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cud8_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cud8_1321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cud8_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cud8_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cud8_1331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cud8_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cud8_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cud8_2212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cud8_2213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cud8_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cud8_2312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cud8_2313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cud8_2321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cud8_2322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cud8_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cud8_2331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cud8_2332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cud8_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cud8_3311i_LNP") == 0) {
-        Cud8_3311i_LNP = value;
+        }
+    } else if (name.compare("Cud8_2311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
+        Cud8_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cud8_3312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cud8_3313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cud8_3323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cud8_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cud8I", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqu1_1111r_LNP") == 0) {
         Cqu1_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            
+            Cqu1_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cqu1_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Cqu1_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cqu1_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cqu1_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cqu1_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Cqu1_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Cqu1_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("Cqu1_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqu1_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqu1_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cqu1_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqu1_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cqu1_1211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqu1_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqu1_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqu1_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqu1_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqu1_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqu1_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqu1_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqu1_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqu1_1311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqu1_1312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqu1_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqu1_1321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqu1_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqu1_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqu1_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqu1_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqu1_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqu1_2211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cqu1_2212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqu1_2213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqu1_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cqu1_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqu1_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cqu1_2311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cqu1_2312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqu1_2313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqu1_2321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqu1_2322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqu1_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqu1_2331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqu1_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqu1_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cqu1_3311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqu1_3312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqu1_3313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqu1_3322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cqu1_3323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqu1_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cqu1_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqu1_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqu1_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqu1_1211i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqu1_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqu1_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqu1_1221i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqu1_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqu1_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqu1_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqu1_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqu1_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqu1_1311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqu1_1312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqu1_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqu1_1321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqu1_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqu1_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqu1_1331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqu1_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqu1_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqu1_2212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqu1_2213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqu1_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqu1_2312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqu1_2313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqu1_2321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqu1_2322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqu1_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqu1_2331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqu1_2332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqu1_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cqu1_3311i_LNP") == 0) {
-        Cqu1_3311i_LNP = value;
+        }
+    } else if (name.compare("Cqu1_2311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
+        Cqu1_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqu1_3312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqu1_3313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqu1_3323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu1_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu1I", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqu8_1111r_LNP") == 0) {
         Cqu8_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            
+            Cqu8_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cqu8_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Cqu8_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cqu8_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cqu8_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cqu8_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Cqu8_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Cqu8_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("Cqu8_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqu8_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqu8_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cqu8_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqu8_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cqu8_1211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqu8_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqu8_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqu8_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqu8_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqu8_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqu8_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqu8_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqu8_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqu8_1311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqu8_1312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqu8_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqu8_1321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqu8_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqu8_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqu8_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqu8_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqu8_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqu8_2211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cqu8_2212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqu8_2213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqu8_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cqu8_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqu8_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cqu8_2311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cqu8_2312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqu8_2313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqu8_2321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqu8_2322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqu8_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqu8_2331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqu8_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqu8_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cqu8_3311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqu8_3312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqu8_3313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqu8_3322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cqu8_3323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqu8_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cqu8_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqu8_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqu8_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqu8_1211i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqu8_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqu8_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqu8_1221i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqu8_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqu8_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqu8_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqu8_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqu8_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqu8_1311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqu8_1312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqu8_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqu8_1321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqu8_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqu8_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqu8_1331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqu8_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqu8_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqu8_2212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqu8_2213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqu8_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqu8_2312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqu8_2313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqu8_2321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqu8_2322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqu8_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqu8_2331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqu8_2332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqu8_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cqu8_3311i_LNP") == 0) {
-        Cqu8_3311i_LNP = value;
+        }
+    } else if (name.compare("Cqu8_2311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
+        Cqu8_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqu8_3312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqu8_3313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqu8_3323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqu8_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqu8I", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqd1_1111r_LNP") == 0) {
         Cqd1_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            
+            Cqd1_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cqd1_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Cqd1_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cqd1_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cqd1_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cqd1_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Cqd1_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Cqd1_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("Cqd1_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqd1_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqd1_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cqd1_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqd1_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cqd1_1211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqd1_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqd1_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqd1_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqd1_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqd1_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqd1_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqd1_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqd1_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqd1_1311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqd1_1312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqd1_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqd1_1321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqd1_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqd1_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqd1_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqd1_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqd1_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqd1_2211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cqd1_2212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqd1_2213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqd1_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cqd1_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqd1_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cqd1_2311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cqd1_2312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqd1_2313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqd1_2321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqd1_2322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqd1_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqd1_2331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqd1_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqd1_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cqd1_3311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqd1_3312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqd1_3313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqd1_3322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cqd1_3323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqd1_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cqd1_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqd1_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqd1_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqd1_1211i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqd1_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqd1_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqd1_1221i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqd1_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqd1_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqd1_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqd1_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqd1_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqd1_1311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqd1_1312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqd1_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqd1_1321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqd1_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqd1_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqd1_1331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqd1_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqd1_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqd1_2212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqd1_2213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqd1_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqd1_2312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqd1_2313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqd1_2321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqd1_2322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqd1_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqd1_2331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqd1_2332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqd1_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cqd1_3311i_LNP") == 0) {
-        Cqd1_3311i_LNP = value;
+        }
+    } else if (name.compare("Cqd1_2311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
+        Cqd1_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqd1_3312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqd1_3313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqd1_3323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd1_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd1I", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqd8_1111r_LNP") == 0) {
         Cqd8_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 0, 0, 0);
+        
+        
+        if (FlagQuarkUniversal){
+            
+            Cqd8_1122r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 0, 1, 1);
+            
+            Cqd8_2211r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 0, 0);
+            
+            Cqd8_1133r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 0, 2, 2);
+            
+            Cqd8_2222r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 1, 1);
+            
+            Cqd8_2233r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 2, 2);
+            
+            Cqd8_3311r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 0, 0);
+            
+            Cqd8_3322r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 1, 1);
+            
+            Cqd8_3333r_LNP = value;
+            SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 2, 2);
+            
+        }
+        
+        
     } else if (name.compare("Cqd8_1112r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1112r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqd8_1113r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1113r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqd8_1122r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1122r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 0, 1, 1);
+        }
     } else if (name.compare("Cqd8_1123r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1123r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqd8_1133r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1133r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 0, 2, 2);
+        }
     } else if (name.compare("Cqd8_1211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqd8_1212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqd8_1213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqd8_1221r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1221r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqd8_1222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqd8_1223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqd8_1231r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1231r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqd8_1232r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1232r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqd8_1233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqd8_1311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqd8_1312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqd8_1313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqd8_1321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqd8_1322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqd8_1323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqd8_1331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqd8_1332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqd8_1333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqd8_2211r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2211r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 0, 0);
+        }
     } else if (name.compare("Cqd8_2212r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2212r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqd8_2213r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2213r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqd8_2222r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2222r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 1, 1);
+        }
     } else if (name.compare("Cqd8_2223r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2223r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqd8_2233r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2233r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 1, 2, 2);
+        }
     } else if (name.compare("Cqd8_2311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 0, 0);
+        }
     } else if (name.compare("Cqd8_2312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqd8_2313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqd8_2321r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2321r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqd8_2322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqd8_2323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqd8_2331r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2331r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqd8_2332r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2332r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqd8_2333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 1, 2, 2, 2);
+        }
     } else if (name.compare("Cqd8_3311r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3311r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqd8_3312r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3312r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqd8_3313r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3313r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqd8_3322r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3322r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 1, 1);
+        }
     } else if (name.compare("Cqd8_3323r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3323r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cqd8_3333r_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3333r_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8R", value * LambdaNPm2, 2, 2, 2, 2);
+        }
     } else if (name.compare("Cqd8_1112i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1112i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 0, 0, 1);
+        }
     } else if (name.compare("Cqd8_1113i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1113i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 0, 0, 2);
+        }
     } else if (name.compare("Cqd8_1123i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1123i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 0, 1, 2);
+        }
     } else if (name.compare("Cqd8_1211i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1211i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 0, 0);
+        }
     } else if (name.compare("Cqd8_1212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 0, 1);
+        }
     } else if (name.compare("Cqd8_1213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 0, 2);
+        }
     } else if (name.compare("Cqd8_1221i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1221i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 1, 0);
+        }
     } else if (name.compare("Cqd8_1222i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1222i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 1, 1);
+        }
     } else if (name.compare("Cqd8_1223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 1, 2);
+        }
     } else if (name.compare("Cqd8_1231i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1231i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 2, 0);
+        }
     } else if (name.compare("Cqd8_1232i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1232i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 2, 1);
+        }
     } else if (name.compare("Cqd8_1233i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1233i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 1, 2, 2);
+        }
     } else if (name.compare("Cqd8_1311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 0, 0);
+        }
     } else if (name.compare("Cqd8_1312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 0, 1);
+        }
     } else if (name.compare("Cqd8_1313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 0, 2);
+        }
     } else if (name.compare("Cqd8_1321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 1, 0);
+        }
     } else if (name.compare("Cqd8_1322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 1, 1);
+        }
     } else if (name.compare("Cqd8_1323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 1, 2);
+        }
     } else if (name.compare("Cqd8_1331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 2, 0);
+        }
     } else if (name.compare("Cqd8_1332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 2, 1);
+        }
     } else if (name.compare("Cqd8_1333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_1333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 0, 2, 2, 2);
+        }
     } else if (name.compare("Cqd8_2212i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2212i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 1, 0, 1);
+        }
     } else if (name.compare("Cqd8_2213i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2213i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 1, 0, 2);
+        }
     } else if (name.compare("Cqd8_2223i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2223i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 1, 1, 2);
+        }
     } else if (name.compare("Cqd8_2312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 2, 0, 1);
+        }
     } else if (name.compare("Cqd8_2313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 2, 0, 2);
+        }
     } else if (name.compare("Cqd8_2321i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2321i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 2, 1, 0);
+        }
     } else if (name.compare("Cqd8_2322i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2322i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 2, 1, 1);
+        }
     } else if (name.compare("Cqd8_2323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 2, 1, 2);
+        }
     } else if (name.compare("Cqd8_2331i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2331i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 2, 2, 0);
+        }
     } else if (name.compare("Cqd8_2332i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2332i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 2, 2, 1);
+        }
     } else if (name.compare("Cqd8_2333i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_2333i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 1, 2, 2, 2);
-    } else if (name.compare("Cqd8_3311i_LNP") == 0) {
-        Cqd8_3311i_LNP = value;
+        }
+    } else if (name.compare("Cqd8_2311i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
+        Cqd8_2311i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 2, 2, 0, 0);
+        }
     } else if (name.compare("Cqd8_3312i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3312i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 2, 2, 0, 1);
+        }
     } else if (name.compare("Cqd8_3313i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3313i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 2, 2, 0, 2);
+        }
     } else if (name.compare("Cqd8_3323i_LNP") == 0) {
+        if (!FlagQuarkUniversal){
         Cqd8_3323i_LNP = value;
         SMEFTEvol.SetCoefficient("Cqd8I", value * LambdaNPm2, 2, 2, 1, 2);
+        }
     } else if (name.compare("Cquqd1_1111r_LNP") == 0) {
         Cquqd1_1111r_LNP = value;
         SMEFTEvol.SetCoefficient("Cquqd1R", value * LambdaNPm2, 0, 0, 0, 0);
@@ -11450,6 +16052,12 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
     } else if (name.compare("MWinput") == 0) {
         FlagMWinput = value;
         res = true;
+    } else if (name.compare("LeptonUniversal") == 0) {
+        FlagLeptonUniversal = value;
+        res = true;   
+    } else if (name.compare("QuarkUniversal") == 0) {
+        FlagQuarkUniversal = value;
+        res = true;   
     } else
         res = NPbase::setFlag(name, value);
 
