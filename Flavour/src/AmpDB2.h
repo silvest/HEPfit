@@ -266,7 +266,13 @@ private:
     void computeWilsonCoeffsDB1bsg();
     double lastInput_computeWilsonCoeffsDB1bsg = NAN;
     gslpp::complex cacheC[6] = { 0. };
+    gslpp::complex cacheC_LO[6] = { 0. };
+    gslpp::complex cacheC_NLO[6] = { 0. };
+    gslpp::complex cacheC_NNLO[6] = { 0. };
     gslpp::complex C_8G;
+    gslpp::complex C_8G_LO;
+    gslpp::complex C_8G_NLO;
+    gslpp::complex C_8G_NNLO;
     gslpp::complex C(int i);
     
     //combinations of Wilson coeffients arxiv.org/abs/hep-ph/0202010

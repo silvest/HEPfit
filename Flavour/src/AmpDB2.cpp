@@ -242,7 +242,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     
     //mu_1 = mu_b = mu_c
     mu_1 = mySM.getMub();
-    mu_1_overm = mu_1; //4.2
+    mu_1_overm = 4.2;
     //mu_1 = 4.2;
     
     //MSbar mass
@@ -255,6 +255,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
         mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
     //pole mass
     Mb_pole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
+    double Mc_pole = 1.67;// mySM.Mbar2Mp(mySM.getQuarks(QCD::CHARM).getMass());
     //PS mass
     //hep-ph/9804241v2 eq. (25)
     //Mb_PS = Mb_Mb * (1. + 16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (K - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2))));    
@@ -276,6 +277,8 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
             //std::cout << "Mb " << Mb << "\n";
             Mb = 4.757;
             z = Mc_mu1 * Mc_mu1 / (Mb_mu1 * Mb_mu1);
+            //Mc_pole * Mc_pole / (Mb_pole * Mb_pole); 
+            //z = z * (1. - 6. * 4./3. * as_4pi * log(z));
             this->flag_resumz = true;
             break;
         case MSbar:
@@ -352,13 +355,20 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
 
 void AmpDB2::computeWilsonCoeffsDB1bsg(){
     double currentInput_computeWilsonCoeffsDB1bsg = mu_1;
-    if (lastInput_computeWilsonCoeffsDB1bsg == currentInput_computeWilsonCoeffsDB1bsg) return;
+    //can only be used if cacheC is separate for every computeWilson
+    //if (lastInput_computeWilsonCoeffsDB1bsg == currentInput_computeWilsonCoeffsDB1bsg) return;
  
     gslpp::vector<gslpp::complex> ** WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1);
     for (int i = 0; i < 6; i++) {
         cacheC[i] = (*(WilsonCoeffsDB1bsg[LO]))(i) + (*(WilsonCoeffsDB1bsg[NLO]))(i) + (*(WilsonCoeffsDB1bsg[NNLO]))(i);
+        cacheC_LO[i] = (*(WilsonCoeffsDB1bsg[LO]))(i);
+        cacheC_NLO[i] = (*(WilsonCoeffsDB1bsg[NLO]))(i);
+        
     }
     C_8G = (*(WilsonCoeffsDB1bsg[LO]))(7) + (*(WilsonCoeffsDB1bsg[NLO]))(7) + (*(WilsonCoeffsDB1bsg[NNLO]))(7);
+    C_8G_LO = (*(WilsonCoeffsDB1bsg[LO]))(7);
+    C_8G_NLO = (*(WilsonCoeffsDB1bsg[NLO]))(7);
+    
     //return back to the not effective C_8G
     C_8G = -C(3) + 1./6. * C(4) - 20. * C(5) + 10./3. * C(6);
 //    for(int i=0; i<=7; i++){
@@ -380,7 +390,7 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
 
 void AmpDB2::computeWilsonCoeffs(){
     double currentInput_computeWilsonCoeffs = mu_1;
-    if (lastInput_computeWilsonCoeffs == currentInput_computeWilsonCoeffs) return;
+    //if (lastInput_computeWilsonCoeffs == currentInput_computeWilsonCoeffs) return;
    gslpp::vector<gslpp::complex> ** WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(mu_1, QCD::NOLEPTON);
     for (int i = 0; i < 6; i++) {
         cacheC[i] = (*(WilsonCoeffs[LO]))(i) + (*(WilsonCoeffs[NLO]))(i);
@@ -562,6 +572,47 @@ void AmpDB2::computeP() {
     return;
 }
 
+////equation 39:
+//void AmpDB2::computeD() {
+//    //qq = uu and cc
+//    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {
+//        for (int k = 1; k <= 2; k++) {
+//            gslpp::complex result = 0.;
+//            for (int i = 1; i <= 2; i++) {
+//                for (int j = 1; j <= 2; j++) {
+//                    result += C(i) * C(j) * F(qq, k, i, j);
+//                }
+//            }
+//            result += + as_4pi_mu1 * C(2) * C(2) * P(qq, k, 2, 2)
+//                    + 2. * as_4pi_mu1 * C(2) * C_8G * P(qq, k, 2, 8);
+//            for (int i = 1; i <= 2; i++) {
+//                for (int r = 3; r <= 6; r++) {
+//                    result += 2. * C(i) * C(r) * P(qq, k, i, r);
+//                }                    
+//            }
+//            cacheD[indexD(qq, k)] = result;
+//        }
+//    }
+//    //qq = cu
+//    for (int k = 1; k <= 2; k++) {
+//        gslpp::complex result = 0.;
+//        for (int i = 1; i <= 2; i++) {
+//            for (int j = 1; j <= 2; j++) {
+//                result += C(i) * C(j) * F(cu, k, i, j);
+//            }
+//        }
+//        result += + as_4pi_mu1 * C(2) * C(2) * P(cu, k, 2, 2)
+//                + as_4pi_mu1 * C(2) * C_8G * (P(cc, k, 2, 8) + P(uu, k, 2, 8));
+//        for (int i = 1; i <= 2; i++) {
+//            for (int r = 3; r <= 6; r++) {
+//                result += C(i) * C(r) * (P(cc, k, i, r) + P(uu, k, i, r));
+//            }
+//        }
+//        cacheD[indexD(cu, k)] = result;
+//    }         
+//    return;
+//}
+
 //equation 39:
 void AmpDB2::computeD() {
     //qq = uu and cc
@@ -570,14 +621,14 @@ void AmpDB2::computeD() {
             gslpp::complex result = 0.;
             for (int i = 1; i <= 2; i++) {
                 for (int j = 1; j <= 2; j++) {
-                    result += C(i) * C(j) * F(qq, k, i, j);
+                    result += cacheC_LO[i-1] * cacheC_LO[j-1] * F(qq, k, i, j) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * F0(qq, k, i, j);
                 }
             }
-            result += + as_4pi_mu1 * C(2) * C(2) * P(qq, k, 2, 2)
-                    + 2. * as_4pi_mu1 * C(2) * C_8G * P(qq, k, 2, 8);
+            result += + as_4pi_mu1 * cacheC_LO[2-1] * cacheC_LO[2-1] * P(qq, k, 2, 2)
+                    + 2. * as_4pi_mu1 * cacheC_LO[2-1] * C_8G_LO * P(qq, k, 2, 8);
             for (int i = 1; i <= 2; i++) {
                 for (int r = 3; r <= 6; r++) {
-                    result += 2. * C(i) * C(r) * P(qq, k, i, r);
+                    result += 2. * cacheC_LO[i-1] * cacheC_LO[r-1] * P(qq, k, i, r);
                 }                    
             }
             cacheD[indexD(qq, k)] = result;
@@ -588,14 +639,14 @@ void AmpDB2::computeD() {
         gslpp::complex result = 0.;
         for (int i = 1; i <= 2; i++) {
             for (int j = 1; j <= 2; j++) {
-                result += C(i) * C(j) * F(cu, k, i, j);
+                result += cacheC_LO[i-1] * cacheC_LO[j-1] * F(cu, k, i, j) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * F0(cu, k, i, j);
             }
         }
-        result += + as_4pi_mu1 * C(2) * C(2) * P(cu, k, 2, 2)
-                + as_4pi_mu1 * C(2) * C_8G * (P(cc, k, 2, 8) + P(uu, k, 2, 8));
+        result += + as_4pi_mu1 * cacheC_LO[2-1] * cacheC_LO[2-1] * P(cu, k, 2, 2)
+                + as_4pi_mu1 * cacheC_LO[2-1] * C_8G_LO * (P(cc, k, 2, 8) + P(uu, k, 2, 8));
         for (int i = 1; i <= 2; i++) {
             for (int r = 3; r <= 6; r++) {
-                result += C(i) * C(r) * (P(cc, k, i, r) + P(uu, k, i, r));
+                result += cacheC_LO[i-1] * cacheC_LO[r-1] * (P(cc, k, i, r) + P(uu, k, i, r));
             }
         }
         cacheD[indexD(cu, k)] = result;
@@ -779,6 +830,7 @@ int AmpDB2::indexD(quarks qq, int k) {
 
 gslpp::complex AmpDB2::delta_1overm_NLO1(quark q) {
     //hep-ph/0308029: equation 18
+    //return 0.;
     compute_deltas_1overm_NLO1(q);
     switch (q) {
         case d:
@@ -822,6 +874,7 @@ int AmpDB2::index_deltas(quarks qq, quark q) {
 
 gslpp::complex AmpDB2::delta_1overm(quark q) {
     //hep-ph/0612167 equation (10)
+    //return 0.;
     switch (q) {
         case d:
             lambda_c = mySM.getCKM().getV_cd().conjugate() * mySM.getCKM().getV_cb();
@@ -1019,12 +1072,18 @@ gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order, mass_schemes mass_scheme)
 
 void AmpDB2::computeWilsonCoeffsMisiak(){
     double currentInput_computeWilsonCoeffsMisiak = mu_1;
-    if (lastInput_computeWilsonCoeffsMisiak == currentInput_computeWilsonCoeffsMisiak) return;
+    //if (lastInput_computeWilsonCoeffsMisiak == currentInput_computeWilsonCoeffsMisiak) return;
     gslpp::vector<gslpp::complex> ** WilsonCoeffsMisiak = mySM.getFlavour().ComputeCoeffsgamma(mu_1);
     for (int i = 0; i < 6; i++) {
         cacheC[i] = (*(WilsonCoeffsMisiak[LO]))(i) + (*(WilsonCoeffsMisiak[NLO]))(i) + (*(WilsonCoeffsMisiak[NNLO]))(i);
+        cacheC_LO[i] = (*(WilsonCoeffsMisiak[LO]))(i);
+        cacheC_NLO[i] = (*(WilsonCoeffsMisiak[NLO]))(i);
+        cacheC_NNLO[i] = (*(WilsonCoeffsMisiak[NNLO]))(i);
     }
     C_8G = (*(WilsonCoeffsMisiak[LO]))(7) + (*(WilsonCoeffsMisiak[NLO]))(7) + (*(WilsonCoeffsMisiak[NNLO]))(7);
+    C_8G_LO = (*(WilsonCoeffsMisiak[LO]))(7);
+    C_8G_NLO = (*(WilsonCoeffsMisiak[NLO]))(7);
+    C_8G_NNLO = (*(WilsonCoeffsMisiak[NNLO]))(7);    
     //return back to the not effective C_8G
     C_8G = -C(3) + 1./6. * C(4) - 20. * C(5) + 10./3. * C(6);
     
@@ -1042,9 +1101,9 @@ void AmpDB2::computeWilsonCoeffsMisiak(){
 //    for(int i=0; i<=7; i++){
 //        if(i==6) i++;
 //        std::cout << "C_" << i << " "
-//                << (*(WilsonCoeffsMisiak[LO]))(i).gslpp::complex::real() << " "
-//                << (*(WilsonCoeffsMisiak[NLO]))(i).gslpp::complex::real() << " "
-//                << (*(WilsonCoeffsMisiak[NNLO]))(i).gslpp::complex::real() << "\n";       
+//                << (*(WilsonCoeffsMisiak[LO]))(i).gslpp::complex::real() + (*(WilsonCoeffsMisiak[NLO]))(i).gslpp::complex::real() + (*(WilsonCoeffsMisiak[NNLO]))(i).gslpp::complex::real() << "\n";  
+//               // << (*(WilsonCoeffsMisiak[NLO]))(i).gslpp::complex::real() << " "
+//               // << (*(WilsonCoeffsMisiak[NNLO]))(i).gslpp::complex::real() << "\n";       
 //    }
 //    std::cout << "--------\n" ;
     lastInput_computeWilsonCoeffsMisiak = currentInput_computeWilsonCoeffsMisiak;
@@ -1061,6 +1120,30 @@ gslpp::vector<gslpp::complex> AmpDB2::c_H(){
     return result;
 }
 
+////equation (6.4)
+//gslpp::complex AmpDB2::H(quarks qq){
+//    gslpp::complex result = 0.;
+//    for (int i=1; i<=8; i++){
+//        if (i==7) i++;
+//        for (int j=i; j<=8; j++){
+//            if(j==7) j++;
+//            result += C(i) * C(j) * p(qq, i, j);
+//        }
+//    }
+//    return result;
+//}
+//gslpp::complex AmpDB2::H_s(quarks qq){
+//    gslpp::complex result = 0.;
+//    for (int i=1; i<=8; i++){
+//        if (i==7) i++;
+//        for (int j=i; j<=8; j++){
+//            if(j==7) j++;
+//            result += C(i) * C(j) * p_s(qq, i, j);
+//        }
+//    }
+//    return result;
+//}
+
 //equation (6.4)
 gslpp::complex AmpDB2::H(quarks qq){
     gslpp::complex result = 0.;
@@ -1068,7 +1151,9 @@ gslpp::complex AmpDB2::H(quarks qq){
         if (i==7) i++;
         for (int j=i; j<=8; j++){
             if(j==7) j++;
-            result += C(i) * C(j) * p(qq, i, j);
+            result += orderofp[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0)
+                    + orderofp[1] * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0))
+                    + orderofp[2] * as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1) + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0));
         }
     }
     return result;
@@ -1079,7 +1164,10 @@ gslpp::complex AmpDB2::H_s(quarks qq){
         if (i==7) i++;
         for (int j=i; j<=8; j++){
             if(j==7) j++;
-            result += C(i) * C(j) * p_s(qq, i, j);
+           result += orderofp[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0)
+                    + orderofp[1] * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0))
+                    + orderofp[2] * as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1) + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0));
+
         }
     }
     return result;
