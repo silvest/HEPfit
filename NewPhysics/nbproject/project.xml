@@ -11,9 +11,7 @@
             <make-dep-projects>
                 <make-dep-project>../SMEFTRGEvolutor</make-dep-project>
             </make-dep-projects>
-            <sourceRootList>
-                <sourceRootElem>../../RGESolver/Solver/src</sourceRootElem>
-            </sourceRootList>
+            <sourceRootList/>
             <confList>
                 <confElem>
                     <name>Debug</name>

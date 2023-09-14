@@ -116,7 +116,7 @@
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` `rgesolver-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
@@ -400,18 +400,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../SMEFTRGEvolutor"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../SMEFTRGEvolutor"
-                            BC="${MAKE} -j 6 -f Makefile CONF=Debug"
-                            CC="${MAKE} -j 6 -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"
                             CN="Debug"
@@ -430,7 +418,7 @@
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit `gsl-config --libs`</commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit `gsl-config --libs` `rgesolver-config --libs`</commandLine>
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">

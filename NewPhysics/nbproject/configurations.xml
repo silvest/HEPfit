@@ -69,10 +69,29 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
-  <sourceRootList>
-    <Elem>../../RGESolver/Solver/src</Elem>
-  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="3">
@@ -91,9 +110,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
-            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` `rgesolver-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
@@ -225,9 +243,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
-            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` `rgesolver-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -364,9 +381,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
-            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` `rgesolver-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -487,9 +503,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
-            <pElem>../SMEFTRGEvolutor/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` `rgesolver-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
