@@ -263,36 +263,36 @@ public:
     private:
 };
 
-class DGamma_d_NLO1 : public ThObservable, AmpDB2{
+class DGamma_d_NLO_tradBasis : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    DGamma_d_NLO1(const StandardModel& SM_i);
+    DGamma_d_NLO_tradBasis(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~DGamma_d_NLO1();
+    virtual ~DGamma_d_NLO_tradBasis();
     
     double computeThValue();
 
     private:
 };
 
-class DGamma_s_NLO1 : public ThObservable, AmpDB2{
+class DGamma_s_NLO_tradBasis : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    DGamma_s_NLO1(const StandardModel& SM_i);
+    DGamma_s_NLO_tradBasis(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~DGamma_s_NLO1();
+    virtual ~DGamma_s_NLO_tradBasis();
     
     double computeThValue();
 

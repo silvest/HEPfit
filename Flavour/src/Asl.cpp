@@ -52,27 +52,27 @@ Asl_s_NLO::~Asl_s_NLO() {
 }
 
 double Asl_s_NLO::computeThValue() {
-    return -getGamma21overM21_Bs(FULLNLO).imag();
+    return -getGamma21overM21_Bs(FULLNNLO, PS).imag();
 }
 
-Asl_d_NLO1::Asl_d_NLO1(const StandardModel& SM_i)
+Asl_d_NLO_tradBasis::Asl_d_NLO_tradBasis(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i, true) {
 }
 
-Asl_d_NLO1::~Asl_d_NLO1() {
+Asl_d_NLO_tradBasis::~Asl_d_NLO_tradBasis() {
 }
 
-double Asl_d_NLO1::computeThValue() {
-    return -Gamma21overM21_BdFULLNLO1().imag();
+double Asl_d_NLO_tradBasis::computeThValue() {
+    return -Gamma21overM21_BdFULLNLO_tradBasis().imag();
 }
 
-Asl_s_NLO1::Asl_s_NLO1(const StandardModel& SM_i)
+Asl_s_NLO_tradBasis::Asl_s_NLO_tradBasis(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i, true) {
 }
 
-Asl_s_NLO1::~Asl_s_NLO1() {
+Asl_s_NLO_tradBasis::~Asl_s_NLO_tradBasis() {
 }
 
-double Asl_s_NLO1::computeThValue() {
-    return -Gamma21overM21_BsFULLNLO1().imag();
+double Asl_s_NLO_tradBasis::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNLO, pole).imag();
 }

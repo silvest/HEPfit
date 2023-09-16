@@ -3929,8 +3929,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Asl_s"] = boost::factory<Asl_s*>();
     obsThFactory["Asl_d_NLO"] = boost::factory<Asl_d_NLO*>();
     obsThFactory["Asl_s_NLO"] = boost::factory<Asl_s_NLO*>();
-    obsThFactory["Asl_d_NLO1"] = boost::factory<Asl_d_NLO1*>();
-    obsThFactory["Asl_s_NLO1"] = boost::factory<Asl_s_NLO1*>();
+    obsThFactory["Asl_d_NLO_tradBasis"] = boost::factory<Asl_d_NLO_tradBasis*>();
+    obsThFactory["Asl_s_NLO_tradBasis"] = boost::factory<Asl_s_NLO_tradBasis*>();
     obsThFactory["DGamma_d_pole"] = boost::factory<DGamma_d_pole*>();
     obsThFactory["DGamma_s_pole"] = boost::factory<DGamma_s_pole*>();
     obsThFactory["DGamma_d_MSbar"] = boost::factory<DGamma_d_MSbar*>();
@@ -3945,8 +3945,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DGamma_s_MSbar_LO"] = boost::factory<DGamma_s_MSbar_LO*>();
     obsThFactory["DGamma_d_PS_LO"] = boost::factory<DGamma_d_PS_LO*>();
     obsThFactory["DGamma_s_PS_LO"] = boost::factory<DGamma_s_PS_LO*>();
-    obsThFactory["DGamma_d_NLO1"] = boost::factory<DGamma_d_NLO1*>();
-    obsThFactory["DGamma_s_NLO1"] = boost::factory<DGamma_s_NLO1*>();
+    obsThFactory["DGamma_d_NLO_tradBasis"] = boost::factory<DGamma_d_NLO_tradBasis*>();
+    obsThFactory["DGamma_s_NLO_tradBasis"] = boost::factory<DGamma_s_NLO_tradBasis*>();
     //----- DF = 2  -----
     obsThFactory["DmBd"] = boost::factory<DmBd*>();
     obsThFactory["DmBs"] = boost::factory<DmBs*>();

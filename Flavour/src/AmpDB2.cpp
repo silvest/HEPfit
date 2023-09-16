@@ -176,7 +176,7 @@ gslpp::complex AmpDB2::M21_Bs(orders order) {
     }
 }
 
-gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO1(){
+gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO_tradBasis(){
     //hep-ph/0308029v2
     std::cout.precision(4);
 
@@ -197,11 +197,11 @@ gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO1(){
     //equation 16 divided by 12
     gslpp::complex Gamma21overM21_Bd = -Gf2 / (24 * M_PI * MB) / M21overme0 *
                 (Mb2_prefactor * (c(d)(0) + c(d)(1) * me(1)/me(0) + c(d)(2) * me(2)/me(0)) + 
-            Mb_PS * Mb_PS * delta_1overm_NLO1(d)/me(0));
+            Mb_PS * Mb_PS * delta_1overm_tradBasis(d)/me(0));
     return Gamma21overM21_Bd;
 }
 
-gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO1(){
+gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO_tradBasis(){
     //hep-ph/0308029v2
     std::cout.precision(4);
 
@@ -223,7 +223,7 @@ gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO1(){
     //equation 16 divided by 12
     gslpp::complex Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
                 (Mb2_prefactor * (c(s)(0) + c(s)(1) * me(1)/me(0) + c(s)(2) * me(2)/me(0)) + 
-            Mb_PS * Mb_PS * delta_1overm_NLO1(s)/me(0));
+            Mb_PS * Mb_PS * delta_1overm_tradBasis(s)/me(0));
     return Gamma21overM21_Bs;
 }
 
@@ -298,6 +298,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
             throw(std::runtime_error("mass_scheme not implemented"));
     }
     
+    //for the traditional basis
     if (order == NLO){
         Mb2_prefactor = Mb_mu1 * Mb_mu1;
         x_1 = mu_1/Mb;
@@ -329,6 +330,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     oneminusz_1overm2 = (1. - z_1overm) * (1. - z_1overm);
     sqrt1minus4z_1overm = sqrt(1. - 4. * z_1overm);
     
+    //for the traditional basis
     if (order == NLO){
         z3 = z2 * z;
         z4 = z3 * z;
@@ -828,19 +830,19 @@ int AmpDB2::indexD(quarks qq, int k) {
 }
 
 
-gslpp::complex AmpDB2::delta_1overm_NLO1(quark q) {
+gslpp::complex AmpDB2::delta_1overm_tradBasis(quark q) {
     //hep-ph/0308029: equation 18
     //return 0.;
-    compute_deltas_1overm_NLO1(q);
+    compute_deltas_1overm_tradBasis(q);
     switch (q) {
         case d:
-            return VtbVtd2 * deltas_1overm_NLO1(uu, d)
-                    + 2. * VcbVcd * VtbVtd * (deltas_1overm_NLO1(uu, d) - deltas_1overm_NLO1(cu, d))
-                    + VcbVcd2 * (deltas_1overm_NLO1(cc, d) + deltas_1overm_NLO1(uu, d) - 2. * deltas_1overm_NLO1(cu, d));
+            return VtbVtd2 * deltas_1overm_tradBasis(uu, d)
+                    + 2. * VcbVcd * VtbVtd * (deltas_1overm_tradBasis(uu, d) - deltas_1overm_tradBasis(cu, d))
+                    + VcbVcd2 * (deltas_1overm_tradBasis(cc, d) + deltas_1overm_tradBasis(uu, d) - 2. * deltas_1overm_tradBasis(cu, d));
         case s:
-            return VtbVts2 * deltas_1overm_NLO1(uu, s)
-                    + 2. * VcbVcs * VtbVts * (deltas_1overm_NLO1(uu, s) - deltas_1overm_NLO1(cu, s))
-                    + VcbVcs2 * (deltas_1overm_NLO1(cc, s) + deltas_1overm_NLO1(uu, s) - 2. * deltas_1overm_NLO1(cu, s));
+            return VtbVts2 * deltas_1overm_tradBasis(uu, s)
+                    + 2. * VcbVcs * VtbVts * (deltas_1overm_tradBasis(uu, s) - deltas_1overm_tradBasis(cu, s))
+                    + VcbVcs2 * (deltas_1overm_tradBasis(cc, s) + deltas_1overm_tradBasis(uu, s) - 2. * deltas_1overm_tradBasis(cu, s));
         default:
             throw std::runtime_error("AmpDB2::delta_1overm(quark q): invalid quark index: ");
     }
@@ -848,18 +850,18 @@ gslpp::complex AmpDB2::delta_1overm_NLO1(quark q) {
 
 
 //equation 20
-void AmpDB2::compute_deltas_1overm_NLO1(quark q) {
-    cache_deltas_1overm_NLO1[index_deltas(cc, q)] = sqrt1minus4z_1overm * ((1 + 2. * z_1overm) * (K_2 * (me_R(2) + 2. * me_R(4)) - 2. * K_1 * (me_R(1) + me_R(2)))
+void AmpDB2::compute_deltas_1overm_tradBasis(quark q) {
+    cache_deltas_1overm_tradBasis[index_deltas(cc, q)] = sqrt1minus4z_1overm * ((1 + 2. * z_1overm) * (K_2 * (me_R(2) + 2. * me_R(4)) - 2. * K_1 * (me_R(1) + me_R(2)))
                     - 12. * z_1overm2 / (1. - 4. * z_1overm) * (K_1 * (me_R(2) + 2. * me_R(3)) + 2. * K_2 * me_R(3)));
-    cache_deltas_1overm_NLO1[index_deltas(cu, q)] = oneminusz_1overm2 * ((1. + 2. * z_1overm) * (K_2 * (me_R(2) + 2. * me_R(4)) - 2. * K_1 * (me_R(1) + me_R(2)))
+    cache_deltas_1overm_tradBasis[index_deltas(cu, q)] = oneminusz_1overm2 * ((1. + 2. * z_1overm) * (K_2 * (me_R(2) + 2. * me_R(4)) - 2. * K_1 * (me_R(1) + me_R(2)))
                     - 6. * z_1overm2 / (1. - z_1overm) * (K_1 * (me_R(2) + 2. * me_R(3)) + 2. * K_2 * me_R(3)));
-    cache_deltas_1overm_NLO1[index_deltas(uu, q)] = K_2 * (me_R(2) + 2. * me_R(4)) - 2. * K_1 * (me_R(1) + me_R(2));
+    cache_deltas_1overm_tradBasis[index_deltas(uu, q)] = K_2 * (me_R(2) + 2. * me_R(4)) - 2. * K_1 * (me_R(1) + me_R(2));
     return;
 }
 
 
-gslpp::complex AmpDB2::deltas_1overm_NLO1(quarks qq, quark q) {
-    return cache_deltas_1overm_NLO1[index_deltas(qq, q)];
+gslpp::complex AmpDB2::deltas_1overm_tradBasis(quarks qq, quark q) {
+    return cache_deltas_1overm_tradBasis[index_deltas(qq, q)];
 }
 
 gslpp::complex AmpDB2::deltas_1overm(quarks qq, quark q) {

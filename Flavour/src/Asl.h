@@ -83,36 +83,36 @@ public:
     private:
 };
 
-class Asl_d_NLO1 : public ThObservable, AmpDB2{
+class Asl_d_NLO_tradBasis : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_d_NLO1(const StandardModel& SM_i);
+    Asl_d_NLO_tradBasis(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_d_NLO1();
+    virtual ~Asl_d_NLO_tradBasis();
     
     double computeThValue ();
 
     private:
 };
 
-class Asl_s_NLO1 : public ThObservable, AmpDB2{
+class Asl_s_NLO_tradBasis : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_s_NLO1(const StandardModel& SM_i);
+    Asl_s_NLO_tradBasis(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_s_NLO1();
+    virtual ~Asl_s_NLO_tradBasis();
     
     double computeThValue();
 

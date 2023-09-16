@@ -81,8 +81,8 @@ public:
         return Gamma21overM21_Bs(order, mass_scheme);
     }
     
-    gslpp::complex Gamma21overM21_BdFULLNLO1();
-    gslpp::complex Gamma21overM21_BsFULLNLO1();
+    gslpp::complex Gamma21overM21_BdFULLNLO_tradBasis();
+    gslpp::complex Gamma21overM21_BsFULLNLO_tradBasis();
     
 
     gslpp::complex getPBd(){
@@ -159,7 +159,7 @@ private:
     double mu_2;    
     gslpp::vector<gslpp::complex> c(quark q); //requires computeCKMandMasses(); before use
     gslpp::complex delta_1overm(quark q); //requires computeCKMandMasses(); before use
-    gslpp::complex delta_1overm_NLO1(quark q); //requires computeCKMandMasses(); before use
+    gslpp::complex delta_1overm_tradBasis(quark q); //requires computeCKMandMasses(); before use
     
 //resummation to use z_bar instead of z and  eliminate z ln z terms (hep-ph/0612167)
     bool flag_resumz;
@@ -170,7 +170,7 @@ private:
     double F(quarks qq, int k, int i, int j);
     double P(quarks qq, int k, int i, int j);
     gslpp::complex D(quarks qq, int k);
-    gslpp::complex deltas_1overm_NLO1(quarks qq, quark q);  //require computeCKMandMasses
+    gslpp::complex deltas_1overm_tradBasis(quarks qq, quark q);  //require computeCKMandMasses
     gslpp::vector<double> me = gslpp::vector<double>(5, 0.);
     gslpp::vector<double> me_R = gslpp::vector<double>(5, 0.); //R0 to R4
     gslpp::vector<double> me_Rtilde = gslpp::vector<double>(3, 0.);
@@ -181,7 +181,7 @@ private:
     void computeP();
     void computeD(); //requires F and P
     void compute_deltas_1overm(quark q); //require Wilson and computeCKMandMasses
-    void compute_deltas_1overm_NLO1(quark q); //require Wilson and computeCKMandMasses
+    void compute_deltas_1overm_tradBasis(quark q); //require Wilson and computeCKMandMasses
     void compute_matrixelements(quark q); //require computeCKMandMasses
 
 //array for caching function values
@@ -189,7 +189,7 @@ private:
     double cacheF1[24] = { 0. };
     double cacheP[84] = { 0. };
     gslpp::complex cacheD[6] = { 0. };
-    gslpp::complex cache_deltas_1overm_NLO1[6] = { 0. };
+    gslpp::complex cache_deltas_1overm_tradBasis[6] = { 0. };
     gslpp::complex cache_deltas_1overm[6] = { 0. };
 
 //returns position in the corresponding array

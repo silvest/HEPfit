@@ -183,26 +183,26 @@ double DGamma_s_PS_LO::computeThValue() {
     return -getGamma21overM21_Bs(LO, PS).real() * SM.getOptionalParameter("DmBs_ex");
 }
 
-DGamma_d_NLO1::DGamma_d_NLO1(const StandardModel& SM_i)
+DGamma_d_NLO_tradBasis::DGamma_d_NLO_tradBasis(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i, true) {
     setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
 }
 
-DGamma_d_NLO1::~DGamma_d_NLO1() {
+DGamma_d_NLO_tradBasis::~DGamma_d_NLO_tradBasis() {
 }
 
-double DGamma_d_NLO1::computeThValue() {
-    return -Gamma21overM21_BdFULLNLO1().real() * SM.getOptionalParameter("DmBd_ex");
+double DGamma_d_NLO_tradBasis::computeThValue() {
+    return -Gamma21overM21_BdFULLNLO_tradBasis().real() * SM.getOptionalParameter("DmBd_ex");
 }
 
-DGamma_s_NLO1::DGamma_s_NLO1(const StandardModel& SM_i)
+DGamma_s_NLO_tradBasis::DGamma_s_NLO_tradBasis(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i, true) {
     setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
 }
 
-DGamma_s_NLO1::~DGamma_s_NLO1() {
+DGamma_s_NLO_tradBasis::~DGamma_s_NLO_tradBasis() {
 }
 
-double DGamma_s_NLO1::computeThValue() {
-    return -Gamma21overM21_BsFULLNLO1().real() * SM.getOptionalParameter("DmBs_ex");
+double DGamma_s_NLO_tradBasis::computeThValue() {
+    return -Gamma21overM21_BsFULLNLO_tradBasis().real() * SM.getOptionalParameter("DmBs_ex");
 }
