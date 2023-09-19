@@ -1178,6 +1178,9 @@ public:
      */
     virtual bool PostUpdate();
 
+    
+    //I think that for this model, with so many parameters, it's better to include only those we're really interested in
+    //Since all the parameters are initialized to zero we can just skip the CheckParameters for this model
     /**
      * @brief A method to check if all the mandatory parameters for %NPSMEFTd6General
      * have been provided in model initialization.
@@ -1185,7 +1188,7 @@ public:
      * (including parameters that are varied and those that are held constant)
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    //virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
      * @brief A method to set a flag of %NPSMEFTd6General.
@@ -7287,9 +7290,11 @@ protected:
     
 
     ////////////////////////////////////////////////////////////////////////
+    
+    RGESolver SMEFTEvol;
+    
 private:
 
-    RGESolver SMEFTEvol;
 
     bool FlagLeptonUniversal; ///< A boolean flag that is true if the lepton universality is switched on.
     bool FlagQuarkUniversal; ///< A boolean flag that is true if the quark universality is switched on.

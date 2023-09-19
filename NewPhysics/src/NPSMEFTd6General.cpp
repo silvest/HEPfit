@@ -16017,7 +16017,9 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
         NPbase::setParameter(name, value);
 }
 
-bool NPSMEFTd6General::CheckParameters(const std::map<std::string, double>& DPars)
+//I think that for this model, with so many parameters, it's better to include only those we're really interested in
+//Since all the parameters are initialized to zero we can just skip the CheckParameters for this model
+/*bool NPSMEFTd6General::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NNPSMEFTd6GeneralVars; i++) {
         if (DPars.find(NPSMEFTd6GeneralVars[i]) == DPars.end()) {
@@ -16029,6 +16031,7 @@ bool NPSMEFTd6General::CheckParameters(const std::map<std::string, double>& DPar
     }
     return (NPbase::CheckParameters(DPars));
 }
+*/
 
 bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
 {

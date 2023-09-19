@@ -4,7 +4,7 @@
  */
 
 /* 
- * File:   NPSMEFTd6MFVLOnoCKM.h
+ * File:   NPSMEFTd6U3.h
  * Author: silvest
  *
  * Created on 5 settembre 2023, 15.54
@@ -15,16 +15,15 @@
 
 #include "NPSMEFTd6General.h"
 
-class NPSMEFTd6MFVLOnoCKM: public NPSMEFTd6General {
+class NPSMEFTd6U3: public NPSMEFTd6General {
 public:
     
-    static const int NNPSMEFTd6MFVLOnoCKMVars = 53;
+    static const int NNPSMEFTd6U3Vars = 53;
     
-    static std::string NPSMEFTd6MFVLOnoCKMVars[NNPSMEFTd6MFVLOnoCKMVars];
+    static const std::string NPSMEFTd6U3Vars[NNPSMEFTd6U3Vars];
     
-    NPSMEFTd6MFVLOnoCKM();
-    NPSMEFTd6MFVLOnoCKM(const NPSMEFTd6MFVLOnoCKM& orig);
-    virtual ~NPSMEFTd6MFVLOnoCKM();
+    NPSMEFTd6U3();
+
     
     
 protected:
@@ -89,6 +88,11 @@ protected:
     double Clequ1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
     double Clequ3_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
 
+    
+    
+    virtual void setParameter(const std::string name, const double& value);
+    
+    
     
 private:
 
