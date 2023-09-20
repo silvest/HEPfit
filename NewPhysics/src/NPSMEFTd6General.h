@@ -6353,6 +6353,11 @@ protected:
     void computeQuarkMassesAndCKMFromYukawas();
     
     
+    /**
+     * @brief An auxiliary method to set the WC on the evolutor
+     */
+    void setSMEFTEvolWC();
+    
     
     /**
      * @brief An auxiliary method to get the WC from the evolutor

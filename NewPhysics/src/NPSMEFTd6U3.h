@@ -18,27 +18,34 @@
 class NPSMEFTd6U3: public NPSMEFTd6General {
 public:
     
-    static const int NNPSMEFTd6U3Vars = 53;
+    static const int NNPSMEFTd6U3Vars = 41+1;
     
     static const std::string NPSMEFTd6U3Vars[NNPSMEFTd6U3Vars];
     
     NPSMEFTd6U3();
 
+    /**
+     * @brief The post-update method for %NPSMEFTd6General.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool PostUpdate();
     
     
 protected:
     
     
     
-    //double CG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    //double CW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
-    //double CHG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
-    //double CHW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
-    //double CHB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
-    //double CHWB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
-    //double CHD_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
-    //double CHbox_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
-    //double CH_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
+    double CG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double CW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
+    double CHG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
+    double CHW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
+    double CHB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
+    double CHWB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
+    double CHD_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
+    double CHbox_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
+    double CH_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
     
     
     double CHl1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$.
@@ -48,21 +55,10 @@ protected:
     double CHq3_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}\f$.
     double CHu_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}\f$.
     double CHd_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}\f$.
-    double CHud_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}\f$.
-    double CeH_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}\f$.
-    double CuH_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}\f$.
-    double CdH_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}\f$.
-    double CuG_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}\f$.
-    double CuW_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}\f$.
-    double CuB_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}\f$.
-    double CdG_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}\f$.
-    double CdW_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}\f$.
-    double CdB_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}\f$.
-    double CeW_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}\f$.
-    double CeB_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}\f$.
-
     
-    double Cll_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Real part and pure real operator).
+    double Cll_aabb_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Real part and pure real operator).
+    double Cll_abba_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Real part and pure real operator).
+
     double Clq1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}\f$ (Imaginary part).
     double Clq3_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
     double Cee_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}\f$ (Imaginary part).
@@ -72,27 +68,32 @@ protected:
     double Clu_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}\f$ (Imaginary part).
     double Cld_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}\f$ (Real part and pure real operator).
     double Cqe_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}\f$ (Imaginary part).
-    double Cledq_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}\f$ (Real part and pure real operator).
-    double Cqq1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Imaginary part).
-    double Cqq3_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
-    double Cuu_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}\f$ (Imaginary part).
-    double Cdd_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}\f$ (Real part and pure real operator).
+    
+    double Cqq1_aabb_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Imaginary part).
+    double Cqq1_abba_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Imaginary part).
+    double Cqq3_aabb_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cqq3_abba_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
+    double Cuu_aabb_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}\f$ (Imaginary part).
+    double Cuu_abba_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}\f$ (Imaginary part).
+    double Cdd_aabb_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}\f$ (Real part and pure real operator).
+    double Cdd_abba_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}\f$ (Real part and pure real operator).
+
     double Cud1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}\f$ (Imaginary part).
     double Cud8_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
     double Cqu1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}\f$ (Imaginary part).
     double Cqu8_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
     double Cqd1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}\f$ (Imaginary part).
     double Cqd8_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
-    double Cquqd1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}\f$ (Imaginary part).
-    double Cquqd8_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}\f$ (Real part and pure real operator).
-    double Clequ1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
-    double Clequ3_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
-
     
+    
+
     
     virtual void setParameter(const std::string name, const double& value);
     
-    
+    /**
+     * @brief An auxiliary method to set the WC of the general class
+     */
+    void setNPSMEFTd6GeneralParameters();
     
 private:
 
