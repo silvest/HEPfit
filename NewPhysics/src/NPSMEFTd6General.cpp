@@ -3176,6 +3176,16 @@ NPSMEFTd6General::NPSMEFTd6General()
       
 }
 
+bool NPSMEFTd6General::Init(const std::map<std::string, double>& DPars)
+{
+    std::map<std::string, double> myDPars(DPars);
+    
+    Lambda_NP = myDPars.at("Lambda_NP"); //done here since it's needed for the numerical value of Wilson Coefficients in SetParameters()
+    LambdaNP2 = Lambda_NP * Lambda_NP;
+    LambdaNPm2 = 1. / LambdaNP2;
+    
+    return (StandardModel::Init(myDPars));
+}
 
 
 
@@ -3395,6 +3405,12 @@ bool NPSMEFTd6General::PostUpdate()
         cWsch = 0.;
     }
     
+    
+    //  1) Post-update operations involving SM parameters only (and Lambda_NP)
+    LambdaNP2 = Lambda_NP * Lambda_NP;
+    LambdaNPm2 = 1. / LambdaNP2;
+    v2 = v() * v();
+    v2_over_LambdaNP2 = v2 / LambdaNP2;
 
     
     // SM parameters using tree-level relations, depending on the input scheme
@@ -3543,6 +3559,30 @@ bool NPSMEFTd6General::PostUpdate()
 
     //NPSMEFTd6GM.getObj().updateNPSMEFTd6GeneralParameters();
 
+    //std::cout<<"\033[1;33m   LambdaNP2 =  \033[0m "<< LambdaNP2 <<std::endl;
+    //std::cout<<"\033[1;33m   aiG =  \033[0m "<< aiG <<std::endl;
+    //std::cout<<"\033[1;33m   ai3G =  \033[0m "<< ai3G <<std::endl;
+    //std::cout<<"\033[1;33m   ai2G =  \033[0m "<< ai2G <<std::endl;
+    //std::cout<<"\033[1;33m   aiT =  \033[0m "<< aiT <<std::endl;
+    //std::cout<<"\033[1;33m   aiH =  \033[0m "<< aiH <<std::endl;
+    //std::cout<<"\033[1;33m   aiWW =  \033[0m "<< aiWW <<std::endl;
+    //std::cout<<"\033[1;33m   aiB =  \033[0m "<< aiB <<std::endl;
+    //std::cout<<"\033[1;33m   aiHW =  \033[0m "<< aiHW <<std::endl;
+    //std::cout<<"\033[1;33m   aiHB =  \033[0m "<< aiHB <<std::endl;
+    //std::cout<<"\033[1;33m   aiA =  \033[0m "<< aiA <<std::endl;
+    //std::cout<<"\033[1;33m   aiHQ =  \033[0m "<< aiHQ <<std::endl;
+    //std::cout<<"\033[1;33m   aipHQ =  \033[0m "<< aipHQ <<std::endl;
+    //std::cout<<"\033[1;33m   aiHL =  \033[0m "<< aiHL <<std::endl;
+    //std::cout<<"\033[1;33m   aipHL =  \033[0m "<< aipHL <<std::endl;
+    //std::cout<<"\033[1;33m   aiHu =  \033[0m "<< aiHu <<std::endl;
+    //std::cout<<"\033[1;33m   aiHd =  \033[0m "<< aiHd <<std::endl;
+    //std::cout<<"\033[1;33m   aiHe =  \033[0m "<< aiHe <<std::endl;
+    //std::cout<<"\033[1;33m   aiu =  \033[0m "<< aiu <<std::endl;
+    //std::cout<<"\033[1;33m   aiuG =  \033[0m "<< aiuG <<std::endl;
+
+    
+    
+    
     
     return (true);
 }

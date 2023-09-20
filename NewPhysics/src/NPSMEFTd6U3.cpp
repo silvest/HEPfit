@@ -125,6 +125,8 @@ void NPSMEFTd6U3::setParameter(const std::string name, const double& value)
         
     } else if (name.compare("CHl1_LNP") == 0) {
         
+        //std::cout<<"\033[1;33m   LambdaNPm2 =  \033[0m "<< LambdaNPm2 <<std::endl;
+                
         CHl1_LNP = value;
         
         CHl1_11r_LNP = value;

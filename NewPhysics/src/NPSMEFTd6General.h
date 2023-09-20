@@ -1161,6 +1161,16 @@ public:
      * @brief Constructor.
      */
     NPSMEFTd6General();
+    
+    
+    /**
+     * @brief A method to initialize the model parameters.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool Init(const std::map<std::string, double>& DPars);
+    
 
     /**
      * @brief The pre-update method for %NPSMEFTd6General.
