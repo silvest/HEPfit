@@ -6297,7 +6297,7 @@ public:
     virtual double AuxObs_NP30() const;
 
     const RGESolver& getSMEFTEvol() const {
-        return SMEFTEvol;
+        return SMEFTEvolEW;
     }
 
     std::string getSMEFTBasisFlag() const {
@@ -6320,7 +6320,27 @@ public:
         return Yu;
     }
 
+    inline double ewgc(const std::string name) const
+    {
+        return SMEFTEvolEW.GetCoefficient(name);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return SMEFTEvolEW.GetCoefficient(name, i, j);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
+    }
+    
+    RGESolver GetSMEFTEvolEW() const
+    {
+        return SMEFTEvolEW;
+    }
 
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -7306,7 +7326,7 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
     
-    RGESolver SMEFTEvol;
+    RGESolver SMEFTEvolEW;
     
 private:
 

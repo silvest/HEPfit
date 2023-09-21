@@ -669,9 +669,8 @@ void NPSMEFTd6U2::setParameter(const std::string name, const double& value)
         
 } else if (name.compare("Lambda_NP") == 0 )
         Lambda_NP = value;
-    //Let's go directly for the NPbase setParameter, we should change it to the NPSMEFTd6General removing reading the unnecessary parameters
     else
-        NPbase::setParameter(name, value);
+        NPSMEFTd6General::setParameter(name, value);
 
 }
 
@@ -683,474 +682,263 @@ void NPSMEFTd6U2::setNPSMEFTd6GeneralParameters()
     //model with the new symmetry. Since we redefine them we use the scope resolution operator to set the values of the WC in
     //the General class
     
-    NPSMEFTd6General::CG_LNP = CG_LNP;
-    NPSMEFTd6General::CW_LNP = CW_LNP;
-    NPSMEFTd6General::CHG_LNP = CHG_LNP;
-    NPSMEFTd6General::CHW_LNP = CHW_LNP;
-    NPSMEFTd6General::CHB_LNP = CHB_LNP;
-    NPSMEFTd6General::CHWB_LNP = CHWB_LNP;
-    NPSMEFTd6General::CHD_LNP = CHD_LNP;
-    NPSMEFTd6General::CHbox_LNP = CHbox_LNP;
-    NPSMEFTd6General::CH_LNP = CH_LNP;
-    //9 bosonic operators
+    CHl1_11r_LNP = CHl1_aar_LNP;
+    CHl1_22r_LNP = CHl1_aar_LNP;
     
-    NPSMEFTd6General::CHl1_11r_LNP = CHl1_aar_LNP;
-    NPSMEFTd6General::CHl1_22r_LNP = CHl1_aar_LNP;
-    NPSMEFTd6General::CHl1_33r_LNP = CHl1_33r_LNP;
+    CHl3_11r_LNP = CHl3_aar_LNP;
+    CHl3_22r_LNP = CHl3_aar_LNP;
     
+    CHe_11r_LNP = CHe_aar_LNP;
+    CHe_22r_LNP = CHe_aar_LNP;
     
-    NPSMEFTd6General::CHl3_11r_LNP = CHl3_aar_LNP;
-    NPSMEFTd6General::CHl3_22r_LNP = CHl3_aar_LNP;
-    NPSMEFTd6General::CHl3_33r_LNP = CHl3_33r_LNP;
+    CHq1_11r_LNP = CHq1_aar_LNP;
+    CHq1_22r_LNP = CHq1_aar_LNP;
     
+    CHq3_11r_LNP = CHq3_aar_LNP;
+    CHq3_22r_LNP = CHq3_aar_LNP;
     
-    NPSMEFTd6General::CHe_11r_LNP = CHe_aar_LNP;
-    NPSMEFTd6General::CHe_22r_LNP = CHe_aar_LNP;
-    NPSMEFTd6General::CHe_33r_LNP = CHe_33r_LNP;
+    CHu_11r_LNP = CHu_aar_LNP;
+    CHu_22r_LNP = CHu_aar_LNP;
     
+    CHd_11r_LNP = CHd_aar_LNP;
+    CHd_22r_LNP = CHd_aar_LNP;
     
-    NPSMEFTd6General::CHq1_11r_LNP = CHq1_aar_LNP;
-    NPSMEFTd6General::CHq1_22r_LNP = CHq1_aar_LNP;
-    NPSMEFTd6General::CHq1_33r_LNP = CHq1_33r_LNP;
+    Cll_1111r_LNP = Cll_aabbr_LNP+Cll_abbar_LNP;
+    Cll_2222r_LNP = Cll_aabbr_LNP+Cll_abbar_LNP;
     
+    Cll_1122r_LNP = Cll_aabbr_LNP;
     
-    NPSMEFTd6General::CHq3_11r_LNP = CHq3_aar_LNP;
-    NPSMEFTd6General::CHq3_22r_LNP = CHq3_aar_LNP;
-    NPSMEFTd6General::CHq3_33r_LNP = CHq3_33r_LNP;
+    Cll_1133r_LNP = Cll_aa33r_LNP;
+    Cll_2233r_LNP = Cll_aa33r_LNP;
     
+    Cll_1221r_LNP = Cll_abbar_LNP;
     
-    NPSMEFTd6General::CHu_11r_LNP = CHu_aar_LNP;
-    NPSMEFTd6General::CHu_22r_LNP = CHu_aar_LNP;
-    NPSMEFTd6General::CHu_33r_LNP = CHu_33r_LNP;
+    Cll_1331r_LNP = Cll_a33ar_LNP;
+    Cll_2332r_LNP = Cll_a33ar_LNP;
     
+    Clq1_1111r_LNP = Clq1_aabbr_LNP;
+    Clq1_1122r_LNP = Clq1_aabbr_LNP;
+    Clq1_2211r_LNP = Clq1_aabbr_LNP;
+    Clq1_2222r_LNP = Clq1_aabbr_LNP;
     
-    NPSMEFTd6General::CHd_11r_LNP = CHd_aar_LNP;
-    NPSMEFTd6General::CHd_22r_LNP = CHd_aar_LNP;
-    NPSMEFTd6General::CHd_33r_LNP = CHd_33r_LNP;
+    Clq1_1133r_LNP = Clq1_aa33r_LNP;
+    Clq1_2233r_LNP = Clq1_aa33r_LNP;
     
+    Clq1_3311r_LNP = Clq1_33aar_LNP;
+    Clq1_3322r_LNP = Clq1_33aar_LNP;
     
-    NPSMEFTd6General::CHud_33r_LNP = CHud_33r_LNP;
+    Clq3_1111r_LNP = Clq3_aabbr_LNP;
+    Clq3_1122r_LNP = Clq3_aabbr_LNP;
+    Clq3_2211r_LNP = Clq3_aabbr_LNP;
+    Clq3_2222r_LNP = Clq3_aabbr_LNP;
     
+    Clq3_1133r_LNP = Clq3_aa33r_LNP;
+    Clq3_2233r_LNP = Clq3_aa33r_LNP;
     
-    NPSMEFTd6General::CeH_33r_LNP = CeH_33r_LNP;
+    Clq3_3311r_LNP = Clq3_33aar_LNP;
+    Clq3_3322r_LNP = Clq3_33aar_LNP;
     
+    Cee_1111r_LNP = Cee_aabbr_LNP;
+    Cee_1122r_LNP = Cee_aabbr_LNP;
+    Cee_2222r_LNP = Cee_aabbr_LNP;
     
-    NPSMEFTd6General::CuH_33r_LNP = CuH_33r_LNP;
+    Cee_1133r_LNP = Cee_aa33r_LNP;
+    Cee_2233r_LNP = Cee_aa33r_LNP;
     
+    Ceu_1111r_LNP = Ceu_aabbr_LNP;
+    Ceu_1122r_LNP = Ceu_aabbr_LNP;
     
-    NPSMEFTd6General::CdH_33r_LNP = CdH_33r_LNP;
+    Ceu_2211r_LNP = Ceu_aabbr_LNP;
+    Ceu_2222r_LNP = Ceu_aabbr_LNP;
     
+    Ceu_1133r_LNP = Ceu_aa33r_LNP;
+    Ceu_2233r_LNP = Ceu_aa33r_LNP;
     
-    NPSMEFTd6General::CuG_33r_LNP = CuG_33r_LNP;
+    Ceu_3311r_LNP = Ceu_33aar_LNP;
+    Ceu_3322r_LNP = Ceu_33aar_LNP;
     
+    Ced_1111r_LNP = Ced_aabbr_LNP;
+    Ced_1122r_LNP = Ced_aabbr_LNP;
     
-    NPSMEFTd6General::CuW_33r_LNP = CuW_33r_LNP;
+    Ced_2211r_LNP = Ced_aabbr_LNP;
+    Ced_2222r_LNP = Ced_aabbr_LNP;
     
+    Ced_1133r_LNP = Ced_aa33r_LNP;
+    Ced_2233r_LNP = Ced_aa33r_LNP;
     
-    NPSMEFTd6General::CuB_33r_LNP = CuB_33r_LNP;
+    Ced_3311r_LNP = Ced_33aar_LNP;
+    Ced_3322r_LNP = Ced_33aar_LNP;
     
+    Cle_1111r_LNP = Cle_aabbr_LNP;
+    Cle_1122r_LNP = Cle_aabbr_LNP;
     
-    NPSMEFTd6General::CdG_33r_LNP = CdG_33r_LNP;
+    Cle_2211r_LNP = Cle_aabbr_LNP;
+    Cle_2222r_LNP = Cle_aabbr_LNP;
     
+    Cle_1133r_LNP = Cle_aa33r_LNP;
+    Cle_2233r_LNP = Cle_aa33r_LNP;
     
-    NPSMEFTd6General::CdW_33r_LNP = CdW_33r_LNP;
+    Cle_3311r_LNP = Cle_33aar_LNP;
+    Cle_3322r_LNP = Cle_33aar_LNP;
     
+    Clu_1111r_LNP = Clu_aabbr_LNP;
+    Clu_1122r_LNP = Clu_aabbr_LNP;
     
-    NPSMEFTd6General::CdB_33r_LNP = CdB_33r_LNP;
+    Clu_2211r_LNP = Clu_aabbr_LNP;
+    Clu_2222r_LNP = Clu_aabbr_LNP;
     
+    Clu_1133r_LNP = Clu_aa33r_LNP;
+    Clu_2233r_LNP = Clu_aa33r_LNP;
     
-    NPSMEFTd6General::CeW_33r_LNP = CeW_33r_LNP;
+    Clu_3311r_LNP = Clu_33aar_LNP;
+    Clu_3322r_LNP = Clu_33aar_LNP;
     
+    Cld_1111r_LNP = Cld_aabbr_LNP;
+    Cld_1122r_LNP = Cld_aabbr_LNP;
     
-    NPSMEFTd6General::CeB_33r_LNP = CeB_33r_LNP;
+    Cld_2211r_LNP = Cld_aabbr_LNP;
+    Cld_2222r_LNP = Cld_aabbr_LNP;
     
-    //26 2-fermion
+    Cld_1133r_LNP = Cld_aa33r_LNP;
+    Cld_2233r_LNP = Cld_aa33r_LNP;
     
+    Cld_3311r_LNP = Cld_33aar_LNP;
+    Cld_3322r_LNP = Cld_33aar_LNP;
     
+    Cqe_1111r_LNP = Cqe_aabbr_LNP;
+    Cqe_1122r_LNP = Cqe_aabbr_LNP;
     
+    Cqe_2211r_LNP = Cqe_aabbr_LNP;
+    Cqe_2222r_LNP = Cqe_aabbr_LNP;
     
+    Cqe_1133r_LNP = Cqe_aa33r_LNP;
+    Cqe_2233r_LNP = Cqe_aa33r_LNP;
     
+    Cqe_3311r_LNP = Cqe_33aar_LNP;
+    Cqe_3322r_LNP = Cqe_33aar_LNP;
     
+    Cqq1_1111r_LNP = Cqq1_aabbr_LNP+Cqq1_abbar_LNP;
+    Cqq1_2222r_LNP = Cqq1_aabbr_LNP+Cqq1_abbar_LNP;
     
+    Cqq1_1122r_LNP = Cqq1_aabbr_LNP;
     
+    Cqq1_1133r_LNP = Cqq1_aa33r_LNP;
+    Cqq1_2233r_LNP = Cqq1_aa33r_LNP;
+    Cqq1_1221r_LNP = Cqq1_abbar_LNP;
     
+    Cqq1_1331r_LNP = Cqq1_a33ar_LNP;
+    Cqq1_2332r_LNP = Cqq1_a33ar_LNP;
+     
+    Cqq3_1111r_LNP = Cqq3_aabbr_LNP+Cqq3_abbar_LNP;
+    Cqq3_2222r_LNP = Cqq3_aabbr_LNP+Cqq3_abbar_LNP;
     
+    Cqq3_1122r_LNP = Cqq3_aabbr_LNP;
     
-    
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    NPSMEFTd6General::Cll_1111r_LNP = Cll_aabbr_LNP+Cll_abbar_LNP;
-    NPSMEFTd6General::Cll_2222r_LNP = Cll_aabbr_LNP+Cll_abbar_LNP;
-    
-    NPSMEFTd6General::Cll_3333r_LNP = Cll_3333r_LNP;
-//Actually in this case Cll_1122r_LNP=Cll_aabb_LNP is unique
-    NPSMEFTd6General::Cll_1122r_LNP = Cll_aabbr_LNP;
-    
-    NPSMEFTd6General::Cll_1133r_LNP = Cll_aa33r_LNP;
-    NPSMEFTd6General::Cll_2233r_LNP = Cll_aa33r_LNP;
-//Actually in this case Cll_1221r_LNP=Cll_abba_LNP is unique
-    NPSMEFTd6General::Cll_1221r_LNP = Cll_abbar_LNP;
-    
-    NPSMEFTd6General::Cll_1331r_LNP = Cll_a33ar_LNP;
-    NPSMEFTd6General::Cll_2332r_LNP = Cll_a33ar_LNP;
-    // 5 d.o.f.
-    ////////////////////////////////////////////////
-    
-    
-    
-    NPSMEFTd6General::Clq1_1111r_LNP = Clq1_aabbr_LNP;
-    NPSMEFTd6General::Clq1_1122r_LNP = Clq1_aabbr_LNP;
-    NPSMEFTd6General::Clq1_2211r_LNP = Clq1_aabbr_LNP;
-    NPSMEFTd6General::Clq1_2222r_LNP = Clq1_aabbr_LNP;
-    
-    NPSMEFTd6General::Clq1_1133r_LNP = Clq1_aa33r_LNP;
-    NPSMEFTd6General::Clq1_2233r_LNP = Clq1_aa33r_LNP;
-    
-    NPSMEFTd6General::Clq1_3311r_LNP = Clq1_33aar_LNP;
-    NPSMEFTd6General::Clq1_3322r_LNP = Clq1_33aar_LNP;
-    NPSMEFTd6General::Clq1_3333r_LNP = Clq1_3333r_LNP;
-    
-    
-    
-    
-    NPSMEFTd6General::Clq3_1111r_LNP = Clq3_aabbr_LNP;
-    NPSMEFTd6General::Clq3_1122r_LNP = Clq3_aabbr_LNP;
-    NPSMEFTd6General::Clq3_2211r_LNP = Clq3_aabbr_LNP;
-    NPSMEFTd6General::Clq3_2222r_LNP = Clq3_aabbr_LNP;
-    
-    NPSMEFTd6General::Clq3_1133r_LNP = Clq3_aa33r_LNP;
-    NPSMEFTd6General::Clq3_2233r_LNP = Clq3_aa33r_LNP;
-    
-    NPSMEFTd6General::Clq3_3311r_LNP = Clq3_33aar_LNP;
-    NPSMEFTd6General::Clq3_3322r_LNP = Clq3_33aar_LNP;
-    NPSMEFTd6General::Clq3_3333r_LNP = Clq3_3333r_LNP;
-        
-        
-    
-    
-    NPSMEFTd6General::Cee_1111r_LNP = Cee_aabbr_LNP;
-    NPSMEFTd6General::Cee_1122r_LNP = Cee_aabbr_LNP;
-    NPSMEFTd6General::Cee_2222r_LNP = Cee_aabbr_LNP;
-    
-    NPSMEFTd6General::Cee_1133r_LNP = Cee_aa33r_LNP;
-    NPSMEFTd6General::Cee_2233r_LNP = Cee_aa33r_LNP;
-    
-    NPSMEFTd6General::Cee_3333r_LNP = Cee_3333r_LNP;
-    
-    
-    
-    
-    NPSMEFTd6General::Ceu_1111r_LNP = Ceu_aabbr_LNP;
-    NPSMEFTd6General::Ceu_1122r_LNP = Ceu_aabbr_LNP;
-    
-    NPSMEFTd6General::Ceu_2211r_LNP = Ceu_aabbr_LNP;
-    NPSMEFTd6General::Ceu_2222r_LNP = Ceu_aabbr_LNP;
-    
-    NPSMEFTd6General::Ceu_1133r_LNP = Ceu_aa33r_LNP;
-    NPSMEFTd6General::Ceu_2233r_LNP = Ceu_aa33r_LNP;
-    
-    NPSMEFTd6General::Ceu_3311r_LNP = Ceu_33aar_LNP;
-    NPSMEFTd6General::Ceu_3322r_LNP = Ceu_33aar_LNP;
-    
-    NPSMEFTd6General::Ceu_3333r_LNP = Ceu_3333r_LNP;
+    Cqq3_1133r_LNP = Cqq3_aa33r_LNP;
+    Cqq3_2233r_LNP = Cqq3_aa33r_LNP;
 
+    Cqq3_1221r_LNP = Cqq3_abbar_LNP;
     
-    
-    
-    NPSMEFTd6General::Ced_1111r_LNP = Ced_aabbr_LNP;
-    NPSMEFTd6General::Ced_1122r_LNP = Ced_aabbr_LNP;
-    
-    NPSMEFTd6General::Ced_2211r_LNP = Ced_aabbr_LNP;
-    NPSMEFTd6General::Ced_2222r_LNP = Ced_aabbr_LNP;
-    
-    NPSMEFTd6General::Ced_1133r_LNP = Ced_aa33r_LNP;
-    NPSMEFTd6General::Ced_2233r_LNP = Ced_aa33r_LNP;
-    
-    NPSMEFTd6General::Ced_3311r_LNP = Ced_33aar_LNP;
-    NPSMEFTd6General::Ced_3322r_LNP = Ced_33aar_LNP;
-    
-    NPSMEFTd6General::Ced_3333r_LNP = Ced_3333r_LNP;
-
-    
-    
-    
-    NPSMEFTd6General::Cle_1111r_LNP = Cle_aabbr_LNP;
-    NPSMEFTd6General::Cle_1122r_LNP = Cle_aabbr_LNP;
-    
-    NPSMEFTd6General::Cle_2211r_LNP = Cle_aabbr_LNP;
-    NPSMEFTd6General::Cle_2222r_LNP = Cle_aabbr_LNP;
-    
-    NPSMEFTd6General::Cle_1133r_LNP = Cle_aa33r_LNP;
-    NPSMEFTd6General::Cle_2233r_LNP = Cle_aa33r_LNP;
-    
-    NPSMEFTd6General::Cle_3311r_LNP = Cle_33aar_LNP;
-    NPSMEFTd6General::Cle_3322r_LNP = Cle_33aar_LNP;
-    
-    NPSMEFTd6General::Cle_3333r_LNP = Cle_3333r_LNP;
-
-    
-    
-    
-    NPSMEFTd6General::Clu_1111r_LNP = Clu_aabbr_LNP;
-    NPSMEFTd6General::Clu_1122r_LNP = Clu_aabbr_LNP;
-    
-    NPSMEFTd6General::Clu_2211r_LNP = Clu_aabbr_LNP;
-    NPSMEFTd6General::Clu_2222r_LNP = Clu_aabbr_LNP;
-    
-    NPSMEFTd6General::Clu_1133r_LNP = Clu_aa33r_LNP;
-    NPSMEFTd6General::Clu_2233r_LNP = Clu_aa33r_LNP;
-    
-    NPSMEFTd6General::Clu_3311r_LNP = Clu_33aar_LNP;
-    NPSMEFTd6General::Clu_3322r_LNP = Clu_33aar_LNP;
-    
-    NPSMEFTd6General::Clu_3333r_LNP = Clu_3333r_LNP;
-    
-
-    
-    
-    
-    NPSMEFTd6General::Cld_1111r_LNP = Cld_aabbr_LNP;
-    NPSMEFTd6General::Cld_1122r_LNP = Cld_aabbr_LNP;
-    
-    NPSMEFTd6General::Cld_2211r_LNP = Cld_aabbr_LNP;
-    NPSMEFTd6General::Cld_2222r_LNP = Cld_aabbr_LNP;
-    
-    NPSMEFTd6General::Cld_1133r_LNP = Cld_aa33r_LNP;
-    NPSMEFTd6General::Cld_2233r_LNP = Cld_aa33r_LNP;
-    
-    NPSMEFTd6General::Cld_3311r_LNP = Cld_33aar_LNP;
-    NPSMEFTd6General::Cld_3322r_LNP = Cld_33aar_LNP;
-    
-    NPSMEFTd6General::Cld_3333r_LNP = Cld_3333r_LNP;
-    
-
-    
-    
-    
-    NPSMEFTd6General::Cqe_1111r_LNP = Cqe_aabbr_LNP;
-    NPSMEFTd6General::Cqe_1122r_LNP = Cqe_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqe_2211r_LNP = Cqe_aabbr_LNP;
-    NPSMEFTd6General::Cqe_2222r_LNP = Cqe_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqe_1133r_LNP = Cqe_aa33r_LNP;
-    NPSMEFTd6General::Cqe_2233r_LNP = Cqe_aa33r_LNP;
-    
-    NPSMEFTd6General::Cqe_3311r_LNP = Cqe_33aar_LNP;
-    NPSMEFTd6General::Cqe_3322r_LNP = Cqe_33aar_LNP;
-    
-    NPSMEFTd6General::Cqe_3333r_LNP = Cqe_3333r_LNP;
-    
-    
-    
-    
-    NPSMEFTd6General::Cledq_3333r_LNP = Cledq_3333r_LNP;
-    
-    
-    
-    
-    
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    NPSMEFTd6General::Cqq1_1111r_LNP = Cqq1_aabbr_LNP+Cqq1_abbar_LNP;
-    NPSMEFTd6General::Cqq1_2222r_LNP = Cqq1_aabbr_LNP+Cqq1_abbar_LNP;
-    
-    NPSMEFTd6General::Cqq1_3333r_LNP = Cqq1_3333r_LNP;
-//Actually in this case Cqq1_1122r_LNP=Cqq1_aabb_LNP is unique
-    NPSMEFTd6General::Cqq1_1122r_LNP = Cqq1_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqq1_1133r_LNP = Cqq1_aa33r_LNP;
-    NPSMEFTd6General::Cqq1_2233r_LNP = Cqq1_aa33r_LNP;
-//Actually in this case Cqq1_1221r_LNP=Cqq1_abba_LNP is unique
-    NPSMEFTd6General::Cqq1_1221r_LNP = Cqq1_abbar_LNP;
-    
-    NPSMEFTd6General::Cqq1_1331r_LNP = Cqq1_a33ar_LNP;
-    NPSMEFTd6General::Cqq1_2332r_LNP = Cqq1_a33ar_LNP;
-    
-    
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    NPSMEFTd6General::Cqq3_1111r_LNP = Cqq3_aabbr_LNP+Cqq3_abbar_LNP;
-    NPSMEFTd6General::Cqq3_2222r_LNP = Cqq3_aabbr_LNP+Cqq3_abbar_LNP;
-    
-    NPSMEFTd6General::Cqq3_3333r_LNP = Cqq3_3333r_LNP;
-//Actually in this case Cqq3_1122r_LNP=Cqq3_aabb_LNP is unique
-    NPSMEFTd6General::Cqq3_1122r_LNP = Cqq3_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqq3_1133r_LNP = Cqq3_aa33r_LNP;
-    NPSMEFTd6General::Cqq3_2233r_LNP = Cqq3_aa33r_LNP;
-//Actually in this case Cqq3_1221r_LNP=Cqq3_abba_LNP is unique
-    NPSMEFTd6General::Cqq3_1221r_LNP = Cqq3_abbar_LNP;
-    
-    NPSMEFTd6General::Cqq3_1331r_LNP = Cqq3_a33ar_LNP;
-    NPSMEFTd6General::Cqq3_2332r_LNP = Cqq3_a33ar_LNP;
+    Cqq3_1331r_LNP = Cqq3_a33ar_LNP;
+    Cqq3_2332r_LNP = Cqq3_a33ar_LNP;
    
-        
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    NPSMEFTd6General::Cuu_1111r_LNP = Cuu_aabbr_LNP+Cuu_abbar_LNP;
-    NPSMEFTd6General::Cuu_2222r_LNP = Cuu_aabbr_LNP+Cuu_abbar_LNP;
+    Cuu_1111r_LNP = Cuu_aabbr_LNP+Cuu_abbar_LNP;
+    Cuu_2222r_LNP = Cuu_aabbr_LNP+Cuu_abbar_LNP;
     
-    NPSMEFTd6General::Cuu_3333r_LNP = Cuu_3333r_LNP;
-//Actually in this case Cuu_1122r_LNP=Cuu_aabb_LNP is unique
-    NPSMEFTd6General::Cuu_1122r_LNP = Cuu_aabbr_LNP;
+    Cuu_1122r_LNP = Cuu_aabbr_LNP;
     
-    NPSMEFTd6General::Cuu_1133r_LNP = Cuu_aa33r_LNP;
-    NPSMEFTd6General::Cuu_2233r_LNP = Cuu_aa33r_LNP;
-//Actually in this case Cuu_1221r_LNP=Cuu_abba_LNP is unique
-    NPSMEFTd6General::Cuu_1221r_LNP = Cuu_abbar_LNP;
+    Cuu_1133r_LNP = Cuu_aa33r_LNP;
+    Cuu_2233r_LNP = Cuu_aa33r_LNP;
+
+    Cuu_1221r_LNP = Cuu_abbar_LNP;
     
-    NPSMEFTd6General::Cuu_1331r_LNP = Cuu_a33ar_LNP;
-    NPSMEFTd6General::Cuu_2332r_LNP = Cuu_a33ar_LNP;
+    Cuu_1331r_LNP = Cuu_a33ar_LNP;
+    Cuu_2332r_LNP = Cuu_a33ar_LNP;   
     
+    Cdd_1111r_LNP = Cdd_aabbr_LNP+Cdd_abbar_LNP;
+    Cdd_2222r_LNP = Cdd_aabbr_LNP+Cdd_abbar_LNP;
     
+    Cdd_1122r_LNP = Cdd_aabbr_LNP;
     
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    //CHECK THIS!!!
-    NPSMEFTd6General::Cdd_1111r_LNP = Cdd_aabbr_LNP+Cdd_abbar_LNP;
-    NPSMEFTd6General::Cdd_2222r_LNP = Cdd_aabbr_LNP+Cdd_abbar_LNP;
+    Cdd_1133r_LNP = Cdd_aa33r_LNP;
+    Cdd_2233r_LNP = Cdd_aa33r_LNP;
+
+    Cdd_1221r_LNP = Cdd_abbar_LNP;
     
-    NPSMEFTd6General::Cdd_3333r_LNP = Cdd_3333r_LNP;
-//Actually in this case Cdd_1122r_LNP=Cdd_aabb_LNP is unique
-    NPSMEFTd6General::Cdd_1122r_LNP = Cdd_aabbr_LNP;
+    Cdd_1331r_LNP = Cdd_a33ar_LNP;
+    Cdd_2332r_LNP = Cdd_a33ar_LNP;    
     
-    NPSMEFTd6General::Cdd_1133r_LNP = Cdd_aa33r_LNP;
-    NPSMEFTd6General::Cdd_2233r_LNP = Cdd_aa33r_LNP;
-//Actually in this case Cdd_1221r_LNP=Cdd_abba_LNP is unique
-    NPSMEFTd6General::Cdd_1221r_LNP = Cdd_abbar_LNP;
+    Cud1_1111r_LNP = Cud1_aabbr_LNP;
+    Cud1_1122r_LNP = Cud1_aabbr_LNP;
     
-    NPSMEFTd6General::Cdd_1331r_LNP = Cdd_a33ar_LNP;
-    NPSMEFTd6General::Cdd_2332r_LNP = Cdd_a33ar_LNP;
-    ////////////////////////////////////////////////
-        
+    Cud1_2211r_LNP = Cud1_aabbr_LNP;
+    Cud1_2222r_LNP = Cud1_aabbr_LNP;
     
+    Cud1_1133r_LNP = Cud1_aa33r_LNP;
+    Cud1_2233r_LNP = Cud1_aa33r_LNP;
     
+    Cud1_3311r_LNP = Cud1_33aar_LNP;
+    Cud1_3322r_LNP = Cud1_33aar_LNP;
     
-    NPSMEFTd6General::Cud1_1111r_LNP = Cud1_aabbr_LNP;
-    NPSMEFTd6General::Cud1_1122r_LNP = Cud1_aabbr_LNP;
+    Cud8_1111r_LNP = Cud8_aabbr_LNP;
+    Cud8_1122r_LNP = Cud8_aabbr_LNP;
     
-    NPSMEFTd6General::Cud1_2211r_LNP = Cud1_aabbr_LNP;
-    NPSMEFTd6General::Cud1_2222r_LNP = Cud1_aabbr_LNP;
+    Cud8_2211r_LNP = Cud8_aabbr_LNP;
+    Cud8_2222r_LNP = Cud8_aabbr_LNP;
     
-    NPSMEFTd6General::Cud1_1133r_LNP = Cud1_aa33r_LNP;
-    NPSMEFTd6General::Cud1_2233r_LNP = Cud1_aa33r_LNP;
+    Cud8_1133r_LNP = Cud8_aa33r_LNP;
+    Cud8_2233r_LNP = Cud8_aa33r_LNP;
     
-    NPSMEFTd6General::Cud1_3311r_LNP = Cud1_33aar_LNP;
-    NPSMEFTd6General::Cud1_3322r_LNP = Cud1_33aar_LNP;
+    Cud8_3311r_LNP = Cud8_33aar_LNP;
+    Cud8_3322r_LNP = Cud8_33aar_LNP;
     
-    NPSMEFTd6General::Cud1_3333r_LNP = Cud1_3333r_LNP;
-        
+    Cqu1_1111r_LNP = Cqu1_aabbr_LNP;
+    Cqu1_1122r_LNP = Cqu1_aabbr_LNP;
     
+    Cqu1_2211r_LNP = Cqu1_aabbr_LNP;
+    Cqu1_2222r_LNP = Cqu1_aabbr_LNP;
     
+    Cqu1_1133r_LNP = Cqu1_aa33r_LNP;
+    Cqu1_2233r_LNP = Cqu1_aa33r_LNP;
     
-    NPSMEFTd6General::Cud8_1111r_LNP = Cud8_aabbr_LNP;
-    NPSMEFTd6General::Cud8_1122r_LNP = Cud8_aabbr_LNP;
+    Cqu1_3311r_LNP = Cqu1_33aar_LNP;
+    Cqu1_3322r_LNP = Cqu1_33aar_LNP;
     
-    NPSMEFTd6General::Cud8_2211r_LNP = Cud8_aabbr_LNP;
-    NPSMEFTd6General::Cud8_2222r_LNP = Cud8_aabbr_LNP;
+    Cqu8_1111r_LNP = Cqu8_aabbr_LNP;
+    Cqu8_1122r_LNP = Cqu8_aabbr_LNP;
     
-    NPSMEFTd6General::Cud8_1133r_LNP = Cud8_aa33r_LNP;
-    NPSMEFTd6General::Cud8_2233r_LNP = Cud8_aa33r_LNP;
+    Cqu8_2211r_LNP = Cqu8_aabbr_LNP;
+    Cqu8_2222r_LNP = Cqu8_aabbr_LNP;
     
-    NPSMEFTd6General::Cud8_3311r_LNP = Cud8_33aar_LNP;
-    NPSMEFTd6General::Cud8_3322r_LNP = Cud8_33aar_LNP;
+    Cqu8_1133r_LNP = Cqu8_aa33r_LNP;
+    Cqu8_2233r_LNP = Cqu8_aa33r_LNP;
     
-    NPSMEFTd6General::Cud8_3333r_LNP = Cud8_3333r_LNP;
-        
+    Cqu8_3311r_LNP = Cqu8_33aar_LNP;
+    Cqu8_3322r_LNP = Cqu8_33aar_LNP;
     
+    Cqd1_1111r_LNP = Cqd1_aabbr_LNP;
+    Cqd1_1122r_LNP = Cqd1_aabbr_LNP;
     
+    Cqd1_2211r_LNP = Cqd1_aabbr_LNP;
+    Cqd1_2222r_LNP = Cqd1_aabbr_LNP;
     
+    Cqd1_1133r_LNP = Cqd1_aa33r_LNP;
+    Cqd1_2233r_LNP = Cqd1_aa33r_LNP;
     
-    NPSMEFTd6General::Cqu1_1111r_LNP = Cqu1_aabbr_LNP;
-    NPSMEFTd6General::Cqu1_1122r_LNP = Cqu1_aabbr_LNP;
+    Cqd1_3311r_LNP = Cqd1_33aar_LNP;
+    Cqd1_3322r_LNP = Cqd1_33aar_LNP;
     
-    NPSMEFTd6General::Cqu1_2211r_LNP = Cqu1_aabbr_LNP;
-    NPSMEFTd6General::Cqu1_2222r_LNP = Cqu1_aabbr_LNP;
+    Cqd8_1111r_LNP = Cqd8_aabbr_LNP;
+    Cqd8_1122r_LNP = Cqd8_aabbr_LNP;
     
-    NPSMEFTd6General::Cqu1_1133r_LNP = Cqu1_aa33r_LNP;
-    NPSMEFTd6General::Cqu1_2233r_LNP = Cqu1_aa33r_LNP;
+    Cqd8_2211r_LNP = Cqd8_aabbr_LNP;
+    Cqd8_2222r_LNP = Cqd8_aabbr_LNP;
     
-    NPSMEFTd6General::Cqu1_3311r_LNP = Cqu1_33aar_LNP;
-    NPSMEFTd6General::Cqu1_3322r_LNP = Cqu1_33aar_LNP;
+    Cqd8_1133r_LNP = Cqd8_aa33r_LNP;
+    Cqd8_2233r_LNP = Cqd8_aa33r_LNP;
     
-    NPSMEFTd6General::Cqu1_3333r_LNP = Cqu1_3333r_LNP;
-    
-        
-    
-    
-    
-    NPSMEFTd6General::Cqu8_1111r_LNP = Cqu8_aabbr_LNP;
-    NPSMEFTd6General::Cqu8_1122r_LNP = Cqu8_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqu8_2211r_LNP = Cqu8_aabbr_LNP;
-    NPSMEFTd6General::Cqu8_2222r_LNP = Cqu8_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqu8_1133r_LNP = Cqu8_aa33r_LNP;
-    NPSMEFTd6General::Cqu8_2233r_LNP = Cqu8_aa33r_LNP;
-    
-    NPSMEFTd6General::Cqu8_3311r_LNP = Cqu8_33aar_LNP;
-    NPSMEFTd6General::Cqu8_3322r_LNP = Cqu8_33aar_LNP;
-    
-    NPSMEFTd6General::Cqu8_3333r_LNP = Cqu8_3333r_LNP;
-    
-    
-    
-    
-    
-    
-    
-    
-    NPSMEFTd6General::Cqd1_1111r_LNP = Cqd1_aabbr_LNP;
-    NPSMEFTd6General::Cqd1_1122r_LNP = Cqd1_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqd1_2211r_LNP = Cqd1_aabbr_LNP;
-    NPSMEFTd6General::Cqd1_2222r_LNP = Cqd1_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqd1_1133r_LNP = Cqd1_aa33r_LNP;
-    NPSMEFTd6General::Cqd1_2233r_LNP = Cqd1_aa33r_LNP;
-    
-    NPSMEFTd6General::Cqd1_3311r_LNP = Cqd1_33aar_LNP;
-    NPSMEFTd6General::Cqd1_3322r_LNP = Cqd1_33aar_LNP;
-    
-    NPSMEFTd6General::Cqd1_3333r_LNP = Cqd1_3333r_LNP;
-    
-    
-        
-    
-    
-    NPSMEFTd6General::Cqd8_1111r_LNP = Cqd8_aabbr_LNP;
-    NPSMEFTd6General::Cqd8_1122r_LNP = Cqd8_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqd8_2211r_LNP = Cqd8_aabbr_LNP;
-    NPSMEFTd6General::Cqd8_2222r_LNP = Cqd8_aabbr_LNP;
-    
-    NPSMEFTd6General::Cqd8_1133r_LNP = Cqd8_aa33r_LNP;
-    NPSMEFTd6General::Cqd8_2233r_LNP = Cqd8_aa33r_LNP;
-    
-    NPSMEFTd6General::Cqd8_3311r_LNP = Cqd8_33aar_LNP;
-    NPSMEFTd6General::Cqd8_3322r_LNP = Cqd8_33aar_LNP;
-    
-    NPSMEFTd6General::Cqd8_3333r_LNP = Cqd8_3333r_LNP;
-    
-    
-    
-    NPSMEFTd6General::Cquqd1_3333r_LNP = Cquqd1_3333r_LNP;
-    
-    
-    NPSMEFTd6General::Cquqd8_3333r_LNP = Cquqd8_3333r_LNP;
-    
-    
-    NPSMEFTd6General::Clequ1_3333r_LNP = Clequ1_3333r_LNP;
-    
-    
-    NPSMEFTd6General::Clequ3_3333r_LNP = Clequ3_3333r_LNP;
-    
-    
+    Cqd8_3311r_LNP = Cqd8_33aar_LNP;
+    Cqd8_3322r_LNP = Cqd8_33aar_LNP;    
     
     
 }
