@@ -11,108 +11,180 @@
 #include "AmpDB2.h"
 
 
-class Asl_d : public ThObservable, AmpDB2{
+class Asl_d_pole : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_d(const StandardModel& SM_i);
+    Asl_d_pole(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_d();
+    virtual ~Asl_d_pole();
     
     double computeThValue ();
 
     private:
 };
 
-class Asl_s : public ThObservable, AmpDB2{
+class Asl_s_pole : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_s(const StandardModel& SM_i);
+    Asl_s_pole(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_s();
+    virtual ~Asl_s_pole();
     
     double computeThValue();
 
     private:
 };
 
-class Asl_d_NLO : public ThObservable, AmpDB2{
+class Asl_d_MSbar : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_d_NLO(const StandardModel& SM_i);
+    Asl_d_MSbar(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_d_NLO();
+    virtual ~Asl_d_MSbar();
     
     double computeThValue ();
 
     private:
 };
 
-class Asl_s_NLO : public ThObservable, AmpDB2{
+class Asl_s_MSbar : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_s_NLO(const StandardModel& SM_i);
+    Asl_s_MSbar(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_s_NLO();
+    virtual ~Asl_s_MSbar();
     
     double computeThValue();
 
     private:
 };
 
-class Asl_d_NLO_tradBasis : public ThObservable, AmpDB2{
+class Asl_d_PS : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_d_NLO_tradBasis(const StandardModel& SM_i);
+    Asl_d_PS(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_d_NLO_tradBasis();
+    virtual ~Asl_d_PS();
     
     double computeThValue ();
 
     private:
 };
 
-class Asl_s_NLO_tradBasis : public ThObservable, AmpDB2{
+class Asl_s_PS : public ThObservable, AmpDB2{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    Asl_s_NLO_tradBasis(const StandardModel& SM_i);
+    Asl_s_PS(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~Asl_s_NLO_tradBasis();
+    virtual ~Asl_s_PS();
+    
+    double computeThValue();
+
+    private:
+};
+
+class Asl_d_MSbar_NLO : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_d_MSbar_NLO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_d_MSbar_NLO();
+    
+    double computeThValue ();
+
+    private:
+};
+
+class Asl_s_MSbar_NLO : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_MSbar_NLO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_MSbar_NLO();
+    
+    double computeThValue();
+
+    private:
+};
+
+class Asl_d_MSbar_NLO_tradBasis : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_d_MSbar_NLO_tradBasis(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_d_MSbar_NLO_tradBasis();
+    
+    double computeThValue ();
+
+    private:
+};
+
+class Asl_s_MSbar_NLO_tradBasis : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_MSbar_NLO_tradBasis(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_MSbar_NLO_tradBasis();
     
     double computeThValue();
 

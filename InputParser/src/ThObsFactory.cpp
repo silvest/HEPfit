@@ -3925,12 +3925,17 @@ ThObsFactory::ThObsFactory()
 
     //-----  Flavour observables  -----
     //semileptonic asymmetry and DeltaGamma
-    obsThFactory["Asl_d"] = boost::factory<Asl_d*>();
-    obsThFactory["Asl_s"] = boost::factory<Asl_s*>();
-    obsThFactory["Asl_d_NLO"] = boost::factory<Asl_d_NLO*>();
-    obsThFactory["Asl_s_NLO"] = boost::factory<Asl_s_NLO*>();
-    obsThFactory["Asl_d_NLO_tradBasis"] = boost::factory<Asl_d_NLO_tradBasis*>();
-    obsThFactory["Asl_s_NLO_tradBasis"] = boost::factory<Asl_s_NLO_tradBasis*>();
+    obsThFactory["Asl_d_pole"] = boost::factory<Asl_d_pole*>();
+    obsThFactory["Asl_s_pole"] = boost::factory<Asl_s_pole*>();
+    obsThFactory["Asl_d_MSbar"] = boost::factory<Asl_d_MSbar*>();
+    obsThFactory["Asl_s_MSbar"] = boost::factory<Asl_s_MSbar*>();
+    obsThFactory["Asl_d_PS"] = boost::factory<Asl_d_PS*>();
+    obsThFactory["Asl_s_PS"] = boost::factory<Asl_s_PS*>();
+    obsThFactory["Asl_d_MSbar_NLO"] = boost::factory<Asl_d_MSbar_NLO*>();
+    obsThFactory["Asl_s_MSbar_NLO"] = boost::factory<Asl_s_MSbar_NLO*>();
+    obsThFactory["Asl_d_MSbar_NLO_tradBasis"] = boost::factory<Asl_d_MSbar_NLO_tradBasis*>();
+    obsThFactory["Asl_s_MSbar_NLO_tradBasis"] = boost::factory<Asl_s_MSbar_NLO_tradBasis*>();
+
     obsThFactory["DGamma_d_pole"] = boost::factory<DGamma_d_pole*>();
     obsThFactory["DGamma_s_pole"] = boost::factory<DGamma_s_pole*>();
     obsThFactory["DGamma_d_MSbar"] = boost::factory<DGamma_d_MSbar*>();
