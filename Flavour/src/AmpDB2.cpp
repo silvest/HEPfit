@@ -41,7 +41,7 @@ AmpDB2::AmpDB2(const StandardModel& SM_i, bool flag_RI)
 gslpp::complex AmpDB2::RBs(orders order)
 {
     mySM.getFlavour().getHDF2().getCoeffBs().getOrder();
-    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
+    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < getHighest(order))
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
 
     gslpp::vector<gslpp::complex> ** allcoeff_SM = mySM.getFlavour().ComputeCoeffBs(
@@ -91,7 +91,7 @@ gslpp::complex AmpDB2::RBs(orders order)
 }
 
 gslpp::complex AmpDB2::M21_Bd(orders order) {
-    if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < order % 3)
+    if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < getHighest(order))
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
 
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd(
@@ -136,7 +136,7 @@ gslpp::complex AmpDB2::M21_Bd(orders order) {
 }
 
 gslpp::complex AmpDB2::M21_Bs(orders order) {
-    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
+    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < getHighest(order))
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
 
     //Wilson coefficients in same mass scale and scheme as B parameters
@@ -992,9 +992,7 @@ gslpp::complex AmpDB2::Gamma21overM21_Bd(orders order, mass_schemes mass_scheme)
         order = FULLNNLO;
     }
     if (order != FULLNNLO) throw std::runtime_error("AmpDB2::Gamma21overM21_Bd(): order not implemented");
-//    if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < order % 3)
-//        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
-    
+ 
     computeCKMandMasses(NNLO, mass_scheme);
     
     //calculate M_21 / <O_1>
@@ -1059,8 +1057,6 @@ gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order, mass_schemes mass_scheme)
         order = FULLNNLO;
     }
     if (order != FULLNNLO) throw std::runtime_error("AmpDB2::Gamma21overM21_Bs(): order not implemented");
-//    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
-//        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
     
     computeCKMandMasses(NNLO, mass_scheme);
 

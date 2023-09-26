@@ -62,6 +62,7 @@
       <itemPath>src/EffectiveEDMcouplings.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
       <itemPath>src/MtMSbar.cpp</itemPath>
+      <itemPath>src/OrderScheme.cpp</itemPath>
       <itemPath>src/PMNS.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
       <itemPath>src/QCD.cpp</itemPath>
@@ -592,6 +593,8 @@
       </item>
       <item path="src/MtMSbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/OrderScheme.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/OrderScheme.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/PMNS.cpp" ex="false" tool="1" flavor2="0">
@@ -925,6 +928,8 @@
       </item>
       <item path="src/MtMSbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/OrderScheme.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/OrderScheme.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/PMNS.cpp" ex="false" tool="1" flavor2="0">
@@ -1256,6 +1261,8 @@
       <item path="src/MtMSbar.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/MtMSbar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/OrderScheme.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/OrderScheme.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1722,6 +1729,8 @@
       <item path="src/MtMSbar.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/MtMSbar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/OrderScheme.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/OrderScheme.h" ex="false" tool="3" flavor2="0">
       </item>

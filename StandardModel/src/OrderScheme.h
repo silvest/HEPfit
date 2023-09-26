@@ -41,6 +41,13 @@ enum orders
 };
 
 /**
+ * @ingroup StandardModel
+ * @brief returns the highest order in %QCD without the prefix FULL 
+ * @param[in] order in %QCD
+ */
+orders getHighest(orders order);
+
+/**
  * @enum orders_qed
  * @ingroup StandardModel
  * @brief An enum type for orders in electroweak.
