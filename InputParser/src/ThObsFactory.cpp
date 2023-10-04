@@ -15,6 +15,7 @@
 #include "DiBosonThObservables.h"
 #include "FlavourObservables.h"
 #include "NPSMEFT6dtopquark.h"
+#include "TopQuarkObservables.h"
 #include "MtMSbar.h"
 #include "alpha_s.h"
 #include "LeptonFlavourObservables.h"
@@ -3899,7 +3900,15 @@ ThObsFactory::ThObsFactory()
    obsThFactory["gRb"] = boost::factory<gRb*>();
 
 
-
+   
+   //----- TopQuarkObservables begin -----
+   
+   obsThFactory["Test_direct"] = boost::factory<Test_direct*>();
+   
+   
+   //----- TopQuarkObservables end -----
+   
+   
     /* BEGIN: REMOVE FROM THE PACKAGE */
     //-----  LEP-II two-fermion processes  -----
     const double sqrt_s[12] = {130., 136., 161., 172., 183., 189.,

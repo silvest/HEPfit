@@ -1225,9 +1225,23 @@ public:
     double getLambda_NP() const {
         return LambdaNP;
     }
+    
+    
+    /**
+     * @brief Return CG_LNP
+     * @return \f$ CG_LNP \f$ 
+     */
+    double getCG_LNP() const {
+        return CG_LNP;
+    }
 
     ////////////////////////////////////////////////////////////////////////
 
+    //test function to test speed of code
+    //double test_direct() const;
+
+    
+    
     /**
      * @brief New physics contribution to the Fermi constant.
      * @details The new physics contribution @f$\Delta G@f$ is defined as
@@ -6382,7 +6396,7 @@ protected:
     /**
      * @brief An auxiliary method to get the WC from the evolutor
      */
-    void getWCFromEvolutor();
+    //void getWCFromEvolutor();
     
     
     
@@ -6736,6 +6750,7 @@ protected:
             Clequ3_3211i_LNP = 0., Clequ3_3212i_LNP = 0., Clequ3_3213i_LNP = 0., Clequ3_3221i_LNP = 0., Clequ3_3222i_LNP = 0., Clequ3_3223i_LNP = 0., Clequ3_3231i_LNP = 0., Clequ3_3232i_LNP = 0., Clequ3_3233i_LNP = 0.,
             Clequ3_3311i_LNP = 0., Clequ3_3312i_LNP = 0., Clequ3_3313i_LNP = 0., Clequ3_3321i_LNP = 0., Clequ3_3322i_LNP = 0., Clequ3_3323i_LNP = 0., Clequ3_3331i_LNP = 0., Clequ3_3332i_LNP = 0., Clequ3_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
 
+ /*
  double CG = 0.; ///< The dimension-6 operator coefficient \f$C_{G}(\Lambda_{\rm{EW}})\f$.
  double CW = 0.; ///< The dimension-6 operator coefficient \f$C_{W}(\Lambda_{\rm{EW}})\f$.
  double CHG = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}(\Lambda_{\rm{EW}})\f$.
@@ -6751,7 +6766,7 @@ protected:
  double CHWtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}(\Lambda_{\rm{EW}})\f$.
  double CHBtilde = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}(\Lambda_{\rm{EW}})\f$.
  double CHWtildeB = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}(\Lambda_{\rm{EW}})\f$.
-
+*/
  
  ////////////////////////////////////////////////////////////////////////////////////////////////
  //These operators should be written in terms of those of the Warsaw basis
@@ -6769,7 +6784,7 @@ protected:
  
  
  
-
+ /*
  double CHl1R[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
  double CHl1I[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(1)})_{ij}(\Lambda_{\rm{EW}})\f$.
  double CHl3R[3][3];  ///< The dimension-6 operator coefficient \f$(C_{Hl}^{(3)})_{ij}(\Lambda_{\rm{EW}})\f$.
@@ -6808,6 +6823,8 @@ protected:
  double CeWI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}(\Lambda_{\rm{EW}})\f$.
  double CeBR[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}(\Lambda_{\rm{EW}})\f$.
  double CeBI[3][3];  ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}(\Lambda_{\rm{EW}})\f$.
+ */
+ /*
  double CllR[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}(\Lambda_{\rm{EW}})\f$.
  double CllI[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}(\Lambda_{\rm{EW}})\f$.
  double Clq1R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
@@ -6858,7 +6875,7 @@ protected:
  double Clequ1I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
  double Clequ3R[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
  double Clequ3I[3][3][3][3];  ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}(\Lambda_{\rm{EW}})\f$.
-
+*/
  
  
 

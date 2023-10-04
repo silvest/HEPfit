@@ -36,16 +36,18 @@ public:
 protected:
     
     
-    
-    double CG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double CW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
-    double CHG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
-    double CHW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
-    double CHB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
-    double CHWB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
-    double CHD_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
-    double CHbox_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
-    double CH_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
+    //If we define here the WC which have the same name as those from NPSMEFTd6General the code fails
+    //since those variables in NPSMEFTd6General (which are the ones used in the observables) will not
+    //be properly assigned with the right value
+    //double CG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    //double CW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
+    //double CHG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
+    //double CHW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
+    //double CHB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
+    //double CHWB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
+    //double CHD_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
+    //double CHbox_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
+    //double CH_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
     
     
     double CHl1_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$.
