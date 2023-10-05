@@ -3903,6 +3903,9 @@ ThObsFactory::ThObsFactory()
    
    //----- TopQuarkObservables begin -----
    
+   
+   obsThFactory["F0_LO"] = boost::factory<F0_LO*>();
+   obsThFactory["FL_LO"] = boost::factory<FL_LO*>();
    obsThFactory["Test_direct"] = boost::factory<Test_direct*>();
    
    
