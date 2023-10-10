@@ -241,6 +241,37 @@ gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO_tradBasis(){
     return Gamma21overM21_Bs;
 }
 
+gslpp::complex AmpDB2::Gamma21overM21_BsLO_tradBasis(){
+    //source: hep-ph/0308029v2
+    std::cout.precision(4);
+
+    computeCKMandMasses(NLO);
+    
+    //calculate M_21 / <O_1>
+    gslpp::vector<gslpp::complex> ** M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBs(
+            mySM.getBBs().getMu(),
+            mySM.getBBs().getScheme());
+    gslpp::complex M21overme0 = ((*(M21overme0_times_8MB[LO]))(0) + (*(M21overme0_times_8MB[NLO]))(0)) / (8. * MB_s);
+    
+    //calculate DB=1 Wilson coefficients
+    computeWilsonCoeffsDB1bsg(); 
+    
+    //calculate DB=2 coefficients for usage of "c(quark)"
+    computeF0();
+    computeF1();
+    computeP();
+    computeD_LO();
+    
+    //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"
+    compute_matrixelements(s);
+
+    //hep-ph/0308029v2: eq. 16 divided by M_21
+    gslpp::complex Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
+                (Mb2_prefactor * (c(s)(0) + c(s)(1) * me(1)/me(0) + c(s)(2) * me(2)/me(0)) + 
+            Mb_PS * Mb_PS * delta_1overm_tradBasis(s)/me(0));
+    return Gamma21overM21_Bs;
+}
+
 void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     if (order != NLO and order != NNLO)
         throw(std::runtime_error("computeCKMandMasses() order not present"));
@@ -256,7 +287,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     
     //DB=1 matching scales (arxiv: 2205.07907 Results. or Gerlach thesis eq. 7.7) varied by "getMub()" or fixed to 4.2
     mu_1 = mySM.getMub();
-    double mu_b = mu_1;
+    mu_b = mu_1;
     mu_1_overm = 4.2;       
     
     //MSbar bottom quark mass Mb(Mb)
@@ -268,9 +299,9 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
         mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
     
     //MSbar charm quark mass Mc(Mc)
-    double Mc_Mc = mySM.getQuarks(QCD::CHARM).getMass();
+    Mc_Mc = mySM.getQuarks(QCD::CHARM).getMass();
     
-    //MSbar charm quarkmass Mb(mu_b)    
+    //MSbar charm quark mass Mb(mu_b)    
     double Mc_mub = mySM.Mrun(mu_b,
         mySM.getQuarks(QCD::CHARM).getMass_scale(),
         mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
@@ -308,15 +339,15 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
                 break;
             case MSbar:
                 Mb2_prefactor = Mb_mub * Mb_mub;
-                Mb = Mb_mub;
+                Mb = Mb_pole;
                 z = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);
                 this->flag_resumz = true;            
                 break;
             case PS:
                 Mb2_prefactor = Mb_PS * Mb_PS;
-                Mb = Mb_PS;
+                Mb = Mb_pole;
                 //arxiv:2106.05979 eq. 31
-                z = Mc_mub * Mc_mub / (Mb_mub * Mb_mub) * (1. - 2. * (16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (K - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2)))));
+                z = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);// * (1. - 2. * (16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (K - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2)))));
                 this->flag_resumz = true;            
                 break;
             default:
@@ -393,7 +424,7 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
 //                << cacheC_NLO[i].gslpp::complex::real() << " "
 //                << cacheC_NNLO[i].gslpp::complex::real() << "\n";
 //    }
-//    std::cout << "--------\n"
+//    std::cout << "--------\n";
     
     //LO DB=1 Wilson coefficients for 1/mb corrections
     WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1_overm);    
@@ -466,74 +497,75 @@ void AmpDB2::computeF0() {
 //F0 has to be computed before if flag_resumz is enabled to resum z via hep-ph/0307344 eq.(23)
 //see also 2106.05979 eq. (33): prefactor Mb2 in Gamma21 in MSbar scheme
 void AmpDB2::computeF1() {
+    double log_muM = 2. * log(mu_b/Mb_pole);
     cacheF1[indexF(cu, 1, 1, 1)] = 109./6. - 37. * z + 1.5 * z2 + 52./3. * z3 + 2. * oneminusz2 * (5. + z) * logx_2 - 4. * oneminusz2 * (5. + 7. * z) * log1minusz -
             2. * z * (10. + 14. * z - 15. * z2) * logz + 8. * (2. - 3. * z + z3) * log1minusz * logz + 16. * (2. - 3. * z + z3) * Dilogz
-            + flag_resumz * (32./3. * F0(cu, 1, 1, 1) - 8. * z * logz * 1.5 * (-3. + 3. * z2));
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cu, 1, 1, 1) - 8. * z * logz * 1.5 * (-3. + 3. * z2));
     cacheF1[indexF(cu, 2, 1, 1)] = -4./3. * (10. - 33. * z + 54. * z2 - 31. * z3) - 8. * oneminusz2 * (4. + 14. * z - 3. * z2) * log1minusz +
             8. * z * (2. - 23. * z + 21. * z2 - 3. * z3) * logz -
             16. * oneminusz2 * (1. + 2. * z) * (2. * logx_2 - log1minusz * logz - 2. * Dilogz)
-            + flag_resumz * (32./3. * F0(cu, 2, 1, 1) - 8. * z * logz * 3. * 6. * (z - 1.) * z);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cu, 2, 1, 1) - 8. * z * logz * 3. * 6. * (z - 1.) * z);
     cacheF1[indexF(cu, 1, 1, 2)] = 2. * (
            (-502. + 912. * z - 387. * z2 - 23. * z3) / 36. - oneminusz2 * (17. + 4. * z) * logx_1 + 2./3. * oneminusz2 * (5. + z) * logx_2 -
            oneminusz2 / (12. * z) * (2. + 33. * z + 94. * z2) * log1minusz - z/12. * (80. + 69. * z - 126. * z2) * logz +
            8./3. * (2. - 3. * z + z3) * (log1minusz * logz + 2. * Dilogz)
-           ) + flag_resumz * (32./3. * F0(cu, 1, 1, 2) - 8. * z * logz * 0.5 * (-3. + 3.* z2));
+           ) + flag_resumz * ((32./3. + 8. * log_muM) * F0(cu, 1, 1, 2) - 8. * z * logz * 0.5 * (-3. + 3.* z2));
     cacheF1[indexF(cu, 2, 1, 2)] = 2. * (
            (-130. + 93. * z + 144. * z2 - 107. * z3) / 9. - 2./3. * oneminusz2 / z * (1. + 15. * z + 47. * z2 - 12. * z3) * log1minusz +
            2./3. * z * (8. - 93. * z + 87. * z2 - 12. * z3) * logz -
            8./3. * oneminusz2 * (1. + 2. * z) * (3. * logx_1 + 4. * logx_2 - 2. * log1minusz * logz - 4. * Dilogz)
-           ) + flag_resumz * (32./3. * F0(cu, 2, 1, 2) - 8. * z * logz * 6. * (z - 1.) * z);
+           ) + flag_resumz * ((32./3. + 8. * log_muM) * F0(cu, 2, 1, 2) - 8. * z * logz * 6. * (z - 1.) * z);
     cacheF1[indexF(cu, 1, 2, 2)] = -M_PI2/3. * (1. - 5. * z + 4. * z2) + (-136. - 159. * z + 738. * z2 - 443. * z3) / 18. - 2 * oneminusz2 * (5. + 4. * z) * logx_1 +
            2./3. * oneminusz2 * (4. - z) * logx_2 + oneminusz2 / (6. * z) * (7. + 32. * z2 + 3. * z3) * log1minusz -
            z/6. * (62. + 39. * z - 30. * z2 + 3. * z3) * logz + (5. - 3. * z - 18. * z2 + 16. * z3) / 3. * (log1minusz * logz + 2. * Dilogz)
-            + flag_resumz * (32./3. * F0(cu, 1, 2, 2) - 8. * z * logz * -1.5 * oneminusz2);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cu, 1, 2, 2) - 8. * z * logz * -1.5 * oneminusz2);
     cacheF1[indexF(cu, 2, 2, 2)] = 8./3. * M_PI2 * (1. + z - 2. * z2) - 28./9. * (5. + 3. * z - 27. * z2 + 19. * z3) - 16. * oneminusz2 * (1. + 2. * z) * logx_1 +
            32./3. * oneminusz2 * (1. + 2. * z) * logx_2 - 4./3. * oneminusz2 / z * (1. - 12. * z - 16. * z2 - 3. * z3) * log1minusz +
            4./3. * z * (2. -  3. * z + 18. * z2 - 3. * z3) * logz + 8./3. * (1. - 3. * z - 6. * z2 + 8. * z3) * (log1minusz * logz + 2. * Dilogz)
-            + flag_resumz * (32./3. * F0(cu, 2, 2, 2) - 8. * z * logz * -6. * (z - 1.) * z);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cu, 2, 2, 2) - 8. * z * logz * -6. * (z - 1.) * z);
 
     cacheF1[indexF(cc, 1, 1, 1)] = sqrt1minus4z * (109. - 226. * z + 168. * z2) / 6. - (52. - 104. * z - 16. * z2 + 56. * z3) * logsigma +
            2. * (5. - 8. * z) * sqrt1minus4z * logx_2 - 12. * sqrt1minus4z * (3. - 2. * z) * log1minus4z + 4. * (13. - 10. * z) * sqrt1minus4z * logz +
            16. * (1. - 3. * z + 2. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2)
-            + flag_resumz * (32./3. * F0(cc, 1, 1, 1) - 8. * z * logz * 3. * (6. * z - 3.) / sqrt1minus4z);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cc, 1, 1, 1) - 8. * z * logz * 3. * (6. * z - 3.) / sqrt1minus4z);
     cacheF1[indexF(cc, 2, 1, 1)] = -8./3. * sqrt1minus4z * (5. - 23. * z - 42. * z2) - 16. * (4. - 2. * z - 7. * z2 + 14. * z3) * logsigma - 32. * sqrt1minus4z * (1. + 2. * z) * logx_2 -
            48. * sqrt1minus4z * (1. + 2. * z) * log1minus4z + 64. * sqrt1minus4z * (1. + 2. * z) * logz +
            16. * (1. - 4. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2)
-            + flag_resumz * (32./3. * F0(cc, 2, 1, 1) - 8. * z * logz * 3. * -12. * z / sqrt1minus4z);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cc, 2, 1, 1) - 8. * z * logz * 3. * -12. * z / sqrt1minus4z);
     cacheF1[indexF(cc, 1, 1, 2)] = -sqrt1minus4z * (127. - 199. * z - 75. * z2) / 9. + (2. - 259. * z + 662. * z2 - 76. * z3 - 200. * z4) * logsigma / (12. * z) -
            (17. - 26. * z) * sqrt1minus4z * logx_1 + 2./3. * (5. - 8. * z) * sqrt1minus4z * logx_2 - 4. * sqrt1minus4z * (3. - 2. * z) * log1minus4z -
            sqrt1minus4z * (2. - 255. * z + 316. * z2) * logz / (12. * z) +
            16./3. * (1. - 3. * z + 2. * z2) * (3. * log2sigma + 2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2)
-            + flag_resumz * (32./3. * F0(cc, 1, 1, 2) - 8. * z * logz * (6. * z - 3.) / sqrt1minus4z);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cc, 1, 1, 2) - 8. * z * logz * (6. * z - 3.) / sqrt1minus4z);
     cacheF1[indexF(cc, 2, 1, 2)] = -2. * sqrt1minus4z * (68. + 49. * z - 150. * z2) / 9. + 2./3. * (1. - 35. * z + 4. * z2 + 76. * z3 - 100. * z4) * logsigma/z +
            (16. - 64. * z2) * log2sigma - 8. * sqrt1minus4z * (1. + 2. * z) * logx_1 - 32./3. * sqrt1minus4z * (1. + 2. * z) * logx_2 -
            16. * sqrt1minus4z * (1. + 2. * z) * log1minus4z - 2./3. * sqrt1minus4z * (1. - 33. * z - 76. * z2) * logz/z +
            16./3. * (1. - 4. * z2) * (2. * logsigma * log1minus4z - 3. * logsigma * logz + 4. * Dilogsigma + 2. * Dilogsigma2)
-            + flag_resumz * (32./3. * F0(cc, 2, 1, 2) - 8. * z * logz * -12. * z / sqrt1minus4z);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cc, 2, 1, 2) - 8. * z * logz * -12. * z / sqrt1minus4z);
     cacheF1[indexF(cc, 1, 2, 2)] = -M_PI2/3. * (1. - 10. * z) - sqrt1minus4z * (115. + 632. * z + 96. * z2) / 18. - (7. + 13. * z - 194. * z2 + 304. * z3 - 64. * z4) * logsigma / (6. * z) -
            2. * sqrt1minus4z * (5. - 2. * z) * logx_1 + 4./3. * (2. - 5. * z) * sqrt1minus4z * logx_2 - 4. * (1. - 6. * z) * sqrt1minus4z * log1minus4z +
            (13. - 54. * z + 8. * z2) * logsigma * log1minus4z / 3. + sqrt1minus4z * (7. + 27. * z - 250. * z2) * logz / (6. * z) +
            (7. - 32. * z + 4. * z2) * (log2sigma - logsigma * logz) + 4./3. * (5. - 12. * z + 4. * z2) * Dilogsigma + 4./3. * (4. - 21. * z + 2. * z2) * Dilogsigma2
-            + flag_resumz * (32./3. * F0(cc, 1, 2, 2) - 8. * z * logz * 0.5 * -6. * sqrt1minus4z);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cc, 1, 2, 2) - 8. * z * logz * 0.5 * -6. * sqrt1minus4z);
     cacheF1[indexF(cc, 2, 2, 2)] = 8./3. * M_PI2 * (1. + 2. * z) - 8./9. * sqrt1minus4z * (19. + 53. * z + 24. * z2) + 4./3. * (1. + 7. * z + 10. * z2 - 68. * z3 + 32. * z4) * logsigma/z -
             8. * (1. + 2. * z) * (1. + 2. * z) * log2sigma - 16. * sqrt1minus4z * (1. + 2. * z) * logx_1 + 32./3. * sqrt1minus4z * (1. + 2. * z) * logx_2 +
             16. * sqrt1minus4z * (1. + 2. * z) * log1minus4z - 8./3. * (1. + 6. * z + 8. * z2) * logsigma * log1minus4z -
             4./3. * sqrt1minus4z * (1. + 9. * z + 26. * z2) * logz / z + 8. * (1. + 2. * z) * (1. + 2. * z) * logsigma * logz +
             32./3. * (1. - 4. * z2) * Dilogsigma - 32./3. * (1. + 3. * z + 2. * z2) * Dilogsigma2
-            + flag_resumz * (32./3. * F0(cc, 2, 2, 2) - 8. * z * logz * 12. * z / sqrt1minus4z);
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(cc, 2, 2, 2) - 8. * z * logz * 12. * z / sqrt1minus4z);
 
     cacheF1[indexF(uu, 1, 1, 1)] = 109./6. + 10. * logx_2
-            + flag_resumz * (32./3. * F0(uu, 1, 1, 1));
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(uu, 1, 1, 1));
     cacheF1[indexF(uu, 2, 1, 1)] = -40./3. - 32. * logx_2
-            + flag_resumz * (32./3. * F0(uu, 2, 1, 1));
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(uu, 2, 1, 1));
     cacheF1[indexF(uu, 1, 1, 2)] = -127./9. + 4./12. - 17. * logx_1 + 10./3. * logx_2
-            + flag_resumz * (32./3. * F0(uu, 1, 1, 2));            
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(uu, 1, 1, 2));            
     cacheF1[indexF(uu, 2, 1, 2)] = -(136. + 12.)/9. - 8. * logx_1 - 32./3. * logx_2
-            + flag_resumz * (32./3. * F0(uu, 2, 1, 2));            
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(uu, 2, 1, 2));            
     cacheF1[indexF(uu, 1, 2, 2)] = -M_PI2/3. - (115. + 42.)/18. - 10. * logx_1 + 8./3. * logx_2
-            + flag_resumz * (32./3. * F0(uu, 1, 2, 2));            
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(uu, 1, 2, 2));            
     cacheF1[indexF(uu, 2, 2, 2)] = 8. * M_PI2/3. - 8./9. * (19. - 3.) - 16. * logx_1 + 32./3. * logx_2
-            + flag_resumz * (32./3. * F0(uu, 2, 2, 2));
+            + flag_resumz * ((32./3. + 8. * log_muM) * F0(uu, 2, 2, 2));
            
     for (int k = 1; k < 3; k++) {
         for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
@@ -676,6 +708,42 @@ void AmpDB2::computeD() {
     return;
 }
 
+void AmpDB2::computeD_LO() {
+    //qq = uu and cc
+    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {
+        for (int k = 1; k <= 2; k++) {
+            gslpp::complex result = 0.;
+            for (int i = 1; i <= 2; i++) {
+                for (int j = 1; j <= 2; j++) {
+                    result += cacheC_LO[i-1] * cacheC_LO[j-1] * F0(qq, k, i, j);
+                }
+            }
+            for (int i = 1; i <= 2; i++) {
+                for (int r = 3; r <= 6; r++) {
+                    result += 2. * cacheC_LO[i-1] * cacheC_LO[r-1] * P(qq, k, i, r);
+                }                    
+            }
+            cacheD[indexD(qq, k)] = result;
+        }
+    }
+    //qq = cu
+    for (int k = 1; k <= 2; k++) {
+        gslpp::complex result = 0.;
+        for (int i = 1; i <= 2; i++) {
+            for (int j = 1; j <= 2; j++) {
+                result += cacheC_LO[i-1] * cacheC_LO[j-1] * F0(cu, k, i, j);
+            }
+        }
+        for (int i = 1; i <= 2; i++) {
+            for (int r = 3; r <= 6; r++) {
+                result += cacheC_LO[i-1] * cacheC_LO[r-1] * (P(cc, k, i, r) + P(uu, k, i, r));
+            }
+        }
+        cacheD[indexD(cu, k)] = result;
+    }         
+    return;
+}
+
 double AmpDB2::F0(quarks qq, int k, int i, int j) {
     return cacheF0[indexF(qq, k, i, j)];
 }
@@ -781,7 +849,7 @@ void AmpDB2::compute_matrixelements(quark q){
     
     double n_l = 3.; //number of massless quark flavors
     double n_h = 1.; //number of quarks with mass of mb
-    double L = 2. * log(mu_2/Mb_PS);
+    double L = 2. * log(mu_2/Mb_pole);
     double L2 = L * L;
     
     //Gerlach thesis eq. (3.84)
@@ -1116,11 +1184,6 @@ void AmpDB2::computeWilsonCoeffsMisiak(){
         cacheC_NLO[i] = (*(WilsonCoeffsMisiak[NLO]))(i);
         cacheC_NNLO[i] = (*(WilsonCoeffsMisiak[NNLO]))(i);
     }
-    int i=7;
-    std::cout << "C_" << i << " "
-        << cacheC_LO[i].gslpp::complex::real() << " "
-        << cacheC_NLO[i].gslpp::complex::real() << " "
-        << cacheC_NNLO[i].gslpp::complex::real() << "\n";
 
     //Wilson coefficients stated in Gerlach (2022)
     /*
@@ -1620,42 +1683,50 @@ void AmpDB2::compute_pp_s(){
 
 void AmpDB2::poletoMSbar_pp_s(){
     //arxiv:2106.05979 eq. (33)
+    double logmuM = 2. * log(mu_b/Mb_pole);
+    double n_l = 4.;
+    PoletoMS_as1 = 4./3. + logmuM;
+    PoletoMS_as2 = -(- 3019./288. -  M_PI2/3. - M_PI2/9. * log2 + 1./6. * zeta3 + (71./144. + M_PI2/18.) * n_l + logmuM * (-445./72. + n_l * 13./36. + logmuM * (-19./24. + n_l/12.)) - 4./3. * M_PI2/8. * Mc_Mc/Mb);
+    double as_mub_mu1 = mySM.Alstilde5(mu_b)/as_4pi_mu1;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
         for (int i=1; i<=6; i++){
-            for (int j=i; j<=8; j++){
-                if(j==7) j++;
-                cache_p[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p(qq, i, j, 0);
-                cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 0);
-            }
             //not all terms used for n=2
             for (int j=i; j<=8; j++){
                 if(j==3) j=8;
                 if(i>=3) j=8;
-                cache_p[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p(qq, i, j, 1) + 16.* (2. * PoletoMS_as2 + PoletoMS_as1 * PoletoMS_as1) * p(qq, i, j, 0);
-                cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 1) + 16.* (2. * PoletoMS_as2 + PoletoMS_as1 * PoletoMS_as1) * p_s(qq, i, j, 0);                
+                cache_p[index_p(qq, i, j, 2)] += as_mub_mu1 * as_mub_mu1 * (8. * PoletoMS_as1 * p(qq, i, j, 1) + 16.* (2. * PoletoMS_as2 + PoletoMS_as1 * PoletoMS_as1) * p(qq, i, j, 0));
+                cache_ps[index_p(qq, i, j, 2)] += as_mub_mu1 * as_mub_mu1 * (8. * PoletoMS_as1 * p_s(qq, i, j, 1) + 16.* (2. * PoletoMS_as2 + PoletoMS_as1 * PoletoMS_as1) * p_s(qq, i, j, 0));                
             }
+            for (int j=i; j<=8; j++){
+                if(j==7) j++;
+                cache_p[index_p(qq, i, j, 1)] += as_mub_mu1 * 8. * PoletoMS_as1 * p(qq, i, j, 0);
+                cache_ps[index_p(qq, i, j, 1)] += as_mub_mu1 * 8. * PoletoMS_as1 * p_s(qq, i, j, 0);
+            }            
         }
     }
+    return;
 }
 
 void AmpDB2::poletoPS_pp_s(){
     //analog to arxiv:2106.05979 eq. (33) for PS mass
+    double as_Mb_mu1 = as_4pi/as_4pi_mu1;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
         for (int i=1; i<=6; i++){
-            for (int j=i; j<=8; j++){
-                if(j==7) j++;
-                cache_p[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p(qq, i, j, 0);
-                cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 0);
-            }
             //not all terms used for n=2
             for (int j=i; j<=8; j++){
                 if(j==3) j=8;
                 if(i>=3) j=8;
-                cache_p[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p(qq, i, j, 1) + 16.* (2. * PoletoPS_as2 + PoletoPS_as1 * PoletoPS_as1) * p(qq, i, j, 0);
-                cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 1) + 16.* (2. * PoletoPS_as2 + PoletoPS_as1 * PoletoPS_as1) * p_s(qq, i, j, 0);
+                cache_p[index_p(qq, i, j, 2)] += as_Mb_mu1 * as_Mb_mu1 * (8. * PoletoPS_as1 * p(qq, i, j, 1) + 16.* (2. * PoletoPS_as2 + PoletoPS_as1 * PoletoPS_as1) * p(qq, i, j, 0));
+                cache_ps[index_p(qq, i, j, 2)] += as_Mb_mu1 * as_Mb_mu1 * (8. * PoletoPS_as1 * p_s(qq, i, j, 1) + 16.* (2. * PoletoPS_as2 + PoletoPS_as1 * PoletoPS_as1) * p_s(qq, i, j, 0));
+            }            
+            for (int j=i; j<=8; j++){
+                if(j==7) j++;
+                cache_p[index_p(qq, i, j, 1)] += as_Mb_mu1 * 8. * PoletoPS_as1 * p(qq, i, j, 0);
+                cache_ps[index_p(qq, i, j, 1)] += as_Mb_mu1 * 8. * PoletoPS_as1 * p_s(qq, i, j, 0);
             }
         }
     }
+    return;
 }
 
 

@@ -47,6 +47,42 @@ public:
     private:
 };
 
+class DGamma_s_pole_NLO : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_pole_NLO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_pole_NLO();
+    
+    double computeThValue();
+
+    private:
+};
+
+class DGamma_s_pole_LO : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_pole_LO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_pole_LO();
+    
+    double computeThValue();
+
+    private:
+};
+
 class DGamma_d_MSbar : public ThObservable, AmpDB2{
 public:
     /**
@@ -299,5 +335,21 @@ public:
     private:
 };
 
-#endif /* DGAMMA_H */
+class DGamma_s_LO_tradBasis : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_LO_tradBasis(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_LO_tradBasis();
+    
+    double computeThValue();
+
+    private:
+};#endif /* DGAMMA_H */
 

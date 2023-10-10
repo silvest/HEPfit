@@ -85,20 +85,21 @@ public:
     
     /**
     * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$ in the traditional basis (hep-ph/0308029v2)
-    * @param[in] order the %QCD order of the computation
-    * @param[in] mass_scheme the scheme for the bottom quark mass
-    * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
     */
     gslpp::complex Gamma21overM21_BdFULLNLO_tradBasis();
     
     /**
     * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bD}@f$ in the traditional basis (hep-ph/0308029v2)
-    * @param[in] order the %QCD order of the computation
-    * @param[in] mass_scheme the scheme for the bottom quark mass
-    * @return @f$\frac{\Gamma_{21},M_{21}}^{bD}@f$
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
     */
     gslpp::complex Gamma21overM21_BsFULLNLO_tradBasis();
-    
+
+    /**
+    * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bD}@f$ in the traditional basis (hep-ph/0308029v2)
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
+    */
+    gslpp::complex Gamma21overM21_BsLO_tradBasis();    
 
     gslpp::complex getPBd(){
         return PBd();
@@ -176,6 +177,7 @@ private:
     double mu_1;        /*matching scale of DB=1 theory for leading order in 1/mb */
     double mu_1_overm;  /*matching scale of DB=1 theory for subleading order in 1/mb */
     double mu_2;        /*matching scale of DB=2 theory */
+    double mu_b;        /*scale the running MSbar mass of the bottom quark */
     
     gslpp::vector<double> me = gslpp::vector<double>(5, 0.); /*DB=2 matrix elements in SUSY basis (arXiv:1907.01025v2) */
     gslpp::vector<double> me_R = gslpp::vector<double>(5, 0.); /*subleading DB=2 matrix elements R_0 to R_3 (Gerlach thesis) and R_4 (hep-ph/0308029v2) */
@@ -247,6 +249,7 @@ private:
     
     double Md; //mass of the down quark in GeV
     double Ms; //mass of the strange quark in GeV
+    double Mc_Mc; //mass of the charm quark in GeV
     double Mb; //mass of the bottom quark in GeV
     double MB; //mass of the $B_d$ meson in GeV
     double MB_s; //mass of the $B_s$ meson in GeV
@@ -312,7 +315,8 @@ private:
     void computeF1(); //requires "F0"
     void computeP();
     void computeD(); //requires "F" and "P"
-    
+    void computeD_LO(); //requires "F" and "P"
+
     //returns position in our array parameterization of the corresponding coefficient function
     int indexF(quarks qq, int k, int i, int j);
     int indexP(quarks qq, int k, int i, int j);
@@ -380,8 +384,8 @@ private:
     //A Method to adapt the DB=2 coefficient functions for the MSbar scheme (2106.05979 eq. (33))
     void poletoMSbar_pp_s();
     //constants from hep-ph/9912391v2  eq. (11)
-    const double PoletoMS_as1 = 4./3.;                                
-    const double PoletoMS_as2 = -(4. * (71./144. + M_PI2/18.) - 3019./288. + 1./6. * zeta3 - M_PI2/9. * log2 - M_PI2/3.);
+    double PoletoMS_as1 = 4./3.;                                
+    double PoletoMS_as2 = -(4. * (71./144. + M_PI2/18.) - 3019./288. + 1./6. * zeta3 - M_PI2/9. * log2 - M_PI2/3.);
     
     //A Method to adapt the DB=2 coefficient functions for the PS scheme (analog to 2106.05979 eq. (33))    
     void poletoPS_pp_s();

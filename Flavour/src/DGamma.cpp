@@ -36,6 +36,30 @@ double DGamma_s_pole::computeThValue() {
     return -getGamma21overM21_Bs(FULLNNLO, pole).real() * SM.getOptionalParameter("DmBs_ex");
 }
 
+DGamma_s_pole_NLO::DGamma_s_pole_NLO(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i) {
+    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+}
+
+DGamma_s_pole_NLO::~DGamma_s_pole_NLO() {
+}
+
+double DGamma_s_pole_NLO::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNLO, pole).real() * SM.getOptionalParameter("DmBs_ex");
+}
+
+DGamma_s_pole_LO::DGamma_s_pole_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i) {
+    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+}
+
+DGamma_s_pole_LO::~DGamma_s_pole_LO() {
+}
+
+double DGamma_s_pole_LO::computeThValue() {
+    return -getGamma21overM21_Bs(LO, pole).real() * SM.getOptionalParameter("DmBs_ex");
+}
+
 DGamma_d_MSbar::DGamma_d_MSbar(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i) {
     setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
