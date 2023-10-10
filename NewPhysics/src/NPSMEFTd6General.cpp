@@ -5802,39 +5802,7 @@ bool NPSMEFTd6General::PostUpdate()
     
     if (!NPbase::PostUpdate()) return (false);
     
-    ChangeToEvolutorsBasisPureSM();
-    double Mu_LEW[3]={mu_LEW, mc_LEW, mt_LEW};
-    double Md_LEW[3]={md_LEW, ms_LEW, mb_LEW};
-    double Me_LEW[3]={me_LEW, mmu_LEW, mtau_LEW};
-    
-    SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW, 
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-
-    
-    LambdaNP2 = Lambda_NP * Lambda_NP;
-    LambdaNPm2 = 1. / LambdaNP2;
-    
-    
-    setSMEFTEvolWC();
-    
-    SMEFTEvolEW.EvolveToBasis("Numeric", Lambda_NP, muw, SMEFTBasisFlag);
-    
-    getWCFromEvolutor();
-    
-    //Now we do not use the SILH basis anymore, we'll set these operators to zero 
-    C2B = 0.; 
-    C2W = 0.; 
-    C2BS = 0.; 
-    C2WS = 0.; 
-    CDHB = 0.; 
-    CDHW = 0.; 
-    CDB = 0.; 
-    CDW = 0.; 
-    CT = 0.;
-    
-    
-    // Set scheme
+        // Set scheme
     if (FlagMWinput) {
         //  MW scheme
         cAsch = 0.;
@@ -5845,6 +5813,9 @@ bool NPSMEFTd6General::PostUpdate()
         cWsch = 0.;
     }
     
+    
+    LambdaNP2 = Lambda_NP * Lambda_NP;
+    LambdaNPm2 = 1. / LambdaNP2;
     
     //  1) Post-update operations involving SM parameters only 
     
@@ -5881,39 +5852,34 @@ bool NPSMEFTd6General::PostUpdate()
     gZuR = -(quarks[UP].getCharge()) * sW2_tree;
     gZdL = (quarks[DOWN].getIsospin()) - (quarks[DOWN].getCharge()) * sW2_tree;
     gZdR = -(quarks[DOWN].getCharge()) * sW2_tree;
-
-    UevL = 1.0; // Neglect PMNS effects
-    VudL = 1.0; // Neglect CKM effects    
-
-    Yuke = sqrt(2.) * (leptons[ELECTRON].getMass()) / v();
-    Yukmu = sqrt(2.) * (leptons[MU].getMass()) / v();
-    Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
-    Yuku = sqrt(2.) * (quarks[UP].getMass()) / v();
-    Yukc = sqrt(2.) * (quarks[CHARM].getMass()) / v();
-    Yukt = sqrt(2.) * mtpole / v();
-    Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
-    Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
-    Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
-
+  
     dZH = -(9.0 / 16.0)*(GF * mHl * mHl / sqrt(2.0) / M_PI / M_PI)*(2.0 * M_PI / 3.0 / sqrt(3.0) - 1.0);
 
     dZH1 = dZH / (1.0 - dZH);
 
     dZH2 = dZH * (1 + 3.0 * dZH) / (1.0 - dZH) / (1.0 - dZH);
 
-    //  2) Post-update operations related to assumptions in the form of the dimension-6 operators 
-
-    //  Rotated CHW and CHB parameters: Here I need to overwrite the model parameters (There are always 2 on/2 off but need the values of both in output)
-    // NOW we use always the Warsaw basis!!!
-    //if (FlagRotateCHWCHB) {
-    //    CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
-    //    CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
-    //} else {
-        CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
-        CHWHB_gagaorth = -cW2_tree * CHW + sW2_tree * CHB;
-    //}
-
-    //  3) Post-update operations working directly with the dimension six operators  
+//2) Post-update operations involving dimension-6 operators
+    
+    ChangeToEvolutorsBasisPureSM();
+    double Mu_LEW[3]={mu_LEW, mc_LEW, mt_LEW};
+    double Md_LEW[3]={md_LEW, ms_LEW, mb_LEW};
+    double Me_LEW[3]={me_LEW, mmu_LEW, mtau_LEW};
+    
+    SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW, 
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+    
+    setSMEFTEvolWC();
+    
+    //To be discussed with AJL
+    SMEFTEvolEW.EvolveToBasis("Numeric", Lambda_NP, muw,"UP");
+    
+    //Go to mass eigenstate basis and update LEFT Wilson coefficients 
+    getMatching().updateLEFTGeneralParameters();
+    
+    CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
+    CHWHB_gagaorth = -cW2_tree * CHW + sW2_tree * CHB;
 
     // Renormalization of gauge fields parameters
     delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB + sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
@@ -5934,6 +5900,10 @@ bool NPSMEFTd6General::PostUpdate()
     //  NP corrections to Z and W mass Lagrangian parameters
     delta_MZ = (sW_tree * cW_tree * CHWB + 0.25 * CHD + (3.0 / 8.0) * CH / lambdaH_tree) * v2_over_LambdaNP2;
     delta_MW = (3.0 / 8.0) * (CH / lambdaH_tree) * v2_over_LambdaNP2;
+    
+    // From now on we need the dimension six operators involving fermions. 
+    // The coefficients at the EW scale are stored in the matching object.
+    
 
     //  NP correction to Fermi constant, as extracted from muon decay
     delta_GF = DeltaGF();
@@ -5970,6 +5940,25 @@ bool NPSMEFTd6General::PostUpdate()
 
     // The total theory error in the H width: set to 0.0 for the moment
     eHwidth = deltaGammaTotalRatio1() - deltaGammaTotalRatio1noError();
+    
+    
+    //The call to this method should be dropped once we have correctly implemented the matching
+    getWCFromEvolutor();
+    
+    
+
+    UevL = 1.0; // Neglect PMNS effects
+    VudL = 1.0; // Neglect CKM effects    
+
+//    Yuke = sqrt(2.) * (leptons[ELECTRON].getMass()) / v();
+//    Yukmu = sqrt(2.) * (leptons[MU].getMass()) / v();
+//    Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
+//    Yuku = sqrt(2.) * (quarks[UP].getMass()) / v();
+//    Yukc = sqrt(2.) * (quarks[CHARM].getMass()) / v();
+    Yukt = sqrt(2.) * mtpole / v();
+//    Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
+//    Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
+//    Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
 
      
     //  Dimension-6 coefficients used in the STXS parameterization

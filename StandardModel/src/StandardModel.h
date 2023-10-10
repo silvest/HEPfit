@@ -1231,7 +1231,7 @@ public:
      * where @f$G_\mu@f$ is the Fermi constant, measured through muon decays.
      * @return @f$v@f$ in GeV
      */
-    virtual double v() const;
+    double v() const;
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1241,7 +1241,7 @@ public:
      * @brief The tree-level mass of the @f$W@f$ boson, @f$M_W^{\mathrm{tree}}@f$.
      * @return @f$M_W^{\mathrm{tree}}@f$ in GeV.
      */
-    virtual double Mw_tree() const;
+    double Mw_tree() const;
 
     /**
      * @brief The square of the sine of the weak mixing angle @f$s_0^2@f$ defined
