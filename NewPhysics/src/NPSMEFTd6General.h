@@ -1225,9 +1225,23 @@ public:
     double getLambda_NP() const {
         return Lambda_NP;
     }
+    
+    
+    /**
+     * @brief Return CG_LNP
+     * @return \f$ CG_LNP \f$ 
+     */
+    double getCG_LNP() const {
+        return CG_LNP;
+    }
 
     ////////////////////////////////////////////////////////////////////////
 
+    //test function to test speed of code
+    //double test_direct() const;
+
+    
+    
     /**
      * @brief New physics contribution to the Fermi constant.
      * @details The new physics contribution @f$\Delta G@f$ is defined as
@@ -6386,7 +6400,7 @@ protected:
     /**
      * @brief An auxiliary method to get the WC from the evolutor
      */
-    void getWCFromEvolutor();
+    //void getWCFromEvolutor();
     
     
     
