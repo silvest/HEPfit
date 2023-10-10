@@ -28,12 +28,12 @@ double F0_LO::computeThValue()
     
     
     if(flag_Quadratic){
-        return  F0_SM + (-0.0569231*ewgc("CuWR",2,2) + 0.0022956*ewgc("CuWR",2,2)*ewgc("CuWR",2,2) -
-                0.00215306*(ewgc("CdWR",2,2)/(0.999*0.6532))*(ewgc("CdWR",2,2)/(0.999*0.6532))
+        return  F0_SM + (-0.0569231*getSMEFTCoeffEW("CuWR",2,2) + 0.0022956*getSMEFTCoeffEW("CuWR",2,2)*getSMEFTCoeffEW("CuWR",2,2) -
+                0.00215306*(getSMEFTCoeffEW("CdWR",2,2)/(0.999*0.6532))*(getSMEFTCoeffEW("CdWR",2,2)/(0.999*0.6532))
                 )*(F0_SM/F0_madgraph);
         }
         else{
-            return F0_SM + (-0.0569231*ewgc("CuWR",2,2) )*(F0_SM/F0_madgraph);
+            return F0_SM + (-0.0569231*getSMEFTCoeffEW("CuWR",2,2) )*(F0_SM/F0_madgraph);
         }
 
 }
@@ -56,13 +56,13 @@ double FL_LO::computeThValue()
     
 
     if(flag_Quadratic){
-        return  FL_SM + ( 0.0569227*ewgc("CuWR",2,2) - 0.0022956*ewgc("CuWR",2,2)*ewgc("CuWR",2,2) 
-                - 0.0011115*((ewgc("CdWR",2,2)/(0.999*0.6532)))*((ewgc("CdWR",2,2)/(0.999*0.6532)))
-                - 0.000105115*((-ewgc("CHudR",2,2)/(0.998)))*((-ewgc("CHudR",2,2)/(0.998)))
+        return  FL_SM + ( 0.0569227*getSMEFTCoeffEW("CuWR",2,2) - 0.0022956*getSMEFTCoeffEW("CuWR",2,2)*getSMEFTCoeffEW("CuWR",2,2) 
+                - 0.0011115*((getSMEFTCoeffEW("CdWR",2,2)/(0.999*0.6532)))*((getSMEFTCoeffEW("CdWR",2,2)/(0.999*0.6532)))
+                - 0.000105115*((-getSMEFTCoeffEW("CHudR",2,2)/(0.998)))*((-getSMEFTCoeffEW("CHudR",2,2)/(0.998)))
                 )*(FL_SM/FL_madgraph);
         }
     else{
-        return FL_SM + (0.0569227*(ewgc("CuWR",2,2)) )*(FL_SM/FL_madgraph);
+        return FL_SM + (0.0569227*(getSMEFTCoeffEW("CuWR",2,2)) )*(FL_SM/FL_madgraph);
         }
 
     

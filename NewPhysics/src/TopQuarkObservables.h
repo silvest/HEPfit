@@ -31,19 +31,19 @@ public:
     }
 
     
-    inline double ewgc(const std::string name) const
+    inline double getSMEFTCoeffEW(const std::string name) const
     {
-        return NP.ewgc(name);
+        return NP.getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    inline double getSMEFTCoeffEW(const std::string name, int i, int j) const
     {
-        return NP.ewgc(name, i, j);
+        return NP.getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    inline double getSMEFTCoeffEW(const std::string name, int i, int j, int k, int l) const
     {
-        return NP.ewgc(name, i, j, k, l);
+        return NP.getSMEFTCoeffEW(name, i, j, k, l);
     }
     
     
@@ -78,19 +78,19 @@ private:
     
     
     
-    inline double ewgc(const std::string name) const
+    inline double getSMEFTCoeffEW(const std::string name) const
     {
-        return mytopobs.ewgc(name);
+        return mytopobs.getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    inline double getSMEFTCoeffEW(const std::string name, int i, int j) const
     {
-        return mytopobs.ewgc(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    inline double getSMEFTCoeffEW(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.ewgc(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
     }
     
     
@@ -123,19 +123,19 @@ private:
     
     
     
-    inline double ewgc(const std::string name) const
+    inline double getSMEFTCoeffEW(const std::string name) const
     {
-        return mytopobs.ewgc(name);
+        return mytopobs.getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    inline double getSMEFTCoeffEW(const std::string name, int i, int j) const
     {
-        return mytopobs.ewgc(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    inline double getSMEFTCoeffEW(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.ewgc(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
     }
     
     
@@ -171,19 +171,19 @@ private:
     double computeThValue();
 
     
-    inline double ewgc(const std::string name) const
+    inline double getSMEFTCoeffEW(const std::string name) const
     {
-        return mytopobs.ewgc(name);
+        return mytopobs.getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    inline double getSMEFTCoeffEW(const std::string name, int i, int j) const
     {
-        return mytopobs.ewgc(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    inline double getSMEFTCoeffEW(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.ewgc(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
     }
     
     

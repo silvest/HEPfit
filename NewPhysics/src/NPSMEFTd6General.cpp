@@ -5874,33 +5874,33 @@ bool NPSMEFTd6General::PostUpdate()
     setSMEFTEvolWC();
     
     //To be discussed with AJL
-    SMEFTEvolEW.EvolveToBasis("Numeric", Lambda_NP, muw,"UP");
+    SMEFTEvolEW.EvolveToBasis("Numeric", Lambda_NP, muw, SMEFTBasisFlag);
     
     //Go to mass eigenstate basis and update LEFT Wilson coefficients 
     getMatching().updateLEFTGeneralParameters();
     
-    CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
-    CHWHB_gagaorth = -cW2_tree * CHW + sW2_tree * CHB;
+    CHWHB_gaga = sW2_tree * getSMEFTCoeffEW("CHW") + cW2_tree * getSMEFTCoeffEW("CHB");
+    CHWHB_gagaorth = -cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree * getSMEFTCoeffEW("CHB");
 
     // Renormalization of gauge fields parameters
-    delta_ZZ = (cW2_tree * ewgc("CHW") + sW2_tree *ewgc("CHB") + sW_tree * cW_tree *  ewgc("CHWB")) * v2_over_LambdaNP2;
-    delta_AA = (sW2_tree * ewgc("CHW") + cW2_tree *ewgc("CHB") - sW_tree * cW_tree *  ewgc("CHWB")) * v2_over_LambdaNP2;
-    delta_AZ = 2.0 * sW_tree * cW_tree * (ewgc("CHW") -  ewgc("CHB")) * v2_over_LambdaNP2
-            - (cW2_tree - sW2_tree) * ewgc("CHWB") * v2_over_LambdaNP2;
+    delta_ZZ = (cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree *getSMEFTCoeffEW("CHB") + sW_tree * cW_tree *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
+    delta_AA = (sW2_tree * getSMEFTCoeffEW("CHW") + cW2_tree *getSMEFTCoeffEW("CHB") - sW_tree * cW_tree *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
+    delta_AZ = 2.0 * sW_tree * cW_tree * (getSMEFTCoeffEW("CHW") -  getSMEFTCoeffEW("CHB")) * v2_over_LambdaNP2
+            - (cW2_tree - sW2_tree) * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
 
     // Similar definitions for the EWPO
-    delta_Z = 2.0 * sW_tree * cW_tree * ewgc("CHWB") * v2_over_LambdaNP2;
-    delta_A = -2.0 * sW_tree * cW_tree * ewgc("CHWB") * v2_over_LambdaNP2;
-    delta_ZA = (cW2_tree - sW2_tree) * ewgc("CHWB") * v2_over_LambdaNP2;
+    delta_Z = 2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
+    delta_A = -2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
+    delta_ZA = (cW2_tree - sW2_tree) * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
 
     // Renormalization of Higgs field parameter
-    delta_h = (-ewgc("CHD") / 4.0 +  ewgc("CHbox")) * v2_over_LambdaNP2;
+    delta_h = (-getSMEFTCoeffEW("CHD") / 4.0 +  getSMEFTCoeffEW("CHbox")) * v2_over_LambdaNP2;
 
     //  Calculation of some quantities repeteadly used in the code
 
     //  NP corrections to Z and W mass Lagrangian parameters
-    delta_MZ = (sW_tree * cW_tree * ewgc("CHWB") + 0.25 * ewgc("CHD") + (3.0 / 8.0) * ewgc("CH") / lambdaH_tree) * v2_over_LambdaNP2;
-    delta_MW = (3.0 / 8.0) * ( ewgc("CH") / lambdaH_tree) * v2_over_LambdaNP2;
+    delta_MZ = (sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") + 0.25 * getSMEFTCoeffEW("CHD") + (3.0 / 8.0) * getSMEFTCoeffEW("CH") / lambdaH_tree) * v2_over_LambdaNP2;
+    delta_MW = (3.0 / 8.0) * ( getSMEFTCoeffEW("CH") / lambdaH_tree) * v2_over_LambdaNP2;
 
     //  NP correction to Fermi constant, as extracted from muon decay
     delta_GF = DeltaGF();
@@ -5940,7 +5940,7 @@ bool NPSMEFTd6General::PostUpdate()
     
     
     //The call to this method should be dropped once we have correctly implemented the matching
-    getWCFromEvolutor();
+    //getWCFromEvolutor();
     
     
 
@@ -5959,25 +5959,25 @@ bool NPSMEFTd6General::PostUpdate()
 
      
     //  Dimension-6 coefficients used in the STXS parameterization
-    aiG = 16.0 * M_PI * M_PI * ewgc("CHG") * Mw_tree * Mw_tree / g3_tree / g3_tree / LambdaNP2;
-    ai3G = ewgc("CG") * Mw_tree * Mw_tree / g3_tree / g3_tree / g3_tree / LambdaNP2;
+    aiG = 16.0 * M_PI * M_PI * getSMEFTCoeffEW("CHG") * Mw_tree * Mw_tree / g3_tree / g3_tree / LambdaNP2;
+    ai3G = getSMEFTCoeffEW("CG") * Mw_tree * Mw_tree / g3_tree / g3_tree / g3_tree / LambdaNP2;
     ai2G = 0.0; // Add
-    aiT = 2.0 * ewgc("CHD") * v2_over_LambdaNP2;
-    aiH = -2.0 * ewgc("CHbox") * v2_over_LambdaNP2;
+    aiT = 2.0 * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2;
+    aiH = -2.0 * getSMEFTCoeffEW("CHbox") * v2_over_LambdaNP2;
     aiWW = 0.0; // Add
     aiB = 0.0; // Add
     aiHW = CDHW * Mw_tree * Mw_tree / 2.0 / g2_tree / LambdaNP2;
     aiHB = CDHB * Mw_tree * Mw_tree / 2.0 / g1_tree / LambdaNP2;
-    aiA =ewgc("CHB") * Mw_tree * Mw_tree / g1_tree / g1_tree / LambdaNP2;
-    aiHQ = ewgc("CHq1R",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aipHQ = ewgc("CHq3R",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aiHL = ewgc("CHl1R",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aipHL = ewgc("CHl3R",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP. From HEL Lagrangian. Not in original note
-    aiHu = ewgc("CHuR",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aiHd = ewgc("CHdR",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aiHe = ewgc("CHeR",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
-    aiu = -ewgc("CuHR",2,2) * v2_over_LambdaNP2 / Yukt;
-    aiuG = ewgc("CuGR",2,2) * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / Yukt / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
+    aiA =getSMEFTCoeffEW("CHB") * Mw_tree * Mw_tree / g1_tree / g1_tree / LambdaNP2;
+    aiHQ = getSMEFTCoeffEW("CHq1R",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aipHQ = getSMEFTCoeffEW("CHq3R",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHL = getSMEFTCoeffEW("CHl1R",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aipHL = getSMEFTCoeffEW("CHl3R",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP. From HEL Lagrangian. Not in original note
+    aiHu = getSMEFTCoeffEW("CHuR",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHd = getSMEFTCoeffEW("CHdR",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiHe = getSMEFTCoeffEW("CHeR",0,0) * v2_over_LambdaNP2; // Valid only for flavour universal NP
+    aiu = -getSMEFTCoeffEW("CuHR",2,2) * v2_over_LambdaNP2 / Yukt;
+    aiuG = getSMEFTCoeffEW("CuGR",2,2) * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / Yukt / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
 
 
     //  Dim 6 SMEFT matching
@@ -11503,17 +11503,17 @@ double NPSMEFTd6General::CHF1_diag(const Particle F) const
 {
     //We include only the real part for the moment
     if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
-        return ewgc("CHl1R",0,0);
+        return getSMEFTCoeffEW("CHl1R",0,0);
     else if (F.is("NEUTRINO_2") || F.is("MU"))
-        return ewgc("CHl1R",1,1);
+        return getSMEFTCoeffEW("CHl1R",1,1);
     else if (F.is("NEUTRINO_3") || F.is("TAU"))
-        return ewgc("CHl1R",2,2);
+        return getSMEFTCoeffEW("CHl1R",2,2);
     else if (F.is("UP") || F.is("DOWN"))
-        return ewgc("CHq1R",0,0);
+        return getSMEFTCoeffEW("CHq1R",0,0);
     else if (F.is("CHARM") || F.is("STRANGE"))
-        return ewgc("CHq1R",1,1);
+        return getSMEFTCoeffEW("CHq1R",1,1);
     else if (F.is("TOP") || F.is("BOTTOM"))
-        return ewgc("CHq1R",2,2);
+        return getSMEFTCoeffEW("CHq1R",2,2);
     else
         throw std::runtime_error("NPSMEFTd6::CHF1_diag(): wrong argument");
 }
@@ -11521,17 +11521,17 @@ double NPSMEFTd6General::CHF1_diag(const Particle F) const
 double NPSMEFTd6General::CHF3_diag(const Particle F) const
 {
     if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
-        return ewgc("CHl3R",0,0);
+        return getSMEFTCoeffEW("CHl3R",0,0);
     else if (F.is("NEUTRINO_2") || F.is("MU"))
-        return ewgc("CHl3R",1,1);
+        return getSMEFTCoeffEW("CHl3R",1,1);
     else if (F.is("NEUTRINO_3") || F.is("TAU"))
-        return ewgc("CHl3R",2,2);
+        return getSMEFTCoeffEW("CHl3R",2,2);
     else if (F.is("UP") || F.is("DOWN"))
-        return ewgc("CHq3R",0,0);
+        return getSMEFTCoeffEW("CHq3R",0,0);
     else if (F.is("CHARM") || F.is("STRANGE"))
-        return ewgc("CHq3R",1,1);
+        return getSMEFTCoeffEW("CHq3R",1,1);
     else if (F.is("TOP") || F.is("BOTTOM"))
-        return ewgc("CHq3R",2,2);
+        return getSMEFTCoeffEW("CHq3R",2,2);
     else
         throw std::runtime_error("NPSMEFTd6::CHF3_diag(): wrong argument");
 }
@@ -11541,23 +11541,23 @@ double NPSMEFTd6General::CHf_diag(const Particle f) const
     if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
         return 0.0;
     else if (f.is("ELECTRON"))
-        return ewgc("CHeR",0,0);
+        return getSMEFTCoeffEW("CHeR",0,0);
     else if (f.is("MU"))
-        return ewgc("CHeR",1,1);
+        return getSMEFTCoeffEW("CHeR",1,1);
     else if (f.is("TAU"))
-        return ewgc("CHeR",2,2);
+        return getSMEFTCoeffEW("CHeR",2,2);
     else if (f.is("UP"))
-        return ewgc("CHuR",0,0);
+        return getSMEFTCoeffEW("CHuR",0,0);
     else if (f.is("CHARM"))
-        return ewgc("CHuR",1,1);
+        return getSMEFTCoeffEW("CHuR",1,1);
     else if (f.is("TOP"))
-        return ewgc("CHuR",2,2);
+        return getSMEFTCoeffEW("CHuR",2,2);
     else if (f.is("DOWN"))
-        return ewgc("CHdR",0,0);
+        return getSMEFTCoeffEW("CHdR",0,0);
     else if (f.is("STRANGE"))
-        return ewgc("CHdR",1,1);
+        return getSMEFTCoeffEW("CHdR",1,1);
     else if (f.is("BOTTOM"))
-        return ewgc("CHdR",2,2);
+        return getSMEFTCoeffEW("CHdR",2,2);
     else
         throw std::runtime_error("NPSMEFTd6::CHf_diag(): wrong argument");
 }
@@ -11568,11 +11568,11 @@ gslpp::complex NPSMEFTd6General::CHud_diag(const Particle u) const
         throw std::runtime_error("NPSMEFTd6::CHud_diag(): wrong argument");
 
     if (u.is("UP"))
-        return gslpp::complex(ewgc("CHudR",0,0), ewgc("CHudI",0,0), false);
+        return gslpp::complex(getSMEFTCoeffEW("CHudR",0,0), getSMEFTCoeffEW("CHudI",0,0), false);
     else if (u.is("CHARM"))
-        return gslpp::complex(ewgc("CHudR",1,1), ewgc("CHudI",1,1), false);
+        return gslpp::complex(getSMEFTCoeffEW("CHudR",1,1), getSMEFTCoeffEW("CHudI",1,1), false);
     else if (u.is("TOP"))
-        return gslpp::complex(ewgc("CHudR",2,2), ewgc("CHudI",2,2), false);
+        return gslpp::complex(getSMEFTCoeffEW("CHudR",2,2), getSMEFTCoeffEW("CHudI",2,2), false);
     else
         throw std::runtime_error("NPSMEFTd6::CHud_diag(): wrong argument");
 }
@@ -11582,23 +11582,23 @@ gslpp::complex NPSMEFTd6General::CfH_diag(const Particle f) const
     if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
         return 0.0;
     else if (f.is("ELECTRON"))
-        return gslpp::complex(ewgc("CeHR",0,0), ewgc("CeHI",0,0), false);
+        return gslpp::complex(getSMEFTCoeffEW("CeHR",0,0), getSMEFTCoeffEW("CeHI",0,0), false);
     else if (f.is("MU"))
-        return gslpp::complex(ewgc("CeHR",1,1), ewgc("CeHI",1,1), false);
+        return gslpp::complex(getSMEFTCoeffEW("CeHR",1,1), getSMEFTCoeffEW("CeHI",1,1), false);
     else if (f.is("TAU"))
-        return gslpp::complex(ewgc("CeHR",2,2), ewgc("CeHI",2,2), false);
+        return gslpp::complex(getSMEFTCoeffEW("CeHR",2,2), getSMEFTCoeffEW("CeHI",2,2), false);
     else if (f.is("UP"))
-        return gslpp::complex(ewgc("CuHR",0,0), ewgc("CuHI",0,0), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuHR",0,0), getSMEFTCoeffEW("CuHI",0,0), false);
     else if (f.is("CHARM"))
-        return gslpp::complex(ewgc("CuHR",1,1), ewgc("CuHI",1,1), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuHR",1,1), getSMEFTCoeffEW("CuHI",1,1), false);
     else if (f.is("TOP"))
-        return gslpp::complex(ewgc("CuHR",2,2), ewgc("CuHI",2,2), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuHR",2,2), getSMEFTCoeffEW("CuHI",2,2), false);
     else if (f.is("DOWN"))
-        return gslpp::complex(ewgc("CdHR",0,0), ewgc("CdHI",0,0), false);
+        return gslpp::complex(getSMEFTCoeffEW("CdHR",0,0), getSMEFTCoeffEW("CdHI",0,0), false);
     else if (f.is("STRANGE"))
-        return gslpp::complex(ewgc("CdHR",1,1), ewgc("CdHI",1,1), false);
+        return gslpp::complex(getSMEFTCoeffEW("CdHR",1,1), getSMEFTCoeffEW("CdHI",1,1), false);
     else if (f.is("BOTTOM"))
-        return gslpp::complex(ewgc("CdHR",2,2), ewgc("CdHI",2,2), false);
+        return gslpp::complex(getSMEFTCoeffEW("CdHR",2,2), getSMEFTCoeffEW("CdHI",2,2), false);
     else
         throw std::runtime_error("NPSMEFTd6::CfH_diag(): wrong argument");
 }
@@ -11614,11 +11614,11 @@ gslpp::complex NPSMEFTd6General::CfG_diag(const Particle f) const
     else if (f.is("TAU"))
         return 0.0;
     else if (f.is("UP"))
-        return gslpp::complex(ewgc("CuGR",0,0), ewgc("CuGI",0,0), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuGR",0,0), getSMEFTCoeffEW("CuGI",0,0), false);
     else if (f.is("CHARM"))
-        return gslpp::complex(ewgc("CuGR",1,1), ewgc("CuGI",1,1), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuGR",1,1), getSMEFTCoeffEW("CuGI",1,1), false);
     else if (f.is("TOP"))
-        return gslpp::complex(ewgc("CuGR",2,2), ewgc("CuGI",2,2), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuGR",2,2), getSMEFTCoeffEW("CuGI",2,2), false);
     else if (f.is("DOWN"))
         return 0.0;
     else if (f.is("STRANGE"))
@@ -11640,11 +11640,11 @@ gslpp::complex NPSMEFTd6General::CfW_diag(const Particle f) const
     else if (f.is("TAU"))
         return 0.0;
     else if (f.is("UP"))
-        return gslpp::complex(ewgc("CuWR",0,0), ewgc("CuWI",0,0), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuWR",0,0), getSMEFTCoeffEW("CuWI",0,0), false);
     else if (f.is("CHARM"))
-        return gslpp::complex(ewgc("CuWR",1,1), ewgc("CuWI",1,1), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuWR",1,1), getSMEFTCoeffEW("CuWI",1,1), false);
     else if (f.is("TOP"))
-        return gslpp::complex(ewgc("CuWR",2,2), ewgc("CuWI",2,2), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuWR",2,2), getSMEFTCoeffEW("CuWI",2,2), false);
     else if (f.is("DOWN"))
         return 0.0;
     else if (f.is("STRANGE"))
@@ -11666,11 +11666,11 @@ gslpp::complex NPSMEFTd6General::CfB_diag(const Particle f) const
     else if (f.is("TAU"))
         return 0.0;
     else if (f.is("UP"))
-        return gslpp::complex(ewgc("CuBR",0,0), ewgc("CuBI",0,0), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuBR",0,0), getSMEFTCoeffEW("CuBI",0,0), false);
     else if (f.is("CHARM"))
-        return gslpp::complex(ewgc("CuBR",1,1), ewgc("CuBI",1,1), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuBR",1,1), getSMEFTCoeffEW("CuBI",1,1), false);
     else if (f.is("TOP"))
-        return gslpp::complex(ewgc("CuBR",2,2), ewgc("CuBI",2,2), false);
+        return gslpp::complex(getSMEFTCoeffEW("CuBR",2,2), getSMEFTCoeffEW("CuBI",2,2), false);
     else if (f.is("DOWN"))
         return 0.0;
     else if (f.is("STRANGE"))
@@ -11695,16 +11695,16 @@ gslpp::complex NPSMEFTd6General::CfB_diag(const Particle f) const
 /*
 double NPSMEFTd6General::test_direct() const
 {
-    return (ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            *ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            *ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            *ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            *ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0));
+    return (getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            *getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            *getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            *getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            *getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0));
 }
 */
 
@@ -11715,7 +11715,7 @@ double NPSMEFTd6General::test_direct() const
 /*
 double NPSMEFTd6General::test_direct() const
 {
-    return ewgc("CHl3R",0,0);
+    return getSMEFTCoeffEW("CHl3R",0,0);
 }
 */
 
@@ -11723,16 +11723,16 @@ double NPSMEFTd6General::test_direct() const
 /*
 double NPSMEFTd6General::test_evolutor() const
 {
-    return (ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            *ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            *ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            *ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            *ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)*ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)
-            /ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0)/ewgc("CHl3R",0,0));
+    return (getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            *getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            *getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            *getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            *getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)*getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)
+            /getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0)/getSMEFTCoeffEW("CHl3R",0,0));
 }
 */
 
@@ -11746,18 +11746,18 @@ double NPSMEFTd6General::test_evolutor() const
 
 double NPSMEFTd6General::DeltaGF() const
 {
-    return ((ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) - 0.5 * (ewgc("CllR",0,1,1,0) + ewgc("CllR",1,0,0,1))) * v2_over_LambdaNP2);
+    return ((getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) - 0.5 * (getSMEFTCoeffEW("CllR",0,1,1,0) + getSMEFTCoeffEW("CllR",1,0,0,1))) * v2_over_LambdaNP2);
 }
 
 
 double NPSMEFTd6General::obliqueS() const
 {
-    return (4.0 * sW_tree * cW_tree * ewgc("CHWB") / aleMz * v2_over_LambdaNP2);
+    return (4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") / aleMz * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6General::obliqueT() const
 {
-    return (-ewgc("CHD") / 2.0 / aleMz * v2_over_LambdaNP2);
+    return (-getSMEFTCoeffEW("CHD") / 2.0 / aleMz * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6General::obliqueU() const
@@ -11767,12 +11767,14 @@ double NPSMEFTd6General::obliqueU() const
 
 double NPSMEFTd6General::obliqueW() const
 {
-    return (-g2_tree * g2_tree * (C2W + 0.5 * C2WS) * v2_over_LambdaNP2 / 2.0);
+    return 0.;
+    //return (-g2_tree * g2_tree * (C2W + 0.5 * C2WS) * v2_over_LambdaNP2 / 2.0);
 }
 
 double NPSMEFTd6General::obliqueY() const
 {
-    return (-g2_tree * g2_tree * (C2B + 0.5 * C2BS) * v2_over_LambdaNP2 / 2.0);
+    return 0.;
+    //return (-g2_tree * g2_tree * (C2B + 0.5 * C2BS) * v2_over_LambdaNP2 / 2.0);
 }
 
 /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
@@ -11913,8 +11915,8 @@ double NPSMEFTd6General::alphaMz() const
 double NPSMEFTd6General::Mw() const
 {
     //    return (trueSM.Mw() - Mw_tree / 4.0 / (cW2_tree - sW2_tree)
-    //            *(4.0 * sW_tree * cW_tree * ewgc("CHWB") * v2_over_LambdaNP2
-    //            + cW2_tree * ewgc("CHD") * v2_over_LambdaNP2
+    //            *(4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2
+    //            + cW2_tree * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2
     //            + 2.0 * sW2_tree * delta_GF));
 
     return (trueSM.Mw() + Mw_tree * (delta_e - 0.5 * delta_sW2 + delta_v));
@@ -11923,8 +11925,8 @@ double NPSMEFTd6General::Mw() const
 double NPSMEFTd6General::deltaMwd6() const
 {
     //    return (- 1.0 / 4.0 / (cW2_tree - sW2_tree)
-    //            *(4.0 * sW_tree * cW_tree * ewgc("CHWB") * v2_over_LambdaNP2
-    //            + cW2_tree * ewgc("CHD") * v2_over_LambdaNP2
+    //            *(4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2
+    //            + cW2_tree * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2
     //            + 2.0 * sW2_tree * delta_GF));
 
     return (delta_e - 0.5 * delta_sW2 + delta_v);
@@ -11956,8 +11958,8 @@ double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle fj) co
     }
 
     //    deltaGamma_Wij = - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
-    //            *(4.0 * sW_tree * cW_tree * ewgc("CHWB") * v2_over_LambdaNP2
-    //            + cW2_tree * ewgc("CHD") * v2_over_LambdaNP2
+    //            *(4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2
+    //            + cW2_tree * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2
     //            + 2.0 * (1.0 + cW2_tree) / 3.0 * delta_GF);
 
     //    deltaGamma_Wij = deltaGamma_Wij + 2.0 * GammaW_tree * CHF3ij * v2_over_LambdaNP2;
@@ -11982,13 +11984,13 @@ double NPSMEFTd6General::deltaGamma_W() const
     double GammaW_tree = (3.0 + 2.0 * Nc) * G0;
 
     //    return (- 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
-    //            *(4.0 * sW_tree * cW_tree * ewgc("CHWB") * v2_over_LambdaNP2
-    //            + cW2_tree * ewgc("CHD") * v2_over_LambdaNP2
+    //            *(4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2
+    //            + cW2_tree * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2
     //            + 2.0 * (1.0 + cW2_tree) / 3.0 * delta_GF)
-    //            + 2.0 * G0 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2) + Nc*(ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1))) * v2_over_LambdaNP2);          
+    //            + 2.0 * G0 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2) + Nc*(getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1))) * v2_over_LambdaNP2);          
 
     return ( GammaW_tree * (deltaMwd6() + 2.0 * delta_UgCC)
-            + 2.0 * G0 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2) + Nc * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1))) * v2_over_LambdaNP2);
+            + 2.0 * G0 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2) + Nc * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1))) * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6General::GammaW() const
@@ -12037,9 +12039,9 @@ double NPSMEFTd6General::deltaGL_f(const Particle p) const
     double CHF3 = CHF3_diag(p);
     double NPindirect;
 
-    //    NPindirect = -I3p / 4.0 * (ewgc("CHD") * v2_over_LambdaNP2 + 2.0 * delta_GF)
+    //    NPindirect = -I3p / 4.0 * (getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2 + 2.0 * delta_GF)
     //                - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-    //                *((4.0 * cW_tree / sW_tree * ewgc("CHWB") + ewgc("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+    //                *((4.0 * cW_tree / sW_tree * getSMEFTCoeffEW("CHWB") + getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
 
     NPindirect = (I3p - Qp * sW2_tree) * delta_UgNC + Qp * delta_QgNC;
 
@@ -12054,7 +12056,7 @@ double NPSMEFTd6General::deltaGR_f(const Particle p) const
     double NPindirect;
 
     //    NPindirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-    //                *((4.0 * cW_tree / sW_tree * ewgc("CHWB") + ewgc("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+    //                *((4.0 * cW_tree / sW_tree * getSMEFTCoeffEW("CHWB") + getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
 
     NPindirect = (-Qp * sW2_tree) * delta_UgNC + Qp * delta_QgNC;
 
@@ -12172,7 +12174,7 @@ gslpp::complex NPSMEFTd6General::deltaGL_Wff(const Particle pbar, const Particle
     double NPindirect;
 
     //    NPindirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
-    //                * ((4.0 * sW_tree / cW_tree * ewgc("CHWB") + ewgc("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+    //                * ((4.0 * sW_tree / cW_tree * getSMEFTCoeffEW("CHWB") + getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
 
     NPindirect = delta_UgCC;
 
@@ -12191,7 +12193,7 @@ gslpp::complex NPSMEFTd6General::deltaGR_Wff(const Particle pbar, const Particle
 
 double NPSMEFTd6General::deltaG_hgg() const
 {
-    return (ewgc("CHG") * v2_over_LambdaNP2 / v());
+    return (getSMEFTCoeffEW("CHG") * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6General::deltaG_hggRatio() const
@@ -12218,7 +12220,7 @@ double NPSMEFTd6General::deltaG_hggRatio() const
 
 double NPSMEFTd6General::deltaG1_hWW() const
 {
-    return ((2.0 * ewgc("CHW") - 0.5 * eeMz * CDHW / sW_tree) * v2_over_LambdaNP2 / v());
+    return ((2.0 * getSMEFTCoeffEW("CHW") - 0.5 * eeMz * CDHW / sW_tree) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6General::deltaG2_hWW() const
@@ -12232,7 +12234,7 @@ double NPSMEFTd6General::deltaG3_hWW() const
 
     //    NPindirect = 2.0 * cW2_tree * Mz * Mz / v()
     //                * (delta_h - 1.0 / 2.0 / (cW2_tree - sW2_tree)
-    //                * ((4.0 * sW_tree * cW_tree * ewgc("CHWB") + cW2_tree * ewgc("CHD")) * v2_over_LambdaNP2 + delta_GF));
+    //                * ((4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") + cW2_tree * getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + delta_GF));
 
     NPindirect = 2.0 * cW2_tree * Mz * Mz / v()
             * (delta_h + 0.5 * delta_GF + 2.0 * delta_e - delta_sW2);
@@ -12252,9 +12254,9 @@ double NPSMEFTd6General::deltaG2_hZZ() const
 
 double NPSMEFTd6General::deltaG3_hZZ() const
 {
-    //    double NPindirect = Mz * Mz / v() * (-0.5 * ewgc("CHD") * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF);
+    //    double NPindirect = Mz * Mz / v() * (-0.5 * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF);
     double NPindirect = Mz * Mz / v() * (delta_Z + delta_h + 0.5 * delta_GF + 2.0 * delta_e - (1.0 - sW2_tree / cW2_tree) * delta_sW2);
-    double NPdirect = Mz * Mz / v() * ewgc("CHD") * v2_over_LambdaNP2;
+    double NPdirect = Mz * Mz / v() * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2;
 
     return (NPindirect + NPdirect);
 }
@@ -12425,7 +12427,7 @@ double NPSMEFTd6General::deltaG_hhhRatio() const
 {
     double dg;
 
-    dg = -0.5 * delta_GF + 3.0 * delta_h - 2.0 * ewgc("CH") * v2_over_LambdaNP2 * v2 / mHl / mHl;
+    dg = -0.5 * delta_GF + 3.0 * delta_h - 2.0 * getSMEFTCoeffEW("CH") * v2_over_LambdaNP2 * v2 / mHl / mHl;
 
     return dg;
 }
@@ -12617,7 +12619,7 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const
     gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
     gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
 
-    gslpp::complex tmpHG = ewgc("CHG") / v() * v2_over_LambdaNP2 / G_eff_SM;
+    gslpp::complex tmpHG = getSMEFTCoeffEW("CHG") / v() * v2_over_LambdaNP2 / G_eff_SM;
     gslpp::complex tmpt = G_eff_t_SM * dKappa_t / G_eff_SM;
     gslpp::complex tmpb = G_eff_b_SM * dKappa_b / G_eff_SM;
     gslpp::complex tmpc = G_eff_c_SM * dKappa_c / G_eff_SM;
@@ -12632,10 +12634,10 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const
     //  Linear contribution from 4 top operators
     //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
     //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    mu = mu + cLHd6 * ((ewgc("Cqu1R",2,2,2,2) / LambdaNP2)*(9.91 + cRGEon * 2.0 * 2.76 * log(0.5 * mHl / Lambda_NP))*1000.
-            + (ewgc("Cqu8R",2,2,2,2) / LambdaNP2)*(13.2 + cRGEon * 2.0 * 3.68 * log(0.5 * mHl / Lambda_NP))*1000.
-            + (ewgc("Cquqd1R",2,2,2,2) / LambdaNP2)*(28.4 + cRGEon * 2.0 * 9.21 * log(0.5 * mHl / Lambda_NP))*1000.
-            + (ewgc("Cquqd8R",2,2,2,2) / LambdaNP2)*(5.41 + cRGEon * 2.0 * 1.76 * log(0.5 * mHl / Lambda_NP))*1000.
+    mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R",2,2,2,2) / LambdaNP2)*(9.91 + cRGEon * 2.0 * 2.76 * log(0.5 * mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cqu8R",2,2,2,2) / LambdaNP2)*(13.2 + cRGEon * 2.0 * 3.68 * log(0.5 * mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cquqd1R",2,2,2,2) / LambdaNP2)*(28.4 + cRGEon * 2.0 * 9.21 * log(0.5 * mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cquqd8R",2,2,2,2) / LambdaNP2)*(5.41 + cRGEon * 2.0 * 1.76 * log(0.5 * mHl / Lambda_NP))*1000.
             );
 
     if (FlagQuadraticTerms) {
@@ -12705,10 +12707,10 @@ double NPSMEFTd6General::muggHH(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::muggHH()");
 
-    ct = 1.0 - 0.5 * delta_GF + delta_h - v() * ewgc("CuHR",2,2) * v2_over_LambdaNP2 / sqrt(2.0) / mtpole;
-    c2t = delta_h - 3.0 * v() * ewgc("CuHR",2,2) * v2_over_LambdaNP2 / 2.0 / sqrt(2.0) / mtpole;
+    ct = 1.0 - 0.5 * delta_GF + delta_h - v() * getSMEFTCoeffEW("CuHR",2,2) * v2_over_LambdaNP2 / sqrt(2.0) / mtpole;
+    c2t = delta_h - 3.0 * v() * getSMEFTCoeffEW("CuHR",2,2) * v2_over_LambdaNP2 / 2.0 / sqrt(2.0) / mtpole;
     c3 = 1.0 + deltaG_hhhRatio();
-    cg = M_PI * ewgc("CHG") * v2_over_LambdaNP2 / AlsMz;
+    cg = M_PI * getSMEFTCoeffEW("CHG") * v2_over_LambdaNP2 / AlsMz;
     c2g = cg;
 
     // In the SM the Eq. returns 0.999. Fix that small offset by adding 0.0010    
@@ -12744,26 +12746,26 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu +=
-                +121321. * (1. + eVBF_2_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 5770.95 * (1. + eVBF_2_HB) *ewgc("CHB") / LambdaNP2
-                - 51626.2 * (1. + eVBF_2_HW) * ewgc("CHW") / LambdaNP2
-                + 57783.8 * (1. + eVBF_2_HG) * ewgc("CHG") / LambdaNP2
+                +121321. * (1. + eVBF_2_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 5770.95 * (1. + eVBF_2_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 51626.2 * (1. + eVBF_2_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 57783.8 * (1. + eVBF_2_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
                 + 771.294 * (1. + eVBF_2_DHB) * CDHB / LambdaNP2
                 - 31008.9 * (1. + eVBF_2_DHW) * CDHW / LambdaNP2
-                - 15060.5 * (1. + eVBF_2_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                - 1122.91 * (1. + eVBF_2_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                - 9988.6 * (1. + eVBF_2_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                - 629.4 * (1. + eVBF_2_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                + 2994.79 * (1. + eVBF_2_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                + 467.105 * (1. + eVBF_2_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                - 205793. * (1. + eVBF_2_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                - 16751.6 * (1. + eVBF_2_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-170868. * (1. + eVBF_2_HD) * ewgc("CHD") / LambdaNP2
-                - 322062. * (1. + eVBF_2_HWB) * ewgc("CHWB") / LambdaNP2
+                - 15060.5 * (1. + eVBF_2_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                - 1122.91 * (1. + eVBF_2_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                - 9988.6 * (1. + eVBF_2_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                - 629.4 * (1. + eVBF_2_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                + 2994.79 * (1. + eVBF_2_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                + 467.105 * (1. + eVBF_2_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                - 205793. * (1. + eVBF_2_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 16751.6 * (1. + eVBF_2_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-170868. * (1. + eVBF_2_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 322062. * (1. + eVBF_2_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 4.567 * (1. + eVBF_2_DeltaGF) * delta_GF
                 - 3.498 * deltaMwd6())
-                + cWsch * (-13112. * (1. + eVBF_2_HD) * ewgc("CHD") / LambdaNP2
-                + 21988.3 * (1. + eVBF_2_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-13112. * (1. + eVBF_2_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 21988.3 * (1. + eVBF_2_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.003 * (1. + eVBF_2_DeltaGF) * delta_GF)
                 ;
 
@@ -12779,26 +12781,26 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
         C1 = 0.0065;
 
         mu +=
-                +121090. * (1. + eVBF_78_Hbox) * ewgc("CHbox") / LambdaNP2
-                - 810.554 * (1. + eVBF_78_HB) *ewgc("CHB") / LambdaNP2
-                - 86724.3 * (1. + eVBF_78_HW) * ewgc("CHW") / LambdaNP2
-                - 155709. * (1. + eVBF_78_HG) * ewgc("CHG") / LambdaNP2
+                +121090. * (1. + eVBF_78_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 810.554 * (1. + eVBF_78_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 86724.3 * (1. + eVBF_78_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 155709. * (1. + eVBF_78_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
                 - 369.549 * (1. + eVBF_78_DHB) * CDHB / LambdaNP2
                 - 54328.9 * (1. + eVBF_78_DHW) * CDHW / LambdaNP2
-                + 15633.8 * (1. + eVBF_78_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                - 2932.56 * (1. + eVBF_78_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                - 24997.3 * (1. + eVBF_78_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                - 2380.75 * (1. + eVBF_78_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                + 7157.18 * (1. + eVBF_78_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                + 1508.92 * (1. + eVBF_78_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                - 355189. * (1. + eVBF_78_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                - 52211.2 * (1. + eVBF_78_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-166792. * (1. + eVBF_78_HD) * ewgc("CHD") / LambdaNP2
-                - 316769. * (1. + eVBF_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + 15633.8 * (1. + eVBF_78_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                - 2932.56 * (1. + eVBF_78_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                - 24997.3 * (1. + eVBF_78_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                - 2380.75 * (1. + eVBF_78_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                + 7157.18 * (1. + eVBF_78_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                + 1508.92 * (1. + eVBF_78_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                - 355189. * (1. + eVBF_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 52211.2 * (1. + eVBF_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-166792. * (1. + eVBF_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 316769. * (1. + eVBF_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 4.542 * (1. + eVBF_78_DeltaGF) * delta_GF
                 - 3.253 * deltaMwd6())
-                + cWsch * (-11689.4 * (1. + eVBF_78_HD) * ewgc("CHD") / LambdaNP2
-                + 23083.4 * (1. + eVBF_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-11689.4 * (1. + eVBF_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 23083.4 * (1. + eVBF_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.004 * (1. + eVBF_78_DeltaGF) * delta_GF)
                 ;
 
@@ -12814,26 +12816,26 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
         C1 = 0.0065;
 
         mu +=
-                +121100. * (1. + eVBF_78_Hbox) * ewgc("CHbox") / LambdaNP2
-                - 684.545 * (1. + eVBF_78_HB) *ewgc("CHB") / LambdaNP2
-                - 85129.2 * (1. + eVBF_78_HW) * ewgc("CHW") / LambdaNP2
-                - 136876. * (1. + eVBF_78_HG) * ewgc("CHG") / LambdaNP2
+                +121100. * (1. + eVBF_78_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 684.545 * (1. + eVBF_78_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 85129.2 * (1. + eVBF_78_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 136876. * (1. + eVBF_78_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
                 - 456.67 * (1. + eVBF_78_DHB) * CDHB / LambdaNP2
                 - 56410.8 * (1. + eVBF_78_DHW) * CDHW / LambdaNP2
-                + 15225.3 * (1. + eVBF_78_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                - 3114.83 * (1. + eVBF_78_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                - 25391.2 * (1. + eVBF_78_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                - 2583.43 * (1. + eVBF_78_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                + 7410.87 * (1. + eVBF_78_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                + 1629.31 * (1. + eVBF_78_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                - 363032. * (1. + eVBF_78_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                - 56263.7 * (1. + eVBF_78_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-166792. * (1. + eVBF_78_HD) * ewgc("CHD") / LambdaNP2
-                - 317073. * (1. + eVBF_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + 15225.3 * (1. + eVBF_78_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                - 3114.83 * (1. + eVBF_78_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                - 25391.2 * (1. + eVBF_78_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                - 2583.43 * (1. + eVBF_78_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                + 7410.87 * (1. + eVBF_78_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                + 1629.31 * (1. + eVBF_78_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                - 363032. * (1. + eVBF_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 56263.7 * (1. + eVBF_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-166792. * (1. + eVBF_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 317073. * (1. + eVBF_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 4.541 * (1. + eVBF_78_DeltaGF) * delta_GF
                 - 3.347 * deltaMwd6())
-                + cWsch * (-11741.3 * (1. + eVBF_78_HD) * ewgc("CHD") / LambdaNP2
-                + 22626.6 * (1. + eVBF_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-11741.3 * (1. + eVBF_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 22626.6 * (1. + eVBF_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.003 * (1. + eVBF_78_DeltaGF) * delta_GF)
                 ;
 
@@ -12848,26 +12850,26 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
         C1 = 0.0064;
 
         mu +=
-                +121332. * (1. + eVBF_1314_Hbox) * ewgc("CHbox") / LambdaNP2
-                - 283.27 * (1. + eVBF_1314_HB) *ewgc("CHB") / LambdaNP2
-                - 80829.5 * (1. + eVBF_1314_HW) * ewgc("CHW") / LambdaNP2
-                - 90637.9 * (1. + eVBF_1314_HG) * ewgc("CHG") / LambdaNP2
+                +121332. * (1. + eVBF_1314_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 283.27 * (1. + eVBF_1314_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 80829.5 * (1. + eVBF_1314_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 90637.9 * (1. + eVBF_1314_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
                 - 769.333 * (1. + eVBF_1314_DHB) * CDHB / LambdaNP2
                 - 63886.1 * (1. + eVBF_1314_DHW) * CDHW / LambdaNP2
-                + 13466.3 * (1. + eVBF_1314_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                - 3912.24 * (1. + eVBF_1314_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                - 26789.8 * (1. + eVBF_1314_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                - 3408.16 * (1. + eVBF_1314_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                + 8302.17 * (1. + eVBF_1314_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                + 2107.16 * (1. + eVBF_1314_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                - 389656. * (1. + eVBF_1314_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                - 72334.1 * (1. + eVBF_1314_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-166707. * (1. + eVBF_1314_HD) * ewgc("CHD") / LambdaNP2
-                - 317068. * (1. + eVBF_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                + 13466.3 * (1. + eVBF_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                - 3912.24 * (1. + eVBF_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                - 26789.8 * (1. + eVBF_1314_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                - 3408.16 * (1. + eVBF_1314_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                + 8302.17 * (1. + eVBF_1314_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                + 2107.16 * (1. + eVBF_1314_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                - 389656. * (1. + eVBF_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 72334.1 * (1. + eVBF_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-166707. * (1. + eVBF_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 317068. * (1. + eVBF_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 4.532 * (1. + eVBF_1314_DeltaGF) * delta_GF
                 - 3.247 * deltaMwd6())
-                + cWsch * (-11844.9 * (1. + eVBF_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 21545. * (1. + eVBF_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-11844.9 * (1. + eVBF_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 21545. * (1. + eVBF_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2.999 * (1. + eVBF_1314_DeltaGF) * delta_GF)
                 ;
 
@@ -12883,24 +12885,24 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
         C1 = 0.0064;
 
         mu +=
-                +121214. * (1. + eVBF_1314_Hbox) * ewgc("CHbox") / LambdaNP2
-                // +10009.1 * (1. + eVBF_1314_HQ1_11 ) * ewgc("CHq1R",0,0) / LambdaNP2
-                // -31070.5 * (1. + eVBF_1314_Hu_11 ) * ewgc("CHuR",0,0) / LambdaNP2
-                // +10788.6 * (1. + eVBF_1314_Hd_11 ) * ewgc("CHdR",0,0) / LambdaNP2
-                // -472970. * (1. + eVBF_1314_HQ3_11 ) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 13451.5 * (1. + eVBF_1314_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                - 4103.42 * (1. + eVBF_1314_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                - 27417.3 * (1. + eVBF_1314_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                - 3604.82 * (1. + eVBF_1314_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                + 8579.9 * (1. + eVBF_1314_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                + 2219.75 * (1. + eVBF_1314_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                - 396964. * (1. + eVBF_1314_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                - 75687.4 * (1. + eVBF_1314_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                - 166015. * (1. + eVBF_1314_HD) * ewgc("CHD") / LambdaNP2
-                - 239.03 * (1. + eVBF_1314_HB) *ewgc("CHB") / LambdaNP2
-                - 81639.9 * (1. + eVBF_1314_HW) * ewgc("CHW") / LambdaNP2
-                - 331061. * (1. + eVBF_1314_HWB) * ewgc("CHWB") / LambdaNP2
-                - 84843. * (1. + eVBF_1314_HG) * ewgc("CHG") / LambdaNP2
+                +121214. * (1. + eVBF_1314_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                // +10009.1 * (1. + eVBF_1314_HQ1_11 ) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                // -31070.5 * (1. + eVBF_1314_Hu_11 ) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                // +10788.6 * (1. + eVBF_1314_Hd_11 ) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                // -472970. * (1. + eVBF_1314_HQ3_11 ) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 13451.5 * (1. + eVBF_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                - 4103.42 * (1. + eVBF_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                - 27417.3 * (1. + eVBF_1314_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                - 3604.82 * (1. + eVBF_1314_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                + 8579.9 * (1. + eVBF_1314_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                + 2219.75 * (1. + eVBF_1314_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                - 396964. * (1. + eVBF_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 75687.4 * (1. + eVBF_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                - 166015. * (1. + eVBF_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 239.03 * (1. + eVBF_1314_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 81639.9 * (1. + eVBF_1314_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 331061. * (1. + eVBF_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
+                - 84843. * (1. + eVBF_1314_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
                 - 842.254 * (1. + eVBF_1314_DHB) * CDHB / LambdaNP2
                 - 65370.6 * (1. + eVBF_1314_DHW) * CDHW / LambdaNP2
                 - 4.528 * (1. + eVBF_1314_DeltaGF) * delta_GF
@@ -12920,16 +12922,16 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
         C1 = 0.0062; // From arXiv: 1902.00134
 
         mu +=
-                +120777. * ewgc("CHbox") / LambdaNP2
-                + 6664.27 * ewgc("CHq1R",0,0) / LambdaNP2
-                - 34230.7 * ewgc("CHuR",0,0) / LambdaNP2
-                + 12917.3 * ewgc("CHdR",0,0) / LambdaNP2
-                - 536216. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 163493. * ewgc("CHD") / LambdaNP2
-                + 58.33 *ewgc("CHB") / LambdaNP2
-                - 81360.5 * ewgc("CHW") / LambdaNP2
-                - 313026. * ewgc("CHWB") / LambdaNP2
-                - 16430. * ewgc("CHG") / LambdaNP2
+                +120777. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 6664.27 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                - 34230.7 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 12917.3 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 536216. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 163493. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 58.33 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 81360.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 313026. * getSMEFTCoeffEW("CHWB") / LambdaNP2
+                - 16430. * getSMEFTCoeffEW("CHG") / LambdaNP2
                 - 1314.45 * CDHB / LambdaNP2
                 - 75884.6 * CDHW / LambdaNP2
                 - 4.475 * delta_GF
@@ -12949,16 +12951,16 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu +=
-                +121714. * ewgc("CHbox") / LambdaNP2
-                - 2261.73 * ewgc("CHq1R",0,0) / LambdaNP2
-                - 42045.4 * ewgc("CHuR",0,0) / LambdaNP2
-                + 17539.2 * ewgc("CHdR",0,0) / LambdaNP2
-                - 674206. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 163344. * ewgc("CHD") / LambdaNP2
-                + 71.488 *ewgc("CHB") / LambdaNP2
-                - 90808.2 * ewgc("CHW") / LambdaNP2
-                - 312544. * ewgc("CHWB") / LambdaNP2
-                - 8165.65 * ewgc("CHG") / LambdaNP2
+                +121714. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 2261.73 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                - 42045.4 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 17539.2 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 674206. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 163344. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 71.488 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 90808.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 312544. * getSMEFTCoeffEW("CHWB") / LambdaNP2
+                - 8165.65 * getSMEFTCoeffEW("CHG") / LambdaNP2
                 - 2615.48 * CDHB / LambdaNP2
                 - 96539.6 * CDHW / LambdaNP2
                 - 4.452 * delta_GF
@@ -12998,20 +13000,20 @@ double NPSMEFTd6General::muVBFgamma(const double sqrt_s) const
         C1 = 0.0064;
 
         mu +=
-                +121253. * ewgc("CHbox") / LambdaNP2
-                + 11791.5 *ewgc("CHB") / LambdaNP2
-                - 130714. * ewgc("CHW") / LambdaNP2
+                +121253. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 11791.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 130714. * getSMEFTCoeffEW("CHW") / LambdaNP2
                 - 18848.5 * CDHB / LambdaNP2
                 - 69191.8 * CDHW / LambdaNP2
-                + 23472.1 * ewgc("CW") / LambdaNP2
-                - 461704. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 35103.4 * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-203622. * ewgc("CHD") / LambdaNP2
-                - 270077. * ewgc("CHWB") / LambdaNP2
+                + 23472.1 * getSMEFTCoeffEW("CW") / LambdaNP2
+                - 461704. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 35103.4 * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-203622. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 270077. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 4.714 * delta_GF
                 - 5.764 * deltaMwd6())
-                + cWsch * (-131254. * ewgc("CHD") / LambdaNP2
-                - 111576. * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-131254. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 111576. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.998 * delta_GF)
                 ;
 
@@ -13049,11 +13051,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0064;
 
         mu +=
-                +121120. * ewgc("CHbox") / LambdaNP2
-                - 138682. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203727. * ewgc("CHD") / LambdaNP2
-                - 24699.7 * ewgc("CHW") / LambdaNP2
-                - 379830. * ewgc("CHWB") / LambdaNP2
+                +121120. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 138682. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203727. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 24699.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379830. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 18173.7 * CDHW / LambdaNP2
                 - 4.716 * delta_GF
                 - 5.665 * deltaMwd6()
@@ -13076,11 +13078,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0064;
 
         mu +=
-                +121142. * ewgc("CHbox") / LambdaNP2
-                - 147357. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203726. * ewgc("CHD") / LambdaNP2
-                - 26559.2 * ewgc("CHW") / LambdaNP2
-                - 379797. * ewgc("CHWB") / LambdaNP2
+                +121142. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 147357. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203726. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 26559.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379797. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 19265.3 * CDHW / LambdaNP2
                 - 4.717 * delta_GF
                 - 5.593 * deltaMwd6()
@@ -13103,11 +13105,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0062;
 
         mu +=
-                +121107. * ewgc("CHbox") / LambdaNP2
-                - 219582. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203717. * ewgc("CHD") / LambdaNP2
-                - 39722.3 * ewgc("CHW") / LambdaNP2
-                - 379795. * ewgc("CHWB") / LambdaNP2
+                +121107. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 219582. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203717. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 39722.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379795. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 28864.2 * CDHW / LambdaNP2
                 - 4.714 * delta_GF
                 - 5.13 * deltaMwd6()
@@ -13130,11 +13132,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0062; // Use the same as 350 GeV
 
         mu +=
-                +121071. * ewgc("CHbox") / LambdaNP2
-                - 228452. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203725. * ewgc("CHD") / LambdaNP2
-                - 40966.9 * ewgc("CHW") / LambdaNP2
-                - 379798. * ewgc("CHWB") / LambdaNP2
+                +121071. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 228452. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203725. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 40966.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379798. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 30110.4 * CDHW / LambdaNP2
                 - 4.714 * delta_GF
                 - 5.08 * deltaMwd6()
@@ -13157,11 +13159,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0062; // Use the same as 350 GeV
 
         mu +=
-                +121001. * ewgc("CHbox") / LambdaNP2
-                - 237126. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203726. * ewgc("CHD") / LambdaNP2
-                - 42070.9 * ewgc("CHW") / LambdaNP2
-                - 379788. * ewgc("CHWB") / LambdaNP2
+                +121001. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 237126. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203726. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 42070.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379788. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 31352.7 * CDHW / LambdaNP2
                 - 4.714 * delta_GF
                 - 5.044 * deltaMwd6()
@@ -13184,11 +13186,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0061;
 
         mu +=
-                +121063. * ewgc("CHbox") / LambdaNP2
-                - 295115. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203679. * ewgc("CHD") / LambdaNP2
-                - 47539.5 * ewgc("CHW") / LambdaNP2
-                - 379773. * ewgc("CHWB") / LambdaNP2
+                +121063. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 295115. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203679. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 47539.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379773. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 39825.1 * CDHW / LambdaNP2
                 - 4.715 * delta_GF
                 - 4.817 * deltaMwd6()
@@ -13211,11 +13213,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0059;
 
         mu +=
-                +120960. * ewgc("CHbox") / LambdaNP2
-                - 442647. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203748. * ewgc("CHD") / LambdaNP2
-                - 49375.4 * ewgc("CHW") / LambdaNP2
-                - 379685. * ewgc("CHWB") / LambdaNP2
+                +120960. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 442647. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203748. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 49375.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379685. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 63503.9 * CDHW / LambdaNP2
                 - 4.712 * delta_GF
                 - 4.481 * deltaMwd6()
@@ -13238,11 +13240,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0058;
 
         mu +=
-                +121118. * ewgc("CHbox") / LambdaNP2
-                - 515189. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203684. * ewgc("CHD") / LambdaNP2
-                - 46619.5 * ewgc("CHW") / LambdaNP2
-                - 379667. * ewgc("CHWB") / LambdaNP2
+                +121118. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 515189. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203684. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 46619.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379667. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 75747.8 * CDHW / LambdaNP2
                 - 4.714 * delta_GF
                 - 4.391 * deltaMwd6()
@@ -13265,11 +13267,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0058; // Use the same as 1400 GeV
 
         mu +=
-                +121200. * ewgc("CHbox") / LambdaNP2
-                - 530152. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203649. * ewgc("CHD") / LambdaNP2
-                - 45921.3 * ewgc("CHW") / LambdaNP2
-                - 379591. * ewgc("CHWB") / LambdaNP2
+                +121200. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 530152. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203649. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 45921.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379591. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 78241.3 * CDHW / LambdaNP2
                 - 4.715 * delta_GF
                 - 4.38 * deltaMwd6()
@@ -13292,11 +13294,11 @@ double NPSMEFTd6General::mueeWBF(const double sqrt_s) const
         C1 = 0.0057;
 
         mu +=
-                +121321. * ewgc("CHbox") / LambdaNP2
-                - 684382. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 203585. * ewgc("CHD") / LambdaNP2
-                - 38239. * ewgc("CHW") / LambdaNP2
-                - 379518. * ewgc("CHWB") / LambdaNP2
+                +121321. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 684382. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 203585. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 38239. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379518. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 104465. * CDHW / LambdaNP2
                 - 4.714 * delta_GF
                 - 4.258 * deltaMwd6()
@@ -13355,14 +13357,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0064;
 
         mu +=
-                +121539. * ewgc("CHbox") / LambdaNP2
-                + 328845. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 37798.9 * ewgc("CHeR",0,0) / LambdaNP2
-                + 279733. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 196039. * ewgc("CHD") / LambdaNP2
-                - 70718.5 *ewgc("CHB") / LambdaNP2
-                + 29671.9 * ewgc("CHW") / LambdaNP2
-                - 401378. * ewgc("CHWB") / LambdaNP2
+                +121539. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 328845. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 37798.9 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 279733. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 196039. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 70718.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 29671.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 401378. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 23969.3 * CDHB / LambdaNP2
                 - 1814.47 * CDHW / LambdaNP2
                 - 4.698 * delta_GF
@@ -13386,14 +13388,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0064;
 
         mu +=
-                +120627. * ewgc("CHbox") / LambdaNP2
-                + 256825. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 38677.5 * ewgc("CHeR",0,0) / LambdaNP2
-                + 175735. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 201059. * ewgc("CHD") / LambdaNP2
-                - 57405. *ewgc("CHB") / LambdaNP2
-                - 9860.82 * ewgc("CHW") / LambdaNP2
-                - 403474. * ewgc("CHWB") / LambdaNP2
+                +120627. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 256825. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 38677.5 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 175735. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 201059. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 57405. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 9860.82 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 403474. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 20447.1 * CDHB / LambdaNP2
                 - 9672.74 * CDHW / LambdaNP2
                 - 4.656 * delta_GF
@@ -13417,14 +13419,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0062;
 
         mu +=
-                +120666. * ewgc("CHbox") / LambdaNP2
-                - 19184.6 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 27432.1 * ewgc("CHeR",0,0) / LambdaNP2
-                - 238244. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 204898. * ewgc("CHD") / LambdaNP2
-                + 11833.5 *ewgc("CHB") / LambdaNP2
-                - 94273.3 * ewgc("CHW") / LambdaNP2
-                - 377703. * ewgc("CHWB") / LambdaNP2
+                +120666. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 19184.6 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 27432.1 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 238244. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 204898. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 11833.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 94273.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 377703. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 1111.63 * CDHB / LambdaNP2
                 - 31735.2 * CDHW / LambdaNP2
                 - 4.669 * delta_GF
@@ -13448,14 +13450,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0062; // Use the same as 350 GeV
 
         mu +=
-                +120864. * ewgc("CHbox") / LambdaNP2
-                - 24430. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 24398.7 * ewgc("CHeR",0,0) / LambdaNP2
-                - 253414. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 204817. * ewgc("CHD") / LambdaNP2
-                + 12826.5 *ewgc("CHB") / LambdaNP2
-                - 93455. * ewgc("CHW") / LambdaNP2
-                - 377489. * ewgc("CHWB") / LambdaNP2
+                +120864. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 24430. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 24398.7 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 253414. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 204817. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 12826.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 93455. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 377489. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 1693.48 * CDHB / LambdaNP2
                 - 32834.7 * CDHW / LambdaNP2
                 - 4.68 * delta_GF
@@ -13479,14 +13481,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0062; // Use the same as 350 GeV
 
         mu +=
-                +120775. * ewgc("CHbox") / LambdaNP2
-                - 27548.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 22022.3 * ewgc("CHeR",0,0) / LambdaNP2
-                - 266603. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 204782. * ewgc("CHD") / LambdaNP2
-                + 13052.3 *ewgc("CHB") / LambdaNP2
-                - 92560.2 * ewgc("CHW") / LambdaNP2
-                - 377461. * ewgc("CHWB") / LambdaNP2
+                +120775. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 27548.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 22022.3 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 266603. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 204782. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 13052.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 92560.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 377461. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 1916.19 * CDHB / LambdaNP2
                 - 33824.9 * CDHW / LambdaNP2
                 - 4.684 * delta_GF
@@ -13510,14 +13512,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0061;
 
         mu +=
-                +120683. * ewgc("CHbox") / LambdaNP2
-                - 26906.2 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 11055.8 * ewgc("CHeR",0,0) / LambdaNP2
-                - 326940. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 204335. * ewgc("CHD") / LambdaNP2
-                + 10505.8 *ewgc("CHB") / LambdaNP2
-                - 82453.1 * ewgc("CHW") / LambdaNP2
-                - 378407. * ewgc("CHWB") / LambdaNP2
+                +120683. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 26906.2 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 11055.8 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 326940. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 204335. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 10505.8 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 82453.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 378407. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 1889.64 * CDHB / LambdaNP2
                 - 41332.3 * CDHW / LambdaNP2
                 - 4.705 * delta_GF
@@ -13541,14 +13543,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0059;
 
         mu +=
-                +120462. * ewgc("CHbox") / LambdaNP2
-                - 9025.99 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 3124.38 * ewgc("CHeR",0,0) / LambdaNP2
-                - 454282. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 204077. * ewgc("CHD") / LambdaNP2
-                + 3421.94 *ewgc("CHB") / LambdaNP2
-                - 61892.5 * ewgc("CHW") / LambdaNP2
-                - 379786. * ewgc("CHWB") / LambdaNP2
+                +120462. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 9025.99 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 3124.38 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 454282. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 204077. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 3421.94 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 61892.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379786. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 396.747 * CDHB / LambdaNP2
                 - 63826.6 * CDHW / LambdaNP2
                 - 4.711 * delta_GF
@@ -13572,14 +13574,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0058;
 
         mu +=
-                +120512. * ewgc("CHbox") / LambdaNP2
-                - 4746.27 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 2212.55 * ewgc("CHeR",0,0) / LambdaNP2
-                - 521829. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 204054. * ewgc("CHD") / LambdaNP2
-                + 1891.37 *ewgc("CHB") / LambdaNP2
-                - 54492.9 * ewgc("CHW") / LambdaNP2
-                - 379916. * ewgc("CHWB") / LambdaNP2
+                +120512. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 4746.27 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 2212.55 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 521829. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 204054. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 1891.37 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 54492.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379916. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 142.745 * CDHB / LambdaNP2
                 - 75976. * CDHW / LambdaNP2
                 - 4.712 * delta_GF
@@ -13603,14 +13605,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0058; // Use the same as 1400 GeV
 
         mu +=
-                +120512. * ewgc("CHbox") / LambdaNP2
-                - 4105.67 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 2086.49 * ewgc("CHeR",0,0) / LambdaNP2
-                - 536150. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 204072. * ewgc("CHD") / LambdaNP2
-                + 1682.65 *ewgc("CHB") / LambdaNP2
-                - 53138.1 * ewgc("CHW") / LambdaNP2
-                - 379943. * ewgc("CHWB") / LambdaNP2
+                +120512. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 4105.67 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 2086.49 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 536150. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 204072. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 1682.65 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 53138.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 379943. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 134.612 * CDHB / LambdaNP2
                 - 78546.2 * CDHW / LambdaNP2
                 - 4.711 * delta_GF
@@ -13634,14 +13636,14 @@ double NPSMEFTd6General::mueeHvv(const double sqrt_s) const
         C1 = 0.0057;
 
         mu +=
-                +120404. * ewgc("CHbox") / LambdaNP2
-                - 1215.14 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 1382.75 * ewgc("CHeR",0,0) / LambdaNP2
-                - 686451. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 204039. * ewgc("CHD") / LambdaNP2
-                + 293.31 *ewgc("CHB") / LambdaNP2
-                - 41440.6 * ewgc("CHW") / LambdaNP2
-                - 380130. * ewgc("CHWB") / LambdaNP2
+                +120404. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 1215.14 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 1382.75 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 686451. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 204039. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 293.31 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 41440.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 380130. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 272.36 * CDHB / LambdaNP2
                 - 104900. * CDHW / LambdaNP2
                 - 4.706 * delta_GF
@@ -13693,14 +13695,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121180. * ewgc("CHbox") / LambdaNP2
-                    + 221479. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 508958. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 220003. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 149238. * ewgc("CHD") / LambdaNP2
-                    + 24268.3 *ewgc("CHB") / LambdaNP2
-                    - 32411.5 * ewgc("CHW") / LambdaNP2
-                    - 194663. * ewgc("CHWB") / LambdaNP2
+                    +121180. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 221479. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 508958. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 220003. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 149238. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 24268.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 32411.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 194663. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 29267.1 * CDHB / LambdaNP2
                     - 11610.1 * CDHW / LambdaNP2
                     - 3.633 * delta_GF
@@ -13715,14 +13717,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121456. * ewgc("CHbox") / LambdaNP2
-                    + 337881. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 931.718 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 283908. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 199920. * ewgc("CHD") / LambdaNP2
-                    - 78796.8 *ewgc("CHB") / LambdaNP2
-                    + 34606.7 * ewgc("CHW") / LambdaNP2
-                    - 418335. * ewgc("CHWB") / LambdaNP2
+                    +121456. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 337881. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 931.718 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 283908. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 199920. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 78796.8 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 34606.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 418335. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 28484. * CDHB / LambdaNP2
                     - 1197.92 * CDHW / LambdaNP2
                     - 4.781 * delta_GF
@@ -13737,14 +13739,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121483. * ewgc("CHbox") / LambdaNP2
-                    + 266382. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 313151. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 245682. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 168446. * ewgc("CHD") / LambdaNP2
-                    - 15072.1 *ewgc("CHB") / LambdaNP2
-                    - 6209.98 * ewgc("CHW") / LambdaNP2
-                    - 281195. * ewgc("CHWB") / LambdaNP2
+                    +121483. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 266382. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 313151. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 245682. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 168446. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 15072.1 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 6209.98 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 281195. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 6468.72 * CDHB / LambdaNP2
                     - 7633.09 * CDHW / LambdaNP2
                     - 4.079 * delta_GF
@@ -13759,14 +13761,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121500. * ewgc("CHbox") / LambdaNP2
-                    + 337280. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1209.82 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 283754. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 199723. * ewgc("CHD") / LambdaNP2
-                    - 78465.3 *ewgc("CHB") / LambdaNP2
-                    + 34393.4 * ewgc("CHW") / LambdaNP2
-                    - 417413. * ewgc("CHWB") / LambdaNP2
+                    +121500. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 337280. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1209.82 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 283754. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 199723. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 78465.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 34393.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 417413. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 28344.3 * CDHB / LambdaNP2
                     - 1296.23 * CDHW / LambdaNP2
                     - 4.777 * delta_GF
@@ -13789,14 +13791,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120626. * ewgc("CHbox") / LambdaNP2
-                    + 172936. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 516799. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 146366. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 156275. * ewgc("CHD") / LambdaNP2
-                    + 30993.1 *ewgc("CHB") / LambdaNP2
-                    - 62277.2 * ewgc("CHW") / LambdaNP2
-                    - 213096. * ewgc("CHWB") / LambdaNP2
+                    +120626. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 172936. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 516799. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 146366. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 156275. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 30993.1 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 62277.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 213096. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 32593.7 * CDHB / LambdaNP2
                     - 18479.4 * CDHW / LambdaNP2
                     - 3.678 * delta_GF
@@ -13811,17 +13813,17 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120567. * ewgc("CHbox") / LambdaNP2
-                    + 263666. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 351.165 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 396055. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204612. * ewgc("CHD") / LambdaNP2
-                    - 64672.8 *ewgc("CHB") / LambdaNP2
-                    - 5618.64 * ewgc("CHW") / LambdaNP2
-                    - 418629. * ewgc("CHWB") / LambdaNP2
+                    +120567. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 263666. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 351.165 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 396055. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204612. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 64672.8 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 5618.64 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 418629. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 24815.6 * CDHB / LambdaNP2
                     - 9013.23 * CDHW / LambdaNP2
-                    + 286902. * ewgc("CllR",0,1,1,0) / LambdaNP2
+                    + 286902. * getSMEFTCoeffEW("CllR",0,1,1,0) / LambdaNP2
                     - 5.706 * deltaMwd6()
                     ;
 
@@ -13833,14 +13835,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120240. * ewgc("CHbox") / LambdaNP2
-                    + 208124. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 315248. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 158895. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 175074. * ewgc("CHD") / LambdaNP2
-                    - 6529.15 *ewgc("CHB") / LambdaNP2
-                    - 40099.4 * ewgc("CHW") / LambdaNP2
-                    - 293696. * ewgc("CHWB") / LambdaNP2
+                    +120240. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 208124. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 315248. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 158895. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 175074. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 6529.15 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 40099.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 293696. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 10284.9 * CDHB / LambdaNP2
                     - 15311.7 * CDHW / LambdaNP2
                     - 4.092 * delta_GF
@@ -13855,14 +13857,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120459. * ewgc("CHbox") / LambdaNP2
-                    + 263262. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2507.98 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 177390. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204514. * ewgc("CHD") / LambdaNP2
-                    - 64371.5 *ewgc("CHB") / LambdaNP2
-                    - 5927.95 * ewgc("CHW") / LambdaNP2
-                    - 417860. * ewgc("CHWB") / LambdaNP2
+                    +120459. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 263262. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2507.98 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 177390. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204514. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 64371.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 5927.95 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 417860. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 24699.8 * CDHB / LambdaNP2
                     - 9119.93 * CDHW / LambdaNP2
                     - 4.726 * delta_GF
@@ -13885,14 +13887,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120937. * ewgc("CHbox") / LambdaNP2
-                    - 41080.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 416801. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 192794. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 182281. * ewgc("CHD") / LambdaNP2
-                    + 102909. *ewgc("CHB") / LambdaNP2
-                    - 87947.8 * ewgc("CHW") / LambdaNP2
-                    - 228111. * ewgc("CHWB") / LambdaNP2
+                    +120937. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 41080.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 416801. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 192794. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 182281. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 102909. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 87947.8 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 228111. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 40181.7 * CDHB / LambdaNP2
                     - 37530.5 * CDHW / LambdaNP2
                     - 4.236 * delta_GF
@@ -13907,14 +13909,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120796. * ewgc("CHbox") / LambdaNP2
-                    - 17710.6 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1357.61 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 241114. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 206464. * ewgc("CHD") / LambdaNP2
-                    + 5738.97 *ewgc("CHB") / LambdaNP2
-                    - 94600.4 * ewgc("CHW") / LambdaNP2
-                    - 387581. * ewgc("CHWB") / LambdaNP2
+                    +120796. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 17710.6 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1357.61 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 241114. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 206464. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 5738.97 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 94600.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 387581. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 1403.89 * CDHB / LambdaNP2
                     - 31363.8 * CDHW / LambdaNP2
                     - 4.699 * delta_GF
@@ -13929,14 +13931,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121065. * ewgc("CHbox") / LambdaNP2
-                    - 30567.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 235832. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 213581. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 192620. * ewgc("CHD") / LambdaNP2
-                    + 60320.1 *ewgc("CHB") / LambdaNP2
-                    - 90446.2 * ewgc("CHW") / LambdaNP2
-                    - 297833. * ewgc("CHWB") / LambdaNP2
+                    +121065. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 30567.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 235832. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 213581. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 192620. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 60320.1 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 90446.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 297833. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 22132.1 * CDHB / LambdaNP2
                     - 34844.4 * CDHW / LambdaNP2
                     - 4.439 * delta_GF
@@ -13951,14 +13953,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120725. * ewgc("CHbox") / LambdaNP2
-                    - 17741.9 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2786.58 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 241197. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 206387. * ewgc("CHD") / LambdaNP2
-                    + 6134.48 *ewgc("CHB") / LambdaNP2
-                    - 94603.3 * ewgc("CHW") / LambdaNP2
-                    - 387053. * ewgc("CHWB") / LambdaNP2
+                    +120725. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 17741.9 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2786.58 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 241197. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 206387. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 6134.48 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 94603.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 387053. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 1323.12 * CDHB / LambdaNP2
                     - 31434.2 * CDHW / LambdaNP2
                     - 4.696 * delta_GF
@@ -13981,14 +13983,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121120. * ewgc("CHbox") / LambdaNP2
-                    - 43274.8 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 379332. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 213151. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 185704. * ewgc("CHD") / LambdaNP2
-                    + 95027.9 *ewgc("CHB") / LambdaNP2
-                    - 87042.2 * ewgc("CHW") / LambdaNP2
-                    - 246839. * ewgc("CHWB") / LambdaNP2
+                    +121120. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 43274.8 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 379332. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 213151. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 185704. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 95027.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 87042.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 246839. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 37834.6 * CDHB / LambdaNP2
                     - 38594.2 * CDHW / LambdaNP2
                     - 4.314 * delta_GF
@@ -14003,14 +14005,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120708. * ewgc("CHbox") / LambdaNP2
-                    - 23163.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1266.64 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 256145. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 206112. * ewgc("CHD") / LambdaNP2
-                    + 7209.08 *ewgc("CHB") / LambdaNP2
-                    - 94095.3 * ewgc("CHW") / LambdaNP2
-                    - 386056. * ewgc("CHWB") / LambdaNP2
+                    +120708. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 23163.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1266.64 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 256145. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 206112. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 7209.08 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 94095.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 386056. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 673.745 * CDHB / LambdaNP2
                     - 32528.4 * CDHW / LambdaNP2
                     - 4.703 * delta_GF
@@ -14025,14 +14027,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120872. * ewgc("CHbox") / LambdaNP2
-                    - 34492.1 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 212361. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 232050. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 194801. * ewgc("CHD") / LambdaNP2
-                    + 56353. *ewgc("CHB") / LambdaNP2
-                    - 90080.9 * ewgc("CHW") / LambdaNP2
-                    - 308151. * ewgc("CHWB") / LambdaNP2
+                    +120872. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 34492.1 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 212361. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 232050. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 194801. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 56353. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 90080.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 308151. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 20707.2 * CDHB / LambdaNP2
                     - 35840.6 * CDHW / LambdaNP2
                     - 4.485 * delta_GF
@@ -14047,14 +14049,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120806. * ewgc("CHbox") / LambdaNP2
-                    - 23082.3 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2521.89 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 255807. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 205972. * ewgc("CHD") / LambdaNP2
-                    + 7600.7 *ewgc("CHB") / LambdaNP2
-                    - 94080.6 * ewgc("CHW") / LambdaNP2
-                    - 385587. * ewgc("CHWB") / LambdaNP2
+                    +120806. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 23082.3 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2521.89 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 255807. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 205972. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 7600.7 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 94080.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 385587. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 525.394 * CDHB / LambdaNP2
                     - 32486.9 * CDHW / LambdaNP2
                     - 4.703 * delta_GF
@@ -14077,14 +14079,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120907. * ewgc("CHbox") / LambdaNP2
-                    - 43917.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 344628. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 230932. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 188656. * ewgc("CHD") / LambdaNP2
-                    + 86802.5 *ewgc("CHB") / LambdaNP2
-                    - 86378.3 * ewgc("CHW") / LambdaNP2
-                    - 262732. * ewgc("CHWB") / LambdaNP2
+                    +120907. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 43917.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 344628. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 230932. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 188656. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 86802.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 86378.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 262732. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 35211.7 * CDHB / LambdaNP2
                     - 39122. * CDHW / LambdaNP2
                     - 4.375 * delta_GF
@@ -14099,14 +14101,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120826. * ewgc("CHbox") / LambdaNP2
-                    - 26397.1 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1156.51 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 268680. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 205752. * ewgc("CHD") / LambdaNP2
-                    + 8226.72 *ewgc("CHB") / LambdaNP2
-                    - 92973.9 * ewgc("CHW") / LambdaNP2
-                    - 384868. * ewgc("CHWB") / LambdaNP2
+                    +120826. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 26397.1 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1156.51 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 268680. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 205752. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 8226.72 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 92973.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 384868. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 154.996 * CDHB / LambdaNP2
                     - 33479.2 * CDHW / LambdaNP2
                     - 4.706 * delta_GF
@@ -14121,14 +14123,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121123. * ewgc("CHbox") / LambdaNP2
-                    - 35934.5 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 191922. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 247636. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 196255. * ewgc("CHD") / LambdaNP2
-                    + 52143.1 *ewgc("CHB") / LambdaNP2
-                    - 89227.7 * ewgc("CHW") / LambdaNP2
-                    - 317018. * ewgc("CHWB") / LambdaNP2
+                    +121123. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 35934.5 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 191922. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 247636. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 196255. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 52143.1 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 89227.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 317018. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 19725.8 * CDHB / LambdaNP2
                     - 36723.5 * CDHW / LambdaNP2
                     - 4.524 * delta_GF
@@ -14143,14 +14145,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120839. * ewgc("CHbox") / LambdaNP2
-                    - 26545. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2293.44 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 268673. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 205696. * ewgc("CHD") / LambdaNP2
-                    + 8476.41 *ewgc("CHB") / LambdaNP2
-                    - 92899.6 * ewgc("CHW") / LambdaNP2
-                    - 384414. * ewgc("CHWB") / LambdaNP2
+                    +120839. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 26545. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2293.44 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 268673. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 205696. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 8476.41 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 92899.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 384414. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 15.496 * CDHB / LambdaNP2
                     - 33502.8 * CDHW / LambdaNP2
                     - 4.704 * delta_GF
@@ -14173,14 +14175,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120734. * ewgc("CHbox") / LambdaNP2
-                    - 33626. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 177471. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 312922. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 199388. * ewgc("CHD") / LambdaNP2
-                    + 44288.8 *ewgc("CHB") / LambdaNP2
-                    - 78960.3 * ewgc("CHW") / LambdaNP2
-                    - 332501. * ewgc("CHWB") / LambdaNP2
+                    +120734. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 33626. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 177471. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 312922. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 199388. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 44288.8 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 78960.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 332501. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 20615.5 * CDHB / LambdaNP2
                     - 43923.9 * CDHW / LambdaNP2
                     - 4.614 * delta_GF
@@ -14195,14 +14197,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120746. * ewgc("CHbox") / LambdaNP2
-                    - 26369.8 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 905.141 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 327709. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204622. * ewgc("CHD") / LambdaNP2
-                    + 8508.33 *ewgc("CHB") / LambdaNP2
-                    - 82669.6 * ewgc("CHW") / LambdaNP2
-                    - 381185. * ewgc("CHWB") / LambdaNP2
+                    +120746. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 26369.8 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 905.141 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 327709. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204622. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 8508.33 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 82669.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 381185. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 784.456 * CDHB / LambdaNP2
                     - 41153.8 * CDHW / LambdaNP2
                     - 4.711 * delta_GF
@@ -14217,14 +14219,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120667. * ewgc("CHbox") / LambdaNP2
-                    - 30480.6 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 96672.9 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 320011. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 201855. * ewgc("CHD") / LambdaNP2
-                    + 27690.6 *ewgc("CHB") / LambdaNP2
-                    - 80770. * ewgc("CHW") / LambdaNP2
-                    - 355060. * ewgc("CHWB") / LambdaNP2
+                    +120667. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 30480.6 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 96672.9 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 320011. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 201855. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 27690.6 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 80770. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 355060. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 11299.4 * CDHB / LambdaNP2
                     - 42756.5 * CDHW / LambdaNP2
                     - 4.656 * delta_GF
@@ -14239,14 +14241,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120715. * ewgc("CHbox") / LambdaNP2
-                    - 26433.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1490.31 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 327665. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204644. * ewgc("CHD") / LambdaNP2
-                    + 8471.25 *ewgc("CHB") / LambdaNP2
-                    - 82673.2 * ewgc("CHW") / LambdaNP2
-                    - 381049. * ewgc("CHWB") / LambdaNP2
+                    +120715. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 26433.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1490.31 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 327665. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204644. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 8471.25 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 82673.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 381049. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 862.813 * CDHB / LambdaNP2
                     - 41179.7 * CDHW / LambdaNP2
                     - 4.711 * delta_GF
@@ -14269,14 +14271,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120494. * ewgc("CHbox") / LambdaNP2
-                    - 9728.66 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 46166.9 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 452752. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 203700. * ewgc("CHD") / LambdaNP2
-                    + 8561.22 *ewgc("CHB") / LambdaNP2
-                    - 61449.7 * ewgc("CHW") / LambdaNP2
-                    - 374076. * ewgc("CHWB") / LambdaNP2
+                    +120494. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 9728.66 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 46166.9 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 452752. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 203700. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 8561.22 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 61449.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 374076. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 6473.98 * CDHB / LambdaNP2
                     - 64032.3 * CDHW / LambdaNP2
                     - 4.706 * delta_GF
@@ -14291,14 +14293,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120522. * ewgc("CHbox") / LambdaNP2
-                    - 8881.26 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 529.908 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 454326. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204057. * ewgc("CHD") / LambdaNP2
-                    + 3158.25 *ewgc("CHB") / LambdaNP2
-                    - 61850.9 * ewgc("CHW") / LambdaNP2
-                    - 380114. * ewgc("CHWB") / LambdaNP2
+                    +120522. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 8881.26 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 529.908 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 454326. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204057. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 3158.25 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 61850.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380114. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 63.589 * CDHB / LambdaNP2
                     - 63800.9 * CDHW / LambdaNP2
                     - 4.712 * delta_GF
@@ -14313,14 +14315,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == -20.) {
             mu +=
-                    +120541. * ewgc("CHbox") / LambdaNP2
-                    - 9598.71 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 37435. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 453118. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 203771. * ewgc("CHD") / LambdaNP2
-                    + 7555.11 *ewgc("CHB") / LambdaNP2
-                    - 61524.6 * ewgc("CHW") / LambdaNP2
-                    - 375155. * ewgc("CHWB") / LambdaNP2
+                    +120541. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 9598.71 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 37435. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 453118. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 203771. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 7555.11 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 61524.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 375155. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 5263.81 * CDHB / LambdaNP2
                     - 64001.7 * CDHW / LambdaNP2
                     - 4.706 * delta_GF
@@ -14335,14 +14337,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 20.) {
             mu +=
-                    +120482. * ewgc("CHbox") / LambdaNP2
-                    - 8932.26 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 597.015 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 454406. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204110. * ewgc("CHD") / LambdaNP2
-                    + 3145.81 *ewgc("CHB") / LambdaNP2
-                    - 61837. * ewgc("CHW") / LambdaNP2
-                    - 380115. * ewgc("CHWB") / LambdaNP2
+                    +120482. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 8932.26 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 597.015 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 454406. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204110. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 3145.81 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 61837. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380115. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 45.924 * CDHB / LambdaNP2
                     - 63834.7 * CDHW / LambdaNP2
                     - 4.711 * delta_GF
@@ -14357,14 +14359,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120509. * ewgc("CHbox") / LambdaNP2
-                    - 9342.32 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 25028.5 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 453487. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 203871. * ewgc("CHD") / LambdaNP2
-                    + 6021.71 *ewgc("CHB") / LambdaNP2
-                    - 61580. * ewgc("CHW") / LambdaNP2
-                    - 376790. * ewgc("CHWB") / LambdaNP2
+                    +120509. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 9342.32 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 25028.5 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 453487. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 203871. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 6021.71 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 61580. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 376790. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 3494.08 * CDHB / LambdaNP2
                     - 63959. * CDHW / LambdaNP2
                     - 4.708 * delta_GF
@@ -14379,14 +14381,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120526. * ewgc("CHbox") / LambdaNP2
-                    - 8927.83 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 633.766 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 454337. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204073. * ewgc("CHD") / LambdaNP2
-                    + 3196.39 *ewgc("CHB") / LambdaNP2
-                    - 61833.5 * ewgc("CHW") / LambdaNP2
-                    - 380094. * ewgc("CHWB") / LambdaNP2
+                    +120526. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 8927.83 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 633.766 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 454337. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204073. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 3196.39 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 61833.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380094. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 82.665 * CDHB / LambdaNP2
                     - 63817.5 * CDHW / LambdaNP2
                     - 4.712 * delta_GF
@@ -14409,14 +14411,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120516. * ewgc("CHbox") / LambdaNP2
-                    - 5019.36 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 29937.8 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 521211. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 203908. * ewgc("CHD") / LambdaNP2
-                    + 4153.08 *ewgc("CHB") / LambdaNP2
-                    - 54219.3 * ewgc("CHW") / LambdaNP2
-                    - 377548. * ewgc("CHWB") / LambdaNP2
+                    +120516. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 5019.36 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 29937.8 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 521211. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 203908. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 4153.08 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 54219.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 377548. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 4509.78 * CDHB / LambdaNP2
                     - 76054.8 * CDHW / LambdaNP2
                     - 4.71 * delta_GF
@@ -14431,14 +14433,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120530. * ewgc("CHbox") / LambdaNP2
-                    - 4727.84 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 488.036 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 521821. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204045. * ewgc("CHD") / LambdaNP2
-                    + 1784.38 *ewgc("CHB") / LambdaNP2
-                    - 54507.5 * ewgc("CHW") / LambdaNP2
-                    - 380042. * ewgc("CHWB") / LambdaNP2
+                    +120530. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 4727.84 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 488.036 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 521821. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204045. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1784.38 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 54507.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380042. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 122.009 * CDHB / LambdaNP2
                     - 75950.5 * CDHW / LambdaNP2
                     - 4.712 * delta_GF
@@ -14453,14 +14455,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120542. * ewgc("CHbox") / LambdaNP2
-                    - 4870.22 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 16376.8 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 521472. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 203960. * ewgc("CHD") / LambdaNP2
-                    + 3068.42 *ewgc("CHB") / LambdaNP2
-                    - 54375.2 * ewgc("CHW") / LambdaNP2
-                    - 378699. * ewgc("CHWB") / LambdaNP2
+                    +120542. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 4870.22 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 16376.8 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 521472. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 203960. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 3068.42 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 54375.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 378699. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 2390.51 * CDHB / LambdaNP2
                     - 75996.8 * CDHW / LambdaNP2
                     - 4.711 * delta_GF
@@ -14475,14 +14477,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120504. * ewgc("CHbox") / LambdaNP2
-                    - 4718.66 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 574.963 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 521805. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204053. * ewgc("CHD") / LambdaNP2
-                    + 1784.37 *ewgc("CHB") / LambdaNP2
-                    - 54482.7 * ewgc("CHW") / LambdaNP2
-                    - 380051. * ewgc("CHWB") / LambdaNP2
+                    +120504. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 4718.66 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 574.963 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 521805. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204053. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1784.37 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 54482.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380051. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 99.132 * CDHB / LambdaNP2
                     - 75974.5 * CDHW / LambdaNP2
                     - 4.712 * delta_GF
@@ -14505,14 +14507,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120531. * ewgc("CHbox") / LambdaNP2
-                    - 4421.38 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 28114.2 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 535633. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 203960. * ewgc("CHD") / LambdaNP2
-                    + 3556.32 *ewgc("CHB") / LambdaNP2
-                    - 52816.2 * ewgc("CHW") / LambdaNP2
-                    - 377932. * ewgc("CHWB") / LambdaNP2
+                    +120531. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 4421.38 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 28114.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 535633. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 203960. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 3556.32 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 52816.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 377932. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 4253.17 * CDHB / LambdaNP2
                     - 78599.6 * CDHW / LambdaNP2
                     - 4.71 * delta_GF
@@ -14527,14 +14529,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120491. * ewgc("CHbox") / LambdaNP2
-                    - 4113.21 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 517.747 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 536169. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204050. * ewgc("CHD") / LambdaNP2
-                    + 1553.24 *ewgc("CHB") / LambdaNP2
-                    - 53097.9 * ewgc("CHW") / LambdaNP2
-                    - 380055. * ewgc("CHWB") / LambdaNP2
+                    +120491. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 4113.21 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 517.747 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 536169. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204050. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1553.24 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 53097.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380055. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 129.437 * CDHB / LambdaNP2
                     - 78539.4 * CDHW / LambdaNP2
                     - 4.711 * delta_GF
@@ -14549,14 +14551,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120525. * ewgc("CHbox") / LambdaNP2
-                    - 4256.39 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 15376.9 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 535845. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 203987. * ewgc("CHD") / LambdaNP2
-                    + 2641.32 *ewgc("CHB") / LambdaNP2
-                    - 53045.1 * ewgc("CHW") / LambdaNP2
-                    - 378920. * ewgc("CHWB") / LambdaNP2
+                    +120525. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 4256.39 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 15376.9 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 535845. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 203987. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 2641.32 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 53045.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 378920. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 2237.55 * CDHB / LambdaNP2
                     - 78549.8 * CDHW / LambdaNP2
                     - 4.711 * delta_GF
@@ -14571,14 +14573,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120499. * ewgc("CHbox") / LambdaNP2
-                    - 4113.23 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 616.984 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 536155. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204035. * ewgc("CHD") / LambdaNP2
-                    + 1570.5 *ewgc("CHB") / LambdaNP2
-                    - 53079.3 * ewgc("CHW") / LambdaNP2
-                    - 380043. * ewgc("CHWB") / LambdaNP2
+                    +120499. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 4113.23 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 616.984 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 536155. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204035. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1570.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 53079.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380043. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 112.179 * CDHB / LambdaNP2
                     - 78543.9 * CDHW / LambdaNP2
                     - 4.711 * delta_GF
@@ -14601,14 +14603,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120384. * ewgc("CHbox") / LambdaNP2
-                    - 1301.85 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 16370.4 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 686389. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204031. * ewgc("CHD") / LambdaNP2
-                    + 628.479 *ewgc("CHB") / LambdaNP2
-                    - 41464.7 * ewgc("CHW") / LambdaNP2
-                    - 379766. * ewgc("CHWB") / LambdaNP2
+                    +120384. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 1301.85 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 16370.4 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 686389. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204031. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 628.479 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 41464.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 379766. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 2259.53 * CDHB / LambdaNP2
                     - 104941. * CDHW / LambdaNP2
                     - 4.706 * delta_GF
@@ -14623,14 +14625,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120423. * ewgc("CHbox") / LambdaNP2
-                    - 1253.47 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 537.201 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 686427. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204047. * ewgc("CHD") / LambdaNP2
-                    + 268.601 *ewgc("CHB") / LambdaNP2
-                    - 41454. * ewgc("CHW") / LambdaNP2
-                    - 380141. * ewgc("CHWB") / LambdaNP2
+                    +120423. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 1253.47 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 537.201 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 686427. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204047. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 268.601 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 41454. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380141. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 447.668 * CDHB / LambdaNP2
                     - 104906. * CDHW / LambdaNP2
                     - 4.707 * delta_GF
@@ -14645,14 +14647,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120399. * ewgc("CHbox") / LambdaNP2
-                    - 1267.47 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 9008.44 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 686485. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204052. * ewgc("CHD") / LambdaNP2
-                    + 439.947 *ewgc("CHB") / LambdaNP2
-                    - 41459.8 * ewgc("CHW") / LambdaNP2
-                    - 379947. * ewgc("CHWB") / LambdaNP2
+                    +120399. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 1267.47 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 9008.44 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 686485. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204052. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 439.947 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 41459.8 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 379947. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 1005.59 * CDHB / LambdaNP2
                     - 104927. * CDHW / LambdaNP2
                     - 4.706 * delta_GF
@@ -14667,14 +14669,14 @@ double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120385. * ewgc("CHbox") / LambdaNP2
-                    - 1245.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 535.407 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 686461. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 204048. * ewgc("CHD") / LambdaNP2
-                    + 244.425 *ewgc("CHB") / LambdaNP2
-                    - 41447.5 * ewgc("CHW") / LambdaNP2
-                    - 380150. * ewgc("CHWB") / LambdaNP2
+                    +120385. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 1245.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 535.407 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 686461. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 204048. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 244.425 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 41447.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 380150. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 430.653 * CDHB / LambdaNP2
                     - 104905. * CDHW / LambdaNP2
                     - 4.706 * delta_GF
@@ -14721,14 +14723,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0070;
 
         mu +=
-                +121661. * ewgc("CHbox") / LambdaNP2
-                + 489617. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 357163. * ewgc("CHeR",0,0) / LambdaNP2
-                + 489617. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 39217.8 * ewgc("CHD") / LambdaNP2
-                + 1525468. *ewgc("CHB") / LambdaNP2
-                + 378019. * ewgc("CHW") / LambdaNP2
-                + 215983. * ewgc("CHWB") / LambdaNP2
+                +121661. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 489617. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 357163. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 489617. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 39217.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 1525468. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 378019. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 215983. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 6554.11 * CDHB / LambdaNP2
                 + 1175.47 * CDHW / LambdaNP2
                 - 3.161 * delta_GF
@@ -14750,14 +14752,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0070;
 
         mu +=
-                +122144. * ewgc("CHbox") / LambdaNP2
-                + 444406. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 315727. * ewgc("CHeR",0,0) / LambdaNP2
-                + 444406. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 41440.8 * ewgc("CHD") / LambdaNP2
-                + 1186855. *ewgc("CHB") / LambdaNP2
-                + 301913. * ewgc("CHW") / LambdaNP2
-                + 98540.5 * ewgc("CHWB") / LambdaNP2
+                +122144. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 444406. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 315727. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 444406. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 41440.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 1186855. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 301913. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 98540.5 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 5766.35 * CDHB / LambdaNP2
                 + 294.724 * CDHW / LambdaNP2
                 - 3.279 * delta_GF
@@ -14779,14 +14781,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0069;
 
         mu +=
-                +121556. * ewgc("CHbox") / LambdaNP2
-                + 46354.9 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 251.929 * ewgc("CHeR",0,0) / LambdaNP2
-                + 46354.9 * ewgc("CHl3R",0,0) / LambdaNP2
-                - 43426.2 * ewgc("CHD") / LambdaNP2
-                + 450512. *ewgc("CHB") / LambdaNP2
-                + 166493. * ewgc("CHW") / LambdaNP2
-                - 198898. * ewgc("CHWB") / LambdaNP2
+                +121556. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 46354.9 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 251.929 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 46354.9 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 43426.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 450512. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 166493. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 198898. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 4408.76 * CDHB / LambdaNP2
                 - 17005.2 * CDHW / LambdaNP2
                 - 3.427 * delta_GF
@@ -14808,14 +14810,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0069; // use same as 350 GeV
 
         mu +=
-                +121067. * ewgc("CHbox") / LambdaNP2
-                + 9887.64 * ewgc("CHl1R",0,0) / LambdaNP2
-                + 27809. * ewgc("CHeR",0,0) / LambdaNP2
-                + 9887.64 * ewgc("CHl3R",0,0) / LambdaNP2
-                - 43174.2 * ewgc("CHD") / LambdaNP2
-                + 417865. *ewgc("CHB") / LambdaNP2
-                + 154270. * ewgc("CHW") / LambdaNP2
-                - 201517. * ewgc("CHWB") / LambdaNP2
+                +121067. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 9887.64 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 27809. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 9887.64 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 43174.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 417865. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 154270. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 201517. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 4943.82 * CDHB / LambdaNP2
                 - 19213.5 * CDHW / LambdaNP2
                 - 3.423 * delta_GF
@@ -14837,14 +14839,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0069; // use same as 350 GeV
 
         mu +=
-                +121214. * ewgc("CHbox") / LambdaNP2
-                - 22289.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                + 52903.2 * ewgc("CHeR",0,0) / LambdaNP2
-                - 22289.7 * ewgc("CHl3R",0,0) / LambdaNP2
-                - 43137.3 * ewgc("CHD") / LambdaNP2
-                + 388336. *ewgc("CHB") / LambdaNP2
-                + 140923. * ewgc("CHW") / LambdaNP2
-                - 202884. * ewgc("CHWB") / LambdaNP2
+                +121214. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 22289.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 52903.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 22289.7 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 43137.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 388336. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 140923. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 202884. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 5363.69 * CDHB / LambdaNP2
                 - 21404.2 * CDHW / LambdaNP2
                 - 3.418 * delta_GF
@@ -14866,14 +14868,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0067;
 
         mu +=
-                +121453. * ewgc("CHbox") / LambdaNP2
-                - 185326. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 178925. * ewgc("CHeR",0,0) / LambdaNP2
-                - 185326. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 42051.6 * ewgc("CHD") / LambdaNP2
-                + 236945. *ewgc("CHB") / LambdaNP2
-                + 67833.5 * ewgc("CHW") / LambdaNP2
-                - 178623. * ewgc("CHWB") / LambdaNP2
+                +121453. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 185326. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 178925. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 185326. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 42051.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 236945. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 67833.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 178623. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 8004.61 * CDHB / LambdaNP2
                 - 33567.3 * CDHW / LambdaNP2
                 - 3.416 * delta_GF
@@ -14895,14 +14897,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0065;
 
         mu +=
-                +121062. * ewgc("CHbox") / LambdaNP2
-                - 409543. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 356730. * ewgc("CHeR",0,0) / LambdaNP2
-                - 409543. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 42133.9 * ewgc("CHD") / LambdaNP2
-                + 69851. *ewgc("CHB") / LambdaNP2
-                - 14416.8 * ewgc("CHW") / LambdaNP2
-                - 113198. * ewgc("CHWB") / LambdaNP2
+                +121062. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 409543. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 356730. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 409543. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 42133.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 69851. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 14416.8 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 113198. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 18688.4 * CDHB / LambdaNP2
                 - 61696. * CDHW / LambdaNP2
                 - 3.405 * delta_GF
@@ -14924,14 +14926,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0065;
 
         mu +=
-                +120749. * ewgc("CHbox") / LambdaNP2
-                - 493617. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 426669. * ewgc("CHeR",0,0) / LambdaNP2
-                - 493617. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 42486.9 * ewgc("CHD") / LambdaNP2
-                + 34633.1 *ewgc("CHB") / LambdaNP2
-                - 27609.6 * ewgc("CHW") / LambdaNP2
-                - 97014.2 * ewgc("CHWB") / LambdaNP2
+                +120749. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 493617. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 426669. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 493617. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 42486.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 34633.1 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 27609.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 97014.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 23942.2 * CDHB / LambdaNP2
                 - 74940.3 * CDHW / LambdaNP2
                 - 3.405 * delta_GF
@@ -14953,14 +14955,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0065; // Use the same as 1400 GeV
 
         mu +=
-                +120587. * ewgc("CHbox") / LambdaNP2
-                - 510290. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 440504. * ewgc("CHeR",0,0) / LambdaNP2
-                - 510290. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 42529.6 * ewgc("CHD") / LambdaNP2
-                + 30448.1 *ewgc("CHB") / LambdaNP2
-                - 30741.2 * ewgc("CHW") / LambdaNP2
-                - 95903.3 * ewgc("CHWB") / LambdaNP2
+                +120587. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 510290. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 440504. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 510290. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 42529.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 30448.1 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 30741.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 95903.3 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 25074.9 * CDHB / LambdaNP2
                 - 77634.5 * CDHW / LambdaNP2
                 - 3.401 * delta_GF
@@ -14982,14 +14984,14 @@ double NPSMEFTd6General::mueeZBF(const double sqrt_s) const
         C1 = 0.0063;
 
         mu +=
-                +120474. * ewgc("CHbox") / LambdaNP2
-                - 677185. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 582037. * ewgc("CHeR",0,0) / LambdaNP2
-                - 677185. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 42541.3 * ewgc("CHD") / LambdaNP2
-                + 6810.6 *ewgc("CHB") / LambdaNP2
-                - 32994.5 * ewgc("CHW") / LambdaNP2
-                - 78012.3 * ewgc("CHWB") / LambdaNP2
+                +120474. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 677185. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 582037. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 677185. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 42541.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 6810.6 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 32994.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 78012.3 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 36250. * CDHB / LambdaNP2
                 - 105734. * CDHW / LambdaNP2
                 - 3.405 * delta_GF
@@ -15038,14 +15040,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121531. * ewgc("CHbox") / LambdaNP2
-                    + 58943.5 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 939512. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 58943.5 * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 77442.6 * ewgc("CHD") / LambdaNP2
-                    + 2082256. *ewgc("CHB") / LambdaNP2
-                    + 108043. * ewgc("CHW") / LambdaNP2
-                    + 1362693. * ewgc("CHWB") / LambdaNP2
+                    +121531. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 58943.5 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 939512. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 58943.5 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 77442.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 2082256. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 108043. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1362693. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 40385. * CDHB / LambdaNP2
                     - 21886. * CDHW / LambdaNP2
                     + 0.563 * delta_GF
@@ -15059,14 +15061,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +122065. * ewgc("CHbox") / LambdaNP2
-                    + 905327. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 55689. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 905327. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 124548. * ewgc("CHD") / LambdaNP2
-                    + 905057. *ewgc("CHB") / LambdaNP2
-                    + 540185. * ewgc("CHW") / LambdaNP2
-                    - 329708. * ewgc("CHWB") / LambdaNP2
+                    +122065. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 905327. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 55689. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 905327. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 124548. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 905057. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 540185. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 329708. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 37296.9 * CDHB / LambdaNP2
                     + 20497.1 * CDHW / LambdaNP2
                     - 5.854 * delta_GF
@@ -15080,14 +15082,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121947. * ewgc("CHbox") / LambdaNP2
-                    + 88774.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 753269. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 88774.4 * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 54593.2 * ewgc("CHD") / LambdaNP2
-                    + 2101955. *ewgc("CHB") / LambdaNP2
-                    + 182237. * ewgc("CHW") / LambdaNP2
-                    + 972861. * ewgc("CHWB") / LambdaNP2
+                    +121947. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 88774.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 753269. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 88774.4 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 54593.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 2101955. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 182237. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 972861. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 29346.2 * CDHB / LambdaNP2
                     - 18562.1 * CDHW / LambdaNP2
                     - 0.206 * delta_GF
@@ -15101,14 +15103,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +122265. * ewgc("CHbox") / LambdaNP2
-                    + 785643. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 66907.6 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 785643. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 107673. * ewgc("CHD") / LambdaNP2
-                    + 1115316. *ewgc("CHB") / LambdaNP2
-                    + 521873. * ewgc("CHW") / LambdaNP2
-                    - 331727. * ewgc("CHWB") / LambdaNP2
+                    +122265. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 785643. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 66907.6 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 785643. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 107673. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1115316. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 521873. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 331727. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 32442.4 * CDHB / LambdaNP2
                     + 15348.7 * CDHW / LambdaNP2
                     - 5.334 * delta_GF
@@ -15130,14 +15132,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121054. * ewgc("CHbox") / LambdaNP2
-                    + 51113. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 851357. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 51113. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 76762.9 * ewgc("CHD") / LambdaNP2
-                    + 1629614. *ewgc("CHB") / LambdaNP2
-                    + 72741.6 * ewgc("CHW") / LambdaNP2
-                    + 1130834. * ewgc("CHWB") / LambdaNP2
+                    +121054. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 51113. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 851357. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 51113. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 76762.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1629614. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 72741.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1130834. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 34381.7 * CDHB / LambdaNP2
                     - 19876.5 * CDHW / LambdaNP2
                     + 0.563 * delta_GF
@@ -15151,14 +15153,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121471. * ewgc("CHbox") / LambdaNP2
-                    + 824294. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 45066.5 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 824294. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 128864. * ewgc("CHD") / LambdaNP2
-                    + 644513. *ewgc("CHB") / LambdaNP2
-                    + 425051. * ewgc("CHW") / LambdaNP2
-                    - 383720. * ewgc("CHWB") / LambdaNP2
+                    +121471. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 824294. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 45066.5 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 824294. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 128864. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 644513. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 425051. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 383720. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 32434.3 * CDHB / LambdaNP2
                     + 15329.4 * CDHW / LambdaNP2
                     - 6.022 * delta_GF
@@ -15172,14 +15174,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121494. * ewgc("CHbox") / LambdaNP2
-                    + 77372.1 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 676199. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 77372.1 * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 53294.7 * ewgc("CHD") / LambdaNP2
-                    + 1668830. *ewgc("CHB") / LambdaNP2
-                    + 145010. * ewgc("CHW") / LambdaNP2
-                    + 772902. * ewgc("CHWB") / LambdaNP2
+                    +121494. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 77372.1 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 676199. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 77372.1 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 53294.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1668830. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 145010. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 772902. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 23910.6 * CDHB / LambdaNP2
                     - 16890.6 * CDHW / LambdaNP2
                     - 0.226 * delta_GF
@@ -15193,14 +15195,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121947. * ewgc("CHbox") / LambdaNP2
-                    + 713174. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 53393.3 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 713174. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 111120. * ewgc("CHD") / LambdaNP2
-                    + 843388. *ewgc("CHB") / LambdaNP2
-                    + 417838. * ewgc("CHW") / LambdaNP2
-                    - 386753. * ewgc("CHWB") / LambdaNP2
+                    +121947. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 713174. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 53393.3 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 713174. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 111120. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 843388. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 417838. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 386753. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 27915.7 * CDHB / LambdaNP2
                     + 11946.5 * CDHW / LambdaNP2
                     - 5.496 * delta_GF
@@ -15222,14 +15224,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121674. * ewgc("CHbox") / LambdaNP2
-                    - 47420.2 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 172088. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 47420.2 * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 59728. * ewgc("CHD") / LambdaNP2
-                    + 544205. *ewgc("CHB") / LambdaNP2
-                    + 83604.4 * ewgc("CHW") / LambdaNP2
-                    + 435393. * ewgc("CHWB") / LambdaNP2
+                    +121674. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 47420.2 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 172088. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 47420.2 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 59728. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 544205. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 83604.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 435393. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 24800.4 * CDHB / LambdaNP2
                     - 4583.09 * CDHW / LambdaNP2
                     - 0.05 * delta_GF
@@ -15243,14 +15245,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121541. * ewgc("CHbox") / LambdaNP2
-                    + 197618. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 42238.9 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 197618. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 124376. * ewgc("CHD") / LambdaNP2
-                    + 181154. *ewgc("CHB") / LambdaNP2
-                    + 195329. * ewgc("CHW") / LambdaNP2
-                    - 505800. * ewgc("CHWB") / LambdaNP2
+                    +121541. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 197618. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 42238.9 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 197618. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 124376. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 181154. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 195329. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 505800. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 13082.6 * CDHB / LambdaNP2
                     - 26607.4 * CDHW / LambdaNP2
                     - 6.096 * delta_GF
@@ -15264,14 +15266,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121760. * ewgc("CHbox") / LambdaNP2
-                    - 62853. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 83019.6 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 62853. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 34395.4 * ewgc("CHD") / LambdaNP2
-                    + 623389. *ewgc("CHB") / LambdaNP2
-                    + 123932. * ewgc("CHW") / LambdaNP2
-                    + 181789. * ewgc("CHWB") / LambdaNP2
+                    +121760. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 62853. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 83019.6 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 62853. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 34395.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 623389. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 123932. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 181789. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 20420. * CDHB / LambdaNP2
                     - 7820.42 * CDHW / LambdaNP2
                     - 0.875 * delta_GF
@@ -15285,14 +15287,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121557. * ewgc("CHbox") / LambdaNP2
-                    + 131443. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 63326.7 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 131443. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 103038. * ewgc("CHD") / LambdaNP2
-                    + 323596. *ewgc("CHB") / LambdaNP2
-                    + 201676. * ewgc("CHW") / LambdaNP2
-                    - 491019. * ewgc("CHWB") / LambdaNP2
+                    +121557. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 131443. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 63326.7 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 131443. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 103038. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 323596. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 201676. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 491019. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 7992.43 * CDHB / LambdaNP2
                     - 24283.6 * CDHW / LambdaNP2
                     - 5.391 * delta_GF
@@ -15314,14 +15316,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121458. * ewgc("CHbox") / LambdaNP2
-                    - 58695.1 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 109686. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 58695.1 * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 58496.7 * ewgc("CHD") / LambdaNP2
-                    + 489137. *ewgc("CHB") / LambdaNP2
-                    + 80751.3 * ewgc("CHW") / LambdaNP2
-                    + 410304. * ewgc("CHWB") / LambdaNP2
+                    +121458. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 58695.1 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 109686. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 58695.1 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 58496.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 489137. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 80751.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 410304. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 30918.3 * CDHB / LambdaNP2
                     - 3571.31 * CDHW / LambdaNP2
                     - 0.085 * delta_GF
@@ -15335,14 +15337,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121152. * ewgc("CHbox") / LambdaNP2
-                    + 136019. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 50762. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 136019. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 123859. * ewgc("CHD") / LambdaNP2
-                    + 165799. *ewgc("CHB") / LambdaNP2
-                    + 176652. * ewgc("CHW") / LambdaNP2
-                    - 504889. * ewgc("CHWB") / LambdaNP2
+                    +121152. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 136019. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 50762. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 136019. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 123859. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 165799. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 176652. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 504889. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 16920.7 * CDHB / LambdaNP2
                     - 31414.1 * CDHW / LambdaNP2
                     - 6.076 * delta_GF
@@ -15356,14 +15358,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121193. * ewgc("CHbox") / LambdaNP2
-                    - 76905.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 32264.3 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 76905.7 * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 33650.3 * ewgc("CHD") / LambdaNP2
-                    + 573505. *ewgc("CHB") / LambdaNP2
-                    + 117937. * ewgc("CHW") / LambdaNP2
-                    + 166382. * ewgc("CHWB") / LambdaNP2
+                    +121193. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 76905.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 32264.3 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 76905.7 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 33650.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 573505. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 117937. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 166382. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 25012.1 * CDHB / LambdaNP2
                     - 7703.47 * CDHW / LambdaNP2
                     - 0.911 * delta_GF
@@ -15377,14 +15379,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121177. * ewgc("CHbox") / LambdaNP2
-                    + 77981.5 * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 74274.1 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 77981.5 * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 102068. * ewgc("CHD") / LambdaNP2
-                    + 305730. *ewgc("CHB") / LambdaNP2
-                    + 183682. * ewgc("CHW") / LambdaNP2
-                    - 487770. * ewgc("CHWB") / LambdaNP2
+                    +121177. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 77981.5 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 74274.1 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 77981.5 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 102068. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 305730. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 183682. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 487770. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 10624.8 * CDHB / LambdaNP2
                     - 28092.3 * CDHW / LambdaNP2
                     - 5.366 * delta_GF
@@ -15406,14 +15408,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121392. * ewgc("CHbox") / LambdaNP2
-                    - 68799.8 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 54383.2 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 68799.8 * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 57427.7 * ewgc("CHD") / LambdaNP2
-                    + 439155. *ewgc("CHB") / LambdaNP2
-                    + 76978.2 * ewgc("CHW") / LambdaNP2
-                    + 392293. * ewgc("CHWB") / LambdaNP2
+                    +121392. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 68799.8 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 54383.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 68799.8 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 57427.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 439155. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 76978.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 392293. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 36175.9 * CDHB / LambdaNP2
                     - 3193.74 * CDHW / LambdaNP2
                     - 0.11 * delta_GF
@@ -15427,14 +15429,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121306. * ewgc("CHbox") / LambdaNP2
-                    + 80159.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 58002.2 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 80159.7 * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 123524. * ewgc("CHD") / LambdaNP2
-                    + 151617. *ewgc("CHB") / LambdaNP2
-                    + 154342. * ewgc("CHW") / LambdaNP2
-                    - 500961. * ewgc("CHWB") / LambdaNP2
+                    +121306. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 80159.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 58002.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 80159.7 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 123524. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 151617. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 154342. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 500961. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 20509.9 * CDHB / LambdaNP2
                     - 35718.1 * CDHW / LambdaNP2
                     - 6.064 * delta_GF
@@ -15448,14 +15450,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121171. * ewgc("CHbox") / LambdaNP2
-                    - 89494.3 * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 11882.3 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 89494.3 * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 32430.1 * ewgc("CHD") / LambdaNP2
-                    + 524620. *ewgc("CHB") / LambdaNP2
-                    + 111520. * ewgc("CHW") / LambdaNP2
-                    + 156122. * ewgc("CHWB") / LambdaNP2
+                    +121171. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 89494.3 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 11882.3 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 89494.3 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 32430.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 524620. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 111520. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 156122. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 29271.1 * CDHB / LambdaNP2
                     - 8056.8 * CDHW / LambdaNP2
                     - 0.928 * delta_GF
@@ -15469,14 +15471,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121286. * ewgc("CHbox") / LambdaNP2
-                    + 30046.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 84014. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 30046.7 * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 101539. * ewgc("CHD") / LambdaNP2
-                    + 286981. *ewgc("CHB") / LambdaNP2
-                    + 164662. * ewgc("CHW") / LambdaNP2
-                    - 480410. * ewgc("CHWB") / LambdaNP2
+                    +121286. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 30046.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 84014. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 30046.7 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 101539. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 286981. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 164662. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 480410. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 13149.6 * CDHB / LambdaNP2
                     - 31886.7 * CDHW / LambdaNP2
                     - 5.346 * delta_GF
@@ -15498,14 +15500,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121372. * ewgc("CHbox") / LambdaNP2
-                    - 121062. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 224754. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 121062. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 55161.7 * ewgc("CHD") / LambdaNP2
-                    + 201238. *ewgc("CHB") / LambdaNP2
-                    + 52456.6 * ewgc("CHW") / LambdaNP2
-                    + 335517. * ewgc("CHWB") / LambdaNP2
+                    +121372. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 121062. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 224754. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 121062. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 55161.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 201238. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 52456.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 335517. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 63733.4 * CDHB / LambdaNP2
                     - 2379.21 * CDHW / LambdaNP2
                     - 0.207 * delta_GF
@@ -15519,14 +15521,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121399. * ewgc("CHbox") / LambdaNP2
-                    - 200849. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 96427.7 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 200849. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 121178. * ewgc("CHD") / LambdaNP2
-                    + 83220.9 *ewgc("CHB") / LambdaNP2
-                    + 42832.2 * ewgc("CHW") / LambdaNP2
-                    - 464173. * ewgc("CHWB") / LambdaNP2
+                    +121399. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 200849. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 96427.7 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 200849. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 121178. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 83220.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 42832.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 464173. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 37654.2 * CDHB / LambdaNP2
                     - 59029.6 * CDHW / LambdaNP2
                     - 6.025 * delta_GF
@@ -15540,14 +15542,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121435. * ewgc("CHbox") / LambdaNP2
-                    - 154953. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 235326. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 154953. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 30472. * ewgc("CHD") / LambdaNP2
-                    + 298145. *ewgc("CHB") / LambdaNP2
-                    + 75047.6 * ewgc("CHW") / LambdaNP2
-                    + 137304. * ewgc("CHWB") / LambdaNP2
+                    +121435. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 154953. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 235326. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 154953. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 30472. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 298145. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 75047.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 137304. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 49636.1 * CDHB / LambdaNP2
                     - 10277.1 * CDHW / LambdaNP2
                     - 1.027 * delta_GF
@@ -15561,14 +15563,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121468. * ewgc("CHbox") / LambdaNP2
-                    - 208577. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 134790. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 208577. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 98708.1 * ewgc("CHD") / LambdaNP2
-                    + 190310. *ewgc("CHB") / LambdaNP2
-                    + 62321.4 * ewgc("CHW") / LambdaNP2
-                    - 429412. * ewgc("CHWB") / LambdaNP2
+                    +121468. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 208577. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 134790. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 208577. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 98708.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 190310. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 62321.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 429412. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 24628.2 * CDHB / LambdaNP2
                     - 51722.9 * CDHW / LambdaNP2
                     - 5.287 * delta_GF
@@ -15590,14 +15592,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121044. * ewgc("CHbox") / LambdaNP2
-                    - 206156. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 586357. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 206156. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 54157.3 * ewgc("CHD") / LambdaNP2
-                    - 30839.6 *ewgc("CHB") / LambdaNP2
-                    + 18110.3 * ewgc("CHW") / LambdaNP2
-                    + 345253. * ewgc("CHWB") / LambdaNP2
+                    +121044. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 206156. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 586357. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 206156. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 54157.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 30839.6 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 18110.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 345253. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 108488. * CDHB / LambdaNP2
                     - 12324.2 * CDHW / LambdaNP2
                     - 0.229 * delta_GF
@@ -15611,14 +15613,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121085. * ewgc("CHbox") / LambdaNP2
-                    - 565700. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 157498. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 565700. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 120795. * ewgc("CHD") / LambdaNP2
-                    + 7953.6 *ewgc("CHB") / LambdaNP2
-                    - 79908.9 * ewgc("CHW") / LambdaNP2
-                    - 402278. * ewgc("CHWB") / LambdaNP2
+                    +121085. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 565700. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 157498. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 565700. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 120795. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 7953.6 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 79908.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 402278. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 54805.3 * CDHB / LambdaNP2
                     - 101988. * CDHW / LambdaNP2
                     - 6.001 * delta_GF
@@ -15632,14 +15634,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == -20.) {
             mu +=
-                    +121091. * ewgc("CHbox") / LambdaNP2
-                    - 225779. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 568149. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 225779. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 45736.7 * ewgc("CHD") / LambdaNP2
-                    + 2164.38 *ewgc("CHB") / LambdaNP2
-                    + 20504.6 * ewgc("CHW") / LambdaNP2
-                    + 290141. * ewgc("CHWB") / LambdaNP2
+                    +121091. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 225779. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 568149. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 225779. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 45736.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 2164.38 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 20504.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 290141. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 100416. * CDHB / LambdaNP2
                     - 16574.6 * CDHW / LambdaNP2
                     - 0.51 * delta_GF
@@ -15653,14 +15655,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 20.) {
             mu +=
-                    +121091. * ewgc("CHbox") / LambdaNP2
-                    - 552286. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 177286. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 552286. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 113484. * ewgc("CHD") / LambdaNP2
-                    + 29757.9 *ewgc("CHB") / LambdaNP2
-                    - 69897.4 * ewgc("CHW") / LambdaNP2
-                    - 385087. * ewgc("CHWB") / LambdaNP2
+                    +121091. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 552286. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 177286. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 552286. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 113484. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 29757.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 69897.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 385087. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 47999.3 * CDHB / LambdaNP2
                     - 98310.4 * CDHW / LambdaNP2
                     - 5.76 * delta_GF
@@ -15674,14 +15676,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120996. * ewgc("CHbox") / LambdaNP2
-                    - 263143. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 533190. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 263143. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 29434.5 * ewgc("CHD") / LambdaNP2
-                    + 63176.5 *ewgc("CHB") / LambdaNP2
-                    + 26728.5 * ewgc("CHW") / LambdaNP2
-                    + 184228. * ewgc("CHWB") / LambdaNP2
+                    +120996. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 263143. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 533190. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 263143. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 29434.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 63176.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 26728.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 184228. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 85487.1 * CDHB / LambdaNP2
                     - 24906.1 * CDHW / LambdaNP2
                     - 1.044 * delta_GF
@@ -15695,14 +15697,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121114. * ewgc("CHbox") / LambdaNP2
-                    - 524119. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 218758. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 524119. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 98164. * ewgc("CHD") / LambdaNP2
-                    + 74694.7 *ewgc("CHB") / LambdaNP2
-                    - 49060.4 * ewgc("CHW") / LambdaNP2
-                    - 348619. * ewgc("CHWB") / LambdaNP2
+                    +121114. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 524119. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 218758. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 524119. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 98164. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 74694.7 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 49060.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 348619. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 33861.6 * CDHB / LambdaNP2
                     - 90369.8 * CDHW / LambdaNP2
                     - 5.256 * delta_GF
@@ -15724,14 +15726,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120762. * ewgc("CHbox") / LambdaNP2
-                    - 242720. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 714345. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 242720. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 53823.3 * ewgc("CHD") / LambdaNP2
-                    - 64876.7 *ewgc("CHB") / LambdaNP2
-                    + 9362.37 * ewgc("CHW") / LambdaNP2
-                    + 355440. * ewgc("CHWB") / LambdaNP2
+                    +120762. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 242720. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 714345. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 242720. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 53823.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 64876.7 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 9362.37 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 355440. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 127361. * CDHB / LambdaNP2
                     - 18147.3 * CDHW / LambdaNP2
                     - 0.228 * delta_GF
@@ -15745,14 +15747,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120818. * ewgc("CHbox") / LambdaNP2
-                    - 692905. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 184416. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 692905. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 121143. * ewgc("CHD") / LambdaNP2
-                    - 4989.81 *ewgc("CHB") / LambdaNP2
-                    - 93241.6 * ewgc("CHW") / LambdaNP2
-                    - 392394. * ewgc("CHWB") / LambdaNP2
+                    +120818. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 692905. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 184416. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 692905. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 121143. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 4989.81 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 93241.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 392394. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 60556.9 * CDHB / LambdaNP2
                     - 121409. * CDHW / LambdaNP2
                     - 6.003 * delta_GF
@@ -15766,14 +15768,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120773. * ewgc("CHbox") / LambdaNP2
-                    - 309806. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 643900. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 309806. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 29091.1 * ewgc("CHD") / LambdaNP2
-                    + 22438.3 *ewgc("CHB") / LambdaNP2
-                    + 16021.7 * ewgc("CHW") / LambdaNP2
-                    + 202496. * ewgc("CHWB") / LambdaNP2
+                    +120773. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 309806. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 643900. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 309806. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 29091.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 22438.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 16021.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 202496. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 100775. * CDHB / LambdaNP2
                     - 32830.8 * CDHW / LambdaNP2
                     - 1.043 * delta_GF
@@ -15787,14 +15789,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120795. * ewgc("CHbox") / LambdaNP2
-                    - 637584. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 256188. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 637584. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 98543.3 * ewgc("CHD") / LambdaNP2
-                    + 49040.2 *ewgc("CHB") / LambdaNP2
-                    - 63051.7 * ewgc("CHW") / LambdaNP2
-                    - 332850. * ewgc("CHWB") / LambdaNP2
+                    +120795. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 637584. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 256188. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 637584. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 98543.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 49040.2 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 63051.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 332850. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 36510.1 * CDHB / LambdaNP2
                     - 108018. * CDHW / LambdaNP2
                     - 5.256 * delta_GF
@@ -15816,14 +15818,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120570. * ewgc("CHbox") / LambdaNP2
-                    - 250340. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 739684. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 250340. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 53685.8 * ewgc("CHD") / LambdaNP2
-                    - 71192.9 *ewgc("CHB") / LambdaNP2
-                    + 9743.41 * ewgc("CHW") / LambdaNP2
-                    + 357556. * ewgc("CHWB") / LambdaNP2
+                    +120570. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 250340. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 739684. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 250340. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 53685.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 71192.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 9743.41 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 357556. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 131206. * CDHB / LambdaNP2
                     - 19448. * CDHW / LambdaNP2
                     - 0.224 * delta_GF
@@ -15837,14 +15839,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120602. * ewgc("CHbox") / LambdaNP2
-                    - 718001. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 189852. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 718001. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 121214. * ewgc("CHD") / LambdaNP2
-                    - 6057.91 *ewgc("CHB") / LambdaNP2
-                    - 95148.1 * ewgc("CHW") / LambdaNP2
-                    - 390958. * ewgc("CHWB") / LambdaNP2
+                    +120602. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 718001. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 189852. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 718001. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 121214. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 6057.91 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 95148.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 390958. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 61690.7 * CDHB / LambdaNP2
                     - 125382. * CDHW / LambdaNP2
                     - 5.997 * delta_GF
@@ -15858,14 +15860,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120563. * ewgc("CHbox") / LambdaNP2
-                    - 319378. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 665765. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 319378. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 29010.7 * ewgc("CHD") / LambdaNP2
-                    + 14190.4 *ewgc("CHB") / LambdaNP2
-                    + 16080. * ewgc("CHW") / LambdaNP2
-                    + 205187. * ewgc("CHWB") / LambdaNP2
+                    +120563. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 319378. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 665765. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 319378. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 29010.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 14190.4 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 16080. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 205187. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 103927. * CDHB / LambdaNP2
                     - 34420.2 * CDHW / LambdaNP2
                     - 1.04 * delta_GF
@@ -15879,14 +15881,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120607. * ewgc("CHbox") / LambdaNP2
-                    - 659879. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 263841. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 659879. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 98617.3 * ewgc("CHD") / LambdaNP2
-                    + 46418.4 *ewgc("CHB") / LambdaNP2
-                    - 64166.6 * ewgc("CHW") / LambdaNP2
-                    - 330855. * ewgc("CHWB") / LambdaNP2
+                    +120607. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 659879. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 263841. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 659879. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 98617.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 46418.4 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 64166.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 330855. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 36774.5 * CDHB / LambdaNP2
                     - 111573. * CDHW / LambdaNP2
                     - 5.253 * delta_GF
@@ -15908,14 +15910,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +120539. * ewgc("CHbox") / LambdaNP2
-                    - 327096. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 988310. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 327096. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 53758.1 * ewgc("CHD") / LambdaNP2
-                    - 79161. *ewgc("CHB") / LambdaNP2
-                    + 3856.87 * ewgc("CHW") / LambdaNP2
-                    + 369878. * ewgc("CHWB") / LambdaNP2
+                    +120539. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 327096. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 988310. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 327096. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 53758.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 79161. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 3856.87 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 369878. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 170059. * CDHB / LambdaNP2
                     - 32235.8 * CDHW / LambdaNP2
                     - 0.226 * delta_GF
@@ -15929,14 +15931,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +120565. * ewgc("CHbox") / LambdaNP2
-                    - 961658. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 247947. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 961658. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 121230. * ewgc("CHD") / LambdaNP2
-                    - 10752.9 *ewgc("CHB") / LambdaNP2
-                    - 92123.7 * ewgc("CHW") / LambdaNP2
-                    - 391807. * ewgc("CHWB") / LambdaNP2
+                    +120565. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 961658. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 247947. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 961658. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 121230. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 10752.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 92123.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 391807. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 73242.2 * CDHB / LambdaNP2
                     - 165690. * CDHW / LambdaNP2
                     - 6.002 * delta_GF
@@ -15950,14 +15952,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +120534. * ewgc("CHbox") / LambdaNP2
-                    - 417962. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 884851. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 417962. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 29065.5 * ewgc("CHD") / LambdaNP2
-                    - 10885.4 *ewgc("CHB") / LambdaNP2
-                    + 8249.25 * ewgc("CHW") / LambdaNP2
-                    + 228820. * ewgc("CHWB") / LambdaNP2
+                    +120534. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 417962. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 884851. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 417962. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 29065.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 10885.4 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 8249.25 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 228820. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 135851. * CDHB / LambdaNP2
                     - 51177.2 * CDHW / LambdaNP2
                     - 1.04 * delta_GF
@@ -15971,14 +15973,14 @@ double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +120480. * ewgc("CHbox") / LambdaNP2
-                    - 880604. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 344657. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 880604. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 98656.8 * ewgc("CHD") / LambdaNP2
-                    + 28681.4 *ewgc("CHB") / LambdaNP2
-                    - 66216.6 * ewgc("CHW") / LambdaNP2
-                    - 320715. * ewgc("CHWB") / LambdaNP2
+                    +120480. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    - 880604. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 344657. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 880604. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 98656.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 28681.4 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    - 66216.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 320715. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 41721.6 * CDHB / LambdaNP2
                     - 148698. * CDHW / LambdaNP2
                     - 5.256 * delta_GF
@@ -16021,12 +16023,12 @@ double NPSMEFTd6General::muepWBF(const double sqrt_s) const
     if (sqrt_s == 1.3) {
 
         mu +=
-                +121790. * ewgc("CHbox") / LambdaNP2
-                - 161604. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 161282. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 203141. * ewgc("CHD") / LambdaNP2
-                - 88171.6 * ewgc("CHW") / LambdaNP2
-                - 377218. * ewgc("CHWB") / LambdaNP2
+                +121790. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 161604. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 161282. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 203141. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 88171.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 377218. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 37738.9 * CDHW / LambdaNP2
                 - 4.676 * delta_GF
                 - 4.916 * deltaMwd6()
@@ -16040,12 +16042,12 @@ double NPSMEFTd6General::muepWBF(const double sqrt_s) const
     } else if (sqrt_s == 1.8) {
 
         mu +=
-                +121867. * ewgc("CHbox") / LambdaNP2
-                - 182643. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 181961. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 202400. * ewgc("CHD") / LambdaNP2
-                - 78295.8 * ewgc("CHW") / LambdaNP2
-                - 377193. * ewgc("CHWB") / LambdaNP2
+                +121867. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 182643. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 181961. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 202400. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 78295.8 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 377193. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 45757.3 * CDHW / LambdaNP2
                 - 4.672 * delta_GF
                 - 4.637 * deltaMwd6()
@@ -16059,12 +16061,12 @@ double NPSMEFTd6General::muepWBF(const double sqrt_s) const
     } else if (sqrt_s == 3.5) {
 
         mu +=
-                +121250. * ewgc("CHbox") / LambdaNP2
-                - 216885. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 218544. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 202390. * ewgc("CHD") / LambdaNP2
-                - 64783.2 * ewgc("CHW") / LambdaNP2
-                - 377727. * ewgc("CHWB") / LambdaNP2
+                +121250. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 216885. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 218544. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 202390. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 64783.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 377727. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 60431.2 * CDHW / LambdaNP2
                 - 4.688 * delta_GF
                 - 4.573 * deltaMwd6()
@@ -16078,12 +16080,12 @@ double NPSMEFTd6General::muepWBF(const double sqrt_s) const
     } else if (sqrt_s == 5.0) {
 
         mu +=
-                +119662. * ewgc("CHbox") / LambdaNP2
-                - 237868. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 236470. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 203294. * ewgc("CHD") / LambdaNP2
-                - 60911. * ewgc("CHW") / LambdaNP2
-                - 378045. * ewgc("CHWB") / LambdaNP2
+                +119662. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 237868. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 236470. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 203294. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 60911. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 378045. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 67483.7 * CDHW / LambdaNP2
                 - 4.667 * delta_GF
                 - 4.437 * deltaMwd6()
@@ -16115,18 +16117,18 @@ double NPSMEFTd6General::muepZBF(const double sqrt_s) const
     if (sqrt_s == 1.3) {
 
         mu +=
-                +121280. * ewgc("CHbox") / LambdaNP2
-                - 152367. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 32200. * ewgc("CHq1R",0,0) / LambdaNP2
-                + 124934. * ewgc("CHeR",0,0) / LambdaNP2
-                - 42209.5 * ewgc("CHuR",0,0) / LambdaNP2
-                + 12445.7 * ewgc("CHdR",0,0) / LambdaNP2
-                - 152367. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 165343. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 173922. * ewgc("CHD") / LambdaNP2
-                - 34636.2 *ewgc("CHB") / LambdaNP2
-                - 121438. * ewgc("CHW") / LambdaNP2
-                - 74939.1 * ewgc("CHWB") / LambdaNP2
+                +121280. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 152367. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 32200. * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 124934. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 42209.5 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 12445.7 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 152367. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 165343. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 173922. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 34636.2 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 121438. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 74939.1 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 5454.93 * CDHB / LambdaNP2
                 - 39349.6 * CDHW / LambdaNP2
                 - 3.719 * delta_GF
@@ -16140,18 +16142,18 @@ double NPSMEFTd6General::muepZBF(const double sqrt_s) const
     } else if (sqrt_s == 1.8) {
 
         mu +=
-                +120218. * ewgc("CHbox") / LambdaNP2
-                - 173566. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 26307.1 * ewgc("CHq1R",0,0) / LambdaNP2
-                + 142600. * ewgc("CHeR",0,0) / LambdaNP2
-                - 47449. * ewgc("CHuR",0,0) / LambdaNP2
-                + 14356.2 * ewgc("CHdR",0,0) / LambdaNP2
-                - 173566. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 188606. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 174301. * ewgc("CHD") / LambdaNP2
-                - 19800. *ewgc("CHB") / LambdaNP2
-                - 103254. * ewgc("CHW") / LambdaNP2
-                - 89049.2 * ewgc("CHWB") / LambdaNP2
+                +120218. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 173566. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 26307.1 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 142600. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 47449. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 14356.2 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 173566. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 188606. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 174301. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 19800. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 103254. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 89049.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 8304.85 * CDHB / LambdaNP2
                 - 48942.9 * CDHW / LambdaNP2
                 - 3.714 * delta_GF
@@ -16165,18 +16167,18 @@ double NPSMEFTd6General::muepZBF(const double sqrt_s) const
     } else if (sqrt_s == 3.5) {
 
         mu +=
-                +123119. * ewgc("CHbox") / LambdaNP2
-                - 206981. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 18620.9 * ewgc("CHq1R",0,0) / LambdaNP2
-                + 177706. * ewgc("CHeR",0,0) / LambdaNP2
-                - 53822. * ewgc("CHuR",0,0) / LambdaNP2
-                + 20491.5 * ewgc("CHdR",0,0) / LambdaNP2
-                - 206981. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 227549. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 172298. * ewgc("CHD") / LambdaNP2
-                - 6887.17 *ewgc("CHB") / LambdaNP2
-                - 79245. * ewgc("CHW") / LambdaNP2
-                - 103223. * ewgc("CHWB") / LambdaNP2
+                +123119. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 206981. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 18620.9 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 177706. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 53822. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 20491.5 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 206981. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 227549. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 172298. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 6887.17 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 79245. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 103223. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 9863.11 * CDHB / LambdaNP2
                 - 61304.3 * CDHW / LambdaNP2
                 - 3.721 * delta_GF
@@ -16190,18 +16192,18 @@ double NPSMEFTd6General::muepZBF(const double sqrt_s) const
     } else if (sqrt_s == 5.0) {
 
         mu +=
-                +121709. * ewgc("CHbox") / LambdaNP2
-                - 225267. * ewgc("CHl1R",0,0) / LambdaNP2
-                + 13471.8 * ewgc("CHq1R",0,0) / LambdaNP2
-                + 193542. * ewgc("CHeR",0,0) / LambdaNP2
-                - 57640.9 * ewgc("CHuR",0,0) / LambdaNP2
-                + 22573. * ewgc("CHdR",0,0) / LambdaNP2
-                - 225267. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 247738. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 172768. * ewgc("CHD") / LambdaNP2
-                - 4524.89 *ewgc("CHB") / LambdaNP2
-                - 71935.4 * ewgc("CHW") / LambdaNP2
-                - 104998. * ewgc("CHWB") / LambdaNP2
+                +121709. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 225267. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 13471.8 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 193542. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 57640.9 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 22573. * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 225267. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 247738. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 172768. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 4524.89 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 71935.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 104998. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 11877.8 * CDHB / LambdaNP2
                 - 69467.3 * CDHW / LambdaNP2
                 - 3.71 * delta_GF
@@ -16234,17 +16236,17 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu +=
-                +121231. * (1. + eWH_2_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 855498. * (1. + eWH_2_HW) * ewgc("CHW") / LambdaNP2
+                +121231. * (1. + eWH_2_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 855498. * (1. + eWH_2_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 135077. * (1. + eWH_2_DHW) * CDHW / LambdaNP2
-                + 1554889. * (1. + eWH_2_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 10415.1 * (1. + eWH_2_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-160273. * (1. + eWH_2_HD) * ewgc("CHD") / LambdaNP2
-                - 284953. * (1. + eWH_2_HWB) * ewgc("CHWB") / LambdaNP2
+                + 1554889. * (1. + eWH_2_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 10415.1 * (1. + eWH_2_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-160273. * (1. + eWH_2_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 284953. * (1. + eWH_2_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.288 * (1. + eWH_2_DeltaGF) * delta_GF
                 - 2.258 * deltaMwd6())
-                + cWsch * (-30311.6 * (1. + eWH_2_HD) * ewgc("CHD") / LambdaNP2
-                + 0. * (1. + eWH_2_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-30311.6 * (1. + eWH_2_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 0. * (1. + eWH_2_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2. * (1. + eWH_2_DeltaGF) * delta_GF)
                 ;
 
@@ -16259,17 +16261,17 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
         C1 = 0.0106;
 
         mu +=
-                +121215. * (1. + eWH_78_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 874536. * (1. + eWH_78_HW) * ewgc("CHW") / LambdaNP2
+                +121215. * (1. + eWH_78_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 874536. * (1. + eWH_78_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 168556. * (1. + eWH_78_DHW) * CDHW / LambdaNP2
-                + 1688781. * (1. + eWH_78_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 101677. * (1. + eWH_78_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-160236. * (1. + eWH_78_HD) * ewgc("CHD") / LambdaNP2
-                - 284911. * (1. + eWH_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + 1688781. * (1. + eWH_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 101677. * (1. + eWH_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-160236. * (1. + eWH_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 284911. * (1. + eWH_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.286 * (1. + eWH_78_DeltaGF) * delta_GF
                 - 2.217 * deltaMwd6())
-                + cWsch * (-30300.4 * (1. + eWH_78_HD) * ewgc("CHD") / LambdaNP2
-                + 0. * (1. + eWH_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-30300.4 * (1. + eWH_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 0. * (1. + eWH_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 1.999 * (1. + eWH_78_DeltaGF) * delta_GF)
                 ;
 
@@ -16284,17 +16286,17 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
         C1 = 0.0105;
 
         mu +=
-                +121222. * (1. + eWH_78_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 877503. * (1. + eWH_78_HW) * ewgc("CHW") / LambdaNP2
+                +121222. * (1. + eWH_78_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 877503. * (1. + eWH_78_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 174299. * (1. + eWH_78_DHW) * CDHW / LambdaNP2
-                + 1716018. * (1. + eWH_78_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 113210. * (1. + eWH_78_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-160294. * (1. + eWH_78_HD) * ewgc("CHD") / LambdaNP2
-                - 284954. * (1. + eWH_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + 1716018. * (1. + eWH_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 113210. * (1. + eWH_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-160294. * (1. + eWH_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 284954. * (1. + eWH_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.287 * (1. + eWH_78_DeltaGF) * delta_GF
                 - 2.179 * deltaMwd6())
-                + cWsch * (-30310.6 * (1. + eWH_78_HD) * ewgc("CHD") / LambdaNP2
-                + 0. * (1. + eWH_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-30310.6 * (1. + eWH_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 0. * (1. + eWH_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 1.999 * (1. + eWH_78_DeltaGF) * delta_GF)
                 ;
 
@@ -16309,17 +16311,17 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
         C1 = 0.0103;
 
         mu +=
-                +121126. * (1. + eWH_1314_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 886205. * (1. + eWH_1314_HW) * ewgc("CHW") / LambdaNP2
+                +121126. * (1. + eWH_1314_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 886205. * (1. + eWH_1314_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 193294. * (1. + eWH_1314_DHW) * CDHW / LambdaNP2
-                + 1792005. * (1. + eWH_1314_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 161535. * (1. + eWH_1314_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-160176. * (1. + eWH_1314_HD) * ewgc("CHD") / LambdaNP2
-                - 284823. * (1. + eWH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                + 1792005. * (1. + eWH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 161535. * (1. + eWH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-160176. * (1. + eWH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 284823. * (1. + eWH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.287 * (1. + eWH_1314_DeltaGF) * delta_GF
                 - 2.139 * deltaMwd6())
-                + cWsch * (-30285.8 * (1. + eWH_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 0. * (1. + eWH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-30285.8 * (1. + eWH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 0. * (1. + eWH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 1.999 * (1. + eWH_1314_DeltaGF) * delta_GF)
                 ;
 
@@ -16336,13 +16338,13 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
         C1 = 0.0103;
 
         mu +=
-                +121112. * (1. + eWH_1314_Hbox) * ewgc("CHbox") / LambdaNP2
-                // +1973653. * (1. + eWH_1314_HQ3_11 ) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 1804876. * (1. + eWH_1314_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 169913. * (1. + eWH_1314_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                - 160171. * (1. + eWH_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 893242. * (1. + eWH_1314_HW) * ewgc("CHW") / LambdaNP2
-                - 284850. * (1. + eWH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                +121112. * (1. + eWH_1314_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                // +1973653. * (1. + eWH_1314_HQ3_11 ) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 1804876. * (1. + eWH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 169913. * (1. + eWH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                - 160171. * (1. + eWH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 893242. * (1. + eWH_1314_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 284850. * (1. + eWH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 195766. * (1. + eWH_1314_DHW) * CDHW / LambdaNP2
                 - 3.286 * (1. + eWH_1314_DeltaGF) * delta_GF
                 - 2.103 * deltaMwd6()
@@ -16361,11 +16363,11 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
         C1 = 0.0101; // From arXiv: 1902.00134
 
         mu +=
-                +120696. * ewgc("CHbox") / LambdaNP2
-                + 2105646. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 159695. * ewgc("CHD") / LambdaNP2
-                + 900162. * ewgc("CHW") / LambdaNP2
-                - 283257. * ewgc("CHWB") / LambdaNP2
+                +120696. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 2105646. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 159695. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 900162. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 283257. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 215592. * CDHW / LambdaNP2
                 - 3.256 * delta_GF
                 - 2.063 * deltaMwd6()
@@ -16384,11 +16386,11 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
         C1 = 0.0; // N.A. 
 
         mu +=
-                +121319. * ewgc("CHbox") / LambdaNP2
-                + 2294991. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 159242. * ewgc("CHD") / LambdaNP2
-                + 908130. * ewgc("CHW") / LambdaNP2
-                - 282574. * ewgc("CHWB") / LambdaNP2
+                +121319. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 2294991. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 159242. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 908130. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 282574. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 245406. * CDHW / LambdaNP2
                 - 3.259 * delta_GF
                 - 2.047 * deltaMwd6()
@@ -16427,17 +16429,17 @@ double NPSMEFTd6General::muWHpT250(const double sqrt_s) const
         C1 = 0.0119;
 
         mu +=
-                +121150. * (1. + eWH_1314_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 1095782. * (1. + eWH_1314_HW) * ewgc("CHW") / LambdaNP2
+                +121150. * (1. + eWH_1314_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 1095782. * (1. + eWH_1314_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 1870485. * (1. + eWH_1314_DHW) * CDHW / LambdaNP2
-                + 11951748. * (1. + eWH_1314_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 540010. * (1. + eWH_1314_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-160282. * (1. + eWH_1314_HD) * ewgc("CHD") / LambdaNP2
-                - 285105. * (1. + eWH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                + 11951748. * (1. + eWH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 540010. * (1. + eWH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-160282. * (1. + eWH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 285105. * (1. + eWH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 3.287 * (1. + eWH_1314_DeltaGF) * delta_GF
                 - 1.986 * deltaMwd6())
-                + cWsch * (-30279.5 * (1. + eWH_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 0. * (1. + eWH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (-30279.5 * (1. + eWH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 0. * (1. + eWH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2. * (1. + eWH_1314_DeltaGF) * delta_GF)
                 ;
 
@@ -16474,24 +16476,24 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu +=
-                +121186. * (1. + eZH_2_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 79191.5 * (1. + eZH_2_HB) *ewgc("CHB") / LambdaNP2
-                + 712325. * (1. + eZH_2_HW) * ewgc("CHW") / LambdaNP2
+                +121186. * (1. + eZH_2_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 79191.5 * (1. + eZH_2_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 712325. * (1. + eZH_2_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 9992.07 * (1. + eZH_2_DHB) * CDHB / LambdaNP2
                 + 131146. * (1. + eZH_2_DHW) * CDHW / LambdaNP2
-                - 813859. * (1. + eZH_2_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                + 3350.92 * (1. + eZH_2_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                + 527754. * (1. + eZH_2_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                + 1274.21 * (1. + eZH_2_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                - 67806.5 * (1. + eZH_2_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                - 1130.86 * (1. + eZH_2_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                + 1558454. * (1. + eZH_2_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 9076.74 * (1. + eZH_2_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-16406.7 * (1. + eZH_2_HD) * ewgc("CHD") / LambdaNP2
-                + 189539. * (1. + eZH_2_HWB) * ewgc("CHWB") / LambdaNP2
+                - 813859. * (1. + eZH_2_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 3350.92 * (1. + eZH_2_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                + 527754. * (1. + eZH_2_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 1274.21 * (1. + eZH_2_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                - 67806.5 * (1. + eZH_2_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 1130.86 * (1. + eZH_2_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                + 1558454. * (1. + eZH_2_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 9076.74 * (1. + eZH_2_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-16406.7 * (1. + eZH_2_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 189539. * (1. + eZH_2_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2.54 * (1. + eZH_2_DeltaGF) * delta_GF)
-                + cWsch * (+38221.8 * (1. + eZH_2_HD) * ewgc("CHD") / LambdaNP2
-                + 309296. * (1. + eZH_2_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (+38221.8 * (1. + eZH_2_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 309296. * (1. + eZH_2_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2. * (1. + eZH_2_DeltaGF) * delta_GF)
                 ;
 
@@ -16506,24 +16508,24 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
         C1 = 0.0123;
 
         mu +=
-                +121226. * (1. + eZH_78_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 87099.3 * (1. + eZH_78_HB) *ewgc("CHB") / LambdaNP2
-                + 717825. * (1. + eZH_78_HW) * ewgc("CHW") / LambdaNP2
+                +121226. * (1. + eZH_78_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 87099.3 * (1. + eZH_78_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 717825. * (1. + eZH_78_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 17433.4 * (1. + eZH_78_DHB) * CDHB / LambdaNP2
                 + 153216. * (1. + eZH_78_DHW) * CDHW / LambdaNP2
-                - 213136. * (1. + eZH_78_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                + 30259.1 * (1. + eZH_78_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                + 405194. * (1. + eZH_78_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                + 16467.8 * (1. + eZH_78_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                - 127014. * (1. + eZH_78_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                - 12241.3 * (1. + eZH_78_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                + 1608269. * (1. + eZH_78_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 104261. * (1. + eZH_78_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-15321.2 * (1. + eZH_78_HD) * ewgc("CHD") / LambdaNP2
-                + 203123. * (1. + eZH_78_HWB) * ewgc("CHWB") / LambdaNP2
+                - 213136. * (1. + eZH_78_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 30259.1 * (1. + eZH_78_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                + 405194. * (1. + eZH_78_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 16467.8 * (1. + eZH_78_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                - 127014. * (1. + eZH_78_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 12241.3 * (1. + eZH_78_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                + 1608269. * (1. + eZH_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 104261. * (1. + eZH_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-15321.2 * (1. + eZH_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 203123. * (1. + eZH_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2.506 * (1. + eZH_78_DeltaGF) * delta_GF)
-                + cWsch * (+35707.6 * (1. + eZH_78_HD) * ewgc("CHD") / LambdaNP2
-                + 315273. * (1. + eZH_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (+35707.6 * (1. + eZH_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 315273. * (1. + eZH_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 1.999 * (1. + eZH_78_DeltaGF) * delta_GF)
                 ;
 
@@ -16538,24 +16540,24 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
         C1 = 0.0122;
 
         mu +=
-                +121277. * (1. + eZH_78_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 87409.1 * (1. + eZH_78_HB) *ewgc("CHB") / LambdaNP2
-                + 721014. * (1. + eZH_78_HW) * ewgc("CHW") / LambdaNP2
+                +121277. * (1. + eZH_78_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 87409.1 * (1. + eZH_78_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 721014. * (1. + eZH_78_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 18357.2 * (1. + eZH_78_DHB) * CDHB / LambdaNP2
                 + 158294. * (1. + eZH_78_DHW) * CDHW / LambdaNP2
-                - 211101. * (1. + eZH_78_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                + 32881.7 * (1. + eZH_78_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                + 409966. * (1. + eZH_78_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                + 18389.4 * (1. + eZH_78_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                - 129402. * (1. + eZH_78_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                - 13507. * (1. + eZH_78_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                + 1632382. * (1. + eZH_78_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 115538. * (1. + eZH_78_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-15333.2 * (1. + eZH_78_HD) * ewgc("CHD") / LambdaNP2
-                + 204451. * (1. + eZH_78_HWB) * ewgc("CHWB") / LambdaNP2
+                - 211101. * (1. + eZH_78_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 32881.7 * (1. + eZH_78_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                + 409966. * (1. + eZH_78_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 18389.4 * (1. + eZH_78_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                - 129402. * (1. + eZH_78_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 13507. * (1. + eZH_78_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                + 1632382. * (1. + eZH_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 115538. * (1. + eZH_78_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-15333.2 * (1. + eZH_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 204451. * (1. + eZH_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2.506 * (1. + eZH_78_DeltaGF) * delta_GF)
-                + cWsch * (+35736.8 * (1. + eZH_78_HD) * ewgc("CHD") / LambdaNP2
-                + 316485. * (1. + eZH_78_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (+35736.8 * (1. + eZH_78_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 316485. * (1. + eZH_78_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2. * (1. + eZH_78_DeltaGF) * delta_GF)
                 ;
 
@@ -16570,24 +16572,24 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
         C1 = 0.0119;
 
         mu +=
-                +121234. * (1. + eZH_1314_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 88512.4 * (1. + eZH_1314_HB) *ewgc("CHB") / LambdaNP2
-                + 728790. * (1. + eZH_1314_HW) * ewgc("CHW") / LambdaNP2
+                +121234. * (1. + eZH_1314_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 88512.4 * (1. + eZH_1314_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 728790. * (1. + eZH_1314_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 21680.9 * (1. + eZH_1314_DHB) * CDHB / LambdaNP2
                 + 175494. * (1. + eZH_1314_DHW) * CDHW / LambdaNP2
-                - 196945. * (1. + eZH_1314_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                + 43331.9 * (1. + eZH_1314_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                + 422018. * (1. + eZH_1314_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                + 26503. * (1. + eZH_1314_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                - 136921. * (1. + eZH_1314_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                - 18730.5 * (1. + eZH_1314_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                + 1700150. * (1. + eZH_1314_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 162456. * (1. + eZH_1314_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-15274.7 * (1. + eZH_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 207822. * (1. + eZH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                - 196945. * (1. + eZH_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 43331.9 * (1. + eZH_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                + 422018. * (1. + eZH_1314_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 26503. * (1. + eZH_1314_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                - 136921. * (1. + eZH_1314_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 18730.5 * (1. + eZH_1314_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                + 1700150. * (1. + eZH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 162456. * (1. + eZH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-15274.7 * (1. + eZH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 207822. * (1. + eZH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2.502 * (1. + eZH_1314_DeltaGF) * delta_GF)
-                + cWsch * (+35605.2 * (1. + eZH_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 319361. * (1. + eZH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (+35605.2 * (1. + eZH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 319361. * (1. + eZH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 1.999 * (1. + eZH_1314_DeltaGF) * delta_GF)
                 ;
 
@@ -16604,23 +16606,23 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
         C1 = 0.0118;
 
         mu +=
-                +121216. * (1. + eZH_1314_Hbox) * ewgc("CHbox") / LambdaNP2
-                // -148862. * (1. + eZH_1314_HQ1_11 ) * ewgc("CHq1R",0,0) / LambdaNP2
-                // +451139. * (1. + eZH_1314_Hu_11 ) * ewgc("CHuR",0,0) / LambdaNP2
-                // -157486. * (1. + eZH_1314_Hd_11 ) * ewgc("CHdR",0,0) / LambdaNP2
-                // +1879522. * (1. + eZH_1314_HQ3_11 ) * ewgc("CHq3R",0,0) / LambdaNP2
-                - 192919. * (1. + eZH_1314_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                + 45027.7 * (1. + eZH_1314_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                + 423160. * (1. + eZH_1314_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                + 27887. * (1. + eZH_1314_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                - 137883. * (1. + eZH_1314_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                - 19603.3 * (1. + eZH_1314_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                + 1709121. * (1. + eZH_1314_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 170449. * (1. + eZH_1314_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                - 15263.4 * (1. + eZH_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 88565.4 * (1. + eZH_1314_HB) *ewgc("CHB") / LambdaNP2
-                + 729690. * (1. + eZH_1314_HW) * ewgc("CHW") / LambdaNP2
-                + 208170. * (1. + eZH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                +121216. * (1. + eZH_1314_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                // -148862. * (1. + eZH_1314_HQ1_11 ) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                // +451139. * (1. + eZH_1314_Hu_11 ) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                // -157486. * (1. + eZH_1314_Hd_11 ) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                // +1879522. * (1. + eZH_1314_HQ3_11 ) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 192919. * (1. + eZH_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 45027.7 * (1. + eZH_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                + 423160. * (1. + eZH_1314_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 27887. * (1. + eZH_1314_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                - 137883. * (1. + eZH_1314_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 19603.3 * (1. + eZH_1314_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                + 1709121. * (1. + eZH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 170449. * (1. + eZH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                - 15263.4 * (1. + eZH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 88565.4 * (1. + eZH_1314_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 729690. * (1. + eZH_1314_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 208170. * (1. + eZH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 22093. * (1. + eZH_1314_DHB) * CDHB / LambdaNP2
                 + 177891. * (1. + eZH_1314_DHW) * CDHW / LambdaNP2
                 - 2.504 * (1. + eZH_1314_DeltaGF) * delta_GF
@@ -16639,15 +16641,15 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
         C1 = 0.0116; // From arXiv: 1902.00134
 
         mu +=
-                +121206. * ewgc("CHbox") / LambdaNP2
-                - 101865. * ewgc("CHq1R",0,0) / LambdaNP2
-                + 468029. * ewgc("CHuR",0,0) / LambdaNP2
-                - 173377. * ewgc("CHdR",0,0) / LambdaNP2
-                + 2002478. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 15486.3 * ewgc("CHD") / LambdaNP2
-                + 89958. *ewgc("CHB") / LambdaNP2
-                + 735013. * ewgc("CHW") / LambdaNP2
-                + 211026. * ewgc("CHWB") / LambdaNP2
+                +121206. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 101865. * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 468029. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                - 173377. * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                + 2002478. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 15486.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 89958. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 735013. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 211026. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 25604. * CDHB / LambdaNP2
                 + 196710. * CDHW / LambdaNP2
                 - 2.505 * delta_GF
@@ -16666,15 +16668,15 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu +=
-                +121269. * ewgc("CHbox") / LambdaNP2
-                + 90.68 * ewgc("CHq1R",0,0) / LambdaNP2
-                + 484275. * ewgc("CHuR",0,0) / LambdaNP2
-                - 197878. * ewgc("CHdR",0,0) / LambdaNP2
-                + 2175601. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 14992.4 * ewgc("CHD") / LambdaNP2
-                + 91707.3 *ewgc("CHB") / LambdaNP2
-                + 741805. * ewgc("CHW") / LambdaNP2
-                + 215319. * ewgc("CHWB") / LambdaNP2
+                +121269. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 90.68 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 484275. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                - 197878. * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                + 2175601. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 14992.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 91707.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 741805. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 215319. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 31435.6 * CDHB / LambdaNP2
                 + 223843. * CDHW / LambdaNP2
                 - 2.504 * delta_GF
@@ -16712,24 +16714,24 @@ double NPSMEFTd6General::muZHpT250(const double sqrt_s) const
         C1 = 0.0119;
 
         mu +=
-                +121102. * (1. + eZH_1314_Hbox) * ewgc("CHbox") / LambdaNP2
-                + 103334. * (1. + eZH_1314_HB) *ewgc("CHB") / LambdaNP2
-                + 968778. * (1. + eZH_1314_HW) * ewgc("CHW") / LambdaNP2
+                +121102. * (1. + eZH_1314_Hbox) * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 103334. * (1. + eZH_1314_HB) *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 968778. * (1. + eZH_1314_HW) * getSMEFTCoeffEW("CHW") / LambdaNP2
                 + 295029. * (1. + eZH_1314_DHB) * CDHB / LambdaNP2
                 + 1652242. * (1. + eZH_1314_DHW) * CDHW / LambdaNP2
-                - 1507566. * (1. + eZH_1314_HQ1_11) * ewgc("CHq1R",0,0) / LambdaNP2
-                + 165375. * (1. + eZH_1314_HQ1_11) * ewgc("CHq1R",1,1) / LambdaNP2
-                + 2712770. * (1. + eZH_1314_Hu_11) * ewgc("CHuR",0,0) / LambdaNP2
-                + 83533. * (1. + eZH_1314_Hu_11) * ewgc("CHuR",1,1) / LambdaNP2
-                - 836015. * (1. + eZH_1314_Hd_11) * ewgc("CHdR",0,0) / LambdaNP2
-                - 64306.7 * (1. + eZH_1314_Hd_11) * ewgc("CHdR",1,1) / LambdaNP2
-                + 10690175. * (1. + eZH_1314_HQ3_11) * ewgc("CHq3R",0,0) / LambdaNP2
-                + 540904. * (1. + eZH_1314_HQ3_11) * ewgc("CHq3R",1,1) / LambdaNP2
-                + cAsch * (-15339.3 * (1. + eZH_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 286518. * (1. + eZH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                - 1507566. * (1. + eZH_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 165375. * (1. + eZH_1314_HQ1_11) * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                + 2712770. * (1. + eZH_1314_Hu_11) * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 83533. * (1. + eZH_1314_Hu_11) * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                - 836015. * (1. + eZH_1314_Hd_11) * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 64306.7 * (1. + eZH_1314_Hd_11) * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                + 10690175. * (1. + eZH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                + 540904. * (1. + eZH_1314_HQ3_11) * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + cAsch * (-15339.3 * (1. + eZH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 286518. * (1. + eZH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2.508 * (1. + eZH_1314_DeltaGF) * delta_GF)
-                + cWsch * (+35828.1 * (1. + eZH_1314_HD) * ewgc("CHD") / LambdaNP2
-                + 398987. * (1. + eZH_1314_HWB) * ewgc("CHWB") / LambdaNP2
+                + cWsch * (+35828.1 * (1. + eZH_1314_HD) * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 398987. * (1. + eZH_1314_HWB) * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 2. * (1. + eZH_1314_DeltaGF) * delta_GF)
                 ;
 
@@ -16769,14 +16771,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = 0.017;
 
         mu +=
-                +121263. * ewgc("CHbox") / LambdaNP2
-                + 898682. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 767820. * ewgc("CHeR",0,0) / LambdaNP2
-                + 898682. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6046.36 * ewgc("CHD") / LambdaNP2
-                + 122439. *ewgc("CHB") / LambdaNP2
-                + 540057. * ewgc("CHW") / LambdaNP2
-                + 231063. * ewgc("CHWB") / LambdaNP2
+                +121263. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 898682. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 767820. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 898682. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6046.36 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 122439. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 540057. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 231063. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 17593.2 * CDHB / LambdaNP2
                 + 53409.5 * CDHW / LambdaNP2
                 - 2.2 * delta_GF
@@ -16798,14 +16800,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = 0.015;
 
         mu +=
-                +121263. * ewgc("CHbox") / LambdaNP2
-                + 975101. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 833750. * ewgc("CHeR",0,0) / LambdaNP2
-                + 975101. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6046.36 * ewgc("CHD") / LambdaNP2
-                + 128443. *ewgc("CHB") / LambdaNP2
-                + 568273. * ewgc("CHW") / LambdaNP2
-                + 244206. * ewgc("CHWB") / LambdaNP2
+                +121263. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 975101. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 833750. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 975101. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6046.36 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 128443. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 568273. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 244206. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 19818.6 * CDHB / LambdaNP2
                 + 60127.6 * CDHW / LambdaNP2
                 - 2.2 * delta_GF
@@ -16827,14 +16829,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = 0.0057;
 
         mu +=
-                +121283. * ewgc("CHbox") / LambdaNP2
-                + 1911340. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 1640958. * ewgc("CHeR",0,0) / LambdaNP2
-                + 1911340. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6009.52 * ewgc("CHD") / LambdaNP2
-                + 173183. *ewgc("CHB") / LambdaNP2
-                + 785843. * ewgc("CHW") / LambdaNP2
-                + 344494. * ewgc("CHWB") / LambdaNP2
+                +121283. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 1911340. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 1640958. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 1911340. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6009.52 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 173183. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 785843. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 344494. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 59158.7 * CDHB / LambdaNP2
                 + 167954. * CDHW / LambdaNP2
                 - 2.201 * delta_GF
@@ -16856,14 +16858,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = 0.0057; // Use same as 350 GeV
 
         mu +=
-                +121243. * ewgc("CHbox") / LambdaNP2
-                + 2078482. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 1785085. * ewgc("CHeR",0,0) / LambdaNP2
-                + 2078482. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6010.65 * ewgc("CHD") / LambdaNP2
-                + 178173. *ewgc("CHB") / LambdaNP2
-                + 809806. * ewgc("CHW") / LambdaNP2
-                + 355487. * ewgc("CHWB") / LambdaNP2
+                +121243. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 2078482. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 1785085. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 2078482. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6010.65 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 178173. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 809806. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 355487. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 67662.7 * CDHB / LambdaNP2
                 + 190194. * CDHW / LambdaNP2
                 - 2.201 * delta_GF
@@ -16885,14 +16887,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = 0.0057; // Use same as 350 GeV
 
         mu +=
-                +121281. * ewgc("CHbox") / LambdaNP2
-                + 2253013. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 1934557. * ewgc("CHeR",0,0) / LambdaNP2
-                + 2253013. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6026.37 * ewgc("CHD") / LambdaNP2
-                + 182674. *ewgc("CHB") / LambdaNP2
-                + 832109. * ewgc("CHW") / LambdaNP2
-                + 365819. * ewgc("CHWB") / LambdaNP2
+                +121281. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 2253013. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 1934557. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 2253013. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6026.37 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 182674. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 832109. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 365819. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 76742. * CDHB / LambdaNP2
                 + 214030. * CDHW / LambdaNP2
                 - 2.202 * delta_GF
@@ -16914,14 +16916,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = 0.00099;
 
         mu +=
-                +121264. * ewgc("CHbox") / LambdaNP2
-                + 3900384. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 3350136. * ewgc("CHeR",0,0) / LambdaNP2
-                + 3900384. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6019.22 * ewgc("CHD") / LambdaNP2
-                + 209229. *ewgc("CHB") / LambdaNP2
-                + 959942. * ewgc("CHW") / LambdaNP2
-                + 425112. * ewgc("CHWB") / LambdaNP2
+                +121264. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 3900384. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 3350136. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 3900384. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6019.22 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 209229. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 959942. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 425112. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 169841. * CDHB / LambdaNP2
                 + 455437. * CDHW / LambdaNP2
                 - 2.202 * delta_GF
@@ -16943,14 +16945,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = -0.0012;
 
         mu +=
-                +121274. * ewgc("CHbox") / LambdaNP2
-                + 15601820. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 13395670. * ewgc("CHeR",0,0) / LambdaNP2
-                + 15601820. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6040.16 * ewgc("CHD") / LambdaNP2
-                + 243960. *ewgc("CHB") / LambdaNP2
-                + 1128805. * ewgc("CHW") / LambdaNP2
-                + 503138. * ewgc("CHWB") / LambdaNP2
+                +121274. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 15601820. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 13395670. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 15601820. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6040.16 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 243960. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 1128805. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 503138. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 899357. * CDHB / LambdaNP2
                 + 2321619. * CDHW / LambdaNP2
                 - 2.202 * delta_GF
@@ -16972,14 +16974,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = -0.0011;
 
         mu +=
-                +121283. * ewgc("CHbox") / LambdaNP2
-                + 30579278. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 26253064. * ewgc("CHeR",0,0) / LambdaNP2
-                + 30579278. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6010.77 * ewgc("CHD") / LambdaNP2
-                + 250804. *ewgc("CHB") / LambdaNP2
-                + 1161208. * ewgc("CHW") / LambdaNP2
-                + 518040. * ewgc("CHWB") / LambdaNP2
+                +121283. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 30579278. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 26253064. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 30579278. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6010.77 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 250804. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 1161208. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 518040. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 1848758. * CDHB / LambdaNP2
                 + 4747422. * CDHW / LambdaNP2
                 - 2.203 * delta_GF
@@ -17001,14 +17003,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = -0.0011; // Use the same as 1400 GeV
 
         mu +=
-                +121262. * ewgc("CHbox") / LambdaNP2
-                + 35102329. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 30135878. * ewgc("CHeR",0,0) / LambdaNP2
-                + 35102329. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6034.22 * ewgc("CHD") / LambdaNP2
-                + 251576. *ewgc("CHB") / LambdaNP2
-                + 1165634. * ewgc("CHW") / LambdaNP2
-                + 519954. * ewgc("CHWB") / LambdaNP2
+                +121262. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 35102329. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 30135878. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 35102329. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6034.22 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 251576. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 1165634. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 519954. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 2132554. * CDHB / LambdaNP2
                 + 5481906. * CDHW / LambdaNP2
                 - 2.203 * delta_GF
@@ -17030,14 +17032,14 @@ double NPSMEFTd6General::mueeZH(const double sqrt_s) const
         C1 = -0.00054;
 
         mu +=
-                +121279. * ewgc("CHbox") / LambdaNP2
-                + 140413697. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 120540988. * ewgc("CHeR",0,0) / LambdaNP2
-                + 140413697. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 6012.61 * ewgc("CHD") / LambdaNP2
-                + 257222. *ewgc("CHB") / LambdaNP2
-                + 1188444. * ewgc("CHW") / LambdaNP2
-                + 530503. * ewgc("CHWB") / LambdaNP2
+                +121279. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 140413697. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 120540988. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 140413697. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 6012.61 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 257222. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 1188444. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 530503. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 8839419. * CDHB / LambdaNP2
                 + 22583370. * CDHW / LambdaNP2
                 - 2.202 * delta_GF
@@ -17130,14 +17132,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121260. * ewgc("CHbox") / LambdaNP2
-                    + 117191. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1681596. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 117191. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74555.1 * ewgc("CHD") / LambdaNP2
-                    + 528105. *ewgc("CHB") / LambdaNP2
-                    + 134403. * ewgc("CHW") / LambdaNP2
-                    + 872560. * ewgc("CHWB") / LambdaNP2
+                    +121260. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 117191. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1681596. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 117191. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74555.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 528105. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 134403. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 872560. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 137571. * CDHB / LambdaNP2
                     - 12321.5 * CDHW / LambdaNP2
                     + 0.459 * delta_GF
@@ -17151,14 +17153,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121254. * ewgc("CHbox") / LambdaNP2
-                    + 1495015. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 76567.2 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 1495015. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67582.1 * ewgc("CHD") / LambdaNP2
-                    - 187104. *ewgc("CHB") / LambdaNP2
-                    + 849552. * ewgc("CHW") / LambdaNP2
-                    - 258537. * ewgc("CHWB") / LambdaNP2
+                    +121254. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 1495015. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 76567.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 1495015. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67582.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 187104. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 849552. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 258537. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 73970.1 * CDHB / LambdaNP2
                     + 103582. * CDHW / LambdaNP2
                     - 4.23 * delta_GF
@@ -17172,14 +17174,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121256. * ewgc("CHbox") / LambdaNP2
-                    + 204529. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1578998. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 204529. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65548.7 * ewgc("CHD") / LambdaNP2
-                    + 482729. *ewgc("CHB") / LambdaNP2
-                    + 179733. * ewgc("CHW") / LambdaNP2
-                    + 800870. * ewgc("CHWB") / LambdaNP2
+                    +121256. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 204529. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1578998. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 204529. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65548.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 482729. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 179733. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 800870. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 124170. * CDHB / LambdaNP2
                     - 5016.48 * CDHW / LambdaNP2
                     + 0.162 * delta_GF
@@ -17193,14 +17195,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121264. * ewgc("CHbox") / LambdaNP2
-                    + 1442776. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 137405. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 1442776. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62167.6 * ewgc("CHD") / LambdaNP2
-                    - 159988. *ewgc("CHB") / LambdaNP2
-                    + 822448. * ewgc("CHW") / LambdaNP2
-                    - 215639. * ewgc("CHWB") / LambdaNP2
+                    +121264. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 1442776. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 137405. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 1442776. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62167.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 159988. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 822448. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 215639. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 65950.1 * CDHB / LambdaNP2
                     + 99206.1 * CDHW / LambdaNP2
                     - 4.052 * delta_GF
@@ -17222,14 +17224,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121264. * ewgc("CHbox") / LambdaNP2
-                    + 127210. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1824910. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 127210. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74597.1 * ewgc("CHD") / LambdaNP2
-                    + 560319. *ewgc("CHB") / LambdaNP2
-                    + 136129. * ewgc("CHW") / LambdaNP2
-                    + 902676. * ewgc("CHWB") / LambdaNP2
+                    +121264. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 127210. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1824910. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 127210. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74597.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 560319. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 136129. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 902676. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 154358. * CDHB / LambdaNP2
                     - 13612.9 * CDHW / LambdaNP2
                     + 0.459 * delta_GF
@@ -17243,14 +17245,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121257. * ewgc("CHbox") / LambdaNP2
-                    + 1622228. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 83107. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 1622228. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67554.3 * ewgc("CHD") / LambdaNP2
-                    - 201409. *ewgc("CHB") / LambdaNP2
-                    + 898116. * ewgc("CHW") / LambdaNP2
-                    - 258306. * ewgc("CHWB") / LambdaNP2
+                    +121257. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 1622228. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 83107. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 1622228. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67554.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 201409. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 898116. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 258306. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 82898. * CDHB / LambdaNP2
                     + 116421. * CDHW / LambdaNP2
                     - 4.23 * delta_GF
@@ -17264,14 +17266,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121309. * ewgc("CHbox") / LambdaNP2
-                    + 221930. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1714047. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 221930. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65599.6 * ewgc("CHD") / LambdaNP2
-                    + 512136. *ewgc("CHB") / LambdaNP2
-                    + 184424. * ewgc("CHW") / LambdaNP2
-                    + 829145. * ewgc("CHWB") / LambdaNP2
+                    +121309. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 221930. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1714047. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 221930. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65599.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 512136. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 184424. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 829145. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 139369. * CDHB / LambdaNP2
                     - 5351.17 * CDHW / LambdaNP2
                     + 0.162 * delta_GF
@@ -17285,14 +17287,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121269. * ewgc("CHbox") / LambdaNP2
-                    + 1565559. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 148908. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 1565559. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62170. * ewgc("CHD") / LambdaNP2
-                    - 172540. *ewgc("CHB") / LambdaNP2
-                    + 869218. * ewgc("CHW") / LambdaNP2
-                    - 214299. * ewgc("CHWB") / LambdaNP2
+                    +121269. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 1565559. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 148908. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 1565559. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62170. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 172540. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 869218. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 214299. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 73929.8 * CDHB / LambdaNP2
                     + 111494. * CDHW / LambdaNP2
                     - 4.053 * delta_GF
@@ -17314,14 +17316,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121274. * ewgc("CHbox") / LambdaNP2
-                    + 249309. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 3576996. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 249309. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74596.5 * ewgc("CHD") / LambdaNP2
-                    + 812491. *ewgc("CHB") / LambdaNP2
-                    + 146212. * ewgc("CHW") / LambdaNP2
-                    + 1135161. * ewgc("CHWB") / LambdaNP2
+                    +121274. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 249309. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 3576996. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 249309. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74596.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 812491. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 146212. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1135161. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 395085. * CDHB / LambdaNP2
                     - 16140.8 * CDHW / LambdaNP2
                     + 0.458 * delta_GF
@@ -17335,14 +17337,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121289. * ewgc("CHbox") / LambdaNP2
-                    + 3179548. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 163347. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 3179548. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67524.8 * ewgc("CHD") / LambdaNP2
-                    - 314653. *ewgc("CHB") / LambdaNP2
-                    + 1273817. * ewgc("CHW") / LambdaNP2
-                    - 258947. * ewgc("CHWB") / LambdaNP2
+                    +121289. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3179548. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 163347. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 3179548. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67524.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 314653. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1273817. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 258947. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 197137. * CDHB / LambdaNP2
                     + 308384. * CDHW / LambdaNP2
                     - 4.231 * delta_GF
@@ -17356,14 +17358,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121304. * ewgc("CHbox") / LambdaNP2
-                    + 434952. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 3360980. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 434952. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65624.7 * ewgc("CHD") / LambdaNP2
-                    + 741142. *ewgc("CHB") / LambdaNP2
-                    + 217654. * ewgc("CHW") / LambdaNP2
-                    + 1046799. * ewgc("CHWB") / LambdaNP2
+                    +121304. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 434952. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 3360980. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 434952. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65624.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 741142. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 217654. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1046799. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 357606. * CDHB / LambdaNP2
                     + 4440.1 * CDHW / LambdaNP2
                     + 0.161 * delta_GF
@@ -17377,14 +17379,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121259. * ewgc("CHbox") / LambdaNP2
-                    + 3068356. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 292427. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 3068356. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62160.7 * ewgc("CHD") / LambdaNP2
-                    - 271962. *ewgc("CHB") / LambdaNP2
-                    + 1231171. * ewgc("CHW") / LambdaNP2
-                    - 206112. * ewgc("CHWB") / LambdaNP2
+                    +121259. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3068356. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 292427. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 3068356. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62160.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 271962. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1231171. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 206112. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 174718. * CDHB / LambdaNP2
                     + 296046. * CDHW / LambdaNP2
                     - 4.053 * delta_GF
@@ -17406,14 +17408,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121270. * ewgc("CHbox") / LambdaNP2
-                    + 271098. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 3890169. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 271098. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74554. * ewgc("CHD") / LambdaNP2
-                    + 840573. *ewgc("CHB") / LambdaNP2
-                    + 147108. * ewgc("CHW") / LambdaNP2
-                    + 1160947. * ewgc("CHWB") / LambdaNP2
+                    +121270. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 271098. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 3890169. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 271098. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74554. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 840573. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 147108. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1160947. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 442125. * CDHB / LambdaNP2
                     - 15038.8 * CDHW / LambdaNP2
                     + 0.459 * delta_GF
@@ -17427,14 +17429,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121238. * ewgc("CHbox") / LambdaNP2
-                    + 3457848. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 177584. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 3457848. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67578.3 * ewgc("CHD") / LambdaNP2
-                    - 327391. *ewgc("CHB") / LambdaNP2
-                    + 1315671. * ewgc("CHW") / LambdaNP2
-                    - 259142. * ewgc("CHWB") / LambdaNP2
+                    +121238. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3457848. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 177584. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 3457848. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67578.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 327391. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1315671. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 259142. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 218241. * CDHB / LambdaNP2
                     + 346804. * CDHW / LambdaNP2
                     - 4.231 * delta_GF
@@ -17448,14 +17450,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121251. * ewgc("CHbox") / LambdaNP2
-                    + 472985. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 3655203. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 472985. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65559.4 * ewgc("CHD") / LambdaNP2
-                    + 766585. *ewgc("CHB") / LambdaNP2
-                    + 221202. * ewgc("CHW") / LambdaNP2
-                    + 1070933. * ewgc("CHWB") / LambdaNP2
+                    +121251. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 472985. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 3655203. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 472985. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65559.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 766585. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 221202. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1070933. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 400293. * CDHB / LambdaNP2
                     + 7914.02 * CDHW / LambdaNP2
                     + 0.161 * delta_GF
@@ -17469,14 +17471,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121238. * ewgc("CHbox") / LambdaNP2
-                    + 3336984. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 317944. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 3336984. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62188.9 * ewgc("CHD") / LambdaNP2
-                    - 283174. *ewgc("CHB") / LambdaNP2
-                    + 1271272. * ewgc("CHW") / LambdaNP2
-                    - 205330. * ewgc("CHWB") / LambdaNP2
+                    +121238. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3336984. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 317944. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 3336984. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62188.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 283174. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1271272. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 205330. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 193153. * CDHB / LambdaNP2
                     + 333078. * CDHW / LambdaNP2
                     - 4.053 * delta_GF
@@ -17498,14 +17500,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121228. * ewgc("CHbox") / LambdaNP2
-                    + 293860. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 4216491. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 293860. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74561.4 * ewgc("CHD") / LambdaNP2
-                    + 866754. *ewgc("CHB") / LambdaNP2
-                    + 147982. * ewgc("CHW") / LambdaNP2
-                    + 1184912. * ewgc("CHWB") / LambdaNP2
+                    +121228. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 293860. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 4216491. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 293860. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74561.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 866754. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 147982. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1184912. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 492018. * CDHB / LambdaNP2
                     - 13596.5 * CDHW / LambdaNP2
                     + 0.459 * delta_GF
@@ -17519,14 +17521,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121226. * ewgc("CHbox") / LambdaNP2
-                    + 3747707. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 192650. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 3747707. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67608.3 * ewgc("CHD") / LambdaNP2
-                    - 339193. *ewgc("CHB") / LambdaNP2
-                    + 1354040. * ewgc("CHW") / LambdaNP2
-                    - 259321. * ewgc("CHWB") / LambdaNP2
+                    +121226. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3747707. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 192650. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 3747707. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67608.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 339193. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1354040. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 259321. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 240311. * CDHB / LambdaNP2
                     + 387710. * CDHW / LambdaNP2
                     - 4.23 * delta_GF
@@ -17540,14 +17542,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121325. * ewgc("CHbox") / LambdaNP2
-                    + 512707. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 3961665. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 512707. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65601.7 * ewgc("CHD") / LambdaNP2
-                    + 790306. *ewgc("CHB") / LambdaNP2
-                    + 224394. * ewgc("CHW") / LambdaNP2
-                    + 1093297. * ewgc("CHWB") / LambdaNP2
+                    +121325. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 512707. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 3961665. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 512707. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65601.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 790306. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 224394. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1093297. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 445530. * CDHB / LambdaNP2
                     + 11860.4 * CDHW / LambdaNP2
                     + 0.161 * delta_GF
@@ -17561,14 +17563,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121273. * ewgc("CHbox") / LambdaNP2
-                    + 3617032. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 344629. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 3617032. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62148.3 * ewgc("CHD") / LambdaNP2
-                    - 293491. *ewgc("CHB") / LambdaNP2
-                    + 1308558. * ewgc("CHW") / LambdaNP2
-                    - 204594. * ewgc("CHWB") / LambdaNP2
+                    +121273. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3617032. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 344629. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 3617032. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62148.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 293491. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1308558. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 204594. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 212514. * CDHB / LambdaNP2
                     + 372554. * CDHW / LambdaNP2
                     - 4.053 * delta_GF
@@ -17590,14 +17592,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121268. * ewgc("CHbox") / LambdaNP2
-                    + 508715. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 7299333. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 508715. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74603.6 * ewgc("CHD") / LambdaNP2
-                    + 1018069. *ewgc("CHB") / LambdaNP2
-                    + 151257. * ewgc("CHW") / LambdaNP2
-                    + 1323862. * ewgc("CHWB") / LambdaNP2
+                    +121268. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 508715. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 7299333. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 508715. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74603.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1018069. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 151257. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1323862. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 985604. * CDHB / LambdaNP2
                     + 8362.16 * CDHW / LambdaNP2
                     + 0.458 * delta_GF
@@ -17611,14 +17613,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121273. * ewgc("CHbox") / LambdaNP2
-                    + 6488707. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 332950. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 6488707. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67530.9 * ewgc("CHD") / LambdaNP2
-                    - 408101. *ewgc("CHB") / LambdaNP2
-                    + 1576859. * ewgc("CHW") / LambdaNP2
-                    - 260777. * ewgc("CHWB") / LambdaNP2
+                    +121273. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 6488707. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 332950. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 6488707. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67530.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 408101. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1576859. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 260777. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 452746. * CDHB / LambdaNP2
                     + 796569. * CDHW / LambdaNP2
                     - 4.231 * delta_GF
@@ -17632,14 +17634,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121280. * ewgc("CHbox") / LambdaNP2
-                    + 887632. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 6858533. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 887632. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65606.6 * ewgc("CHD") / LambdaNP2
-                    + 927745. *ewgc("CHB") / LambdaNP2
-                    + 241619. * ewgc("CHW") / LambdaNP2
-                    + 1223535. * ewgc("CHWB") / LambdaNP2
+                    +121280. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 887632. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 6858533. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 887632. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65606.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 927745. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 241619. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1223535. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 894441. * CDHB / LambdaNP2
                     + 58317. * CDHW / LambdaNP2
                     + 0.161 * delta_GF
@@ -17653,14 +17655,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121268. * ewgc("CHbox") / LambdaNP2
-                    + 6262095. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 597046. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 6262095. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62148.8 * ewgc("CHD") / LambdaNP2
-                    - 353914. *ewgc("CHB") / LambdaNP2
-                    + 1522841. * ewgc("CHW") / LambdaNP2
-                    - 200684. * ewgc("CHWB") / LambdaNP2
+                    +121268. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 6262095. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 597046. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 6262095. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62148.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 353914. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1522841. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 200684. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 398214. * CDHB / LambdaNP2
                     + 766821. * CDHW / LambdaNP2
                     - 4.054 * delta_GF
@@ -17682,14 +17684,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121236. * ewgc("CHbox") / LambdaNP2
-                    + 2034785. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 29195703. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 2034785. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74612.7 * ewgc("CHD") / LambdaNP2
-                    + 1218284. *ewgc("CHB") / LambdaNP2
-                    + 154779. * ewgc("CHW") / LambdaNP2
-                    + 1507673. * ewgc("CHWB") / LambdaNP2
+                    +121236. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 2034785. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 29195703. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 2034785. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74612.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1218284. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 154779. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1507673. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 4701988. * CDHB / LambdaNP2
                     + 239404. * CDHW / LambdaNP2
                     + 0.458 * delta_GF
@@ -17703,14 +17705,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121298. * ewgc("CHbox") / LambdaNP2
-                    + 25954994. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1333713. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 25954994. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67536.7 * ewgc("CHD") / LambdaNP2
-                    - 499699. *ewgc("CHB") / LambdaNP2
-                    + 1872177. * ewgc("CHW") / LambdaNP2
-                    - 263454. * ewgc("CHWB") / LambdaNP2
+                    +121298. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 25954994. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1333713. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 25954994. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67536.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 499699. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1872177. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 263454. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 1999387. * CDHB / LambdaNP2
                     + 3910434. * CDHW / LambdaNP2
                     - 4.233 * delta_GF
@@ -17724,14 +17726,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == -20.) {
             mu +=
-                    +121257. * ewgc("CHbox") / LambdaNP2
-                    + 2475072. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 28682974. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 2475072. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 72023. * ewgc("CHD") / LambdaNP2
-                    + 1186280. *ewgc("CHB") / LambdaNP2
-                    + 186435. * ewgc("CHW") / LambdaNP2
-                    + 1475072. * ewgc("CHWB") / LambdaNP2
+                    +121257. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 2475072. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 28682974. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 2475072. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 72023. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1186280. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 186435. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1475072. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 4578518. * CDHB / LambdaNP2
                     + 307070. * CDHW / LambdaNP2
                     + 0.371 * delta_GF
@@ -17745,14 +17747,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 20.) {
             mu +=
-                    +121306. * ewgc("CHbox") / LambdaNP2
-                    + 25696973. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1634825. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 25696973. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 65976.8 * ewgc("CHD") / LambdaNP2
-                    - 480973. *ewgc("CHB") / LambdaNP2
-                    + 1853631. * ewgc("CHW") / LambdaNP2
-                    - 244288. * ewgc("CHWB") / LambdaNP2
+                    +121306. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 25696973. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1634825. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 25696973. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 65976.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 480973. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1853631. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 244288. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 1927204. * CDHB / LambdaNP2
                     + 3870798. * CDHW / LambdaNP2
                     - 4.182 * delta_GF
@@ -17766,14 +17768,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121307. * ewgc("CHbox") / LambdaNP2
-                    + 3550656. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 27432206. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 3550656. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65607.4 * ewgc("CHD") / LambdaNP2
-                    + 1109435. *ewgc("CHB") / LambdaNP2
-                    + 263679. * ewgc("CHW") / LambdaNP2
-                    + 1395519. * ewgc("CHWB") / LambdaNP2
+                    +121307. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3550656. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 27432206. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 3550656. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65607.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1109435. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 263679. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1395519. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 4277336. * CDHB / LambdaNP2
                     + 472106. * CDHW / LambdaNP2
                     + 0.159 * delta_GF
@@ -17787,14 +17789,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121327. * ewgc("CHbox") / LambdaNP2
-                    + 25048839. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2390358. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 25048839. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62132.7 * ewgc("CHD") / LambdaNP2
-                    - 434824. *ewgc("CHB") / LambdaNP2
-                    + 1807095. * ewgc("CHW") / LambdaNP2
-                    - 196264. * ewgc("CHWB") / LambdaNP2
+                    +121327. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 25048839. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2390358. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 25048839. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62132.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 434824. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1807095. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 196264. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 1746222. * CDHB / LambdaNP2
                     + 3771341. * CDHW / LambdaNP2
                     - 4.056 * delta_GF
@@ -17816,14 +17818,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121277. * ewgc("CHbox") / LambdaNP2
-                    + 3988231. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 57226150. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 3988231. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74608.5 * ewgc("CHD") / LambdaNP2
-                    + 1256970. *ewgc("CHB") / LambdaNP2
-                    + 155358. * ewgc("CHW") / LambdaNP2
-                    + 1542655. * ewgc("CHWB") / LambdaNP2
+                    +121277. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3988231. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 57226150. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 3988231. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74608.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1256970. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 155358. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1542655. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 9506894. * CDHB / LambdaNP2
                     + 553431. * CDHW / LambdaNP2
                     + 0.457 * delta_GF
@@ -17837,14 +17839,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121314. * ewgc("CHbox") / LambdaNP2
-                    + 50871646. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2614134. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 50871646. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67535.5 * ewgc("CHD") / LambdaNP2
-                    - 516385. *ewgc("CHB") / LambdaNP2
-                    + 1928805. * ewgc("CHW") / LambdaNP2
-                    - 264072. * ewgc("CHWB") / LambdaNP2
+                    +121314. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 50871646. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2614134. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 50871646. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67535.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 516385. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1928805. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 264072. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 3989947. * CDHB / LambdaNP2
                     + 7948308. * CDHW / LambdaNP2
                     - 4.233 * delta_GF
@@ -17858,14 +17860,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121250. * ewgc("CHbox") / LambdaNP2
-                    + 6958750. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 53762500. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 6958750. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65589.3 * ewgc("CHD") / LambdaNP2
-                    + 1144464. *ewgc("CHB") / LambdaNP2
-                    + 267732. * ewgc("CHW") / LambdaNP2
-                    + 1428214. * ewgc("CHWB") / LambdaNP2
+                    +121250. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 6958750. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 53762500. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 6958750. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65589.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1144464. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 267732. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1428214. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 8650536. * CDHB / LambdaNP2
                     + 1021964. * CDHW / LambdaNP2
                     + 0.16 * delta_GF
@@ -17879,14 +17881,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121278. * ewgc("CHbox") / LambdaNP2
-                    + 49094486. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 4685522. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 49094486. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62150.9 * ewgc("CHD") / LambdaNP2
-                    - 450090. *ewgc("CHB") / LambdaNP2
-                    + 1861602. * ewgc("CHW") / LambdaNP2
-                    - 195621. * ewgc("CHWB") / LambdaNP2
+                    +121278. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 49094486. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 4685522. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 49094486. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62150.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 450090. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1861602. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 195621. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 3478338. * CDHB / LambdaNP2
                     + 7668095. * CDHW / LambdaNP2
                     - 4.055 * delta_GF
@@ -17908,14 +17910,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121268. * ewgc("CHbox") / LambdaNP2
-                    + 4578315. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 65691823. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 4578315. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74595.2 * ewgc("CHD") / LambdaNP2
-                    + 1262261. *ewgc("CHB") / LambdaNP2
-                    + 155435. * ewgc("CHW") / LambdaNP2
-                    + 1547379. * ewgc("CHWB") / LambdaNP2
+                    +121268. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 4578315. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 65691823. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 4578315. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74595.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1262261. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 155435. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1547379. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 10961322. * CDHB / LambdaNP2
                     + 649157. * CDHW / LambdaNP2
                     + 0.457 * delta_GF
@@ -17929,14 +17931,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121277. * ewgc("CHbox") / LambdaNP2
-                    + 58398883. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 3000385. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 58398883. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67535.8 * ewgc("CHD") / LambdaNP2
-                    - 518798. *ewgc("CHB") / LambdaNP2
-                    + 1936613. * ewgc("CHW") / LambdaNP2
-                    - 264171. * ewgc("CHWB") / LambdaNP2
+                    +121277. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 58398883. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 3000385. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 58398883. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67535.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 518798. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1936613. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 264171. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 4590136. * CDHB / LambdaNP2
                     + 9169803. * CDHW / LambdaNP2
                     - 4.233 * delta_GF
@@ -17950,14 +17952,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121289. * ewgc("CHbox") / LambdaNP2
-                    + 7988570. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 61718691. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 7988570. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65599. * ewgc("CHD") / LambdaNP2
-                    + 1149083. *ewgc("CHB") / LambdaNP2
-                    + 268317. * ewgc("CHW") / LambdaNP2
-                    + 1432777. * ewgc("CHWB") / LambdaNP2
+                    +121289. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 7988570. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 61718691. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 7988570. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65599. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1149083. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 268317. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1432777. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 9972576. * CDHB / LambdaNP2
                     + 1188554. * CDHW / LambdaNP2
                     + 0.16 * delta_GF
@@ -17971,14 +17973,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121259. * ewgc("CHbox") / LambdaNP2
-                    + 56356946. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 5378233. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 56356946. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62168.7 * ewgc("CHD") / LambdaNP2
-                    - 452149. *ewgc("CHB") / LambdaNP2
-                    + 1869136. * ewgc("CHW") / LambdaNP2
-                    - 195562. * ewgc("CHWB") / LambdaNP2
+                    +121259. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 56356946. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 5378233. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 56356946. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62168.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 452149. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1869136. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 195562. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 4000306. * CDHB / LambdaNP2
                     + 8846432. * CDHW / LambdaNP2
                     - 4.055 * delta_GF
@@ -18000,14 +18002,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121320. * ewgc("CHbox") / LambdaNP2
-                    + 18314161. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 262773345. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 18314161. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 74663.6 * ewgc("CHD") / LambdaNP2
-                    + 1289569. *ewgc("CHB") / LambdaNP2
-                    + 155612. * ewgc("CHW") / LambdaNP2
-                    + 1572580. * ewgc("CHWB") / LambdaNP2
+                    +121320. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 18314161. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 262773345. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 18314161. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 74663.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1289569. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 155612. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1572580. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 44806408. * CDHB / LambdaNP2
                     + 2877519. * CDHW / LambdaNP2
                     + 0.456 * delta_GF
@@ -18021,14 +18023,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121305. * ewgc("CHbox") / LambdaNP2
-                    + 233598342. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 12002450. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 233598342. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 67507.7 * ewgc("CHD") / LambdaNP2
-                    - 531387. *ewgc("CHB") / LambdaNP2
-                    + 1976750. * ewgc("CHW") / LambdaNP2
-                    - 264661. * ewgc("CHWB") / LambdaNP2
+                    +121305. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 233598342. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 12002450. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 233598342. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 67507.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 531387. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1976750. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 264661. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 18587969. * CDHB / LambdaNP2
                     + 37618569. * CDHW / LambdaNP2
                     - 4.233 * delta_GF
@@ -18042,14 +18044,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121225. * ewgc("CHbox") / LambdaNP2
-                    + 31953446. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 246870182. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 31953446. * ewgc("CHl3R",0,0) / LambdaNP2
-                    + 65576.5 * ewgc("CHD") / LambdaNP2
-                    + 1173703. *ewgc("CHB") / LambdaNP2
-                    + 270983. * ewgc("CHW") / LambdaNP2
-                    + 1456032. * ewgc("CHWB") / LambdaNP2
+                    +121225. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 31953446. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 246870182. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 31953446. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    + 65576.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1173703. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 270983. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    + 1456032. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 40783748. * CDHB / LambdaNP2
                     + 5077924. * CDHW / LambdaNP2
                     + 0.16 * delta_GF
@@ -18063,14 +18065,14 @@ double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121248. * ewgc("CHbox") / LambdaNP2
-                    + 225427310. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 21505526. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 225427310. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 62193.4 * ewgc("CHD") / LambdaNP2
-                    - 463403. *ewgc("CHB") / LambdaNP2
-                    + 1907593. * ewgc("CHW") / LambdaNP2
-                    - 195017. * ewgc("CHWB") / LambdaNP2
+                    +121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 225427310. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 21505526. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 225427310. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 62193.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 463403. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1907593. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 195017. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 16188019. * CDHB / LambdaNP2
                     + 36299719. * CDHW / LambdaNP2
                     - 4.054 * delta_GF
@@ -18165,18 +18167,18 @@ double NPSMEFTd6General::aPskPol(const double sqrt_s, const double Pol_em, const
     double CWB, CBB, CWW;
 
     // Convention for dim 6 operators
-    CWB = g2_tree * g2_tree / (8.0 * g2_tree * g1_tree) * ewgc("CHWB") * v2_over_LambdaNP2;
-    CBB = 0.25 * (g2_tree * g2_tree / g1_tree / g1_tree) *ewgc("CHB") * v2_over_LambdaNP2;
-    CWW = 0.25 * ewgc("CHW") * v2_over_LambdaNP2;
+    CWB = g2_tree * g2_tree / (8.0 * g2_tree * g1_tree) * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
+    CBB = 0.25 * (g2_tree * g2_tree / g1_tree / g1_tree) *getSMEFTCoeffEW("CHB") * v2_over_LambdaNP2;
+    CWW = 0.25 * getSMEFTCoeffEW("CHW") * v2_over_LambdaNP2;
 
-    CHpsk = (-2.0 * ewgc("CHbox") + 0.25 * ewgc("CHD")) * v2_over_LambdaNP2;
-    CTpsk = -0.5 * ewgc("CHD") * v2_over_LambdaNP2;
-    CHl = ewgc("CHl1R",0,0) * v2_over_LambdaNP2;
-    CHlp = ewgc("CHl3R",0,0) * v2_over_LambdaNP2;
-    CHE = ewgc("CHeR",0,0) * v2_over_LambdaNP2;
+    CHpsk = (-2.0 * getSMEFTCoeffEW("CHbox") + 0.25 * getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2;
+    CTpsk = -0.5 * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2;
+    CHl = getSMEFTCoeffEW("CHl1R",0,0) * v2_over_LambdaNP2;
+    CHlp = getSMEFTCoeffEW("CHl3R",0,0) * v2_over_LambdaNP2;
+    CHE = getSMEFTCoeffEW("CHeR",0,0) * v2_over_LambdaNP2;
 
     //  Other parameters (1): Missing Cll!!!
-    dv = 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) * v2_over_LambdaNP2;
+    dv = 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) * v2_over_LambdaNP2;
 
     // WFR
     EtaZ = -(1.0 / 2.0) * CHpsk + 2.0 * dMz - dv - CTpsk;
@@ -18194,17 +18196,17 @@ double NPSMEFTd6General::aPskPol(const double sqrt_s, const double Pol_em, const
 
     //  Other parameters (2): Missing Cll!!!
     dg = -(1.0 / (g1_tree * (cW2_tree * cW2_tree - sW2_tree * sW2_tree))) * (dv * cW2_tree * g1_tree
-            - cW2_tree * dMz * g1_tree + 0.25 * ewgc("CHD") * cW2_tree * g1_tree * v2_over_LambdaNP2
-            + ewgc("CHW") * cW2_tree * cW2_tree * g1_tree * v2_over_LambdaNP2 + ewgc("CHWB") * cW2_tree * g2_tree * sW2_tree * v2_over_LambdaNP2
-            - ewgc("CHW") * g1_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2 + ewgc("CHWB") * g2_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2);
+            - cW2_tree * dMz * g1_tree + 0.25 * getSMEFTCoeffEW("CHD") * cW2_tree * g1_tree * v2_over_LambdaNP2
+            + getSMEFTCoeffEW("CHW") * cW2_tree * cW2_tree * g1_tree * v2_over_LambdaNP2 + getSMEFTCoeffEW("CHWB") * cW2_tree * g2_tree * sW2_tree * v2_over_LambdaNP2
+            - getSMEFTCoeffEW("CHW") * g1_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2 + getSMEFTCoeffEW("CHWB") * g2_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2);
 
 
     dgp = -(1.0 / (cW2_tree * g1_tree * g1_tree * (-cW2_tree * cW2_tree + sW2_tree * sW2_tree))) * (dv * cW2_tree * g1_tree * g1_tree * sW2_tree
-            - cW2_tree * dMz * g1_tree * g1_tree * sW2_tree + 0.25 * ewgc("CHD") * cW2_tree * g1_tree * g1_tree * sW2_tree * v2_over_LambdaNP2
-            + ewgc("CHWB") * cW2_tree * cW2_tree * g1_tree * g2_tree * sW2_tree * v2_over_LambdaNP2
-            -ewgc("CHB") * cW2_tree * cW2_tree * g2_tree * g2_tree * sW2_tree * v2_over_LambdaNP2
-            + ewgc("CHWB") * cW2_tree * g1_tree * g2_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2
-            +ewgc("CHB") * g2_tree * g2_tree * sW2_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2);
+            - cW2_tree * dMz * g1_tree * g1_tree * sW2_tree + 0.25 * getSMEFTCoeffEW("CHD") * cW2_tree * g1_tree * g1_tree * sW2_tree * v2_over_LambdaNP2
+            + getSMEFTCoeffEW("CHWB") * cW2_tree * cW2_tree * g1_tree * g2_tree * sW2_tree * v2_over_LambdaNP2
+            -getSMEFTCoeffEW("CHB") * cW2_tree * cW2_tree * g2_tree * g2_tree * sW2_tree * v2_over_LambdaNP2
+            + getSMEFTCoeffEW("CHWB") * cW2_tree * g1_tree * g2_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2
+            +getSMEFTCoeffEW("CHB") * g2_tree * g2_tree * sW2_tree * sW2_tree * sW2_tree * v2_over_LambdaNP2);
 
     dgL = (1.0 / (0.5 - sW2_tree))*(cW2_tree * (0.5 + sW2_tree) * dg
             - sW2_tree * (0.5 + cW2_tree) * dgp
@@ -18240,9 +18242,9 @@ double NPSMEFTd6General::bPskPol(const double sqrt_s, const double Pol_em, const
     double CWB, CBB, CWW;
 
     // Convention for dim 6 operators
-    CWB = g2_tree * g2_tree / (8.0 * g2_tree * g1_tree) * ewgc("CHWB") * v2_over_LambdaNP2;
-    CBB = 0.25 * (g2_tree * g2_tree / g1_tree / g1_tree) *ewgc("CHB") * v2_over_LambdaNP2;
-    CWW = 0.25 * ewgc("CHW") * v2_over_LambdaNP2;
+    CWB = g2_tree * g2_tree / (8.0 * g2_tree * g1_tree) * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
+    CBB = 0.25 * (g2_tree * g2_tree / g1_tree / g1_tree) *getSMEFTCoeffEW("CHB") * v2_over_LambdaNP2;
+    CWW = 0.25 * getSMEFTCoeffEW("CHW") * v2_over_LambdaNP2;
 
     ZetaZ = cW2_tree * 8.0 * CWW + 2.0 * sW2_tree * 8 * CWB + (sW2_tree * sW2_tree / cW2_tree)*8.0 * CBB;
     ZetaAZ = sW_tree * cW_tree * (8.0 * CWW - (1.0 - sW2_tree / cW2_tree)*8 * CWB - (sW2_tree / cW2_tree)*8.0 * CBB);
@@ -18313,24 +18315,24 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu +=
-                +423765. * (1. + ettH_2_HG) * ewgc("CHG") / LambdaNP2
-                - 4152.27 * (1. + ettH_2_G) * ewgc("CG") / LambdaNP2
-                + 568696. * (1. + ettH_2_uG_33r) * ewgc("CuGR",2,2) / LambdaNP2
+                +423765. * (1. + ettH_2_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
+                - 4152.27 * (1. + ettH_2_G) * getSMEFTCoeffEW("CG") / LambdaNP2
+                + 568696. * (1. + ettH_2_uG_33r) * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
                 - 2.844 * (1. + ettH_2_DeltagHt) * deltaG_hff(quarks[TOP]).real()
-                + 57950.7 * ewgc("Cqq1R",0,0,2,2) / LambdaNP2
-                + 572237. * ewgc("Cqq1R",0,2,2,0) / LambdaNP2
-                + 68506.5 * ewgc("Cqq3R",0,0,2,2) / LambdaNP2
-                + 689368. * ewgc("Cqq3R",0,2,2,0) / LambdaNP2
-                + 34359.2 * ewgc("CuuR",0,0,2,2) / LambdaNP2
-                + 562953. * ewgc("CuuR",0,2,2,0) / LambdaNP2
-                - 1123.41 * ewgc("Cud1R",2,2,0,0) / LambdaNP2
-                + 15070.6 * ewgc("Cud8R",2,2,0,0) / LambdaNP2
-                + 22531.7 * ewgc("Cqu1R",0,0,2,2) / LambdaNP2
-                + 13290.1 * ewgc("Cqu1R",2,2,0,0) / LambdaNP2
-                + 152635. * ewgc("Cqu8R",0,0,2,2) / LambdaNP2
-                + 137479. * ewgc("Cqu8R",2,2,0,0) / LambdaNP2
-                - 890.245 * ewgc("Cqd1R",2,2,0,0) / LambdaNP2
-                + 15388.5 * ewgc("Cqd8R",2,2,0,0) / LambdaNP2
+                + 57950.7 * getSMEFTCoeffEW("Cqq1R",0,0,2,2) / LambdaNP2
+                + 572237. * getSMEFTCoeffEW("Cqq1R",0,2,2,0) / LambdaNP2
+                + 68506.5 * getSMEFTCoeffEW("Cqq3R",0,0,2,2) / LambdaNP2
+                + 689368. * getSMEFTCoeffEW("Cqq3R",0,2,2,0) / LambdaNP2
+                + 34359.2 * getSMEFTCoeffEW("CuuR",0,0,2,2) / LambdaNP2
+                + 562953. * getSMEFTCoeffEW("CuuR",0,2,2,0) / LambdaNP2
+                - 1123.41 * getSMEFTCoeffEW("Cud1R",2,2,0,0) / LambdaNP2
+                + 15070.6 * getSMEFTCoeffEW("Cud8R",2,2,0,0) / LambdaNP2
+                + 22531.7 * getSMEFTCoeffEW("Cqu1R",0,0,2,2) / LambdaNP2
+                + 13290.1 * getSMEFTCoeffEW("Cqu1R",2,2,0,0) / LambdaNP2
+                + 152635. * getSMEFTCoeffEW("Cqu8R",0,0,2,2) / LambdaNP2
+                + 137479. * getSMEFTCoeffEW("Cqu8R",2,2,0,0) / LambdaNP2
+                - 890.245 * getSMEFTCoeffEW("Cqd1R",2,2,0,0) / LambdaNP2
+                + 15388.5 * getSMEFTCoeffEW("Cqd8R",2,2,0,0) / LambdaNP2
                 ;
 
         if (FlagQuadraticTerms) {
@@ -18344,24 +18346,24 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
         C1 = 0.0387;
 
         mu +=
-                +531046. * (1. + ettH_78_HG) * ewgc("CHG") / LambdaNP2
-                - 85174.4 * (1. + ettH_78_G) * ewgc("CG") / LambdaNP2
-                + 810365. * (1. + ettH_78_uG_33r) * ewgc("CuGR",2,2) / LambdaNP2
+                +531046. * (1. + ettH_78_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
+                - 85174.4 * (1. + ettH_78_G) * getSMEFTCoeffEW("CG") / LambdaNP2
+                + 810365. * (1. + ettH_78_uG_33r) * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
                 - 2.846 * (1. + ettH_78_DeltagHt) * deltaG_hff(quarks[TOP]).real()
-                + 19387.7 * ewgc("Cqq1R",0,0,2,2) / LambdaNP2
-                + 309431. * ewgc("Cqq1R",0,2,2,0) / LambdaNP2
-                + 53723.7 * ewgc("Cqq3R",0,0,2,2) / LambdaNP2
-                + 633768. * ewgc("Cqq3R",0,2,2,0) / LambdaNP2
-                + 19654.7 * ewgc("CuuR",0,0,2,2) / LambdaNP2
-                + 303278. * ewgc("CuuR",0,2,2,0) / LambdaNP2
-                - 3442.03 * ewgc("Cud1R",2,2,0,0) / LambdaNP2
-                + 41220. * ewgc("Cud8R",2,2,0,0) / LambdaNP2
-                + 6827.86 * ewgc("Cqu1R",0,0,2,2) / LambdaNP2
-                + 7038.59 * ewgc("Cqu1R",2,2,0,0) / LambdaNP2
-                + 116509. * ewgc("Cqu8R",0,0,2,2) / LambdaNP2
-                + 74277.5 * ewgc("Cqu8R",2,2,0,0) / LambdaNP2
-                - 2514.79 * ewgc("Cqd1R",2,2,0,0) / LambdaNP2
-                + 41346.5 * ewgc("Cqd8R",2,2,0,0) / LambdaNP2
+                + 19387.7 * getSMEFTCoeffEW("Cqq1R",0,0,2,2) / LambdaNP2
+                + 309431. * getSMEFTCoeffEW("Cqq1R",0,2,2,0) / LambdaNP2
+                + 53723.7 * getSMEFTCoeffEW("Cqq3R",0,0,2,2) / LambdaNP2
+                + 633768. * getSMEFTCoeffEW("Cqq3R",0,2,2,0) / LambdaNP2
+                + 19654.7 * getSMEFTCoeffEW("CuuR",0,0,2,2) / LambdaNP2
+                + 303278. * getSMEFTCoeffEW("CuuR",0,2,2,0) / LambdaNP2
+                - 3442.03 * getSMEFTCoeffEW("Cud1R",2,2,0,0) / LambdaNP2
+                + 41220. * getSMEFTCoeffEW("Cud8R",2,2,0,0) / LambdaNP2
+                + 6827.86 * getSMEFTCoeffEW("Cqu1R",0,0,2,2) / LambdaNP2
+                + 7038.59 * getSMEFTCoeffEW("Cqu1R",2,2,0,0) / LambdaNP2
+                + 116509. * getSMEFTCoeffEW("Cqu8R",0,0,2,2) / LambdaNP2
+                + 74277.5 * getSMEFTCoeffEW("Cqu8R",2,2,0,0) / LambdaNP2
+                - 2514.79 * getSMEFTCoeffEW("Cqd1R",2,2,0,0) / LambdaNP2
+                + 41346.5 * getSMEFTCoeffEW("Cqd8R",2,2,0,0) / LambdaNP2
                 ;
 
         if (FlagQuadraticTerms) {
@@ -18375,24 +18377,24 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
         C1 = 0.0378;
 
         mu +=
-                +535133. * (1. + ettH_78_HG) * ewgc("CHG") / LambdaNP2
-                - 86316.6 * (1. + ettH_78_G) * ewgc("CG") / LambdaNP2
-                + 824047. * (1. + ettH_78_uG_33r) * ewgc("CuGR",2,2) / LambdaNP2
+                +535133. * (1. + ettH_78_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
+                - 86316.6 * (1. + ettH_78_G) * getSMEFTCoeffEW("CG") / LambdaNP2
+                + 824047. * (1. + ettH_78_uG_33r) * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
                 - 2.846 * (1. + ettH_78_DeltagHt) * deltaG_hff(quarks[TOP]).real()
-                + 18617. * ewgc("Cqq1R",0,0,2,2) / LambdaNP2
-                + 294168. * ewgc("Cqq1R",0,2,2,0) / LambdaNP2
-                + 51386.8 * ewgc("Cqq3R",0,0,2,2) / LambdaNP2
-                + 603913. * ewgc("Cqq3R",0,2,2,0) / LambdaNP2
-                + 18807. * ewgc("CuuR",0,0,2,2) / LambdaNP2
-                + 287709. * ewgc("CuuR",0,2,2,0) / LambdaNP2
-                - 3419.45 * ewgc("Cud1R",2,2,0,0) / LambdaNP2
-                + 39513.7 * ewgc("Cud8R",2,2,0,0) / LambdaNP2
-                + 6838.91 * ewgc("Cqu1R",0,0,2,2) / LambdaNP2
-                + 6363.98 * ewgc("Cqu1R",2,2,0,0) / LambdaNP2
-                + 110752. * ewgc("Cqu8R",0,0,2,2) / LambdaNP2
-                + 70573.7 * ewgc("Cqu8R",2,2,0,0) / LambdaNP2
-                - 2659.57 * ewgc("Cqd1R",2,2,0,0) / LambdaNP2
-                + 39608.7 * ewgc("Cqd8R",2,2,0,0) / LambdaNP2
+                + 18617. * getSMEFTCoeffEW("Cqq1R",0,0,2,2) / LambdaNP2
+                + 294168. * getSMEFTCoeffEW("Cqq1R",0,2,2,0) / LambdaNP2
+                + 51386.8 * getSMEFTCoeffEW("Cqq3R",0,0,2,2) / LambdaNP2
+                + 603913. * getSMEFTCoeffEW("Cqq3R",0,2,2,0) / LambdaNP2
+                + 18807. * getSMEFTCoeffEW("CuuR",0,0,2,2) / LambdaNP2
+                + 287709. * getSMEFTCoeffEW("CuuR",0,2,2,0) / LambdaNP2
+                - 3419.45 * getSMEFTCoeffEW("Cud1R",2,2,0,0) / LambdaNP2
+                + 39513.7 * getSMEFTCoeffEW("Cud8R",2,2,0,0) / LambdaNP2
+                + 6838.91 * getSMEFTCoeffEW("Cqu1R",0,0,2,2) / LambdaNP2
+                + 6363.98 * getSMEFTCoeffEW("Cqu1R",2,2,0,0) / LambdaNP2
+                + 110752. * getSMEFTCoeffEW("Cqu8R",0,0,2,2) / LambdaNP2
+                + 70573.7 * getSMEFTCoeffEW("Cqu8R",2,2,0,0) / LambdaNP2
+                - 2659.57 * getSMEFTCoeffEW("Cqd1R",2,2,0,0) / LambdaNP2
+                + 39608.7 * getSMEFTCoeffEW("Cqd8R",2,2,0,0) / LambdaNP2
                 ;
 
         if (FlagQuadraticTerms) {
@@ -18406,34 +18408,34 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
         C1 = 0.0351;
 
         mu +=
-                +538046. * (1. + ettH_1314_HG) * ewgc("CHG") / LambdaNP2
-                - 85159.5 * (1. + ettH_1314_G) * ewgc("CG") / LambdaNP2
-                + 861157. * (1. + ettH_1314_uG_33r) * ewgc("CuGR",2,2) / LambdaNP2
+                +538046. * (1. + ettH_1314_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
+                - 85159.5 * (1. + ettH_1314_G) * getSMEFTCoeffEW("CG") / LambdaNP2
+                + 861157. * (1. + ettH_1314_uG_33r) * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
                 - 2.846 * (1. + ettH_1314_DeltagHt) * deltaG_hff(quarks[TOP]).real()
-                + 13574.9 * ewgc("Cqq1R",0,0,2,2) / LambdaNP2
-                + 227043. * ewgc("Cqq1R",0,2,2,0) / LambdaNP2
-                + 41257.5 * ewgc("Cqq3R",0,0,2,2) / LambdaNP2
-                + 473396. * ewgc("Cqq3R",0,2,2,0) / LambdaNP2
-                + 14488.3 * ewgc("CuuR",0,0,2,2) / LambdaNP2
-                + 221664. * ewgc("CuuR",0,2,2,0) / LambdaNP2
-                - 3400.07 * ewgc("Cud1R",2,2,0,0) / LambdaNP2
-                + 31615.5 * ewgc("Cud8R",2,2,0,0) / LambdaNP2
-                + 4516.51 * ewgc("Cqu1R",0,0,2,2) / LambdaNP2
-                + 4161.27 * ewgc("Cqu1R",2,2,0,0) / LambdaNP2
-                + 85356.9 * ewgc("Cqu8R",0,0,2,2) / LambdaNP2
-                + 53893.6 * ewgc("Cqu8R",2,2,0,0) / LambdaNP2
-                - 2791.1 * ewgc("Cqd1R",2,2,0,0) / LambdaNP2
-                + 30575.2 * ewgc("Cqd8R",2,2,0,0) / LambdaNP2
+                + 13574.9 * getSMEFTCoeffEW("Cqq1R",0,0,2,2) / LambdaNP2
+                + 227043. * getSMEFTCoeffEW("Cqq1R",0,2,2,0) / LambdaNP2
+                + 41257.5 * getSMEFTCoeffEW("Cqq3R",0,0,2,2) / LambdaNP2
+                + 473396. * getSMEFTCoeffEW("Cqq3R",0,2,2,0) / LambdaNP2
+                + 14488.3 * getSMEFTCoeffEW("CuuR",0,0,2,2) / LambdaNP2
+                + 221664. * getSMEFTCoeffEW("CuuR",0,2,2,0) / LambdaNP2
+                - 3400.07 * getSMEFTCoeffEW("Cud1R",2,2,0,0) / LambdaNP2
+                + 31615.5 * getSMEFTCoeffEW("Cud8R",2,2,0,0) / LambdaNP2
+                + 4516.51 * getSMEFTCoeffEW("Cqu1R",0,0,2,2) / LambdaNP2
+                + 4161.27 * getSMEFTCoeffEW("Cqu1R",2,2,0,0) / LambdaNP2
+                + 85356.9 * getSMEFTCoeffEW("Cqu8R",0,0,2,2) / LambdaNP2
+                + 53893.6 * getSMEFTCoeffEW("Cqu8R",2,2,0,0) / LambdaNP2
+                - 2791.1 * getSMEFTCoeffEW("Cqd1R",2,2,0,0) / LambdaNP2
+                + 30575.2 * getSMEFTCoeffEW("Cqd8R",2,2,0,0) / LambdaNP2
                 ;
 
         //  Linear contribution from 4 top operators
         //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
         //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + cLHd6 * ((ewgc("Cqu1R",2,2,2,2) / LambdaNP2)*(-420. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (ewgc("Cqu8R",2,2,2,2) / LambdaNP2)*(68.1 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (ewgc("Cqq1R",2,2,2,2) / LambdaNP2)*(1.75 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (ewgc("Cqq3R",2,2,2,2) / LambdaNP2)*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (ewgc("CuuR",2,2,2,2) / LambdaNP2)*(4.60 + cRGEon * 2.0 * 1.82 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R",2,2,2,2) / LambdaNP2)*(-420. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqu8R",2,2,2,2) / LambdaNP2)*(68.1 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq1R",2,2,2,2) / LambdaNP2)*(1.75 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq3R",2,2,2,2) / LambdaNP2)*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("CuuR",2,2,2,2) / LambdaNP2)*(4.60 + cRGEon * 2.0 * 1.82 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
                 );
 
         if (FlagQuadraticTerms) {
@@ -18449,20 +18451,20 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
         C1 = 0.0347;
 
         mu +=
-                +536980. * (1. + ettH_1314_HG) * ewgc("CHG") / LambdaNP2
-                - 83662.2 * (1. + ettH_1314_G) * ewgc("CG") / LambdaNP2
-                + 864481. * (1. + ettH_1314_uG_33r) * ewgc("CuGR",2,2) / LambdaNP2
+                +536980. * (1. + ettH_1314_HG) * getSMEFTCoeffEW("CHG") / LambdaNP2
+                - 83662.2 * (1. + ettH_1314_G) * getSMEFTCoeffEW("CG") / LambdaNP2
+                + 864481. * (1. + ettH_1314_uG_33r) * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
                 - 2.844 * (1. + ettH_1314_DeltagHt) * deltaG_hff(quarks[TOP]).real()
                 ;
 
         //  Linear contribution from 4 top operators
         //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
         //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + cLHd6 * ((ewgc("Cqu1R",2,2,2,2) / LambdaNP2)*(-430. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (ewgc("Cqu8R",2,2,2,2) / LambdaNP2)*(72.9 - cRGEon * 2.0 * 2.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (ewgc("Cqq1R",2,2,2,2) / LambdaNP2)*(1.65 + cRGEon * 2.0 * 1.76 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (ewgc("Cqq3R",2,2,2,2) / LambdaNP2)*(12.4 + cRGEon * 2.0 * 5.30 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (ewgc("CuuR",2,2,2,2) / LambdaNP2)*(4.57 + cRGEon * 2.0 * 1.74 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R",2,2,2,2) / LambdaNP2)*(-430. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqu8R",2,2,2,2) / LambdaNP2)*(72.9 - cRGEon * 2.0 * 2.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq1R",2,2,2,2) / LambdaNP2)*(1.65 + cRGEon * 2.0 * 1.76 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq3R",2,2,2,2) / LambdaNP2)*(12.4 + cRGEon * 2.0 * 5.30 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("CuuR",2,2,2,2) / LambdaNP2)*(4.57 + cRGEon * 2.0 * 1.74 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
                 );
 
         if (FlagQuadraticTerms) {
@@ -18478,9 +18480,9 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
         C1 = 0.0320; // From arXiv: 1902.00134
 
         mu +=
-                +519682. * ewgc("CHG") / LambdaNP2
-                - 68463.1 * ewgc("CG") / LambdaNP2
-                + 884060. * ewgc("CuGR",2,2) / LambdaNP2
+                +519682. * getSMEFTCoeffEW("CHG") / LambdaNP2
+                - 68463.1 * getSMEFTCoeffEW("CG") / LambdaNP2
+                + 884060. * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
                 - 2.849 * deltaG_hff(quarks[TOP]).real()
                 ;
 
@@ -18497,9 +18499,9 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
         C1 = 0.0; // N.A.
 
         mu +=
-                +467438. * ewgc("CHG") / LambdaNP2
-                - 22519. * ewgc("CG") / LambdaNP2
-                + 880378. * ewgc("CuGR",2,2) / LambdaNP2
+                +467438. * getSMEFTCoeffEW("CHG") / LambdaNP2
+                - 22519. * getSMEFTCoeffEW("CG") / LambdaNP2
+                + 880378. * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
                 - 2.837 * deltaG_hff(quarks[TOP]).real()
                 ;
 
@@ -18647,22 +18649,22 @@ double NPSMEFTd6General::mueettH(const double sqrt_s) const
         C1 = 0.086;
 
         mu +=
-                +121901. * ewgc("CHbox") / LambdaNP2
-                + 84038.2 * ewgc("CHl1R",0,0) / LambdaNP2
-                + 41671.2 * ewgc("CHeR",0,0) / LambdaNP2
-                - 31418.2 * ewgc("CHuR",0,0) / LambdaNP2
-                + 84038.2 * ewgc("CHl3R",0,0) / LambdaNP2
-                - 121791. * ewgc("CuHR",2,2) / LambdaNP2
-                - 59467.6 * ewgc("CHD") / LambdaNP2
-                + 138929. *ewgc("CHB") / LambdaNP2
-                + 130909. * ewgc("CHW") / LambdaNP2
-                - 253030. * ewgc("CHWB") / LambdaNP2
+                +121901. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 84038.2 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                + 41671.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 31418.2 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 84038.2 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 121791. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 59467.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 138929. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 130909. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 253030. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 1757.66 * CDHB / LambdaNP2
                 + 1501.34 * CDHW / LambdaNP2
-                + 1386027. * ewgc("CuWR",2,2) / LambdaNP2
-                + 1698012. * ewgc("CuBR",2,2) / LambdaNP2
+                + 1386027. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                + 1698012. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                 - 1.965 * delta_GF
-                - 1.187 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                - 1.187 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                 ;
 
         // Add modifications due to small variations of the SM parameters    
@@ -18682,22 +18684,22 @@ double NPSMEFTd6General::mueettH(const double sqrt_s) const
         C1 = 0.017;
 
         mu +=
-                +122013. * ewgc("CHbox") / LambdaNP2
-                + 889282. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 543424. * ewgc("CHeR",0,0) / LambdaNP2
-                - 8240.83 * ewgc("CHuR",0,0) / LambdaNP2
-                + 889282. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 116099. * ewgc("CuHR",2,2) / LambdaNP2
-                - 60351.9 * ewgc("CHD") / LambdaNP2
-                + 352804. *ewgc("CHB") / LambdaNP2
-                + 361918. * ewgc("CHW") / LambdaNP2
-                - 397547. * ewgc("CHWB") / LambdaNP2
+                +122013. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 889282. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 543424. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                - 8240.83 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 889282. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 116099. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 60351.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 352804. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 361918. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 397547. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 37326.1 * CDHB / LambdaNP2
                 + 113772. * CDHW / LambdaNP2
-                + 2758980. * ewgc("CuWR",2,2) / LambdaNP2
-                + 3462941. * ewgc("CuBR",2,2) / LambdaNP2
+                + 2758980. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                + 3462941. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                 - 2.08 * delta_GF
-                - 2.575 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                - 2.575 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                 ;
 
         // Add modifications due to small variations of the SM parameters    
@@ -18717,22 +18719,22 @@ double NPSMEFTd6General::mueettH(const double sqrt_s) const
         C1 = 0.0094;
 
         mu +=
-                +122081. * ewgc("CHbox") / LambdaNP2
-                + 2544832. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 1901938. * ewgc("CHeR",0,0) / LambdaNP2
-                + 3241.73 * ewgc("CHuR",0,0) / LambdaNP2
-                + 2544832. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 112208. * ewgc("CuHR",2,2) / LambdaNP2
-                - 60340.4 * ewgc("CHD") / LambdaNP2
-                + 464967. *ewgc("CHB") / LambdaNP2
-                + 487659. * ewgc("CHW") / LambdaNP2
-                - 471053. * ewgc("CHWB") / LambdaNP2
+                +122081. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 2544832. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 1901938. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 3241.73 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 2544832. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 112208. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 60340.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 464967. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 487659. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 471053. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 134900. * CDHB / LambdaNP2
                 + 371767. * CDHW / LambdaNP2
-                + 3804096. * ewgc("CuWR",2,2) / LambdaNP2
-                + 4800265. * ewgc("CuBR",2,2) / LambdaNP2
+                + 3804096. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                + 4800265. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                 - 2.139 * delta_GF
-                - 3.203 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                - 3.203 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                 ;
 
         // Add modifications due to small variations of the SM parameters    
@@ -18752,22 +18754,22 @@ double NPSMEFTd6General::mueettH(const double sqrt_s) const
         C1 = 0.0094; // Use the same as 1400 GeV
 
         mu +=
-                +122173. * ewgc("CHbox") / LambdaNP2
-                + 3117293. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 2378233. * ewgc("CHeR",0,0) / LambdaNP2
-                + 5531.15 * ewgc("CHuR",0,0) / LambdaNP2
-                + 3117293. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 111274. * ewgc("CuHR",2,2) / LambdaNP2
-                - 60192. * ewgc("CHD") / LambdaNP2
-                + 487962. *ewgc("CHB") / LambdaNP2
-                + 513503. * ewgc("CHW") / LambdaNP2
-                - 485782. * ewgc("CHWB") / LambdaNP2
+                +122173. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 3117293. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 2378233. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 5531.15 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 3117293. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 111274. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 60192. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 487962. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 513503. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 485782. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 170734. * CDHB / LambdaNP2
                 + 462665. * CDHW / LambdaNP2
-                + 4068326. * ewgc("CuWR",2,2) / LambdaNP2
-                + 5138930. * ewgc("CuBR",2,2) / LambdaNP2
+                + 4068326. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                + 5138930. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                 - 2.149 * delta_GF
-                - 3.325 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                - 3.325 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                 ;
 
         // Add modifications due to small variations of the SM parameters    
@@ -18787,22 +18789,22 @@ double NPSMEFTd6General::mueettH(const double sqrt_s) const
         C1 = 0.0037;
 
         mu +=
-                +121915. * ewgc("CHbox") / LambdaNP2
-                + 19529668. * ewgc("CHl1R",0,0) / LambdaNP2
-                - 16356276. * ewgc("CHeR",0,0) / LambdaNP2
-                + 23142.9 * ewgc("CHuR",0,0) / LambdaNP2
-                + 19529668. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 104011. * ewgc("CuHR",2,2) / LambdaNP2
-                - 58710.4 * ewgc("CHD") / LambdaNP2
-                + 697868. *ewgc("CHB") / LambdaNP2
-                + 751003. * ewgc("CHW") / LambdaNP2
-                - 625171. * ewgc("CHWB") / LambdaNP2
+                +121915. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                + 19529668. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 16356276. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 23142.9 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 19529668. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 104011. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 58710.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 697868. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 751003. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 625171. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 1204441. * CDHB / LambdaNP2
                 + 3111413. * CDHW / LambdaNP2
-                + 8604912. * ewgc("CuWR",2,2) / LambdaNP2
-                + 10946841. * ewgc("CuBR",2,2) / LambdaNP2
+                + 8604912. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                + 10946841. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                 - 2.224 * delta_GF
-                - 4.279 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                - 4.279 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                 ;
 
         // Add modifications due to small variations of the SM parameters    
@@ -18848,22 +18850,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121861. * ewgc("CHbox") / LambdaNP2
-                    + 14207.9 * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 124191. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 112591. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 14207.9 * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 123399. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 12437.7 * ewgc("CHD") / LambdaNP2
-                    + 249779. *ewgc("CHB") / LambdaNP2
-                    + 18912.8 * ewgc("CHW") / LambdaNP2
-                    - 109936. * ewgc("CHWB") / LambdaNP2
+                    +121861. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 14207.9 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 124191. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 112591. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 14207.9 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 123399. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 12437.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 249779. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 18912.8 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 109936. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 5170.73 * CDHB / LambdaNP2
                     + 3167.65 * CDHW / LambdaNP2
-                    + 174267. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 3032981. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 174267. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 3032981. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.388 * delta_GF
-                    + 3.51 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 3.51 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -18875,22 +18877,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121809. * ewgc("CHbox") / LambdaNP2
-                    + 116253. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 3415.4 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 98311.8 * ewgc("CHuR",0,0) / LambdaNP2
-                    + 116253. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 121117. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 81321.2 * ewgc("CHD") / LambdaNP2
-                    + 87352.2 *ewgc("CHB") / LambdaNP2
-                    + 182702. * ewgc("CHW") / LambdaNP2
-                    - 319427. * ewgc("CHWB") / LambdaNP2
+                    +121809. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 116253. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 3415.4 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 98311.8 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 116253. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 121117. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 81321.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 87352.2 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 182702. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 319427. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 21.616 * CDHB / LambdaNP2
                     + 799.81 * CDHW / LambdaNP2
-                    + 1948272. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 1078489. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 1948272. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 1078489. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 2.697 * delta_GF
-                    - 3.37 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 3.37 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -18902,22 +18904,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121837. * ewgc("CHbox") / LambdaNP2
-                    + 24323.6 * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 111998. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 91391.1 * ewgc("CHuR",0,0) / LambdaNP2
-                    + 24323.6 * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 123203. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 19404.2 * ewgc("CHD") / LambdaNP2
-                    + 233452. *ewgc("CHB") / LambdaNP2
-                    + 35310.2 * ewgc("CHW") / LambdaNP2
-                    - 131019. * ewgc("CHWB") / LambdaNP2
+                    +121837. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 24323.6 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 111998. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 91391.1 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 24323.6 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 123203. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 19404.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 233452. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 35310.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 131019. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 4810.06 * CDHB / LambdaNP2
                     + 2842.31 * CDHW / LambdaNP2
-                    + 351790. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 2837005. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 351790. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 2837005. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.617 * delta_GF
-                    + 2.818 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 2.818 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -18929,22 +18931,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121814. * ewgc("CHbox") / LambdaNP2
-                    + 113858. * ewgc("CHl1R",0,0) / LambdaNP2
-                    + 6221.44 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 93321.6 * ewgc("CHuR",0,0) / LambdaNP2
-                    + 113858. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 121180. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 79695. * ewgc("CHD") / LambdaNP2
-                    + 91201.9 *ewgc("CHB") / LambdaNP2
-                    + 178853. * ewgc("CHW") / LambdaNP2
-                    - 314513. * ewgc("CHWB") / LambdaNP2
+                    +121814. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 113858. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    + 6221.44 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 93321.6 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 113858. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 121180. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 79695. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 91201.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 178853. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 314513. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 137.642 * CDHB / LambdaNP2
                     + 853.383 * CDHW / LambdaNP2
-                    + 1906734. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 1124181. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 1906734. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 1124181. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 2.642 * delta_GF
-                    - 3.21 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 3.21 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -18964,22 +18966,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +122269. * ewgc("CHbox") / LambdaNP2
-                    + 148925. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1516295. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 181376. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 148925. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 115721. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 9966.97 * ewgc("CHD") / LambdaNP2
-                    + 648027. *ewgc("CHB") / LambdaNP2
-                    + 58990.6 * ewgc("CHW") / LambdaNP2
-                    - 166947. * ewgc("CHWB") / LambdaNP2
+                    +122269. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 148925. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1516295. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 181376. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 148925. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 115721. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 9966.97 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 648027. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 58990.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 166947. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 258446. * CDHB / LambdaNP2
                     + 27641. * CDHW / LambdaNP2
-                    + 416063. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 5771745. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 416063. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 5771745. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.426 * delta_GF
-                    + 3.026 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 3.026 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -18991,22 +18993,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +122212. * ewgc("CHbox") / LambdaNP2
-                    + 1266376. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 47326.8 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 104685. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 1266376. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 116193. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 85861. * ewgc("CHD") / LambdaNP2
-                    + 202732. *ewgc("CHB") / LambdaNP2
-                    + 516612. * ewgc("CHW") / LambdaNP2
-                    - 514723. * ewgc("CHWB") / LambdaNP2
+                    +122212. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 1266376. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 47326.8 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 104685. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 1266376. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 116193. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 85861. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 202732. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 516612. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 514723. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 75504.5 * CDHB / LambdaNP2
                     + 158356. * CDHW / LambdaNP2
-                    + 3954267. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 2288387. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 3954267. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 2288387. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 2.929 * delta_GF
-                    - 5.432 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 5.432 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19018,22 +19020,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == -20.) {
             mu +=
-                    +122563. * ewgc("CHbox") / LambdaNP2
-                    + 179718. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1476392. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 173910. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 179718. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 115349. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 11797.8 * ewgc("CHD") / LambdaNP2
-                    + 636347. *ewgc("CHB") / LambdaNP2
-                    + 71703.6 * ewgc("CHW") / LambdaNP2
-                    - 176417. * ewgc("CHWB") / LambdaNP2
+                    +122563. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 179718. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1476392. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 173910. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 179718. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 115349. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 11797.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 636347. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 71703.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 176417. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 249649. * CDHB / LambdaNP2
                     + 31542.3 * CDHW / LambdaNP2
-                    + 513357. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 5678281. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 513357. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 5678281. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.497 * delta_GF
-                    + 2.823 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 2.823 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19045,22 +19047,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 20.) {
             mu +=
-                    +122316. * ewgc("CHbox") / LambdaNP2
-                    + 1258544. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 57807.1 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 102560. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 1258544. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 116091. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 85249.7 * ewgc("CHD") / LambdaNP2
-                    + 206295. *ewgc("CHB") / LambdaNP2
-                    + 513404. * ewgc("CHW") / LambdaNP2
-                    - 512197. * ewgc("CHWB") / LambdaNP2
+                    +122316. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 1258544. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 57807.1 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 102560. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 1258544. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 116091. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 85249.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 206295. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 513404. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 512197. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 72925.9 * CDHB / LambdaNP2
                     + 157286. * CDHW / LambdaNP2
-                    + 3929488. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 2314064. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 3929488. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 2314064. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 2.911 * delta_GF
-                    - 5.37 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 5.37 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19072,22 +19074,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +122564. * ewgc("CHbox") / LambdaNP2
-                    + 252265. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1381101. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 155161. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 252265. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 115358. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 16813.1 * ewgc("CHD") / LambdaNP2
-                    + 607466. *ewgc("CHB") / LambdaNP2
-                    + 101359. * ewgc("CHW") / LambdaNP2
-                    - 198737. * ewgc("CHWB") / LambdaNP2
+                    +122564. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 252265. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1381101. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 155161. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 252265. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 115358. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 16813.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 607466. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 101359. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 198737. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 227834. * CDHB / LambdaNP2
                     + 39939.6 * CDHW / LambdaNP2
-                    + 742520. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 5453267. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 742520. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 5453267. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.659 * delta_GF
-                    + 2.273 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 2.273 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19099,22 +19101,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +122380. * ewgc("CHbox") / LambdaNP2
-                    + 1238124. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 84811.2 * ewgc("CHeR",0,0) / LambdaNP2
-                    - 97259.2 * ewgc("CHuR",0,0) / LambdaNP2
-                    + 1238124. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 116044. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 83798.9 * ewgc("CHD") / LambdaNP2
-                    + 214128. *ewgc("CHB") / LambdaNP2
-                    + 505118. * ewgc("CHW") / LambdaNP2
-                    - 505830. * ewgc("CHWB") / LambdaNP2
+                    +122380. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 1238124. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 84811.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 97259.2 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 1238124. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 116044. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 83798.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 214128. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 505118. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 505830. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 66814.1 * CDHB / LambdaNP2
                     + 155075. * CDHW / LambdaNP2
-                    + 3863710. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 2378351. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 3863710. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 2378351. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 2.867 * delta_GF
-                    - 5.212 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 5.212 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19134,22 +19136,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121945. * ewgc("CHbox") / LambdaNP2
-                    + 416437. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 5198451. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 211446. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 416437. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 110413. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 8089.5 * ewgc("CHD") / LambdaNP2
-                    + 852065. *ewgc("CHB") / LambdaNP2
-                    + 78915.7 * ewgc("CHW") / LambdaNP2
-                    - 191411. * ewgc("CHWB") / LambdaNP2
+                    +121945. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 416437. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 5198451. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 211446. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 416437. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 110413. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 8089.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 852065. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 78915.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 191411. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 881670. * CDHB / LambdaNP2
                     + 72289.2 * CDHW / LambdaNP2
-                    + 588296. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 7812392. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 588296. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 7812392. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.441 * delta_GF
-                    + 2.819 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 2.819 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19161,22 +19163,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +122124. * ewgc("CHbox") / LambdaNP2
-                    + 3668482. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 164738. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 106285. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 3668482. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 112775. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 87497.2 * ewgc("CHD") / LambdaNP2
-                    + 261266. *ewgc("CHB") / LambdaNP2
-                    + 703789. * ewgc("CHW") / LambdaNP2
-                    - 618584. * ewgc("CHWB") / LambdaNP2
+                    +122124. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3668482. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 164738. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 106285. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 3668482. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 112775. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 87497.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 261266. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 703789. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 618584. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 257636. * CDHB / LambdaNP2
                     + 530202. * CDHW / LambdaNP2
-                    + 5501929. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 3213842. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 5501929. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 3213842. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 3.038 * delta_GF
-                    - 6.378 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 6.378 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19188,22 +19190,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121843. * ewgc("CHbox") / LambdaNP2
-                    + 706068. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 4748505. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 182964. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 706068. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 110672. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 15249.5 * ewgc("CHD") / LambdaNP2
-                    + 798771. *ewgc("CHB") / LambdaNP2
-                    + 134415. * ewgc("CHW") / LambdaNP2
-                    - 229663. * ewgc("CHWB") / LambdaNP2
+                    +121843. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 706068. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 4748505. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 182964. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 706068. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 110672. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 15249.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 798771. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 134415. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 229663. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 779863. * CDHB / LambdaNP2
                     + 112951. * CDHW / LambdaNP2
-                    + 1026697. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 7402171. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 1026697. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 7402171. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.673 * delta_GF
-                    + 1.996 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 1.996 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19215,22 +19217,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +122069. * ewgc("CHbox") / LambdaNP2
-                    + 3581543. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 298692. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 97874.3 * ewgc("CHuR",0,0) / LambdaNP2
-                    + 3581543. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 112737. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 85431.2 * ewgc("CHD") / LambdaNP2
-                    + 276629. *ewgc("CHB") / LambdaNP2
-                    + 687136. * ewgc("CHW") / LambdaNP2
-                    - 607155. * ewgc("CHWB") / LambdaNP2
+                    +122069. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3581543. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 298692. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 97874.3 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 3581543. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 112737. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 85431.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 276629. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 687136. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 607155. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 227375. * CDHB / LambdaNP2
                     + 517945. * CDHW / LambdaNP2
-                    + 5370183. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 3335906. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 5370183. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 3335906. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 2.969 * delta_GF
-                    - 6.138 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 6.138 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19250,22 +19252,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +121854. * ewgc("CHbox") / LambdaNP2
-                    + 507190. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 6475118. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 216935. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 507190. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 109820. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 7568.59 * ewgc("CHD") / LambdaNP2
-                    + 893094. *ewgc("CHB") / LambdaNP2
-                    + 82781.5 * ewgc("CHW") / LambdaNP2
-                    - 196556. * ewgc("CHWB") / LambdaNP2
+                    +121854. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 507190. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 6475118. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 216935. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 507190. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 109820. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 7568.59 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 893094. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 82781.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 196556. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 1099527. * CDHB / LambdaNP2
                     + 87228. * CDHW / LambdaNP2
-                    + 630747. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 8328477. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 630747. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 8328477. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.442 * delta_GF
-                    + 2.756 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 2.756 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19277,22 +19279,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +121994. * ewgc("CHbox") / LambdaNP2
-                    + 4501280. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 206085. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 106381. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 4501280. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 112104. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 87805.6 * ewgc("CHD") / LambdaNP2
-                    + 273106. *ewgc("CHB") / LambdaNP2
-                    + 741955. * ewgc("CHW") / LambdaNP2
-                    - 639545. * ewgc("CHWB") / LambdaNP2
+                    +121994. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 4501280. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 206085. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 106381. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 4501280. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 112104. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 87805.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 273106. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 741955. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 639545. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 322155. * CDHB / LambdaNP2
                     + 661931. * CDHW / LambdaNP2
-                    + 5892414. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 3448015. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 5892414. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 3448015. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 3.057 * delta_GF
-                    - 6.552 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 6.552 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19304,22 +19306,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +121793. * ewgc("CHbox") / LambdaNP2
-                    + 861242. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 5919951. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 188249. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 861242. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 109696. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 14806.7 * ewgc("CHD") / LambdaNP2
-                    + 837632. *ewgc("CHB") / LambdaNP2
-                    + 141142. * ewgc("CHW") / LambdaNP2
-                    - 235907. * ewgc("CHWB") / LambdaNP2
+                    +121793. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 861242. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 5919951. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 188249. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 861242. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 109696. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 14806.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 837632. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 141142. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 235907. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 973107. * CDHB / LambdaNP2
                     + 138331. * CDHW / LambdaNP2
-                    + 1097452. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 7895510. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 1097452. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 7895510. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.673 * delta_GF
-                    + 1.935 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 1.935 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19331,22 +19333,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +122029. * ewgc("CHbox") / LambdaNP2
-                    + 4394189. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 373205. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 97750.6 * ewgc("CHuR",0,0) / LambdaNP2
-                    + 4394189. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 112024. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 85643.3 * ewgc("CHD") / LambdaNP2
-                    + 289620. *ewgc("CHB") / LambdaNP2
-                    + 724463. * ewgc("CHW") / LambdaNP2
-                    - 627885. * ewgc("CHWB") / LambdaNP2
+                    +122029. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 4394189. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 373205. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 97750.6 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 4394189. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 112024. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 85643.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 289620. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 724463. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 627885. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 284076. * CDHB / LambdaNP2
                     + 646658. * CDHW / LambdaNP2
-                    + 5753330. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 3578793. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 5753330. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 3578793. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 2.989 * delta_GF
-                    - 6.311 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 6.311 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19366,22 +19368,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    +122442. * ewgc("CHbox") / LambdaNP2
-                    + 3092340. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 43264264. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 259622. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 3092340. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 100510. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 3230.01 * ewgc("CHD") / LambdaNP2
-                    + 1267548. *ewgc("CHB") / LambdaNP2
-                    + 118886. * ewgc("CHW") / LambdaNP2
-                    - 247164. * ewgc("CHWB") / LambdaNP2
+                    +122442. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 3092340. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 43264264. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 259622. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 3092340. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 100510. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 3230.01 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1267548. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 118886. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 247164. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 7397753. * CDHB / LambdaNP2
                     + 510206. * CDHW / LambdaNP2
-                    + 1343630. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 17234081. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 1343630. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 17234081. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.459 * delta_GF
-                    + 2.453 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 2.453 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19393,22 +19395,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    +122230. * ewgc("CHbox") / LambdaNP2
-                    + 28686134. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1435177. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 108195. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 28686134. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 105858. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 89803.1 * ewgc("CHD") / LambdaNP2
-                    + 381886. *ewgc("CHB") / LambdaNP2
-                    + 1102843. * ewgc("CHW") / LambdaNP2
-                    - 834821. * ewgc("CHWB") / LambdaNP2
+                    +122230. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 28686134. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1435177. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 108195. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 28686134. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 105858. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 89803.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 381886. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1102843. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 834821. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 2237555. * CDHB / LambdaNP2
                     + 4557030. * CDHW / LambdaNP2
-                    + 12639913. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 7455995. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 12639913. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 7455995. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 3.212 * delta_GF
-                    - 8.009 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 8.009 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19420,22 +19422,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    +122688. * ewgc("CHbox") / LambdaNP2
-                    + 5271741. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 39707692. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 228729. * ewgc("CHuR",0,0) / LambdaNP2
-                    + 5271741. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 100891. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 10526.3 * ewgc("CHD") / LambdaNP2
-                    + 1192421. *ewgc("CHB") / LambdaNP2
-                    + 202915. * ewgc("CHW") / LambdaNP2
-                    - 296939. * ewgc("CHWB") / LambdaNP2
+                    +122688. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 5271741. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 39707692. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 228729. * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 5271741. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 100891. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 10526.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 1192421. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 202915. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 296939. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 6582510. * CDHB / LambdaNP2
                     + 853895. * CDHW / LambdaNP2
-                    + 2303644. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 16407287. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 2303644. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 16407287. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 0.693 * delta_GF
-                    + 1.565 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    + 1.565 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19447,22 +19449,22 @@ double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, co
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    +121781. * ewgc("CHbox") / LambdaNP2
-                    + 27966374. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2597153. * ewgc("CHeR",0,0) / LambdaNP2
-                    - 98089.4 * ewgc("CHuR",0,0) / LambdaNP2
-                    + 27966374. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 105885. * ewgc("CuHR",2,2) / LambdaNP2
-                    - 87600.3 * ewgc("CHD") / LambdaNP2
-                    + 406305. *ewgc("CHB") / LambdaNP2
-                    + 1075086. * ewgc("CHW") / LambdaNP2
-                    - 818808. * ewgc("CHWB") / LambdaNP2
+                    +121781. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                    + 27966374. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2597153. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    - 98089.4 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                    + 27966374. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 105885. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                    - 87600.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    + 406305. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                    + 1075086. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                    - 818808. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     - 1967062. * CDHB / LambdaNP2
                     + 4442109. * CDHW / LambdaNP2
-                    + 12322125. * ewgc("CuWR",2,2) / LambdaNP2
-                    + 7728315. * ewgc("CuBR",2,2) / LambdaNP2
+                    + 12322125. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                    + 7728315. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
                     - 3.134 * delta_GF
-                    - 7.724 * 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                    - 7.724 * 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                     ;
 
             // Add modifications due to small variations of the SM parameters    
@@ -19544,17 +19546,17 @@ double NPSMEFTd6General::mummZH(const double sqrt_s) const
         C1 = -0.00054; // Use the same as CLIC
 
         mu +=
-                +120311. * ewgc("CHbox") / LambdaNP2
-                - 5772.03 * ewgc("CHD") / LambdaNP2
-                + 253308. *ewgc("CHB") / LambdaNP2
-                + 1178831. * ewgc("CHW") / LambdaNP2
-                + 526388. * ewgc("CHWB") / LambdaNP2
+                +120311. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 5772.03 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 253308. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 1178831. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 526388. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 8753562. * CDHB / LambdaNP2
                 + 22389067. * CDHW / LambdaNP2
-                + 139222448. * ewgc("CHl1R",1,1) / LambdaNP2
-                - 119515557. * ewgc("CHeR",1,1) / LambdaNP2
-                + 0. * ewgc("CHl3R",0,0) / LambdaNP2
-                + 139217069. * ewgc("CHl3R",1,1) / LambdaNP2
+                + 139222448. * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+                - 119515557. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+                + 0. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                + 139217069. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
                 - 2.19 * delta_GF
                 ;
 
@@ -19574,17 +19576,17 @@ double NPSMEFTd6General::mummZH(const double sqrt_s) const
         C1 = 0.0; // NA
 
         mu +=
-                +110705. * ewgc("CHbox") / LambdaNP2
-                - 2881.46 * ewgc("CHD") / LambdaNP2
-                + 234510. *ewgc("CHB") / LambdaNP2
-                + 1090997. * ewgc("CHW") / LambdaNP2
-                + 487384. * ewgc("CHWB") / LambdaNP2
+                +110705. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 2881.46 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 234510. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 1090997. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                + 487384. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 90542251. * CDHB / LambdaNP2
                 + 230979695. * CDHW / LambdaNP2
-                + 1423231114. * ewgc("CHl1R",1,1) / LambdaNP2
-                - 1221737534. * ewgc("CHeR",1,1) / LambdaNP2
-                + 74.649 * ewgc("CHl3R",0,0) / LambdaNP2
-                + 1423208868. * ewgc("CHl3R",1,1) / LambdaNP2
+                + 1423231114. * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+                - 1221737534. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+                + 74.649 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                + 1423208868. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
                 - 2.096 * delta_GF
                 ;
 
@@ -19631,17 +19633,17 @@ double NPSMEFTd6General::mummHvv(const double sqrt_s) const
         C1 = 0.0057; // Use the same as CLIC
 
         mu +=
-                +120415. * ewgc("CHbox") / LambdaNP2
-                - 204193. * ewgc("CHD") / LambdaNP2
-                + 584.639 *ewgc("CHB") / LambdaNP2
-                - 40740.1 * ewgc("CHW") / LambdaNP2
-                - 380159. * ewgc("CHWB") / LambdaNP2
+                +120415. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 204193. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 584.639 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 40740.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 380159. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 96.414 * CDHB / LambdaNP2
                 - 104066. * CDHW / LambdaNP2
-                - 518.996 * ewgc("CHl1R",1,1) / LambdaNP2
-                - 1015.43 * ewgc("CHeR",1,1) / LambdaNP2
-                - 1128.25 * ewgc("CHl3R",0,0) / LambdaNP2
-                - 678627. * ewgc("CHl3R",1,1) / LambdaNP2
+                - 518.996 * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+                - 1015.43 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+                - 1128.25 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 678627. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
                 - 4.701 * delta_GF
                 - 4.244 * deltaMwd6()
                 ;
@@ -19663,17 +19665,17 @@ double NPSMEFTd6General::mummHvv(const double sqrt_s) const
         C1 = 0.0; // NA
 
         mu +=
-                +120660. * ewgc("CHbox") / LambdaNP2
-                - 204535. * ewgc("CHD") / LambdaNP2
-                - 38.696 *ewgc("CHB") / LambdaNP2
-                - 27111.7 * ewgc("CHW") / LambdaNP2
-                - 380108. * ewgc("CHWB") / LambdaNP2
+                +120660. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 204535. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 38.696 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 27111.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 380108. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 85.858 * CDHB / LambdaNP2
                 - 151122. * CDHW / LambdaNP2
-                + 296.269 * ewgc("CHl1R",1,1) / LambdaNP2
-                - 613.096 * ewgc("CHeR",1,1) / LambdaNP2
-                - 1584.13 * ewgc("CHl3R",0,0) / LambdaNP2
-                - 952573. * ewgc("CHl3R",1,1) / LambdaNP2
+                + 296.269 * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+                - 613.096 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+                - 1584.13 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 952573. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
                 - 4.696 * delta_GF
                 - 4.223 * deltaMwd6()
                 ;
@@ -19720,17 +19722,17 @@ double NPSMEFTd6General::mummHmm(const double sqrt_s) const
         C1 = 0.0063; // Use the same as CLIC
 
         mu +=
-                +120754. * ewgc("CHbox") / LambdaNP2
-                - 42566.4 * ewgc("CHD") / LambdaNP2
-                + 5651.3 *ewgc("CHB") / LambdaNP2
-                - 34526.8 * ewgc("CHW") / LambdaNP2
-                - 77320.9 * ewgc("CHWB") / LambdaNP2
+                +120754. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 42566.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 5651.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 34526.8 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 77320.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 36523.8 * CDHB / LambdaNP2
                 - 105717. * CDHW / LambdaNP2
-                - 676758. * ewgc("CHl1R",1,1) / LambdaNP2
-                + 581864. * ewgc("CHeR",1,1) / LambdaNP2
-                - 1258.06 * ewgc("CHl3R",0,0) / LambdaNP2
-                - 677145. * ewgc("CHl3R",1,1) / LambdaNP2
+                - 676758. * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+                + 581864. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+                - 1258.06 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 677145. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
                 - 3.389 * delta_GF
                 ;
 
@@ -19750,17 +19752,17 @@ double NPSMEFTd6General::mummHmm(const double sqrt_s) const
         C1 = 0.0; //NA
 
         mu +=
-                +121595. * ewgc("CHbox") / LambdaNP2
-                - 42528.7 * ewgc("CHD") / LambdaNP2
-                - 3306.42 *ewgc("CHB") / LambdaNP2
-                - 26428.1 * ewgc("CHW") / LambdaNP2
-                - 65710.7 * ewgc("CHWB") / LambdaNP2
+                +121595. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 42528.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 3306.42 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                - 26428.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 65710.7 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 - 55246.2 * CDHB / LambdaNP2
                 - 154926. * CDHW / LambdaNP2
-                - 972321. * ewgc("CHl1R",1,1) / LambdaNP2
-                + 835352. * ewgc("CHeR",1,1) / LambdaNP2
-                - 208.826 * ewgc("CHl3R",0,0) / LambdaNP2
-                - 970869. * ewgc("CHl3R",1,1) / LambdaNP2
+                - 972321. * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+                + 835352. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+                - 208.826 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 970869. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
                 - 3.401 * delta_GF
                 ;
 
@@ -19806,23 +19808,23 @@ double NPSMEFTd6General::mummttH(const double sqrt_s) const
         C1 = 0.0037; // Use the same as CLIC
 
         mu +=
-                +121703. * ewgc("CHbox") / LambdaNP2
-                - 105827. * ewgc("CuHR",2,2) / LambdaNP2
-                - 60143.2 * ewgc("CHD") / LambdaNP2
-                + 696642. *ewgc("CHB") / LambdaNP2
-                + 749580. * ewgc("CHW") / LambdaNP2
-                - 625570. * ewgc("CHWB") / LambdaNP2
+                +121703. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 105827. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 60143.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 696642. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 749580. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 625570. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 1203584. * CDHB / LambdaNP2
                 + 3110823. * CDHW / LambdaNP2
-                + 8600327. * ewgc("CuWR",2,2) / LambdaNP2
-                + 10933756. * ewgc("CuBR",2,2) / LambdaNP2
-                + 19536100. * ewgc("CHl1R",1,1) / LambdaNP2
-                - 16360523. * ewgc("CHeR",1,1) / LambdaNP2
-                + 22577.7 * ewgc("CHuR",2,2) / LambdaNP2
-                - 120.094 * ewgc("CHl3R",0,0) / LambdaNP2
-                + 19529711. * ewgc("CHl3R",1,1) / LambdaNP2
+                + 8600327. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                + 10933756. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
+                + 19536100. * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+                - 16360523. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+                + 22577.7 * getSMEFTCoeffEW("CHuR",2,2) / LambdaNP2
+                - 120.094 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                + 19529711. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
                 - 2.244 * delta_GF
-                + 4.309 * -0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                + 4.309 * -0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                 ;
 
         // Add modifications due to small variations of the SM parameters    
@@ -19842,23 +19844,23 @@ double NPSMEFTd6General::mummttH(const double sqrt_s) const
         C1 = 0.0037; //NA
 
         mu +=
-                +121697. * ewgc("CHbox") / LambdaNP2
-                - 99433. * ewgc("CuHR",2,2) / LambdaNP2
-                - 59412.6 * ewgc("CHD") / LambdaNP2
-                + 977027. *ewgc("CHB") / LambdaNP2
-                + 1069899. * ewgc("CHW") / LambdaNP2
-                - 816019. * ewgc("CHWB") / LambdaNP2
+                +121697. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 99433. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 59412.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 977027. *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 1069899. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 816019. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 19093781. * CDHB / LambdaNP2
                 + 48703755. * CDHW / LambdaNP2
-                + 48598343. * ewgc("CuWR",2,2) / LambdaNP2
-                + 62025699. * ewgc("CuBR",2,2) / LambdaNP2
-                + 300770201. * ewgc("CHl1R",1,1) / LambdaNP2
-                - 257079386. * ewgc("CHeR",1,1) / LambdaNP2
-                + 37385. * ewgc("CHuR",2,2) / LambdaNP2
-                - 36.349 * ewgc("CHl3R",0,0) / LambdaNP2
-                + 299984515. * ewgc("CHl3R",1,1) / LambdaNP2
+                + 48598343. * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+                + 62025699. * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
+                + 300770201. * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+                - 257079386. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+                + 37385. * getSMEFTCoeffEW("CHuR",2,2) / LambdaNP2
+                - 36.349 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                + 299984515. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
                 - 2.329 * delta_GF
-                + 5.129 * -0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+                + 5.129 * -0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
                 ;
 
         // Add modifications due to small variations of the SM parameters    
@@ -19998,14 +20000,14 @@ double NPSMEFTd6General::deltaGammaHggRatio1() const
     double dwidth = 0.0;
 
     double C1 = 0.0066;
-
-    dwidth = (+37526258. * ewgc("CHG") / LambdaNP2
+    
+    dwidth = (+37526258. * getSMEFTCoeffEW("CHG") / LambdaNP2
             + cLHd6 * (
-            +121248. * ewgc("CHbox") / LambdaNP2
-            + 173353. * ewgc("CuHR",1,1) / LambdaNP2
-            - 129155. * ewgc("CuHR",2,2) / LambdaNP2
-            + 248530. * ewgc("CdHR",2,2) / LambdaNP2
-            - 30312.1 * ewgc("CHD") / LambdaNP2
+            +121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 173353. * getSMEFTCoeffEW("CuHR",1,1) / LambdaNP2
+            - 129155. * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+            + 248530. * getSMEFTCoeffEW("CdHR",2,2) / LambdaNP2
+            - 30312.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
             - 60624.1 * delta_GF / v() / v())
             );
 
@@ -20017,10 +20019,10 @@ double NPSMEFTd6General::deltaGammaHggRatio1() const
     //  Linear contribution from 4 top operators
     //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
     //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    dwidth = dwidth + cLHd6 * ((ewgc("Cqu1R",2,2,2,2) / LambdaNP2)*(6.08 + cRGEon * 2.0 * 2.76 * log(mHl / Lambda_NP))*1000.
-            + (ewgc("Cqu8R",2,2,2,2) / LambdaNP2)*(8.11 + cRGEon * 2.0 * 3.68 * log(mHl / Lambda_NP))*1000.
-            + (ewgc("Cquqd1R",2,2,2,2) / LambdaNP2)*(15.7 + cRGEon * 2.0 * 9.21 * log(mHl / Lambda_NP))*1000.
-            + (ewgc("Cquqd8R",2,2,2,2) / LambdaNP2)*(2.98 + cRGEon * 2.0 * 1.76 * log(mHl / Lambda_NP))*1000.
+    dwidth = dwidth + cLHd6 * ((getSMEFTCoeffEW("Cqu1R",2,2,2,2) / LambdaNP2)*(6.08 + cRGEon * 2.0 * 2.76 * log(mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cqu8R",2,2,2,2) / LambdaNP2)*(8.11 + cRGEon * 2.0 * 3.68 * log(mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cquqd1R",2,2,2,2) / LambdaNP2)*(15.7 + cRGEon * 2.0 * 9.21 * log(mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cquqd8R",2,2,2,2) / LambdaNP2)*(2.98 + cRGEon * 2.0 * 1.76 * log(mHl / Lambda_NP))*1000.
             );
 
     // Add modifications due to small variations of the SM parameters    
@@ -20150,11 +20152,11 @@ double NPSMEFTd6General::deltaGammaHWlvRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121875. * ewgc("CHbox") / LambdaNP2
-            + 18351.9 * (1.0 / 2.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) / LambdaNP2
-            - 159873. * ewgc("CHD") / LambdaNP2
-            - 91288.7 * ewgc("CHW") / LambdaNP2
-            - 284689. * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121875. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 18351.9 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 159873. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 91288.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 284689. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 37703.7 * CDHW / LambdaNP2
             - 3.292 * delta_GF
             - 15.14 * deltaMwd6());
@@ -20231,11 +20233,11 @@ double NPSMEFTd6General::deltaGammaHWW2l2vRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+120742. * ewgc("CHbox") / LambdaNP2
-            + 131582. * (1.0 / 2.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) / LambdaNP2
-            - 204043. * ewgc("CHD") / LambdaNP2
-            - 91463.9 * ewgc("CHW") / LambdaNP2
-            - 379529. * ewgc("CHWB") / LambdaNP2
+    dwidth = (+120742. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 131582. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 204043. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 91463.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 379529. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 36848.2 * CDHW / LambdaNP2
             - 4.705 * delta_GF
             - 13.735 * deltaMwd6()
@@ -20317,11 +20319,11 @@ double NPSMEFTd6General::deltaGammaHWjjRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121611. * ewgc("CHbox") / LambdaNP2
-            + 17701.4 * (1.0 / 2.0) * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1)) / LambdaNP2
-            - 159273. * ewgc("CHD") / LambdaNP2
-            - 91021.6 * ewgc("CHW") / LambdaNP2
-            - 282574. * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121611. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 17701.4 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            - 159273. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 91021.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 282574. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 37917.5 * CDHW / LambdaNP2
             - 3.259 * delta_GF
             - 15.198 * deltaMwd6());
@@ -20398,11 +20400,11 @@ double NPSMEFTd6General::deltaGammaHWW4jRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121936. * ewgc("CHbox") / LambdaNP2
-            + 138860. * (1.0 / 2.0) * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1)) / LambdaNP2
-            - 205023. * ewgc("CHD") / LambdaNP2
-            - 89938.5 * ewgc("CHW") / LambdaNP2
-            - 383944. * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121936. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 138860. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            - 205023. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 89938.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 383944. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 38244.6 * CDHW / LambdaNP2
             - 4.816 * delta_GF
             - 13.647 * deltaMwd6()
@@ -20483,12 +20485,12 @@ double NPSMEFTd6General::deltaGammaHWffRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121288. * ewgc("CHbox") / LambdaNP2
-            + 5395.21 * (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) / LambdaNP2
-            + 11680.9 * (1.0 / 2.0) * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1)) / LambdaNP2
-            - 159787. * ewgc("CHD") / LambdaNP2
-            - 91509.1 * ewgc("CHW") / LambdaNP2
-            - 283092. * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121288. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 5395.21 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            + 11680.9 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            - 159787. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 91509.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 283092. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 37845.1 * CDHW / LambdaNP2
             - 3.259 * delta_GF
             - 15.196 * deltaMwd6());
@@ -20567,18 +20569,18 @@ double NPSMEFTd6General::deltaGammaHWW4fRatio1() const
 
     double CWff, sf;
 
-    CWff = (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) * v2_over_LambdaNP2 +
-            Nc * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1)) * v2_over_LambdaNP2;
+    CWff = (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) * v2_over_LambdaNP2 +
+            Nc * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1)) * v2_over_LambdaNP2;
 
     CWff = CWff / (3.0 + 2.0 * Nc);
 
-    sf = 90362.5 * (1.0 / 2.0) * (3.0 + 2.0 * Nc) / (Nc * v2); // Coefficient of the CWff term. From the ewgc("CHq3R",0,0) term in the ME.
+    sf = 90362.5 * (1.0 / 2.0) * (3.0 + 2.0 * Nc) / (Nc * v2); // Coefficient of the CWff term. From the getSMEFTCoeffEW("CHq3R",0,0) term in the ME.
 
-    dwidth = (+121886. * ewgc("CHbox") / LambdaNP2
+    dwidth = (+121886. * getSMEFTCoeffEW("CHbox") / LambdaNP2
             + sf * CWff
-            - 204009. * ewgc("CHD") / LambdaNP2
-            - 91455.7 * ewgc("CHW") / LambdaNP2
-            - 382903. * ewgc("CHWB") / LambdaNP2
+            - 204009. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 91455.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 382903. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 38314.9 * CDHW / LambdaNP2
             - 4.757 * delta_GF
             - 13.716 * deltaMwd6()
@@ -20713,14 +20715,14 @@ double NPSMEFTd6General::deltaGammaHZllRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121715. * ewgc("CHbox") / LambdaNP2
-            + 8726.9 * (1.0 / 2.0) * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1)) / LambdaNP2
-            - 7315.2 * (1.0 / 2.0) * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1)) / LambdaNP2
-            + 8726.9 * (1.0 / 2.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) / LambdaNP2
-            - 5544.15 * ewgc("CHD") / LambdaNP2
-            - 13560.9 *ewgc("CHB") / LambdaNP2
-            - 45585.2 * ewgc("CHW") / LambdaNP2
-            - 53507.9 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121715. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 8726.9 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1)) / LambdaNP2
+            - 7315.2 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1)) / LambdaNP2
+            + 8726.9 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 5544.15 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13560.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45585.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 53507.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16829.2 * CDHB / LambdaNP2
             + 30766.6 * CDHW / LambdaNP2
             - 2.204 * delta_GF);
@@ -20799,14 +20801,14 @@ double NPSMEFTd6General::deltaGammaHZeeRatio1() const
 
     //  Derived from the HZll expression for l=e only
 
-    dwidth = (+121715. * ewgc("CHbox") / LambdaNP2
-            + 8726.9 * ewgc("CHl1R",0,0) / LambdaNP2
-            - 7315.2 * ewgc("CHeR",0,0) / LambdaNP2
-            + 8726.9 * ewgc("CHl3R",0,0) / LambdaNP2
-            - 5544.15 * ewgc("CHD") / LambdaNP2
-            - 13560.9 *ewgc("CHB") / LambdaNP2
-            - 45585.2 * ewgc("CHW") / LambdaNP2
-            - 53507.9 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121715. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 8726.9 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+            - 7315.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            + 8726.9 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            - 5544.15 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13560.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45585.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 53507.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16829.2 * CDHB / LambdaNP2
             + 30766.6 * CDHW / LambdaNP2
             - 2.204 * delta_GF);
@@ -20860,14 +20862,14 @@ double NPSMEFTd6General::deltaGammaHZmumuRatio1() const
 
     //  Derived from the HZll expression for l=mu only
 
-    dwidth = (+121715. * ewgc("CHbox") / LambdaNP2
-            + 8726.9 * ewgc("CHl1R",1,1) / LambdaNP2
-            - 7315.2 * ewgc("CHeR",1,1) / LambdaNP2
-            + 8726.9 * ewgc("CHl3R",1,1) / LambdaNP2
-            - 5544.15 * ewgc("CHD") / LambdaNP2
-            - 13560.9 *ewgc("CHB") / LambdaNP2
-            - 45585.2 * ewgc("CHW") / LambdaNP2
-            - 53507.9 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121715. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 8726.9 * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+            - 7315.2 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + 8726.9 * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            - 5544.15 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13560.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45585.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 53507.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16829.2 * CDHB / LambdaNP2
             + 30766.6 * CDHW / LambdaNP2
             - 2.204 * delta_GF);
@@ -20921,19 +20923,19 @@ double NPSMEFTd6General::deltaGammaHZZ4lRatio1() const
 
     double CZll, sf;
 
-    CZll = gZlL * (-0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) + ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) * v2_over_LambdaNP2) +
-            gZlR * (-0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1)) * v2_over_LambdaNP2);
+    CZll = gZlL * (-0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) * v2_over_LambdaNP2) +
+            gZlR * (-0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1)) * v2_over_LambdaNP2);
 
     CZll = CZll / (2.0 * (gZlL * gZlL + gZlR * gZlR));
 
-    sf = 124479. * (1.0 / 2.0) * (2.0 * (gZlL * gZlL + gZlR * gZlR)) / (-0.5 * gZlL * v2); // Coefficient of the CZll term. From the ewgc("CHl1R",0,0) term in the ME.
+    sf = 124479. * (1.0 / 2.0) * (2.0 * (gZlL * gZlL + gZlR * gZlR)) / (-0.5 * gZlL * v2); // Coefficient of the CZll term. From the getSMEFTCoeffEW("CHl1R",0,0) term in the ME.
 
-    dwidth = (+122273. * ewgc("CHbox") / LambdaNP2
+    dwidth = (+122273. * getSMEFTCoeffEW("CHbox") / LambdaNP2
             + sf * CZll
-            - 44025.7 * ewgc("CHD") / LambdaNP2
-            - 13602.6 *ewgc("CHB") / LambdaNP2
-            - 45248.6 * ewgc("CHW") / LambdaNP2
-            - 88372.1 * ewgc("CHWB") / LambdaNP2
+            - 44025.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13602.6 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45248.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 88372.1 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16088.6 * CDHB / LambdaNP2
             + 29210.1 * CDHW / LambdaNP2
             - 3.462 * delta_GF
@@ -21014,14 +21016,14 @@ double NPSMEFTd6General::deltaGammaHZZ4eRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121386. * ewgc("CHbox") / LambdaNP2
-            + 123413. * ewgc("CHl1R",0,0) / LambdaNP2
-            - 103717. * ewgc("CHeR",0,0) / LambdaNP2
-            + 123413. * ewgc("CHl3R",0,0) / LambdaNP2
-            - 44056.9 * ewgc("CHD") / LambdaNP2
-            - 13385.3 *ewgc("CHB") / LambdaNP2
-            - 45127.7 * ewgc("CHW") / LambdaNP2
-            - 91708.7 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121386. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 123413. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+            - 103717. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            + 123413. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            - 44056.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13385.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45127.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 91708.7 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16138.9 * CDHB / LambdaNP2
             + 28759.4 * CDHW / LambdaNP2
             - 3.462 * delta_GF
@@ -21102,14 +21104,14 @@ double NPSMEFTd6General::deltaGammaHZZ2e2muRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+120836. * ewgc("CHbox") / LambdaNP2
-            + 126374. * (1.0 / 2.0) * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1)) / LambdaNP2
-            - 109064. * (1.0 / 2.0) * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1)) / LambdaNP2
-            + 126374. * (1.0 / 2.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) / LambdaNP2
-            - 42370.4 * ewgc("CHD") / LambdaNP2
-            - 14299. *ewgc("CHB") / LambdaNP2
-            - 47298.2 * ewgc("CHW") / LambdaNP2
-            - 83098.2 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+120836. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 126374. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1)) / LambdaNP2
+            - 109064. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1)) / LambdaNP2
+            + 126374. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 42370.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 14299. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 47298.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 83098.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16362.7 * CDHB / LambdaNP2
             + 29503.4 * CDHW / LambdaNP2
             - 3.378 * delta_GF
@@ -21189,14 +21191,14 @@ double NPSMEFTd6General::deltaGammaHZZ4muRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+120688. * ewgc("CHbox") / LambdaNP2
-            + 123059. * ewgc("CHl1R",1,1) / LambdaNP2
-            - 103862. * ewgc("CHeR",1,1) / LambdaNP2
-            + 123059. * ewgc("CHl3R",1,1) / LambdaNP2
-            - 43977.1 * ewgc("CHD") / LambdaNP2
-            - 13575.5 *ewgc("CHB") / LambdaNP2
-            - 45200.8 * ewgc("CHW") / LambdaNP2
-            - 91625.2 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+120688. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 123059. * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+            - 103862. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + 123059. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            - 43977.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13575.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45200.8 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 91625.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 15449.3 * CDHB / LambdaNP2
             + 28489.5 * CDHW / LambdaNP2
             - 3.471 * delta_GF
@@ -21277,13 +21279,13 @@ double NPSMEFTd6General::deltaGammaHZvvRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121530. * ewgc("CHbox") / LambdaNP2
-            - 7943.34 * (1.0 / 3.0) * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) + ewgc("CHl1R",2,2)) / LambdaNP2
-            + 7943.34 * (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) / LambdaNP2
-            - 229.41 * ewgc("CHD") / LambdaNP2
-            - 13535.2 *ewgc("CHB") / LambdaNP2
-            - 45480.6 * ewgc("CHW") / LambdaNP2
-            - 24891. * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121530. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 7943.34 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl1R",2,2)) / LambdaNP2
+            + 7943.34 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            - 229.41 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13535.2 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45480.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 24891. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16833. * CDHB / LambdaNP2
             + 30597.6 * CDHW / LambdaNP2
             - 2. * delta_GF);
@@ -21360,13 +21362,13 @@ double NPSMEFTd6General::deltaGammaHZZ4vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+120596. * ewgc("CHbox") / LambdaNP2
-            - 115532. * (1.0 / 3.0) * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) + ewgc("CHl1R",2,2)) / LambdaNP2
-            + 115532. * (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) / LambdaNP2
-            - 28744.1 * ewgc("CHD") / LambdaNP2
-            - 13816.7 *ewgc("CHB") / LambdaNP2
-            - 44782.1 * ewgc("CHW") / LambdaNP2
-            - 25256.6 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+120596. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 115532. * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl1R",2,2)) / LambdaNP2
+            + 115532. * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            - 28744.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13816.7 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 44782.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 25256.6 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 15982.5 * CDHB / LambdaNP2
             + 28910.7 * CDHW / LambdaNP2
             - 3.013 * delta_GF
@@ -21448,14 +21450,14 @@ double NPSMEFTd6General::deltaGammaHZuuRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121512. * ewgc("CHbox") / LambdaNP2
-            - 9648.28 * (1.0 / 2.0) * (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1)) / LambdaNP2
-            + 4218.6 * (1.0 / 2.0) * (ewgc("CHuR",0,0) + ewgc("CHuR",1,1)) / LambdaNP2
-            + 9648.28 * (1.0 / 2.0) * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1)) / LambdaNP2
-            - 17762.5 * ewgc("CHD") / LambdaNP2
-            - 13473.3 *ewgc("CHB") / LambdaNP2
-            - 45667.9 * ewgc("CHW") / LambdaNP2
-            - 110057. * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121512. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 9648.28 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1)) / LambdaNP2
+            + 4218.6 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1)) / LambdaNP2
+            + 9648.28 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            - 17762.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13473.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45667.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 110057. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16854.2 * CDHB / LambdaNP2
             + 30781.7 * CDHW / LambdaNP2
             - 2.6 * delta_GF);
@@ -21547,14 +21549,14 @@ double NPSMEFTd6General::deltaGammaHZddRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121756. * ewgc("CHbox") / LambdaNP2
-            + 9252.73 * (1.0 / 3.0) * (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / LambdaNP2
-            - 1471.03 * (1.0 / 3.0) * (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / LambdaNP2
-            + 9252.73 * (1.0 / 3.0) * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / LambdaNP2
-            - 12714.3 * ewgc("CHD") / LambdaNP2
-            - 13589.3 *ewgc("CHB") / LambdaNP2
-            - 45689.4 * ewgc("CHW") / LambdaNP2
-            - 85582.3 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121756. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 9252.73 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / LambdaNP2
+            - 1471.03 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / LambdaNP2
+            + 9252.73 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / LambdaNP2
+            - 12714.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 13589.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45689.4 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 85582.3 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 17007.1 * CDHB / LambdaNP2
             + 30733.1 * CDHW / LambdaNP2
             - 2.427 * delta_GF);
@@ -21649,18 +21651,18 @@ double NPSMEFTd6General::deltaGammaHZffRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121551. * ewgc("CHbox") / LambdaNP2
-            - 824.482 * (1.0 / 3.0) * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) + ewgc("CHl1R",2,2)) / LambdaNP2
-            + 1840.54 * (1.0 / 12.0) * (5.0 * ewgc("CHq1R",0,0) + 5.0 * ewgc("CHq1R",1,1) + 2.0 * ewgc("CHq1R",2,2) - ewgc("CHq3R",0,0) - ewgc("CHq3R",1,1) + 2.0 * ewgc("CHq3R",2,2)) / LambdaNP2
-            - 795.383 * (1.0 / 3.0) * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1) + ewgc("CHeR",2,2)) / LambdaNP2
-            + 1069.4 * (1.0 / 2.0) * (ewgc("CHuR",0,0) + ewgc("CHuR",1,1)) / LambdaNP2
-            - 579.563 * (1.0 / 3.0) * (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / LambdaNP2
-            + 3164.56 * (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) / LambdaNP2
-            + 6413.99 * (-1.0 / 12.0) * (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) - 2.0 * ewgc("CHq1R",2,2) - 5.0 * ewgc("CHq3R",0,0) - 5.0 * ewgc("CHq3R",1,1) - 2.0 * ewgc("CHq3R",2,2)) / LambdaNP2
-            - 10839.5 * ewgc("CHD") / LambdaNP2
-            - 14222.3 *ewgc("CHB") / LambdaNP2
-            - 45455.6 * ewgc("CHW") / LambdaNP2
-            - 75343.1 * ewgc("CHWB") / LambdaNP2
+    dwidth = (+121551. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 824.482 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl1R",2,2)) / LambdaNP2
+            + 1840.54 * (1.0 / 12.0) * (5.0 * getSMEFTCoeffEW("CHq1R",0,0) + 5.0 * getSMEFTCoeffEW("CHq1R",1,1) + 2.0 * getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",0,0) - getSMEFTCoeffEW("CHq3R",1,1) + 2.0 * getSMEFTCoeffEW("CHq3R",2,2)) / LambdaNP2
+            - 795.383 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1) + getSMEFTCoeffEW("CHeR",2,2)) / LambdaNP2
+            + 1069.4 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1)) / LambdaNP2
+            - 579.563 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / LambdaNP2
+            + 3164.56 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            + 6413.99 * (-1.0 / 12.0) * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) - 2.0 * getSMEFTCoeffEW("CHq1R",2,2) - 5.0 * getSMEFTCoeffEW("CHq3R",0,0) - 5.0 * getSMEFTCoeffEW("CHq3R",1,1) - 2.0 * getSMEFTCoeffEW("CHq3R",2,2)) / LambdaNP2
+            - 10839.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 14222.3 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 45455.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 75343.1 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16804.9 * CDHB / LambdaNP2
             + 30421. * CDHW / LambdaNP2
             - 2.356 * delta_GF);
@@ -21739,14 +21741,14 @@ double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const
 
     double CZff, sf;
 
-    CZff = gZvL * (-0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) + ewgc("CHl1R",2,2) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1) - ewgc("CHl3R",2,2)) * v2_over_LambdaNP2) +
-            gZlL * (-0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) + ewgc("CHl1R",2,2) + ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) * v2_over_LambdaNP2) +
-            gZlR * (-0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1) + ewgc("CHeR",2,2)) * v2_over_LambdaNP2) +
+    CZff = gZvL * (-0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl1R",2,2) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1) - getSMEFTCoeffEW("CHl3R",2,2)) * v2_over_LambdaNP2) +
+            gZlL * (-0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl1R",2,2) + getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) * v2_over_LambdaNP2) +
+            gZlR * (-0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1) + getSMEFTCoeffEW("CHeR",2,2)) * v2_over_LambdaNP2) +
             Nc * (
-            gZdL * (-0.5 * (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2) + ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) * v2_over_LambdaNP2) +
-            gZdR * (-0.5 * (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) * v2_over_LambdaNP2) +
-            gZuL * (-0.5 * (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) - ewgc("CHq3R",0,0) - ewgc("CHq3R",1,1)) * v2_over_LambdaNP2) +
-            gZuR * (-0.5 * (ewgc("CHuR",0,0) + ewgc("CHuR",1,1)) * v2_over_LambdaNP2)
+            gZdL * (-0.5 * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2) + getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2) +
+            gZdR * (-0.5 * (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) * v2_over_LambdaNP2) +
+            gZuL * (-0.5 * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) - getSMEFTCoeffEW("CHq3R",0,0) - getSMEFTCoeffEW("CHq3R",1,1)) * v2_over_LambdaNP2) +
+            gZuR * (-0.5 * (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1)) * v2_over_LambdaNP2)
             );
 
     CZff = CZff / (
@@ -21759,14 +21761,14 @@ double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const
             Nc * (3.0 * (gZdL * gZdL + gZdR * gZdR) + 2.0 * (gZuL * gZuL + gZuR * gZuR))
             );
 
-    sf = sf / (-0.5 * (gZlL + gZvL) * v2); // Coefficient of the CZff term. From the ewgc("CHl1R",0,0) term in the ME.
+    sf = sf / (-0.5 * (gZlL + gZvL) * v2); // Coefficient of the CZff term. From the getSMEFTCoeffEW("CHl1R",0,0) term in the ME.
 
-    dwidth = (+121373. * ewgc("CHbox") / LambdaNP2
+    dwidth = (+121373. * getSMEFTCoeffEW("CHbox") / LambdaNP2
             + sf * CZff
-            - 50927.1 * ewgc("CHD") / LambdaNP2
-            - 14137.9 *ewgc("CHB") / LambdaNP2
-            - 46350.1 * ewgc("CHW") / LambdaNP2
-            - 126336. * ewgc("CHWB") / LambdaNP2
+            - 50927.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 14137.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 46350.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 126336. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             + 16558.7 * CDHB / LambdaNP2
             + 29628.7 * CDHW / LambdaNP2
             - 3.715 * delta_GF
@@ -21861,26 +21863,26 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
     //  of delta_ZA (or deltaG1_hZA()) to account for variations of sw2 and cw2
 
     dwidth = (-71769.02 * deltaG1_hZA()
-            //            +14894914. *ewgc("CHB") / LambdaNP2
-            //            -14894913. * ewgc("CHW") / LambdaNP2
-            //            +9508089. * ewgc("CHWB") / LambdaNP2
+            //            +14894914. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            //            -14894913. * getSMEFTCoeffEW("CHW") / LambdaNP2
+            //            +9508089. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             //            -2869576. * CDHB / LambdaNP2
             //            +1572613. * CDHW / LambdaNP2            
             + cLHd6 * (
-            +120002. * ewgc("CHbox") / LambdaNP2
-            + 50.12 * ewgc("CHl1R",2,2) / LambdaNP2
-            + 17401. * ewgc("CHq1R",2,2) / LambdaNP2
-            + 50.12 * ewgc("CHeR",2,2) / LambdaNP2
-            + 17188.7 * ewgc("CHuR",2,2) / LambdaNP2
-            + 212.376 * ewgc("CHdR",2,2) / LambdaNP2
-            + 50.12 * ewgc("CHl3R",2,2) / LambdaNP2
-            - 16976.3 * ewgc("CHq3R",2,2) / LambdaNP2
-            - 373.856 * ewgc("CeHR",2,2) / LambdaNP2
-            - 2953.05 * ewgc("CuHR",1,1) / LambdaNP2
-            + 6636.34 * ewgc("CuHR",2,2) / LambdaNP2
-            - 6121.66 * ewgc("CdHR",2,2) / LambdaNP2
-            - 111254. * ewgc("CHD") / LambdaNP2
-            - 162538. * ewgc("CHWB") / LambdaNP2
+            +120002. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 50.12 * getSMEFTCoeffEW("CHl1R",2,2) / LambdaNP2
+            + 17401. * getSMEFTCoeffEW("CHq1R",2,2) / LambdaNP2
+            + 50.12 * getSMEFTCoeffEW("CHeR",2,2) / LambdaNP2
+            + 17188.7 * getSMEFTCoeffEW("CHuR",2,2) / LambdaNP2
+            + 212.376 * getSMEFTCoeffEW("CHdR",2,2) / LambdaNP2
+            + 50.12 * getSMEFTCoeffEW("CHl3R",2,2) / LambdaNP2
+            - 16976.3 * getSMEFTCoeffEW("CHq3R",2,2) / LambdaNP2
+            - 373.856 * getSMEFTCoeffEW("CeHR",2,2) / LambdaNP2
+            - 2953.05 * getSMEFTCoeffEW("CuHR",1,1) / LambdaNP2
+            + 6636.34 * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+            - 6121.66 * getSMEFTCoeffEW("CdHR",2,2) / LambdaNP2
+            - 111254. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 162538. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 96076.1 * delta_GF / v() / v()
             - 0.123 * deltaMwd6())
             );
@@ -22009,17 +22011,17 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
     //  of delta_AA (or deltaG_hAA) to account for variations of sw2 and cw2
 
     dwidth = (-255156.97 * deltaG_hAA()
-            //            -48314158. *ewgc("CHB") / LambdaNP2
-            //            -14510502. * ewgc("CHW") / LambdaNP2
-            //            +26477588. * ewgc("CHWB") / LambdaNP2 
+            //            -48314158. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            //            -14510502. * getSMEFTCoeffEW("CHW") / LambdaNP2
+            //            +26477588. * getSMEFTCoeffEW("CHWB") / LambdaNP2 
             + cLHd6 * (
-            +119766. * ewgc("CHbox") / LambdaNP2
-            - 42565.7 * ewgc("CeHR",2,2) / LambdaNP2
-            - 48868.1 * ewgc("CuHR",1,1) / LambdaNP2
-            + 32078.2 * ewgc("CuHR",2,2) / LambdaNP2
-            - 18428.3 * ewgc("CdHR",2,2) / LambdaNP2
-            - 137452. * ewgc("CHD") / LambdaNP2
-            - 235677. * ewgc("CHWB") / LambdaNP2
+            +119766. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 42565.7 * getSMEFTCoeffEW("CeHR",2,2) / LambdaNP2
+            - 48868.1 * getSMEFTCoeffEW("CuHR",1,1) / LambdaNP2
+            + 32078.2 * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+            - 18428.3 * getSMEFTCoeffEW("CdHR",2,2) / LambdaNP2
+            - 137452. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 235677. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 124462. * delta_GF / v() / v()
             - 1.257 * deltaMwd6())
             );
@@ -22032,10 +22034,10 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
     //  Linear contribution from 4 top operators
     //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
     //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    dwidth = dwidth + cLHd6 * ((ewgc("Cqu1R",2,2,2,2) / LambdaNP2)*(-1.76 - cRGEon * 2.0 * 0.8 * log(mHl / Lambda_NP))*1000.
-            + (ewgc("Cqu8R",2,2,2,2) / LambdaNP2)*(-2.09 - cRGEon * 2.0 * 1.07 * log(mHl / Lambda_NP))*1000.
-            + (ewgc("Cquqd1R",2,2,2,2) / LambdaNP2)*(-1.30 - cRGEon * 2.0 * 0.78 * log(mHl / Lambda_NP))*1000.
-            + (ewgc("Cquqd8R",2,2,2,2) / LambdaNP2)*(-0.25 - cRGEon * 2.0 * 0.15 * log(mHl / Lambda_NP))*1000.
+    dwidth = dwidth + cLHd6 * ((getSMEFTCoeffEW("Cqu1R",2,2,2,2) / LambdaNP2)*(-1.76 - cRGEon * 2.0 * 0.8 * log(mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cqu8R",2,2,2,2) / LambdaNP2)*(-2.09 - cRGEon * 2.0 * 1.07 * log(mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cquqd1R",2,2,2,2) / LambdaNP2)*(-1.30 - cRGEon * 2.0 * 0.78 * log(mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cquqd8R",2,2,2,2) / LambdaNP2)*(-0.25 - cRGEon * 2.0 * 0.15 * log(mHl / Lambda_NP))*1000.
             );
 
     // Add modifications due to small variations of the SM parameters    
@@ -22114,9 +22116,9 @@ double NPSMEFTd6General::deltaGammaHmumuRatio1() const
 
     double C1 = 0.0;
 
-    dwidth = (+121248. * ewgc("CHbox") / LambdaNP2
-            - 199792511. * ewgc("CeHR",1,1) / LambdaNP2
-            - 30312.1 * ewgc("CHD") / LambdaNP2
+    dwidth = (+121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 199792511. * getSMEFTCoeffEW("CeHR",1,1) / LambdaNP2
+            - 30312.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
             - 60624.1 * delta_GF / v() / v());
 
     //  Linear contribution from Higgs self-coupling
@@ -22192,9 +22194,9 @@ double NPSMEFTd6General::deltaGammaHtautauRatio1() const
 
     double C1 = 0.0;
 
-    dwidth = (+121248. * ewgc("CHbox") / LambdaNP2
-            - 11880369. * ewgc("CeHR",2,2) / LambdaNP2
-            - 30312.1 * ewgc("CHD") / LambdaNP2
+    dwidth = (+121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 11880369. * getSMEFTCoeffEW("CeHR",2,2) / LambdaNP2
+            - 30312.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
             - 60624.1 * delta_GF / v() / v());
 
     //  Linear contribution from Higgs self-coupling
@@ -22273,17 +22275,17 @@ double NPSMEFTd6General::deltaGammaHccRatio1() const
 
     if (FlagLoopHd6) {
 
-        dwidth = (+121248. * ewgc("CHbox") / LambdaNP2
-                - 16421890. * ewgc("CuHR",1,1) / LambdaNP2
-                - 992.159 * ewgc("CuHR",2,2) / LambdaNP2
-                - 30312.1 * ewgc("CHD") / LambdaNP2
+        dwidth = (+121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 16421890. * getSMEFTCoeffEW("CuHR",1,1) / LambdaNP2
+                - 992.159 * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 30312.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
                 - 60624.1 * delta_GF / v() / v());
 
     } else {
 
-        dwidth = (+121248. * ewgc("CHbox") / LambdaNP2
-                - 16556668. * ewgc("CuHR",1,1) / LambdaNP2
-                - 30312.1 * ewgc("CHD") / LambdaNP2
+        dwidth = (+121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 16556668. * getSMEFTCoeffEW("CuHR",1,1) / LambdaNP2
+                - 30312.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
                 - 60624.1 * delta_GF / v() / v());
     }
 
@@ -22364,17 +22366,17 @@ double NPSMEFTd6General::deltaGammaHbbRatio1() const
 
     if (FlagLoopHd6) {
 
-        dwidth = (+121248. * ewgc("CHbox") / LambdaNP2
-                - 558.186 * ewgc("CuHR",2,2) / LambdaNP2
-                - 5027051. * ewgc("CdHR",2,2) / LambdaNP2
-                - 30312.1 * ewgc("CHD") / LambdaNP2
+        dwidth = (+121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 558.186 * getSMEFTCoeffEW("CuHR",2,2) / LambdaNP2
+                - 5027051. * getSMEFTCoeffEW("CdHR",2,2) / LambdaNP2
+                - 30312.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
                 - 60624.1 * delta_GF / v() / v());
 
     } else {
 
-        dwidth = (+121248. * ewgc("CHbox") / LambdaNP2
-                - 5050180. * ewgc("CdHR",2,2) / LambdaNP2
-                - 30312.1 * ewgc("CHD") / LambdaNP2
+        dwidth = (+121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 5050180. * getSMEFTCoeffEW("CdHR",2,2) / LambdaNP2
+                - 30312.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
                 - 60624.1 * delta_GF / v() / v());
     }
 
@@ -22386,8 +22388,8 @@ double NPSMEFTd6General::deltaGammaHbbRatio1() const
     //  Linear contribution from 4 top operators
     //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
     //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    dwidth = dwidth + cLHd6 * ((ewgc("Cquqd1R",2,2,2,2) / LambdaNP2)*(92.5 + cRGEon * 2.0 * 168. * log(mHl / Lambda_NP))*1000.
-            + (ewgc("Cquqd8R",2,2,2,2) / LambdaNP2)*(17.6 + cRGEon * 2.0 * 32.0 * log(mHl / Lambda_NP))*1000.
+    dwidth = dwidth + cLHd6 * ((getSMEFTCoeffEW("Cquqd1R",2,2,2,2) / LambdaNP2)*(92.5 + cRGEon * 2.0 * 168. * log(mHl / Lambda_NP))*1000.
+            + (getSMEFTCoeffEW("Cquqd8R",2,2,2,2) / LambdaNP2)*(17.6 + cRGEon * 2.0 * 32.0 * log(mHl / Lambda_NP))*1000.
             );
 
     // Add modifications due to small variations of the SM parameters    
@@ -22460,24 +22462,24 @@ double NPSMEFTd6General::deltaGammaH2L2LRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121302. * ewgc("CHbox") / LambdaNP2
-            - 59592.5 *ewgc("CHB") / LambdaNP2
-            - 6187.97 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121302. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 59592.5 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 6187.97 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 27262.7 * CDHB / LambdaNP2
             + 23783.2 * CDHW / LambdaNP2
-            + 42404.3 * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            + 42440.7 * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            + 42633.3 * (ewgc("CHl1R",2,2) + ewgc("CHl3R",2,2)) / LambdaNP2
-            - 36384.4 * ewgc("CHeR",0,0) / LambdaNP2
-            - 36395.3 * ewgc("CHeR",1,1) / LambdaNP2
-            - 36589.1 * ewgc("CHeR",2,2) / LambdaNP2
-            + cAsch * (-42519.3 * ewgc("CHD") / LambdaNP2
-            - 112124. * ewgc("CHWB") / LambdaNP2
+            + 42404.3 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            + 42440.7 * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            + 42633.3 * (getSMEFTCoeffEW("CHl1R",2,2) + getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            - 36384.4 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 36395.3 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            - 36589.1 * getSMEFTCoeffEW("CHeR",2,2) / LambdaNP2
+            + cAsch * (-42519.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 112124. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.401 * delta_GF
             - 0.836 * deltaGzd6()
             )
-            + cWsch * (-1940.8 * ewgc("CHD") / LambdaNP2
-            - 23529. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-1940.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 23529. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.002 * delta_GF
             - 0.836 * deltaGzd6()
             ));
@@ -22559,22 +22561,22 @@ double NPSMEFTd6General::deltaGammaH2e2muRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121249. * ewgc("CHbox") / LambdaNP2
-            - 59336.7 *ewgc("CHB") / LambdaNP2
-            - 7152.53 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121249. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 59336.7 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 7152.53 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 27264.5 * CDHB / LambdaNP2
             + 23839.6 * CDHW / LambdaNP2
-            + 63753.6 * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            + 63771.3 * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            - 54745.8 * ewgc("CHeR",0,0) / LambdaNP2
-            - 54706. * ewgc("CHeR",1,1) / LambdaNP2
-            + cAsch * (-42424.4 * ewgc("CHD") / LambdaNP2
-            - 111863. * ewgc("CHWB") / LambdaNP2
+            + 63753.6 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            + 63771.3 * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 54745.8 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 54706. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + cAsch * (-42424.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 111863. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.401 * delta_GF
             - 0.837 * deltaGzd6()
             )
-            + cWsch * (-2206.38 * ewgc("CHD") / LambdaNP2
-            - 23677.2 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-2206.38 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 23677.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.001 * delta_GF
             - 0.837 * deltaGzd6()
             ));
@@ -22656,21 +22658,21 @@ double NPSMEFTd6General::deltaGammaH2v2vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121344. * ewgc("CHbox") / LambdaNP2
-            - 14021.1 *ewgc("CHB") / LambdaNP2
-            - 46733.1 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121344. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 14021.1 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 46733.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 15986.2 * CDHB / LambdaNP2
             + 29166.5 * CDHW / LambdaNP2
-            - 39647.5 * (ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) / LambdaNP2
-            - 39690.9 * (ewgc("CHl1R",1,1) - ewgc("CHl3R",1,1)) / LambdaNP2
-            - 39622.3 * (ewgc("CHl1R",2,2) - ewgc("CHl3R",2,2)) / LambdaNP2
-            + cAsch * (-30324.8 * ewgc("CHD") / LambdaNP2
-            - 25575.1 * ewgc("CHWB") / LambdaNP2
+            - 39647.5 * (getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            - 39690.9 * (getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 39622.3 * (getSMEFTCoeffEW("CHl1R",2,2) - getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            + cAsch * (-30324.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 25575.1 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.003 * delta_GF
             - 0.847 * deltaGzd6()
             )
-            + cWsch * (-30324.8 * ewgc("CHD") / LambdaNP2
-            - 25575.1 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-30324.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 25575.1 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.003 * delta_GF
             - 0.847 * deltaGzd6()
             ));
@@ -22752,27 +22754,27 @@ double NPSMEFTd6General::deltaGammaH2L2vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121291. * ewgc("CHbox") / LambdaNP2
-            - 35349.6 *ewgc("CHB") / LambdaNP2
-            - 27095.7 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121291. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 35349.6 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 27095.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 21443.2 * CDHB / LambdaNP2
             + 26588.4 * CDHW / LambdaNP2
-            + 3026.29 * ewgc("CHl1R",0,0) / LambdaNP2
-            + 3021.87 * ewgc("CHl1R",1,1) / LambdaNP2
-            + 2746.62 * ewgc("CHl1R",2,2) / LambdaNP2
-            - 18924.3 * ewgc("CHeR",0,0) / LambdaNP2
-            - 18918.4 * ewgc("CHeR",1,1) / LambdaNP2
-            - 18820.4 * ewgc("CHeR",2,2) / LambdaNP2
-            + 41085.2 * ewgc("CHl3R",0,0) / LambdaNP2
-            + 41121.1 * ewgc("CHl3R",1,1) / LambdaNP2
-            + 41134.2 * ewgc("CHl3R",2,2) / LambdaNP2
-            + cAsch * (-36393. * ewgc("CHD") / LambdaNP2
-            - 69325.9 * ewgc("CHWB") / LambdaNP2
+            + 3026.29 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+            + 3021.87 * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+            + 2746.62 * getSMEFTCoeffEW("CHl1R",2,2) / LambdaNP2
+            - 18924.3 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 18918.4 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            - 18820.4 * getSMEFTCoeffEW("CHeR",2,2) / LambdaNP2
+            + 41085.2 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + 41121.1 * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + 41134.2 * getSMEFTCoeffEW("CHl3R",2,2) / LambdaNP2
+            + cAsch * (-36393. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 69325.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.201 * delta_GF
             - 0.846 * deltaGzd6()
             )
-            + cWsch * (-16170.3 * ewgc("CHD") / LambdaNP2
-            - 24273.2 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-16170.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 24273.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.846 * deltaGzd6()
             ));
@@ -22854,26 +22856,26 @@ double NPSMEFTd6General::deltaGammaH2L2v2Ratio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121298. * ewgc("CHbox") / LambdaNP2
-            - 35499.1 *ewgc("CHB") / LambdaNP2
-            - 27241.9 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121298. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 35499.1 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 27241.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 21422.8 * CDHB / LambdaNP2
             + 26606.6 * CDHW / LambdaNP2
-            + 18600.1 * ewgc("CHl1R",0,0) / LambdaNP2
-            + 18562.6 * ewgc("CHl1R",1,1) / LambdaNP2
-            - 28682. * ewgc("CHl1R",2,2) / LambdaNP2
-            - 28294.2 * ewgc("CHeR",0,0) / LambdaNP2
-            - 28285.3 * ewgc("CHeR",1,1) / LambdaNP2
-            + 47342.8 * ewgc("CHl3R",0,0) / LambdaNP2
-            + 47360.7 * ewgc("CHl3R",1,1) / LambdaNP2
-            + 28708.8 * ewgc("CHl3R",2,2) / LambdaNP2
-            + cAsch * (-36443.1 * ewgc("CHD") / LambdaNP2
-            - 68837.8 * ewgc("CHWB") / LambdaNP2
+            + 18600.1 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+            + 18562.6 * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+            - 28682. * getSMEFTCoeffEW("CHl1R",2,2) / LambdaNP2
+            - 28294.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 28285.3 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + 47342.8 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + 47360.7 * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + 28708.8 * getSMEFTCoeffEW("CHl3R",2,2) / LambdaNP2
+            + cAsch * (-36443.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 68837.8 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.201 * delta_GF
             - 0.839 * deltaGzd6()
             )
-            + cWsch * (-16226. * ewgc("CHD") / LambdaNP2
-            - 24353. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-16226. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 24353. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.002 * delta_GF
             - 0.839 * deltaGzd6()
             ));
@@ -22955,21 +22957,21 @@ double NPSMEFTd6General::deltaGammaH2e2vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121287. * ewgc("CHbox") / LambdaNP2
-            - 35405.9 *ewgc("CHB") / LambdaNP2
-            - 27195.5 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121287. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 35405.9 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 27195.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 21469.4 * CDHB / LambdaNP2
             + 26548.6 * CDHW / LambdaNP2
-            + 65790.6 * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            - 28690.7 * (ewgc("CHl1R",1,1) - ewgc("CHl3R",1,1)) / LambdaNP2
-            - 28703.9 * (ewgc("CHl1R",2,2) - ewgc("CHl3R",2,2)) / LambdaNP2
-            - 56575.7 * ewgc("CHeR",0,0) / LambdaNP2
-            + cAsch * (-36350.8 * ewgc("CHD") / LambdaNP2
-            - 68896.2 * ewgc("CHWB") / LambdaNP2
+            + 65790.6 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            - 28690.7 * (getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 28703.9 * (getSMEFTCoeffEW("CHl1R",2,2) - getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            - 56575.7 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            + cAsch * (-36350.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 68896.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.199 * delta_GF
             - 0.846 * deltaGzd6())
-            + cWsch * (-16304.9 * ewgc("CHD") / LambdaNP2
-            - 24376.4 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-16304.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 24376.4 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.846 * deltaGzd6())
             );
@@ -23052,21 +23054,21 @@ double NPSMEFTd6General::deltaGammaH2mu2vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121291. * ewgc("CHbox") / LambdaNP2
-            - 35658.4 *ewgc("CHB") / LambdaNP2
-            - 26866.3 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121291. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 35658.4 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 26866.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 21500.1 * CDHB / LambdaNP2
             + 26571.5 * CDHW / LambdaNP2
-            - 28684.4 * (ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) / LambdaNP2
-            + 65832. * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            - 28703.3 * (ewgc("CHl1R",2,2) - ewgc("CHl3R",2,2)) / LambdaNP2
-            - 56559.6 * ewgc("CHeR",1,1) / LambdaNP2
-            + cAsch * (-36391.6 * ewgc("CHD") / LambdaNP2
-            - 69347.6 * ewgc("CHWB") / LambdaNP2
+            - 28684.4 * (getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            + 65832. * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 28703.3 * (getSMEFTCoeffEW("CHl1R",2,2) - getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            - 56559.6 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + cAsch * (-36391.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 69347.6 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.198 * delta_GF
             - 0.842 * deltaGzd6())
-            + cWsch * (-16131.8 * ewgc("CHD") / LambdaNP2
-            - 24298.9 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-16131.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 24298.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.842 * deltaGzd6())
             );
@@ -23148,22 +23150,22 @@ double NPSMEFTd6General::deltaGammaH2u2uRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121242. * ewgc("CHbox") / LambdaNP2
-            - 147406. *ewgc("CHB") / LambdaNP2
-            + 73926.6 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121242. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 147406. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 73926.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 47688.3 * CDHB / LambdaNP2
             + 12016.1 * CDHW / LambdaNP2
-            - 71435.3 * (ewgc("CHq1R",0,0) - ewgc("CHq3R",0,0)) / LambdaNP2
-            - 71331.9 * (ewgc("CHq1R",1,1) - ewgc("CHq3R",1,1)) / LambdaNP2
-            + 31760.4 * ewgc("CHuR",0,0) / LambdaNP2
-            + 31666.6 * ewgc("CHuR",1,1) / LambdaNP2
-            + cAsch * (-66129.8 * ewgc("CHD") / LambdaNP2
-            - 270623. * ewgc("CHWB") / LambdaNP2
+            - 71435.3 * (getSMEFTCoeffEW("CHq1R",0,0) - getSMEFTCoeffEW("CHq3R",0,0)) / LambdaNP2
+            - 71331.9 * (getSMEFTCoeffEW("CHq1R",1,1) - getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            + 31760.4 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+            + 31666.6 * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+            + cAsch * (-66129.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 270623. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.182 * delta_GF
             - 0.827 * deltaGzd6()
             )
-            + cWsch * (+53075.8 * ewgc("CHD") / LambdaNP2
-            - 9701.32 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+53075.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 9701.32 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.002 * delta_GF
             - 0.827 * deltaGzd6()
             ));
@@ -23245,24 +23247,24 @@ double NPSMEFTd6General::deltaGammaH2d2dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121209. * ewgc("CHbox") / LambdaNP2
-            - 109493. *ewgc("CHB") / LambdaNP2
-            + 40559.6 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121209. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 109493. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 40559.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 39022.8 * CDHB / LambdaNP2
             + 17020.8 * CDHW / LambdaNP2
-            + 43704.5 * (ewgc("CHq1R",0,0) + ewgc("CHq3R",0,0)) / LambdaNP2
-            + 43686.8 * (ewgc("CHq1R",1,1) + ewgc("CHq3R",1,1)) / LambdaNP2
-            + 48405. * (ewgc("CHq1R",2,2) + ewgc("CHq3R",2,2)) / LambdaNP2
-            - 7957.66 * ewgc("CHdR",0,0) / LambdaNP2
-            - 7942.9 * ewgc("CHdR",1,1) / LambdaNP2
-            - 8231.05 * ewgc("CHdR",2,2) / LambdaNP2
-            + cAsch * (-55688.4 * ewgc("CHD") / LambdaNP2
-            - 202420. * ewgc("CHWB") / LambdaNP2
+            + 43704.5 * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq3R",0,0)) / LambdaNP2
+            + 43686.8 * (getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            + 48405. * (getSMEFTCoeffEW("CHq1R",2,2) + getSMEFTCoeffEW("CHq3R",2,2)) / LambdaNP2
+            - 7957.66 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+            - 7942.9 * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+            - 8231.05 * getSMEFTCoeffEW("CHdR",2,2) / LambdaNP2
+            + cAsch * (-55688.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 202420. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.837 * delta_GF
             - 0.829 * deltaGzd6()
             )
-            + cWsch * (+28762.7 * ewgc("CHD") / LambdaNP2
-            - 17533.6 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+28762.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 17533.6 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.829 * deltaGzd6()
             ));
@@ -23344,29 +23346,29 @@ double NPSMEFTd6General::deltaGammaH2u2dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121245. * ewgc("CHbox") / LambdaNP2
-            - 129896. *ewgc("CHB") / LambdaNP2
-            + 58951.9 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121245. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 129896. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 58951.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 43749.1 * CDHB / LambdaNP2
             + 14365.1 * CDHW / LambdaNP2
-            - 18953.2 * ewgc("CHq1R",0,0) / LambdaNP2
-            - 18954.1 * ewgc("CHq1R",1,1) / LambdaNP2
-            + 36775. * ewgc("CHq1R",2,2) / LambdaNP2
-            + 15639.1 * ewgc("CHuR",0,0) / LambdaNP2
-            + 15598.5 * ewgc("CHuR",1,1) / LambdaNP2
-            - 2951.74 * ewgc("CHdR",0,0) / LambdaNP2
-            - 2940.03 * ewgc("CHdR",1,1) / LambdaNP2
-            - 6238.49 * ewgc("CHdR",2,2) / LambdaNP2
-            + 51319. * ewgc("CHq3R",0,0) / LambdaNP2
-            + 51289.2 * ewgc("CHq3R",1,1) / LambdaNP2
-            + 36755.6 * ewgc("CHq3R",2,2) / LambdaNP2
-            + cAsch * (-60973.2 * ewgc("CHD") / LambdaNP2
-            - 238821. * ewgc("CHWB") / LambdaNP2
+            - 18953.2 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+            - 18954.1 * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+            + 36775. * getSMEFTCoeffEW("CHq1R",2,2) / LambdaNP2
+            + 15639.1 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+            + 15598.5 * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+            - 2951.74 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+            - 2940.03 * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+            - 6238.49 * getSMEFTCoeffEW("CHdR",2,2) / LambdaNP2
+            + 51319. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+            + 51289.2 * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+            + 36755.6 * getSMEFTCoeffEW("CHq3R",2,2) / LambdaNP2
+            + cAsch * (-60973.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 238821. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.013 * delta_GF
             - 0.832 * deltaGzd6()
             )
-            + cWsch * (+41194.1 * ewgc("CHD") / LambdaNP2
-            - 14774.7 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+41194.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 14774.7 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.001 * delta_GF
             - 0.832 * deltaGzd6()
             ));
@@ -23448,28 +23450,28 @@ double NPSMEFTd6General::deltaGammaH2L2uRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121251. * ewgc("CHbox") / LambdaNP2
-            - 103956. *ewgc("CHB") / LambdaNP2
-            + 35760.1 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121251. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 103956. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 35760.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 38002.6 * CDHB / LambdaNP2
             + 17867.3 * CDHW / LambdaNP2
-            + 21276.1 * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            + 21284.8 * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            + 21179.4 * (ewgc("CHl1R",2,2) + ewgc("CHl3R",2,2)) / LambdaNP2
-            - 35906.7 * (ewgc("CHq1R",0,0) - ewgc("CHq3R",0,0)) / LambdaNP2
-            - 35849.3 * (ewgc("CHq1R",1,1) - ewgc("CHq3R",1,1)) / LambdaNP2
-            - 18274.6 * ewgc("CHeR",0,0) / LambdaNP2
-            - 18258.1 * ewgc("CHeR",1,1) / LambdaNP2
-            - 18170.5 * ewgc("CHeR",2,2) / LambdaNP2
-            + 15975.7 * ewgc("CHuR",0,0) / LambdaNP2
-            + 15912.4 * ewgc("CHuR",1,1) / LambdaNP2
-            + cAsch * (-54348.3 * ewgc("CHD") / LambdaNP2
-            - 194795. * ewgc("CHWB") / LambdaNP2
+            + 21276.1 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            + 21284.8 * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            + 21179.4 * (getSMEFTCoeffEW("CHl1R",2,2) + getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            - 35906.7 * (getSMEFTCoeffEW("CHq1R",0,0) - getSMEFTCoeffEW("CHq3R",0,0)) / LambdaNP2
+            - 35849.3 * (getSMEFTCoeffEW("CHq1R",1,1) - getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            - 18274.6 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 18258.1 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            - 18170.5 * getSMEFTCoeffEW("CHeR",2,2) / LambdaNP2
+            + 15975.7 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+            + 15912.4 * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+            + cAsch * (-54348.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 194795. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.791 * delta_GF
             - 0.836 * deltaGzd6()
             )
-            + cWsch * (+25556.3 * ewgc("CHD") / LambdaNP2
-            - 19191.5 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+25556.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 19191.5 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.836 * deltaGzd6()
             ));
@@ -23551,30 +23553,30 @@ double NPSMEFTd6General::deltaGammaH2L2dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121289. * ewgc("CHbox") / LambdaNP2
-            - 84134.2 *ewgc("CHB") / LambdaNP2
-            + 17402.7 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121289. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 84134.2 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 17402.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 33258.3 * CDHB / LambdaNP2
             + 20429.8 * CDHW / LambdaNP2
-            + 21075. * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            + 21073.9 * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            + 20966.2 * (ewgc("CHl1R",2,2) + ewgc("CHl3R",2,2)) / LambdaNP2
-            + 23026.5 * (ewgc("CHq1R",0,0) + ewgc("CHq3R",0,0)) / LambdaNP2
-            + 23023.9 * (ewgc("CHq1R",1,1) + ewgc("CHq3R",1,1)) / LambdaNP2
-            + 22666. * (ewgc("CHq1R",2,2) + ewgc("CHq3R",2,2)) / LambdaNP2
-            - 18090.2 * ewgc("CHeR",0,0) / LambdaNP2
-            - 18067. * ewgc("CHeR",1,1) / LambdaNP2
-            - 17980.6 * ewgc("CHeR",2,2) / LambdaNP2
-            - 4190.57 * ewgc("CHdR",0,0) / LambdaNP2
-            - 4189.38 * ewgc("CHdR",1,1) / LambdaNP2
-            - 3850.11 * ewgc("CHdR",2,2) / LambdaNP2
-            + cAsch * (-48948.9 * ewgc("CHD") / LambdaNP2
-            - 158101. * ewgc("CHWB") / LambdaNP2
+            + 21075. * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            + 21073.9 * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            + 20966.2 * (getSMEFTCoeffEW("CHl1R",2,2) + getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            + 23026.5 * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq3R",0,0)) / LambdaNP2
+            + 23023.9 * (getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            + 22666. * (getSMEFTCoeffEW("CHq1R",2,2) + getSMEFTCoeffEW("CHq3R",2,2)) / LambdaNP2
+            - 18090.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 18067. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            - 17980.6 * getSMEFTCoeffEW("CHeR",2,2) / LambdaNP2
+            - 4190.57 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+            - 4189.38 * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+            - 3850.11 * getSMEFTCoeffEW("CHdR",2,2) / LambdaNP2
+            + cAsch * (-48948.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 158101. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.617 * delta_GF
             - 0.837 * deltaGzd6()
             )
-            + cWsch * (+13172. * ewgc("CHD") / LambdaNP2
-            - 21275. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+13172. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 21275. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.837 * deltaGzd6()
             ));
@@ -23656,25 +23658,25 @@ double NPSMEFTd6General::deltaGammaH2v2uRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121248. * ewgc("CHbox") / LambdaNP2
-            - 76316.6 *ewgc("CHB") / LambdaNP2
-            + 13981.5 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 76316.6 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 13981.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 31756.8 * CDHB / LambdaNP2
             + 20941.3 * CDHW / LambdaNP2
-            - 19052.2 * (ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) / LambdaNP2
-            - 19081.3 * (ewgc("CHl1R",1,1) - ewgc("CHl3R",1,1)) / LambdaNP2
-            - 19088.9 * (ewgc("CHl1R",2,2) - ewgc("CHl3R",2,2)) / LambdaNP2
-            - 37234.1 * (ewgc("CHq1R",0,0) - ewgc("CHq3R",0,0)) / LambdaNP2
-            - 37155.9 * (ewgc("CHq1R",1,1) - ewgc("CHq3R",1,1)) / LambdaNP2
-            + 16564.7 * ewgc("CHuR",0,0) / LambdaNP2
-            + 16487.2 * ewgc("CHuR",1,1) / LambdaNP2
-            + cAsch * (-48203. * ewgc("CHD") / LambdaNP2
-            - 150929. * ewgc("CHWB") / LambdaNP2
+            - 19052.2 * (getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            - 19081.3 * (getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 19088.9 * (getSMEFTCoeffEW("CHl1R",2,2) - getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            - 37234.1 * (getSMEFTCoeffEW("CHq1R",0,0) - getSMEFTCoeffEW("CHq3R",0,0)) / LambdaNP2
+            - 37155.9 * (getSMEFTCoeffEW("CHq1R",1,1) - getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            + 16564.7 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+            + 16487.2 * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+            + cAsch * (-48203. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 150929. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.589 * delta_GF
             - 0.849 * deltaGzd6()
             )
-            + cWsch * (+11461.3 * ewgc("CHD") / LambdaNP2
-            - 20220.2 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+11461.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 20220.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.998 * delta_GF
             - 0.849 * deltaGzd6()
             ));
@@ -23756,27 +23758,27 @@ double NPSMEFTd6General::deltaGammaH2v2dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121140. * ewgc("CHbox") / LambdaNP2
-            - 57872.8 *ewgc("CHB") / LambdaNP2
-            - 4371.77 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121140. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 57872.8 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 4371.77 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 27059.2 * CDHB / LambdaNP2
             + 23376.6 * CDHW / LambdaNP2
-            - 18746.1 * (ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) / LambdaNP2
-            - 18746.1 * (ewgc("CHl1R",1,1) - ewgc("CHl3R",1,1)) / LambdaNP2
-            - 18868.3 * (ewgc("CHl1R",2,2) - ewgc("CHl3R",2,2)) / LambdaNP2
-            + 23856.6 * (ewgc("CHq1R",0,0) + ewgc("CHq3R",0,0)) / LambdaNP2
-            + 23828.1 * (ewgc("CHq1R",1,1) + ewgc("CHq3R",1,1)) / LambdaNP2
-            + 23481.4 * (ewgc("CHq1R",2,2) + ewgc("CHq3R",2,2)) / LambdaNP2
-            - 4335.75 * ewgc("CHdR",0,0) / LambdaNP2
-            - 4341.01 * ewgc("CHdR",1,1) / LambdaNP2
-            - 4000. * ewgc("CHdR",2,2) / LambdaNP2
-            + cAsch * (-42945.7 * ewgc("CHD") / LambdaNP2
-            - 113953. * ewgc("CHWB") / LambdaNP2
+            - 18746.1 * (getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            - 18746.1 * (getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 18868.3 * (getSMEFTCoeffEW("CHl1R",2,2) - getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            + 23856.6 * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq3R",0,0)) / LambdaNP2
+            + 23828.1 * (getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            + 23481.4 * (getSMEFTCoeffEW("CHq1R",2,2) + getSMEFTCoeffEW("CHq3R",2,2)) / LambdaNP2
+            - 4335.75 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+            - 4341.01 * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+            - 4000. * getSMEFTCoeffEW("CHdR",2,2) / LambdaNP2
+            + cAsch * (-42945.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 113953. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.412 * delta_GF
             - 0.842 * deltaGzd6()
             )
-            + cWsch * (-837.5 * ewgc("CHD") / LambdaNP2
-            - 21725.9 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-837.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 21725.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.996 * delta_GF
             - 0.842 * deltaGzd6()
             ));
@@ -23858,24 +23860,24 @@ double NPSMEFTd6General::deltaGammaH4LRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121291. * ewgc("CHbox") / LambdaNP2
-            - 103587. *ewgc("CHB") / LambdaNP2
-            - 25126.1 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121291. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 103587. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 25126.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 25935.6 * CDHB / LambdaNP2
             + 22895.7 * CDHW / LambdaNP2
-            + 40801.2 * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            + 40841.5 * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            + 40593.4 * (ewgc("CHl1R",2,2) + ewgc("CHl3R",2,2)) / LambdaNP2
-            - 35062.5 * ewgc("CHeR",0,0) / LambdaNP2
-            - 35200.6 * ewgc("CHeR",1,1) / LambdaNP2
-            - 34739.1 * ewgc("CHeR",2,2) / LambdaNP2
-            + cAsch * (-43327.2 * ewgc("CHD") / LambdaNP2
-            - 83516.6 * ewgc("CHWB") / LambdaNP2
+            + 40801.2 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            + 40841.5 * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            + 40593.4 * (getSMEFTCoeffEW("CHl1R",2,2) + getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            - 35062.5 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 35200.6 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            - 34739.1 * getSMEFTCoeffEW("CHeR",2,2) / LambdaNP2
+            + cAsch * (-43327.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 83516.6 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.426 * delta_GF
             - 0.759 * deltaGzd6()
             )
-            + cWsch * (-79.855 * ewgc("CHD") / LambdaNP2
-            + 10882.3 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-79.855 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 10882.3 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.759 * deltaGzd6()
             ));
@@ -23957,22 +23959,22 @@ double NPSMEFTd6General::deltaGammaH4L2Ratio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121305. * ewgc("CHbox") / LambdaNP2
-            - 101068. *ewgc("CHB") / LambdaNP2
-            - 26272.7 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121305. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 101068. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 26272.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 25787.2 * CDHB / LambdaNP2
             + 23110.1 * CDHW / LambdaNP2
-            + 61265. * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            + 61239.2 * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            - 52542.2 * ewgc("CHeR",0,0) / LambdaNP2
-            - 52658.5 * ewgc("CHeR",1,1) / LambdaNP2
-            + cAsch * (-43256.5 * ewgc("CHD") / LambdaNP2
-            - 82588.8 * ewgc("CHWB") / LambdaNP2
+            + 61265. * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            + 61239.2 * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 52542.2 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 52658.5 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + cAsch * (-43256.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 82588.8 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.426 * delta_GF
             - 0.761 * deltaGzd6()
             )
-            + cWsch * (-451.131 * ewgc("CHD") / LambdaNP2
-            + 10429. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-451.131 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 10429. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.003 * delta_GF
             - 0.761 * deltaGzd6()
             ));
@@ -24054,19 +24056,19 @@ double NPSMEFTd6General::deltaGammaH4eRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121313. * ewgc("CHbox") / LambdaNP2
-            - 101223. *ewgc("CHB") / LambdaNP2
-            - 25774.5 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121313. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 101223. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 25774.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 25802.5 * CDHB / LambdaNP2
             + 23066. * CDHW / LambdaNP2
-            + 122287. * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            - 104859. * ewgc("CHeR",0,0) / LambdaNP2
-            + cAsch * (-43133.2 * ewgc("CHD") / LambdaNP2
-            - 82523.3 * ewgc("CHWB") / LambdaNP2
+            + 122287. * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            - 104859. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            + cAsch * (-43133.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 82523.3 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.424 * delta_GF
             - 0.754 * deltaGzd6())
-            + cWsch * (-321.416 * ewgc("CHD") / LambdaNP2
-            + 10203.3 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-321.416 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 10203.3 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.754 * deltaGzd6())
             );
@@ -24148,19 +24150,19 @@ double NPSMEFTd6General::deltaGammaH4muRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121280. * ewgc("CHbox") / LambdaNP2
-            - 101266. *ewgc("CHB") / LambdaNP2
-            - 25189.1 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121280. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 101266. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 25189.1 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 25799.1 * CDHB / LambdaNP2
             + 23071.4 * CDHW / LambdaNP2
-            + 122245. * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            - 105313. * ewgc("CHeR",1,1) / LambdaNP2
-            + cAsch * (-43187.7 * ewgc("CHD") / LambdaNP2
-            - 82284. * ewgc("CHWB") / LambdaNP2
+            + 122245. * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 105313. * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + cAsch * (-43187.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 82284. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.424 * delta_GF
             - 0.756 * deltaGzd6())
-            + cWsch * (-448.867 * ewgc("CHD") / LambdaNP2
-            + 10693.5 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-448.867 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 10693.5 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.999 * delta_GF
             - 0.756 * deltaGzd6())
             );
@@ -24242,21 +24244,21 @@ double NPSMEFTd6General::deltaGammaH4vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121311. * ewgc("CHbox") / LambdaNP2
-            - 13320.2 *ewgc("CHB") / LambdaNP2
-            - 44355.6 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121311. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 13320.2 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 44355.6 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 15020. * CDHB / LambdaNP2
             + 27416.8 * CDHW / LambdaNP2
-            - 37027.3 * (ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) / LambdaNP2
-            - 36969.3 * (ewgc("CHl1R",1,1) - ewgc("CHl3R",1,1)) / LambdaNP2
-            - 37032.5 * (ewgc("CHl1R",2,2) - ewgc("CHl3R",2,2)) / LambdaNP2
-            + cAsch * (-30309.7 * ewgc("CHD") / LambdaNP2
-            - 24266.2 * ewgc("CHWB") / LambdaNP2
+            - 37027.3 * (getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            - 36969.3 * (getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            - 37032.5 * (getSMEFTCoeffEW("CHl1R",2,2) - getSMEFTCoeffEW("CHl3R",2,2)) / LambdaNP2
+            + cAsch * (-30309.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 24266.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.998 * delta_GF
             - 0.715 * deltaGzd6()
             )
-            + cWsch * (-30309.7 * ewgc("CHD") / LambdaNP2
-            - 24266.2 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-30309.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 24266.2 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.998 * delta_GF
             - 0.715 * deltaGzd6()
             ));
@@ -24338,23 +24340,23 @@ double NPSMEFTd6General::deltaGammaH4uRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121283. * ewgc("CHbox") / LambdaNP2
-            - 153814. *ewgc("CHB") / LambdaNP2
-            + 70762.7 * ewgc("CHW") / LambdaNP2
-            - 476614. * ewgc("CHG") / LambdaNP2
+    dwidth = (+121283. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 153814. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 70762.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 476614. * getSMEFTCoeffEW("CHG") / LambdaNP2
             + 47719.2 * CDHB / LambdaNP2
             + 11347.8 * CDHW / LambdaNP2
-            - 70157.4 * (ewgc("CHq1R",0,0) - ewgc("CHq3R",0,0)) / LambdaNP2
-            - 70569. * (ewgc("CHq1R",1,1) - ewgc("CHq3R",1,1)) / LambdaNP2
-            + 30328.1 * ewgc("CHuR",0,0) / LambdaNP2
-            + 30455.3 * ewgc("CHuR",1,1) / LambdaNP2
-            + cAsch * (-67742.3 * ewgc("CHD") / LambdaNP2
-            - 272758. * ewgc("CHWB") / LambdaNP2
+            - 70157.4 * (getSMEFTCoeffEW("CHq1R",0,0) - getSMEFTCoeffEW("CHq3R",0,0)) / LambdaNP2
+            - 70569. * (getSMEFTCoeffEW("CHq1R",1,1) - getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            + 30328.1 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+            + 30455.3 * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+            + cAsch * (-67742.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 272758. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.233 * delta_GF
             - 0.781 * deltaGzd6()
             )
-            + cWsch * (+56825.9 * ewgc("CHD") / LambdaNP2
-            + 5.842 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+56825.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 5.842 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.002 * delta_GF
             - 0.781 * deltaGzd6()
             ));
@@ -24436,25 +24438,25 @@ double NPSMEFTd6General::deltaGammaH4dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121248. * ewgc("CHbox") / LambdaNP2
-            - 106312. *ewgc("CHB") / LambdaNP2
-            + 37722.3 * ewgc("CHW") / LambdaNP2
-            - 368494. * ewgc("CHG") / LambdaNP2
+    dwidth = (+121248. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 106312. *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 37722.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 368494. * getSMEFTCoeffEW("CHG") / LambdaNP2
             + 38027.3 * CDHB / LambdaNP2
             + 16455.2 * CDHW / LambdaNP2
-            + 43669.1 * (ewgc("CHq1R",0,0) + ewgc("CHq3R",0,0)) / LambdaNP2
-            + 43649.7 * (ewgc("CHq1R",1,1) + ewgc("CHq3R",1,1)) / LambdaNP2
-            + 45003.6 * (ewgc("CHq1R",2,2) + ewgc("CHq3R",2,2)) / LambdaNP2
-            - 7637.9 * ewgc("CHdR",0,0) / LambdaNP2
-            - 7633.36 * ewgc("CHdR",1,1) / LambdaNP2
-            - 7294.61 * ewgc("CHdR",2,2) / LambdaNP2
-            + cAsch * (-56026.9 * ewgc("CHD") / LambdaNP2
-            - 199805. * ewgc("CHWB") / LambdaNP2
+            + 43669.1 * (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq3R",0,0)) / LambdaNP2
+            + 43649.7 * (getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq3R",1,1)) / LambdaNP2
+            + 45003.6 * (getSMEFTCoeffEW("CHq1R",2,2) + getSMEFTCoeffEW("CHq3R",2,2)) / LambdaNP2
+            - 7637.9 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+            - 7633.36 * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+            - 7294.61 * getSMEFTCoeffEW("CHdR",2,2) / LambdaNP2
+            + cAsch * (-56026.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 199805. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.841 * delta_GF
             - 0.778 * deltaGzd6()
             )
-            + cWsch * (+29594.4 * ewgc("CHD") / LambdaNP2
-            - 12377.7 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+29594.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 12377.7 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.995 * delta_GF
             - 0.778 * deltaGzd6()
             ));
@@ -24536,20 +24538,20 @@ double NPSMEFTd6General::deltaGammaHLvvLRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121150. * ewgc("CHbox") / LambdaNP2
-            - 91767.5 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121150. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 91767.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 36978. * CDHW / LambdaNP2
-            + 45140.3 * ewgc("CHl3R",0,0) / LambdaNP2
-            + 45192.1 * ewgc("CHl3R",1,1) / LambdaNP2
-            + 45407.7 * ewgc("CHl3R",2,2) / LambdaNP2
-            + cAsch * (-203598. * ewgc("CHD") / LambdaNP2
-            - 379536. * ewgc("CHWB") / LambdaNP2
+            + 45140.3 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + 45192.1 * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + 45407.7 * getSMEFTCoeffEW("CHl3R",2,2) / LambdaNP2
+            + cAsch * (-203598. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 379536. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.713 * delta_GF
             - 13.743 * deltaMwd6()
             - 0.962 * deltaGwd6()
             )
-            + cWsch * (-30310.3 * ewgc("CHD") / LambdaNP2
-            + 0. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-30310.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 0. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.996 * delta_GF
             - 0.962 * deltaGwd6()
             ));
@@ -24631,19 +24633,19 @@ double NPSMEFTd6General::deltaGammaHevmuvRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121407. * ewgc("CHbox") / LambdaNP2
-            - 91741.5 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121407. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 91741.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 36995.8 * CDHW / LambdaNP2
-            + 68126.1 * ewgc("CHl3R",0,0) / LambdaNP2
-            + 68223.8 * ewgc("CHl3R",1,1) / LambdaNP2
-            + cAsch * (-203550. * ewgc("CHD") / LambdaNP2
-            - 380035. * ewgc("CHWB") / LambdaNP2
+            + 68126.1 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + 68223.8 * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + cAsch * (-203550. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 380035. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.711 * delta_GF
             - 13.53 * deltaMwd6()
             - 0.964 * deltaGwd6()
             )
-            + cWsch * (-30299.6 * ewgc("CHD") / LambdaNP2
-            + 0. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-30299.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 0. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3. * delta_GF
             - 0.964 * deltaGwd6()
             ));
@@ -24725,19 +24727,19 @@ double NPSMEFTd6General::deltaGammaHudduRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121333. * ewgc("CHbox") / LambdaNP2
-            - 92283.9 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121333. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 92283.9 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 37165.5 * CDHW / LambdaNP2
-            + 68273.4 * ewgc("CHq3R",0,0) / LambdaNP2
-            + 68176.3 * ewgc("CHq3R",1,1) / LambdaNP2
-            + cAsch * (-203776. * ewgc("CHD") / LambdaNP2
-            - 380178. * ewgc("CHWB") / LambdaNP2
+            + 68273.4 * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+            + 68176.3 * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+            + cAsch * (-203776. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 380178. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.719 * delta_GF
             - 14.006 * deltaMwd6()
             - 0.956 * deltaGwd6()
             )
-            + cWsch * (-30312.7 * ewgc("CHD") / LambdaNP2
-            + 0. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-30312.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 0. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.003 * delta_GF
             - 0.956 * deltaGwd6()
             ));
@@ -24819,22 +24821,22 @@ double NPSMEFTd6General::deltaGammaHLvudRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121281. * ewgc("CHbox") / LambdaNP2
-            - 93409.7 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121281. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 93409.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 37365.5 * CDHW / LambdaNP2
-            + 22531.9 * ewgc("CHl3R",0,0) / LambdaNP2
-            + 22479. * ewgc("CHl3R",1,1) / LambdaNP2
-            + 22364.3 * ewgc("CHl3R",2,2) / LambdaNP2
-            + 34744.7 * ewgc("CHq3R",0,0) / LambdaNP2
-            + 34720.9 * ewgc("CHq3R",1,1) / LambdaNP2
-            + cAsch * (-203784. * ewgc("CHD") / LambdaNP2
-            - 380028. * ewgc("CHWB") / LambdaNP2
+            + 22531.9 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + 22479. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + 22364.3 * getSMEFTCoeffEW("CHl3R",2,2) / LambdaNP2
+            + 34744.7 * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+            + 34720.9 * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+            + cAsch * (-203784. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 380028. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.721 * delta_GF
             - 13.591 * deltaMwd6()
             - 0.969 * deltaGwd6()
             )
-            + cWsch * (-30359.9 * ewgc("CHD") / LambdaNP2
-            + 0. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-30359.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 0. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.004 * delta_GF
             - 0.969 * deltaGwd6()
             ));
@@ -24916,29 +24918,29 @@ double NPSMEFTd6General::deltaGammaH2udRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121425. * ewgc("CHbox") / LambdaNP2
-            - 3244.8 *ewgc("CHB") / LambdaNP2
-            - 88391.2 * ewgc("CHW") / LambdaNP2
-            - 55282. * ewgc("CHG") / LambdaNP2
+    dwidth = (+121425. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 3244.8 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 88391.2 * getSMEFTCoeffEW("CHW") / LambdaNP2
+            - 55282. * getSMEFTCoeffEW("CHG") / LambdaNP2
             + 1177.32 * CDHB / LambdaNP2
             + 36769.9 * CDHW / LambdaNP2
-            - 23.442 * ewgc("CHq1R",0,0) / LambdaNP2
-            - 22.98 * ewgc("CHq1R",1,1) / LambdaNP2
-            + 559.485 * ewgc("CHuR",0,0) / LambdaNP2
-            + 560.558 * ewgc("CHuR",1,1) / LambdaNP2
-            - 217.102 * ewgc("CHdR",0,0) / LambdaNP2
-            - 218.04 * ewgc("CHdR",1,1) / LambdaNP2
-            + 68556.8 * ewgc("CHq3R",0,0) / LambdaNP2
-            + 68783.1 * ewgc("CHq3R",1,1) / LambdaNP2
-            + cAsch * (-199535. * ewgc("CHD") / LambdaNP2
-            - 375669. * ewgc("CHWB") / LambdaNP2
+            - 23.442 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+            - 22.98 * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+            + 559.485 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+            + 560.558 * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+            - 217.102 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+            - 218.04 * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+            + 68556.8 * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+            + 68783.1 * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+            + cAsch * (-199535. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 375669. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.696 * delta_GF
             - 0.026 * deltaGzd6()
             - 13.64 * deltaMwd6()
             - 0.944 * deltaGwd6()
             )
-            + cWsch * (-28852.8 * ewgc("CHD") / LambdaNP2
-            - 1306.57 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-28852.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 1306.57 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.002 * delta_GF
             - 0.026 * deltaGzd6()
             - 0.944 * deltaGwd6()
@@ -25022,29 +25024,29 @@ double NPSMEFTd6General::deltaGammaH2LvRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121133. * ewgc("CHbox") / LambdaNP2
-            + 1057.61 *ewgc("CHB") / LambdaNP2
-            - 91969.3 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121133. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 1057.61 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 91969.3 * getSMEFTCoeffEW("CHW") / LambdaNP2
             - 210.15 * CDHB / LambdaNP2
             + 37475. * CDHW / LambdaNP2
-            - 137.279 * ewgc("CHl1R",0,0) / LambdaNP2
-            - 137.825 * ewgc("CHl1R",1,1) / LambdaNP2
-            - 123.03 * ewgc("CHl1R",2,2) / LambdaNP2
-            - 897.801 * ewgc("CHeR",0,0) / LambdaNP2
-            - 865.641 * ewgc("CHeR",1,1) / LambdaNP2
-            - 862.721 * ewgc("CHeR",2,2) / LambdaNP2
-            + 45408.9 * ewgc("CHl3R",0,0) / LambdaNP2
-            + 45540.1 * ewgc("CHl3R",1,1) / LambdaNP2
-            + 45765.4 * ewgc("CHl3R",2,2) / LambdaNP2
-            + cAsch * (-198032. * ewgc("CHD") / LambdaNP2
-            - 364301. * ewgc("CHWB") / LambdaNP2
+            - 137.279 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+            - 137.825 * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+            - 123.03 * getSMEFTCoeffEW("CHl1R",2,2) / LambdaNP2
+            - 897.801 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 865.641 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            - 862.721 * getSMEFTCoeffEW("CHeR",2,2) / LambdaNP2
+            + 45408.9 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + 45540.1 * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + 45765.4 * getSMEFTCoeffEW("CHl3R",2,2) / LambdaNP2
+            + cAsch * (-198032. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 364301. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.631 * delta_GF
             - 13.529 * deltaMwd6()
             - 0.956 * deltaGwd6()
             - 0.037 * deltaGzd6()
             )
-            + cWsch * (-33553.1 * ewgc("CHD") / LambdaNP2
-            - 3437.65 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-33553.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 3437.65 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.001 * delta_GF
             - 0.036 * deltaGzd6()
             - 0.956 * deltaGwd6()
@@ -25128,26 +25130,26 @@ double NPSMEFTd6General::deltaGammaH2Lv2Ratio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121215. * ewgc("CHbox") / LambdaNP2
-            + 1054.39 *ewgc("CHB") / LambdaNP2
-            - 91849.7 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121215. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 1054.39 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 91849.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
             - 207.764 * CDHB / LambdaNP2
             + 37474.1 * CDHW / LambdaNP2
-            - 205.44 * ewgc("CHl1R",0,0) / LambdaNP2
-            - 205.933 * ewgc("CHl1R",1,1) / LambdaNP2
-            - 1345.15 * ewgc("CHeR",0,0) / LambdaNP2
-            - 1299.22 * ewgc("CHeR",1,1) / LambdaNP2
-            + 68383.7 * ewgc("CHl3R",0,0) / LambdaNP2
-            + 68347.6 * ewgc("CHl3R",1,1) / LambdaNP2
-            + cAsch * (-198193. * ewgc("CHD") / LambdaNP2
-            - 364163. * ewgc("CHWB") / LambdaNP2
+            - 205.44 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+            - 205.933 * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+            - 1345.15 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 1299.22 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + 68383.7 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + 68347.6 * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + cAsch * (-198193. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 364163. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.627 * delta_GF
             - 13.439 * deltaMwd6()
             - 0.961 * deltaGwd6()
             - 0.042 * deltaGzd6()
             )
-            + cWsch * (-33577.8 * ewgc("CHD") / LambdaNP2
-            - 3457.89 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-33577.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 3457.89 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.999 * delta_GF
             - 0.042 * deltaGzd6()
             - 0.961 * deltaGwd6()
@@ -25231,22 +25233,22 @@ double NPSMEFTd6General::deltaGammaH2evRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121306. * ewgc("CHbox") / LambdaNP2
-            + 1054.18 *ewgc("CHB") / LambdaNP2
-            - 91797.7 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121306. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 1054.18 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 91797.7 * getSMEFTCoeffEW("CHW") / LambdaNP2
             - 205.428 * CDHB / LambdaNP2
             + 37460.6 * CDHW / LambdaNP2
-            - 411.183 * ewgc("CHl1R",0,0) / LambdaNP2
-            - 2684.07 * ewgc("CHeR",0,0) / LambdaNP2
-            + 136899. * ewgc("CHl3R",0,0) / LambdaNP2
-            + cAsch * (-198266. * ewgc("CHD") / LambdaNP2
-            - 364381. * ewgc("CHWB") / LambdaNP2
+            - 411.183 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+            - 2684.07 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            + 136899. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + cAsch * (-198266. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 364381. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.629 * delta_GF
             - 0.037 * deltaGzd6()
             - 13.549 * deltaMwd6()
             - 0.965 * deltaGwd6())
-            + cWsch * (-33589.4 * ewgc("CHD") / LambdaNP2
-            - 3458.14 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-33589.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 3458.14 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.999 * delta_GF
             - 0.037 * deltaGzd6()
             - 0.965 * deltaGwd6())
@@ -25330,20 +25332,20 @@ double NPSMEFTd6General::deltaGammaH2muvRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121244. * ewgc("CHbox") / LambdaNP2
-            + 1045.26 *ewgc("CHB") / LambdaNP2
-            - 91781. * ewgc("CHW") / LambdaNP2
+    dwidth = (+121244. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            + 1045.26 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            - 91781. * getSMEFTCoeffEW("CHW") / LambdaNP2
             - 206.573 * CDHB / LambdaNP2
             + 37435.3 * CDHW / LambdaNP2
-            - 410.738 * ewgc("CHl1R",1,1) / LambdaNP2
-            - 2593.82 * ewgc("CHeR",1,1) / LambdaNP2
-            + 136695. * ewgc("CHl3R",1,1) / LambdaNP2
-            + cAsch * (-198022. * ewgc("CHD") / LambdaNP2
-            - 364213. * ewgc("CHWB") / LambdaNP2
+            - 410.738 * getSMEFTCoeffEW("CHl1R",1,1) / LambdaNP2
+            - 2593.82 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + 136695. * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + cAsch * (-198022. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 364213. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.625 * delta_GF
             - 0.031 * deltaGzd6())
-            + cWsch * (-33559. * ewgc("CHD") / LambdaNP2
-            - 3447.11 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-33559. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 3447.11 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 2.998 * delta_GF
             - 0.031 * deltaGzd6())
             );
@@ -25663,30 +25665,30 @@ double NPSMEFTd6General::deltaGammaHlljjRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121311. * ewgc("CHbox") / LambdaNP2
-            - 92298.6 *ewgc("CHB") / LambdaNP2
-            + 24856.5 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121311. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 92298.6 *getSMEFTCoeffEW("CHB") / LambdaNP2
+            + 24856.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 35209.4 * CDHB / LambdaNP2
             + 19445.9 * CDHW / LambdaNP2
-            + 31820. * (ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) / LambdaNP2
-            + 31802.8 * (ewgc("CHl1R",1,1) + ewgc("CHl3R",1,1)) / LambdaNP2
-            + 3495.26 * ewgc("CHq1R",0,0) / LambdaNP2
-            + 3545.61 * ewgc("CHq1R",1,1) / LambdaNP2
-            - 27325.3 * ewgc("CHeR",0,0) / LambdaNP2
-            - 27320.8 * ewgc("CHeR",1,1) / LambdaNP2
-            + 6992.68 * ewgc("CHuR",0,0) / LambdaNP2
-            + 6968.35 * ewgc("CHuR",1,1) / LambdaNP2
-            - 3496.34 * ewgc("CHdR",0,0) / LambdaNP2
-            - 3497.7 * ewgc("CHdR",1,1) / LambdaNP2
-            + 34929.4 * ewgc("CHq3R",0,0) / LambdaNP2
-            + 34902.6 * ewgc("CHq3R",1,1) / LambdaNP2
-            + cAsch * (-51170.9 * ewgc("CHD") / LambdaNP2
-            - 173417. * ewgc("CHWB") / LambdaNP2
+            + 31820. * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) / LambdaNP2
+            + 31802.8 * (getSMEFTCoeffEW("CHl1R",1,1) + getSMEFTCoeffEW("CHl3R",1,1)) / LambdaNP2
+            + 3495.26 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+            + 3545.61 * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+            - 27325.3 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+            - 27320.8 * getSMEFTCoeffEW("CHeR",1,1) / LambdaNP2
+            + 6992.68 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+            + 6968.35 * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+            - 3496.34 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+            - 3497.7 * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+            + 34929.4 * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+            + 34902.6 * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+            + cAsch * (-51170.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 173417. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.69 * delta_GF
             - 0.84 * deltaGzd6()
             )
-            + cWsch * (+18275. * ewgc("CHD") / LambdaNP2
-            - 20362.3 * ewgc("CHWB") / LambdaNP2
+            + cWsch * (+18275. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 20362.3 * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.001 * delta_GF
             - 0.84 * deltaGzd6()
             ));
@@ -25768,21 +25770,21 @@ double NPSMEFTd6General::deltaGammaHlvjjRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121253. * ewgc("CHbox") / LambdaNP2
-            - 93392.5 * ewgc("CHW") / LambdaNP2
+    dwidth = (+121253. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+            - 93392.5 * getSMEFTCoeffEW("CHW") / LambdaNP2
             + 37361. * CDHW / LambdaNP2
-            + 33596.1 * ewgc("CHl3R",0,0) / LambdaNP2
-            + 33564.4 * ewgc("CHl3R",1,1) / LambdaNP2
-            + 34752.8 * ewgc("CHq3R",0,0) / LambdaNP2
-            + 34719.9 * ewgc("CHq3R",1,1) / LambdaNP2
-            + cAsch * (-203815. * ewgc("CHD") / LambdaNP2
-            - 380827. * ewgc("CHWB") / LambdaNP2
+            + 33596.1 * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+            + 33564.4 * getSMEFTCoeffEW("CHl3R",1,1) / LambdaNP2
+            + 34752.8 * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+            + 34719.9 * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+            + cAsch * (-203815. * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 380827. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 4.723 * delta_GF
             - 13.742 * deltaMwd6()
             - 0.962 * deltaGwd6()
             )
-            + cWsch * (-30332.8 * ewgc("CHD") / LambdaNP2
-            + 0. * ewgc("CHWB") / LambdaNP2
+            + cWsch * (-30332.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            + 0. * getSMEFTCoeffEW("CHWB") / LambdaNP2
             - 3.004 * delta_GF
             - 0.962 * deltaGwd6()
             ));
@@ -26092,27 +26094,27 @@ double NPSMEFTd6General::muttHZbbboost(const double sqrt_s) const
 
     dsigmarat = 1.0;
     //  ttH 100 TeV (from muttH func): NOT BOOSTED YET
-    dsigmarat += +467438. * ewgc("CHG") / LambdaNP2
-            - 22519. * ewgc("CG") / LambdaNP2
-            + 880378. * ewgc("CuGR",2,2) / LambdaNP2
+    dsigmarat += +467438. * getSMEFTCoeffEW("CHG") / LambdaNP2
+            - 22519. * getSMEFTCoeffEW("CG") / LambdaNP2
+            + 880378. * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
             - 2.837 * deltaG_hff(quarks[TOP]).real()
             ;
     //  Divided (linearized) by ttZ 100 TeV
     dsigmarat = dsigmarat - (
-            -40869.4 * ewgc("CHD") / LambdaNP2
-            - 52607.9 * ewgc("CHWB") / LambdaNP2
-            - 90424.9 * ewgc("CHG") / LambdaNP2
-            + 432089. * ewgc("CG") / LambdaNP2
-            + 326525. * ewgc("CuGR",2,2) / LambdaNP2
-            - 2028.11 * ewgc("CuWR",2,2) / LambdaNP2
-            + 1679.85 * ewgc("CuBR",2,2) / LambdaNP2
-            + 1454.5 * ewgc("CHq1R",0,0) / LambdaNP2
-            + 1065.27 * ewgc("CHuR",0,0) / LambdaNP2
-            + 82169.1 * ewgc("CHuR",2,2) / LambdaNP2
-            - 1229.16 * ewgc("CHdR",0,0) / LambdaNP2
-            + 6780.84 * ewgc("CHq3R",0,0) / LambdaNP2
+            -40869.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+            - 52607.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
+            - 90424.9 * getSMEFTCoeffEW("CHG") / LambdaNP2
+            + 432089. * getSMEFTCoeffEW("CG") / LambdaNP2
+            + 326525. * getSMEFTCoeffEW("CuGR",2,2) / LambdaNP2
+            - 2028.11 * getSMEFTCoeffEW("CuWR",2,2) / LambdaNP2
+            + 1679.85 * getSMEFTCoeffEW("CuBR",2,2) / LambdaNP2
+            + 1454.5 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+            + 1065.27 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+            + 82169.1 * getSMEFTCoeffEW("CHuR",2,2) / LambdaNP2
+            - 1229.16 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+            + 6780.84 * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
             - 1.374 * delta_GF
-            + 4.242 * -0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * v2_over_LambdaNP2
+            + 4.242 * -0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * v2_over_LambdaNP2
             );
 
     return dsigmarat * (BrHbbrat / BrZbbrat);
@@ -27089,8 +27091,8 @@ double NPSMEFTd6General::deltag1ZNP() const
 
     //      NPindirect = - 1.0 / (cW2_tree-sW2_tree);
 
-    //      NPindirect = NPindirect * (sW_tree * ewgc("CHWB") / cW_tree 
-    //              + 0.25 * ewgc("CHD") ) * v2_over_LambdaNP2
+    //      NPindirect = NPindirect * (sW_tree * getSMEFTCoeffEW("CHWB") / cW_tree 
+    //              + 0.25 * getSMEFTCoeffEW("CHD") ) * v2_over_LambdaNP2
     //              + 0.5 * NPindirect * delta_GF ;
 
     NPindirect = delta_e - 0.5 * delta_sW2 / cW2_tree + 0.5 * delta_Z - sW_tree * delta_ZA / cW_tree;
@@ -27120,7 +27122,7 @@ double NPSMEFTd6General::deltaKgammaNP() const
 
     NPdirect = eeMz / 4.0 / sW2_tree;
 
-    NPdirect = NPdirect * ((4.0 * sW_tree * cW_tree / eeMz) *  ewgc("CHWB")
+    NPdirect = NPdirect * ((4.0 * sW_tree * cW_tree / eeMz) *  getSMEFTCoeffEW("CHWB")
             - sW_tree * CDHW
             - cW_tree * CDHB) * v2_over_LambdaNP2;
 
@@ -27134,7 +27136,7 @@ double NPSMEFTd6General::lambdaZNP() const
     double NPdirect;
 
     //    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  
-    NPdirect = -(3.0 / 2.0) * (eeMz / sW_tree) * ewgc("CW") * v2_over_LambdaNP2;
+    NPdirect = -(3.0 / 2.0) * (eeMz / sW_tree) * getSMEFTCoeffEW("CW") * v2_over_LambdaNP2;
 
     return NPdirect + lambZ;
 }
@@ -27199,8 +27201,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
 
     dGF = delta_GF / sqrt(2.0);
 
-    dmZ2 = cAsch * (0.5 * ewgc("CHD") + 2.0 * cW_tree * sW_tree *  ewgc("CHWB")) * v2_over_LambdaNP2
-            + cWsch * (0.5 * ewgc("CHD") + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) *  ewgc("CHWB")) * v2_over_LambdaNP2;
+    dmZ2 = cAsch * (0.5 * getSMEFTCoeffEW("CHD") + 2.0 * cW_tree * sW_tree *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2
+            + cWsch * (0.5 * getSMEFTCoeffEW("CHD") + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
 
     dmW2 = -2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
 
@@ -27208,23 +27210,23 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
 
     dGZ = deltaGzd6();
 
-    dsW2 = cAsch * (-0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ((ewgc("CHD")
-            + 2.0 * ewgc("CHWB") / cW_tree / sW_tree) * v2_over_LambdaNP2
+    dsW2 = cAsch * (-0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ((getSMEFTCoeffEW("CHD")
+            + 2.0 * getSMEFTCoeffEW("CHWB") / cW_tree / sW_tree) * v2_over_LambdaNP2
             + 2.0 * sqrt(2.0) * dGF))
-            + cWsch * (1.0 / sW2_tree) * (0.5 * Mw_inp * Mw_inp * ewgc("CHD") / Mz / Mz + Mw_inp * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) * ewgc("CHWB") / Mz) * v2_over_LambdaNP2;
+            + cWsch * (1.0 / sW2_tree) * (0.5 * Mw_inp * Mw_inp * getSMEFTCoeffEW("CHD") / Mz / Mz + Mw_inp * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) * getSMEFTCoeffEW("CHWB") / Mz) * v2_over_LambdaNP2;
 
     dgZ = -dGF / sqrt(2.0) - 0.5 * dmZ2
-            + cW_tree * sW_tree * ewgc("CHWB") * v2_over_LambdaNP2;
+            + cW_tree * sW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
 
     dgVZee = dgZ * gVZeeSM
-            - 0.25 * (ewgc("CHeR",0,0) + ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) * v2_over_LambdaNP2
+            - 0.25 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) * v2_over_LambdaNP2
             - sW2_tree * dsW2;
 
     dgAZee = dgZ * gAZeeSM
-            + 0.25 * (ewgc("CHeR",0,0) - ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) * v2_over_LambdaNP2;
+            + 0.25 * (getSMEFTCoeffEW("CHeR",0,0) - getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) * v2_over_LambdaNP2;
 
-    dgWve = 0.5 * ewgc("CHl3R",0,0) * v2_over_LambdaNP2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+    dgWve = 0.5 * getSMEFTCoeffEW("CHl3R",0,0) * v2_over_LambdaNP2
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     dgZ1 = deltag1ZNP();
@@ -27249,8 +27251,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
 
         case 0:
             //  fstate = 0 (jjjj)       
-            dgWpm1 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.01;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xsjjjjSM[i];
@@ -27258,8 +27260,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 1:
             //  fstate = 1 (e v jj)            
-            dgWpm1 = ewgc("CHl3R",0,0);
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",0,0);
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.0;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvjjSM[i] / 3.0;
@@ -27267,8 +27269,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 2:
             //  fstate = 2 (mu v jj)            
-            dgWpm1 = ewgc("CHl3R",1,1);
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",1,1);
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.0;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvjjSM[i] / 3.0;
@@ -27276,8 +27278,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 3:
             //  fstate = 3 (tau v jj)            
-            dgWpm1 = ewgc("CHl3R",2,2);
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",2,2);
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.0;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvjjSM[i] / 3.0;
@@ -27285,8 +27287,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 4:
             //  fstate = 4 (e v e v)            
-            dgWpm1 = ewgc("CHl3R",0,0);
-            dgWpm2 = ewgc("CHl3R",0,0);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",0,0);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",0,0);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27294,8 +27296,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 5:
             //  fstate = 5 (mu v mu v)            
-            dgWpm1 = ewgc("CHl3R",1,1);
-            dgWpm2 = ewgc("CHl3R",1,1);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",1,1);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",1,1);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27303,8 +27305,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 6:
             //  fstate = 6 (tau v tau v)            
-            dgWpm1 = ewgc("CHl3R",2,2);
-            dgWpm2 = ewgc("CHl3R",2,2);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",2,2);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",2,2);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27312,8 +27314,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 7:
             //  fstate = 7 (e v mu v)            
-            dgWpm1 = ewgc("CHl3R",0,0);
-            dgWpm2 = ewgc("CHl3R",1,1);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",0,0);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",1,1);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27321,8 +27323,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 8:
             //  fstate = 8 (e v tau v)           
-            dgWpm1 = ewgc("CHl3R",0,0);
-            dgWpm2 = ewgc("CHl3R",2,2);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",0,0);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",2,2);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27330,8 +27332,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 9:
             //  fstate = 9 (mu v tau v)           
-            dgWpm1 = ewgc("CHl3R",1,1);
-            dgWpm2 = ewgc("CHl3R",2,2);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",1,1);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",2,2);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27339,8 +27341,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 10:
             //  fstate = 10 (l v jj)           
-            dgWpm1 = (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2));
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2));
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvjjSM[i];
@@ -27348,8 +27350,8 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
             break;
         case 11:
             //  fstate = 11 (l v l v)           
-            dgWpm1 = (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2));
-            dgWpm2 = (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2));
+            dgWpm1 = (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2));
+            dgWpm2 = (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2));
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i];
@@ -27358,11 +27360,11 @@ double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate
     }
 
     dgWpm1 = 0.5 * dgWpm1
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     dgWpm2 = 0.5 * dgWpm2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     if (sqrt_s == 0.1886) {
@@ -27762,8 +27764,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
 
     dGF = delta_GF / sqrt(2.0);
 
-    dmZ2 = cAsch * (0.5 * ewgc("CHD") + 2.0 * cW_tree * sW_tree *  ewgc("CHWB")) * v2_over_LambdaNP2
-            + cWsch * (0.5 * ewgc("CHD") + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) *  ewgc("CHWB")) * v2_over_LambdaNP2;
+    dmZ2 = cAsch * (0.5 * getSMEFTCoeffEW("CHD") + 2.0 * cW_tree * sW_tree *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2
+            + cWsch * (0.5 * getSMEFTCoeffEW("CHD") + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
 
     dmW2 = -2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
 
@@ -27771,23 +27773,23 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
 
     dGZ = deltaGzd6();
 
-    dsW2 = cAsch * (-0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ((ewgc("CHD")
-            + 2.0 * ewgc("CHWB") / cW_tree / sW_tree) * v2_over_LambdaNP2
+    dsW2 = cAsch * (-0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ((getSMEFTCoeffEW("CHD")
+            + 2.0 * getSMEFTCoeffEW("CHWB") / cW_tree / sW_tree) * v2_over_LambdaNP2
             + 2.0 * sqrt(2.0) * dGF))
-            + cWsch * (1.0 / sW2_tree) * (0.5 * Mw_inp * Mw_inp * ewgc("CHD") / Mz / Mz + Mw_inp * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) * ewgc("CHWB") / Mz) * v2_over_LambdaNP2;
+            + cWsch * (1.0 / sW2_tree) * (0.5 * Mw_inp * Mw_inp * getSMEFTCoeffEW("CHD") / Mz / Mz + Mw_inp * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) * getSMEFTCoeffEW("CHWB") / Mz) * v2_over_LambdaNP2;
 
     dgZ = -dGF / sqrt(2.0) - 0.5 * dmZ2
-            + cW_tree * sW_tree * ewgc("CHWB") * v2_over_LambdaNP2;
+            + cW_tree * sW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
 
     dgVZee = dgZ * gVZeeSM
-            - 0.25 * (ewgc("CHeR",0,0) + ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) * v2_over_LambdaNP2
+            - 0.25 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) * v2_over_LambdaNP2
             - sW2_tree * dsW2;
 
     dgAZee = dgZ * gAZeeSM
-            + 0.25 * (ewgc("CHeR",0,0) - ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) * v2_over_LambdaNP2;
+            + 0.25 * (getSMEFTCoeffEW("CHeR",0,0) - getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) * v2_over_LambdaNP2;
 
-    dgWve = 0.5 * ewgc("CHl3R",0,0) * v2_over_LambdaNP2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+    dgWve = 0.5 * getSMEFTCoeffEW("CHl3R",0,0) * v2_over_LambdaNP2
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     dgZ1 = deltag1ZNP();
@@ -27812,8 +27814,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
 
         case 0:
             //  fstate = 0 (jjjj)       
-            dgWpm1 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.01;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xsjjjjSM[i];
@@ -27821,8 +27823,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 1:
             //  fstate = 1 (e v jj)            
-            dgWpm1 = ewgc("CHl3R",0,0);
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",0,0);
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.0;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvjjSM[i] / 3.0;
@@ -27830,8 +27832,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 2:
             //  fstate = 2 (mu v jj)            
-            dgWpm1 = ewgc("CHl3R",1,1);
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",1,1);
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.0;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvjjSM[i] / 3.0;
@@ -27839,8 +27841,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 3:
             //  fstate = 3 (tau v jj)            
-            dgWpm1 = ewgc("CHl3R",2,2);
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",2,2);
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.0;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvjjSM[i] / 3.0;
@@ -27848,8 +27850,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 4:
             //  fstate = 4 (e v e v)            
-            dgWpm1 = ewgc("CHl3R",0,0);
-            dgWpm2 = ewgc("CHl3R",0,0);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",0,0);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",0,0);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27857,8 +27859,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 5:
             //  fstate = 5 (mu v mu v)            
-            dgWpm1 = ewgc("CHl3R",1,1);
-            dgWpm2 = ewgc("CHl3R",1,1);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",1,1);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",1,1);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27866,8 +27868,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 6:
             //  fstate = 6 (tau v tau v)            
-            dgWpm1 = ewgc("CHl3R",2,2);
-            dgWpm2 = ewgc("CHl3R",2,2);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",2,2);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",2,2);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27875,8 +27877,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 7:
             //  fstate = 7 (e v mu v)            
-            dgWpm1 = ewgc("CHl3R",0,0);
-            dgWpm2 = ewgc("CHl3R",1,1);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",0,0);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",1,1);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27884,8 +27886,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 8:
             //  fstate = 8 (e v tau v)           
-            dgWpm1 = ewgc("CHl3R",0,0);
-            dgWpm2 = ewgc("CHl3R",2,2);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",0,0);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",2,2);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27893,8 +27895,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 9:
             //  fstate = 9 (mu v tau v)           
-            dgWpm1 = ewgc("CHl3R",1,1);
-            dgWpm2 = ewgc("CHl3R",2,2);
+            dgWpm1 = getSMEFTCoeffEW("CHl3R",1,1);
+            dgWpm2 = getSMEFTCoeffEW("CHl3R",2,2);
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i] / 6.0;
@@ -27902,8 +27904,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 10:
             //  fstate = 10 (l v jj)           
-            dgWpm1 = (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2));
-            dgWpm2 = 0.5 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1));
+            dgWpm1 = (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2));
+            dgWpm2 = 0.5 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1));
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvjjSM[i];
@@ -27911,8 +27913,8 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
             break;
         case 11:
             //  fstate = 11 (l v l v)           
-            dgWpm1 = (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2));
-            dgWpm2 = (1.0 / 3.0) * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2));
+            dgWpm1 = (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2));
+            dgWpm2 = (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2));
             norm4f = 1.0 / 4.04;
             for (int i = 0; i < 8; ++i) {
                 xspbSM[i] = xslvlvSM[i];
@@ -27921,11 +27923,11 @@ double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstate) con
     }
 
     dgWpm1 = 0.5 * dgWpm1
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     dgWpm2 = 0.5 * dgWpm2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     if (sqrt_s == 0.1886) {
@@ -28306,30 +28308,30 @@ double NPSMEFTd6General::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int
 
     dGF = delta_GF / sqrt(2.0);
 
-    dmZ2 = cAsch * (0.5 * ewgc("CHD") + 2.0 * cW_tree * sW_tree *  ewgc("CHWB")) * v2_over_LambdaNP2
-            + cWsch * (0.5 * ewgc("CHD") + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) *  ewgc("CHWB")) * v2_over_LambdaNP2;
+    dmZ2 = cAsch * (0.5 * getSMEFTCoeffEW("CHD") + 2.0 * cW_tree * sW_tree *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2
+            + cWsch * (0.5 * getSMEFTCoeffEW("CHD") + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
 
     dmW2 = -2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
 
     dGW = deltaGwd6();
 
-    dsW2 = cAsch * (-0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ((ewgc("CHD")
-            + 2.0 * ewgc("CHWB") / cW_tree / sW_tree) * v2_over_LambdaNP2
+    dsW2 = cAsch * (-0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ((getSMEFTCoeffEW("CHD")
+            + 2.0 * getSMEFTCoeffEW("CHWB") / cW_tree / sW_tree) * v2_over_LambdaNP2
             + 2.0 * sqrt(2.0) * dGF))
-            + cWsch * (1.0 / sW2_tree) * (0.5 * Mw_inp * Mw_inp * ewgc("CHD") / Mz / Mz + Mw_inp * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) * ewgc("CHWB") / Mz) * v2_over_LambdaNP2;
+            + cWsch * (1.0 / sW2_tree) * (0.5 * Mw_inp * Mw_inp * getSMEFTCoeffEW("CHD") / Mz / Mz + Mw_inp * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) * getSMEFTCoeffEW("CHWB") / Mz) * v2_over_LambdaNP2;
 
     dgZ = -dGF / sqrt(2.0) - 0.5 * dmZ2
-            + cW_tree * sW_tree * ewgc("CHWB") * v2_over_LambdaNP2;
+            + cW_tree * sW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
 
     dgVZee = dgZ * gVZeeSM
-            - 0.25 * (ewgc("CHeR",0,0) + ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) * v2_over_LambdaNP2
+            - 0.25 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) * v2_over_LambdaNP2
             - sW2_tree * dsW2;
 
     dgAZee = dgZ * gAZeeSM
-            + 0.25 * (ewgc("CHeR",0,0) - ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) * v2_over_LambdaNP2;
+            + 0.25 * (getSMEFTCoeffEW("CHeR",0,0) - getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) * v2_over_LambdaNP2;
 
-    dgWve = 0.5 * ewgc("CHl3R",0,0) * v2_over_LambdaNP2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+    dgWve = 0.5 * getSMEFTCoeffEW("CHl3R",0,0) * v2_over_LambdaNP2
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     dgZ1 = deltag1ZNP();
@@ -28348,12 +28350,12 @@ double NPSMEFTd6General::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int
 
     //  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
     //  the LEP2 experimental analyses they use, for l=e, mu    
-    dgWpm1 = 0.25 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) * v2_over_LambdaNP2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+    dgWpm1 = 0.25 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) * v2_over_LambdaNP2
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgWpm2 = 0.25 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1)) * v2_over_LambdaNP2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+    dgWpm2 = 0.25 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1)) * v2_over_LambdaNP2
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     if (sqrt_s == 0.1827) {
@@ -28690,30 +28692,30 @@ double NPSMEFTd6General::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin)
 
     dGF = delta_GF / sqrt(2.0);
 
-    dmZ2 = cAsch * (0.5 * ewgc("CHD") + 2.0 * cW_tree * sW_tree *  ewgc("CHWB")) * v2_over_LambdaNP2
-            + cWsch * (0.5 * ewgc("CHD") + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) *  ewgc("CHWB")) * v2_over_LambdaNP2;
+    dmZ2 = cAsch * (0.5 * getSMEFTCoeffEW("CHD") + 2.0 * cW_tree * sW_tree *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2
+            + cWsch * (0.5 * getSMEFTCoeffEW("CHD") + 2.0 * (Mw_inp / Mz) * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
 
     dmW2 = -2.0 * deltaMwd6(); //There is a minus sign between refs. definition of dmW2 and ours
 
     dGW = deltaGwd6();
 
-    dsW2 = cAsch * (-0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ((ewgc("CHD")
-            + 2.0 * ewgc("CHWB") / cW_tree / sW_tree) * v2_over_LambdaNP2
+    dsW2 = cAsch * (-0.5 * (cW2_tree / (1.0 - 2.0 * sW2_tree)) * ((getSMEFTCoeffEW("CHD")
+            + 2.0 * getSMEFTCoeffEW("CHWB") / cW_tree / sW_tree) * v2_over_LambdaNP2
             + 2.0 * sqrt(2.0) * dGF))
-            + cWsch * (1.0 / sW2_tree) * (0.5 * Mw_inp * Mw_inp * ewgc("CHD") / Mz / Mz + Mw_inp * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) * ewgc("CHWB") / Mz) * v2_over_LambdaNP2;
+            + cWsch * (1.0 / sW2_tree) * (0.5 * Mw_inp * Mw_inp * getSMEFTCoeffEW("CHD") / Mz / Mz + Mw_inp * sqrt(1.0 - Mw_inp * Mw_inp / Mz / Mz) * getSMEFTCoeffEW("CHWB") / Mz) * v2_over_LambdaNP2;
 
     dgZ = -dGF / sqrt(2.0) - 0.5 * dmZ2
-            + cW_tree * sW_tree * ewgc("CHWB") * v2_over_LambdaNP2;
+            + cW_tree * sW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2;
 
     dgVZee = dgZ * gVZeeSM
-            - 0.25 * (ewgc("CHeR",0,0) + ewgc("CHl1R",0,0) + ewgc("CHl3R",0,0)) * v2_over_LambdaNP2
+            - 0.25 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl3R",0,0)) * v2_over_LambdaNP2
             - sW2_tree * dsW2;
 
     dgAZee = dgZ * gAZeeSM
-            + 0.25 * (ewgc("CHeR",0,0) - ewgc("CHl1R",0,0) - ewgc("CHl3R",0,0)) * v2_over_LambdaNP2;
+            + 0.25 * (getSMEFTCoeffEW("CHeR",0,0) - getSMEFTCoeffEW("CHl1R",0,0) - getSMEFTCoeffEW("CHl3R",0,0)) * v2_over_LambdaNP2;
 
-    dgWve = 0.5 * ewgc("CHl3R",0,0) * v2_over_LambdaNP2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+    dgWve = 0.5 * getSMEFTCoeffEW("CHl3R",0,0) * v2_over_LambdaNP2
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     dgZ1 = deltag1ZNP();
@@ -28732,12 +28734,12 @@ double NPSMEFTd6General::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin)
 
     //  Values of the couplings for the W decays: I assume ME from arXiv: 1606.06693 [hep-ph] are, as in
     //  the LEP2 experimental analyses they use, for l=e, mu
-    dgWpm1 = 0.25 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) * v2_over_LambdaNP2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+    dgWpm1 = 0.25 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) * v2_over_LambdaNP2
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgWpm2 = 0.25 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1)) * v2_over_LambdaNP2
-            + cAsch * (0.25 * (cW_tree * ewgc("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
+    dgWpm2 = 0.25 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1)) * v2_over_LambdaNP2
+            + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
     if (sqrt_s == 0.1827) {
@@ -29416,14 +29418,14 @@ double NPSMEFTd6General::mueeWW(const double sqrt_s) const
     if (sqrt_s == 0.161) {
 
         mu +=
-                -127.685 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 175.567 * ewgc("CHeR",0,0) / LambdaNP2
-                + 242506. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 86570.7 * ewgc("CHD") / LambdaNP2
-                - 189772. * ewgc("CHWB") / LambdaNP2
+                -127.685 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 175.567 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 242506. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 86570.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 189772. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 12.769 * CDHB / LambdaNP2
                 + 6.384 * CDHW / LambdaNP2
-                + 0. * ewgc("CW") / LambdaNP2
+                + 0. * getSMEFTCoeffEW("CW") / LambdaNP2
                 - 2.858 * delta_GF
                 - 70.01 * deltaMwd6();
 
@@ -29440,14 +29442,14 @@ double NPSMEFTd6General::mueeWW(const double sqrt_s) const
     } else if (sqrt_s == 0.240) {
 
         mu +=
-                -26882.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 17485.4 * ewgc("CHeR",0,0) / LambdaNP2
-                + 267456. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 83799.2 * ewgc("CHD") / LambdaNP2
-                - 168074. * ewgc("CHWB") / LambdaNP2
+                -26882.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 17485.4 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 267456. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 83799.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 168074. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 3199.72 * CDHB / LambdaNP2
                 + 3401.93 * CDHW / LambdaNP2
-                + 6649.22 * ewgc("CW") / LambdaNP2
+                + 6649.22 * getSMEFTCoeffEW("CW") / LambdaNP2
                 - 2.812 * delta_GF
                 - 0.993 * deltaMwd6();
 
@@ -29464,14 +29466,14 @@ double NPSMEFTd6General::mueeWW(const double sqrt_s) const
     } else if (sqrt_s == 0.250) {
 
         mu +=
-                -29442.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 18494.5 * ewgc("CHeR",0,0) / LambdaNP2
-                + 269747. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 83750.9 * ewgc("CHD") / LambdaNP2
-                - 167811. * ewgc("CHWB") / LambdaNP2
+                -29442.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 18494.5 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 269747. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 83750.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 167811. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 3401.99 * CDHB / LambdaNP2
                 + 3624.67 * CDHW / LambdaNP2
-                + 7249.33 * ewgc("CW") / LambdaNP2
+                + 7249.33 * getSMEFTCoeffEW("CW") / LambdaNP2
                 - 2.812 * delta_GF
                 - 0.959 * deltaMwd6();
 
@@ -29488,14 +29490,14 @@ double NPSMEFTd6General::mueeWW(const double sqrt_s) const
     } else if (sqrt_s == 0.350) {
 
         mu +=
-                -47552.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 23798.8 * ewgc("CHeR",0,0) / LambdaNP2
-                + 289379. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 83905.3 * ewgc("CHD") / LambdaNP2
-                - 168326. * ewgc("CHWB") / LambdaNP2
+                -47552.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 23798.8 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 289379. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 83905.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 168326. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 5979.05 * CDHB / LambdaNP2
                 + 6520.95 * CDHW / LambdaNP2
-                + 10476.9 * ewgc("CW") / LambdaNP2
+                + 10476.9 * getSMEFTCoeffEW("CW") / LambdaNP2
                 - 2.832 * delta_GF
                 - 0.781 * deltaMwd6();
 
@@ -29512,14 +29514,14 @@ double NPSMEFTd6General::mueeWW(const double sqrt_s) const
     } else if (sqrt_s == 0.365) {
 
         mu +=
-                -49800.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 24520.1 * ewgc("CHeR",0,0) / LambdaNP2
-                + 290743. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 84033.5 * ewgc("CHD") / LambdaNP2
-                - 168466. * ewgc("CHWB") / LambdaNP2
+                -49800.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 24520.1 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 290743. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 84033.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 168466. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 6310.59 * CDHB / LambdaNP2
                 + 6842.81 * CDHW / LambdaNP2
-                + 10606.3 * ewgc("CW") / LambdaNP2
+                + 10606.3 * getSMEFTCoeffEW("CW") / LambdaNP2
                 - 2.828 * delta_GF
                 - 0.775 * deltaMwd6();
 
@@ -29536,14 +29538,14 @@ double NPSMEFTd6General::mueeWW(const double sqrt_s) const
     } else if (sqrt_s == 0.500) {
 
         mu +=
-                -68234.1 * ewgc("CHl1R",0,0) / LambdaNP2
-                - 31290. * ewgc("CHeR",0,0) / LambdaNP2
-                + 309504. * ewgc("CHl3R",0,0) / LambdaNP2
-                - 84926.8 * ewgc("CHD") / LambdaNP2
-                - 171658. * ewgc("CHWB") / LambdaNP2
+                -68234.1 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                - 31290. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                + 309504. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                - 84926.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                - 171658. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 9325.19 * CDHB / LambdaNP2
                 + 10009.9 * CDHW / LambdaNP2
-                + 10896.4 * ewgc("CW") / LambdaNP2
+                + 10896.4 * getSMEFTCoeffEW("CW") / LambdaNP2
                 - 2.84 * delta_GF
                 - 0.705 * deltaMwd6();
 
@@ -29573,14 +29575,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    -23395. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 261092. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 231526. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 72645.8 * ewgc("CHD") / LambdaNP2
-                    - 25084.5 * ewgc("CHWB") / LambdaNP2
+                    -23395. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 261092. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 231526. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 72645.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 25084.5 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 27060.4 * CDHB / LambdaNP2
                     - 7822.83 * CDHW / LambdaNP2
-                    - 587.63 * ewgc("CW") / LambdaNP2
+                    - 587.63 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.437 * delta_GF
                     - 1.554 * deltaMwd6();
 
@@ -29591,14 +29593,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    -27334.5 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 564.392 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 269600. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84684.5 * ewgc("CHD") / LambdaNP2
-                    - 178168. * ewgc("CHWB") / LambdaNP2
+                    -27334.5 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 564.392 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 269600. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84684.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 178168. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 1539.25 * CDHB / LambdaNP2
                     + 4130.32 * CDHW / LambdaNP2
-                    + 7121.6 * ewgc("CW") / LambdaNP2
+                    + 7121.6 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.838 * delta_GF
                     - 0.949 * deltaMwd6();
 
@@ -29615,14 +29617,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    -25554.9 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 274633. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 234621. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 72498.3 * ewgc("CHD") / LambdaNP2
-                    - 23308.5 * ewgc("CHWB") / LambdaNP2
+                    -25554.9 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 274633. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 234621. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 72498.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 23308.5 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 29321.9 * CDHB / LambdaNP2
                     - 7518.62 * CDHW / LambdaNP2
-                    + 314.876 * ewgc("CW") / LambdaNP2
+                    + 314.876 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.444 * delta_GF
                     - 1.448 * deltaMwd6();
 
@@ -29633,14 +29635,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    -29714.6 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 693.518 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 271032. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84929.3 * ewgc("CHD") / LambdaNP2
-                    - 177727. * ewgc("CHWB") / LambdaNP2
+                    -29714.6 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 693.518 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 271032. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84929.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 177727. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 1648.44 * CDHB / LambdaNP2
                     + 4443.85 * CDHW / LambdaNP2
-                    + 7778.07 * ewgc("CW") / LambdaNP2
+                    + 7778.07 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.829 * delta_GF
                     - 0.914 * deltaMwd6();
 
@@ -29651,14 +29653,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    -27418.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 157891. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 250086. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 77904.2 * ewgc("CHD") / LambdaNP2
-                    - 89451.9 * ewgc("CHWB") / LambdaNP2
+                    -27418.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 157891. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 250086. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 77904.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 89451.9 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 17499.7 * CDHB / LambdaNP2
                     - 2499.14 * CDHW / LambdaNP2
-                    + 3435.6 * ewgc("CW") / LambdaNP2
+                    + 3435.6 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.607 * delta_GF
                     - 1.242 * deltaMwd6();
 
@@ -29669,14 +29671,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    -29686. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1698.32 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 271004. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84881.5 * ewgc("CHD") / LambdaNP2
-                    - 177249. * ewgc("CHWB") / LambdaNP2
+                    -29686. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1698.32 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 271004. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84881.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 177249. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 1732.98 * CDHB / LambdaNP2
                     + 4380.98 * CDHW / LambdaNP2
-                    + 7742.96 * ewgc("CW") / LambdaNP2
+                    + 7742.96 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.828 * delta_GF
                     - 0.915 * deltaMwd6();
 
@@ -29693,14 +29695,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    -43312.4 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 370403. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 262809. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 76119.5 * ewgc("CHD") / LambdaNP2
-                    - 35565.5 * ewgc("CHWB") / LambdaNP2
+                    -43312.4 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 370403. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 262809. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 76119.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 35565.5 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 48488.8 * CDHB / LambdaNP2
                     - 4519.05 * CDHW / LambdaNP2
-                    + 6279.71 * ewgc("CW") / LambdaNP2
+                    + 6279.71 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.571 * delta_GF
                     - 1.059 * deltaMwd6();
 
@@ -29711,14 +29713,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    -47925. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 912.302 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 290384. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84475.3 * ewgc("CHD") / LambdaNP2
-                    - 177142. * ewgc("CHWB") / LambdaNP2
+                    -47925. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 912.302 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 290384. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84475.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 177142. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 3105.71 * CDHB / LambdaNP2
                     + 7205.25 * CDHW / LambdaNP2
-                    + 10660.4 * ewgc("CW") / LambdaNP2
+                    + 10660.4 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.841 * delta_GF
                     - 0.773 * deltaMwd6();
 
@@ -29729,14 +29731,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    -45448.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 208484. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 274583. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 80024.1 * ewgc("CHD") / LambdaNP2
-                    - 97902.7 * ewgc("CHWB") / LambdaNP2
+                    -45448.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 208484. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 274583. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 80024.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 97902.7 * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 28562.8 * CDHB / LambdaNP2
                     + 575.898 * CDHW / LambdaNP2
-                    + 8122.74 * ewgc("CW") / LambdaNP2
+                    + 8122.74 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.687 * delta_GF
                     - 0.928 * deltaMwd6();
 
@@ -29747,14 +29749,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    -47903.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2144.19 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 290349. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84405.4 * ewgc("CHD") / LambdaNP2
-                    - 176530. * ewgc("CHWB") / LambdaNP2
+                    -47903.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2144.19 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 290349. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84405.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 176530. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 3309.62 * CDHB / LambdaNP2
                     + 7174.21 * CDHW / LambdaNP2
-                    + 10675.5 * ewgc("CW") / LambdaNP2
+                    + 10675.5 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.84 * delta_GF
                     - 0.777 * deltaMwd6();
 
@@ -29771,14 +29773,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    -45618.2 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 382668. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 265703. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 77085.4 * ewgc("CHD") / LambdaNP2
-                    - 38791. * ewgc("CHWB") / LambdaNP2
+                    -45618.2 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 382668. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 265703. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 77085.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 38791. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 51079.9 * CDHB / LambdaNP2
                     - 3972.2 * CDHW / LambdaNP2
-                    + 6727.91 * ewgc("CW") / LambdaNP2
+                    + 6727.91 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.582 * delta_GF
                     - 1.04 * deltaMwd6();
 
@@ -29789,14 +29791,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    -50230.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1000.53 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 291951. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84657.2 * ewgc("CHD") / LambdaNP2
-                    - 177196. * ewgc("CHWB") / LambdaNP2
+                    -50230.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1000.53 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 291951. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84657.2 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 177196. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 3348.72 * CDHB / LambdaNP2
                     + 7579.53 * CDHW / LambdaNP2
-                    + 10879.2 * ewgc("CW") / LambdaNP2
+                    + 10879.2 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.84 * delta_GF
                     - 0.753 * deltaMwd6();
 
@@ -29813,14 +29815,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    -49806.5 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 221155. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 280445. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 80550.4 * ewgc("CHD") / LambdaNP2
-                    - 101476. * ewgc("CHWB") / LambdaNP2
+                    -49806.5 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 221155. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 280445. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 80550.4 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 101476. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 31723.3 * CDHB / LambdaNP2
                     + 1672.16 * CDHW / LambdaNP2
-                    + 8838.57 * ewgc("CW") / LambdaNP2
+                    + 8838.57 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.707 * delta_GF
                     - 0.891 * deltaMwd6();
 
@@ -29831,14 +29833,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    -52386.5 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 2537.08 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 294134. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84922.5 * ewgc("CHD") / LambdaNP2
-                    - 176871. * ewgc("CHWB") / LambdaNP2
+                    -52386.5 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 2537.08 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 294134. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84922.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 176871. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 3635.55 * CDHB / LambdaNP2
                     + 7973.68 * CDHW / LambdaNP2
-                    + 10984.7 * ewgc("CW") / LambdaNP2
+                    + 10984.7 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.838 * delta_GF
                     - 0.753 * deltaMwd6();
 
@@ -29855,14 +29857,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -30.) {
             mu +=
-                    -64264.6 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 495727. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 289682. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 80108.8 * ewgc("CHD") / LambdaNP2
-                    - 61678. * ewgc("CHWB") / LambdaNP2
+                    -64264.6 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 495727. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 289682. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 80108.8 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 61678. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 75403.3 * CDHB / LambdaNP2
                     + 458.146 * CDHW / LambdaNP2
-                    + 8723.87 * ewgc("CW") / LambdaNP2
+                    + 8723.87 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.664 * delta_GF
                     - 0.849 * deltaMwd6();
 
@@ -29873,14 +29875,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 30.) {
             mu +=
-                    -68310.7 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1341.22 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 311528. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84984.5 * ewgc("CHD") / LambdaNP2
-                    - 178260. * ewgc("CHWB") / LambdaNP2
+                    -68310.7 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1341.22 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 311528. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84984.5 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 178260. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 5206.37 * CDHB / LambdaNP2
                     + 10705.4 * CDHW / LambdaNP2
-                    + 11071.1 * ewgc("CW") / LambdaNP2
+                    + 11071.1 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.855 * delta_GF
                     - 0.671 * deltaMwd6();
 
@@ -29891,14 +29893,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    -66178. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 274919. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 299745. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 82524.6 * ewgc("CHD") / LambdaNP2
-                    - 113979. * ewgc("CHWB") / LambdaNP2
+                    -66178. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 274919. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 299745. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 82524.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 113979. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 43898.4 * CDHB / LambdaNP2
                     + 5024.43 * CDHW / LambdaNP2
-                    + 9759.79 * ewgc("CW") / LambdaNP2
+                    + 9759.79 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.752 * delta_GF
                     - 0.778 * deltaMwd6();
 
@@ -29909,14 +29911,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    -68435.6 * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 3089.11 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 310020. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 85227.7 * ewgc("CHD") / LambdaNP2
-                    - 178139. * ewgc("CHWB") / LambdaNP2
+                    -68435.6 * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 3089.11 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 310020. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 85227.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 178139. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 5322.77 * CDHB / LambdaNP2
                     + 10598. * CDHW / LambdaNP2
-                    + 11009.9 * ewgc("CW") / LambdaNP2
+                    + 11009.9 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.846 * delta_GF
                     - 0.681 * deltaMwd6();
 
@@ -29933,14 +29935,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == -20.) {
             mu +=
-                    -145951. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 885593. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 383080. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 83628.6 * ewgc("CHD") / LambdaNP2
-                    - 114732. * ewgc("CHWB") / LambdaNP2
+                    -145951. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 885593. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 383080. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 83628.6 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 114732. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 159832. * CDHB / LambdaNP2
                     + 17735.5 * CDHW / LambdaNP2
-                    + 8916.37 * ewgc("CW") / LambdaNP2
+                    + 8916.37 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.787 * delta_GF
                     - 0.57 * deltaMwd6();
 
@@ -29951,14 +29953,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 20.) {
             mu +=
-                    -150086. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 4395.1 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 394641. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 85925.1 * ewgc("CHD") / LambdaNP2
-                    - 181046. * ewgc("CHWB") / LambdaNP2
+                    -150086. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 4395.1 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 394641. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 85925.1 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 181046. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 13333.6 * CDHB / LambdaNP2
                     + 23871.2 * CDHW / LambdaNP2
-                    + 9450.35 * ewgc("CW") / LambdaNP2
+                    + 9450.35 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.871 * delta_GF
                     - 0.492 * deltaMwd6();
 
@@ -29975,14 +29977,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    -261040. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 1059495. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 500666. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 84992.3 * ewgc("CHD") / LambdaNP2
-                    - 144925. * ewgc("CHWB") / LambdaNP2
+                    -261040. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 1059495. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 500666. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 84992.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 144925. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 205215. * CDHB / LambdaNP2
                     + 38777.5 * CDHW / LambdaNP2
-                    + 7857.84 * ewgc("CW") / LambdaNP2
+                    + 7857.84 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.817 * delta_GF
                     - 0.471 * deltaMwd6();
 
@@ -29993,14 +29995,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    -265008. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 13002.4 * ewgc("CHeR",0,0) / LambdaNP2
-                    + 507924. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 86313.9 * ewgc("CHD") / LambdaNP2
-                    - 182113. * ewgc("CHWB") / LambdaNP2
+                    -265008. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 13002.4 * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 507924. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 86313.9 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 182113. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 24953.6 * CDHB / LambdaNP2
                     + 42429.8 * CDHW / LambdaNP2
-                    + 8014.86 * ewgc("CW") / LambdaNP2
+                    + 8014.86 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.857 * delta_GF
                     - 0.429 * deltaMwd6();
 
@@ -30017,14 +30019,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         if (Pol_em == 80. && Pol_ep == 0.) {
             mu +=
-                    -776767. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 3168410. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 1016120. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 85414.3 * ewgc("CHD") / LambdaNP2
-                    - 155729. * ewgc("CHWB") / LambdaNP2
+                    -776767. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 3168410. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 1016120. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 85414.3 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 155729. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 628130. * CDHB / LambdaNP2
                     + 123368. * CDHW / LambdaNP2
-                    + 6454.34 * ewgc("CW") / LambdaNP2
+                    + 6454.34 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.831 * delta_GF
                     - 0.352 * deltaMwd6();
 
@@ -30035,14 +30037,14 @@ double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, con
 
         } else if (Pol_em == -80. && Pol_ep == 0.) {
             mu +=
-                    -785359. * ewgc("CHl1R",0,0) / LambdaNP2
-                    - 39533. * ewgc("CHeR",0,0) / LambdaNP2
-                    + 1027322. * ewgc("CHl3R",0,0) / LambdaNP2
-                    - 86621.7 * ewgc("CHD") / LambdaNP2
-                    - 184516. * ewgc("CHWB") / LambdaNP2
+                    -785359. * getSMEFTCoeffEW("CHl1R",0,0) / LambdaNP2
+                    - 39533. * getSMEFTCoeffEW("CHeR",0,0) / LambdaNP2
+                    + 1027322. * getSMEFTCoeffEW("CHl3R",0,0) / LambdaNP2
+                    - 86621.7 * getSMEFTCoeffEW("CHD") / LambdaNP2
+                    - 184516. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                     + 75975.5 * CDHB / LambdaNP2
                     + 127086. * CDHW / LambdaNP2
-                    + 6519.78 * ewgc("CW") / LambdaNP2
+                    + 6519.78 * getSMEFTCoeffEW("CW") / LambdaNP2
                     - 2.86 * delta_GF
                     - 0.328 * deltaMwd6();
 
@@ -30077,10 +30079,10 @@ double NPSMEFTd6General::ppZHprobe(const double sqrt_s) const
     // In the Warsaw basis the contact interactions are generated only by CHF ops but
     // in the modified basis ODHB, ODHW also contribute
 
-    ghZuL = -(eeMz / sW_tree / cW_tree)*(ewgc("CHq1R",0,0) - ewgc("CHq3R",0,0) + g1_tree * (1.0 / 12.0) * CDHB - (g2_tree / 4.0) * CDHW) * v2_over_LambdaNP2;
-    ghZdL = -(eeMz / sW_tree / cW_tree)*(ewgc("CHq1R",0,0) + ewgc("CHq3R",0,0) + g1_tree * (1.0 / 12.0) * CDHB + (g2_tree / 4.0) * CDHW) * v2_over_LambdaNP2;
-    ghZuR = -(eeMz / sW_tree / cW_tree)*(ewgc("CHuR",0,0) + g1_tree * (1.0 / 3.0) * CDHB) * v2_over_LambdaNP2;
-    ghZdR = -(eeMz / sW_tree / cW_tree)*(ewgc("CHdR",0,0) - g1_tree * (1.0 / 6.0) * CDHB) * v2_over_LambdaNP2;
+    ghZuL = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHq1R",0,0) - getSMEFTCoeffEW("CHq3R",0,0) + g1_tree * (1.0 / 12.0) * CDHB - (g2_tree / 4.0) * CDHW ) * v2_over_LambdaNP2;
+    ghZdL = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq3R",0,0) + g1_tree * (1.0 / 12.0) * CDHB + (g2_tree / 4.0) * CDHW ) * v2_over_LambdaNP2;
+    ghZuR = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHuR",0,0) + g1_tree * (1.0 / 3.0) * CDHB) * v2_over_LambdaNP2;
+    ghZdR = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHdR",0,0) - g1_tree * (1.0 / 6.0) * CDHB) * v2_over_LambdaNP2;
 
     if (sqrt_s == 14.0) {
 
@@ -30114,7 +30116,7 @@ double NPSMEFTd6General::mupTVppWZ(const double sqrt_s, const double pTV1, const
     // Master Equations below are for cHWp = Ci/Lambda^2 in units of TeV^{-2}, 
     // but LambdaNP is in GeV. Add conversion factor.
 
-    cHWp = 4.0 * (sW2_tree / eeMz2) * (ewgc("CHq3R",0,0) + (g2_tree / 4.0) * CDHW) * 1000000.0 / LambdaNP2;
+    cHWp = 4.0 * (sW2_tree / eeMz2) * (getSMEFTCoeffEW("CHq3R",0,0) + (g2_tree / 4.0) * CDHW ) * 1000000.0 / LambdaNP2;
 
     //  Bin dependences assuming cutoff of the EFT at 5 TeV
     //  Normalize to the total number of events to remove the dependence on Lumi
@@ -30221,24 +30223,24 @@ double NPSMEFTd6General::STXS0_qqH(const double sqrt_s) const
         C1 = 0.0064; // Use the same as VBF 
 
         STXSb +=
-                +121687. * ewgc("CHbox") / LambdaNP2
-                - 162383. * ewgc("CHD") / LambdaNP2
-                + 6933.53 *ewgc("CHB") / LambdaNP2
-                + 133459. * ewgc("CHW") / LambdaNP2
-                - 286707. * ewgc("CHWB") / LambdaNP2
+                +121687. * getSMEFTCoeffEW("CHbox") / LambdaNP2
+                - 162383. * getSMEFTCoeffEW("CHD") / LambdaNP2
+                + 6933.53 *getSMEFTCoeffEW("CHB") / LambdaNP2
+                + 133459. * getSMEFTCoeffEW("CHW") / LambdaNP2
+                - 286707. * getSMEFTCoeffEW("CHWB") / LambdaNP2
                 + 1616.64 * CDHB / LambdaNP2
                 - 1257.62 * CDHW / LambdaNP2
-                - 1929.85 * ewgc("CHq1R",0,0) / LambdaNP2
-                + 1378.01 * ewgc("CHq1R",1,1) / LambdaNP2
-                + 2505.13 * ewgc("CHq1R",2,2) / LambdaNP2
-                + 17471.4 * ewgc("CHuR",0,0) / LambdaNP2
-                + 532.133 * ewgc("CHuR",1,1) / LambdaNP2
-                - 6552.85 * ewgc("CHdR",0,0) / LambdaNP2
-                - 454.364 * ewgc("CHdR",1,1) / LambdaNP2
-                - 437.319 * ewgc("CHdR",2,2) / LambdaNP2
-                + 152289. * ewgc("CHq3R",0,0) / LambdaNP2
-                - 2645.75 * ewgc("CHq3R",1,1) / LambdaNP2
-                + 2515.78 * ewgc("CHq3R",2,2) / LambdaNP2
+                - 1929.85 * getSMEFTCoeffEW("CHq1R",0,0) / LambdaNP2
+                + 1378.01 * getSMEFTCoeffEW("CHq1R",1,1) / LambdaNP2
+                + 2505.13 * getSMEFTCoeffEW("CHq1R",2,2) / LambdaNP2
+                + 17471.4 * getSMEFTCoeffEW("CHuR",0,0) / LambdaNP2
+                + 532.133 * getSMEFTCoeffEW("CHuR",1,1) / LambdaNP2
+                - 6552.85 * getSMEFTCoeffEW("CHdR",0,0) / LambdaNP2
+                - 454.364 * getSMEFTCoeffEW("CHdR",1,1) / LambdaNP2
+                - 437.319 * getSMEFTCoeffEW("CHdR",2,2) / LambdaNP2
+                + 152289. * getSMEFTCoeffEW("CHq3R",0,0) / LambdaNP2
+                - 2645.75 * getSMEFTCoeffEW("CHq3R",1,1) / LambdaNP2
+                + 2515.78 * getSMEFTCoeffEW("CHq3R",2,2) / LambdaNP2
                 - 4.496 * delta_GF
                 - 0.084 * deltaGzd6()
                 - 2.759 * deltaMwd6()
@@ -30307,7 +30309,7 @@ double NPSMEFTd6General::STXS_ggH0j(const double sqrt_s) const
 
     //    STXSb = 1.0 + 55.2*aiG + 0.362*ai3G + 0.276*ai2G;
 
-    STXSb += (35.0 *  ewgc("CHG")) * (1000000.0 / LambdaNP2);
+    STXSb += (35.0 *  getSMEFTCoeffEW("CHG")) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30322,7 +30324,7 @@ double NPSMEFTd6General::STXS_ggH1j_pTH_0_60(const double sqrt_s) const
 
     //    STXSb = 1.0 + 56.0*aiG + 1.52*ai3G + 1.19*ai2G;
 
-    STXSb += (28.3 *  ewgc("CHG")) * (1000000.0 / LambdaNP2);
+    STXSb += (28.3 *  getSMEFTCoeffEW("CHG")) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30337,7 +30339,7 @@ double NPSMEFTd6General::STXS_ggH1j_pTH_60_120(const double sqrt_s) const
 
     //    STXSb = 1.0 + 55.5*aiG + 4.12*ai3G + 2.76*ai2G;
 
-    STXSb += (26.1 *  ewgc("CHG")) * (1000000.0 / LambdaNP2);
+    STXSb += (26.1 *  getSMEFTCoeffEW("CHG")) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30352,7 +30354,7 @@ double NPSMEFTd6General::STXS_ggH1j_pTH_120_200(const double sqrt_s) const
 
     //    STXSb = 1.0 + 56.5*aiG + 17.8*ai3G + 11.2*ai2G;
 
-    STXSb += (23.1 *  ewgc("CHG")) * (1000000.0 / LambdaNP2);
+    STXSb += (23.1 *  getSMEFTCoeffEW("CHG")) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30367,7 +30369,7 @@ double NPSMEFTd6General::STXS_ggH1j_pTH_200(const double sqrt_s) const
 
     //    STXSb = 1.0 + 55.0*aiG + 52.0*ai3G + 34.0*ai2G;
 
-    STXSb += (15.6 *  ewgc("CHG")) * (1000000.0 / LambdaNP2);
+    STXSb += (15.6 *  getSMEFTCoeffEW("CHG")) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30379,7 +30381,7 @@ double NPSMEFTd6General::STXS_ggH2j_pTH_0_200(const double sqrt_s) const
 
     double STXSb = 1.0;
 
-    STXSb = 1.0 + 16.0 *  ewgc("CHG");
+    STXSb = 1.0 + 16.0 *  getSMEFTCoeffEW("CHG");
 
     return STXSb;
 }
@@ -30430,7 +30432,7 @@ double NPSMEFTd6General::STXS_ggH2j_pTH_200(const double sqrt_s) const
 
     //    STXSb = 1.0 + 56.0*aiG + 89.8*ai3G + 68.1*ai2G;
 
-    STXSb += (15.6 *  ewgc("CHG")) * (1000000.0 / LambdaNP2);
+    STXSb += (15.6 *  getSMEFTCoeffEW("CHG")) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30474,14 +30476,14 @@ double NPSMEFTd6General::STXS_qqHqq_nonVHtopo(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL3 = ewgc("CHl3R",0,0);
-    double CiHQ1 = ewgc("CHq1R",0,0), CiHQ3 = ewgc("CHq3R",0,0), CiHu = ewgc("CHuR",0,0), CiHd = ewgc("CHdR",0,0);
+    double CiHL3 = getSMEFTCoeffEW("CHl3R",0,0);
+    double CiHQ1 = getSMEFTCoeffEW("CHq1R",0,0), CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0), CiHu = getSMEFTCoeffEW("CHuR",0,0), CiHd = getSMEFTCoeffEW("CHdR",0,0);
 
     //    STXSb = 1.0 + 1.389*aiWW - 0.0284*aiB - 6.23*aiHW - 0.417*aiHB;
 
-    STXSb += (0.1213 * ewgc("CHbox") - 0.0107 * ewgc("CHD") - 0.008 * ewgc("CHW") + 0.0313 *  ewgc("CHWB")
+    STXSb += (0.1213 * getSMEFTCoeffEW("CHbox") - 0.0107 * getSMEFTCoeffEW("CHD") - 0.008 * getSMEFTCoeffEW("CHW") + 0.0313 *  getSMEFTCoeffEW("CHWB")
             - 0.364 * CiHL3 + 0.0043 * CiHQ1 - 0.212 * CiHQ3 - 0.0108 * CiHu
-            + 0.0038 * CiHd + 0.182 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+            + 0.0038 * CiHd + 0.182 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30495,14 +30497,14 @@ double NPSMEFTd6General::STXS_qqHqq_VHtopo(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL3 = ewgc("CHl3R",0,0);
-    double CiHQ1 = ewgc("CHq1R",0,0), CiHQ3 = ewgc("CHq3R",0,0), CiHu = ewgc("CHuR",0,0), CiHd = ewgc("CHdR",0,0);
+    double CiHL3 = getSMEFTCoeffEW("CHl3R",0,0);
+    double CiHQ1 = getSMEFTCoeffEW("CHq1R",0,0), CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0), CiHu = getSMEFTCoeffEW("CHuR",0,0), CiHd = getSMEFTCoeffEW("CHdR",0,0);
 
     //    STXSb = 1.0 + 1.389*aiWW - 0.0284*aiB - 6.23*aiHW - 0.417*aiHB;
 
-    STXSb += (0.120 * ewgc("CHbox") - 0.0071 * ewgc("CHD") + 0.623 * ewgc("CHW") + 0.0215 *  ewgc("CHB")
-            + 0.098 * ewgc("CHWB") - 0.360 * CiHL3 - 0.026 * CiHQ1 + 1.86 * CiHQ3
-            + 0.135 * CiHu - 0.0506 * CiHd + 0.181 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    STXSb += (0.120 * getSMEFTCoeffEW("CHbox") - 0.0071 * getSMEFTCoeffEW("CHD") + 0.623 * getSMEFTCoeffEW("CHW") + 0.0215 *  getSMEFTCoeffEW("CHB")
+            + 0.098 * getSMEFTCoeffEW("CHWB") - 0.360 * CiHL3 - 0.026 * CiHQ1 + 1.86 * CiHQ3
+            + 0.135 * CiHu - 0.0506 * CiHd + 0.181 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30528,14 +30530,14 @@ double NPSMEFTd6General::STXS_qqHqq_pTj_200(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL3 = ewgc("CHl3R",0,0);
-    double CiHQ1 = ewgc("CHq1R",0,0), CiHQ3 = ewgc("CHq3R",0,0), CiHu = ewgc("CHuR",0,0), CiHd = ewgc("CHdR",0,0);
+    double CiHL3 = getSMEFTCoeffEW("CHl3R",0,0);
+    double CiHQ1 = getSMEFTCoeffEW("CHq1R",0,0), CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0), CiHu = getSMEFTCoeffEW("CHuR",0,0), CiHd = getSMEFTCoeffEW("CHdR",0,0);
 
     //    STXSb = 1.0 + 7.82*aiWW - 0.1868*aiB - 30.65*aiHW - 2.371*aiHB;
 
-    STXSb += (0.122 * ewgc("CHbox") - 0.0073 * ewgc("CHD") - 0.25 * ewgc("CHW") + 0.0024 *  ewgc("CHB")
-            + 0.045 * ewgc("CHWB") - 0.367 * CiHL3 + 0.030 * CiHQ1 - 0.47 * CiHQ3
-            - 0.030 * CiHu + 0.0087 * CiHd + 0.180 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    STXSb += (0.122 * getSMEFTCoeffEW("CHbox") - 0.0073 * getSMEFTCoeffEW("CHD") - 0.25 * getSMEFTCoeffEW("CHW") + 0.0024 *  getSMEFTCoeffEW("CHB")
+            + 0.045 * getSMEFTCoeffEW("CHWB") - 0.367 * CiHL3 + 0.030 * CiHQ1 - 0.47 * CiHQ3
+            - 0.030 * CiHu + 0.0087 * CiHd + 0.180 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30548,11 +30550,11 @@ double NPSMEFTd6General::STXS_qqHlv_pTV_0_250(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL3 = ewgc("CHl3R",0,0);
-    double CiHQ3 = ewgc("CHq3R",0,0);
+    double CiHL3 = getSMEFTCoeffEW("CHl3R",0,0);
+    double CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0);
 
-    STXSb += (0.1212 * ewgc("CHbox") - 0.0304 * ewgc("CHD") + 0.874 *  ewgc("CHW")
-            - 0.242 * CiHL3 + 1.710 * CiHQ3 + 0.182 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    STXSb += (0.1212 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.874 *  getSMEFTCoeffEW("CHW")
+            - 0.242 * CiHL3 + 1.710 * CiHQ3 + 0.182 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30602,13 +30604,13 @@ double NPSMEFTd6General::STXS_qqHlv_pTV_250(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL3 = ewgc("CHl3R",0,0);
-    double CiHQ3 = ewgc("CHq3R",0,0);
+    double CiHL3 = getSMEFTCoeffEW("CHl3R",0,0);
+    double CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0);
 
     //    STXSb = 1.0 - 1.001*aiH + 196.5*aiWW + 169.4*aiHW + 186.3*aipHQ + 2.03*aipHL;
 
-    STXSb += (0.121 * ewgc("CHbox") - 0.0299 * ewgc("CHD") + 1.06 * ewgc("CHW") - 0.237 * CiHL3
-            + 10.9 * CiHQ3 + 0.184 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    STXSb += (0.121 * getSMEFTCoeffEW("CHbox") - 0.0299 * getSMEFTCoeffEW("CHD") + 1.06 * getSMEFTCoeffEW("CHW") - 0.237 * CiHL3
+            + 10.9 * CiHQ3 + 0.184 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30622,17 +30624,17 @@ double NPSMEFTd6General::STXS_qqHll_pTV_0_150(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL1 = ewgc("CHl1R",0,0), CiHL3 = ewgc("CHl3R",0,0), CiHe = ewgc("CHeR",0,0);
-    double CiHQ1 = ewgc("CHq1R",0,0), CiHQ3 = ewgc("CHq3R",0,0), CiHu = ewgc("CHuR",0,0), CiHd = ewgc("CHdR",0,0);
+    double CiHL1 = getSMEFTCoeffEW("CHl1R",0,0), CiHL3 = getSMEFTCoeffEW("CHl3R",0,0), CiHe = getSMEFTCoeffEW("CHeR",0,0);
+    double CiHQ1 = getSMEFTCoeffEW("CHq1R",0,0), CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0), CiHu = getSMEFTCoeffEW("CHuR",0,0), CiHd = getSMEFTCoeffEW("CHdR",0,0);
 
     //    STXSb = 1.0 - 1.0*aiH - 4.001*aiT + 29.82*aiWW + 8.43*aiB + 8.5*aiHW 
     //            + 2.545*aiHB + 0.0315*aiA - 1.89*aiHQ + 22.84*aipHQ + 5.247*aiHu 
     //            - 2.0*aiHd - 0.963*aiHL + 2.042*aipHL - 0.2307*aiHe;
 
-    STXSb += (0.1218 * ewgc("CHbox") + 0.0259 * ewgc("CHD") + 0.696 * ewgc("CHW") + 0.0846 *  ewgc("CHB")
-            + 0.328 * ewgc("CHWB") + 0.1332 * CiHL1 - 0.231 * CiHL3 - 0.1076 * CiHe
+    STXSb += (0.1218 * getSMEFTCoeffEW("CHbox") + 0.0259 * getSMEFTCoeffEW("CHD") + 0.696 * getSMEFTCoeffEW("CHW") + 0.0846 *  getSMEFTCoeffEW("CHB")
+            + 0.328 * getSMEFTCoeffEW("CHWB") + 0.1332 * CiHL1 - 0.231 * CiHL3 - 0.1076 * CiHe
             + 0.016 * CiHQ1 + 1.409 * CiHQ3 + 0.315 * CiHu - 0.1294 * CiHd
-            + 0.182 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+            + 0.182 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30645,14 +30647,14 @@ double NPSMEFTd6General::STXS_qqHll_pTV_150_250(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL1 = ewgc("CHl1R",0,0), CiHL3 = ewgc("CHl3R",0,0), CiHe = ewgc("CHeR",0,0);
-    double CiHQ1 = ewgc("CHq1R",0,0), CiHQ3 = ewgc("CHq3R",0,0), CiHu = ewgc("CHuR",0,0), CiHd = ewgc("CHdR",0,0);
+    double CiHL1 = getSMEFTCoeffEW("CHl1R",0,0), CiHL3 = getSMEFTCoeffEW("CHl3R",0,0), CiHe = getSMEFTCoeffEW("CHeR",0,0);
+    double CiHQ1 = getSMEFTCoeffEW("CHq1R",0,0), CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0), CiHu = getSMEFTCoeffEW("CHuR",0,0), CiHd = getSMEFTCoeffEW("CHdR",0,0);
 
 
-    STXSb += (0.124 * ewgc("CHbox") + 0.026 * ewgc("CHD") + 0.85 * ewgc("CHW") + 0.102 *  ewgc("CHB")
-            + 0.389 * ewgc("CHWB") + 0.134 * CiHL1 - 0.232 * CiHL3 - 0.109 * CiHe
+    STXSb += (0.124 * getSMEFTCoeffEW("CHbox") + 0.026 * getSMEFTCoeffEW("CHD") + 0.85 * getSMEFTCoeffEW("CHW") + 0.102 *  getSMEFTCoeffEW("CHB")
+            + 0.389 * getSMEFTCoeffEW("CHWB") + 0.134 * CiHL1 - 0.232 * CiHL3 - 0.109 * CiHe
             - 0.16 * CiHQ1 + 3.56 * CiHQ3 + 0.85 * CiHu - 0.315 * CiHd
-            + 0.184 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+            + 0.184 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30694,17 +30696,17 @@ double NPSMEFTd6General::STXS_qqHll_pTV_250(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL1 = ewgc("CHl1R",0,0), CiHL3 = ewgc("CHl3R",0,0), CiHe = ewgc("CHeR",0,0);
-    double CiHQ1 = ewgc("CHq1R",0,0), CiHQ3 = ewgc("CHq3R",0,0), CiHu = ewgc("CHuR",0,0), CiHd = ewgc("CHdR",0,0);
+    double CiHL1 = getSMEFTCoeffEW("CHl1R",0,0), CiHL3 = getSMEFTCoeffEW("CHl3R",0,0), CiHe = getSMEFTCoeffEW("CHeR",0,0);
+    double CiHQ1 = getSMEFTCoeffEW("CHq1R",0,0), CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0), CiHu = getSMEFTCoeffEW("CHuR",0,0), CiHd = getSMEFTCoeffEW("CHdR",0,0);
 
     //    STXSb = 1.0 - 0.998*aiH - 4.0*aiT + 153.1*aiWW + 45.6*aiB + 126.4*aiHW 
     //            + 37.9*aiHB - 13.85*aiHQ + 168.6*aipHQ + 41.7*aiHu - 13.48*aiHd 
     //            - 0.977*aiHL + 2.09*aipHL - 0.238*aiHe;
 
-    STXSb += (0.122 * ewgc("CHbox") + 0.028 * ewgc("CHD") + 0.88 * ewgc("CHW") + 0.121 *  ewgc("CHB")
-            + 0.43 * ewgc("CHWB") + 0.137 * CiHL1 - 0.234 * CiHL3 - 0.113 * CiHe
+    STXSb += (0.122 * getSMEFTCoeffEW("CHbox") + 0.028 * getSMEFTCoeffEW("CHD") + 0.88 * getSMEFTCoeffEW("CHW") + 0.121 *  getSMEFTCoeffEW("CHB")
+            + 0.43 * getSMEFTCoeffEW("CHWB") + 0.137 * CiHL1 - 0.234 * CiHL3 - 0.113 * CiHe
             - 0.82 * CiHQ1 + 8.5 * CiHQ3 + 2.14 * CiHu - 0.71 * CiHd
-            + 0.182 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+            + 0.182 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     return STXSb;
 }
@@ -30718,8 +30720,8 @@ double NPSMEFTd6General::STXS_ttHtH(const double sqrt_s) const
     double STXSb = 1.0;
 
     // Fix for non-universal
-    double CiHL3 = ewgc("CHl3R",0,0);
-    double CiHQ3 = ewgc("CHq3R",0,0);
+    double CiHL3 = getSMEFTCoeffEW("CHl3R",0,0);
+    double CiHQ3 = getSMEFTCoeffEW("CHq3R",0,0);
 
     //  Set 4 quark operators to zero for the moment.
     double Cqq1 = 0.0, Cqq11 = 0.0, Cqq3 = 0.0, Cqq31 = 0.0;
@@ -30729,10 +30731,10 @@ double NPSMEFTd6General::STXS_ttHtH(const double sqrt_s) const
     //    STXSb = 1.0 - 0.983*aiH + 2.949*aiu + 0.928*aiG + 313.6*aiuG 
     //            + 27.48*ai3G - 13.09*ai2G;
 
-    STXSb += (0.133 * ewgc("CG") + 0.1182 * ewgc("CHbox") - 0.0296 * ewgc("CHD") + 0.532 *  ewgc("CHG")
-            + 0.0120 * ewgc("CHW") - 0.1152 * ewgc("CuHR",2,2) - 0.790 * ewgc("CuGR",2,2) - 0.0111 * ewgc("CuWR",2,2)
-            - 0.0017 * ewgc("CuBR",2,2) - 0.1320 * CiHL3 + 0.0146 * CiHQ3
-            + 0.0660 * ewgc("CllR",0,1,1,0) + 0.0218 * Cqq1 + 0.1601 * Cqq11 + 0.0263 * Cqq3
+    STXSb += (0.133 * getSMEFTCoeffEW("CG") + 0.1182 * getSMEFTCoeffEW("CHbox") - 0.0296 * getSMEFTCoeffEW("CHD") + 0.532 *  getSMEFTCoeffEW("CHG")
+            + 0.0120 * getSMEFTCoeffEW("CHW") - 0.1152 * getSMEFTCoeffEW("CuHR",2,2) - 0.790 * getSMEFTCoeffEW("CuGR",2,2) - 0.0111 * getSMEFTCoeffEW("CuWR",2,2)
+            - 0.0017 * getSMEFTCoeffEW("CuBR",2,2) - 0.1320 * CiHL3 + 0.0146 * CiHQ3
+            + 0.0660 * getSMEFTCoeffEW("CllR",0,1,1,0) + 0.0218 * Cqq1 + 0.1601 * Cqq11 + 0.0263 * Cqq3
             + 0.388 * Cqq31 + 0.0114 * Cuu + 0.1681 * Cuu1 - 0.0018 * Cud1
             + 0.0265 * Cud8 + 0.007 * Cqu1 + 0.1087 * Cqu8
             - 0.0011 * Cqd1 + 0.0266 * Cqd8) * (1000000.0 / LambdaNP2);
@@ -30877,16 +30879,16 @@ double NPSMEFTd6General::STXS12_BrH4lRatio() const
     double dGHiR1 = 0.0, dGHiTotR1 = 0.0;
 
     // 4l
-    dGHiR1 = (0.12 * ewgc("CHbox") + 0.005 * ewgc("CHD") - 0.296 * ewgc("CHW") - 0.197 *ewgc("CHB") + 0.296 *  ewgc("CHWB")
-            + 0.126 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1)) / 2.0 - 0.234 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) / 2.0
-            - 0.101 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1)) / 2.0 + 0.181 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    dGHiR1 = (0.12 * getSMEFTCoeffEW("CHbox") + 0.005 * getSMEFTCoeffEW("CHD") - 0.296 * getSMEFTCoeffEW("CHW") - 0.197 *getSMEFTCoeffEW("CHB") + 0.296 *  getSMEFTCoeffEW("CHWB")
+            + 0.126 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1)) / 2.0 - 0.234 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) / 2.0
+            - 0.101 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1)) / 2.0 + 0.181 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     // Tot
-    dGHiTotR1 = (-0.001 * ewgc("CW") + 0.12 * ewgc("CHbox") - 0.030 * ewgc("CHD") + 1.362 * ewgc("CHG") - 0.048 *  ewgc("CHW")
-            - 0.049 *ewgc("CHB") + 0.046 * ewgc("CHWB") - 0.005 * ewgc("CeHR",2,2) - 0.012 * ewgc("CuHR",2,2) - 0.085 * ewgc("CdHR",2,2)
-            + 0.051 * ewgc("CuGR",2,2) - 0.002 * ewgc("CuWR",2,2) - 0.003 * ewgc("CuBR",2,2)
-            - 0.150 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) / 3.0 + 0.013 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0
-            + 0.079 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    dGHiTotR1 = (-0.001 * getSMEFTCoeffEW("CW") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.030 * getSMEFTCoeffEW("CHD") + 1.362 * getSMEFTCoeffEW("CHG") - 0.048 *  getSMEFTCoeffEW("CHW")
+            - 0.049 *getSMEFTCoeffEW("CHB") + 0.046 * getSMEFTCoeffEW("CHWB") - 0.005 * getSMEFTCoeffEW("CeHR",2,2) - 0.012 * getSMEFTCoeffEW("CuHR",2,2) - 0.085 * getSMEFTCoeffEW("CdHR",2,2)
+            + 0.051 * getSMEFTCoeffEW("CuGR",2,2) - 0.002 * getSMEFTCoeffEW("CuWR",2,2) - 0.003 * getSMEFTCoeffEW("CuBR",2,2)
+            - 0.150 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) / 3.0 + 0.013 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0
+            + 0.079 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     Br += dGHiR1 - dGHiTotR1;
 
@@ -30904,11 +30906,11 @@ double NPSMEFTd6General::STXS12_BrHevmuvRatio() const
     dGHiR1 = deltaGammaHevmuvRatio1();
 
     // Tot
-    dGHiTotR1 = (-0.001 * ewgc("CW") + 0.12 * ewgc("CHbox") - 0.030 * ewgc("CHD") + 1.362 * ewgc("CHG") - 0.048 *  ewgc("CHW")
-            - 0.049 *ewgc("CHB") + 0.046 * ewgc("CHWB") - 0.005 * ewgc("CeHR",2,2) - 0.012 * ewgc("CuHR",2,2) - 0.085 * ewgc("CdHR",2,2)
-            + 0.051 * ewgc("CuGR",2,2) - 0.002 * ewgc("CuWR",2,2) - 0.003 * ewgc("CuBR",2,2)
-            - 0.150 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) / 3.0 + 0.013 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0
-            + 0.079 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    dGHiTotR1 = (-0.001 * getSMEFTCoeffEW("CW") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.030 * getSMEFTCoeffEW("CHD") + 1.362 * getSMEFTCoeffEW("CHG") - 0.048 *  getSMEFTCoeffEW("CHW")
+            - 0.049 *getSMEFTCoeffEW("CHB") + 0.046 * getSMEFTCoeffEW("CHWB") - 0.005 * getSMEFTCoeffEW("CeHR",2,2) - 0.012 * getSMEFTCoeffEW("CuHR",2,2) - 0.085 * getSMEFTCoeffEW("CdHR",2,2)
+            + 0.051 * getSMEFTCoeffEW("CuGR",2,2) - 0.002 * getSMEFTCoeffEW("CuWR",2,2) - 0.003 * getSMEFTCoeffEW("CuBR",2,2)
+            - 0.150 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) / 3.0 + 0.013 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0
+            + 0.079 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     Br += dGHiR1 - dGHiTotR1;
 
@@ -30923,17 +30925,17 @@ double NPSMEFTd6General::STXS12_BrHgagaRatio() const
     double dGHiR1 = 0.0, dGHiTotR1 = 0.0;
 
     // gaga
-    dGHiR1 = (-40.15 *ewgc("CHB") - 13.08 * ewgc("CHW") + 22.4 * ewgc("CHWB") - 0.9463 * ewgc("CW") + 0.12 *  ewgc("CHbox")
-            - 0.2417 * ewgc("CHD") + 0.03447 * ewgc("CuHR",2,2) - 1.151 * ewgc("CuWR",2,2) - 2.150 * ewgc("CuBR",2,2)
-            - 0.3637 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) / 2.0 + 0.1819 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    dGHiR1 = (-40.15 *getSMEFTCoeffEW("CHB") - 13.08 * getSMEFTCoeffEW("CHW") + 22.4 * getSMEFTCoeffEW("CHWB") - 0.9463 * getSMEFTCoeffEW("CW") + 0.12 *  getSMEFTCoeffEW("CHbox")
+            - 0.2417 * getSMEFTCoeffEW("CHD") + 0.03447 * getSMEFTCoeffEW("CuHR",2,2) - 1.151 * getSMEFTCoeffEW("CuWR",2,2) - 2.150 * getSMEFTCoeffEW("CuBR",2,2)
+            - 0.3637 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) / 2.0 + 0.1819 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
     ;
 
     // Tot
-    dGHiTotR1 = (-0.001 * ewgc("CW") + 0.12 * ewgc("CHbox") - 0.030 * ewgc("CHD") + 1.362 * ewgc("CHG") - 0.048 *  ewgc("CHW")
-            - 0.049 *ewgc("CHB") + 0.046 * ewgc("CHWB") - 0.005 * ewgc("CeHR",2,2) - 0.012 * ewgc("CuHR",2,2) - 0.085 * ewgc("CdHR",2,2)
-            + 0.051 * ewgc("CuGR",2,2) - 0.002 * ewgc("CuWR",2,2) - 0.003 * ewgc("CuBR",2,2)
-            - 0.150 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) / 3.0 + 0.013 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0
-            + 0.079 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    dGHiTotR1 = (-0.001 * getSMEFTCoeffEW("CW") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.030 * getSMEFTCoeffEW("CHD") + 1.362 * getSMEFTCoeffEW("CHG") - 0.048 *  getSMEFTCoeffEW("CHW")
+            - 0.049 *getSMEFTCoeffEW("CHB") + 0.046 * getSMEFTCoeffEW("CHWB") - 0.005 * getSMEFTCoeffEW("CeHR",2,2) - 0.012 * getSMEFTCoeffEW("CuHR",2,2) - 0.085 * getSMEFTCoeffEW("CdHR",2,2)
+            + 0.051 * getSMEFTCoeffEW("CuGR",2,2) - 0.002 * getSMEFTCoeffEW("CuWR",2,2) - 0.003 * getSMEFTCoeffEW("CuBR",2,2)
+            - 0.150 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) / 3.0 + 0.013 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0
+            + 0.079 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     Br += dGHiR1 - dGHiTotR1;
 
@@ -30948,15 +30950,15 @@ double NPSMEFTd6General::STXS12_BrHbbRatio() const
     double dGHiR1 = 0.0, dGHiTotR1 = 0.0;
 
     // bb
-    dGHiR1 = (0.12 * ewgc("CHbox") - 0.030 * ewgc("CHD") - 0.121 * ewgc("CdHR",2,2) - 0.121 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) / 2.0
-            + 0.061 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    dGHiR1 = (0.12 * getSMEFTCoeffEW("CHbox") - 0.030 * getSMEFTCoeffEW("CHD") - 0.121 * getSMEFTCoeffEW("CdHR",2,2) - 0.121 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) / 2.0
+            + 0.061 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     // Tot
-    dGHiTotR1 = (-0.001 * ewgc("CW") + 0.12 * ewgc("CHbox") - 0.030 * ewgc("CHD") + 1.362 * ewgc("CHG") - 0.048 *  ewgc("CHW")
-            - 0.049 *ewgc("CHB") + 0.046 * ewgc("CHWB") - 0.005 * ewgc("CeHR",2,2) - 0.012 * ewgc("CuHR",2,2) - 0.085 * ewgc("CdHR",2,2)
-            + 0.051 * ewgc("CuGR",2,2) - 0.002 * ewgc("CuWR",2,2) - 0.003 * ewgc("CuBR",2,2)
-            - 0.150 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1) + ewgc("CHl3R",2,2)) / 3.0 + 0.013 * (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0
-            + 0.079 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+    dGHiTotR1 = (-0.001 * getSMEFTCoeffEW("CW") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.030 * getSMEFTCoeffEW("CHD") + 1.362 * getSMEFTCoeffEW("CHG") - 0.048 *  getSMEFTCoeffEW("CHW")
+            - 0.049 *getSMEFTCoeffEW("CHB") + 0.046 * getSMEFTCoeffEW("CHWB") - 0.005 * getSMEFTCoeffEW("CeHR",2,2) - 0.012 * getSMEFTCoeffEW("CuHR",2,2) - 0.085 * getSMEFTCoeffEW("CdHR",2,2)
+            + 0.051 * getSMEFTCoeffEW("CuGR",2,2) - 0.002 * getSMEFTCoeffEW("CuWR",2,2) - 0.003 * getSMEFTCoeffEW("CuBR",2,2)
+            - 0.150 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2)) / 3.0 + 0.013 * (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0
+            + 0.079 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
     Br += dGHiR1 - dGHiTotR1;
 
@@ -30972,9 +30974,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.030 * ewgc("CHD") + 47 * ewgc("CHG") - 0.122 * ewgc("CuHR",2,2)
-                - 1.69 * ewgc("CuGR",2,2) - 0.120 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.058 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.030 * getSMEFTCoeffEW("CHD") + 47 * getSMEFTCoeffEW("CHG") - 0.122 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.69 * getSMEFTCoeffEW("CuGR",2,2) - 0.120 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.058 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -30997,9 +30999,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.029 * ewgc("CHD") + 60 * ewgc("CHG") - 0.12 * ewgc("CuHR",2,2)
-                - 2.1 * ewgc("CuGR",2,2) - 0.11 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.055 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.029 * getSMEFTCoeffEW("CHD") + 60 * getSMEFTCoeffEW("CHG") - 0.12 * getSMEFTCoeffEW("CuHR",2,2)
+                - 2.1 * getSMEFTCoeffEW("CuGR",2,2) - 0.11 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.055 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31022,9 +31024,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.030 * ewgc("CHD") + 70 * ewgc("CHG") - 0.14 * ewgc("CuHR",2,2)
-                - 2. * ewgc("CuGR",2,2) - 0.13 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.07 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.030 * getSMEFTCoeffEW("CHD") + 70 * getSMEFTCoeffEW("CHG") - 0.14 * getSMEFTCoeffEW("CuHR",2,2)
+                - 2. * getSMEFTCoeffEW("CuGR",2,2) - 0.13 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.07 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31047,9 +31049,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.02 * ewgc("CHD") + 200 * ewgc("CHG") - 0.05 * ewgc("CuHR",2,2)
-                - 10 * ewgc("CuGR",2,2) - 0.07 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.06 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.02 * getSMEFTCoeffEW("CHD") + 200 * getSMEFTCoeffEW("CHG") - 0.05 * getSMEFTCoeffEW("CuHR",2,2)
+                - 10 * getSMEFTCoeffEW("CuGR",2,2) - 0.07 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.06 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31072,9 +31074,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0294 * ewgc("CHD") + 42.0 * ewgc("CHG") - 0.117 * ewgc("CuHR",2,2)
-                - 1.59 * ewgc("CuGR",2,2) - 0.117 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.0587 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0294 * getSMEFTCoeffEW("CHD") + 42.0 * getSMEFTCoeffEW("CHG") - 0.117 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.59 * getSMEFTCoeffEW("CuGR",2,2) - 0.117 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.0587 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31097,9 +31099,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0295 * ewgc("CHD") + 42.2 * ewgc("CHG") - 0.1186 * ewgc("CuHR",2,2)
-                - 1.62 * ewgc("CuGR",2,2) - 0.1182 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.0590 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0295 * getSMEFTCoeffEW("CHD") + 42.2 * getSMEFTCoeffEW("CHG") - 0.1186 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.62 * getSMEFTCoeffEW("CuGR",2,2) - 0.1182 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.0590 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31122,9 +31124,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0330 * ewgc("CHD") + 44.0 * ewgc("CHG") - 0.132 * ewgc("CuHR",2,2)
-                - 1.60 * ewgc("CuGR",2,2) - 0.132 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.065 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0330 * getSMEFTCoeffEW("CHD") + 44.0 * getSMEFTCoeffEW("CHG") - 0.132 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.60 * getSMEFTCoeffEW("CuGR",2,2) - 0.132 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.065 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31147,9 +31149,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0314 * ewgc("CHD") + 43.5 * ewgc("CHG") - 0.125 * ewgc("CuHR",2,2)
-                - 1.58 * ewgc("CuGR",2,2) - 0.125 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.063 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0314 * getSMEFTCoeffEW("CHD") + 43.5 * getSMEFTCoeffEW("CHG") - 0.125 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.58 * getSMEFTCoeffEW("CuGR",2,2) - 0.125 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.063 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31172,9 +31174,9 @@ double NPSMEFTd6General::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.028 * ewgc("CHD") + 44 * ewgc("CHG") - 0.118 * ewgc("CuHR",2,2)
-                - 1.60 * ewgc("CuGR",2,2) - 0.112 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.058 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.028 * getSMEFTCoeffEW("CHD") + 44 * getSMEFTCoeffEW("CHG") - 0.118 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.60 * getSMEFTCoeffEW("CuGR",2,2) - 0.112 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.058 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31197,9 +31199,9 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) co
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.033 * ewgc("CHD") + 46 * ewgc("CHG") - 0.128 * ewgc("CuHR",2,2)
-                - 1.63 * ewgc("CuGR",2,2) - 0.132 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.065 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.033 * getSMEFTCoeffEW("CHD") + 46 * getSMEFTCoeffEW("CHG") - 0.128 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.63 * getSMEFTCoeffEW("CuGR",2,2) - 0.132 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.065 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31222,9 +31224,9 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) 
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.033 * ewgc("CHD") + 47 * ewgc("CHG") - 0.133 * ewgc("CuHR",2,2)
-                - 1.59 * ewgc("CuGR",2,2) - 0.130 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.065 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.033 * getSMEFTCoeffEW("CHD") + 47 * getSMEFTCoeffEW("CHG") - 0.133 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.59 * getSMEFTCoeffEW("CuGR",2,2) - 0.130 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.065 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31247,9 +31249,9 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s)
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.032 * ewgc("CHD") + 46 * ewgc("CHG") - 0.132 * ewgc("CuHR",2,2)
-                - 1.48 * ewgc("CuGR",2,2) - 0.130 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.066 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.032 * getSMEFTCoeffEW("CHD") + 46 * getSMEFTCoeffEW("CHG") - 0.132 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.48 * getSMEFTCoeffEW("CuGR",2,2) - 0.130 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.066 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31272,9 +31274,9 @@ double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const doub
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.038 * ewgc("CHD") + 48 * ewgc("CHG") - 0.16 * ewgc("CuHR",2,2)
-                - 1.60 * ewgc("CuGR",2,2) - 0.147 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.075 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.038 * getSMEFTCoeffEW("CHD") + 48 * getSMEFTCoeffEW("CHG") - 0.16 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.60 * getSMEFTCoeffEW("CuGR",2,2) - 0.147 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.075 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31297,9 +31299,9 @@ double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const do
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.033 * ewgc("CHD") + 42 * ewgc("CHG") - 0.131 * ewgc("CuHR",2,2)
-                - 1.43 * ewgc("CuGR",2,2) - 0.124 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.064 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.033 * getSMEFTCoeffEW("CHD") + 42 * getSMEFTCoeffEW("CHG") - 0.131 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.43 * getSMEFTCoeffEW("CuGR",2,2) - 0.124 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.064 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31322,9 +31324,9 @@ double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const doub
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.033 * ewgc("CHD") + 50 * ewgc("CHG") - 0.14 * ewgc("CuHR",2,2)
-                - 1.60 * ewgc("CuGR",2,2) - 0.13 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.068 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.033 * getSMEFTCoeffEW("CHD") + 50 * getSMEFTCoeffEW("CHG") - 0.14 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.60 * getSMEFTCoeffEW("CuGR",2,2) - 0.13 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.068 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31347,9 +31349,9 @@ double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const do
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.030 * ewgc("CHD") + 44 * ewgc("CHG") - 0.13 * ewgc("CuHR",2,2)
-                - 1.4 * ewgc("CuGR",2,2) - 0.13 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.061 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.030 * getSMEFTCoeffEW("CHD") + 44 * getSMEFTCoeffEW("CHG") - 0.13 * getSMEFTCoeffEW("CuHR",2,2)
+                - 1.4 * getSMEFTCoeffEW("CuGR",2,2) - 0.13 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.061 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31371,21 +31373,21 @@ double NPSMEFTd6General::STXS12_ggHll_pTV0_75(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0057 * ewgc("CHD") + 0.0090 *  ewgc("CHWB")
-                + 0.0454 * ewgc("CuHR",2,2) - 0.309 * ewgc("CuGR",2,2)
-                - 0.0102 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.2932 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                - 0.0231 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1)) - 0.827 * CiHQ1
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0057 * getSMEFTCoeffEW("CHD") + 0.0090 *  getSMEFTCoeffEW("CHWB")
+                + 0.0454 * getSMEFTCoeffEW("CuHR",2,2) - 0.309 * getSMEFTCoeffEW("CuGR",2,2)
+                - 0.0102 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.2932 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.0231 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1)) - 0.827 * CiHQ1
                 - 0.289 * CiHQ3
                 + 0.246 * CiHu + 0.296 * CiHd
-                + 0.218 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.218 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31407,21 +31409,21 @@ double NPSMEFTd6General::STXS12_ggHll_pTV75_150(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0015 * ewgc("CHD") + 0.0088 *  ewgc("CHWB")
-                + 0.0542 * ewgc("CuHR",2,2) - 0.387 * ewgc("CuGR",2,2)
-                - 0.0103 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.2943 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                - 0.0235 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1)) - 0.698 * CiHQ1
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0015 * getSMEFTCoeffEW("CHD") + 0.0088 *  getSMEFTCoeffEW("CHWB")
+                + 0.0542 * getSMEFTCoeffEW("CuHR",2,2) - 0.387 * getSMEFTCoeffEW("CuGR",2,2)
+                - 0.0103 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.2943 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.0235 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1)) - 0.698 * CiHQ1
                 - 0.250 * CiHQ3
                 + 0.199 * CiHu + 0.257 * CiHd
-                + 0.220 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.220 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31443,20 +31445,20 @@ double NPSMEFTd6General::STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") + 0.020 * ewgc("CHD") + 0.008 *  ewgc("CHWB")
-                + 0.100 * ewgc("CuHR",2,2) - 0.539 * ewgc("CuGR",2,2)
-                - 0.0104 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.2974 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                - 0.0236 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1)) - 0.499 * CiHQ1
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.020 * getSMEFTCoeffEW("CHD") + 0.008 *  getSMEFTCoeffEW("CHWB")
+                + 0.100 * getSMEFTCoeffEW("CuHR",2,2) - 0.539 * getSMEFTCoeffEW("CuGR",2,2)
+                - 0.0104 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.2974 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.0236 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1)) - 0.499 * CiHQ1
                 - 0.199 * CiHQ3 + 0.105 * CiHu + 0.205 * CiHd
-                + 0.223 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.223 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31478,20 +31480,20 @@ double NPSMEFTd6General::STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") + 0.0142 * ewgc("CHD") + 0.0084 *  ewgc("CHWB")
-                + 0.0851 * ewgc("CuHR",2,2) - 0.491 * ewgc("CuGR",2,2)
-                - 0.0103 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.2943 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                - 0.0233 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1)) - 0.552 * CiHQ1
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0142 * getSMEFTCoeffEW("CHD") + 0.0084 *  getSMEFTCoeffEW("CHWB")
+                + 0.0851 * getSMEFTCoeffEW("CuHR",2,2) - 0.491 * getSMEFTCoeffEW("CuGR",2,2)
+                - 0.0103 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.2943 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.0233 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1)) - 0.552 * CiHQ1
                 - 0.212 * CiHQ3 + 0.131 * CiHu + 0.219 * CiHd
-                + 0.219 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.219 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31513,19 +31515,19 @@ double NPSMEFTd6General::STXS12_ggHll_pTV250_Inf(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") + 0.050 * ewgc("CHD") + 0.0091 *  ewgc("CHWB")
-                + 0.163 * ewgc("CuHR",2,2) - 0.680 * ewgc("CuGR",2,2)
-                - 0.0108 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.2968 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) - 0.0240 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.050 * getSMEFTCoeffEW("CHD") + 0.0091 *  getSMEFTCoeffEW("CHWB")
+                + 0.163 * getSMEFTCoeffEW("CuHR",2,2) - 0.680 * getSMEFTCoeffEW("CuGR",2,2)
+                - 0.0108 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.2968 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) - 0.0240 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1))
                 - 0.352 * CiHQ1 - 0.171 * CiHQ3 + 0.020 * CiHu
-                + 0.177 * CiHd + 0.221 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.177 * CiHd + 0.221 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31548,17 +31550,17 @@ double NPSMEFTd6General::STXS12_qqHqq_Nj0(const double sqrt_s) const
 
     //double CiHQ1;    
     double CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    //CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2))/3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    //CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2))/3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.011 * ewgc("CHD") + 0.32 * ewgc("CHW") + 0.008 *  ewgc("CHB")
-                + 0.048 * ewgc("CHWB") - 0.36 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.011 * getSMEFTCoeffEW("CHD") + 0.32 * getSMEFTCoeffEW("CHW") + 0.008 *  getSMEFTCoeffEW("CHB")
+                + 0.048 * getSMEFTCoeffEW("CHWB") - 0.36 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 + 0.46 * CiHQ3 + 0.027 * CiHu - 0.0125 * CiHd
-                + 0.18 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.18 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31580,17 +31582,17 @@ double NPSMEFTd6General::STXS12_qqHqq_Nj1(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0111 * ewgc("CHD") + 0.187 * ewgc("CHW") + 0.0063 *  ewgc("CHB")
-                + 0.047 * ewgc("CHWB") - 0.368 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0111 * getSMEFTCoeffEW("CHD") + 0.187 * getSMEFTCoeffEW("CHW") + 0.0063 *  getSMEFTCoeffEW("CHB")
+                + 0.047 * getSMEFTCoeffEW("CHWB") - 0.368 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 + 0.003 * CiHQ1 + 0.39 * CiHQ3 + 0.0278 * CiHu
-                - 0.0113 * CiHd + 0.183 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                - 0.0113 * CiHd + 0.183 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31613,17 +31615,17 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const
 
     //double CiHQ1;    
     double CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    //CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2))/3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    //CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2))/3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.011 * ewgc("CHD") + 0.38 * ewgc("CHW") + 0.012 *  ewgc("CHB")
-                + 0.060 * ewgc("CHWB") - 0.36 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.011 * getSMEFTCoeffEW("CHD") + 0.38 * getSMEFTCoeffEW("CHW") + 0.012 *  getSMEFTCoeffEW("CHB")
+                + 0.060 * getSMEFTCoeffEW("CHWB") - 0.36 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 + 0.94 * CiHQ3 + 0.055 * CiHu - 0.022 * CiHd
-                + 0.178 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.178 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31645,17 +31647,17 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0072 * ewgc("CHD") + 0.638 * ewgc("CHW") + 0.0230 *  ewgc("CHB")
-                + 0.100 * ewgc("CHWB") - 0.364 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0072 * getSMEFTCoeffEW("CHD") + 0.638 * getSMEFTCoeffEW("CHW") + 0.0230 *  getSMEFTCoeffEW("CHB")
+                + 0.100 * getSMEFTCoeffEW("CHWB") - 0.364 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 - 0.015 * CiHQ1 + 2.07 * CiHQ3 + 0.152 * CiHu
-                - 0.0593 * CiHd + 0.181 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                - 0.0593 * CiHd + 0.181 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31677,17 +31679,17 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0099 * ewgc("CHD") - 0.021 * ewgc("CHW") + 0.0017 *  ewgc("CHB")
-                + 0.0368 * ewgc("CHWB") - 0.363 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0099 * getSMEFTCoeffEW("CHD") - 0.021 * getSMEFTCoeffEW("CHW") + 0.0017 *  getSMEFTCoeffEW("CHB")
+                + 0.0368 * getSMEFTCoeffEW("CHWB") - 0.363 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 - 0.003 * CiHQ1 - 0.155 * CiHQ3 - 0.0038 * CiHu
-                + 0.0022 * CiHd + 0.181 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.0022 * CiHd + 0.181 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31709,17 +31711,17 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqr
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0072 * ewgc("CHD") + 0.188 * ewgc("CHW") - 0.0012 *  ewgc("CHB")
-                + 0.038 * ewgc("CHWB") - 0.362 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0072 * getSMEFTCoeffEW("CHD") + 0.188 * getSMEFTCoeffEW("CHW") - 0.0012 *  getSMEFTCoeffEW("CHB")
+                + 0.038 * getSMEFTCoeffEW("CHWB") - 0.362 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 + 0.047 * CiHQ1 - 1.33 * CiHQ3 - 0.095 * CiHu
-                + 0.0314 * CiHd + 0.181 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.0314 * CiHd + 0.181 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31742,17 +31744,17 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const do
 
     //double CiHQ1;
     double CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    //CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2))/3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    //CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2))/3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0110 * ewgc("CHD") - 0.134 * ewgc("CHW") - 0.0014 *  ewgc("CHB")
-                + 0.0234 * ewgc("CHWB") - 0.368 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0110 * getSMEFTCoeffEW("CHD") - 0.134 * getSMEFTCoeffEW("CHW") - 0.0014 *  getSMEFTCoeffEW("CHB")
+                + 0.0234 * getSMEFTCoeffEW("CHWB") - 0.368 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 - 0.371 * CiHQ3 - 0.0203 * CiHu
-                + 0.0084 * CiHd + 0.184 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.0084 * CiHd + 0.184 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31774,17 +31776,17 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const 
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0101 * ewgc("CHD") - 0.143 * ewgc("CHW") + 0.027 *  ewgc("CHWB")
-                - 0.358 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) + 0.002 * CiHQ1
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0101 * getSMEFTCoeffEW("CHD") - 0.143 * getSMEFTCoeffEW("CHW") + 0.027 *  getSMEFTCoeffEW("CHWB")
+                - 0.358 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) + 0.002 * CiHQ1
                 - 0.38 * CiHQ3 - 0.0204 * CiHu + 0.0081 * CiHd
-                + 0.183 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.183 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31806,17 +31808,17 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const do
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0101 * ewgc("CHD") - 0.117 * ewgc("CHW") - 0.0016 *  ewgc("CHB")
-                + 0.0231 * ewgc("CHWB") - 0.365 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0101 * getSMEFTCoeffEW("CHD") - 0.117 * getSMEFTCoeffEW("CHW") - 0.0016 *  getSMEFTCoeffEW("CHB")
+                + 0.0231 * getSMEFTCoeffEW("CHWB") - 0.365 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 + 0.010 * CiHQ1 - 0.364 * CiHQ3 - 0.0216 * CiHu
-                + 0.0074 * CiHd + 0.182 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.0074 * CiHd + 0.182 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31838,17 +31840,17 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const 
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0096 * ewgc("CHD") - 0.168 * ewgc("CHW") + 0.023 *  ewgc("CHWB")
-                - 0.361 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) + 0.015 * CiHQ1
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0096 * getSMEFTCoeffEW("CHD") - 0.168 * getSMEFTCoeffEW("CHW") + 0.023 *  getSMEFTCoeffEW("CHWB")
+                - 0.361 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) + 0.015 * CiHQ1
                 - 0.442 * CiHQ3 - 0.0282 * CiHu + 0.0091 * CiHd
-                + 0.180 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.180 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31870,13 +31872,13 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV0_75(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0304 * ewgc("CHD") + 0.813 *  ewgc("CHW")
-                - 0.241 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 1.142 * CiHQ3 + 0.183 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.813 *  getSMEFTCoeffEW("CHW")
+                - 0.241 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 1.142 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31898,13 +31900,13 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0304 * ewgc("CHD") + 0.946 *  ewgc("CHW")
-                - 0.244 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 1.90 * CiHQ3 + 0.183 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.946 *  getSMEFTCoeffEW("CHW")
+                - 0.244 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 1.90 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31926,13 +31928,13 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0312 * ewgc("CHD") + 1.06 *  ewgc("CHW")
-                - 0.247 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 4.07 * CiHQ3 + 0.187 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0312 * getSMEFTCoeffEW("CHD") + 1.06 *  getSMEFTCoeffEW("CHW")
+                - 0.247 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 4.07 * CiHQ3 + 0.187 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31954,13 +31956,13 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0307 * ewgc("CHD") + 1.08 *  ewgc("CHW")
-                - 0.239 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 3.58 * CiHQ3 + 0.180 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0307 * getSMEFTCoeffEW("CHD") + 1.08 *  getSMEFTCoeffEW("CHW")
+                - 0.239 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 3.58 * CiHQ3 + 0.180 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31982,13 +31984,13 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0282 * ewgc("CHD") + 1.07 *  ewgc("CHW")
-                - 0.228 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 10.6 * CiHQ3 + 0.170 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0282 * getSMEFTCoeffEW("CHD") + 1.07 *  getSMEFTCoeffEW("CHW")
+                - 0.228 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 10.6 * CiHQ3 + 0.170 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32010,18 +32012,18 @@ double NPSMEFTd6General::STXS12_qqHll_pTV0_75(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") + 0.0129 * ewgc("CHD") + 0.665 * ewgc("CHW") + 0.0835 *  ewgc("CHB")
-                + 0.303 * ewgc("CHWB") - 0.0362 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.2772 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) - 0.0359 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0129 * getSMEFTCoeffEW("CHD") + 0.665 * getSMEFTCoeffEW("CHW") + 0.0835 *  getSMEFTCoeffEW("CHB")
+                + 0.303 * getSMEFTCoeffEW("CHWB") - 0.0362 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.2772 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) - 0.0359 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1))
                 + 0.029 * CiHQ1 + 1.27 * CiHQ3 + 0.245 * CiHu - 0.1064 * CiHd
-                + 0.183 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.183 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32043,18 +32045,18 @@ double NPSMEFTd6General::STXS12_qqHll_pTV75_150(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") + 0.0128 * ewgc("CHD") + 0.771 * ewgc("CHW") + 0.092 *  ewgc("CHB")
-                + 0.341 * ewgc("CHWB") - 0.0360 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.274 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) - 0.0362 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0128 * getSMEFTCoeffEW("CHD") + 0.771 * getSMEFTCoeffEW("CHW") + 0.092 *  getSMEFTCoeffEW("CHB")
+                + 0.341 * getSMEFTCoeffEW("CHWB") - 0.0360 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.274 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) - 0.0362 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1))
                 + 0.01 * CiHQ1 + 1.80 * CiHQ3 + 0.403 * CiHu - 0.166 * CiHd
-                + 0.182 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.182 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32076,18 +32078,18 @@ double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") + 0.013 * ewgc("CHD") + 0.86 * ewgc("CHW") + 0.103 *  ewgc("CHB")
-                + 0.366 * ewgc("CHWB") - 0.035 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.267 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) - 0.0358 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.86 * getSMEFTCoeffEW("CHW") + 0.103 *  getSMEFTCoeffEW("CHB")
+                + 0.366 * getSMEFTCoeffEW("CHWB") - 0.035 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.267 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) - 0.0358 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1))
                 - 0.12 * CiHQ1 + 3.63 * CiHQ3 + 0.87 * CiHu - 0.323 * CiHd
-                + 0.177 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.177 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32109,18 +32111,18 @@ double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") + 0.013 * ewgc("CHD") + 0.85 * ewgc("CHW") + 0.102 *  ewgc("CHB")
-                + 0.373 * ewgc("CHWB") - 0.036 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.266 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) - 0.0367 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.85 * getSMEFTCoeffEW("CHW") + 0.102 *  getSMEFTCoeffEW("CHB")
+                + 0.373 * getSMEFTCoeffEW("CHWB") - 0.036 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.266 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) - 0.0367 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1))
                 - 0.10 * CiHQ1 + 3.19 * CiHQ3 + 0.77 * CiHu - 0.282 * CiHd
-                + 0.177 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.177 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32142,18 +32144,18 @@ double NPSMEFTd6General::STXS12_qqHll_pTV250_Inf(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") + 0.010 * ewgc("CHD") + 0.88 * ewgc("CHW") + 0.135 *  ewgc("CHB")
-                + 0.41 * ewgc("CHWB") - 0.037 * 0.5 * (ewgc("CHl1R",0,0) + ewgc("CHl1R",1,1) - ewgc("CHl3R",0,0) - ewgc("CHl3R",1,1))
-                - 0.271 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) - 0.036 * 0.5 * (ewgc("CHeR",0,0) + ewgc("CHeR",1,1))
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.010 * getSMEFTCoeffEW("CHD") + 0.88 * getSMEFTCoeffEW("CHW") + 0.135 *  getSMEFTCoeffEW("CHB")
+                + 0.41 * getSMEFTCoeffEW("CHWB") - 0.037 * 0.5 * (getSMEFTCoeffEW("CHl1R",0,0) + getSMEFTCoeffEW("CHl1R",1,1) - getSMEFTCoeffEW("CHl3R",0,0) - getSMEFTCoeffEW("CHl3R",1,1))
+                - 0.271 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) - 0.036 * 0.5 * (getSMEFTCoeffEW("CHeR",0,0) + getSMEFTCoeffEW("CHeR",1,1))
                 - 1.12 * CiHQ1 + 9.9 * CiHQ3 + 2.51 * CiHu - 0.81 * CiHd
-                + 0.181 * ewgc("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
+                + 0.181 * getSMEFTCoeffEW("CllR",0,1,1,0)) * (1000000.0 / LambdaNP2);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32175,15 +32177,15 @@ double NPSMEFTd6General::STXS12_ttH_pTH0_60(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.021 * ewgc("CG") + 0.12 * ewgc("CHbox") - 0.0301 * ewgc("CHD") + 0.411 *  ewgc("CHG")
-                - 0.121 * ewgc("CuHR",2,2) + 0.764 * ewgc("CuGR",2,2) + 0.004 * ewgc("CuWR",2,2)
-                + 0.0015 * ewgc("CuBR",2,2) - 0.121 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (-0.021 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0301 * getSMEFTCoeffEW("CHD") + 0.411 *  getSMEFTCoeffEW("CHG")
+                - 0.121 * getSMEFTCoeffEW("CuHR",2,2) + 0.764 * getSMEFTCoeffEW("CuGR",2,2) + 0.004 * getSMEFTCoeffEW("CuWR",2,2)
+                + 0.0015 * getSMEFTCoeffEW("CuBR",2,2) - 0.121 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 + 0.0031 * CiHQ3
-                + 0.0612 * ewgc("CllR",0,1,1,0)
+                + 0.0612 * getSMEFTCoeffEW("CllR",0,1,1,0)
                 //+ 0.0154 * Ciqq1 + 0.121 * Ciqq11 
                 //+ 0.0142 * Ciqq3 + 0.299 * Ciqq31 
                 //+ 0.0088 * Ciuu + 0.128 * Ciuu1 
@@ -32212,15 +32214,15 @@ double NPSMEFTd6General::STXS12_ttH_pTH60_120(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.061 * ewgc("CG") + 0.12 * ewgc("CHbox") - 0.0286 * ewgc("CHD") + 0.450 *  ewgc("CHG")
-                - 0.1149 * ewgc("CuHR",2,2) + 0.790 * ewgc("CuGR",2,2) + 0.005 * ewgc("CuWR",2,2)
-                + 0.0017 * ewgc("CuBR",2,2) - 0.1151 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
+        STXSb += (-0.061 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0286 * getSMEFTCoeffEW("CHD") + 0.450 *  getSMEFTCoeffEW("CHG")
+                - 0.1149 * getSMEFTCoeffEW("CuHR",2,2) + 0.790 * getSMEFTCoeffEW("CuGR",2,2) + 0.005 * getSMEFTCoeffEW("CuWR",2,2)
+                + 0.0017 * getSMEFTCoeffEW("CuBR",2,2) - 0.1151 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
                 + 0.0032 * CiHQ3
-                + 0.0574 * ewgc("CllR",0,1,1,0)
+                + 0.0574 * getSMEFTCoeffEW("CllR",0,1,1,0)
                 //+ 0.0183 * Ciqq1 + 0.138 * Ciqq11 
                 //+ 0.0175 * Ciqq3 + 0.340 * Ciqq31 
                 //+ 0.0104 * Ciuu + 0.147 * Ciuu1 
@@ -32249,15 +32251,15 @@ double NPSMEFTd6General::STXS12_ttH_pTH120_200(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.152 * ewgc("CG") + 0.12 * ewgc("CHbox") - 0.0282 * ewgc("CHD") + 0.553 *  ewgc("CHG")
-                + 0.0013 * ewgc("CHW") - 0.113 * ewgc("CuHR",2,2) + 0.890 * ewgc("CuGR",2,2)
-                + 0.007 * ewgc("CuWR",2,2) + 0.002 * ewgc("CuBR",2,2)
-                - 0.114 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1))
-                + 0.0045 * CiHQ3 + 0.0569 * ewgc("CllR",0,1,1,0)
+        STXSb += (-0.152 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0282 * getSMEFTCoeffEW("CHD") + 0.553 *  getSMEFTCoeffEW("CHG")
+                + 0.0013 * getSMEFTCoeffEW("CHW") - 0.113 * getSMEFTCoeffEW("CuHR",2,2) + 0.890 * getSMEFTCoeffEW("CuGR",2,2)
+                + 0.007 * getSMEFTCoeffEW("CuWR",2,2) + 0.002 * getSMEFTCoeffEW("CuBR",2,2)
+                - 0.114 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1))
+                + 0.0045 * CiHQ3 + 0.0569 * getSMEFTCoeffEW("CllR",0,1,1,0)
                 //+ 0.0282 * Ciqq1 + 0.202 * Ciqq11 
                 //+ 0.0275 * Ciqq3 + 0.493 * Ciqq31 
                 //+ 0.0156 * Ciuu + 0.217 * Ciuu1 
@@ -32286,16 +32288,16 @@ double NPSMEFTd6General::STXS12_ttH_pTH200_300(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.311 * ewgc("CG") + 0.12 * ewgc("CHbox") - 0.0277 * ewgc("CHD") + 0.68 *  ewgc("CHG")
-                + 0.002 * ewgc("CHW") - 0.001 * ewgc("CHWB") - 0.112 * ewgc("CuHR",2,2)
-                + 0.97 * ewgc("CuGR",2,2) + 0.0105 * ewgc("CuWR",2,2) + 0.003 * ewgc("CuBR",2,2)
-                - 0.114 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) - 0.0015 * CiHQ1
-                + 0.0091 * CiHQ3 + 0.0569 * ewgc("CllR",0,1,1,0)
+        STXSb += (-0.311 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0277 * getSMEFTCoeffEW("CHD") + 0.68 *  getSMEFTCoeffEW("CHG")
+                + 0.002 * getSMEFTCoeffEW("CHW") - 0.001 * getSMEFTCoeffEW("CHWB") - 0.112 * getSMEFTCoeffEW("CuHR",2,2)
+                + 0.97 * getSMEFTCoeffEW("CuGR",2,2) + 0.0105 * getSMEFTCoeffEW("CuWR",2,2) + 0.003 * getSMEFTCoeffEW("CuBR",2,2)
+                - 0.114 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) - 0.0015 * CiHQ1
+                + 0.0091 * CiHQ3 + 0.0569 * getSMEFTCoeffEW("CllR",0,1,1,0)
                 //+ 0.0493 * Ciqq1 + 0.336 * Ciqq11 
                 //+ 0.0484 * Ciqq3 + 0.82 * Ciqq31 
                 //+ 0.0268 * Ciuu + 0.358 * Ciuu1 
@@ -32324,19 +32326,19 @@ double NPSMEFTd6General::STXS12_ttH_pTH300_Inf(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (ewgc("CHq1R",0,0) + ewgc("CHq1R",1,1) + ewgc("CHq1R",2,2)) / 3.0;
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
-    CiHu = (ewgc("CHuR",0,0) + ewgc("CHuR",1,1) + ewgc("CHuR",2,2)) / 3.0;
-    CiHd = (ewgc("CHdR",0,0) + ewgc("CHdR",1,1) + ewgc("CHdR",2,2)) / 3.0;
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R",0,0) + getSMEFTCoeffEW("CHq1R",1,1) + getSMEFTCoeffEW("CHq1R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR",0,0) + getSMEFTCoeffEW("CHuR",1,1) + getSMEFTCoeffEW("CHuR",2,2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR",0,0) + getSMEFTCoeffEW("CHdR",1,1) + getSMEFTCoeffEW("CHdR",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.58 * ewgc("CG") + 0.12 * ewgc("CHbox") - 0.0276 * ewgc("CHD") + 0.84 *  ewgc("CHG")
-                + 0.003 * ewgc("CHW") - 0.001 * ewgc("CHWB") - 0.110 * ewgc("CuHR",2,2)
-                + 1.04 * ewgc("CuGR",2,2) + 0.0186 * ewgc("CuWR",2,2) + 0.0068 * ewgc("CuBR",2,2)
-                - 0.112 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) - 0.0105 * CiHQ1
+        STXSb += (-0.58 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0276 * getSMEFTCoeffEW("CHD") + 0.84 *  getSMEFTCoeffEW("CHG")
+                + 0.003 * getSMEFTCoeffEW("CHW") - 0.001 * getSMEFTCoeffEW("CHWB") - 0.110 * getSMEFTCoeffEW("CuHR",2,2)
+                + 1.04 * getSMEFTCoeffEW("CuGR",2,2) + 0.0186 * getSMEFTCoeffEW("CuWR",2,2) + 0.0068 * getSMEFTCoeffEW("CuBR",2,2)
+                - 0.112 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) - 0.0105 * CiHQ1
                 + 0.0503 * CiHQ3 + 0.0110 * CiHu - 0.0032 * CiHd
-                + 0.056 * ewgc("CllR",0,1,1,0)
+                + 0.056 * getSMEFTCoeffEW("CllR",0,1,1,0)
                 //+ 0.120 * Ciqq1 + 0.75 * Ciqq11 
                 //+ 0.122 * Ciqq3 + 1.70 * Ciqq31 
                 //+ 0.064 * Ciuu + 0.78 * Ciuu1 
@@ -32365,14 +32367,14 @@ double NPSMEFTd6General::STXS12_tH(const double sqrt_s) const
     double STXSb = 1.0;
 
     double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (ewgc("CHq3R",0,0) + ewgc("CHq3R",1,1) + ewgc("CHq3R",2,2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1) + getSMEFTCoeffEW("CHq3R",2,2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * ewgc("CHbox") - 0.0272 * ewgc("CHD") + 0.254 * ewgc("CHG") + 0.1808 *  ewgc("CHW")
-                - 0.0764 * ewgc("CuHR",2,2) + 0.119 * ewgc("CuGR",2,2) + 0.170 * ewgc("CuWR",2,2)
-                - 0.2679 * 0.5 * (ewgc("CHl3R",0,0) + ewgc("CHl3R",1,1)) + 0.319 * CiHQ3
-                + 0.1341 * ewgc("CllR",0,1,1,0)
+        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0272 * getSMEFTCoeffEW("CHD") + 0.254 * getSMEFTCoeffEW("CHG") + 0.1808 *  getSMEFTCoeffEW("CHW")
+                - 0.0764 * getSMEFTCoeffEW("CuHR",2,2) + 0.119 * getSMEFTCoeffEW("CuGR",2,2) + 0.170 * getSMEFTCoeffEW("CuWR",2,2)
+                - 0.2679 * 0.5 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1)) + 0.319 * CiHQ3
+                + 0.1341 * getSMEFTCoeffEW("CllR",0,1,1,0)
                 //+ 0.418 * Ciqq3
                 ) * (1000000.0 / LambdaNP2);
 
@@ -32446,7 +32448,7 @@ double NPSMEFTd6General::deltayt_HB() const
     double mf = mtpole;
     double ciHB;
 
-    ciHB = -(v() / mf / sqrt(2.0)) * ewgc("CuHR",2,2) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CuHR",2,2) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
 
     return ciHB;
 }
@@ -32456,7 +32458,7 @@ double NPSMEFTd6General::deltayb_HB() const
     double mf = (quarks[BOTTOM].getMass());
     double ciHB;
 
-    ciHB = -(v() / mf / sqrt(2.0)) * ewgc("CdHR",2,2) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CdHR",2,2) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
 
     return ciHB;
 }
@@ -32466,7 +32468,7 @@ double NPSMEFTd6General::deltaytau_HB() const
     double mf = (leptons[TAU].getMass());
     double ciHB;
 
-    ciHB = -(v() / mf / sqrt(2.0)) * ewgc("CeHR",2,2) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CeHR",2,2) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
 
     return ciHB;
 }
@@ -32476,7 +32478,7 @@ double NPSMEFTd6General::deltayc_HB() const
     double mf = (quarks[CHARM].getMass());
     double ciHB;
 
-    ciHB = -(v() / mf / sqrt(2.0)) * ewgc("CuHR",1,1) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CuHR",1,1) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
 
     return ciHB;
 }
@@ -32486,7 +32488,7 @@ double NPSMEFTd6General::deltaymu_HB() const
     double mf = (leptons[MU].getMass());
     double ciHB;
 
-    ciHB = -(v() / mf / sqrt(2.0)) * ewgc("CeHR",1,1) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CeHR",1,1) * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
 
     return ciHB;
 }
@@ -32504,7 +32506,7 @@ double NPSMEFTd6General::cZBox_HB() const
 {
     double ciHB;
 
-    ciHB = (sW2_tree / eeMz2)*(delta_GF + 0.5 * ewgc("CHD") * v2_over_LambdaNP2);
+    ciHB = (sW2_tree / eeMz2)*(delta_GF + 0.5 * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2);
 
     ciHB = ciHB + 0.5 * (sW2_tree / eeMz)*(CDHB / cW_tree + CDHW / sW_tree) * v2_over_LambdaNP2; // Extra, not in Warsaw basis
 
@@ -32515,7 +32517,7 @@ double NPSMEFTd6General::cZZ_HB() const
 {
     double ciHB;
 
-    ciHB = (4.0 * sW2_tree * cW2_tree / eeMz2)*(cW2_tree * ewgc("CHW") + sW2_tree *ewgc("CHB") + sW_tree * cW_tree *  ewgc("CHWB")) * v2_over_LambdaNP2;
+    ciHB = (4.0 * sW2_tree * cW2_tree / eeMz2)*(cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree *getSMEFTCoeffEW("CHB") + sW_tree * cW_tree *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
 
     ciHB = ciHB - (sW2_tree * cW2_tree / eeMz)*(CDHB / cW_tree + CDHW / sW_tree) * v2_over_LambdaNP2; // Extra, not in Warsaw basis
 
@@ -32526,7 +32528,7 @@ double NPSMEFTd6General::cZga_HB() const
 {
     double ciHB;
 
-    ciHB = (sW2_tree * cW2_tree / eeMz2)*(4.0 * ewgc("CHW") - 4.0 *ewgc("CHB") - (2.0 * (cW2_tree - sW2_tree) / sW_tree / cW_tree) *  ewgc("CHWB")) * v2_over_LambdaNP2;
+    ciHB = (sW2_tree * cW2_tree / eeMz2)*(4.0 * getSMEFTCoeffEW("CHW") - 4.0 *getSMEFTCoeffEW("CHB") - (2.0 * (cW2_tree - sW2_tree) / sW_tree / cW_tree) *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
 
     ciHB = ciHB + 0.5 * (sW_tree * cW_tree / eeMz)*(CDHB / sW_tree - CDHW / cW_tree) * v2_over_LambdaNP2; // Extra, not in Warsaw basis
 
@@ -32537,7 +32539,7 @@ double NPSMEFTd6General::cgaga_HB() const
 {
     double ciHB;
 
-    ciHB = (4.0 / eeMz2)*(sW2_tree * ewgc("CHW") + cW2_tree *ewgc("CHB") - sW_tree * cW_tree *  ewgc("CHWB")) * v2_over_LambdaNP2;
+    ciHB = (4.0 / eeMz2)*(sW2_tree * getSMEFTCoeffEW("CHW") + cW2_tree *getSMEFTCoeffEW("CHB") - sW_tree * cW_tree *  getSMEFTCoeffEW("CHWB")) * v2_over_LambdaNP2;
 
     return ciHB;
 }
@@ -32546,7 +32548,7 @@ double NPSMEFTd6General::cgg_HB() const
 {
     double ciHB;
 
-    ciHB = (1.0 / (M_PI * AlsMz)) *  ewgc("CHG")*v2_over_LambdaNP2;
+    ciHB = (1.0 / (M_PI * AlsMz)) *  getSMEFTCoeffEW("CHG")*v2_over_LambdaNP2;
 
     return ciHB;
 }
@@ -32573,7 +32575,7 @@ double NPSMEFTd6General::lambz_HB() const
 {
     double ciHB;
 
-    ciHB = -(3.0 / 2.0)*(eeMz / sW_tree) *  ewgc("CW")*v2_over_LambdaNP2;
+    ciHB = -(3.0 / 2.0)*(eeMz / sW_tree) *  getSMEFTCoeffEW("CW")*v2_over_LambdaNP2;
 
     return ciHB;
 }
@@ -32582,113 +32584,113 @@ double NPSMEFTd6General::lambz_HB() const
 
 double NPSMEFTd6General::CEWHL111() const
 {
-    return ewgc("CHl1R",0,0) + (1.0 / 4.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHl1R",0,0) + (1.0 / 4.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHL122() const
 {
-    return ewgc("CHl1R",1,1) + (1.0 / 4.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHl1R",1,1) + (1.0 / 4.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHL133() const
 {
-    return ewgc("CHl1R",2,2) + (1.0 / 4.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHl1R",2,2) + (1.0 / 4.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHL311() const
 {
-    return ewgc("CHl3R",0,0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * ewgc("CHD") + (cW_tree / sW_tree) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHl3R",0,0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHL322() const
 {
-    return ewgc("CHl3R",1,1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * ewgc("CHD") + (cW_tree / sW_tree) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHl3R",1,1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHL333() const
 {
-    return ewgc("CHl3R",2,2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * ewgc("CHD") + (cW_tree / sW_tree) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHl3R",2,2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHQ111() const
 {
-    return ewgc("CHq1R",0,0) - (1.0 / 12.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHq1R",0,0) - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHQ122() const
 {
-    return ewgc("CHq1R",1,1) - (1.0 / 12.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHq1R",1,1) - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHQ133() const
 {
-    return ewgc("CHq1R",2,2) - (1.0 / 12.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHq1R",2,2) - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHQ311() const
 {
-    return ewgc("CHq3R",0,0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * ewgc("CHD") + (cW_tree / sW_tree) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHq3R",0,0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHQ322() const
 {
-    return ewgc("CHq3R",1,1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * ewgc("CHD") + (cW_tree / sW_tree) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHq3R",1,1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHQ333() const
 {
-    return ewgc("CHq3R",2,2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * ewgc("CHD") + (cW_tree / sW_tree) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHq3R",2,2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHQd33() const
 {
-    return 0.5 * ((ewgc("CHq1R",2,2) - (1.0 / 12.0) * ewgc("CHD")) +
-            (ewgc("CHq3R",2,2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * ewgc("CHD") + (cW_tree / sW_tree) * ewgc("CHD")));
+    return 0.5 * ((getSMEFTCoeffEW("CHq1R",2,2) - (1.0 / 12.0) * getSMEFTCoeffEW("CHD")) +
+            (getSMEFTCoeffEW("CHq3R",2,2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD")));
 }
 
 double NPSMEFTd6General::CEWHe11() const
 {
-    return ewgc("CHeR",0,0) + (1.0 / 2.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHeR",0,0) + (1.0 / 2.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHe22() const
 {
-    return ewgc("CHeR",1,1) + (1.0 / 2.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHeR",1,1) + (1.0 / 2.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHe33() const
 {
-    return ewgc("CHeR",2,2) + (1.0 / 2.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHeR",2,2) + (1.0 / 2.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHu11() const
 {
-    return ewgc("CHuR",0,0) - (1.0 / 3.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHuR",0,0) - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHu22() const
 {
-    return ewgc("CHuR",1,1) - (1.0 / 3.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHuR",1,1) - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHu33() const
 {
-    return ewgc("CHuR",2,2) - (1.0 / 3.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHuR",2,2) - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHd11() const
 {
-    return ewgc("CHdR",0,0) + (1.0 / 6.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHdR",0,0) + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHd22() const
 {
-    return ewgc("CHdR",1,1) + (1.0 / 6.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHdR",1,1) + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
 }
 
 double NPSMEFTd6General::CEWHd33() const
 {
-    return ewgc("CHdR",2,2) + (1.0 / 6.0) * ewgc("CHD");
+    return getSMEFTCoeffEW("CHdR",2,2) + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
 }
 
 ////////////////////////////Auxiliary observables//////////////////////////////
@@ -33363,8 +33365,8 @@ double NPSMEFTd6General::AuxObs_NP12() const
     double Chi2Tot;
 
     // The chi2 is given assuming C/Lambda^2 is in units of TeV^-2
-    CHqminus = 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * (1000000.0 / LambdaNP2);
-    CHt = 0.5 * ewgc("CHuR",2,2) * (1000000.0 / LambdaNP2);
+    CHqminus = 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * (1000000.0 / LambdaNP2);
+    CHt = 0.5 * getSMEFTCoeffEW("CHuR",2,2) * (1000000.0 / LambdaNP2);
 
     Chi2Tot = 1203.58 * CHqminus * CHqminus + 1661.59 * CHqminus * CHt + 1257.83 * CHt * CHt;
 
@@ -33379,8 +33381,8 @@ double NPSMEFTd6General::AuxObs_NP13() const
     double Chi2Tot;
 
     // The chi2 is given assuming C/Lambda^2 is in units of TeV^-2
-    CHqminus = 0.5 * (ewgc("CHq1R",2,2) - ewgc("CHq3R",2,2)) * (1000000.0 / LambdaNP2);
-    CHt = 0.5 * ewgc("CHuR",2,2) * (1000000.0 / LambdaNP2);
+    CHqminus = 0.5 * (getSMEFTCoeffEW("CHq1R",2,2) - getSMEFTCoeffEW("CHq3R",2,2)) * (1000000.0 / LambdaNP2);
+    CHt = 0.5 * getSMEFTCoeffEW("CHuR",2,2) * (1000000.0 / LambdaNP2);
 
     Chi2Tot = 5756.01 * CHqminus * CHqminus + 8013.79 * CHqminus * CHt + 3380.7 * CHt * CHt;
 
@@ -33982,13 +33984,13 @@ double NPSMEFTd6General::AuxObs_NP19() const
 {
     // To be used for some temporary observable
 
-    // Muon Collider CB, ewgc("CW") using diboson production at energy: 3000 GeV
+    // Muon Collider CB, getSMEFTCoeffEW("CW") using diboson production at energy: 3000 GeV
     double CBpar, CWpar, CBpar2, CWpar2;
     double Chi2Tot;
 
     // Chi square formulae requires WC in units of TeV-2
-    CBpar = 1.0e+06 * (CDB / g1_tree) / LambdaNP2;
-    CWpar = 1.0e+06 * (CDW / g2_tree) / LambdaNP2;
+    CBpar = 1.0e+06 * (getSMEFTCoeffEW("CDB") / g1_tree) / LambdaNP2;
+    CWpar = 1.0e+06 * (getSMEFTCoeffEW("CDW") / g2_tree) / LambdaNP2;
 
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
@@ -34010,13 +34012,13 @@ double NPSMEFTd6General::AuxObs_NP20() const
 {
     // To be used for some temporary observable
 
-    // Muon Collider CB, ewgc("CW") using diboson production at energy: 10000 GeV
+    // Muon Collider CB, getSMEFTCoeffEW("CW") using diboson production at energy: 10000 GeV
     double CBpar, CWpar, CBpar2, CWpar2;
     double Chi2Tot;
 
     // Chi square formulae requires WC in units of TeV-2
-    CBpar = 1.0e+06 * (CDB / g1_tree) / LambdaNP2;
-    CWpar = 1.0e+06 * (CDW / g2_tree) / LambdaNP2;
+    CBpar = 1.0e+06 * (getSMEFTCoeffEW("CDB") / g1_tree) / LambdaNP2;
+    CWpar = 1.0e+06 * (getSMEFTCoeffEW("CDW") / g2_tree) / LambdaNP2;
 
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
@@ -34044,9 +34046,9 @@ double NPSMEFTd6General::AuxObs_NP21() const
     double C6par, CHpar, C6par2, CHpar2;
     double Chi2Tot;
 
-    // C6 v2, ewgc("CH") v2, in the notation of 2012.11555 as function of the Warsaw WC
-    C6par = (-2 * v2 * ewgc("CH") / mHl / mHl) * v2_over_LambdaNP2;
-    CHpar = (-2.0 *  ewgc("CHbox")) * v2_over_LambdaNP2;
+    // C6 v2, getSMEFTCoeffEW("CH") v2, in the notation of 2012.11555 as function of the Warsaw WC
+    C6par = (-2 * v2 * getSMEFTCoeffEW("CH") / mHl / mHl) * v2_over_LambdaNP2;
+    CHpar = (-2.0 *  getSMEFTCoeffEW("CHbox")) * v2_over_LambdaNP2;
 
     C6par2 = C6par*C6par;
     CHpar2 = CHpar*CHpar;
@@ -34089,9 +34091,9 @@ double NPSMEFTd6General::AuxObs_NP22() const
     double C6par, CHpar, C6par2, CHpar2;
     double Chi2Tot;
 
-    // C6 v2, ewgc("CH") v2, in the notation of 2012.11555 as function of the Warsaw WC
-    C6par = (-2 * v2 * ewgc("CH") / mHl / mHl) * v2_over_LambdaNP2;
-    CHpar = (-2.0 *  ewgc("CHbox")) * v2_over_LambdaNP2;
+    // C6 v2, getSMEFTCoeffEW("CH") v2, in the notation of 2012.11555 as function of the Warsaw WC
+    C6par = (-2 * v2 * getSMEFTCoeffEW("CH") / mHl / mHl) * v2_over_LambdaNP2;
+    CHpar = (-2.0 *  getSMEFTCoeffEW("CHbox")) * v2_over_LambdaNP2;
 
     C6par2 = C6par*C6par;
     CHpar2 = CHpar*CHpar;
@@ -34224,141 +34226,141 @@ double NPSMEFTd6General::AuxObs_NP30() const
 
 double NPSMEFTd6General::Cll_mu() const
 {
-    return (ewgc("CllR",0,0,1,1) + ewgc("CllR",1,1,0,0) + ewgc("CllR",0,1,1,0) + ewgc("CllR",1,0,0,1));
+    return (getSMEFTCoeffEW("CllR",0,0,1,1) + getSMEFTCoeffEW("CllR",1,1,0,0) + getSMEFTCoeffEW("CllR",0,1,1,0) + getSMEFTCoeffEW("CllR",1,0,0,1));
 }
 
 double NPSMEFTd6General::Cll_tau() const
 {
-    return (ewgc("CllR",0,0,2,2) + ewgc("CllR",2,2,0,0) + ewgc("CllR",0,2,2,0) + ewgc("CllR",2,0,0,2));
+    return (getSMEFTCoeffEW("CllR",0,0,2,2) + getSMEFTCoeffEW("CllR",2,2,0,0) + getSMEFTCoeffEW("CllR",0,2,2,0) + getSMEFTCoeffEW("CllR",2,0,0,2));
 }
 
 double NPSMEFTd6General::Cll_up() const
 {
-    return (ewgc("Clq1R",0,0,0,0) - ewgc("Clq3R",0,0,0,0));
+    return (getSMEFTCoeffEW("Clq1R",0,0,0,0) - getSMEFTCoeffEW("Clq3R",0,0,0,0));
 }
 
 double NPSMEFTd6General::Cll_down() const
 {
-    return (ewgc("Clq1R",0,0,0,0) + ewgc("Clq3R",0,0,0,0));
+    return (getSMEFTCoeffEW("Clq1R",0,0,0,0) + getSMEFTCoeffEW("Clq3R",0,0,0,0));
 }
 
 double NPSMEFTd6General::Cll_charm() const
 {
-    return (ewgc("Clq1R",0,0,1,1) + ewgc("Clq1R",1,1,0,0) - ewgc("Clq3R",0,0,1,1) - ewgc("Clq3R",1,1,0,0));
+    return (getSMEFTCoeffEW("Clq1R",0,0,1,1) + getSMEFTCoeffEW("Clq1R",1,1,0,0) - getSMEFTCoeffEW("Clq3R",0,0,1,1) - getSMEFTCoeffEW("Clq3R",1,1,0,0));
 }
 
 double NPSMEFTd6General::Cll_strange() const
 {
-    return (ewgc("Clq1R",0,0,1,1) + ewgc("Clq1R",1,1,0,0) + ewgc("Clq3R",0,0,1,1) + ewgc("Clq3R",1,1,0,0));
+    return (getSMEFTCoeffEW("Clq1R",0,0,1,1) + getSMEFTCoeffEW("Clq1R",1,1,0,0) + getSMEFTCoeffEW("Clq3R",0,0,1,1) + getSMEFTCoeffEW("Clq3R",1,1,0,0));
 }
 
 double NPSMEFTd6General::Cll_bottom() const
 {
-    return (ewgc("Clq1R",0,0,2,2) + ewgc("Clq1R",2,2,0,0) + ewgc("Clq3R",0,0,2,2) + ewgc("Clq3R",2,2,0,0));
+    return (getSMEFTCoeffEW("Clq1R",0,0,2,2) + getSMEFTCoeffEW("Clq1R",2,2,0,0) + getSMEFTCoeffEW("Clq3R",0,0,2,2) + getSMEFTCoeffEW("Clq3R",2,2,0,0));
 }
 
 double NPSMEFTd6General::CLR_mu() const
 {
-    return (ewgc("CleR",0,0,1,1) + ewgc("CleR",1,1,0,0));
+    return (getSMEFTCoeffEW("CleR",0,0,1,1) + getSMEFTCoeffEW("CleR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CLR_tau() const
 {
-    return (ewgc("CleR",0,0,2,2) + ewgc("CleR",2,2,0,0));
+    return (getSMEFTCoeffEW("CleR",0,0,2,2) + getSMEFTCoeffEW("CleR",2,2,0,0));
 }
 
 double NPSMEFTd6General::CLR_up() const
 {
-    return (ewgc("CluR",0,0,0,0));
+    return (getSMEFTCoeffEW("CluR",0,0,0,0));
 }
 
 double NPSMEFTd6General::CLR_down() const
 {
-    return (ewgc("CldR",0,0,0,0));
+    return (getSMEFTCoeffEW("CldR",0,0,0,0));
 }
 
 double NPSMEFTd6General::CLR_charm() const
 {
-    return (ewgc("CluR",0,0,1,1) + ewgc("CluR",1,1,0,0));
+    return (getSMEFTCoeffEW("CluR",0,0,1,1) + getSMEFTCoeffEW("CluR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CLR_strange() const
 {
-    return (ewgc("CldR",0,0,1,1) + ewgc("CldR",1,1,0,0));
+    return (getSMEFTCoeffEW("CldR",0,0,1,1) + getSMEFTCoeffEW("CldR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CLR_bottom() const
 {
-    return (ewgc("CldR",0,0,2,2) + ewgc("CldR",2,2,0,0));
+    return (getSMEFTCoeffEW("CldR",0,0,2,2) + getSMEFTCoeffEW("CldR",2,2,0,0));
 }
 
 double NPSMEFTd6General::CRL_mu() const
 {
-    return (ewgc("CleR",0,0,1,1) + ewgc("CleR",1,1,0,0));
+    return (getSMEFTCoeffEW("CleR",0,0,1,1) + getSMEFTCoeffEW("CleR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CRL_tau() const
 {
-    return (ewgc("CleR",0,0,2,2) + ewgc("CleR",2,2,0,0));
+    return (getSMEFTCoeffEW("CleR",0,0,2,2) + getSMEFTCoeffEW("CleR",2,2,0,0));
 }
 
 double NPSMEFTd6General::CRL_up() const
 {
-    return (ewgc("CqeR",0,0,1,1));
+    return (getSMEFTCoeffEW("CqeR",0,0,1,1));
 }
 
 double NPSMEFTd6General::CRL_down() const
 {
-    return (ewgc("CqeR",0,0,1,1));
+    return (getSMEFTCoeffEW("CqeR",0,0,1,1));
 }
 
 double NPSMEFTd6General::CRL_charm() const
 {
-    return (ewgc("CqeR",0,0,1,1) + ewgc("CqeR",1,1,0,0));
+    return (getSMEFTCoeffEW("CqeR",0,0,1,1) + getSMEFTCoeffEW("CqeR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CRL_strange() const
 {
-    return (ewgc("CqeR",0,0,1,1) + ewgc("CqeR",1,1,0,0));
+    return (getSMEFTCoeffEW("CqeR",0,0,1,1) + getSMEFTCoeffEW("CqeR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CRL_bottom() const
 {
-    return (ewgc("CqeR",0,0,2,2) + ewgc("CqeR",2,2,0,0));
+    return (getSMEFTCoeffEW("CqeR",0,0,2,2) + getSMEFTCoeffEW("CqeR",2,2,0,0));
 }
 
 double NPSMEFTd6General::CRR_mu() const
 {
-    return (ewgc("CeeR",0,0,1,1) + ewgc("CeeR",1,1,0,0));
+    return (getSMEFTCoeffEW("CeeR",0,0,1,1) + getSMEFTCoeffEW("CeeR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CRR_tau() const
 {
-    return (ewgc("CeeR",0,0,2,2) + ewgc("CeeR",2,2,0,0));
+    return (getSMEFTCoeffEW("CeeR",0,0,2,2) + getSMEFTCoeffEW("CeeR",2,2,0,0));
 }
 
 double NPSMEFTd6General::CRR_up() const
 {
-    return (ewgc("CeuR",0,0,0,0));
+    return (getSMEFTCoeffEW("CeuR",0,0,0,0));
 }
 
 double NPSMEFTd6General::CRR_down() const
 {
-    return (ewgc("CedR",0,0,0,0));
+    return (getSMEFTCoeffEW("CedR",0,0,0,0));
 }
 
 double NPSMEFTd6General::CRR_charm() const
 {
-    return (ewgc("CeuR",0,0,1,1) + ewgc("CeuR",1,1,0,0));
+    return (getSMEFTCoeffEW("CeuR",0,0,1,1) + getSMEFTCoeffEW("CeuR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CRR_strange() const
 {
-    return (ewgc("CedR",0,0,1,1) + ewgc("CedR",1,1,0,0));
+    return (getSMEFTCoeffEW("CedR",0,0,1,1) + getSMEFTCoeffEW("CedR",1,1,0,0));
 }
 
 double NPSMEFTd6General::CRR_bottom() const
 {
-    return (ewgc("CedR",0,0,2,2) + ewgc("CedR",2,2,0,0));
+    return (getSMEFTCoeffEW("CedR",0,0,2,2) + getSMEFTCoeffEW("CedR",2,2,0,0));
 }
 
