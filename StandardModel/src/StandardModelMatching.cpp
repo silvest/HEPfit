@@ -2061,7 +2061,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
 
  std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() { 
     
-     double co = 4. * GF / sqrt(2.) * SM.ale / 2. / M_PI / SM.sW2_ND() ; //SM prefactor as in eq. (1.1) of arXiv:1009.0947
+    double co = 4. * GF / sqrt(2.) * SM.alphaMz() / 2. / M_PI / SM.sW2_ND() ; //SM prefactor as in eq. (1.1) of arXiv:1009.0947
     
     vmckpnn.clear();
     
@@ -2078,7 +2078,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
         default:
             std::stringstream out;
             out << mckpnn.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMkpnn(): order " + out.str() + "not implemented"); 
+            throw std::runtime_error("StandardModelMatching::CMkpnn(): order " + out.str() + " not implemented"); 
     }
     
     switch (mckpnn.getOrder_qed()) {
@@ -2090,7 +2090,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
         default:
             std::stringstream out;
             out << mckpnn.getOrder_qed();
-            throw std::runtime_error("StandardModelMatching::CMkpnn(): qed order " + out.str() + "not implemented"); 
+            throw std::runtime_error("StandardModelMatching::CMkpnn(): qed order " + out.str() + " not implemented"); 
     }
 
     vmckpnn.push_back(mckpnn);

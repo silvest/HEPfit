@@ -11,6 +11,8 @@
 class StandardModel;
 #include "OrderScheme.h"
 #include "gslpp.h"
+#include "WilsonCoefficient.h"
+#include <vector>
 #include <sstream>
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
@@ -37,26 +39,6 @@ public:
      */
     ~Charm_Kpnunu();
 
-    double getEtab();
-    double getEtacb();
-    double getmc_mc();
-    double getEtac();
-    double getKc();
-    double getXi1c();
-    double getXi2c();
-    double getxc_mc();
-    double getxc_mc_qed();
-    double getxc();
-    
-    
-    /**
-     * 
-     * @param order, QCD perturbation theory order 
-     * @return Wilson coefficients related to the Z-penguin contribution, given
-     * at the renormalization scale \f$ \mu_{W} \f$
-     */
-    gslpp::vector<double> Cp(orders order);
-
     /**
      * 
      * @param order, QCD perturbation theory order
@@ -77,14 +59,6 @@ public:
     /**
      * 
      * @param order, QCD perturbation theory order 
-     * @return Wilson coefficients related to the Z-penguin contribution evolved
-     * down to the renormalization scale \f$ mu_{c} \f$ 
-     */
-    gslpp::vector<double> C_p(orders order);
-
-    /**
-     * 
-     * @param order, QCD perturbation theory order 
      * @return coefficient recasting the total Z-penguin contribution to BR of the process
      */
     double C_P(orders order);
@@ -95,15 +69,6 @@ public:
      * @return coefficient recasting the QED Z-penguin contribution to BR of the process
      */
     double C_P_qed(orders_qed order_qed);
-
-
-    /**
-     * 
-     * @param order, QCD perturbation theory order 
-     * @return Wilson coefficients related to the EW box contribution, given
-     * at the renormalization scale \f$ \mu_{W} \f$
-     */
-    gslpp::vector<double> Cb(orders order);
 
     /**
      * 
@@ -119,14 +84,6 @@ public:
      * related to the EW box contribution
      */
     gslpp::vector<double> ThresholdCb(orders order);
-
-    /**
-     * 
-     * @param order, QCD perturbation theory order 
-     * @return Wilson coefficients related to the EW box contribution evolved
-     * down to the renormalization scale \f$ \mu_{c} \f$ 
-     */
-    gslpp::vector<double> C_b(orders order);
 
     /**
      * @brief This method solves the RGE equation: d/dlog(mu) C = gamma_transp C 
@@ -217,8 +174,9 @@ public:
      * @return the phenomenological function P_C which contains the appropriate C_P, C_Be and C_Bt 
      *  linear combination appearing explicitly in the final BR formula of the process 
      */
-    double P_C(orders order, orders_qed order_qed);
-
+    std::vector<WilsonCoefficient>& EVOCkpnn();
+    
+    
     /**
      * 
      * @param order, QCD perturbation theory order 
@@ -231,11 +189,21 @@ public:
 
 private:
     const StandardModel& model;
-    gslpp::vector<double> cp, dcp, c_p, cpmuW0, cpmuW1, cpmuW2, cb, dcb, c_b, cbmuW0,
-    cbmuW1, cbmuW2;
-    gslpp::matrix<double> U4p, U5p, J5p1, J4p1, J5p2, J4p2, dc_p,
-    U4b, U5b, J5b1, J4b1, J5b2, J4b2, dc_b;
-    double CP,CBe,CBt,CP_qed,CBe_qed,CBt_qed;
+    WilsonCoefficient evoCkpnn;
+    gslpp::vector<double>  dcp,dcb;
+    double mc_mc,etab,etacb,etac,kc,xc_mc_qed,L;
+    double xi1c,xi2c,xice,xices;
+    //box
+    gslpp::vector<double> CW0b,CW1b,CW2b,CWeb,CWesb;
+    gslpp::matrix<double> U0_4b,U0_5b,J1_4b,J2_4b,J1_5b,J2_5b,R0_4b,R0_5b,R1_4b,R1_5b;
+    //penguin
+    gslpp::vector<double> CW0p,CW1p,CW2p,CWep,CWesp;
+    gslpp::matrix<double> U0_4p,U0_5p,J1_4p,J2_4p,J1_5p,J2_5p,R0_4p,R0_5p,R1_4p,R1_5p;
+    
+protected:
+    std::vector<WilsonCoefficient> vevoCkpnn;
+    
+    
 };
 
 #endif /* CHARM_KPNUNU_H */

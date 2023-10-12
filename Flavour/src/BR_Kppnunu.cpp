@@ -10,20 +10,18 @@
 #include "HeffDS1.h"
 
 BR_Kppnunu::BR_Kppnunu(const StandardModel& SM_i)
-: ThObservable(SM_i), mySM(SM_i), CKpnunu(SM_i)
+: ThObservable(SM_i), mySM(SM_i)
 {   
-    
     mySM.initializeMeson(QCD::K_P);
     
-    setParametersForObservable(make_vector<std::string>() <<  "DeltaP_cu"  << "IB_Kp" << "fKplus" << "tKl" << "PhSp_KP" << "Delta_EM"); 
+    setParametersForObservable(make_vector<std::string>() <<  "DeltaP_cu"  << "IB_Kp" << "Vus_fpK0Pip" << "PhSp_KP" << "Delta_EM"); 
    
 }
 
 double BR_Kppnunu::computeThValue()
 {
-    double Delta_EM = mySM.getOptionalParameter("Delta_EM"); // see arxiv: 2105.02868v1 and 0705.2025v2
-
-    return(  k_plus() * (1. + Delta_EM) * BRKppnunu(NLO, NLO_QED21) ); 
+    //std::cout <<" k+" << k_plus() * pow( 4. * mySM.getGF() / sqrt(2.) * mySM.alphaMz() / 2. / M_PI / mySM.sW2_ND(),2.) * pow(mySM.getCKM().getLambda() ,10. ) << std::endl;
+    return(  k_plus() * (1. + mySM.getOptionalParameter("Delta_EM")) * BRKppnunu(NLO, NLO_QED11) ); 
 }
 
 double BR_Kppnunu::BRKppnunu(orders order, orders_qed order_qed)
@@ -35,37 +33,37 @@ double BR_Kppnunu::BRKppnunu(orders order, orders_qed order_qed)
                                  "order" + out.str() + "not computed");
     }
     
-    if (mySM.getFlavour().getHDS1().getCoeffDS1pnunu().getOrder_qed() + 1 < order_qed){ // discrepancy between top and charm contribution
+    if (mySM.getFlavour().getHDS1().getCoeffDS1pnunu().getOrder_qed()< order_qed){ 
         std::stringstream out2;
         out2 << order_qed;
         throw std::runtime_error("BRKppnunu::computeThValue(): requires cofficient of "
                                  " qed order " + out2.str() + " not computed");
     }
-    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1pnunu();
-    //Charm_Kpnunu CKpnunu = Charm_Kpnunu(SM);
-
+    
+    
+    gslpp::vector<gslpp::complex> ** c0_lamt_Xt = mySM.getFlavour().ComputeCoeffDS1pnunu() ; 
+    gslpp::vector<gslpp::complex> ** c0_lamc_Xc = mySM.getFlavour().ComputeCoeffDS1pnunuC();
     
     switch(order_qed) {
-        case NLO_QED21:
-           return ( ((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED11])) *
-                     (*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED11]))).real() + 
-                     CKpnunu.C_TOT(NNLO,NLO_QED21)*CKpnunu.C_TOT(NNLO,NLO_QED21) );
-            break;
         case NLO_QED11:
-            return( ((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED11])) *
-                    (*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED11]))).real() +
-                    CKpnunu.C_TOT(NNLO,NLO_QED11)*CKpnunu.C_TOT(NNLO,NLO_QED11)  );
+            //std::cout << "Pc: " << ( (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + (*(c0_lamc_Xc[NLO_QED11]))(0)).real() / (4. * mySM.getGF() / sqrt(2.) * mySM.alphaMz() / 2. / M_PI / mySM.sW2_ND()) / pow(mySM.getCKM().getLambda(),4.) / mySM.getCKM().computelamc().real()  << std::endl;
+            //std::cout << "deltaPC: " << LongDistance().real() / (4. * mySM.getGF() / sqrt(2.) * mySM.alphaMz() / 2. / M_PI / mySM.sW2_ND()) / pow(mySM.getCKM().getLambda(),4.) / mySM.getCKM().computelamc().real() << std::endl;
+            //std::cout << "Xt: " << ( ((*(c0_lamt_Xt[LO]))).imag() + ((*(c0_lamt_Xt[NLO]))).imag() + ((*(c0_lamt_Xt[NLO_QED11]))).imag() ) / (4. * mySM.getGF() / sqrt(2.) * mySM.alphaMz() / 2. / M_PI / mySM.sW2_ND())  / mySM.getCKM().computelamt().imag() << std::endl;
+            return ( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0) + (*(c0_lamt_Xt[NLO_QED11]))(0) + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + (*(c0_lamc_Xc[NLO_QED11]))(0) + LongDistance()  ).abs2();
             break;
         case LO_QED:
+            return( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + LongDistance()  ).abs2()  ;
+            break;
+        case NO_QED:
             switch(order) {
+                case NNLO:
+                    ( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + LongDistance()  ).abs2()  ;
+                    break;
                 case NLO:
-                    return( ((*(allcoeff[LO]) + *(allcoeff[NLO])) *
-                            (*(allcoeff[LO]) + *(allcoeff[NLO]))).real() +
-                            CKpnunu.C_TOT(NLO,LO_QED)*CKpnunu.C_TOT(NLO,LO_QED));
+                    return ( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0)  + (*(c0_lamc_Xc[LO_QED]))(0) + LongDistance()  ).abs2()    ;
                     break;
                 case LO:
-                    return(  ((*(allcoeff[LO])) * (*(allcoeff[LO]))).real() +
-                             CKpnunu.C_TOT(LO,LO_QED)*CKpnunu.C_TOT(LO,LO_QED) );
+                    return ( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamc_Xc[LO]))(0) + LongDistance()  ).abs2()   ;
                     break;
                 default:
                     std::stringstream out;
@@ -76,23 +74,18 @@ double BR_Kppnunu::BRKppnunu(orders order, orders_qed order_qed)
             std::stringstream out;
             out << order_qed;
             throw std::runtime_error("BRKppnunu::BRKppnunu(): order_qed " + out.str() + "not implemented");
-    }
+    }    
 }
-
 
 
 double BR_Kppnunu::k_plus(){
     
-
-    double lambda8 = pow(mySM.getCKM().getV_us().abs(),8.); 
-    double sw4 = mySM.sW2_MSbar_Approx() * SM.sW2_MSbar_Approx();
-    
-    double prefactor = mySM.getGF() * mySM.getGF() * pow(mySM.getMesons(QCD::K_P).getMass(),5.) * 
-                       mySM.Ale(mySM.getMz(),FULLNLO) * mySM.Ale(mySM.getMz(),FULLNLO) / 256. / pow(M_PI,5.) / sw4;
-    
-    return (prefactor * lambda8 * mySM.getMesons(QCD::K_P).getLifetime() / HCUT  * 
-            pow(mySM.getOptionalParameter("IB_Kp") * mySM.getOptionalParameter("fKplus") * mySM.getCKM().getLambda() , 2. ) * mySM.getOptionalParameter("PhSp_KP")) ;
-    
+    return (mySM.getOptionalParameter("IB_Kp") * mySM.getOptionalParameter("IB_Kp") * mySM.getOptionalParameter("Vus_fpK0Pip") * mySM.getOptionalParameter("Vus_fpK0Pip") * mySM.getOptionalParameter("PhSp_KP") *
+            pow(mySM.getMesons(QCD::K_P).getMass(),5.) * mySM.getMesons(QCD::K_P).getLifetime() / HCUT / 512 / M_PI / M_PI / M_PI / mySM.getCKM().getLambda() / mySM.getCKM().getLambda());
     
 }
 
+gslpp::complex BR_Kppnunu::LongDistance() // c0 * lambda_c * delta_Pc * lambda^4
+{   
+    return 4. * mySM.getGF() / sqrt(2.) * mySM.alphaMz() / 2. / M_PI / mySM.sW2_ND() * mySM.getCKM().computelamc() * mySM.getOptionalParameter("DeltaP_cu") * pow(mySM.getCKM().getLambda(),4.)  ;
+}

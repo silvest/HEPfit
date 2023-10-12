@@ -31,22 +31,42 @@ class StandardModel;
  * @anchor BR_Kp0nunu
  * <h3>%Model parameters</h3>
  *
- * The model parameters of %BR_Kp0nunu are summarized below:
+  * The model parameters of %BR_Kppnunu are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
  *   <th>LaTeX symbol</th>
  *   <th>Description</th>
  * </tr>
- * <tr>
- *   <td class="mod_name">%Br_Kp_P0enu</td>
- *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\pi^0e^+\nu)@f$</td>
- *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$.</td>
+ *  <tr>
+ *   <td class="mod_name">%PhSp_KL</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The phase space integral of the decay.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%IB_Kl</td>
+ *   <td class="mod_name">%DeltaP_cu</td>
  *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">the isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
+ *   <td class="mod_desc">The long-distance correction to the charm contribution.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%IB_Kp</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc"> Defined as @f$ f_+^{K^+\pi^+}/f_+^{K^0\pi^+}@f$</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%IB_KL</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">Defined as @f$ (f_+^{K^+\pi^0}/f_+^{K^0\pi^+})*(f_+^{K^0\pi^0}/f_+^{K^+\pi^+}) @f$</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%IB_K0p</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">Defined as @f$ f_+^{K^+\pi^0}/f_+^{K^0\pi^+}@f$</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Vus_fpK0Pip</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">Defined as the norm of @f$ f_+^{K^0\pi^+} * V_{us}@f$</td>
  * </tr>
  * </table>
  * 
@@ -66,15 +86,10 @@ public:
      */
     double computeThValue();
     
-    /**
-     * 
-     * @return the contribution of indirect CP violation to B(KL -> pi0 nu nubar). See hep-ph/9607447v1 
-     */
-    double r_epsK();
     
     /**
      * 
-     * @return the contribution of indirect CP violation to B(KL -> pi0 nu nubar). See hep-ph/9607447v1 
+     * @return The prefactor of the branching ratio. The inclusion of the factor c0 (prefactor of the Wilson Coefficients) is done in this function. See hep-ph/9607447v1 
      */
     double k_zero();
     
@@ -83,15 +98,22 @@ public:
      * @param order
      * @param order_qed
      * @return the short distance contribution to the 
-     * \f$ BR(K_{L} \rightarrow \pi^{0} \nu \bar{\nu}) \f$, for example
-     * see hep-ph/0603079 section 2.3
+     * \f$ BR(K_{L} \rightarrow \pi^{0} \nu \bar{\nu}) \f$,
+     * See hep-ph/9607447v1 for the non approximate formula
      */
     double BRKp0nunu(orders order, orders_qed order_qed);
+    
+    /**
+     * 
+     * @return the long distance contribution of the charm: c0 * \lambda_c * \delta P_c * \lambda^4 
+      *        where co is the prefactor of the Wilson Coefficients:  4. * GF / sqrt(2.) * alphaMz / 2. / M_PI / sW2_ND
+     */
+    gslpp::complex LongDistance();
+    
 
 private:
     
     const StandardModel& mySM;
-    Charm_Kpnunu CKpnunu;
     
 };
 

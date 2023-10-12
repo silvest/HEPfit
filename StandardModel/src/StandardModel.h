@@ -1336,7 +1336,7 @@ public:
     virtual double sW2(const double Mw_i) const;
     double sW2() const;
     
-    /**
+      /**
      * @brief The (approximated formula for the) square of the sine of the weak mixing angle
      * in the MSbar scheme, denoted as @f$\hat{s}_{W}^2@f$. See: PDG 22, R.L. Workman et al. (Particle Data Group), Prog. Theor. Exp. Phys. 2022, 083C01 (2022)
      * 
@@ -1346,7 +1346,7 @@ public:
 
     /**
      * @brief The square of the sine of the weak mixing angle
-     * in the MSbar-ND scheme (w/o decoupling $\alpha\ln(m_t/M_Z)$ terms), denoted as @f$\hat{s}_{ND}^2@f$. See: PHYSICAL REVIEW D 98, 030001 (2018) (eq. 10.13a/10.13b)
+     * in the MSbar-ND scheme (w/o decoupling $\alpha\ln(m_t/M_Z)$ terms), denoted as @f$\hat{s}_{ND}^2@f$. See: PDG 22, R.L. Workman et al. (Particle Data Group), Prog. Theor. Exp. Phys. 2022, 083C01 (2022) (eq. 10.13a/10.13b)
      * 
      * @return @f$\hat{s}_{ND}^2@f$
      */

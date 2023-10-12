@@ -96,6 +96,11 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1pnunu() const
     return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1pnunu();
 }
 
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1pnunuC() const
+{
+    return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1pnunuC();
+}
+
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1mumu() const
 {
     return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1mumu();

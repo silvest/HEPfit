@@ -70,7 +70,7 @@ public:
     gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu() const;
-
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunuC() const;
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1mumu() const;
 
     /**
