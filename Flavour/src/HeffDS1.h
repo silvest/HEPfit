@@ -11,6 +11,7 @@
 class StandardModel;
 class EvolDF1nlep;
 class EvolDB1Mll;
+class Charm_Kpnunu;
 #include "WilsonCoefficient.h"
 #include <sstream>
 #include <memory>
@@ -42,6 +43,7 @@ public:
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1PPz(double muc, schemes scheme = NDR);
     
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunuC();
     
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1mumu();
     
@@ -76,9 +78,10 @@ public:
 private :
     const StandardModel& model;
     
-    WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu, coeffds1mumu;
+    WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu,coeffds1pnunuC, coeffds1mumu;
     std::unique_ptr<EvolDF1nlep> u;
     std::unique_ptr<EvolDB1Mll> uM;
+    std::unique_ptr<Charm_Kpnunu> uKpnunu;
     
     gslpp::vector<gslpp::complex> DS1ccLO, DS1ccLO_QED, DS1ccNLO, DS1ccNLO_QED;
     

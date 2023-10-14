@@ -42,7 +42,7 @@ double BR_Kppnunu::BRKppnunu(orders order, orders_qed order_qed)
     
     
     gslpp::vector<gslpp::complex> ** c0_lamt_Xt = mySM.getFlavour().ComputeCoeffDS1pnunu() ; 
-    gslpp::vector<gslpp::complex> ** c0_lamc_Xc = mySM.getFlavour().ComputeCoeffDS1pnunuC();
+    gslpp::vector<gslpp::complex> ** c0_lamc_Xc = mySM.getFlavour().ComputeCoeffDS1pnunuC(); 
     
     switch(order_qed) {
         case NLO_QED11:

@@ -109,6 +109,18 @@ public:
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR) const;
 
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
+    
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
+    
+    
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
+    
+    
+    
     /**
      * @brief Computes the Wilson coefficient for the process \f$ B_d \to \tau \nu \f$.
      * @param[in] mu the lower matching scale for the process

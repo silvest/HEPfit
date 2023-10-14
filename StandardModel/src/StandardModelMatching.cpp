@@ -35,7 +35,10 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbdnn(1, NDR, NLO),
         mcbsmm(8, NDR, NNLO, NLO_QED22),
         mcbdmm(8, NDR, NNLO, NLO_QED22),
-        mcbtaunu(3, NDR, LO),
+        mcbtaunu(4, NDR, LO),
+        mccleptonnu(4, NDR, LO),
+        mcsleptonnu(4, NDR, LO),
+        mculeptonnu(4, NDR, LO),
         mcDLij(2, NDR, LO),
         mcDLi3j(20, NDR, LO),
         mcmueconv(8, NDR, LO),
@@ -122,7 +125,6 @@ void StandardModelMatching::updateSMParameters()
     GF = SM.getGF();
     Mw_tree = SM.Mw_tree();
     Mw = SM.Mw(); /* on-shell Mw */
-    //std::cout << "Mt_mut , Mt_ muw, Muw , Mut, Mw" << Mt_mut << " " << Mt_muw << " " << Muw << " " << Mut << " " << Mw << " " << std::endl;  
     sW2 = SM.sW2(); /* on-shell sW2 */
     /* NP models should be added here after writing codes for Mw. */
     /* The following is commented out till further review.*/
@@ -153,20 +155,20 @@ double StandardModelMatching::x_t(const double mu, const orders order) const
     double mt;
     
     if(mu == Mut)
-        mt = getMt_mut();
+        mt = Mt_mut;
     else if (mu == Muw)
         mt = Mt_muw;
     else
-    mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                 SM.getQuarks(QCD::TOP).getMass(), order);
+        mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), order);
 
     //msbar mass here?
-    return mt*mt/Mw/Mw;
+    return mt*mt/Mw/Mw;   
 }
 
 double StandardModelMatching::mt2omh2(const double mu, const orders order) const 
-{     
-   double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+{
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
     return (mt / SM.getMHl())*(mt / SM.getMHl());
 }
@@ -1918,6 +1920,127 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
 }     
 
     
+ 
+ 
+ 
+ 
+ /*******************************************************************************
+ * Wilson coefficients calcoulus, LEFT basis [1709.04486] for (D -> lepton nu) from [1706.00410]                *
+ * ****************************************************************************/ 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
+{
+    
+    vmccleptonnu.clear();
+    
+    mccleptonnu.setMu(Muw);
+ 
+    switch (mccleptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            switch (meson_i){
+                case QCD::D_P:
+                    mccleptonnu.setCoeff(0, 4.*GF * Vckm(1,0) / sqrt(2.) , LO);
+                break;
+                case QCD::D_S:
+                    mccleptonnu.setCoeff(0, 4.*GF * Vckm(1,1) / sqrt(2.) , LO);
+                break;
+                default:
+                throw std::runtime_error("StandardModelMatching::CMcleptonnu(): doesn't include that meson");
+                
+            }
+           
+        break;
+        default:
+            std::stringstream out;
+            out << mccleptonnu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMcleptonnu(): order " + out.str() + "not implemented");
+    }
+    
+    vmccleptonnu.push_back(mccleptonnu);
+    return(vmccleptonnu);
+    
+}     
+ 
+ 
+  
+  
+  
+  
+ /*******************************************************************************
+ * Wilson coefficients calculus, LEFT basis [1709.04486] for (K -> lepton nu) from [1706.00410]                *
+ * ****************************************************************************/ 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
+{
+    
+    vmcsleptonnu.clear();
+    
+    mcsleptonnu.setMu(Muw);
+ 
+    switch (mcsleptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            switch (meson_i){
+                case QCD::K_P:
+                    mcsleptonnu.setCoeff(0, 4.*GF * Vckm(0,1) / sqrt(2.) , LO);
+                break;
+                default:
+                throw std::runtime_error("StandardModelMatching::CMsleptonnu(): doesn't include that meson");
+                
+            }
+           
+        break;
+        default:
+            std::stringstream out;
+            out << mcsleptonnu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMsleptonnu(): order " + out.str() + "not implemented");
+    }
+    
+    vmcsleptonnu.push_back(mcsleptonnu);
+    return(vmcsleptonnu);
+    
+}     
+
+  
+  
+
+  
+ /*******************************************************************************
+ * Wilson coefficients calculus, LEFT basis [1709.04486] for (\pi -> lepton nu) from [1706.00410]                *
+ * ****************************************************************************/ 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) 
+{
+    
+    vmculeptonnu.clear();
+    
+    mculeptonnu.setMu(Muw);
+ 
+    switch (mculeptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            switch (meson_i){
+                case QCD::P_P:
+                    mculeptonnu.setCoeff(0, 4.*GF * Vckm(0,0) / sqrt(2.) , LO);
+                break;
+                default:
+                throw std::runtime_error("StandardModelMatching::CMuleptonnu(): doesn't include that meson");
+                
+            }
+           
+        break;
+        default:
+            std::stringstream out;
+            out << mculeptonnu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMuleptonnu(): order " + out.str() + "not implemented");
+    }
+    
+    vmculeptonnu.push_back(mculeptonnu);
+    return(vmculeptonnu);
+    
+}  
+  
 /******************************************************************************/
 
 /*******************************************************************************
@@ -2059,7 +2182,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
     return(vmcbnlepCC);
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() { 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() {
     
     double co = 4. * GF / sqrt(2.) * SM.alphaMz() / 2. / M_PI / SM.sW2_ND() ; //SM prefactor as in eq. (1.1) of arXiv:1009.0947
     
@@ -2067,10 +2190,10 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
     
     mckpnn.setMu(Mut);
     double xt = x_t(Mut,FULLNNLO); 
-    
+ 
     switch (mckpnn.getOrder()) {
         case NNLO:
-        case NLO: 
+        case NLO:
             mckpnn.setCoeff(0, co * lam_t *  SM.Als(Mut, FULLNLO) / 4. / M_PI * X1t(xt), NLO);
         case LO:
             mckpnn.setCoeff(0, co * lam_t * X0t(xt), LO);
@@ -2086,7 +2209,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
             mckpnn.setCoeff(0, co * lam_t * SM.Ale(Mut,FULLNLO) / 4. / M_PI * Xewt(xt, SM.getMHl() * SM.getMHl() / getMt_mut() / getMt_mut(), Mut), NLO_QED11);
         case LO_QED:
             mckpnn.setCoeff(0, 0. , LO_QED);
-            break;
+            break; 
         default:
             std::stringstream out;
             out << mckpnn.getOrder_qed();

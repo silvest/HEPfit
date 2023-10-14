@@ -115,8 +115,6 @@ bool QCD::Init(const std::map<std::string, double>& DPars)
 
 bool QCD::PreUpdate()
 {
-    requireYu = false;
-    requireYd = false;
     computemt = false;
 
     return (true);
@@ -254,6 +252,7 @@ void QCD::initializeMeson(const QCD::meson meson_i) const
     else if (meson_i == QCD::K_S) mesonsMap.at(meson_i).setName("K_S");
     else if (meson_i == QCD::D_0) mesonsMap.at(meson_i).setName("D_0");
     else if (meson_i == QCD::D_P) mesonsMap.at(meson_i).setName("D_P");
+    else if (meson_i == QCD::D_S) mesonsMap.at(meson_i).setName("D_S");
     else if (meson_i == QCD::B_D) mesonsMap.at(meson_i).setName("B_D");
     else if (meson_i == QCD::B_P) mesonsMap.at(meson_i).setName("B_P");
     else if (meson_i == QCD::B_S) mesonsMap.at(meson_i).setName("B_S");
@@ -287,37 +286,27 @@ void QCD::setParameter(const std::string name, const double& value)
     if (name.compare("AlsM") == 0) {
         AlsM = value;
         computemt = true;
-        requireYu = true;
-        requireYd = true;
     } else if (name.compare("MAls") == 0) {
         MAls = value;
         computemt = true;
-        requireYu = true;
-        requireYd = true;
     } else if (name.compare("mup") == 0) {
         if (value < MEPS) UpdateError = true;
         quarks[UP].setMass(value);
-        requireYu = true;
     } else if (name.compare("mdown") == 0) {
         if (value < MEPS) UpdateError = true;
         quarks[DOWN].setMass(value);
-        requireYd = true;
     } else if (name.compare("mcharm") == 0) {
         quarks[CHARM].setMass(value);
         quarks[CHARM].setMass_scale(value);
-        requireYu = true;
     } else if (name.compare("mstrange") == 0) {
         if (value < MEPS) UpdateError = true;
         quarks[STRANGE].setMass(value);
-        requireYd = true;
     } else if (name.compare("mtop") == 0) {
         mtpole = value;
-        requireYu = true;
         computemt = true;
     } else if (name.compare("mbottom") == 0) {
         quarks[BOTTOM].setMass(value);
         quarks[BOTTOM].setMass_scale(value);
-        requireYd = true;
     } else if (name.compare("muc") == 0)
         muc = value;
     else if (name.compare("mub") == 0)

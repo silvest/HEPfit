@@ -202,7 +202,7 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1pnunu()
         for (int j = LO; j <= ordDF1; j++) {
             coeffds1pnunu.setCoeff(*mcb[i].getCoeff(orders(j)), orders(j));  
         }
-        for (int j = LO_QED; j <= ordDF1_ew; j++) {            
+        for (int j = LO_QED; j <= ordDF1_ew; j++) {  
             coeffds1pnunu.setCoeff(*mcb[i].getCoeff(orders_qed(j)), orders_qed(j));
         }
     }
