@@ -356,12 +356,12 @@ private:
     
     const double M_PI4 = M_PI2 * M_PI2;
     bool orderofp[3] = {true, true, true}; /*signals if LO, NLO and NNLO contributions are used for DB=2 coefficients*/
-
+    gslpp::vector<gslpp::complex> transformation(gslpp::vector< gslpp::complex > result, orders order);
     
     //Values of DB=2 Wilson coefficients (Gerlach thesis)
     gslpp::vector<gslpp::complex> c_H(); //require compute_pp_s and Wilson coefficients in Misiak basis
-    gslpp::complex H(quarks qq); /*Values of contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
-    gslpp::complex H_s(quarks qq); /*Values of contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
+    gslpp::complex H(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
+    gslpp::complex H_s(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
     
     //Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
     double p(quarks qq, int i, int j);

@@ -1210,11 +1210,61 @@ void AmpDB2::computeWilsonCoeffsMisiak(){
 
 //Gerlach thesis eq. (6.2)
 gslpp::vector<gslpp::complex> AmpDB2::c_H(){
-    gslpp::vector< gslpp::complex > result = gslpp::vector< gslpp::complex >(3, 0.);
-    result.assign(0, -lambda_c*lambda_c * H(cc) - 2. * lambda_c*lambda_u * H(cu) - lambda_u*lambda_u * H(uu));
-    result.assign(2, -lambda_c*lambda_c * H_s(cc) - 2. * lambda_c*lambda_u * H_s(cu) - lambda_u*lambda_u * H_s(uu));
+    gslpp::vector< gslpp::complex > result = gslpp::vector< gslpp::complex >(3, 0.);    
+    gslpp::vector< gslpp::complex > result_LO = gslpp::vector< gslpp::complex >(3, 0.);
+    gslpp::vector< gslpp::complex > result_NLO = gslpp::vector< gslpp::complex >(3, 0.);
+    gslpp::vector< gslpp::complex > result_NNLO = gslpp::vector< gslpp::complex >(3, 0.);
+    
+    
+    result_LO.assign(0, -lambda_c*lambda_c * H(cc, LO) - 2. * lambda_c*lambda_u * H(cu, LO) - lambda_u*lambda_u * H(uu, LO));
+    result_LO.assign(2, -lambda_c*lambda_c * H_s(cc, LO) - 2. * lambda_c*lambda_u * H_s(cu, LO) - lambda_u*lambda_u * H_s(uu, LO));
+    result_NLO.assign(0, -lambda_c*lambda_c * H(cc, NLO) - 2. * lambda_c*lambda_u * H(cu, NLO) - lambda_u*lambda_u * H(uu, NLO));
+    result_NLO.assign(2, -lambda_c*lambda_c * H_s(cc, NLO) - 2. * lambda_c*lambda_u * H_s(cu, NLO) - lambda_u*lambda_u * H_s(uu, NLO));
+    result_NNLO.assign(0, -lambda_c*lambda_c * H(cc, NNLO) - 2. * lambda_c*lambda_u * H(cu, NNLO) - lambda_u*lambda_u * H(uu, NNLO));
+    result_NNLO.assign(2, -lambda_c*lambda_c * H_s(cc, NNLO) - 2. * lambda_c*lambda_u * H_s(cu, NNLO) - lambda_u*lambda_u * H_s(uu, NNLO));
+ 
+    if (orderofp[2]) {
+        result = transformation(result_LO, NNLO) + transformation(result_NLO, NLO) + transformation(result_NNLO, NNLO);
+    } else if (orderofp[1]) {
+        result = transformation(result_LO, NLO) + transformation(result_NLO, LO);
+    } else {
+        result = transformation(result_LO, LO);
+    }
     //change to RI
     if (flag_RI) result += as_4pi_mu2 * coeffsMStoRI.transpose() * result;
+    return result;
+}
+
+gslpp::vector<gslpp::complex> AmpDB2::transformation(gslpp::vector< gslpp::complex > result, orders order){ 
+    bool orderofH[3] = {false, false, false};    
+    if (order == LO) orderofH[0] = true;
+    if (order == NLO) {orderofH[0] = true; orderofH[1] = true;}
+    if (order == NNLO) {orderofH[0] = true; orderofH[1] = true; orderofH[2] = true;}
+    //transformation to adapt to DB=2 matrix elements at scale Mb_pole
+    //Gerlach thesis 3.60 - 3.62: mu2=mu1 , mu1=4.2
+    double logmu1mu2 = log(mu_2) - log(4.2);
+    double nf = 5.;
+    double e21 = -4.;
+    double e31 = -4.;
+    double e421 = 8., e521 = 0., e411 = 0., e511 = 8.;
+    gslpp::complex transformedresult0 = result(0) * (1. - 4. * orderofH[1] * as_4pi * logmu1mu2
+             + orderofH[2] * as_4pi * as_4pi * (logmu1mu2 * (-2./3. * nf * e21 + 2./9. * nf * e31 + 11. * e21 - 11./3. * e31 - 20./9. * nf + 109./3.)
+                           + (52. - 8./3. * nf) * logmu1mu2 * logmu1mu2));
+    gslpp::complex transformedresult1 = result(1) * (1. + 28./3. * orderofH[1] * as_4pi * logmu1mu2
+            + orderofH[2] * as_4pi * as_4pi * (logmu1mu2 * (2./3. * nf * e421 - 2./9. * nf * e521 - 8./3. * e411 - 92./9. * e421 + 8./9. * e511 + 4. * e521 - 232./27. * nf + 484./3.)
+                           + (56./9. * nf - 500./9.) * logmu1mu2 * logmu1mu2))
+        + result(2) * (-4./3. * orderofH[1] * as_4pi * logmu1mu2
+            + orderofH[2] * as_4pi * as_4pi * (logmu1mu2 * (2./3. * nf * e411 - 2./9. * nf * e511 - 182./9. * e411 - 2./3. * e421 + 22./3. * e511 + 2./9. * e521 + 40./27. * nf - 116./3.)
+                           + (140./9. - 8./9. * nf) * logmu1mu2 * logmu1mu2));
+    gslpp::complex transformedresult2 = result(1) * (-16./3. * orderofH[1] * as_4pi * logmu1mu2
+            + orderofH[2] * as_4pi * as_4pi * (logmu1mu2 * (7./9. * nf * e421 + 1./3. * nf * e521 - 28./9. * e411 + 3./2. * e421 - 4./3. * e511 - 25./18. * e521 - 92./27. * nf - 82.)
+                           + (560./9. - 32./9. * nf) * logmu1mu2 * logmu1mu2))
+        + result(2) * (1. - 32./3. * orderofH[1] * as_4pi * logmu1mu2
+            + orderofH[2] * as_4pi * as_4pi * (logmu1mu2 * (7./9. * nf * e411 + 1./3. * nf * e511 - 61./6. * e411 - 7./9. * e421 - 115./18. * e511 - 1./3. * e521 + 260./27. * nf - 422./3.)
+                           + (1600./9. - 64./9. * nf) * logmu1mu2 * logmu1mu2));
+    result.assign(0, transformedresult0);
+    result.assign(1, transformedresult1);
+    result.assign(2, transformedresult2);
     return result;
 }
 
@@ -1244,28 +1294,42 @@ gslpp::vector<gslpp::complex> AmpDB2::c_H(){
 //}
 
 //Gerlach thesis eq. (6.4)
-gslpp::complex AmpDB2::H(quarks qq){
+gslpp::complex AmpDB2::H(quarks qq, orders order){
     gslpp::complex result = 0.;
+    bool orderofH[3] = {false, false, false};    
+    if (order == LO) orderofH[0] = true;
+    if (order == NLO) orderofH[1] = true;
+    if (order == NNLO) orderofH[2] = true;       
     for (int i=1; i<=8; i++){
         if (i==7) i++;
         for (int j=i; j<=8; j++){
             if(j==7) j++;
-            result += orderofp[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0)
-                    + orderofp[1] * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0))
-                    + orderofp[2] * as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1) + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0));
+            result += orderofH[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0)
+                    + orderofH[1] * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0))
+                    + orderofH[2] * as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1)
+                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0));
         }
     }
     return result;
 }
-gslpp::complex AmpDB2::H_s(quarks qq){
+gslpp::complex AmpDB2::H_s(quarks qq, orders order){
     gslpp::complex result = 0.;
+    bool orderofH[3] = {false, false, false};    
+    if (order == LO) orderofH[0] = true;
+    if (order == NLO) orderofH[1] = true;
+    if (order == NNLO) orderofH[2] = true;  
     for (int i=1; i<=8; i++){
         if (i==7) i++;
         for (int j=i; j<=8; j++){
             if(j==7) j++;
-           result += orderofp[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0)
-                    + orderofp[1] * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0))
-                    + orderofp[2] * as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1) + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0));
+            result += orderofH[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0)
+                    + orderofH[1] * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0))
+                    + orderofH[2] * as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1)
+                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0));
 
         }
     }
