@@ -61,7 +61,7 @@ public:
     }
     
     //mass schemes used in 2205.07907
-    enum mass_schemes {pole, MSbar, PS};
+    enum mass_schemes {pole, MSbar, PS, only1overmb};
     
     /**
     * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$ from Gerlach (2205.07907 and thesis)

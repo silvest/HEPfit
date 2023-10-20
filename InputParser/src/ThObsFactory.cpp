@@ -3952,6 +3952,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DGamma_s_MSbar_LO"] = boost::factory<DGamma_s_MSbar_LO*>();
     obsThFactory["DGamma_d_PS_LO"] = boost::factory<DGamma_d_PS_LO*>();
     obsThFactory["DGamma_s_PS_LO"] = boost::factory<DGamma_s_PS_LO*>();
+    obsThFactory["DGamma_d_only1overmb"] = boost::factory<DGamma_d_only1overmb*>();
+    obsThFactory["DGamma_s_only1overmb"] = boost::factory<DGamma_s_only1overmb*>();    
     obsThFactory["DGamma_d_NLO_tradBasis"] = boost::factory<DGamma_d_NLO_tradBasis*>();
     obsThFactory["DGamma_s_NLO_tradBasis"] = boost::factory<DGamma_s_NLO_tradBasis*>();
     obsThFactory["DGamma_s_LO_tradBasis"] = boost::factory<DGamma_s_LO_tradBasis*>();    

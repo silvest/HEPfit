@@ -356,6 +356,10 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
                 z = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);// * (1. - 2. * (16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (K - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2)))));
                 this->flag_resumz = true;            
                 break;
+            case only1overmb:
+                Mb2_prefactor = 0.;
+                Mb = Mb_pole;
+                break;                
             default:
                 throw(std::runtime_error("mass_scheme not implemented"));
         }

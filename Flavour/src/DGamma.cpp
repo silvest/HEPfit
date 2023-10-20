@@ -207,6 +207,30 @@ double DGamma_s_PS_LO::computeThValue() {
     return -getGamma21overM21_Bs(LO, PS).real() * SM.getOptionalParameter("DmBs_ex");
 }
 
+DGamma_d_only1overmb::DGamma_d_only1overmb(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, true) {
+    setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
+}
+
+DGamma_d_only1overmb::~DGamma_d_only1overmb() {
+}
+
+double DGamma_d_only1overmb::computeThValue() {
+    return -getGamma21overM21_Bd(FULLNNLO, only1overmb).real() * SM.getOptionalParameter("DmBd_ex");
+}
+
+DGamma_s_only1overmb::DGamma_s_only1overmb(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, true) {
+    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+}
+
+DGamma_s_only1overmb::~DGamma_s_only1overmb() {
+}
+
+double DGamma_s_only1overmb::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNLO, only1overmb).real() * SM.getOptionalParameter("DmBs_ex");
+}
+
 DGamma_d_NLO_tradBasis::DGamma_d_NLO_tradBasis(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i, true) {
     setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
