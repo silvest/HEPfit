@@ -23,7 +23,7 @@ Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i)
     etac=model.Als(model.getMuc()) / model.Als(model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass_scale(),
         model.getQuarks(QCD::CHARM).getMass(), FULLNNLO));
     kc= pow(etac, 24. / 25.);
-    xc_mc_qed=sqrt(2.) * model.sW2_MSbar_Approx() * model.getGF() / M_PI / model.alphaMz() * mc_mc * mc_mc ;
+    xc_mc_qed=sqrt(2.) * model.sW2_ND() * model.getGF() / M_PI / model.alphaMz() * mc_mc * mc_mc ;
     L = log(model.getMuc() * model.getMuc() / mc_mc / mc_mc);
     
     xi1c=15212. / 1875. * (etac - 1.) / etac;
@@ -183,14 +183,14 @@ gslpp::vector<double> Charm_Kpnunu::ThresholdCp(orders order)
             return (dcp);
 
         case(NNLO): 
-            dcp(0) = -pow(etab, 6. / 23.)*(2. / 3. * Lb * ((631. + 9699.) / 6348. * (1 - etab) + etab * CWin_muw(NLO,NO_QED,1)(0)) 
+            dcp(0) = -pow(etab, 6. / 23.)*(2. / 3. * Lb * ((631. + 9699.) / 6348. * (1 - etab) + etab * CW1p(0)) 
                     - 2. / 3. * (59. / 36. + 1. / 3. * Lb + Lb * Lb));
-            dcp(1) = -pow(etab, -12. / 23.)*(2. / 3. * Lb * ((631. - 9699.) / 6348. * (1 - etab) + etab * CWin_muw(NLO,NO_QED,1)(1))
+            dcp(1) = -pow(etab, -12. / 23.)*(2. / 3. * Lb * ((631. - 9699.) / 6348. * (1 - etab) + etab * CW1p(1))
                     + 4. / 3. * (59. / 36. + 1. / 3. * Lb + Lb * Lb));
             dcp(2) = (-2. / 3.) * Lb * ((284704. / 2645. + 694522. / 20631. * etab) * pow(etab, 1. / 23.)
                     -(1033492. / 7935. + 8264. / 529. * etab) * pow(etab, 6. / 23.) + (3058. / 1587. + 18136. / 6877. * etab)
-                    * pow(etab, -12. / 23.) + etab * (pow(etab, 1. / 23.) * CWin_muw(NLO,NO_QED,1)(2) + 48. / 5. * (pow(etab, 6. / 23.)
-                    - pow(etab, 1. / 23.)) * CWin_muw(NLO,NO_QED,1)(0) + 24. / 13. * (pow(etab, -12. / 23.) - pow(etab, 1. / 23.)) * CWin_muw(NLO,NO_QED,1)(1)));
+                    * pow(etab, -12. / 23.) + etab * (pow(etab, 1. / 23.) * CW1p(2) + 48. / 5. * (pow(etab, 6. / 23.)
+                    - pow(etab, 1. / 23.)) * CW1p(0) + 24. / 13. * (pow(etab, -12. / 23.) - pow(etab, 1. / 23.)) * CW1p(1)));
 
             return (dcp);
 
@@ -210,9 +210,9 @@ double Charm_Kpnunu::C_P(orders order)
         case(NLO):{
             double rhoP1p = 4 * (1. - L) + 4. * log(kc);
             double rhoP1m = -2. * (1. - L) - 2 * log(kc);
-
+            gslpp::vector<double> C_LO = C(LO,NO_QED,1);
     
-            return (C(NLO,NO_QED,1)(2) + 4. * (C(LO,NO_QED,1)(0) * rhoP1p + C(LO,NO_QED,1)(1) * rhoP1m) + xi1c * C(LO,NO_QED,1)(2));
+            return (C(NLO,NO_QED,1)(2) + 4. * (C_LO(0) * rhoP1p +C_LO(1) * rhoP1m) + xi1c * C_LO(2));
         }
         case(NNLO):{
             double rhoP1p = 4 * (1. - L) + 4. * log(kc);
@@ -221,11 +221,12 @@ double Charm_Kpnunu::C_P(orders order)
                             24. * log(kc) * L + 4. * xi1c;
             double rhoP2m = -7. + 12. * L + 12. * L * L - 12. * log(kc) + 12. * log(kc) * log(kc)
                             - 24. * log(kc) * L - 2. * xi1c;  
-
+            gslpp::vector<double> C_NLO = C(NLO,NO_QED,1);
+            gslpp::vector<double> C_LO = C(LO,NO_QED,1);
             
-            return (C(NNLO,NO_QED,1)(2) + 4. * (C(NLO,NO_QED,1)(0) * rhoP1p + C(NLO,NO_QED,1)(1) * rhoP1m + C(LO,NO_QED,1)(0) * rhoP2p
-                    + C(LO,NO_QED,1)(1) * rhoP2m) + xi1c * (C(NLO,NO_QED,1)(2) + 4. * (C(LO,NO_QED,1)(0) * rhoP1p + C(LO,NO_QED,1)(1)
-                    * rhoP1m)) + xi2c * C(LO,NO_QED,1)(2));    
+            return (C(NNLO,NO_QED,1)(2) + 4. * (C_NLO(0) * rhoP1p + C_NLO(1) * rhoP1m + C_LO(0) * rhoP2p
+                    + C_LO(1) * rhoP2m) + xi1c * (C_NLO(2) + 4. * (C_LO(0) * rhoP1p + C_LO(1)
+                    * rhoP1m)) + xi2c * C_LO(2));    
         }
         default:{
             std::stringstream out;
@@ -339,7 +340,7 @@ gslpp::vector<double> Charm_Kpnunu::ThresholdCb(orders order)
         case(NNLO):
             dcb(0) = 0.;
             dcb(1) = -2. / 3. * Lb * ((238784. / 529. - 9608. / 1587 * etab) * pow(etab, 1. / 23.) - 1336. / 3. +
-                    pow(etab, 24. / 23.) * CWin_muw(NLO,NO_QED,0)(1));
+                    pow(etab, 24. / 23.) * CW1b(1));
 
             return (dcb);
 
