@@ -1164,11 +1164,16 @@ gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order, mass_schemes mass_scheme)
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"    
     compute_matrixelements(s);
     
+    gslpp::vector<gslpp::complex> Gamma21overM21_Bs_partial = Mb2_prefactor * (c_H_partial(0) + c_H_partial(1) * me(1)/me(0) + c_H_partial(2) * me(2)/me(0)).conjugate()
+            * Gf2 / (24 * M_PI * MB_s) / M21overme0;
+    
    //Gerlach thesis eq. 6.1 divided by M_21
     gslpp::complex Gamma21overM21_Bs = Mb2_prefactor * (c_H()(0) + c_H()(1) * me(1)/me(0) + c_H()(2) * me(2)/me(0)).conjugate();
     computeWilsonCoeffsDB1bsg(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
     Gamma21overM21_Bs += Mb_PS * Mb_PS * delta_1overm(s)/me(0);
     Gamma21overM21_Bs *= Gf2 / (24 * M_PI * MB_s) / M21overme0;
+    std:: cout << Gamma21overM21_Bs.real() << "\n";
+    std::cout << "partial Gamma21_Bs: " << (-Gamma21overM21_Bs_partial.real() /*- 0.00153*/) / (-Gamma21overM21_Bs.real() - 0.00153 + (Mb_PS * Mb_PS * delta_1overm(s)/me(0) * Gf2 / (24 * M_PI * MB_s) / M21overme0).real()) << "\n";
     return Gamma21overM21_Bs;
     
     //parameterization from Gerlach gives same result
@@ -1346,6 +1351,116 @@ gslpp::complex AmpDB2::H_s(quarks qq, orders order){
 
         }
     }
+    return result;
+}
+
+    //Q_1,2 x Q_1,2
+    //Q_1,2 x Q_3-6
+    //Q_3,6 x Q_3-6
+    //Q_1,2 x  Q_8
+    //Q_3,6 x  Q_8
+    // Q_8  x  Q_8
+gslpp::vector< gslpp::complex > AmpDB2::c_H_partial(int i){
+    gslpp::vector<gslpp::complex> zeros(13, 0.);
+    switch (i) {
+        case 0:
+            return -lambda_c*lambda_c * H_allpartial(cc) - 2. * lambda_c*lambda_u * H_allpartial(cu) - lambda_u*lambda_u * H_allpartial(uu);
+        case 1:
+            return zeros;
+        case 2:
+            return -lambda_c*lambda_c * H_s_allpartial(cc) - 2. * lambda_c*lambda_u * H_s_allpartial(cu) - lambda_u*lambda_u * H_s_allpartial(uu);
+        default:
+            throw std::runtime_error("AmpDB2::c_H_partial(int i): invalid index i");
+    }
+   }
+
+gslpp::vector<gslpp::complex> AmpDB2::H_allpartial(quarks qq){
+    gslpp::vector<gslpp::complex> result(13, 0.);
+    result.assign(0, H_partial(qq, 1, 2, 1, 2, 0));
+    result.assign(1, H_partial(qq, 1, 2, 1, 2, 1));  
+    result.assign(2, H_partial(qq, 1, 2, 1, 2, 2));
+    result.assign(3, H_partial(qq, 1, 2, 3, 6, 0));
+    result.assign(4, H_partial(qq, 1, 2, 3, 6, 1));
+    result.assign(5, H_partial(qq, 3, 6, 3, 6, 0));
+    result.assign(6, H_partial(qq, 3, 6, 3, 6, 1));
+    result.assign(7, H_partial(qq, 1, 2, 8, 8, 1));
+    result.assign(8, H_partial(qq, 1, 2, 8, 8, 2));
+    result.assign(9, H_partial(qq, 3, 6, 8, 8, 1));
+    result.assign(10, H_partial(qq, 3, 6, 8, 8, 2));
+    result.assign(11, H_partial(qq, 8, 8, 8, 8, 2));
+    result.assign(12, H_partial(qq, 1, 8, 1, 8, 0) + H_partial(qq, 1, 8, 1, 8, 1) + H_partial(qq, 1, 8, 1, 8, 2));        
+    return result;
+}
+
+gslpp::vector<gslpp::complex> AmpDB2::H_s_allpartial(quarks qq){
+    gslpp::vector<gslpp::complex> result(13, 0.);
+    result.assign(0, H_s_partial(qq, 1, 2, 1, 2, 0));
+    result.assign(1, H_s_partial(qq, 1, 2, 1, 2, 1));  
+    result.assign(2, H_s_partial(qq, 1, 2, 1, 2, 2));
+    result.assign(3, H_s_partial(qq, 1, 2, 3, 6, 0));
+    result.assign(4, H_s_partial(qq, 1, 2, 3, 6, 1));
+    result.assign(5, H_s_partial(qq, 3, 6, 3, 6, 0));
+    result.assign(6, H_s_partial(qq, 3, 6, 3, 6, 1));
+    result.assign(7, H_s_partial(qq, 1, 2, 8, 8, 1));
+    result.assign(8, H_s_partial(qq, 1, 2, 8, 8, 2));
+    result.assign(9, H_s_partial(qq, 3, 6, 8, 8, 1));
+    result.assign(10, H_s_partial(qq, 3, 6, 8, 8, 2));
+    result.assign(11, H_s_partial(qq, 8, 8, 8, 8, 2));
+    result.assign(12, H_s_partial(qq, 1, 8, 1, 8, 0) + H_s_partial(qq, 1, 8, 1, 8, 1) + H_s_partial(qq, 1, 8, 1, 8, 2));    
+    return result;
+}
+
+gslpp::complex AmpDB2::H_partial(quarks qq, int i_start, int i_end, int j_start, int j_end, int n){
+    gslpp::complex result = 0.;
+    for (int i=i_start; i<=i_end; i++){
+        if (i==7) i++;
+        for (int j=j_start; j<=j_end; j++){
+            if(j==7) j++;
+            if (n==0) {
+                result += cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0);
+            }
+            else if (n==1) {
+                result += as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0));
+            }
+            else if (n==2) {
+                result += as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1)
+                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0));
+            }
+            else {
+                std::cout << qq << " " << i << " " << j << " " << n << "\n";      
+                throw(std::runtime_error("AmpDB2::H_partial order not implemented"));
+            }
+        }
+    }  
+    return result;
+}
+
+gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_start, int j_end, int n){
+    gslpp::complex result = 0.;
+    for (int i=i_start; i<=i_end; i++){
+        if (i==7) i++;
+        for (int j=j_start; j<=j_end; j++){
+            if(j==7) continue;
+            if (n==0) {
+                result += cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0);
+            }
+            else if (n==1) {
+                result += as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0));
+            }
+            else if (n==2) {
+                result += as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1)
+                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0));
+            }
+            else {
+                std::cout << qq << " " << i << " " << j << " " << n << "\n";                
+                throw(std::runtime_error("AmpDB2::H_s_partial order not implemented"));
+            }
+        }
+    }   
     return result;
 }
 

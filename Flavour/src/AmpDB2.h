@@ -362,6 +362,12 @@ private:
     gslpp::vector<gslpp::complex> c_H(); //require compute_pp_s and Wilson coefficients in Misiak basis
     gslpp::complex H(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
     gslpp::complex H_s(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
+
+    gslpp::vector< gslpp::complex >  c_H_partial(int i);
+    gslpp::vector<gslpp::complex> H_allpartial(quarks qq); /*Values of partial contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
+    gslpp::vector<gslpp::complex> H_s_allpartial(quarks qq); /*Values of partial contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
+    gslpp::complex H_partial(quarks qq, int i_start, int i_end, int j_start, int j_end, int n);
+    gslpp::complex H_s_partial(quarks qq, int i_start, int i_end, int j_start, int j_end, int n); 
     
     //Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
     double p(quarks qq, int i, int j);
