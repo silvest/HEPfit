@@ -282,10 +282,15 @@ private :
     void setMisiaktoBuras();
     gslpp::matrix<double> R_inv_t = gslpp::matrix< double >(6, 6, 0.);
     gslpp::matrix<double> dR_t = gslpp::matrix< double >(6, 6, 0.);
-    gslpp::matrix<double> MisiaktoBuras = gslpp::matrix< double >(6, 6, 0.);
+    gslpp::matrix<double> MisiaktoBurasNLO = gslpp::matrix< double >(6, 6, 0.);
     
     gslpp::vector<gslpp::complex> tmp_coeffsgamma = gslpp::vector<gslpp::complex>(6, 0.);
+    gslpp::vector<gslpp::complex> tmp_coeffsgammaLO = gslpp::vector<gslpp::complex>(6, 0.);
+    gslpp::vector<gslpp::complex> tmp_coeffsgammaNLO = gslpp::vector<gslpp::complex>(6, 0.);    
+    gslpp::vector<gslpp::complex> tmp_coeffsgammaNNLO = gslpp::vector<gslpp::complex>(6, 0.);            
     gslpp::vector<gslpp::complex> tmp_coeffBMll = gslpp::vector<gslpp::complex>(6, 0.);
+    gslpp::vector<gslpp::complex> tmp_coeffBMllLO = gslpp::vector<gslpp::complex>(6, 0.);
+    gslpp::vector<gslpp::complex> tmp_coeffBMllNLO = gslpp::vector<gslpp::complex>(6, 0.);    
 };
 
 #endif	/* HEFFDB1_H */

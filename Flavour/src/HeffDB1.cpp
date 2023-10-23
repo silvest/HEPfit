@@ -963,20 +963,42 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma_Buras(double mu, boo
     //compute coefficients in Misiak basis:
     ComputeCoeffsgamma(mu, noSM, scheme);
     orders ordDF1 = coeffsgamma_Buras.getOrder();
-    
-    //transformation matrix up to O(a_s): Nuclear Physics B 520 (1998) 279-297, equation 58
-    MisiaktoBuras.assign(0, 0, R_inv_t - R_inv_t * model.Als(mu) / (4. * M_PI) * dR_t);
 
-    //store coeffs in a vector
+    //LO change of basis for i=1-6
+    for (unsigned int i = 0; i < 6; i++) {
+        tmp_coeffsgammaLO.assign(i, (*coeffsgamma.getCoeff(LO))(i));
+    }
+    tmp_coeffsgamma = R_inv_t * tmp_coeffsgammaLO;
+    for (unsigned int i = 0; i < 6; i++) {
+        coeffsgamma_Buras.setCoeff(i, tmp_coeffsgamma(i), LO);
+    }    
+    //NLO change of basis for i=1-6
+    if (ordDF1 >= NLO) {
+        //transformation matrix at O(a_s): Nuclear Physics B 520 (1998) 279-297, equation 58
+        MisiaktoBurasNLO.assign(0, 0, - R_inv_t * model.Als(mu) / (4. * M_PI) * dR_t);        
+        for (unsigned int i = 0; i < 6; i++) {
+            tmp_coeffsgammaNLO.assign(i, (*coeffsgamma.getCoeff(NLO))(i));
+        }
+        tmp_coeffsgamma = MisiaktoBurasNLO * tmp_coeffsgammaLO + R_inv_t * tmp_coeffsgammaNLO;
+        for (unsigned int i = 0; i < 6; i++) {
+            coeffsgamma_Buras.setCoeff(i, tmp_coeffsgamma(i), NLO);
+        }
+    //NLO change of basis for i=1-6
+    if (ordDF1 >= NNLO) {
+        for (unsigned int i = 0; i < 6; i++) {
+            tmp_coeffsgammaNNLO.assign(i, (*coeffsgamma.getCoeff(NNLO))(i));
+        }
+        tmp_coeffsgamma = MisiaktoBurasNLO * tmp_coeffsgammaNLO + R_inv_t * tmp_coeffsgammaNNLO;
+        //Gerlach phd thesis (2.50)
+        tmp_coeffsgamma.assign(0, tmp_coeffsgamma(0) + model.Als(mu) * model.Als(mu) / (16. * M_PI * M_PI) * tmp_coeffsgammaLO(0) * 81. / (40. * 5.));
+        tmp_coeffsgamma.assign(1, tmp_coeffsgamma(1) + model.Als(mu) * model.Als(mu) / (16. * M_PI * M_PI) * (tmp_coeffsgammaLO(0) * 9. / (10. * 5.) + tmp_coeffsgammaLO(1) * -189. / (80. * 5.)));
+        for (unsigned int i = 0; i < 6; i++) {
+            coeffsgamma_Buras.setCoeff(i, tmp_coeffsgamma(i), NNLO);
+        }
+    }
+    }
+    //i=7,8 stay unchanged
     for (int order = LO; order <= ordDF1; order++) {
-        for (unsigned int i = 0; i < 6; i++) {
-            tmp_coeffsgamma.assign(i, (*coeffsgamma.getCoeff(orders(order)))(i));
-        }
-        //do the change of basis for the first 6 coeffs
-        tmp_coeffsgamma = MisiaktoBuras * tmp_coeffsgamma;
-        for (unsigned int i = 0; i < 6; i++) {
-            coeffsgamma_Buras.setCoeff(i, tmp_coeffsgamma(i), orders(order));
-        }
         coeffsgamma_Buras.setCoeff(6, (*coeffsgamma.getCoeff(orders(order)))(6), orders(order));
         coeffsgamma_Buras.setCoeff(7, (*coeffsgamma.getCoeff(orders(order)))(7), orders(order));
     }
@@ -1116,19 +1138,28 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll_Buras(double mu, QCD::
     ComputeCoeffBMll(mu, lepton, noSM, scheme);
     orders ordDF1 = coeffBMll_Buras.getOrder();
     
-    //transformation matrix up to O(a_s): Nuclear Physics B 520 (1998) 279-297, equation 58
-    MisiaktoBuras.assign(0, 0, R_inv_t - R_inv_t * model.Als(mu) / (4. * M_PI) * dR_t);
-
-    //store coeffs in a vector
-    for (int order = LO; order <= ordDF1; order++) {
+    //LO change of basis for i=1-6
+    for (unsigned int i = 0; i < 6; i++) {
+        tmp_coeffBMllLO.assign(i, (*coeffBMll.getCoeff(LO))(i));
+    }
+    tmp_coeffBMll = R_inv_t * tmp_coeffBMllLO;
+    for (unsigned int i = 0; i < 6; i++) {
+        coeffBMll_Buras.setCoeff(i, tmp_coeffBMll(i), LO);
+    }    
+    //NLO change of basis for i=1-6
+    if (ordDF1 >= NLO) {    
+        //transformation matrix at O(a_s): Nuclear Physics B 520 (1998) 279-297, equation 58
+        MisiaktoBurasNLO.assign(0, 0, - R_inv_t * model.Als(mu) / (4. * M_PI) * dR_t);
         for (unsigned int i = 0; i < 6; i++) {
-            tmp_coeffBMll.assign(i, (*coeffBMll.getCoeff(orders(order)))(i));
+            tmp_coeffBMllNLO.assign(i, (*coeffBMll.getCoeff(NLO))(i));
         }
-        //do the change of basis
-        tmp_coeffBMll = MisiaktoBuras * tmp_coeffBMll;
+        tmp_coeffBMll = MisiaktoBurasNLO * tmp_coeffBMllLO + R_inv_t * tmp_coeffBMllNLO;
         for (unsigned int i = 0; i < 6; i++) {
-            coeffBMll_Buras.setCoeff(i, tmp_coeffBMll(i), orders(order));
+            coeffBMll_Buras.setCoeff(i, tmp_coeffBMll(i), NLO);
         }
+    }
+    //i=7,8 stay unchanged    
+    for (int order = LO; order <= ordDF1; order++) {    
         coeffBMll_Buras.setCoeff(6, (*coeffBMll.getCoeff(orders(order)))(6), orders(order));
         coeffBMll_Buras.setCoeff(7, (*coeffBMll.getCoeff(orders(order)))(7), orders(order));
     }
