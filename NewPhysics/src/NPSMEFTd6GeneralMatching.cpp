@@ -25,7 +25,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     // The true VEV, corresponding to vbar in Angelica's notation, is equal to v up to corrections
     double vT = v;
-    double deltavT = mySMEFT.getDelta_v();
+    double delta_vT = mySMEFT.getDelta_v();
     double vTosq2 = vT / sqrt(2.);
 
 
@@ -64,12 +64,12 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
-            MU.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuR", i, j) * (1. + deltavT) - mySMEFT.getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
-            MU.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuI", i, j) * (1. + deltavT) - mySMEFT.getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
-            MD.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdR", i, j) * (1. + deltavT) - mySMEFT.getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
-            MD.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdI", i, j) * (1. + deltavT) - mySMEFT.getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
-            ME.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeR", i, j) * (1. + deltavT) - mySMEFT.getSMEFTCoeffEW("CeHR", i, j) * v2 / 2.));
-            ME.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeI", i, j) * (1. + deltavT) - mySMEFT.getSMEFTCoeffEW("CeHI", i, j) * v2 / 2.));
+            MU.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
+            MU.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
+            MD.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
+            MD.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
+            ME.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHR", i, j) * v2 / 2.));
+            ME.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHI", i, j) * v2 / 2.));
         }
 
     gslpp::vector<double> m2(3);
@@ -139,24 +139,23 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
     double cbar = mySMEFT.getXWZ_tree();
     double sbar = -mySMEFT.getXBZ_tree();
     double sbar2 = sbar*sbar;
-    double delta_cbar = mySMEFT.getDelta_xWZ();
+//    double delta_cbar = mySMEFT.getDelta_xWZ(); not needed currently
     double delta_sbar = mySMEFT.getDelta_xBZ();
     double g1bar = mySMEFT.getG1_tree();
-    double delta_g1bar = mySMEFT.getDelta_g1();
+//    double delta_g1bar = mySMEFT.getDelta_g1(); not needed currently
     double g2bar = mySMEFT.getG2_tree();
-    double delta_g2bar = mySMEFT.getDelta_g2();
+//    double delta_g2bar = mySMEFT.getDelta_g2(); not needed currently
     double delta_MZ2 = mySMEFT.getDelta_Mz2();
     double ebar = mySMEFT.getEeMz();
-    double delta_ebar = mySMEFT.getDelta_ale() / 2.;
+//    double delta_ebar = mySMEFT.getDelta_ale() / 2.; not needed currently
     // the Z coupling and its correction  were not explicit in Angelica's notes, so they need to be checked
     double gZbar = ebar / sbar / cbar;
     double delta_gZbar = (g1bar * g1bar + g2bar * g2bar) / (2. * g1bar * g2bar) * v2 * mySMEFT.getSMEFTCoeffEW("CHWB");
     double gZ2oMZ2 = gZbar / mySMEFT.getMz();
     gZ2oMZ2 *= gZ2oMZ2;
     double delta_gZ2oMZ2 = 2. * delta_gZbar - delta_MZ2;
-    double g22oMW2 = g2bar / mySMEFT.getMw_tree();
-    g22oMW2 *= g22oMW2;
-    double delta_g22oMW2 = 2. * delta_g2bar;
+    double g22oMW2 = 4. / v2;
+    double delta_g22oMW2 = -2. * delta_vT;
 
 
 
@@ -208,8 +207,8 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
-            for (int k = 0; k < 3; i++)
-                for (int l = 0; l < 3; j++) {
+            for (int k = 0; k < 3; k++)
+                for (int l = 0; l < 3; l++) {
 
                     //Leptonic LL operators
                     CnunuVLL.at(i).at(j).at(k).at(l) = 0.;
@@ -432,8 +431,8 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
-            for (int k = 0; k < 2; i++)
-                for (int l = 0; l < 2; j++) {
+            for (int k = 0; k < 2; k++)
+                for (int l = 0; l < 2; l++) {
 
                     //Semileptonic LL operators
                     CnuuVLL.at(i).at(j).at(k).at(l) = 0.;
@@ -537,8 +536,8 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
-            for (int k = 0; k < 3; i++)
-                for (int l = 0; l < 3; j++) {
+            for (int k = 0; k < 3; k++)
+                for (int l = 0; l < 3; l++) {
 
                     //Nonleptonic LL operators
                     CudV1LL.at(i).at(j).at(k).at(l) = 0.;
@@ -629,8 +628,8 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
-            for (int k = 0; k < 2; i++)
-                for (int l = 0; l < 2; j++) {
+            for (int k = 0; k < 2; k++)
+                for (int l = 0; l < 2; l++) {
 
                     //Nonleptonic LL operators
                     CuuVLL.at(i).at(j).at(k).at(l) = 0.;
@@ -700,8 +699,8 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
-            for (int k = 0; k < 3; i++)
-                for (int l = 0; l < 2; j++) {
+            for (int k = 0; k < 3; k++)
+                for (int l = 0; l < 2; l++) {
 
                     //Semileptonic LL operators
                     CnueduVLL.at(i).at(j).at(k).at(l) = 0.;
