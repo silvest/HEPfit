@@ -10,9 +10,9 @@
 #include <stdexcept>
 
 NPSMEFTd6GeneralMatching::NPSMEFTd6GeneralMatching(const NPSMEFTd6General & NPSMEFTd6General_i) :
-
 StandardModelMatching(NPSMEFTd6General_i),
-mySMEFT(NPSMEFTd6General_i), VuL(3, 0.), VuR(3, 0.), VdL(3, 0.), VdR(3, 0.), VeL(3, 0.), VeR(3, 0.) {
+mySMEFT(NPSMEFTd6General_i), VuL(3, 0.), VuR(3, 0.), VdL(3, 0.), VdR(3, 0.), VeL(3, 0.), VeR(3, 0.),
+mcd2(5, NDR, LO), mcd1(10, NDR, LO), mcbd(5, NDR, LO), mcbs(5, NDR, LO), mck2(5, NDR, LO) {
 }
 
 void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
@@ -139,15 +139,15 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
     double cbar = mySMEFT.getXWZ_tree();
     double sbar = -mySMEFT.getXBZ_tree();
     double sbar2 = sbar*sbar;
-//    double delta_cbar = mySMEFT.getDelta_xWZ(); not needed currently
+    //    double delta_cbar = mySMEFT.getDelta_xWZ(); not needed currently
     double delta_sbar = mySMEFT.getDelta_xBZ();
     double g1bar = mySMEFT.getG1_tree();
-//    double delta_g1bar = mySMEFT.getDelta_g1(); not needed currently
+    //    double delta_g1bar = mySMEFT.getDelta_g1(); not needed currently
     double g2bar = mySMEFT.getG2_tree();
-//    double delta_g2bar = mySMEFT.getDelta_g2(); not needed currently
+    //    double delta_g2bar = mySMEFT.getDelta_g2(); not needed currently
     double delta_MZ2 = mySMEFT.getDelta_Mz2();
     double ebar = mySMEFT.getEeMz();
-//    double delta_ebar = mySMEFT.getDelta_ale() / 2.; not needed currently
+    //    double delta_ebar = mySMEFT.getDelta_ale() / 2.; not needed currently
     // the Z coupling and its correction  were not explicit in Angelica's notes, so they need to be checked
     double gZbar = ebar / sbar / cbar;
     double delta_gZbar = (g1bar * g1bar + g2bar * g2bar) / (2. * g1bar * g2bar) * v2 * mySMEFT.getSMEFTCoeffEW("CHWB");
@@ -411,18 +411,18 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
                                             12.) * VdL(r, j) * VeR(t, l);
                                     CddV1LR.at(i).at(j).at(k).at(l) += VdL.hconjugate()(i, p) * VdR.hconjugate()(k, s) *
                                             ((mySMEFT.getSMEFTCoeffEW("Cqd1R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cqd1I", p, r, s, t)) +
-                                            (gZ2oMZ2 * (3. * (-3. + 2. * sbar2) * v2 * 
+                                            (gZ2oMZ2 * (3. * (-3. + 2. * sbar2) * v2 *
                                             (mySMEFT.getSMEFTCoeffEW("CHdR", s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHdI", s, t)) * KD(p, r) +
-                                            2. * sbar2 * (3. * v2 * 
-                                            (mySMEFT.getSMEFTCoeffEW("CHq1R", p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHq1I", p, r)) + 3. * v2 * 
+                                            2. * sbar2 * (3. * v2 *
+                                            (mySMEFT.getSMEFTCoeffEW("CHq1R", p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHq1I", p, r)) + 3. * v2 *
                                             (mySMEFT.getSMEFTCoeffEW("CHq3R", p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHq3I", p, r)) +
                                             (3. * delta_gZ2oMZ2 + 6. * delta_sbar - 2. * delta_gZ2oMZ2 * sbar2 -
                                             8. * delta_sbar * sbar2) * KD(p, r)) * KD(s, t))) /
                                             36.) * VdL(r, j) * VdR(t, l);
                                     CddV8LR.at(i).at(j).at(k).at(l) += VdL.hconjugate()(i, p) * VdR.hconjugate()(k, s) *
-                                            ((mySMEFT.getSMEFTCoeffEW("Cqd8R",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cqd8I",p,r,s,t))) * VdL(r, j) * VdR(t, l);
+                                            ((mySMEFT.getSMEFTCoeffEW("Cqd8R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cqd8I", p, r, s, t))) * VdL(r, j) * VdR(t, l);
                                     CedSRL.at(i).at(j).at(k).at(l) += VeL.hconjugate()(i, p) * VdR.hconjugate()(k, s) *
-                                            ((mySMEFT.getSMEFTCoeffEW("CledqR",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CledqI",p,r,s,t))) * VeR(r, j) * VdL(t, l);
+                                            ((mySMEFT.getSMEFTCoeffEW("CledqR", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CledqI", p, r, s, t))) * VeR(r, j) * VdL(t, l);
 
 
                                 }
@@ -527,9 +527,9 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
                                             (3. * v2 * (mySMEFT.getSMEFTCoeffEW("CHuR", s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHuI", s, t)) +
                                             8. * delta_sbar * sbar2 * KD(s, t))) / 12.) * VeR(r, j) * VuL(t, l);
                                     CeuSRR.at(i).at(j).at(k).at(l) += VeL.hconjugate()(i, p) * VuL.hconjugate()(k, s) *
-                                            (-(mySMEFT.getSMEFTCoeffEW("Clequ1R",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Clequ1I",p,r,s,t))) * VeR(r, j) * VuR(t, l);
+                                            (-(mySMEFT.getSMEFTCoeffEW("Clequ1R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Clequ1I", p, r, s, t))) * VeR(r, j) * VuR(t, l);
                                     CeuTRR.at(i).at(j).at(k).at(l) += VeL.hconjugate()(i, p) * VuL.hconjugate()(k, s) *
-                                            (-(mySMEFT.getSMEFTCoeffEW("Clequ3R",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Clequ3I",p,r,s,t))) * VeR(r, j) * VuR(t, l);
+                                            (-(mySMEFT.getSMEFTCoeffEW("Clequ3R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Clequ3I", p, r, s, t))) * VeR(r, j) * VuR(t, l);
                                 }
 
                 }
@@ -618,9 +618,9 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
                                     CudV8LR.at(i).at(j).at(k).at(l) += VuL.hconjugate()(i, p) * VdR.hconjugate()(k, s) *
                                             ((mySMEFT.getSMEFTCoeffEW("Cqd8R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cqd8I", p, r, s, t))) * VuL(r, j) * VdR(t, l);
                                     CudS1RR.at(i).at(j).at(k).at(l) += VuL.hconjugate()(i, p) * VdL.hconjugate()(k, s) *
-                                            ((mySMEFT.getSMEFTCoeffEW("Cquqd1R",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cquqd1I",p,r,s,t))) * VuR(r, j) * VdR(t, l);
+                                            ((mySMEFT.getSMEFTCoeffEW("Cquqd1R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cquqd1I", p, r, s, t))) * VuR(r, j) * VdR(t, l);
                                     CudS8RR.at(i).at(j).at(k).at(l) += VuL.hconjugate()(i, p) * VdL.hconjugate()(k, s) *
-                                            ((mySMEFT.getSMEFTCoeffEW("Cquqd8R",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cquqd8I",p,r,s,t))) * VuR(r, j) * VdR(t, l);
+                                            ((mySMEFT.getSMEFTCoeffEW("Cquqd8R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cquqd8I", p, r, s, t))) * VuR(r, j) * VdR(t, l);
                                 }
 
                 }
@@ -642,7 +642,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
                     CuuV8LR.at(i).at(j).at(k).at(l) = 0.;
                     CudduV1LR.at(i).at(j).at(k).at(l) = 0.;
                     CudduV8LR.at(i).at(j).at(k).at(l) = 0.;
- 
+
                     //Nonleptonic LRLR operators
                     CuuS1RR.at(i).at(j).at(k).at(l) = 0.;
                     CuuS8RR.at(i).at(j).at(k).at(l) = 0.;
@@ -684,13 +684,13 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
                                     CuuV8LR.at(i).at(j).at(k).at(l) += VuL.hconjugate()(i, p) * VuR.hconjugate()(k, s) *
                                             ((mySMEFT.getSMEFTCoeffEW("Cqu8R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cqu8I", p, r, s, t))) * VuL(r, j) * VuR(t, l);
                                     CudduV1LR.at(i).at(j).at(k).at(l) += VuL.hconjugate()(i, p) * VdR.hconjugate()(k, s) *
-                                            (-0.25*(g22oMW2*v2*(mySMEFT.getSMEFTCoeffEW("CHudR",t,s) - gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHudI",t,s))*KD(p,r))) * 
+                                            (-0.25 * (g22oMW2 * v2 * (mySMEFT.getSMEFTCoeffEW("CHudR", t, s) - gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHudI", t, s)) * KD(p, r))) *
                                             VdL(r, j) * VuR(t, l);
                                     CudduS1RR.at(i).at(j).at(k).at(l) += VuL.hconjugate()(i, p) * VdL.hconjugate()(k, s) *
-                                            (-(mySMEFT.getSMEFTCoeffEW("Cquqd1R",s,t,p,r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cquqd1I",s,t,p,r))) * 
+                                            (-(mySMEFT.getSMEFTCoeffEW("Cquqd1R", s, t, p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cquqd1I", s, t, p, r))) *
                                             VdR(r, j) * VuR(t, l);
                                     CudduS8RR.at(i).at(j).at(k).at(l) += VuL.hconjugate()(i, p) * VdL.hconjugate()(k, s) *
-                                            (-(mySMEFT.getSMEFTCoeffEW("Cquqd8R",s,t,p,r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cquqd8I",s,t,p,r))) * 
+                                            (-(mySMEFT.getSMEFTCoeffEW("Cquqd8R", s, t, p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Cquqd8I", s, t, p, r))) *
                                             VdR(r, j) * VuR(t, l);
 
                                 }
@@ -728,13 +728,13 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
                                             (-0.25 * (g22oMW2 * v2 * (mySMEFT.getSMEFTCoeffEW("CHudR", t, s) - gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHudI", t, s)) * KD(p, r)))
                                             * VeL(r, j) * VuR(t, l);
                                     CnueduSRL.at(i).at(j).at(k).at(l) += VeL.hconjugate()(i, p) * VdR.hconjugate()(k, s) *
-                                            ((mySMEFT.getSMEFTCoeffEW("CledqR",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CledqI",p,r,s,t)))
+                                            ((mySMEFT.getSMEFTCoeffEW("CledqR", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CledqI", p, r, s, t)))
                                             * VeR(r, j) * VuL(t, l);
                                     CnueduSRR.at(i).at(j).at(k).at(l) += VeL.hconjugate()(i, p) * VdL.hconjugate()(k, s) *
-                                            ((mySMEFT.getSMEFTCoeffEW("Clequ1R",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Clequ1I",p,r,s,t)))
+                                            ((mySMEFT.getSMEFTCoeffEW("Clequ1R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Clequ1I", p, r, s, t)))
                                             * VeR(r, j) * VuR(t, l);
                                     CnueduTRR.at(i).at(j).at(k).at(l) += VeL.hconjugate()(i, p) * VdL.hconjugate()(k, s) *
-                                            ((mySMEFT.getSMEFTCoeffEW("Clequ3R",p,r,s,t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Clequ3I",p,r,s,t)))
+                                            ((mySMEFT.getSMEFTCoeffEW("Clequ3R", p, r, s, t) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("Clequ3I", p, r, s, t)))
                                             * VeR(r, j) * VuR(t, l);
 
                                 }
@@ -749,3 +749,178 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
 NPSMEFTd6GeneralMatching::~NPSMEFTd6GeneralMatching() {
 }
+
+// Matching to the Delta F=2 Hamiltonian in the SUSY Basis, using eq. (199) of 2009.07276
+
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdk2() {
+
+    vmck2.clear();
+    vmck2 = StandardModelMatching::CMdk2();
+
+    mck2.setMu(mySMEFT.getMuw());
+    
+    switch (mck2.getOrder()) {
+        case LO:
+            mck2.setCoeff(0, CddVLL.at(0).at(1).at(0).at(1), LO);
+            mck2.setCoeff(1, CddS1RR.at(1).at(0).at(1).at(0).conjugate() - CddS8RR.at(1).at(0).at(1).at(0).conjugate()/6., LO);
+            mck2.setCoeff(2, CddS8RR.at(1).at(0).at(1).at(0).conjugate()/2., LO);
+            mck2.setCoeff(3, CddV1LR.at(0).at(1).at(0).at(1), LO);
+            mck2.setCoeff(4, 2.*CddV1LR.at(0).at(1).at(0).at(1) - CddV8LR.at(0).at(1).at(0).at(1)/3., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mck2.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMk2(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmck2.push_back(mck2);
+
+    switch (mck2.getOrder()) {
+        case LO:
+            mck2.setCoeff(0, CddVRR.at(0).at(1).at(0).at(1), LO);
+            mck2.setCoeff(1, CddS1RR.at(0).at(1).at(0).at(1) - CddS8RR.at(0).at(1).at(0).at(1)/6., LO);
+            mck2.setCoeff(2, CddS8RR.at(0).at(1).at(0).at(1)/2., LO);
+            mck2.setCoeff(3, 0., LO);
+            mck2.setCoeff(4, 0., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mck2.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMk2(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmck2.push_back(mck2);
+
+    return (vmck2);
+
+}
+
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdd2() {
+
+    vmcd2.clear();
+    vmcd2 = StandardModelMatching::CMdd2();
+
+    mcd2.setMu(mySMEFT.getMuw());
+    
+    switch (mcd2.getOrder()) {
+        case LO:
+            mcd2.setCoeff(0, CuuVLL.at(0).at(1).at(0).at(1), LO);
+            mcd2.setCoeff(1, CuuS1RR.at(1).at(0).at(1).at(0).conjugate() - CuuS8RR.at(1).at(0).at(1).at(0).conjugate()/6., LO);
+            mcd2.setCoeff(2, CuuS8RR.at(1).at(0).at(1).at(0).conjugate()/2., LO);
+            mcd2.setCoeff(3, CuuV1LR.at(0).at(1).at(0).at(1), LO);
+            mcd2.setCoeff(4, 2.*CuuV1LR.at(0).at(1).at(0).at(1) - CuuV8LR.at(0).at(1).at(0).at(1)/3., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcd2.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMdd2(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmcd2.push_back(mcd2);
+
+    switch (mcd2.getOrder()) {
+        case LO:
+            mcd2.setCoeff(0, CuuVRR.at(0).at(1).at(0).at(1), LO);
+            mcd2.setCoeff(1, CuuS1RR.at(0).at(1).at(0).at(1) - CuuS8RR.at(0).at(1).at(0).at(1)/6., LO);
+            mcd2.setCoeff(2, CuuS8RR.at(0).at(1).at(0).at(1)/2., LO);
+            mcd2.setCoeff(3, 0., LO);
+            mcd2.setCoeff(4, 0., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcd2.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMdd2(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmcd2.push_back(mcd2);
+
+    return (vmcd2);
+
+}
+
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdbd2() {
+
+    vmcdb.clear();
+    vmcdb = StandardModelMatching::CMdbd2();
+
+    mcbd.setMu(mySMEFT.getMuw());
+    
+    switch (mcbd.getOrder()) {
+        case LO:
+            mcbd.setCoeff(0, CddVLL.at(0).at(2).at(0).at(2), LO);
+            mcbd.setCoeff(1, CddS1RR.at(2).at(0).at(2).at(0).conjugate() - CddS8RR.at(2).at(0).at(2).at(0).conjugate()/6., LO);
+            mcbd.setCoeff(2, CddS8RR.at(2).at(0).at(2).at(0).conjugate()/2., LO);
+            mcbd.setCoeff(3, CddV1LR.at(0).at(2).at(0).at(2), LO);
+            mcbd.setCoeff(4, 2.*CddV1LR.at(0).at(2).at(0).at(2) - CddV8LR.at(0).at(2).at(0).at(2)/3., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbd.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMdbd2(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmcdb.push_back(mcbd);
+
+    switch (mcbd.getOrder()) {
+        case LO:
+            mcbd.setCoeff(0, CddVRR.at(0).at(2).at(0).at(2), LO);
+            mcbd.setCoeff(1, CddS1RR.at(0).at(2).at(0).at(2) - CddS8RR.at(0).at(2).at(0).at(2)/6., LO);
+            mcbd.setCoeff(2, CddS8RR.at(0).at(2).at(0).at(2)/2., LO);
+            mcbd.setCoeff(3, 0., LO);
+            mcbd.setCoeff(4, 0., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbd.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMdbd2(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmcdb.push_back(mcbd);
+
+    return (vmcdb);
+
+}
+
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdbs2() {
+
+    vmcds.clear();
+    vmcds = StandardModelMatching::CMdbs2();
+
+    mcbs.setMu(mySMEFT.getMuw());
+    
+    switch (mcbs.getOrder()) {
+        case LO:
+            mcbs.setCoeff(0, CddVLL.at(1).at(2).at(1).at(2), LO);
+            mcbs.setCoeff(1, CddS1RR.at(2).at(1).at(2).at(1).conjugate() - CddS8RR.at(2).at(1).at(2).at(1).conjugate()/6., LO);
+            mcbs.setCoeff(2, CddS8RR.at(2).at(1).at(2).at(1).conjugate()/2., LO);
+            mcbs.setCoeff(3, CddV1LR.at(1).at(2).at(1).at(2), LO);
+            mcbs.setCoeff(4, 2.*CddV1LR.at(1).at(2).at(1).at(2) - CddV8LR.at(1).at(2).at(1).at(2)/3., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbs.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMdbs2(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmcds.push_back(mcbs);
+
+    switch (mcbs.getOrder()) {
+        case LO:
+            mcbs.setCoeff(0, CddVRR.at(1).at(2).at(1).at(2), LO);
+            mcbs.setCoeff(1, CddS1RR.at(1).at(2).at(1).at(2) - CddS8RR.at(1).at(2).at(1).at(2)/6., LO);
+            mcbs.setCoeff(2, CddS8RR.at(1).at(2).at(1).at(2)/2., LO);
+            mcbs.setCoeff(3, 0., LO);
+            mcbs.setCoeff(4, 0., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbs.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMdbs2(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmcds.push_back(mcbs);
+
+    return (vmcds);
+
+}
+
