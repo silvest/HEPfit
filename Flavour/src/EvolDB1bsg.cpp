@@ -437,10 +437,15 @@ gslpp::matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order,
  {
 
     gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
-
+    std::cout << "mu " << mu << " M " << M << "\n";
     int L = 6 - (int) nf;
     double alsM = model.Alstilde5(M); 
     double alsmu = model.Alstilde5(mu);
+    //RunDec 5loop 5 flavor
+    //if (mu == 2.) alsmu = 0.28948/(4.*M_PI);
+    //if (mu == 4.2) alsmu = 0.22393/(4.*M_PI);
+    //if (mu == 8.) alsmu = 0.18784/(4.*M_PI);
+    std::cout << " " << alsmu*(4.*M_PI) << "\n";
     
     double eta = alsM / alsmu;
     
