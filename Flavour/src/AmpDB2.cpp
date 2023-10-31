@@ -1309,74 +1309,17 @@ gslpp::vector<gslpp::complex> AmpDB2::transformation(gslpp::vector< gslpp::compl
     return result;
 }
 
-////using the FULLNLO DB=1 Wilson coefficients
-////Gerlach thesis eq. (6.4)
-//gslpp::complex AmpDB2::H(quarks qq){
-//    gslpp::complex result = 0.;
-//    for (int i=1; i<=8; i++){
-//        if (i==7) i++;
-//        for (int j=i; j<=8; j++){
-//            if(j==7) j++;
-//            result += C(i) * C(j) * p(qq, i, j);
-//        }
-//    }
-//    return result;
-//}
-//gslpp::complex AmpDB2::H_s(quarks qq){
-//    gslpp::complex result = 0.;
-//    for (int i=1; i<=8; i++){
-//        if (i==7) i++;
-//        for (int j=i; j<=8; j++){
-//            if(j==7) j++;
-//            result += C(i) * C(j) * p_s(qq, i, j);
-//        }
-//    }
-//    return result;
-//}
-
 //Gerlach thesis eq. (6.4)
 gslpp::complex AmpDB2::H(quarks qq, orders order){
-    gslpp::complex result = 0.;
-    bool orderofH[3] = {false, false, false};    
-    if (order == LO) orderofH[0] = true;
-    if (order == NLO) orderofH[1] = true;
-    if (order == NNLO) orderofH[2] = true;       
-    for (int i=1; i<=8; i++){
-        if (i==7) i++;
-        for (int j=i; j<=8; j++){
-            if(j==7) j++;
-            result += orderofH[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0)
-                    + orderofH[1] * (as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0))
-                    + orderofH[2] * (as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
-                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1)
-                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0));
-        }
-    }
-    return result;
+    if (order == LO) return H_partial(qq, 1, 8, 1, 8, 0);
+    if (order == NLO) return H_partial(qq, 1, 8, 1, 8, 1);
+    if (order == NNLO) return H_partial(qq, 1, 8, 1, 8, 2);      
 }
-gslpp::complex AmpDB2::H_s(quarks qq, orders order){
-    gslpp::complex result = 0.;
-    bool orderofH[3] = {false, false, false};    
-    if (order == LO) orderofH[0] = true;
-    if (order == NLO) orderofH[1] = true;
-    if (order == NNLO) orderofH[2] = true;  
-    for (int i=1; i<=8; i++){
-        if (i==7) i++;
-        for (int j=i; j<=8; j++){
-            if(j==7) j++;
-            result += orderofH[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0)
-                    + orderofH[1] * (as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0))
-                    + orderofH[2] * (as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
-                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1)
-                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0));
-
-        }
-    }
-    return result;
+gslpp::complex AmpDB2::H_s(quarks qq, orders order){   
+    if (order == LO) return H_s_partial(qq, 1, 8, 1, 8, 0);
+    if (order == NLO) return H_s_partial(qq, 1, 8, 1, 8, 1);
+    if (order == NNLO) return H_s_partial(qq, 1, 8, 1, 8, 2); 
 }
-
     //Q_1,2 x Q_1,2
     //Q_1,2 x Q_3-6
     //Q_3,6 x Q_3-6
@@ -1452,7 +1395,6 @@ gslpp::complex AmpDB2::H_partial(quarks qq, int i_start, int i_end, int j_start,
                         + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0);
             }
             else {
-                //std::cout << qq << " " << i << " " << j << " " << n << "\n";      
                 throw(std::runtime_error("AmpDB2::H_partial order not implemented"));
             }
         }
@@ -1465,7 +1407,7 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
     for (int i=i_start; i<=i_end; i++){
         if (i==7) i++;
         for (int j=j_start; j<=j_end; j++){
-            if(j==7) continue;
+            if(j==7) j++;
             if (n==0) {
                 result += cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0);
             }
@@ -1479,7 +1421,6 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
                         + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0);
             }
             else {
-                //std::cout << qq << " " << i << " " << j << " " << n << "\n";                
                 throw(std::runtime_error("AmpDB2::H_s_partial order not implemented"));
             }
         }
