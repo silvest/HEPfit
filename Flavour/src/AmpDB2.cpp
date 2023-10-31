@@ -1346,10 +1346,10 @@ gslpp::complex AmpDB2::H(quarks qq, orders order){
         for (int j=i; j<=8; j++){
             if(j==7) j++;
             result += orderofH[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0)
-                    + orderofH[1] * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
+                    + orderofH[1] * (as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
                         + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0))
-                    + orderofH[2] * as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1)
+                    + orderofH[2] * (as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
+                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1)
                         + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0));
         }
     }
@@ -1366,10 +1366,10 @@ gslpp::complex AmpDB2::H_s(quarks qq, orders order){
         for (int j=i; j<=8; j++){
             if(j==7) j++;
             result += orderofH[0] * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0)
-                    + orderofH[1] * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
+                    + orderofH[1] * (as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
                         + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0))
-                    + orderofH[2] * as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1)
+                    + orderofH[2] * (as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
+                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1)
                         + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0));
 
         }
@@ -1443,13 +1443,13 @@ gslpp::complex AmpDB2::H_partial(quarks qq, int i_start, int i_end, int j_start,
                 result += cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0);
             }
             else if (n==1) {
-                result += as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0));
+                result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0);
             }
             else if (n==2) {
-                result += as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1)
-                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0));
+                result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
+                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1)
+                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0);
             }
             else {
                 //std::cout << qq << " " << i << " " << j << " " << n << "\n";      
@@ -1470,13 +1470,13 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
                 result += cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0);
             }
             else if (n==1) {
-                result += as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0));
+                result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0);
             }
             else if (n==2) {
-                result += as_4pi_mu1 * as_4pi_mu1 * (cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1)
-                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0));
+                result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
+                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1)
+                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0);
             }
             else {
                 //std::cout << qq << " " << i << " " << j << " " << n << "\n";                
