@@ -21,25 +21,17 @@ Dleptonnu::Dleptonnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::lepton 
 
 double Dleptonnu::computeThValue()
 {
-    //The WC are written in the LEFT basis of arxiv:1709.04486 the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114 in a similar basis
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffcleptonnu(meson, lepton);
+    double mlight, mlepton;
+    int i,k;
 
-
-    double mD = SM.getMesons(meson).getMass();
-    double mc = SM.getQuarks(QCD::CHARM).getMass();
-
-
-    double mlight=0;
-    double mlepton=0;
-    double fact = 1.; /*factor introduced to scale the decay constant from that of the neutral B to the charged B.*/
-    //double fact = 0.989;
-    
     switch (lepton){
         case QCD::TAU:      
             mlepton = SM.getLeptons(StandardModel::TAU).getMass();
+            k = 2;
         break;
         case QCD::MU:      
             mlepton = SM.getLeptons(StandardModel::MU).getMass();
+            k = 1;
         break;
         default:
             std::runtime_error("The observable Dleptonnu is not added for that lepton " );
@@ -48,13 +40,24 @@ double Dleptonnu::computeThValue()
     switch(meson) {
         case QCD::D_P:
             mlight=SM.getQuarks(QCD::DOWN).getMass();
+            i = 0;
         break;
         case QCD::D_S:
             mlight=SM.getQuarks(QCD::STRANGE).getMass();
+            i = 1;
         break;
         default:
-            throw std::runtime_error("The observable Dleptonnu is only implemented for QCD::D_S " );
+            throw std::runtime_error("The observable Dleptonnu is only implemented for QCD::D_P,S " );
 }
+    
+    double mD = SM.getMesons(meson).getMass();
+    double mc = SM.getQuarks(QCD::CHARM).getMass();
+
+    //The WC are written in the LEFT basis of arxiv:1709.04486 the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114 in a similar basis
+    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffdiujlknu(i,1,k,mD);
+
+    double fact = 1.; /*factor introduced to scale the decay constant from that of the neutral B to the charged B.*/
+    //double fact = 0.989;
     
     //std::cout<< "SM value for D_S = "<< 1. / (64. * M_PI) * mlepton * mlepton * pow(fact * SM.getMesons(meson).getDecayconst(), 2.) * mD * pow(1. - mlepton * mlepton / mD / mD, 2.) / SM.getMesons(meson).computeWidth() * (4.*SM.getGF() * SM.getCKM().getV_cs() / sqrt(2.)).abs2() <<std::endl;
     

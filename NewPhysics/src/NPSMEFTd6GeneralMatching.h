@@ -63,6 +63,13 @@ public:
      */
     virtual std::vector<WilsonCoefficient>& CMdbs2();
 
+    /**
+     * 
+     * @return Wilson coefficients for \f$ \bar{d}_i u_j \bar{\nu} \ell_k \f$ operators in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
+     */
+    virtual  std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
+    
+
 
 protected:
 
@@ -156,7 +163,7 @@ private:
     double v2;
     double v;
     gslpp::matrix<gslpp::complex> VuL, VuR, VdL, VdR, VeL, VeR;
-    WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2;
+    WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2, mculeptonnu;
 
 };
 

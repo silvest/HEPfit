@@ -12,7 +12,7 @@
 NPSMEFTd6GeneralMatching::NPSMEFTd6GeneralMatching(const NPSMEFTd6General & NPSMEFTd6General_i) :
 StandardModelMatching(NPSMEFTd6General_i),
 mySMEFT(NPSMEFTd6General_i), VuL(3, 0.), VuR(3, 0.), VdL(3, 0.), VdR(3, 0.), VeL(3, 0.), VeR(3, 0.),
-mcd2(5, NDR, LO), mcd1(10, NDR, LO), mcbd(5, NDR, LO), mcbs(5, NDR, LO), mck2(5, NDR, LO) {
+mcd2(5, NDR, LO), mcd1(10, NDR, LO), mcbd(5, NDR, LO), mcbs(5, NDR, LO), mck2(5, NDR, LO), mculeptonnu(5, NDR, LO) {
 }
 
 void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
@@ -924,3 +924,33 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdbs2() {
 
 }
 
+/*******************************************************************************
+ * Wilson coefficients matching, LEFT basis [1709.04486] ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij             *
+ * ****************************************************************************/
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdiujleptonknu(int i, int j, int k) {
+
+    vmculeptonnu.clear();
+    vmculeptonnu = StandardModelMatching::CMdiujleptonknu(i,j,k);
+
+    mculeptonnu.setMu(mySMEFT.getMuw());
+
+    switch (mculeptonnu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            mculeptonnu.setCoeff(0, CnueduVLL.at(k).at(k).at(i).at(j), LO);
+            mculeptonnu.setCoeff(1, CnueduVLR.at(k).at(k).at(i).at(j), LO);
+            mculeptonnu.setCoeff(2, CnueduSRR.at(k).at(k).at(i).at(j), LO);
+            mculeptonnu.setCoeff(3, CnueduSRL.at(k).at(k).at(i).at(j), LO);
+            mculeptonnu.setCoeff(4, CnueduTRR.at(k).at(k).at(i).at(j), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mculeptonnu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMuleptonnu(): order " + out.str() + "not implemented");
+    }
+
+    vmculeptonnu.push_back(mculeptonnu);
+    return (vmculeptonnu);
+
+}

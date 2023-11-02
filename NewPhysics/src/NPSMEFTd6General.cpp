@@ -372,7 +372,7 @@ NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW()
 
 
 
-    //SMM.setObj((StandardModelMatching&) NPSMEFTd6GM.getObj());
+    SMM.setObj((StandardModelMatching&) NPSMEFTd6GM.getObj());
 
     if (getModelName().compare("NPSMEFTd6General") == 0) {
 

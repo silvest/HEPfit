@@ -53,6 +53,12 @@ BAT-0.9.4.1_parallel/
 BAT-1.0.0*
 BAT/
 
+#LoopTools
+Looptools*/
+
+#RGESolver
+RGESolver/
+
 #Local Files
 Cuba
 FeynHiggs
