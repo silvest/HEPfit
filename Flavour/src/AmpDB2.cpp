@@ -237,7 +237,20 @@ gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO_tradBasis(){
     //hep-ph/0308029v2: eq. 16 divided by M_21
     gslpp::complex Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
                 (Mb2_prefactor * (c(s)(0) + c(s)(1) * me(1)/me(0) + c(s)(2) * me(2)/me(0)) + 
-            Mb_PS * Mb_PS * delta_1overm(s)/me(0));
+            Mb_PS * Mb_PS * delta_1overm_tradBasis(s)/me(0));
+    std::cout << "NLO " << Gamma21overM21_Bs << " " << delta_1overm_tradBasis(s) << "\n";
+    //c.assign(0, c(0) - alpha2/2. * c(1));
+    //c.assign(2, -alpha1 * c(1));    
+    //c.assign(1, 0.);
+    double alpha1 = as_4pi_mu2 * 4./3. * (12. * log(mu_2/Mb_pole) + 6.);
+    double alpha2 = as_4pi_mu2 * 4./3. * (6. * log(mu_2/Mb_pole) + 13./2.);
+    Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
+                (Mb2_prefactor * (c(s)(0) - 1/2. * c(s)(1) + 0. * me(1)/me(0) - 1. * c(s)(1) * me(2)/me(0)) + 
+            Mb_PS * Mb_PS * -delta_1overm(s)/me(0));
+    computeD_LO();
+    Gamma21overM21_Bs += -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
+                (Mb2_prefactor * (-alpha2/2. * c(s)(1) + 0. * me(1)/me(0) - alpha1 * c(s)(1) * me(2)/me(0)));
+    std::cout << Gamma21overM21_Bs << " " << -delta_1overm(s) << "\n";
     return Gamma21overM21_Bs;
 }
 
@@ -269,6 +282,9 @@ gslpp::complex AmpDB2::Gamma21overM21_BsLO_tradBasis(){
     gslpp::complex Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
                 (Mb2_prefactor * (c(s)(0) + c(s)(1) * me(1)/me(0) + c(s)(2) * me(2)/me(0)) + 
             Mb_PS * Mb_PS * delta_1overm_tradBasis(s)/me(0));
+    //Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
+    //            (Mb2_prefactor * (c(s)(0) - 1/2. * c(s)(1) + 0. * me(1)/me(0) - 1. * c(s)(1) * me(2)/me(0)) + 
+    //        Mb_PS * Mb_PS * -delta_1overm(s)/me(0));    
     return Gamma21overM21_Bs;
 }
 
@@ -925,9 +941,9 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
     double alpha2 = 1. + as_4pi_mu2 * 4./3. * (6. * log(mu_2/Mb_pole) + 13./2.);
     //std::cout << "alpha1 " << alpha1 << " " << alpha2 << "\n"; 
     
-    c.assign(0, c(0) - alpha2/2. * c(1));
-    c.assign(2, -alpha1 * c(1));    
-    c.assign(1, 0.);
+    //c.assign(0, c(0) - alpha2/2. * c(1));
+    //c.assign(2, -alpha1 * c(1));    
+    //c.assign(1, 0.);
     //switch Wilson coefficients to RI scheme
     if (flag_RI) c += as_4pi_mu2 * coeffsMStoRI.transpose() * c;
     return c;
