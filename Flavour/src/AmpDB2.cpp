@@ -201,7 +201,7 @@ gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO_tradBasis(){
     computeD();
 
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"
-    compute_matrixelements(d);
+    compute_matrixelements(d, NLO);
         
     //hep-ph/0308029v2: eq. 16 divided by M_21
     gslpp::complex Gamma21overM21_Bd = -Gf2 / (24 * M_PI * MB) / M21overme0 *
@@ -232,7 +232,7 @@ gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO_tradBasis(){
     computeD();
     
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"
-    compute_matrixelements(s);
+    compute_matrixelements(s, NLO);
 
     //hep-ph/0308029v2: eq. 16 divided by M_21
     gslpp::complex Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
@@ -263,7 +263,7 @@ gslpp::complex AmpDB2::Gamma21overM21_BsLO_tradBasis(){
     computeD_LO();
     
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"
-    compute_matrixelements(s);
+    compute_matrixelements(s, LO);
 
     //hep-ph/0308029v2: eq. 16 divided by M_21
     gslpp::complex Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
@@ -784,7 +784,7 @@ int AmpDB2::indexP(quarks qq, int k, int i, int j) {
 }
 
 
-void AmpDB2::compute_matrixelements(quark q){
+void AmpDB2::compute_matrixelements(quark q, orders order){
     double Mq;
     double Mb_mu;
     double MBq2;
@@ -866,17 +866,22 @@ void AmpDB2::compute_matrixelements(quark q){
     double L = 2. * log(mu_2/Mb_pole);
     double L2 = L * L;
     
-    //Gerlach thesis eq. (3.84)
-    double as1_me0 = 4. * L + 26./3.;   
-    double as1_me2 = 8. * L + 8.;
+    double as1_me0 = 0., as1_me2 = 0., as2_me0 = 0., as2_me2 = 0;
+    if (order == NLO or order == NNLO){
+        //Gerlach thesis eq. (3.84)
+        as1_me0 = 4. * L + 26./3.;   
+        as1_me2 = 8. * L + 8.;
+    }
     
-    //Gerlach thesis eq. (3.104, 3.105)
-    double as2_me0 = (n_l + n_h) * (-4./3. * L2 - 52./9. * L - 8./9. * M_PI2 - 218./27.) + n_h * (8./3. * M_PI2 - 8.)
-                        + 58./3. * L2 + 649./6. * L + 17./3. * M_PI2 + 11183./48. + 16./3. * M_PI2 * log2 - 8. * zeta3;
-    double as2_me2 = (n_l + n_h) * (-8./3. * L2 - 104./9. * L - 16./9. * M_PI2 - 422./27.) + n_h * (16./3. * M_PI2 - 16.)
-                        + 188./3. * L2 + 220. * L + 320./27. * M_PI2 + 326047./720. + 32./3. * M_PI2 * log2 - 16. * zeta3;
-    //std::cout << "me_R" << me_R << "\n";
-    me_R(0) = 0.5 * (1. + as1_me0 * as_4pi_mu2 + as2_me0 * as_4pi_mu2 * as_4pi_mu2) * me(0) + me(1) + (1. + as1_me2 * as_4pi_mu2 + as2_me2 * as_4pi_mu2 * as_4pi_mu2) * me(2);
+    if (order == NNLO){
+        //Gerlach thesis eq. (3.104, 3.105)
+        as2_me0 = (n_l + n_h) * (-4./3. * L2 - 52./9. * L - 8./9. * M_PI2 - 218./27.) + n_h * (8./3. * M_PI2 - 8.)
+                            + 58./3. * L2 + 649./6. * L + 17./3. * M_PI2 + 11183./48. + 16./3. * M_PI2 * log2 - 8. * zeta3;
+        as2_me2 = (n_l + n_h) * (-8./3. * L2 - 104./9. * L - 16./9. * M_PI2 - 422./27.) + n_h * (16./3. * M_PI2 - 16.)
+                            + 188./3. * L2 + 220. * L + 320./27. * M_PI2 + 326047./720. + 32./3. * M_PI2 * log2 - 16. * zeta3;
+        //std::cout << "me_R" << me_R << "\n";
+        me_R(0) = 0.5 * (1. + as1_me0 * as_4pi_mu2 + as2_me0 * as_4pi_mu2 * as_4pi_mu2) * me(0) + me(1) + (1. + as1_me2 * as_4pi_mu2 + as2_me2 * as_4pi_mu2 * as_4pi_mu2) * me(2);
+    }
     
     //std::cout << "me" << me << "\n";
     //std::cout << "me_R" << me_R(0) << " meR(0): " << 0.5 * (1. + 26./3. * as_4pi_mu2) * me(0) + me(1) + (1. + 8. * as_4pi_mu2) * me(2) << "\n";
@@ -1105,7 +1110,7 @@ gslpp::complex AmpDB2::Gamma21overM21_Bd(orders order, mass_schemes mass_scheme)
     if (mass_scheme == PS) poletoPS_pp_s();    
 
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"    
-    compute_matrixelements(d);
+    compute_matrixelements(d, order);
     
    //Gerlach thesis eq. 6.1 divided by M_21
     gslpp::complex Gamma21overM21_Bd = Mb2_prefactor * (c_H()(0) + c_H()(1) * me(1)/me(0) + c_H()(2) * me(2)/me(0)).conjugate();
@@ -1171,7 +1176,7 @@ gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order, mass_schemes mass_scheme)
     if (mass_scheme == PS) poletoPS_pp_s();
 
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"    
-    compute_matrixelements(s);
+    compute_matrixelements(s, order);
     
     gslpp::vector<gslpp::complex> Gamma21overM21_Bs_partial = Mb2_prefactor * (c_H_partial(0) + c_H_partial(1) * me(1)/me(0) + c_H_partial(2) * me(2)/me(0)).conjugate()
             * Gf2 / (24 * M_PI * MB_s) / M21overme0;

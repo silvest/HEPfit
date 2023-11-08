@@ -206,9 +206,10 @@ private:
     /**
     * @brief A method to compute all DB=2 Wilson coefficients (me, me_R, me_Rtilde)
     * @param[in] quark index of the neutral B mesons
+    * @param[in] order %QCD orders used for R_0
     * @detail requires computeCKMandMasses() before use
     */
-    void compute_matrixelements(quark q);
+    void compute_matrixelements(quark q, orders order);
 
 
     //returns position in our array parameterization of the corresponding coefficient function
