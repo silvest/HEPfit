@@ -858,20 +858,6 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
     return coeffdmumu.getCoeff();
 }
 
-gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffbtaunu(QCD::meson meson_i) 
-{
-    const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMbtaunu(meson_i);
-    coeffbtaunu.resetCoefficient();
-    orders ordDF1 = coeffbtaunu.getOrder();
-    for (unsigned int i = 0; i < mcb.size(); i++){
-        for (int j = LO; j <= ordDF1; j++){
-            coeffbtaunu.setCoeff(*coeffbtaunu.getCoeff(orders(j))
-                                     + *mcb[i].getCoeff(orders(j)), orders(j));
-        }
-    }
-     return coeffbtaunu.getCoeff(); 
-}
-
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsnunu() 
 {
     

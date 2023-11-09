@@ -11,6 +11,7 @@
 #include "MVll.h"
 #include "MPll.h"
 #include "HeffDF2.h"
+#include "HeffDF1_diujlknu.h"
 #include "HeffDS1.h"
 #include "HeffDB1.h"
 #include "MVgamma.h"
@@ -44,6 +45,11 @@ bool Flavour::setFlag(const std::string name, const bool value)
 HeffDF2& Flavour::getHDF2() const
 {
     return *getPtr<HeffDF2>(HDF2);
+}
+
+HeffDF1_diujlknu& Flavour::getHDF1_diujlknu() const
+{
+    return *getPtr<HeffDF1_diujlknu>(HDF1_diujlknu);
 }
 
 HeffDS1& Flavour::getHDS1() const
@@ -106,6 +112,14 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1mumu() const
     return getPtr<HeffDS1>(HDS1)->ComputeCoeffDS1mumu();
 }
 
+
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdiujlknu(int i, int j, int k, double mu) const
+{
+    return getPtr<HeffDF1_diujlknu>(HDF1_diujlknu)->ComputeCoeffdiujleptonknu(i, j, k, mu);
+}
+
+
+
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsmumu(double mu, schemes scheme) const
 {
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffsmumu(mu, scheme);
@@ -114,11 +128,6 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsmumu(double mu, schemes sc
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdmumu(double mu, schemes scheme) const
 {
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffdmumu(mu, scheme);
-}
-
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffbtaunu(QCD::meson meson_i) const
-{
-    return getPtr<HeffDB1>(HDB1)->ComputeCoeffbtaunu(meson_i);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsnunu() const

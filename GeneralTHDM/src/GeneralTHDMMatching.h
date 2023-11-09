@@ -220,35 +220,10 @@ public:
 //    virtual  std::vector<WilsonCoefficient>& CMdbsp2();
 
     /**
-     * @return GeneralTHDM Wilson coefficient for \f$ B \to \tau \nu \f$ from @cite Hou:1992sy
-     */
-    virtual  std::vector<WilsonCoefficient>& CMbtaunu(QCD::meson meson_i);
-    
-    /**
      * 
-     * @return Wilson coefficient for \f$ D \rightarrow \lepton \nu \f$
+     * @return GeneralTHDM Wilson coefficients for \f$ \bar{d}_i u_j \bar{\nu} \ell_k \f$ operators in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
      */
-    virtual  std::vector<WilsonCoefficient>& CMcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
-    
-    
-    /**
-     * 
-     * @return Wilson coefficient for \f$ K \rightarrow \lepton \nu \f$
-     */
-    virtual  std::vector<WilsonCoefficient>& CMsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
-    
-    
-    
-    /**
-     * 
-     * @return Wilson coefficient for \f$ \pi \rightarrow \lepton \nu \f$
-     */
-    virtual  std::vector<WilsonCoefficient>& CMuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) ;
-    
-    
-    
-    
-    
+    virtual  std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
     
     
     virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
@@ -392,7 +367,7 @@ private:
     const GeneralTHDM & myGTHDM;
 
     gslpp::matrix<gslpp::complex> myCKM;
-    WilsonCoefficient mcdbs2, mcbtaunu, mccleptonnu, mcsleptonnu, mculeptonnu, mcBMll, mcbsg, mcgminus2mu, mcbsmm;
+    WilsonCoefficient mcdbs2, mculeptonnu, mcBMll, mcbsg, mcgminus2mu, mcbsmm;
 
     double GF, mMU;
     gslpp::complex CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];

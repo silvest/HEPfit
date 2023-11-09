@@ -14,6 +14,10 @@
 #include "NPZbbbar.h"
 #include "NPZbbbarLinearized.h"
 #include "NPSMEFTd6.h"
+#include "NPSMEFTd6General.h"
+#include "NPSMEFTd6U2.h"
+#include "NPSMEFTd6U3.h"
+
 #include "NPSMEFT6dtopquark.h"
 #include "SigmaBR.h"
 #include "HiggsKigen.h"
@@ -54,6 +58,9 @@ ModelFactory::ModelFactory()
     modelFactory["NPZbbbarLinearized"] = bind(boost::factory<NPZbbbarLinearized*>(), false);
     modelFactory["NPZbbbarLinearizedLR"] = bind(boost::factory<NPZbbbarLinearized*>(), true);
     modelFactory["NPSMEFTd6"] = bind(boost::factory<NPSMEFTd6*>(), false, false);
+    modelFactory["NPSMEFTd6General"] = boost::factory<NPSMEFTd6General*>();
+    modelFactory["NPSMEFTd6U2"] = boost::factory<NPSMEFTd6U2*>();
+    modelFactory["NPSMEFTd6U3"] = boost::factory<NPSMEFTd6U3*>();
     
     modelFactory["NPSMEFT6dtopquark"] = boost::factory<NPSMEFT6dtopquark*>();
 

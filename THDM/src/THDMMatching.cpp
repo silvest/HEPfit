@@ -18,7 +18,7 @@ THDMMatching::THDMMatching(const THDM & THDM_i) :
     myTHDM(THDM_i),
     myCKM(3, 3, 0.),
     mcdbs2(5, NDR, NLO),
-    mcbtaunu(4, NDR, LO),
+    mcbtaunu(5, NDR, LO),
     mcbsg(8, NDR, NNLO),
     mcprimebsg(8, NDR, NNLO),
     mcgminus2mu(2,NDR,NLO)
@@ -57,25 +57,31 @@ std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
     return(vmcds);
 }
 
-std::vector<WilsonCoefficient>& THDMMatching::CMbtaunu(QCD::meson meson_i) {
+std::vector<WilsonCoefficient>& THDMMatching::CMdiujleptonknu(int i, int j, int k) {
 
     double Muw = myTHDM.getMuw();
     double GF = myTHDM.getGF();
     myCKM = myTHDM.getVCKM();
-    double mB = myTHDM.getMesons(meson_i).getMass();
+    double mB;
     double tanb = myTHDM.gettanb();
     double mHp2=myTHDM.getmHp2();
 
-    vmcbtaunu = StandardModelMatching::CMbtaunu(meson_i);
+    vmculeptonnu = StandardModelMatching::CMdiujleptonknu(i,j,k);
     mcbtaunu.setMu(Muw);
  
     switch (mcbtaunu.getOrder()) {
         case NNLO:
         case NLO:
         case LO:
-            if (meson_i == QCD::B_P) mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
-            else if (meson_i == QCD::B_C) mcbtaunu.setCoeff(0, -4.*GF * myCKM(1,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
-            throw std::runtime_error("THDMMatching::CMbtaunu(): meson not implemented");
+            if (i == 2 && j == 0 && k == 2) {
+                mB = myTHDM.getMesons(QCD::B_P).getMass();
+                mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            }
+            else if (i == 2 && j == 1 && k == 2) {
+                mB = myTHDM.getMesons(QCD::B_C).getMass();
+                mcbtaunu.setCoeff(0, -4.*GF * myCKM(1,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            }
+            else std::runtime_error("THDMMatching::CMbtaunu(): flavour indices not implemented");
             break;
         default:
             std::stringstream out;
@@ -83,8 +89,8 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbtaunu(QCD::meson meson_i) {
             throw std::runtime_error("THDMMatching::CMbtaunu(): order " + out.str() + "not implemented");
     }
 
-    vmcbtaunu.push_back(mcbtaunu);
-    return(vmcbtaunu);
+    vmculeptonnu.push_back(mcbtaunu);
+    return(vmculeptonnu);
 
 }
 

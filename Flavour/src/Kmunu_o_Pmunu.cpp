@@ -28,8 +28,8 @@ Kmunu_o_Pmunu::Kmunu_o_Pmunu(const StandardModel& SM_i)
 double Kmunu_o_Pmunu::computeThValue()
 {
     //The WC are written in the LEFT basis of arxiv:1709.04486 the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114 in a similar basis
-    gslpp::vector<gslpp::complex> ** allcoeff_K_mu_nu = SM.getFlavour().ComputeCoeffsleptonnu(QCD::K_P, QCD::MU);
-    gslpp::vector<gslpp::complex> ** allcoeff_P_mu_nu = SM.getFlavour().ComputeCoeffuleptonnu(QCD::P_P, QCD::MU);
+    gslpp::vector<gslpp::complex> ** allcoeff_K_mu_nu = SM.getFlavour().ComputeCoeffdiujlknu(1,0,1,2.);
+    gslpp::vector<gslpp::complex> ** allcoeff_P_mu_nu = SM.getFlavour().ComputeCoeffdiujlknu(0,0,1,2.);
 
 
     double mK = SM.getMesons(QCD::K_P).getMass();
@@ -52,13 +52,13 @@ double Kmunu_o_Pmunu::computeThValue()
     double delKl2Pl2em = SM.getOptionalParameter("delKl2Pl2em");
     
     
-    double WCnum = ((*(allcoeff_K_mu_nu[LO]))(0) -(*(allcoeff_K_mu_nu[LO]))(1) + mK * mK / (ms+mu) / mmu * ((*(allcoeff_K_mu_nu[LO]))(2) - (*(allcoeff_K_mu_nu[LO]))(3))).abs2();
-    double WCden = ((*(allcoeff_P_mu_nu[LO]))(0) -(*(allcoeff_P_mu_nu[LO]))(1) + mP * mP / (md+mu) / mmu * ((*(allcoeff_P_mu_nu[LO]))(2) - (*(allcoeff_P_mu_nu[LO]))(3))).abs2();
+    double num = ((*(allcoeff_K_mu_nu[LO]))(0) -(*(allcoeff_K_mu_nu[LO]))(1) + mK * mK / (ms+mu) / mmu * ((*(allcoeff_K_mu_nu[LO]))(2) - (*(allcoeff_K_mu_nu[LO]))(3))).abs2();
+    double den = ((*(allcoeff_P_mu_nu[LO]))(0) -(*(allcoeff_P_mu_nu[LO]))(1) + mP * mP / (md+mu) / mmu * ((*(allcoeff_P_mu_nu[LO]))(2) - (*(allcoeff_P_mu_nu[LO]))(3))).abs2();
     
     //double WCnum = 1.0;
     //double WCden = 1.0;
    
     //return 1.;
-    return mK/mP * (1-mmu*mmu/mK/mK) * (1-mmu*mmu/mK/mK)/(1-mmu*mmu/mP/mP)/(1-mmu*mmu/mP/mP)*fKofP*fKofP*(1+delKl2Pl2em)*WCnum/WCden;
+    return mK/mP * (1-mmu*mmu/mK/mK) * (1-mmu*mmu/mK/mK)/(1-mmu*mmu/mP/mP)/(1-mmu*mmu/mP/mP)*fKofP*fKofP*(1+delKl2Pl2em)*num/den;
 
 }

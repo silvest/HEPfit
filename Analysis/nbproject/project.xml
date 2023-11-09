@@ -33,6 +33,7 @@
                 <make-dep-project>../EW</make-dep-project>
                 <make-dep-project>../InputParser</make-dep-project>
                 <make-dep-project>../NewPhysics</make-dep-project>
+                <make-dep-project>../SMEFTRGEvolutor</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>
@@ -41,11 +42,11 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Release_MPI</name>
+                    <name>Debug</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Debug</name>
+                    <name>Release_MPI</name>
                     <type>1</type>
                 </confElem>
                 <confElem>

@@ -10,6 +10,7 @@
 
 class StandardModel;
 class HeffDF2;
+class HeffDF1_diujlknu;
 class HeffDB1;
 class HeffDS1;
 class MVll;
@@ -46,12 +47,28 @@ public:
      */
     HeffDF2& getHDF2() const;
 
+
+    /**
+     * @brief The member that returns an object of the class HeffDF1_diujlknu.
+     * @return returns the Hamiltonian built with \f$ \bar{d}_i u_j \bar{\nu} \ell_k \f$ operators in the JMS basis, ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
+     *
+     */
+    HeffDF1_diujlknu& getHDF1_diujlknu() const;
+
     /**
      * @brief The member that returns an object of the class HeffDS1.
      * @return returns the Hamiltonian for the \f$ \Delta S = 1 \f$ processes.
      *
      */
     HeffDS1& getHDS1() const;
+
+
+    /**
+     * @brief The member that returns an object of the class HeffDC1.
+     * @return returns the Hamiltonian for the \f$ \Delta C = 1 \f$ processes.
+     *
+     */
+    HeffDC1& getHDC1() const;
 
     /**
      * @brief The member that returns an object of the class HeffDB1.
@@ -90,7 +107,7 @@ public:
 
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1PPv(double mu, schemes scheme = NDR) const;
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1PPz(double muc, schemes scheme = NDR) const;
-    
+
     /**
      * @brief Computes the Wilson coefficient for the process \f$ B_s \to \mu \mu \f$.
      * @param[in] mu the lower matching scale for the process
@@ -110,25 +127,16 @@ public:
     gslpp::vector<gslpp::complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR) const;
 
     
-    gslpp::vector<gslpp::complex>** ComputeCoeffcleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
-    
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffsleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
-    
-    
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffuleptonnu(QCD::meson meson_i, QCD::lepton lepton_i) const;
-    
-    
-    
     /**
-     * @brief Computes the Wilson coefficient for the process \f$ B_d \to \tau \nu \f$.
-     * @param[in] mu the lower matching scale for the process
-     * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
-     * @return returns the Wilson coefficients for the process \f$ B_d \to \tau \nu \f$
-     *
+     * @brief Computes the Wilson coefficient for the Hamiltonian \f$ \bar{d_i} u_j \bar{\ell_k} \nu \f$ transitions in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
+     * @param i the flavour of the down-type quark
+     * @param j the flavour of the up-type quark
+     * @param k the flavour of the charged lepton
+     * @param mu the scale at which the coefficients should be evaluated
+     * @return short distance contribution to \f$ \bar{d_i} u_j \bar{\ell_k} \nu \f$ transitions in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu(QCD::meson meson_i) const;
+
+    gslpp::vector<gslpp::complex>** ComputeCoeffdiujlknu(int i, int j, int k, double mu) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffsnunu() const;
 
@@ -242,44 +250,39 @@ public:
      *
      */
     void setSMupdated() const;
-    
+
     bool setFlag(const std::string name, const bool value);
 
-    bool setFlagUseDispersionRelation(bool dispersion)
-    {
+    bool setFlagUseDispersionRelation(bool dispersion) {
         return (this->dispersion = dispersion);
     }
 
-    bool setFlagCLN(bool CLNflag)
-    {
+    bool setFlagCLN(bool CLNflag) {
         return (this->CLNflag = CLNflag);
     }
 
-    bool setFlagFixedWCbtos(bool FixedWCbtosflag)
-    {
+    bool setFlagFixedWCbtos(bool FixedWCbtosflag) {
         return (this->FixedWCbtosflag = FixedWCbtosflag);
     }
 
-    bool getFlagUseDispersionRelation() const
-    {
+    bool getFlagUseDispersionRelation() const {
         return dispersion;
     }
 
-    bool getFlagCLN() const
-    {
+    bool getFlagCLN() const {
         return CLNflag;
     }
 
-    bool getFlagFixedWCbtos() const
-    {
+    bool getFlagFixedWCbtos() const {
         return FixedWCbtosflag;
     }
 
 private:
     template<typename T, typename... Args> std::shared_ptr<T>& getPtr(std::shared_ptr<T>& x, Args... args) const;
-    template <typename T, typename... Args> T& getM(std::map<std::vector<int>,std::shared_ptr<T> >& map, Args ... args) const;
+    template <typename T, typename... Args> T& getM(std::map<std::vector<int>, std::shared_ptr<T> >& map, Args ... args) const;
     const StandardModel & mySM;
     mutable std::shared_ptr<HeffDF2> HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
+    mutable std::shared_ptr<HeffDF1_diujlknu> HDF1_diujlknu; ///< An Object for the Hamiltonian built with \f$ \bar{d}_i u_j \bar{\nu} \ell_k \f$ operators in the JMS basis, ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
     mutable std::shared_ptr<HeffDB1> HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
     mutable std::shared_ptr<HeffDS1> HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
     mutable std::map<std::vector<int>, std::shared_ptr<MVll> > MVllMap;
@@ -288,7 +291,7 @@ private:
     mutable std::map<std::vector<int>, std::shared_ptr<MPll> > MPllMap;
     mutable std::map<std::vector<int>, std::shared_ptr<MPlnu> > MPlnuMap;
     mutable std::map<std::vector<int>, bool> flagUpdateMap;
-    
+
     mutable bool dispersion;
     mutable bool CLNflag;
     mutable bool FixedWCbtosflag;

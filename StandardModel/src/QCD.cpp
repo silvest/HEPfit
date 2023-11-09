@@ -1312,3 +1312,36 @@ double QCD::MS2DRqmass(const double MSscale, const double MSbar) const
 {
     return (MSbar / (1. + Als(MSscale, FULLNLO) / 4. / M_PI * CF));
 }
+
+double QCD::Mofmu2MbarTMP(double *mu, double *params) const
+{
+    double mofmu = params[0];
+    double muI = params[1];
+    return (*mu - Mrun(*mu, muI, mofmu));
+}
+
+double QCD::Mofmu2Mbar(const double m, double mu) const
+{
+
+    //First move to the right region by running to m
+    
+    double mlow = Mrun(m, mu, m);
+    TF1 f("f", this, &QCD::Mofmu2MbarTMP, mlow / 2., 2. * mlow, 2, "QCD", "mofmu2mbara");
+
+    ROOT::Math::WrappedTF1 wf1(f);
+    
+    double params[2];
+    params[0] = mlow;
+    params[1] = m;
+    wf1.SetParameters(params);
+
+    ROOT::Math::BrentRootFinder brf;
+
+    brf.SetFunction(wf1, .7 * mlow, 1.3 * mlow);
+    if (brf.Solve())
+        mlow = brf.Root();
+    else
+        throw std::runtime_error("error in QCD::mp2mbar");
+
+    return (mlow);
+}
