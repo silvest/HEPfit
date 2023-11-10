@@ -70,7 +70,7 @@ gslpp::vector<double> stability_GTHDM::getStability()
     CalcStabeigen(Lambeigvec,Lambeigval);
     
     //The eigenvectors must be real
-    if((Lambeigval(0)).imag()<10^(-15) && (Lambeigval(1)).imag()<10^(-15) && (Lambeigval(2)).imag()<10^(-15) && (Lambeigval(3)).imag()<10^(-15)){
+    if((Lambeigval(0)).imag()<10.e-15 && (Lambeigval(1)).imag()<10.e-15 && (Lambeigval(2)).imag()<10.e-15 && (Lambeigval(3)).imag()<10.e-15){
         
         //Now we need to find the position of the timelike eigenvector.
         //First we need to compute the modulus.

@@ -514,7 +514,7 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double Nc = 3.;
     double Qu = 2 / 3;
     double Qd = -1 / 3;
-    double Ql = -1;
+//    double Ql = -1;
 
     //SM masses
     double mMU = myGTHDM.getLeptons(StandardModel::MU).getMass();
@@ -601,12 +601,12 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double rsqb_h = mb * mb / mH1_2;
     double rsqb_H = mb * mb / mH2_2;
     double rsqb_A = mb * mb / mH3_2;
-    double rsqb_Hp = mb * mb / mHp2;
+//    double rsqb_Hp = mb * mb / mHp2;
     //tau-lepton ratios square
     double rsqtau_h = mTAU * mTAU / mH1_2;
     double rsqtau_H = mTAU * mTAU / mH2_2;
     double rsqtau_A = mTAU * mTAU / mH3_2;
-    double rsqtau_Hp = mTAU * mTAU / mHp2;
+//    double rsqtau_Hp = mTAU * mTAU / mHp2;
     //charged-higgs ratios square
     double rsqHp_h = mHp2 / mH1_2;
     double rsqHp_H = mHp2 / mH2_2;
@@ -615,7 +615,7 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double rsqW_h = Mw * Mw / mH1_2;
     double rsqW_H = Mw * Mw / mH2_2;
     double rsqW_A = Mw * Mw / mH3_2;
-    double rsqW_Hp = Mw * Mw / mHp2;
+//    double rsqW_Hp = Mw * Mw / mHp2;
 
 
 
@@ -685,7 +685,7 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double a4_total;
 
     a4_Hp_t = a4_const * ((su * (sl.conjugate())).real()) * mt * mt * (F4twoloopgm2(rsqt_Hp) - F4twoloopgm2(rsqt_W));
-    a4_Hp_t = a4_const * ((sd * (sl.conjugate())).real()) * mb * mb * (F5twoloopgm2(rsqt_Hp) - F5twoloopgm2(rsqt_W));
+    a4_Hp_b = a4_const * ((sd * (sl.conjugate())).real()) * mb * mb * (F5twoloopgm2(rsqt_Hp) - F5twoloopgm2(rsqt_W));
 
     a4_total = a4_Hp_t + a4_Hp_b;
 

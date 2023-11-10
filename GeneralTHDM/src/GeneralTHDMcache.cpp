@@ -87,6 +87,12 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS8_pp_phii_phijZ_tautaull_1(400, 3, 0.),
         CMS8_pp_phii_phijZ_tautaull_2(400, 3, 0.),
         ATLAS13_bb_phi_bb(96, 2, 0.),               //Included in mid 2022
+        CMS13_gg_phi_WW_heavy(71, 2, 0.),           //Included in mid 2022
+        CMS13_VV_phi_WW_heavy(71, 2, 0.),           //Included in mid 2022
+        CMS13_gg_phi_WW(281, 2, 0.),                //Included in mid 2022
+        CMS13_VV_phi_WW(561, 2, 0.),                //Included in mid 2022
+        ATLAS13_gg_phi_VV_llqq(95, 2, 0.),
+        ATLAS13_VV_phi_VV_llqq(95, 2, 0.),
         //ATLAS13_tt_phi_tt(61, 2, 0.),             //OLD before mid 2022
         ATLAS13_tt_phi_tt(13, 2, 0.),               //Updated in mid 2022
         ATLAS13_bb_phi_tt(61, 2, 0.),
@@ -100,25 +106,15 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_gg_phi_Zga_qqga(581, 2, 0.),
         //ATLAS13_gg_phi_ZZ_llllnunu(101, 2, 0.),   //OLD before mid 2022
         //ATLAS13_VV_phi_ZZ_llllnunu(101, 2, 0.),   //OLD before mid 2022
-        
         ATLAS13_gg_phi_ZZ_llllnunu(359, 2, 0.),     //Updated in mid 2022
         ATLAS13_VV_phi_ZZ_llllnunu(359, 2, 0.),     //Updated in mid 2022
-        
-        
         ATLAS13_gg_phi_ZZ_qqllnunu(271, 2, 0.),
         ATLAS13_VV_phi_ZZ_qqllnunu(271, 2, 0.),
-        
-        CMS13_gg_phi_WW_heavy(71, 2, 0.),                //Included in mid 2022
-        CMS13_VV_phi_WW_heavy(71, 2, 0.),                //Included in mid 2022
-        CMS13_gg_phi_WW(281, 2, 0.),                //Included in mid 2022
-        CMS13_VV_phi_WW(561, 2, 0.),                //Included in mid 2022
         ATLAS13_gg_phi_WW_enumunu(381, 2, 0.),
         ATLAS13_VV_phi_WW_enumunu(281, 2, 0.),
         ATLAS13_gg_phi_WW_lnuqq(271, 2, 0.),
         ATLAS13_VV_phi_WW_lnuqq(271, 2, 0.),
         ATLAS13_pp_phi_VV_qqqq(181, 2, 0.),
-        ATLAS13_gg_phi_VV_llqq(95, 2, 0.),
-        ATLAS13_VV_phi_VV_llqq(95, 2, 0.),
         //ATLAS13_pp_phi_phi1phi1_bbbb(275, 2, 0.),     //OLD before mid 2022
         ATLAS13_pp_phi_phi1phi1_bbbb(476, 2, 0.),       //Updated in mid 2022
         //ATLAS13_pp_phi_phi1phi1_bbgaga(75, 2, 0.),    //OLD before mid 2022
@@ -130,20 +126,16 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_gg_phi_phi1phi1_gagaWW(25, 2, 0.),
         ATLAS13_gg_phi_phi1Z_bbZ(181, 2, 0.),
         ATLAS13_bb_phi_phi1Z_bbZ(181, 2, 0.),
-        
         ATLAS13_bb_phi_phi1Z_tautaull(19, 2, 0.),
-        
         //ATLAS13_gg_phii_phijZ_bbZ(3364, 3, 0.),   //OLD before mid 2022
         //ATLAS13_bb_phii_phijZ_bbZ(3364, 3, 0.),   //OLD before mid 2022
         ATLAS13_gg_phii_phijZ_bbZ(1711, 3, 0.),     //Updated in mid 2022
         ATLAS13_bb_phii_phijZ_bbZ(1711, 3, 0.),     //Updated in mid 2022
-        
-        CMS13_tt_phi2_tt(31, 2, 0.),               //Included in mid 2022
-        CMS13_tt_phi3_tt(31, 2, 0.),               //Included in mid 2022
-        
-        CMS13_pp_phi_bb(66, 2, 0.),
         CMS13_pp_phi2_bb_light(61, 2, 0.),          //Included in mid 2022
         CMS13_pp_phi3_bb_light(61, 2, 0.),          //Included in mid 2022
+        CMS13_tt_phi2_tt(31, 2, 0.),               //Included in mid 2022
+        CMS13_tt_phi3_tt(31, 2, 0.),               //Included in mid 2022
+        CMS13_pp_phi_bb(66, 2, 0.),
         CMS13_bb_phi_bb(101, 2, 0.),
         //CMS13_gg_phi_tautau(312, 2, 0.),          //OLD before mid 2022
         //CMS13_bb_phi_tautau(312, 2, 0.),          //OLD before mid 2022
@@ -156,32 +148,32 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS13_ggVV_phi_WW_lnulnu(81, 2, 0.),
         CMS13_pp_phi_WW_lnuqq(341, 2, 0.),
         CMS13_pp_phi_phi1phi1_bbbb_1(95, 2, 0.),
-//        CMS13_pp_phi_phi1phi1_bbbb_2(181, 2, 0.),     //OLD before mid 2022
+        //CMS13_pp_phi_phi1phi1_bbbb_2(181, 2, 0.),     //OLD before mid 2022
         CMS13_pp_phi_phi1phi1_bbbb_2(41, 2, 0.),        //Updated in mid 2022 
         CMS13_pp_phi_phi1phi1_bbgaga(66, 2, 0.),
         CMS13_pp_phi_phi1phi1_bbtautau_1(66, 2, 0.),
         CMS13_pp_phi_phi1phi1_bbtautau_2(311, 2, 0.),
         CMS13_pp_phi_phi1phi1_bbVV(65, 2, 0.),
+        CMS13_gg_phi_phi1Z_bbZ_1(79, 2, 0.),
+        CMS13_gg_phi_phi1Z_bbZ_2(121, 2, 0.),
+        CMS13_bb_phi_phi1Z_bbZ_1(79, 2, 0.),
+        CMS13_bb_phi_phi1Z_bbZ_2(121, 2, 0.),
         CMS13_pp_phi_phi1phi1_4WOr2W2tauOr4tau(76, 2, 0.), //Included in mid 2022 
         CMS13_pp_phi_phi1phi1_bbWW_qqlnu(55, 2, 0.), //Included in mid 2022 
         CMS13_pp_phi_phi1phi1_bbZZ_lljj(149, 2, 0.), //Included in mid 2022 
         CMS13_pp_phi_phi1phi1_bbZZ_llnunu(151, 2, 0.), //Included in mid 2022 
         CMS13_pp_phi_phi1phi1_bbWWorbbtautau(75, 2, 0.),
-        CMS13_gg_phi_phi1Z_bbZ_1(79, 2, 0.),
-        CMS13_gg_phi_phi1Z_bbZ_2(121, 2, 0.),
-        CMS13_bb_phi_phi1Z_bbZ_1(79, 2, 0.),
-        CMS13_bb_phi_phi1Z_bbZ_2(121, 2, 0.),
         ATLAS8_pp_Hpm_taunu(83, 2, 0.),
         ATLAS8_pp_Hpm_tb(41, 2, 0.),
         CMS8_pp_Hp_taunu(43, 2, 0.),
         CMS8_pp_Hp_tb(43, 2, 0.),
         ATLAS13_pp_Hpm_taunu(192, 2, 0.),
-//        ATLAS13_pp_Hpm_tb(181, 2, 0.),    //OLD before mid 2022
+        //ATLAS13_pp_Hpm_tb(181, 2, 0.),    //OLD before mid 2022
         ATLAS13_pp_Hpm_tb(181, 2, 0.),      //Updated in mid 2022 (in this case both have the same size)
+        //CMS13_pp_Hpm_taunu(283, 2, 0.),   //OLD before mid 2022
+        CMS13_pp_Hpm_taunu(585, 2, 0.),     //Updated in mid 2022
         CMS13_pp_Hpm_tb(281, 2, 0.),       //Included in mid 2022
-//        CMS13_pp_Hpm_taunu(283, 2, 0.), //OLD before mid 2022
-        CMS13_pp_Hpm_taunu(585, 2, 0.),   //Updated in mid 2022
-        
+        //
         arraybsgamma(1111, 3, 0.),
         Rij_GTHDM(3, 3, 0.),
         //The below matrices are not used anywhere, the first ones are the mass matrices and the second ones not sure
