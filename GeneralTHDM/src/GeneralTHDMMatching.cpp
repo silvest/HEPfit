@@ -498,11 +498,11 @@ double GeneralTHDMMatching::gminus2muNLO() {
 
     updateGTHDMParameters();
 
-    if (!myGTHDM.getSMHiggs()) {
-        //throw std::runtime_error("The NLO computation of g-2 is only implemented for SM Higgs since the coupling of charged scalars to neutral scalars is included only for that case.");
-        throw std::runtime_error("The NLO computation of g-2 for the heavy higgs scenario must be reviewed although in principle is implemented");
-
-    }
+//    if (!myGTHDM.getSMHiggs()) {
+//        //throw std::runtime_error("The NLO computation of g-2 is only implemented for SM Higgs since the coupling of charged scalars to neutral scalars is included only for that case.");
+//        throw std::runtime_error("The NLO computation of g-2 for the heavy higgs scenario must be reviewed although in principle is implemented");
+//
+//    }
 
 
 
@@ -567,30 +567,15 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double mHp2 = myGTHDM.getMyGTHDMCache()->mHp2;
 
     //GTHDM Rotation Couplings
-    double R11 = myGTHDM.getMyGTHDMCache()->R11;
-    double R12 = myGTHDM.getMyGTHDMCache()->R12;
-    double R13 = myGTHDM.getMyGTHDMCache()->R13;
-    double R21 = myGTHDM.getMyGTHDMCache()->R21;
-    double R22 = myGTHDM.getMyGTHDMCache()->R22;
-    double R23 = myGTHDM.getMyGTHDMCache()->R23;
-    double R31 = myGTHDM.getMyGTHDMCache()->R31;
-    double R32 = myGTHDM.getMyGTHDMCache()->R32;
-    double R33 = myGTHDM.getMyGTHDMCache()->R33;
-
-    double Rh1;
-    double RH1;
-    double RA1;
-
-
-    if (!myGTHDM.getSMHiggs()) {
-        RH1 = R11;
-        Rh1 = R21;
-        RA1 = R31;
-    } else {
-        Rh1 = R11;
-        RH1 = R21;
-        RA1 = R31;
-    }
+    double R11 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,0);
+    double R12 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,1);
+    double R13 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,2);
+    double R21 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,0);
+    double R22 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,1);
+    double R23 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,2);
+    double R31 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,0);
+    double R32 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,1);
+    double R33 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,2);
 
     //GTHDM lambda couplings
     double lambda3 = myGTHDM.getlambda3();
@@ -602,17 +587,9 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double lambdaHpH;
     double lambdaHpA;
 
+    lambdaHph = R11 * lambda3 + R12 * Relambda7 - R13*Imlambda7;
+    lambdaHpH = R21 * lambda3 + R22 * Relambda7 - R23*Imlambda7;
     lambdaHpA = R31 * lambda3 + R32 * Relambda7 - R33*Imlambda7;
-
-    if (!myGTHDM.getSMHiggs()) {
-        lambdaHpH = R11 * lambda3 + R12 * Relambda7 - R13*Imlambda7;
-        lambdaHph = R21 * lambda3 + R22 * Relambda7 - R23*Imlambda7;
-    } else {
-        lambdaHph = R11 * lambda3 + R12 * Relambda7 - R13*Imlambda7;
-        lambdaHpH = R21 * lambda3 + R22 * Relambda7 - R23*Imlambda7;
-    }
-
-
 
     //top-quark ratios square
     double rsqt_h = mt * mt / mH1_2;
@@ -695,9 +672,9 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double a3_total;
 
     a3_SM = a3_const * F3twoloopgm2(rsqW_h);
-    a3_h = a3_const * yl1R * Rh1 * F3twoloopgm2(rsqW_h);
-    a3_H = a3_const * yl2R * RH1 * F3twoloopgm2(rsqW_H);
-    a3_A = a3_const * yl3R * RA1 * F3twoloopgm2(rsqW_A);
+    a3_h = a3_const * yl1R * R11 * F3twoloopgm2(rsqW_h);
+    a3_H = a3_const * yl2R * R21 * F3twoloopgm2(rsqW_H);
+    a3_A = a3_const * yl3R * R31 * F3twoloopgm2(rsqW_A);
 
     a3_total = -a3_SM + a3_h + a3_H + a3_A;
 
@@ -1115,15 +1092,15 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton) 
     double Relambda7 = myGTHDM.getMyGTHDMCache()->Relambda7;
     double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3;
 
-    double R11 = myGTHDM.getMyGTHDMCache()->R11_GTHDM;
-    double R12 = myGTHDM.getMyGTHDMCache()->R12_GTHDM;
-    double R13 = myGTHDM.getMyGTHDMCache()->R13_GTHDM;
-    double R21 = myGTHDM.getMyGTHDMCache()->R21_GTHDM;
-    double R22 = myGTHDM.getMyGTHDMCache()->R22_GTHDM;
-    double R23 = myGTHDM.getMyGTHDMCache()->R23_GTHDM;
-    double R31 = myGTHDM.getMyGTHDMCache()->R31_GTHDM;
-    double R32 = myGTHDM.getMyGTHDMCache()->R32_GTHDM;
-    double R33 = myGTHDM.getMyGTHDMCache()->R33_GTHDM;
+    double R11 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,0);
+    double R12 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,1);
+    double R13 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,2);
+    double R21 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,0);
+    double R22 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,1);
+    double R23 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,2);
+    double R31 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,0);
+    double R32 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,1);
+    double R33 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,2);
 
     gslpp::complex sl = myGTHDM.getNl_11();
     gslpp::complex su = myGTHDM.getNu_11();
@@ -1143,43 +1120,21 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton) 
 
     //Yukawa couplings. Eq. (19)
 
-    gslpp::complex yl1 = 0.0;
-    gslpp::complex yl2 = 0.0;
+    gslpp::complex yl1 = R11 + (R12 + i * R13) * sl;
+    gslpp::complex yl2 = R21 + (R22 + i * R23) * sl;
     gslpp::complex yl3 = R31 + (R32 + i * R33) * sl;
-
-    if (myGTHDM.getSMHiggs()) {
-        yl1 = R11 + (R12 + i * R13) * sl;
-        yl2 = R21 + (R22 + i * R23) * sl;
-    } else {
-        yl2 = R11 + (R12 + i * R13) * sl;
-        yl1 = R21 + (R22 + i * R23) * sl;
-    }
-
 
     gslpp::complex CSboxU = CSboxBll(xt, xHp, su, sd, sl);
     gslpp::complex CPboxU = CPboxBll(xt, xHp, su, sd, sl);
     gslpp::complex CPZU = CPZUBll(xt, xHp, sW2, su, sd);
 
-    gslpp::complex CSphi1U = 0.0;
-    gslpp::complex CSphi2U = 0.0;
+    gslpp::complex CSphi1U = yl1.real() * CphiU(xHp, xt, vev, xphi1, mu, R11, R12, R13, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
+    gslpp::complex CSphi2U = yl2.real() * CphiU(xHp, xt, vev, xphi2, mu, R21, R22, R23, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
     gslpp::complex CSphi3U = yl3.real() * CphiU(xHp, xt, vev, xphi3, mu, R31, R32, R33, mH3_2, lambda3, Relambda7, Imlambda7, su, sd);
 
-    gslpp::complex CPphi1U = 0.0;
-    gslpp::complex CPphi2U = 0.0;
+    gslpp::complex CPphi1U = i * yl1.imag() * CphiU(xHp, xt, vev, xphi1, mu, R11, R12, R13, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
+    gslpp::complex CPphi2U = i * yl2.imag() * CphiU(xHp, xt, vev, xphi2, mu, R21, R22, R23, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
     gslpp::complex CPphi3U = i * yl3.imag() * CphiU(xHp, xt, vev, xphi3, mu, R31, R32, R33, mH3_2, lambda3, Relambda7, Imlambda7, su, sd);
-
-
-    if (myGTHDM.getSMHiggs()) {
-        CSphi1U = yl1.real() * CphiU(xHp, xt, vev, xphi1, mu, R11, R12, R13, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CSphi2U = yl2.real() * CphiU(xHp, xt, vev, xphi2, mu, R21, R22, R23, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CPphi1U = i * yl1.imag() * CphiU(xHp, xt, vev, xphi1, mu, R11, R12, R13, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CPphi2U = i * yl2.imag() * CphiU(xHp, xt, vev, xphi2, mu, R21, R22, R23, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
-    } else {
-        CSphi1U = yl1.real() * CphiU(xHp, xt, vev, xphi1, mu, R21, R22, R23, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CSphi2U = yl2.real() * CphiU(xHp, xt, vev, xphi2, mu, R11, R12, R13, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CPphi1U = i * yl1.imag() * CphiU(xHp, xt, vev, xphi1, mu, R21, R22, R23, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CPphi2U = i * yl2.imag() * CphiU(xHp, xt, vev, xphi2, mu, R11, R12, R13, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
-    }
 
 
     //Total 2HDM Wilson coefficients CS and CP PART. Eq. (31)-(33) without SM part

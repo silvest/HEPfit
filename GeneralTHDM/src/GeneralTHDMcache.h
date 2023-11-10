@@ -2832,10 +2832,6 @@ public:
     double mH3sq;
     double mHp;
     double mHp2;
-    double mHlight_2;
-    double mHmedium_2;
-    double mHheavy_2;
-    double mHp2_GTHDM;
     double M11_2;
     double M12_2;
     double M13_2;
@@ -2858,12 +2854,9 @@ public:
     double M2; 
     
    
-    //It doesn't make sense to have the angle with the subscript GTHDM, they are the same as the other ones
-    double R11_GTHDM, R12_GTHDM, R13_GTHDM;
-    double R21_GTHDM, R22_GTHDM, R23_GTHDM;
-    double R31_GTHDM, R32_GTHDM, R33_GTHDM;
-    
-    double R11, R12, R13, R21, R22, R23, R31, R32, R33;
+    //Public Rij elements which parametrise the rotation to the mass basis
+    gslpp::matrix<double>  Rij_GTHDM;
+
     double m1_2, m2_2, m3_2, m1, m2, m3;
     
     
@@ -2876,11 +2869,7 @@ public:
 //    double lambda3_GTHDM;
 //    double lambda4_GTHDM;
 //    double Relambda5_GTHDM;
-//    
-//    double R11_GTHDM, R12_GTHDM, R13_GTHDM;
-//    double R21_GTHDM, R22_GTHDM, R23_GTHDM;
-//    double R31_GTHDM, R32_GTHDM, R33_GTHDM;
-//    
+  
     gslpp::complex sigmau_ATHDM, sigmad_ATHDM, sigmal_ATHDM; //This is completely useless and confusing!!!
 
     gslpp::matrix<gslpp::complex> Mu_GTHDM, Md_GTHDM, Ml_GTHDM;
@@ -2940,6 +2929,10 @@ private:
     //double Imlambda5;
     //double Relambda6;
     //double Relambda7;
+    
+    //Private Rij elements which parametrise the rotation to the mass basis
+    // Variables without 'GTHDM' label to simplify expressions with lambdaijk and KaellenFunction
+    double R11, R12, R13, R21, R22, R23, R31, R32, R33;
     
     double Q_GTHDM;
 //    double bma;

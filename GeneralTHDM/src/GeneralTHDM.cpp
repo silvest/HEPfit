@@ -114,7 +114,6 @@ GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
     ModelParamMap.insert(std::make_pair("NLOuniscaleGTHDM", std::cref(NLOuniscaleGTHDM)));
     flag_use_sq_masses=true;
     flag_sigma=true;
-    flag_SM_Higgs= true;
 
 
 }
@@ -288,7 +287,7 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
     else if(name.compare("Nu_11r") == 0 && flag_sigma)
         Nu_11r = value;
    else if(name.compare("yu1R_GTHDM") == 0 && !flag_sigma){
-       if(alpha1==0 && flag_SM_Higgs )
+       if(alpha1==0)
            yu1R_GTHDM=1;
        else
          yu1R_GTHDM = value;
@@ -500,11 +499,6 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
     else if(name.compare("CPconservation") == 0) {
     std::cout<<"CPconservation = "<< value<<std::endl;
         flag_CPconservation = value;
-        res = true;  
-    }
-    else if(name.compare("SMHiggs") == 0) {
-    std::cout<<"SMHiggs = "<< value<<std::endl;
-        flag_SM_Higgs = value;
         res = true;  
     }
     else
@@ -781,29 +775,17 @@ double GeneralTHDM::GTHDMDeltaS() const
     double mHp2= getmHp2();
     
     double mHref_2 = getmH1sq();  
-    double  R11 = 0.0;
-    double  R21 = 0.0;
-    double  R31 = cosalpha2*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
+    double  R11 = myGTHDMcache->Rij_GTHDM(0,0);
+    double  R21 = myGTHDMcache->Rij_GTHDM(1,0);
+    double  R31 = myGTHDMcache->Rij_GTHDM(2,0);
 
-    //THIS NEEDS TO BE CHECKED, MAYBE BETTER TO DEFINE THIS MATRIX ELEMENTS AS PARAMETERS
-    if(getSMHiggs()){
-           R11 = cosalpha1*cosalpha2;;
-           R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
-    }
-    else{
-           R21 = cosalpha1*cosalpha2;
-           R11 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
-    }
-    
+
     double  R11_2 = R11*R11;
     double  R21_2 = R21*R21;
     double  R31_2 = R31*R31;
 
-    //std::cout<<"\033[1;33m R11 =  \033[0m "<<  R11 <<std::endl;
-    //std::cout<<"\033[1;33m R21 =  \033[0m "<<  R21 <<std::endl;
-    //std::cout<<"\033[1;33m R31 =  \033[0m "<<  R31 <<std::endl;
-    
-    
+
+
     double MZ= getMz();
     double MZ2 = MZ*MZ;
     
@@ -869,38 +851,20 @@ double GeneralTHDM::GTHDMDeltaT() const
         
         
         
-    double  R11 = 0.0;
-    double  R12 = 0.0;
-    double  R13 = 0.0;
-    double  R21 = 0.0;
-    double  R22 = 0.0;
-    double  R23 = 0.0;
-    double R31 = cosalpha2*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
-    double R32 = sinalpha1*sinalpha2*cosalpha3 - cosalpha1*sinalpha3;
-    double R33 = cosalpha2*cosalpha3;
-    
-    
-    if(getSMHiggs()){
-        R11 = cosalpha1*cosalpha2;
-        R12 = sinalpha1*cosalpha2;
-        R13 = -sinalpha2;
-        R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
-        R22 = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3;
-        R23 = cosalpha2*sinalpha3;
-    }
-    else{
-        
-        R21 = cosalpha1*cosalpha2; //R21 is R11 in this case
-        R22 = sinalpha1*cosalpha2; //R22 is R12 in this case
-        R23 = -sinalpha2;          //R23 is R13 in this case
-        R11 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3; //R11 is R21 in this case
-        R12 = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3; //R12 is R22 in this case
-        R13 = cosalpha2*sinalpha3; //R13 is R23 in this case
-    }
-    
-        double  R11_2 = R11*R11;
-        double  R21_2 = R21*R21;
-        double  R31_2 = R31*R31;
+    double  R11 = myGTHDMcache->Rij_GTHDM(0,0);
+    double  R12 = myGTHDMcache->Rij_GTHDM(0,1);
+    double  R13 = myGTHDMcache->Rij_GTHDM(0,2);
+    double  R21 = myGTHDMcache->Rij_GTHDM(1,0);
+    double  R22 = myGTHDMcache->Rij_GTHDM(1,1);
+    double  R23 = myGTHDMcache->Rij_GTHDM(1,2);
+    double  R31 = myGTHDMcache->Rij_GTHDM(2,0);
+    double  R32 = myGTHDMcache->Rij_GTHDM(2,1);
+    double  R33 = myGTHDMcache->Rij_GTHDM(2,2);
+
+
+    double  R11_2 = R11*R11;
+    double  R21_2 = R21*R21;
+    double  R31_2 = R31*R31;
      
     double MZ=getMz();
     double MZ2 = MZ*MZ;
@@ -959,37 +923,17 @@ double GeneralTHDM::GTHDMDeltaU() const
         
     
           
-    double  R11 = 0.0;
-    double  R12 = 0.0;
-    double  R13 = 0.0;
-    double  R21 = 0.0;
-    double  R22 = 0.0;
-    double  R23 = 0.0;
-    double  R31 = cosalpha2*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
-    double  R32 = sinalpha1*sinalpha2*cosalpha3 - cosalpha1*sinalpha3;
-    double  R33 = cosalpha2*cosalpha3;
+    double  R11 = myGTHDMcache->Rij_GTHDM(0,0);
+    double  R12 = myGTHDMcache->Rij_GTHDM(0,1);
+    double  R13 = myGTHDMcache->Rij_GTHDM(0,2);
+    double  R21 = myGTHDMcache->Rij_GTHDM(1,0);
+    double  R22 = myGTHDMcache->Rij_GTHDM(1,1);
+    double  R23 = myGTHDMcache->Rij_GTHDM(1,2);
+    double  R31 = myGTHDMcache->Rij_GTHDM(2,0);
+    double  R32 = myGTHDMcache->Rij_GTHDM(2,1);
+    double  R33 = myGTHDMcache->Rij_GTHDM(2,2);
 
-    
-    
-    if(getSMHiggs()){
-        R11 = cosalpha1*cosalpha2;
-        R12 = sinalpha1*cosalpha2;
-        R13 = -sinalpha2;
-        R21 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
-        R22 = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3;
-        R23 = cosalpha2*sinalpha3;
-    }
-    else{
-        
-        R21 = cosalpha1*cosalpha2; //R21 is R11 in this case
-        R22 = sinalpha1*cosalpha2; //R22 is R12 in this case
-        R23 = -sinalpha2;          //R23 is R13 in this case
-        R11 = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3; //R11 is R21 in this case
-        R12 = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3; //R12 is R22 in this case
-        R13 = cosalpha2*sinalpha3; //R13 is R23 in this case
-    }
-    
-    
+
     double  R11_2 = R11*R11;
     double  R21_2 = R21*R21;
     double  R31_2 = R31*R31;
