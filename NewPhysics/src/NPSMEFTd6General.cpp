@@ -34255,39 +34255,49 @@ double NPSMEFTd6General::AuxObs_NP30() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6General::Cll_mu() const
+double NPSMEFTd6General::CLL_e() const
+{
+    return (getSMEFTCoeffEW("CllR", 0, 0, 0, 0));
+}
+
+double NPSMEFTd6General::CLL_mu() const
 {
     return (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 1, 1, 0, 0) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getSMEFTCoeffEW("CllR", 1, 0, 0, 1));
 }
 
-double NPSMEFTd6General::Cll_tau() const
+double NPSMEFTd6General::CLL_tau() const
 {
     return (getSMEFTCoeffEW("CllR", 0, 0, 2, 2) + getSMEFTCoeffEW("CllR", 2, 2, 0, 0) + getSMEFTCoeffEW("CllR", 0, 2, 2, 0) + getSMEFTCoeffEW("CllR", 2, 0, 0, 2));
 }
 
-double NPSMEFTd6General::Cll_up() const
+double NPSMEFTd6General::CLL_up() const
 {
     return (getSMEFTCoeffEW("Clq1R", 0, 0, 0, 0) - getSMEFTCoeffEW("Clq3R", 0, 0, 0, 0));
 }
 
-double NPSMEFTd6General::Cll_down() const
+double NPSMEFTd6General::CLL_down() const
 {
     return (getSMEFTCoeffEW("Clq1R", 0, 0, 0, 0) + getSMEFTCoeffEW("Clq3R", 0, 0, 0, 0));
 }
 
-double NPSMEFTd6General::Cll_charm() const
+double NPSMEFTd6General::CLL_charm() const
 {
     return (getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1) + getSMEFTCoeffEW("Clq1R", 1, 1, 0, 0) - getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1) - getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0));
 }
 
-double NPSMEFTd6General::Cll_strange() const
+double NPSMEFTd6General::CLL_strange() const
 {
     return (getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1) + getSMEFTCoeffEW("Clq1R", 1, 1, 0, 0) + getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1) + getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0));
 }
 
-double NPSMEFTd6General::Cll_bottom() const
+double NPSMEFTd6General::CLL_bottom() const
 {
     return (getSMEFTCoeffEW("Clq1R", 0, 0, 2, 2) + getSMEFTCoeffEW("Clq1R", 2, 2, 0, 0) + getSMEFTCoeffEW("Clq3R", 0, 0, 2, 2) + getSMEFTCoeffEW("Clq3R", 2, 2, 0, 0));
+}
+
+double NPSMEFTd6General::CLR_e() const
+{
+    return (getSMEFTCoeffEW("CleR", 0, 0, 0, 0));
 }
 
 double NPSMEFTd6General::CLR_mu() const
@@ -34325,6 +34335,11 @@ double NPSMEFTd6General::CLR_bottom() const
     return (getSMEFTCoeffEW("CldR", 0, 0, 2, 2) + getSMEFTCoeffEW("CldR", 2, 2, 0, 0));
 }
 
+double NPSMEFTd6General::CRL_e() const
+{
+    return (getSMEFTCoeffEW("CleR", 0, 0, 0, 0));
+}
+
 double NPSMEFTd6General::CRL_mu() const
 {
     return (getSMEFTCoeffEW("CleR", 0, 0, 1, 1) + getSMEFTCoeffEW("CleR", 1, 1, 0, 0));
@@ -34358,6 +34373,11 @@ double NPSMEFTd6General::CRL_strange() const
 double NPSMEFTd6General::CRL_bottom() const
 {
     return (getSMEFTCoeffEW("CqeR", 0, 0, 2, 2) + getSMEFTCoeffEW("CqeR", 2, 2, 0, 0));
+}
+
+double NPSMEFTd6General::CRR_e() const
+{
+    return (getSMEFTCoeffEW("CeeR", 0, 0, 0, 0));
 }
 
 double NPSMEFTd6General::CRR_mu() const
@@ -34395,3 +34415,394 @@ double NPSMEFTd6General::CRR_bottom() const
     return (getSMEFTCoeffEW("CedR", 0, 0, 2, 2) + getSMEFTCoeffEW("CedR", 2, 2, 0, 0));
 }
 
+
+double NPSMEFTd6General::deltaMLR2_e(const double t) const
+{
+    return 0.;
+}    
+
+double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) const
+{
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+    
+    // Four-fermion contribution
+    double Aeeff;
+    
+    // Propagator
+    gslpp::complex propZ, propZc;
+    
+    // Correction to amplitude
+    gslpp::complex deltaM2a, deltaM2b, deltaM2;
+    
+    // -------------------------------------------
+    
+    geSM = gZlL;
+    deltage = deltaGL_f(leptons[ELECTRON]);
+    
+    is2c2 = 1./sW2_tree/cW2_tree;
+    
+    if (f.is("MU")) {
+        Aeeff = CLR_mu();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[MU]);
+    } else if (f.is("TAU")) {
+        Aeeff = CLR_tau();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[TAU]);
+    } else if (f.is("UP")) {
+        Aeeff = CLR_up();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuR;
+        deltagf = deltaGR_f(quarks[UP]);
+    } else if (f.is("CHARM")) {
+        Aeeff = CLR_charm();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuR;
+        deltagf = deltaGR_f(quarks[CHARM]);
+    } else if (f.is("DOWN")) {
+        Aeeff = CLR_down();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[DOWN]);
+    } else if (f.is("STRANGE")) {
+        Aeeff = CLR_strange();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[STRANGE]);
+    } else if (f.is("BOTTOM")) { 
+        Aeeff = CLR_bottom();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[BOTTOM]);
+    } else
+        throw std::runtime_error("NPSMEFTd6::deltaMLR2_f(): wrong argument");
+    
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * s/(4. * M_PI * trueSM.alphaMz() ); 
+    
+    deltaGammaZ = deltaGamma_Z();
+    
+    // -------------------------------------------
+    
+    propZ = s /(s - Mz * Mz - Mz * trueSM.Gamma_Z() * (gslpp::complex::i()) );
+    
+    propZc  = propZ.conjugate();
+    
+    deltaM2a = (-Qf + is2c2 * geSM*gfSM * propZ);
+    
+    deltaM2b = -Qf*delta_e + Aeeff 
+             + is2c2 * (geSM*deltagf + gfSM*deltage) * propZc
+             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc *propZc / s;
+    
+    deltaM2 = deltaM2a * deltaM2b;
+    
+    return 2.0 * deltaM2.real();
+
+};
+
+
+double NPSMEFTd6General::deltaMRL2_e(const double t) const
+{
+    return 0.;
+}    
+
+double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) const
+{
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+    
+    // Four-fermion contribution
+    double Aeeff;
+    
+    // Propagator
+    gslpp::complex propZ, propZc;
+    
+    // Correction to amplitude
+    gslpp::complex deltaM2a, deltaM2b, deltaM2;
+    
+    // -------------------------------------------
+    
+    geSM = gZlR;
+    deltage = deltaGR_f(leptons[ELECTRON]);
+    
+    is2c2 = 1./sW2_tree/cW2_tree;
+    
+    if (f.is("MU")) {
+        Aeeff = CRL_mu();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[MU]);
+    } else if (f.is("TAU")) {
+        Aeeff = CRL_tau();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[TAU]);
+    } else if (f.is("UP")) {
+        Aeeff = CRL_up();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuL;
+        deltagf = deltaGL_f(quarks[UP]);
+    } else if (f.is("CHARM")) {
+        Aeeff = CRL_charm();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuL;
+        deltagf = deltaGL_f(quarks[CHARM]);
+    } else if (f.is("DOWN")) {
+        Aeeff = CRL_down();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[DOWN]);
+    } else if (f.is("STRANGE")) {
+        Aeeff = CRL_strange();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[STRANGE]);
+    } else if (f.is("BOTTOM")) {
+        Aeeff = CRL_bottom();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[BOTTOM]);
+    } else
+        throw std::runtime_error("NPSMEFTd6::deltaMRL2_f(): wrong argument");
+    
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * s/(4. * M_PI * trueSM.alphaMz() ); 
+    
+    deltaGammaZ = deltaGamma_Z();
+    
+    // -------------------------------------------
+    
+    propZ = s /(s - Mz * Mz - Mz * trueSM.Gamma_Z() * (gslpp::complex::i()) );
+    
+    propZc  = propZ.conjugate();
+    
+    deltaM2a = (-Qf + is2c2 * geSM*gfSM * propZ);
+    
+    deltaM2b = -Qf*delta_e + Aeeff 
+             + is2c2 * (geSM*deltagf + gfSM*deltage) * propZc
+             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc *propZc / s;
+    
+    deltaM2 = deltaM2a * deltaM2b;
+    
+    return 2.0 * deltaM2.real();
+
+};
+
+
+double NPSMEFTd6General::deltaMLL2_e(const double s, const double t) const
+{
+    return 0.;
+}    
+
+double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s) const
+{
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+    
+    // Four-fermion contribution
+    double Aeeff;
+    
+    // Propagator
+    gslpp::complex propZ, propZc;
+    
+    // Correction to amplitude
+    gslpp::complex deltaM2a, deltaM2b, deltaM2;
+    
+    // -------------------------------------------
+    
+    geSM = gZlL;
+    deltage = deltaGL_f(leptons[ELECTRON]);
+    
+    is2c2 = 1./sW2_tree/cW2_tree;
+    
+    if (f.is("MU")) {
+        Aeeff = CLL_mu();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[MU]);
+    } else if (f.is("TAU")) {
+        Aeeff = CLL_tau();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[TAU]);
+    } else if (f.is("UP")) {
+        Aeeff = CLL_up();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuL;
+        deltagf = deltaGL_f(quarks[UP]);
+    } else if (f.is("CHARM")) {
+        Aeeff = CLL_charm();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuL;
+        deltagf = deltaGL_f(quarks[CHARM]);
+    } else if (f.is("DOWN")) {
+        Aeeff = CLL_down();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[DOWN]);
+    } else if (f.is("STRANGE")) {
+        Aeeff = CLL_strange();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[STRANGE]);
+    } else if (f.is("BOTTOM")) {
+        Aeeff = CLL_bottom();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[BOTTOM]);
+    } else
+        throw std::runtime_error("NPSMEFTd6::deltaMLL2_f(): wrong argument");
+    
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * s/(4. * M_PI * trueSM.alphaMz() ); 
+    
+    deltaGammaZ = deltaGamma_Z();
+    
+    // -------------------------------------------
+    
+    propZ = s /(s - Mz * Mz - Mz * trueSM.Gamma_Z() * (gslpp::complex::i()) );
+    
+    propZc  = propZ.conjugate();
+    
+    deltaM2a = (-Qf + is2c2 * geSM*gfSM * propZ);
+    
+    deltaM2b = -Qf*delta_e + Aeeff 
+             + is2c2 * (geSM*deltagf + gfSM*deltage) * propZc
+             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc *propZc / s;
+    
+    deltaM2 = deltaM2a * deltaM2b;
+    
+    return 2.0 * deltaM2.real();
+
+};
+
+
+
+double NPSMEFTd6General::deltaMRR2_e(const double s, const double t) const
+{
+    return 0.;
+}    
+
+double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s) const
+{
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+    
+    // Four-fermion contribution
+    double Aeeff;
+    
+    // Propagator
+    gslpp::complex propZ, propZc;
+    
+    // Correction to amplitude
+    gslpp::complex deltaM2a, deltaM2b, deltaM2;
+    
+    // -------------------------------------------
+    
+    geSM = gZlR;
+    deltage = deltaGR_f(leptons[ELECTRON]);
+    
+    is2c2 = 1./sW2_tree/cW2_tree;
+    
+    if (f.is("MU")) {
+        Aeeff = CRR_mu();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[MU]);
+    } else if (f.is("TAU")) {
+        Aeeff = CRR_tau();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[TAU]);
+    } else if (f.is("UP")) {
+        Aeeff = CRR_up();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuR;
+        deltagf = deltaGR_f(quarks[UP]);
+    } else if (f.is("CHARM")) {
+        Aeeff = CRR_charm();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuR;
+        deltagf = deltaGR_f(quarks[CHARM]);
+    } else if (f.is("DOWN")) {
+        Aeeff = CRR_down();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[DOWN]);
+    } else if (f.is("STRANGE")) {
+        Aeeff = CRR_strange();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[STRANGE]);
+    } else if (f.is("BOTTOM")) {
+        Aeeff = CRR_bottom();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[BOTTOM]);
+    } else
+        throw std::runtime_error("NPSMEFTd6::deltaMRR2_f(): wrong argument");
+    
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * s/(4. * M_PI * trueSM.alphaMz() ); 
+    
+    deltaGammaZ = deltaGamma_Z();
+    
+    // -------------------------------------------
+    
+    propZ = s /(s - Mz * Mz - Mz * trueSM.Gamma_Z() * (gslpp::complex::i()) );
+    
+    propZc  = propZ.conjugate();
+    
+    deltaM2a = (-Qf + is2c2 * geSM*gfSM * propZ);
+    
+    deltaM2b = -Qf*delta_e + Aeeff 
+             + is2c2 * (geSM*deltagf + gfSM*deltage) * propZc
+             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc *propZc / s;
+    
+    deltaM2 = deltaM2a * deltaM2b;
+    
+    return 2.0 * deltaM2.real();
+
+};
+
+
+//  Absolute corrections to the cos \theta differential distribution    
+    double NPSMEFTd6General::deltaDsigma_e(const double s, const double t, const double u) const
+    {
+        return 0.;
+    };    
+    
+    
+    double NPSMEFTd6General::deltaDsigma_f(const Particle f, const double s, const double t, const double u) const
+    {
+        double sumM2, dsigma;
+        
+        double Nf;
+        
+        if (f.is("LEPTON")) {
+            Nf = 1.0;
+        } else {
+            Nf = 3.0;
+        }
+        
+        sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * t*t/s/s
+                + (deltaMLL2_f(f, s) + deltaMRR2_f(f, s)) * u*u/s/s;
+        
+        dsigma = Nf * 16 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
+        
+        return 0.;
+    };
+    
+    double NPSMEFTd6General::deltaDsigma_had(const double s, const double t, const double u) const
+    {
+        double dsigma;
+        
+        dsigma = deltaDsigma_f(quarks[UP], s, t, u) + deltaDsigma_f(quarks[DOWN], s, t, u)
+                + deltaDsigma_f(quarks[CHARM], s, t, u) + deltaDsigma_f(quarks[STRANGE], s, t, u) 
+                + deltaDsigma_f(quarks[BOTTOM], s, t, u);
+        
+        return dsigma;
+    };

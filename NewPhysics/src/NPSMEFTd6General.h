@@ -1557,15 +1557,19 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
+    
+    // LEP 2 definitions
 
-    double Cll_mu() const;
-    double Cll_tau() const;
-    double Cll_up() const;
-    double Cll_down() const;
-    double Cll_charm() const;
-    double Cll_strange() const;
-    double Cll_bottom() const;
+    double CLL_e() const;
+    double CLL_mu() const;
+    double CLL_tau() const;
+    double CLL_up() const;
+    double CLL_down() const;
+    double CLL_charm() const;
+    double CLL_strange() const;
+    double CLL_bottom() const;
 
+    double CLR_e() const;
     double CLR_mu() const;
     double CLR_tau() const;
     double CLR_up() const;
@@ -1574,6 +1578,7 @@ public:
     double CLR_strange() const;
     double CLR_bottom() const;
 
+    double CRL_e() const;
     double CRL_mu() const;
     double CRL_tau() const;
     double CRL_up() const;
@@ -1582,6 +1587,7 @@ public:
     double CRL_strange() const;
     double CRL_bottom() const;
 
+    double CRR_e() const;
     double CRR_mu() const;
     double CRR_tau() const;
     double CRR_up() const;
@@ -1589,6 +1595,26 @@ public:
     double CRR_charm() const;
     double CRR_strange() const;
     double CRR_bottom() const;
+    
+//  Absolute corrections to the helicity amplitudes squared
+    double deltaMLR2_e(const double t) const;    
+    double deltaMLR2_f(const Particle f, const double s) const;
+    
+    double deltaMRL2_e(const double t) const;    
+    double deltaMRL2_f(const Particle f, const double s) const;
+
+    double deltaMLL2_e(const double s, const double t) const;    
+    double deltaMLL2_f(const Particle f, const double s) const;
+    
+    double deltaMRR2_e(const double s, const double t) const;    
+    double deltaMRR2_f(const Particle f, const double s) const;
+
+    
+//  Absolute corrections to the cos \theta differential distribution    
+    double deltaDsigma_e(const double s, const double t, const double u) const;    
+    double deltaDsigma_f(const Particle f, const double s, const double t, const double u) const;
+    
+    double deltaDsigma_had(const double s, const double t, const double u) const;
 
     ////////////////////////////////////////////////////////////////////////
 
