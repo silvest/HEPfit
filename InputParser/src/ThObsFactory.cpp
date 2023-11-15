@@ -13,6 +13,7 @@
 #include "OptimizedObservablesSMEFTd6.h"
 #include "HiggsThObservables.h"
 #include "DiBosonThObservables.h"
+#include "OtherThObservables.h"
 #include "FlavourObservables.h"
 #include "NPSMEFT6dtopquark.h"
 #include "TopQuarkObservables.h"
@@ -446,6 +447,172 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mupTVppWZ_100_Bin4"] = bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 750., 1200.);
     obsThFactory["mupTVppWZ_100_Bin5"] = bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 1200., 1800.);
     obsThFactory["mupTVppWZ_100_Bin6"] = bind(boost::factory<mupTVppWZ*>(), _1, sqrt_s_FCC100, 1800., 2400.);    
+    //
+    //-----  Collider observables: LHC dilepton events  ----------
+    //----- p p > e e
+    obsThFactory["NEvppee13_Bin1"] = bind(boost::factory<NevLHCee13*>(), _1, 1);
+    obsThFactory["NEvppee13_Bin2"] = bind(boost::factory<NevLHCee13*>(), _1, 2);
+    obsThFactory["NEvppee13_Bin3"] = bind(boost::factory<NevLHCee13*>(), _1, 3);
+    obsThFactory["NEvppee13_Bin4"] = bind(boost::factory<NevLHCee13*>(), _1, 4);
+    obsThFactory["NEvppee13_Bin5"] = bind(boost::factory<NevLHCee13*>(), _1, 5);
+    obsThFactory["NEvppee13_Bin6"] = bind(boost::factory<NevLHCee13*>(), _1, 6);
+    obsThFactory["NEvppee13_Bin7"] = bind(boost::factory<NevLHCee13*>(), _1, 7);
+    obsThFactory["NEvppee13_Bin8"] = bind(boost::factory<NevLHCee13*>(), _1, 8);
+    obsThFactory["NEvppee13_Bin9"] = bind(boost::factory<NevLHCee13*>(), _1, 9);
+    obsThFactory["NEvppee13_Bin10"] = bind(boost::factory<NevLHCee13*>(), _1, 10);
+    obsThFactory["NEvppee13_Bin11"] = bind(boost::factory<NevLHCee13*>(), _1, 11);
+    obsThFactory["NEvppee13_Bin12"] = bind(boost::factory<NevLHCee13*>(), _1, 12);
+    obsThFactory["NEvppee13_Bin13"] = bind(boost::factory<NevLHCee13*>(), _1, 13);
+    obsThFactory["NEvppee13_Bin14"] = bind(boost::factory<NevLHCee13*>(), _1, 14);
+    obsThFactory["NEvppee13_Bin15"] = bind(boost::factory<NevLHCee13*>(), _1, 15);
+    obsThFactory["NEvppee13_Bin16"] = bind(boost::factory<NevLHCee13*>(), _1, 16);
+    obsThFactory["NEvppee13_Bin17"] = bind(boost::factory<NevLHCee13*>(), _1, 17);
+    obsThFactory["NEvppee13_Bin18"] = bind(boost::factory<NevLHCee13*>(), _1, 18);
+    obsThFactory["NEvppee13_Bin19"] = bind(boost::factory<NevLHCee13*>(), _1, 19);
+    obsThFactory["NEvppee13_Bin20"] = bind(boost::factory<NevLHCee13*>(), _1, 20);
+    obsThFactory["NEvppee13_Bin21"] = bind(boost::factory<NevLHCee13*>(), _1, 21);
+    obsThFactory["NEvppee13_Bin22"] = bind(boost::factory<NevLHCee13*>(), _1, 22);
+    obsThFactory["NEvppee13_Bin23"] = bind(boost::factory<NevLHCee13*>(), _1, 23);
+    obsThFactory["NEvppee13_Bin24"] = bind(boost::factory<NevLHCee13*>(), _1, 24);
+    obsThFactory["NEvppee13_Bin25"] = bind(boost::factory<NevLHCee13*>(), _1, 25);
+    obsThFactory["NEvppee13_Bin26"] = bind(boost::factory<NevLHCee13*>(), _1, 26);
+    obsThFactory["NEvppee13_Bin27"] = bind(boost::factory<NevLHCee13*>(), _1, 27);
+    obsThFactory["NEvppee13_Bin28"] = bind(boost::factory<NevLHCee13*>(), _1, 28);
+    obsThFactory["NEvppee13_Bin29"] = bind(boost::factory<NevLHCee13*>(), _1, 29);
+    obsThFactory["NEvppee13_Bin30"] = bind(boost::factory<NevLHCee13*>(), _1, 30);
+    obsThFactory["NEvppee13_Bin31"] = bind(boost::factory<NevLHCee13*>(), _1, 31);
+    obsThFactory["NEvppee13_Bin32"] = bind(boost::factory<NevLHCee13*>(), _1, 32);
+    obsThFactory["NEvppee13_Bin33"] = bind(boost::factory<NevLHCee13*>(), _1, 33);
+    obsThFactory["NEvppee13_Bin34"] = bind(boost::factory<NevLHCee13*>(), _1, 34);
+    obsThFactory["NEvppee13_Bin35"] = bind(boost::factory<NevLHCee13*>(), _1, 35);
+    obsThFactory["NEvppee13_Bin36"] = bind(boost::factory<NevLHCee13*>(), _1, 36);
+    obsThFactory["NEvppee13_Bin37"] = bind(boost::factory<NevLHCee13*>(), _1, 37);
+    obsThFactory["NEvppee13_Bin38"] = bind(boost::factory<NevLHCee13*>(), _1, 38);
+    obsThFactory["NEvppee13_Bin39"] = bind(boost::factory<NevLHCee13*>(), _1, 39);
+    obsThFactory["NEvppee13_Bin40"] = bind(boost::factory<NevLHCee13*>(), _1, 40);
+    obsThFactory["NEvppee13_Bin41"] = bind(boost::factory<NevLHCee13*>(), _1, 41);
+    obsThFactory["NEvppee13_Bin42"] = bind(boost::factory<NevLHCee13*>(), _1, 42);
+    obsThFactory["NEvppee13_Bin43"] = bind(boost::factory<NevLHCee13*>(), _1, 43);
+    obsThFactory["NEvppee13_Bin44"] = bind(boost::factory<NevLHCee13*>(), _1, 44);
+    obsThFactory["NEvppee13_Bin45"] = bind(boost::factory<NevLHCee13*>(), _1, 45);
+    obsThFactory["NEvppee13_Bin46"] = bind(boost::factory<NevLHCee13*>(), _1, 46);
+    obsThFactory["NEvppee13_Bin47"] = bind(boost::factory<NevLHCee13*>(), _1, 47); 
+    //
+    //----- p p > mu mu
+    obsThFactory["NEvppmumu13_Bin1"] = bind(boost::factory<NevLHCmumu13*>(), _1, 1);
+    obsThFactory["NEvppmumu13_Bin2"] = bind(boost::factory<NevLHCmumu13*>(), _1, 2);
+    obsThFactory["NEvppmumu13_Bin3"] = bind(boost::factory<NevLHCmumu13*>(), _1, 3);
+    obsThFactory["NEvppmumu13_Bin4"] = bind(boost::factory<NevLHCmumu13*>(), _1, 4);
+    obsThFactory["NEvppmumu13_Bin5"] = bind(boost::factory<NevLHCmumu13*>(), _1, 5);
+    obsThFactory["NEvppmumu13_Bin6"] = bind(boost::factory<NevLHCmumu13*>(), _1, 6);
+    obsThFactory["NEvppmumu13_Bin7"] = bind(boost::factory<NevLHCmumu13*>(), _1, 7);
+    obsThFactory["NEvppmumu13_Bin8"] = bind(boost::factory<NevLHCmumu13*>(), _1, 8);
+    obsThFactory["NEvppmumu13_Bin9"] = bind(boost::factory<NevLHCmumu13*>(), _1, 9);
+    obsThFactory["NEvppmumu13_Bin10"] = bind(boost::factory<NevLHCmumu13*>(), _1, 10);
+    obsThFactory["NEvppmumu13_Bin11"] = bind(boost::factory<NevLHCmumu13*>(), _1, 11);
+    obsThFactory["NEvppmumu13_Bin12"] = bind(boost::factory<NevLHCmumu13*>(), _1, 12);
+    obsThFactory["NEvppmumu13_Bin13"] = bind(boost::factory<NevLHCmumu13*>(), _1, 13);
+    obsThFactory["NEvppmumu13_Bin14"] = bind(boost::factory<NevLHCmumu13*>(), _1, 14);
+    obsThFactory["NEvppmumu13_Bin15"] = bind(boost::factory<NevLHCmumu13*>(), _1, 15);
+    obsThFactory["NEvppmumu13_Bin16"] = bind(boost::factory<NevLHCmumu13*>(), _1, 16);
+    obsThFactory["NEvppmumu13_Bin17"] = bind(boost::factory<NevLHCmumu13*>(), _1, 17);
+    obsThFactory["NEvppmumu13_Bin18"] = bind(boost::factory<NevLHCmumu13*>(), _1, 18);
+    obsThFactory["NEvppmumu13_Bin19"] = bind(boost::factory<NevLHCmumu13*>(), _1, 19);
+    obsThFactory["NEvppmumu13_Bin20"] = bind(boost::factory<NevLHCmumu13*>(), _1, 20);
+    obsThFactory["NEvppmumu13_Bin21"] = bind(boost::factory<NevLHCmumu13*>(), _1, 21);
+    obsThFactory["NEvppmumu13_Bin22"] = bind(boost::factory<NevLHCmumu13*>(), _1, 22);
+    obsThFactory["NEvppmumu13_Bin23"] = bind(boost::factory<NevLHCmumu13*>(), _1, 23);
+    obsThFactory["NEvppmumu13_Bin24"] = bind(boost::factory<NevLHCmumu13*>(), _1, 24);
+    obsThFactory["NEvppmumu13_Bin25"] = bind(boost::factory<NevLHCmumu13*>(), _1, 25);
+    obsThFactory["NEvppmumu13_Bin26"] = bind(boost::factory<NevLHCmumu13*>(), _1, 26);
+    obsThFactory["NEvppmumu13_Bin27"] = bind(boost::factory<NevLHCmumu13*>(), _1, 27);
+    obsThFactory["NEvppmumu13_Bin28"] = bind(boost::factory<NevLHCmumu13*>(), _1, 28);
+    obsThFactory["NEvppmumu13_Bin29"] = bind(boost::factory<NevLHCmumu13*>(), _1, 29);
+    obsThFactory["NEvppmumu13_Bin30"] = bind(boost::factory<NevLHCmumu13*>(), _1, 30);
+    obsThFactory["NEvppmumu13_Bin31"] = bind(boost::factory<NevLHCmumu13*>(), _1, 31);
+    obsThFactory["NEvppmumu13_Bin32"] = bind(boost::factory<NevLHCmumu13*>(), _1, 32);
+    obsThFactory["NEvppmumu13_Bin33"] = bind(boost::factory<NevLHCmumu13*>(), _1, 33);
+    //
+    //----- p p > tau tau   
+    obsThFactory["NEvpptautau13_Bin1"] = bind(boost::factory<NevLHCtautau13*>(), _1, 1);
+    obsThFactory["NEvpptautau13_Bin2"] = bind(boost::factory<NevLHCtautau13*>(), _1, 2);
+    obsThFactory["NEvpptautau13_Bin3"] = bind(boost::factory<NevLHCtautau13*>(), _1, 3);
+    obsThFactory["NEvpptautau13_Bin4"] = bind(boost::factory<NevLHCtautau13*>(), _1, 4);
+    obsThFactory["NEvpptautau13_Bin5"] = bind(boost::factory<NevLHCtautau13*>(), _1, 5);
+    obsThFactory["NEvpptautau13_Bin6"] = bind(boost::factory<NevLHCtautau13*>(), _1, 6);
+    obsThFactory["NEvpptautau13_Bin7"] = bind(boost::factory<NevLHCtautau13*>(), _1, 7);
+    obsThFactory["NEvpptautau13_Bin8"] = bind(boost::factory<NevLHCtautau13*>(), _1, 8);
+    obsThFactory["NEvpptautau13_Bin9"] = bind(boost::factory<NevLHCtautau13*>(), _1, 9);
+    obsThFactory["NEvpptautau13_Bin10"] = bind(boost::factory<NevLHCtautau13*>(), _1, 10);
+    obsThFactory["NEvpptautau13_Bin11"] = bind(boost::factory<NevLHCtautau13*>(), _1, 11);
+    obsThFactory["NEvpptautau13_Bin12"] = bind(boost::factory<NevLHCtautau13*>(), _1, 12);
+    obsThFactory["NEvpptautau13_Bin13"] = bind(boost::factory<NevLHCtautau13*>(), _1, 13);
+    obsThFactory["NEvpptautau13_Bin14"] = bind(boost::factory<NevLHCtautau13*>(), _1, 14);
+    //
+    //-----  Collider observables: LHC mono-lepton events  ----------  
+    //----- p p > e nu
+    obsThFactory["NEvppenu13_Bin1"] = bind(boost::factory<NevLHCenu13*>(), _1, 1);
+    obsThFactory["NEvppenu13_Bin2"] = bind(boost::factory<NevLHCenu13*>(), _1, 2);
+    obsThFactory["NEvppenu13_Bin3"] = bind(boost::factory<NevLHCenu13*>(), _1, 3);
+    obsThFactory["NEvppenu13_Bin4"] = bind(boost::factory<NevLHCenu13*>(), _1, 4);
+    obsThFactory["NEvppenu13_Bin5"] = bind(boost::factory<NevLHCenu13*>(), _1, 5);
+    obsThFactory["NEvppenu13_Bin6"] = bind(boost::factory<NevLHCenu13*>(), _1, 6);
+    obsThFactory["NEvppenu13_Bin7"] = bind(boost::factory<NevLHCenu13*>(), _1, 7);
+    obsThFactory["NEvppenu13_Bin8"] = bind(boost::factory<NevLHCenu13*>(), _1, 8);
+    obsThFactory["NEvppenu13_Bin9"] = bind(boost::factory<NevLHCenu13*>(), _1, 9);
+    obsThFactory["NEvppenu13_Bin10"] = bind(boost::factory<NevLHCenu13*>(), _1, 10);
+    obsThFactory["NEvppenu13_Bin11"] = bind(boost::factory<NevLHCenu13*>(), _1, 11);
+    obsThFactory["NEvppenu13_Bin12"] = bind(boost::factory<NevLHCenu13*>(), _1, 12);
+    obsThFactory["NEvppenu13_Bin13"] = bind(boost::factory<NevLHCenu13*>(), _1, 13);
+    obsThFactory["NEvppenu13_Bin14"] = bind(boost::factory<NevLHCenu13*>(), _1, 14);
+    obsThFactory["NEvppenu13_Bin15"] = bind(boost::factory<NevLHCenu13*>(), _1, 15);
+    obsThFactory["NEvppenu13_Bin16"] = bind(boost::factory<NevLHCenu13*>(), _1, 16);
+    obsThFactory["NEvppenu13_Bin17"] = bind(boost::factory<NevLHCenu13*>(), _1, 17);
+    obsThFactory["NEvppenu13_Bin18"] = bind(boost::factory<NevLHCenu13*>(), _1, 18);
+    obsThFactory["NEvppenu13_Bin19"] = bind(boost::factory<NevLHCenu13*>(), _1, 20);
+    obsThFactory["NEvppenu13_Bin20"] = bind(boost::factory<NevLHCenu13*>(), _1, 21);
+    obsThFactory["NEvppenu13_Bin21"] = bind(boost::factory<NevLHCenu13*>(), _1, 22);
+    obsThFactory["NEvppenu13_Bin22"] = bind(boost::factory<NevLHCenu13*>(), _1, 23);
+    obsThFactory["NEvppenu13_Bin23"] = bind(boost::factory<NevLHCenu13*>(), _1, 24);
+    obsThFactory["NEvppenu13_Bin24"] = bind(boost::factory<NevLHCenu13*>(), _1, 25);
+    //
+    //----- p p > mu nu
+    obsThFactory["NEvppmunu13_Bin1"] = bind(boost::factory<NevLHCmunu13*>(), _1, 1);
+    obsThFactory["NEvppmunu13_Bin2"] = bind(boost::factory<NevLHCmunu13*>(), _1, 2);
+    obsThFactory["NEvppmunu13_Bin3"] = bind(boost::factory<NevLHCmunu13*>(), _1, 3);
+    obsThFactory["NEvppmunu13_Bin4"] = bind(boost::factory<NevLHCmunu13*>(), _1, 4);
+    obsThFactory["NEvppmunu13_Bin5"] = bind(boost::factory<NevLHCmunu13*>(), _1, 5);
+    obsThFactory["NEvppmunu13_Bin6"] = bind(boost::factory<NevLHCmunu13*>(), _1, 6);
+    obsThFactory["NEvppmunu13_Bin7"] = bind(boost::factory<NevLHCmunu13*>(), _1, 7);
+    obsThFactory["NEvppmunu13_Bin8"] = bind(boost::factory<NevLHCmunu13*>(), _1, 8);
+    obsThFactory["NEvppmunu13_Bin9"] = bind(boost::factory<NevLHCmunu13*>(), _1, 9);
+    obsThFactory["NEvppmunu13_Bin10"] = bind(boost::factory<NevLHCmunu13*>(), _1, 10);
+    obsThFactory["NEvppmunu13_Bin11"] = bind(boost::factory<NevLHCmunu13*>(), _1, 11);
+    obsThFactory["NEvppmunu13_Bin12"] = bind(boost::factory<NevLHCmunu13*>(), _1, 12);
+    obsThFactory["NEvppmunu13_Bin13"] = bind(boost::factory<NevLHCmunu13*>(), _1, 13);
+    obsThFactory["NEvppmunu13_Bin14"] = bind(boost::factory<NevLHCmunu13*>(), _1, 14);
+    obsThFactory["NEvppmunu13_Bin15"] = bind(boost::factory<NevLHCmunu13*>(), _1, 15);
+    obsThFactory["NEvppmunu13_Bin16"] = bind(boost::factory<NevLHCmunu13*>(), _1, 16);
+    obsThFactory["NEvppmunu13_Bin17"] = bind(boost::factory<NevLHCmunu13*>(), _1, 17);
+    obsThFactory["NEvppmunu13_Bin18"] = bind(boost::factory<NevLHCmunu13*>(), _1, 18);
+    obsThFactory["NEvppmunu13_Bin19"] = bind(boost::factory<NevLHCmunu13*>(), _1, 19);
+    obsThFactory["NEvppmunu13_Bin20"] = bind(boost::factory<NevLHCmunu13*>(), _1, 20);
+    obsThFactory["NEvppmunu13_Bin21"] = bind(boost::factory<NevLHCmunu13*>(), _1, 21);
+    obsThFactory["NEvppmunu13_Bin22"] = bind(boost::factory<NevLHCmunu13*>(), _1, 22);
+    //
+    //----- p p > tau nu
+    obsThFactory["NEvpptaunu13_Bin1"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 1);
+    obsThFactory["NEvpptaunu13_Bin2"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 2);
+    obsThFactory["NEvpptaunu13_Bin3"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 3);
+    obsThFactory["NEvpptaunu13_Bin4"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 4);
+    obsThFactory["NEvpptaunu13_Bin5"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 5);
+    obsThFactory["NEvpptaunu13_Bin6"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 6);
+    obsThFactory["NEvpptaunu13_Bin7"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 7);
+    obsThFactory["NEvpptaunu13_Bin8"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 8);
+    obsThFactory["NEvpptaunu13_Bin9"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 9);
+    obsThFactory["NEvpptaunu13_Bin10"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 10);
+    obsThFactory["NEvpptaunu13_Bin11"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 11);
+    //
     //-----  Observables for particle couplings -----
     //-----  Zff couplings observables  ----------
     obsThFactory["deltagZveveL"] = boost::factory<deltagZveveL*>();

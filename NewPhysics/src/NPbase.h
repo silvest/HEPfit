@@ -4093,7 +4093,64 @@ public:
         return 0.0;
     }  
     
-
+    ///////////Collider observables: LHC dilepton events////////////////////////
+    
+    /**
+     * @brief Number of di-electron events at the LHC at 13 TeV
+     * @return NevLHCppee13
+     */
+    virtual double NevLHCppee13(const int i_bin) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Number of di-muon events at the LHC at 13 TeV
+     * @return NevLHCppmumu13
+     */
+    virtual double NevLHCppmumu13(const int i_bin) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Number of di-tau events at the LHC at 13 TeV
+     * @return NevLHCpptautau13
+     */
+    virtual double NevLHCpptautau13(const int i_bin) const
+    {
+        return 0.0;
+    }
+    
+    ///////////Collider observables: LHC mono-lepton events////////////////////////
+    
+    /**
+     * @brief Number of mono-electron events at the LHC at 13 TeV
+     * @return NevLHCppenu13
+     */
+    virtual double NevLHCppenu13(const int i_bin) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Number of mono-muon events at the LHC at 13 TeV
+     * @return NevLHCppmunu13
+     */
+    virtual double NevLHCppmunu13(const int i_bin) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Number of mono-tau events at the LHC at 13 TeV
+     * @return NevLHCpptaunu13
+     */
+    virtual double NevLHCpptaunu13(const int i_bin) const
+    {
+        return 0.0;
+    }
+    
     /////////////Auxiliary observables////////////////
     
     /**

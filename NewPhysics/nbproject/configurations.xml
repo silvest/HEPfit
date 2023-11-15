@@ -27,6 +27,7 @@
       <itemPath>src/NP_couplings.h</itemPath>
       <itemPath>src/NPbase.h</itemPath>
       <itemPath>src/OptimizedObservablesSMEFTd6.h</itemPath>
+      <itemPath>src/OtherThObservables.h</itemPath>
       <itemPath>src/SigmaBR.h</itemPath>
       <itemPath>src/TopQuarkObservables.h</itemPath>
     </logicalFolder>
@@ -59,6 +60,7 @@
       <itemPath>src/NP_couplings.cpp</itemPath>
       <itemPath>src/NPbase.cpp</itemPath>
       <itemPath>src/OptimizedObservablesSMEFTd6.cpp</itemPath>
+      <itemPath>src/OtherThObservables.cpp</itemPath>
       <itemPath>src/SigmaBR.cpp</itemPath>
       <itemPath>src/TopQuarkObservables.cpp</itemPath>
     </logicalFolder>
@@ -226,6 +228,10 @@
       </item>
       <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/OtherThObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/OtherThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SigmaBR.h" ex="false" tool="3" flavor2="0">
@@ -372,6 +378,10 @@
       </item>
       <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/OtherThObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/OtherThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SigmaBR.h" ex="false" tool="3" flavor2="0">
@@ -506,6 +516,10 @@
       </item>
       <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/OtherThObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/OtherThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SigmaBR.h" ex="false" tool="3" flavor2="0">
@@ -630,6 +644,10 @@
             flavor2="0">
       </item>
       <item path="src/OptimizedObservablesSMEFTd6.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/OtherThObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/OtherThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SigmaBR.cpp" ex="false" tool="1" flavor2="0">
       </item>
