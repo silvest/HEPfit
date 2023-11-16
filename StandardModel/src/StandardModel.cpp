@@ -2442,6 +2442,14 @@ double StandardModel::LEP2sigmaMu(const double s) const
     double relerr = 1.e-8;
     double abserr = 1.e-20;
     
+    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
+    if (!IsFlagNoApproximateGammaZ()){
+            
+    /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->LEP2sigmaMuApprox(s));
+
+    } else {
+    
     if(s == 130.*130.){
     
         if (!flagLEP2[ISR]){
@@ -2675,13 +2683,13 @@ double StandardModel::LEP2sigmaMu(const double s) const
         throw std::runtime_error("ERROR: wrong LEP2 energy in StandardModel::LEP2AFBmu!");
     }
         
-   
     double sigma_mu = SMresult_cache;
     
     gsl_set_error_handler(old_handler);
     
-    return sigma_mu;    
-
+    return sigma_mu;  
+    
+    }
 }
 
 
@@ -2691,7 +2699,15 @@ double StandardModel::LEP2sigmaTau(const double s) const
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     double relerr = 1.e-7;
     double abserr = 1.e-17;
-    
+
+    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
+    if (!IsFlagNoApproximateGammaZ()){
+            
+    /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->LEP2sigmaTauApprox(s));
+
+    } else {   
+
     if(s == 130.*130.){
     
         if (!flagLEP2[ISR]){
@@ -2925,13 +2941,13 @@ double StandardModel::LEP2sigmaTau(const double s) const
         throw std::runtime_error("ERROR: wrong LEP2 energy in StandardModel::LEP2sigmaTau!");
     }
 
-    
     double sigma_tau = SMresult_cache;
     
     gsl_set_error_handler(old_handler);
 
-    
     return sigma_tau;
+    
+    }
 }
 
 
@@ -3362,6 +3378,14 @@ double StandardModel::LEP2sigmaHadron(const double s) const
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     double relerr = 1.e-8;
     double abserr = 1.e-20;
+    
+    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
+    if (!IsFlagNoApproximateGammaZ()){
+            
+    /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->LEP2sigmaHadronApprox(s));
+
+    } else {  
     
     if(s == 130.*130.){
     
@@ -4471,13 +4495,13 @@ double StandardModel::LEP2sigmaHadron(const double s) const
         throw std::runtime_error("ERROR: wrong LEP2 energy in StandardModel::LEP2sigmaHadron!");
     }
         
-   
     double sigma_had = SMresult_cache;
     
     gsl_set_error_handler(old_handler);
     
-    return sigma_had;    
-
+    return sigma_had; 
+    
+    }
 }
 
 
@@ -4883,7 +4907,6 @@ double StandardModel::LEP2AFBbottom(const double s) const
         throw std::runtime_error("ERROR: wrong LEP2 energy in StandardModel::LEP2AFBbottom!");
     }
         
-   
     double AFBbottom = SMresult_cache;
     
     gsl_set_error_handler(old_handler);
@@ -5295,7 +5318,6 @@ double StandardModel::LEP2AFBcharm(const double s) const
         throw std::runtime_error("ERROR: wrong LEP2 energy in StandardModel::LEP2AFBcharm!");
     }
         
-   
     double AFBcharm = SMresult_cache;
     
     gsl_set_error_handler(old_handler);
@@ -5312,7 +5334,15 @@ double StandardModel::LEP2AFBmu(const double s) const
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     double relerr = 1.e-7;
     double abserr = 1.e-17;
-    
+
+    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
+    if (!IsFlagNoApproximateGammaZ()){
+            
+    /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->LEP2AFBmuApprox(s));
+
+    } else {  
+         
     if(s == 130.*130.){
         double AFB_noBox, sigma = 0.0;
         if (!flagLEP2[ISR])
@@ -5785,13 +5815,12 @@ double StandardModel::LEP2AFBmu(const double s) const
         throw std::runtime_error("ERROR: wrong LEP2 energy in StandardModel::AFBmu!");
     }
         
-   
     double AFBmu = SMresult_cache;
     
     gsl_set_error_handler(old_handler);
     bSigmaForAFB = false;
     return AFBmu;    
-
+    }
 }
 
 
@@ -5803,6 +5832,14 @@ double StandardModel::LEP2AFBtau(const double s) const
     double relerr = 1.e-7;
     double abserr = 1.e-17;
     
+    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
+    if (!IsFlagNoApproximateGammaZ()){
+            
+    /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->LEP2AFBtauApprox(s));
+
+    } else {  
+
     if(s == 130.*130.){
         double AFB_noBox, sigma = 0.0;
         if (!flagLEP2[ISR])
@@ -6275,13 +6312,12 @@ double StandardModel::LEP2AFBtau(const double s) const
         throw std::runtime_error("ERROR: wrong LEP2 energy in StandardModel::LEP2AFBtau!");
     }
         
-   
     double AFBtau = SMresult_cache;
     
     gsl_set_error_handler(old_handler);
     bSigmaForAFB = false;
-    return AFBtau;    
-
+    return AFBtau;   
+    }
 }
 
 

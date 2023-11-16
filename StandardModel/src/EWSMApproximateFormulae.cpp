@@ -1634,3 +1634,766 @@ double EWSMApproximateFormulae::sin2thetaEff_l_full() const
             + d8 * Das + d9 * Das * Dt
             + d10 * DZ ) + ThError);
 }
+
+
+
+//LEP2 Observables
+
+double EWSMApproximateFormulae::LEP2sigmaMuApprox(const double s) const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+    if (s == 130.*130.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 136.*136.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 161.*161.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 172.*172.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 183.*183.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 189.*189.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 192.*192.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 196.*196.) {        
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;       
+        
+        RelThError = 0.;
+    } else if (s == 200.*200.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 202.*202.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 205.*205.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 207.*207.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaMuApprox()");
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEP2AFBmuApprox(const double s) const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+    if (s == 130.*130.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 136.*136.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 161.*161.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 172.*172.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 183.*183.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 189.*189.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 192.*192.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 196.*196.) {        
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;       
+        
+        RelThError = 0.;
+    } else if (s == 200.*200.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 202.*202.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 205.*205.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 207.*207.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2AFBmuApprox()");
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEP2sigmaTauApprox(const double s) const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+    if (s == 130.*130.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 136.*136.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 161.*161.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 172.*172.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 183.*183.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 189.*189.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 192.*192.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 196.*196.) {        
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;       
+        
+        RelThError = 0.;
+    } else if (s == 200.*200.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 202.*202.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 205.*205.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 207.*207.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaTauApprox()");
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEP2AFBtauApprox(const double s) const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+    if (s == 130.*130.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 136.*136.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 161.*161.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 172.*172.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 183.*183.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 189.*189.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 192.*192.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 196.*196.) {        
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;       
+        
+        RelThError = 0.;
+    } else if (s == 200.*200.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 202.*202.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 205.*205.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 207.*207.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2AFBtauApprox()");
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEP2sigmaHadronApprox(const double s) const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+    if (s == 130.*130.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 136.*136.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 161.*161.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 172.*172.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 183.*183.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 189.*189.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 192.*192.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 196.*196.) {        
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;       
+        
+        RelThError = 0.;
+    } else if (s == 200.*200.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 202.*202.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 205.*205.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else if (s == 207.*207.) {
+        X0 = 1.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+
+        RelThError = 0.;
+    } else
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaHadronApprox()");
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
