@@ -258,6 +258,10 @@ public:
         return (this->dispersion = dispersion);
     }
 
+    bool setFlagUsezExpansion(bool zExpansion) {
+        return (this->zExpansion = zExpansion);
+    }
+
     bool setFlagCLN(bool CLNflag) {
         return (this->CLNflag = CLNflag);
     }
@@ -268,6 +272,10 @@ public:
 
     bool getFlagUseDispersionRelation() const {
         return dispersion;
+    }
+
+    bool getFlagUsezExpansion() const {
+        return zExpansion;
     }
 
     bool getFlagCLN() const {
@@ -295,6 +303,7 @@ private:
     mutable std::map<std::vector<int>, bool> flagUpdateMap;
 
     mutable bool dispersion;
+    mutable bool zExpansion;
     mutable bool CLNflag;
     mutable bool FixedWCbtosflag;
 };

@@ -23,6 +23,7 @@ Flavour::Flavour(const StandardModel& SM_i)
 : mySM(SM_i)
 {
     dispersion = false;
+    zExpansion = false;
     CLNflag = false;
 };
 
@@ -31,6 +32,9 @@ bool Flavour::setFlag(const std::string name, const bool value)
     
     if (name.compare("UseDispersionRelation") == 0) {
         setFlagUseDispersionRelation(value);
+        return true;
+    } else if (name.compare("UsezExpansion") == 0) {
+        setFlagUsezExpansion(value);
         return true;
     } else if (name.compare("CLNflag") == 0) {
         setFlagCLN(value);
