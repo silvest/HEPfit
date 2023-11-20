@@ -610,9 +610,9 @@ void AmpDB2::computeP() {
     cacheP[indexP(cu, 1, 2, 2)] = -1./27. + 2./9. * z - logx_1/9. - sqrt1minus4z * (1. + 2. * z) * (2. + 3. * logsigma + 6. * logx_1) / 54. + logz / 18.;
     cacheP[indexP(cu, 2, 2, 2)] = 8./27. + 16./9. * z + 8./9. * logx_1 + 4./27. * sqrt1minus4z * (1. + 2. * z) * (2. + 3. * logsigma + 6. * logx_1) - 4. * logz / 9.;
     cacheP[indexP(cc, 1, 2, 2)] = -2./27. * sqrt1minus4z * (1. + 8. * z + 12. * z2) - logsigma / 9. + 4./3. * z2 * logsigma + 16./9. * z3 * logsigma -
-           sqrt1minus4z * (1. + 2. * z) * (2. * logx_1 - logz) / 9. ;//+ sqrt1minus4z *2.*z*logz/9. ;
+           sqrt1minus4z * (1. + 2. * z) * (2. * logx_1 - logz) / 9.;
     cacheP[indexP(cc, 2, 2, 2)] = 16./27. * sqrt1minus4z * (1. + 8. * z + 12. * z2) + 8./9. * logsigma - 32./3. * z2 * logsigma - 128./9. * z3 * logsigma +
-            8./9. * sqrt1minus4z * (1. + 2. * z) * (2. * logx_1 - logz) ;//+ 8./9.* sqrt1minus4z *2.*z*logz;
+            8./9. * sqrt1minus4z * (1. + 2. * z) * (2. * logx_1 - logz);
     cacheP[indexP(uu, 1, 2, 2)] = -2./27. - 2./9. * logx_1;
     cacheP[indexP(uu, 2, 2, 2)] = 16./27. + 16./9. * logx_1;
 
@@ -1571,7 +1571,7 @@ void AmpDB2::compute_pp_s(){
         cache_p[index_p(qq, 1, 1, 1)]= z * (-14./3. * L_1 - 11./3. * L_2 - 44./3. * logz + M_PI2/54. - 4133./216.)
                 + 337./324. * L_1 + 149./108. * L_2 - 5./108. * M_PI2 + 1789./486.;
         cache_p[index_p(qq, 1, 2, 1)]= z * (26. * L_1 - 4. * L_2 - 16. * logz - 2./9. * M_PI2 + 1199./18.)
-                - 323./54. * L_1 + 19./9. * L_2 - 5./9. * M_PI2 + 1346./81.;
+                - 323./54. * L_1 + 19./9. * L_2 + 5./9. * M_PI2 + 1346./81.;
         cache_p[index_p(qq, 2, 2, 1)]= z * (12. * L_1 - 6. * L_2 - 24. * logz + 2./3. * M_PI2 + 115./6.)
                 - 14./9. * L_1 + 2./3. * L_2 - 5./3. * M_PI2 + 91./54.;
         cache_ps[index_p(qq, 1, 1, 1)]= -38./81. * L_1 - 40./27. * L_2 + (-1159./27. - 4./27. * M_PI2) * z - 2./27. * M_PI2 + 2./243.;
