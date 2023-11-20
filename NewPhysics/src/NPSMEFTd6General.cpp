@@ -34661,7 +34661,8 @@ double NPSMEFTd6General::CLR_bottom() const
 
 double NPSMEFTd6General::CRL_e() const
 {
-    return (getSMEFTCoeffEW("CleR", 0, 0, 0, 0));
+    // Same as LR by definition
+    return CLR_e();
 }
 
 double NPSMEFTd6General::CRL_mu() const
@@ -34740,11 +34741,6 @@ double NPSMEFTd6General::CRR_bottom() const
 }
 
 
-double NPSMEFTd6General::deltaMLR2_e(const double t) const
-{
-    return 0.;
-}    
-
 double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) const
 {
     // Definitions      
@@ -34766,7 +34762,12 @@ double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) const
     
     is2c2 = 1./sW2_tree/cW2_tree;
     
-    if (f.is("MU")) {
+    if (f.is("ELECTRON")) {
+        Aeeff = CLR_e();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[ELECTRON]);
+    } else if (f.is("MU")) {
         Aeeff = CLR_mu();
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
@@ -34828,11 +34829,6 @@ double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) const
 };
 
 
-double NPSMEFTd6General::deltaMRL2_e(const double t) const
-{
-    return 0.;
-}    
-
 double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) const
 {
     // Definitions      
@@ -34854,7 +34850,12 @@ double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) const
     
     is2c2 = 1./sW2_tree/cW2_tree;
     
-    if (f.is("MU")) {
+    if (f.is("ELECTRON")) {
+        Aeeff = CRL_e();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[ELECTRON]);
+    } else if (f.is("MU")) {
         Aeeff = CRL_mu();
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
@@ -34916,12 +34917,58 @@ double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) const
 };
 
 
-double NPSMEFTd6General::deltaMLL2_e(const double s, const double t) const
+double NPSMEFTd6General::deltaMLR2t_e(const double t) const
 {
-    return 0.;
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, is2c2;
+    
+    // Four-fermion contribution
+    double Aeeff;
+    
+    // t-channel propagator
+    double propZ;
+    
+    // Correction to amplitude
+    double deltaM2a, deltaM2b, deltaM2;
+    
+    // -------------------------------------------
+    
+    geSM = gZlL;
+    deltage = deltaGL_f(leptons[ELECTRON]);
+    
+    is2c2 = 1./sW2_tree/cW2_tree;
+    
+    Aeeff = CLR_e();
+    Qf = leptons[ELECTRON].getCharge();
+    gfSM = gZlR;
+    deltagf = deltaGR_f(leptons[ELECTRON]);
+
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * t/(4. * M_PI * trueSM.alphaMz() ); 
+    
+    // -------------------------------------------
+    
+    propZ = t /(t - Mz * Mz);
+    
+    deltaM2a = (-Qf + is2c2 * geSM*gfSM * propZ);
+    
+    deltaM2b = -Qf*delta_e + Aeeff 
+             + is2c2 * (geSM*deltagf + gfSM*deltage) * propZ;
+    
+    deltaM2 = deltaM2a * deltaM2b;
+    
+    return 2.0 * deltaM2;
+
 }    
 
-double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s) const
+
+double NPSMEFTd6General::deltaMRL2t_e(const double t) const
+{
+    return deltaMLR2t_e(t);
+} 
+
+
+double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, const double t) const
 {
     // Definitions      
     double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
@@ -34931,6 +34978,7 @@ double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s) const
     
     // Propagator
     gslpp::complex propZ, propZc;
+    double propZt;
     
     // Correction to amplitude
     gslpp::complex deltaM2a, deltaM2b, deltaM2;
@@ -34942,7 +34990,12 @@ double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s) const
     
     is2c2 = 1./sW2_tree/cW2_tree;
     
-    if (f.is("MU")) {
+    if (f.is("ELECTRON")) {
+        Aeeff = CLL_e();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[ELECTRON]);
+    } else if (f.is("MU")) {
         Aeeff = CLL_mu();
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
@@ -34991,11 +35044,19 @@ double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s) const
     
     propZc  = propZ.conjugate();
     
+    propZt = s /(t - Mz * Mz);
+    
     deltaM2a = (-Qf + is2c2 * geSM*gfSM * propZ);
     
     deltaM2b = -Qf*delta_e + Aeeff 
              + is2c2 * (geSM*deltagf + gfSM*deltage) * propZc
              - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc *propZc / s;
+    
+    // Add t-channel contributions for f=e
+    if (f.is("ELECTRON")) {
+        deltaM2a = deltaM2a + is2c2 * geSM*gfSM * propZt + s/t;
+        deltaM2b = deltaM2b + is2c2 * (geSM*deltagf + gfSM*deltage) * propZt;
+    }
     
     deltaM2 = deltaM2a * deltaM2b;
     
@@ -35004,13 +35065,7 @@ double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s) const
 };
 
 
-
-double NPSMEFTd6General::deltaMRR2_e(const double s, const double t) const
-{
-    return 0.;
-}    
-
-double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s) const
+double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const double t) const
 {
     // Definitions      
     double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
@@ -35020,6 +35075,7 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s) const
     
     // Propagator
     gslpp::complex propZ, propZc;
+    double propZt;
     
     // Correction to amplitude
     gslpp::complex deltaM2a, deltaM2b, deltaM2;
@@ -35031,7 +35087,12 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s) const
     
     is2c2 = 1./sW2_tree/cW2_tree;
     
-    if (f.is("MU")) {
+    if (f.is("ELECTRON")) {
+        Aeeff = CRR_e();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[ELECTRON]);
+    } else if (f.is("MU")) {
         Aeeff = CRR_mu();
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
@@ -35080,11 +35141,19 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s) const
     
     propZc  = propZ.conjugate();
     
+    propZt = s /(t - Mz * Mz);
+    
     deltaM2a = (-Qf + is2c2 * geSM*gfSM * propZ);
     
     deltaM2b = -Qf*delta_e + Aeeff 
              + is2c2 * (geSM*deltagf + gfSM*deltage) * propZc
              - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc *propZc / s;
+    
+    // Add t-channel contributions for f=e
+    if (f.is("ELECTRON")) {
+        deltaM2a = deltaM2a + is2c2 * geSM*gfSM * propZt + s/t;
+        deltaM2b = deltaM2b + is2c2 * (geSM*deltagf + gfSM*deltage) * propZt;
+    }
     
     deltaM2 = deltaM2a * deltaM2b;
     
@@ -35092,23 +35161,23 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s) const
 
 };
 
+//  Some simple functions for cos \theta integrals 
+    double NPSMEFTd6General::tovers2(const double cosmin, const double cosmax) const
+    {        
+        return 0.25 * (cosmax*(1.0-cosmax*(1.0-cosmax/3.0)) - cosmin*(1.0-cosmin*(1.0-cosmin/3.0)));
+    }; 
+    
+    double NPSMEFTd6General::uovers2(const double cosmin, const double cosmax) const
+    {        
+        return 0.25 * (cosmax*(1.0+cosmax*(1.0+cosmax/3.0)) - cosmin*(1.0+cosmin*(1.0+cosmin/3.0)));
+    }; 
 
-//  Absolute corrections to the cos \theta differential distribution    
-    double NPSMEFTd6General::deltaDsigma_e(const double s, const double t, const double u) const
-    {
-        double sumM2, dsigma;
-        
-        sumM2 = 0.; // Not yet
-        
-        dsigma = 16 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
-        
-        return dsigma;
-    };    
     
-    
-    double NPSMEFTd6General::deltaDsigma_f(const Particle f, const double s, const double t, const double u) const
+    double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, const double t, const double u) const
     {
+        //  Only valid for f=/=e
         double sumM2, dsigma;
+        double topb = 0.3894e+9;
         
         double Nf;
         
@@ -35119,20 +35188,59 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s) const
         }
         
         sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * t*t/s/s
-                + (deltaMLL2_f(f, s) + deltaMRR2_f(f, s)) * u*u/s/s;
+                + (deltaMLL2_f(f, s, t) + deltaMRR2_f(f, s, t)) * u*u/s/s;
+        
+    // Add t-channel contributions for f=e
+        if (f.is("ELECTRON")) {
+            sumM2 = sumM2 + (deltaMLR2t_e(t) + deltaMRL2t_e(t)) * s*s/t/t;
+        }
         
         dsigma = Nf * 16 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
+        
+        return topb * dsigma;
+    };
+    
+    double NPSMEFTd6General::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
+    {
+        //  Only valid for f=/=e
+        double sumM2, dsigma;
+        double tdumm = 0.;
+        double topb = 0.3894e+9;
+        
+        double Nf;
+        
+        if (f.is("LEPTON")) {
+            Nf = 1.0;
+        } else {
+            Nf = 3.0;
+        }
+        
+        sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * tovers2(cosmin, cosmax)
+                + (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) * uovers2(cosmin, cosmax);
+        
+        dsigma = Nf * 16 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
+        
+        return topb * dsigma;
+    };
+    
+    double NPSMEFTd6General::delta_sigma_had(const double s, const double cosmin, const double cosmax) const
+    {
+        double dsigma;
+        
+        dsigma = delta_sigma_f(quarks[UP], s, cosmin, cosmax) + delta_sigma_f(quarks[DOWN], s, cosmin, cosmax)
+                + delta_sigma_f(quarks[CHARM], s, cosmin, cosmax) + delta_sigma_f(quarks[STRANGE], s, cosmin, cosmax) 
+                + delta_sigma_f(quarks[BOTTOM], s, cosmin, cosmax);
         
         return dsigma;
     };
     
-    double NPSMEFTd6General::deltaDsigma_had(const double s, const double t, const double u) const
+    
+    double NPSMEFTd6General::delta_sigmaTot_f(const Particle f, const double s) const
+    {   
+        return delta_sigma_f(f, s, -1., 1.);  
+    };
+    
+    double NPSMEFTd6General::delta_sigmaFB_f(const Particle f, const double s) const
     {
-        double dsigma;
-        
-        dsigma = deltaDsigma_f(quarks[UP], s, t, u) + deltaDsigma_f(quarks[DOWN], s, t, u)
-                + deltaDsigma_f(quarks[CHARM], s, t, u) + deltaDsigma_f(quarks[STRANGE], s, t, u) 
-                + deltaDsigma_f(quarks[BOTTOM], s, t, u);
-        
-        return dsigma;
+        return ( delta_sigma_f(f, s, 0., 1.) - delta_sigma_f(f, s, -1., 0.));      
     };

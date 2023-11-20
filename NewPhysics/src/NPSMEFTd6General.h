@@ -1597,24 +1597,32 @@ public:
     double CRR_bottom() const;
     
 //  Absolute corrections to the helicity amplitudes squared
-    double deltaMLR2_e(const double t) const;    
+  
     double deltaMLR2_f(const Particle f, const double s) const;
-    
-    double deltaMRL2_e(const double t) const;    
     double deltaMRL2_f(const Particle f, const double s) const;
 
-    double deltaMLL2_e(const double s, const double t) const;    
-    double deltaMLL2_f(const Particle f, const double s) const;
-    
-    double deltaMRR2_e(const double s, const double t) const;    
-    double deltaMRR2_f(const Particle f, const double s) const;
+    double deltaMLR2t_e(const double t) const;      
+    double deltaMRL2t_e(const double t) const;    
 
+    double deltaMLL2_f(const Particle f, const double s, const double t) const;       
+    double deltaMRR2_f(const Particle f, const double s, const double t) const;
+
+//  Some simple functions for cos \theta integrals   
+    double tovers2(const double cosmin, const double cosmax) const;
+    double uovers2(const double cosmin, const double cosmax) const;
+
+//  Absolute corrections to the differential cross section        
+    double delta_Dsigma_f(const Particle f, const double s, const double t, const double u) const;
     
-//  Absolute corrections to the cos \theta differential distribution    
-    double deltaDsigma_e(const double s, const double t, const double u) const;    
-    double deltaDsigma_f(const Particle f, const double s, const double t, const double u) const;
+//  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+//  Valid for f=/=e
+    double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
     
-    double deltaDsigma_had(const double s, const double t, const double u) const;
+    double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
+    
+//  Total and Forward-Backward cross sections (full acceptance)
+    double delta_sigmaTot_f(const Particle f, const double s) const;
+    double delta_sigmaFB_f(const Particle f, const double s) const;
 
     ////////////////////////////////////////////////////////////////////////
 
