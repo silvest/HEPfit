@@ -1558,7 +1558,7 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
     
-    // LEP 2 definitions
+    // LEP2 definitions for 2 to 2 fermion processes
 
     double CLL_e() const;
     double CLL_mu() const;
@@ -1620,9 +1620,11 @@ public:
     
     double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
     
-//  Total and Forward-Backward cross sections (full acceptance)
+//  Total cross sections  (full acceptance)
     double delta_sigmaTot_f(const Particle f, const double s) const;
-    double delta_sigmaFB_f(const Particle f, const double s) const;
+    
+//  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
+    double delta_AFB_f(const Particle f, const double s) const;
 
     ////////////////////////////////////////////////////////////////////////
 

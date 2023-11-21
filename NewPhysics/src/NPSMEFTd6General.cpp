@@ -35202,9 +35202,9 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
     
     double NPSMEFTd6General::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
     {
-        //  Only valid for f=/=e
+        //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
         double sumM2, dsigma;
-        double tdumm = 0.;
+        double tdumm = 1.;
         double topb = 0.3894e+9;
         
         double Nf;
@@ -35240,7 +35240,79 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         return delta_sigma_f(f, s, -1., 1.);  
     };
     
-    double NPSMEFTd6General::delta_sigmaFB_f(const Particle f, const double s) const
+    double NPSMEFTd6General::delta_AFB_f(const Particle f, const double s) const
     {
-        return ( delta_sigma_f(f, s, 0., 1.) - delta_sigma_f(f, s, -1., 0.));      
+        //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
+        double tdumm = 1.;
+        
+        // Definitions      
+        double Qf, geLSM, gfLSM, geRSM, gfRSM, is2c2, GZ, Mz2s;
+    
+        double MXX2SM, MXY2SM, M2SM;
+    
+        double dAFB;
+    
+    // -------------------------------------------
+    
+        geLSM = gZlL;
+        geRSM = gZlR;
+    
+        is2c2 = 1./sW2_tree/cW2_tree;
+    
+        GZ = trueSM.Gamma_Z();
+    
+        Mz2s = Mz*Mz - s;
+        
+        if (f.is("MU")) {
+        Qf = leptons[ELECTRON].getCharge();
+        gfLSM = gZlL;
+        gfRSM = gZlR;
+        } else if (f.is("TAU")) {
+        Qf = leptons[ELECTRON].getCharge();
+        gfLSM = gZlL;
+        gfRSM = gZlR;
+        } else if (f.is("UP")) {
+        Qf = quarks[UP].getCharge();
+        gfLSM = gZuL;
+        gfRSM = gZuR;
+        } else if (f.is("CHARM")) {
+        Qf = quarks[UP].getCharge();
+        gfLSM = gZuL;
+        gfRSM = gZuR;
+        } else if (f.is("DOWN")) {
+        Qf = quarks[DOWN].getCharge();
+        gfLSM = gZdL;
+        gfRSM = gZdR;
+        } else if (f.is("STRANGE")) {
+        Qf = quarks[DOWN].getCharge();
+        gfLSM = gZdL;
+        gfRSM = gZdR;
+        } else if (f.is("BOTTOM")) {
+        Qf = quarks[DOWN].getCharge();
+        gfLSM = gZdL;
+        gfRSM = gZdR;
+        } else
+            throw std::runtime_error("NPSMEFTd6::delta_AFB_f(): wrong argument");
+    
+    // Sum of LL and RR SM amplitudes
+        MXX2SM = 2.0 * Qf*Qf 
+                + ( is2c2*is2c2*(geLSM*geLSM*gfLSM*gfLSM + geRSM*geRSM*gfRSM*gfRSM)*s*s
+                + 2.0*Qf*is2c2*(geLSM*gfLSM + geRSM*gfRSM) * Mz2s * s )/(Mz2s*Mz2s + Mz*Mz*GZ*GZ);
+    
+    
+    // Sum of LR and RL SM amplitudes
+        MXY2SM = 2.0 * Qf*Qf 
+                + ( is2c2*is2c2*(geLSM*geLSM*gfRSM*gfRSM + geRSM*geRSM*gfLSM*gfLSM)*s*s
+                + 2.0*Qf*is2c2*(geLSM*gfRSM + geRSM*gfLSM) * Mz2s * s )/(Mz2s*Mz2s + Mz*Mz*GZ*GZ);
+    
+    // Full SM amplitude
+        M2SM = MXX2SM + MXY2SM;
+        
+    // Assymetry correction 
+        dAFB= - MXX2SM * (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) 
+                + MXY2SM * (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) ; 
+    
+        dAFB = 3.0 * dAFB / 2.0 / M2SM / M2SM;
+        
+        return dAFB;      
     };
