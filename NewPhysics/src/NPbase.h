@@ -4093,6 +4093,37 @@ public:
         return 0.0;
     }  
     
+    
+    
+    ////////////////////////////////////////////////////////////////////////
+    //LEP2 Observables
+    
+    
+//  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+//  Valid for f=/=e
+    double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
+    double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
+    
+//  Total cross sections  (full acceptance)
+    double delta_sigmaTot_f(const Particle f, const double s) const;
+    
+//  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
+    double delta_AFB_f(const Particle f, const double s) const;
+      
+//   Extension of SM observable definitions
+    virtual double LEP2sigmaMu(const double s) const;
+    virtual double LEP2sigmaTau(const double s) const;
+    virtual double LEP2sigmaHadron(const double s) const;
+    virtual double LEP2sigmaCharm(const double s) const;
+    virtual double LEP2sigmaBottom(const double s) const;
+    
+    virtual double LEP2AFBmu(const double s) const;
+    virtual double LEP2AFBtau(const double s) const;
+    virtual double LEP2AFBcharm(const double s) const;
+    virtual double LEP2AFBbottom(const double s) const;
+    virtual double LEP2Rcharm(const double s) const;
+    virtual double LEP2Rbottom(const double s) const;
+    
     ///////////Collider observables: LHC dilepton events////////////////////////
     
     /**

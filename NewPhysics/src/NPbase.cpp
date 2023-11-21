@@ -1128,3 +1128,84 @@ double NPbase::N_nu() const
 {
     return ( trueSM.N_nu() + deltaN_nu() );
 }
+
+
+
+//LEP2 Observables
+
+double NPbase::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
+{
+    return 0.0;
+}
+
+double NPbase::delta_sigma_had(const double s, const double cosmin, const double cosmax) const
+{
+    return 0.0;
+}
+    
+//  Total cross sections  (full acceptance)
+double NPbase::delta_sigmaTot_f(const Particle f, const double s) const
+{
+    return 0.0;
+}
+    
+//  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
+double NPbase::delta_AFB_f(const Particle f, const double s) const
+{
+    return 0.0;
+}
+    
+double NPbase::LEP2sigmaMu(const double s) const
+{
+    return (trueSM.LEP2sigmaMu(s) + delta_sigmaTot_f(leptons[MU], s));
+}
+
+double NPbase::LEP2sigmaTau(const double s) const
+{
+    return (trueSM.LEP2sigmaTau(s) + delta_sigmaTot_f(leptons[TAU], s));
+}
+
+double NPbase::LEP2sigmaHadron(const double s) const
+{
+    return (trueSM.LEP2sigmaHadron(s) + delta_sigma_had(s, -1.0, 1.0));
+}
+
+double NPbase::LEP2sigmaCharm(const double s) const
+{
+    return (trueSM.LEP2sigmaCharm(s) + delta_sigmaTot_f(quarks[CHARM], s));
+}
+
+double NPbase::LEP2sigmaBottom(const double s) const
+{
+    return (trueSM.LEP2sigmaBottom(s) + delta_sigmaTot_f(quarks[BOTTOM], s));
+}
+    
+double NPbase::LEP2AFBmu(const double s) const
+{
+    return (trueSM.LEP2AFBmu(s) + delta_AFB_f(leptons[MU], s));
+}
+
+double NPbase::LEP2AFBtau(const double s) const
+{
+    return (trueSM.LEP2AFBtau(s) + delta_AFB_f(leptons[TAU], s));
+}
+
+double NPbase::LEP2AFBcharm(const double s) const
+{
+    return (trueSM.LEP2AFBcharm(s) + delta_AFB_f(quarks[CHARM], s));
+}
+
+double NPbase::LEP2AFBbottom(const double s) const
+{
+    return (trueSM.LEP2AFBbottom(s) + delta_AFB_f(quarks[BOTTOM], s));
+}
+
+double NPbase::LEP2Rcharm(const double s) const
+{
+    return (trueSM.LEP2Rcharm(s));
+}
+
+double NPbase::LEP2Rbottom(const double s) const
+{
+    return (trueSM.LEP2Rbottom(s));
+}
