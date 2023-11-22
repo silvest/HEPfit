@@ -1415,7 +1415,7 @@ double BR_MVpsi::computeThValue()
     return A2_0+A2_par+A2_perp;
 }
 
-AbsAmpar_MVpsi::AbsAmpar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
+Abs2Ampar_MVpsi::Abs2Ampar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
 : ThObservable(SM_i) 
 {
     lep = lep_i;
@@ -1425,13 +1425,13 @@ AbsAmpar_MVpsi::AbsAmpar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QC
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double AbsAmpar_MVpsi::computeThValue() 
+double Abs2Ampar_MVpsi::computeThValue() 
 {
     double q2 = getBinMin();
     double A2_0 = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).abs2();
     double A2_par = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1).abs2();
     double A2_perp = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,2).abs2();
-    return sqrt(A2_par/(A2_0+A2_par+A2_perp));
+    return A2_par/(A2_0+A2_par+A2_perp);
 }
 
 ArgAmpar_MVpsi::ArgAmpar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
@@ -1450,7 +1450,7 @@ double ArgAmpar_MVpsi::computeThValue()
     return SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1).arg();
 }
 
-AbsAmperp_MVpsi::AbsAmperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
+Abs2Amperp_MVpsi::Abs2Amperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
 : ThObservable(SM_i) 
 {
     lep = lep_i;
@@ -1460,13 +1460,13 @@ AbsAmperp_MVpsi::AbsAmperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, 
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double AbsAmperp_MVpsi::computeThValue() 
+double Abs2Amperp_MVpsi::computeThValue() 
 {
     double q2 = getBinMin();
     double A2_0 = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).abs2();
     double A2_par = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1).abs2();
     double A2_perp = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,2).abs2();
-    return sqrt(A2_perp/(A2_0+A2_par+A2_perp));
+    return A2_perp/(A2_0+A2_par+A2_perp);
 }
 
 ArgAmperp_MVpsi::ArgAmperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 

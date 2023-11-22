@@ -2663,15 +2663,15 @@ private:
 };
 
 /**
- * @class AbsAmpar_MVpsi
+ * @class Abs2Ampar_MVpsi
  * @ingroup Flavour
- * @brief A class for the absolute value of the // polarization amplitude of @f$M \to V \psi@f$. 
+ * @brief A class for the absolute value ^2 of the // polarization amplitude of @f$M \to V \psi@f$. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the observable @f$QCDfC9p_3@f$ in 
  * @f$M \to V l^+l^-@f$
  */
-class AbsAmpar_MVpsi : public ThObservable{
+class Abs2Ampar_MVpsi : public ThObservable{
 public:
     
     /**
@@ -2681,11 +2681,11 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    AbsAmpar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    Abs2Ampar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable Abs(A//) of @f$M \to V \psi@f$.
-    * @return Abs(A//) of @f$M \to V \psi@f$
+    * @return Abs(A//)^2 of @f$M \to V \psi@f$
     */
     double computeThValue ();
    
@@ -2731,15 +2731,15 @@ private:
 };
 
 /**
- * @class AbsAmperp_MVpsi
+ * @class Abs2Amperp_MVpsi
  * @ingroup Flavour
- * @brief A class for the absolute value of the _|_ polarization amplitude of @f$M \to V \psi@f$. 
+ * @brief A class for the absolute value ^2 of the _|_ polarization amplitude of @f$M \to V \psi@f$. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the observable @f$QCDfC9p_3@f$ in 
  * @f$M \to V l^+l^-@f$
  */
-class AbsAmperp_MVpsi : public ThObservable{
+class Abs2Amperp_MVpsi : public ThObservable{
 public:
     
     /**
@@ -2749,11 +2749,11 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    AbsAmperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    Abs2Amperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable Abs(A_|_) of @f$M \to V \psi@f$.
-    * @return Abs(A//) of @f$M \to V \psi@f$
+    * @return Abs(A//)^2 of @f$M \to V \psi@f$
     */
     double computeThValue ();
    
