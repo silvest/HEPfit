@@ -580,40 +580,6 @@
  *   <td class="mod_desc">The relative parametric theoretical uncertainty for the process X.
  *    (Only for Higgs observables and assumed to be constant in the energy.)</td>
  * </tr>
- * <tr>
- *   <td class="mod_name">%eVBFE_i </td>
- *   <td class="mod_symb">\f$\varepsilon_{VBF}^i(E)\f$</td>
- *   <td class="mod_desc">The theoretical uncertainty in the coefficient multiplying
- *  the effective coupling \f$g_i\f$ in the VBF production cross section at 
- *  Tevatron (\f$E=2\f$) or the LHC (\f$E=78\f$).
- * \f$(g_i=g_{HZZ}^{(1,2,3)}, g_{HZA}^{(1,2)}, g_{HAA}, g_{HWW}^{(1,2,3)}, g_{Hgg}, g_{HZuu,HZdd}^{L,R}, 
- * g_{HWud}^{L}, g_{Zuu,Zdd}^{L,R}, g_{Wud}^{L})\f$ </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%eWHE_i </td>
- *   <td class="mod_symb">\f$\varepsilon_{WH}^i(E)\f$</td>
- *   <td class="mod_desc">The theoretical uncertainty in the coefficient multiplying
- *  the effective coupling \f$g_i\f$ in the WH production cross section at 
- *  Tevatron (\f$E=2\f$) or the LHC (\f$E=78\f$). 
- * \f$(g_i= g_{HWW}^{(1,2,3)}, g_{HWud}^{L}, g_{Wud}^{L})\f$ </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%eZHE_i </td>
- *   <td class="mod_symb">\f$\varepsilon_{ZH}^i(E)\f$</td>
- *   <td class="mod_desc">The theoretical uncertainty in the coefficient multiplying
- *  the effective coupling \f$g_i\f$ in the ZH production cross section at 
- *  Tevatron (\f$E=2\f$) or the LHC (\f$E=78\f$). 
- * \f$(g_i=g_{HZZ}^{(1,2,3)}, g_{HZA}^{(1,2)}, g_{HZuu,HZdd}^{L,R}, 
- * g_{Zuu,Zdd}^{L,R})\f$ </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%ettHE_i </td>
- *   <td class="mod_symb">\f$\varepsilon_{ttH}^i(E)\f$</td>
- *   <td class="mod_desc">The theoretical uncertainty in the coefficient multiplying
- *  the effective coupling \f$g_i\f$ in the ttH production cross section at 
- *  Tevatron (\f$E=2\f$) or the LHC (\f$E=78\f$). 
- * \f$(g_i= g_{Htt}, g_{Hgg})\f$ </td>
- * </tr>
  * </table>
  * 
  * Where the hermitian derivatives are defined as 
@@ -1762,7 +1728,7 @@ public:
     double deltaGR_Zffh(const Particle p) const;
 
     /**
-     * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu} \bar{f}\sigma^{\mu\nu} f@f$.
      * @param[in] p a lepton or quark
      * @return @f$\delta g_{hGff}@f$
      */
@@ -1770,7 +1736,7 @@ public:
     gslpp::complex deltaG_hGff(const Particle p) const;
 
     /**
-     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} \bar{f}\sigma^{\mu\nu} f@f$.
      * @param[in] p a lepton or quark
      * @return @f$\delta g_{hZff}@f$
      */
@@ -1778,7 +1744,7 @@ public:
     gslpp::complex deltaG_hZff(const Particle p) const;
 
     /**
-     * @brief The new physics contribution to the coupling of the effective interaction @f$H A_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H A_{\mu\nu} \bar{f}\sigma^{\mu\nu} f@f$.
      * @param[in] p a lepton or quark
      * @return @f$\delta g_{hAff}@f$
      */
@@ -1786,7 +1752,7 @@ public:
     gslpp::complex deltaG_hAff(const Particle p) const;
 
     /**
-     * @brief The new physics contribution to the coupling of the effective interaction @f$G_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @brief The new physics contribution to the coupling of the effective interaction @f$G_{\mu\nu}^A \bar{f}\sigma^{\mu\nu} T_A f@f$.
      * @param[in] p a lepton or quark
      * @return @f$\delta g_{Gff}@f$
      */
@@ -1794,7 +1760,7 @@ public:
     gslpp::complex deltaG_Gff(const Particle p) const;
 
     /**
-     * @brief The new physics contribution to the coupling of the effective interaction @f$Z_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @brief The new physics contribution to the coupling of the effective interaction @f$Z_{\mu\nu} \bar{f}\sigma^{\mu\nu} f@f$.
      * @param[in] p a lepton or quark
      * @return @f$\delta g_{Zff}@f$
      */
@@ -1802,7 +1768,7 @@ public:
     gslpp::complex deltaG_Zff(const Particle p) const;
 
     /**
-     * @brief The new physics contribution to the coupling of the effective interaction @f$A_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @brief The new physics contribution to the coupling of the effective interaction @f$A_{\mu\nu} \bar{f}\sigma^{\mu\nu} f@f$.
      * @param[in] p a lepton or quark
      * @return @f$\delta g_{Aff}@f$
      */
@@ -6594,9 +6560,7 @@ protected:
 
     std::string SMEFTBasisFlag;
 
-    
-    
-    
+
     //For the SM parameters used in the evolutor we start at the EW scale
     double g1_LEW = 0;
     double g2_LEW = 0;
@@ -6641,8 +6605,6 @@ protected:
     double CHG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
     double CHW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
     double CHB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
-    double CHWHB_gaga; ///< The combination of dimension-6 operator coefficients entering in \f$\delta_{AA}\f$: \f$s_W^2 C_{HW} + c_W^2 C_{HW}\f$.
-    double CHWHB_gagaorth; ///< The combination of dimension-6 operator coefficients \f$-c_W^2 C_{HW} + s_W^2 C_{HW}\f$.
     double CDB_LNP = 0; ///< The dimension-6 operator coefficient \f$C_{DB}\f$.
     double CDW_LNP = 0; ///< The dimension-6 operator coefficient \f$C_{DW}\f$.
     double CHWB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
@@ -6995,127 +6957,6 @@ protected:
 
     double nuisP1, nuisP2, nuisP3, nuisP4, nuisP5, nuisP6, nuisP7, nuisP8, nuisP9, nuisP10; ///< Nuisance parameters to be used in observables
 
-    // The error in the parameters multiplying the dimension-6 operator coefficients in the production cross sections.
-    double eVBF_2_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_HQ1_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(1)})_{11}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_Hu_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hu})_{11}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_Hd_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hd})_{11}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_HB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HB}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_HG; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HG}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_DHB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHB}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to VBF production at Tevatron (1.96 TeV).
-    double eVBF_2_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to VBF production at Tevatron (1.96 TeV).
-
-    double eVBF_78_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_HQ1_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(1)})_{11}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_Hu_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hu})_{11}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_Hd_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hd})_{11}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_HB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HB}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_HG; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HG}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_DHB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHB}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to VBF production at Tevatron (7 & 8 TeV).
-    double eVBF_78_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to VBF production at Tevatron (7 & 8 TeV).
-
-    double eVBF_1314_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_HQ1_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(1)})_{11}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_Hu_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hu})_{11}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_Hd_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hd})_{11}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_HB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HB}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_HG; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HG}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_DHB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHB}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to VBF production at Tevatron (13 & 14 TeV).
-    double eVBF_1314_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to VBF production at Tevatron (13 & 14 TeV).
-
-    double eWH_2_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to WH production at Tevatron (1.96 TeV).
-    double eWH_2_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to WH production at Tevatron (1.96 TeV).
-    double eWH_2_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to WH production at Tevatron (1.96 TeV).
-    double eWH_2_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to WH production at Tevatron (1.96 TeV).
-    double eWH_2_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to WH production at Tevatron (1.96 TeV).
-    double eWH_2_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to WH production at the LHC (1.96 TeV).
-    double eWH_2_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to WH production at the LHC (1.96 TeV).
-
-    double eWH_78_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to WH production at Tevatron (7 & 8 TeV).
-    double eWH_78_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to WH production at Tevatron (7 & 8 TeV).
-    double eWH_78_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to WH production at Tevatron (7 & 8 TeV).
-    double eWH_78_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to WH production at Tevatron (7 & 8 TeV).
-    double eWH_78_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to WH production at Tevatron (7 & 8 TeV).
-    double eWH_78_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to WH production at the LHC (7 & 8 TeV).
-    double eWH_78_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to WH production at the LHC (7 & 8 TeV).
-
-    double eWH_1314_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to WH production at Tevatron (13 & 14 TeV).
-    double eWH_1314_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to WH production at Tevatron (13 & 14 TeV).
-    double eWH_1314_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to WH production at Tevatron (13 & 14 TeV).
-    double eWH_1314_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to WH production at Tevatron (13 & 14 TeV).
-    double eWH_1314_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to WH production at Tevatron (13 & 14 TeV).
-    double eWH_1314_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to WH production at the LHC (13 & 14 TeV).
-    double eWH_1314_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to WH production at the LHC (13 & 14 TeV).
-
-    double eZH_2_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_HQ1_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(1)})_{11}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_Hu_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hu})_{11}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_Hd_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hd})_{11}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_HB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HB}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_DHB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHB}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to ZH production at Tevatron (1.96 TeV).
-    double eZH_2_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to ZH production at Tevatron (1.96 TeV).
-
-    double eZH_78_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_HQ1_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(1)})_{11}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_Hu_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hu})_{11}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_Hd_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hd})_{11}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_HB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HB}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_DHB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHB}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to ZH production at Tevatron (7 & 8 TeV).
-    double eZH_78_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to ZH production at Tevatron (7 & 8 TeV).
-
-    double eZH_1314_Hbox; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_HQ1_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(1)})_{11}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_Hu_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hu})_{11}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_Hd_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{Hd})_{11}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_HQ3_11; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(3)})_{11}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_HD; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HD}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_HB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HB}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_HW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HW}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_HWB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HWB}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_DHB; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHB}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_DHW; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{DHW}\f$ to ZH production at Tevatron (13 & 14 TeV).
-    double eZH_1314_DeltaGF; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta_{G_F}\f$ to ZH production at Tevatron (13 & 14 TeV).
-
-    double ettH_2_HG; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HG}\f$ to ttH production at Tevatron (1.96 TeV).
-    double ettH_2_G; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{G}\f$ to ttH production at Tevatron (1.96 TeV).
-    double ettH_2_uG_33r; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{uG})_{33}\f$ to ttH production at the LHC (1.96 TeV).
-    double ettH_2_DeltagHt; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta g_{Htt}\f$ to ttH production at the LHC (1.96 TeV).
-
-    double ettH_78_HG; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HG}\f$ to ttH production at Tevatron (7 & 8 TeV).
-    double ettH_78_G; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{G}\f$ to ttH production at Tevatron (7 & 8 TeV).
-    double ettH_78_uG_33r; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{uG})_{33}\f$ to ttH production at the LHC (7 & 8 TeV).
-    double ettH_78_DeltagHt; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta g_{Htt}\f$ to ttH production at the LHC (7 & 8 TeV).
-
-    double ettH_1314_HG; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{HG}\f$ to ttH production at Tevatron (13 & 14 TeV).
-    double ettH_1314_G; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{G}\f$ to ttH production at Tevatron (13 & 14 TeV).
-    double ettH_1314_uG_33r; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{uG})_{33}\f$ to ttH production at the LHC (13 & 14 TeV).
-    double ettH_1314_DeltagHt; ///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta g_{Htt}\f$ to ttH production at the LHC (13 & 14 TeV).
-
     double BrHinv; ///< The branching ratio of invisible Higgs decays.
     double BrHexo; ///< The branching ratio of exotic (not invisible) Higgs decays.
 
@@ -7129,143 +6970,6 @@ protected:
 
     double LambdaNP2; ///< The square of the new physics scale [GeV\f$^2\f$].
     double LambdaNPm2; ///< The inverse square of the new physics scale [GeV\f$^{-2}\f$].
-
-    // Internal values for some of the dimension-6 coefficients (to allow changes of bases in Post-Update)
-    // Define also the corresponding anomalous dimension, gADX, for each parameter
-    //double CiHL1_11;
-    //double CiHL1_22;
-    //double CiHL1_33;
-    //double CiHL3_11;
-    //double CiHL3_22;
-    //double CiHL3_33;
-
-    double gADHL1_11;
-    double gADHL1_22;
-    double gADHL1_33;
-    double gADHL3_11;
-    double gADHL3_22;
-    double gADHL3_33;
-
-    //double CiHQ1_11;
-    //double CiHQ1_22;
-    //double CiHQ1_33;
-    //double CiHQ3_11;
-    //double CiHQ3_22;
-    //double CiHQ3_33;
-
-    double gADHQ1_11;
-    double gADHQ1_22;
-    double gADHQ1_33;
-    double gADHQ3_11;
-    double gADHQ3_22;
-    double gADHQ3_33;
-
-    //double CiHe_11;
-    //double CiHe_22;
-    //double CiHe_33;
-
-    double gADHe_11;
-    double gADHe_22;
-    double gADHe_33;
-
-    //double CiHu_11;
-    //double CiHu_22;
-    //double CiHu_33;
-
-    double gADHu_11;
-    double gADHu_22;
-    double gADHu_33;
-
-    //double CiHd_11;
-    //double CiHd_22;
-    //double CiHd_33;
-
-    double gADHd_11;
-    double gADHd_22;
-    double gADHd_33;
-
-    //double CiW;
-    //double CiG;
-
-    double gADW;
-    double gADG;
-
-    //double CiHG;
-    //double CiHW;
-    //double CiHB;
-    //double CiHWB;
-    //double CiDHB;
-    //double CiDHW;
-
-    double gADHG;
-    double gADHW;
-    double gADHB;
-    double gADHWB;
-    double gADDHB;
-    double gADDHW;
-
-    //double CiHbox;
-    //double CiHD;
-    //double CiH;
-
-    double gADHbox;
-    double gADHD;
-    double gADH;
-
-    //double CieH_11r;
-    //double CieH_22r;
-    //double CieH_33r;
-
-    double gADeH_11r;
-    double gADeH_22r;
-    double gADeH_33r;
-
-    //double CiuH_11r;
-    //double CiuH_22r;
-    //double CiuH_33r;
-
-    double gADuH_11r;
-    double gADuH_22r;
-    double gADuH_33r;
-
-    //double CidH_11r;
-    //double CidH_22r;
-    //double CidH_33r;
-
-    double gADdH_11r;
-    double gADdH_22r;
-    double gADdH_33r;
-
-    //double CiuG_11r;
-    //double CiuG_22r;
-    //double CiuG_33r;
-
-    double gADuG_11r;
-    double gADuG_22r;
-    double gADuG_33r;
-
-    //double CiuW_11r;
-    //double CiuW_22r;
-    //double CiuW_33r;
-
-    double gADuW_11r;
-    double gADuW_22r;
-    double gADuW_33r;
-
-    //double CiuB_11r;
-    //double CiuB_22r;
-    //double CiuB_33r;
-
-    double gADuB_11r;
-    double gADuB_22r;
-    double gADuB_33r;
-
-    double CiLL_1221;
-    double CiLL_2112;
-
-    double gADLL_1221;
-    
-    
 
     double v2; ///< The square of the EW vev.
     double v2_over_LambdaNP2; ///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
