@@ -513,6 +513,14 @@ public:
     */
     gslpp::complex H_P(double q2, bool bar);
     
+    /**
+    * @brief Polarization amplitudes for M to V psi, Eq. B.16 of arXiv:2206.03797.
+    * @param[in] mass of the charmonium resonance \f$m_{\psi}\f$
+    * @param[in] tran transversity
+    * @return \f$ A_{0,||,\perp} \f$
+    */
+    gslpp::complex AmpMVpsi_zExpansion(double mpsi, int tran);
+    
     gslpp::complex getQCDf_1(double q2)
     {
         updateParameters();
@@ -733,8 +741,8 @@ private:
     bool dispersion;
     bool zExpansion;
     bool FixedWCbtos;
-    double mJ2;
-    double mPsi2S2;
+    double mJpsi, mJ2;
+    double mPsi2S, mPsi2S2;
     double mD2;
     gslpp::complex exp_Phase[3];
     
@@ -1559,8 +1567,8 @@ private:
     * @return \f$ phi_4 \f$
     */
     gslpp::complex phi_4(double q2);
-    
-     /**
+        
+    /**
     * @brief The correction to \f$ C_9 \f$ from arXiv:2206.03797.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param[in] tran transversity

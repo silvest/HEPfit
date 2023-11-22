@@ -45,8 +45,10 @@ T_cache(5, 0.)
     dispersion = false;
     zExpansion = false;
     FixedWCbtos = false;
-    mJ2 = 3.096 * 3.096;
-    mPsi2S2 = 3.686 * 3.686;
+    mJpsi = 3.096;
+    mJ2 = mJpsi * mJpsi;
+    mPsi2S = 3.686;
+    mPsi2S2 = mPsi2S * mPsi2S;
     mD2 = 1.864 * 1.864;
 
     I0_updated = 0;
@@ -255,7 +257,7 @@ void MVll::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) return;
 
-
+    
     GF = mySM.getGF();
     ale = mySM.getAle();
     Mlep = mySM.getLeptons(lep).getMass();
@@ -1733,7 +1735,12 @@ gslpp::complex MVll::zh(double q2)
 
 gslpp::complex MVll::P(double q2)
 {
-    return ( zh(q2) - zh(mJ2) ) / ( 1. - zh(q2)*zh(mJ2).conjugate() ) * ( zh(q2) - zh(mPsi2S2) ) / ( 1. - zh(q2)*zh(mPsi2S2).conjugate() );
+    gslpp::complex facmj2 = ( zh(q2) - zh(mJ2) ) / ( 1. - zh(q2)*zh(mJ2).conjugate() );
+    if(fabs(q2 - mJ2)< 1.e-5) facmj2 = 1/(4.*(mJ2 - s_p));
+    gslpp::complex facmPsi2S2 = ( zh(q2) - zh(mPsi2S2) ) / ( 1. - zh(q2)*zh(mPsi2S2).conjugate() );
+    if(fabs(q2 - mPsi2S2)< 1.e-5) facmPsi2S2 = 1/(4.*(mPsi2S2 - s_p));
+    // at the pole it returns directly the residue, i.e. Lim_{q2->mres2} P(q2)/(q2-mres2)
+    return facmj2*facmPsi2S2;
 }
 
 gslpp::complex MVll::Phi_1(double q2)
@@ -1950,6 +1957,28 @@ gslpp::complex MVll::H_P(double q2, bool bar)
 {
     if (!bar) return gslpp::complex::i() * NN * (MboMW * (C_P - etaV * pow(-1, angmomV) * C_Pp) + twoMlepMb / q2 * (C_10 * (1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p * (etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
     return gslpp::complex::i() * NN_conjugate * (MboMW * (C_P.conjugate() - etaV * pow(-1, angmomV) * C_Pp.conjugate()) + twoMlepMb / q2 * (C_10.conjugate()*(1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p.conjugate()*(etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
+}
+
+gslpp::complex MVll::AmpMVpsi_zExpansion(double mpsi, int tran)
+{
+    // amplitude at charmonium resonance, i.e. q2 = mJ2 or mPsi2S2
+    double q2 = mpsi*mpsi;
+    double fpsi = 0.;
+    // decay constant of the charmonium state estimated from EXP decay width in e+ e-
+    if(fabs(mpsi - mJpsi) <1.e-5){
+        double Gammaepm  = 5.971/100.*(92.6*1e-6);
+        fpsi = sqrt(Gammaepm*(3.*q2)/(4.*M_PI*ale*ale)/(4./9.));
+    }
+    else if(fabs(mpsi - mPsi2S)< 1.e-5){
+        double Gammaepm = 7.93/100.*(286.*1e-6);
+        fpsi = sqrt(Gammaepm*(3.*q2)/(4.*M_PI*ale*ale)/(4./9.));
+    }
+    else{
+        return 0.;
+    }
+    gslpp::complex Norm = GF*lambda_t.conjugate()*sqrt(sqrt(lambda(q2))/(2.*M_PI*MM))*MM*MM/q2/fpsi;
+    if(tran == 0) Norm *= MM/sqrt(q2);
+    return Norm*DeltaC9_zExpansion(q2,tran);
 }
 
 /*******************************************************************************
