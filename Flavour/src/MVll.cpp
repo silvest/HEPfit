@@ -1961,22 +1961,24 @@ gslpp::complex MVll::H_P(double q2, bool bar)
 
 gslpp::complex MVll::AmpMVpsi_zExpansion(double mpsi, int tran)
 {
+    updateParameters();
+    
     // amplitude at charmonium resonance, i.e. q2 = mJ2 or mPsi2S2
     double q2 = mpsi*mpsi;
     double fpsi = 0.;
     // decay constant of the charmonium state estimated from EXP decay width in e+ e-
     if(fabs(mpsi - mJpsi) <1.e-5){
         double Gammaepm  = 5.971/100.*(92.6*1e-6);
-        fpsi = sqrt(Gammaepm*(3.*q2)/(4.*M_PI*ale*ale)/(4./9.));
+        fpsi = sqrt(Gammaepm*(3.*sqrt(q2))/(4.*M_PI*ale*ale)/(4./9.));
     }
     else if(fabs(mpsi - mPsi2S)< 1.e-5){
-        double Gammaepm = 7.93/100.*(286.*1e-6);
-        fpsi = sqrt(Gammaepm*(3.*q2)/(4.*M_PI*ale*ale)/(4./9.));
+        double Gammaepm = 7.93/100.*(294.*1e-6);
+        fpsi = sqrt(Gammaepm*(3.*sqrt(q2))/(4.*M_PI*ale*ale)/(4./9.));
     }
     else{
         return 0.;
     }
-    gslpp::complex Norm = GF*lambda_t.conjugate()*sqrt(sqrt(lambda(q2))/(2.*M_PI*MM))*MM*MM/q2/fpsi;
+    gslpp::complex Norm = GF*lambda_t.conjugate()*sqrt(sqrt(lambda(q2))/(2.*M_PI*MM))*MM*MM/sqrt(q2)/fpsi;
     if(tran == 0) Norm *= MM/sqrt(q2);
     return Norm*DeltaC9_zExpansion(q2,tran);
 }
