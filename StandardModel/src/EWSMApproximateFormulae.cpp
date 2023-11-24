@@ -1650,138 +1650,138 @@ double EWSMApproximateFormulae::LEP2sigmaMuApprox(const double s) const
     double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
     double RelThError = 0.0; // (Relative) Theoretical uncertainty
     
-    if (s == 130.*130.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 136.*136.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 161.*161.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 172.*172.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 183.*183.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 189.*189.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 192.*192.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 196.*196.) {        
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;       
-        
-        RelThError = 0.;
-    } else if (s == 200.*200.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 202.*202.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 205.*205.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 207.*207.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
+    if (s==130.2*130.2) { 
+        X0 = 8.46687; 
+        cMH = -0.00584; 
+        cmt = 0.07033; 
+        caS = -0.00927;
+        caS2 = -0.00304; 
+        caSmt = -0.00728;
+        cda5h = 0.24694; 
+        cMZ = 29.5535;
+  
+        RelThError=0.; 
+    } else if (s==136.2*136.2) { 
+        X0 = 7.31107; 
+        cMH = -0.00447; 
+        cmt = 0.05547; 
+        caS = -0.00715;
+        caS2 = -0.0033; 
+        caSmt = -0.00566;
+        cda5h = 0.2341; 
+        cMZ = 21.2072;
+  
+        RelThError=0.; 
+    } else if (s==161.3*161.3) { 
+        X0 = 4.68874; 
+        cMH = -0.00198; 
+        cmt = 0.02969; 
+        caS = -0.00363;
+        caS2 = -0.01; 
+        caSmt = -0.00233;
+        cda5h = 0.17756; 
+        cMZ = 8.79695;
+  
+        RelThError=0.; 
+    } else if (s==172.1*172.1) { 
+        X0 = 4.00451; 
+        cMH = -0.00153; 
+        cmt = 0.0258; 
+        caS = -0.00311;
+        caS2 = 0.00217; 
+        caSmt = -0.00233;
+        cda5h = 0.15653; 
+        cMZ = 7.09793;
+  
+        RelThError=0.; 
+    } else if (s==182.7*182.7) { 
+        X0 = 3.47914; 
+        cMH = -0.00088; 
+        cmt = 0.02118; 
+        caS = -0.00247;
+        caS2 = -0.00777; 
+        caSmt = -0.00171;
+        cda5h = 0.14091; 
+        cMZ = 5.55998;
+  
+        RelThError=0.; 
+    } else if (s==188.6*188.6) { 
+        X0 = 3.23234; 
+        cMH = -0.00052; 
+        cmt = 0.0191; 
+        caS = -0.00218;
+        caS2 = -0.00834; 
+        caSmt = -0.00154;
+        cda5h = 0.13321; 
+        cMZ = 4.91462;
+  
+        RelThError=0.; 
+    } else if (s==191.6*191.6) { 
+        X0 = 3.11733; 
+        cMH = -0.00032; 
+        cmt = 0.01813; 
+        caS = -0.00205;
+        caS2 = -0.00921; 
+        caSmt = -0.00146;
+        cda5h = 0.12955; 
+        cMZ = 4.62536;
+  
+        RelThError=0.; 
+    } else if (s==195.5*195.5) { 
+        X0 = 2.97753; 
+        cMH = -0.00002; 
+        cmt = 0.01695; 
+        caS = -0.00189;
+        caS2 = -0.01044; 
+        caSmt = -0.00136;
+        cda5h = 0.12504; 
+        cMZ = 4.25918;
+  
+        RelThError=0.; 
+    } else if (s==199.5*199.5) { 
+        X0 = 2.84444; 
+        cMH = 0.00037; 
+        cmt = 0.01588; 
+        caS = -0.00174;
+        caS2 = -0.01254; 
+        caSmt = -0.00128;
+        cda5h = 0.12062; 
+        cMZ = 3.93087;
+  
+        RelThError=0.; 
+    } else if (s==201.6*201.6) { 
+        X0 = 2.77838; 
+        cMH = 0.00069; 
+        cmt = 0.01536; 
+        caS = -0.00167;
+        caS2 = -0.01512; 
+        caSmt = -0.00129;
+        cda5h = 0.11837; 
+        cMZ = 3.77165;
+  
+        RelThError=0.; 
+    } else if (s==204.9*204.9) { 
+        X0 = 2.67945; 
+        cMH = 0.00125; 
+        cmt = 0.01462; 
+        caS = -0.00157;
+        caS2 = -0.01972; 
+        caSmt = -0.00112;
+        cda5h = 0.11497; 
+        cMZ = 3.54289;
+  
+        RelThError=0.; 
+    } else if (s==206.7*206.7) { 
+        X0 = 2.62786; 
+        cMH = 0.0015; 
+        cmt = 0.01425; 
+        caS = -0.00151;
+        caS2 = -0.02055; 
+        caSmt = -0.00102;
+        cda5h = 0.11317; 
+        cMZ = 3.42495;
+  
+        RelThError=0.; 
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaMuApprox()");
 
@@ -1802,138 +1802,138 @@ double EWSMApproximateFormulae::LEP2AFBmuApprox(const double s) const
     double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
     double RelThError = 0.0; // (Relative) Theoretical uncertainty
     
-    if (s == 130.*130.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 136.*136.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 161.*161.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 172.*172.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 183.*183.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 189.*189.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 192.*192.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 196.*196.) {        
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;       
-        
-        RelThError = 0.;
-    } else if (s == 200.*200.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 202.*202.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 205.*205.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 207.*207.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
+    if (s==130.2*130.2) {
+        X0 = 0.70591; 
+        cMH = -0.00003; 
+        cmt = 0.0015; 
+        caS = -0.00023;
+        caS2 = -0.0002;
+        caSmt = -0.00018;
+        cda5h = -0.00582;
+        cMZ = 0.82841;
+  
+        RelThError=0.; 
+    } else if (s==136.2*136.2) {
+        X0 = 0.68554; 
+        cMH = -0.00003; 
+        cmt = 0.00183; 
+        caS = -0.00026;
+        caS2 = -0.00046;
+        caSmt = -0.00022;
+        cda5h = -0.00712;
+        cMZ = 0.93179;
+  
+        RelThError=0.; 
+    } else if (s==161.3*161.3) {
+        X0 = 0.6183; 
+        cMH = 0.00003; 
+        cmt = 0.00251; 
+        caS = -0.00031;
+        caS2 = -0.00047;
+        caSmt = -0.00029;
+        cda5h = -0.00953;
+        cMZ = 0.98102;
+  
+        RelThError=0.; 
+    } else if (s==172.1*172.1) {
+        X0 = 0.59756; 
+        cMH = 0.00009; 
+        cmt = 0.00262; 
+        caS = -0.00032;
+        caS2 = -0.00255;
+        caSmt = -0.00029;
+        cda5h = -0.00999;
+        cMZ = 0.97326;
+  
+        RelThError=0.; 
+    } else if (s==182.7*182.7) {
+        X0 = 0.58117; 
+        cMH = 0.00019; 
+        cmt = 0.00267; 
+        caS = -0.00032;
+        caS2 = -0.00097;
+        caSmt = -0.00031;
+        cda5h = -0.01024;
+        cMZ = 0.95077;
+  
+        RelThError=0.; 
+    } else if (s==188.6*188.6) {
+        X0 = 0.573; 
+        cMH = 0.00028; 
+        cmt = 0.00267; 
+        caS = -0.00031;
+        caS2 = -0.00128;
+        caSmt = -0.00031;
+        cda5h = -0.01033;
+        cMZ = 0.94318;
+  
+        RelThError=0.; 
+    } else if (s==191.6*191.6) {
+        X0 = 0.5691; 
+        cMH = 0.00033; 
+        cmt = 0.00267; 
+        caS = -0.00031;
+        caS2 = -0.00155;
+        caSmt = -0.00032;
+        cda5h = -0.01036;
+        cMZ = 0.94071;
+  
+        RelThError=0.; 
+    } else if (s==195.5*195.5) {
+        X0 = 0.56433; 
+        cMH = 0.00043; 
+        cmt = 0.00266; 
+        caS = -0.00031;
+        caS2 = -0.00216;
+        caSmt = -0.00032;
+        cda5h = -0.0104;
+        cMZ = 0.93368;
+  
+        RelThError=0.; 
+    } else if (s==199.5*199.5) {
+        X0 = 0.55974; 
+        cMH = 0.00058; 
+        cmt = 0.00265; 
+        caS = -0.0003;
+        caS2 = -0.00291;
+        caSmt = -0.00033;
+        cda5h = -0.01044;
+        cMZ = 0.92332;
+  
+        RelThError=0.; 
+    } else if (s==201.6*201.6) {
+        X0 = 0.55744; 
+        cMH = 0.00072; 
+        cmt = 0.00264; 
+        caS = -0.0003;
+        caS2 = -0.00415;
+        caSmt = -0.00035;
+        cda5h = -0.01045;
+        cMZ = 0.91927;
+  
+        RelThError=0.; 
+    } else if (s==204.9*204.9) {
+        X0 = 0.554; 
+        cMH = 0.00099; 
+        cmt = 0.00263; 
+        caS = -0.0003;
+        caS2 = -0.0064;
+        caSmt = -0.00031;
+        cda5h = -0.01047;
+        cMZ = 0.91178;
+  
+        RelThError=0.; 
+    } else if (s==206.7*206.7) { 
+        X0 = 0.55219; 
+        cMH = 0.00112; 
+        cmt = 0.00262; 
+        caS = -0.0003;
+        caS2 = -0.00692; 
+        caSmt = -0.00028; 
+        cda5h = -0.01048; 
+        cMZ = 0.90624; 
+  
+        RelThError=0.;
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2AFBmuApprox()");
 
@@ -1954,138 +1954,138 @@ double EWSMApproximateFormulae::LEP2sigmaTauApprox(const double s) const
     double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
     double RelThError = 0.0; // (Relative) Theoretical uncertainty
     
-    if (s == 130.*130.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 136.*136.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 161.*161.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 172.*172.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 183.*183.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 189.*189.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 192.*192.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 196.*196.) {        
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;       
-        
-        RelThError = 0.;
-    } else if (s == 200.*200.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 202.*202.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 205.*205.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 207.*207.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
+    if (s==130.2*130.2) { 
+        X0 = 8.46349;
+        cMH = -0.00584;
+        cmt = 0.07027;
+        caS = -0.00926;
+        caS2 = -0.00309;
+        caSmt = -0.00727;
+        cda5h = 0.24696;
+        cMZ = 29.5239;
+  
+        RelThError=0.; 
+    } else if (s==136.2*136.2) { 
+        X0 = 7.3087;
+        cMH = -0.00447;
+        cmt = 0.05543;
+        caS = -0.00715;
+        caS2 = -0.00341;
+        caSmt= -0.00566;
+        cda5h = 0.23411;
+        cMZ = 21.1884;
+  
+        RelThError=0.; 
+    } else if (s==161.3*161.3) { 
+        X0 = 4.68796;
+        cMH = -0.00198;
+        cmt = 0.02968;
+        caS = -0.00363;
+        caS2 = -0.00999;
+        caSmt= -0.00233;
+        cda5h = 0.17757;
+        cMZ = 8.79193;
+  
+        RelThError=0.; 
+    } else if (s==172.1*172.1) { 
+        X0 = 4.00398;
+        cMH = -0.00153;
+        cmt = 0.02579;
+        caS = -0.0031;
+        caS2 = 0.00223;
+        caSmt= -0.00233;
+        cda5h = 0.15654;
+        cMZ = 7.09461;
+  
+        RelThError=0.; 
+    } else if (s==182.7*182.7) { 
+        X0 = 3.47876;
+        cMH = -0.00088;
+        cmt = 0.02118;
+        caS = -0.00247;
+        caS2 = -0.00758;
+        caSmt= -0.00171;
+        cda5h = 0.14091;
+        cMZ = 5.55773;
+  
+        RelThError=0.; 
+    } else if (s==188.6*188.6) { 
+        X0 = 3.23202;
+        cMH = -0.00052;
+        cmt = 0.01909;
+        caS = -0.00218;
+        caS2 = -0.00851;
+        caSmt= -0.00154;
+        cda5h = 0.13321;
+        cMZ = 4.91269;
+  
+        RelThError=0.; 
+    } else if (s==191.6*191.6) { 
+        X0 = 3.11704;
+        cMH = -0.00032;
+        cmt = 0.01813;
+        caS = -0.00205;
+        caS2 = -0.00936;
+        caSmt= -0.00146;
+        cda5h = 0.12955;
+        cMZ = 4.62364;
+  
+        RelThError=0.; 
+    } else if (s==195.5*195.5) { 
+        X0 = 2.97726;
+        cMH = -0.00002;
+        cmt = 0.01695;
+        caS = -0.00189;
+        caS2 = -0.01035;
+        caSmt= -0.00136;
+        cda5h = 0.12504;
+        cMZ = 4.25766;
+  
+        RelThError=0.; 
+    } else if (s==199.5*199.5) { 
+        X0 = 2.8442;
+        cMH = 0.00037;
+        cmt = 0.01587;
+        caS = -0.00174;
+        caS2 = -0.01253;
+        caSmt= -0.00128;
+        cda5h = 0.12062;
+        cMZ = 3.92951;
+  
+        RelThError=0.; 
+    } else if (s==201.6*201.6) { 
+        X0 = 2.77816;
+        cMH = 0.00069;
+        cmt = 0.01536;
+        caS = -0.00167;
+        caS2 = -0.01522;
+        caSmt= -0.00129;
+        cda5h = 0.11837;
+        cMZ = 3.7704;
+  
+        RelThError=0.; 
+    } else if (s==204.9*204.9) { 
+        X0 = 2.67925;
+        cMH = 0.00125;
+        cmt = 0.01462;
+        caS = -0.00157;
+        caS2 = -0.0198;
+        caSmt= -0.00112;
+        cda5h = 0.11497;
+        cMZ = 3.54175;
+  
+        RelThError=0.; 
+    } else if (s==206.7*206.7) { 
+        X0 = 2.62766;
+        cMH = 0.0015;
+        cmt = 0.01424;
+        caS = -0.00151;
+        caS2 = -0.02061;
+        caSmt= -0.00102;
+        cda5h = 0.11317;
+        cMZ = 3.42386;
+  
+        RelThError=0.;
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaTauApprox()");
 
@@ -2106,138 +2106,138 @@ double EWSMApproximateFormulae::LEP2AFBtauApprox(const double s) const
     double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
     double RelThError = 0.0; // (Relative) Theoretical uncertainty
     
-    if (s == 130.*130.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 136.*136.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 161.*161.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 172.*172.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 183.*183.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 189.*189.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 192.*192.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 196.*196.) {        
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;       
-        
-        RelThError = 0.;
-    } else if (s == 200.*200.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 202.*202.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 205.*205.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 207.*207.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
+    if (s==130.2*130.2) { 
+        X0 = 0.70565; 
+        cMH = -0.00003; 
+        cmt = 0.0015; 
+        caS = -0.00023;
+        caS2 = -0.00025;
+        caSmt = -0.00018;
+        cda5h = -0.00583;
+        cMZ = 0.82957;
+  
+        RelThError=0.; 
+    } else if (s==136.2*136.2) { 
+        X0 = 0.68528; 
+        cMH = -0.00003; 
+        cmt = 0.00184; 
+        caS = -0.00026;
+        caS2 = -0.00038;
+        caSmt = -0.00022;
+        cda5h = -0.00712;
+        cMZ = 0.93255;
+  
+        RelThError=0.; 
+    } else if (s==161.3*161.3) { 
+        X0 = 0.6181; 
+        cMH = 0.00003; 
+        cmt = 0.00251; 
+        caS = -0.00031;
+        caS2 = -0.00064;
+        caSmt = -0.00029;
+        cda5h = -0.00954;
+        cMZ = 0.9811;
+  
+        RelThError=0.; 
+    } else if (s==172.1*172.1) { 
+        X0 = 0.59737; 
+        cMH = 0.00009; 
+        cmt = 0.00262; 
+        caS = -0.00032;
+        caS2 = -0.00258;
+        caSmt = -0.00029;
+        cda5h = -0.01;
+        cMZ = 0.9733;
+  
+        RelThError=0.; 
+    } else if (s==182.7*182.7) { 
+        X0 = 0.58101; 
+        cMH = 0.00019; 
+        cmt = 0.00267; 
+        caS = -0.00032;
+        caS2 = -0.00116;
+        caSmt = -0.00031;
+        cda5h = -0.01024;
+        cMZ = 0.95072;
+  
+        RelThError=0.; 
+    } else if (s==188.6*188.6) { 
+        X0 = 0.57284; 
+        cMH = 0.00028; 
+        cmt = 0.00267; 
+        caS = -0.00031;
+        caS2 = -0.00119;
+        caSmt = -0.00031;
+        cda5h = -0.01033;
+        cMZ = 0.94322;
+  
+        RelThError=0.; 
+    } else if (s==191.6*191.6) { 
+        X0 = 0.56895; 
+        cMH = 0.00033; 
+        cmt = 0.00267; 
+        caS = -0.00031;
+        caS2 = -0.0015;
+        caSmt = -0.00032;
+        cda5h = -0.01036;
+        cMZ = 0.9407;
+  
+        RelThError=0.; 
+    } else if (s==195.5*195.5) { 
+        X0 = 0.56418; 
+        cMH = 0.00043; 
+        cmt = 0.00266; 
+        caS = -0.00031;
+        caS2 = -0.00211;
+        caSmt = -0.00032;
+        cda5h = -0.0104;
+        cMZ = 0.93372;
+  
+        RelThError=0.; 
+    } else if (s==199.5*199.5) { 
+        X0 = 0.5596; 
+        cMH = 0.00058; 
+        cmt = 0.00265; 
+        caS = -0.0003;
+        caS2 = -0.0029;
+        caSmt = -0.00033;
+        cda5h = -0.01044;
+        cMZ = 0.92329;
+  
+        RelThError=0.; 
+    } else if (s==201.6*201.6) { 
+        X0 = 0.55731; 
+        cMH = 0.00072; 
+        cmt = 0.00264; 
+        caS = -0.0003;
+        caS2 = -0.00417;
+        caSmt = -0.00035;
+        cda5h = -0.01045;
+        cMZ = 0.91922;
+  
+        RelThError=0.; 
+    } else if (s==204.9*204.9) { 
+        X0 = 0.55387; 
+        cMH = 0.00099; 
+        cmt = 0.00263; 
+        caS = -0.0003;
+        caS2 = -0.00632;
+        caSmt = -0.00031;
+        cda5h = -0.01047;
+        cMZ = 0.91174;
+  
+        RelThError=0.; 
+    } else if (s==206.7*206.7) { 
+        X0 = 0.55206; 
+        cMH = 0.00112; 
+        cmt = 0.00262; 
+        caS = -0.0003;
+        caS2 = -0.007; 
+        caSmt = -0.00028; 
+        cda5h = -0.01048; 
+        cMZ = 0.90619; 
+  
+        RelThError=0.;
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2AFBtauApprox()");
 
@@ -2258,138 +2258,138 @@ double EWSMApproximateFormulae::LEP2sigmaHadronApprox(const double s) const
     double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
     double RelThError = 0.0; // (Relative) Theoretical uncertainty
     
-    if (s == 130.*130.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 136.*136.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 161.*161.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 172.*172.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 183.*183.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 189.*189.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 192.*192.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 196.*196.) {        
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;       
-        
-        RelThError = 0.;
-    } else if (s == 200.*200.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 202.*202.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 205.*205.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
-    } else if (s == 207.*207.) {
-        X0 = 1.;
-        cMH = 0.;
-        cmt = 0.;
-        caS = 0.;
-        caS2 = 0.;
-        caSmt = 0.;
-        cda5h = 0.;
-        cMZ = 0.;
-
-        RelThError = 0.;
+    if (s==130.2*130.2) { 
+        X0 = 82.8892; 
+        cMH = -0.15474; 
+        cmt = 1.40573; 
+        caS = 2.62479;
+        caS2 = -0.36848;
+        caSmt = -0.07418;
+        cda5h = -1.10373;
+        cMZ = 668.098;
+  
+        RelThError=0.; 
+    } else if (s==136.2*136.2) { 
+        X0 = 66.678; 
+        cMH = -0.11894; 
+        cmt = 1.10611; 
+        caS = 2.08786;
+        caS2 = -0.31851;
+        caSmt = -0.05714;
+        cda5h = -0.7474;
+        cMZ = 483.206;
+  
+        RelThError=0.; 
+    } else if (s==161.3*161.3) { 
+        X0 = 35.3327; 
+        cMH = -0.04814; 
+        cmt = 0.67248; 
+        caS = 1.04946; 
+        caS2 = -2.91626;
+        caSmt = 0.14485;
+        cda5h = -0.16031;
+        cMZ = 194.287;
+  
+        RelThError=0.; 
+    } else if (s==172.1*172.1) { 
+        X0 = 28.9533; 
+        cMH = -0.0217; 
+        cmt = 0.84287; 
+        caS = 0.82342;
+        caS2 = -10.3622;
+        caSmt = 0.34553;
+        cda5h = -0.08566;
+        cMZ = 143.973;
+  
+        RelThError=0.; 
+    } else if (s==182.7*182.7) { 
+        X0 = 24.3396; 
+        cMH = -0.02135; 
+        cmt = 0.55825; 
+        caS = 0.65303;
+        caS2 = 2.27278;
+        caSmt = 0.15497;
+        cda5h = -0.02621;
+        cMZ = 117.679;
+  
+        RelThError=0.; 
+    } else if (s==188.6*188.6) { 
+        X0 = 22.2913; 
+        cMH = -0.01369; 
+        cmt = 0.38248; 
+        caS = 0.58642;
+        caS2 = 0.07636;
+        caSmt = 0.03366;
+        cda5h = -0.00452;
+        cMZ = 105.239;
+  
+        RelThError=0.; 
+    } else if (s==191.6*191.6) { 
+        X0 = 21.3559; 
+        cMH = -0.00962; 
+        cmt = 0.35565; 
+        caS = 0.55869;
+        caS2 = -0.03217;
+        caSmt = 0.02119;
+        cda5h = 0.00413;
+        cMZ = 99.4257;
+  
+        RelThError=0.; 
+    } else if (s==195.5*195.5) { 
+        X0 = 20.233; 
+        cMH = -0.00369; 
+        cmt = 0.32882; 
+        caS = 0.52602;
+        caS2 = -0.07412;
+        caSmt = 0.01125;
+        cda5h = 0.01378;
+        cMZ = 92.7475;
+  
+        RelThError=0.; 
+    } else if (s==199.5*199.5) { 
+        X0 = 19.1785; 
+        cMH = 0.00421; 
+        cmt = 0.30557; 
+        caS = 0.49572;
+        caS2 = -0.08902;
+        caSmt = 0.00367;
+        cda5h = 0.02208;
+        cMZ = 86.5648;
+  
+        RelThError=0.; 
+    } else if (s==201.6*201.6) { 
+        X0 = 18.6603; 
+        cMH = 0.01064; 
+        cmt = 0.29435; 
+        caS = 0.48093;
+        caS2 = -0.11273;
+        caSmt = -0.00029;
+        cda5h = 0.02582;
+        cMZ = 83.6171;
+  
+        RelThError=0.; 
+    } else if (s==204.9*204.9) { 
+        X0 = 17.8912; 
+        cMH = 0.02277; 
+        cmt = 0.2783; 
+        caS = 0.4593;
+        caS2 = -0.26373;
+        caSmt = -0.00193;
+        cda5h = 0.03143;
+        cMZ = 79.1842;
+  
+        RelThError=0.; 
+    } else if (s==206.7*206.7) { 
+        X0 = 17.4932; 
+        cMH = 0.02808; 
+        cmt = 0.27049; 
+        caS = 0.44822;
+        caS2 = -0.32919; 
+        caSmt = -0.0022; 
+        cda5h = 0.03404;
+        cMZ = 76.9357; 
+  
+        RelThError=0.;
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaHadronApprox()");
 
