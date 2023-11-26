@@ -16,7 +16,23 @@ double LEP2sigmaMu::computeThValue()
     sigma_mu = myTEST.sigmaMuTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
     #endif 
         
-    return ( sigma_mu*SM.GeVminus2_to_nb*1000.0 );
+//    return ( sigma_mu*SM.GeVminus2_to_nb*1000.0 );
+    //  Approximate formulae returns result in pb
+    return ( sigma_mu );
+}
+
+
+
+double LEP2dsigmadcosMu::computeThValue() 
+{ 
+    double dsigmadcos_mu = SM.LEP2dsigmadcosMu(s,cos);
+    
+    #ifdef LEP2TEST
+    sigma_mu = myTEST.sigmaMuTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
+    #endif 
+
+    //  Approximate formulae returns result in pb
+    return ( dsigmadcos_mu );
 }
         
 

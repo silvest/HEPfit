@@ -4081,6 +4081,8 @@ ThObsFactory::ThObsFactory()
    
 
     //-----  LEP-II two-fermion processes  -----
+   
+    // Parameters for inclusive observables
     const double sqrt_s[12] = {130., 136., 161., 172., 183., 189.,
         192., 196., 200., 202., 205., 207.};
     const double sqrt_s_LEP2eeff[12] = {130.2, 136.2, 161.3, 172.1, 182.7, 188.6,
@@ -4095,6 +4097,26 @@ ThObsFactory::ThObsFactory()
         obsThFactory["AFBtauLEP2_" + sqrt_s_str] = bind(boost::factory<LEP2AFBtau*>(), _1, sqrt_s_LEP2eeff[i]);
     }
     
+    // Parameters for differential observables
+    const double sqrt_sDiffll[8] = {183., 189., 192., 196., 200., 202., 205., 207.};
+    const double cos_Diffll[10] = {-0.9, -0.7, -0.5, -0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9};
+    
+    for (int i = 0; i < 8; i++) {
+        std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_sDiffll[i]);
+        
+        for (int j = 0; j < 5; j++) {
+        std::string cos_str = boost::lexical_cast<std::string, double>(fabs(cos_Diffll[i]));
+        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_m" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[i]);
+        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_m" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[i]);
+        }
+        
+        for (int j = 5; j < 10; j++) {
+        std::string cos_str = boost::lexical_cast<std::string, double>(cos_Diffll[i]);
+        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[i]);
+        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[i]);
+        }
+    }
+
     /* BEGIN: REMOVE FROM THE PACKAGE */
     
     const double sqrt_s_HF[10] = {133., 167., 183., 189., 192.,

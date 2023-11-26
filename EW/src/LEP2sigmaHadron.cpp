@@ -17,7 +17,10 @@ double LEP2sigmaHadron::computeThValue()
     sigmaH = myTEST.sigmaHadronTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
     #endif
     
-    return ( sigmaH*SM.GeVminus2_to_nb*1000.0 );
+//    return ( sigmaH*SM.GeVminus2_to_nb*1000.0 );
+    
+    //  Approximate formulae returns result in pb    
+    return ( sigmaH );
 }
         
 

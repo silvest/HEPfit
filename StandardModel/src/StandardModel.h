@@ -2639,7 +2639,7 @@ public:
     
 /* BEGIN: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////
-    //LEP2 Observables
+    //LEP2 Inclusive Observables
     
     virtual double LEP2sigmaMu(const double s) const;
     virtual double LEP2sigmaTau(const double s) const;
@@ -2653,6 +2653,12 @@ public:
     virtual double LEP2AFBbottom(const double s) const;
     virtual double LEP2Rcharm(const double s) const;
     virtual double LEP2Rbottom(const double s) const;
+    
+    //LEP2 Differential Observables
+    virtual double LEP2dsigmadcosE(const double s, const double cos) const;
+    virtual double LEP2dsigmadcosMu(const double s, const double cos) const;
+    virtual double LEP2dsigmadcosTau(const double s, const double cos) const;
+    
 /* END: REMOVE FROM THE PACKAGE */
     
 bool setFlagSigmaForAFB(const bool flagSigmaForAFB_i)

@@ -422,6 +422,36 @@ public:
      */
     double LEP2sigmaHadronApprox(const double s) const;
     
+       
+    //LEP2 Differential Observables
+    
+    /**
+     * @brief The @f$e^+e^- \to e^+ e^-@f$ differential cross section at LEP2
+     * @details This function is based on the approximate formula for the
+     * differential cross section, obtained fitting the ZFitter predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return the @f$e^+e^- \to e^+ e^-@f$ cross section in units of pb
+     */
+    double LEP2dsigmadcosEApprox(const double s, const double cos) const;
+    
+    /**
+     * @brief The @f$e^+e^- \to \mu^+\mu^-@f$ differential cross section at LEP2
+     * @details This function is based on the approximate formula for the
+     * differential cross section, obtained fitting the ZFitter predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return the @f$e^+e^- \to \mu^+\mu^-@f$ cross section in units of pb
+     */
+    double LEP2dsigmadcosMuApprox(const double s, const double cos) const;
+    
+    /**
+     * @brief The @f$e^+e^- \to \tau^+\tau^-@f$ differential cross section at LEP2
+     * @details This function is based on the approximate formula for the
+     * differential cross section, obtained fitting the ZFitter predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return the @f$e^+e^- \to \tau^+\tau^-@f$ cross section in units of pb
+     */
+    double LEP2dsigmadcosTauApprox(const double s, const double cos) const;
+    
     ////////////////////////////////////////////////////////////////////////
 
 private:

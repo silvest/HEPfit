@@ -17,7 +17,22 @@ double LEP2sigmaTau::computeThValue()
     sigma_tau = myTEST.sigmaTauTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
     #endif 
     
-    return ( sigma_tau*SM.GeVminus2_to_nb*1000.0 );
+//    return ( sigma_tau*SM.GeVminus2_to_nb*1000.0 );
+    
+    //  Approximate formulae returns result in pb
+    return ( sigma_tau );
 }
         
 
+
+double LEP2dsigmadcosTau::computeThValue() 
+{ 
+    double dsigmadcos_tau = SM.LEP2dsigmadcosTau(s,cos);
+    
+    #ifdef LEP2TEST
+    sigma_tau = myTEST.sigmaTauTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
+    #endif 
+    
+    //  Approximate formulae returns result in pb
+    return ( dsigmadcos_tau );
+}

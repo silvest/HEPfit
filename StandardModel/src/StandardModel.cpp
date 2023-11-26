@@ -7943,4 +7943,47 @@ double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207(double x) const
     double s = 207. * 207.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
+
+
+
+//  LEP2 differential observables
+
+double StandardModel::LEP2dsigmadcosE(const double s, const double cos) const
+{
+    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
+    if (!IsFlagNoApproximateGammaZ()){
+            
+    /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->LEP2dsigmadcosEApprox(s, cos));
+
+    } else {
+        throw std::runtime_error("ERROR: StandardModel::LEP2dsigmadcosE only implemented via semi-analytical approx");
+    }
+}
+
+double StandardModel::LEP2dsigmadcosMu(const double s, const double cos) const
+{
+    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
+    if (!IsFlagNoApproximateGammaZ()){
+            
+    /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->LEP2dsigmadcosMuApprox(s, cos));
+
+    } else {
+        throw std::runtime_error("ERROR: StandardModel::LEP2dsigmadcosMu only implemented via semi-analytical approx");
+    }
+}
+
+double StandardModel::LEP2dsigmadcosTau(const double s, const double cos) const
+{
+    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
+    if (!IsFlagNoApproximateGammaZ()){
+            
+    /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->LEP2dsigmadcosTauApprox(s, cos));
+
+    } else {
+        throw std::runtime_error("ERROR: StandardModel::LEP2dsigmadcosTau only implemented via semi-analytical approx");
+    }
+}
 /* END: REMOVE FROM THE PACKAGE */

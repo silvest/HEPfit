@@ -51,6 +51,7 @@
 #include "ee_WW.h"
 #include "pp_DiBoson.h"
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#include "LEP2sigmaElectron.h"
 #include "LEP2sigmaHadron.h"
 #include "LEP2sigmaMu.h"
 #include "LEP2sigmaTau.h"

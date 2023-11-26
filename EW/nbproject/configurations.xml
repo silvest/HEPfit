@@ -34,6 +34,7 @@
       <itemPath>src/LEP2oblique.h</itemPath>
       <itemPath>src/LEP2sigmaBottom.h</itemPath>
       <itemPath>src/LEP2sigmaCharm.h</itemPath>
+      <itemPath>src/LEP2sigmaElectron.h</itemPath>
       <itemPath>src/LEP2sigmaHadron.h</itemPath>
       <itemPath>src/LEP2sigmaMu.h</itemPath>
       <itemPath>src/LEP2sigmaTau.h</itemPath>
@@ -86,6 +87,7 @@
       <itemPath>src/LEP2oblique.cpp</itemPath>
       <itemPath>src/LEP2sigmaBottom.cpp</itemPath>
       <itemPath>src/LEP2sigmaCharm.cpp</itemPath>
+      <itemPath>src/LEP2sigmaElectron.cpp</itemPath>
       <itemPath>src/LEP2sigmaHadron.cpp</itemPath>
       <itemPath>src/LEP2sigmaMu.cpp</itemPath>
       <itemPath>src/LEP2sigmaTau.cpp</itemPath>
@@ -393,6 +395,10 @@
       </item>
       <item path="src/LEP2sigmaCharm.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/LEP2sigmaElectron.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LEP2sigmaElectron.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LEP2sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2sigmaHadron.h" ex="false" tool="3" flavor2="0">
@@ -633,6 +639,10 @@
       <item path="src/LEP2sigmaCharm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2sigmaCharm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LEP2sigmaElectron.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LEP2sigmaElectron.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LEP2sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -875,6 +885,10 @@
       <item path="src/LEP2sigmaCharm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2sigmaCharm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LEP2sigmaElectron.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LEP2sigmaElectron.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LEP2sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1224,6 +1238,10 @@
       <item path="src/LEP2sigmaCharm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2sigmaCharm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LEP2sigmaElectron.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LEP2sigmaElectron.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LEP2sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>

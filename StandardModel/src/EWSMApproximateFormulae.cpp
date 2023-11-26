@@ -2397,3 +2397,99 @@ double EWSMApproximateFormulae::LEP2sigmaHadronApprox(const double s) const
             + caS * Das + caS2 * Das * Das
             + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
 }
+
+
+    //LEP2 Differential Observables
+
+
+double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const double cos) const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+    if (s==183.*183.) { 
+        X0 = 0.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const double cos) const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+    if (s==183.*183.) { 
+        X0 = 0.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosMuApprox()");
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const double cos) const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+    if (s==183.*183.) { 
+        X0 = 0.;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosTauApprox()");
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
