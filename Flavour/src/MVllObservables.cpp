@@ -1412,7 +1412,7 @@ double BR_MVpsi::computeThValue()
     double A2_0 = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).abs2();
     double A2_par = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1).abs2();
     double A2_perp = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,2).abs2();
-    return A2_0+A2_par+A2_perp;
+    return (A2_0+A2_par+A2_perp)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth();
 }
 
 Abs2Ampar_MVpsi::Abs2Ampar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
