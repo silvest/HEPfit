@@ -273,6 +273,12 @@ public:
      */
     gslpp::matrix<double> CMS13_pp_Hpm_taunu, CMS13_pp_Hpm_tb;
 
+    //Added in late 2023 for low mass scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
+     */
+    gslpp::matrix<double> CMS13_pp_h_phi3phi3_mumutautau;
+
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
      */
@@ -612,6 +618,8 @@ public:
     double ip_ex_pp_Hpm_tb_ATLAS13(double mass);
     double ip_ex_pp_Hpm_tb_CMS13(double mass);
 
+    double ip_low_pp_h_phi3phi3_mumutautau_CMS13(double mass);
+
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
      * @return @f$[\sigma_{pp\to phi3^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{ATLAS,95\%}}@f$
@@ -827,7 +835,8 @@ public:
     double computephi2quantities();
     double computephi3quantities();
     double computeHpquantities();
-    double ComputeHeavyHiggs();
+    double computeHeavyHiggs();
+    void computeLowMass();
     
     ////////////////////////////////////////////////////////////////////////////
 
@@ -1111,7 +1120,7 @@ public:
      */
     double Gamma_h;
     
-        /**
+    /**
      * @brief @f$h@f$ branching ratio to two @f$b@f$ quarks in the %GTHDM.
      * @return @f$BR^{\text{GTHDM}}(h\to b \bar b)@f$
      */
@@ -1152,8 +1161,20 @@ public:
      * @return @f$BR^{\text{GTHDM}}(h\to c\bar c)@f$
      */
     double GTHDM_BR_h_cc;
-    
-    
+
+    /**
+     * @brief @f$h@f$ branching ratio to two @f$H@f$ bosons in the %GTHDM.
+     * @return @f$BR^{\text{GTHDM}}(h\to HH)@f$
+     */
+    double GTHDM_BR_h_HH;
+
+    /**
+     * @brief @f$h@f$ branching ratio to two @f$A@f$ bosons in the %GTHDM.
+     * @return @f$BR^{\text{GTHDM}}(h\to AA)@f$
+     */
+    double GTHDM_BR_h_AA;
+
+
     //Higgs direct searches
     
     double SigmaSumphi3_8;
@@ -2559,6 +2580,8 @@ public:
     double THoEX_pp_Hpm_tb_ATLAS13;
     double THoEX_pp_Hpm_tb_CMS13;           //Included in mid 2022
 
+    double THoEX_pp_h_phi3phi3_mumutautau_CMS13;
+
     double SigmaSumphi2_8;
     double SigmaggF_phi2_8;
     double SigmabbF_phi2_8;
@@ -2830,6 +2853,7 @@ public:
     double mH1sq;
     double mH2sq;
     double mH3sq;
+    double mH3;
     double mHp;
     double mHp2;
     double M11_2;
@@ -3210,6 +3234,8 @@ private:
     mutable double ip_ex_pp_Hp_tb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hpm_tb_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_Hpm_tb_CMS13_cache[2][CacheSize];
+
+    mutable double ip_low_pp_h_phi3phi3_mumutautau_CMS13_cache[2][CacheSize];
 
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 

@@ -174,6 +174,8 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS13_pp_Hpm_taunu(585, 2, 0.),     //Updated in mid 2022
         CMS13_pp_Hpm_tb(281, 2, 0.),       //Included in mid 2022
         //
+        CMS13_pp_h_phi3phi3_mumutautau(48, 2, 0.), //Added in late 2023
+        //
         arraybsgamma(1111, 3, 0.),
         Rij_GTHDM(3, 3, 0.),
         //The below matrices are not used anywhere, the first ones are the mass matrices and the second ones not sure
@@ -1592,7 +1594,6 @@ double GeneralTHDMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
     double xmax = arrayTab(rowN-1,0);
     double interval = arrayTab(1,0)-arrayTab(0,0);
     int Nintervals = (x-xmin)/interval;
-    double y = 0.0;
        
     if(x<xmin){
         //std::cout<<"\033[1;33m   x= \033[0m "<< x <<std::endl;
@@ -1604,10 +1605,12 @@ double GeneralTHDMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
         std::cout<<"warning: your table parameter value is greater than the maximum allowed value"<<std::endl;
         return 0.;
     }
+    else if(x==xmax){
+        return arrayTab(rowN-1,1);
+    }
     else{
-        y =(arrayTab(Nintervals+1,1)-arrayTab(Nintervals,1))/(arrayTab(Nintervals+1,0)
-                   -arrayTab(Nintervals,0))*(x-arrayTab(Nintervals,0))+arrayTab(Nintervals,1);
-        return y;
+        return ((arrayTab(Nintervals+1,1)-arrayTab(Nintervals,1))/(arrayTab(Nintervals+1,0)
+                -arrayTab(Nintervals,0))*(x-arrayTab(Nintervals,0))+arrayTab(Nintervals,1));
     }
 }
 
@@ -1742,6 +1745,7 @@ void GeneralTHDMcache::read(){
             ex45,ex46n1,ex46n2,ex46a,ex47,ex48,ex49,ex49p2,ex50,ex51,ex52m2,ex52m1,ex52,ex52p1,ex52p2,ex53,ex54,ex55,ex56;
     std::stringstream ex57,ex58,ex59,ex60,ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex67p1,ex67p2,ex67p3,ex67p4,ex67p5,ex68,ex69,ex70,ex71,ex72,ex73,ex74,ex75,ex76,ex77,\
             ex78,ex79;//,ex80,ex81,ex82,ex83,ex84,ex85,ex86,ex87,ex88,ex89,ex90,ex91,ex92,ex93,ex94,ex95,ex96,ex97,ex98
+    std::stringstream low01;
     std::stringstream bsg1;
 
        std::cout<<"reading tables"<<std::endl;
@@ -2142,9 +2146,12 @@ void GeneralTHDMcache::read(){
     //CMS13_pp_Hpm_taunu = readTable(ex78.str(),283,2); //OLD Previous to mid 2022
     ex79 << tablepath << "190304560.dat";               //Updated in mid 2022
     CMS13_pp_Hpm_taunu = readTable(ex79.str(),585,2);   //Updated in mid 2022
-    
+
+    low01 << tablepath << "CMS-HIG-17-029_4e.dat";               //Added in late 2023
+    CMS13_pp_h_phi3phi3_mumutautau = readTable(low01.str(),48,2);
+
     //std::cout<< CMS13_pp_Hpm_taunu<<std::endl;
-    
+
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
 }
@@ -4446,6 +4453,20 @@ double GeneralTHDMcache::ip_ex_pp_Hpm_tb_CMS13(double mass){
 }
 
 
+double GeneralTHDMcache::ip_low_pp_h_phi3phi3_mumutautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_low_pp_h_phi3phi3_mumutautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_h_phi3phi3_mumutautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_h_phi3phi3_mumutautau,mass);
+        CacheShiftReal(ip_low_pp_h_phi3phi3_mumutautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 
 //This seems not to be used by the code. Check if this was only something included of the THDM
 double GeneralTHDMcache::ip_ex_bsgamma(double logtb, double logmHp){
@@ -4988,10 +5009,8 @@ void GeneralTHDMcache::computeSignalStrengths()
     m2 = sqrt(m2_2);
     m3_2 = mH3sq;
     m3 = sqrt(m3_2);
-    
-    
-    
-    double GF = 1/(sqrt(2.0)*vev*vev);
+
+
     double sW2=1.0-cW2;
 
       //FLAG to select only the model in which all the couplings are the same (by families)
@@ -5038,7 +5057,8 @@ void GeneralTHDMcache::computeSignalStrengths()
     yl1R = myGTHDM->getyl1R();
        
  
-     //The Standard Model h branching ratios
+    //The Standard Model h branching ratios
+    //Could be made into mass-dependent formulae in the future
 
     BrSM_htobb = 5.77e-1;
     BrSM_htotautau = 6.32e-2;
@@ -5186,9 +5206,8 @@ void GeneralTHDMcache::computeSignalStrengths()
     
     //std::cout<<"\033[1;32m   sW2= \033[0m "<< sW2 <<std::endl;
     
-    double Gamma_hggSM=GF*Als*Als*m1*m1*m1/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2();
-    
-    double Gamma_hgg=rh_gg*GF*Als*Als*m1*m1*m1/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2();
+//    double Gamma_hgg=rh_gg*GF*Als*Als*m1*m1*m1/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)*(9.0/4.0)*(fermU/4.0+fermD).abs2();
+
     double lambda122 = (2.0)*(lambdaijk(R11, R12, R13, R21, R22, R23, R21, R22, R23, lambda1, lambda3, lambda4, Relambda5,
                                         Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7) +
                               lambdaijk(R21, R22, R23, R11, R12, R13, R21, R22, R23,   lambda1, lambda3, lambda4, Relambda5,
@@ -5221,23 +5240,32 @@ void GeneralTHDMcache::computeSignalStrengths()
     /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
     VBF_Vh = rh_VV;
 
-    sumModBRs = BrSM_htobb*(rh_QdQdE + rh_QdQdO/(beta(Mb, m1_2)*beta(Mb, m1_2))) 
-            + (BrSM_htoWW+BrSM_htoZZ)*rh_VV
-            + BrSM_htotautau*(rh_QlQlE + rh_QlQlO/(beta(Mtau, m1_2)*beta(Mtau, m1_2))) 
-            + BrSM_htogaga*rh_gaga
-            + BrSM_htogg*rh_gg
-            + BrSM_htoZga*rh_Zga
-            + BrSM_htocc*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2)));
-    Gamma_h = sumModBRs*myGTHDM->computeGammaHTotal() + Gamma_hHH + Gamma_hAA;
-   
-    GTHDM_BR_h_bb=(rh_QdQdE + rh_QdQdO/(beta(Mb, m1_2)*beta(Mb, m1_2)))*BrSM_htobb/sumModBRs;
-    GTHDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
-    GTHDM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
-    GTHDM_BR_h_tautau = BrSM_htotautau*(rh_QlQlE + rh_QlQlO/(beta(Mtau, m1_2)*beta(Mtau, m1_2)))/sumModBRs;
-    GTHDM_BR_h_cc =(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2)))*BrSM_htocc/sumModBRs;
-    GTHDM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
-    GTHDM_BR_h_gg = (Gamma_hgg/Gamma_hggSM)*BrSM_htogg/sumModBRs;
-    
+    double Gamma_h_exp = myGTHDM->computeGammaHTotal();
+
+    double Gamma_htobb     = BrSM_htobb * (rh_QdQdE + rh_QdQdO/(beta(Mb, m1_2)*beta(Mb, m1_2))) * Gamma_h_exp;
+    double Gamma_htoWW     = BrSM_htoWW * rh_VV * Gamma_h_exp;
+    double Gamma_htoZZ     = BrSM_htoZZ * rh_VV * Gamma_h_exp;
+    double Gamma_htotautau = BrSM_htotautau * (rh_QlQlE + rh_QlQlO/(beta(Mtau, m1_2)*beta(Mtau, m1_2))) * Gamma_h_exp;
+    double Gamma_htogaga   = BrSM_htogaga * rh_gaga * Gamma_h_exp;
+    double Gamma_htogg     = BrSM_htogg * rh_gg * Gamma_h_exp;
+    double Gamma_htoZga    = BrSM_htoZga * rh_Zga * Gamma_h_exp;
+    double Gamma_htocc     = BrSM_htocc * (rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))) * Gamma_h_exp;
+
+    Gamma_h = Gamma_htobb + Gamma_htoWW + Gamma_htoZZ + Gamma_htotautau + Gamma_htogaga +
+              Gamma_htogg + Gamma_htoZga + Gamma_htocc + Gamma_hHH + Gamma_hAA;
+
+    GTHDM_BR_h_bb = Gamma_htobb / Gamma_h;
+    GTHDM_BR_h_WW = Gamma_htoWW / Gamma_h;
+    GTHDM_BR_h_ZZ = Gamma_htoZZ / Gamma_h;
+    GTHDM_BR_h_tautau = Gamma_htotautau / Gamma_h;
+    GTHDM_BR_h_cc = Gamma_htocc / Gamma_h;
+    GTHDM_BR_h_gaga = Gamma_htogaga / Gamma_h;
+    GTHDM_BR_h_gg = Gamma_htogg / Gamma_h;
+    GTHDM_BR_h_HH = Gamma_hHH / Gamma_h;
+    GTHDM_BR_h_AA = Gamma_hAA / Gamma_h;
+
+    sumModBRs = Gamma_h / Gamma_h_exp;
+
 }
 
 
@@ -5853,14 +5881,14 @@ double Gammaphi3_WW = BrSM_phi3toWW*(rphi3_VV)*Gammaphi3totSM;
 double Gammaphi3_ZZ = BrSM_phi3toZZ*(rphi3_VV)*Gammaphi3totSM;
 
 
-Gammaphi3tot  = 1.e-10;
+Gammaphi3tot  = 1.e-15;
 
-Gammaphi3tot= Gammaphi3_tt+Gammaphi3_cc+Gammaphi3_bb
-        +Gammaphi3_tautau+Gammaphi3_mumu+Gammaphi3_WW
-        +Gammaphi3_ZZ+Gamma_phi3gaga+Gamma_phi3Zga+Gamma_phi3gg 
-        +Gammaphi3_phi1phi1+Gammaphi3_phi2phi2+Gammaphi3_phi1phi2
-        +Gammaphi3_HpHm+Gammaphi3_phi1Z+Gammaphi3_phi2Z
-        +Gammaphi3_HpW;
+Gammaphi3tot = Gammaphi3tot + Gammaphi3_tt + Gammaphi3_cc + Gammaphi3_bb
+             + Gammaphi3_tautau + Gammaphi3_mumu + Gammaphi3_WW
+             + Gammaphi3_ZZ + Gamma_phi3gaga + Gamma_phi3Zga + Gamma_phi3gg
+             + Gammaphi3_phi1phi1 + Gammaphi3_phi2phi2 + Gammaphi3_phi1phi2
+             + Gammaphi3_HpHm + Gammaphi3_phi1Z + Gammaphi3_phi2Z
+             + Gammaphi3_HpW;
 
 
 
@@ -6029,7 +6057,7 @@ double GeneralTHDMcache::computeHpquantities()
 
 //Higgs direct searches
 
-double GeneralTHDMcache::ComputeHeavyHiggs()
+double GeneralTHDMcache::computeHeavyHiggs()
 {
     
     m2_2 = mH2sq;
@@ -8488,6 +8516,16 @@ double GeneralTHDMcache::ComputeHeavyHiggs()
     return 0.;
 }
 
+void GeneralTHDMcache::computeLowMass()
+{
+    THoEX_pp_h_phi3phi3_mumutautau_CMS13 = 0.0;
+
+    if(mH3 >= 15.0 && mH3 <= 62.0)
+    {
+        THoEX_pp_h_phi3phi3_mumutautau_CMS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3tomumu * Br_phi3totautau) / ip_low_pp_h_phi3phi3_mumutautau_CMS13(mH3);
+    }
+}
+
 void GeneralTHDMcache::runGeneralTHDMparameters()
 {
 
@@ -8613,14 +8651,15 @@ void GeneralTHDMcache::runGeneralTHDMparameters()
 //////// Here we update and define the values of the constants and parameters!!!!
 double GeneralTHDMcache::updateCache()
 {      
-    mHl=myGTHDM->getMHl();
-    m1=mHl;
-    mH1sq=myGTHDM->getmH1sq();
-    mH2sq=myGTHDM->getmH2sq();
-    mH3sq=myGTHDM->getmH3sq();
-    mHp2=myGTHDM->getmHp2();
-    mHp=sqrt(mHp2);
-    vev=myGTHDM->v();
+    mHl   = myGTHDM->getMHl();
+    m1    = mHl;
+    mH1sq = myGTHDM->getmH1sq();
+    mH2sq = myGTHDM->getmH2sq();
+    mH3sq = myGTHDM->getmH3sq();
+    mH3   = sqrt(mH3sq);
+    mHp2  = myGTHDM->getmHp2();
+    mHp   = sqrt(mHp2);
+    vev   = myGTHDM->v();
 
     cosa1=myGTHDM->getcosalpha1();
     sina1=myGTHDM->getsinalpha1();
@@ -9085,8 +9124,8 @@ double GeneralTHDMcache::updateCache()
     computephi2quantities();
     computephi3quantities();
     computeHpquantities();
-    ComputeHeavyHiggs();
-
+    computeHeavyHiggs();
+    computeLowMass();
  
     return mH1sq;
 }
