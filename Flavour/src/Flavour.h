@@ -4,7 +4,7 @@
  *
  * For the licensing terms see doc/COPYING.
  */
-
+ 
 #ifndef FLAVOUR_H
 #define FLAVOUR_H
 
@@ -265,6 +265,14 @@ public:
     bool setFlagCLN(bool CLNflag) {
         return (this->CLNflag = CLNflag);
     }
+    
+    bool setFlagBGL(bool BGLflag) {
+        return (this->BGLflag = BGLflag);
+    }
+    
+    bool setFlagDM(bool DMflag) {
+        return (this->DMflag = DMflag);
+    }
 
     bool setFlagFixedWCbtos(bool FixedWCbtosflag) {
         return (this->FixedWCbtosflag = FixedWCbtosflag);
@@ -280,6 +288,14 @@ public:
 
     bool getFlagCLN() const {
         return CLNflag;
+    }
+    
+    bool getFlagBGL() const {
+        return BGLflag;
+    }
+    
+    bool getFlagDM() const {
+        return DMflag;
     }
 
     bool getFlagFixedWCbtos() const {
@@ -305,6 +321,8 @@ private:
     mutable bool dispersion;
     mutable bool zExpansion;
     mutable bool CLNflag;
+    mutable bool BGLflag;
+    mutable bool DMflag;
     mutable bool FixedWCbtosflag;
 };
 
