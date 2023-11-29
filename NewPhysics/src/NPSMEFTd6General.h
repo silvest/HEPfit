@@ -1111,10 +1111,10 @@ class NPSMEFTd6General : public NPbase {
 public:
 
     /**
-     *　@brief The number of the model parameters in %NPSMEFTd6General (including the 18 parameters needed for the SM). 
+     *　@brief The number of the model parameters in %NPSMEFTd6General (including the 18 parameters needed for the SM and 79 auxiliary parameters). 
      */
     //static const int NNPSMEFTd6GeneralVars = 2708 + 18;
-    static const int NNPSMEFTd6GeneralVars = 2708-208;
+    static const int NNPSMEFTd6GeneralVars = 2708-208 + 79 ;
 
     
     /**
@@ -6904,65 +6904,59 @@ protected:
  
     double Lambda_NP; ///< The new physics scale [GeV].
     // The intrinsic and parametric theory relative errors in the Higgs observables.
-    double eggFint; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)
-    double eggFpar; ///< Parametric relative theoretical error in ggF production. (Assumed to be constant in energy.)
-    double ettHint; ///< Intrinsic relative theoretical error in ttH production. (Assumed to be constant in energy.)
-    double ettHpar; ///< Parametric relative theoretical error in ttH production. (Assumed to be constant in energy.)
-    double eVBFint; ///< Intrinsic relative theoretical error in VBF production. (Assumed to be constant in energy.)
-    double eVBFpar; ///< Parametric relative theoretical error in VBF production. (Assumed to be constant in energy.)
-    double eWHint; ///< Intrinsic relative theoretical error in WH production. (Assumed to be constant in energy.)
-    double eWHpar; ///< Parametric relative theoretical error in WH production. (Assumed to be constant in energy.)
-    double eZHint; ///< Intrinsic relative theoretical error in ZH production. (Assumed to be constant in energy.)
-    double eZHpar; ///< Parametric relative theoretical error in ZH production. (Assumed to be constant in energy.)
-    double eeeWBFint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to H \bar{\nu} \nu\f$. (Assumed to be constant in energy.)
-    double eeeWBFpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to H \bar{\nu} \nu\f$. (Assumed to be constant in energy.)
-    double eeeZHint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
-    double eeeZHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
-    double eeettHint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
-    double eeettHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
-    double eepWBFint; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)
-    double eepWBFpar; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)    
-    double eepZBFint; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
-    double eepZBFpar; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
-    double eHggint; ///< Intrinsic relative theoretical error in \f$H \to g g\f$.
-    double eHggpar; ///< Parametric relative theoretical error in \f$H \to g g\f$.
-    double eHWWint; ///< Intrinsic relative theoretical error in \f$H \to W W\f$.
-    double eHWWpar; ///< Parametric relative theoretical error in \f$H \to W W\f$.
-    double eHZZint; ///< Intrinsic relative theoretical error in \f$H \to Z Z\f$.
-    double eHZZpar; ///< Parametric relative theoretical error in \f$H \to Z Z\f$.
-    double eHZgaint; ///< Intrinsic relative theoretical error in \f$H \to Z \gamma\f$.
-    double eHZgapar; ///< Parametric relative theoretical error in \f$H \to Z \gamma\f$.
-    double eHgagaint; ///< Intrinsic relative theoretical error in \f$H \to \gamma\gamma\f$.
-    double eHgagapar; ///< Parametric relative theoretical error in \f$H \to \gamma\gamma\f$.
-    double eHmumuint; ///< Intrinsic relative theoretical error in \f$H \to \mu^+ \mu^-\f$.
-    double eHmumupar; ///< Parametric relative theoretical error in \f$H \to \mu^+ \mu^-\f$.
-    double eHtautauint; ///< Intrinsic relative theoretical error in \f$H \to \tau^+ \tau^-\f$.
-    double eHtautaupar; ///< Parametric relative theoretical error in \f$H \to \tau^+ \tau^-\f$.
-    double eHccint; ///< Intrinsic relative theoretical error in \f$H \to c\bar{c}\f$.
-    double eHccpar; ///< Parametric relative theoretical error in \f$H \to c\bar{c}\f$.
-    double eHbbint; ///< Intrinsic relative theoretical error in \f$H \to b\bar{b}\f$.
-    double eHbbpar; ///< Parametric relative theoretical error in \f$H \to b\bar{b}\f$.
+    double eggFint = 0.; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)
+    double eggFpar = 0.; ///< Parametric relative theoretical error in ggF production. (Assumed to be constant in energy.)
+    double ettHint = 0.; ///< Intrinsic relative theoretical error in ttH production. (Assumed to be constant in energy.)
+    double ettHpar = 0.; ///< Parametric relative theoretical error in ttH production. (Assumed to be constant in energy.)
+    double eVBFint = 0.; ///< Intrinsic relative theoretical error in VBF production. (Assumed to be constant in energy.)
+    double eVBFpar = 0.; ///< Parametric relative theoretical error in VBF production. (Assumed to be constant in energy.)
+    double eWHint = 0.; ///< Intrinsic relative theoretical error in WH production. (Assumed to be constant in energy.)
+    double eWHpar = 0.; ///< Parametric relative theoretical error in WH production. (Assumed to be constant in energy.)
+    double eZHint = 0.; ///< Intrinsic relative theoretical error in ZH production. (Assumed to be constant in energy.)
+    double eZHpar = 0.; ///< Parametric relative theoretical error in ZH production. (Assumed to be constant in energy.)
+    double eeeWBFint = 0.; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to H \bar{\nu} \nu\f$. (Assumed to be constant in energy.)
+    double eeeWBFpar = 0.; ///< Parametric relative theoretical error in \f$e^+ e^- \to H \bar{\nu} \nu\f$. (Assumed to be constant in energy.)
+    double eeeZHint = 0.; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
+    double eeeZHpar = 0.; ///< Parametric relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
+    double eeettHint = 0.; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
+    double eeettHpar = 0.; ///< Parametric relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
+    double eepWBFint = 0.; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)
+    double eepWBFpar = 0.; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via WBF. (Assumed to be constant in energy.)    
+    double eepZBFint = 0.; ///< Intrinsic relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
+    double eepZBFpar = 0.; ///< Parametric relative theoretical error in \f$e^- p \to H e^- j\f$ via ZBF. (Assumed to be constant in energy.)
+    double eHggint = 0.; ///< Intrinsic relative theoretical error in \f$H \to g g\f$.
+    double eHggpar = 0.; ///< Parametric relative theoretical error in \f$H \to g g\f$.
+    double eHWWint = 0.; ///< Intrinsic relative theoretical error in \f$H \to W W\f$.
+    double eHWWpar = 0.; ///< Parametric relative theoretical error in \f$H \to W W\f$.
+    double eHZZint = 0.; ///< Intrinsic relative theoretical error in \f$H \to Z Z\f$.
+    double eHZZpar = 0.; ///< Parametric relative theoretical error in \f$H \to Z Z\f$.
+    double eHZgaint = 0.; ///< Intrinsic relative theoretical error in \f$H \to Z \gamma\f$.
+    double eHZgapar = 0.; ///< Parametric relative theoretical error in \f$H \to Z \gamma\f$.
+    double eHgagaint = 0.; ///< Intrinsic relative theoretical error in \f$H \to \gamma\gamma\f$.
+    double eHgagapar = 0.; ///< Parametric relative theoretical error in \f$H \to \gamma\gamma\f$.
+    double eHmumuint = 0.; ///< Intrinsic relative theoretical error in \f$H \to \mu^+ \mu^-\f$.
+    double eHmumupar = 0.; ///< Parametric relative theoretical error in \f$H \to \mu^+ \mu^-\f$.
+    double eHtautauint = 0.; ///< Intrinsic relative theoretical error in \f$H \to \tau^+ \tau^-\f$.
+    double eHtautaupar = 0.; ///< Parametric relative theoretical error in \f$H \to \tau^+ \tau^-\f$.
+    double eHccint = 0.; ///< Intrinsic relative theoretical error in \f$H \to c\bar{c}\f$.
+    double eHccpar = 0.; ///< Parametric relative theoretical error in \f$H \to c\bar{c}\f$.
+    double eHbbint = 0.; ///< Intrinsic relative theoretical error in \f$H \to b\bar{b}\f$.
+    double eHbbpar = 0.; ///< Parametric relative theoretical error in \f$H \to b\bar{b}\f$.
 
     //  Intrinsic errors in \f$ee \to WW\f$ observables: error in total and differential cross section
-    double eeeWWint, edeeWWdcint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to W^+ W^-\f$: total cross section and \f$d/d\cos{\theta}\f$ distribution.
+    double eeeWWint = 0., edeeWWdcint = 0.; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to W^+ W^-\f$: total cross section and \f$d/d\cos{\theta}\f$ distribution.
 
-    double eggFHgaga, eggFHZga, eggFHZZ, eggFHWW, eggFHtautau, eggFHbb, eggFHmumu; ///< Total relative theoretical error in \f$gg \to H \to X\f$.   
-    double eVBFHgaga, eVBFHZga, eVBFHZZ, eVBFHWW, eVBFHtautau, eVBFHbb, eVBFHmumu; ///< Total relative theoretical error in \f$pp \to Hjj (VBF) \to X jj\f$.   
-    double eWHgaga, eWHZga, eWHZZ, eWHWW, eWHtautau, eWHbb, eWHmumu; ///< Total relative theoretical error in \f$pp \to WH \to W X\f$.    
-    double eZHgaga, eZHZga, eZHZZ, eZHWW, eZHtautau, eZHbb, eZHmumu; ///< Total relative theoretical error in \f$pp \to ZH \to Z X\f$.
-    double ettHgaga, ettHZga, ettHZZ, ettHWW, ettHtautau, ettHbb, ettHmumu; ///< Total relative theoretical error in \f$pp \to ttH \to tt X\f$.
-    double eVBFHinv, eVHinv; ///< Total relative theoretical error in \f$pp \to X H \to X + invisible\f$.
+    double eggFHgaga = 0., eggFHZga = 0., eggFHZZ = 0., eggFHWW = 0., eggFHtautau = 0., eggFHbb = 0., eggFHmumu = 0.; ///< Total relative theoretical error in \f$gg \to H \to X\f$.   
+    double eVBFHgaga = 0., eVBFHZga = 0., eVBFHZZ = 0., eVBFHWW = 0., eVBFHtautau = 0., eVBFHbb = 0., eVBFHmumu = 0.; ///< Total relative theoretical error in \f$pp \to Hjj (VBF) \to X jj\f$.   
+    double eWHgaga = 0., eWHZga = 0., eWHZZ = 0., eWHWW = 0., eWHtautau = 0., eWHbb = 0., eWHmumu = 0.; ///< Total relative theoretical error in \f$pp \to WH \to W X\f$.    
+    double eZHgaga = 0., eZHZga = 0., eZHZZ = 0., eZHWW = 0., eZHtautau = 0., eZHbb = 0., eZHmumu = 0.; ///< Total relative theoretical error in \f$pp \to ZH \to Z X\f$.
+    double ettHgaga = 0., ettHZga = 0., ettHZZ = 0., ettHWW = 0., ettHtautau = 0., ettHbb = 0., ettHmumu = 0.; ///< Total relative theoretical error in \f$pp \to ttH \to tt X\f$.
+    double eVBFHinv = 0., eVHinv = 0.; ///< Total relative theoretical error in \f$pp \to X H \to X + invisible\f$.
 
-    double eHwidth; ///< Total relative theoretical error in the Higgs width
+    double eHwidth = 0.; ///< Total relative theoretical error in the Higgs width
 
-    double nuisP1, nuisP2, nuisP3, nuisP4, nuisP5, nuisP6, nuisP7, nuisP8, nuisP9, nuisP10; ///< Nuisance parameters to be used in observables
-
-    double BrHinv; ///< The branching ratio of invisible Higgs decays.
-    double BrHexo; ///< The branching ratio of exotic (not invisible) Higgs decays.
-
-    double dg1Z; ///< Independent contribution to aTGC.
-    double dKappaga; ///< Independent contribution to aTGC.    
-    double lambZ; ///< Independent contribution to aTGC.
+    double BrHinv = 0.; ///< The branching ratio of invisible Higgs decays.
+    double BrHexo = 0.; ///< The branching ratio of exotic (not invisible) Higgs decays.
 
     //  ----------------------------------------------------------------------------
     //  Internal parameters    

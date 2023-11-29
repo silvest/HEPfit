@@ -309,9 +309,8 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "Clequ3_3111i_LNP", "Clequ3_3112i_LNP", "Clequ3_3113i_LNP", "Clequ3_3121i_LNP", "Clequ3_3122i_LNP", "Clequ3_3123i_LNP", "Clequ3_3131i_LNP", "Clequ3_3132i_LNP", "Clequ3_3133i_LNP",
     "Clequ3_3211i_LNP", "Clequ3_3212i_LNP", "Clequ3_3213i_LNP", "Clequ3_3221i_LNP", "Clequ3_3222i_LNP", "Clequ3_3223i_LNP", "Clequ3_3231i_LNP", "Clequ3_3232i_LNP", "Clequ3_3233i_LNP",
     "Clequ3_3311i_LNP", "Clequ3_3312i_LNP", "Clequ3_3313i_LNP", "Clequ3_3321i_LNP", "Clequ3_3322i_LNP", "Clequ3_3323i_LNP", "Clequ3_3331i_LNP", "Clequ3_3332i_LNP", "Clequ3_3333i_LNP",
-    "Lambda_NP"/*,
+    "Lambda_NP",
     "BrHinv", "BrHexo",
-    "dg1Z", "dKappaga", "lambZ",
     "eggFint", "eggFpar", "ettHint", "ettHpar",
     "eVBFint", "eVBFpar", "eWHint", "eWHpar", "eZHint", "eZHpar",
     "eeeWBFint", "eeeWBFpar", "eeeZHint", "eeeZHpar", "eeettHint", "eeettHpar",
@@ -325,9 +324,7 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
     "eWHgaga", "eWHZga", "eWHZZ", "eWHWW", "eWHtautau", "eWHbb", "eWHmumu",
     "eZHgaga", "eZHZga", "eZHZZ", "eZHWW", "eZHtautau", "eZHbb", "eZHmumu",
     "ettHgaga", "ettHZga", "ettHZZ", "ettHWW", "ettHtautau", "ettHbb", "ettHmumu",
-    "eVBFHinv", "eVHinv",
-    "nuisP1", "nuisP2", "nuisP3", "nuisP4", "nuisP5", "nuisP6", "nuisP7", "nuisP8", "nuisP9", "nuisP10"
-    */
+    "eVBFHinv", "eVHinv"
 };
 
 NPSMEFTd6General::NPSMEFTd6General()
@@ -362,8 +359,6 @@ NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW()
         ModelParamMap.insert(std::make_pair("CHG_LNP", std::cref(CHG_LNP)));
         ModelParamMap.insert(std::make_pair("CHW_LNP", std::cref(CHW_LNP)));
         ModelParamMap.insert(std::make_pair("CHB_LNP", std::cref(CHB_LNP)));
-        ModelParamMap.insert(std::make_pair("CDB_LNP", std::cref(CDB_LNP)));
-        ModelParamMap.insert(std::make_pair("CDW_LNP", std::cref(CDW_LNP)));
         ModelParamMap.insert(std::make_pair("CHWB_LNP", std::cref(CHWB_LNP)));
         ModelParamMap.insert(std::make_pair("CHD_LNP", std::cref(CHD_LNP)));
         ModelParamMap.insert(std::make_pair("CHbox_LNP", std::cref(CHbox_LNP)));
@@ -2873,9 +2868,6 @@ NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW()
     ModelParamMap.insert(std::make_pair("Lambda_NP", std::cref(Lambda_NP)));
     ModelParamMap.insert(std::make_pair("BrHinv", std::cref(BrHinv)));
     ModelParamMap.insert(std::make_pair("BrHexo", std::cref(BrHexo)));
-    ModelParamMap.insert(std::make_pair("dg1Z", std::cref(dg1Z)));
-    ModelParamMap.insert(std::make_pair("dKappaga", std::cref(dKappaga)));
-    ModelParamMap.insert(std::make_pair("lambZ", std::cref(lambZ)));
     ModelParamMap.insert(std::make_pair("eggFint", std::cref(eggFint)));
     ModelParamMap.insert(std::make_pair("eggFpar", std::cref(eggFpar)));
     ModelParamMap.insert(std::make_pair("ettHint", std::cref(ettHint)));
@@ -2953,16 +2945,6 @@ NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW()
     ModelParamMap.insert(std::make_pair("ettHmumu", std::cref(ettHmumu)));
     ModelParamMap.insert(std::make_pair("eVBFHinv", std::cref(eVBFHinv)));
     ModelParamMap.insert(std::make_pair("eVHinv", std::cref(eVHinv)));
-    ModelParamMap.insert(std::make_pair("nuisP1", std::cref(nuisP1)));
-    ModelParamMap.insert(std::make_pair("nuisP2", std::cref(nuisP2)));
-    ModelParamMap.insert(std::make_pair("nuisP3", std::cref(nuisP3)));
-    ModelParamMap.insert(std::make_pair("nuisP4", std::cref(nuisP4)));
-    ModelParamMap.insert(std::make_pair("nuisP5", std::cref(nuisP5)));
-    ModelParamMap.insert(std::make_pair("nuisP6", std::cref(nuisP6)));
-    ModelParamMap.insert(std::make_pair("nuisP7", std::cref(nuisP7)));
-    ModelParamMap.insert(std::make_pair("nuisP8", std::cref(nuisP8)));
-    ModelParamMap.insert(std::make_pair("nuisP9", std::cref(nuisP9)));
-    ModelParamMap.insert(std::make_pair("nuisP10", std::cref(nuisP10)));
 
     if (FlagMWinput) {
         //  MW scheme
@@ -5876,40 +5858,21 @@ bool NPSMEFTd6General::PostUpdate()
 void NPSMEFTd6General::setParameter(const std::string name, const double& value)
 {
 
-
     if (name.compare("CG_LNP") == 0) {
         CG_LNP = value;
     } else if (name.compare("CW_LNP") == 0) {
         CW_LNP = value;
-    }/* else if (name.compare("C2B_LNP") == 0) { 
-	C2B_LNP =  value;
-} else if (name.compare("C2W_LNP") == 0) { 
-	C2W_LNP =  value;
-} else if (name.compare("C2BS_LNP") == 0) { 
-	C2BS_LNP =  value;
-} else if (name.compare("C2WS_LNP") == 0) { 
-	C2WS_LNP =  value;
-}*/ else if (name.compare("CHG_LNP") == 0) {
+    } else if (name.compare("CHG_LNP") == 0) {
         CHG_LNP = value;
     } else if (name.compare("CHW_LNP") == 0) {
         CHW_LNP = value;
     } else if (name.compare("CHB_LNP") == 0) {
         CHB_LNP = value;
-    }/* else if (name.compare("CDHB_LNP") == 0) { 
-	CDHB_LNP =  value;
-} else if (name.compare("CDHW_LNP") == 0) { 
-	CDHW_LNP =  value;
-} else if (name.compare("CDB_LNP") == 0) { 
-	CDB_LNP =  value;
-} else if (name.compare("CDW_LNP") == 0) { 
-	CDW_LNP =  value;
-}*/ else if (name.compare("CHWB_LNP") == 0) {
+    } else if (name.compare("CHWB_LNP") == 0) {
         CHWB_LNP = value;
     } else if (name.compare("CHD_LNP") == 0) {
         CHD_LNP = value;
-    }/* else if (name.compare("CT_LNP") == 0) { 
-	CT_LNP =  value;
-}*/ else if (name.compare("CHbox_LNP") == 0) {
+    } else if (name.compare("CHbox_LNP") == 0) {
         CHbox_LNP = value;
     } else if (name.compare("CH_LNP") == 0) {
         CH_LNP = value;
@@ -10902,12 +10865,6 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
     } else if (name.compare("BrHexo") == 0) {
         //  Always positive
         BrHexo = fabs(value);
-    } else if (name.compare("dg1Z") == 0) {
-        dg1Z = value;
-    } else if (name.compare("dKappaga") == 0) {
-        dKappaga = value;
-    } else if (name.compare("lambZ") == 0) {
-        lambZ = value;
     } else if (name.compare("eggFint") == 0) {
         eggFint = value;
     } else if (name.compare("eggFpar") == 0) {
@@ -11062,26 +11019,6 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
         eVBFHinv = value;
     } else if (name.compare("eVHinv") == 0) {
         eVHinv = value;
-    } else if (name.compare("nuisP1") == 0) {
-        nuisP1 = value;
-    } else if (name.compare("nuisP2") == 0) {
-        nuisP2 = value;
-    } else if (name.compare("nuisP3") == 0) {
-        nuisP3 = value;
-    } else if (name.compare("nuisP4") == 0) {
-        nuisP4 = value;
-    } else if (name.compare("nuisP5") == 0) {
-        nuisP5 = value;
-    } else if (name.compare("nuisP6") == 0) {
-        nuisP6 = value;
-    } else if (name.compare("nuisP7") == 0) {
-        nuisP7 = value;
-    } else if (name.compare("nuisP8") == 0) {
-        nuisP8 = value;
-    } else if (name.compare("nuisP9") == 0) {
-        nuisP9 = value;
-    } else if (name.compare("nuisP10") == 0) {
-        nuisP10 = value;
     } else
         NPbase::setParameter(name, value);
 }
@@ -26771,7 +26708,7 @@ double NPSMEFTd6General::deltag1ZNP() const
 
     NPindirect = delta_e - 0.5 * delta_sW2 / cW2_tree + 0.5 * delta_Z - sW_tree * delta_ZA / cW_tree;
 
-    return NPdirect + NPindirect + dg1Z;
+    return NPdirect + NPindirect;
 }
 
 double NPSMEFTd6General::deltaKZNP() const
@@ -26802,7 +26739,7 @@ double NPSMEFTd6General::deltaKgammaNP() const
 
     NPindirect = delta_e + 0.5 * delta_A;
 
-    return NPdirect + NPindirect + dKappaga;
+    return NPdirect + NPindirect;
 }
 
 double NPSMEFTd6General::lambdaZNP() const
@@ -26812,7 +26749,7 @@ double NPSMEFTd6General::lambdaZNP() const
     //    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  
     NPdirect = -(3.0 / 2.0) * (eeMz / sW_tree) * getSMEFTCoeffEW("CW") * v2;
 
-    return NPdirect + lambZ;
+    return NPdirect;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

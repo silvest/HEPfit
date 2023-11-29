@@ -4105,15 +4105,15 @@ ThObsFactory::ThObsFactory()
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_sDiffll[i]);
         
         for (int j = 0; j < 5; j++) {
-        std::string cos_str = boost::lexical_cast<std::string, double>(fabs(cos_Diffll[i]));
-        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_m" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[i]);
-        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_m" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[i]);
+        std::string cos_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_Diffll[j]));
+        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_m0" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
+        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_m0" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
         }
         
         for (int j = 5; j < 10; j++) {
-        std::string cos_str = boost::lexical_cast<std::string, double>(cos_Diffll[i]);
-        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[i]);
-        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[i]);
+        std::string cos_str = boost::lexical_cast<std::string, double>(10.*cos_Diffll[j]);
+        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_0" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
+        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_0" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
         }
     }
 
