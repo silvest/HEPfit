@@ -12,6 +12,7 @@ class StandardModel;
 class HeffDF2;
 class HeffDF1_diujlknu;
 class HeffDB1;
+class HeffDC1;
 class HeffDS1;
 class MVll;
 class MPll;
