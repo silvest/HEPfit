@@ -61,6 +61,87 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     aF12_cache = max_double;
     aF21_cache = max_double;
     aF22_cache = max_double;
+    
+    af_1_cache = max_double;
+    ag_1_cache = max_double;
+    aF1_1_cache = max_double;
+    aF2_1_cache = max_double;
+    af_2_cache = max_double;
+    ag_2_cache = max_double;
+    aF1_2_cache = max_double;
+    aF2_2_cache = max_double;
+    af_3_cache = max_double;
+    ag_3_cache = max_double;
+    aF1_3_cache = max_double;
+    aF2_3_cache = max_double;
+    af_4_cache = max_double;
+    ag_4_cache = max_double;
+    aF1_4_cache = max_double;
+    aF2_4_cache = max_double;
+    af_5_cache = max_double;
+    ag_5_cache = max_double;
+    aF1_5_cache = max_double;
+    aF2_5_cache = max_double;
+    af_6_cache = max_double;
+    ag_6_cache = max_double;
+    aF1_6_cache = max_double;
+    aF2_6_cache = max_double;
+    af_7_cache = max_double;
+    ag_7_cache = max_double;
+    aF1_7_cache = max_double;
+    aF2_7_cache = max_double;
+    af_8_cache = max_double;
+    ag_8_cache = max_double;
+    aF1_8_cache = max_double;
+    aF2_8_cache = max_double;
+    af_9_cache = max_double;
+    ag_9_cache = max_double;
+    aF1_9_cache = max_double;
+    aF2_9_cache = max_double;
+    af_10_cache = max_double;
+    ag_10_cache = max_double;
+    aF1_10_cache = max_double;
+    aF2_10_cache = max_double;
+    bf_1_cache = max_double;
+    bg_1_cache = max_double;
+    bF1_1_cache = max_double;
+    bF2_1_cache = max_double;
+    bf_2_cache = max_double;
+    bg_2_cache = max_double;
+    bF1_2_cache = max_double;
+    bF2_2_cache = max_double;
+    bf_3_cache = max_double;
+    bg_3_cache = max_double;
+    bF1_3_cache = max_double;
+    bF2_3_cache = max_double;
+    bf_4_cache = max_double;
+    bg_4_cache = max_double;
+    bF1_4_cache = max_double;
+    bF2_4_cache = max_double;
+    bf_5_cache = max_double;
+    bg_5_cache = max_double;
+    bF1_5_cache = max_double;
+    bF2_5_cache = max_double;
+    bf_6_cache = max_double;
+    bg_6_cache = max_double;
+    bF1_6_cache = max_double;
+    bF2_6_cache = max_double;
+    bf_7_cache = max_double;
+    bg_7_cache = max_double;
+    bF1_7_cache = max_double;
+    bF2_7_cache = max_double;
+    bf_8_cache = max_double;
+    bg_8_cache = max_double;
+    bF1_8_cache = max_double;
+    bF2_8_cache = max_double;
+    bf_9_cache = max_double;
+    bg_9_cache = max_double;
+    bF1_9_cache = max_double;
+    bF2_9_cache = max_double;
+    bf_10_cache = max_double;
+    bg_10_cache = max_double;
+    bF1_10_cache = max_double;
+    bF2_10_cache = max_double;
 
     CS_cache = max_double;
     CSp_cache = max_double;
@@ -86,7 +167,7 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
     NPanalysis = (mySM.getModelName().compare("RealWeakEFTCCPM") == 0 || mySM.getModelName().compare("RealWeakEFTCC") == 0);   
     
     if (CLNflag + BGLflag + DMflag != true) throw std::runtime_error("MVlnu: Set only one among CLNflag, BGLflag, DMflag to true");
-    mvlnuParameters = make_vector<std::string>();
+    else mvlnuParameters = make_vector<std::string>();
     if (CLNflag) {
         mvlnuParameters.clear();
         if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
@@ -107,26 +188,26 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
     else if (DMflag){
         mvlnuParameters.clear();
         if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>() 
-            << "af_1" << "ag_1" << "aF1_1" << "aP1_1"
-            << "af_2" << "ag_2" << "aF1_2" << "aP1_2"
-            << "af_3" << "ag_3" << "aF1_3" << "aP1_3"
-            << "af_4" << "ag_4" << "aF1_4" << "aP1_4"
-            << "af_5" << "ag_5" << "aF1_5" << "aP1_5"
-            << "af_6" << "ag_6" << "aF1_6" << "aP1_6"
-            << "af_7" << "ag_7" << "aF1_7" << "aP1_7"
-            << "af_8" << "ag_8" << "aF1_8" << "aP1_8"
-            << "af_9" << "ag_9" << "aF1_9" << "aP1_9"
-            << "af_10" << "ag_10" << "aF1_10" << "aP1_10"
-            << "bf_1" << "bg_1" << "bF1_1" << "bP1_1"
-            << "bf_2" << "bg_2" << "bF1_2" << "bP1_2"
-            << "bf_3" << "bg_3" << "bF1_3" << "bP1_3"
-            << "bf_4" << "bg_4" << "bF1_4" << "bP1_4"
-            << "bf_5" << "bg_5" << "bF1_5" << "bP1_5"
-            << "bf_6" << "bg_6" << "bF1_6" << "bP1_6"
-            << "bf_7" << "bg_7" << "bF1_7" << "bP1_7"
-            << "bf_8" << "bg_8" << "bF1_8" << "bP1_8"
-            << "bf_9" << "bg_9" << "bF1_9" << "bP1_9"
-            << "bf_10" << "bg_10" << "bF1_10" << "bP1_10";
+            << "af_1" << "ag_1" << "aF1_1" << "aF2_1"
+            << "af_2" << "ag_2" << "aF1_2" << "aF2_2"
+            << "af_3" << "ag_3" << "aF1_3" << "aF2_3"
+            << "af_4" << "ag_4" << "aF1_4" << "aF2_4"
+            << "af_5" << "ag_5" << "aF1_5" << "aF2_5"
+            << "af_6" << "ag_6" << "aF1_6" << "aF2_6"
+            << "af_7" << "ag_7" << "aF1_7" << "aF2_7"
+            << "af_8" << "ag_8" << "aF1_8" << "aF2_8"
+            << "af_9" << "ag_9" << "aF1_9" << "aF2_9"
+            << "af_10" << "ag_10" << "aF1_10" << "aF2_10"
+            << "bf_1" << "bg_1" << "bF1_1" << "bF2_1"
+            << "bf_2" << "bg_2" << "bF1_2" << "bF2_2"
+            << "bf_3" << "bg_3" << "bF1_3" << "bF2_3"
+            << "bf_4" << "bg_4" << "bF1_4" << "bF2_4"
+            << "bf_5" << "bg_5" << "bF1_5" << "bF2_5"
+            << "bf_6" << "bg_6" << "bF1_6" << "bF2_6"
+            << "bf_7" << "bg_7" << "bF1_7" << "bF2_7"
+            << "bf_8" << "bg_8" << "bF1_8" << "bF2_8"
+            << "bf_9" << "bg_9" << "bF1_9" << "bF2_9"
+            << "bf_10" << "bg_10" << "bF1_10" << "bF2_10";
     }
     else {
         std::stringstream out;
@@ -282,83 +363,83 @@ void MVlnu::updateParameters()
                 af_1 = mySM.getOptionalParameter("af_1");
                 ag_1 = mySM.getOptionalParameter("ag_1");
                 aF1_1 = mySM.getOptionalParameter("aF1_1");
-                aP1_1 = mySM.getOptionalParameter("aP1_1");
+                aF2_1 = mySM.getOptionalParameter("aF2_1");
                 af_2 = mySM.getOptionalParameter("af_2");
                 ag_2 = mySM.getOptionalParameter("ag_2");
                 aF1_2 = mySM.getOptionalParameter("aF1_2");
-                aP1_2 = mySM.getOptionalParameter("aP1_2");
+                aF2_2 = mySM.getOptionalParameter("aF2_2");
                 af_3 = mySM.getOptionalParameter("af_3");
                 ag_3 = mySM.getOptionalParameter("ag_3");
                 aF1_3 = mySM.getOptionalParameter("aF1_3");
-                aP1_3 = mySM.getOptionalParameter("aP1_3");
+                aF2_3 = mySM.getOptionalParameter("aF2_3");
                 af_4 = mySM.getOptionalParameter("af_4");
                 ag_4 = mySM.getOptionalParameter("ag_4");
                 aF1_4 = mySM.getOptionalParameter("aF1_4");
-                aP1_4 = mySM.getOptionalParameter("aP1_4");
+                aF2_4 = mySM.getOptionalParameter("aF2_4");
                 af_5 = mySM.getOptionalParameter("af_5");
                 ag_5 = mySM.getOptionalParameter("ag_5");
                 aF1_5 = mySM.getOptionalParameter("aF1_5");
-                aP1_5 = mySM.getOptionalParameter("aP1_5");
+                aF2_5 = mySM.getOptionalParameter("aF2_5");
                 af_6 = mySM.getOptionalParameter("af_6");
                 ag_6 = mySM.getOptionalParameter("ag_6");
                 aF1_6 = mySM.getOptionalParameter("aF1_6");
-                aP1_6 = mySM.getOptionalParameter("aP1_6");
+                aF2_6 = mySM.getOptionalParameter("aF2_6");
                 af_7 = mySM.getOptionalParameter("af_7");
                 ag_7 = mySM.getOptionalParameter("ag_7");
                 aF1_7 = mySM.getOptionalParameter("aF1_7");
-                aP1_7 = mySM.getOptionalParameter("aP1_7");
+                aF2_7 = mySM.getOptionalParameter("aF2_7");
                 af_8 = mySM.getOptionalParameter("af_8");
                 ag_8 = mySM.getOptionalParameter("ag_8");
                 aF1_8 = mySM.getOptionalParameter("aF1_8");
-                aP1_8 = mySM.getOptionalParameter("aP1_8");
+                aF2_8 = mySM.getOptionalParameter("aF2_8");
                 af_9 = mySM.getOptionalParameter("af_9");
                 ag_9 = mySM.getOptionalParameter("ag_9");
                 aF1_9 = mySM.getOptionalParameter("aF1_9");
-                aP1_9 = mySM.getOptionalParameter("aP1_9");
+                aF2_9 = mySM.getOptionalParameter("aF2_9");
                 af_10 = mySM.getOptionalParameter("af_10");
                 ag_10 = mySM.getOptionalParameter("ag_10");
                 aF1_10 = mySM.getOptionalParameter("aF1_10");
-                aP1_10 = mySM.getOptionalParameter("aP1_10");
+                aF2_10 = mySM.getOptionalParameter("aF2_10");
                 bf_1 = mySM.getOptionalParameter("bf_1");
                 bg_1 = mySM.getOptionalParameter("bg_1");
                 bF1_1 = mySM.getOptionalParameter("bF1_1");
-                bP1_1 = mySM.getOptionalParameter("bP1_1");
+                bF2_1 = mySM.getOptionalParameter("bF2_1");
                 bf_2 = mySM.getOptionalParameter("bf_2");
                 bg_2 = mySM.getOptionalParameter("bg_2");
                 bF1_2 = mySM.getOptionalParameter("bF1_2");
-                bP1_2 = mySM.getOptionalParameter("bP1_2");
+                bF2_2 = mySM.getOptionalParameter("bF2_2");
                 bf_3 = mySM.getOptionalParameter("bf_3");
                 bg_3 = mySM.getOptionalParameter("bg_3");
                 bF1_3 = mySM.getOptionalParameter("bF1_3");
-                bP1_3 = mySM.getOptionalParameter("bP1_3");
+                bF2_3 = mySM.getOptionalParameter("bF2_3");
                 bf_4 = mySM.getOptionalParameter("bf_4");
                 bg_4 = mySM.getOptionalParameter("bg_4");
                 bF1_4 = mySM.getOptionalParameter("bF1_4");
-                bP1_4 = mySM.getOptionalParameter("bP1_4");
+                bF2_4 = mySM.getOptionalParameter("bF2_4");
                 bf_5 = mySM.getOptionalParameter("bf_5");
                 bg_5 = mySM.getOptionalParameter("bg_5");
                 bF1_5 = mySM.getOptionalParameter("bF1_5");
-                bP1_5 = mySM.getOptionalParameter("bP1_5");
+                bF2_5 = mySM.getOptionalParameter("bF2_5");
                 bf_6 = mySM.getOptionalParameter("bf_6");
                 bg_6 = mySM.getOptionalParameter("bg_6");
                 bF1_6 = mySM.getOptionalParameter("bF1_6");
-                bP1_6 = mySM.getOptionalParameter("bP1_6");
+                bF2_6 = mySM.getOptionalParameter("bF2_6");
                 bf_7 = mySM.getOptionalParameter("bf_7");
                 bg_7 = mySM.getOptionalParameter("bg_7");
                 bF1_7 = mySM.getOptionalParameter("bF1_7");
-                bP1_7 = mySM.getOptionalParameter("bP1_7");
+                bF2_7 = mySM.getOptionalParameter("bF2_7");
                 bf_8 = mySM.getOptionalParameter("bf_8");
                 bg_8 = mySM.getOptionalParameter("bg_8");
                 bF1_8 = mySM.getOptionalParameter("bF1_8");
-                bP1_8 = mySM.getOptionalParameter("bP1_8");
+                bF2_8 = mySM.getOptionalParameter("bF2_8");
                 bf_9 = mySM.getOptionalParameter("bf_9");
                 bg_9 = mySM.getOptionalParameter("bg_9");
                 bF1_9 = mySM.getOptionalParameter("bF1_9");
-                bP1_9 = mySM.getOptionalParameter("bP1_9");
+                bF2_9 = mySM.getOptionalParameter("bF2_9");
                 bf_10 = mySM.getOptionalParameter("bf_10");
                 bg_10 = mySM.getOptionalParameter("bg_10");
                 bF1_10 = mySM.getOptionalParameter("bF1_10");
-                bP1_10 = mySM.getOptionalParameter("bP1_10");
+                bF2_10 = mySM.getOptionalParameter("bF2_10");
             }
         else{};
             break;
@@ -375,26 +456,26 @@ void MVlnu::updateParameters()
             || (af0 != af0_cache) || (af1 != af1_cache) || (af2 != af2_cache) 
             || (ag0 != ag0_cache) || (ag1 != af1_cache) || (ag2 != af2_cache)
             || (aF11 != aF11_cache) || (aF12 != aF12_cache) || (aF21 != aF21_cache) || (aF22 != aF22_cache)
-            || (af_1 != af_1_cache) || (ag_1 != ag_1_cache) || (aF1_1 != aF1_1_cache) || (aP1_1 != aP1_1_cache)
-            || (af_2 != af_2_cache) || (ag_2 != ag_2_cache) || (aF1_2 != aF1_2_cache) || (aP1_2 != aP1_2_cache)
-            || (af_3 != af_3_cache) || (ag_3 != ag_3_cache) || (aF1_3 != aF1_3_cache) || (aP1_3 != aP1_3_cache)
-            || (af_4 != af_4_cache) || (ag_4 != ag_4_cache) || (aF1_4 != aF1_4_cache) || (aP1_4 != aP1_4_cache)
-            || (af_5 != af_5_cache) || (ag_5 != ag_5_cache) || (aF1_5 != aF1_5_cache) || (aP1_5 != aP1_5_cache)
-            || (af_6 != af_6_cache) || (ag_6 != ag_6_cache) || (aF1_6 != aF1_6_cache) || (aP1_6 != aP1_6_cache)
-            || (af_7 != af_7_cache) || (ag_7 != ag_7_cache) || (aF1_7 != aF1_7_cache) || (aP1_7 != aP1_7_cache)
-            || (af_8 != af_8_cache) || (ag_8 != ag_8_cache) || (aF1_8 != aF1_8_cache) || (aP1_8 != aP1_8_cache)
-            || (af_9 != af_9_cache) || (ag_9 != ag_9_cache) || (aF1_9 != aF1_9_cache) || (aP1_9 != aP1_9_cache)
-            || (af_10 != af_10_cache) || (ag_10 != ag_10_cache) || (aF1_10 != aF1_10_cache) || (aP1_10 != aP1_10_cache)
-            || (bf_1 != bf_1_cache) || (bg_1 != bg_1_cache) || (bF1_1 != bF1_1_cache) || (bP1_1 != bP1_1_cache)
-            || (bf_2 != bf_2_cache) || (bg_2 != bg_2_cache) || (bF1_2 != bF1_2_cache) || (bP1_2 != bP1_2_cache)
-            || (bf_3 != bf_3_cache) || (bg_3 != bg_3_cache) || (bF1_3 != bF1_3_cache) || (bP1_3 != bP1_3_cache)
-            || (bf_4 != bf_4_cache) || (bg_4 != bg_4_cache) || (bF1_4 != bF1_4_cache) || (bP1_4 != bP1_4_cache)
-            || (bf_5 != bf_5_cache) || (bg_5 != bg_5_cache) || (bF1_5 != bF1_5_cache) || (bP1_5 != bP1_5_cache)
-            || (bf_6 != bf_6_cache) || (bg_6 != bg_6_cache) || (bF1_6 != bF1_6_cache) || (bP1_6 != bP1_6_cache)
-            || (bf_7 != bf_7_cache) || (bg_7 != bg_7_cache) || (bF1_7 != bF1_7_cache) || (bP1_7 != bP1_7_cache)
-            || (bf_8 != bf_8_cache) || (bg_8 != bg_8_cache) || (bF1_8 != bF1_8_cache) || (bP1_8 != bP1_8_cache)
-            || (bf_9 != bf_9_cache) || (bg_9 != bg_9_cache) || (bF1_9 != bF1_9_cache) || (bP1_9 != bP1_9_cache)
-            || (bf_10 != bf_10_cache) || (bg_10 != bg_10_cache) || (bF1_10 != bF1_10_cache) || (bP1_10 != bP1_10_cache)
+            || (af_1 != af_1_cache) || (ag_1 != ag_1_cache) || (aF1_1 != aF1_1_cache) || (aF2_1 != aF2_1_cache)
+            || (af_2 != af_2_cache) || (ag_2 != ag_2_cache) || (aF1_2 != aF1_2_cache) || (aF2_2 != aF2_2_cache)
+            || (af_3 != af_3_cache) || (ag_3 != ag_3_cache) || (aF1_3 != aF1_3_cache) || (aF2_3 != aF2_3_cache)
+            || (af_4 != af_4_cache) || (ag_4 != ag_4_cache) || (aF1_4 != aF1_4_cache) || (aF2_4 != aF2_4_cache)
+            || (af_5 != af_5_cache) || (ag_5 != ag_5_cache) || (aF1_5 != aF1_5_cache) || (aF2_5 != aF2_5_cache)
+            || (af_6 != af_6_cache) || (ag_6 != ag_6_cache) || (aF1_6 != aF1_6_cache) || (aF2_6 != aF2_6_cache)
+            || (af_7 != af_7_cache) || (ag_7 != ag_7_cache) || (aF1_7 != aF1_7_cache) || (aF2_7 != aF2_7_cache)
+            || (af_8 != af_8_cache) || (ag_8 != ag_8_cache) || (aF1_8 != aF1_8_cache) || (aF2_8 != aF2_8_cache)
+            || (af_9 != af_9_cache) || (ag_9 != ag_9_cache) || (aF1_9 != aF1_9_cache) || (aF2_9 != aF2_9_cache)
+            || (af_10 != af_10_cache) || (ag_10 != ag_10_cache) || (aF1_10 != aF1_10_cache) || (aF2_10 != aF2_10_cache)
+            || (bf_1 != bf_1_cache) || (bg_1 != bg_1_cache) || (bF1_1 != bF1_1_cache) || (bF2_1 != bF2_1_cache)
+            || (bf_2 != bf_2_cache) || (bg_2 != bg_2_cache) || (bF1_2 != bF1_2_cache) || (bF2_2 != bF2_2_cache)
+            || (bf_3 != bf_3_cache) || (bg_3 != bg_3_cache) || (bF1_3 != bF1_3_cache) || (bF2_3 != bF2_3_cache)
+            || (bf_4 != bf_4_cache) || (bg_4 != bg_4_cache) || (bF1_4 != bF1_4_cache) || (bF2_4 != bF2_4_cache)
+            || (bf_5 != bf_5_cache) || (bg_5 != bg_5_cache) || (bF1_5 != bF1_5_cache) || (bF2_5 != bF2_5_cache)
+            || (bf_6 != bf_6_cache) || (bg_6 != bg_6_cache) || (bF1_6 != bF1_6_cache) || (bF2_6 != bF2_6_cache)
+            || (bf_7 != bf_7_cache) || (bg_7 != bg_7_cache) || (bF1_7 != bF1_7_cache) || (bF2_7 != bF2_7_cache)
+            || (bf_8 != bf_8_cache) || (bg_8 != bg_8_cache) || (bF1_8 != bF1_8_cache) || (bF2_8 != bF2_8_cache)
+            || (bf_9 != bf_9_cache) || (bg_9 != bg_9_cache) || (bF1_9 != bF1_9_cache) || (bF2_9 != bF2_9_cache)
+            || (bf_10 != bf_10_cache) || (bg_10 != bg_10_cache) || (bF1_10 != bF1_10_cache) || (bF2_10 != bF2_10_cache)
             || (CS != CS_cache) || (CSp != CSp_cache)
             || (CP != CP_cache) || (CPp != CPp_cache)
             || (CV != CV_cache) || (CVp != CVp_cache)
@@ -507,83 +588,83 @@ void MVlnu::updateParameters()
         af_1_cache = af_1;
         ag_1_cache = ag_1;
         aF1_1_cache = aF1_1;
-        aP1_1_cache = aP1_1;
+        aF2_1_cache = aF2_1;
         af_2_cache = af_2;
         ag_2_cache = ag_2;
         aF1_2_cache = aF1_2;
-        aP1_2_cache = aP1_2;
+        aF2_2_cache = aF2_2;
         af_3_cache = af_3;
         ag_3_cache = ag_3;
         aF1_3_cache = aF1_3;
-        aP1_3_cache = aP1_3;
+        aF2_3_cache = aF2_3;
         af_4_cache = af_4;
         ag_4_cache = ag_4;
         aF1_4_cache = aF1_4;
-        aP1_4_cache = aP1_4;
+        aF2_4_cache = aF2_4;
         af_5_cache = af_5;
         ag_5_cache = ag_5;
         aF1_5_cache = aF1_5;
-        aP1_5_cache = aP1_5;
+        aF2_5_cache = aF2_5;
         af_6_cache = af_6;
         ag_6_cache = ag_6;
         aF1_6_cache = aF1_6;
-        aP1_6_cache = aP1_6;
+        aF2_6_cache = aF2_6;
         af_7_cache = af_7;
         ag_7_cache = ag_7;
         aF1_7_cache = aF1_7;
-        aP1_7_cache = aP1_7;
+        aF2_7_cache = aF2_7;
         af_8_cache = af_8;
         ag_8_cache = ag_8;
         aF1_8_cache = aF1_8;
-        aP1_8_cache = aP1_8;
+        aF2_8_cache = aF2_8;
         af_9_cache = af_9;
         ag_9_cache = ag_9;
         aF1_9_cache = aF1_9;
-        aP1_9_cache = aP1_9;
+        aF2_9_cache = aF2_9;
         af_10_cache = af_10;
         ag_10_cache = ag_10;
         aF1_10_cache = aF1_10;
-        aP1_10_cache = aP1_10;
+        aF2_10_cache = aF2_10;
         bf_1_cache = bf_1;
         bg_1_cache = bg_1;
         bF1_1_cache = bF1_1;
-        bP1_1_cache = bP1_1;
+        bF2_1_cache = bF2_1;
         bf_2_cache = bf_2;
         bg_2_cache = bg_2;
         bF1_2_cache = bF1_2;
-        bP1_2_cache = bP1_2;
+        bF2_2_cache = bF2_2;
         bf_3_cache = bf_3;
         bg_3_cache = bg_3;
         bF1_3_cache = bF1_3;
-        bP1_3_cache = bP1_3;
+        bF2_3_cache = bF2_3;
         bf_4_cache = bf_4;
         bg_4_cache = bg_4;
         bF1_4_cache = bF1_4;
-        bP1_4_cache = bP1_4;
+        bF2_4_cache = bF2_4;
         bf_5_cache = bf_5;
         bg_5_cache = bg_5;
         bF1_5_cache = bF1_5;
-        bP1_5_cache = bP1_5;
+        bF2_5_cache = bF2_5;
         bf_6_cache = bf_6;
         bg_6_cache = bg_6;
         bF1_6_cache = bF1_6;
-        bP1_6_cache = bP1_6;
+        bF2_6_cache = bF2_6;
         bf_7_cache = bf_7;
         bg_7_cache = bg_7;
         bF1_7_cache = bF1_7;
-        bP1_7_cache = bP1_7;
+        bF2_7_cache = bF2_7;
         bf_8_cache = bf_8;
         bg_8_cache = bg_8;
         bF1_8_cache = bF1_8;
-        bP1_8_cache = bP1_8;
+        bF2_8_cache = bF2_8;
         bf_9_cache = bf_9;
         bg_9_cache = bg_9;
         bF1_9_cache = bF1_9;
-        bP1_9_cache = bP1_9;
+        bF2_9_cache = bF2_9;
         bf_10_cache = bf_10;
         bg_10_cache = bg_10;
         bF1_10_cache = bF1_10;
-        bP1_10_cache = bP1_10;
+        bF2_10_cache = bF2_10;
     }
     else{};
     
@@ -712,7 +793,7 @@ double MVlnu::hA1(double q2)
         else if (w<1.40) {f_fac = af_8 + bf_8 * w;}
         else if (w<1.45) {f_fac = af_9 + bf_9 * w;}
         else {f_fac = af_10 + bf_10 * w;}
-        return f_fac / (MM + MV) / ((w + 1.) * RV / 2.);
+        return f_fac / sqrt(MM * MV) / (1. + w);
     }
     else return 0.;
 }
@@ -758,7 +839,7 @@ double MVlnu::V(double q2)
         else if (w<1.40) {g_fac = ag_8 + bg_8 * w;}
         else if (w<1.45) {g_fac = ag_9 + bg_9 * w;}
         else {g_fac = ag_10 + bg_10 * w;}
-        return g_fac * (MM + MV) / 2.;
+        return (MM + MV) * g_fac / 2.;
     }
     else return 0.;
 }
@@ -766,22 +847,24 @@ double MVlnu::V(double q2)
 double MVlnu::A0(double q2)
 {
     double w = w0 - q2 / (2. * MM * MV);
-    if (CLNflag) return R0(q2) / RV * hA1(q2);
-    else if (BGLflag) return F2_BGL(q2) / RV / (1. + w);
+    // A0 = RV * P1 = R0 * A1
+    if (CLNflag) return R0(q2) * (w + 1.) * RV / 2. * hA1(q2);
+    // F2 = P1 / (RV / 2.)
+    else if (BGLflag) return F2_BGL(q2) / 2.;
     else if (DMflag) {
         double w = w0 - q2 / (2. * MM * MV);
-        double P1_fac = 0.;
-        if (w<1.05) {P1_fac = aP1_1 + bP1_1 * w;} 
-        else if (w<1.10) {P1_fac = aP1_2 + bP1_2 * w;} 
-        else if (w<1.15) {P1_fac = aP1_3 + bP1_3 * w;} 
-        else if (w<1.20) {P1_fac = aP1_4 + bP1_4 * w;} 
-        else if (w<1.25) {P1_fac = aP1_5 + bP1_5 * w;} 
-        else if (w<1.30) {P1_fac = aP1_6 + bP1_6 * w;} 
-        else if (w<1.35) {P1_fac = aP1_7 + bP1_7 * w;} 
-        else if (w<1.40) {P1_fac = aP1_8 + bP1_8 * w;} 
-        else if (w<1.45) {P1_fac = aP1_9 + bP1_9 * w;} 
-        else {P1_fac = aP1_10 + bP1_10 * w;} 
-        return P1_fac / RV;
+        double F2_fac = 0.;
+        if (w<1.05) {F2_fac = aF2_1 + bF2_1 * w;} 
+        else if (w<1.10) {F2_fac = aF2_2 + bF2_2 * w;} 
+        else if (w<1.15) {F2_fac = aF2_3 + bF2_3 * w;} 
+        else if (w<1.20) {F2_fac = aF2_4 + bF2_4 * w;} 
+        else if (w<1.25) {F2_fac = aF2_5 + bF2_5 * w;} 
+        else if (w<1.30) {F2_fac = aF2_6 + bF2_6 * w;} 
+        else if (w<1.35) {F2_fac = aF2_7 + bF2_7 * w;} 
+        else if (w<1.40) {F2_fac = aF2_8 + bF2_8 * w;} 
+        else if (w<1.45) {F2_fac = aF2_9 + bF2_9 * w;} 
+        else {F2_fac = aF2_10 + bF2_10 * w;} 
+        return F2_fac / 2.;
     }
     else return 0.;
 }
@@ -812,7 +895,7 @@ double MVlnu::A2(double q2)
         else if (w<1.40) {f_fac = af_8 + bf_8 * w; F1_fac = aF1_8 + bF1_8 * w;}
         else if (w<1.45) {f_fac = af_9 + bf_9 * w; F1_fac = aF1_9 + bF1_9 * w;}
         else {f_fac = af_10 + bf_10 * w; F1_fac = aF1_10 + bF1_10 * w;}
-        return 2. * (f_fac * (w - MV/MM) - F1_fac/MM) / (RV*RV) / (MM + MV) / (w*w - 1.); 
+        return (MM + MV) / 2. / (w * w - 1.) / MM / MV * ((w - MV_o_MM) * f_fac - F1_fac / MM);
     }
     else return 0.;
 }
@@ -1484,7 +1567,7 @@ double MVlnu::get_R0(double w)
     double q2 = (2. * MM * MV)*(w0 - w);
 
     if (CLNflag) return R0(q2);
-    else if (BGLflag) return A0(q2) * RV / hA1(q2);
+    else if (BGLflag) return A0(q2) / A1(q2);
     return 0.;
 }
 

@@ -57,6 +57,47 @@ MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudosca
     afplus_3_cache = max_double;
 #endif 
     
+    afplus1_cache = max_double;
+    afplus2_cache = max_double;
+    afplus3_cache = max_double;
+    afplus4_cache = max_double;
+    afplus5_cache = max_double;
+    afplus6_cache = max_double;
+    afplus7_cache = max_double;
+    afplus8_cache = max_double;
+    afplus9_cache = max_double;
+    afplus10_cache = max_double;
+    afzero1_cache = max_double;
+    afzero2_cache = max_double;
+    afzero3_cache = max_double;
+    afzero4_cache = max_double;
+    afzero5_cache = max_double;
+    afzero6_cache = max_double;
+    afzero7_cache = max_double;
+    afzero8_cache = max_double;
+    afzero9_cache = max_double;
+    afzero10_cache = max_double;
+    bfplus1_cache = max_double;
+    bfplus2_cache = max_double;
+    bfplus3_cache = max_double;
+    bfplus4_cache = max_double;
+    bfplus5_cache = max_double;
+    bfplus6_cache = max_double;
+    bfplus7_cache = max_double;
+    bfplus8_cache = max_double;
+    bfplus9_cache = max_double;
+    bfplus10_cache = max_double;
+    bfzero1_cache = max_double;
+    bfzero2_cache = max_double;
+    bfzero3_cache = max_double;
+    bfzero4_cache = max_double;
+    bfzero5_cache = max_double;
+    bfzero6_cache = max_double;
+    bfzero7_cache = max_double;
+    bfzero8_cache = max_double;
+    bfzero9_cache = max_double;
+    bfzero10_cache = max_double;
+    
     CS_cache = max_double;
     CSp_cache = max_double;
     CP_cache = max_double;
@@ -79,7 +120,8 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
     DMflag = mySM.getFlavour().getFlagDM();
     btocNPpmflag = (mySM.getModelName().compare("RealWeakEFTCCPM") == 0);
     NPanalysis = (mySM.getModelName().compare("RealWeakEFTCCPM") == 0 || mySM.getModelName().compare("RealWeakEFTCC") == 0);
-    mplnuParameters = make_vector<std::string>();
+    if (CLNflag + BGLflag + DMflag != true) throw std::runtime_error("MPlnu: Set only one among CLNflag, BGLflag, DMflag to true");
+    else mplnuParameters = make_vector<std::string>();
     if (CLNflag) {
         mplnuParameters.clear();
         if (pseudoscalarM == StandardModel::D_P) mplnuParameters = make_vector<std::string>()

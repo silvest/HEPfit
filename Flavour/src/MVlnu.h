@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2014 HEPfit Collaboration
- *
+ * 
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -201,12 +201,12 @@ private:
     double mBcstV1,mBcstV2,mBcstV3,mBcstV4,mBcstA1,mBcstA2,mBcstA3,mBcstA4,
         mBcstP1,mBcstP2,mBcstP3,chiTV,chiTA,chiTP,nI; /**<BGL form factor parameters*/
     double zV1,zV2,zV3,zV4,zA1,zA2,zA3,zA4,zP1,zP2,zP3;
-    double af_1, ag_1, aF1_1, aP1_1, af_2, ag_2, aF1_2, aP1_2, af_3, ag_3, aF1_3, aP1_3, af_4, ag_4, 
-        aF1_4, aP1_4, af_5, ag_5, aF1_5, aP1_5, af_6, ag_6, aF1_6, aP1_6, af_7, ag_7, aF1_7, aP1_7,
-        af_8, ag_8, aF1_8, aP1_8, af_9, ag_9, aF1_9, aP1_9, af_10, ag_10, aF1_10, aP1_10,
-        bf_1, bg_1, bF1_1, bP1_1, bf_2, bg_2, bF1_2, bP1_2, bf_3, bg_3, bF1_3, bP1_3, bf_4, bg_4, 
-        bF1_4, bP1_4, bf_5, bg_5, bF1_5, bP1_5, bf_6, bg_6, bF1_6, bP1_6, bf_7, bg_7, bF1_7, bP1_7,
-        bf_8, bg_8, bF1_8, bP1_8, bf_9, bg_9, bF1_9, bP1_9, bf_10, bg_10, bF1_10, bP1_10; /**<DM form factor parameters*/
+    double af_1, ag_1, aF1_1, aF2_1, af_2, ag_2, aF1_2, aF2_2, af_3, ag_3, aF1_3, aF2_3, af_4, ag_4, 
+        aF1_4, aF2_4, af_5, ag_5, aF1_5, aF2_5, af_6, ag_6, aF1_6, aF2_6, af_7, ag_7, aF1_7, aF2_7,
+        af_8, ag_8, aF1_8, aF2_8, af_9, ag_9, aF1_9, aF2_9, af_10, ag_10, aF1_10, aF2_10,
+        bf_1, bg_1, bF1_1, bF2_1, bf_2, bg_2, bF1_2, bF2_2, bf_3, bg_3, bF1_3, bF2_3, bf_4, bg_4, 
+        bF1_4, bF2_4, bf_5, bg_5, bF1_5, bF2_5, bf_6, bg_6, bF1_6, bF2_6, bf_7, bg_7, bF1_7, bF2_7,
+        bf_8, bg_8, bF1_8, bF2_8, bf_9, bg_9, bF1_9, bF2_9, bf_10, bg_10, bF1_10, bF2_10; /**<DM form factor parameters*/
     double cached_intJ1s_tau, cached_intJ1c_tau, cached_intJ2s_tau, cached_intJ2c_tau, cached_intJ3_tau, cached_intJ4_tau,
                 cached_intJ5_tau, cached_intJ6s_tau, cached_intJ6c_tau, cached_intJ7_tau, cached_intJ8_tau, cached_intJ9_tau,
                 cached_intJ1s_mu, cached_intJ1c_mu, cached_intJ2s_mu, cached_intJ2c_mu, cached_intJ3_mu,
@@ -216,16 +216,16 @@ private:
     double hA1w1_cache,rho2_cache,R1w1_cache,R2w1_cache;
     double N_A_cache, N_1_cache, N_2_cache, j_A_cache, j_0_cache, j_1_cache, j_2_cache, k_A_cache, k_0_cache, k_1_cache, k_2_cache, l_A_cache;
     double af0_cache,af1_cache,af2_cache,ag0_cache,ag1_cache,ag2_cache,aF11_cache,aF12_cache,aF21_cache,aF22_cache;
-    double af_1_cache, ag_1_cache, aF1_1_cache, aP1_1_cache, af_2_cache, ag_2_cache, aF1_2_cache, aP1_2_cache, 
-        af_3_cache, ag_3_cache, aF1_3_cache, aP1_3_cache, af_4_cache, ag_4_cache, aF1_4_cache, aP1_4_cache, 
-        af_5_cache, ag_5_cache, aF1_5_cache, aP1_5_cache, af_6_cache, ag_6_cache, aF1_6_cache, aP1_6_cache, 
-        af_7_cache, ag_7_cache, aF1_7_cache, aP1_7_cache, af_8_cache, ag_8_cache, aF1_8_cache, aP1_8_cache, 
-        af_9_cache, ag_9_cache, aF1_9_cache, aP1_9_cache, af_10_cache, ag_10_cache, aF1_10_cache, aP1_10_cache,
-        bf_1_cache, bg_1_cache, bF1_1_cache, bP1_1_cache, bf_2_cache, bg_2_cache, bF1_2_cache, bP1_2_cache, 
-        bf_3_cache, bg_3_cache, bF1_3_cache, bP1_3_cache, bf_4_cache, bg_4_cache, bF1_4_cache, bP1_4_cache, 
-        bf_5_cache, bg_5_cache, bF1_5_cache, bP1_5_cache, bf_6_cache, bg_6_cache, bF1_6_cache, bP1_6_cache, 
-        bf_7_cache, bg_7_cache, bF1_7_cache, bP1_7_cache, bf_8_cache, bg_8_cache, bF1_8_cache, bP1_8_cache, 
-        bf_9_cache, bg_9_cache, bF1_9_cache, bP1_9_cache, bf_10_cache, bg_10_cache, bF1_10_cache, bP1_10_cache;
+    double af_1_cache, ag_1_cache, aF1_1_cache, aF2_1_cache, af_2_cache, ag_2_cache, aF1_2_cache, aF2_2_cache, 
+        af_3_cache, ag_3_cache, aF1_3_cache, aF2_3_cache, af_4_cache, ag_4_cache, aF1_4_cache, aF2_4_cache, 
+        af_5_cache, ag_5_cache, aF1_5_cache, aF2_5_cache, af_6_cache, ag_6_cache, aF1_6_cache, aF2_6_cache, 
+        af_7_cache, ag_7_cache, aF1_7_cache, aF2_7_cache, af_8_cache, ag_8_cache, aF1_8_cache, aF2_8_cache, 
+        af_9_cache, ag_9_cache, aF1_9_cache, aF2_9_cache, af_10_cache, ag_10_cache, aF1_10_cache, aF2_10_cache,
+        bf_1_cache, bg_1_cache, bF1_1_cache, bF2_1_cache, bf_2_cache, bg_2_cache, bF1_2_cache, bF2_2_cache, 
+        bf_3_cache, bg_3_cache, bF1_3_cache, bF2_3_cache, bf_4_cache, bg_4_cache, bF1_4_cache, bF2_4_cache, 
+        bf_5_cache, bg_5_cache, bF1_5_cache, bF2_5_cache, bf_6_cache, bg_6_cache, bF1_6_cache, bF2_6_cache, 
+        bf_7_cache, bg_7_cache, bF1_7_cache, bF2_7_cache, bf_8_cache, bg_8_cache, bF1_8_cache, bF2_8_cache, 
+        bf_9_cache, bg_9_cache, bF1_9_cache, bF2_9_cache, bf_10_cache, bg_10_cache, bF1_10_cache, bF2_10_cache;
     double CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
     bool checkcache_int_tau, checkcache_int_mu, checkcache_int_el;
     
