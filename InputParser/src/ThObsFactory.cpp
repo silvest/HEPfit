@@ -4071,9 +4071,24 @@ ThObsFactory::ThObsFactory()
    //----- TopQuarkObservables begin -----
    
    
+   obsThFactory["sigma_tt_diff_LO"] = boost::factory<sigma_tt_diff_LO*>();
+   
+   obsThFactory["sigma_tta_diff_LO"] = boost::factory<sigma_tta_diff_LO*>();
+   
+   
+   obsThFactory["sigma_ttz_diff_LO"] = boost::factory<sigma_ttz_diff_LO*>();
+   obsThFactory["sigma_tb_13_LO"] = boost::factory<sigma_tb_13_LO*>();
+   obsThFactory["sigma_tq_13_LO"] = boost::factory<sigma_tq_13_LO*>();
+   obsThFactory["sigma_taq_LO"] = boost::factory<sigma_taq_LO*>();
+   obsThFactory["sigma_tzq_LO"] = boost::factory<sigma_tzq_LO*>();
+   obsThFactory["sigma_tw_LO"] = boost::factory<sigma_tw_LO*>();
+   obsThFactory["sigma_ttw_LO"] = boost::factory<sigma_ttw_LO*>();
+
+   
+   
    obsThFactory["F0_LO"] = boost::factory<F0_LO*>();
    obsThFactory["FL_LO"] = boost::factory<FL_LO*>();
-   obsThFactory["Test_direct"] = boost::factory<Test_direct*>();
+   
    
    
    //----- TopQuarkObservables end -----
