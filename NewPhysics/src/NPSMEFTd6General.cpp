@@ -22074,7 +22074,7 @@ double NPSMEFTd6General::deltaGammaH2L2LRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121302. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121302. * getSMEFTCoeffEW("CHbox")
             - 59592.5 * getSMEFTCoeffEW("CHB")
             - 6187.97 * getSMEFTCoeffEW("CHW")
             + 27262.7 * CDHB
@@ -22094,8 +22094,28 @@ double NPSMEFTd6General::deltaGammaH2L2LRatio1() const
             - 23529. * getSMEFTCoeffEW("CHWB")
             - 3.002 * delta_GF
             - 0.836 * deltaGzd6()
-            ));
-
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12111) * getSMEFTCoeffEW("CHbox")
+	+ (0.00943) * getSMEFTCoeffEW("CHW")
+	+ (-0.07655) * getSMEFTCoeffEW("CHB")
+	+ (0.01013) * getSMEFTCoeffEW("CHD")
+	+ (-0.02229) * getSMEFTCoeffEW("CHWB")
+	+ (0.043321) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.043345) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.043602) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.1384911) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1385265) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.043602) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.03487137) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.03493988) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.0350703) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.18173) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.797) * deltaGzd6()
+	);
+    
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
@@ -22270,7 +22290,7 @@ double NPSMEFTd6General::deltaGammaH2v2vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121344. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121344. * getSMEFTCoeffEW("CHbox")
             - 14021.1 * getSMEFTCoeffEW("CHB")
             - 46733.1 * getSMEFTCoeffEW("CHW")
             + 15986.2 * CDHB
@@ -22287,7 +22307,24 @@ double NPSMEFTd6General::deltaGammaH2v2vRatio1() const
             - 25575.1 * getSMEFTCoeffEW("CHWB")
             - 3.003 * delta_GF
             - 0.847 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12134) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0473334) * getSMEFTCoeffEW("CHW")
+	+ (-0.0135867) * getSMEFTCoeffEW("CHB")
+	+ (-0.03034636) * getSMEFTCoeffEW("CHD")
+	+ (-0.0253519) * getSMEFTCoeffEW("CHWB")
+	+ (-0.039647455) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.03963745) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.03967156) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.14238749) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.14220968) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.039683) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.18202) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.831) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -22366,7 +22403,7 @@ double NPSMEFTd6General::deltaGammaH2L2vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121291. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121291. * getSMEFTCoeffEW("CHbox")
             - 35349.6 * getSMEFTCoeffEW("CHB")
             - 27095.7 * getSMEFTCoeffEW("CHW")
             + 21443.2 * CDHB
@@ -22389,7 +22426,27 @@ double NPSMEFTd6General::deltaGammaH2L2vRatio1() const
             - 24273.2 * getSMEFTCoeffEW("CHWB")
             - 3. * delta_GF
             - 0.846 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.1213) * getSMEFTCoeffEW("CHbox")
+	+ (-0.01494) * getSMEFTCoeffEW("CHW")
+	+ (-0.040939) * getSMEFTCoeffEW("CHB")
+	+ (-0.009875) * getSMEFTCoeffEW("CHD")
+	+ (-0.02358) * getSMEFTCoeffEW("CHWB")
+	+ (0.003651) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.003863) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.003449) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.138815) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.137873) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.041527) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.0181515) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.0181754) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.0180409) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.1819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.831) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -22762,7 +22819,7 @@ double NPSMEFTd6General::deltaGammaH2u2uRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121242. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121242. * getSMEFTCoeffEW("CHbox")
             - 147406. * getSMEFTCoeffEW("CHB")
             + 73926.6 * getSMEFTCoeffEW("CHW")
             + 47688.3 * CDHB
@@ -22780,7 +22837,26 @@ double NPSMEFTd6General::deltaGammaH2u2uRatio1() const
             - 9701.32 * getSMEFTCoeffEW("CHWB")
             - 3.002 * delta_GF
             - 0.827 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12121) * getSMEFTCoeffEW("CHbox")
+	+ (0.07464) * getSMEFTCoeffEW("CHW")
+	+ (-0.148952) * getSMEFTCoeffEW("CHB")
+	+ (0.057409) * getSMEFTCoeffEW("CHD")
+	+ (-0.011158) * getSMEFTCoeffEW("CHWB")
+	+ (-0.071578) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.071491) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.071579) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.07148) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.030281) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.030184) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.18175) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.18175) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18185) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.801) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -22859,7 +22935,7 @@ double NPSMEFTd6General::deltaGammaH2d2dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121209. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121209. * getSMEFTCoeffEW("CHbox")
             - 109493. * getSMEFTCoeffEW("CHB")
             + 40559.6 * getSMEFTCoeffEW("CHW")
             + 39022.8 * CDHB
@@ -22879,7 +22955,29 @@ double NPSMEFTd6General::deltaGammaH2d2dRatio1() const
             - 17533.6 * getSMEFTCoeffEW("CHWB")
             - 3. * delta_GF
             - 0.829 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12097) * getSMEFTCoeffEW("CHbox")
+	+ (0.037915) * getSMEFTCoeffEW("CHW")
+	+ (-0.106723) * getSMEFTCoeffEW("CHB")
+	+ (0.02954) * getSMEFTCoeffEW("CHD")
+	+ (-0.0189222) * getSMEFTCoeffEW("CHWB")
+	+ (0.043504) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.043461) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.04813) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.043504) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.043461) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.04813) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (-0.0075978) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.0075944) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.0078254) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (-0.181327) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181327) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18146) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.822) * deltaGzd6()
+	);  
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -22958,7 +23056,7 @@ double NPSMEFTd6General::deltaGammaH2u2dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121245. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121245. * getSMEFTCoeffEW("CHbox")
             - 129896. * getSMEFTCoeffEW("CHB")
             + 58951.9 * getSMEFTCoeffEW("CHW")
             + 43749.1 * CDHB
@@ -22983,7 +23081,31 @@ double NPSMEFTd6General::deltaGammaH2u2dRatio1() const
             - 14774.7 * getSMEFTCoeffEW("CHWB")
             - 3.001 * delta_GF
             - 0.832 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.1212) * getSMEFTCoeffEW("CHbox")
+	+ (0.05796) * getSMEFTCoeffEW("CHW")
+	+ (-0.129289) * getSMEFTCoeffEW("CHB")
+	+ (0.043679) * getSMEFTCoeffEW("CHD")
+	+ (-0.016248) * getSMEFTCoeffEW("CHWB")
+	+ (-0.019005) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.019116) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.036603) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.051352) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.051268) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.036603) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (0.014881) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.014854) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.002819483) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.00281277) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.0059455) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (-0.181831) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181831) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18183) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.81) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -23062,7 +23184,7 @@ double NPSMEFTd6General::deltaGammaH2L2uRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121251. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121251. * getSMEFTCoeffEW("CHbox")
             - 103956. * getSMEFTCoeffEW("CHB")
             + 35760.1 * getSMEFTCoeffEW("CHW")
             + 38002.6 * CDHB
@@ -23086,7 +23208,33 @@ double NPSMEFTd6General::deltaGammaH2L2uRatio1() const
             - 19191.5 * getSMEFTCoeffEW("CHWB")
             - 3. * delta_GF
             - 0.836 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12127) * getSMEFTCoeffEW("CHbox")
+	+ (0.04228) * getSMEFTCoeffEW("CHW")
+	+ (-0.1118) * getSMEFTCoeffEW("CHB")
+	+ (0.03326) * getSMEFTCoeffEW("CHD")
+	+ (-0.01816) * getSMEFTCoeffEW("CHWB")
+	+ (0.021524) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.021617) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.021538) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.16016) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1602536) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.021538) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.01711603) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.01724043) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.01726719) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.035617594) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.0354867) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.035613) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.035409) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.015096) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.015018) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (0.1819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.816) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -23165,7 +23313,7 @@ double NPSMEFTd6General::deltaGammaH2L2dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121289. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121289. * getSMEFTCoeffEW("CHbox")
             - 84134.2 * getSMEFTCoeffEW("CHB")
             + 17402.7 * getSMEFTCoeffEW("CHW")
             + 33258.3 * CDHB
@@ -23191,7 +23339,36 @@ double NPSMEFTd6General::deltaGammaH2L2dRatio1() const
             - 21275. * getSMEFTCoeffEW("CHWB")
             - 3. * delta_GF
             - 0.837 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12037) * getSMEFTCoeffEW("CHbox")
+	+ (0.02214) * getSMEFTCoeffEW("CHW")
+	+ (-0.09011) * getSMEFTCoeffEW("CHB")
+	+ (0.01957) * getSMEFTCoeffEW("CHD")
+	+ (-0.0202) * getSMEFTCoeffEW("CHWB")
+	+ (0.021357) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.021391) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.021244) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.1582728) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.158513) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.021244) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.01721722) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.0172564) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.0171113) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.022094) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.02214) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.02373) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.022094) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.02214) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.02373) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (-0.003856317) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.003840468) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.003870856) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (0.18049) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.816) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -23270,7 +23447,7 @@ double NPSMEFTd6General::deltaGammaH2v2uRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
             - 76316.6 * getSMEFTCoeffEW("CHB")
             + 13981.5 * getSMEFTCoeffEW("CHW")
             + 31756.8 * CDHB
@@ -23291,7 +23468,30 @@ double NPSMEFTd6General::deltaGammaH2v2uRatio1() const
             - 20220.2 * getSMEFTCoeffEW("CHWB")
             - 2.998 * delta_GF
             - 0.849 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12123) * getSMEFTCoeffEW("CHbox")
+	+ (0.01696) * getSMEFTCoeffEW("CHW")
+	+ (-0.074942) * getSMEFTCoeffEW("CHB")
+	+ (0.013411) * getSMEFTCoeffEW("CHD")
+	+ (-0.021117) * getSMEFTCoeffEW("CHWB")
+	+ (-0.01881591) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.01873872) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.01878697) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.161762) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1612947) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.018958) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.0371485) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.037148) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.037288) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.037226) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.01578) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.0157) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (0.18182) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.832) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -23370,7 +23570,7 @@ double NPSMEFTd6General::deltaGammaH2v2dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121140. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121140. * getSMEFTCoeffEW("CHbox")
             - 57872.8 * getSMEFTCoeffEW("CHB")
             - 4371.77 * getSMEFTCoeffEW("CHW")
             + 27059.2 * CDHB
@@ -23393,7 +23593,33 @@ double NPSMEFTd6General::deltaGammaH2v2dRatio1() const
             - 21725.9 * getSMEFTCoeffEW("CHWB")
             - 2.996 * delta_GF
             - 0.842 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12127) * getSMEFTCoeffEW("CHbox")
+	+ (-0.005772) * getSMEFTCoeffEW("CHW")
+	+ (-0.055388) * getSMEFTCoeffEW("CHB")
+	+ (-0.000382) * getSMEFTCoeffEW("CHD")
+	+ (-0.0226104) * getSMEFTCoeffEW("CHWB")
+	+ (-0.01872812) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.01856964) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.01869931) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.161666) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1624423) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.018688) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.023787) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.023795) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.023425) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.023787) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.023795) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.023425) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (-0.00413514) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.00412802) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.0037969) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (0.1819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.807) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -23472,7 +23698,7 @@ double NPSMEFTd6General::deltaGammaH4LRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121291. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121291. * getSMEFTCoeffEW("CHbox")
             - 103587. * getSMEFTCoeffEW("CHB")
             - 25126.1 * getSMEFTCoeffEW("CHW")
             + 25935.6 * CDHB
@@ -23492,7 +23718,27 @@ double NPSMEFTd6General::deltaGammaH4LRatio1() const
             + 10882.3 * getSMEFTCoeffEW("CHWB")
             - 3. * delta_GF
             - 0.759 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12136) * getSMEFTCoeffEW("CHbox")
+	+ (-0.01005) * getSMEFTCoeffEW("CHW")
+	+ (-0.11593) * getSMEFTCoeffEW("CHB")
+	+ (0.01273) * getSMEFTCoeffEW("CHD")
+	+ (0.01261) * getSMEFTCoeffEW("CHWB")
+	+ (0.041856) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.041873) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.041628) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.1401372) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1399327) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.041628) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.03371821) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.0338207) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.03341922) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.18203) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.738) * deltaGzd6()
+	);  
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -23856,7 +24102,7 @@ double NPSMEFTd6General::deltaGammaH4vRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121311. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121311. * getSMEFTCoeffEW("CHbox")
             - 13320.2 * getSMEFTCoeffEW("CHB")
             - 44355.6 * getSMEFTCoeffEW("CHW")
             + 15020. * CDHB
@@ -23873,7 +24119,24 @@ double NPSMEFTd6General::deltaGammaH4vRatio1() const
             - 24266.2 * getSMEFTCoeffEW("CHWB")
             - 2.998 * delta_GF
             - 0.715 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.1213) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0448926) * getSMEFTCoeffEW("CHW")
+	+ (-0.01288759) * getSMEFTCoeffEW("CHB")
+	+ (-0.0303024) * getSMEFTCoeffEW("CHD")
+	+ (-0.02405091) * getSMEFTCoeffEW("CHWB")
+	+ (-0.0368755) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.03708861) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.0369189) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.1447392) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.144897) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.037108) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.18197) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.7) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -23952,7 +24215,7 @@ double NPSMEFTd6General::deltaGammaH4uRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121283. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121283. * getSMEFTCoeffEW("CHbox")
             - 153814. * getSMEFTCoeffEW("CHB")
             + 70762.7 * getSMEFTCoeffEW("CHW")
             - 476614. * getSMEFTCoeffEW("CHG")
@@ -23971,7 +24234,27 @@ double NPSMEFTd6General::deltaGammaH4uRatio1() const
             + 5.842 * getSMEFTCoeffEW("CHWB")
             - 3.002 * delta_GF
             - 0.781 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12114) * getSMEFTCoeffEW("CHbox")
+	+ (0.07155) * getSMEFTCoeffEW("CHW")
+	+ (-0.15453) * getSMEFTCoeffEW("CHB")
+	+ (0.06099) * getSMEFTCoeffEW("CHD")
+	+ (-0.001607) * getSMEFTCoeffEW("CHWB")
+	+ (-0.46432) * getSMEFTCoeffEW("CHG")
+	+ (-0.070147) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.070591) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.070158) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.070598) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.02885) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.028939) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.181666) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181666) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18173) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.779) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24050,7 +24333,7 @@ double NPSMEFTd6General::deltaGammaH4dRatio1() const
 
     double C1 = 0.0083;
 
-    dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
             - 106312. * getSMEFTCoeffEW("CHB")
             + 37722.3 * getSMEFTCoeffEW("CHW")
             - 368494. * getSMEFTCoeffEW("CHG")
@@ -24071,7 +24354,30 @@ double NPSMEFTd6General::deltaGammaH4dRatio1() const
             - 12377.7 * getSMEFTCoeffEW("CHWB")
             - 2.995 * delta_GF
             - 0.778 * deltaGzd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12104) * getSMEFTCoeffEW("CHbox")
+	+ (0.035319) * getSMEFTCoeffEW("CHW")
+	+ (-0.1035952) * getSMEFTCoeffEW("CHB")
+	+ (0.030421) * getSMEFTCoeffEW("CHD")
+	+ (-0.013803) * getSMEFTCoeffEW("CHWB")
+	+ (-0.36169) * getSMEFTCoeffEW("CHG")
+	+ (0.043465) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.043449) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.044811) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.043465) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.043449) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.044811) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (-0.007293) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.0072913) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.0069497) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (-0.181462) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181462) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18159) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.77) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24150,7 +24456,7 @@ double NPSMEFTd6General::deltaGammaHLvvLRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121150. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121150. * getSMEFTCoeffEW("CHbox")
             - 91767.5 * getSMEFTCoeffEW("CHW")
             + 36978. * CDHW
             + 45140.3 * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -24166,7 +24472,19 @@ double NPSMEFTd6General::deltaGammaHLvvLRatio1() const
             + 0. * getSMEFTCoeffEW("CHWB")
             - 2.996 * delta_GF
             - 0.962 * deltaGwd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12142) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0906604) * getSMEFTCoeffEW("CHW")
+	+ (-0.03033019) * getSMEFTCoeffEW("CHD")
+	+ (-0.136739) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.136686) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.045289) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.18213) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.948) * deltaGwd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24339,7 +24657,7 @@ double NPSMEFTd6General::deltaGammaHudduRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121333. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121333. * getSMEFTCoeffEW("CHbox")
             - 92283.9 * getSMEFTCoeffEW("CHW")
             + 37165.5 * CDHW
             + 68273.4 * getSMEFTCoeffEW("CHq3R", 0, 0)
@@ -24354,7 +24672,20 @@ double NPSMEFTd6General::deltaGammaHudduRatio1() const
             + 0. * getSMEFTCoeffEW("CHWB")
             - 3.003 * delta_GF
             - 0.956 * deltaGwd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12078) * getSMEFTCoeffEW("CHbox")
+	+ (-0.09038825) * getSMEFTCoeffEW("CHW")
+	+ (-0.03023529) * getSMEFTCoeffEW("CHD")
+	+ (0.069313) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.069519) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (-0.1813519) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1813519) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18114) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.941) * deltaGwd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24433,7 +24764,7 @@ double NPSMEFTd6General::deltaGammaHLvudRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121281. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121281. * getSMEFTCoeffEW("CHbox")
             - 93409.7 * getSMEFTCoeffEW("CHW")
             + 37365.5 * CDHW
             + 22531.9 * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -24451,7 +24782,21 @@ double NPSMEFTd6General::deltaGammaHLvudRatio1() const
             + 0. * getSMEFTCoeffEW("CHWB")
             - 3.004 * delta_GF
             - 0.969 * deltaGwd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12125) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0905402) * getSMEFTCoeffEW("CHW")
+	+ (-0.03028063) * getSMEFTCoeffEW("CHD")
+	+ (-0.1591297) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.15932913) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.022574) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.034776) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.034749) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.18185) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.965) * deltaGwd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24530,7 +24875,7 @@ double NPSMEFTd6General::deltaGammaH2udRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121425. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121425. * getSMEFTCoeffEW("CHbox")
             - 3244.8 * getSMEFTCoeffEW("CHB")
             - 88391.2 * getSMEFTCoeffEW("CHW")
             - 55282. * getSMEFTCoeffEW("CHG")
@@ -24556,7 +24901,30 @@ double NPSMEFTd6General::deltaGammaH2udRatio1() const
             - 3.002 * delta_GF
             - 0.026 * deltaGzd6()
             - 0.944 * deltaGwd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12132) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0850823) * getSMEFTCoeffEW("CHW")
+	+ (-0.0045478) * getSMEFTCoeffEW("CHB")
+	+ (-0.02821293) * getSMEFTCoeffEW("CHD")
+	+ (-0.0017074) * getSMEFTCoeffEW("CHWB")
+	+ (-0.059) * getSMEFTCoeffEW("CHG")
+	+ (-4.85e-05) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-6.44e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.070115) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.06974) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.00065931) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.00065707) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.000256599) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.000252842) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.181798) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181798) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18196) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.915) * deltaGwd6()
+	+ (-0.0248) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24636,7 +25004,7 @@ double NPSMEFTd6General::deltaGammaH2LvRatio1() const
 
     double C1 = 0.0073;
 
-    dwidth = (+121133. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121133. * getSMEFTCoeffEW("CHbox")
             + 1057.61 * getSMEFTCoeffEW("CHB")
             - 91969.3 * getSMEFTCoeffEW("CHW")
             - 210.15 * CDHB
@@ -24662,7 +25030,28 @@ double NPSMEFTd6General::deltaGammaH2LvRatio1() const
             - 3.001 * delta_GF
             - 0.036 * deltaGzd6()
             - 0.956 * deltaGwd6()
-            ));
+            ));*/
+    
+    // AG: 
+    dwidth = cWsch * ( 
+	( (0.12111) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0916518) * getSMEFTCoeffEW("CHW")
+	+ (0.000595) * getSMEFTCoeffEW("CHB")
+	+ (-0.033349) * getSMEFTCoeffEW("CHD")
+	+ (-0.0033372) * getSMEFTCoeffEW("CHWB")
+	+ (-0.0001494) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.0001494) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.0001276) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.136036) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1361597) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.045347) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.000816967) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.000817957) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.000817935) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.18167) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.938) * deltaGwd6()
+	+ (-0.038) * deltaGzd6()
+	);
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -25042,13 +25431,22 @@ double NPSMEFTd6General::deltaGammaH4fRatio1() const
     double dwidth = 0.0;
 
     // SM decay widths (from MG simulations)
-    double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
+    /*double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
     double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
     double wH2L2uSM = 0.45029e-05, wH2L2dSM = 0.85830e-05, wH2v2uSM = 0.93233e-05;
     double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06, wH4vSM = 0.16884e-05;
     double wH4uSM = 0.23669e-05, wH4dSM = 0.60254e-05;
     double wHLvvLSM = 0.58098e-04, wHudduSM = 0.13384e-03, wHLvudSM = 0.34149e-03;
-    double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;
+    double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;*/
+    
+    // AG: 
+    double wH2L2LSM = 6.905e-07, wH2v2vSM = 2.922e-06, wH2L2vSM = 2.844e-06;
+    double wH2u2uSM = 2.406e-06, wH2d2dSM = 1.265e-05, wH2u2dSM = 1.291e-05;
+    double wH2L2uSM = 4.402e-06, wH2L2dSM = 8.593e-06, wH2v2uSM = 9.831e-06, wH2v2dSM = 1.867e-05;
+    double wH4LSM =  3.565e-07 , wH4vSM = 1.747e-06;
+    double wH4uSM = 2.533e-06, wH4dSM = 6.394e-06;
+    double wHLvvLSM = 6.318e-05, wHudduSM = 0.0001716, wHLvudSM = 0.0003606;
+    double wH2udSM = 0.0001758, wH2LvSM = 3.164e-05;
 
     // Sum
     double wH4fSM = wH2L2LSM + wH2v2vSM + wH2L2vSM + wH2u2uSM + wH2d2dSM + wH2u2dSM +
