@@ -4,7 +4,7 @@
  *
  * For the licensing terms see doc/COPYING.
  */
-
+ 
 #ifndef MPLNU_H
 #define MPLNU_H
 
@@ -106,6 +106,8 @@ private:
     QCD::meson pseudoscalarM;/**< Final vector meson type */
     std::vector<std::string> mplnuParameters;/**< The string of mandatory MPlnu parameters */
     bool CLNflag; /**< A flag for switching to CLN parameterization */
+    bool BGLflag; /**< A flag for switching to BGL parameterization */
+    bool DMflag; /**< A flag for switching to Dispersive Matrix method */
     bool btocNPpmflag; /**< A flag for switching to the +/- basis for NP Wilson coefficients */
     bool NPanalysis; /**< A flag to switch to BSM analysis */
     
@@ -148,6 +150,12 @@ private:
 #if NBGL == 3
     double af0_3, afplus_3;
 #endif    
+    double afplus1, afplus2, afplus3, afplus4, afplus5, afplus6,
+        afplus7, afplus8, afplus9, afplus10, afzero1, afzero2, afzero3,
+        afzero4, afzero5, afzero6, afzero7, afzero8, afzero9, afzero10,
+        bfplus1, bfplus2, bfplus3, bfplus4, bfplus5, bfplus6, bfplus7, 
+        bfplus8, bfplus9, bfplus10, bfzero1, bfzero2, bfzero3, bfzero4, 
+        bfzero5, bfzero6, bfzero7, bfzero8, bfzero9, bfzero10; /**<DM form factor parameters*/
     double mBc1m_1,mBc1m_2,mBc1m_3,mBc1m_4,mBc0p_1,mBc0p_2,chitildeT,chiL,nI; /**<BGL form factor parameters*/
     double z1m_1,z1m_2,z1m_3,z0p_1,z0p_2;
     gslpp::complex z1m_4;
@@ -157,6 +165,12 @@ private:
     double fplusz0_cache,rho1to2_cache;
     double N_0_cache, alpha_0_cache, alpha_p_cache, beta_0_cache, beta_p_cache, gamma_0_cache, gamma_p_cache;
     double af0_1_cache,af0_2_cache,afplus_0_cache,afplus_1_cache,afplus_2_cache;
+    double afplus1_cache, afplus2_cache, afplus3_cache, afplus4_cache, afplus5_cache, afplus6_cache,
+        afplus7_cache, afplus8_cache, afplus9_cache, afplus10_cache, afzero1_cache, afzero2_cache, afzero3_cache,
+        afzero4_cache, afzero5_cache, afzero6_cache, afzero7_cache, afzero8_cache, afzero9_cache, afzero10_cache,
+        bfplus1_cache, bfplus2_cache, bfplus3_cache, bfplus4_cache, bfplus5_cache, bfplus6_cache, bfplus7_cache, 
+        bfplus8_cache, bfplus9_cache, bfplus10_cache, bfzero1_cache, bfzero2_cache, bfzero3_cache, bfzero4_cache, 
+        bfzero5_cache, bfzero6_cache, bfzero7_cache, bfzero8_cache, bfzero9_cache, bfzero10_cache;
 #if NBGL == 3
     double af0_3_cache,afplus_3_cache;
 #endif    

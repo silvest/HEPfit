@@ -25,6 +25,8 @@ Flavour::Flavour(const StandardModel& SM_i)
     dispersion = false;
     zExpansion = false;
     CLNflag = false;
+    BGLflag = false;
+    DMflag = false;
 };
 
 bool Flavour::setFlag(const std::string name, const bool value) 
@@ -38,6 +40,12 @@ bool Flavour::setFlag(const std::string name, const bool value)
         return true;
     } else if (name.compare("CLNflag") == 0) {
         setFlagCLN(value);
+        return true;
+    } else if (name.compare("BGLflag") == 0) {
+        setFlagBGL(value);
+        return true;
+    } else if (name.compare("DMflag") == 0) {
+        setFlagDM(value);
         return true;
     } else if (name.compare("FixedWCbtos") == 0) {
         setFlagFixedWCbtos(value);
