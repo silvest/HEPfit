@@ -569,12 +569,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["NEvppenu13_Bin16"] = bind(boost::factory<NevLHCenu13*>(), _1, 16);
     obsThFactory["NEvppenu13_Bin17"] = bind(boost::factory<NevLHCenu13*>(), _1, 17);
     obsThFactory["NEvppenu13_Bin18"] = bind(boost::factory<NevLHCenu13*>(), _1, 18);
-    obsThFactory["NEvppenu13_Bin19"] = bind(boost::factory<NevLHCenu13*>(), _1, 20);
-    obsThFactory["NEvppenu13_Bin20"] = bind(boost::factory<NevLHCenu13*>(), _1, 21);
-    obsThFactory["NEvppenu13_Bin21"] = bind(boost::factory<NevLHCenu13*>(), _1, 22);
-    obsThFactory["NEvppenu13_Bin22"] = bind(boost::factory<NevLHCenu13*>(), _1, 23);
-    obsThFactory["NEvppenu13_Bin23"] = bind(boost::factory<NevLHCenu13*>(), _1, 24);
-    obsThFactory["NEvppenu13_Bin24"] = bind(boost::factory<NevLHCenu13*>(), _1, 25);
+    obsThFactory["NEvppenu13_Bin19"] = bind(boost::factory<NevLHCenu13*>(), _1, 19);
+    obsThFactory["NEvppenu13_Bin20"] = bind(boost::factory<NevLHCenu13*>(), _1, 20);
+    obsThFactory["NEvppenu13_Bin21"] = bind(boost::factory<NevLHCenu13*>(), _1, 21);
+    obsThFactory["NEvppenu13_Bin22"] = bind(boost::factory<NevLHCenu13*>(), _1, 22);
+    obsThFactory["NEvppenu13_Bin23"] = bind(boost::factory<NevLHCenu13*>(), _1, 23);
+    obsThFactory["NEvppenu13_Bin24"] = bind(boost::factory<NevLHCenu13*>(), _1, 24);
     //
     //----- p p > mu nu
     obsThFactory["NEvppmunu13_Bin1"] = bind(boost::factory<NevLHCmunu13*>(), _1, 1);
