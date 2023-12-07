@@ -1447,7 +1447,7 @@ ArgAmpar_MVpsi::ArgAmpar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QC
 double ArgAmpar_MVpsi::computeThValue() 
 {
     double q2 = getBinMin();
-    return SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1).arg();
+    return - SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1).arg(); // Sign flip to avoid issue in MCMC with negative args
 }
 
 Abs2Amperp_MVpsi::Abs2Amperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
