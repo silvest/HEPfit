@@ -4073,21 +4073,34 @@ ThObsFactory::ThObsFactory()
    
    obsThFactory["sigma_tt_diff_LO"] = boost::factory<sigma_tt_diff_LO*>();
    
-   obsThFactory["sigma_tta_diff_LO"] = boost::factory<sigma_tta_diff_LO*>();
+   obsThFactory["sigma_ttz_diff_LO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_LO_ATLAS_210312603*>();
    
+   obsThFactory["sigma_tta_diff_LO_CMS_dilepton"] = boost::factory<sigma_tta_diff_LO_CMS_dilepton*>();
    
-   obsThFactory["sigma_ttz_diff_LO"] = boost::factory<sigma_ttz_diff_LO*>();
-   obsThFactory["sigma_tb_13_LO"] = boost::factory<sigma_tb_13_LO*>();
-   obsThFactory["sigma_tq_13_LO"] = boost::factory<sigma_tq_13_LO*>();
-   obsThFactory["sigma_taq_LO"] = boost::factory<sigma_taq_LO*>();
-   obsThFactory["sigma_tzq_LO"] = boost::factory<sigma_tzq_LO*>();
-   obsThFactory["sigma_tw_LO"] = boost::factory<sigma_tw_LO*>();
-   obsThFactory["sigma_ttw_LO"] = boost::factory<sigma_ttw_LO*>();
-
    
    
    obsThFactory["F0_LO"] = boost::factory<F0_LO*>();
    obsThFactory["FL_LO"] = boost::factory<FL_LO*>();
+   
+   
+   obsThFactory["sigma_taq_LO_CMS"] = boost::factory<sigma_taq_LO_CMS*>();
+   obsThFactory["sigma_taq_LO_ATLAS"] = boost::factory<sigma_taq_LO_ATLAS*>();
+   
+   //NOT COMPLETELY SURE IF MAPPING WITH TWO DIFFERENT NAMES WILL MAKE THE JOB (PROBALBY NOT)
+   obsThFactory["sigma_tzq_LO_CMS"] = boost::factory<sigma_tzq_LO*>();
+   obsThFactory["sigma_tzq_LO_ATLAS"] = boost::factory<sigma_tzq_LO*>();
+   obsThFactory["sigma_ttw_LO_CMS"] = boost::factory<sigma_ttw_LO*>();
+   obsThFactory["sigma_ttw_LO_ATLAS"] = boost::factory<sigma_ttw_LO*>();
+   obsThFactory["sigma_tw_13_LO_CMS"] = boost::factory<sigma_tw_13_LO*>();
+   obsThFactory["sigma_tw_13_LO_ATLAS"] = boost::factory<sigma_tw_13_LO*>();
+   obsThFactory["sigma_tb_13_LO_CMS"] = boost::factory<sigma_tb_13_LO*>();
+   obsThFactory["sigma_tb_13_LO_ATLAS"] = boost::factory<sigma_tb_13_LO*>();
+   obsThFactory["sigma_tq_13_LO_CMS"] = boost::factory<sigma_tq_13_LO*>();
+   obsThFactory["sigma_tq_13_LO_ATLAS"] = boost::factory<sigma_tq_13_LO*>();
+
+
+   
+ 
    
    
    

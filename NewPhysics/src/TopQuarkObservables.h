@@ -165,13 +165,13 @@ private:
     * @ingroup TopQuarkObservables 
     * @brief Test Observable
     */
-    class sigma_tta_diff_LO: public ThObservable {
+    class sigma_tta_diff_LO_CMS_dilepton: public ThObservable {
     public:
 
     /**
      * @brief FL constructor.
      */
-    sigma_tta_diff_LO(const StandardModel& SM_i);
+    sigma_tta_diff_LO_CMS_dilepton(const StandardModel& SM_i);
 
     /**
      * @return The value of Test_direct
@@ -213,13 +213,13 @@ private:
     * @ingroup TopQuarkObservables 
     * @brief Test Observable
     */
-    class sigma_ttz_diff_LO: public ThObservable {
+    class sigma_ttz_diff_LO_ATLAS_210312603: public ThObservable {
     public:
 
     /**
      * @brief sigma_ttz_diff_LO constructor.
      */
-    sigma_ttz_diff_LO(const StandardModel& SM_i);
+    sigma_ttz_diff_LO_ATLAS_210312603(const StandardModel& SM_i);
 
     /**
      * @return The value of Test_direct
@@ -357,13 +357,55 @@ private:
     * @ingroup TopQuarkObservables 
     * @brief Test Observable
     */
-    class sigma_taq_LO: public ThObservable {
+    class sigma_taq_LO_CMS: public ThObservable {
     public:
 
     /**
      * @brief sigma_taq_LO constructor.
      */
-    sigma_taq_LO(const StandardModel& SM_i);
+    sigma_taq_LO_CMS(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+    
+    
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.getSMEFTCoeffEW(name);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.getSMEFTCoeffEW(name, i, j);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+    }
+
+    private:
+        
+        const TopQuarkObservables mytopobs;
+
+    };
+    
+    
+    /**
+    * @class sigma_taq_LO
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_taq_LO_ATLAS: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_taq_LO constructor.
+     */
+    sigma_taq_LO_ATLAS(const StandardModel& SM_i);
 
     /**
      * @return The value of Test_direct
@@ -451,13 +493,13 @@ private:
     * @ingroup TopQuarkObservables 
     * @brief Test Observable
     */
-    class sigma_tw_LO: public ThObservable {
+    class sigma_tw_13_LO: public ThObservable {
     public:
 
     /**
      * @brief FL constructor.
      */
-    sigma_tw_LO(const StandardModel& SM_i);
+    sigma_tw_13_LO(const StandardModel& SM_i);
 
     /**
      * @return The value of Test_direct
