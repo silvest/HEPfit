@@ -5796,6 +5796,18 @@ public:
     virtual double STXS12_ttH_pTH300_Inf(const double sqrt_s) const;
 
     /**
+     * @brief The STXS bin @f$pp \to ttH@f$, @f$300<p_{TH}[GeV]<450@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_ttH_pTH300_450(const double sqrt_s) const;            //AG:added
+    
+    /**
+     * @brief The STXS bin @f$pp \to ttH@f$, @f$450<p_{TH}[GeV]@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_ttH_pTH450_Inf(const double sqrt_s) const;            //AG:added   
+    
+    /**
      * @brief The STXS bin @f$pp \to tH@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
