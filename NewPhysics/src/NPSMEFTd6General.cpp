@@ -31730,9 +31730,9 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const
 
 double NPSMEFTd6General::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const          //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
+    // To be fixed together with the UFO file when going beyond U(2)
     /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
@@ -32064,20 +32064,32 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(const double sqrt
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHlv_pTV0_75(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHlv_pTV0_75(const double sqrt_s) const        //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.813 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.813 * getSMEFTCoeffEW("CHW")
                 - 0.241 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 1.142 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
-
+                + 1.142 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0); */
+        // AG:
+        STXSb += cWsch * ( 
+            ( (0.12114) * getSMEFTCoeffEW("CHbox")
+            + (-0.03031269) * getSMEFTCoeffEW("CHD")
+            + (0.8155) * getSMEFTCoeffEW("CHW")
+            + (0.9523) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.15907) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1412857) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.14124287) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18176) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.012) * deltaGwd6()
+	);
+                
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
 
@@ -32092,19 +32104,31 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV0_75(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHlv_pTV75_150(const double sqrt_s) const      //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.946 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.946 * getSMEFTCoeffEW("CHW")
                 - 0.244 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 1.90 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 1.90 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG:
+        STXSb += cWsch * ( 
+            ( (0.12127) * getSMEFTCoeffEW("CHbox")
+            + (-0.03032518) * getSMEFTCoeffEW("CHD")
+            + (0.9462) * getSMEFTCoeffEW("CHW")
+            + (1.7004) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.22393) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1410885) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1408925) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.1819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-0.996) * deltaGwd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32120,19 +32144,31 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0312 * getSMEFTCoeffEW("CHD") + 1.06 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0312 * getSMEFTCoeffEW("CHD") + 1.06 * getSMEFTCoeffEW("CHW")
                 - 0.247 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 4.07 * CiHQ3 + 0.187 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 4.07 * CiHQ3 + 0.187 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12103) * getSMEFTCoeffEW("CHbox")
+            + (-0.03027479) * getSMEFTCoeffEW("CHD")
+            + (1.0506) * getSMEFTCoeffEW("CHW")
+            + (3.6846) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.34645) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1403732) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1405017) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18154) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.017) * deltaGwd6()
+	);        
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32148,19 +32184,31 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0307 * getSMEFTCoeffEW("CHD") + 1.08 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0307 * getSMEFTCoeffEW("CHD") + 1.08 * getSMEFTCoeffEW("CHW")
                 - 0.239 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 3.58 * CiHQ3 + 0.180 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 3.58 * CiHQ3 + 0.180 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12125) * getSMEFTCoeffEW("CHbox")
+            + (-0.03035345) * getSMEFTCoeffEW("CHD")
+            + (1.0561) * getSMEFTCoeffEW("CHW")
+            + (3.2437) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.36816) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1200448) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1201971) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18189) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.009) * deltaGwd6()
+	);        
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32198,6 +32246,99 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const
         }
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHlv_pTV250_Inf()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHlv_pTV0_150(const double sqrt_s) const       //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.12122) * getSMEFTCoeffEW("CHbox")
+            + (-0.03033245) * getSMEFTCoeffEW("CHD")
+            + (0.86411) * getSMEFTCoeffEW("CHW")
+            + (1.2279) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.18313) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1411777) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1411553) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18183) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.002) * deltaGwd6()
+	);        
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHlv_pTV0_150)");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHlv_pTV250_400(const double sqrt_s) const     //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.12126) * getSMEFTCoeffEW("CHbox")
+            + (-0.03028419) * getSMEFTCoeffEW("CHD")
+            + (1.1087) * getSMEFTCoeffEW("CHW")
+            + (8.462) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.54273) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1402818) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1402079) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18188) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-0.99) * deltaGwd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHlv_pTV250_400()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHlv_pTV400_Inf(const double sqrt_s) const     //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.1213) * getSMEFTCoeffEW("CHbox")
+            + (-0.03031894) * getSMEFTCoeffEW("CHD")
+            + (1.1361) * getSMEFTCoeffEW("CHW")
+            + (25.302) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.9521) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.14003358) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.14005959) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18197) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.005) * deltaGwd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHlv_pTV400_Inf()");
 
     if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
 

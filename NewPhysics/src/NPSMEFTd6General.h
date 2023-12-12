@@ -5700,6 +5700,24 @@ public:
     virtual double STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const;
 
     /**
+     * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$0<p_{TV}<150[GeV]@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHlv_pTV0_150(const double sqrt_s) const;            //AG:added
+    
+    /**
+     * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$250<p_{TV}<400[GeV]@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHlv_pTV250_400(const double sqrt_s) const;          //AG:added
+    
+    /**
+     * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$400<p_{TV}[GeV]@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHlv_pTV400_Inf(const double sqrt_s) const;          //AG:added    
+    
+    /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
