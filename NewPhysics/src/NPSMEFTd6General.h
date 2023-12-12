@@ -5646,6 +5646,30 @@ public:
     virtual double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const;
 
     /**
+     * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHqq_mjj350_700_pTH0_200_Nj2(const double sqrt_s) const;     //AG:added
+    
+    /**
+     * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~700<m_{jj}[GeV]<1000,~p_{TH}[GeV]<200@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2(const double sqrt_s) const;    //AG:added
+    
+    /**
+     * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~1000<m_{jj}[GeV]<1500,~p_{TH}[GeV]<200@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(const double sqrt_s) const;   //AG:added
+    
+    /**
+     * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~1500<m_{jj}[GeV],~p_{TH}[GeV]<200@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(const double sqrt_s) const;    //AG:added
+    
+    /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
