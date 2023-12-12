@@ -15922,7 +15922,7 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
 
         C1 = 0.0103;
 
-        mu +=
+        /*mu +=
                 +121126. * getSMEFTCoeffEW("CHbox")
                 + 886205. * getSMEFTCoeffEW("CHW")
                 + 193294. * CDHW
@@ -15935,7 +15935,18 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
                 + cWsch * (-30285.8 * getSMEFTCoeffEW("CHD")
                 + 0. * getSMEFTCoeffEW("CHWB")
                 - 1.999 * delta_GF)
-                ;
+                ;*/
+        // AG: 
+        mu += cWsch * ( 
+            ( (0.0674) * getSMEFTCoeffEW("CHbox")
+            + (-0.01684) * getSMEFTCoeffEW("CHD")
+            + (0.493) * getSMEFTCoeffEW("CHW")
+            + (0.987) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.1178) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.06739) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.06739) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0674) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -16183,7 +16194,7 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
 
         C1 = 0.0119;
 
-        mu +=
+        /*mu +=
                 +121234. * getSMEFTCoeffEW("CHbox")
                 + 88512.4 * getSMEFTCoeffEW("CHB")
                 + 728790. * getSMEFTCoeffEW("CHW")
@@ -16203,7 +16214,26 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
                 + cWsch * (+35605.2 * getSMEFTCoeffEW("CHD")
                 + 319361. * getSMEFTCoeffEW("CHWB")
                 - 1.999 * delta_GF)
-                ;
+                ;*/
+        // AG: 
+        mu += cWsch * ( 
+            ( (0.121192) * getSMEFTCoeffEW("CHbox")
+            + (0.03642) * getSMEFTCoeffEW("CHD")
+            + (0.73614) * getSMEFTCoeffEW("CHW")
+            + (0.083281) * getSMEFTCoeffEW("CHB")
+            + (0.31376) * getSMEFTCoeffEW("CHWB")
+            + (-0.14875) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.119254) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.68531) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.23596) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.38725) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.024635) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.13405115) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.03097592) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121192) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -18019,7 +18049,7 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
 
         C1 = 0.0351;
 
-        mu +=
+        /*mu +=
                 +538046. * getSMEFTCoeffEW("CHG")
                 - 85159.5 * getSMEFTCoeffEW("CG")
                 + 861157. * getSMEFTCoeffEW("CuGR", 2, 2)
@@ -18038,7 +18068,59 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
                 + 53893.6 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
                 - 2791.1 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
                 + 30575.2 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;
+                ;*/
+                
+        //AG:
+        mu += cWsch * ( 
+            ( (0.121253) * getSMEFTCoeffEW("CHbox")
+            + (-0.03041198) * getSMEFTCoeffEW("CHD")
+            + (0.00103446) * getSMEFTCoeffEW("CHW")
+            + (0.00025946) * getSMEFTCoeffEW("CHB")
+            + (-0.000742598) * getSMEFTCoeffEW("CHWB")
+            + (-0.0007786) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.00010096) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00047263) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0041742) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00020702) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00047302) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.53137) * getSMEFTCoeffEW("CHG")
+            + (-0.12237745) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.886486) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.08865) * getSMEFTCoeffEW("CG")
+            + (-0.00742823) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.00251436) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.015413) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.235) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.00096746) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0061331) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.047955) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.49933) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0025728) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.035934) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.016092) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.22973) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00040886) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0060015) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.00245805) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000269443) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.034415) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0038829) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.0057251) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0049893) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00013645) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.000135916) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.090545) * getSMEFTCoeffEW("cQu8R",0,0,2,2)
+            + (0.056059) * getSMEFTCoeffEW("cQu8R",2,2,0,0)
+            + (0.0053369) * getSMEFTCoeffEW("cQu8R",1,1,2,2)
+            + (0.0014659) * getSMEFTCoeffEW("cQu8R",2,2,1,1)
+            + (-0.00154141) * getSMEFTCoeffEW("cQd1R",2,2,0,0)
+            + (-0.000180838) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.034414) * getSMEFTCoeffEW("cQd8R",2,2,0,0)
+            + (0.0038833) * getSMEFTCoeffEW("cQd8R",2,2,1,1)
+            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06091) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);        
 
         //  Linear contribution from 4 top operators
         //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
