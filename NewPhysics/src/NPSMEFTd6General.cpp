@@ -32345,24 +32345,51 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV400_Inf(const double sqrt_s) const     
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHll_pTV0_75(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHll_pTV0_75(const double sqrt_s) const        //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
     CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0129 * getSMEFTCoeffEW("CHD") + 0.665 * getSMEFTCoeffEW("CHW") + 0.0835 * getSMEFTCoeffEW("CHB")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0129 * getSMEFTCoeffEW("CHD") + 0.665 * getSMEFTCoeffEW("CHW") + 0.0835 * getSMEFTCoeffEW("CHB")
                 + 0.303 * getSMEFTCoeffEW("CHWB") - 0.0362 * 0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1))
                 - 0.2772 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0359 * 0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
                 + 0.029 * CiHQ1 + 1.27 * CiHQ3 + 0.245 * CiHu - 0.1064 * CiHd
-                + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12122) * getSMEFTCoeffEW("CHbox")
+            + (0.01275) * getSMEFTCoeffEW("CHD")
+            + (0.66498) * getSMEFTCoeffEW("CHW")
+            + (0.07923) * getSMEFTCoeffEW("CHB")
+            + (0.29801) * getSMEFTCoeffEW("CHWB")
+            + (-0.05107) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.08713) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.9403) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.17685) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.20932) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.018933) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0776056) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0230333) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011958) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.011973) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.011982) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.1402374) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1403242) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041685) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0117029) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.0115373) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.0116341) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18182) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.164) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32378,24 +32405,50 @@ double NPSMEFTd6General::STXS12_qqHll_pTV0_75(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHll_pTV75_150(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHll_pTV75_150(const double sqrt_s) const      //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
     CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0128 * getSMEFTCoeffEW("CHD") + 0.771 * getSMEFTCoeffEW("CHW") + 0.092 * getSMEFTCoeffEW("CHB")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0128 * getSMEFTCoeffEW("CHD") + 0.771 * getSMEFTCoeffEW("CHW") + 0.092 * getSMEFTCoeffEW("CHB")
                 + 0.341 * getSMEFTCoeffEW("CHWB") - 0.0360 * 0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1))
                 - 0.274 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0362 * 0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
                 + 0.01 * CiHQ1 + 1.80 * CiHQ3 + 0.403 * CiHu - 0.166 * CiHd
-                + 0.182 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.182 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.1071) * getSMEFTCoeffEW("CHbox")
+            + (0.01084) * getSMEFTCoeffEW("CHD")
+            + (0.7) * getSMEFTCoeffEW("CHW")
+            + (0.07851) * getSMEFTCoeffEW("CHB")
+            + (0.3063) * getSMEFTCoeffEW("CHWB")
+            + (-0.093) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.113) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.53) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.2248) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.3302) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.02362) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.1143) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0288097) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011924) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.011969) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.1403624) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.14009461) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041736) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0066) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.00815) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (0) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18191) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.166) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32411,24 +32464,51 @@ double NPSMEFTd6General::STXS12_qqHll_pTV75_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
     CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.86 * getSMEFTCoeffEW("CHW") + 0.103 * getSMEFTCoeffEW("CHB")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.86 * getSMEFTCoeffEW("CHW") + 0.103 * getSMEFTCoeffEW("CHB")
                 + 0.366 * getSMEFTCoeffEW("CHWB") - 0.035 * 0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1))
                 - 0.267 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0358 * 0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
                 - 0.12 * CiHQ1 + 3.63 * CiHQ3 + 0.87 * CiHu - 0.323 * CiHd
-                + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12131) * getSMEFTCoeffEW("CHbox")
+            + (0.01327) * getSMEFTCoeffEW("CHD")
+            + (0.9015) * getSMEFTCoeffEW("CHW")
+            + (0.0923) * getSMEFTCoeffEW("CHB")
+            + (0.37402) * getSMEFTCoeffEW("CHWB")
+            + (-0.3625) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.20275) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (3.4124) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.38616) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.79679) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.038688) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.266298) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.05133963) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011931) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.011941) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.011982) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.14015811) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1400332) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.04169) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00795995) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.007957808) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.00793949) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18198) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.17) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32444,24 +32524,50 @@ double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
     CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.85 * getSMEFTCoeffEW("CHW") + 0.102 * getSMEFTCoeffEW("CHB")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.85 * getSMEFTCoeffEW("CHW") + 0.102 * getSMEFTCoeffEW("CHB")
                 + 0.373 * getSMEFTCoeffEW("CHWB") - 0.036 * 0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1))
                 - 0.266 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0367 * 0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
                 - 0.10 * CiHQ1 + 3.19 * CiHQ3 + 0.77 * CiHu - 0.282 * CiHd
-                + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        //AG:
+        STXSb += cWsch * ( 
+            ( (0.12186) * getSMEFTCoeffEW("CHbox")
+            + (0.0117) * getSMEFTCoeffEW("CHD")
+            + (0.8996) * getSMEFTCoeffEW("CHW")
+            + (0.09276) * getSMEFTCoeffEW("CHB")
+            + (0.37312) * getSMEFTCoeffEW("CHWB")
+            + (-0.3902) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.16551) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (3.0189) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.38783) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.72034) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.047152) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.230024) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.048349) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.019699) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.019614) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.141473) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1415195) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041872) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.008903) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.0089573) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.0089657) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18278) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.113) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32504,6 +32610,142 @@ double NPSMEFTd6General::STXS12_qqHll_pTV250_Inf(const double sqrt_s) const
         }
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHll_pTV250_Inf()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHll_pTV0_150(const double sqrt_s) const       //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.12123) * getSMEFTCoeffEW("CHbox")
+            + (0.012881) * getSMEFTCoeffEW("CHD")
+            + (0.70945) * getSMEFTCoeffEW("CHW")
+            + (0.08197) * getSMEFTCoeffEW("CHB")
+            + (0.31278) * getSMEFTCoeffEW("CHWB")
+            + (-0.07723) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.10149) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.1939) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.20331) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.26871) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.021453) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0973464) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.02656685) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011957) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.011952) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.011971) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.13992658) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.13999665) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041673) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.01157) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.01147) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.011664) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18184) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.158) * deltaGzd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHll_pTV0_150()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHll_pTV250_400(const double sqrt_s) const     //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.12128) * getSMEFTCoeffEW("CHbox")
+            + (0.013624) * getSMEFTCoeffEW("CHD")
+            + (0.9689) * getSMEFTCoeffEW("CHW")
+            + (0.09471) * getSMEFTCoeffEW("CHB")
+            + (0.395) * getSMEFTCoeffEW("CHWB")
+            + (-1.023) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.32931) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (7.7452) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.61719) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (1.8529) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.060759) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.586475) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0825726) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011971) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.011947) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.01199) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.1402367) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1402747) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041712) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00793968) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.00794877) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.00792663) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18192) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.173) * deltaGzd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHll_pTV250_400()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHll_pTV400_Inf(const double sqrt_s) const     //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.12137) * getSMEFTCoeffEW("CHbox")
+            + (0.011638) * getSMEFTCoeffEW("CHD")
+            + (1.0294) * getSMEFTCoeffEW("CHW")
+            + (0.09718) * getSMEFTCoeffEW("CHB")
+            + (0.41079) * getSMEFTCoeffEW("CHWB")
+            + (-3.4338) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.54859) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (21.293) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (1.0603) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (5.2254) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.108) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-1.557636) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.1402551) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.021029) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.021045) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.021123) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.14045) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1405169) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041324) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00540608) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.00540827) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.0053773) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18206) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.144) * deltaGzd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHll_pTV400_Inf()");
 
     if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
 
