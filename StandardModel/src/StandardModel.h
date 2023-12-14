@@ -1925,7 +1925,56 @@ public:
      * @return @f$\varepsilon_{b,\mathrm{SM}}@f$
      */
     virtual double epsilonb() const;
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
+    // EW low-energy observables: Parity violation
+    
 
+    /**
+     * @brief The computation of the anomalous magnetic moment of the muon @f$a_\mu=(g_\mu-2)/2@f$
+     * @details
+     * @return @f$a_\mu=(g_\mu-2)/2@f$
+     */
+      virtual double amuon() const;
+
+    /**
+     * @brief The computation of the electron's weak charge
+     * @details
+     * @param[in] q2 the @f$Q^2@f$ at which the weak charge is measured
+     * @param[in] y
+     * @return @f$Q_{w}(e)@f$
+     */
+      virtual double Qwemoller(const double q2, const double y) const;
+
+
+    /**
+     * @brief The computation of the parity violating asymmetry in Moller scattering
+     * @details
+     * @param[in] q2 the @f$Q^2@f$ of the process
+     * @param[in] y
+     * @return @f$A_{LR}@f$
+     */
+      virtual double alrmoller(const double q2, const double y) const;
+
+
+    /**
+     * @brief The computation of the proton weak charge: Qwp
+     * @details
+     * Follows J.Erler,A.Kurylov,M.J.Ramsey-Musolf hep-ph/0302149.
+     * @return @f$Q_{W}(p)@f$
+     */
+      virtual double Qwp() const;
+
+      
+    /**
+     * @brief The computation of the neutron weak charge: Qwn
+     * @details
+     * Follows J.Erler,A.Kurylov,M.J.Ramsey-Musolf hep-ph/0302149.
+     * @return @f$Q_{W}(n)@f$
+     */
+      virtual double Qwn() const;
+  
 
     ////////////////////////////////////////////////////////////////////////
     // For EWPO caches

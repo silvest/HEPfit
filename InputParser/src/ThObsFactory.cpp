@@ -4160,7 +4160,16 @@ ThObsFactory::ThObsFactory()
         obsThFactory["RcharmLEP2_" + sqrt_s_str] = bind(boost::factory<LEP2Rcharm*>(), _1, sqrt_s_LEP2_HF[i]);
     }
     /* END: REMOVE FROM THE PACKAGE */
-
+    
+    
+    //-----  Low Energy EW observables  -----    
+    obsThFactory["QWeMoller"] = boost::factory<QWe*>();
+    obsThFactory["QWCs133_55"] = bind(boost::factory<QWAPV*>(), _1, 55, 78);
+    obsThFactory["QWTl205_81"] = bind(boost::factory<QWAPV*>(), _1, 81, 124);
+    // Temporary observable: for testing
+    obsThFactory["amuongminus2"] = boost::factory<agminus2muon*>();
+    
+    
     //-----  Flavour observables  -----
     //----- DF = 2  -----
     obsThFactory["DmBd"] = boost::factory<DmBd*>();
