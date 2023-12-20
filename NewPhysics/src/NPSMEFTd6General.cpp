@@ -18255,6 +18255,45 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
     return mu;
 }
 
+double NPSMEFTd6General::mutH(const double sqrt_s) const
+{
+    double mu = 1.0;
+
+    double C1 = 0.0;
+
+    if (sqrt_s == 13.0) {
+
+        C1 = 0.0351;
+
+        mu += 0.0;
+                
+        //  Linear contribution from 4 top operators
+        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
+        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
+        mu = mu + 0.0;
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            mu += 0.0;
+
+        }
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::mutH()");
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += ettHint + ettHpar;
+
+    //  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
 double NPSMEFTd6General::mutHq(const double sqrt_s) const
 {
     double mu = 1.0;
@@ -31390,7 +31429,6 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) co
                 // cuG
             + (-0.0607) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (0.06058776167471819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-            ) * 1000000 
 	);
                 
         if (FlagQuadraticTerms) {
