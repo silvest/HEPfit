@@ -2063,6 +2063,13 @@ public:
      */
     virtual double muttH(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{tH}@f$ between the t-Higgs associated 
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{tH}@f$
+     */
+    virtual double mutH(const double sqrt_s) const;                             //AG:added
+    /**
      * @brief The ratio @f$\mu_{tHq}@f$ between the t-q-Higgs associated 
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -5555,6 +5562,18 @@ public:
     virtual double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const;
 
     /**
+     * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~<p_{TH} [GeV]<200@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_ggH_mjj350_700_pTH0_200_Nj2(const double sqrt_s) const;           //AG:added
+    
+    /**
+     * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH} [GeV]<200@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(const double sqrt_s) const;           //AG:added
+    
+    /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
@@ -5668,6 +5687,18 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
     virtual double STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(const double sqrt_s) const;    //AG:added
+    
+    /**
+     * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<1000,~p_{TH}[GeV]>200@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2(const double sqrt_s) const;    //AG:added
+    
+    /**
+     * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~1000<m_{jj}[GeV],~p_{TH}[GeV]>200@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual double STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2(const double sqrt_s) const;    //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$p_{TV}[GeV]<75@f$.
