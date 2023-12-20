@@ -92,7 +92,7 @@ void CorrelatedGaussianParameters::DiagonalizePars(TMatrixDSym Corr) {
         ModelParameter current(namei, ave(i), sqrt((*e)(i)), 0.);
         current.setCgp_name(name);
         DiagPars.push_back(current);
-        std::cout << current << std::endl;
+        //std::cout << current << std::endl;
     }
 }
 
