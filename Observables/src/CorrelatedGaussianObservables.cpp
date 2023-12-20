@@ -9,92 +9,79 @@
 #include "CorrelatedGaussianObservables.h"
 #include "ThObsFactory.h"
 #include <fstream>
+#include <TMatrixD.h>
+#include <TVectorD.h>
 
-CorrelatedGaussianObservables::CorrelatedGaussianObservables(std::string name_i)
-{
+CorrelatedGaussianObservables::CorrelatedGaussianObservables(std::string name_i) {
     name = name_i;
     IsPrediction = false;
     IsEOF = false;
     covarianceFromConfig = false;
-    InvCov = NULL;
 }
 
-CorrelatedGaussianObservables::CorrelatedGaussianObservables()
-{
+CorrelatedGaussianObservables::CorrelatedGaussianObservables() {
     name = "";
     IsPrediction = false;
     IsEOF = false;
     covarianceFromConfig = false;
-    InvCov = NULL;
 }
 
-CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig)
-{
+CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig) : InvCov(orig.InvCov) {
     Obs = orig.Obs;
     name = orig.name;
-    if (orig.InvCov) InvCov = new gslpp::matrix<double>(*orig.InvCov);
-    else InvCov = NULL;
     IsPrediction = orig.IsPrediction;
     IsEOF = orig.IsEOF;
     covarianceFromConfig = false;
 }
 
-CorrelatedGaussianObservables::~CorrelatedGaussianObservables()
-{   
-//    Cov = new gslpp::matrix<double>(100, 100, 0.); /** Put in to prevent seg fault during error handling in InputParser **/
-    if (InvCov) delete(InvCov);
+CorrelatedGaussianObservables::~CorrelatedGaussianObservables() {
 }
 
-void CorrelatedGaussianObservables::AddObs(Observable& Obs_i)
-{
+void CorrelatedGaussianObservables::AddObs(Observable& Obs_i) {
     Obs.push_back(Obs_i);
 }
 
-void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr)
-{
+void CorrelatedGaussianObservables::ComputeCov(const TMatrixDSym& Corr) {
     unsigned int size = Obs.size();
-    if (Corr.size_i() != size || Corr.size_j() != size)
+    if (Corr.GetNrows() != size)
         throw std::runtime_error("The size of the correlated observables in " + name + " does not match the size of the correlation matrix!");
-    InvCov = new gslpp::matrix<double>(size, size, 0.);
+    InvCov.ResizeTo(size, size);
     if (covarianceFromConfig) {
         for (unsigned int i = 0; i < size; i++)
             for (unsigned int j = 0; j < size; j++)
-                (*InvCov)(i, j) = Corr(i, j);
+                InvCov(i, j) = Corr(i, j);
     } else {
         for (unsigned int i = 0; i < size; i++) {
-            for (unsigned int j = 0; j < size; j++) {
-                if (Corr(i, j) != Corr(j, i)) throw std::runtime_error("Invalid correlation matrix for " + name + ". The matrix is not symmetric: for elements [" + boost::lexical_cast<std::string>(i) + ", " + boost::lexical_cast<std::string>(j) + "]");
-                (*InvCov)(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
-            }
+            for (unsigned int j = 0; j < size; j++)
+                InvCov(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
         }
-        *InvCov = InvCov->inverse();
+        InvCov.Invert();
     }
 }
 
-double CorrelatedGaussianObservables::computeWeight()
-{
-    gslpp::vector<double> x(Obs.size());
+double CorrelatedGaussianObservables::computeWeight() {
+    TVectorD x(Obs.size());
 
     for (unsigned int i = 0; i < Obs.size(); i++)
         x(i) = Obs.at(i).computeTheoryValue() - Obs.at(i).getAve();
 
-    return (-0.5 * x * ((*InvCov) * x));
+    return (-0.5 * x * (InvCov * x));
 }
 
-int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Observables, 
-                                            std::ifstream& ifile, 
-                                            boost::tokenizer<boost::char_separator<char> >::iterator& beg, 
-                                            std::string& infilename, 
-                                            ThObsFactory& myObsFactory,
-                                            StandardModel * myModel,
-                                            int lineNo,
-                                            int rank) {
+int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Observables,
+        std::ifstream& ifile,
+        boost::tokenizer<boost::char_separator<char> >::iterator& beg,
+        std::string& infilename,
+        ThObsFactory& myObsFactory,
+        StandardModel * myModel,
+        int lineNo,
+        int rank) {
     if (infilename.find("\\/") == std::string::npos) filepath = infilename.substr(0, infilename.find_last_of("\\/") + 1);
     boost::char_separator<char> sep(" \t");
     name = *beg;
     ++beg;
     int size = atoi((*beg).c_str());
-    
+
     int nlines = 0;
     std::vector<bool> lines;
     std::string line;
@@ -143,7 +130,7 @@ int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Obser
 
     if (nlines > 1) {
         if (!IsPrediction) {
-            gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
+            TMatrixD myCorr(nlines, nlines);
             int ni = 0;
             for (int i = 0; i < size; i++) {
                 IsEOF = getline(ifile, line).eof();
@@ -177,9 +164,18 @@ int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Obser
                     ni++;
                 }
             }
-            ComputeCov(myCorr);
+            if (!myCorr.IsSymmetric()) {
+                if (rank == 0) throw std::runtime_error("ERROR: invalid correlation matrix for " + name + ". Correlation matrix is not symmetric.\n");
+                else sleep(2);
+            } else {
+                TMatrixDSym mySCorr(nlines);
+                for (int i = 0; i < nlines; i++)
+                    for (int j = 0; j <= i; j++)
+                        mySCorr(i, j) = myCorr(i, j);
+                ComputeCov(mySCorr);
+            }
         } else {
-            InvCov = new gslpp::matrix<double>(size, size, 0.);
+            InvCov.ResizeTo(size, size);
         }
     } else {
         if (rank == 0) std::cout << "\nWARNING: Correlated (Gaussian) Observable " << name.c_str() << " defined with less than two observables" << " in file " << infilename << ". The set is being marked as normal Observables." << std::endl;
