@@ -15972,16 +15972,16 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const                        
                 ;*/
         // AG: 
         mu += cWsch * ( 
-            ( (0.0674) * getSMEFTCoeffEW("CHbox")
-            + (-0.01684) * getSMEFTCoeffEW("CHD")
-            + (0.493) * getSMEFTCoeffEW("CHW")
-            + (0.987) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.1178) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (-0.06739) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.06739) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.0674) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            ( (0.121101) * getSMEFTCoeffEW("CHbox")
+            + (-0.0303067) * getSMEFTCoeffEW("CHD")
+            + (0.88567) * getSMEFTCoeffEW("CHW")
+            + (1.77457) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.211757) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121101) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
 	);
-
+        
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             mu += 0.0;
@@ -17978,7 +17978,7 @@ double NPSMEFTd6General::muVBFpVH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6General::muttH(const double sqrt_s) const
+double NPSMEFTd6General::muttH(const double sqrt_s) const                       //AG:modified
 {
     double mu = 1.0;
 
@@ -18143,18 +18143,18 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
             + (0.0049893) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
             + (-0.00013645) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
             + (0.000135916) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.090545) * getSMEFTCoeffEW("cQu8R",0,0,2,2)
-            + (0.056059) * getSMEFTCoeffEW("cQu8R",2,2,0,0)
-            + (0.0053369) * getSMEFTCoeffEW("cQu8R",1,1,2,2)
-            + (0.0014659) * getSMEFTCoeffEW("cQu8R",2,2,1,1)
-            + (-0.00154141) * getSMEFTCoeffEW("cQd1R",2,2,0,0)
+            + (0.090545) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.056059) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0053369) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0014659) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00154141) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
             + (-0.000180838) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.034414) * getSMEFTCoeffEW("cQd8R",2,2,0,0)
-            + (0.0038833) * getSMEFTCoeffEW("cQd8R",2,2,1,1)
+            + (0.034414) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0038833) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
             + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.06091) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);        
+	);      
 
         //  Linear contribution from 4 top operators
         //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
@@ -18255,43 +18255,9 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6General::mutH(const double sqrt_s) const
+double NPSMEFTd6General::mutH(const double sqrt_s) const                        //AG:added
 {
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    if (sqrt_s == 13.0) {
-
-        C1 = 0.0351;
-
-        mu += 0.0;
-                
-        //  Linear contribution from 4 top operators
-        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + 0.0;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::mutH()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += ettHint + ettHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
+    return STXS12_tH(sqrt_s);
 }
 
 double NPSMEFTd6General::mutHq(const double sqrt_s) const
@@ -21673,7 +21639,7 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
 
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZgaint + eHZgapar;
-
+    
     return dwidth;
 }
 
@@ -33188,14 +33154,14 @@ double NPSMEFTd6General::STXS12_ttH_pTH0_60(const double sqrt_s) const          
             + (0.0028183) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
             + (-0.00011935) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
             + (9.671e-05) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.048705) * getSMEFTCoeffEW("cQu8R",0,0,2,2)
-            + (0.029737) * getSMEFTCoeffEW("cQu8R",2,2,0,0)
-            + (0.0036627) * getSMEFTCoeffEW("cQu8R",1,1,2,2)
-            + (0.0009909) * getSMEFTCoeffEW("cQu8R",2,2,1,1)
-            + (-0.000901344) * getSMEFTCoeffEW("cQd1R",2,2,0,0)
+            + (0.048705) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.029737) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0036627) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0009909) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.000901344) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
             + (-0.000130598) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.018966) * getSMEFTCoeffEW("cQd8R",2,2,0,0)
-            + (0.0026786) * getSMEFTCoeffEW("cQd8R",2,2,1,1)
+            + (0.018966) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0026786) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
             + (-0.0608986) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0608986) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.060896) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -33274,14 +33240,14 @@ double NPSMEFTd6General::STXS12_ttH_pTH60_120(const double sqrt_s) const        
             + (0.0035367) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
             + (-0.0001347) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
             + (0.00011278) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.061685) * getSMEFTCoeffEW("cQu8R",0,0,2,2)
-            + (0.037794) * getSMEFTCoeffEW("cQu8R",2,2,0,0)
-            + (0.0043275) * getSMEFTCoeffEW("cQu8R",1,1,2,2)
-            + (0.0011707) * getSMEFTCoeffEW("cQu8R",2,2,1,1)
-            + (-0.00112222) * getSMEFTCoeffEW("cQd1R",2,2,0,0)
+            + (0.061685) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.037794) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0043275) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0011707) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00112222) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
             + (-0.000152545) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.023878) * getSMEFTCoeffEW("cQd8R",2,2,0,0)
-            + (0.0031642) * getSMEFTCoeffEW("cQd8R",2,2,1,1)
+            + (0.023878) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0031642) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
             + (-0.0608954) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0608954) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.060897) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -33362,14 +33328,14 @@ double NPSMEFTd6General::STXS12_ttH_pTH120_200(const double sqrt_s) const       
             + (0.0052058) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
             + (-0.00015687) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
             + (0.00014599) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.09268) * getSMEFTCoeffEW("cQu8R",0,0,2,2)
-            + (0.057085) * getSMEFTCoeffEW("cQu8R",2,2,0,0)
-            + (0.0057247) * getSMEFTCoeffEW("cQu8R",1,1,2,2)
-            + (0.0015548) * getSMEFTCoeffEW("cQu8R",2,2,1,1)
-            + (-0.00162258) * getSMEFTCoeffEW("cQd1R",2,2,0,0)
+            + (0.09268) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.057085) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0057247) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0015548) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00162258) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
             + (-0.000196522) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.035455) * getSMEFTCoeffEW("cQd8R",2,2,0,0)
-            + (0.0041763) * getSMEFTCoeffEW("cQd8R",2,2,1,1)
+            + (0.035455) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0041763) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
             + (-0.0610094) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0610094) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.060995) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -33451,14 +33417,14 @@ double NPSMEFTd6General::STXS12_ttH_pTH200_300(const double sqrt_s) const       
             + (0.008247) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
             + (-0.00016591) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
             + (0.00019516) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.15174) * getSMEFTCoeffEW("cQu8R",0,0,2,2)
-            + (0.09449) * getSMEFTCoeffEW("cQu8R",2,2,0,0)
-            + (0.007903) * getSMEFTCoeffEW("cQu8R",1,1,2,2)
-            + (0.0021725) * getSMEFTCoeffEW("cQu8R",2,2,1,1)
-            + (-0.002515173) * getSMEFTCoeffEW("cQd1R",2,2,0,0)
+            + (0.15174) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.09449) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.007903) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0021725) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.002515173) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
             + (-0.000258378) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.057392) * getSMEFTCoeffEW("cQd8R",2,2,0,0)
-            + (0.0057293) * getSMEFTCoeffEW("cQd8R",2,2,1,1)
+            + (0.057392) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0057293) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
             + (-0.0611484) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0611484) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.061133) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -33525,7 +33491,8 @@ double NPSMEFTd6General::STXS12_ttH_pTH300_450(const double sqrt_s) const       
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * ( 
+        STXSb += 0.0;
+        /*STXSb += cWsch * ( 
             ( (0.12144) * getSMEFTCoeffEW("CHbox")
             + (-0.0304974) * getSMEFTCoeffEW("CHD")
             + (0.0026863) * getSMEFTCoeffEW("CHW")
@@ -33563,18 +33530,18 @@ double NPSMEFTd6General::STXS12_ttH_pTH300_450(const double sqrt_s) const       
             + (0.013192) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
             + (-0.00012464) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
             + (0.00025769) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.25508) * getSMEFTCoeffEW("cQu8R",0,0,2,2)
-            + (0.16044) * getSMEFTCoeffEW("cQu8R",2,2,0,0)
-            + (0.010784) * getSMEFTCoeffEW("cQu8R",1,1,2,2)
-            + (0.003061) * getSMEFTCoeffEW("cQu8R",2,2,1,1)
-            + (-0.003910363) * getSMEFTCoeffEW("cQd1R",2,2,0,0)
+            + (0.25508) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.16044) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.010784) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.003061) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.003910363) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
             + (-0.0003286955) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.09472) * getSMEFTCoeffEW("cQd8R",2,2,0,0)
-            + (0.007745) * getSMEFTCoeffEW("cQd8R",2,2,1,1)
+            + (0.09472) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.007745) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
             + (-0.0612235) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0612235) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.061249) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);
+	);*/
                 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -33595,7 +33562,7 @@ double NPSMEFTd6General::STXS12_ttH_pTH450_Inf(const double sqrt_s) const       
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * ( 
+        STXSb +=  cWsch * ( 
             ( (0.12111) * getSMEFTCoeffEW("CHbox")
             + (-0.030308) * getSMEFTCoeffEW("CHD")
             + (0.0044801) * getSMEFTCoeffEW("CHW")
@@ -33626,14 +33593,14 @@ double NPSMEFTd6General::STXS12_ttH_pTH450_Inf(const double sqrt_s) const       
             + (0.026074) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
             + (0.000103) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
             + (0.00040951) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.54906) * getSMEFTCoeffEW("cQu8R",0,0,2,2)
-            + (0.3534) * getSMEFTCoeffEW("cQu8R",2,2,0,0)
-            + (0.017338) * getSMEFTCoeffEW("cQu8R",1,1,2,2)
-            + (0.0054804) * getSMEFTCoeffEW("cQu8R",2,2,1,1)
-            + (-0.00728397) * getSMEFTCoeffEW("cQd1R",2,2,0,0)
+            + (0.54906) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.3534) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.017338) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0054804) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00728397) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
             + (-0.000451772) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.19585) * getSMEFTCoeffEW("cQd8R",2,2,0,0)
-            + (0.011884) * getSMEFTCoeffEW("cQd8R",2,2,1,1)
+            + (0.19585) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.011884) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
             + (-0.0613195) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0613195) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.06135) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
