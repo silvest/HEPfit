@@ -2907,6 +2907,20 @@ public:
     virtual double BrHgagaRatio() const;
 
     /**
+     * @brief The ratio of the @f$\Gamma(H\to ff)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to ff)@f$/@f$\Gamma(H\to ff)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHffRatio1(const double mf, const double CifH) const;          //AG:added
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the
+     * ratio of the @f$\Gamma(H\to ff)@f$ in the current model
+     * and in the Standard Model at order Lambd.
+     * @return @f$\Gamma(H\to ff)@f$/@f$\Gamma(H\to ff)_{\mathrm{SM}}@f$
+     */
+    double deltaGammaHffRatio2(const double mf, const double CifH) const;         //AG:added
+    
+    /**
      * @brief The ratio of the @f$\Gamma(H\to \mu\mu)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to \mu\mu)@f$/@f$\Gamma(H\to \mu\mu)_{\mathrm{SM}}@f$

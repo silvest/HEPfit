@@ -21827,6 +21827,25 @@ double NPSMEFTd6General::BrHgagaRatio() const
 
 }
 
+double NPSMEFTd6General::deltaGammaHffRatio1(const double mf, const double CifH) const //AG:added
+{
+    double CiHbox = getSMEFTCoeffEW("CHbox");
+    double CiHD = getSMEFTCoeffEW("CHD");
+    
+    return (-delta_GF + 2.0*CiHbox*v2 - CiHD*v2/2.0 - pow(2.0,0.5)*CifH*pow(v(),3.0)/mf);
+}
+
+double NPSMEFTd6General::deltaGammaHffRatio2(const double mf, const double CifH) const  //AG:added
+{
+    double CiHbox = getSMEFTCoeffEW("CHbox");
+    double CiHD = getSMEFTCoeffEW("CHD");
+    
+    return (pow(delta_GF,2.0) - delta_GF_2 - CifH*delta_GF*pow(v(),3.0)/pow(2.0,0.5)/mf 
+           + 4.0*pow(CiHbox,2.0)*pow(v(),4.0) - 2.0*CiHbox*CiHD*pow(v(),4.0) + pow(CiHD,2.0)*pow(v(),4.0)/4.0 
+           - 2.0*pow(2.0,0.5)*CifH*CiHbox*pow(v(),5.0)/mf + CifH*CiHD*pow(v(),5.0)/pow(2.0,0.5)/mf 
+           + pow(CifH,2.0)*pow(v(),6.0)/2.0/pow(mf,2.0));
+}
+
 double NPSMEFTd6General::GammaHmumuRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
@@ -21843,16 +21862,22 @@ double NPSMEFTd6General::GammaHmumuRatio() const
 
 }
 
-double NPSMEFTd6General::deltaGammaHmumuRatio1() const
+double NPSMEFTd6General::deltaGammaHmumuRatio1() const                          //AG:modified
 {
     double dwidth = 0.0;
 
     double C1 = 0.0;
 
-    dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
             - 199792511. * getSMEFTCoeffEW("CeHR", 1, 1)
             - 30312.1 * getSMEFTCoeffEW("CHD")
-            - 60624.1 * delta_GF / v() / v());
+            - 60624.1 * delta_GF / v() / v());*/
+    
+    //AG:begin
+    double mf = leptons[MU].getMass();
+    double CifH = getSMEFTCoeffEW("CeHR", 1,1);
+    dwidth = deltaGammaHffRatio1(mf, CifH);
+    //AG:end
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -21869,10 +21894,15 @@ double NPSMEFTd6General::deltaGammaHmumuRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6General::deltaGammaHmumuRatio2() const
+double NPSMEFTd6General::deltaGammaHmumuRatio2() const                          //AG:modified
 {
     double dwidth = 0.0;
-
+    
+    //AG:begin
+    //double mf = leptons[MU].getMass();
+    //double CifH = getSMEFTCoeffEW("CeHR", 1,1);
+    //dwidth += deltaGammaHffRatio2(mf, CifH);
+    //AG:end 
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
@@ -21921,17 +21951,22 @@ double NPSMEFTd6General::GammaHtautauRatio() const
 
 }
 
-double NPSMEFTd6General::deltaGammaHtautauRatio1() const
+double NPSMEFTd6General::deltaGammaHtautauRatio1() const                        //AG:modified
 {
     double dwidth = 0.0;
 
     double C1 = 0.0;
 
-    dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
             - 11880369. * getSMEFTCoeffEW("CeHR", 2, 2)
             - 30312.1 * getSMEFTCoeffEW("CHD")
-            - 60624.1 * delta_GF / v() / v());
-
+            - 60624.1 * delta_GF / v() / v());*/
+    //AG:begin
+    double mf = leptons[TAU].getMass();
+    double CifH = getSMEFTCoeffEW("CeHR", 2,2);
+    dwidth = deltaGammaHffRatio1(mf, CifH);
+    //AG:end
+    
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
@@ -21948,10 +21983,15 @@ double NPSMEFTd6General::deltaGammaHtautauRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6General::deltaGammaHtautauRatio2() const
+double NPSMEFTd6General::deltaGammaHtautauRatio2() const                        //AG:modified
 {
     double dwidth = 0.0;
-
+    
+    //AG:begin
+    //double mf = leptons[TAU].getMass();
+    //double CifH = getSMEFTCoeffEW("CeHR", 2,2);
+    //dwidth += deltaGammaHffRatio2(mf, CifH);
+    //AG:end
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
@@ -22000,7 +22040,7 @@ double NPSMEFTd6General::GammaHccRatio() const
 
 }
 
-double NPSMEFTd6General::deltaGammaHccRatio1() const
+double NPSMEFTd6General::deltaGammaHccRatio1() const                            //AG:modified
 {
     double dwidth = 0.0;
 
@@ -22016,10 +22056,17 @@ double NPSMEFTd6General::deltaGammaHccRatio1() const
 
     } else {
 
-        dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+        /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
                 - 16556668. * getSMEFTCoeffEW("CuHR", 1, 1)
                 - 30312.1 * getSMEFTCoeffEW("CHD")
-                - 60624.1 * delta_GF / v() / v());
+                - 60624.1 * delta_GF / v() / v());*/
+        
+        //AG:begin
+        double mf = quarks[CHARM].getMass();
+        double CifH = getSMEFTCoeffEW("CuHR", 1,1);
+        dwidth = deltaGammaHffRatio1(mf, CifH);
+        //AG:end
+     
     }
 
     //  Linear contribution from Higgs self-coupling
@@ -22040,10 +22087,15 @@ double NPSMEFTd6General::deltaGammaHccRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6General::deltaGammaHccRatio2() const
+double NPSMEFTd6General::deltaGammaHccRatio2() const                            //AG:modified
 {
     double dwidth = 0.0;
-
+    
+    //AG:begin
+    //double mf = quarks[CHARM].getMass();
+    //double CifH = getSMEFTCoeffEW("CuHR", 1,1);
+    //dwidth += deltaGammaHffRatio2(mf, CifH);
+    //AG:end
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
@@ -22091,7 +22143,7 @@ double NPSMEFTd6General::GammaHbbRatio() const
     return width;
 }
 
-double NPSMEFTd6General::deltaGammaHbbRatio1() const
+double NPSMEFTd6General::deltaGammaHbbRatio1() const                            //AG:modified
 {
     double dwidth = 0.0;
 
@@ -22107,10 +22159,16 @@ double NPSMEFTd6General::deltaGammaHbbRatio1() const
 
     } else {
 
-        dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+        /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
                 - 5050180. * getSMEFTCoeffEW("CdHR", 2, 2)
                 - 30312.1 * getSMEFTCoeffEW("CHD")
-                - 60624.1 * delta_GF / v() / v());
+                - 60624.1 * delta_GF / v() / v());*/
+        
+        //AG:begin
+        double mf = quarks[BOTTOM].getMass();
+        double CifH = getSMEFTCoeffEW("CdHR", 2,2);
+        dwidth = deltaGammaHffRatio1(mf, CifH);
+        //AG:end
     }
 
     //  Linear contribution from Higgs self-coupling
@@ -22138,11 +22196,16 @@ double NPSMEFTd6General::deltaGammaHbbRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6General::deltaGammaHbbRatio2() const
+double NPSMEFTd6General::deltaGammaHbbRatio2() const                            //AG:modified
 {
     double dwidth = 0.0;
 
-
+    //AG:begin
+    //double mf = leptons[BOTTOM].getMass();
+    //double CifH = getSMEFTCoeffEW("CdHR", 2,2);
+    //dwidth += deltaGammaHffRatio2(mf, CifH);
+    //AG:end
+    
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
 
