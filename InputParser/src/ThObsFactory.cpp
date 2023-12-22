@@ -118,6 +118,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["alpha_s_FULLNLO"] = bind(boost::factory<alpha_s*>(), _1, FULLNLO);
     obsThFactory["alpha_s_NNLO"] = bind(boost::factory<alpha_s*>(), _1, NNLO);
     obsThFactory["alpha_s_FULLNNLO"] = bind(boost::factory<alpha_s*>(), _1, FULLNNLO);
+    obsThFactory["up_mass"] = boost::factory<up_mass*>();
+    obsThFactory["down_mass"] = boost::factory<down_mass*>();
+    obsThFactory["strange_mass"] = boost::factory<strange_mass*>();
+    obsThFactory["charm_mass"] = boost::factory<charm_mass*>();
+    obsThFactory["bottom_mass"] = boost::factory<bottom_mass*>();
+    obsThFactory["top_mass"] = boost::factory<top_mass*>();
+    obsThFactory["electron_mass"] = boost::factory<electron_mass*>();
+    obsThFactory["muon_mass"] = boost::factory<muon_mass*>();
+    obsThFactory["tau_mass"] = boost::factory<tau_mass*>();
     //-----  Electroweak precision observables  -----
     obsThFactory["alphaMz"] = boost::factory<AlphaEmMz*>();
     obsThFactory["Dalpha_5h_Mz"] = boost::factory<DAlpha5hadMz*>();

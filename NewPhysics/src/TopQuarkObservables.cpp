@@ -842,6 +842,8 @@ double sigma_ttz_diff_LO_ATLAS_210312603::computeThValue()
         }
         
     }
+    else throw std::runtime_error("wrong bin choice in sigma_ttz_diff_LO_ATLAS_210312603");
+   
 }
 
 

@@ -1286,18 +1286,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../SMEFTRGEvolutor"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../SMEFTRGEvolutor"
-                            BC="${MAKE} -j 6 -f Makefile CONF=Release"
-                            CC="${MAKE} -j 6 -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmeftrgevolutor.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"
                             CN="Release"

@@ -27,7 +27,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
     double vT = v;
     double delta_vT = mySMEFT.getDelta_v();
     double vTosq2 = vT / sqrt(2.);
-
+    double v2oLam2 = v2 / LambdaNP2;
 
     //    CG = mySMEFT.getSMEFTCoeffEW("CG")*LambdaNP2;  
     //    CW = mySMEFT.getSMEFTCoeffEW("CW")*LambdaNP2; 
@@ -62,14 +62,18 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     gslpp::matrix<complex> MU(3, 0.), MD(3, 0.), ME(3, 0.);
 
+    // For light leptons convergence requires adding a theory uncertainty of order v^2/Lambda^2
+    
+    double errlam = v2oLam2;
+    
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
             MU.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
             MU.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
             MD.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
             MD.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
-            ME.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHR", i, j) * v2 / 2.));
-            ME.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHI", i, j) * v2 / 2.));
+            ME.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHR", i, j) * v2 / 2.) * (1. - errlam + myrnd.Rndm()*errlam));
+            ME.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHI", i, j) * v2 / 2.) * (1. - errlam + myrnd.Rndm()*errlam));
         }
 
     gslpp::vector<double> m2(3);
@@ -77,7 +81,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
     MU.singularvalue(VuR, VuL, m2);
     mySMEFT.getQuarks(QCD::UP).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::UP).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(0))));
     mySMEFT.getQuarks(QCD::CHARM).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::CHARM).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(1))));
-    mySMEFT.getQuarks(QCD::TOP).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::TOP).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(2))));
+    mySMEFT.getQuarks(QCD::TOP).setMass(mySMEFT.Mbar2Mp(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::TOP).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(2)))));
 
     MD.singularvalue(VdR, VdL, m2);
     mySMEFT.getQuarks(QCD::DOWN).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::DOWN).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(0))));

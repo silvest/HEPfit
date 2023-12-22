@@ -10,6 +10,7 @@
 
 #include "gslpp.h"
 #include "StandardModelMatching.h"
+#include <TRandom3.h>
 
 class NPSMEFTd6General;
 
@@ -164,6 +165,7 @@ private:
     double v;
     gslpp::matrix<gslpp::complex> VuL, VuR, VdL, VdR, VeL, VeR;
     WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2, mculeptonnu;
+    TRandom3 myrnd;
 
 };
 
