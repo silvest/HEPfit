@@ -34033,11 +34033,12 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) co
         //AG:
         //pTj>30GeV
         STXSb += cWsch * ( 
-           ( (0.12117552334943638) * getSMEFTCoeffEW("CHbox")
-            + (-0.0304) * getSMEFTCoeffEW("CHD")
-            + (-0.1226) * getSMEFTCoeffEW("CuHR", 2,2)
-                // cuG
-            + (-0.0607) * getSMEFTCoeffEW("CHl3R", 0,0)
+            ( (0.12117552334943638) * getSMEFTCoeffEW("CHbox")
+            + (-0.03036231884057971) * getSMEFTCoeffEW("CHD")
+            + (-0.12262479871175523) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.0990338164251208) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.060708534621578096) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.060708534621578096) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.06058776167471819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
 	);
                 
