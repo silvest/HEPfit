@@ -6508,6 +6508,8 @@ public:
         return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
     }
     
+    void printNonVanishingSMEFTCoeffEW() const;
+    
     RGESolver getSMEFTEvolEW() const
     {
         return SMEFTEvolEW;
@@ -6669,7 +6671,7 @@ protected:
     /**
      * @brief An auxiliary method to get the WC from the evolutor
      */
-    void getWCFromEvolutor();
+//    void getWCFromEvolutor();
     
     
     
