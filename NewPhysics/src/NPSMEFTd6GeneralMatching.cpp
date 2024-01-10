@@ -62,9 +62,9 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     gslpp::matrix<complex> MU(3, 0.), MD(3, 0.), ME(3, 0.);
 
-    // For light leptons convergence requires adding a theory uncertainty of order v^2/Lambda^2
+    // For light leptons convergence requires adding a theory uncertainty of order v^4/Lambda^4
     
-    double errlam = v2oLam2;
+    double errlam = v2oLam2*v2oLam2;
     
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
@@ -72,8 +72,8 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
             MU.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
             MD.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
             MD.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
-            ME.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHR", i, j) * v2 / 2.) * (1. - errlam + myrnd.Rndm()*errlam));
-            ME.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHI", i, j) * v2 / 2.) * (1. - errlam + myrnd.Rndm()*errlam));
+            ME.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHR", i, j) * v2 / 2.) * (1. - errlam + 2.*myrnd.Rndm()*errlam));
+            ME.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHI", i, j) * v2 / 2.) * (1. - errlam + 2.*myrnd.Rndm()*errlam));
         }
 
     gslpp::vector<double> m2(3);

@@ -779,7 +779,7 @@ double MVlnu::hA1(double q2)
     double w = w0 - q2 / (2. * MM * MV);
     double z = (sqrt(w + 1.) - M_SQRT2) / (sqrt(w + 1.) + M_SQRT2);
     if (CLNflag) return hA1w1 * N_A * (1. - j_A * 8. * rho2 * z + k_A * (53. * rho2 - 15.) * z * z - l_A * (231. * rho2 - 91.) * z * z * z);
-    else if (BGLflag)  f_BGL(q2) / sqrt(MM * MV) / (1. + w);
+    else if (BGLflag)  return(f_BGL(q2) / sqrt(MM * MV) / (1. + w));
     else if (DMflag) {
         double w = w0 - q2 / (2. * MM * MV);
         double f_fac = 0.;
