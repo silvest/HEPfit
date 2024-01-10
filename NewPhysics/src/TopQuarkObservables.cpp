@@ -52,6 +52,8 @@ double sigma_tt_diff_LO::computeThValue()
         }
         else{
             
+
+            
             return  (sigma_tt_bin_250_400_madgraph + 0.070920*ewgc("Cqd8R",2,2,2,2)+0.398652*ewgc("Cqd8R",2,2,0,0)+0.393474*ewgc("Cud8R",2,2,0,0)+0.768666*ewgc("Cqq3R",1,2,2,1)
                     +0.243408*ewgc("Cqq1R",1,2,2,1)+0.884946*ewgc("Cqu8R",0,0,2,2)+0.568908*ewgc("Cqu8R",2,2,0,0)-25.503700*ewgc("CuGR",2,2)+0.180606*ewgc("Cqd8R",2,2,1,1)
                     +2.084240*ewgc("Cqq1R",0,2,2,0)+4.638680*ewgc("Cqq3R",0,2,2,0)+0.122778*ewgc("Cqu8R",2,2,1,1)+0.070920*ewgc("Cud8R",2,2,2,2)+2.055090*ewgc("CuuR",0,2,2,0)
@@ -395,10 +397,22 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
         }
         else{
             
-            double sigma_pos_bin_mtt_0_500_madgraph = 0.;
-            double sigma_pos_bin_mtt_0_500_NP = 0.;
-            double sigma_neg_bin_mtt_0_500_madgraph = 0.;
-            double sigma_neg_bin_mtt_0_500_NP = 0.;
+            
+            
+            double sigma_pos_bin_mtt_0_500_madgraph = 120.097000;
+            double sigma_pos_bin_mtt_0_500_NP = -5.554570*ewgc("CG")+0.568336*ewgc("Cqd8R",2,2,0,0)
+            +0.131949*ewgc("Cqd8R",2,2,1,1)+3.843490*ewgc("Cqq1R",0,2,2,0)+0.252019*ewgc("Cqq1R",1,2,2,1)
+            +7.966480*ewgc("Cqq3R",0,2,2,0)+1.098490*ewgc("Cqq3R",1,2,2,1)+-1.357100*ewgc("Cqu8R",0,0,2,2)
+            -0.174021*ewgc("Cqu8R",1,1,2,2)+0.691664*ewgc("Cqu8R",2,2,0,0)+0.147452*ewgc("Cqu8R",2,2,1,1)
+            +0.725355*ewgc("Cud8R",2,2,0,0)+0.136174*ewgc("Cud8R",2,2,1,1)-35.642600*ewgc("CuGR",2,2)
+            +3.801250*ewgc("CuuR",0,2,2,0)+0.201796*ewgc("CuuR",1,2,2,1);
+            double sigma_neg_bin_mtt_0_500_madgraph = 120.210000;
+            double sigma_neg_bin_mtt_0_500_NP = -5.568100*ewgc("CG")+0.606524*ewgc("Cqd8R",2,2,0,0)
+            +0.094210*ewgc("Cqd8R",2,2,1,1)+2.526300*ewgc("Cqq1R",0,2,2,0)
+            +0.178432*ewgc("Cqq1R",1,2,2,1)+5.751400*ewgc("Cqq3R",0,2,2,0)+0.965890*ewgc("Cqq3R",1,2,2,1)
+            -2.793010*ewgc("Cqu8R",0,0,2,2)+-0.167156*ewgc("Cqu8R",1,1,2,2)+0.896284*ewgc("Cqu8R",2,2,0,0)
+            +0.092324*ewgc("Cqu8R",2,2,1,1)+0.451037*ewgc("Cud8R",2,2,0,0)+0.088588*ewgc("Cud8R",2,2,1,1)
+            -35.524000*ewgc("CuGR",2,2)+2.513740*ewgc("CuuR",0,2,2,0)+0.227062*ewgc("CuuR",1,2,2,1);
             
             double sigma_pos_bin_mtt_0_500_NP_Corrected = SM_sigma_pos_bin_mtt_0_500*sigma_pos_bin_mtt_0_500_NP/sigma_pos_bin_mtt_0_500_madgraph;
             double sigma_neg_bin_mtt_0_500_NP_Corrected = SM_sigma_neg_bin_mtt_0_500*sigma_neg_bin_mtt_0_500_NP/sigma_neg_bin_mtt_0_500_madgraph;
@@ -407,9 +421,19 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
             double NP_charge_asymmetry_deno_bin_mtt_0_500 = sigma_pos_bin_mtt_0_500_NP_Corrected + sigma_neg_bin_mtt_0_500_NP_Corrected;;
             
             return  SM_charge_asymmetry_bin_mtt_0_500*(1+(NP_charge_asymmetry_num_bin_mtt_0_500-NP_charge_asymmetry_deno_bin_mtt_0_500)/SM_charge_asymmetry_deno_bin_mtt_0_500);            
+        
         }
         
     } else if(b_min == 500 && b_max == 750){
+        
+        
+        double SM_charge_asymmetry_num_bin_mtt_500_750 = SM.getOptionalParameter("SM_charge_asymmetry_num_bin_mtt_500_750");
+        double SM_charge_asymmetry_deno_bin_mtt_500_750 = SM.getOptionalParameter("SM_charge_asymmetry_deno_bin_mtt_500_750");
+        double SM_charge_asymmetry_bin_mtt_500_750 = SM_charge_asymmetry_num_bin_mtt_500_750/SM_charge_asymmetry_deno_bin_mtt_500_750;
+        
+        double SM_sigma_pos_bin_mtt_500_750 =0.5*(SM_charge_asymmetry_num_bin_mtt_500_750+SM_charge_asymmetry_deno_bin_mtt_500_750);
+        double SM_sigma_neg_bin_mtt_500_750 =0.5*(SM_charge_asymmetry_deno_bin_mtt_500_750-SM_charge_asymmetry_num_bin_mtt_500_750);
+
         
         if(flag_Quadratic){
         
@@ -418,11 +442,186 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
         }
         else{
             
-            return 0.;
+            
+            
+            
+            double sigma_pos_bin_mtt_500_750_madgraph = 51.588600;
+            double sigma_pos_bin_mtt_500_750_NP = -4.850590*ewgc("CG")+0.272451*ewgc("Cqd8R",2,2,0,0)
+            +0.065078*ewgc("Cqd8R",2,2,1,1)+3.506220*ewgc("Cqq1R",0,2,2,0)+0.095015*ewgc("Cqq1R",1,2,2,1)
+            +6.864160*ewgc("Cqq3R",0,2,2,0)+0.624487*ewgc("Cqq3R",1,2,2,1)+0.688308*ewgc("Cqu8R",0,0,2,2)
+            +0.062203*ewgc("Cqu8R",1,1,2,2)+0.423309*ewgc("Cqu8R",2,2,0,0)+0.074959*ewgc("Cqu8R",2,2,1,1)
+            +0.424536*ewgc("Cud8R",2,2,0,0)+0.096425*ewgc("Cud8R",2,2,1,1)-14.423500*ewgc("CuGR",2,2)
+            +3.366490*ewgc("CuuR",0,2,2,0)+0.089606*ewgc("CuuR",1,2,2,1);
+            double sigma_neg_bin_mtt_500_750_madgraph = 51.697700;
+            double sigma_neg_bin_mtt_500_750_NP = -4.810750*ewgc("CG")+0.399251*ewgc("Cqd8R",2,2,0,0)
+            +0.035476*ewgc("Cqd8R",2,2,1,1)+1.694440*ewgc("Cqq1R",0,2,2,0)+0.080842*ewgc("Cqq1R",1,2,2,1)
+            +3.871660*ewgc("Cqq3R",0,2,2,0)+0.548607*ewgc("Cqq3R",1,2,2,1)+1.225650*ewgc("Cqu8R",0,0,2,2)
+            +0.049221*ewgc("Cqu8R",1,1,2,2)+0.799712*ewgc("Cqu8R",2,2,0,0)+0.001000*ewgc("Cqu8R",2,2,1,1)
+            +0.257202*ewgc("Cud8R",2,2,0,0)+0.007710*ewgc("Cud8R",2,2,1,1)+-14.285400*ewgc("CuGR",2,2)
+            +1.602830*ewgc("CuuR",0,2,2,0)+0.082147*ewgc("CuuR",1,2,2,1);
+            
+            double sigma_pos_bin_mtt_500_750_NP_Corrected = SM_sigma_pos_bin_mtt_500_750*sigma_pos_bin_mtt_500_750_NP/sigma_pos_bin_mtt_500_750_madgraph;
+            double sigma_neg_bin_mtt_500_750_NP_Corrected = SM_sigma_neg_bin_mtt_500_750*sigma_neg_bin_mtt_500_750_NP/sigma_neg_bin_mtt_500_750_madgraph;
+            
+            double NP_charge_asymmetry_num_bin_mtt_500_750 = sigma_pos_bin_mtt_500_750_NP_Corrected - sigma_neg_bin_mtt_500_750_NP_Corrected;
+            double NP_charge_asymmetry_deno_bin_mtt_500_750 = sigma_pos_bin_mtt_500_750_NP_Corrected + sigma_neg_bin_mtt_500_750_NP_Corrected;;
+            
+            return  SM_charge_asymmetry_bin_mtt_500_750*(1+(NP_charge_asymmetry_num_bin_mtt_500_750-NP_charge_asymmetry_deno_bin_mtt_500_750)/SM_charge_asymmetry_deno_bin_mtt_500_750);            
+        
+            
+            
+            
             
         }
         
+    }  else if(b_min == 750 && b_max == 1000){
+        
+        
+        double SM_charge_asymmetry_num_bin_mtt_750_1000 = SM.getOptionalParameter("SM_charge_asymmetry_num_bin_mtt_750_1000");
+        double SM_charge_asymmetry_deno_bin_mtt_750_1000 = SM.getOptionalParameter("SM_charge_asymmetry_deno_bin_mtt_750_1000");
+        double SM_charge_asymmetry_bin_mtt_750_1000 = SM_charge_asymmetry_num_bin_mtt_750_1000/SM_charge_asymmetry_deno_bin_mtt_750_1000;
+        
+        double SM_sigma_pos_bin_mtt_750_1000 =0.5*(SM_charge_asymmetry_num_bin_mtt_750_1000+SM_charge_asymmetry_deno_bin_mtt_750_1000);
+        double SM_sigma_neg_bin_mtt_750_1000 =0.5*(SM_charge_asymmetry_deno_bin_mtt_750_1000-SM_charge_asymmetry_num_bin_mtt_750_1000);
+
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            
+            
+            
+            double sigma_pos_bin_mtt_750_1000_madgraph = 9.164410;
+            double sigma_pos_bin_mtt_750_1000_NP = -1.107980*ewgc("CG")+0.105828*ewgc("Cqd8R",2,2,0,0)
+            +0.025086*ewgc("Cqd8R",2,2,1,1)+1.403030*ewgc("Cqq1R",0,2,2,0)+0.028862*ewgc("Cqq1R",1,2,2,1)
+            +2.746170*ewgc("Cqq3R",0,2,2,0)+0.176126*ewgc("Cqq3R",1,2,2,1)+0.245950*ewgc("Cqu8R",0,0,2,2)
+            +0.030022*ewgc("Cqu8R",1,1,2,2)+0.138957*ewgc("Cqu8R",2,2,0,0)+0.007585*ewgc("Cqu8R",2,2,1,1)
+            +0.180194*ewgc("Cud8R",2,2,0,0)+0.024774*ewgc("Cud8R",2,2,1,1)-2.567060*ewgc("CuGR",2,2)
+            +1.360170*ewgc("CuuR",0,2,2,0)+0.026841*ewgc("CuuR",1,2,2,1);
+            double sigma_neg_bin_mtt_750_1000_madgraph = 9.167490;
+            double sigma_neg_bin_mtt_750_1000_NP = -1.099610*ewgc("CG")+0.172499*ewgc("Cqd8R",2,2,0,0)
+            +0.019032*ewgc("Cqd8R",2,2,1,1)+0.579513*ewgc("Cqq1R",0,2,2,0)+0.020607*ewgc("Cqq1R",1,2,2,1)
+            +1.355430*ewgc("Cqq3R",0,2,2,0)+0.138274*ewgc("Cqq3R",1,2,2,1)+0.498519*ewgc("Cqu8R",0,0,2,2)
+            +0.025064*ewgc("Cqu8R",1,1,2,2)+0.316986*ewgc("Cqu8R",2,2,0,0)+0.006215*ewgc("Cqu8R",2,2,1,1)
+            +0.097299*ewgc("Cud8R",2,2,0,0)+0.018565*ewgc("Cud8R",2,2,1,1)-2.567910*ewgc("CuGR",2,2)
+            +0.562596*ewgc("CuuR",0,2,2,0)+0.022091*ewgc("CuuR",1,2,2,1);
+            
+            double sigma_pos_bin_mtt_750_1000_NP_Corrected = SM_sigma_pos_bin_mtt_750_1000*sigma_pos_bin_mtt_750_1000_NP/sigma_pos_bin_mtt_750_1000_madgraph;
+            double sigma_neg_bin_mtt_750_1000_NP_Corrected = SM_sigma_neg_bin_mtt_750_1000*sigma_neg_bin_mtt_750_1000_NP/sigma_neg_bin_mtt_750_1000_madgraph;
+            
+            double NP_charge_asymmetry_num_bin_mtt_750_1000 = sigma_pos_bin_mtt_750_1000_NP_Corrected - sigma_neg_bin_mtt_750_1000_NP_Corrected;
+            double NP_charge_asymmetry_deno_bin_mtt_750_1000 = sigma_pos_bin_mtt_750_1000_NP_Corrected + sigma_neg_bin_mtt_750_1000_NP_Corrected;;
+            
+            return  SM_charge_asymmetry_bin_mtt_750_1000*(1+(NP_charge_asymmetry_num_bin_mtt_750_1000-NP_charge_asymmetry_deno_bin_mtt_750_1000)/SM_charge_asymmetry_deno_bin_mtt_750_1000);            
+        
+            
+            
+            
+            
+        }
+        
+    }  else if(b_min == 1000 && b_max == 1500){
+        
+        
+        double SM_charge_asymmetry_num_bin_mtt_1000_1500 = SM.getOptionalParameter("SM_charge_asymmetry_num_bin_mtt_1000_1500");
+        double SM_charge_asymmetry_deno_bin_mtt_1000_1500 = SM.getOptionalParameter("SM_charge_asymmetry_deno_bin_mtt_1000_1500");
+        double SM_charge_asymmetry_bin_mtt_1000_1500 = SM_charge_asymmetry_num_bin_mtt_1000_1500/SM_charge_asymmetry_deno_bin_mtt_1000_1500;
+        
+        double SM_sigma_pos_bin_mtt_1000_1500 =0.5*(SM_charge_asymmetry_num_bin_mtt_1000_1500+SM_charge_asymmetry_deno_bin_mtt_1000_1500);
+        double SM_sigma_neg_bin_mtt_1000_1500 =0.5*(SM_charge_asymmetry_deno_bin_mtt_1000_1500-SM_charge_asymmetry_num_bin_mtt_1000_1500);
+
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            
+            double sigma_pos_bin_mtt_1000_1500_madgraph = 2.672400;
+            double sigma_pos_bin_mtt_1000_1500_NP = -0.360156*ewgc("CG")+0.065522*ewgc("Cqd8R",2,2,0,0)
+            +0.006677*ewgc("Cqd8R",2,2,1,1)+0.965998*ewgc("Cqq1R",0,2,2,0)+0.017830*ewgc("Cqq1R",1,2,2,1)
+            +1.845980*ewgc("Cqq3R",0,2,2,0)+0.087761*ewgc("Cqq3R",1,2,2,1)+0.151295*ewgc("Cqu8R",0,0,2,2)
+            +0.012009*ewgc("Cqu8R",1,1,2,2)+0.090240*ewgc("Cqu8R",2,2,0,0)+0.004220*ewgc("Cqu8R",2,2,1,1)
+            +0.119285*ewgc("Cud8R",2,2,0,0)+0.009070*ewgc("Cud8R",2,2,1,1)-0.768010*ewgc("CuGR",2,2)
+            +0.928379*ewgc("CuuR",0,2,2,0)+0.016894*ewgc("CuuR",1,2,2,1);
+            double sigma_neg_bin_mtt_1000_1500_madgraph = 2.671630;
+            double sigma_neg_bin_mtt_1000_1500_NP = -0.359476*ewgc("CG")+0.119434*ewgc("Cqd8R",2,2,0,0)
+            +0.009509*ewgc("Cqd8R",2,2,1,1)+0.379524*ewgc("Cqq1R",0,2,2,0)+0.016215*ewgc("Cqq1R",1,2,2,1)
+            +0.862046*ewgc("Cqq3R",0,2,2,0)+0.073562*ewgc("Cqq3R",1,2,2,1)+0.344199*ewgc("Cqu8R",0,0,2,2)
+            +0.013207*ewgc("Cqu8R",1,1,2,2)+0.226268*ewgc("Cqu8R",2,2,0,0)+0.004043*ewgc("Cqu8R",2,2,1,1)
+            +0.065632*ewgc("Cud8R",2,2,0,0)+0.007120*ewgc("Cud8R",2,2,1,1)-0.765396*ewgc("CuGR",2,2)
+            +0.362268*ewgc("CuuR",0,2,2,0)+0.016546*ewgc("CuuR",1,2,2,1);
+            
+            
+            double sigma_pos_bin_mtt_1000_1500_NP_Corrected = SM_sigma_pos_bin_mtt_1000_1500*sigma_pos_bin_mtt_1000_1500_NP/sigma_pos_bin_mtt_1000_1500_madgraph;
+            double sigma_neg_bin_mtt_1000_1500_NP_Corrected = SM_sigma_neg_bin_mtt_1000_1500*sigma_neg_bin_mtt_1000_1500_NP/sigma_neg_bin_mtt_1000_1500_madgraph;
+            
+            double NP_charge_asymmetry_num_bin_mtt_1000_1500 = sigma_pos_bin_mtt_1000_1500_NP_Corrected - sigma_neg_bin_mtt_1000_1500_NP_Corrected;
+            double NP_charge_asymmetry_deno_bin_mtt_1000_1500 = sigma_pos_bin_mtt_1000_1500_NP_Corrected + sigma_neg_bin_mtt_1000_1500_NP_Corrected;;
+            
+            return  SM_charge_asymmetry_bin_mtt_1000_1500*(1+(NP_charge_asymmetry_num_bin_mtt_1000_1500-NP_charge_asymmetry_deno_bin_mtt_1000_1500)/SM_charge_asymmetry_deno_bin_mtt_1000_1500);            
+        
+            
+            
+            
+            
+        }
+        
+    }     else if(b_min == 1500 && b_max == 3000){
+        
+        
+        double SM_charge_asymmetry_num_bin_mtt_1500_3000 = SM.getOptionalParameter("SM_charge_asymmetry_num_bin_mtt_1500_3000");
+        double SM_charge_asymmetry_deno_bin_mtt_1500_3000 = SM.getOptionalParameter("SM_charge_asymmetry_deno_bin_mtt_1500_3000");
+        double SM_charge_asymmetry_bin_mtt_1500_3000 = SM_charge_asymmetry_num_bin_mtt_1500_3000/SM_charge_asymmetry_deno_bin_mtt_1500_3000;
+        
+        double SM_sigma_pos_bin_mtt_1500_3000 =0.5*(SM_charge_asymmetry_num_bin_mtt_1500_3000+SM_charge_asymmetry_deno_bin_mtt_1500_3000);
+        double SM_sigma_neg_bin_mtt_1500_3000 =0.5*(SM_charge_asymmetry_deno_bin_mtt_1500_3000-SM_charge_asymmetry_num_bin_mtt_1500_3000);
+
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            
+            
+            
+            double sigma_pos_bin_mtt_1500_3000_madgraph = 0.296243;
+            double sigma_pos_bin_mtt_1500_3000_NP = -0.042099*ewgc("CG")+0.024083*ewgc("Cqd8R",2,2,0,0)
+            +0.002100*ewgc("Cqd8R",2,2,1,1)+0.389601*ewgc("Cqq1R",0,2,2,0)+0.004603*ewgc("Cqq1R",1,2,2,1)
+            +0.716893*ewgc("Cqq3R",0,2,2,0)+0.022279*ewgc("Cqq3R",1,2,2,1)+0.059064*ewgc("Cqu8R",0,0,2,2)
+            +0.003135*ewgc("Cqu8R",1,1,2,2)+0.035304*ewgc("Cqu8R",2,2,0,0)+0.000997*ewgc("Cqu8R",2,2,1,1)
+            +0.044304*ewgc("Cud8R",2,2,0,0)+0.002585*ewgc("Cud8R",2,2,1,1)-0.087774*ewgc("CuGR",2,2)
+            +0.375472*ewgc("CuuR",0,2,2,0)+0.004690*ewgc("CuuR",1,2,2,1);
+            double sigma_neg_bin_mtt_1500_3000_madgraph = 0.296051;
+            double sigma_neg_bin_mtt_1500_3000_NP = -0.042050*ewgc("CG")+0.044360*ewgc("Cqd8R",2,2,0,0)
+            +0.002467*ewgc("Cqd8R",2,2,1,1)+0.151926*ewgc("Cqq1R",0,2,2,0)+0.004684*ewgc("Cqq1R",1,2,2,1)
+            +0.329130*ewgc("Cqq3R",0,2,2,0)+0.018476*ewgc("Cqq3R",1,2,2,1)+0.134263*ewgc("Cqu8R",0,0,2,2)
+            +0.003596*ewgc("Cqu8R",1,1,2,2)+0.090401*ewgc("Cqu8R",2,2,0,0)+0.001084*ewgc("Cqu8R",2,2,1,1)
+            +0.024199*ewgc("Cud8R",2,2,0,0)+0.001985*ewgc("Cud8R",2,2,1,1)-0.087691*ewgc("CuGR",2,2)
+            +0.147022*ewgc("CuuR",0,2,2,0)+0.004610*ewgc("CuuR",1,2,2,1);
+            
+            double sigma_pos_bin_mtt_1500_3000_NP_Corrected = SM_sigma_pos_bin_mtt_1500_3000*sigma_pos_bin_mtt_1500_3000_NP/sigma_pos_bin_mtt_1500_3000_madgraph;
+            double sigma_neg_bin_mtt_1500_3000_NP_Corrected = SM_sigma_neg_bin_mtt_1500_3000*sigma_neg_bin_mtt_1500_3000_NP/sigma_neg_bin_mtt_1500_3000_madgraph;
+            
+            double NP_charge_asymmetry_num_bin_mtt_1500_3000 = sigma_pos_bin_mtt_1500_3000_NP_Corrected - sigma_neg_bin_mtt_1500_3000_NP_Corrected;
+            double NP_charge_asymmetry_deno_bin_mtt_1500_3000 = sigma_pos_bin_mtt_1500_3000_NP_Corrected + sigma_neg_bin_mtt_1500_3000_NP_Corrected;;
+            
+            return  SM_charge_asymmetry_bin_mtt_1500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_3000-NP_charge_asymmetry_deno_bin_mtt_1500_3000)/SM_charge_asymmetry_deno_bin_mtt_1500_3000);            
+        
+
+        }
+        
     }
+    
     
     else {
         throw std::runtime_error("\nERROR: Please specify a correct binning range for sigma_tt_diff_LO.\n");
@@ -1010,8 +1209,10 @@ double sigma_tw_13_LO::computeThValue()
     
     double sigma_tw_13_LO_madgraph = 51.021400; //pb?
     double sigma_tw_13_SM = SM.getOptionalParameter("SM_sigma_tw_13"); 
-
     
+//    std::cout<<"\033[1;33m ewgc(\"CuWR\",2,2)*1000000 \033[0m "<< ewgc("CuWR",2,2)*1000000 << std::endl;
+//
+//    std::cout<<"\033[1;33m sigma_tw_13_LO \033[0m "<< sigma_tw_13_LO_madgraph + 6.152940*ewgc("CHq3R",2,2)+4.361620*ewgc("CuWR",2,2)*1000000 << std::endl;
     
     if(flag_Quadratic){
         return  0.;

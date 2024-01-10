@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.h to edit this template
- */
-
 /* 
  * File:   TopQuarkObservables.h
  * Author: silvest
@@ -79,19 +74,21 @@ private:
     
     
     
+    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -130,19 +127,20 @@ private:
     
     
     
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -180,19 +178,20 @@ private:
     
     
     
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -228,19 +227,20 @@ private:
     
     
     
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -278,19 +278,20 @@ private:
     
     
     
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -325,19 +326,20 @@ private:
     
     
     
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -372,19 +374,20 @@ private:
     
     
     
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -413,20 +416,20 @@ private:
     double computeThValue();
     
     
-    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -460,20 +463,20 @@ private:
     double computeThValue();
     
     
-    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -507,20 +510,20 @@ private:
     double computeThValue();
     
     
-    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -553,20 +556,20 @@ private:
     double computeThValue();
     
     
-    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double ewgc(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double ewgc(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -606,20 +609,20 @@ private:
     double computeThValue();
     
     
-    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double getSMEFTCoeffEW(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double getSMEFTCoeffEW(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double getSMEFTCoeffEW(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
 
     private:
@@ -648,20 +651,20 @@ private:
     double computeThValue();
     
     
-    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double getSMEFTCoeffEW(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double getSMEFTCoeffEW(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double getSMEFTCoeffEW(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
     
     
@@ -696,20 +699,20 @@ private:
      */
     double computeThValue();
 
-    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
     inline double getSMEFTCoeffEW(const std::string name) const
     {
-        return mytopobs.getSMEFTCoeffEW(name);
+        return mytopobs.getSMEFTCoeffEW(name)*1000000;
     }
     
     inline double getSMEFTCoeffEW(const std::string name, int i, int j) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j);
+        return mytopobs.getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
     inline double getSMEFTCoeffEW(const std::string name, int i, int j, int k, int l) const
     {
-        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l);
+        return mytopobs.getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
     
     
